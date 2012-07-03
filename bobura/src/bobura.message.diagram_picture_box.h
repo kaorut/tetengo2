@@ -179,16 +179,16 @@ namespace bobura { namespace message { namespace diagram_picture_box
             if (vertical)
             {
                 if (delta > 0)
-                    zoom.vertically_zoom_in();
+                    zoom.vertically_zoom_in(false);
                 else
-                    zoom.vertically_zoom_out();
+                    zoom.vertically_zoom_out(false);
             }
             else
             {
                 if (delta > 0)
-                    zoom.horizontally_zoom_in();
+                    zoom.horizontally_zoom_in(false);
                 else
-                    zoom.horizontally_zoom_out();
+                    zoom.horizontally_zoom_out(false);
             }
         }
 

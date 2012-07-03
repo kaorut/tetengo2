@@ -47,7 +47,7 @@ namespace bobura { namespace command
             assert(p_main_window);
             zoom_type zoom(p_main_window->diagram_picture_box(), m_diagram_view);
 
-            zoom.vertically_zoom_in();
+            zoom.vertically_zoom_in(true);
         }
 
 

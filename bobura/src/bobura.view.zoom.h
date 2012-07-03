@@ -51,23 +51,31 @@ namespace bobura { namespace view
 
         /*!
             \brief Hozirontally zoom in.
+
+            \param snap_to_scale_list True to snaps the dimension to the scale list.
         */
-        void horizontally_zoom_in();
+        void horizontally_zoom_in(bool snap_to_scale_list);
 
         /*!
             \brief Hozirontally zoom out.
+
+            \param snap_to_scale_list True to snaps the dimension to the scale list.
         */
-        void horizontally_zoom_out();
+        void horizontally_zoom_out(bool snap_to_scale_list);
 
         /*!
             \brief Vertically zoom in.
+
+            \param snap_to_scale_list True to snaps the dimension to the scale list.
         */
-        void vertically_zoom_in();
+        void vertically_zoom_in(bool snap_to_scale_list);
 
         /*!
             \brief Vertically zoom out.
+
+            \param snap_to_scale_list True to snaps the dimension to the scale list.
         */
-        void vertically_zoom_out();
+        void vertically_zoom_out(bool snap_to_scale_list);
 
 
     private:
