@@ -104,12 +104,12 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the dialog picture box messages.
 
-            \tparam PictureBox    A picture box type.
-            \tparam View          A view type.
-            \tparam ViewScaleList A view scale list.
-            \tparam Canvas        A canvas type.
+            \tparam PictureBox A picture box type.
+            \tparam View       A view type.
+            \tparam ViewZoom   A view zoom.
+            \tparam Canvas     A canvas type.
         */
-        template <typename PictureBox, typename View, typename ViewScaleList, typename Canvas>
+        template <typename PictureBox, typename View, typename ViewZoom, typename Canvas>
         class type_list
         {
         public:
@@ -118,7 +118,7 @@ namespace bobura { namespace message
             //! The type list for the diagram picture box.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox, View, ViewScaleList>>,
+                    boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox, View, ViewZoom>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::keyboard_key_down, keyboard_key_down<PictureBox>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas, PictureBox, View>>,
                 tetengo2::meta::assoc_list<

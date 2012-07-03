@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.type_list.h"
+#include "bobura.view.zoom.h"
 
 #include "bobura.message.diagram_picture_box.h"
 
@@ -26,8 +27,6 @@ namespace
 
     typedef boost::mpl::at<bobura::view_type_list, bobura::type::view::view>::type view_type;
 
-    typedef boost::mpl::at<bobura::view_type_list, bobura::type::view::scale_list>::type view_scale_list_type;
-
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_reader>::type picture_reader_type;
@@ -39,7 +38,7 @@ namespace
     typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
 
     typedef
-        bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, view_type, view_scale_list_type>
+        bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, view_type, bobura::view::zoom>
         mouse_wheeled_type;
 
     typedef picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;

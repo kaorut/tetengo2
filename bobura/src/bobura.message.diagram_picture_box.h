@@ -21,11 +21,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
     /*!
         \brief The class template for a mouse wheel observer of the picture box.
 
-        \tparam PictureBox    A picture box type.
-        \tparam View          A view type.
-        \tparam ViewScaleList A view scale list type.
+        \tparam PictureBox A picture box type.
+        \tparam View       A view type.
+        \tparam ViewZoom   A view zoom type.
     */
-    template <typename PictureBox, typename View, typename ViewScaleList>
+    template <typename PictureBox, typename View, typename ViewZoom>
     class mouse_wheeled
     {
     public:
@@ -43,8 +43,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The view type.
         typedef View view_type;
 
-        //! The view scale list type.
-        typedef ViewScaleList view_scale_list_type;
+        //! The view zoom type.
+        typedef ViewZoom view_zoom_type;
 
 
         // constructors and destructor
@@ -174,25 +174,6 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void zoom(const delta_type delta, const bool vertical)
         const
         {
-            const view_scale_list_type scale_list;
-            if (vertical)
-            {
-                m_view.set_vertical_scale(
-                    delta > 0 ?
-                    scale_list.larger(m_view.vertical_scale()) : scale_list.smaller(m_view.vertical_scale())
-                );
-            }
-            else
-            {
-                m_view.set_horizontal_scale(
-                    delta > 0 ?
-                    scale_list.larger(m_view.horizontal_scale()) : scale_list.smaller(m_view.horizontal_scale())
-                );
-            }
-
-            //m_picture_box.update_scroll_bars(
-            //    m_view.dimension(), m_view.page_size(m_picture_box.client_dimension()), true
-            //);
         }
 
 
