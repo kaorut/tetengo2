@@ -38,6 +38,9 @@ namespace bobura { namespace view
 
         /*!
             \brief Creates a zoom of a view.
+
+            \param picture_box  A picture box.
+            \param diagram_view A diagram view.
         */
         zoom(picture_box_type& picture_box, diagram_view_type& diagram_view);
 
