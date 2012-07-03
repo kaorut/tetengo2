@@ -14,6 +14,9 @@
 //#include <boost/mpl/at.hpp>
 
 #include <tetengo2.unique.h>
+#include <tetengo2.text.h>
+
+#include "bobura.type_list.h"
 
 #include "bobura.main_window_menu_builder.h"
 
@@ -97,6 +100,8 @@ namespace bobura
         typedef command_set_type::command_type command_type;
 
         typedef std::vector<const command_type*> commands_type;
+
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type view_scale_list_type;
 
 
         // variables
@@ -212,8 +217,28 @@ namespace bobura
                 shortcut_key_type(virtual_key_type::left(), false, true, false)
             );
 
+            append_menu_separator(*p_popup_menu, commands);
+
+            append_horizontal_zoom_scale_menus(*p_popup_menu, commands);
+
             connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
+        }
+
+        void append_horizontal_zoom_scale_menus(popup_menu_type& popup_menu, commands_type& commands)
+        const
+        {
+            const view_scale_list_type scale_list;
+
+            for (view_scale_list_type::size_type i = 0; i < scale_list.size(); ++i)
+            {
+                append_menu_command(
+                    popup_menu,
+                    make_zoom_scale_label(scale_list.label_at(i)),
+                    m_command_set.nop(),
+                    commands
+                );
+            }
         }
 
         std::unique_ptr<popup_menu_type> build_vertical_zoom_menu()
@@ -240,8 +265,34 @@ namespace bobura
                 shortcut_key_type(virtual_key_type::up(), false, true, false)
             );
 
+            append_menu_separator(*p_popup_menu, commands);
+
+            append_vertical_zoom_scale_menus(*p_popup_menu, commands);
+
             connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
+        }
+
+        void append_vertical_zoom_scale_menus(popup_menu_type& popup_menu, commands_type& commands)
+        const
+        {
+            const view_scale_list_type scale_list;
+
+            for (view_scale_list_type::size_type i = 0; i < scale_list.size(); ++i)
+            {
+                append_menu_command(
+                    popup_menu,
+                    make_zoom_scale_label(scale_list.label_at(i)),
+                    m_command_set.nop(),
+                    commands
+                );
+            }
+        }
+
+        string_type make_zoom_scale_label(const string_type& label)
+        const
+        {
+            return string_type(TETENGO2_TEXT("&")) + label;
         }
 
         std::unique_ptr<popup_menu_type> build_help_menu()
