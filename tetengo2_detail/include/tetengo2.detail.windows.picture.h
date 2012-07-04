@@ -29,6 +29,13 @@
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 
+// Use the older version of WIC with the Windows SDK 8.0 for the time being.
+#if defined(_WIN32_WINNT_WIN8) && _WIN32_WINNT >= _WIN32_WINNT_WIN8
+#   define CLSID_WICImagingFactoryForTetengo2 CLSID_WICImagingFactory1
+#else
+#   define CLSID_WICImagingFactoryForTetengo2 CLSID_WICImagingFactory
+#endif
+
 namespace tetengo2 { namespace detail { namespace windows { namespace picture
 {
 #if !defined(DOCUMENTATION)
@@ -45,7 +52,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         {
             ::IWICImagingFactory* rp_factory = NULL;
             const ::HRESULT hr =
-                ::CoCreateInstance(::CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&rp_factory));
+                ::CoCreateInstance(
+                    ::CLSID_WICImagingFactoryForTetengo2, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&rp_factory)
+                );
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
