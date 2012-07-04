@@ -80,6 +80,13 @@ namespace bobura { namespace view
         void horizontally_zoom_out(bool snap_to_scale_list);
 
         /*!
+            \brief Sets a vertical scale.
+
+            \param scale A scale.
+        */
+        void set_vertical_scale(const scale_type& scale);
+
+        /*!
             \brief Vertically zoom in.
 
             \param snap_to_scale_list True to snaps the dimension to the scale list.

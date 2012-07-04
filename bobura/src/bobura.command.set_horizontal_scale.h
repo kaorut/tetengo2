@@ -13,6 +13,7 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include "bobura.basic_type_list.h"
 #include "bobura.command.command_base.h"
 
 

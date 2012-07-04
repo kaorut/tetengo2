@@ -13,6 +13,7 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include "bobura.basic_type_list.h"
 #include "bobura.command.command_base.h"
 
 
@@ -32,6 +33,12 @@ namespace bobura { namespace command
         //! The diagram view type.
         typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
+        //! The scale list type.
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type scale_list_type;
+
+        //! The scale type.
+        typedef scale_list_type::scale_type scale_type;
+
 
         // constructors and destructor
 
@@ -39,8 +46,9 @@ namespace bobura { namespace command
             \brief Creates a set-vertical-scale command.
 
             \param diagram_view A diagram view.
+            \param scale        A scale.
         */
-        explicit set_vertical_scale(diagram_view_type& diagram_view);
+        set_vertical_scale(diagram_view_type& diagram_view, const scale_type& scale);
 
         /*!
             \brief Destroys the set-vertical-scale command.

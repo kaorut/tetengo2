@@ -80,6 +80,7 @@ namespace bobura { namespace command
         m_p_save_to_file(create_save_to_file(save_to_file)),
         m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_and_save_to_file)),
         m_p_set_horizontal_scale(create_set_horizontal_scale(diagram_view)),
+        m_p_set_vertical_scale(create_set_vertical_scale(diagram_view)),
         m_p_vertically_zoom_in(create_vertically_zoom_in(diagram_view)),
         m_p_vertically_zoom_out(create_vertically_zoom_out(diagram_view))
         {}
@@ -162,7 +163,7 @@ namespace bobura { namespace command
         const command_type& set_vertical_scale(const size_type index)
         const
         {
-            return *m_p_nop;
+            return *m_p_set_vertical_scale[index];
         }
 
         const command_type& vertically_zoom_in()
@@ -253,6 +254,23 @@ namespace bobura { namespace command
             return commands;
         }
 
+        static std::vector<command_ptr_type> create_set_vertical_scale(diagram_view_type& diagram_view)
+        {
+            const scale_list_type scale_list;
+
+            std::vector<command_ptr_type> commands;
+            commands.reserve(scale_list.size());
+
+            for (size_type i = 0; i < scale_list.size(); ++i)
+            {
+                commands.push_back(
+                    tetengo2::make_unique<command::set_vertical_scale>(diagram_view, scale_list.at(i))
+                );
+            }
+
+            return commands;
+        }
+
         static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
         {
             return tetengo2::make_unique<command::vertically_zoom_in>(diagram_view);
@@ -289,6 +307,8 @@ namespace bobura { namespace command
         const command_ptr_type m_p_ask_file_path_and_save_to_file;
 
         const std::vector<command_ptr_type> m_p_set_horizontal_scale;
+
+        const std::vector<command_ptr_type> m_p_set_vertical_scale;
 
         const command_ptr_type m_p_vertically_zoom_in;
 
