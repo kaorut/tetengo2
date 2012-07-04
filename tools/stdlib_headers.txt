@@ -5,6 +5,7 @@
 ::BYTE                                           Windows.h
 ::BeginPaint                                     Windows.h
 ::CLSID_WICImagingFactory                        Windows.h,wincodec.h
+::CLSID_WICImagingFactory1                       Windows.h,wincodec.h
 ::COLORREF                                       Windows.h
 ::COMDLG_FILTERSPEC                              Windows.h,ShTypes.h
 ::CallWindowProcW                                Windows.h
@@ -67,6 +68,7 @@
 ::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
+::GetMenuItemInfoW                               Windows.h
 ::GetMessageW                                    Windows.h
 ::GetModuleHandle                                Windows.h
 ::GetMonitorInfoW                                Windows.h
