@@ -25,6 +25,14 @@
         "Menu:File:Proper&ty...": "プロパティ(&T)...",
         "Menu:File:E&xit":        "終了(&X)",
         
+        "Menu:&View":                          "表示(&V)",
+        "Menu:View:&Horizontal Zoom":          "時刻方向拡大縮小(&H)",
+        "Menu:View:Horizontal Zoom:Zoom &In":  "拡大(&I)",
+        "Menu:View:Horizontal Zoom:Zoom &Out": "縮小(&O)",
+        "Menu:View:&Vertical Zoom":            "駅方向拡大縮小(&V)",
+        "Menu:View:Vertical Zoom:Zoom &In":    "拡大(&I)",
+        "Menu:View:Vertical Zoom:Zoom &Out":   "縮小(&O)",
+        
         "Menu:&Help":       "ヘルプ(&H)",
         "Menu:Help:&About": "バージョン情報(&A)",
         

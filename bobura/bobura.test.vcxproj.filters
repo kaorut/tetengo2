@@ -10,14 +10,14 @@
     <Filter Include="sources\test_bobura">
       <UniqueIdentifier>{939d4fd8-7c9d-419a-ae30-6b92823ade6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_bobura\command">
-      <UniqueIdentifier>{6d34d48f-8242-4504-8461-a816fcd6385a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_bobura\message">
       <UniqueIdentifier>{8d9ca398-31cc-4d38-952c-b49a2f2020a0}</UniqueIdentifier>
     </Filter>
     <Filter Include="sources\test_bobura\load_save">
       <UniqueIdentifier>{5c8a32b6-52cb-4119-bd2b-1d23226b1a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_bobura\view">
+      <UniqueIdentifier>{ef97df1a-c90f-499c-b241-4f9b846a504d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -41,29 +41,14 @@
     <ClCompile Include="test\test_bobura.settings.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.command.about.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.exit.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.nop.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.message.about_dialog.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.main_window.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.command.load_from_file.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.timetable_model.cpp">
       <Filter>sources\test_bobura</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.set.cpp">
-      <Filter>sources\test_bobura\command</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.timetable_model_observer_set.cpp">
       <Filter>sources\test_bobura\message</Filter>
@@ -76,15 +61,6 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.file_property_dialog.cpp">
       <Filter>sources\test_bobura</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.file_property.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.new_file.cpp">
-      <Filter>sources\test_bobura\command</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.command.save_to_file.cpp">
-      <Filter>sources\test_bobura\command</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.load_save.confirm_file_save.cpp">
       <Filter>sources\test_bobura\load_save</Filter>
@@ -104,8 +80,11 @@
     <ClCompile Include="test\test_bobura.diagram_view.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.command.command_base.cpp">
-      <Filter>sources\test_bobura\command</Filter>
+    <ClCompile Include="test\test_bobura.view.scale_list.cpp">
+      <Filter>sources\test_bobura\view</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.diagram_picture_box.cpp">
+      <Filter>sources\test_bobura</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

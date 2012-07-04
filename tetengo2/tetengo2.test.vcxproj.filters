@@ -59,9 +59,6 @@
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp">
       <Filter>sources\test_tetengo2\meta</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.operators.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.unique.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>

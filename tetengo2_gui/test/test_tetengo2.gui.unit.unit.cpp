@@ -6,8 +6,6 @@
     $Id$
 */
 
-//#include <utility>
-
 #include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -43,13 +41,23 @@ namespace
         m_value(value)
         {}
 
-        explicit concrete_unit(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
+
+        friend bool operator==(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
+        friend bool operator<(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value < another;
+        }
+
+        friend bool operator>(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
 
         concrete_unit& add(const value_type& another)
         {
@@ -71,19 +79,30 @@ namespace
             return *this;
         }
 
-        friend bool operator==(const concrete_unit& one, const value_type& another)
+        concrete_unit& multiply(const value_type& another)
         {
-            return one.m_value == another;
+            concrete_unit temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
         }
 
-        friend bool operator<(const concrete_unit& one, const value_type& another)
+        concrete_unit& divide_by(const value_type& another)
         {
-            return one.m_value < another;
+            concrete_unit temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
         }
 
-        friend bool operator>(const concrete_unit& one, const value_type& another)
+        value_type divide_by(const concrete_unit& another)
+        const
         {
-            return one.m_value > another;
+            return value() / another.value();
         }
 
         const value_type& value()
@@ -245,6 +264,66 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit3 = unit1 - 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 333);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_multiply_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+
+            unit1 *= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 56088);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_multiply)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 * 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 56088);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_divide_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+
+            unit1 /= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 3);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_divide)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 / 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 3);
+        }
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            const int value = unit1 / unit2;
+
+            BOOST_CHECK_EQUAL(value, 3);
         }
     }
 

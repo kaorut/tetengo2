@@ -18,6 +18,7 @@ function getDllNames(version, debug)
 	var dllNames = new Array;
 	
 	dllNames.push("boost_bzip2-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
+	dllNames.push("boost_chrono-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_date_time-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_filesystem-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_iostreams-*-mt-" + (debug ? "gd-" : "") + version + ".dll");

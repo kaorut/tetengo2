@@ -11,7 +11,6 @@ headers = \
     tetengo2.message.message_catalog.h \
     tetengo2.message.message_catalog_parser.h \
     tetengo2.meta.assoc_list.h \
-    tetengo2.operators.h \
     tetengo2.text.h \
     tetengo2.text.encoder.h \
     tetengo2.text.encoding.encoding.h \

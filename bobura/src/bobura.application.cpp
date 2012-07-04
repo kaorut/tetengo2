@@ -6,19 +6,13 @@
     $Id$
 */
 
-//#include <cstddef>
-//#include <memory>
-//#include <utility>
-//#include <vector>
-
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
 #include <tetengo2.unique.h>
 
+#include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
-#define USE_TYPES_FOR_APPLICATION
-#include "bobura.type_list.h"
 
 #include "bobura.application.h"
 
@@ -47,9 +41,7 @@ namespace bobura
 
         typedef boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type save_to_file_type;
 
-        typedef boost::mpl::at<application_type_list, type::application::command_set>::type command_set_type;
-
-        typedef command_set_type::command_type command_type;
+        typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
@@ -61,23 +53,7 @@ namespace bobura
             boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box_message_type_list>::type
             diagram_picture_box_message_type_list;
 
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_command>::type menu_command_type;
-
-        typedef menu_command_type::base_type menu_base_type;
-
-        typedef menu_base_type::shortcut_key_type shortcut_key_type;
-
-        typedef shortcut_key_type::virtual_key_type virtual_key_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::popup_menu>::type popup_menu_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_separator>::type menu_separator_type;
-
         typedef boost::mpl::at<ui_type_list, type::ui::message_loop>::type message_loop_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type message_loop_break_type;
 
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
@@ -104,13 +80,15 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const command_set_holder_type command_set_holder(m_settings, m_model, message_catalog);
+            const command_set_holder_type command_set_holder(m_settings, m_model, m_view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
             set_message_observers(main_window);
             m_model.reset_timetable();
-            main_window.set_menu_bar(build_main_window_menu(
-                command_set_holder.command_set(), m_model, main_window, message_catalog)
+            main_window.set_menu_bar(
+                main_window_menu_builder(
+                    command_set_holder.command_set(), m_model, main_window, message_catalog
+                ).build()
             );
             main_window.set_visible(true);
 
@@ -127,6 +105,7 @@ namespace bobura
             command_set_holder_type(
                 const settings_type&        settings,
                 model_type&                 model,
+                view_type&                  view,
                 const message_catalog_type& message_catalog
             )
             :
@@ -142,6 +121,7 @@ namespace bobura
                 m_reload,
                 m_save_to_file,
                 m_ask_file_path_and_save_to_file,
+                view,
                 settings,
                 message_catalog
             )
@@ -177,178 +157,6 @@ namespace bobura
         };
 
 
-        // static functions
-
-        static std::unique_ptr<menu_bar_type> build_main_window_menu(
-            const command_set_type&     command_set,
-            model_type&                 model,
-            main_window_type&           main_window,
-            const message_catalog_type& message_catalog
-        )
-        {
-            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
-
-            {
-                std::unique_ptr<popup_menu_type> p_popup_menu(
-                    tetengo2::make_unique<popup_menu_type>(message_catalog.get(TETENGO2_TEXT("Menu:&File")))
-                );
-                std::vector<const command_type*> commands;
-
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
-                    command_set.new_file(),
-                    model,
-                    main_window,
-                    commands,
-                    shortcut_key_type(virtual_key_type::char_n(), false, true, false)
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:&Open...")),
-                    command_set.load_from_file(),
-                    model,
-                    main_window,
-                    commands,
-                    shortcut_key_type(virtual_key_type::char_o(), false, true, false)
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:&Reload")),
-                    command_set.reload(),
-                    model,
-                    main_window,
-                    commands,
-                    shortcut_key_type(virtual_key_type::f5(), false, false, false)
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
-                    command_set.save_to_file(),
-                    model,
-                    main_window,
-                    commands,
-                    shortcut_key_type(virtual_key_type::char_s(), false, true, false)
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:Save &As...")),
-                    command_set.ask_file_path_and_save_to_file(),
-                    model,
-                    main_window,
-                    commands
-                );
-                append_menu_separator(*p_popup_menu, commands);
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:Proper&ty...")),
-                    command_set.file_property(),
-                    model,
-                    main_window,
-                    commands
-                );
-                append_menu_separator(*p_popup_menu, commands);
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
-                    command_set.exit(),
-                    model,
-                    main_window,
-                    commands
-                );
-
-                p_popup_menu->menu_observer_set().selected().connect(
-                    boost::mpl::at<
-                        main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                    >::type(*p_popup_menu, std::move(commands), model)
-                );
-
-                p_menu_bar->insert(p_menu_bar->end(), std::move(p_popup_menu));
-            }
-            {
-                std::unique_ptr<popup_menu_type> p_popup_menu(
-                    tetengo2::make_unique<popup_menu_type>(message_catalog.get(TETENGO2_TEXT("Menu:&Help")))
-                );
-                std::vector<const command_type*> commands;
-
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:Help:&About")),
-                    command_set.about(),
-                    model,
-                    main_window,
-                    commands
-                );
-
-                p_popup_menu->menu_observer_set().selected().connect(
-                    boost::mpl::at<
-                        main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                    >::type(*p_popup_menu, std::move(commands), model)
-                );
-
-                p_menu_bar->insert(p_menu_bar->end(), std::move(p_popup_menu));
-            }
-
-            return std::move(p_menu_bar);
-        }
-
-        static void append_menu_command(
-            menu_base_type&                   popup_menu,
-            menu_base_type::string_type&&     text,
-            const command_type&               command,
-            model_type&                       model,
-            main_window_type&                 main_window,
-            std::vector<const command_type*>& commands
-        )
-        {
-            std::unique_ptr<menu_base_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(std::forward<menu_base_type::string_type>(text))
-            );
-
-            p_menu_command->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::menu_command_selected
-                >::type(command, model, main_window)
-            );
-
-            popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
-            commands.push_back(&command);
-        }
-
-        static void append_menu_command(
-            menu_base_type&                   popup_menu,
-            menu_base_type::string_type&&     text,
-            const command_type&               command,
-            model_type&                       model,
-            main_window_type&                 main_window,
-            std::vector<const command_type*>& commands,
-            shortcut_key_type&&               shortcut_key
-        )
-        {
-            std::unique_ptr<menu_base_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(
-                    std::forward<menu_base_type::string_type>(text), std::forward<shortcut_key_type>(shortcut_key)
-                )
-            );
-
-            p_menu_command->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::menu_command_selected
-                >::type(command, model, main_window)
-            );
-
-            popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
-            commands.push_back(&command);
-        }
-
-        static void append_menu_separator(menu_base_type& popup_menu, std::vector<const command_type*>& commands)
-        {
-            std::unique_ptr<menu_base_type> p_menu_separator(tetengo2::make_unique<menu_separator_type>());
-            popup_menu.insert(popup_menu.end(), std::move(p_menu_separator));
-            commands.push_back(NULL);
-        }
-
-
         // variables
 
         const gui_fixture_type m_gui_fixture;
@@ -379,6 +187,12 @@ namespace bobura
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
                     m_view, main_window, main_window.diagram_picture_box()
                 )
+            );
+
+            main_window.diagram_picture_box().mouse_observer_set().wheeled().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_wheeled
+                >::type(main_window.diagram_picture_box(), m_view)
             );
             main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
                 boost::mpl::at<

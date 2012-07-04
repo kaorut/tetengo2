@@ -95,15 +95,7 @@
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_bobura.about_dialog.cpp" />
-    <ClCompile Include="test\test_bobura.command.about.cpp" />
-    <ClCompile Include="test\test_bobura.command.command_base.cpp" />
-    <ClCompile Include="test\test_bobura.command.exit.cpp" />
-    <ClCompile Include="test\test_bobura.command.file_property.cpp" />
-    <ClCompile Include="test\test_bobura.command.load_from_file.cpp" />
-    <ClCompile Include="test\test_bobura.command.new_file.cpp" />
-    <ClCompile Include="test\test_bobura.command.nop.cpp" />
-    <ClCompile Include="test\test_bobura.command.save_to_file.cpp" />
-    <ClCompile Include="test\test_bobura.command.set.cpp" />
+    <ClCompile Include="test\test_bobura.diagram_picture_box.cpp" />
     <ClCompile Include="test\test_bobura.diagram_view.cpp" />
     <ClCompile Include="test\test_bobura.file_property_dialog.cpp" />
     <ClCompile Include="test\test_bobura.load_save.confirm_file_save.cpp" />
@@ -119,6 +111,7 @@
     <ClCompile Include="test\test_bobura.message.timetable_model_observer_set.cpp" />
     <ClCompile Include="test\test_bobura.settings.cpp" />
     <ClCompile Include="test\test_bobura.timetable_model.cpp" />
+    <ClCompile Include="test\test_bobura.view.scale_list.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

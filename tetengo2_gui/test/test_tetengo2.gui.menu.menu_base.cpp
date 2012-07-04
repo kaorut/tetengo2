@@ -65,7 +65,7 @@ namespace
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::menu_command_style();
+            return menu_details_type::menu_command_style<menu_base_type>();
         }
 
 
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style());
+        BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style<menu_base_type>());
     }
 
     BOOST_AUTO_TEST_CASE(enabled)
@@ -132,6 +132,42 @@ BOOST_AUTO_TEST_SUITE(menu_base)
             menu.set_enabled(false);
 
             BOOST_CHECK(!menu.enabled());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(state)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+        BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_default);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_state)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+            menu.set_state(menu_base_type::state_default);
+
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_default);
+        }
+        {
+            concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+            menu.set_state(menu_base_type::state_checked);
+
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_checked);
+        }
+        {
+            concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+            menu.set_state(menu_base_type::state_selected);
+
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_selected);
         }
     }
 

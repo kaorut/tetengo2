@@ -11,63 +11,47 @@
 
 //#include <memory>
 
-#include <boost/mpl/at.hpp>
-#include <boost/noncopyable.hpp>
+//#include <boost/mpl/at.hpp>
+//#include <boost/noncopyable.hpp>
 
-#include <tetengo2.unique.h>
-
-#include "bobura.command.type_list.h"
+#include "bobura.basic_type_list.h"
 
 
 namespace bobura { namespace command
 {
-    /*!
-        \brief The class template for a command set.
+    class command_base;
 
-        \tparam TypeList        A command type list type.
-        \tparam Reader          A reader type.
-        \tparam NewFile         A file initialization type.
-        \tparam LoadFromFile    A file loading type.
-        \tparam SaveToFile      A file saving type.
-        \tparam Settings        A settings type.
-        \tparam MessageCatalog  A message catalog type.
+    /*!
+        \brief The class for a command set.
     */
-    template <
-        typename TypeList,
-        typename NewFile,
-        typename LoadFromFile,
-        typename SaveToFile,
-        typename Settings,
-        typename MessageCatalog
-    >
     class set : private boost::noncopyable
     {
     public:
         // types
 
-        //! The command type list type.
-        typedef TypeList type_list_type;
-
-        //! The command type.
-        typedef typename boost::mpl::at<type_list_type, type::command>::type command_type;
-
-        //! The command pointer type.
-        typedef std::unique_ptr<command_type> command_ptr_type;
+        //! The file initialization type.
+        typedef boost::mpl::at<common_type_list, type::size>::type size_type;
 
         //! The file initialization type.
-        typedef NewFile new_file_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::new_file>::type new_file_type;
 
         //! The file loading type.
-        typedef LoadFromFile load_from_file_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
         //! The file saving type.
-        typedef SaveToFile save_to_file_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type save_to_file_type;
+
+        //! The diagram view type.
+        typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
         //! The settings type.
-        typedef Settings settings_type;
+        typedef boost::mpl::at<common_type_list, type::settings>::type settings_type;
 
         //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
+        typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
+
+        //! The command type.
+        typedef command_base command_type;
 
 
         // constructors
@@ -75,34 +59,30 @@ namespace bobura { namespace command
         /*!
             \brief Creates a command set.
 
-            \param new_file                   A file initialization.
-            \param load_from_file             A file loading.
-            \param reload                     A file reloading.
-            \param save_to_file               A file saving.
-            \param ask_file_path_save_to_file A file saving after file path query.
-            \param settings                   Settings.
-            \param message_catalog            A message catalog.
+            \param new_file                       A file initialization.
+            \param load_from_file                 A file loading.
+            \param reload                         A file reloading.
+            \param save_to_file                   A file saving.
+            \param ask_file_path_and_save_to_file A file saving after file path query.
+            \param diagram_view                   A diagram view.
+            \param settings                       Settings.
+            \param message_catalog                A message catalog.
         */
         set(
-            const new_file_type&          new_file,
-            const load_from_file_type&    load_from_file,
-            const load_from_file_type&    reload,
-            const save_to_file_type&      save_to_file,
-            const save_to_file_type&      ask_file_path_save_to_file,
-            const settings_type&          settings,
-            const message_catalog_type&   message_catalog
-        )
-        :
-        m_p_about(create_about(message_catalog, settings)),
-        m_p_exit(create_exit()),
-        m_p_file_property(create_file_property(message_catalog)),
-        m_p_load_from_file(create_load_from_file(load_from_file)),
-        m_p_new_file(create_new_file(new_file)),
-        m_p_nop(create_nop()),
-        m_p_reload(create_load_from_file(reload)),
-        m_p_save_to_file(create_save_to_file(save_to_file)),
-        m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file))
-        {}
+            const new_file_type&        new_file,
+            const load_from_file_type&  load_from_file,
+            const load_from_file_type&  reload,
+            const save_to_file_type&    save_to_file,
+            const save_to_file_type&    ask_file_path_and_save_to_file,
+            diagram_view_type&          diagram_view,
+            const settings_type&        settings,
+            const message_catalog_type& message_catalog
+        );
+
+        /*!
+            \brief Destroys the command set.
+        */
+        ~set();
 
 
         // functions
@@ -113,10 +93,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& about()
-        const
-        {
-            return *m_p_about;
-        }
+        const;
 
         /*!
             \brief Returns the command exit.
@@ -124,10 +101,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& exit()
-        const
-        {
-            return *m_p_exit;
-        }
+        const;
 
         /*!
             \brief Returns the command file property.
@@ -135,10 +109,23 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& file_property()
-        const
-        {
-            return *m_p_file_property;
-        }
+        const;
+
+        /*!
+            \brief Returns the command horizontal zoom-in.
+
+            \return The command.
+        */
+        const command_type& horizontally_zoom_in()
+        const;
+
+        /*!
+            \brief Returns the command horizontal zoom-out.
+
+            \return The command.
+        */
+        const command_type& horizontally_zoom_out()
+        const;
 
         /*!
             \brief Returns the command load-from-file.
@@ -146,10 +133,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& load_from_file()
-        const
-        {
-            return *m_p_load_from_file;
-        }
+        const;
 
         /*!
             \brief Returns the command new-file.
@@ -157,10 +141,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& new_file()
-        const
-        {
-            return *m_p_new_file;
-        }
+        const;
 
         /*!
             \brief Returns the command nop.
@@ -168,10 +149,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& nop()
-        const
-        {
-            return *m_p_nop;
-        }
+        const;
 
         /*!
             \brief Returns the command reload.
@@ -179,10 +157,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& reload()
-        const
-        {
-            return *m_p_reload;
-        }
+        const;
 
         /*!
             \brief Returns the command save-to-file.
@@ -190,10 +165,7 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& save_to_file()
-        const
-        {
-            return *m_p_save_to_file;
-        }
+        const;
 
         /*!
             \brief Returns the command save-to-file, in which a file selection
@@ -202,81 +174,54 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& ask_file_path_and_save_to_file()
-        const
-        {
-            return *m_p_ask_file_path_and_save_to_file;
-        }
+        const;
+
+        /*!
+            \brief Returns the command set-horizontal-scale.
+
+            \param index An index.
+
+            \return The command.
+        */
+        const command_type& set_horizontal_scale(size_type index)
+        const;
+
+        /*!
+            \brief Returns the command set-vertical-scale.
+
+            \param index An index.
+
+            \return The command.
+        */
+        const command_type& set_vertical_scale(size_type index)
+        const;
+
+        /*!
+            \brief Returns the command vertical zoom-in.
+
+            \return The command.
+        */
+        const command_type& vertically_zoom_in()
+        const;
+
+        /*!
+            \brief Returns the command vertical zoom-out.
+
+            \return The command.
+        */
+        const command_type& vertically_zoom_out()
+        const;
 
 
     private:
-        // static functions
+        // types
 
-        static command_ptr_type create_about(
-            const message_catalog_type& message_catalog,
-            const settings_type&        settings
-        )
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::about>::type>(
-                message_catalog, settings
-            );
-        }
-
-        static command_ptr_type create_exit()
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::exit>::type>();
-        }
-
-        static command_ptr_type create_file_property(const message_catalog_type& message_catalog)
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::file_property>::type>(
-                message_catalog
-            );
-        }
-
-        static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::load_from_file>::type>(
-                load_from_file
-            );
-        }
-
-        static command_ptr_type create_new_file(const new_file_type& new_file)
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::new_file>::type>(new_file);
-        }
-
-        static command_ptr_type create_nop()
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::nop>::type>();
-        }
-
-        static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
-        {
-            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::save_to_file>::type>(
-                save_to_file
-            );
-        }
+        class impl;
 
 
         // variables
 
-        const command_ptr_type m_p_about;
-
-        const command_ptr_type m_p_exit;
-
-        const command_ptr_type m_p_file_property;
-
-        const command_ptr_type m_p_load_from_file;
-
-        const command_ptr_type m_p_new_file;
-
-        const command_ptr_type m_p_nop;
-
-        const command_ptr_type m_p_reload;
-
-        const command_ptr_type m_p_save_to_file;
-
-        const command_ptr_type m_p_ask_file_path_and_save_to_file;
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };

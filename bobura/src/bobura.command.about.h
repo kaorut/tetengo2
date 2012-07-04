@@ -9,41 +9,34 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
+//#include <memory>
+
+//#include <boost/mpl/at.hpp>
+
 #include "bobura.command.command_base.h"
 
 
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for an about command.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
-        \tparam AboutDialog    An about dialog type.
+        \brief The class for an about command.
     */
-    template <typename Model, typename AbstractWindow, typename AboutDialog>
-    class about : public command_base<Model, AbstractWindow>
+    class about : public command_base
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The base type.
-        typedef command_base<model_type, abstract_window_type> base_type;
+        typedef command_base base_type;
 
         //! The about dialog type.
-        typedef AboutDialog about_dialog_type;
+        typedef boost::mpl::at<dialog_type_list, type::dialog::about_dialog>::type about_dialog_type;
 
         //! The message catalog type.
-        typedef typename about_dialog_type::message_catalog_type message_catalog_type;
+        typedef about_dialog_type::message_catalog_type message_catalog_type;
 
         //! The settings type.
-        typedef typename about_dialog_type::settings_type settings_type;
+        typedef about_dialog_type::settings_type settings_type;
 
 
         // constructors and destructor
@@ -54,34 +47,29 @@ namespace bobura { namespace command
             \param message_catalog A message catalog.
             \param settings        Settings type.
         */
-        about(const message_catalog_type& message_catalog, const settings_type& settings)
-        :
-        m_message_catalog(message_catalog),
-        m_settings(settings)
-        {}
+        about(const message_catalog_type& message_catalog, const settings_type& settings);
+
+        /*!
+            \brief Destroys the about command.
+        */
+        ~about();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const message_catalog_type& m_message_catalog;
-
-        const settings_type& m_settings;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual bool enabled_impl(const model_type& model)
-        const
-        {
-            return true;
-        }
-
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const
-        {
-            about_dialog_type(parent, m_message_catalog, m_settings).do_modal();
-        }
+        const;
 
 
     };

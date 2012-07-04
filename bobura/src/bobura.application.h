@@ -14,7 +14,6 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
 

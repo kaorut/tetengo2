@@ -5,6 +5,7 @@
 ::BYTE                                           Windows.h
 ::BeginPaint                                     Windows.h
 ::CLSID_WICImagingFactory                        Windows.h,wincodec.h
+::CLSID_WICImagingFactory1                       Windows.h,wincodec.h
 ::COLORREF                                       Windows.h
 ::COMDLG_FILTERSPEC                              Windows.h,ShTypes.h
 ::CallWindowProcW                                Windows.h
@@ -67,6 +68,7 @@
 ::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
+::GetMenuItemInfoW                               Windows.h
 ::GetMessageW                                    Windows.h
 ::GetModuleHandle                                Windows.h
 ::GetMonitorInfoW                                Windows.h
@@ -415,6 +417,7 @@ WM_TETENGO2_COMMAND                              Windows.h
 WM_TETENGO2_CONTROL_COLOR                        Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
+boost::additive                                  boost/operators.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
@@ -481,6 +484,7 @@ boost::mpl::size                                 boost/mpl/size.hpp
 boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
+boost::multiplicative                            boost/operators.hpp
 boost::mutex                                     boost/thread.hpp
 boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
@@ -553,9 +557,11 @@ std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
 std::is_integral                                 type_traits
 std::is_same                                     type_traits
+std::is_sorted                                   algorithm
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
 std::istringstream                               sstream
+std::less                                        functional
 std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale

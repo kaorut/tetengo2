@@ -9,12 +9,18 @@ extra_headers = \
     bobura.command.command_base.h \
     bobura.command.exit.h \
     bobura.command.file_property.h \
+    bobura.command.horizontally_zoom_in.h \
+    bobura.command.horizontally_zoom_out.h \
     bobura.command.load_from_file.h \
     bobura.command.new_file.h \
     bobura.command.nop.h \
     bobura.command.save_to_file.h \
-    bobura.command.type_list.h \
-    bobura.command.type_list_impl.h \
+    bobura.command.set.h \
+    bobura.command.set_horizontal_scale.h \
+    bobura.command.set_vertical_scale.h \
+    bobura.command.vertically_zoom_in.h \
+    bobura.command.vertically_zoom_out.h \
+    bobura.diagram_picture_box.h \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
@@ -23,6 +29,7 @@ extra_headers = \
     bobura.load_save.new_file.h \
     bobura.load_save.save_to_file.h \
     bobura.main_window.h \
+    bobura.main_window_menu_builder.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
     bobura.message.file_property_dialog_dialog.h \
@@ -33,10 +40,29 @@ extra_headers = \
     bobura.message.type_list_impl.h \
     bobura.settings.h \
     bobura.timetable_model.h \
-    bobura.type_list.h
+    bobura.type_list.h \
+    bobura.view.scale_list.h \
+    bobura.view.zoom.h
 
 extra_sources = \
     bobura.application.cpp \
+    bobura.command.about.cpp \
+    bobura.command.command_base.cpp \
+    bobura.command.exit.cpp \
+    bobura.command.file_property.cpp \
+    bobura.command.horizontally_zoom_in.cpp \
+    bobura.command.horizontally_zoom_out.cpp \
+    bobura.command.load_from_file.cpp \
+    bobura.command.new_file.cpp \
+    bobura.command.nop.cpp \
+    bobura.command.save_to_file.cpp \
+    bobura.command.set.cpp \
+    bobura.command.set_horizontal_scale.cpp \
+    bobura.command.set_vertical_scale.cpp \
+    bobura.command.vertically_zoom_in.cpp \
+    bobura.command.vertically_zoom_out.cpp \
+    bobura.main_window_menu_builder.cpp \
+    bobura.view.zoom.cpp \
     main.cpp
 
 EXTRA_DIST = $(extra_headers) $(extra_sources)

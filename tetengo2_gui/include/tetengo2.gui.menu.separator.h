@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::menu_separator_style();
+            return menu_details_type::template menu_separator_style<base_type>();
         }
 
 

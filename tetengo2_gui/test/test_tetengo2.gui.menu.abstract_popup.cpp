@@ -51,7 +51,7 @@ namespace
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::popup_menu_style();
+            return menu_details_type::popup_menu_style<menu_base_type>();
         }
 
 

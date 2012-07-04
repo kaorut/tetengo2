@@ -76,7 +76,15 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
 
         //! The style type.
-        typedef typename menu_details_type::style_tag style_type;
+        typedef typename menu_details_type::template style_tag<menu_base> style_type;
+
+        //! The state type.
+        enum state_type
+        {
+            state_default,  //!< Default state.
+            state_checked,  //!< Checked state.
+            state_selected, //!< Selected state.
+        };
 
 
         // constructors and destructor
@@ -132,6 +140,28 @@ namespace tetengo2 { namespace gui { namespace menu
         {
             menu_details_type::set_enabled(*this, enabled);
             m_enabled = enabled;
+        }
+
+        /*!
+            \brief Returns the state.
+
+            \return The state.
+        */
+        state_type state()
+        const
+        {
+            return m_state;
+        }
+
+        /*!
+            \brief Sets a state.
+
+            \param state A state.
+        */
+        void set_state(const state_type state)
+        {
+            menu_details_type::set_state(*this, state);
+            m_state = state;
         }
 
         /*!
@@ -340,11 +370,13 @@ namespace tetengo2 { namespace gui { namespace menu
         :
         m_text(std::forward<S>(text)),
         m_enabled(true),
+        m_state(state_default),
         m_shortcut_key(),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
         {
             set_enabled(true);
+            set_state(state_default);
         }
 
         /*!
@@ -362,11 +394,13 @@ namespace tetengo2 { namespace gui { namespace menu
         :
         m_text(std::forward<S>(text)),
         m_enabled(true),
+        m_state(state_default),
         m_shortcut_key(std::forward<SK>(shortcut_key)),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
         {
             set_enabled(true);
+            set_state(state_default);
         }
 
 
@@ -386,6 +420,8 @@ namespace tetengo2 { namespace gui { namespace menu
         const string_type m_text;
 
         bool m_enabled;
+
+        state_type m_state;
 
         const boost::optional<shortcut_key_type> m_shortcut_key;
 

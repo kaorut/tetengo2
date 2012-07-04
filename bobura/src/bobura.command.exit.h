@@ -9,47 +9,53 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
+//#include <memory>
+
 #include "bobura.command.command_base.h"
 
 
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for an exit command.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
+        \brief The class for an exit command.
     */
-    template <typename Model, typename AbstractWindow>
-    class exit : public command_base<Model, AbstractWindow>
+    class exit : public command_base
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The base type.
-        typedef command_base<model_type, abstract_window_type> base_type;
+        typedef command_base base_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates an about command.
+        */
+        exit();
+
+        /*!
+            \brief Destroys the about command.
+        */
+        ~exit();
 
 
     private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
         // virtual functions
 
-        virtual bool enabled_impl(const model_type& model)
-        const
-        {
-            return true;
-        }
-
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const
-        {
-            parent.close();
-        }
+        const;
 
 
     };

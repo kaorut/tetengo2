@@ -34,6 +34,15 @@
     <Filter Include="sources\bobura">
       <UniqueIdentifier>{488e0060-acd9-44c7-bcfd-b427108b284c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\bobura\view">
+      <UniqueIdentifier>{780fad15-896d-4a3d-91e0-6aa690a1d7f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\bobura\command">
+      <UniqueIdentifier>{9e4b0e63-dad4-428d-a6a8-49aacad65b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\bobura\view">
+      <UniqueIdentifier>{2ce8d513-3d16-4c50-b8fe-bb84b32e8cfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -62,12 +71,6 @@
     </ClInclude>
     <ClInclude Include="res\win32\resource.h">
       <Filter>resources\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="src\bobura.command.type_list.h">
-      <Filter>headers\bobura\command</Filter>
-    </ClInclude>
-    <ClInclude Include="src\bobura.command.type_list_impl.h">
-      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.message.type_list.h">
       <Filter>headers\bobura\message</Filter>
@@ -138,6 +141,39 @@
     <ClInclude Include="src\bobura.command.command_base.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.view.scale_list.h">
+      <Filter>headers\bobura\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.main_window_menu_builder.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.horizontally_zoom_in.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.horizontally_zoom_out.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.basic_type_list.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.vertically_zoom_in.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.vertically_zoom_out.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.diagram_picture_box.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.view.zoom.h">
+      <Filter>headers\bobura\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.set_horizontal_scale.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.set_vertical_scale.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
@@ -176,6 +212,57 @@
     </ClCompile>
     <ClCompile Include="src\bobura.application.cpp">
       <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.main_window_menu_builder.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.command_base.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.nop.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.about.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.exit.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.file_property.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.horizontally_zoom_in.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.horizontally_zoom_out.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.load_from_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.new_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.save_to_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.set.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.view.zoom.cpp">
+      <Filter>sources\bobura\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.set_horizontal_scale.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.set_vertical_scale.cpp">
+      <Filter>sources\bobura\command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

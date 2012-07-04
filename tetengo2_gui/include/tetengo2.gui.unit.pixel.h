@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
-//#include <utility>
-
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.unit.unit.h"
@@ -63,52 +61,8 @@ namespace tetengo2 { namespace gui { namespace unit
         m_value(value)
         {}
 
-        /*!
-            \brief Creates a pixel unit.
-
-            \param value A value.
-        */
-        explicit pixel(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
-
-        /*!
-            \brief Adds another value in pixel unit.
-
-            \param another Another value in pixel unit.
-
-            \return This object.
-        */
-        pixel& add(const value_type& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
-            \brief Subtracts another value in pixel unit.
-
-            \param another Another value in pixel unit.
-
-            \return This object.
-        */
-        pixel& subtract(const value_type& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
 
         /*!
             \brief Checks whether one  pixel unit is equal to another.
@@ -150,6 +104,87 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator>(const pixel& one, const value_type& another)
         {
             return one.m_value > another;
+        }
+
+        /*!
+            \brief Adds another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& add(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& subtract(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Multiplies another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& multiply(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& divide_by(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another pixel unit.
+
+            \param another Another pixel unit.
+
+            \return A value.
+        */
+        value_type divide_by(const pixel& another)
+        const
+        {
+            return value() / another.value();
         }
 
         /*!

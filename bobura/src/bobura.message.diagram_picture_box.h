@@ -22,8 +22,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a mouse wheel observer of the picture box.
 
         \tparam PictureBox A picture box type.
+        \tparam View       A view type.
+        \tparam ViewZoom   A view zoom type.
     */
-    template <typename PictureBox>
+    template <typename PictureBox, typename View, typename ViewZoom>
     class mouse_wheeled
     {
     public:
@@ -38,6 +40,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The direction type.
         typedef typename picture_box_type::mouse_observer_set_type::direction_type direction_type;
 
+        //! The view type.
+        typedef View view_type;
+
+        //! The view zoom type.
+        typedef ViewZoom view_zoom_type;
+
 
         // constructors and destructor
 
@@ -45,10 +53,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \brief Creates a mouse wheel observer of the picture box.
 
             \param picture_box A picture box.
+            \param view        A view.
         */
-        explicit mouse_wheeled(picture_box_type& picture_box)
+        mouse_wheeled(picture_box_type& picture_box, view_type& view)
         :
-        m_picture_box(picture_box)
+        m_picture_box(picture_box),
+        m_view(view)
         {}
 
 
@@ -72,33 +82,13 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            if (shift || control || meta)
-                return;
+            const delta_type adjusted_delta =
+                direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta;
 
-            if (direction == picture_box_type::mouse_observer_set_type::direction_vertical)
-            {
-                assert(m_picture_box.vertical_scroll_bar());
-                if (!m_picture_box.vertical_scroll_bar()->enabled())
-                    return;
-
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), -delta);
-                m_picture_box.vertical_scroll_bar()->set_position(new_position);
-                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-            }
-            else
-            {
-                assert(direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
-
-                assert(m_picture_box.horizontal_scroll_bar());
-                if (!m_picture_box.horizontal_scroll_bar()->enabled())
-                    return;
-
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
-                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-            }
+            if (!control && !meta)
+                scroll(adjusted_delta, is_vertical(direction, shift));
+            else if (control && !meta)
+                zoom(adjusted_delta, is_vertical(direction, shift));
         }
 
 
@@ -112,8 +102,45 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         picture_box_type& m_picture_box;
 
+        view_type& m_view;
+
 
         // functions
+
+        bool is_vertical(const direction_type direction, const bool shift)
+        const
+        {
+            return
+                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
+                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
+        }
+
+        void scroll(const delta_type& delta, const bool vertical)
+        const
+        {
+            if (vertical)
+            {
+                assert(m_picture_box.vertical_scroll_bar());
+                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
+                m_picture_box.vertical_scroll_bar()->set_position(new_position);
+                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+            else
+            {
+                assert(m_picture_box.horizontal_scroll_bar());
+                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
+                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+        }
 
         scroll_bar_size_type calculate_new_position(
             const typename picture_box_type::scroll_bar_type& scroll_bar,
@@ -140,8 +167,30 @@ namespace bobura { namespace message { namespace diagram_picture_box
             return new_position;
         }
 
+        void zoom(const delta_type delta, const bool vertical)
+        const
+        {
+            view_zoom_type zoom(m_picture_box, m_view);
+
+            if (vertical)
+            {
+                if (delta > 0)
+                    zoom.vertically_zoom_in(false);
+                else
+                    zoom.vertically_zoom_out(false);
+            }
+            else
+            {
+                if (delta > 0)
+                    zoom.horizontally_zoom_in(false);
+                else
+                    zoom.horizontally_zoom_out(false);
+            }
+        }
+
 
     };
+
 
     /*!
         \brief The class template for a key down observer of the picture box.
@@ -198,7 +247,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 virtual_key == virtual_key_type::end()
             )
             {
-                scroll(virtual_key, shift, control, meta);
+                if (!control && !meta)
+                    scroll(virtual_key, shift);
             }
         }
 
@@ -216,13 +266,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        void scroll(const virtual_key_type& virtual_key, const bool shift, const bool control, const bool meta)
+        void scroll(const virtual_key_type& virtual_key, const bool shift)
         const
         {
-            if (shift || meta)
-                return;
-
-            const bool vertical = is_vertical(virtual_key, control);
+            const bool vertical = is_vertical(virtual_key, shift);
             if (vertical)
             {
                 assert(m_picture_box.vertical_scroll_bar());
@@ -247,7 +294,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             }
         }
 
-        bool is_vertical(const virtual_key_type& virtual_key, const bool control)
+        bool is_vertical(const virtual_key_type& virtual_key, const bool shift)
         const
         {
             if (virtual_key == virtual_key_type::up() || virtual_key == virtual_key_type::down())
@@ -255,13 +302,13 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 return true;
             }
             else if (
-                !control &&
+                !shift &&
                 (virtual_key == virtual_key_type::page_up() || virtual_key == virtual_key_type::page_down())
             )
             {
                 return true;
             }
-            else if (!control && (virtual_key == virtual_key_type::home() || virtual_key == virtual_key_type::end()))
+            else if (!shift && (virtual_key == virtual_key_type::home() || virtual_key == virtual_key_type::end()))
             {
                 return true;
             }
@@ -314,6 +361,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
 
     };
+
 
     /*!
         \brief The class template for a paint observer of the picture box.

@@ -25,6 +25,10 @@ namespace
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
+        menu_base_type;
+
+    typedef
         boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::popup>::type
         popup_menu_type;
 
@@ -51,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(popup)
 
         const popup_menu_type popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK(&popup_menu.style() == &menu_details_type::popup_menu_style());
+        BOOST_CHECK(&popup_menu.style() == &menu_details_type::popup_menu_style<menu_base_type>());
     }
 
 

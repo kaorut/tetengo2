@@ -6,6 +6,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)bobura_model\include;$(SolutionDir)tetengo2\include;$(SolutionDir)tetengo2_detail\include;$(SolutionDir)tetengo2_gui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;gdiplus.lib;d2d1.lib;dwrite.lib;%(AdditionalDependencies)</AdditionalDependencies>

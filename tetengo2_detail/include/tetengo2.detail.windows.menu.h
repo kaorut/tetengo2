@@ -101,15 +101,21 @@ namespace tetengo2 { namespace detail { namespace windows
             std::unique_ptr<shortcut_key_table_details_type, detail::accelerator_table_deleter>
             shortcut_key_table_details_ptr_type;
 
-        //! The style tag type.
+        /*!
+            \brief The style tag type.
+
+            \tparam MenuBase A menu base type.
+        */
+        template <typename MenuBase>
         struct style_tag
         {
 #if !defined(DOCUMENTATION)
             virtual void set_style(
-                const menu_details_type& details,
-                ::MENUITEMINFOW&         menu_info,
-                std::vector< ::WCHAR>&   text,
-                bool                     enabled
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const = 0;
 #endif
@@ -195,21 +201,28 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!std::get<2>(*menu.details()))
                 return;
 
-            ::MENUITEMINFOW menu_info = {};
-            menu_info.cbSize = sizeof(::MENUITEMINFOW);
-            menu_info.fMask = MIIM_STATE;
-            menu_info.fState = enabled ? MFS_ENABLED : MFS_DISABLED;
+            set_menu_info_style<MenuBase>(
+                std::get<2>(*menu.details()), std::get<0>(*menu.details()), enabled, menu.state()
+            );
+        }
 
-            const ::BOOL result =
-                ::SetMenuItemInfoW(std::get<2>(*menu.details()), std::get<0>(*menu.details()), FALSE, &menu_info);
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set an enabled status."
-                    )
-                );
-            }
+        /*!
+            \brief Sets a state.
+
+            \tparam MenuBase A menu base type.
+
+            \param menu  A menu.
+            \param state A status.
+        */
+        template <typename MenuBase>
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
+        {
+            if (!std::get<2>(*menu.details()))
+                return;
+
+            set_menu_info_style<MenuBase>(
+                std::get<2>(*menu.details()), std::get<0>(*menu.details()), menu.enabled(), state
+            );
         }
 
         /*!
@@ -295,7 +308,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             std::vector< ::WCHAR> duplicated_text = make_text(menu, encoder);
-            menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled());
+            menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
             assert(popup_menu.details());
             const ::BOOL result =
@@ -339,44 +352,56 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Returns the menu bar style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu bar style.
         */
-        static const style_tag& menu_bar_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_bar_style()
         {
-            static const menu_bar_style_tag singleton;
+            static const menu_bar_style_tag<MenuBase> singleton;
             return singleton;
         }
 
         /*!
             \brief Returns the popup menu style.
 
+            \tparam MenuBase A menu base type.
+
             \return The popup menu style.
         */
-        static const style_tag& popup_menu_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& popup_menu_style()
         {
-            static const popup_menu_style_tag singleton;
+            static const popup_menu_style_tag<MenuBase> singleton;
             return singleton;
         }
 
         /*!
             \brief Returns the menu command style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu command style.
         */
-        static const style_tag& menu_command_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_command_style()
         {
-            static const menu_command_style_tag singleton;
+            static const menu_command_style_tag<MenuBase> singleton;
             return singleton;
         }
 
         /*!
             \brief Returns the menu separator style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu separator style.
         */
-        static const style_tag& menu_separator_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_separator_style()
         {
-            static const menu_separator_style_tag singleton;
+            static const menu_separator_style_tag<MenuBase> singleton;
             return singleton;
         }
 
@@ -384,13 +409,15 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // types
 
-        struct menu_bar_style_tag : public style_tag
+        template <typename MenuBase>
+        struct menu_bar_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type& details,
-                ::MENUITEMINFOW&         menu_info,
-                std::vector< ::WCHAR>&   text,
-                const bool               enabled
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -399,19 +426,31 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         };
 
-        struct popup_menu_style_tag : public style_tag
+        template <typename MenuBase>
+        struct popup_menu_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type& details,
-                ::MENUITEMINFOW&         menu_info,
-                std::vector< ::WCHAR>&   text,
-                const bool               enabled
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
-                menu_info.fMask = MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
-                menu_info.fState = enabled ? MFS_ENABLED : MFS_DISABLED;
+                menu_info.fMask = /*MIIM_TYPE |*/ MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+
+                //menu_info.fType = MFT_STRING;
+                //menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
+
+                menu_info.fState = 0;
+                menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
+                //menu_info.fState |=
+                //    state == MenuBase::state_checked || state == MenuBase::state_selected ?
+                //    MFS_CHECKED : MFS_UNCHECKED;
+
                 menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast< ::UINT>(text.size() - 1);
                 menu_info.wID = std::get<0>(details);
                 menu_info.hSubMenu = &*std::get<1>(details);
             }
@@ -419,32 +458,46 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        struct menu_command_style_tag : public style_tag
+        template <typename MenuBase>
+        struct menu_command_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type& details,
-                ::MENUITEMINFOW&         menu_info,
-                std::vector< ::WCHAR>&   text,
-                const bool               enabled
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
-                menu_info.fMask = MIIM_STATE | MIIM_STRING | MIIM_ID;
-                menu_info.fState = enabled ? MFS_ENABLED : MFS_DISABLED;
+                menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
+
+                menu_info.fType = 0;
+                menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
+
+                menu_info.fState = 0;
+                menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
+                menu_info.fState |=
+                    state == MenuBase::state_checked || state == MenuBase::state_selected ?
+                    MFS_CHECKED : MFS_UNCHECKED;
+
                 menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast< ::UINT>(text.size() - 1);
                 menu_info.wID = std::get<0>(details);
             }
 
 
         };
 
-        struct menu_separator_style_tag : public style_tag
+        template <typename MenuBase>
+        struct menu_separator_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type& details,
-                ::MENUITEMINFOW&         menu_info,
-                std::vector< ::WCHAR>&   text,
-                const bool               enabled
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -457,6 +510,47 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         // static functions
+
+        template <typename MenuBase>
+        static void set_menu_info_style(
+            const ::HMENU                       menu_handle,
+            const ::UINT                        menu_id,
+            const bool                          enabled,
+            const typename MenuBase::state_type state
+        )
+        {
+            ::MENUITEMINFOW menu_info = {};
+            menu_info.cbSize = sizeof(::MENUITEMINFOW);
+            const ::BOOL get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get a menu item info."
+                    )
+                );
+            }
+
+            menu_info.fMask = MIIM_FTYPE | MIIM_STATE;
+
+            menu_info.fType &= ~MFT_RADIOCHECK;
+            menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
+
+            menu_info.fState &= ~(MFS_ENABLED | MFS_DISABLED | MFS_CHECKED | MFS_UNCHECKED);
+            menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
+            menu_info.fState |=
+                state == MenuBase::state_checked || state == MenuBase::state_selected ? MFS_CHECKED : MFS_UNCHECKED;
+
+            const ::BOOL set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            if (set_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't set a menu item info."
+                    )
+                );
+            }
+        }
 
         template <typename MenuBase>
         static ::ACCEL to_accel(const MenuBase& menu)

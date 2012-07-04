@@ -9,15 +9,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_bobura.about_dialog.cpp \
-    test_bobura.command.about.cpp \
-    test_bobura.command.command_base.cpp \
-    test_bobura.command.exit.cpp \
-    test_bobura.command.file_property.cpp \
-    test_bobura.command.load_from_file.cpp \
-    test_bobura.command.new_file.cpp \
-    test_bobura.command.nop.cpp \
-    test_bobura.command.save_to_file.cpp \
-    test_bobura.command.set.cpp \
+    test_bobura.diagram_picture_box.cpp \
     test_bobura.diagram_view.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
@@ -32,7 +24,8 @@ sources = \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \
     test_bobura.settings.cpp \
-    test_bobura.timetable_model.cpp
+    test_bobura.timetable_model.cpp \
+    test_bobura.view.scale_list.cpp
 
 extra_sources =
 

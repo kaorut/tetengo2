@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_EM_H)
 #define TETENGO2_GUI_UNIT_EM_H
 
-//#include <utility>
-
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.unit.unit.h"
@@ -67,52 +65,8 @@ namespace tetengo2 { namespace gui { namespace unit
         m_value(value)
         {}
 
-        /*!
-            \brief Creates an EM height unit.
-
-            \param value A value.
-        */
-        explicit em(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
-
-        /*!
-            \brief Adds another value in EM height unit.
-
-            \param another Another value in EM height unit.
-
-            \return This object.
-        */
-        em& add(const value_type& another)
-        {
-            em temp(*this);
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
-            \brief Subtracts another value in EM height unit.
-
-            \param another Another value in EM height unit.
-
-            \return This object.
-        */
-        em& subtract(const value_type& another)
-        {
-            em temp(*this);
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
 
         /*!
             \brief Checks whether one EM height unit is equal to another.
@@ -154,6 +108,87 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator>(const em& one, const value_type& another)
         {
             return one.m_value > another;
+        }
+
+        /*!
+            \brief Adds another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& add(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& subtract(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Multiplies another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& multiply(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& divide_by(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another EM height unit.
+
+            \param another Another EM height unit.
+
+            \return A value.
+        */
+        value_type divide_by(const em& another)
+        const
+        {
+            return value() / another.value();
         }
 
         /*!

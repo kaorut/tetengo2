@@ -9,11 +9,7 @@
 #if !defined(TETENGO2_GUI_UNIT_UNIT_H)
 #define TETENGO2_GUI_UNIT_UNIT_H
 
-//#include <utility>
-
 #include <boost/operators.hpp>
-
-#include "tetengo2.operators.h"
 
 
 namespace tetengo2 { namespace gui { namespace unit
@@ -27,8 +23,9 @@ namespace tetengo2 { namespace gui { namespace unit
     class unit :
         private boost::totally_ordered<ConcreteUnit>,
         private boost::totally_ordered<ConcreteUnit, Value>,
-        private additive<ConcreteUnit>,
-        private additive<ConcreteUnit, Value>
+        private boost::additive<ConcreteUnit>,
+        private boost::additive<ConcreteUnit, Value>,
+        private boost::multiplicative<ConcreteUnit, Value>
     {
     public:
         // types
@@ -115,24 +112,9 @@ namespace tetengo2 { namespace gui { namespace unit
             const unit<U, typename U::value_type>& another
         )
         {
-            return operator+(concrete_unit_type(one), another);
-        }
-
-        /*!
-            \brief Adds units.
-
-            \tparam U A unit type.
-
-            \param one     One unit.
-            \param another Another unit.
-
-            \return A unit.
-        */
-        template <typename U>
-        friend concrete_unit_type operator+(concrete_unit_type&& one, const unit<U, typename U::value_type>& another)
-        {
-            one += another;
-            return std::forward<concrete_unit_type>(one);
+            concrete_unit_type unit(one);
+            unit += another;
+            return unit;
         }
 
         /*!
@@ -190,24 +172,46 @@ namespace tetengo2 { namespace gui { namespace unit
             const unit<U, typename U::value_type>& another
         )
         {
-            return operator-(concrete_unit_type(one), another);
+            concrete_unit_type unit(one);
+            unit -= another;
+            return unit;
         }
 
         /*!
-            \brief Subtracts units.
+            \brief Multiplies another value.
 
-            \tparam U A unit type.
+            \param another Another value.
+
+            \return This object.
+        */
+        concrete_unit_type& operator*=(const value_type& another)
+        {
+            return this_as_concrete().multiply(another);
+        }
+
+        /*!
+            \brief Divides by another value.
+
+            \param another Another value.
+
+            \return This object.
+        */
+        concrete_unit_type& operator/=(const value_type& another)
+        {
+            return this_as_concrete().divide_by(another);
+        }
+
+        /*!
+            \brief Divides by another unit.
 
             \param one     One unit.
             \param another Another unit.
 
-            \return A unit.
+            \return A value.
         */
-        template <typename U>
-        friend concrete_unit_type operator-(concrete_unit_type&&  one, const unit<U, typename U::value_type>& another)
+        friend value_type operator/(const concrete_unit_type& one, const concrete_unit_type& another)
         {
-            one -= another;
-            return std::forward<concrete_unit_type>(one);
+            return one.divide_by(another);
         }
 
         /*!
