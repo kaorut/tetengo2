@@ -156,7 +156,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Sets a state.
 
-            \param state.
+            \param state A state.
         */
         void set_state(const state_type state)
         {
