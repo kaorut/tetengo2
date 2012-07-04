@@ -92,6 +92,18 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
+            \brief Sets a state.
+
+            \tparam MenuBase A menu base type.
+
+            \param menu  A menu.
+            \param state A status.
+        */
+        template <typename MenuBase>
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
+        {}
+
+        /*!
             \brief Creates an empty shortcut key table.
 
             \tparam Entry A shortcut key table entry type.

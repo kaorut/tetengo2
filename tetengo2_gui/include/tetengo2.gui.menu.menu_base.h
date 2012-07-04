@@ -160,6 +160,7 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         void set_state(const state_type state)
         {
+            menu_details_type::set_state(*this, state);
             m_state = state;
         }
 

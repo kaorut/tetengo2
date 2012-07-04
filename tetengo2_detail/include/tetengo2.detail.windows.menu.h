@@ -213,6 +213,38 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Sets a state.
+
+            \tparam MenuBase A menu base type.
+
+            \param menu  A menu.
+            \param state A status.
+        */
+        template <typename MenuBase>
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
+        {
+            if (!std::get<2>(*menu.details()))
+                return;
+
+            ::MENUITEMINFOW menu_info = {};
+            menu_info.cbSize = sizeof(::MENUITEMINFOW);
+            menu_info.fMask = MIIM_STATE;
+            menu_info.fState |=
+                state == MenuBase::state_checked || state == MenuBase::state_selected ? MFS_CHECKED : MFS_UNCHECKED;
+
+            const ::BOOL result =
+                ::SetMenuItemInfoW(std::get<2>(*menu.details()), std::get<0>(*menu.details()), FALSE, &menu_info);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't set a state."
+                    )
+                );
+            }
+        }
+
+        /*!
             \brief Creates an empty shortcut key table.
 
             \tparam Entry A shortcut key table entry type.
