@@ -85,10 +85,14 @@ namespace bobura { namespace message { namespace main_window
                 assert(i < m_commands.size());
                 const command_type* const p_command = m_commands[i];
                 if (!p_command)
+                {
+                    ++i;
                     continue;
+                }
 
                 menu_item.set_enabled(p_command->enabled(m_model));
                 menu_item.set_state(menu_base_type::state_checked);
+
                 ++i;
             }
         }
