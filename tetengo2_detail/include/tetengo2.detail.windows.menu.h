@@ -438,7 +438,10 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
-                menu_info.fMask = MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+                menu_info.fMask = MIIM_TYPE | MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+
+                menu_info.fType = MFT_STRING;
+                menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
 
                 menu_info.fState = 0;
                 menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
@@ -466,7 +469,10 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
-                menu_info.fMask = MIIM_STATE | MIIM_STRING | MIIM_ID;
+                menu_info.fMask = MIIM_TYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
+
+                menu_info.fType = MFT_STRING;
+                menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
 
                 menu_info.fState = 0;
                 menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
@@ -513,19 +519,32 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFOW);
-            menu_info.fMask = MIIM_STATE;
+            const ::BOOL get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get a menu item info."
+                    )
+                );
+            }
 
-            menu_info.fState = 0;
+            menu_info.fMask = MIIM_TYPE | MIIM_STATE;
+
+            menu_info.fType &= ~MFT_RADIOCHECK;
+            menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
+
+            menu_info.fState &= ~(MFS_ENABLED | MFS_DISABLED | MFS_CHECKED | MFS_UNCHECKED);
             menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
             menu_info.fState |=
                 state == MenuBase::state_checked || state == MenuBase::state_selected ? MFS_CHECKED : MFS_UNCHECKED;
 
-            const ::BOOL result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
-            if (result == 0)
+            const ::BOOL set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set an enabled status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't set a menu item info."
                     )
                 );
             }
