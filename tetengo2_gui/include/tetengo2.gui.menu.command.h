@@ -89,7 +89,7 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::menu_command_style<base_type>();
+            return menu_details_type::template menu_command_style<base_type>();
         }
 
 

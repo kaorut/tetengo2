@@ -45,6 +45,12 @@ namespace bobura { namespace command
 
         // functions
 
+        state_type state()
+        const
+        {
+            return m_scale == m_diagram_view.horizontal_scale() ? state_selected : state_default;
+        }
+
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
@@ -82,6 +88,12 @@ namespace bobura { namespace command
     set_horizontal_scale::~set_horizontal_scale()
     {}
     
+    set_horizontal_scale::state_type set_horizontal_scale::state_impl()
+    const
+    {
+        return m_p_impl->state();
+    }
+
     void set_horizontal_scale::execute_impl(model_type& model, abstract_window_type& parent)
     const
     {

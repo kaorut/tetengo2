@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
 
         //! The style type.
-        typedef typename menu_details_type::style_tag<menu_base> style_type;
+        typedef typename menu_details_type::template style_tag<menu_base> style_type;
 
         //! The state type.
         enum state_type

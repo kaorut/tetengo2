@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         typedef typename base_type::string_type string_type;
 
-        typedef typename base_type::style_type style_type;
+        typedef typename base_type::base_type::style_type style_type;
 
 
         // variables
@@ -104,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::menu_bar_style<typename base_type::base_type>();
+            return menu_details_type::template menu_bar_style<typename base_type::base_type>();
         }
 
 
