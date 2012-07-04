@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <boost/foreach.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
@@ -91,7 +92,7 @@ namespace bobura { namespace message { namespace main_window
                 }
 
                 menu_item.set_enabled(p_command->enabled(m_model));
-                menu_item.set_state(menu_base_type::state_selected);
+                menu_item.set_state(translate_state(p_command->state()));
 
                 ++i;
             }
@@ -102,6 +103,25 @@ namespace bobura { namespace message { namespace main_window
         // types
 
         typedef typename popup_menu_type::base_type::base_type menu_base_type;
+
+
+        // static functions
+
+        static typename menu_base_type::state_type translate_state(const typename command_type::state_type state)
+        {
+            switch (state)
+            {
+            case command_type::state_default:
+                return menu_base_type::state_default;
+            case command_type::state_checked:
+                return menu_base_type::state_checked;
+            case command_type::state_selected:
+                return menu_base_type::state_selected;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid command state."));
+            }
+        }
 
 
         // variables
