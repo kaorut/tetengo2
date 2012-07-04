@@ -65,7 +65,7 @@ namespace
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::menu_command_style();
+            return menu_details_type::menu_command_style<menu_base_type>();
         }
 
 
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style());
+        BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style<menu_base_type>());
     }
 
     BOOST_AUTO_TEST_CASE(enabled)

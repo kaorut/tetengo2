@@ -39,7 +39,12 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The shortcut key table details pointer type.
         typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
 
-        //! The style tag type.
+        /*!
+            \brief The style tag type.
+
+            \tparam MenuBase A menu base type.
+        */
+        template <typename MenuBase>
         struct style_tag {};
 
 
@@ -181,44 +186,56 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Returns the menu bar style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu bar style.
         */
-        static const style_tag& menu_bar_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_bar_style()
         {
-            static const style_tag singleton = style_tag();
+            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
             return singleton;
         }
 
         /*!
             \brief Returns the popup menu style.
 
+            \tparam MenuBase A menu base type.
+
             \return The popup menu style.
         */
-        static const style_tag& popup_menu_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& popup_menu_style()
         {
-            static const style_tag singleton = style_tag();
+            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
             return singleton;
         }
 
         /*!
             \brief Returns the menu command style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu command style.
         */
-        static const style_tag& menu_command_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_command_style()
         {
-            static const style_tag singleton = style_tag();
+            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
             return singleton;
         }
 
         /*!
             \brief Returns the menu separator style.
 
+            \tparam MenuBase A menu base type.
+
             \return The menu separator style.
         */
-        static const style_tag& menu_separator_style()
+        template <typename MenuBase>
+        static const style_tag<MenuBase>& menu_separator_style()
         {
-            static const style_tag singleton = style_tag();
+            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
             return singleton;
         }
 
