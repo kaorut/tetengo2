@@ -33,6 +33,12 @@ namespace bobura { namespace view
         //! The diagram view type.
         typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
+        //! The scale list type.
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type scale_list_type;
+
+        //! The scale type.
+        typedef scale_list_type::scale_type scale_type;
+
 
         // constructors and destructor
 
@@ -51,6 +57,13 @@ namespace bobura { namespace view
 
 
         // functions
+
+        /*!
+            \brief Sets a horizontal scale.
+
+            \param scale A scale.
+        */
+        void set_horizontal_scale(const scale_type& scale);
 
         /*!
             \brief Hozirontally zoom in.

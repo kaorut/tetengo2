@@ -29,11 +29,13 @@ namespace bobura { namespace view
 
         typedef zoom::diagram_view_type diagram_view_type;
 
+        typedef zoom::scale_list_type scale_list_type;
+
+        typedef zoom::scale_type scale_type;
+
         typedef
             boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
             diagram_picture_box_type;
-
-        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type view_scale_list_type;
 
 
         // constructors and destructor
@@ -49,37 +51,32 @@ namespace bobura { namespace view
 
         // functions
 
-        void horizontally_zoom_in(const bool snap_to_scale_list)
+        void set_horizontal_scale(const scale_type& scale)
         {
-            const view_scale_list_type scale_list;
-            m_diagram_view.set_horizontal_scale(
-                larger(m_diagram_view.horizontal_scale(), scale_list, snap_to_scale_list)
-            );
+            m_diagram_view.set_horizontal_scale(scale);
 
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(),
                 m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
                 true
             );
+        }
+
+        void horizontally_zoom_in(const bool snap_to_scale_list)
+        {
+            const scale_list_type scale_list;
+            set_horizontal_scale(larger(m_diagram_view.horizontal_scale(), scale_list, snap_to_scale_list));
         }
 
         void horizontally_zoom_out(const bool snap_to_scale_list)
         {
-            const view_scale_list_type scale_list;
-            m_diagram_view.set_horizontal_scale(
-                smaller(m_diagram_view.horizontal_scale(), scale_list, snap_to_scale_list)
-            );
-
-            m_p_diagram_picture_box->update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
-                true
-            );
+            const scale_list_type scale_list;
+            set_horizontal_scale(smaller(m_diagram_view.horizontal_scale(), scale_list, snap_to_scale_list));
         }
 
         void vertically_zoom_in(const bool snap_to_scale_list)
         {
-            const view_scale_list_type scale_list;
+            const scale_list_type scale_list;
             m_diagram_view.set_vertical_scale(
                 larger(m_diagram_view.vertical_scale(), scale_list, snap_to_scale_list)
             );
@@ -93,7 +90,7 @@ namespace bobura { namespace view
 
         void vertically_zoom_out(const bool snap_to_scale_list)
         {
-            const view_scale_list_type scale_list;
+            const scale_list_type scale_list;
             m_diagram_view.set_vertical_scale(
                 smaller(m_diagram_view.vertical_scale(), scale_list, snap_to_scale_list)
             );
@@ -107,17 +104,12 @@ namespace bobura { namespace view
 
 
     private:
-        // types
-
-        typedef view_scale_list_type::scale_type scale_type;
-
-
         // static functions
 
         static scale_type larger(
-            const scale_type&           scale,
-            const view_scale_list_type& scale_list,
-            const bool                  snap_to_scale_list
+            const scale_type&      scale,
+            const scale_list_type& scale_list,
+            const bool             snap_to_scale_list
         )
         {
             if (snap_to_scale_list)
@@ -131,9 +123,9 @@ namespace bobura { namespace view
         }
 
         static scale_type smaller(
-            const scale_type&           scale,
-            const view_scale_list_type& scale_list,
-            const bool                  snap_to_scale_list
+            const scale_type&      scale,
+            const scale_list_type& scale_list,
+            const bool             snap_to_scale_list
         )
         {
             if (snap_to_scale_list)
@@ -164,6 +156,11 @@ namespace bobura { namespace view
 
     zoom::~zoom()
     {}
+
+    void zoom::set_horizontal_scale(const scale_type& scale)
+    {
+        m_p_impl->set_horizontal_scale(scale);
+    }
 
     void zoom::horizontally_zoom_in(const bool snap_to_scale_list)
     {
