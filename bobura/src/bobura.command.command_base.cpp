@@ -17,6 +17,12 @@ namespace bobura { namespace command
         return enabled_impl(model);
     }
 
+    command_base::state_type command_base::state()
+    const
+    {
+        return state_impl();
+    }
+
     void command_base::execute(model_type& model, abstract_window_type& parent)
     const
     {
@@ -27,6 +33,12 @@ namespace bobura { namespace command
     const
     {
         return true;
+    }
+
+    command_base::state_type command_base::state_impl()
+    const
+    {
+        return state_default;
     }
 
 

@@ -29,6 +29,14 @@ namespace bobura { namespace command
         //! The abstract window type.
         typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
 
+        //! The state type.
+        enum state_type
+        {
+            state_default,  //!< Default state.
+            state_checked,  //!< Checked state.
+            state_selected, //!< Selected state.
+        };
+
 
         // functions
 
@@ -41,6 +49,14 @@ namespace bobura { namespace command
             \retval false Otherwise.
         */
         bool enabled(const model_type& model)
+        const;
+
+        /*!
+            \brief Returns the state.
+
+            \return The state.
+        */
+        state_type state()
         const;
 
         /*!
@@ -57,6 +73,9 @@ namespace bobura { namespace command
         // virtual functions
 
         virtual bool enabled_impl(const model_type& model)
+        const;
+
+        virtual state_type state_impl()
         const;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
