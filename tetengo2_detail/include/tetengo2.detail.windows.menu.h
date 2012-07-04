@@ -438,18 +438,19 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
-                menu_info.fMask = MIIM_TYPE | MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+                menu_info.fMask = /*MIIM_TYPE |*/ MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
 
-                menu_info.fType = MFT_STRING;
-                menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
+                //menu_info.fType = MFT_STRING;
+                //menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
 
                 menu_info.fState = 0;
                 menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
-                menu_info.fState |=
-                    state == MenuBase::state_checked || state == MenuBase::state_selected ?
-                    MFS_CHECKED : MFS_UNCHECKED;
+                //menu_info.fState |=
+                //    state == MenuBase::state_checked || state == MenuBase::state_selected ?
+                //    MFS_CHECKED : MFS_UNCHECKED;
 
                 menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast< ::UINT>(text.size() - 1);
                 menu_info.wID = std::get<0>(details);
                 menu_info.hSubMenu = &*std::get<1>(details);
             }
@@ -469,9 +470,9 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
-                menu_info.fMask = MIIM_TYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
+                menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
 
-                menu_info.fType = MFT_STRING;
+                menu_info.fType = 0;
                 menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;
 
                 menu_info.fState = 0;
@@ -481,6 +482,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     MFS_CHECKED : MFS_UNCHECKED;
 
                 menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast< ::UINT>(text.size() - 1);
                 menu_info.wID = std::get<0>(details);
             }
 
@@ -529,7 +531,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            menu_info.fMask = MIIM_TYPE | MIIM_STATE;
+            menu_info.fMask = MIIM_FTYPE | MIIM_STATE;
 
             menu_info.fType &= ~MFT_RADIOCHECK;
             menu_info.fType |= state == MenuBase::state_selected ? MFT_RADIOCHECK : 0;

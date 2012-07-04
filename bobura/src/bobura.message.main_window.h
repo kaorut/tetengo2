@@ -91,7 +91,7 @@ namespace bobura { namespace message { namespace main_window
                 }
 
                 menu_item.set_enabled(p_command->enabled(m_model));
-                menu_item.set_state(menu_base_type::state_checked);
+                menu_item.set_state(menu_base_type::state_selected);
 
                 ++i;
             }
