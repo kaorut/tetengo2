@@ -8,6 +8,8 @@
 
 //#include <memory>
 
+#include <boost/mpl/at.hpp>
+
 #include <tetengo2.unique.h>
 
 #include "bobura.command.about.h"
@@ -20,8 +22,11 @@
 #include "bobura.command.new_file.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.save_to_file.h"
+#include "bobura.command.set_horizontal_scale.h"
+#include "bobura.command.set_vertical_scale.h"
 #include "bobura.command.vertically_zoom_in.h"
 #include "bobura.command.vertically_zoom_out.h"
+#include "bobura.type_list.h"
 
 #include "bobura.command.set.h"
 
@@ -32,6 +37,8 @@ namespace bobura { namespace command
     {
     public:
         // types
+
+        typedef set::size_type size_type;
 
         typedef set::new_file_type new_file_type;
 
@@ -72,6 +79,7 @@ namespace bobura { namespace command
         m_p_reload(create_load_from_file(reload)),
         m_p_save_to_file(create_save_to_file(save_to_file)),
         m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_and_save_to_file)),
+        m_p_set_horizontal_scale(create_set_horizontal_scale(diagram_view)),
         m_p_vertically_zoom_in(create_vertically_zoom_in(diagram_view)),
         m_p_vertically_zoom_out(create_vertically_zoom_out(diagram_view))
         {}
@@ -145,6 +153,18 @@ namespace bobura { namespace command
             return *m_p_ask_file_path_and_save_to_file;
         }
 
+        const command_type& set_horizontal_scale(const size_type index)
+        const
+        {
+            return *m_p_set_horizontal_scale[index];
+        }
+
+        const command_type& set_vertical_scale(const size_type index)
+        const
+        {
+            return *m_p_nop;
+        }
+
         const command_type& vertically_zoom_in()
         const
         {
@@ -162,6 +182,8 @@ namespace bobura { namespace command
         // types
 
         typedef std::unique_ptr<command_type> command_ptr_type;
+
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type scale_list_type;
 
 
         // static functions
@@ -214,6 +236,23 @@ namespace bobura { namespace command
             return tetengo2::make_unique<command::save_to_file>(save_to_file);
         }
 
+        static std::vector<command_ptr_type> create_set_horizontal_scale(diagram_view_type& diagram_view)
+        {
+            const scale_list_type scale_list;
+
+            std::vector<command_ptr_type> commands;
+            commands.reserve(scale_list.size());
+
+            for (size_type i = 0; i < scale_list.size(); ++i)
+            {
+                commands.push_back(
+                    tetengo2::make_unique<command::set_horizontal_scale>(diagram_view, scale_list.at(i))
+                );
+            }
+
+            return commands;
+        }
+
         static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
         {
             return tetengo2::make_unique<command::vertically_zoom_in>(diagram_view);
@@ -248,6 +287,8 @@ namespace bobura { namespace command
         const command_ptr_type m_p_save_to_file;
 
         const command_ptr_type m_p_ask_file_path_and_save_to_file;
+
+        const std::vector<command_ptr_type> m_p_set_horizontal_scale;
 
         const command_ptr_type m_p_vertically_zoom_in;
 
@@ -349,6 +390,18 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->ask_file_path_and_save_to_file();
+    }
+
+    const set::command_type& set::set_horizontal_scale(const size_type index)
+    const
+    {
+        return m_p_impl->set_horizontal_scale(index);
+    }
+
+    const set::command_type& set::set_vertical_scale(const size_type index)
+    const
+    {
+        return m_p_impl->set_vertical_scale(index);
     }
 
     const set::command_type& set::vertically_zoom_in()

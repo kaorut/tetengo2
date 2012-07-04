@@ -235,7 +235,7 @@ namespace bobura
                 append_menu_command(
                     popup_menu,
                     make_zoom_scale_label(scale_list.label_at(i)),
-                    m_command_set.nop(),
+                    m_command_set.set_horizontal_scale(i),
                     commands
                 );
             }

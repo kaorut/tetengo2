@@ -29,12 +29,17 @@ namespace bobura { namespace command
 
         typedef set_horizontal_scale::diagram_view_type diagram_view_type;
 
+        typedef set_horizontal_scale::scale_list_type scale_list_type;
+
+        typedef set_horizontal_scale::scale_type scale_type;
+
 
         // constructors and destructor
 
-        explicit impl(diagram_view_type& diagram_view)
+        impl(diagram_view_type& diagram_view, const scale_type& scale)
         :
-        m_diagram_view(diagram_view)
+        m_diagram_view(diagram_view),
+        m_scale(scale)
         {}
 
 
@@ -63,13 +68,15 @@ namespace bobura { namespace command
 
         diagram_view_type& m_diagram_view;
 
+        scale_type m_scale;
+
 
     };
 
 
-    set_horizontal_scale::set_horizontal_scale(diagram_view_type& diagram_view)
+    set_horizontal_scale::set_horizontal_scale(diagram_view_type& diagram_view, const scale_type& scale)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view))
+    m_p_impl(tetengo2::make_unique<impl>(diagram_view, scale))
     {}
 
     set_horizontal_scale::~set_horizontal_scale()

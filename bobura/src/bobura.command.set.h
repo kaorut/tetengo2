@@ -30,6 +30,9 @@ namespace bobura { namespace command
         // types
 
         //! The file initialization type.
+        typedef boost::mpl::at<common_type_list, type::size>::type size_type;
+
+        //! The file initialization type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::new_file>::type new_file_type;
 
         //! The file loading type.
@@ -171,6 +174,26 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& ask_file_path_and_save_to_file()
+        const;
+
+        /*!
+            \brief Returns the command set-horizontal-scale.
+
+            \param index An index.
+
+            \return The command.
+        */
+        const command_type& set_horizontal_scale(size_type index)
+        const;
+
+        /*!
+            \brief Returns the command set-vertical-scale.
+
+            \param index An index.
+
+            \return The command.
+        */
+        const command_type& set_vertical_scale(size_type index)
         const;
 
         /*!
