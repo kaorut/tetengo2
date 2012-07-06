@@ -83,7 +83,14 @@ namespace
     template <typename InputIterator>
     train_type make_train(const InputIterator stop_first, const InputIterator stop_last)
     {
-        return train_type(train_type::string_type(), train_type::string_type(), stop_first, stop_last);
+        return train_type(
+            train_type::string_type(),
+            train_type::string_type(),
+            train_type::string_type(),
+            train_type::string_type(),
+            stop_first,
+            stop_last
+        );
     }
 
     stop_type make_stop(
