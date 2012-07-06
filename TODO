@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------
 Number      : 00000175
 Added on    : 2012/06/12
-Depends on  : (none)
+Depends on  : 00000185, 00000186, 00000187
 Description : Create bobura::model::serializer::windia_reader.
 ------------------------------------------------------------------------------
 Number      : 00000176
@@ -23,6 +23,24 @@ Depends on  : (none)
 Description : Colorize the diagram view.
 ------------------------------------------------------------------------------
 Number      : 00000185
+Added on    : 2012/07/06
+Depends on  : (none)
+Description : Create bobura::model::train::name() and name_number().
+------------------------------------------------------------------------------
+Number      : 00000186
+Added on    : 2012/07/06
+Depends on  : (none)
+Description : Create bobura::model::train_info::kind, unique_kind and
+            : shared_kind.
+            : Create bobura::model::train::kind().
+------------------------------------------------------------------------------
+Number      : 00000187
+Added on    : 2012/07/06
+Depends on  : (none)
+Description : Create bobura::model::station::shows_down_arrival_time() and
+            : shows_up_arrival_time().
+------------------------------------------------------------------------------
+Number      : 00000188
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
