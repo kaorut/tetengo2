@@ -273,6 +273,34 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("1")));
     }
 
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_type train(
+            string_type(TETENGO2_TEXT("1")),
+            string_type(TETENGO2_TEXT("a")),
+            string_type(TETENGO2_TEXT("42")),
+            string_type(TETENGO2_TEXT("x"))
+        );
+
+        BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("a")));
+    }
+
+    BOOST_AUTO_TEST_CASE(name_number)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_type train(
+            string_type(TETENGO2_TEXT("1")),
+            string_type(TETENGO2_TEXT("a")),
+            string_type(TETENGO2_TEXT("42")),
+            string_type(TETENGO2_TEXT("x"))
+        );
+
+        BOOST_CHECK(train.name_number() == string_type(TETENGO2_TEXT("42")));
+    }
+
     BOOST_AUTO_TEST_CASE(note)
     {
         BOOST_TEST_PASSPOINT();

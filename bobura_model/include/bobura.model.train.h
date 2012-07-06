@@ -59,6 +59,8 @@ namespace bobura { namespace model
         train(S1&& number, S2&& name, S3&& name_number, S4&& note)
         :
         m_number(std::forward<S1>(number)),
+        m_name(std::forward<S2>(name)),
+        m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
         m_stops()
         {}
@@ -84,6 +86,8 @@ namespace bobura { namespace model
         train(S1&& number, S2&& name, S3&& name_number, S4&& note, Ss&& stops)
         :
         m_number(std::forward<S1>(number)),
+        m_name(std::forward<S2>(name)),
+        m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
         m_stops(std::forward<Ss>(stops))
         {}
@@ -99,12 +103,12 @@ namespace bobura { namespace model
             \tparam S4            A string type #4.
             \tparam InputIterator An input iterator type.
 
-            \param number     A number.
+            \param number      A number.
             \param name        A name.
             \param name_number A name number.
-            \param note       A note.
-            \param stop_first The first iterator among stops.
-            \param stop_last  The last iterator among stops.
+            \param note        A note.
+            \param stop_first  The first iterator among stops.
+            \param stop_last   The last iterator among stops.
         */
         template <typename S1, typename S2, typename S3, typename S4, typename InputIterator>
         train(
@@ -117,6 +121,8 @@ namespace bobura { namespace model
         )
         :
         m_number(std::forward<S1>(number)),
+        m_name(std::forward<S2>(name)),
+        m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
         m_stops(stop_first, stop_last)
         {}
@@ -135,7 +141,12 @@ namespace bobura { namespace model
         */
         friend bool operator==(const train& one, const train& another)
         {
-            return one.m_number == another.m_number && one.m_note == another.m_note && one.m_stops == another.m_stops;
+            return
+                one.m_number == another.m_number &&
+                one.m_name == another.m_name &&
+                one.m_name_number == another.m_name_number &&
+                one.m_note == another.m_note &&
+                one.m_stops == another.m_stops;
         }
 
         /*!
@@ -147,6 +158,28 @@ namespace bobura { namespace model
         const
         {
             return m_number;
+        }
+
+        /*!
+            \brief Returns the name.
+
+            \return The name.
+        */
+        const string_type& name()
+        const
+        {
+            return m_name;
+        }
+
+        /*!
+            \brief Returns the name number.
+
+            \return The name number.
+        */
+        const string_type& name_number()
+        const
+        {
+            return m_name_number;
         }
 
         /*!
@@ -204,6 +237,10 @@ namespace bobura { namespace model
         // variables
 
         string_type m_number;
+
+        string_type m_name;
+
+        string_type m_name_number;
 
         string_type m_note;
 
