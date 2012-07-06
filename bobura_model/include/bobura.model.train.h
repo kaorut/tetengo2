@@ -47,15 +47,19 @@ namespace bobura { namespace model
 
             \tparam S1 A string type #1.
             \tparam S2 A string type #2.
+            \tparam S3 A string type #3.
+            \tparam S4 A string type #4.
 
-            \param number A number.
-            \param note   A note.
+            \param number      A number.
+            \param name        A name.
+            \param name_number A name number.
+            \param note        A note.
         */
-        template <typename S1, typename S2>
-        train(S1&& number, S2&& note)
+        template <typename S1, typename S2, typename S3, typename S4>
+        train(S1&& number, S2&& name, S3&& name_number, S4&& note)
         :
         m_number(std::forward<S1>(number)),
-        m_note(std::forward<S2>(note)),
+        m_note(std::forward<S4>(note)),
         m_stops()
         {}
 
@@ -66,17 +70,21 @@ namespace bobura { namespace model
 
             \tparam S1 A string type #1.
             \tparam S2 A string type #2.
+            \tparam S3 A string type #3.
+            \tparam S4 A string type #4.
             \tparam Ss A stops type.
 
-            \param number     A number.
-            \param note       A note.
-            \param stops      Stops.
+            \param number      A number.
+            \param name        A name.
+            \param name_number A name number.
+            \param note        A note.
+            \param stops       Stops.
         */
-        template <typename S1, typename S2, typename Ss>
-        train(S1&& number, S2&& note, Ss&& stops)
+        template <typename S1, typename S2, typename S3, typename S4, typename Ss>
+        train(S1&& number, S2&& name, S3&& name_number, S4&& note, Ss&& stops)
         :
         m_number(std::forward<S1>(number)),
-        m_note(std::forward<S2>(note)),
+        m_note(std::forward<S4>(note)),
         m_stops(std::forward<Ss>(stops))
         {}
 
@@ -87,18 +95,29 @@ namespace bobura { namespace model
 
             \tparam S1            A string type #1.
             \tparam S2            A string type #2.
+            \tparam S3            A string type #3.
+            \tparam S4            A string type #4.
             \tparam InputIterator An input iterator type.
 
             \param number     A number.
+            \param name        A name.
+            \param name_number A name number.
             \param note       A note.
             \param stop_first The first iterator among stops.
             \param stop_last  The last iterator among stops.
         */
-        template <typename S1, typename S2, typename InputIterator>
-        train(S1&& number, S2&& note, InputIterator stop_first, InputIterator stop_last)
+        template <typename S1, typename S2, typename S3, typename S4, typename InputIterator>
+        train(
+            S1&& number,
+            S2&& name,
+            S3&& name_number,
+            S4&& note,
+            const InputIterator stop_first,
+            const InputIterator stop_last
+        )
         :
         m_number(std::forward<S1>(number)),
-        m_note(std::forward<S2>(note)),
+        m_note(std::forward<S4>(note)),
         m_stops(stop_first, stop_last)
         {}
 

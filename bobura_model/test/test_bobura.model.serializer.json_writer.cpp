@@ -136,7 +136,12 @@ namespace
         }
         {
             {
-                train_type train(string_type(TETENGO2_TEXT("101D")), string_type(TETENGO2_TEXT("fuga")));
+                train_type train(
+                    string_type(TETENGO2_TEXT("101D")),
+                    string_type(),
+                    string_type(),
+                    string_type(TETENGO2_TEXT("fuga"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
@@ -148,7 +153,7 @@ namespace
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
             {
-                train_type train(string_type(TETENGO2_TEXT("123D")), string_type());
+                train_type train(string_type(TETENGO2_TEXT("123D")), string_type(), string_type(), string_type());
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
@@ -161,7 +166,12 @@ namespace
         }
         {
             {
-                train_type train(string_type(TETENGO2_TEXT("9324M")), string_type(TETENGO2_TEXT("piyo")));
+                train_type train(
+                    string_type(TETENGO2_TEXT("9324M")),
+                    string_type(),
+                    string_type(),
+                    string_type(TETENGO2_TEXT("piyo"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type(6, 20, 0), string_type(TETENGO2_TEXT("0A")))

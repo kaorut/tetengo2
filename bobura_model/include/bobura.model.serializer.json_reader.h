@@ -341,7 +341,7 @@ namespace bobura { namespace model { namespace serializer
                 note = member->second;
             }
 
-            train_type train(number, note);
+            train_type train(number, string_type(), string_type(), note);
 
             const boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
             if (!stops)
