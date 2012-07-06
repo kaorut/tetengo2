@@ -45,16 +45,17 @@ namespace bobura { namespace model
         /*!
             \brief Creates a train.
 
-            \tparam S A string type.
+            \tparam S1 A string type #1.
+            \tparam S2 A string type #2.
 
             \param number A number.
             \param note   A note.
         */
-        template <typename S>
-        train(S&& number, S&& note)
+        template <typename S1, typename S2>
+        train(S1&& number, S2&& note)
         :
-        m_number(std::forward<S>(number)),
-        m_note(std::forward<S>(note)),
+        m_number(std::forward<S1>(number)),
+        m_note(std::forward<S2>(note)),
         m_stops()
         {}
 
@@ -63,18 +64,19 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator for stops.
 
-            \tparam S  A string type.
+            \tparam S1 A string type #1.
+            \tparam S2 A string type #2.
             \tparam Ss A stops type.
 
             \param number     A number.
             \param note       A note.
             \param stops      Stops.
         */
-        template <typename S, typename Ss>
-        train(S&& number, S&& note, Ss&& stops)
+        template <typename S1, typename S2, typename Ss>
+        train(S1&& number, S2&& note, Ss&& stops)
         :
-        m_number(std::forward<S>(number)),
-        m_note(std::forward<S>(note)),
+        m_number(std::forward<S1>(number)),
+        m_note(std::forward<S2>(note)),
         m_stops(std::forward<Ss>(stops))
         {}
 
@@ -83,7 +85,8 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator for stops.
 
-            \tparam String        A string type.
+            \tparam S1            A string type #1.
+            \tparam S2            A string type #2.
             \tparam InputIterator An input iterator type.
 
             \param number     A number.
@@ -91,11 +94,11 @@ namespace bobura { namespace model
             \param stop_first The first iterator among stops.
             \param stop_last  The last iterator among stops.
         */
-        template <typename S, typename InputIterator>
-        train(S&& number, S&& note, InputIterator stop_first, InputIterator stop_last)
+        template <typename S1, typename S2, typename InputIterator>
+        train(S1&& number, S2&& note, InputIterator stop_first, InputIterator stop_last)
         :
-        m_number(std::forward<S>(number)),
-        m_note(std::forward<S>(note)),
+        m_number(std::forward<S1>(number)),
+        m_note(std::forward<S2>(note)),
         m_stops(stop_first, stop_last)
         {}
 

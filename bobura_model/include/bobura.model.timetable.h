@@ -380,7 +380,7 @@ namespace bobura { namespace model
                 stop_type(
                     train_type::stop_type::time_type::uninitialized(),
                     train_type::stop_type::time_type::uninitialized(),
-                    typename stop_type::platform_type()
+                    string_type()
                 )
             );
         }

@@ -19,11 +19,11 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class template for a train stop.
 
-        \tparam Time     A time type.
-        \tparam Platform A string type.
+        \tparam Time   A time type.
+        \tparam String A string type.
     */
-    template <typename Time, typename Platform>
-    class stop : private boost::equality_comparable<stop<Time, Platform>>
+    template <typename Time, typename String>
+    class stop : private boost::equality_comparable<stop<Time, String>>
     {
     public:
         // types
@@ -31,8 +31,8 @@ namespace bobura { namespace model { namespace train_info
         //! The time type.
         typedef Time time_type;
 
-        //! The platform type.
-        typedef Platform platform_type;
+        //! The string type.
+        typedef String string_type;
 
 
         // constructors and destructor
@@ -40,20 +40,19 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a stop.
 
-            \tparam AT An arrival time type.
-            \tparam DT A departure time type.
-            \tparam P  A platform type.
+            \tparam AT A time type.
+            \tparam S  A string type.
 
             \param arrival   An arrival time.
             \param departure A departure time.
             \param platform  A platform.
         */
-        template <typename AT, typename DT, typename P>
-        stop(AT&& arrival, DT&& departure, P&& platform)
+        template <typename AT, typename DT, typename S>
+        stop(AT&& arrival, DT&& departure, S&& platform)
         :
         m_arrival(std::forward<AT>(arrival)),
         m_departure(std::forward<DT>(departure)),
-        m_platform(std::forward<P>(platform))
+        m_platform(std::forward<S>(platform))
         {}
 
 
@@ -103,7 +102,7 @@ namespace bobura { namespace model { namespace train_info
 
             \return The platform.
         */
-        const platform_type& platform()
+        const string_type& platform()
         const
         {
             return m_platform;
@@ -117,7 +116,7 @@ namespace bobura { namespace model { namespace train_info
 
         time_type m_departure;
 
-        platform_type m_platform;
+        string_type m_platform;
 
 
     };

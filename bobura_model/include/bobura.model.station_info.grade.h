@@ -19,16 +19,16 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class template for a station grade.
 
-        \tparam GradeName A grade name type.
+        \tparam String A string type.
     */
-    template <typename GradeName>
+    template <typename String>
     class grade : private boost::noncopyable
     {
     public:
         // types
 
-        //! The name type.
-        typedef GradeName name_type;
+        //! The string type.
+        typedef String string_type;
 
 
         // functions
@@ -38,7 +38,7 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name.
         */
-        const name_type& name()
+        const string_type& name()
         const
         {
             return name_impl();
@@ -64,7 +64,7 @@ namespace bobura { namespace model { namespace station_info
     private:
         // virtual functions
 
-        virtual const name_type& name_impl()
+        virtual const string_type& name_impl()
         const = 0;
 
 
@@ -74,16 +74,16 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class template for a local station grade.
 
-        \tparam GradeName A grade name type.
+        \tparam String A string type.
     */
-    template <typename GradeName>
-    class local : public grade<GradeName>
+    template <typename String>
+    class local : public grade<String>
     {
     public:
         // types
 
         //! The base type.
-        typedef grade<GradeName> base_type;
+        typedef grade<String> base_type;
 
 
         // static functions
@@ -113,10 +113,10 @@ namespace bobura { namespace model { namespace station_info
 
         // virtual functions
 
-        virtual const typename local::name_type& name_impl()
+        virtual const typename local::string_type& name_impl()
         const
         {
-            static const typename local::name_type singleton(TETENGO2_TEXT("local"));
+            static const typename local::string_type singleton(TETENGO2_TEXT("local"));
             return singleton;
         }
 
@@ -126,16 +126,16 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class template for a principal station grade.
 
-        \tparam GradeName A grade name type.
+        \tparam String A string type.
    */
-    template <typename GradeName>
-    class principal : public grade<GradeName>
+    template <typename String>
+    class principal : public grade<String>
     {
     public:
         // types
 
         //! The base type.
-        typedef grade<GradeName> base_type;
+        typedef grade<String> base_type;
 
 
         // static functions
@@ -165,10 +165,10 @@ namespace bobura { namespace model { namespace station_info
 
         // virtual functions
 
-        virtual const typename principal::name_type& name_impl()
+        virtual const typename principal::string_type& name_impl()
         const
         {
-            static const typename principal::name_type singleton(TETENGO2_TEXT("principal"));
+            static const typename principal::string_type singleton(TETENGO2_TEXT("principal"));
             return singleton;
         }
 
@@ -178,16 +178,16 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class template for a local terminal station grade.
 
-        \tparam GradeName A grade name type.
+        \tparam String A string type.
     */
-    template <typename GradeName>
-    class local_terminal : public grade<GradeName>
+    template <typename String>
+    class local_terminal : public grade<String>
     {
     public:
         // types
 
         //! The base type.
-        typedef grade<GradeName> base_type;
+        typedef grade<String> base_type;
 
 
         // static functions
@@ -217,10 +217,10 @@ namespace bobura { namespace model { namespace station_info
 
         // virtual functions
 
-        virtual const typename local_terminal::name_type& name_impl()
+        virtual const typename local_terminal::string_type& name_impl()
         const
         {
-            static const typename local_terminal::name_type singleton(TETENGO2_TEXT("local terminal"));
+            static const typename local_terminal::string_type singleton(TETENGO2_TEXT("local terminal"));
             return singleton;
         }
 
@@ -230,16 +230,16 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class template for a principal terminal station grade.
 
-        \tparam GradeName A grade name type.
+        \tparam String A string type.
     */
-    template <typename GradeName>
-    class principal_terminal : public grade<GradeName>
+    template <typename String>
+    class principal_terminal : public grade<String>
     {
     public:
         // types
 
         //! The base type.
-        typedef grade<GradeName> base_type;
+        typedef grade<String> base_type;
 
 
         // static functions
@@ -269,10 +269,10 @@ namespace bobura { namespace model { namespace station_info
 
         // virtual functions
 
-        virtual const typename principal_terminal::name_type& name_impl()
+        virtual const typename principal_terminal::string_type& name_impl()
         const
         {
-            static const typename principal_terminal::name_type singleton(TETENGO2_TEXT("principal terminal"));
+            static const typename principal_terminal::string_type singleton(TETENGO2_TEXT("principal terminal"));
             return singleton;
         }
 
