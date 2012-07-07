@@ -338,6 +338,14 @@ namespace bobura { namespace model { namespace serializer
             output_stream << comma();
 
             new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train.name(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name_number")), train.name_number(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
             write_object_entry(string_type(TETENGO2_TEXT("note")), train.note(), level, output_stream);
             output_stream << comma();
 

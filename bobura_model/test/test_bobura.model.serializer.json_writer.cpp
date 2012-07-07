@@ -86,6 +86,8 @@ namespace
         "    [\n"
         "        {\n"
         "            \"number\": \"101D\",\n"
+        "            \"name\": \"foo\",\n"
+        "            \"name_number\": \"bar\",\n"
         "            \"note\": \"fuga\",\n"
         "            \"stops\": [\n"
         "                [    -1,     -1, \"\"],\n"
@@ -94,6 +96,8 @@ namespace
         "        },\n"
         "        {\n"
         "            \"number\": \"123D\",\n"
+        "            \"name\": \"baz\",\n"
+        "            \"name_number\": \"bazz\",\n"
         "            \"note\": \"\",\n"
         "            \"stops\": [\n"
         "                [    -1,  60030, \"1\"],\n"
@@ -104,6 +108,8 @@ namespace
         "    [\n"
         "        {\n"
         "            \"number\": \"9324M\",\n"
+        "            \"name\": \"abc\",\n"
+        "            \"name_number\": \"def\",\n"
         "            \"note\": \"piyo\",\n"
         "            \"stops\": [\n"
         "                [    -1,  62000, \"0A\"],\n"
@@ -138,8 +144,8 @@ namespace
             {
                 train_type train(
                     string_type(TETENGO2_TEXT("101D")),
-                    string_type(),
-                    string_type(),
+                    string_type(TETENGO2_TEXT("foo")),
+                    string_type(TETENGO2_TEXT("bar")),
                     string_type(TETENGO2_TEXT("fuga"))
                 );
                 train.insert_stop(
@@ -153,7 +159,12 @@ namespace
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
             {
-                train_type train(string_type(TETENGO2_TEXT("123D")), string_type(), string_type(), string_type());
+                train_type train(
+                    string_type(TETENGO2_TEXT("123D")),
+                    string_type(TETENGO2_TEXT("baz")),
+                    string_type(TETENGO2_TEXT("bazz")),
+                    string_type()
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
@@ -168,8 +179,8 @@ namespace
             {
                 train_type train(
                     string_type(TETENGO2_TEXT("9324M")),
-                    string_type(),
-                    string_type(),
+                    string_type(TETENGO2_TEXT("abc")),
+                    string_type(TETENGO2_TEXT("def")),
                     string_type(TETENGO2_TEXT("piyo"))
                 );
                 train.insert_stop(
