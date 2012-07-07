@@ -269,7 +269,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(station_location_type(station_type(name, *p_grade), meterage));
+            return boost::make_optional(station_location_type(station_type(name, *p_grade, false, false), meterage));
         }
 
         static const station_grade_type* to_station_grade(const string_type& name)

@@ -131,12 +131,16 @@ namespace
         {
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
-                station_location_type(station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance()), 42)
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance(), false, false),
+                    42
+                )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance()), 4242
+                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance(), false, false),
+                    4242
                 )
             );
         }

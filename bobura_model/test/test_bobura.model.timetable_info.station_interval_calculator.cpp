@@ -63,7 +63,9 @@ namespace
     {
         return
             station_location_type(
-                station_type(std::forward<string_type>(name), grade_type_set_type::local_type::instance()),
+                station_type(
+                    std::forward<string_type>(name), grade_type_set_type::local_type::instance(), false, false
+                ),
                 std::forward<meterage_type>(meterage)
             );
     }

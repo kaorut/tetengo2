@@ -46,7 +46,9 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
         
-        const station_location_type station_location(station_type(string_type(), local_type::instance()), 0);
+        const station_location_type station_location(
+            station_type(string_type(), local_type::instance(), false, false), 0
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
@@ -55,20 +57,20 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
         {
             const station_location_type station_location1(
-                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance()), 1
+                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
             );
             const station_location_type station_location2(
-                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance()), 1
+                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
             );
 
             BOOST_CHECK(station_location1 == station_location2);
         }
         {
             const station_location_type station_location1(
-                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance()), 1
+                station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
             );
             const station_location_type station_location2(
-                station_type(string_type(TETENGO2_TEXT("B")), local_type::instance()), 2
+                station_type(string_type(TETENGO2_TEXT("B")), local_type::instance(), false, false), 2
             );
 
             BOOST_CHECK(station_location1 != station_location2);
@@ -79,7 +81,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        const station_type station(string_type(), local_type::instance());
+        const station_type station(string_type(), local_type::instance(), false, false);
         const station_location_type station_location(station, 0);
 
         BOOST_CHECK(station_location.station() == station);
@@ -90,17 +92,23 @@ BOOST_AUTO_TEST_SUITE(station_location)
         BOOST_TEST_PASSPOINT();
 
         {
-            const station_location_type station_location(station_type(string_type(), local_type::instance()), 0);
+            const station_location_type station_location(
+                station_type(string_type(), local_type::instance(), false, false), 0
+            );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
         }
         {
-            const station_location_type station_location(station_type(string_type(), local_type::instance()), 1);
+            const station_location_type station_location(
+                station_type(string_type(), local_type::instance(), false, false), 1
+            );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 1U);
         }
         {
-            const station_location_type station_location(station_type(string_type(), local_type::instance()), 2);
+            const station_location_type station_location(
+                station_type(string_type(), local_type::instance(), false, false), 2
+            );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
         }
@@ -111,20 +119,32 @@ BOOST_AUTO_TEST_SUITE(station_location)
         BOOST_TEST_PASSPOINT();
 
         {
-            const station_location_type station_location1(station_type(string_type(), local_type::instance()), 1);
-            const station_location_type station_location2(station_type(string_type(), local_type::instance()), 1);
+            const station_location_type station_location1(
+                station_type(string_type(), local_type::instance(), false, false), 1
+            );
+            const station_location_type station_location2(
+                station_type(string_type(), local_type::instance(), false, false), 1
+            );
 
             BOOST_CHECK(station_location1.before(station_location2));
         }
         {
-            const station_location_type station_location1(station_type(string_type(), local_type::instance()), 1);
-            const station_location_type station_location2(station_type(string_type(), local_type::instance()), 2);
+            const station_location_type station_location1(
+                station_type(string_type(), local_type::instance(), false, false), 1
+            );
+            const station_location_type station_location2(
+                station_type(string_type(), local_type::instance(), false, false), 2
+            );
 
             BOOST_CHECK(station_location1.before(station_location2));
         }
         {
-            const station_location_type station_location1(station_type(string_type(), local_type::instance()), 2);
-            const station_location_type station_location2(station_type(string_type(), local_type::instance()), 1);
+            const station_location_type station_location1(
+                station_type(string_type(), local_type::instance(), false, false), 2
+            );
+            const station_location_type station_location2(
+                station_type(string_type(), local_type::instance(), false, false), 1
+            );
 
             BOOST_CHECK(!station_location1.before(station_location2));
         }

@@ -44,14 +44,23 @@ namespace bobura { namespace model
 
             \tparam S A string type.
 
-            \param name  A name.
-            \param grade A grade.
+            \param name                     A name.
+            \param grade                    A grade.
+            \param shows_down_arrival_times True when the arrival times of down trains are shown.
+            \param shows_up_arrival_times   True when the arrival times of up trains are shown.
         */
         template <typename S>
-        station(S&& name, const grade_type& grade)
+        station(
+            S&& name,
+            const grade_type& grade,
+            const bool shows_down_arrival_times,
+            const bool shows_up_arrival_times
+        )
         :
         m_name(std::forward<S>(name)),
-        m_grade(grade)
+        m_grade(grade),
+        m_shows_down_arrival_times(shows_down_arrival_times),
+        m_shows_up_arrival_times(shows_up_arrival_times)
         {}
 
 
@@ -68,7 +77,11 @@ namespace bobura { namespace model
         */
         friend bool operator==(const station& one, const station& another)
         {
-            return one.m_name == another.m_name && &one.m_grade.get() == &another.m_grade.get();
+            return
+                one.m_name == another.m_name &&
+                &one.m_grade.get() == &another.m_grade.get() &&
+                one.m_shows_down_arrival_times == another.m_shows_down_arrival_times &&
+                one.m_shows_up_arrival_times == another.m_shows_up_arrival_times;
         }
 
         /*!
@@ -93,6 +106,30 @@ namespace bobura { namespace model
             return m_grade;
         }
 
+        /*!
+            \brief Returns whether the arrival times of down trains are shown.
+
+            \retval true  When the arrival times of down trains are shown.
+            \retval false Otherwise.
+        */
+        bool shows_down_arrival_times()
+        const
+        {
+            return m_shows_down_arrival_times;
+        }
+
+        /*!
+            \brief Returns whether the arrival times of up trains are shown.
+
+            \retval true  When the arrival times of up trains are shown.
+            \retval false Otherwise.
+        */
+        bool shows_up_arrival_times()
+        const
+        {
+            return m_shows_up_arrival_times;
+        }
+
 
     private:
         // variables
@@ -100,6 +137,10 @@ namespace bobura { namespace model
         string_type m_name;
 
         typename tetengo2::cpp11::reference_wrapper<const grade_type>::type m_grade;
+
+        bool m_shows_down_arrival_times;
+
+        bool m_shows_up_arrival_times;
 
 
     };
