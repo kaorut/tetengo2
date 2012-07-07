@@ -330,6 +330,28 @@ namespace bobura { namespace model { namespace serializer
                 number = member->second;
             }
 
+            string_type name;
+            {
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("name")))
+                    return boost::none;
+
+                name = member->second;
+            }
+
+            string_type name_number;
+            {
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("name_number")))
+                    return boost::none;
+
+                name_number = member->second;
+            }
+
             string_type note;
             {
                 const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
@@ -341,7 +363,7 @@ namespace bobura { namespace model { namespace serializer
                 note = member->second;
             }
 
-            train_type train(number, string_type(), string_type(), note);
+            train_type train(number, name, name_number, note);
 
             const boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
             if (!stops)
