@@ -3,18 +3,90 @@
         "title": "豊肥本線"
     },
     [
-        { "name": "熊本",       "grade": "local terminal", "meterage":    0 },
-        { "name": "平成",       "grade": "local",          "meterage":   27 },
-        { "name": "南熊本",     "grade": "local",          "meterage":   36 },
-        { "name": "新水前寺",   "grade": "local",          "meterage":   52 },
-        { "name": "水前寺",     "grade": "principal",      "meterage":   58 },
-        { "name": "東海学園前", "grade": "local",          "meterage":   78 },
-        { "name": "竜田口",     "grade": "local",          "meterage":   89 },
-        { "name": "武蔵塚",     "grade": "local",          "meterage":  129 },
-        { "name": "光の森",     "grade": "local",          "meterage":  148 },
-        { "name": "三里木",     "grade": "local",          "meterage":  158 },
-        { "name": "原水",       "grade": "local",          "meterage":  189 },
-        { "name": "肥後大津",   "grade": "principal",      "meterage":  226 }
+        {
+            "name":                    "熊本",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                0
+        },
+        {
+            "name":                    "平成",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                27
+        },
+        {
+            "name":                    "南熊本",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                36
+        },
+        {
+            "name":                    "新水前寺",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                52
+        },
+        {
+            "name":                    "水前寺",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                58
+        },
+        {
+            "name":                    "東海学園前",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                78
+        },
+        {
+            "name":                    "竜田口",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                89
+        },
+        {
+            "name":                    "武蔵塚",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                129
+        },
+        {
+            "name":                    "光の森",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                148
+        },
+        {
+            "name":                    "三里木",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                158
+        },
+        {
+            "name":                    "原水",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                189
+        },
+        {
+            "name":                    "肥後大津",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                226
+        }
     ],
     [
         {

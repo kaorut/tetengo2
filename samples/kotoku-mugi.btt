@@ -3,26 +3,146 @@
         "title": "高徳線・牟岐線"
     },
     [
-        { "name": "板野",     "grade": "principal",      "meterage":  580 },
-        { "name": "阿波川端", "grade": "local",          "meterage":  598 },
-        { "name": "板東",     "grade": "local",          "meterage":  621 },
-        { "name": "池谷",     "grade": "local terminal", "meterage":  642 },
-        { "name": "勝瑞",     "grade": "local",          "meterage":  669 },
-        { "name": "吉成",     "grade": "local",          "meterage":  682 },
-        { "name": "佐古",     "grade": "local",          "meterage":  731 },
-        { "name": "徳島",     "grade": "local terminal", "meterage":  745 },
-        { "name": "阿波富田", "grade": "local",          "meterage":  759 },
-        { "name": "二軒屋",   "grade": "local",          "meterage":  773 },
-        { "name": "文化の森", "grade": "local",          "meterage":  784 },
-        { "name": "地蔵橋",   "grade": "local",          "meterage":  805 },
-        { "name": "中田",     "grade": "local",          "meterage":  837 },
-        { "name": "南小松島", "grade": "principal",      "meterage":  854 },
-        { "name": "阿波赤石", "grade": "local",          "meterage":  887 },
-        { "name": "立江",     "grade": "local",          "meterage":  901 },
-        { "name": "羽ノ浦",   "grade": "local",          "meterage":  922 },
-        { "name": "西原",     "grade": "local",          "meterage":  943 },
-        { "name": "阿波中島", "grade": "local",          "meterage":  963 },
-        { "name": "阿南",     "grade": "local terminal", "meterage":  990 }
+        {
+            "name":                    "板野",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                580
+        },
+        {
+            "name":                    "阿波川端",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                598
+        },
+        {
+            "name":                    "板東",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                621
+        },
+        {
+            "name":                    "池谷",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                642
+        },
+        {
+            "name":                    "勝瑞",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                669
+        },
+        {
+            "name":                    "吉成",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                682
+        },
+        {
+            "name":                    "佐古",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                731
+        },
+        {
+            "name":                    "徳島",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                745
+        },
+        {
+            "name":                    "阿波富田",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                759
+        },
+        {
+            "name":                    "二軒屋",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                773
+        },
+        {
+            "name":                    "文化の森",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                784
+        },
+        {
+            "name":                    "地蔵橋",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                805
+        },
+        {
+            "name":                    "中田",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                837
+        },
+        {
+            "name":                    "南小松島",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                854
+        },
+        {
+            "name":                    "阿波赤石",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                887
+        },
+        {
+            "name":                    "立江",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                901
+        },
+        {
+            "name":                    "羽ノ浦",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                922
+        },
+        {
+            "name":                    "西原",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                943
+        },
+        {
+            "name":                    "阿波中島",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                963
+        },
+        {
+            "name":                    "阿南",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                990
+        }
     ],
     [
         {
