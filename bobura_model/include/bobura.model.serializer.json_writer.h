@@ -190,6 +190,18 @@ namespace bobura { namespace model { namespace serializer
             output_stream << value;
         }
 
+        static void write_object_entry(
+            const string_type&  key,
+            const bool          value,
+            const size_type     level,
+            output_stream_type& output_stream
+        )
+        {
+            write_object_key(key, level, output_stream);
+            output_stream <<
+                (value ? output_string_type(TETENGO2_TEXT("true")) : output_string_type(TETENGO2_TEXT("false")));
+        }
+
         static void write_header(
             const timetable_type& timetable,
             const size_type       level,
@@ -242,24 +254,45 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             new_line(level + 1, output_stream);
+            output_stream << object_begin();
 
-            output_stream << object_begin() << space();
-
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("name")), station_location.station().name(), level, output_stream
             );
-            output_stream << comma() << space();
+            output_stream << comma();
 
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("grade")), station_location.station().grade().name(), level, output_stream
             );
-            output_stream << comma() << space();
+            output_stream << comma();
 
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("show_down_arrival_times")),
+                station_location.station().shows_down_arrival_times(),
+                level,
+                output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("show_up_arrival_times")),
+                station_location.station().shows_up_arrival_times(),
+                level,
+                output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), level, output_stream
             );
 
-            output_stream << space() << object_end();
+            new_line(level + 1, output_stream);
+            output_stream << object_end();
             if (!last)
                 output_stream << comma();
         }

@@ -80,8 +80,20 @@ namespace
         "        \"title\": \"hoge\"\n"
         "    },\n"
         "    [\n"
-        "        { \"name\": \"stationA\", \"grade\": \"local\", \"meterage\": 42 },\n"
-        "        { \"name\": \"stationB\", \"grade\": \"principal\", \"meterage\": 4242 }\n"
+        "        {\n"
+        "            \"name\": \"stationA\",\n"
+        "            \"grade\": \"local\",\n"
+        "            \"show_down_arrival_times\": false,\n"
+        "            \"show_up_arrival_times\": true,\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\": \"stationB\",\n"
+        "            \"grade\": \"principal\",\n"
+        "            \"show_down_arrival_times\": true,\n"
+        "            \"show_up_arrival_times\": false,\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
         "    ],\n"
         "    [\n"
         "        {\n"
@@ -132,14 +144,14 @@ namespace
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance(), false, false),
+                    station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance(), false, true),
                     42
                 )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance(), false, false),
+                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance(), true, false),
                     4242
                 )
             );
