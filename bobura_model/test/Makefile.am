@@ -28,7 +28,8 @@ sources = \
     test_bobura.model.train.cpp \
     test_bobura.model.train_info.stop.cpp \
     test_bobura.model.train_info.time.cpp \
-    test_bobura.model.train_info.time_span.cpp
+    test_bobura.model.train_info.time_span.cpp \
+    test_bobura.model.train_kind.cpp
 
 extra_sources =
 

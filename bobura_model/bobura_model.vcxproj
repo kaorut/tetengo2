@@ -102,6 +102,7 @@
     <ClInclude Include="include\bobura.model.train_info.stop.h" />
     <ClInclude Include="include\bobura.model.train_info.time.h" />
     <ClInclude Include="include\bobura.model.train_info.time_span.h" />
+    <ClInclude Include="include\bobura.model.train_kind.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

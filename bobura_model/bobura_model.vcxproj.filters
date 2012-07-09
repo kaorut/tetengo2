@@ -84,5 +84,8 @@
     <ClInclude Include="include\bobura.model.timetable_info.station_interval_calculator.h">
       <Filter>headers\bobura::model\timetable_info</Filter>
     </ClInclude>
+    <ClInclude Include="include\bobura.model.train_kind.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

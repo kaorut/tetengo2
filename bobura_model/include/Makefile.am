@@ -22,7 +22,8 @@ headers = \
     bobura.model.train.h \
     bobura.model.train_info.stop.h \
     bobura.model.train_info.time.h \
-    bobura.model.train_info.time_span.h
+    bobura.model.train_info.time_span.h \
+    bobura.model.train_kind.h
 
 extra_headers =
 

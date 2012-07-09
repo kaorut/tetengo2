@@ -47,6 +47,7 @@
 #include "bobura.model.train_info.stop.h"
 #include "bobura.model.train_info.time.h"
 #include "bobura.model.train_info.time_span.h"
+#include "bobura.model.train_kind.h"
 
 
 namespace test_bobura { namespace model
@@ -81,6 +82,7 @@ namespace test_bobura { namespace model
         struct grade_type_set; //!< The station grade type set type.
         struct station;        //!< The station type.
         struct station_location; //!< The station location type.
+        struct train_kind;     //!< The train kind type.
         struct time_span;      //!< The time span type.
         struct time;           //!< The time type.
         struct stop;           //!< The stop type.
@@ -100,6 +102,7 @@ namespace test_bobura { namespace model
         typedef
             bobura::model::timetable_info::station_location<station_type, boost::mpl::at<type_list, type::size>::type>
             station_location_type;
+        typedef bobura::model::train_kind<boost::mpl::at<type_list, type::string>::type> train_kind_type;
         typedef bobura::model::train_info::time_span<boost::mpl::at<type_list, type::difference>::type> time_span_type;
         typedef bobura::model::train_info::time<boost::mpl::at<type_list, type::size>::type, time_span_type> time_type;
         typedef
@@ -118,6 +121,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::station, detail::model::station_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::model::station_location, detail::model::station_location_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::model::train_kind, detail::model::train_kind_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::time_span, detail::model::time_span_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::time, detail::model::time_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::stop, detail::model::stop_type>,
@@ -138,7 +142,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>
         model_type_list;
 
 
