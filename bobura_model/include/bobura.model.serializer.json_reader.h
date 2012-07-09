@@ -253,6 +253,28 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
             }
 
+            bool show_down_arrival_times = false;
+            {
+                const boost::optional<std::pair<string_type, bool>> member = read_boolean_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("show_down_arrival_times")))
+                    return boost::none;
+
+                show_down_arrival_times = member->second;
+            }
+
+            bool show_up_arrival_times = false;
+            {
+                const boost::optional<std::pair<string_type, bool>> member = read_boolean_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("show_up_arrival_times")))
+                    return boost::none;
+
+                show_up_arrival_times = member->second;
+            }
+
             meterage_type meterage = 0;
             {
                 const boost::optional<std::pair<string_type, meterage_type>> member =
@@ -269,7 +291,12 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(station_location_type(station_type(name, *p_grade, false, false), meterage));
+            return
+                boost::make_optional(
+                    station_location_type(
+                        station_type(name, *p_grade, show_down_arrival_times, show_up_arrival_times), meterage
+                    )
+                );
         }
 
         static const station_grade_type* to_station_grade(const string_type& name)
@@ -507,8 +534,7 @@ namespace bobura { namespace model { namespace serializer
             const value_type& value = boost::get<value_type>(element);
             if (value.which() != 4)
                 return boost::none;
-            const input_string_type string =
-                boost::get<input_string_type>(value);
+            const input_string_type string = boost::get<input_string_type>(value);
             pull_parser.next();
             return boost::make_optional(string);
         }
@@ -548,6 +574,41 @@ namespace bobura { namespace model { namespace serializer
             const Integer integer = boost::get<integer_type>(value);
             pull_parser.next();
             return boost::make_optional(integer);
+        }
+
+        static boost::optional<std::pair<string_type, bool>> read_boolean_member(pull_parser_type& pull_parser)
+        {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+                return boost::none;
+            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            if (key.empty())
+                return boost::none;
+            pull_parser.next();
+
+            const boost::optional<bool> value = read_boolean(pull_parser);
+            if (!value)
+                return boost::none;
+
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+                return boost::none;
+            pull_parser.next();
+
+            return boost::make_optional(std::make_pair(encoder().decode(key), *value));
+        }
+
+        static boost::optional<bool> read_boolean(pull_parser_type& pull_parser)
+        {
+            if (!pull_parser.has_next())
+                return boost::none;
+            const element_type& element = pull_parser.peek();
+            if (element.which() != 2)
+                return boost::none;
+            const value_type& value = boost::get<value_type>(element);
+            if (value.which() != 0)
+                return boost::none;
+            const bool boolean = boost::get<bool>(value);
+            pull_parser.next();
+            return boost::make_optional(boolean);
         }
 
         static bool next_is_structure_begin(const pull_parser_type& pull_parser, const input_string_type& name)
