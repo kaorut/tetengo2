@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
-#include <cassert>
 #include <iterator>
 #include <memory>
 #include <stdexcept>
@@ -72,12 +71,6 @@ namespace bobura { namespace model
         //! The train kind list type.
         typedef TrainKindList train_kind_list_type;
 
-        //! The train kind type.
-        typedef typename train_kind_list_type::train_kind_type train_kind_type;
-
-        //! The train kinds type.
-        typedef std::vector<std::unique_ptr<train_kind_type>> train_kinds_type;
-
         //! The train type.
         typedef Train train_type;
 
@@ -97,13 +90,11 @@ namespace bobura { namespace model
         :
         m_title(),
         m_station_locations(),
-        m_train_kinds(build_initial_train_kinds()),
+        m_train_kind_list(),
         m_down_trains(),
         m_up_trains(),
         m_observer_set()
-        {
-            assert(!m_train_kinds.empty());
-        }
+        {}
 
         /*!
             \brief Creates a timetalble.
@@ -118,13 +109,11 @@ namespace bobura { namespace model
         :
         m_title(),
         m_station_locations(station_location_first, station_location_last),
-        m_train_kinds(build_initial_train_kinds()),
+        m_train_kind_list(),
         m_down_trains(),
         m_up_trains(),
         m_observer_set()
-        {
-            assert(!m_train_kinds.empty());
-        }
+        {}
 
 
         // functions
@@ -394,34 +383,6 @@ namespace bobura { namespace model
 
         // static functions
 
-        static train_kinds_type build_initial_train_kinds()
-        {
-            train_kinds_type kinds;
-
-            kinds.push_back(
-                tetengo2::make_unique<train_kind_type>(
-                    string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local"))
-                )
-            );
-            kinds.push_back(
-                tetengo2::make_unique<train_kind_type>(
-                    string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid"))
-                )
-            );
-            kinds.push_back(
-                tetengo2::make_unique<train_kind_type>(
-                    string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Express"))
-                )
-            );
-            kinds.push_back(
-                tetengo2::make_unique<train_kind_type>(
-                    string_type(TETENGO2_TEXT("Limited Express")), string_type(TETENGO2_TEXT("Ltd.Exp."))
-                )
-            );
-
-            return kinds;
-        }
-
         static void insert_train_stop(train_type& train, const difference_type offset)
         {
             train.insert_stop(
@@ -463,7 +424,7 @@ namespace bobura { namespace model
 
         station_locations_type m_station_locations;
 
-        train_kinds_type m_train_kinds;
+        train_kind_list_type m_train_kind_list;
 
         trains_type m_down_trains;
 
