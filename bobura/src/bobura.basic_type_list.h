@@ -115,6 +115,7 @@
 #include "bobura.model.train_info.stop.h"
 #include "bobura.model.train_info.time.h"
 #include "bobura.model.train_info.time_span.h"
+#include "bobura.model.train_kind.h"
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
 #include "bobura.view.scale_list.h"
@@ -297,6 +298,7 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::string>::type,
                 station_location_type,
                 station_interval_calculator_type,
+                bobura::model::train_kind<boost::mpl::at<common_type_list, type::string>::type>,
                 train_type,
                 bobura::model::message::timetable_observer_set
             >
