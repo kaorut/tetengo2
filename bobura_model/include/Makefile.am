@@ -19,6 +19,7 @@ headers = \
     bobura.model.timetable.h \
     bobura.model.timetable_info.station_interval_calculator.h \
     bobura.model.timetable_info.station_location.h \
+    bobura.model.timetable_info.train_kind_list.h \
     bobura.model.train.h \
     bobura.model.train_info.stop.h \
     bobura.model.train_info.time.h \

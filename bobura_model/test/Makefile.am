@@ -25,6 +25,7 @@ sources = \
     test_bobura.model.timetable.cpp \
     test_bobura.model.timetable_info.station_interval_calculator.cpp \
     test_bobura.model.timetable_info.station_location.cpp \
+    test_bobura.model.timetable_info.train_kind_list.cpp \
     test_bobura.model.train.cpp \
     test_bobura.model.train_info.stop.cpp \
     test_bobura.model.train_info.time.cpp \
