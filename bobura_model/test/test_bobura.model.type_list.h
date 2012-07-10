@@ -142,7 +142,7 @@ namespace test_bobura { namespace model
                     boost::mpl::at<type_list, type::string>::type,
                     detail::model::station_location_type,
                     detail::model::station_interval_calculator_type,
-                    detail::model::train_kind_type,
+                    detail::model::train_kind_list_type,
                     detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >

@@ -34,7 +34,7 @@ namespace bobura { namespace model
         \tparam String                    A string type.
         \tparam StationLocation           A station location type.
         \tparam StationIntervalCalculator A station interval calculatortype.
-        \tparam TrainKind                 A train kind type.
+        \tparam TrainKindList             A train kind list type.
         \tparam Train                     A train type.
         \tparam ObserverSet               An observer set type.
     */
@@ -42,13 +42,13 @@ namespace bobura { namespace model
         typename String,
         typename StationLocation,
         typename StationIntervalCalculator,
-        typename TrainKind,
+        typename TrainKindList,
         typename Train,
         typename ObserverSet
     >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, ObserverSet>
+            timetable<String, StationLocation, StationIntervalCalculator, TrainKindList, Train, ObserverSet>
         >
     {
     public:
@@ -69,8 +69,11 @@ namespace bobura { namespace model
         //! The station intervals type.
         typedef typename station_interval_calculator_type::station_intervals_type station_intervals_type;
 
+        //! The train kind list type.
+        typedef TrainKindList train_kind_list_type;
+
         //! The train kind type.
-        typedef TrainKind train_kind_type;
+        typedef typename train_kind_list_type::train_kind_type train_kind_type;
 
         //! The train kinds type.
         typedef std::vector<std::unique_ptr<train_kind_type>> train_kinds_type;
