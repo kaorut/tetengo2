@@ -37,14 +37,25 @@ BOOST_AUTO_TEST_SUITE(train_kind)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
     }
 
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+
+        BOOST_CHECK(kind.name() == string_type(TETENGO2_TEXT("hoge")));
+    }
+
+    BOOST_AUTO_TEST_CASE(abbreviation)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+
+        BOOST_CHECK(kind.abbreviation() == string_type(TETENGO2_TEXT("fuga")));
     }
 
 

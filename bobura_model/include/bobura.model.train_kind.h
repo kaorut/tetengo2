@@ -36,14 +36,17 @@ namespace bobura { namespace model
         /*!
             \brief Creates a train kind.
 
-            \tparam S A string type.
+            \tparam S1 A string type #1.
+            \tparam S2 A string type #2.
 
-            \param name A name.
+            \param name         A name.
+            \param abbreviation An abbreviated name.
         */
-        template <typename S>
-        train_kind(S&& name)
+        template <typename S1, typename S2>
+        train_kind(S1&& name, S2&& abbreviation)
         :
-        m_name(std::forward<S>(name))
+        m_name(std::forward<S1>(name)),
+        m_abbreviation(std::forward<S2>(abbreviation))
         {}
 
 
@@ -60,11 +63,24 @@ namespace bobura { namespace model
             return m_name;
         }
 
+        /*!
+            \brief Returns the abbreviated name.
+
+            \return The abbreviated name.
+        */
+        const string_type& abbreviation()
+        const
+        {
+            return m_abbreviation;
+        }
+
 
     private:
         // variables
 
         string_type m_name;
+
+        string_type m_abbreviation;
 
 
     };
