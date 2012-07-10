@@ -111,6 +111,7 @@
     <ClCompile Include="test\test_bobura.model.timetable.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calculator.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable_info.station_location.cpp" />
+    <ClCompile Include="test\test_bobura.model.timetable_info.train_kind_list.cpp" />
     <ClCompile Include="test\test_bobura.model.train.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.stop.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.time.cpp" />
