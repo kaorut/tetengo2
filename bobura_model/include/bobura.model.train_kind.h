@@ -11,7 +11,7 @@
 
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/operators.hpp>
 
 
 namespace bobura { namespace model
@@ -22,7 +22,7 @@ namespace bobura { namespace model
         \tparam String A string type.
     */
     template <typename String>
-    class train_kind : private boost::noncopyable
+    class train_kind : private boost::equality_comparable<train_kind<String>>
     {
     public:
         // types
@@ -51,6 +51,22 @@ namespace bobura { namespace model
 
 
         // functions
+
+        /*!
+            \brief Checks whether one train kind is equal to another.
+
+            \param one     One train kind.
+            \param another Another train kind.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const train_kind& one, const train_kind& another)
+        {
+            return
+                one.m_name == another.m_name &&
+                one.m_abbreviation == another.m_abbreviation;
+        }
 
         /*!
             \brief Returns the name.
