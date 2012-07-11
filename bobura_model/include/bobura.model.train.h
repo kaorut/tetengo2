@@ -174,6 +174,17 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Returns the kind.
+
+            \return The kind.
+        */
+        const kind_type& kind()
+        const
+        {
+            return m_kind.get();
+        }
+
+        /*!
             \brief Returns the name.
 
             \return The name.

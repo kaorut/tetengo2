@@ -307,6 +307,22 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("1")));
     }
 
+    BOOST_AUTO_TEST_CASE(kind)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+        const train_type train(
+            string_type(TETENGO2_TEXT("1")),
+            kind,
+            string_type(TETENGO2_TEXT("a")),
+            string_type(TETENGO2_TEXT("42")),
+            string_type(TETENGO2_TEXT("x"))
+        );
+
+        BOOST_CHECK(&train.kind() == &kind);
+    }
+
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();
