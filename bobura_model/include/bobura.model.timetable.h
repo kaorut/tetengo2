@@ -72,7 +72,7 @@ namespace bobura { namespace model
         typedef TrainKind train_kind_type;
 
         //! The train kinds type.
-        typedef std::vector<std::unique_ptr<train_kind_type>> train_kinds_type;
+        typedef std::vector<train_kind_type> train_kinds_type;
 
         //! The train type.
         typedef Train train_type;
