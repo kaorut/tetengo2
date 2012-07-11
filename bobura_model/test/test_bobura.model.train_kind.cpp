@@ -40,24 +40,6 @@ BOOST_AUTO_TEST_SUITE(train_kind)
         const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
     }
 
-    BOOST_AUTO_TEST_CASE(operator_equal)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            const train_kind_type kind1(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
-            const train_kind_type kind2(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
-
-            BOOST_CHECK(kind1 == kind2);
-        }
-        {
-            const train_kind_type kind1(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
-            const train_kind_type kind2(string_type(TETENGO2_TEXT("foo")), string_type(TETENGO2_TEXT("bar")));
-
-            BOOST_CHECK(kind1 != kind2);
-        }
-    }
-
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();
