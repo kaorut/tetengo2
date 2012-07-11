@@ -45,6 +45,10 @@ namespace
     typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::stop>::type stop_type;
 
     typedef
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train_kind>::type
+        train_kind_type;
+
+    typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
 
     typedef
@@ -158,8 +162,10 @@ namespace
         }
         {
             {
+                const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
                 train_type train(
                     string_type(TETENGO2_TEXT("101D")),
+                    kind,
                     string_type(TETENGO2_TEXT("foo")),
                     string_type(TETENGO2_TEXT("bar")),
                     string_type(TETENGO2_TEXT("fuga"))
@@ -175,8 +181,10 @@ namespace
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
             {
+                const train_kind_type kind(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")));
                 train_type train(
                     string_type(TETENGO2_TEXT("123D")),
+                    kind,
                     string_type(TETENGO2_TEXT("baz")),
                     string_type(TETENGO2_TEXT("bazz")),
                     string_type()
@@ -193,8 +201,10 @@ namespace
         }
         {
             {
+                const train_kind_type kind(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")));
                 train_type train(
                     string_type(TETENGO2_TEXT("9324M")),
+                    kind,
                     string_type(TETENGO2_TEXT("abc")),
                     string_type(TETENGO2_TEXT("def")),
                     string_type(TETENGO2_TEXT("piyo"))

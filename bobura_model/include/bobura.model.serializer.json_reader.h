@@ -86,6 +86,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::string_type string_type;
 
+        typedef typename timetable_type::train_kind_type train_kind_type;
+
         typedef typename push_parser_type::grammar_type grammar_type;
 
         typedef typename push_parser_type::string_type input_string_type;
@@ -390,7 +392,8 @@ namespace bobura { namespace model { namespace serializer
                 note = member->second;
             }
 
-            train_type train(number, name, name_number, note);
+            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            train_type train(number, kind, name, name_number, note);
 
             const boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
             if (!stops)
