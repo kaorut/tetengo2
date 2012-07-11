@@ -308,11 +308,20 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a train kind.
 
+            \tparam TK A train kind type.
+
+            \param position   A position where a train kind is inserted.
             \param train_kind A train kind.
         */
-        void insert_train_kind(const train_kind_type& train_kind)
+        template <typename TK>
+        void insert_train_kind(
+            const typename train_kinds_type::const_iterator position,
+            TK&&                                            train_kind
+        )
         {
+            m_train_kinds.insert(position, std::forward<TK>(train_kind));
 
+            m_observer_set.changed();
         }
 
         /*!

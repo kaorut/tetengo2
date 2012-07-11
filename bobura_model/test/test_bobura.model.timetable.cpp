@@ -853,7 +853,25 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        timetable_type timetable;
+
+        const train_kind_type kind1(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")));
+        timetable.insert_train_kind(timetable.train_kinds().end(), kind1);
+        
+        BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 1U);
+
+        const train_kind_type kind2(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+        timetable.insert_train_kind(timetable.train_kinds().end(), kind2);
+       
+        BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 2U);
+
+        const train_kind_type kind0(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")));
+        timetable.insert_train_kind(timetable.train_kinds().begin(), kind0);
+       
+        BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 3U);
+        BOOST_CHECK(timetable.train_kinds()[0].name() == string_type(TETENGO2_TEXT("Rapid")));
+        BOOST_CHECK(timetable.train_kinds()[1].name() == string_type(TETENGO2_TEXT("Local")));
+        BOOST_CHECK(timetable.train_kinds()[2].name() == string_type(TETENGO2_TEXT("Express")));
     }
 
     BOOST_AUTO_TEST_CASE(erase_train_kind)
