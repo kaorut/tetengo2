@@ -108,7 +108,9 @@ namespace test_bobura { namespace model
         typedef
             bobura::model::train_info::stop<detail::model::time_type, boost::mpl::at<type_list, type::string>::type>
             stop_type;
-        typedef bobura::model::train<boost::mpl::at<type_list, type::string>::type, stop_type> train_type;
+        typedef
+            bobura::model::train<boost::mpl::at<type_list, type::string>::type, train_kind_type, stop_type>
+            train_type;
         typedef
             bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
             station_interval_calculator_type;
