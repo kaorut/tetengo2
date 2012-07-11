@@ -830,7 +830,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const timetable_type timetable;
+
+        BOOST_CHECK(timetable.train_kinds().empty());
     }
 
     BOOST_AUTO_TEST_CASE(train_kind_index)
