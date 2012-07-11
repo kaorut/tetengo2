@@ -27,10 +27,6 @@ namespace
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train_kind>::type
-        train_kind_type;
-
-    typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
 
 
@@ -47,10 +43,9 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_TEST_PASSPOINT();
 
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             const train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -59,14 +54,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops().empty());
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             train_type::stops_type stops2(stops);
 
             const train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -76,14 +70,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             const train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -93,13 +86,12 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
             const train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -110,14 +102,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             const train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -134,10 +125,9 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_TEST_PASSPOINT();
 
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -145,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
             const train_type train2(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -154,12 +144,11 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train1 == train2);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops1;
             stops1.push_back(stop_type(time_type(0), time_type(0), string_type()));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -171,7 +160,7 @@ BOOST_AUTO_TEST_SUITE(train)
             stops2.push_back(stop_type(time_type(0), time_type(0), string_type()));
             const train_type train2(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -182,13 +171,12 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train1 == train2);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops1;
             stops1.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
             stops1.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -201,7 +189,7 @@ BOOST_AUTO_TEST_SUITE(train)
             stops2.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
             const train_type train2(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -212,10 +200,9 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train1 == train2);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -226,7 +213,7 @@ BOOST_AUTO_TEST_SUITE(train)
             stops2.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
             const train_type train2(
                 string_type(TETENGO2_TEXT("2")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("y")),
@@ -237,12 +224,11 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train1 != train2);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops1;
             stops1.push_back(stop_type(time_type(0), time_type(0), string_type()));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -252,7 +238,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
             const train_type train2(
                 string_type(TETENGO2_TEXT("2")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("y"))
@@ -261,12 +247,11 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train1 != train2);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops1;
             stops1.push_back(stop_type(time_type(0), time_type(0), string_type()));
             const train_type train1(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -279,7 +264,7 @@ BOOST_AUTO_TEST_SUITE(train)
             stops2.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
             const train_type train2(
                 string_type(TETENGO2_TEXT("2")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("y")),
@@ -295,10 +280,9 @@ BOOST_AUTO_TEST_SUITE(train)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            0,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x"))
@@ -307,30 +291,28 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("1")));
     }
 
-    BOOST_AUTO_TEST_CASE(kind)
+    BOOST_AUTO_TEST_CASE(kind_index)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            42,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x"))
         );
 
-        BOOST_CHECK(&train.kind() == &kind);
+        BOOST_CHECK_EQUAL(train.kind_index(), 42U);
     }
 
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            0,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x"))
@@ -343,10 +325,9 @@ BOOST_AUTO_TEST_SUITE(train)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            0,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x"))
@@ -359,10 +340,9 @@ BOOST_AUTO_TEST_SUITE(train)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            0,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x"))
@@ -375,14 +355,13 @@ BOOST_AUTO_TEST_SUITE(train)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
         train_type::stops_type stops;
         stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
         stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
         const train_type train(
             string_type(TETENGO2_TEXT("1")),
-            kind,
+            0,
             string_type(TETENGO2_TEXT("a")),
             string_type(TETENGO2_TEXT("42")),
             string_type(TETENGO2_TEXT("x")),
@@ -398,13 +377,12 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_TEST_PASSPOINT();
 
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -414,14 +392,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -432,14 +409,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -451,14 +427,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops() == stops);
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -476,14 +451,13 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_TEST_PASSPOINT();
 
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")), 
@@ -496,14 +470,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops().empty());
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x"))
@@ -516,14 +489,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops().empty());
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -537,14 +509,13 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops().empty());
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),
@@ -563,7 +534,6 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.stops()[1].platform() == string_type(TETENGO2_TEXT("a")));
         }
         {
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
@@ -571,7 +541,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
             train_type train(
                 string_type(TETENGO2_TEXT("1")),
-                kind,
+                0,
                 string_type(TETENGO2_TEXT("a")),
                 string_type(TETENGO2_TEXT("42")),
                 string_type(TETENGO2_TEXT("x")),

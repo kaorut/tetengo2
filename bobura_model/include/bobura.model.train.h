@@ -15,20 +15,18 @@
 
 #include <boost/operators.hpp>
 
-#include <tetengo2.cpp11.h>
-
 
 namespace bobura { namespace model
 {
     /*!
         \brief The class template for a train.
 
-        \tparam String A string type.
-        \tparam Kind   A kind type.
-        \tparam Stop   A stop type.
+        \tparam String    A string type.
+        \tparam KindIndex A kind index type.
+        \tparam Stop      A stop type.
     */
-    template <typename String, typename Kind, typename Stop>
-    class train : private boost::equality_comparable<train<String, Kind, Stop>>
+    template <typename String, typename KindIndex, typename Stop>
+    class train : private boost::equality_comparable<train<String, KindIndex, Stop>>
     {
     public:
         // types
@@ -36,8 +34,8 @@ namespace bobura { namespace model
         //! The string type.
         typedef String string_type;
 
-        //! The kind type.
-        typedef Kind kind_type;
+        //! The kind index type.
+        typedef KindIndex kind_index_type;
 
         //! The stop type.
         typedef Stop stop_type;
@@ -57,16 +55,16 @@ namespace bobura { namespace model
             \tparam S4 A string type #4.
 
             \param number      A number.
-            \param kind        A kind.
+            \param kind_index  A kind index.
             \param name        A name.
             \param name_number A name number.
             \param note        A note.
         */
         template <typename S1, typename S2, typename S3, typename S4>
-        train(S1&& number, const kind_type& kind, S2&& name, S3&& name_number, S4&& note)
+        train(S1&& number, const kind_index_type kind_index, S2&& name, S3&& name_number, S4&& note)
         :
         m_number(std::forward<S1>(number)),
-        m_kind(kind),
+        m_kind_index(kind_index),
         m_name(std::forward<S2>(name)),
         m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
@@ -75,6 +73,8 @@ namespace bobura { namespace model
 
         /*!
             \brief Creates a train.
+
+            kind_index must be less than the train kind count in the timetable.
 
             \tparam InputIterator An input iterator for stops.
 
@@ -85,17 +85,17 @@ namespace bobura { namespace model
             \tparam Ss A stops type.
 
             \param number      A number.
-            \param kind        A kind.
+            \param kind_index  A kind index.
             \param name        A name.
             \param name_number A name number.
             \param note        A note.
             \param stops       Stops.
         */
         template <typename S1, typename S2, typename S3, typename S4, typename Ss>
-        train(S1&& number, const kind_type& kind, S2&& name, S3&& name_number, S4&& note, Ss&& stops)
+        train(S1&& number, const kind_index_type kind_index, S2&& name, S3&& name_number, S4&& note, Ss&& stops)
         :
         m_number(std::forward<S1>(number)),
-        m_kind(kind),
+        m_kind_index(kind_index),
         m_name(std::forward<S2>(name)),
         m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
@@ -114,7 +114,7 @@ namespace bobura { namespace model
             \tparam InputIterator An input iterator type.
 
             \param number      A number.
-            \param kind        A kind.
+            \param kind_index  A kind index.
             \param name        A name.
             \param name_number A name number.
             \param note        A note.
@@ -123,17 +123,17 @@ namespace bobura { namespace model
         */
         template <typename S1, typename S2, typename S3, typename S4, typename InputIterator>
         train(
-            S1&&                number,
-            const kind_type&    kind,
-            S2&&                name,
-            S3&&                name_number,
-            S4&&                note,
-            const InputIterator stop_first,
-            const InputIterator stop_last
+            S1&&                  number,
+            const kind_index_type kind_index,
+            S2&&                  name,
+            S3&&                  name_number,
+            S4&&                  note,
+            const InputIterator   stop_first,
+            const InputIterator   stop_last
         )
         :
         m_number(std::forward<S1>(number)),
-        m_kind(kind),
+        m_kind_index(kind_index),
         m_name(std::forward<S2>(name)),
         m_name_number(std::forward<S3>(name_number)),
         m_note(std::forward<S4>(note)),
@@ -156,6 +156,7 @@ namespace bobura { namespace model
         {
             return
                 one.m_number == another.m_number &&
+                one.m_kind_index == another.m_kind_index &&
                 one.m_name == another.m_name &&
                 one.m_name_number == another.m_name_number &&
                 one.m_note == another.m_note &&
@@ -174,14 +175,14 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Returns the kind.
+            \brief Returns the kind index.
 
-            \return The kind.
+            \return The kind index.
         */
-        const kind_type& kind()
+        kind_index_type kind_index()
         const
         {
-            return m_kind.get();
+            return m_kind_index;
         }
 
         /*!
@@ -262,7 +263,7 @@ namespace bobura { namespace model
 
         string_type m_number;
 
-        typename tetengo2::cpp11::reference_wrapper<const kind_type>::type m_kind;
+        kind_index_type m_kind_index;
 
         string_type m_name;
 

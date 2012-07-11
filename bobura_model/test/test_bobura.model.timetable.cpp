@@ -397,13 +397,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")))
@@ -429,7 +432,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y")),
@@ -454,7 +457,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z")),
@@ -477,13 +480,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")))
@@ -509,7 +515,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y")),
@@ -534,7 +540,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z")),
@@ -674,8 +680,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
             stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
@@ -684,7 +693,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")),
@@ -713,8 +722,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
             stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
@@ -723,7 +735,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")),
@@ -752,8 +764,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
             stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
@@ -762,7 +777,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")),
@@ -791,8 +806,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
             stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
@@ -801,7 +819,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x")),
@@ -887,12 +905,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -907,12 +929,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -922,7 +948,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -952,12 +978,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -972,12 +1002,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -987,7 +1021,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1010,12 +1044,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1030,12 +1068,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1045,7 +1087,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1062,12 +1104,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1077,7 +1123,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("4")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("w"))
@@ -1087,7 +1133,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().begin(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1097,7 +1143,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().begin() + 2,
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z"))
@@ -1125,14 +1171,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
-
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
                     train_type(
                         string_type(TETENGO2_TEXT("1")),
-                        kind,
+                        0,
                         string_type(TETENGO2_TEXT("a")),
                         string_type(TETENGO2_TEXT("42")),
                         string_type(TETENGO2_TEXT("x"))
@@ -1143,17 +1192,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
                     train_type(
                         string_type(TETENGO2_TEXT("1")),
-                        kind,
+                        0,
                         string_type(TETENGO2_TEXT("a")),
                         string_type(TETENGO2_TEXT("42")),
                         string_type(TETENGO2_TEXT("x")),
@@ -1172,12 +1224,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1192,12 +1248,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1207,7 +1267,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1224,12 +1284,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1239,7 +1303,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("4")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("w"))
@@ -1249,7 +1313,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().begin(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1259,7 +1323,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().begin() + 2,
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z"))
@@ -1280,7 +1344,6 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type::station_locations_type station_locations;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
             station_locations.push_back(
                 station_location_type(
                     station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
@@ -1288,13 +1351,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
 
             BOOST_CHECK_THROW(
                 timetable.insert_up_train(
                     timetable.up_trains().end(),
                     train_type(
                         string_type(TETENGO2_TEXT("1")),
-                        kind,
+                        0,
                         string_type(TETENGO2_TEXT("a")),
                         string_type(TETENGO2_TEXT("42")),
                         string_type(TETENGO2_TEXT("x"))
@@ -1305,8 +1372,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
-
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
@@ -1315,7 +1385,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     timetable.up_trains().end(),
                     train_type(
                         string_type(TETENGO2_TEXT("1")),
-                        kind,
+                        0,
                         string_type(TETENGO2_TEXT("a")),
                         string_type(TETENGO2_TEXT("42")),
                         string_type(TETENGO2_TEXT("x")),
@@ -1334,12 +1404,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1349,7 +1423,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1364,12 +1438,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1379,7 +1457,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1396,12 +1474,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1411,7 +1493,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1430,12 +1512,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1445,7 +1531,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1455,7 +1541,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z"))
@@ -1480,12 +1566,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1495,7 +1585,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1510,12 +1600,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1525,7 +1619,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1542,12 +1636,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1557,7 +1655,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1576,12 +1674,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
-            const train_kind_type kind(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+            );
+            
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("1")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("x"))
@@ -1591,7 +1693,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("2")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("y"))
@@ -1601,7 +1703,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains().end(),
                 train_type(
                     string_type(TETENGO2_TEXT("3")),
-                    kind,
+                    0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
                     string_type(TETENGO2_TEXT("z"))
