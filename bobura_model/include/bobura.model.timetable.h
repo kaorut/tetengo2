@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <boost/operators.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -70,6 +71,9 @@ namespace bobura { namespace model
 
         //! The train kinds type.
         typedef std::vector<train_kind_type> train_kinds_type;
+
+        //! The train kind index type.
+        typedef typename train_kinds_type::size_type train_kind_index_type;
 
         //! The train type.
         typedef Train train_type;
@@ -261,6 +265,66 @@ namespace bobura { namespace model
         {
             const station_interval_calculator_type calculator(m_station_locations, m_down_trains, m_up_trains);
             return calculator.calculate();
+        }
+
+        /*!
+            \brief Returns the train kinds.
+
+            \return The train kinds.
+        */
+        const train_kinds_type& train_kinds()
+        const
+        {
+            return m_train_kinds;
+        }
+
+        /*!
+            \brief Returns the train kind index.
+
+            \param train_kind A train kind.
+
+            \return The train kind index.
+        */
+        boost::optional<train_kind_index_type> train_kind_index(const train_kind_type& train_kind)
+        const
+        {
+            return boost::none;
+        }
+
+        /*!
+            \brief Checks whether the train kind is referred by trains.
+
+            \param train_kind A train kind.
+
+            \retval true  The train kind is referred.
+            \retval false Otherwise.
+        */
+        bool train_kind_referred(const train_kind_type& train_kind)
+        const
+        {
+            return false;
+        }
+
+        /*!
+            \brief Inserts a train kind.
+
+            \param train_kind A train kind.
+        */
+        void insert_train_kind(const train_kind_type& train_kind)
+        {
+
+        }
+
+        /*!
+            \brief Erases a train kind.
+
+            train_kind to erase must not be referred by any trains.
+
+            \param train_kind A train kind.
+        */
+        void erase_train_kind(const train_kind_type& train_kind)
+        {
+
         }
 
         /*!
