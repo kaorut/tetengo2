@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <iterator>
-#include <memory>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -21,8 +20,6 @@
 #include <boost/utility.hpp>
 
 #include <tetengo2.cpp11.h>
-#include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace model
