@@ -16,7 +16,6 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -279,19 +278,6 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Returns the train kind index.
-
-            \param train_kind A train kind.
-
-            \return The train kind index.
-        */
-        boost::optional<train_kind_index_type> train_kind_index(const train_kind_type& train_kind)
-        const
-        {
-            return boost::none;
-        }
-
-        /*!
             \brief Checks whether the train kind is referred by trains.
 
             \param train_kind A train kind.
@@ -329,9 +315,11 @@ namespace bobura { namespace model
 
             train_kind to erase must not be referred by any trains.
 
-            \param train_kind A train kind.
+            \param train_kind_index A train kind index.
+
+            \throw std::invalid_argument When train_kind is referred by trains.
         */
-        void erase_train_kind(const train_kind_type& train_kind)
+        void erase_train_kind(const train_kind_index_type& train_kind_index)
         {
 
         }
