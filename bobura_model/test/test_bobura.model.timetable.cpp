@@ -10,7 +10,7 @@
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/utility.hpp>
+//#include <boost/utility.hpp>
 
 #include <tetengo2.text.h>
 
