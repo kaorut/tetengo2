@@ -281,6 +281,20 @@ namespace bobura { namespace model
         /*!
             \brief Checks whether the train kind is referred by trains.
 
+            \param position A train kind position.
+
+            \retval true  The train kind is referred.
+            \retval false Otherwise.
+        */
+        bool train_kind_referred(const typename train_kinds_type::const_iterator position)
+        const
+        {
+            return train_kind_referred(std::distance(m_train_kinds.begin(), position));
+        }
+
+        /*!
+            \brief Checks whether the train kind is referred by trains.
+
             \param train_kind_index A train kind index.
 
             \retval true  The train kind is referred.
@@ -337,13 +351,18 @@ namespace bobura { namespace model
 
             train_kind to erase must not be referred by any trains.
 
-            \param train_kind_index A train kind index.
+            \param position The position of a train kind to erase.
 
             \throw std::invalid_argument When train_kind is referred by trains.
         */
-        void erase_train_kind(const train_kind_index_type& train_kind_index)
+        void erase_train_kind(const typename train_kinds_type::const_iterator position)
         {
+            if (train_kind_referred(position))
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train kind is still referred."));
 
+            m_train_kinds.erase(position);
+
+            m_observer_set.changed();
         }
 
         /*!

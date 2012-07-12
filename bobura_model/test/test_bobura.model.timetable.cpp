@@ -937,7 +937,49 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+            );
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
+            );
+
+            timetable.erase_train_kind(timetable.train_kinds().begin());
+
+            BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 1U);
+            BOOST_CHECK(timetable.train_kinds()[0].name() == string_type(TETENGO2_TEXT("Rapid")));
+
+            timetable.erase_train_kind(timetable.train_kinds().begin());
+
+            BOOST_CHECK(timetable.train_kinds().empty());
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+            );
+            
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+
+            BOOST_CHECK_THROW(
+                timetable.erase_train_kind(timetable.train_kinds().begin()),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(down_trains)
