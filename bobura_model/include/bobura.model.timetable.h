@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
+#include <functional>
 #include <iterator>
 #include <stdexcept>
 #include <utility>
@@ -280,15 +281,36 @@ namespace bobura { namespace model
         /*!
             \brief Checks whether the train kind is referred by trains.
 
-            \param train_kind A train kind.
+            \param train_kind_index A train kind index.
 
             \retval true  The train kind is referred.
             \retval false Otherwise.
         */
-        bool train_kind_referred(const train_kind_type& train_kind)
+        bool train_kind_referred(const train_kind_index_type& train_kind_index)
         const
         {
-            return false;
+            const bool referred_by_down_trains =
+                std::find_if(
+                    m_down_trains.begin(),
+                    m_down_trains.end(),
+                    TETENGO2_CPP11_BIND(
+                        std::equal_to<train_kind_index_type>(),
+                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
+                        train_kind_index
+                    )
+                ) != m_down_trains.end();
+            const bool referred_by_up_trains =
+                std::find_if(
+                    m_up_trains.begin(),
+                    m_up_trains.end(),
+                    TETENGO2_CPP11_BIND(
+                        std::equal_to<train_kind_index_type>(),
+                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
+                        train_kind_index
+                    )
+                ) != m_up_trains.end();
+
+            return referred_by_down_trains || referred_by_up_trains;
         }
 
         /*!

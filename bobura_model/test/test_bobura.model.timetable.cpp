@@ -857,7 +857,55 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        timetable_type timetable;
+        timetable.insert_train_kind(
+            timetable.train_kinds().end(),
+            train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+        );
+        timetable.insert_train_kind(
+            timetable.train_kinds().end(),
+            train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
+        );
+        timetable.insert_train_kind(
+            timetable.train_kinds().end(),
+            train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+        );
+            
+        timetable.insert_down_train(
+            timetable.down_trains().end(),
+            train_type(
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x"))
+            )
+        );
+
+        timetable.insert_up_train(
+            timetable.up_trains().end(),
+            train_type(
+                string_type(TETENGO2_TEXT("2")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("y"))
+            )
+        );
+        timetable.insert_up_train(
+            timetable.up_trains().end(),
+            train_type(
+                string_type(TETENGO2_TEXT("3")),
+                1,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("z"))
+            )
+        );
+
+        BOOST_CHECK(timetable.train_kind_referred(0));
+        BOOST_CHECK(timetable.train_kind_referred(1));
+        BOOST_CHECK(!timetable.train_kind_referred(2));
     }
 
     BOOST_AUTO_TEST_CASE(insert_train_kind)
