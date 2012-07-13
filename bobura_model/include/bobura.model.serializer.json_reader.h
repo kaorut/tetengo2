@@ -156,12 +156,16 @@ namespace bobura { namespace model { namespace serializer
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), station);
             }
 
-            // TODO Implement it.
-            p_timetable->insert_train_kind(
-                p_timetable->train_kinds().end(), train_kind_type(string_type(), string_type())
-            );
+            const boost::optional<std::vector<train_kind_type>> train_kinds = read_train_kinds(pull_parser);
+            if (!train_kinds)
+                return std::unique_ptr<timetable_type>();
+            BOOST_FOREACH (const train_kind_type& train_kind, *train_kinds)
+            {
+                p_timetable->insert_train_kind(p_timetable->train_kinds().end(), train_kind);
+            }
 
-            const boost::optional<std::vector<train_type>> down_trains = read_trains(pull_parser, stations->size());
+            const boost::optional<std::vector<train_type>> down_trains =
+                read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!down_trains)
                 return std::unique_ptr<timetable_type>();
             BOOST_FOREACH (const train_type& train, *down_trains)
@@ -169,7 +173,8 @@ namespace bobura { namespace model { namespace serializer
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
 
-            const boost::optional<std::vector<train_type>> up_trains = read_trains(pull_parser, stations->size());
+            const boost::optional<std::vector<train_type>> up_trains =
+                read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!up_trains)
                 return std::unique_ptr<timetable_type>();
             BOOST_FOREACH (const train_type& train, *up_trains)
@@ -322,9 +327,69 @@ namespace bobura { namespace model { namespace serializer
                 return NULL;
         }
 
+        static boost::optional<std::vector<train_kind_type>> read_train_kinds(pull_parser_type& pull_parser)
+        {
+            std::vector<train_kind_type> train_kinds;
+
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                return boost::none;
+            pull_parser.next();
+
+            for (;;)
+            {
+                const boost::optional<train_kind_type> train_kind = read_train_kind(pull_parser);
+                if (!train_kind)
+                    break;
+
+                train_kinds.push_back(*train_kind);
+            }
+
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                return boost::none;
+            pull_parser.next();
+
+            return boost::make_optional(train_kinds);
+        }
+
+        static boost::optional<train_kind_type> read_train_kind(pull_parser_type& pull_parser)
+        {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
+                return boost::none;
+            pull_parser.next();
+
+            string_type name;
+            {
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("name")))
+                    return boost::none;
+
+                name = member->second;
+            }
+
+            string_type abbreviation;
+            {
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("abbreviation")))
+                    return boost::none;
+
+                abbreviation = member->second;
+            }
+
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
+                return boost::none;
+            pull_parser.next();
+
+            return boost::make_optional(train_kind_type(name, abbreviation));
+        }
+
         static boost::optional<std::vector<train_type>> read_trains(
             pull_parser_type& pull_parser,
-            const std::size_t station_count
+            const std::size_t station_count,
+            const std::size_t kind_count
         )
         {
             std::vector<train_type> trains;
@@ -335,7 +400,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                const boost::optional<train_type> train = read_train(pull_parser, station_count);
+                const boost::optional<train_type> train = read_train(pull_parser, station_count, kind_count);
                 if (!train)
                     break;
 
@@ -349,7 +414,11 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(trains);
         }
 
-        static boost::optional<train_type> read_train(pull_parser_type& pull_parser, const std::size_t station_count)
+        static boost::optional<train_type> read_train(
+            pull_parser_type& pull_parser,
+            const std::size_t station_count,
+            const std::size_t kind_count
+        )
         {
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
@@ -366,7 +435,19 @@ namespace bobura { namespace model { namespace serializer
                 number = member->second;
             }
 
-            train_kind_index_type kind_index = 0;
+            train_kind_index_type kind_index;
+            {
+                const boost::optional<std::pair<string_type, train_kind_index_type>> member =
+                    read_integer_member<train_kind_index_type>(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("kind_index")))
+                    return boost::none;
+
+                kind_index = member->second;
+                if (kind_index >= kind_count)
+                    return boost::none;
+            }
 
             string_type name;
             {

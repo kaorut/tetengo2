@@ -63,6 +63,7 @@ namespace
         "    },\n"
         "    [],\n"
         "    [],\n"
+        "    [],\n"
         "    []\n"
         "]\n";
 
@@ -71,6 +72,7 @@ namespace
         "    {\n"
         "        \"title\": \"hoge\"\n"
         "    },\n"
+        "    [],\n"
         "    [],\n"
         "    [],\n"
         "    []\n"
@@ -99,6 +101,7 @@ namespace
         "        }\n"
         "    ],\n"
         "    [],\n"
+        "    [],\n"
         "    []\n"
         "]\n";
 
@@ -116,6 +119,7 @@ namespace
         "            \"meterage\":                42\n"
         "        }\n"
         "    ],\n"
+        "    [],\n"
         "    [],\n"
         "    []\n"
         "]\n";
@@ -143,7 +147,18 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":         \"nameB\",\n"
+        "            \"abbreviation\": \"abbrB\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\":      \"101D\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name\":        \"foo\",\n"
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"fuga\",\n"
@@ -151,6 +166,7 @@ namespace
         "        },\n"
         "        {\n"
         "            \"number\":      \"123D\",\n"
+        "            \"kind_index\":  1,\n"
         "            \"name\":        \"baz\",\n"
         "            \"name_number\": \"bazz\",\n"
         "            \"note\":        \"\",\n"
@@ -163,6 +179,7 @@ namespace
         "    [\n"
         "        {\n"
         "            \"number\":      \"9324M\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name\":        \"abc\",\n"
         "            \"name_number\": \"def\",\n"
         "            \"note\":        \"piyo\",\n"
@@ -196,7 +213,14 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\":      \"123D\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name\":        \"foo\",\n"
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
@@ -232,7 +256,14 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\":      \"123D\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name\":        \"foo\",\n"
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
@@ -275,7 +306,14 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\":      \"123D\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name\":        \"foo\",\n"
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
@@ -311,7 +349,14 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\":      \"101D\",\n"
+        "            \"kind_index\":  0,\n"
         "            \"name_number\": \"bar\",\n"
         "            \"name\":        \"foo\",\n"
         "            \"note\":        \"fuga\",\n"
@@ -321,6 +366,45 @@ namespace
         "    []\n"
         "]\n";
 
+    const std::string json13 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":                    \"stationA\",\n"
+        "            \"grade\":                   \"local\",\n"
+        "            \"show_down_arrival_times\": false,\n"
+        "            \"show_up_arrival_times\":   false,\n"
+        "            \"meterage\":                42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":                    \"stationB\",\n"
+        "            \"grade\":                   \"principal\",\n"
+        "            \"show_down_arrival_times\": false,\n"
+        "            \"show_up_arrival_times\":   false,\n"
+        "            \"meterage\":                4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":         \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\":      \"101D\",\n"
+        "            \"kind_index\":  1,\n"
+        "            \"name\":        \"foo\",\n"
+        "            \"name_number\": \"bar\",\n"
+        "            \"note\":        \"fuga\",\n"
+        "            \"stops\":       []\n"
+        "        }\n"
+        "    ],\n"
+        "    []\n"
+        "]\n";
 
 }
 
@@ -580,6 +664,16 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         }
         {
             std::istringstream input_stream(json12);
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
+
+            BOOST_CHECK(!p_timetable);
+        }
+        {
+            std::istringstream input_stream(json13);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
