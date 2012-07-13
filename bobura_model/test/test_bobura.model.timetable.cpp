@@ -1315,6 +1315,35 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(station_locations.begin(), station_locations.end());
+            
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
+
+            BOOST_CHECK_THROW(
+                timetable.insert_down_train(
+                    timetable.down_trains().end(),
+                    train_type(
+                        string_type(TETENGO2_TEXT("1")),
+                        0,
+                        string_type(TETENGO2_TEXT("a")),
+                        string_type(TETENGO2_TEXT("42")),
+                        string_type(TETENGO2_TEXT("x")),
+                        stops.begin(),
+                        stops.end()
+                    )
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
+                )
+            );
+
+            timetable_type timetable(station_locations.begin(), station_locations.end());
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
                 train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
@@ -1485,6 +1514,35 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains[2].note() == string_type(TETENGO2_TEXT("z")));
             BOOST_CHECK(trains[3].number() == string_type(TETENGO2_TEXT("4")));
             BOOST_CHECK(trains[3].note() == string_type(TETENGO2_TEXT("w")));
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("A")), local_type::instance(), false, false), 1
+                )
+            );
+
+            timetable_type timetable(station_locations.begin(), station_locations.end());
+            
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
+
+            BOOST_CHECK_THROW(
+                timetable.insert_up_train(
+                    timetable.up_trains().end(),
+                    train_type(
+                        string_type(TETENGO2_TEXT("1")),
+                        0,
+                        string_type(TETENGO2_TEXT("a")),
+                        string_type(TETENGO2_TEXT("42")),
+                        string_type(TETENGO2_TEXT("x")),
+                        stops.begin(),
+                        stops.end()
+                    )
+                ),
+                std::invalid_argument
+            );
         }
         {
             timetable_type::station_locations_type station_locations;

@@ -102,6 +102,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename station_location_type::meterage_type meterage_type;
 
+        typedef typename timetable_type::train_kind_type train_kind_type;
+
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stop_type stop_type;
@@ -153,6 +155,11 @@ namespace bobura { namespace model { namespace serializer
             {
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), station);
             }
+
+            // TODO Implement it.
+            p_timetable->insert_train_kind(
+                p_timetable->train_kinds().end(), train_kind_type(string_type(), string_type())
+            );
 
             const boost::optional<std::vector<train_type>> down_trains = read_trains(pull_parser, stations->size());
             if (!down_trains)

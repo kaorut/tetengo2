@@ -397,6 +397,7 @@ namespace bobura { namespace model
             \param position A position where a down train is inserted.
             \param train    A down train.
 
+            \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
@@ -416,6 +417,7 @@ namespace bobura { namespace model
             \param position A position where a up train is inserted.
             \param train    A up train.
 
+            \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
@@ -555,6 +557,12 @@ namespace bobura { namespace model
         template <typename T>
         void insert_train_impl(trains_type& trains, const typename trains_type::const_iterator position, T&& train)
         {
+            if (train.kind_index() >= m_train_kinds.size())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("The kind index of the train is greater than the train kind count.")
+                );
+            }
             if (train.stops().size() != m_station_locations.size())
             {
                 BOOST_THROW_EXCEPTION(
