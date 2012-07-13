@@ -116,6 +116,7 @@ namespace bobura { namespace model
         {
             return
                 one.m_station_locations == another.m_station_locations &&
+                one.m_train_kinds == another.m_train_kinds &&
                 one.m_down_trains == another.m_down_trains &&
                 one.m_up_trains == another.m_up_trains;
         }
