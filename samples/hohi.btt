@@ -90,8 +90,23 @@
     ],
     [
         {
+            "name":         "普通",
+            "abbreviation": "普通"
+        },
+        {
+            "name":         "快速",
+            "abbreviation": "快速"
+        },
+        {
+            "name":         "特急",
+            "abbreviation": "特急"
+        }
+    ],
+    [
+        {
             "number":      "2421D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -111,7 +126,8 @@
         },
         {
             "number":      "421D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":       [
@@ -131,7 +147,8 @@
         },
         {
             "number":      "1421M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -151,7 +168,8 @@
         },
         {
             "number":      "1423M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -171,7 +189,8 @@
         },
         {
             "number":      "1425M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -191,7 +210,8 @@
         },
         {
             "number":      "1427M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -211,7 +231,8 @@
         },
         {
             "number":      "425D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -231,7 +252,8 @@
         },
         {
             "number":      "1429M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -251,7 +273,8 @@
         },
         {
             "number":      "1431M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -271,7 +294,8 @@
         },
         {
             "number":      "1433M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -291,7 +315,8 @@
         },
         {
             "number":      "1435M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -311,7 +336,8 @@
         },
         {
             "number":      "1072D",
-            "name" :       "[特急] 九州横断特急",
+            "kind_index":  2,
+            "name":        "九州横断特急",
             "name_number": "2",
             "note":        "",
             "stops":      [
@@ -331,7 +357,8 @@
         },
         {
             "number":      "427D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -351,7 +378,8 @@
         },
         {
             "number":      "1437M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -371,7 +399,8 @@
         },
         {
             "number":      "1439M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -391,7 +420,8 @@
         },
         {
             "number":      "1441M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -411,7 +441,8 @@
         },
         {
             "number":      "8061D",
-            "name" :       "[特急]あそぼーい！",
+            "kind_index":  2,
+            "name":        "あそぼーい！",
             "name_number": "101",
             "note":        "",
             "stops":      [
@@ -431,7 +462,8 @@
         },
         {
             "number":      "1443M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -451,7 +483,8 @@
         },
         {
             "number":      "3421M",
-            "name" :       "[快速] 豊肥ライナー",
+            "kind_index":  1,
+            "name":        "豊肥ライナー",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -471,7 +504,8 @@
         },
         {
             "number":      "1445M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -491,7 +525,8 @@
         },
         {
             "number":      "3423M",
-            "name" :       "[快速] 豊肥ライナー",
+            "kind_index":  1,
+            "name":        "豊肥ライナー",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -511,7 +546,8 @@
         },
         {
             "number":      "1074D",
-            "name" :       "[特急] 九州横断特急",
+            "kind_index":  2,
+            "name":        "九州横断特急",
             "name_number": "4",
             "note":        "",
             "stops":      [
@@ -531,7 +567,8 @@
         },
         {
             "number":      "1447M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -553,7 +590,8 @@
     [
         {
             "number":      "1420M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -573,7 +611,8 @@
         },
         {
             "number":      "1422M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -593,7 +632,8 @@
         },
         {
             "number":      "1424M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -613,7 +653,8 @@
         },
         {
             "number":      "420D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -633,7 +674,8 @@
         },
         {
             "number":      "1426M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -653,7 +695,8 @@
         },
         {
             "number":      "1428M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -673,7 +716,8 @@
         },
         {
             "number":      "422D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -693,7 +737,8 @@
         },
         {
             "number":      "1430M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -713,7 +758,8 @@
         },
         {
             "number":      "1432M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -733,7 +779,8 @@
         },
         {
             "number":      "1434M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -753,7 +800,8 @@
         },
         {
             "number":      "426D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -773,7 +821,8 @@
         },
         {
             "number":      "1436M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -793,7 +842,8 @@
         },
         {
             "number":      "1438M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -813,7 +863,8 @@
         },
         {
             "number":      "2420D",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -833,7 +884,8 @@
         },
         {
             "number":      "1440M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -853,7 +905,8 @@
         },
         {
             "number":      "1442M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -873,7 +926,8 @@
         },
         {
             "number":      "1444M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -893,7 +947,8 @@
         },
         {
             "number":      "3420M",
-            "name" :       "[快速] 豊肥ライナー",
+            "kind_index":  1,
+            "name":        "豊肥ライナー",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -913,7 +968,8 @@
         },
         {
             "number":      "1446M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -933,7 +989,8 @@
         },
         {
             "number":      "1071D",
-            "name" :       "[特急] 九州横断特急",
+            "kind_index":  2,
+            "name":        "九州横断特急",
             "name_number": "1",
             "note":        "",
             "stops":      [
@@ -953,7 +1010,8 @@
         },
         {
             "number":      "1448M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -973,7 +1031,8 @@
         },
         {
             "number":      "3422M",
-            "name" :       "[快速] 豊肥ライナー",
+            "kind_index":  1,
+            "name":        "豊肥ライナー",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -993,7 +1052,8 @@
         },
         {
             "number":      "1450M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [
@@ -1013,7 +1073,8 @@
         },
         {
             "number":      "1452M",
-            "name" :       "",
+            "kind_index":  0,
+            "name":        "",
             "name_number": "",
             "note":        "",
             "stops":      [

@@ -146,7 +146,18 @@
     ],
     [
         {
+            "name":         "普通",
+            "abbreviation": "普通"
+        },
+        {
+            "name":         "特急",
+            "abbreviation": "特急"
+        }
+    ],
+    [
+        {
             "number":      "4527D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -175,6 +186,7 @@
         },
         {
             "number":      "4301D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -203,6 +215,7 @@
         },
         {
             "number":      "529D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -231,6 +244,7 @@
         },
         {
             "number":      "531D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -259,6 +273,7 @@
         },
         {
             "number":      "951D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -287,6 +302,7 @@
         },
         {
             "number":      "307D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -315,6 +331,7 @@
         },
         {
             "number":      "533D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -343,6 +360,7 @@
         },
         {
             "number":      "309D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -371,6 +389,7 @@
         },
         {
             "number":      "953D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -399,6 +418,7 @@
         },
         {
             "number":      "535D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -427,6 +447,7 @@
         },
         {
             "number":      "311D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -455,6 +476,7 @@
         },
         {
             "number":      "315D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -485,6 +507,7 @@
     [
         {
             "number":      "3002D",
+            "kind_index":  1,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -513,6 +536,7 @@
         },
         {
             "number":      "310D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -541,6 +565,7 @@
         },
         {
             "number":      "312D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -569,6 +594,7 @@
         },
         {
             "number":      "4520D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -597,6 +623,7 @@
         },
         {
             "number":      "316D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -625,6 +652,7 @@
         },
         {
             "number":      "522D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -653,6 +681,7 @@
         },
         {
             "number":      "3004D",
+            "kind_index":  1,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -681,6 +710,7 @@
         },
         {
             "number":      "524D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -709,6 +739,7 @@
         },
         {
             "number":      "950D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -737,6 +768,7 @@
         },
         {
             "number":      "526D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -765,6 +797,7 @@
         },
         {
             "number":      "528D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -793,6 +826,7 @@
         },
         {
             "number":      "5052D",
+            "kind_index":  1,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -821,6 +855,7 @@
         },
         {
             "number":      "5006D",
+            "kind_index":  1,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -849,6 +884,7 @@
         },
         {
             "number":      "4326D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -877,6 +913,7 @@
         },
         {
             "number":      "530D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -905,6 +942,7 @@
         },
         {
             "number":      "4328D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -933,6 +971,7 @@
         },
         {
             "number":      "534D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -961,6 +1000,7 @@
         },
         {
             "number":      "4954D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
@@ -989,6 +1029,7 @@
         },
         {
             "number":      "538D",
+            "kind_index":  0,
             "name":        "",
             "name_number": "",
             "note":        "",
