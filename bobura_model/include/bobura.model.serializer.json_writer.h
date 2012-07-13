@@ -86,6 +86,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::station_location_type station_location_type;
 
+        typedef typename timetable_type::train_kind_type train_kind_type;
+
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stops_type stops_type;
@@ -297,6 +299,60 @@ namespace bobura { namespace model { namespace serializer
                 output_stream << comma();
         }
 
+        static void write_train_kinds(
+            const timetable_type& timetable,
+            const size_type       level,
+            output_stream_type&   output_stream
+        )
+        {
+            output_stream << array_begin();
+
+            if (!timetable.train_kinds().empty())
+            {
+                std::for_each(
+                    timetable.train_kinds().begin(),
+                    boost::prior(timetable.train_kinds().end()),
+                    TETENGO2_CPP11_BIND(
+                        write_train_kind,
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_train_kind(*boost::prior(timetable.train_kinds().end()), level, output_stream, true);
+
+                new_line(level, output_stream);
+            }
+
+            output_stream << array_end();
+        }
+
+        static void write_train_kind(
+            const train_kind_type& train_kind,
+            const size_type        level,
+            output_stream_type&    output_stream,
+            const bool             last
+        )
+        {
+            new_line(level + 1, output_stream);
+            output_stream << object_begin();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train_kind.name(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("abbreviation")), train_kind.abbreviation(), level, output_stream
+            );
+
+            new_line(level + 1, output_stream);
+            output_stream << object_end();
+            if (!last)
+                output_stream << comma();
+        }
+
         static void write_down_trains(
             const timetable_type& timetable,
             const size_type       level,
@@ -368,6 +424,10 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level + 2, output_stream);
             write_object_entry(string_type(TETENGO2_TEXT("number")), train.number(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("kind_index")), train.kind_index(), level, output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
@@ -481,6 +541,10 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(1, output_stream);
             write_station_locations(timetable, 1, output_stream);
+            output_stream << comma();
+
+            new_line(1, output_stream);
+            write_train_kinds(timetable, 1, output_stream);
             output_stream << comma();
 
             new_line(1, output_stream);

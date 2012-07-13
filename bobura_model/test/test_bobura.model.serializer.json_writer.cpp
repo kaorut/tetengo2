@@ -75,6 +75,7 @@ namespace
         "    },\n"
         "    [],\n"
         "    [],\n"
+        "    [],\n"
         "    []\n"
         "]\n";
 
@@ -101,7 +102,18 @@ namespace
         "    ],\n"
         "    [\n"
         "        {\n"
+        "            \"name\": \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\"\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\": \"nameB\",\n"
+        "            \"abbreviation\": \"abbrB\"\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
         "            \"number\": \"101D\",\n"
+        "            \"kind_index\": 0,\n"
         "            \"name\": \"foo\",\n"
         "            \"name_number\": \"bar\",\n"
         "            \"note\": \"fuga\",\n"
@@ -112,6 +124,7 @@ namespace
         "        },\n"
         "        {\n"
         "            \"number\": \"123D\",\n"
+        "            \"kind_index\": 1,\n"
         "            \"name\": \"baz\",\n"
         "            \"name_number\": \"bazz\",\n"
         "            \"note\": \"\",\n"
@@ -124,6 +137,7 @@ namespace
         "    [\n"
         "        {\n"
         "            \"number\": \"9324M\",\n"
+        "            \"kind_index\": 0,\n"
         "            \"name\": \"abc\",\n"
         "            \"name_number\": \"def\",\n"
         "            \"note\": \"piyo\",\n"
@@ -163,15 +177,11 @@ namespace
         {
             p_timetable->insert_train_kind(
                 p_timetable->train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+                train_kind_type(string_type(TETENGO2_TEXT("nameA")), string_type(TETENGO2_TEXT("abbrA")))
             );
             p_timetable->insert_train_kind(
                 p_timetable->train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
-            );
-            p_timetable->insert_train_kind(
-                p_timetable->train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(string_type(TETENGO2_TEXT("nameB")), string_type(TETENGO2_TEXT("abbrB")))
             );
         }
         {
@@ -215,7 +225,7 @@ namespace
             {
                 train_type train(
                     string_type(TETENGO2_TEXT("9324M")),
-                    2,
+                    0,
                     string_type(TETENGO2_TEXT("abc")),
                     string_type(TETENGO2_TEXT("def")),
                     string_type(TETENGO2_TEXT("piyo"))
