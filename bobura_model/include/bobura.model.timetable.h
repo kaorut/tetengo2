@@ -100,25 +100,6 @@ namespace bobura { namespace model
         m_observer_set()
         {}
 
-        /*!
-            \brief Creates a timetalble.
-
-            \tparam InputIterator An input iterator for station locations.
-
-            \param station_location_first The first iterator among station locations.
-            \param station_location_last  The last iterator among station locations.
-        */
-        template <typename InputIterator>
-        timetable(const InputIterator station_location_first, const InputIterator station_location_last)
-        :
-        m_title(),
-        m_station_locations(station_location_first, station_location_last),
-        m_train_kinds(),
-        m_down_trains(),
-        m_up_trains(),
-        m_observer_set()
-        {}
-
 
         // functions
 
