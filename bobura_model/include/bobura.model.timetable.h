@@ -323,7 +323,9 @@ namespace bobura { namespace model
             TK&&                                            train_kind
         )
         {
-            m_train_kinds.insert(position, std::forward<TK>(train_kind));
+            m_train_kinds.insert(
+                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::forward<TK>(train_kind)
+            );
 
             m_observer_set.changed();
         }
@@ -342,7 +344,7 @@ namespace bobura { namespace model
             if (train_kind_referred(position))
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The train kind is still referred."));
 
-            m_train_kinds.erase(position);
+            m_train_kinds.erase(tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position));
 
             m_observer_set.changed();
         }
