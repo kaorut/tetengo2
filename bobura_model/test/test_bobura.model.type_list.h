@@ -35,6 +35,7 @@
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
+#include "bobura.model.serializer.windia_reader.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
@@ -157,13 +158,14 @@ namespace test_bobura { namespace model
     {
         struct reader;         //!< The reader type.
         struct reader_selector; //!< The reader selector type.
-        struct bzip2_reader;   //!< The bzip2 reader type.
         struct json_reader;    //!< The JSON reader type.
+        struct bzip2_reader;   //!< The bzip2 reader type.
+        struct windia_reader;  //!< The WinDIA reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
         struct writer_selector; //!< The writer selector type.
-        struct bzip2_writer;   //!< The bzip2 writer type.
         struct json_writer;    //!< The JSON writer type.
+        struct bzip2_writer;   //!< The bzip2 writer type.
         struct writer_set;     //!< The writer set type.
     }}
 
@@ -226,11 +228,15 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::json_reader, detail::serialization::reader_set_type::json_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::bzip2_reader, detail::serialization::reader_set_type::bzip2_reader_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::json_reader, detail::serialization::reader_set_type::json_reader_type
+                type::serialization::windia_reader, detail::serialization::reader_set_type::windia_reader_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::reader_set, detail::serialization::reader_set_type>,
@@ -254,16 +260,16 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::bzip2_writer, detail::serialization::writer_set_type::bzip2_writer_type
+                type::serialization::json_writer, detail::serialization::writer_set_type::json_writer_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::json_writer, detail::serialization::writer_set_type::json_writer_type
+                type::serialization::bzip2_writer, detail::serialization::writer_set_type::bzip2_writer_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::writer_set, detail::serialization::writer_set_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>
         serialization_type_list;
 
 
