@@ -21,6 +21,7 @@
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
+#include "bobura.model.serializer.windia_reader.h"
 
 
 namespace bobura { namespace model { namespace serializer
@@ -67,12 +68,15 @@ namespace bobura { namespace model { namespace serializer
         //! The reader type.
         typedef reader<iterator, timetable_type> reader_type;
 
-        //! The bzip2 reader type.
-        typedef bzip2_reader<iterator, timetable_type> bzip2_reader_type;
-
         //! The JSON reader type.
         typedef
             json_reader<pull_parser_type, timetable_type, station_grade_type_set_type, encoder_type> json_reader_type;
+
+        //! The bzip2 reader type.
+        typedef bzip2_reader<iterator, timetable_type> bzip2_reader_type;
+
+        //! The WinDIA reader type.
+        typedef windia_reader<iterator, timetable_type> windia_reader_type;
 
 
         // static functions
@@ -88,6 +92,7 @@ namespace bobura { namespace model { namespace serializer
 
             readers.push_back(tetengo2::make_unique<json_reader_type>());
             readers.push_back(tetengo2::make_unique<bzip2_reader_type>(tetengo2::make_unique<json_reader_type>()));
+            readers.push_back(tetengo2::make_unique<windia_reader_type>());
 
             return std::move(readers);
         }

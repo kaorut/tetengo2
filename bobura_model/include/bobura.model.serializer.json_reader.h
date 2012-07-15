@@ -764,7 +764,10 @@ namespace bobura { namespace model { namespace serializer
                 tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
-            return next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array")));
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                return false;
+            pull_parser.next();
+            return next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object")));
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
