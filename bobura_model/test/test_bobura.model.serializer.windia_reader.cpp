@@ -6,10 +6,14 @@
     $Id$
 */
 
-//#include <boost/mpl/at.hpp>
-#include <boost/test/unit_test.hpp>
+//#include <iterator>
+//#include <memory>
+//#include <sstream>
+//#include <string>
 
-#include <tetengo2.text.h>
+//#include <boost/mpl/at.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "test_bobura.model.type_list.h"
 
@@ -29,6 +33,17 @@ namespace
             test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::windia_reader
         >::type
         reader_type;
+
+
+    // variables
+
+    const std::string data0;
+
+    const std::string data1 =
+        "[WinDIA]\n";
+
+    const std::string data2 =
+        "[hoge]\n";
 
 
 }
@@ -51,7 +66,39 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data0);
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data1);
+            BOOST_CHECK(
+                reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data2);
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(read)

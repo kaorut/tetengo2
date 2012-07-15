@@ -58,14 +58,47 @@ namespace bobura { namespace model { namespace serializer
     private:
         // types
 
-        typedef std::basic_string<typename iterator::value_type> input_string_type;
+        typedef typename iterator::value_type input_char_type;
+
+        typedef std::basic_string<input_char_type> input_string_type;
+
+
+        // static functions
+
+        static const input_string_type& windia_section_label()
+        {
+            static const input_string_type singleton(TETENGO2_TEXT("[WinDIA]"));
+            return singleton;
+        }
+
+        static iterator next_first(iterator first, const iterator last)
+        {
+            skip_line_breaks(first, last);
+            return std::find_if(first, last, line_break);
+        }
+
+        static void skip_line_breaks(iterator& first, const iterator last)
+        {
+            while (first != last && line_break(*first))
+                ++first;
+        }
+
+        static bool line_break(const input_char_type character)
+        {
+            return
+                character == input_char_type(TETENGO2_TEXT('\r')) ||
+                character == input_char_type(TETENGO2_TEXT('\n'));
+        }
 
 
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return false;
+            const iterator next_first_position = next_first(first, last);
+            const input_string_type line(first, next_first_position);
+
+            return line == windia_section_label();
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
