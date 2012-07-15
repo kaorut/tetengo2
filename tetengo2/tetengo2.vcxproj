@@ -92,6 +92,7 @@
     <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
     <ClInclude Include="include\tetengo2.text.encoder.h" />
     <ClInclude Include="include\tetengo2.text.encoding.ascii.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.cp932.h" />
     <ClInclude Include="include\tetengo2.text.encoding.encoding.h" />
     <ClInclude Include="include\tetengo2.text.encoding.locale.h" />
     <ClInclude Include="include\tetengo2.text.encoding.utf8.h" />

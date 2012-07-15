@@ -104,6 +104,9 @@
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.text.encoding.cp932.cpp">
+      <Filter>sources\test_tetengo2\text\encoding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.json">

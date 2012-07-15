@@ -105,6 +105,7 @@
     <ClCompile Include="test\test_tetengo2.text.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoder.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.ascii.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.encoding.cp932.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.encoding.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.locale.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.utf8.cpp" />
