@@ -767,7 +767,9 @@ namespace bobura { namespace model { namespace serializer
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return false;
             pull_parser.next();
-            return next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object")));
+            return
+                next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))) ||
+                next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array")));
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
