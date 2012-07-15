@@ -20,7 +20,7 @@
 namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
-        \brief The class template for a UTF-8 encoding.
+        \brief The class template for a CP932 encoding.
 
         \tparam EncodingDetails A detail implementation type of an encoding.
     */
@@ -46,10 +46,10 @@ namespace tetengo2 { namespace text { namespace encoding
         // functions
 
         /*!
-            \brief Checks whether one UTF-8 encoding is equal to another.
+            \brief Checks whether one CP932 encoding is equal to another.
 
-            \param one     One UTF-8 encoding.
-            \param another Another UTF-8 encoding.
+            \param one     One CP932 encoding.
+            \param another Another CP932 encoding.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
@@ -71,7 +71,7 @@ namespace tetengo2 { namespace text { namespace encoding
         string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
-            return encoding_details_type::pivot_to_utf8(pivot);
+            return encoding_details_type::pivot_to_cp932(pivot);
         }
 
         /*!
@@ -86,7 +86,7 @@ namespace tetengo2 { namespace text { namespace encoding
         typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
-            return encoding_details_type::utf8_to_pivot(string);
+            return encoding_details_type::cp932_to_pivot(string);
         }
 
 

@@ -32,6 +32,9 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The UTF-8 string type.
         typedef std::string utf8_string_type;
 
+        //! The CP932 string type.
+        typedef std::string cp932_string_type;
+
 
         // static functions
 
@@ -71,6 +74,46 @@ namespace tetengo2 { namespace detail { namespace stub
                 string.end(),
                 std::back_inserter(pivot),
                 cast<pivot_type::value_type, utf8_string_type::value_type>
+            );
+            return pivot;
+        }
+
+        /*!
+            \brief Converts a pivot to a CP932 string.
+
+            \param pivot A pivot.
+
+            \return A CP932 string.
+        */
+        static cp932_string_type pivot_to_cp932(const pivot_type& pivot)
+        {
+            cp932_string_type string;
+            string.reserve(pivot.length());
+            std::transform(
+                pivot.begin(),
+                pivot.end(),
+                std::back_inserter(string),
+                cast<cp932_string_type::value_type, pivot_type::value_type>
+            );
+            return string;
+        }
+
+        /*!
+            \brief Converts a CP932 string to a pivot.
+
+            \param string A CP932 string.
+
+            \return A pivot.
+        */
+        static pivot_type cp932_to_pivot(const cp932_string_type& string)
+        {
+            pivot_type pivot;
+            pivot.reserve(string.length());
+            std::transform(
+                string.begin(),
+                string.end(),
+                std::back_inserter(pivot),
+                cast<pivot_type::value_type, cp932_string_type::value_type>
             );
             return pivot;
         }
