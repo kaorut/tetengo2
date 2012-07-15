@@ -11,6 +11,7 @@ headers = \
     bobura.model.serializer.reader.h \
     bobura.model.serializer.reader_selector.h \
     bobura.model.serializer.reader_set.h \
+    bobura.model.serializer.windia_reader.h \
     bobura.model.serializer.writer.h \
     bobura.model.serializer.writer_selector.h \
     bobura.model.serializer.writer_set.h \

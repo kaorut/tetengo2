@@ -107,5 +107,8 @@
     <ClCompile Include="test\test_bobura.model.train_kind.cpp">
       <Filter>sources\test_bobura::model</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.windia_reader.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

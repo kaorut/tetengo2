@@ -17,6 +17,7 @@ sources = \
     test_bobura.model.serializer.reader.cpp \
     test_bobura.model.serializer.reader_selector.cpp \
     test_bobura.model.serializer.reader_set.cpp \
+    test_bobura.model.serializer.windia_reader.cpp \
     test_bobura.model.serializer.writer.cpp \
     test_bobura.model.serializer.writer_selector.cpp \
     test_bobura.model.serializer.writer_set.cpp \

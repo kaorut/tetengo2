@@ -54,10 +54,10 @@ namespace bobura { namespace model { namespace serializer
             \brief Creates a bzip2 reader.
 
             \param p_reader A unique pointer to a reader.
-
         */
         explicit bzip2_reader(std::unique_ptr<base_type> p_reader)
         :
+        base_type(),
         m_p_reader(std::move(p_reader))
         {}
 
