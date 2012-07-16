@@ -82,7 +82,9 @@ namespace bobura { namespace model { namespace serializer
         typedef bzip2_reader<iterator, timetable_type> bzip2_reader_type;
 
         //! The WinDIA reader type.
-        typedef windia_reader<iterator, timetable_type, cp932_encoder_type> windia_reader_type;
+        typedef
+            windia_reader<iterator, timetable_type, station_grade_type_set_type, cp932_encoder_type>
+            windia_reader_type;
 
 
         // static functions

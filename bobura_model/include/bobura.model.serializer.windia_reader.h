@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_WINDIA2READER_H
 
 #include <cassert>
+#include <cstddef>
 #include <stdexcept>
 #include <utility>
 
@@ -26,11 +27,12 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a WinDIA reader.
 
-        \tparam ForwardIterator A forward iterator type.
-        \tparam Timetable       A timetable type.
-        \tparam Encoder         An encoder type.
+        \tparam ForwardIterator     A forward iterator type.
+        \tparam Timetable           A timetable type.
+        \tparam StationGradeTypeSet A station grade type set.
+        \tparam Encoder             An encoder type.
     */
-    template <typename ForwardIterator, typename Timetable, typename Encoder>
+    template <typename ForwardIterator, typename Timetable, typename StationGradeTypeSet, typename Encoder>
     class windia_reader : public reader<ForwardIterator, Timetable>
     {
     public:
@@ -44,6 +46,9 @@ namespace bobura { namespace model { namespace serializer
 
         //! The base type.
         typedef reader<iterator, timetable_type> base_type;
+
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -81,8 +86,8 @@ namespace bobura { namespace model { namespace serializer
             virtual ~state()
             {}
 
-            virtual void parse(const string_type& line)
-            const = 0;
+            virtual bool parse(const string_type& line)
+            = 0;
 
         };
 
@@ -92,8 +97,7 @@ namespace bobura { namespace model { namespace serializer
             virtual ~initial_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::logic_error("Cannot parse any line in the initial state."));
@@ -112,10 +116,10 @@ namespace bobura { namespace model { namespace serializer
             virtual ~windia_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
                 m_timetable.set_title(line);
+                return true;
             }
 
         private:
@@ -128,20 +132,67 @@ namespace bobura { namespace model { namespace serializer
         public:
             explicit station_state(timetable_type& timetable)
             :
-            m_timetable(timetable)
+            m_timetable(timetable),
+            m_meterage(0)
             {}
 
             virtual ~station_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
+                const std::size_t comma_position = line.find(TETENGO2_TEXT(','));
+                if (comma_position == string_type::npos)
+                    return false;
 
+                const string_type props = line.substr(0, comma_position);
+                string_type name = line.substr(comma_position + 1);
+
+                station_location_type station_location(
+                    station_type(
+                        std::move(name),
+                        to_grade(
+                            props.find(TETENGO2_TEXT('p')) != string_type::npos,
+                            props.find(TETENGO2_TEXT('b')) != string_type::npos
+                        ),
+                        props.find(TETENGO2_TEXT('d')) != string_type::npos,
+                        props.find(TETENGO2_TEXT('u')) != string_type::npos
+                    ),
+                    m_meterage
+                );
+                m_timetable.insert_station_location(
+                    m_timetable.station_locations().end(), std::move(station_location)
+                );
+
+                ++m_meterage;
+
+                return true;
             }
 
         private:
+            typedef typename timetable_type::station_location_type station_location_type;
+
+            typedef typename station_location_type::station_type station_type;
+
+            typedef typename station_type::grade_type grade_type;
+
+            typedef typename station_location_type::meterage_type meterage_type;
+
+            static const grade_type& to_grade(const bool principal, const bool show_arrival_and_departure_time)
+            {
+                if      (principal && show_arrival_and_departure_time)
+                    return station_grade_type_set_type::principal_terminal_type::instance();
+                else if (show_arrival_and_departure_time)
+                    return station_grade_type_set_type::local_terminal_type::instance();
+                else if (principal)
+                    return station_grade_type_set_type::principal_type::instance();
+                else
+                    return station_grade_type_set_type::local_type::instance();
+            }
+
             timetable_type& m_timetable;
+
+            meterage_type m_meterage;
 
         };
 
@@ -156,10 +207,10 @@ namespace bobura { namespace model { namespace serializer
             virtual ~line_kind_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
 
+                return true;
             }
 
         private:
@@ -178,10 +229,10 @@ namespace bobura { namespace model { namespace serializer
             virtual ~down_train_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
 
+                return true;
             }
 
         private:
@@ -200,10 +251,10 @@ namespace bobura { namespace model { namespace serializer
             virtual ~up_train_state()
             {}
 
-            virtual void parse(const string_type& line)
-            const
+            virtual bool parse(const string_type& line)
             {
 
+                return true;
             }
 
         private:
@@ -325,7 +376,10 @@ namespace bobura { namespace model { namespace serializer
                 else if (input_line == up_train_section_label())
                     p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
                 else
-                    p_state->parse(encoder().decode(input_line));
+                {
+                    if (!p_state->parse(encoder().decode(input_line)))
+                        return std::unique_ptr<timetable_type>();
+                }
             }
 
             return std::move(p_timetable);
