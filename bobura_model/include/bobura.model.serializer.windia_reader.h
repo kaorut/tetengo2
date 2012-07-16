@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <utility>
 
+#include <boost/foreach.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
@@ -79,6 +80,8 @@ namespace bobura { namespace model { namespace serializer
         typedef std::basic_string<input_char_type> input_string_type;
 
         typedef typename timetable_type::string_type string_type;
+
+        typedef typename timetable_type::train_kind_type train_kind_type;
 
         class state
         {
@@ -301,6 +304,123 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
+        static void insert_preset_train_kinds(timetable_type& timetable)
+        {
+            typedef std::pair<input_string_type, input_string_type> name_and_abbr_type;
+            std::vector<name_and_abbr_type> names;
+
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("•’Ê")),
+                    input_string_type(TETENGO2_TEXT("•’Ê"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‰õ‘¬")),
+                    input_string_type(TETENGO2_TEXT("‰õ‘¬"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("“Á•Ê‰õ‘¬")),
+                    input_string_type(TETENGO2_TEXT("“Á‰õ"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("V‰õ‘¬")),
+                    input_string_type(TETENGO2_TEXT("V‰õ"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("’Ê‹Î‰õ‘¬")),
+                    input_string_type(TETENGO2_TEXT("’Ê‰õ"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("€‹}")),
+                    input_string_type(TETENGO2_TEXT("€‹}"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‹}s")),
+                    input_string_type(TETENGO2_TEXT("‹}s"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‰õ‘¬‹}s")),
+                    input_string_type(TETENGO2_TEXT("‰õ‹}"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("“Á‹}")),
+                    input_string_type(TETENGO2_TEXT("“Á‹}"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‰õ‘¬“Á‹}")),
+                    input_string_type(TETENGO2_TEXT("‰õ“Á"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("’Ê‹Î€‹}")),
+                    input_string_type(TETENGO2_TEXT("’Ê€"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("’Ê‹Î‹}s")),
+                    input_string_type(TETENGO2_TEXT("’Ê‹}"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‹æŠÔ‰õ‘¬")),
+                    input_string_type(TETENGO2_TEXT("‹æ‰õ"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‹æŠÔ‹}s")),
+                    input_string_type(TETENGO2_TEXT("‹æ‹}"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‰ñ‘—")),
+                    input_string_type(TETENGO2_TEXT("‰ñ‘—"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‰İ•¨")),
+                    input_string_type(TETENGO2_TEXT("‰İ•¨"))
+                )
+            );
+            names.push_back(
+                std::make_pair(
+                    input_string_type(TETENGO2_TEXT("‹}s‰İ•¨")),
+                    input_string_type(TETENGO2_TEXT("‹}‰İ"))
+                )
+            );
+
+            BOOST_FOREACH (const name_and_abbr_type& name, names)
+            {
+                timetable.insert_train_kind(
+                    timetable.train_kinds().end(),
+                    train_kind_type(encoder().decode(name.first), encoder().decode(name.second))
+                );
+            }
+        }
+
         static input_string_type next_line(iterator& first, const iterator last)
         {
             input_string_type line;
@@ -356,6 +476,8 @@ namespace bobura { namespace model { namespace serializer
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+
+            insert_preset_train_kinds(*p_timetable);
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
             iterator next_line_first = first;
