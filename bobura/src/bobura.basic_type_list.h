@@ -85,6 +85,7 @@
 #include <tetengo2.message.message_catalog_parser.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>
+#include <tetengo2.text.encoding.cp932.h>
 #include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.text.encoding.utf8.h>
 #include <tetengo2.text.grammar.json.h>
@@ -179,6 +180,7 @@ namespace bobura
         struct messages_facet; //!< The messages facet type.
         struct message_catalog; //!< The message catalog type.
         struct timetable_file_encoder; //!< The encoder type for the timetable file.
+        struct windia_file_encoder; //!< The encoder type for the WinDIA file.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -199,6 +201,9 @@ namespace bobura
         typedef
             tetengo2::text::encoding::utf8<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             utf8_encoding_type;
+        typedef
+            tetengo2::text::encoding::cp932<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
+            cp932_encoding_type;
         typedef utf8_encoding_type exception_encoding_type;
         typedef utf8_encoding_type message_catalog_encoding_type;
         typedef
@@ -227,6 +232,8 @@ namespace bobura
         typedef utf8_encoding_type timetable_file_encoding_type;
         typedef
             tetengo2::text::encoder<internal_encoding_type, timetable_file_encoding_type> timetable_file_encoder_type;
+        typedef cp932_encoding_type windia_file_encoding_type;
+        typedef tetengo2::text::encoder<internal_encoding_type, windia_file_encoding_type> windia_file_encoder_type;
     }}
 #endif
 
@@ -251,8 +258,10 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::locale::timetable_file_encoder, detail::locale::timetable_file_encoder_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::locale::windia_file_encoder, detail::locale::windia_file_encoder_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         locale_type_list;
 
 
@@ -341,7 +350,8 @@ namespace bobura
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     detail::model::station_grade_type_set_type,
-                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
+                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type,
+                    boost::mpl::at<locale_type_list, type::locale::windia_file_encoder>::type
                 >
             >,
         tetengo2::meta::assoc_list<

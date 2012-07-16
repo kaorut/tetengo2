@@ -193,6 +193,7 @@ namespace test_bobura { namespace model
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 pull_parser_type,
                 boost::mpl::at<model_type_list, type::model::grade_type_set>::type,
+                timetable_file_encoder_type,
                 timetable_file_encoder_type
             >
             reader_set_type;

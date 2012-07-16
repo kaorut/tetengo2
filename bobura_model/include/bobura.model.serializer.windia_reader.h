@@ -28,8 +28,9 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam ForwardIterator A forward iterator type.
         \tparam Timetable       A timetable type.
+        \tparam Encoder         An encoder type.
     */
-    template <typename ForwardIterator, typename Timetable>
+    template <typename ForwardIterator, typename Timetable, typename Encoder>
     class windia_reader : public reader<ForwardIterator, Timetable>
     {
     public:
@@ -41,8 +42,11 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! THe base type.
+        //! The base type.
         typedef reader<iterator, timetable_type> base_type;
+
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
 
         // constructors and destructor
@@ -122,6 +126,12 @@ namespace bobura { namespace model { namespace serializer
 
         // static functions
 
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
         static const input_string_type& windia_section_label()
         {
             static const input_string_type singleton(TETENGO2_TEXT("[WinDIA]"));
@@ -195,9 +205,7 @@ namespace bobura { namespace model { namespace serializer
                 if (input_line == windia_section_label())
                     p_state = tetengo2::make_unique<windia_state>(*p_timetable);
                 else
-                {
-
-                }
+                    p_state->parse(encoder().decode(input_line));
             }
 
             return std::move(p_timetable);
