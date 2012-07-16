@@ -123,6 +123,94 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class station_state : public state
+        {
+        public:
+            explicit station_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~station_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+
+            }
+
+        private:
+            timetable_type& m_timetable;
+
+        };
+
+        class line_kind_state : public state
+        {
+        public:
+            explicit line_kind_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~line_kind_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+
+            }
+
+        private:
+            timetable_type& m_timetable;
+
+        };
+
+        class down_train_state : public state
+        {
+        public:
+            explicit down_train_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~down_train_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+
+            }
+
+        private:
+            timetable_type& m_timetable;
+
+        };
+
+        class up_train_state : public state
+        {
+        public:
+            explicit up_train_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~up_train_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+
+            }
+
+        private:
+            timetable_type& m_timetable;
+
+        };
+
 
         // static functions
 
@@ -135,6 +223,30 @@ namespace bobura { namespace model { namespace serializer
         static const input_string_type& windia_section_label()
         {
             static const input_string_type singleton(TETENGO2_TEXT("[WinDIA]"));
+            return singleton;
+        }
+
+        static const input_string_type& station_section_label()
+        {
+            static const input_string_type singleton(TETENGO2_TEXT("[\x89\x77]")); // "eki"
+            return singleton;
+        }
+
+        static const input_string_type& line_kind_section_label()
+        {
+            static const input_string_type singleton(TETENGO2_TEXT("[\x90\xFC\x8E\xED]")); // "senshu"
+            return singleton;
+        }
+
+        static const input_string_type& down_train_section_label()
+        {
+            static const input_string_type singleton(TETENGO2_TEXT("[\x89\xBA\x82\xE8]")); // "kudari"
+            return singleton;
+        }
+
+        static const input_string_type& up_train_section_label()
+        {
+            static const input_string_type singleton(TETENGO2_TEXT("[\x8F\xE3\x82\xE8]")); // "nobori"
             return singleton;
         }
 
@@ -202,8 +314,16 @@ namespace bobura { namespace model { namespace serializer
                 if (next_line_first == last)
                     break;
 
-                if (input_line == windia_section_label())
+                if      (input_line == windia_section_label())
                     p_state = tetengo2::make_unique<windia_state>(*p_timetable);
+                else if (input_line == station_section_label())
+                    p_state = tetengo2::make_unique<station_state>(*p_timetable);
+                else if (input_line == line_kind_section_label())
+                    p_state = tetengo2::make_unique<line_kind_state>(*p_timetable);
+                else if (input_line == down_train_section_label())
+                    p_state = tetengo2::make_unique<down_train_state>(*p_timetable);
+                else if (input_line == up_train_section_label())
+                    p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
                 else
                     p_state->parse(encoder().decode(input_line));
             }
