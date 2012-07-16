@@ -9,7 +9,14 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WINDIA2READER_H)
 #define BOBURA_MODEL_SERIALIZER_WINDIA2READER_H
 
+#include <cassert>
+#include <stdexcept>
+#include <utility>
+
+#include <boost/throw_exception.hpp>
+
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -62,6 +69,56 @@ namespace bobura { namespace model { namespace serializer
 
         typedef std::basic_string<input_char_type> input_string_type;
 
+        typedef typename timetable_type::string_type string_type;
+
+        class state
+        {
+        public:
+            virtual ~state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const = 0;
+
+        };
+
+        class initial_state : public state
+        {
+        public:
+            virtual ~initial_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Cannot parse any line in the initial state."));
+            }
+
+        };
+
+        class windia_state : public state
+        {
+        public:
+            explicit windia_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~windia_state()
+            {}
+
+            virtual void parse(const string_type& line)
+            const
+            {
+                m_timetable.set_title(line);
+            }
+
+        private:
+            timetable_type& m_timetable;
+
+        };
+
 
         // static functions
 
@@ -71,15 +128,28 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
-        static iterator next_first(iterator first, const iterator last)
+        static input_string_type next_line(iterator& first, const iterator last)
         {
-            skip_line_breaks(first, last);
-            return std::find_if(first, last, line_break);
+            input_string_type line;
+            for (;;)
+            {
+                skip_line_breaks(first, last);
+                const iterator next_line_break = std::find_if(first, last, line_break);
+                line += input_string_type(first, next_line_break);
+
+                first = next_line_break;
+                if (!line.empty() && line_contination(line.back()))
+                    line.pop_back();
+                else
+                    break;
+            }
+
+            return line;
         }
 
         static void skip_line_breaks(iterator& first, const iterator last)
         {
-            while (first != last && line_break(*first))
+            while (first != last && (line_break(*first) || tab(*first)))
                 ++first;
         }
 
@@ -90,20 +160,47 @@ namespace bobura { namespace model { namespace serializer
                 character == input_char_type(TETENGO2_TEXT('\n'));
         }
 
+        static bool line_contination(const input_char_type character)
+        {
+            return character == input_char_type(TETENGO2_TEXT('\\'));
+        }
+
+        static bool tab(const input_char_type character)
+        {
+            return
+                character == input_char_type(TETENGO2_TEXT('\t'));
+        }
+
 
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            const iterator next_first_position = next_first(first, last);
-            const input_string_type line(first, next_first_position);
-
-            return line == windia_section_label();
+            iterator mutable_first = first;
+            return next_line(mutable_first, last) == windia_section_label();
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
-            return std::unique_ptr<timetable_type>();
+            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+
+            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
+            iterator next_line_first = first;
+            for (;;)
+            {
+                const input_string_type input_line = next_line(next_line_first, last);
+                if (next_line_first == last)
+                    break;
+
+                if (input_line == windia_section_label())
+                    p_state = tetengo2::make_unique<windia_state>(*p_timetable);
+                else
+                {
+
+                }
+            }
+
+            return std::move(p_timetable);
         }
 
 
