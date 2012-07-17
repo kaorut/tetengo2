@@ -311,104 +311,104 @@ namespace bobura { namespace model { namespace serializer
 
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ïÅí ")),
-                    input_string_type(TETENGO2_TEXT("ïÅí "))
+                    input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")), // "futsuu"
+                    input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")) // "futsuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("âıë¨")),
-                    input_string_type(TETENGO2_TEXT("âıë¨"))
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")), // "kaosoku"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")) // "kaosoku"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ì¡ï âıë¨")),
-                    input_string_type(TETENGO2_TEXT("ì¡âı"))
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x95\xCA\x89\xF5\x91\xAC")), // "tokubetsukaisoku"
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x89\xF5")) // "tokkai"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("êVâıë¨")),
-                    input_string_type(TETENGO2_TEXT("êVâı"))
+                    input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5\x91\xAC")), // "shinkaisoku"
+                    input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5")) // "shinkai"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("í ãŒâıë¨")),
-                    input_string_type(TETENGO2_TEXT("í âı"))
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x89\xF5\x91\xAC")), // "tsuukinkaisoku"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x89\xF5")) // "tsuukai"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("èÄã}")),
-                    input_string_type(TETENGO2_TEXT("èÄã}"))
+                    input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")), // "junkyuu"
+                    input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")) // "junkyuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ã}çs")),
-                    input_string_type(TETENGO2_TEXT("ã}çs"))
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")), // "kyuukou"
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")) // "kyuukou"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("âıë¨ã}çs")),
-                    input_string_type(TETENGO2_TEXT("âıã}"))
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x8B\x7D\x8D\x73")), // "kaisokukyuukou"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x8B\x7D")) // "kaikyuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ì¡ã}")),
-                    input_string_type(TETENGO2_TEXT("ì¡ã}"))
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")), // "tokkyuu"
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")) // "tokkyuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("âıë¨ì¡ã}")),
-                    input_string_type(TETENGO2_TEXT("âıì¡"))
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x93\xC1\x8B\x7D")), // "kaisokutokkyuu"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x93\xC1")) // "kaitoku"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("í ãŒèÄã}")),
-                    input_string_type(TETENGO2_TEXT("í èÄ"))
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8F\x80\x8B\x7D")), // "tsuukinjunkyuu"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8F\x80")) // "tsuujun"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("í ãŒã}çs")),
-                    input_string_type(TETENGO2_TEXT("í ã}"))
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8B\x7D\x8D\x73")), // "tsuukinkyuukou"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\x7D")) // "tsuukyuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ãÊä‘âıë¨")),
-                    input_string_type(TETENGO2_TEXT("ãÊâı"))
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x89\xF5\x91\xAC")), // "kukankaisoku"
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x89\xF5")) // "kukai"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ãÊä‘ã}çs")),
-                    input_string_type(TETENGO2_TEXT("ãÊã}"))
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x8B\x7D\x8D\x73")), // "kukankyuukou"
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x8B\x7D")) // "kukyuu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("âÒëó")),
-                    input_string_type(TETENGO2_TEXT("âÒëó"))
+                    input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")), // "kaisou"
+                    input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")) // "kaisou"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("â›ï®")),
-                    input_string_type(TETENGO2_TEXT("â›ï®"))
+                    input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")), // "kamotsu"
+                    input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")) // "kamotsu"
                 )
             );
             names.push_back(
                 std::make_pair(
-                    input_string_type(TETENGO2_TEXT("ã}çsâ›ï®")),
-                    input_string_type(TETENGO2_TEXT("ã}â›"))
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73\x89\xDD\x95\xA8")), // "kyuukoukamotsu"
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x89\xDD")) // "kyuuka"
                 )
             );
 
