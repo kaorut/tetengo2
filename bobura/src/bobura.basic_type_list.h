@@ -265,120 +265,6 @@ namespace bobura
         locale_type_list;
 
 
-    /**** Model *************************************************************/
-
-    namespace type { namespace model
-    {
-        struct model;          //!< The model type.
-        struct reader_selector; //!< The reader selector type.
-        struct reader_set;     //!< The reader set type.
-        struct writer_selector; //!< The writer selector type.
-        struct writer_set;     //!< The writer set type.
-    }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace model
-    {
-        typedef
-            bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
-            station_grade_type_set_type;
-        typedef station_grade_type_set_type::grade_type grade_type;
-        typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, boost::mpl::at<common_type_list, type::size>::type
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_kind<boost::mpl::at<common_type_list, type::string>::type>
-            train_kind_type;
-        typedef
-            bobura::model::train_info::time<
-                boost::mpl::at<common_type_list, type::size>::type,
-                bobura::model::train_info::time_span<boost::mpl::at<common_type_list, type::difference>::type>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, boost::mpl::at<common_type_list, type::string>::type>
-            stop_type;
-        typedef
-            bobura::model::train<
-                boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<common_type_list, type::size>::type,
-                stop_type
-            >
-            train_type;
-        typedef
-            bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
-            station_interval_calculator_type;
-        typedef
-            bobura::model::timetable<
-                boost::mpl::at<common_type_list, type::string>::type,
-                station_location_type,
-                station_interval_calculator_type,
-                train_kind_type,
-                train_type,
-                bobura::model::message::timetable_observer_set
-            >
-            timetable_type;
-    }}
-#endif
-
-    //! The model type list.
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::model::model,
-                timetable_model<
-                    detail::model::timetable_type,
-                    boost::mpl::at<common_type_list, type::path>::type,
-                    message::timetable_model_observer_set
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::model::reader_selector,
-                model::serializer::reader_selector<
-                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type, detail::model::timetable_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::model::reader_set,
-                model::serializer::reader_set<
-                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type,
-                    detail::model::timetable_type,
-                    boost::mpl::at<common_type_list, type::pull_parser>::type,
-                    detail::model::station_grade_type_set_type,
-                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type,
-                    boost::mpl::at<locale_type_list, type::locale::windia_file_encoder>::type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::model::writer_selector,
-                model::serializer::writer_selector<
-                    boost::mpl::at<common_type_list, type::output_stream>::type,
-                    detail::model::timetable_type,
-                    boost::mpl::at<common_type_list, type::path>::type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::model::writer_set,
-                model::serializer::writer_set<
-                    boost::mpl::at<common_type_list, type::output_stream>::type,
-                    detail::model::timetable_type,
-                    boost::mpl::at<common_type_list, type::path>::type,
-                    detail::model::station_grade_type_set_type,
-                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
-                >
-            >,
-        tetengo2::meta::assoc_list_end
-        >>>>>
-        model_type_list;
-
-
     /**** User Interface ****************************************************/
 
     namespace type { namespace ui
@@ -780,6 +666,120 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
+
+
+    /**** Model *************************************************************/
+
+    namespace type { namespace model
+    {
+        struct model;          //!< The model type.
+        struct reader_selector; //!< The reader selector type.
+        struct reader_set;     //!< The reader set type.
+        struct writer_selector; //!< The writer selector type.
+        struct writer_set;     //!< The writer set type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace model
+    {
+        typedef
+            bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
+            station_grade_type_set_type;
+        typedef station_grade_type_set_type::grade_type grade_type;
+        typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;
+        typedef
+            bobura::model::timetable_info::station_location<
+                station_type, boost::mpl::at<common_type_list, type::size>::type
+            >
+            station_location_type;
+        typedef
+            bobura::model::train_kind<boost::mpl::at<common_type_list, type::string>::type>
+            train_kind_type;
+        typedef
+            bobura::model::train_info::time<
+                boost::mpl::at<common_type_list, type::size>::type,
+                bobura::model::train_info::time_span<boost::mpl::at<common_type_list, type::difference>::type>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, boost::mpl::at<common_type_list, type::string>::type>
+            stop_type;
+        typedef
+            bobura::model::train<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                stop_type
+            >
+            train_type;
+        typedef
+            bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
+            station_interval_calculator_type;
+        typedef
+            bobura::model::timetable<
+                boost::mpl::at<common_type_list, type::string>::type,
+                station_location_type,
+                station_interval_calculator_type,
+                train_kind_type,
+                train_type,
+                bobura::model::message::timetable_observer_set
+            >
+            timetable_type;
+    }}
+#endif
+
+    //! The model type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::model,
+                timetable_model<
+                    detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::path>::type,
+                    message::timetable_model_observer_set
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::reader_selector,
+                model::serializer::reader_selector<
+                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type, detail::model::timetable_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::reader_set,
+                model::serializer::reader_set<
+                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type,
+                    detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::pull_parser>::type,
+                    detail::model::station_grade_type_set_type,
+                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type,
+                    boost::mpl::at<locale_type_list, type::locale::windia_file_encoder>::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::writer_selector,
+                model::serializer::writer_selector<
+                    boost::mpl::at<common_type_list, type::output_stream>::type,
+                    detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::path>::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::writer_set,
+                model::serializer::writer_set<
+                    boost::mpl::at<common_type_list, type::output_stream>::type,
+                    detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::path>::type,
+                    detail::model::station_grade_type_set_type,
+                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >>>>>
+        model_type_list;
 
 
     /**** Common Dialog *****************************************************/
