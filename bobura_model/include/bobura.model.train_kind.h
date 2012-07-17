@@ -126,6 +126,39 @@ namespace bobura { namespace model
             return m_abbreviation;
         }
 
+        /*!
+            \brief Returns the color.
+
+            \return The color.
+        */
+        const color_type& color()
+        const
+        {
+            return m_color;
+        }
+
+        /*!
+            \brief Returns the weight.
+
+            \return The weight.
+        */
+        weight_type weight()
+        const
+        {
+            return m_weight;
+        }
+
+        /*!
+            \brief Returns the line style.
+
+            \return The line style.
+        */
+        line_style_type line_style()
+        const
+        {
+            return m_line_style;
+        }
+
 
     private:
         // variables

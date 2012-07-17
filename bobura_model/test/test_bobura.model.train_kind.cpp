@@ -120,6 +120,51 @@ BOOST_AUTO_TEST_SUITE(train_kind)
         BOOST_CHECK(kind.abbreviation() == string_type(TETENGO2_TEXT("fuga")));
     }
 
+    BOOST_AUTO_TEST_CASE(color)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
+
+        BOOST_CHECK(kind.color() == color_type(0, 128, 255));
+    }
+
+    BOOST_AUTO_TEST_CASE(weight)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
+
+        BOOST_CHECK_EQUAL(kind.weight(), train_kind_type::weight_normal);
+    }
+
+    BOOST_AUTO_TEST_CASE(line_style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
+
+        BOOST_CHECK_EQUAL(kind.line_style(), train_kind_type::line_style_solid);
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
