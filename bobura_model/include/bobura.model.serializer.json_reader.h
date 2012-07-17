@@ -103,6 +103,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_kind_type train_kind_type;
 
+        typedef typename train_kind_type::color_type color_type;
+
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stop_type stop_type;
@@ -382,7 +384,16 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(train_kind_type(name, abbreviation));
+            return
+                boost::make_optional(
+                    train_kind_type(
+                        name,
+                        abbreviation,
+                        color_type(0, 128, 255),
+                        train_kind_type::weight_normal,
+                        train_kind_type::line_style_solid
+                    )
+                );
         }
 
         static boost::optional<std::vector<train_type>> read_trains(

@@ -57,6 +57,8 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
+
     typedef
         boost::mpl::at<
             test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::json_writer
@@ -177,11 +179,23 @@ namespace
         {
             p_timetable->insert_train_kind(
                 p_timetable->train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("nameA")), string_type(TETENGO2_TEXT("abbrA")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("nameA")),
+                    string_type(TETENGO2_TEXT("abbrA")),
+                    color_type(0, 128, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             p_timetable->insert_train_kind(
                 p_timetable->train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("nameB")), string_type(TETENGO2_TEXT("abbrB")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("nameB")),
+                    string_type(TETENGO2_TEXT("abbrB")),
+                    color_type(0, 128, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
         }
         {

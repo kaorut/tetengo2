@@ -48,6 +48,8 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
+
     typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
@@ -364,7 +366,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -447,7 +455,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -665,7 +679,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -707,7 +727,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -749,7 +775,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -791,7 +823,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -844,15 +882,33 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Local")),
+                    string_type(TETENGO2_TEXT("Local")),
+                    color_type(0, 0, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    color_type(0, 128, 0),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -895,15 +951,33 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Local")),
+                    string_type(TETENGO2_TEXT("Local")),
+                    color_type(0, 0, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    color_type(0, 128, 0),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -950,17 +1024,35 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         timetable_type timetable;
 
-        const train_kind_type kind1(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")));
+        const train_kind_type kind1(
+            string_type(TETENGO2_TEXT("Local")),
+            string_type(TETENGO2_TEXT("Local")),
+            color_type(0, 0, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
         timetable.insert_train_kind(timetable.train_kinds().end(), kind1);
         
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 1U);
 
-        const train_kind_type kind2(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")));
+        const train_kind_type kind2(
+            string_type(TETENGO2_TEXT("Express")),
+            string_type(TETENGO2_TEXT("Exp.")),
+            color_type(255, 0, 0),
+            train_kind_type::weight_bold,
+            train_kind_type::line_style_solid
+        );
         timetable.insert_train_kind(timetable.train_kinds().end(), kind2);
        
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 2U);
 
-        const train_kind_type kind0(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")));
+        const train_kind_type kind0(
+            string_type(TETENGO2_TEXT("Rapid")),
+            string_type(TETENGO2_TEXT("Rapid")),
+            color_type(0, 128, 0),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
         timetable.insert_train_kind(timetable.train_kinds().begin(), kind0);
        
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 3U);
@@ -977,11 +1069,23 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Local")),
+                    string_type(TETENGO2_TEXT("Local")),
+                    color_type(0, 0, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Rapid")), string_type(TETENGO2_TEXT("Rapid")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    color_type(0, 128, 0),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
 
             timetable.erase_train_kind(timetable.train_kinds().begin());
@@ -997,7 +1101,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Local")), string_type(TETENGO2_TEXT("Local")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Local")),
+                    string_type(TETENGO2_TEXT("Local")),
+                    color_type(0, 0, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1033,7 +1143,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1057,7 +1173,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1106,7 +1228,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1130,7 +1258,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1172,7 +1306,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1196,7 +1336,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1232,7 +1378,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1326,7 +1478,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             BOOST_CHECK_THROW(
@@ -1347,7 +1505,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -1379,7 +1543,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1403,7 +1573,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1439,7 +1615,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1533,7 +1715,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
 
             BOOST_CHECK_THROW(
@@ -1554,7 +1742,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             train_type::stops_type stops;
@@ -1586,7 +1780,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1620,7 +1820,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1656,7 +1862,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1694,7 +1906,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_down_train(
@@ -1748,7 +1966,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1782,7 +2006,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1818,7 +2048,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(
@@ -1856,7 +2092,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
             timetable.insert_train_kind(
                 timetable.train_kinds().end(),
-                train_kind_type(string_type(TETENGO2_TEXT("Express")), string_type(TETENGO2_TEXT("Exp.")))
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
             );
             
             timetable.insert_up_train(

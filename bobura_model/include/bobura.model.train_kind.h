@@ -34,6 +34,22 @@ namespace bobura { namespace model
         //! The color type.
         typedef Color color_type;
 
+        //! The weight type.
+        enum weight_type
+        {
+            weight_normal, //!< Normal.
+            weight_bold,   //!< Bold.
+        };
+
+        //! The line style type.
+        enum line_style_type
+        {
+            line_style_solid,      //!< Solid.
+            line_style_dashed,     //!< Dashed.
+            line_style_dotted,     //!< Dotted.
+            line_style_dot_dashed, //!< Dot-Dashed.
+        };
+
 
         // constructors and destructor
 
@@ -42,15 +58,28 @@ namespace bobura { namespace model
 
             \tparam S1 A string type #1.
             \tparam S2 A string type #2.
+            \tparam C  A color type.
 
             \param name         A name.
             \param abbreviation An abbreviated name.
+            \param color        A color.
+            \param weight       A weight.
+            \param line_style   A line style.
         */
-        template <typename S1, typename S2>
-        train_kind(S1&& name, S2&& abbreviation)
+        template <typename S1, typename S2, typename C>
+        train_kind(
+            S1&&                  name,
+            S2&&                  abbreviation,
+            C&&                   color,
+            const weight_type     weight,
+            const line_style_type line_style
+        )
         :
         m_name(std::forward<S1>(name)),
-        m_abbreviation(std::forward<S2>(abbreviation))
+        m_abbreviation(std::forward<S2>(abbreviation)),
+        m_color(std::forward<C>(color)),
+        m_weight(weight),
+        m_line_style(line_style)
         {}
 
 
@@ -69,7 +98,10 @@ namespace bobura { namespace model
         {
             return
                 one.m_name == another.m_name &&
-                one.m_abbreviation == another.m_abbreviation;
+                one.m_abbreviation == another.m_abbreviation &&
+                one.m_color == another.m_color &&
+                one.m_weight == another.m_weight &&
+                one.m_line_style == another.m_line_style;
         }
 
         /*!
@@ -101,6 +133,12 @@ namespace bobura { namespace model
         string_type m_name;
 
         string_type m_abbreviation;
+
+        color_type m_color;
+
+        weight_type m_weight;
+
+        line_style_type m_line_style;
 
 
     };

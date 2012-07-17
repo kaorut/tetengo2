@@ -20,6 +20,8 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
+
     typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train_kind>::type
         train_kind_type;
@@ -37,7 +39,13 @@ BOOST_AUTO_TEST_SUITE(train_kind)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
@@ -45,14 +53,38 @@ BOOST_AUTO_TEST_SUITE(train_kind)
         BOOST_TEST_PASSPOINT();
 
         {
-            const train_kind_type kind1(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
-            const train_kind_type kind2(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+            const train_kind_type kind1(
+                string_type(TETENGO2_TEXT("hoge")),
+                string_type(TETENGO2_TEXT("fuga")),
+                color_type(0, 128, 255),
+                train_kind_type::weight_normal,
+                train_kind_type::line_style_solid
+            );
+            const train_kind_type kind2(
+                string_type(TETENGO2_TEXT("hoge")),
+                string_type(TETENGO2_TEXT("fuga")),
+                color_type(0, 128, 255),
+                train_kind_type::weight_normal,
+                train_kind_type::line_style_solid
+            );
 
             BOOST_CHECK(kind1 == kind2);
         }
         {
-            const train_kind_type kind1(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
-            const train_kind_type kind2(string_type(TETENGO2_TEXT("foo")), string_type(TETENGO2_TEXT("bar")));
+            const train_kind_type kind1(
+                string_type(TETENGO2_TEXT("hoge")),
+                string_type(TETENGO2_TEXT("fuga")),
+                color_type(0, 128, 255),
+                train_kind_type::weight_normal,
+                train_kind_type::line_style_solid
+            );
+            const train_kind_type kind2(
+                string_type(TETENGO2_TEXT("foo")),
+                string_type(TETENGO2_TEXT("bar")),
+                color_type(255, 128, 0),
+                train_kind_type::weight_bold,
+                train_kind_type::line_style_dashed
+            );
 
             BOOST_CHECK(kind1 != kind2);
         }
@@ -62,7 +94,13 @@ BOOST_AUTO_TEST_SUITE(train_kind)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
 
         BOOST_CHECK(kind.name() == string_type(TETENGO2_TEXT("hoge")));
     }
@@ -71,7 +109,13 @@ BOOST_AUTO_TEST_SUITE(train_kind)
     {
         BOOST_TEST_PASSPOINT();
 
-        const train_kind_type kind(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+        const train_kind_type kind(
+            string_type(TETENGO2_TEXT("hoge")),
+            string_type(TETENGO2_TEXT("fuga")),
+            color_type(0, 128, 255),
+            train_kind_type::weight_normal,
+            train_kind_type::line_style_solid
+        );
 
         BOOST_CHECK(kind.abbreviation() == string_type(TETENGO2_TEXT("fuga")));
     }

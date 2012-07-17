@@ -83,6 +83,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_kind_type train_kind_type;
 
+        typedef typename train_kind_type::color_type color_type;
+
         class state
         {
         public:
@@ -416,7 +418,13 @@ namespace bobura { namespace model { namespace serializer
             {
                 timetable.insert_train_kind(
                     timetable.train_kinds().end(),
-                    train_kind_type(encoder().decode(name.first), encoder().decode(name.second))
+                    train_kind_type(
+                        encoder().decode(name.first),
+                        encoder().decode(name.second),
+                        color_type(0, 128, 255),
+                        train_kind_type::weight_normal,
+                        train_kind_type::line_style_solid
+                    )
                 );
             }
         }
