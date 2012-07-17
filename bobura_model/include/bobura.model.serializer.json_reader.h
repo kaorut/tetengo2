@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <boost/foreach.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
@@ -104,6 +105,10 @@ namespace bobura { namespace model { namespace serializer
         typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_kind_type::color_type color_type;
+
+        typedef typename train_kind_type::weight_type weight_type;
+
+        typedef typename train_kind_type::line_style_type line_style_type;
 
         typedef typename timetable_type::train_type train_type;
 
@@ -380,20 +385,86 @@ namespace bobura { namespace model { namespace serializer
                 abbreviation = member->second;
             }
 
+            boost::optional<color_type> color;
+            {
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("color")))
+                    return boost::none;
+
+                color = to_color(member->second);
+                if (!color)
+                    return boost::none;
+            }
+
+            boost::optional<weight_type> weight;
+            {
+                const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("weight")))
+                    return boost::none;
+
+                weight = to_weight(member->second);
+            }
+
+            boost::optional<line_style_type> line_style;
+            {
+                const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("weight")))
+                    return boost::none;
+
+                line_style = to_line_style(member->second);
+            }
+
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
             pull_parser.next();
 
+            return boost::make_optional(train_kind_type(name, abbreviation, *color, *weight, *line_style));
+        }
+
+        static boost::optional<color_type> to_color(const string_type& color_string)
+        {
+            if (color_string.length() != 6)
+                return boost::none;
+
+            const int red = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(0, 2));
+            const int green = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(2, 4));
+            const int blue = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(4, 6));
+
             return
                 boost::make_optional(
-                    train_kind_type(
-                        name,
-                        abbreviation,
-                        color_type(0, 128, 255),
-                        train_kind_type::weight_normal,
-                        train_kind_type::line_style_solid
+                    color_type(
+                        static_cast<unsigned char>(red),
+                        static_cast<unsigned char>(green),
+                        static_cast<unsigned char>(blue)
                     )
                 );
+        }
+
+        static boost::optional<weight_type> to_weight(const int weight_integer)
+        {
+            if (weight_integer < train_kind_type::weight_normal || train_kind_type::weight_bold < weight_integer)
+                return boost::none;
+
+            return static_cast<weight_type>(weight_integer);
+        }
+
+        static boost::optional<line_style_type> to_line_style(const int line_style_integer)
+        {
+            if (
+                line_style_integer < train_kind_type::line_style_solid ||
+                train_kind_type::line_style_dot_dashed < line_style_integer
+            )
+            {
+                return boost::none;
+            }
+
+            return static_cast<line_style_type>(line_style_integer);
         }
 
         static boost::optional<std::vector<train_type>> read_trains(
