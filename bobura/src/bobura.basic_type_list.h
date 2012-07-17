@@ -271,6 +271,7 @@ namespace bobura
     {
         struct gui_fixture;    //!< The GUI fixture type.
         struct position;       //!< The position type.
+        struct color;          //!< The color type.
         struct picture_reader; //!< The picture reader type.
         struct fast_picture_reader; //!< The fast picture reader type.
         struct canvas;         //!< The canvas type.
@@ -616,6 +617,7 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::color, detail::ui::color_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::fast_picture_reader, detail::ui::fast_picture_reader_type>,
@@ -664,7 +666,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -693,7 +695,10 @@ namespace bobura
             >
             station_location_type;
         typedef
-            bobura::model::train_kind<boost::mpl::at<common_type_list, type::string>::type>
+            bobura::model::train_kind<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<ui_type_list, type::ui::color>::type
+            >
             train_kind_type;
         typedef
             bobura::model::train_info::time<

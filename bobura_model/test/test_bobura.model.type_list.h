@@ -26,6 +26,7 @@
 #include <tetengo2.text.grammar.json.h>
 #include <tetengo2.text.pull_parser.h>
 #include <tetengo2.text.push_parser.h>
+#include <tetengo2.gui.drawing.color.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.bzip2_reader.h"
@@ -62,6 +63,7 @@ namespace test_bobura { namespace model
         struct string;         //!< The string type.
         struct path;           //!< The path type.
         struct output_stream;  //!< The output stream type.
+        struct color;          //!< The color type.
     }
 
     //! The common type list.
@@ -71,8 +73,9 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::output_stream, std::ostream>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::color, tetengo2::gui::drawing::color<unsigned char>>,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         type_list;
 
 
@@ -103,7 +106,11 @@ namespace test_bobura { namespace model
         typedef
             bobura::model::timetable_info::station_location<station_type, boost::mpl::at<type_list, type::size>::type>
             station_location_type;
-        typedef bobura::model::train_kind<boost::mpl::at<type_list, type::string>::type> train_kind_type;
+        typedef
+            bobura::model::train_kind<
+                boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::color>::type
+            >
+            train_kind_type;
         typedef bobura::model::train_info::time_span<boost::mpl::at<type_list, type::difference>::type> time_span_type;
         typedef bobura::model::train_info::time<boost::mpl::at<type_list, type::size>::type, time_span_type> time_type;
         typedef

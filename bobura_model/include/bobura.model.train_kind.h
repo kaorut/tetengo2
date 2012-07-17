@@ -20,15 +20,19 @@ namespace bobura { namespace model
         \brief The class template for a train kind.
 
         \tparam String A string type.
+        \tparam Color  A color type.
     */
-    template <typename String>
-    class train_kind : private boost::equality_comparable<train_kind<String>>
+    template <typename String, typename Color>
+    class train_kind : private boost::equality_comparable<train_kind<String, Color>>
     {
     public:
         // types
 
         //! The string type.
         typedef String string_type;
+
+        //! The color type.
+        typedef Color color_type;
 
 
         // constructors and destructor
