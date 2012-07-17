@@ -73,18 +73,7 @@ namespace bobura { namespace model { namespace serializer
         bool selects(const path_type& path)
         const
         {
-            typedef typename path_type::string_type path_string_type;
-
-            const path_string_type path_string = path.native();
-            const path_string_type extension_string = extension_impl().native();
-            if (path_string.length() < extension_string.length())
-                return false;
-            
-            const path_string_type path_extension_string(
-                boost::prior(path_string.end(), extension_string.length()), path_string.end()
-            );
-
-            return path_extension_string == extension_string;
+            return selects_impl(path);
         }
 
         /*!
@@ -111,6 +100,23 @@ namespace bobura { namespace model { namespace serializer
 
     private:
         // virtual functions
+
+        virtual bool selects_impl(const path_type& path)
+        const
+        {
+            typedef typename path_type::string_type path_string_type;
+
+            const path_string_type path_string = path.native();
+            const path_string_type extension_string = extension_impl().native();
+            if (path_string.length() < extension_string.length())
+                return false;
+            
+            const path_string_type path_extension_string(
+                boost::prior(path_string.end(), extension_string.length()), path_string.end()
+            );
+
+            return path_extension_string == extension_string;
+        }
 
         virtual path_type extension_impl()
         const = 0;
