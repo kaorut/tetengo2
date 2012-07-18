@@ -91,15 +91,24 @@
     [
         {
             "name":         "普通",
-            "abbreviation": "普通"
+            "abbreviation": "普通",
+            "color":        "0000FF",
+            "weight":       0,
+            "line_style":   0
         },
         {
             "name":         "快速",
-            "abbreviation": "快速"
+            "abbreviation": "快速",
+            "color":        "008000",
+            "weight":       0,
+            "line_style":   0
         },
         {
             "name":         "特急",
-            "abbreviation": "特急"
+            "abbreviation": "特急",
+            "color":        "FF0000",
+            "weight":       1,
+            "line_style":   0
         }
     ],
     [
