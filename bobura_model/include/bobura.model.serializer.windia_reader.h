@@ -421,12 +421,44 @@ namespace bobura { namespace model { namespace serializer
                     train_kind_type(
                         encoder().decode(name.first),
                         encoder().decode(name.second),
-                        color_type(0, 128, 255),
+                        color_type(0, 0, 0),
                         train_kind_type::weight_normal,
                         train_kind_type::line_style_solid
                     )
                 );
             }
+        }
+
+        static const std::vector<color_type>& preset_palette()
+        {
+            static const std::vector<color_type> singleton =
+                make_preset_palette();
+            return singleton;
+        }
+
+        static std::vector<color_type> make_preset_palette()
+        {
+            return std::vector<color_type> palette;
+            palette.reserve(16);
+
+            palette.push_back(color_type(  0,   0, 255));
+            palette.push_back(color_type(  0, 255,   0));
+            palette.push_back(color_type(  0,   0, 128));
+            palette.push_back(color_type(  0, 128,   0));
+            palette.push_back(color_type(  0, 255, 255));
+            palette.push_back(color_type(255,   0,   0));
+            palette.push_back(color_type(  0, 128, 128));
+            palette.push_back(color_type(128,   0,   0));
+            palette.push_back(color_type(255,   0, 255));
+            palette.push_back(color_type(255, 255,   0));
+            palette.push_back(color_type(128,   0, 128));
+            palette.push_back(color_type(128, 128,   0));
+            palette.push_back(color_type(  0,   0,   0));
+            palette.push_back(color_type(128, 128, 128));
+            palette.push_back(color_type(192, 192, 192));
+            palette.push_back(color_type(255, 255, 255));
+
+            return palette;
         }
 
         static input_string_type next_line(iterator& first, const iterator last)
