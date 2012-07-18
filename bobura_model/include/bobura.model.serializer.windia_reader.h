@@ -12,10 +12,13 @@
 #include <cassert>
 #include <cstddef>
 #include <stdexcept>
+#include <tuple>
 #include <utility>
 
 #include <boost/foreach.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -214,12 +217,151 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
+                const boost::optional<split_type> split = split_line(line);
+                if (!split)
+                    return false;
+
+                if (std::get<0>(*split) == string_type(TETENGO2_TEXT("LINES")))
+                    return set_line_props(std::get<2>(*split));
+                else if (std::get<0>(*split) == string_type(TETENGO2_TEXT("Train")))
+                    return set_name(std::get<1>(*split), std::get<2>(*split));
+                else
+                    return false;
+            }
+
+        private:
+            typedef typename train_kind_type::weight_type weight_type;
+
+            typedef typename train_kind_type::line_style_type line_style_type;
+
+            typedef std::tuple<string_type, std::size_t, std::vector<string_type>> split_type;
+
+            static boost::optional<split_type> split_line(const string_type& line)
+            {
+                const std::size_t equal_position = line.find(TETENGO2_TEXT('='));
+                if (equal_position == string_type::npos)
+                    return boost::none;
+
+                const string_type key_and_index = line.substr(0, equal_position);
+                const std::size_t index_position = key_and_index.find_first_of(TETENGO2_TEXT("0123456789"));
+                string_type key = key_and_index.substr(0, index_position);
+                std::size_t index = 0;
+                if (index_position != string_type::npos)
+                {
+                    try
+                    {
+                        index = boost::lexical_cast<std::size_t>(key_and_index.substr(index_position));
+                    }
+                    catch (const boost::bad_lexical_cast&)
+                    {
+                        return boost::none;
+                    }
+                }
+
+                std::vector<string_type> values = split_values(line.substr(equal_position + 1));
+
+                return boost::make_optional(split_type(std::move(key), index, std::move(values)));
+            }
+
+            static std::vector<string_type> split_values(const string_type& string)
+            {
+                std::vector<string_type> values;
+
+                std::size_t offset = 0;
+                for (;;)
+                {
+                    const std::size_t next_offset = string.find(TETENGO2_TEXT(','), offset);
+                    values.push_back(string.substr(offset, next_offset - offset));
+                    if (next_offset == string_type::npos)
+                        break;
+                    offset = next_offset + 1;
+                }
+
+                return values;
+            }
+
+            static boost::optional<color_type> to_color(const std::size_t index)
+            {
+                if (index >= preset_palette().size())
+                    return boost::none;
+                return boost::make_optional(preset_palette()[index]);
+            }
+
+            static weight_type to_weight(const bool bold)
+            {
+                return bold ? train_kind_type::weight_bold : train_kind_type::weight_normal;
+            }
+
+            static boost::optional<line_style_type> to_line_style(const std::size_t index)
+            {
+                switch (index)
+                {
+                case 0:
+                    return boost::make_optional(train_kind_type::line_style_solid);
+                case 1:
+                    return boost::make_optional(train_kind_type::line_style_dashed);
+                case 2:
+                    return boost::make_optional(train_kind_type::line_style_dotted);
+                case 3:
+                    return boost::make_optional(train_kind_type::line_style_dot_dashed);
+                default:
+                    return boost::none;
+                }
+            }
+
+            timetable_type& m_timetable;
+
+            bool set_line_props(const std::vector<string_type>& props)
+            {
+                const std::size_t train_kind_count = m_timetable.train_kinds().size();
+                if (props.size() < train_kind_count)
+                    return false;
+
+                for (std::size_t i = 0; i < train_kind_count; ++i)
+                {
+                    unsigned int prop = 0;
+                    try
+                    {
+                        prop = boost::lexical_cast<unsigned int>(props[i]);
+                    }
+                    catch (const boost::bad_lexical_cast&)
+                    {
+                        return false;
+                    }
+
+                    const boost::optional<line_style_type> line_style = to_line_style(prop & 0x03);
+                    if (!line_style)
+                        return false;
+                    const bool custom_color = (prop & 0x40) != 0;
+                    const boost::optional<color_type> color =
+                        custom_color ?
+                        to_color((prop & 0x3C) / 0x04) : boost::make_optional(m_timetable.train_kinds()[i].color());
+                    if (!color)
+                        return false;
+                    const weight_type weight = to_weight((prop & 0x80) != 0);
+
+                    train_kind_type new_kind(
+                        m_timetable.train_kinds()[i].name(),
+                        m_timetable.train_kinds()[i].abbreviation(),
+                        std::move(*color),
+                        weight,
+                        *line_style
+                    );
+
+                    m_timetable.erase_train_kind(boost::next(m_timetable.train_kinds().begin(), i));
+                    m_timetable.insert_train_kind(
+                        boost::next(m_timetable.train_kinds().begin(), i), std::move(new_kind)
+                    );
+                    assert(m_timetable.train_kinds().size() == train_kind_count);
+                }
 
                 return true;
             }
 
-        private:
-            timetable_type& m_timetable;
+            bool set_name(const std::size_t index, const std::vector<string_type>& name_and_abbreviation)
+            {
+                return true;
+            }
 
         };
 
@@ -438,7 +580,7 @@ namespace bobura { namespace model { namespace serializer
 
         static std::vector<color_type> make_preset_palette()
         {
-            return std::vector<color_type> palette;
+            std::vector<color_type> palette;
             palette.reserve(16);
 
             palette.push_back(color_type(  0,   0, 255));
