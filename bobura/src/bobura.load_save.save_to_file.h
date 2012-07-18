@@ -127,7 +127,12 @@ namespace bobura { namespace load_save
             {
                 writer_selector_type writer(writer_set_type::create_writers(), path);
                 if (!writer.selects(path))
-                    return save_to_file(true, m_message_catalog)(model, parent);
+                {
+                    if (m_ask_file_path)
+                        return false;
+                    else
+                        return save_to_file(true, m_message_catalog)(model, parent);
+                }
 
                 boost::filesystem::ofstream output_stream(temporary_path, std::ios_base::binary);
                 if (!output_stream)

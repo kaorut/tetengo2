@@ -57,9 +57,7 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             window_type parent;
             const bool result = save_to_file(model, parent);
 
-            BOOST_CHECK(result);
-            BOOST_CHECK(boost::filesystem::exists(model.path()));
-            boost::filesystem::remove(model.path());
+            BOOST_CHECK(!result);
         }
         {
             const message_catalog_type message_catalog;
@@ -81,9 +79,7 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             window_type parent;
             const bool result = save_to_file(model, parent);
 
-            BOOST_CHECK(result);
-            BOOST_CHECK(boost::filesystem::exists(model.path()));
-            boost::filesystem::remove(model.path());
+            BOOST_CHECK(!result);
         }
         {
             const message_catalog_type message_catalog;
@@ -93,9 +89,7 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             window_type parent;
             const bool result = save_to_file(model, parent);
 
-            BOOST_CHECK(result);
-            BOOST_CHECK(boost::filesystem::exists(model.path()));
-            boost::filesystem::remove(model.path());
+            BOOST_CHECK(!result);
         }
     }
 
