@@ -105,11 +105,17 @@ namespace
         "    [\n"
         "        {\n"
         "            \"name\": \"nameA\",\n"
-        "            \"abbreviation\": \"abbrA\"\n"
+        "            \"abbreviation\": \"abbrA\",\n"
+        "            \"color\": \"0080FF\",\n"
+        "            \"weight\": 0,\n"
+        "            \"line_style\": 0\n"
         "        },\n"
         "        {\n"
         "            \"name\": \"nameB\",\n"
-        "            \"abbreviation\": \"abbrB\"\n"
+        "            \"abbreviation\": \"abbrB\",\n"
+        "            \"color\": \"FF8000\",\n"
+        "            \"weight\": 1,\n"
+        "            \"line_style\": 2\n"
         "        }\n"
         "    ],\n"
         "    [\n"
@@ -192,9 +198,9 @@ namespace
                 train_kind_type(
                     string_type(TETENGO2_TEXT("nameB")),
                     string_type(TETENGO2_TEXT("abbrB")),
-                    color_type(0, 128, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    color_type(255, 128, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_dotted
                 )
             );
         }

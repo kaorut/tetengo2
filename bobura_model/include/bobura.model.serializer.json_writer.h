@@ -88,6 +88,12 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_kind_type train_kind_type;
 
+        typedef typename train_kind_type::color_type color_type;
+
+        typedef typename train_kind_type::weight_type weight_type;
+
+        typedef typename train_kind_type::line_style_type line_style_type;
+
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stops_type stops_type;
@@ -346,11 +352,45 @@ namespace bobura { namespace model { namespace serializer
             write_object_entry(
                 string_type(TETENGO2_TEXT("abbreviation")), train_kind.abbreviation(), level, output_stream
             );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("color")), to_string(train_kind.color()), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("weight")), static_cast<int>(train_kind.weight()), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("line_style")),
+                static_cast<int>(train_kind.line_style()),
+                level,
+                output_stream
+            );
 
             new_line(level + 1, output_stream);
             output_stream << object_end();
             if (!last)
                 output_stream << comma();
+        }
+
+        static string_type to_string(const color_type& color)
+        {
+            std::basic_ostringstream<char_type> stream;
+
+            stream <<
+                boost::basic_format<char_type>(string_type(TETENGO2_TEXT("%02X%02X%02X"))) %
+                static_cast<int>(color.red()) %
+                static_cast<int>(color.green()) %
+                static_cast<int>(color.blue());
+
+            return stream.str();
         }
 
         static void write_down_trains(
