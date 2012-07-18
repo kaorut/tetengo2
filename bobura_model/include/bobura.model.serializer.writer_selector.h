@@ -85,6 +85,14 @@ namespace bobura { namespace model { namespace serializer
 
 
     private:
+        // static functions
+
+        static bool call_selects(const std::unique_ptr<base_type>& p_writer, const path_type& path)
+        {
+            return p_writer->selects(path);
+        }
+
+
         // variables
 
         const std::vector<std::unique_ptr<base_type>> m_p_writers;
@@ -101,7 +109,7 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(&writer_selector::call_selects, this, tetengo2::cpp11::placeholders_1())
+                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(path))
                 ) != m_p_writers.end();
         }
 
@@ -119,21 +127,14 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(&writer_selector::call_selects, this, tetengo2::cpp11::placeholders_1())
+                    TETENGO2_CPP11_BIND(
+                        call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(m_path)
+                    )
                 );
             if (found == m_p_writers.end())
                 BOOST_THROW_EXCEPTION(std::logic_error("No writer selects this file type."));
 
             (*found)->write(timetable, output_stream);
-        }
-
-
-        // functions
-
-        bool call_selects(const std::unique_ptr<base_type>& p_writer)
-        const
-        {
-            return p_writer->selects(m_path);
         }
 
 
