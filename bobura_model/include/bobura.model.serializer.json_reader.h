@@ -11,6 +11,7 @@
 
 //#include <cstddef>
 //#include <memory>
+#include <sstream>
 #include <unordered_map>
 //#include <utility>
 #include <vector>
@@ -216,7 +217,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(header);
+            return boost::make_optional(std::move(header));
         }
 
         static boost::optional<std::vector<station_location_type>> read_stations(pull_parser_type& pull_parser)
@@ -240,7 +241,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(stations);
+            return boost::make_optional(std::move(stations));
         }
 
         static boost::optional<station_location_type> read_station(pull_parser_type& pull_parser)
@@ -314,7 +315,8 @@ namespace bobura { namespace model { namespace serializer
             return
                 boost::make_optional(
                     station_location_type(
-                        station_type(name, *p_grade, show_down_arrival_times, show_up_arrival_times), meterage
+                        station_type(std::move(name), *p_grade, show_down_arrival_times, show_up_arrival_times),
+                        meterage
                     )
                 );
         }
@@ -354,7 +356,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(train_kinds);
+            return boost::make_optional(std::move(train_kinds));
         }
 
         static boost::optional<train_kind_type> read_train_kind(pull_parser_type& pull_parser)
@@ -407,6 +409,8 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
 
                 weight = to_weight(member->second);
+                if (!weight)
+                    return boost::none;
             }
 
             boost::optional<line_style_type> line_style;
@@ -414,17 +418,22 @@ namespace bobura { namespace model { namespace serializer
                 const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
                 if (!member)
                     return boost::none;
-                if (member->first != string_type(TETENGO2_TEXT("weight")))
+                if (member->first != string_type(TETENGO2_TEXT("line_style")))
                     return boost::none;
 
                 line_style = to_line_style(member->second);
+                if (!line_style)
+                    return boost::none;
             }
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(train_kind_type(name, abbreviation, *color, *weight, *line_style));
+            return
+                boost::make_optional(
+                    train_kind_type(std::move(name), std::move(abbreviation), std::move(*color), *weight, *line_style)
+                );
         }
 
         static boost::optional<color_type> to_color(const string_type& color_string)
@@ -432,18 +441,26 @@ namespace bobura { namespace model { namespace serializer
             if (color_string.length() != 6)
                 return boost::none;
 
-            const int red = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(0, 2));
-            const int green = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(2, 4));
-            const int blue = boost::lexical_cast<int>(string_type(TETENGO2_TEXT("0x")) + color_string.substr(4, 6));
+            const unsigned int color_value = to_color_value(color_string);
 
             return
                 boost::make_optional(
                     color_type(
-                        static_cast<unsigned char>(red),
-                        static_cast<unsigned char>(green),
-                        static_cast<unsigned char>(blue)
+                        (color_value / 0x010000) & 0x0000FF,
+                        (color_value / 0x000100) & 0x0000FF,
+                        color_value & 0x0000FF
                     )
                 );
+        }
+
+        static unsigned int to_color_value(const string_type& color_string)
+        {
+            std::basic_istringstream<typename string_type::value_type> stream(color_string);
+
+            unsigned int value = 0;
+            stream >> std::hex >> value;
+
+            return value;
         }
 
         static boost::optional<weight_type> to_weight(const int weight_integer)
@@ -492,7 +509,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(trains);
+            return boost::make_optional(std::move(trains));
         }
 
         static boost::optional<train_type> read_train(
@@ -563,16 +580,16 @@ namespace bobura { namespace model { namespace serializer
                 note = member->second;
             }
 
-            train_type train(number, kind_index, name, name_number, note);
+            train_type train(std::move(number), kind_index, std::move(name), std::move(name_number), std::move(note));
 
-            const boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
+            boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
             if (!stops)
                 return boost::none;
             if (stops->size() > station_count)
                 return boost::none;
-            BOOST_FOREACH (const stop_type& stop, *stops)
+            BOOST_FOREACH (stop_type& stop, *stops)
             {
-                train.insert_stop(train.stops().end(), stop);
+                train.insert_stop(train.stops().end(), std::move(stop));
             }
             for (std::size_t i = stops->size(); i < station_count; ++i)
                 train.insert_stop(train.stops().end(), empty_stop());
@@ -581,7 +598,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(train);
+            return boost::make_optional(std::move(train));
         }
 
         static stop_type empty_stop()
@@ -608,11 +625,11 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                const boost::optional<stop_type> stop = read_stop(pull_parser);
+                boost::optional<stop_type> stop = read_stop(pull_parser);
                 if (!stop)
                     break;
 
-                stops.push_back(*stop);
+                stops.push_back(std::move(*stop));
             }
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
@@ -623,7 +640,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(stops);
+            return boost::make_optional(std::move(stops));
         }
 
         static boost::optional<stop_type> read_stop(pull_parser_type& pull_parser)
@@ -654,7 +671,12 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(stop_type(*arrival_time, *departure_time, encoder().decode(*platform)));
+            return
+                boost::make_optional(
+                    stop_type(
+                        std::move(*arrival_time), std::move(*departure_time), encoder().decode(std::move(*platform))
+                    )
+                );
         }
 
         static boost::optional<time_type> to_time(const std::ptrdiff_t input)
@@ -694,7 +716,10 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(std::make_pair(encoder().decode(key), encoder().decode(*value)));
+            return
+                boost::make_optional(
+                    std::make_pair(encoder().decode(std::move(key)), encoder().decode(std::move(*value)))
+                );
         }
 
         static boost::optional<input_string_type> read_string(pull_parser_type& pull_parser)
@@ -709,7 +734,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             const input_string_type string = boost::get<input_string_type>(value);
             pull_parser.next();
-            return boost::make_optional(string);
+            return boost::make_optional(std::move(string));
         }
 
         template <typename Integer>
@@ -730,7 +755,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(std::make_pair(encoder().decode(key), *value));
+            return boost::make_optional(std::make_pair(encoder().decode(std::move(key)), *value));
         }
 
         template <typename Integer>
@@ -766,7 +791,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            return boost::make_optional(std::make_pair(encoder().decode(key), *value));
+            return boost::make_optional(std::make_pair(encoder().decode(std::move(key)), *value));
         }
 
         static boost::optional<bool> read_boolean(pull_parser_type& pull_parser)
