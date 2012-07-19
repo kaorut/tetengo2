@@ -9,14 +9,19 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WINDIA2READER_H)
 #define BOBURA_MODEL_SERIALIZER_WINDIA2READER_H
 
+#include <algorithm>
 #include <cassert>
-#include <cstddef>
+//#include <cstddef>
+//#include <memory>
 #include <stdexcept>
+#include <string>
 #include <tuple>
-#include <utility>
+//#include <utility>
+#include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 

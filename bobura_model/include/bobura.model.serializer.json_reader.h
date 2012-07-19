@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_JSONREADER_H
 
 //#include <cstddef>
+#include <ios>
 //#include <memory>
 #include <sstream>
 #include <unordered_map>
@@ -17,7 +18,6 @@
 #include <vector>
 
 #include <boost/foreach.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
