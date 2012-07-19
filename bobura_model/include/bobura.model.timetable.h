@@ -331,6 +331,31 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Sets a train kind.
+
+            \tparam TK A train kind type.
+
+            \param position   A position where a train kind is inserted.
+            \param train_kind A train kind.
+        */
+        template <typename TK>
+        void set_train_kind(
+            const typename train_kinds_type::const_iterator position,
+            TK&&                                            train_kind
+        )
+        {
+            typename train_kinds_type::iterator mutable_position = m_train_kinds.begin();
+            std::advance(
+                mutable_position,
+                std::distance(static_cast<typename train_kinds_type::const_iterator>(m_train_kinds.begin()), position)
+            );
+
+            *mutable_position = std::forward<TK>(train_kind);
+
+            m_observer_set.changed();
+        }
+
+        /*!
             \brief Erases a train kind.
 
             train_kind to erase must not be referred by any trains.
