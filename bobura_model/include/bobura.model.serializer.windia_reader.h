@@ -330,11 +330,9 @@ namespace bobura { namespace model { namespace serializer
                         line_style
                     );
 
-                    m_timetable.erase_train_kind(boost::next(m_timetable.train_kinds().begin(), i));
-                    m_timetable.insert_train_kind(
+                    m_timetable.set_train_kind(
                         boost::next(m_timetable.train_kinds().begin(), i), std::move(new_kind)
                     );
-                    assert(m_timetable.train_kinds().size() == train_kind_count);
                 }
 
                 return true;
