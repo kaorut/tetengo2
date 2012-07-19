@@ -93,6 +93,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename train_kind_type::color_type color_type;
 
+        typedef typename timetable_type::train_type train_type;
+
         class state
         {
         public:
@@ -367,47 +369,90 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
-        class down_train_state : public state
+        class train_state : public state
+        {
+        public:
+            explicit train_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~train_state()
+            {}
+
+            virtual bool parse(const string_type& line)
+            {
+                std::pair<string_type, string_type> others_and_note = split_line(line);
+                std::vector<string_type> split = split_by_comma(others_and_note.first);
+                if (split.size() < 4 + m_timetable.station_locations().size())
+                    return false;
+
+                train_type train(
+                    std::move(split[1]),
+                    0,
+                    std::move(split[2]),
+                    std::move(split[3]),
+                    std::move(others_and_note.second)
+                );
+
+                insert_train(std::move(train));
+
+                return true;
+            }
+
+        protected:
+            timetable_type& m_timetable;
+
+        private:
+            static std::pair<string_type, string_type> split_line(const string_type& line)
+            {
+                const std::size_t percent_position = line.find(TETENGO2_TEXT('%'));
+                if (percent_position == string_type::npos)
+                    return std::make_pair(line, string_type());
+
+                return std::make_pair(line.substr(0, percent_position), line.substr(percent_position + 1));
+            }
+
+            virtual void insert_train(train_type&& train)
+            = 0;
+
+        };
+
+        class down_train_state : public train_state
         {
         public:
             explicit down_train_state(timetable_type& timetable)
             :
-            m_timetable(timetable)
+            train_state(timetable)
             {}
 
             virtual ~down_train_state()
             {}
 
-            virtual bool parse(const string_type& line)
-            {
-
-                return true;
-            }
-
         private:
-            timetable_type& m_timetable;
+            virtual void insert_train(train_type&& train)
+            {
+                m_timetable.insert_down_train(m_timetable.down_trains().end(), std::forward<train_type>(train));
+            }
 
         };
 
-        class up_train_state : public state
+        class up_train_state : public train_state
         {
         public:
             explicit up_train_state(timetable_type& timetable)
             :
-            m_timetable(timetable)
+            train_state(timetable)
             {}
 
             virtual ~up_train_state()
             {}
 
-            virtual bool parse(const string_type& line)
-            {
-
-                return true;
-            }
-
         private:
-            timetable_type& m_timetable;
+            virtual void insert_train(train_type&& train)
+            {
+                m_timetable.insert_up_train(m_timetable.up_trains().end(), std::forward<train_type>(train));
+            }
 
         };
 
