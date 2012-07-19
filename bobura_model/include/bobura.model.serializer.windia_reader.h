@@ -340,6 +340,23 @@ namespace bobura { namespace model { namespace serializer
 
             bool set_name(const std::size_t index, const std::vector<string_type>& name_and_abbreviation)
             {
+                if (index >= m_timetable.train_kinds().size())
+                    return false;
+                if (name_and_abbreviation.size() < 2)
+                    return false;
+
+                train_kind_type new_kind(
+                    name_and_abbreviation[0],
+                    name_and_abbreviation[1],
+                    m_timetable.train_kinds()[index].color(),
+                    m_timetable.train_kinds()[index].weight(),
+                    m_timetable.train_kinds()[index].line_style()
+                );
+
+                m_timetable.set_train_kind(
+                    boost::next(m_timetable.train_kinds().begin(), index), std::move(new_kind)
+                );
+
                 return true;
             }
 
