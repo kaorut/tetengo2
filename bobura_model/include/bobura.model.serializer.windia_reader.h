@@ -258,26 +258,9 @@ namespace bobura { namespace model { namespace serializer
                     }
                 }
 
-                std::vector<string_type> values = split_values(line.substr(equal_position + 1));
+                std::vector<string_type> values = split_by_comma(line.substr(equal_position + 1));
 
                 return boost::make_optional(split_type(std::move(key), index, std::move(values)));
-            }
-
-            static std::vector<string_type> split_values(const string_type& string)
-            {
-                std::vector<string_type> values;
-
-                std::size_t offset = 0;
-                for (;;)
-                {
-                    const std::size_t next_offset = string.find(TETENGO2_TEXT(','), offset);
-                    values.push_back(string.substr(offset, next_offset - offset));
-                    if (next_offset == string_type::npos)
-                        break;
-                    offset = next_offset + 1;
-                }
-
-                return values;
             }
 
             static boost::optional<color_type> to_color(const std::size_t index)
@@ -292,20 +275,21 @@ namespace bobura { namespace model { namespace serializer
                 return bold ? train_kind_type::weight_bold : train_kind_type::weight_normal;
             }
 
-            static boost::optional<line_style_type> to_line_style(const std::size_t index)
+            static line_style_type to_line_style(const std::size_t index)
             {
                 switch (index)
                 {
                 case 0:
-                    return boost::make_optional(train_kind_type::line_style_solid);
+                    return train_kind_type::line_style_solid;
                 case 1:
-                    return boost::make_optional(train_kind_type::line_style_dashed);
+                    return train_kind_type::line_style_dashed;
                 case 2:
-                    return boost::make_optional(train_kind_type::line_style_dotted);
+                    return train_kind_type::line_style_dotted;
                 case 3:
-                    return boost::make_optional(train_kind_type::line_style_dot_dashed);
+                    return train_kind_type::line_style_dot_dashed;
                 default:
-                    return boost::none;
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
                 }
             }
 
@@ -329,9 +313,7 @@ namespace bobura { namespace model { namespace serializer
                         return false;
                     }
 
-                    const boost::optional<line_style_type> line_style = to_line_style(prop & 0x03);
-                    if (!line_style)
-                        return false;
+                    const line_style_type line_style = to_line_style(prop & 0x03);
                     const bool custom_color = (prop & 0x40) != 0;
                     const boost::optional<color_type> color =
                         custom_color ?
@@ -345,7 +327,7 @@ namespace bobura { namespace model { namespace serializer
                         m_timetable.train_kinds()[i].abbreviation(),
                         std::move(*color),
                         weight,
-                        *line_style
+                        line_style
                     );
 
                     m_timetable.erase_train_kind(boost::next(m_timetable.train_kinds().begin(), i));
@@ -626,6 +608,23 @@ namespace bobura { namespace model { namespace serializer
         {
             while (first != last && (line_break(*first) || tab(*first)))
                 ++first;
+        }
+
+        static std::vector<string_type> split_by_comma(const string_type& string)
+        {
+            std::vector<string_type> values;
+
+            std::size_t offset = 0;
+            for (;;)
+            {
+                const std::size_t next_offset = string.find(TETENGO2_TEXT(','), offset);
+                values.push_back(string.substr(offset, next_offset - offset));
+                if (next_offset == string_type::npos)
+                    break;
+                offset = next_offset + 1;
+            }
+
+            return values;
         }
 
         static bool line_break(const input_char_type character)
