@@ -389,9 +389,13 @@ namespace bobura { namespace model { namespace serializer
                 if (split.size() < 4 + m_timetable.station_locations().size())
                     return false;
 
+                const boost::optional<train_kind_index_type> train_kind_index = to_train_kind_index(split[0]);
+                if (!train_kind_index)
+                    return false;
+
                 train_type train(
                     std::move(split[1]),
-                    0,
+                    *train_kind_index,
                     std::move(split[2]),
                     std::move(split[3]),
                     std::move(others_and_note.second)
@@ -413,6 +417,8 @@ namespace bobura { namespace model { namespace serializer
             timetable_type& m_timetable;
 
         private:
+            typedef typename train_type::kind_index_type train_kind_index_type;
+
             typedef typename train_type::stop_type stop_type;
 
             typedef typename stop_type::time_type time_type;
@@ -430,6 +436,46 @@ namespace bobura { namespace model { namespace serializer
 
             virtual void insert_train(train_type&& train)
             = 0;
+
+            boost::optional<train_kind_index_type> to_train_kind_index(const string_type& train_kind_string)
+            {
+                if (train_kind_string.empty())
+                    return boost::make_optional<train_kind_index_type>(0);
+
+                const std::size_t opening_paren_position = train_kind_string.find(TETENGO2_TEXT('('));
+                if (opening_paren_position == string_type::npos)
+                {
+                    try
+                    {
+                        return boost::make_optional(boost::lexical_cast<train_kind_index_type>(train_kind_string));
+                    }
+                    catch (const boost::bad_lexical_cast&)
+                    {
+                        return boost::none;
+                    }
+                }
+
+                const std::size_t closing_paren_position = train_kind_string.find(TETENGO2_TEXT(')'));
+                if (closing_paren_position == string_type::npos || closing_paren_position < opening_paren_position)
+                    return boost::none;
+
+                train_kind_index_type index = 0;
+                try
+                {
+                    index =
+                        boost::lexical_cast<train_kind_index_type>(
+                            train_kind_string.substr(0, opening_paren_position)
+                        );
+                }
+                catch (const boost::bad_lexical_cast&)
+                {
+                    return boost::none;
+                }
+                if (index >= m_timetable.train_kinds().size())
+                    return boost::none;
+
+                return boost::make_optional(index);
+            }
 
             boost::optional<stop_type> to_stop(string_type&& time_string)
             {
