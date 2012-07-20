@@ -856,6 +856,27 @@ namespace bobura { namespace model { namespace serializer
             }
         }
 
+        static void erase_unreferred_train_kinds(timetable_type& timetable)
+        {
+            for (;;)
+            {
+                timetable_type::train_kinds_type::const_iterator found = timetable.train_kinds().end();
+                for (std::size_t i = 0; i < timetable.train_kinds().size(); ++i)
+                {
+                    if (!timetable.train_kind_referred(i))
+                    {
+                        found = boost::next(timetable.train_kinds().begin(), i);
+                        break;
+                    }
+                }
+
+                if (found == timetable.train_kinds().end())
+                    break;
+
+                timetable.erase_train_kind(found);
+            }
+        }
+
 
         // virtual functions
 
@@ -895,6 +916,8 @@ namespace bobura { namespace model { namespace serializer
                         return std::unique_ptr<timetable_type>();
                 }
             }
+
+            erase_unreferred_train_kinds(*p_timetable);
 
             return std::move(p_timetable);
         }
