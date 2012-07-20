@@ -1024,15 +1024,15 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         timetable_type timetable;
 
-        const train_kind_type kind1(
-            string_type(TETENGO2_TEXT("Local")),
-            string_type(TETENGO2_TEXT("Local")),
-            color_type(0, 0, 255),
+        const train_kind_type kind0(
+            string_type(TETENGO2_TEXT("Rapid")),
+            string_type(TETENGO2_TEXT("Rapid")),
+            color_type(0, 128, 0),
             train_kind_type::weight_normal,
             train_kind_type::line_style_solid
         );
-        timetable.insert_train_kind(timetable.train_kinds().end(), kind1);
-        
+        timetable.insert_train_kind(timetable.train_kinds().end(), kind0);
+       
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 1U);
 
         const train_kind_type kind2(
@@ -1046,19 +1046,53 @@ BOOST_AUTO_TEST_SUITE(timetable)
        
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 2U);
 
-        const train_kind_type kind0(
-            string_type(TETENGO2_TEXT("Rapid")),
-            string_type(TETENGO2_TEXT("Rapid")),
-            color_type(0, 128, 0),
+        timetable.insert_down_train(
+            timetable.down_trains().end(),
+            train_type(
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x"))
+            )
+        );
+        timetable.insert_down_train(
+            timetable.down_trains().end(),
+            train_type(
+                string_type(TETENGO2_TEXT("2")),
+                1,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("y"))
+            )
+        );
+
+        const train_kind_type kind1(
+            string_type(TETENGO2_TEXT("Local")),
+            string_type(TETENGO2_TEXT("Local")),
+            color_type(0, 0, 255),
             train_kind_type::weight_normal,
             train_kind_type::line_style_solid
         );
-        timetable.insert_train_kind(timetable.train_kinds().begin(), kind0);
-       
+        timetable.insert_train_kind(boost::next(timetable.train_kinds().begin(), 1), kind1);
+        
         BOOST_CHECK_EQUAL(timetable.train_kinds().size(), 3U);
         BOOST_CHECK(timetable.train_kinds()[0].name() == string_type(TETENGO2_TEXT("Rapid")));
         BOOST_CHECK(timetable.train_kinds()[1].name() == string_type(TETENGO2_TEXT("Local")));
         BOOST_CHECK(timetable.train_kinds()[2].name() == string_type(TETENGO2_TEXT("Express")));
+
+        BOOST_CHECK_EQUAL(timetable.down_trains()[0].kind_index(), 0U);
+        BOOST_CHECK_LT(timetable.down_trains()[0].kind_index(), timetable.train_kinds().size());
+        BOOST_CHECK(
+            timetable.train_kinds()[timetable.down_trains()[0].kind_index()].name() ==
+            string_type(TETENGO2_TEXT("Rapid"))
+        );
+        BOOST_CHECK_EQUAL(timetable.down_trains()[1].kind_index(), 2U);
+        BOOST_CHECK_LT(timetable.down_trains()[1].kind_index(), timetable.train_kinds().size());
+        BOOST_CHECK(
+            timetable.train_kinds()[timetable.down_trains()[1].kind_index()].name() ==
+            string_type(TETENGO2_TEXT("Express"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_train_kind)

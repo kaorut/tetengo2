@@ -323,8 +323,22 @@ namespace bobura { namespace model
             TK&&                                            train_kind
         )
         {
+            const train_kind_index_type inserted_index =
+                std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
+
             m_train_kinds.insert(
                 tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::forward<TK>(train_kind)
+            );
+
+            std::for_each(
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
             );
 
             m_observer_set.changed();
@@ -377,12 +391,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index)
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index)
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
             );
 
             m_observer_set.changed();
@@ -531,14 +545,19 @@ namespace bobura { namespace model
             train.erase_stops(train.stops().begin() + first_offset, train.stops().begin() + last_offset);
         }
 
-        static void update_train_kind_index(train_type& train, const train_kind_index_type erased_index)
+        static void update_train_kind_index(
+            train_type&                 train,
+            const train_kind_index_type index,
+            const std::ptrdiff_t        index_delta
+        )
         {
-            assert(train.kind_index() != erased_index);
-            if (train.kind_index() < erased_index)
+            if (train.kind_index() < index)
                 return;
 
             train =
-                train_type(train.number(), train.kind_index() - 1, train.name(), train.name_number(), train.note());
+                train_type(
+                    train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
+                );
         }
 
         template <typename Container>
