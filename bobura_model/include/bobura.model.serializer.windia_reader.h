@@ -95,6 +95,10 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename train_kind_type::color_type color_type;
 
+        typedef typename train_kind_type::weight_type weight_type;
+
+        typedef typename train_kind_type::line_style_type line_style_type;
+
         typedef typename timetable_type::train_type train_type;
 
         class state
@@ -239,10 +243,6 @@ namespace bobura { namespace model { namespace serializer
             }
 
         private:
-            typedef typename train_kind_type::weight_type weight_type;
-
-            typedef typename train_kind_type::line_style_type line_style_type;
-
             typedef std::tuple<string_type, std::size_t, std::vector<string_type>> split_type;
 
             static boost::optional<split_type> split_line(const string_type& line)
@@ -272,36 +272,6 @@ namespace bobura { namespace model { namespace serializer
                 return boost::make_optional(split_type(std::move(key), index, std::move(values)));
             }
 
-            static boost::optional<color_type> to_color(const std::size_t index)
-            {
-                if (index >= preset_palette().size())
-                    return boost::none;
-                return boost::make_optional(preset_palette()[index]);
-            }
-
-            static weight_type to_weight(const bool bold)
-            {
-                return bold ? train_kind_type::weight_bold : train_kind_type::weight_normal;
-            }
-
-            static line_style_type to_line_style(const std::size_t index)
-            {
-                switch (index)
-                {
-                case 0:
-                    return train_kind_type::line_style_solid;
-                case 1:
-                    return train_kind_type::line_style_dashed;
-                case 2:
-                    return train_kind_type::line_style_dotted;
-                case 3:
-                    return train_kind_type::line_style_dot_dashed;
-                default:
-                    assert(false);
-                    BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
-                }
-            }
-
             timetable_type& m_timetable;
 
             bool set_line_props(const std::vector<string_type>& props)
@@ -322,25 +292,12 @@ namespace bobura { namespace model { namespace serializer
                         return false;
                     }
 
-                    const line_style_type line_style = to_line_style(prop & 0x03);
-                    const bool custom_color = (prop & 0x40) != 0;
-                    const boost::optional<color_type> color =
-                        custom_color ?
-                        to_color((prop & 0x3C) / 0x04) : boost::make_optional(m_timetable.train_kinds()[i].color());
-                    if (!color)
+                    boost::optional<train_kind_type> new_train_kind =
+                        make_train_kind(m_timetable.train_kinds()[i], prop);
+                    if (!new_train_kind)
                         return false;
-                    const weight_type weight = to_weight((prop & 0x80) != 0);
-
-                    train_kind_type new_kind(
-                        m_timetable.train_kinds()[i].name(),
-                        m_timetable.train_kinds()[i].abbreviation(),
-                        std::move(*color),
-                        weight,
-                        line_style
-                    );
-
                     m_timetable.set_train_kind(
-                        boost::next(m_timetable.train_kinds().begin(), i), std::move(new_kind)
+                        boost::next(m_timetable.train_kinds().begin(), i), std::move(*new_train_kind)
                     );
                 }
 
@@ -439,15 +396,15 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<train_kind_index_type> to_train_kind_index(const string_type& train_kind_string)
             {
-                if (train_kind_string.empty())
-                    return boost::make_optional<train_kind_index_type>(0);
-
                 const std::size_t opening_paren_position = train_kind_string.find(TETENGO2_TEXT('('));
                 if (opening_paren_position == string_type::npos)
                 {
                     try
                     {
-                        return boost::make_optional(boost::lexical_cast<train_kind_index_type>(train_kind_string));
+                        return
+                            train_kind_string.empty() ?
+                            boost::make_optional(static_cast<train_kind_index_type>(0)) :
+                            boost::make_optional(boost::lexical_cast<train_kind_index_type>(train_kind_string));
                     }
                     catch (const boost::bad_lexical_cast&)
                     {
@@ -462,10 +419,8 @@ namespace bobura { namespace model { namespace serializer
                 train_kind_index_type index = 0;
                 try
                 {
-                    index =
-                        boost::lexical_cast<train_kind_index_type>(
-                            train_kind_string.substr(0, opening_paren_position)
-                        );
+                    const string_type index_string = train_kind_string.substr(0, opening_paren_position);
+                    index = index_string.empty() ? 0 : boost::lexical_cast<train_kind_index_type>(index_string);
                 }
                 catch (const boost::bad_lexical_cast&)
                 {
@@ -832,6 +787,52 @@ namespace bobura { namespace model { namespace serializer
         {
             return
                 character == input_char_type(TETENGO2_TEXT('\t'));
+        }
+
+        static boost::optional<train_kind_type> make_train_kind(const train_kind_type& base, const unsigned int prop)
+        {
+            const line_style_type line_style = to_line_style(prop & 0x03);
+            const bool custom_color = (prop & 0x40) != 0;
+            const boost::optional<color_type> color =
+                custom_color ? to_color((prop & 0x3C) / 0x04) : boost::make_optional(base.color());
+            if (!color)
+                return boost::none;
+            const weight_type weight = to_weight((prop & 0x80) != 0);
+
+            return
+                boost::make_optional(
+                    train_kind_type(base.name(), base.abbreviation(), std::move(*color), weight, line_style)
+                );
+        }
+
+        static boost::optional<color_type> to_color(const std::size_t index)
+        {
+            if (index >= preset_palette().size())
+                return boost::none;
+            return boost::make_optional(preset_palette()[index]);
+        }
+
+        static weight_type to_weight(const bool bold)
+        {
+            return bold ? train_kind_type::weight_bold : train_kind_type::weight_normal;
+        }
+
+        static line_style_type to_line_style(const std::size_t index)
+        {
+            switch (index)
+            {
+            case 0:
+                return train_kind_type::line_style_solid;
+            case 1:
+                return train_kind_type::line_style_dashed;
+            case 2:
+                return train_kind_type::line_style_dotted;
+            case 3:
+                return train_kind_type::line_style_dot_dashed;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
+            }
         }
 
 
