@@ -138,7 +138,7 @@ namespace
         "            \"note\": \"\",\n"
         "            \"stops\": [\n"
         "                [    -1,  60030, \"1\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
+        "                [100545,     -1, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -236,7 +236,7 @@ namespace
                     stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
                 );
                 train.insert_stop(
-                    train.stops().end(), stop_type(time_type(6, 5, 45), time_type::uninitialized(), string_type())
+                    train.stops().end(), stop_type(time_type(10, 5, 45), time_type::uninitialized(), string_type())
                 );
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }

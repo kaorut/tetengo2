@@ -385,7 +385,7 @@ namespace bobura { namespace model { namespace serializer
             std::basic_ostringstream<char_type> stream;
 
             stream <<
-                boost::basic_format<char_type>(string_type(TETENGO2_TEXT("%02X%02X%02X"))) %
+                boost::basic_format<char_type>(string_type(TETENGO2_TEXT("%02X%02X%02X")), std::locale::classic()) %
                 static_cast<int>(color.red()) %
                 static_cast<int>(color.green()) %
                 static_cast<int>(color.blue());
@@ -558,7 +558,7 @@ namespace bobura { namespace model { namespace serializer
                 std::get<2>(hours_minutes_seconds);
             std::basic_ostringstream<output_char_type> stream;
             stream <<
-                boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d"), std::locale::classic()) % representation;
+                boost::basic_format<output_char_type>(TETENGO2_TEXT("%6d"), std::locale::classic()) % representation;
             return stream.str();
         }
 
