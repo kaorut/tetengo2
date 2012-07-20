@@ -89,6 +89,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::string_type string_type;
 
+        typedef typename string_type::value_type char_type;
+
         typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_kind_type::color_type color_type;
@@ -394,6 +396,13 @@ namespace bobura { namespace model { namespace serializer
                     std::move(split[3]),
                     std::move(others_and_note.second)
                 );
+                for (std::size_t i = 0; i < m_timetable.station_locations().size(); ++i)
+                {
+                    boost::optional<stop_type> stop = to_stop(std::move(split[4 + i]));
+                    if (!stop)
+                        return false;
+                    train.insert_stop(train.stops().end(), std::move(*stop));
+                }
 
                 insert_train(std::move(train));
 
@@ -404,6 +413,12 @@ namespace bobura { namespace model { namespace serializer
             timetable_type& m_timetable;
 
         private:
+            typedef typename train_type::stop_type stop_type;
+
+            typedef typename stop_type::time_type time_type;
+
+            typedef typename time_type::tick_type time_tick_type;
+
             static std::pair<string_type, string_type> split_line(const string_type& line)
             {
                 const std::size_t percent_position = line.find(TETENGO2_TEXT('%'));
@@ -415,6 +430,69 @@ namespace bobura { namespace model { namespace serializer
 
             virtual void insert_train(train_type&& train)
             = 0;
+
+            boost::optional<stop_type> to_stop(string_type&& time_string)
+            {
+                const std::pair<string_type, string_type> arrival_and_departure_string =
+                    split_time_string(std::forward<string_type>(time_string));
+
+                boost::optional<time_type> arrival = to_time(arrival_and_departure_string.first);
+                if (!arrival)
+                    return boost::none;
+                boost::optional<time_type> departure = to_time(arrival_and_departure_string.second);
+                if (!departure)
+                    return boost::none;
+
+                return stop_type(std::move(*arrival), std::move(*departure), string_type());
+            }
+
+            std::pair<string_type, string_type> split_time_string(string_type&& time_string)
+            {
+                const std::size_t slash_position = time_string.find(TETENGO2_TEXT('/'));
+                if (slash_position == string_type::npos)
+                    return std::make_pair(string_type(), std::forward<string_type>(time_string));
+
+                return std::make_pair(time_string.substr(0, slash_position), time_string.substr(slash_position + 1));
+            }
+
+            boost::optional<time_type> to_time(const string_type& time_string)
+            {
+                if (time_string.empty() || time_string == string_type(TETENGO2_TEXT("-")))
+                    return boost::make_optional(time_type::uninitialized());
+
+                const std::size_t time_string_length =
+                    time_string.back() == char_type(TETENGO2_TEXT('?')) ?
+                    time_string.length() - 1 : time_string.length();
+                if (time_string_length < 3 && 4 < time_string_length)
+                    return boost::none;
+                const std::size_t minute_position = time_string_length == 3 ? 1 : 2;
+
+                time_tick_type hours = 0;
+                try
+                {
+                    hours = boost::lexical_cast<time_tick_type>(time_string.substr(0, minute_position));
+                }
+                catch (const boost::bad_lexical_cast&)
+                {
+                    return boost::none;
+                }
+                if (hours > 23)
+                    return boost::none;
+
+                time_tick_type minutes = 0;
+                try
+                {
+                    minutes = boost::lexical_cast<time_tick_type>(time_string.substr(minute_position, 2));
+                }
+                catch (const boost::bad_lexical_cast&)
+                {
+                    return boost::none;
+                }
+                if (minutes > 59)
+                    return boost::none;
+
+                return time_type(hours, minutes, 0);
+            }
 
         };
 
