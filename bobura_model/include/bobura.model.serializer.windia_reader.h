@@ -413,23 +413,44 @@ namespace bobura { namespace model { namespace serializer
                 }
 
                 const std::size_t closing_paren_position = train_kind_string.find(TETENGO2_TEXT(')'));
-                if (closing_paren_position == string_type::npos || closing_paren_position < opening_paren_position)
+                if (closing_paren_position == string_type::npos || closing_paren_position <= opening_paren_position)
                     return boost::none;
 
-                train_kind_index_type index = 0;
+                train_kind_index_type base_index = 0;
                 try
                 {
                     const string_type index_string = train_kind_string.substr(0, opening_paren_position);
-                    index = index_string.empty() ? 0 : boost::lexical_cast<train_kind_index_type>(index_string);
+                    base_index = index_string.empty() ? 0 : boost::lexical_cast<train_kind_index_type>(index_string);
                 }
                 catch (const boost::bad_lexical_cast&)
                 {
                     return boost::none;
                 }
-                if (index >= m_timetable.train_kinds().size())
+                if (base_index >= m_timetable.train_kinds().size())
                     return boost::none;
 
-                return boost::make_optional(index);
+                unsigned int prop = 0;
+                try
+                {
+                    prop =
+                        boost::lexical_cast<unsigned int>(
+                            train_kind_string.substr(
+                                opening_paren_position + 1, closing_paren_position - opening_paren_position - 1
+                            )
+                        );
+                }
+                catch (const boost::bad_lexical_cast&)
+                {
+                    return boost::none;
+                }
+
+                boost::optional<train_kind_type> new_train_kind =
+                    make_train_kind(m_timetable.train_kinds()[base_index], prop);
+                if (!new_train_kind)
+                    return boost::none;
+                m_timetable.insert_train_kind(m_timetable.train_kinds().end(), std::move(*new_train_kind));
+
+                return boost::make_optional<train_kind_index_type>(m_timetable.train_kinds().size() - 1);
             }
 
             boost::optional<stop_type> to_stop(string_type&& time_string)
