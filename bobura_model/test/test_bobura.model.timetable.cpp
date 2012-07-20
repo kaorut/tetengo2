@@ -1150,6 +1150,75 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     train_kind_type::line_style_solid
                 )
             );
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    string_type(TETENGO2_TEXT("Rapid")),
+                    color_type(0, 128, 0),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
+            );
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Limited Express")),
+                    string_type(TETENGO2_TEXT("Ltd.Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
+                )
+            );
+            
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("2")),
+                    2,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("y"))
+                )
+            );
+
+            timetable.erase_train_kind(boost::next(timetable.train_kinds().begin(), 1));
+
+            BOOST_CHECK_EQUAL(timetable.down_trains()[0].kind_index(), 0U);
+            BOOST_CHECK_LT(timetable.down_trains()[0].kind_index(), timetable.train_kinds().size());
+            BOOST_CHECK(
+                timetable.train_kinds()[timetable.down_trains()[0].kind_index()].name() ==
+                string_type(TETENGO2_TEXT("Local"))
+            );
+            BOOST_CHECK_EQUAL(timetable.down_trains()[1].kind_index(), 1U);
+            BOOST_CHECK_LT(timetable.down_trains()[1].kind_index(), timetable.train_kinds().size());
+            BOOST_CHECK(
+                timetable.train_kinds()[timetable.down_trains()[1].kind_index()].name() ==
+                string_type(TETENGO2_TEXT("Limited Express"))
+            );
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Local")),
+                    string_type(TETENGO2_TEXT("Local")),
+                    color_type(0, 0, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
+            );
             
             timetable.insert_down_train(
                 timetable.down_trains().end(),
