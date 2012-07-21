@@ -292,12 +292,32 @@ namespace bobura { namespace model { namespace serializer
                     }
 
                     boost::optional<train_kind_type> new_train_kind =
-                        make_train_kind(m_timetable.train_kinds()[i], prop);
+                        make_train_kind(
+                            boost::make_optional<const train_kind_type&>(m_timetable.train_kinds()[i]), prop
+                        );
                     if (!new_train_kind)
                         return false;
                     m_timetable.set_train_kind(
                         boost::next(m_timetable.train_kinds().begin(), i), std::move(*new_train_kind)
                     );
+                }
+                for (std::size_t i = train_kind_count; i < props.size(); ++i)
+                {
+                    unsigned int prop = 0;
+                    try
+                    {
+                        prop = boost::lexical_cast<unsigned int>(props[i]);
+                    }
+                    catch (const boost::bad_lexical_cast&)
+                    {
+                        return false;
+                    }
+
+                    boost::optional<train_kind_type> new_train_kind =
+                        make_train_kind(boost::none, prop);
+                    if (!new_train_kind)
+                        return false;
+                    m_timetable.insert_train_kind(m_timetable.train_kinds().end(), std::move(*new_train_kind));
                 }
 
                 return true;
@@ -444,7 +464,9 @@ namespace bobura { namespace model { namespace serializer
                 }
 
                 boost::optional<train_kind_type> new_train_kind =
-                    make_train_kind(m_timetable.train_kinds()[base_index], prop);
+                    make_train_kind(
+                        boost::make_optional<const train_kind_type&>(m_timetable.train_kinds()[base_index]), prop
+                    );
                 if (!new_train_kind)
                     return boost::none;
                 m_timetable.insert_train_kind(m_timetable.train_kinds().end(), std::move(*new_train_kind));
@@ -813,19 +835,28 @@ namespace bobura { namespace model { namespace serializer
                 character == input_char_type(TETENGO2_TEXT('\t'));
         }
 
-        static boost::optional<train_kind_type> make_train_kind(const train_kind_type& base, const unsigned int prop)
+        static boost::optional<train_kind_type> make_train_kind(
+            const boost::optional<const train_kind_type&>& base,
+            const unsigned int                             prop
+        )
         {
             const line_style_type line_style = to_line_style(prop & 0x03);
             const bool custom_color = (prop & 0x40) != 0;
             const boost::optional<color_type> color =
-                custom_color ? to_color((prop & 0x3C) / 0x04) : boost::make_optional(base.color());
+                custom_color ?
+                to_color((prop & 0x3C) / 0x04) :
+                (base ? boost::make_optional(base->color()) : boost::make_optional(color_type(0, 0, 0)));
             if (!color)
                 return boost::none;
             const weight_type weight = to_weight((prop & 0x80) != 0);
 
             return
+                base ?
                 boost::make_optional(
-                    train_kind_type(base.name(), base.abbreviation(), std::move(*color), weight, line_style)
+                    train_kind_type(base->name(), base->abbreviation(), std::move(*color), weight, line_style)
+                ) :
+                boost::make_optional(
+                    train_kind_type(string_type(), string_type(), std::move(*color), weight, line_style)
                 );
         }
 
