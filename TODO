@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000175
-Added on    : 2012/06/12
-Depends on  : 00000188
-Description : Create bobura::model::serializer::windia_reader.
-------------------------------------------------------------------------------
 Number      : 00000176
 Added on    : 2012/06/12
 Depends on  : (none)
