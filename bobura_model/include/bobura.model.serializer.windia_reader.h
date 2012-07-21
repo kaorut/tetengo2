@@ -590,33 +590,43 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
-        static const input_string_type& windia_section_label()
+        static const string_type& windia_section_label()
         {
-            static const input_string_type singleton(TETENGO2_TEXT("[WinDIA]"));
+            static const string_type singleton(
+                encoder().decode(input_string_type(TETENGO2_TEXT("[WinDIA]")))
+            );
             return singleton;
         }
 
-        static const input_string_type& station_section_label()
+        static const string_type& station_section_label()
         {
-            static const input_string_type singleton(TETENGO2_TEXT("[\x89\x77]")); // "eki"
+            static const string_type singleton(
+                encoder().decode(input_string_type(TETENGO2_TEXT("[\x89\x77]")))
+            ); // "eki"
             return singleton;
         }
 
-        static const input_string_type& line_kind_section_label()
+        static const string_type& line_kind_section_label()
         {
-            static const input_string_type singleton(TETENGO2_TEXT("[\x90\xFC\x8E\xED]")); // "senshu"
+            static const string_type singleton(
+                encoder().decode(input_string_type(TETENGO2_TEXT("[\x90\xFC\x8E\xED]")))
+            ); // "senshu"
             return singleton;
         }
 
-        static const input_string_type& down_train_section_label()
+        static const string_type& down_train_section_label()
         {
-            static const input_string_type singleton(TETENGO2_TEXT("[\x89\xBA\x82\xE8]")); // "kudari"
+            static const string_type singleton(
+                encoder().decode(input_string_type(TETENGO2_TEXT("[\x89\xBA\x82\xE8]")))
+            ); // "kudari"
             return singleton;
         }
 
-        static const input_string_type& up_train_section_label()
+        static const string_type& up_train_section_label()
         {
-            static const input_string_type singleton(TETENGO2_TEXT("[\x8F\xE3\x82\xE8]")); // "nobori"
+            static const string_type singleton(
+                encoder().decode(input_string_type(TETENGO2_TEXT("[\x8F\xE3\x82\xE8]")))
+            ); // "nobori"
             return singleton;
         }
 
@@ -775,14 +785,14 @@ namespace bobura { namespace model { namespace serializer
             return palette;
         }
 
-        static input_string_type next_line(iterator& first, const iterator last)
+        static string_type next_line(iterator& first, const iterator last)
         {
-            input_string_type line;
+            string_type line;
             for (;;)
             {
                 skip_line_breaks(first, last);
                 const iterator next_line_break = std::find_if(first, last, line_break);
-                line += input_string_type(first, next_line_break);
+                line += encoder().decode(input_string_type(first, next_line_break));
 
                 first = next_line_break;
                 if (!line.empty() && line_contination(line[line.length() - 1]))
@@ -800,6 +810,24 @@ namespace bobura { namespace model { namespace serializer
                 ++first;
         }
 
+        static bool line_break(const input_char_type character)
+        {
+            return
+                character == input_char_type(TETENGO2_TEXT('\r')) ||
+                character == input_char_type(TETENGO2_TEXT('\n'));
+        }
+
+        static bool tab(const input_char_type character)
+        {
+            return
+                character == input_char_type(TETENGO2_TEXT('\t'));
+        }
+
+        static bool line_contination(const char_type character)
+        {
+            return character == char_type(TETENGO2_TEXT('\\'));
+        }
+
         static std::vector<string_type> split_by_comma(const string_type& string)
         {
             std::vector<string_type> values;
@@ -815,24 +843,6 @@ namespace bobura { namespace model { namespace serializer
             }
 
             return values;
-        }
-
-        static bool line_break(const input_char_type character)
-        {
-            return
-                character == input_char_type(TETENGO2_TEXT('\r')) ||
-                character == input_char_type(TETENGO2_TEXT('\n'));
-        }
-
-        static bool line_contination(const input_char_type character)
-        {
-            return character == input_char_type(TETENGO2_TEXT('\\'));
-        }
-
-        static bool tab(const input_char_type character)
-        {
-            return
-                character == input_char_type(TETENGO2_TEXT('\t'));
         }
 
         static boost::optional<train_kind_type> make_train_kind(
@@ -934,7 +944,7 @@ namespace bobura { namespace model { namespace serializer
             iterator next_line_first = first;
             for (;;)
             {
-                const input_string_type input_line = next_line(next_line_first, last);
+                const string_type input_line = next_line(next_line_first, last);
                 if (next_line_first == last)
                     break;
 
@@ -950,7 +960,7 @@ namespace bobura { namespace model { namespace serializer
                     p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
                 else
                 {
-                    if (!p_state->parse(encoder().decode(input_line)))
+                    if (!p_state->parse(input_line))
                         return std::unique_ptr<timetable_type>();
                 }
             }
