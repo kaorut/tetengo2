@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
+#include <cstddef>
 //#include <functional>
 //#include <iterator>
 #include <stdexcept>
