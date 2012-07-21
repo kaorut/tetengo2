@@ -860,11 +860,15 @@ namespace bobura { namespace model { namespace serializer
             for (;;)
             {
                 timetable_type::train_kinds_type::const_iterator found = timetable.train_kinds().end();
-                for (std::size_t i = 0; i < timetable.train_kinds().size(); ++i)
+                for (
+                    timetable_type::train_kinds_type::const_iterator i = timetable.train_kinds().begin();
+                    i != timetable.train_kinds().end();
+                    ++i
+                )
                 {
                     if (!timetable.train_kind_referred(i))
                     {
-                        found = boost::next(timetable.train_kinds().begin(), i);
+                        found = i;
                         break;
                     }
                 }
