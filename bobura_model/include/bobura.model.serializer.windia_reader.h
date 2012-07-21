@@ -482,7 +482,7 @@ namespace bobura { namespace model { namespace serializer
                     return boost::make_optional(time_type::uninitialized());
 
                 const std::size_t time_string_length =
-                    time_string.back() == char_type(TETENGO2_TEXT('?')) ?
+                    time_string[time_string.length() - 1] == char_type(TETENGO2_TEXT('?')) ?
                     time_string.length() - 1 : time_string.length();
                 if (time_string_length < 3 && 4 < time_string_length)
                     return boost::none;
@@ -531,7 +531,9 @@ namespace bobura { namespace model { namespace serializer
         private:
             virtual void insert_train(train_type&& train)
             {
-                m_timetable.insert_down_train(m_timetable.down_trains().end(), std::forward<train_type>(train));
+                train_state::m_timetable.insert_down_train(
+                    train_state::m_timetable.down_trains().end(), std::forward<train_type>(train)
+                );
             }
 
         };
@@ -550,7 +552,9 @@ namespace bobura { namespace model { namespace serializer
         private:
             virtual void insert_train(train_type&& train)
             {
-                m_timetable.insert_up_train(m_timetable.up_trains().end(), std::forward<train_type>(train));
+                train_state::m_timetable.insert_up_train(
+                    train_state::m_timetable.up_trains().end(), std::forward<train_type>(train)
+                );
             }
 
         };
@@ -759,8 +763,8 @@ namespace bobura { namespace model { namespace serializer
                 line += input_string_type(first, next_line_break);
 
                 first = next_line_break;
-                if (!line.empty() && line_contination(line.back()))
-                    line.pop_back();
+                if (!line.empty() && line_contination(line[line.length() - 1]))
+                    line.resize(line.length() - 1);
                 else
                     break;
             }
@@ -859,9 +863,9 @@ namespace bobura { namespace model { namespace serializer
         {
             for (;;)
             {
-                timetable_type::train_kinds_type::const_iterator found = timetable.train_kinds().end();
+                typename timetable_type::train_kinds_type::const_iterator found = timetable.train_kinds().end();
                 for (
-                    timetable_type::train_kinds_type::const_iterator i = timetable.train_kinds().begin();
+                    typename timetable_type::train_kinds_type::const_iterator i = timetable.train_kinds().begin();
                     i != timetable.train_kinds().end();
                     ++i
                 )
