@@ -39,9 +39,48 @@ namespace
     const std::string data0;
 
     const std::string data1 =
-        "[WinDIA]\n";
+        "[WinDIA]\n"
+        "\n"
+        "\n"
+        "[\x89\x77]\n" // eki
+        "\n"
+        "[\x89\xBA\x82\xE8]\n" // kudari
+        "\n"
+        "[\x8F\xE3\x82\xE8]\n"; // nobori
 
     const std::string data2 =
+        "[WinDIA]\n"
+        "abc\n"
+        "\n"
+        "[\x89\x77]\n" // eki
+        ",hoge\n"
+        "u,fuga\n"
+        "b,piyo\n"
+        "pb,mnu\n"
+        "u,iroha\n"
+        "p,nihohe\n"
+        "\n"
+        "[\x90\xFC\x8E\xED]\n" // senshu
+        "LINES=0,0,0,0,0,128,128,128,128,128,128,128,0,128,3,1,129,0,0,0,0,0,0,0\n"
+        "Train04=junkaisoku,junk\n"
+        "Train06=express,expr\n"
+        "\n"
+        "[\x89\xBA\x82\xE8]\n" // kudari
+        ",121D,,,1000,1010,1020/1030,1040/1050,1100,1110/,\\\n"
+        "\t%\n"
+        "6,101D,foo,1,1100,-,-,1130/1140,-,1150/,\\\n"
+        "\t%\n"
+        "(96),123D,,,1200,1210,1220/1230,1240/,,,\\\n"
+        "\t%xyzw\n"
+        "\n"
+        "[\x8F\xE3\x82\xE8]\n" // nobori
+        ",122D,,,1040/,1030/,1010/1020,1000,,\n"
+        ",124D,,,1210/,1200/,1140/1150,1120/1130,1110/,1100,\\\n"
+        "\t%\n"
+        "6(213),102D,bar,2,1230/,-,-,-,-,1200,\\\n"
+        "\t%\n";
+
+    const std::string data3 =
         "[hoge]\n";
 
 
@@ -90,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
         {
             reader_type reader;
 
-            std::istringstream input_stream(data2);
+            std::istringstream input_stream(data3);
             BOOST_CHECK(
                 !reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -104,7 +143,30 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data0);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
+
+            BOOST_CHECK(!p_timetable);
+        }
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data3);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
+
+            BOOST_CHECK(!p_timetable);
+        }
     }
 
 

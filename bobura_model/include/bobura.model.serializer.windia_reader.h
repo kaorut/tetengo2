@@ -120,8 +120,7 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("Cannot parse any line in the initial state."));
+                return false;
             }
 
         };
@@ -918,6 +917,9 @@ namespace bobura { namespace model { namespace serializer
             }
 
             erase_unreferred_train_kinds(*p_timetable);
+
+            if (dynamic_cast<up_train_state*>(p_state.get()) == 0)
+                return std::unique_ptr<timetable_type>();
 
             return std::move(p_timetable);
         }
