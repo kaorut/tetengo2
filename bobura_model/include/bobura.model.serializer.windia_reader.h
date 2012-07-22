@@ -633,122 +633,156 @@ namespace bobura { namespace model { namespace serializer
 
         static void insert_preset_train_kinds(timetable_type& timetable)
         {
-            typedef std::pair<input_string_type, input_string_type> name_and_abbr_type;
-            std::vector<name_and_abbr_type> names;
+            typedef std::tuple<input_string_type, input_string_type, weight_type, line_style_type> content_type;
+            std::vector<content_type> contents;
 
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")), // "futsuu"
-                    input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")) // "futsuu"
+                    input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")), // "futsuu"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")), // "kaosoku"
-                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")) // "kaosoku"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")), // "kaosoku"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x95\xCA\x89\xF5\x91\xAC")), // "tokubetsukaisoku"
-                    input_string_type(TETENGO2_TEXT("\x93\xC1\x89\xF5")) // "tokkai"
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x89\xF5")), // "tokkai"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5\x91\xAC")), // "shinkaisoku"
-                    input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5")) // "shinkai"
+                    input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5")), // "shinkai"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x89\xF5\x91\xAC")), // "tsuukinkaisoku"
-                    input_string_type(TETENGO2_TEXT("\x92\xCA\x89\xF5")) // "tsuukai"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x89\xF5")), // "tsuukai"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")), // "junkyuu"
-                    input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")) // "junkyuu"
+                    input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")), // "junkyuu"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")), // "kyuukou"
-                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")) // "kyuukou"
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")), // "kyuukou"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x8B\x7D\x8D\x73")), // "kaisokukyuukou"
-                    input_string_type(TETENGO2_TEXT("\x89\xF5\x8B\x7D")) // "kaikyuu"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x8B\x7D")), // "kaikyuu"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")), // "tokkyuu"
-                    input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")) // "tokkyuu"
+                    input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")), // "tokkyuu"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x93\xC1\x8B\x7D")), // "kaisokutokkyuu"
-                    input_string_type(TETENGO2_TEXT("\x89\xF5\x93\xC1")) // "kaitoku"
+                    input_string_type(TETENGO2_TEXT("\x89\xF5\x93\xC1")), // "kaitoku"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8F\x80\x8B\x7D")), // "tsuukinjunkyuu"
-                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8F\x80")) // "tsuujun"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8F\x80")), // "tsuujun"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8B\x7D\x8D\x73")), // "tsuukinkyuukou"
-                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\x7D")) // "tsuukyuu"
+                    input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\x7D")), // "tsuukyuu"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x89\xF5\x91\xAC")), // "kukankaisoku"
-                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x89\xF5")) // "kukai"
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x89\xF5")), // "kukai"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x8B\x7D\x8D\x73")), // "kukankyuukou"
-                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x8B\x7D")) // "kukyuu"
+                    input_string_type(TETENGO2_TEXT("\x8B\xE6\x8B\x7D")), // "kukyuu"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_solid
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")), // "kaisou"
-                    input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")) // "kaisou"
+                    input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")), // "kaisou"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_dot_dashed
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")), // "kamotsu"
-                    input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")) // "kamotsu"
+                    input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")), // "kamotsu"
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_dashed
                 )
             );
-            names.push_back(
-                std::make_pair(
+            contents.push_back(
+                content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73\x89\xDD\x95\xA8")), // "kyuukoukamotsu"
-                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x89\xDD")) // "kyuuka"
+                    input_string_type(TETENGO2_TEXT("\x8B\x7D\x89\xDD")), // "kyuuka"
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_dashed
                 )
             );
 
-            BOOST_FOREACH (const name_and_abbr_type& name, names)
+            BOOST_FOREACH (const content_type& content, contents)
             {
                 timetable.insert_train_kind(
                     timetable.train_kinds().end(),
                     train_kind_type(
-                        encoder().decode(name.first),
-                        encoder().decode(name.second),
+                        encoder().decode(std::get<0>(content)),
+                        encoder().decode(std::get<1>(content)),
                         color_type(0, 0, 0),
-                        train_kind_type::weight_normal,
-                        train_kind_type::line_style_solid
+                        std::get<2>(content),
+                        std::get<3>(content)
                     )
                 );
             }
