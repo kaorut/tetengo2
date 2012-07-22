@@ -284,7 +284,8 @@ namespace bobura { namespace model { namespace serializer
                     unsigned int prop = 0;
                     try
                     {
-                        prop = boost::lexical_cast<unsigned int>(props[i]);
+                        if (!props[i].empty())
+                            prop = boost::lexical_cast<unsigned int>(props[i]);
                     }
                     catch (const boost::bad_lexical_cast&)
                     {
@@ -306,7 +307,8 @@ namespace bobura { namespace model { namespace serializer
                     unsigned int prop = 0;
                     try
                     {
-                        prop = boost::lexical_cast<unsigned int>(props[i]);
+                        if (!props[i].empty())
+                            prop = boost::lexical_cast<unsigned int>(props[i]);
                     }
                     catch (const boost::bad_lexical_cast&)
                     {
