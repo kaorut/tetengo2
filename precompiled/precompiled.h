@@ -25,6 +25,7 @@
 #include <limits>
 #include <locale>
 #include <memory>
+#include <numeric>
 #include <ostream>
 #include <queue>
 #include <sstream>
