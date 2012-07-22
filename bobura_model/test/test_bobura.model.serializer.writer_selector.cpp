@@ -130,9 +130,9 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
         std::vector<std::unique_ptr<writer_type>> concrete_writers = create_concrete_writers();
         const writer_set_type writer_selector(std::move(concrete_writers), path_type());
 
-        BOOST_CHECK_THROW(writer_selector.selects(path_type(TETENGO2_TEXT("piyo.hoge"))), std::logic_error);
-        BOOST_CHECK_THROW(writer_selector.selects(path_type(TETENGO2_TEXT("piyo.foo"))), std::logic_error);
-        BOOST_CHECK_THROW(writer_selector.selects(path_type()), std::logic_error);
+        BOOST_CHECK(writer_selector.selects(path_type(TETENGO2_TEXT("piyo.hoge"))));
+        BOOST_CHECK(!writer_selector.selects(path_type(TETENGO2_TEXT("piyo.foo"))));
+        BOOST_CHECK(!writer_selector.selects(path_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)
@@ -162,9 +162,8 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
             writer_set_type writer_selector(std::move(concrete_writers), path_type(TETENGO2_TEXT("piyo.foo")));
             const timetable_type timetable;
             std::ostringstream stream;
-            writer_selector.write(timetable, stream);
 
-            BOOST_CHECK(stream.str() == std::string(".hoge"));
+            BOOST_CHECK_THROW(writer_selector.write(timetable, stream), std::logic_error);
         }
     }
 

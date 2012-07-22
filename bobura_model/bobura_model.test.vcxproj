@@ -103,6 +103,7 @@
     <ClCompile Include="test\test_bobura.model.serializer.reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader_selector.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader_set.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.windia_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.writer.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.writer_selector.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.writer_set.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="test\test_bobura.model.train_info.stop.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.time.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.time_span.cpp" />
+    <ClCompile Include="test\test_bobura.model.train_kind.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

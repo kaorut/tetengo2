@@ -3,32 +3,171 @@
         "title": "高徳線・牟岐線"
     },
     [
-        { "name": "板野",     "grade": "principal",      "meterage":  580 },
-        { "name": "阿波川端", "grade": "local",          "meterage":  598 },
-        { "name": "板東",     "grade": "local",          "meterage":  621 },
-        { "name": "池谷",     "grade": "local terminal", "meterage":  642 },
-        { "name": "勝瑞",     "grade": "local",          "meterage":  669 },
-        { "name": "吉成",     "grade": "local",          "meterage":  682 },
-        { "name": "佐古",     "grade": "local",          "meterage":  731 },
-        { "name": "徳島",     "grade": "local terminal", "meterage":  745 },
-        { "name": "阿波富田", "grade": "local",          "meterage":  759 },
-        { "name": "二軒屋",   "grade": "local",          "meterage":  773 },
-        { "name": "文化の森", "grade": "local",          "meterage":  784 },
-        { "name": "地蔵橋",   "grade": "local",          "meterage":  805 },
-        { "name": "中田",     "grade": "local",          "meterage":  837 },
-        { "name": "南小松島", "grade": "principal",      "meterage":  854 },
-        { "name": "阿波赤石", "grade": "local",          "meterage":  887 },
-        { "name": "立江",     "grade": "local",          "meterage":  901 },
-        { "name": "羽ノ浦",   "grade": "local",          "meterage":  922 },
-        { "name": "西原",     "grade": "local",          "meterage":  943 },
-        { "name": "阿波中島", "grade": "local",          "meterage":  963 },
-        { "name": "阿南",     "grade": "local terminal", "meterage":  990 }
+        {
+            "name":                    "板野",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                580
+        },
+        {
+            "name":                    "阿波川端",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                598
+        },
+        {
+            "name":                    "板東",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                621
+        },
+        {
+            "name":                    "池谷",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                642
+        },
+        {
+            "name":                    "勝瑞",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                669
+        },
+        {
+            "name":                    "吉成",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                682
+        },
+        {
+            "name":                    "佐古",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                731
+        },
+        {
+            "name":                    "徳島",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                745
+        },
+        {
+            "name":                    "阿波富田",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                759
+        },
+        {
+            "name":                    "二軒屋",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                773
+        },
+        {
+            "name":                    "文化の森",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                784
+        },
+        {
+            "name":                    "地蔵橋",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                805
+        },
+        {
+            "name":                    "中田",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                837
+        },
+        {
+            "name":                    "南小松島",
+            "grade":                   "principal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                854
+        },
+        {
+            "name":                    "阿波赤石",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                887
+        },
+        {
+            "name":                    "立江",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                901
+        },
+        {
+            "name":                    "羽ノ浦",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                922
+        },
+        {
+            "name":                    "西原",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                943
+        },
+        {
+            "name":                    "阿波中島",
+            "grade":                   "local",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                963
+        },
+        {
+            "name":                    "阿南",
+            "grade":                   "local terminal",
+            "show_down_arrival_times": false,
+            "show_up_arrival_times":   false,
+            "meterage":                990
+        }
     ],
     [
         {
-            "number": "4527D",
-            "note":   "",
-            "stops": [
+            "name":         "普通",
+            "abbreviation": "普通",
+            "color":        "0000FF",
+            "weight":       0,
+            "line_style":   0
+        },
+        {
+            "name":         "特急",
+            "abbreviation": "特急",
+            "color":        "FF0000",
+            "weight":       1,
+            "line_style":   0
+        }
+    ],
+    [
+        {
+            "number":      "4527D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -52,9 +191,12 @@
             ]
         },
         {
-            "number": "4301D",
-            "note":   "",
-            "stops": [
+            "number":      "4301D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  53900, "板野"],
                 [    -1,  54300, ""],
                 [    -1,  54700, ""],
@@ -78,9 +220,12 @@
             ]
         },
         {
-            "number": "529D",
-            "note":   "",
-            "stops": [
+            "number":      "529D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -104,9 +249,12 @@
             ]
         },
         {
-            "number": "531D",
-            "note":   "",
-            "stops": [
+            "number":      "531D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -130,9 +278,12 @@
             ]
         },
         {
-            "number": "951D",
-            "note":   "",
-            "stops": [
+            "number":      "951D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -156,9 +307,12 @@
             ]
         },
         {
-            "number": "307D",
-            "note":   "",
-            "stops": [
+            "number":      "307D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  65400, "板野"],
                 [    -1,  65800, ""],
                 [    -1,  70200, ""],
@@ -182,9 +336,12 @@
             ]
         },
         {
-            "number": "533D",
-            "note":   "",
-            "stops": [
+            "number":      "533D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -208,9 +365,12 @@
             ]
         },
         {
-            "number": "309D",
-            "note":   "",
-            "stops": [
+            "number":      "309D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  72200, "板野"],
                 [    -1,  72500, ""],
                 [    -1,  72900, ""],
@@ -234,9 +394,12 @@
             ]
         },
         {
-            "number": "953D",
-            "note":   "",
-            "stops": [
+            "number":      "953D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -260,9 +423,12 @@
             ]
         },
         {
-            "number": "535D",
-            "note":   "",
-            "stops": [
+            "number":      "535D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -286,9 +452,12 @@
             ]
         },
         {
-            "number": "311D",
-            "note":   "",
-            "stops": [
+            "number":      "311D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  81100, "板野"],
                 [    -1,  81300, ""],
                 [    -1,  81700, ""],
@@ -312,9 +481,12 @@
             ]
         },
         {
-            "number": "315D",
-            "note":   "",
-            "stops": [
+            "number":      "315D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  81900, "板野"],
                 [    -1,  82300, ""],
                 [    -1,  82700, ""],
@@ -340,9 +512,12 @@
     ],
     [
         {
-            "number": "3002D",
-            "note":   "",
-            "stops": [
+            "number":      "3002D",
+            "kind_index":  1,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  55900, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -366,9 +541,12 @@
             ]
         },
         {
-            "number": "310D",
-            "note":   "",
-            "stops": [
+            "number":      "310D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  61700, "板野"],
                 [    -1,  61400, ""],
                 [    -1,  61000, ""],
@@ -392,9 +570,12 @@
             ]
         },
         {
-            "number": "312D",
-            "note":   "",
-            "stops": [
+            "number":      "312D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  63600, "板野"],
                 [    -1,  63300, ""],
                 [    -1,  63000, ""],
@@ -418,9 +599,12 @@
             ]
         },
         {
-            "number": "4520D",
-            "note":   "",
-            "stops": [
+            "number":      "4520D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -444,9 +628,12 @@
             ]
         },
         {
-            "number": "316D",
-            "note":   "",
-            "stops": [
+            "number":      "316D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  72400, "板野"],
                 [    -1,  70600, ""],
                 [    -1,  70200, ""],
@@ -470,9 +657,12 @@
             ]
         },
         {
-            "number": "522D",
-            "note":   "",
-            "stops": [
+            "number":      "522D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [ 74600,     -1, "板野"],
                 [    -1,  74200, ""],
                 [    -1,  73800, ""],
@@ -496,9 +686,12 @@
             ]
         },
         {
-            "number": "3004D",
-            "note":   "",
-            "stops": [
+            "number":      "3004D",
+            "kind_index":  1,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  71800, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -522,9 +715,12 @@
             ]
         },
         {
-            "number": "524D",
-            "note":   "",
-            "stops": [
+            "number":      "524D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -548,9 +744,12 @@
             ]
         },
         {
-            "number": "950D",
-            "note":   "",
-            "stops": [
+            "number":      "950D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -574,9 +773,12 @@
             ]
         },
         {
-            "number": "526D",
-            "note":   "",
-            "stops": [
+            "number":      "526D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -600,9 +802,12 @@
             ]
         },
         {
-            "number": "528D",
-            "note":   "",
-            "stops": [
+            "number":      "528D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -626,9 +831,12 @@
             ]
         },
         {
-            "number": "5052D",
-            "note":   "",
-            "stops": [
+            "number":      "5052D",
+            "kind_index":  1,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -652,9 +860,12 @@
             ]
         },
         {
-            "number": "5006D",
-            "note":   "",
-            "stops": [
+            "number":      "5006D",
+            "kind_index":  1,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  84000, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -678,9 +889,12 @@
             ]
         },
         {
-            "number": "4326D",
-            "note":   "",
-            "stops": [
+            "number":      "4326D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,  90200, "板野"],
                 [    -1,  85200, ""],
                 [    -1,  84900, ""],
@@ -704,9 +918,12 @@
             ]
         },
         {
-            "number": "530D",
-            "note":   "",
-            "stops": [
+            "number":      "530D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -730,9 +947,12 @@
             ]
         },
         {
-            "number": "4328D",
-            "note":   "",
-            "stops": [
+            "number":      "4328D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [ 91100,     -1, "板野"],
                 [    -1,  90800, ""],
                 [    -1,  90500, ""],
@@ -756,9 +976,12 @@
             ]
         },
         {
-            "number": "534D",
-            "note":   "",
-            "stops": [
+            "number":      "534D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -782,9 +1005,12 @@
             ]
         },
         {
-            "number": "4954D",
-            "note":   "",
-            "stops": [
+            "number":      "4954D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],
@@ -808,9 +1034,12 @@
             ]
         },
         {
-            "number": "538D",
-            "note":   "",
-            "stops": [
+            "number":      "538D",
+            "kind_index":  0,
+            "name":        "",
+            "name_number": "",
+            "note":        "",
+            "stops":      [
                 [    -1,     -1, "板野"],
                 [    -1,     -1, ""],
                 [    -1,     -1, ""],

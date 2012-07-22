@@ -58,7 +58,7 @@ namespace
         virtual path_type extension_impl()
         const
         {
-            return path_type(TETENGO2_TEXT("hoge"));
+            return path_type(TETENGO2_TEXT("hoge.ext"));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
         std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
-        BOOST_CHECK(bzip2_writer.extension() == path_type(TETENGO2_TEXT("hoge.bz2")));
+        BOOST_CHECK(bzip2_writer.extension() == path_type(TETENGO2_TEXT("hoge.ext_bz2")));
     }
 
     BOOST_AUTO_TEST_CASE(selects)
@@ -101,8 +101,8 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
         std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
-        BOOST_CHECK(bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge.bz2"))));
-        BOOST_CHECK(!bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge"))));
+        BOOST_CHECK(bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge.ext_bz2"))));
+        BOOST_CHECK(!bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge.ext"))));
         BOOST_CHECK(!bzip2_writer.selects(path_type()));
     }
 

@@ -43,7 +43,7 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! THe base type.
+        //! The base type.
         typedef reader<iterator, timetable_type> base_type;
 
 

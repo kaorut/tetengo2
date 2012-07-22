@@ -45,6 +45,10 @@ namespace
     typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::stop>::type stop_type;
 
     typedef
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train_kind>::type
+        train_kind_type;
+
+    typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
 
     typedef
@@ -52,6 +56,8 @@ namespace
         timetable_type;
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
+
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
 
     typedef
         boost::mpl::at<
@@ -71,6 +77,7 @@ namespace
         "    },\n"
         "    [],\n"
         "    [],\n"
+        "    [],\n"
         "    []\n"
         "]\n";
 
@@ -80,12 +87,43 @@ namespace
         "        \"title\": \"hoge\"\n"
         "    },\n"
         "    [\n"
-        "        { \"name\": \"stationA\", \"grade\": \"local\", \"meterage\": 42 },\n"
-        "        { \"name\": \"stationB\", \"grade\": \"principal\", \"meterage\": 4242 }\n"
+        "        {\n"
+        "            \"name\": \"stationA\",\n"
+        "            \"grade\": \"local\",\n"
+        "            \"show_down_arrival_times\": false,\n"
+        "            \"show_up_arrival_times\": true,\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\": \"stationB\",\n"
+        "            \"grade\": \"principal\",\n"
+        "            \"show_down_arrival_times\": true,\n"
+        "            \"show_up_arrival_times\": false,\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\": \"nameA\",\n"
+        "            \"abbreviation\": \"abbrA\",\n"
+        "            \"color\": \"0080FF\",\n"
+        "            \"weight\": 0,\n"
+        "            \"line_style\": 0\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\": \"nameB\",\n"
+        "            \"abbreviation\": \"abbrB\",\n"
+        "            \"color\": \"FF8000\",\n"
+        "            \"weight\": 1,\n"
+        "            \"line_style\": 2\n"
+        "        }\n"
         "    ],\n"
         "    [\n"
         "        {\n"
         "            \"number\": \"101D\",\n"
+        "            \"kind_index\": 0,\n"
+        "            \"name\": \"foo\",\n"
+        "            \"name_number\": \"bar\",\n"
         "            \"note\": \"fuga\",\n"
         "            \"stops\": [\n"
         "                [    -1,     -1, \"\"],\n"
@@ -94,16 +132,22 @@ namespace
         "        },\n"
         "        {\n"
         "            \"number\": \"123D\",\n"
+        "            \"kind_index\": 1,\n"
+        "            \"name\": \"baz\",\n"
+        "            \"name_number\": \"bazz\",\n"
         "            \"note\": \"\",\n"
         "            \"stops\": [\n"
         "                [    -1,  60030, \"1\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
+        "                [100545,     -1, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
         "    [\n"
         "        {\n"
         "            \"number\": \"9324M\",\n"
+        "            \"kind_index\": 0,\n"
+        "            \"name\": \"abc\",\n"
+        "            \"name_number\": \"def\",\n"
         "            \"note\": \"piyo\",\n"
         "            \"stops\": [\n"
         "                [    -1,  62000, \"0A\"],\n"
@@ -125,18 +169,50 @@ namespace
         {
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
-                station_location_type(station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance()), 42)
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance(), false, true),
+                    42
+                )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance()), 4242
+                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance(), true, false),
+                    4242
+                )
+            );
+        }
+        {
+            p_timetable->insert_train_kind(
+                p_timetable->train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("nameA")),
+                    string_type(TETENGO2_TEXT("abbrA")),
+                    color_type(0, 128, 255),
+                    train_kind_type::weight_normal,
+                    train_kind_type::line_style_solid
+                )
+            );
+            p_timetable->insert_train_kind(
+                p_timetable->train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("nameB")),
+                    string_type(TETENGO2_TEXT("abbrB")),
+                    color_type(255, 128, 0),
+                    train_kind_type::weight_bold,
+                    train_kind_type::line_style_dotted
                 )
             );
         }
         {
             {
-                train_type train(string_type(TETENGO2_TEXT("101D")), string_type(TETENGO2_TEXT("fuga")));
+                train_type train(
+                    string_type(TETENGO2_TEXT("101D")),
+                    0,
+                    string_type(TETENGO2_TEXT("foo")),
+                    string_type(TETENGO2_TEXT("bar")),
+                    string_type(TETENGO2_TEXT("fuga"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
@@ -148,20 +224,32 @@ namespace
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
             {
-                train_type train(string_type(TETENGO2_TEXT("123D")), string_type());
+                train_type train(
+                    string_type(TETENGO2_TEXT("123D")),
+                    1,
+                    string_type(TETENGO2_TEXT("baz")),
+                    string_type(TETENGO2_TEXT("bazz")),
+                    string_type()
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
                 );
                 train.insert_stop(
-                    train.stops().end(), stop_type(time_type(6, 5, 45), time_type::uninitialized(), string_type())
+                    train.stops().end(), stop_type(time_type(10, 5, 45), time_type::uninitialized(), string_type())
                 );
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
         }
         {
             {
-                train_type train(string_type(TETENGO2_TEXT("9324M")), string_type(TETENGO2_TEXT("piyo")));
+                train_type train(
+                    string_type(TETENGO2_TEXT("9324M")),
+                    0,
+                    string_type(TETENGO2_TEXT("abc")),
+                    string_type(TETENGO2_TEXT("def")),
+                    string_type(TETENGO2_TEXT("piyo"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(time_type::uninitialized(), time_type(6, 20, 0), string_type(TETENGO2_TEXT("0A")))

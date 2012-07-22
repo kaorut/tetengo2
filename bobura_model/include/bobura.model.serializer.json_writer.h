@@ -86,6 +86,14 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::station_location_type station_location_type;
 
+        typedef typename timetable_type::train_kind_type train_kind_type;
+
+        typedef typename train_kind_type::color_type color_type;
+
+        typedef typename train_kind_type::weight_type weight_type;
+
+        typedef typename train_kind_type::line_style_type line_style_type;
+
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stops_type stops_type;
@@ -190,6 +198,18 @@ namespace bobura { namespace model { namespace serializer
             output_stream << value;
         }
 
+        static void write_object_entry(
+            const string_type&  key,
+            const bool          value,
+            const size_type     level,
+            output_stream_type& output_stream
+        )
+        {
+            write_object_key(key, level, output_stream);
+            output_stream <<
+                (value ? output_string_type(TETENGO2_TEXT("true")) : output_string_type(TETENGO2_TEXT("false")));
+        }
+
         static void write_header(
             const timetable_type& timetable,
             const size_type       level,
@@ -242,26 +262,135 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             new_line(level + 1, output_stream);
+            output_stream << object_begin();
 
-            output_stream << object_begin() << space();
-
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("name")), station_location.station().name(), level, output_stream
             );
-            output_stream << comma() << space();
+            output_stream << comma();
 
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("grade")), station_location.station().grade().name(), level, output_stream
             );
-            output_stream << comma() << space();
+            output_stream << comma();
 
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("show_down_arrival_times")),
+                station_location.station().shows_down_arrival_times(),
+                level,
+                output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("show_up_arrival_times")),
+                station_location.station().shows_up_arrival_times(),
+                level,
+                output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
             write_object_entry(
                 string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), level, output_stream
             );
 
-            output_stream << space() << object_end();
+            new_line(level + 1, output_stream);
+            output_stream << object_end();
             if (!last)
                 output_stream << comma();
+        }
+
+        static void write_train_kinds(
+            const timetable_type& timetable,
+            const size_type       level,
+            output_stream_type&   output_stream
+        )
+        {
+            output_stream << array_begin();
+
+            if (!timetable.train_kinds().empty())
+            {
+                std::for_each(
+                    timetable.train_kinds().begin(),
+                    boost::prior(timetable.train_kinds().end()),
+                    TETENGO2_CPP11_BIND(
+                        write_train_kind,
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_train_kind(*boost::prior(timetable.train_kinds().end()), level, output_stream, true);
+
+                new_line(level, output_stream);
+            }
+
+            output_stream << array_end();
+        }
+
+        static void write_train_kind(
+            const train_kind_type& train_kind,
+            const size_type        level,
+            output_stream_type&    output_stream,
+            const bool             last
+        )
+        {
+            new_line(level + 1, output_stream);
+            output_stream << object_begin();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train_kind.name(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("abbreviation")), train_kind.abbreviation(), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("color")), to_string(train_kind.color()), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("weight")), static_cast<int>(train_kind.weight()), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("line_style")),
+                static_cast<int>(train_kind.line_style()),
+                level,
+                output_stream
+            );
+
+            new_line(level + 1, output_stream);
+            output_stream << object_end();
+            if (!last)
+                output_stream << comma();
+        }
+
+        static string_type to_string(const color_type& color)
+        {
+            std::basic_ostringstream<char_type> stream;
+
+            stream <<
+                boost::basic_format<char_type>(string_type(TETENGO2_TEXT("%02X%02X%02X")), std::locale::classic()) %
+                static_cast<int>(color.red()) %
+                static_cast<int>(color.green()) %
+                static_cast<int>(color.blue());
+
+            return stream.str();
         }
 
         static void write_down_trains(
@@ -335,6 +464,18 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level + 2, output_stream);
             write_object_entry(string_type(TETENGO2_TEXT("number")), train.number(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("kind_index")), train.kind_index(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train.name(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name_number")), train.name_number(), level, output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
@@ -417,7 +558,7 @@ namespace bobura { namespace model { namespace serializer
                 std::get<2>(hours_minutes_seconds);
             std::basic_ostringstream<output_char_type> stream;
             stream <<
-                boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d"), std::locale::classic()) % representation;
+                boost::basic_format<output_char_type>(TETENGO2_TEXT("%6d"), std::locale::classic()) % representation;
             return stream.str();
         }
 
@@ -440,6 +581,10 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(1, output_stream);
             write_station_locations(timetable, 1, output_stream);
+            output_stream << comma();
+
+            new_line(1, output_stream);
+            write_train_kinds(timetable, 1, output_stream);
             output_stream << comma();
 
             new_line(1, output_stream);

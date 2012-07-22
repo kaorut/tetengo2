@@ -10,11 +10,14 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
-#include <iterator>
+#include <cstddef>
+//#include <functional>
+//#include <iterator>
 #include <stdexcept>
 #include <utility>
 #include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
@@ -30,6 +33,7 @@ namespace bobura { namespace model
         \tparam String                    A string type.
         \tparam StationLocation           A station location type.
         \tparam StationIntervalCalculator A station interval calculatortype.
+        \tparam TrainKind                 A train kind type.
         \tparam Train                     A train type.
         \tparam ObserverSet               An observer set type.
     */
@@ -37,12 +41,13 @@ namespace bobura { namespace model
         typename String,
         typename StationLocation,
         typename StationIntervalCalculator,
+        typename TrainKind,
         typename Train,
         typename ObserverSet
     >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, StationIntervalCalculator, Train, ObserverSet>
+            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, ObserverSet>
         >
     {
     public:
@@ -63,6 +68,15 @@ namespace bobura { namespace model
         //! The station intervals type.
         typedef typename station_interval_calculator_type::station_intervals_type station_intervals_type;
 
+        //! The train kind type.
+        typedef TrainKind train_kind_type;
+
+        //! The train kinds type.
+        typedef std::vector<train_kind_type> train_kinds_type;
+
+        //! The train kind index type.
+        typedef typename train_kinds_type::size_type train_kind_index_type;
+
         //! The train type.
         typedef Train train_type;
 
@@ -82,24 +96,7 @@ namespace bobura { namespace model
         :
         m_title(),
         m_station_locations(),
-        m_down_trains(),
-        m_up_trains(),
-        m_observer_set()
-        {}
-
-        /*!
-            \brief Creates a timetalble.
-
-            \tparam InputIterator An input iterator for station locations.
-
-            \param station_location_first The first iterator among station locations.
-            \param station_location_last  The last iterator among station locations.
-        */
-        template <typename InputIterator>
-        timetable(const InputIterator station_location_first, const InputIterator station_location_last)
-        :
-        m_title(),
-        m_station_locations(station_location_first, station_location_last),
+        m_train_kinds(),
         m_down_trains(),
         m_up_trains(),
         m_observer_set()
@@ -121,6 +118,7 @@ namespace bobura { namespace model
         {
             return
                 one.m_station_locations == another.m_station_locations &&
+                one.m_train_kinds == another.m_train_kinds &&
                 one.m_down_trains == another.m_down_trains &&
                 one.m_up_trains == another.m_up_trains;
         }
@@ -254,6 +252,159 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Returns the train kinds.
+
+            \return The train kinds.
+        */
+        const train_kinds_type& train_kinds()
+        const
+        {
+            return m_train_kinds;
+        }
+
+        /*!
+            \brief Checks whether the train kind is referred by trains.
+
+            \param position A train kind position.
+
+            \retval true  The train kind is referred.
+            \retval false Otherwise.
+        */
+        bool train_kind_referred(const typename train_kinds_type::const_iterator position)
+        const
+        {
+            return train_kind_referred(std::distance(m_train_kinds.begin(), position));
+        }
+
+        /*!
+            \brief Checks whether the train kind is referred by trains.
+
+            \param train_kind_index A train kind index.
+
+            \retval true  The train kind is referred.
+            \retval false Otherwise.
+        */
+        bool train_kind_referred(const train_kind_index_type& train_kind_index)
+        const
+        {
+            const bool referred_by_down_trains =
+                std::find_if(
+                    m_down_trains.begin(),
+                    m_down_trains.end(),
+                    TETENGO2_CPP11_BIND(
+                        std::equal_to<train_kind_index_type>(),
+                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
+                        train_kind_index
+                    )
+                ) != m_down_trains.end();
+            const bool referred_by_up_trains =
+                std::find_if(
+                    m_up_trains.begin(),
+                    m_up_trains.end(),
+                    TETENGO2_CPP11_BIND(
+                        std::equal_to<train_kind_index_type>(),
+                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
+                        train_kind_index
+                    )
+                ) != m_up_trains.end();
+
+            return referred_by_down_trains || referred_by_up_trains;
+        }
+
+        /*!
+            \brief Inserts a train kind.
+
+            \tparam TK A train kind type.
+
+            \param position   A position where a train kind is inserted.
+            \param train_kind A train kind.
+        */
+        template <typename TK>
+        void insert_train_kind(
+            const typename train_kinds_type::const_iterator position,
+            TK&&                                            train_kind
+        )
+        {
+            const train_kind_index_type inserted_index =
+                std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
+
+            m_train_kinds.insert(
+                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::forward<TK>(train_kind)
+            );
+
+            std::for_each(
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+            );
+
+            m_observer_set.changed();
+        }
+
+        /*!
+            \brief Sets a train kind.
+
+            \tparam TK A train kind type.
+
+            \param position   A position where a train kind is inserted.
+            \param train_kind A train kind.
+        */
+        template <typename TK>
+        void set_train_kind(
+            const typename train_kinds_type::const_iterator position,
+            TK&&                                            train_kind
+        )
+        {
+            typename train_kinds_type::iterator mutable_position = m_train_kinds.begin();
+            std::advance(
+                mutable_position,
+                std::distance(static_cast<typename train_kinds_type::const_iterator>(m_train_kinds.begin()), position)
+            );
+
+            *mutable_position = std::forward<TK>(train_kind);
+
+            m_observer_set.changed();
+        }
+
+        /*!
+            \brief Erases a train kind.
+
+            train_kind to erase must not be referred by any trains.
+
+            \param position The position of a train kind to erase.
+
+            \throw std::invalid_argument When train_kind is referred by trains.
+        */
+        void erase_train_kind(const typename train_kinds_type::const_iterator position)
+        {
+            if (train_kind_referred(position))
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train kind is still referred."));
+
+            const train_kind_index_type erased_index =
+                std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
+
+            m_train_kinds.erase(tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position));
+
+            std::for_each(
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
+                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+            );
+
+            m_observer_set.changed();
+        }
+
+        /*!
             \brief Returns the down trains.
 
             \return The down trains
@@ -285,6 +436,7 @@ namespace bobura { namespace model
             \param position A position where a down train is inserted.
             \param train    A down train.
 
+            \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
@@ -304,6 +456,7 @@ namespace bobura { namespace model
             \param position A position where a up train is inserted.
             \param train    A up train.
 
+            \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
@@ -380,7 +533,7 @@ namespace bobura { namespace model
                 stop_type(
                     train_type::stop_type::time_type::uninitialized(),
                     train_type::stop_type::time_type::uninitialized(),
-                    typename stop_type::platform_type()
+                    string_type()
                 )
             );
         }
@@ -392,6 +545,26 @@ namespace bobura { namespace model
         )
         {
             train.erase_stops(train.stops().begin() + first_offset, train.stops().begin() + last_offset);
+        }
+
+        static void update_train_kind_index(
+            train_type&                 train,
+            const train_kind_index_type index,
+            const std::ptrdiff_t        index_delta
+        )
+        {
+            if (train.kind_index() < index)
+                return;
+
+            train_type new_train(
+                    train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
+                );
+            BOOST_FOREACH (const stop_type& stop, train.stops())
+            {
+                new_train.insert_stop(new_train.stops().end(), stop);
+            }
+
+            train = new_train;
         }
 
         template <typename Container>
@@ -413,6 +586,8 @@ namespace bobura { namespace model
         string_type m_title;
 
         station_locations_type m_station_locations;
+
+        train_kinds_type m_train_kinds;
 
         trains_type m_down_trains;
 
@@ -441,6 +616,12 @@ namespace bobura { namespace model
         template <typename T>
         void insert_train_impl(trains_type& trains, const typename trains_type::const_iterator position, T&& train)
         {
+            if (train.kind_index() >= m_train_kinds.size())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("The kind index of the train is greater than the train kind count.")
+                );
+            }
             if (train.stops().size() != m_station_locations.size())
             {
                 BOOST_THROW_EXCEPTION(

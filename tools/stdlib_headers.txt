@@ -436,7 +436,6 @@ boost::filesystem::ifstream                      boost/filesystem/fstream.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::ofstream                      boost/filesystem/fstream.hpp
 boost::filesystem::path                          boost/filesystem.hpp
-boost::filesystem::remove                        boost/filesystem.hpp
 boost::filesystem::rename                        boost/filesystem.hpp
 boost::filesystem::temp_directory_path           boost/filesystem.hpp
 boost::filesystem::unique_path                   boost/filesystem.hpp
@@ -539,6 +538,7 @@ std::cref                                        functional
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip
+std::equal_to                                    functional
 std::error_category                              system_error
 std::error_code                                  system_error
 std::error_code::value_type                      system_error
@@ -550,6 +550,7 @@ std::function                                    functional
 std::get                                         tuple
 std::greater                                     functional
 std::has_facet                                   locale
+std::hex                                         ios
 std::invalid_argument                            stdexcept
 std::ios_base::binary                            ios
 std::ios_base::failure                           ios

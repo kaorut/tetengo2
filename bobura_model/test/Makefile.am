@@ -17,6 +17,7 @@ sources = \
     test_bobura.model.serializer.reader.cpp \
     test_bobura.model.serializer.reader_selector.cpp \
     test_bobura.model.serializer.reader_set.cpp \
+    test_bobura.model.serializer.windia_reader.cpp \
     test_bobura.model.serializer.writer.cpp \
     test_bobura.model.serializer.writer_selector.cpp \
     test_bobura.model.serializer.writer_set.cpp \
@@ -28,7 +29,8 @@ sources = \
     test_bobura.model.train.cpp \
     test_bobura.model.train_info.stop.cpp \
     test_bobura.model.train_info.time.cpp \
-    test_bobura.model.train_info.time_span.cpp
+    test_bobura.model.train_info.time_span.cpp \
+    test_bobura.model.train_kind.cpp
 
 extra_sources =
 
@@ -44,7 +46,8 @@ bobura_model_test_CPPFLAGS = \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include \
-    -I$(top_srcdir)/tetengo2_detail/include
+    -I$(top_srcdir)/tetengo2_detail/include \
+    -I$(top_srcdir)/tetengo2_gui/include
 bobura_model_test_LDFLAGS = $(BOOST_LDFLAGS)
 bobura_model_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \

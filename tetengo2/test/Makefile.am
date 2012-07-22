@@ -20,6 +20,7 @@ sources = \
     test_tetengo2.text.encoder.cpp \
     test_tetengo2.text.encoding.encoding.cpp \
     test_tetengo2.text.encoding.ascii.cpp \
+    test_tetengo2.text.encoding.cp932.cpp \
     test_tetengo2.text.encoding.locale.cpp \
     test_tetengo2.text.encoding.utf8.cpp \
     test_tetengo2.text.grammar.json.cpp \

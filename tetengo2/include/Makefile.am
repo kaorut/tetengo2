@@ -15,6 +15,7 @@ headers = \
     tetengo2.text.encoder.h \
     tetengo2.text.encoding.encoding.h \
     tetengo2.text.encoding.ascii.h \
+    tetengo2.text.encoding.cp932.h \
     tetengo2.text.encoding.locale.h \
     tetengo2.text.encoding.utf8.h \
     tetengo2.text.grammar.json.h \

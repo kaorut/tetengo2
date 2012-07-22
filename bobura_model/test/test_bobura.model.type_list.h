@@ -26,6 +26,7 @@
 #include <tetengo2.text.grammar.json.h>
 #include <tetengo2.text.pull_parser.h>
 #include <tetengo2.text.push_parser.h>
+#include <tetengo2.gui.drawing.color.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.bzip2_reader.h"
@@ -35,6 +36,7 @@
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
+#include "bobura.model.serializer.windia_reader.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
@@ -47,6 +49,7 @@
 #include "bobura.model.train_info.stop.h"
 #include "bobura.model.train_info.time.h"
 #include "bobura.model.train_info.time_span.h"
+#include "bobura.model.train_kind.h"
 
 
 namespace test_bobura { namespace model
@@ -60,6 +63,7 @@ namespace test_bobura { namespace model
         struct string;         //!< The string type.
         struct path;           //!< The path type.
         struct output_stream;  //!< The output stream type.
+        struct color;          //!< The color type.
     }
 
     //! The common type list.
@@ -69,8 +73,9 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::output_stream, std::ostream>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::color, tetengo2::gui::drawing::color<unsigned char>>,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         type_list;
 
 
@@ -81,6 +86,7 @@ namespace test_bobura { namespace model
         struct grade_type_set; //!< The station grade type set type.
         struct station;        //!< The station type.
         struct station_location; //!< The station location type.
+        struct train_kind;     //!< The train kind type.
         struct time_span;      //!< The time span type.
         struct time;           //!< The time type.
         struct stop;           //!< The stop type.
@@ -100,6 +106,11 @@ namespace test_bobura { namespace model
         typedef
             bobura::model::timetable_info::station_location<station_type, boost::mpl::at<type_list, type::size>::type>
             station_location_type;
+        typedef
+            bobura::model::train_kind<
+                boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::color>::type
+            >
+            train_kind_type;
         typedef bobura::model::train_info::time_span<boost::mpl::at<type_list, type::difference>::type> time_span_type;
         typedef bobura::model::train_info::time<boost::mpl::at<type_list, type::size>::type, time_span_type> time_type;
         typedef
@@ -107,7 +118,7 @@ namespace test_bobura { namespace model
             stop_type;
         typedef
             bobura::model::train<
-                boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::string>::type, stop_type
+                boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::size>::type, stop_type
             >
             train_type;
         typedef
@@ -122,6 +133,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::station, detail::model::station_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::model::station_location, detail::model::station_location_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::model::train_kind, detail::model::train_kind_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::time_span, detail::model::time_span_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::time, detail::model::time_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::stop, detail::model::stop_type>,
@@ -137,12 +149,13 @@ namespace test_bobura { namespace model
                     boost::mpl::at<type_list, type::string>::type,
                     detail::model::station_location_type,
                     detail::model::station_interval_calculator_type,
+                    detail::model::train_kind_type,
                     detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>
         model_type_list;
 
 
@@ -152,13 +165,14 @@ namespace test_bobura { namespace model
     {
         struct reader;         //!< The reader type.
         struct reader_selector; //!< The reader selector type.
-        struct bzip2_reader;   //!< The bzip2 reader type.
         struct json_reader;    //!< The JSON reader type.
+        struct bzip2_reader;   //!< The bzip2 reader type.
+        struct windia_reader;  //!< The WinDIA reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
         struct writer_selector; //!< The writer selector type.
-        struct bzip2_writer;   //!< The bzip2 writer type.
         struct json_writer;    //!< The JSON writer type.
+        struct bzip2_writer;   //!< The bzip2 writer type.
         struct writer_set;     //!< The writer set type.
     }}
 
@@ -186,6 +200,7 @@ namespace test_bobura { namespace model
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 pull_parser_type,
                 boost::mpl::at<model_type_list, type::model::grade_type_set>::type,
+                timetable_file_encoder_type,
                 timetable_file_encoder_type
             >
             reader_set_type;
@@ -221,11 +236,15 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::json_reader, detail::serialization::reader_set_type::json_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::bzip2_reader, detail::serialization::reader_set_type::bzip2_reader_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::json_reader, detail::serialization::reader_set_type::json_reader_type
+                type::serialization::windia_reader, detail::serialization::reader_set_type::windia_reader_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::reader_set, detail::serialization::reader_set_type>,
@@ -249,16 +268,16 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::bzip2_writer, detail::serialization::writer_set_type::bzip2_writer_type
+                type::serialization::json_writer, detail::serialization::writer_set_type::json_writer_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::json_writer, detail::serialization::writer_set_type::json_writer_type
+                type::serialization::bzip2_writer, detail::serialization::writer_set_type::bzip2_writer_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::writer_set, detail::serialization::writer_set_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>
         serialization_type_list;
 
 

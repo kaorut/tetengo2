@@ -63,7 +63,9 @@ namespace
     {
         return
             station_location_type(
-                station_type(std::forward<string_type>(name), grade_type_set_type::local_type::instance()),
+                station_type(
+                    std::forward<string_type>(name), grade_type_set_type::local_type::instance(), false, false
+                ),
                 std::forward<meterage_type>(meterage)
             );
     }
@@ -83,7 +85,15 @@ namespace
     template <typename InputIterator>
     train_type make_train(const InputIterator stop_first, const InputIterator stop_last)
     {
-        return train_type(train_type::number_type(), train_type::note_type(), stop_first, stop_last);
+        return train_type(
+            train_type::string_type(),
+            0,
+            train_type::string_type(),
+            train_type::string_type(),
+            train_type::string_type(),
+            stop_first,
+            stop_last
+        );
     }
 
     stop_type make_stop(
@@ -97,7 +107,7 @@ namespace
             stop_type(
                 time_type(arrival_hours, arrival_minutes, 0),
                 time_type(departure_hours, departure_minutes, 0),
-                stop_type::platform_type()
+                string_type()
             );
     }
 
@@ -108,13 +118,13 @@ namespace
             stop_type(
                 arrival ? time : time_type::uninitialized(),
                 arrival ? time_type::uninitialized() : time,
-                stop_type::platform_type()
+                string_type()
             );
     }
 
     stop_type make_stop()
     {
-        return stop_type(time_type::uninitialized(), time_type::uninitialized(), stop_type::platform_type());
+        return stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type());
     }
 
 

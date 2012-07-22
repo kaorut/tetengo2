@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::text::encoding::utf8.
+    \brief Test of class tetengo2::text::encoding::cp932.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -12,7 +12,7 @@
 
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.text.h"
-#include "tetengo2.text.encoding.utf8.h"
+#include "tetengo2.text.encoding.cp932.h"
 
 
 namespace
@@ -21,7 +21,7 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef tetengo2::text::encoding::utf8<encoding_details_type> encoding_type;
+    typedef tetengo2::text::encoding::cp932<encoding_details_type> encoding_type;
 
 
 }
@@ -29,7 +29,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
-BOOST_AUTO_TEST_SUITE(utf8)
+BOOST_AUTO_TEST_SUITE(cp932)
     // test cases
 
     BOOST_AUTO_TEST_CASE(operator_equal)
