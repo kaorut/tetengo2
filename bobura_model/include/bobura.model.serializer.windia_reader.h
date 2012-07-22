@@ -519,8 +519,7 @@ namespace bobura { namespace model { namespace serializer
                 {
                     return boost::none;
                 }
-                if (hours > 23)
-                    return boost::none;
+                hours %= 24;
 
                 time_tick_type minutes = 0;
                 try
