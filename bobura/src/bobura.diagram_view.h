@@ -300,15 +300,6 @@ namespace bobura
                 return stop.arrival();
         }
 
-        static const time_type& get_arrival_time(const stop_type& stop)
-        {
-            assert(has_time(stop));
-            if (stop.arrival() != time_type::uninitialized())
-                return stop.arrival();
-            else
-                return stop.departure();
-        }
-
 
         // variables
 
@@ -549,16 +540,13 @@ namespace bobura
                         const stop_index_type to = down ? j : i;
 
                         const time_type& departure_time = get_departure_time(train.stops()[from]);
-                        const time_type& arrival_time = get_arrival_time(train.stops()[to]);
-                        const time_type& estimated_arrival_time =
-                            train.stops()[to].arrival() == time_type::uninitialized() ?
-                            estimate_arrival_time(departure_time, i, j) : arrival_time;
+                        const time_type arrival_time = estimate_arrival_time(departure_time, train.stops()[to], i, j);
 
                         draw_train_line(
                             from,
                             departure_time,
                             to,
-                            std::min(estimated_arrival_time, arrival_time),
+                            arrival_time,
                             line_width,
                             canvas,
                             canvas_dimension,
@@ -574,19 +562,25 @@ namespace bobura
         }
 
         time_type estimate_arrival_time(
-            const time_type&      departure_time,
+            const time_type&      from_departure,
+            const stop_type&      to_stop,
             const stop_index_type upper_stop_index,
             const stop_index_type lower_stop_index
         )
         const
         {
+            if (to_stop.arrival() != time_type::uninitialized())
+                return to_stop.arrival();
+
+            const time_span_type departure_interval = to_stop.departure() - from_departure;
             const time_span_type travel_time =
                 std::accumulate(
                     m_station_intervals.begin() + upper_stop_index,
                     m_station_intervals.begin() + lower_stop_index,
                     time_span_type(0)
                 );
-            return departure_time + travel_time;
+
+            return departure_interval < travel_time ? to_stop.departure() : from_departure + travel_time;
         }
 
         void draw_train_line(
