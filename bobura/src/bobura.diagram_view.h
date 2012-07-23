@@ -366,6 +366,9 @@ namespace bobura
                 tetengo2::gui::position<position_type>::top(scroll_bar_position);
             const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
+            const left_type minute_interval =
+                time_to_left(time_type(60), false, left_type(0)) - time_to_left(time_type(0), false, left_type(0));
+
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
             typedef typename time_type::tick_type time_tick_type;
@@ -388,6 +391,7 @@ namespace bobura
                     break;
 
                 size_type line_width(typename size_type::value_type(1, 48));
+                bool draw = true;
                 top_type line_top = canvas_top;
                 if (minutes == 0)
                 {
@@ -399,11 +403,26 @@ namespace bobura
                 else if (minutes % 10 == 0)
                 {
                     line_width = size_type(typename size_type::value_type(1, 24));
+                    if (minute_interval < typename left_type::value_type(4, 12 * 10))
+                        draw = false;
+                }
+                else if (minutes % 2 == 0)
+                {
+                    if (minute_interval < typename left_type::value_type(4, 12 * 2))
+                        draw = false;
+                }
+                else
+                {
+                    if (minute_interval < typename left_type::value_type(4, 12))
+                        draw = false;
                 }
 
-                canvas.draw_line(
-                    position_type(position, line_top), position_type(position, line_bottom), line_width
-                );
+                if (draw)
+                {
+                    canvas.draw_line(
+                        position_type(position, line_top), position_type(position, line_bottom), line_width
+                    );
+                }
             }
         }
 
