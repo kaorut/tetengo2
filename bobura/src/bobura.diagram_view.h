@@ -121,12 +121,8 @@ namespace bobura
             clear_background(canvas, canvas_dimension);
 
             draw_header(canvas);
-            draw_time_lines(
-                canvas, canvas_dimension, tetengo2::gui::position<position_type>::left(scroll_bar_position)
-            );
-            draw_station_lines(
-                canvas, canvas_dimension, tetengo2::gui::position<position_type>::top(scroll_bar_position)
-            );
+            draw_time_lines(canvas, canvas_dimension, scroll_bar_position);
+            draw_station_lines(canvas, canvas_dimension, scroll_bar_position);
             draw_trains(canvas, canvas_dimension, scroll_bar_position);
         }
 
@@ -354,18 +350,20 @@ namespace bobura
         void draw_time_lines(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
-            const left_type&      horizontal_scroll_bar_position
+            const position_type&  scroll_bar_position
         )
         const
         {
             const left_type canvas_left = left_type::from(m_station_header_width);
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+
             const top_type canvas_top = top_type::from(m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
             const top_type station_position_bottom =
-                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height);
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height) -
+                tetengo2::gui::position<position_type>::top(scroll_bar_position);
             const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
@@ -380,7 +378,10 @@ namespace bobura
                 const time_tick_type minutes = std::get<1>(hours_minutes_seconds);
                 assert(std::get<2>(hours_minutes_seconds) == 0);
 
-                const left_type position = time_to_left(time, i == 24 * 60, horizontal_scroll_bar_position);
+                const left_type position =
+                    time_to_left(
+                        time, i == 24 * 60, tetengo2::gui::position<position_type>::left(scroll_bar_position)
+                    );
                 if (position < canvas_left)
                     continue;
                 if (position > canvas_right)
@@ -409,12 +410,22 @@ namespace bobura
         void draw_station_lines(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
-            const top_type&       vertical_scroll_bar_position
+            const position_type&  scroll_bar_position
         )
         const
         {
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const left_type last_time_position =
+                time_to_left(
+                    time_type(24 * 60 * 60 + m_time_offset.seconds()),
+                    true,
+                    tetengo2::gui::position<position_type>::left(scroll_bar_position)
+                );
+            const left_type line_right = std::min(canvas_right, last_time_position);
+
+            const top_type canvas_bottom =
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
@@ -422,13 +433,17 @@ namespace bobura
             {
                 const top_type& position = m_station_positions[i];
                 const top_type line_position =
-                    position + top_type::from(m_time_header_height) - vertical_scroll_bar_position;
+                    position +
+                    top_type::from(m_time_header_height) -
+                    tetengo2::gui::position<position_type>::top(scroll_bar_position);
                 if (line_position < top_type::from(m_time_header_height))
                     continue;
+                if (line_position > canvas_bottom)
+                    break;
 
                 canvas.draw_line(
                     position_type(left_type(0), line_position),
-                    position_type(canvas_right, line_position),
+                    position_type(line_right, line_position),
                     size_type(typename size_type::value_type(1, 12))
                 );
 
