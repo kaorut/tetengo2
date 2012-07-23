@@ -248,6 +248,8 @@ namespace bobura
 
         typedef typename model_type::timetable_type::trains_type trains_type;
 
+        typedef typename model_type::timetable_type::train_kind_type train_kind_type;
+
         typedef typename train_type::stop_type stop_type;
 
         typedef typename stop_type::time_type time_type;
@@ -255,7 +257,6 @@ namespace bobura
         typedef typename time_type::time_span_type time_span_type;
 
         typedef typename train_type::stops_type::size_type stop_index_type;
-
 
         class to_station_position
         {
@@ -523,6 +524,14 @@ namespace bobura
         )
         const
         {
+            const train_kind_type& train_kind = m_model.timetable().train_kinds()[train.kind_index()];
+            canvas.set_color(train_kind.color());
+            const size_type line_width(
+                train_kind.weight() == train_kind_type::weight_bold ?
+                typename size_type::value_type(1, 6) :
+                typename size_type::value_type(1, 12)
+            );
+
             for (stop_index_type i = 0; i < train.stops().size() - 1; )
             {
                 if (!has_time(train.stops()[i]))
@@ -550,6 +559,7 @@ namespace bobura
                             departure_time,
                             to,
                             std::min(estimated_arrival_time, arrival_time),
+                            line_width,
                             canvas,
                             canvas_dimension,
                             scroll_bar_position
@@ -584,19 +594,13 @@ namespace bobura
             const time_type&      departure_time,
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
+            const size_type&      line_width,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
         const
         {
-            const left_type horizontal_scroll_bar_position =
-                tetengo2::gui::position<position_type>::left(scroll_bar_position);
-            const top_type vertical_scroll_bar_position =
-                tetengo2::gui::position<position_type>::top(scroll_bar_position);
-
-            canvas.set_color(color_type(0x80, 0x80, 0xC0, 0xFF));
-
             if (departure_time - m_time_offset < arrival_time - m_time_offset)
             {
                 draw_train_line_impl(
@@ -606,10 +610,10 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     false,
+                    line_width,
                     canvas,
                     canvas_dimension,
-                    horizontal_scroll_bar_position,
-                    vertical_scroll_bar_position
+                    scroll_bar_position
                 );
             }
             else
@@ -621,10 +625,10 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     false,
+                    line_width,
                     canvas,
                     canvas_dimension,
-                    horizontal_scroll_bar_position,
-                    vertical_scroll_bar_position
+                    scroll_bar_position
                 );
                 draw_train_line_impl(
                     departure_station_index,
@@ -633,10 +637,10 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     true,
+                    line_width,
                     canvas,
                     canvas_dimension,
-                    horizontal_scroll_bar_position,
-                    vertical_scroll_bar_position
+                    scroll_bar_position
                 );
             }
         }
@@ -648,13 +652,18 @@ namespace bobura
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
             const bool            next_day_arrival,
+            const size_type&      line_width,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
-            const left_type&      horizontal_scroll_bar_position,
-            const top_type&       vertical_scroll_bar_position
+            const position_type&  scroll_bar_position
         )
         const
         {
+            const left_type horizontal_scroll_bar_position =
+                tetengo2::gui::position<position_type>::left(scroll_bar_position);
+            const top_type vertical_scroll_bar_position =
+                tetengo2::gui::position<position_type>::top(scroll_bar_position);
+
             const position_type departure(
                 time_to_left(departure_time, previous_day_departure ? -1 : 0, horizontal_scroll_bar_position),
                 station_index_to_top(departure_station_index, vertical_scroll_bar_position)
@@ -683,7 +692,7 @@ namespace bobura
             if (lower_bound < top_type::from(m_time_header_height))
                 return;
 
-            canvas.draw_line(departure, arrival, size_type(typename size_type::value_type(1, 6)));
+            canvas.draw_line(departure, arrival, line_width);
         }
 
         left_type time_to_left(
