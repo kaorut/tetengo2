@@ -14,10 +14,35 @@ Description : Create bobura::model::serializer::oudia_reader.
 ------------------------------------------------------------------------------
 Number      : 00000177
 Added on    : 2012/06/12
-Depends on  : (none)
+Depends on  : 00000189, 00000190, 00000192
 Description : Colorize the diagram view.
 ------------------------------------------------------------------------------
 Number      : 00000189
+Added on    : 2012/07/25
+Depends on  : (none)
+Description : Show train number and name.
+------------------------------------------------------------------------------
+Number      : 00000190
+Added on    : 2012/07/25
+Depends on  : 00000191
+Description : Decorate the timetable title.
+------------------------------------------------------------------------------
+Number      : 00000191
+Added on    : 2012/07/25
+Depends on  : (none)
+Description : Add timetable meta data.
+------------------------------------------------------------------------------
+Number      : 00000192
+Added on    : 2012/07/25
+Depends on  : 00000193
+Description : Let the timetable font and color customizable.
+------------------------------------------------------------------------------
+Number      : 00000193
+Added on    : 2012/07/25
+Depends on  : (none)
+Description : Create a timetable font and color dialog.
+------------------------------------------------------------------------------
+Number      : 00000194
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
