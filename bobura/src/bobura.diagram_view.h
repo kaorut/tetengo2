@@ -382,39 +382,39 @@ namespace bobura
                 if (position > canvas_right)
                     break;
 
-                size_type line_width(typename size_type::value_type(1, 48));
                 bool draw = true;
                 top_type line_top = canvas_top;
                 if (minutes == 0)
                 {
-                    line_width = size_type(typename size_type::value_type(1, 12));
                     line_top = top_type(1);
 
                     canvas.draw_text(boost::lexical_cast<string_type>(hours), position_type(position, top_type(1)));
+                    canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
                 }
                 else if (minutes % 10 == 0)
                 {
-                    line_width = size_type(typename size_type::value_type(1, 24));
-                    if (minute_interval < typename left_type::value_type(4, 12 * 10))
+                    if (minute_interval >= typename left_type::value_type(4, 12 * 10))
+                        canvas.set_line_width(size_type(typename size_type::value_type(1, 24)));
+                    else
                         draw = false;
                 }
                 else if (minutes % 2 == 0)
                 {
-                    if (minute_interval < typename left_type::value_type(4, 12 * 2))
+                    if (minute_interval >= typename left_type::value_type(4, 12 * 2))
+                        canvas.set_line_width(size_type(typename size_type::value_type(1, 48)));
+                    else
                         draw = false;
                 }
                 else
                 {
-                    if (minute_interval < typename left_type::value_type(4, 12))
+                    if (minute_interval >= typename left_type::value_type(4, 12))
+                        canvas.set_line_width(size_type(typename size_type::value_type(1, 48)));
+                    else
                         draw = false;
                 }
 
                 if (draw)
-                {
-                    canvas.draw_line(
-                        position_type(position, line_top), position_type(position, line_bottom), line_width
-                    );
-                }
+                    canvas.draw_line(position_type(position, line_top), position_type(position, line_bottom));
             }
         }
 
@@ -452,10 +452,9 @@ namespace bobura
                 if (line_position > canvas_bottom)
                     break;
 
+                canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
                 canvas.draw_line(
-                    position_type(left_type(0), line_position),
-                    position_type(line_right, line_position),
-                    size_type(typename size_type::value_type(1, 12))
+                    position_type(left_type(0), line_position), position_type(line_right, line_position)
                 );
 
                 const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
@@ -686,7 +685,8 @@ namespace bobura
             if (lower_bound < top_type::from(m_time_header_height))
                 return;
 
-            canvas.draw_line(departure, arrival, line_width);
+            canvas.set_line_width(line_width);
+            canvas.draw_line(departure, arrival);
         }
 
         left_type time_to_left(
