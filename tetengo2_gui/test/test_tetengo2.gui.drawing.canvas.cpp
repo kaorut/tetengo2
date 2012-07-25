@@ -183,6 +183,28 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_CHECK_EQUAL(canvas.line_width(), 42U);
     }
 
+    BOOST_AUTO_TEST_CASE(line_style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const canvas_type::line_style_type line_style = canvas.line_style();
+
+        BOOST_CHECK_EQUAL(line_style, canvas_type::line_style_solid);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_line_style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.set_line_style(canvas_type::line_style_dashed);
+
+        BOOST_CHECK_EQUAL(canvas.line_style(), canvas_type::line_style_dashed);
+    }
+
     BOOST_AUTO_TEST_CASE(font)
     {
         BOOST_TEST_PASSPOINT();
