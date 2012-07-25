@@ -414,7 +414,10 @@ namespace bobura
                 }
 
                 if (draw)
+                {
+                    canvas.set_line_style(canvas_type::line_style_solid);
                     canvas.draw_line(position_type(position, line_top), position_type(position, line_bottom));
+                }
             }
         }
 
@@ -453,6 +456,7 @@ namespace bobura
                     break;
 
                 canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+                canvas.set_line_style(canvas_type::line_style_solid);
                 canvas.draw_line(
                     position_type(left_type(0), line_position), position_type(line_right, line_position)
                 );
@@ -518,9 +522,9 @@ namespace bobura
             canvas.set_color(train_kind.color());
             canvas.set_line_width(
                 train_kind.weight() == train_kind_type::weight_bold ?
-                size_type(typename size_type::value_type(1, 6)) :
-                size_type(typename size_type::value_type(1, 12))
+                size_type(typename size_type::value_type(1, 6)) : size_type(typename size_type::value_type(1, 12))
             );
+            canvas.set_line_style(translate_line_style(train_kind.line_style()));
 
             for (stop_index_type i = 0; i < train.stops().size() - 1; )
             {
@@ -556,6 +560,27 @@ namespace bobura
                 }
 
                 i = j;
+            }
+        }
+
+        typename canvas_type::line_style_type translate_line_style(
+            const typename train_kind_type::line_style_type line_style
+        )
+        const
+        {
+            switch (line_style)
+            {
+            case train_kind_type::line_style_solid:
+                return canvas_type::line_style_solid;
+            case train_kind_type::line_style_dashed:
+                return canvas_type::line_style_dashed;
+            case train_kind_type::line_style_dotted:
+                return canvas_type::line_style_dotted;
+            case train_kind_type::line_style_dot_dashed:
+                return canvas_type::line_style_dot_dashed;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown line style."));
             }
         }
 
