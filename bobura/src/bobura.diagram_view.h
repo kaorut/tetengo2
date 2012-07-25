@@ -516,10 +516,10 @@ namespace bobura
         {
             const train_kind_type& train_kind = m_model.timetable().train_kinds()[train.kind_index()];
             canvas.set_color(train_kind.color());
-            const size_type line_width(
+            canvas.set_line_width(
                 train_kind.weight() == train_kind_type::weight_bold ?
-                typename size_type::value_type(1, 6) :
-                typename size_type::value_type(1, 12)
+                size_type(typename size_type::value_type(1, 6)) :
+                size_type(typename size_type::value_type(1, 12))
             );
 
             for (stop_index_type i = 0; i < train.stops().size() - 1; )
@@ -546,7 +546,6 @@ namespace bobura
                             departure_time,
                             to,
                             arrival_time,
-                            line_width,
                             canvas,
                             canvas_dimension,
                             scroll_bar_position
@@ -587,7 +586,6 @@ namespace bobura
             const time_type&      departure_time,
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
-            const size_type&      line_width,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
@@ -603,7 +601,6 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     false,
-                    line_width,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -618,7 +615,6 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     false,
-                    line_width,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -630,7 +626,6 @@ namespace bobura
                     arrival_station_index,
                     arrival_time,
                     true,
-                    line_width,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -645,7 +640,6 @@ namespace bobura
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
             const bool            next_day_arrival,
-            const size_type&      line_width,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
@@ -685,7 +679,6 @@ namespace bobura
             if (lower_bound < top_type::from(m_time_header_height))
                 return;
 
-            canvas.set_line_width(line_width);
             canvas.draw_line(departure, arrival);
         }
 
