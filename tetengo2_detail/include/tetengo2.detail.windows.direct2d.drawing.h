@@ -316,8 +316,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const background_details_ptr_type p_background_details = create_solid_background(color);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+            const typename unique_com_ptr< ::ID2D1StrokeStyle>::type p_stroke_style =
+                create_stroke_style(0);
             canvas.DrawLine(
-                position_to_point_2f(from), position_to_point_2f(to), p_brush.get(), size_to_float(width)
+                position_to_point_2f(from),
+                position_to_point_2f(to),
+                p_brush.get(),
+                size_to_float(width),
+                p_stroke_style.get()
             );
         }
 
@@ -641,6 +647,50 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
 
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
+        }
+
+        static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
+        {
+            ::ID2D1StrokeStyle* rp_stroke_style = NULL;
+            const ::HRESULT hr =
+                direct2d_factory().CreateStrokeStyle(
+                    D2D1::StrokeStyleProperties(
+                        ::D2D1_CAP_STYLE_ROUND,
+                        ::D2D1_CAP_STYLE_ROUND,
+                        ::D2D1_CAP_STYLE_ROUND,
+                        ::D2D1_LINE_JOIN_ROUND,
+                        1.0f,
+                        to_stroke_dash_style(style)
+                    ),
+                    NULL,
+                    0,
+                    &rp_stroke_style
+                );
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create stroke style.")
+                );
+            }
+            return unique_com_ptr< ::ID2D1StrokeStyle>::type(rp_stroke_style);
+        }
+
+        static ::D2D1_DASH_STYLE to_stroke_dash_style(const int style)
+        {
+            switch (style)
+            {
+            case 0:
+                return ::D2D1_DASH_STYLE_SOLID;
+            case 1:
+                return ::D2D1_DASH_STYLE_DASH;
+            case 2:
+                return ::D2D1_DASH_STYLE_DOT;
+            case 3:
+                return ::D2D1_DASH_STYLE_DASH_DOT;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stroke dash style."));
+            }
         }
 
         template <typename String, typename Font, typename Encoder>
