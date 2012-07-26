@@ -105,7 +105,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param state A status.
         */
         template <typename MenuBase>
-        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
         {}
 
         /*!

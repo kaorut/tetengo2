@@ -30,12 +30,12 @@ namespace bobura { namespace command
         typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
 
         //! The state type.
-        enum state_type
+        struct state_type { enum enum_t
         {
-            state_default,  //!< Default state.
-            state_checked,  //!< Checked state.
-            state_selected, //!< Selected state.
-        };
+            default_, //!< Default state.
+            checked,  //!< Checked state.
+            selected, //!< Selected state.
+        };};
 
 
         // functions
@@ -56,7 +56,7 @@ namespace bobura { namespace command
 
             \return The state.
         */
-        state_type state()
+        state_type::enum_t state()
         const;
 
         /*!
@@ -75,7 +75,7 @@ namespace bobura { namespace command
         virtual bool enabled_impl(const model_type& model)
         const;
 
-        virtual state_type state_impl()
+        virtual state_type::enum_t state_impl()
         const;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)

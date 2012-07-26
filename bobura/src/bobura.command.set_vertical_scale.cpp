@@ -45,10 +45,10 @@ namespace bobura { namespace command
 
         // functions
 
-        state_type state()
+        state_type::enum_t state()
         const
         {
-            return m_scale == m_diagram_view.vertical_scale() ? state_selected : state_default;
+            return m_scale == m_diagram_view.vertical_scale() ? state_type::selected : state_type::default_;
         }
 
         void execute(model_type& model, abstract_window_type& parent)
@@ -88,7 +88,7 @@ namespace bobura { namespace command
     set_vertical_scale::~set_vertical_scale()
     {}
     
-    set_vertical_scale::state_type set_vertical_scale::state_impl()
+    set_vertical_scale::state_type::enum_t set_vertical_scale::state_impl()
     const
     {
         return m_p_impl->state();

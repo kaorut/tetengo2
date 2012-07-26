@@ -108,16 +108,18 @@ namespace bobura { namespace message { namespace main_window
 
         // static functions
 
-        static typename menu_base_type::state_type translate_state(const typename command_type::state_type state)
+        static typename menu_base_type::state_type::enum_t translate_state(
+            const typename command_type::state_type::enum_t state
+        )
         {
             switch (state)
             {
-            case command_type::state_default:
-                return menu_base_type::state_default;
-            case command_type::state_checked:
-                return menu_base_type::state_checked;
-            case command_type::state_selected:
-                return menu_base_type::state_selected;
+            case command_type::state_type::default_:
+                return menu_base_type::state_type::default_;
+            case command_type::state_type::checked:
+                return menu_base_type::state_type::checked;
+            case command_type::state_type::selected:
+                return menu_base_type::state_type::selected;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid command state."));

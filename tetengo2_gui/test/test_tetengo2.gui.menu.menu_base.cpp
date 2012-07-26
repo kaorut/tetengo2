@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_default);
+        BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::default_);
     }
 
     BOOST_AUTO_TEST_CASE(set_state)
@@ -151,23 +151,23 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-            menu.set_state(menu_base_type::state_default);
+            menu.set_state(menu_base_type::state_type::default_);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_default);
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::default_);
         }
         {
             concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-            menu.set_state(menu_base_type::state_checked);
+            menu.set_state(menu_base_type::state_type::checked);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_checked);
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::checked);
         }
         {
             concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-            menu.set_state(menu_base_type::state_selected);
+            menu.set_state(menu_base_type::state_type::selected);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_selected);
+            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::selected);
         }
     }
 
