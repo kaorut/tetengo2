@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
         view_type view(model);
         const mouse_wheeled_type mouse_wheeled(picture_box, view);
 
-        mouse_wheeled(42, mouse_observer_set_type::direction_vertical, false, false, false);
+        mouse_wheeled(42, mouse_observer_set_type::direction_type::vertical, false, false, false);
     }
 
 

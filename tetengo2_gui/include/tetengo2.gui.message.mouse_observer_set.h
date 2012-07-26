@@ -42,11 +42,11 @@ namespace tetengo2 { namespace gui { namespace message
         typedef boost::rational<difference_type> delta_type;
 
         //! The mouse wheel direction type.
-        enum direction_type
+        struct direction_type { enum enum_t
         {
-            direction_vertical,   //!< Vertical.
-            direction_horizontal, //!< Horizontal.
-        };
+            vertical,   //!< Vertical.
+            horizontal, //!< Horizontal.
+        };};
 
         /*!
             \brief The observer type of wheeled.
@@ -58,7 +58,13 @@ namespace tetengo2 { namespace gui { namespace message
             \param meta      True when meta key is pressed.
         */
         typedef
-            void wheeled_type(const delta_type& delta, direction_type direction, bool shift, bool control, bool meta);
+            void wheeled_type(
+                const delta_type&               delta,
+                typename direction_type::enum_t direction,
+                bool                            shift,
+                bool                            control,
+                bool                            meta
+            );
 
         //! The signal type of wheeled.
         typedef boost::signals2::signal<wheeled_type> wheeled_signal_type;
