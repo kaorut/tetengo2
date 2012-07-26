@@ -96,26 +96,29 @@ namespace
         }
     }
 
-    void value_passed(std::string& output, const grammar_type::value_type_type type, const std::string& parsed)
+    void value_passed(
+        std::string&                                output,
+        const grammar_type::value_type_type::enum_t type,
+        const std::string&                          parsed)
     {
         switch (type)
         {
-        case grammar_type::value_type_string:
+        case grammar_type::value_type_type::string:
             {
                 output += "S:";
                 break;
             }
-        case grammar_type::value_type_number:
+        case grammar_type::value_type_type::number:
             {
                 output += "N:";
                 break;
             }
-        case grammar_type::value_type_boolean:
+        case grammar_type::value_type_type::boolean:
             {
                 output += "B:";
                 break;
             }
-        case grammar_type::value_type_null:
+        case grammar_type::value_type_type::null:
             {
                 output += "L:";
                 break;
