@@ -303,6 +303,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \param from   A beginning position.
             \param to     An ending position.
             \param width  A width.
+            \param style  A style.
             \param color  A color.
         */
         template <typename Position, typename Size, typename Color>
@@ -311,13 +312,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Position&      from,
             const Position&      to,
             const Size           width,
+            const int            style,
             const Color&         color
         )
         {
             const background_details_ptr_type p_background_details = create_solid_background(color);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
             const typename unique_com_ptr< ::ID2D1StrokeStyle>::type p_stroke_style =
-                create_stroke_style(0);
+                create_stroke_style(style);
             canvas.DrawLine(
                 position_to_point_2f(from),
                 position_to_point_2f(to),

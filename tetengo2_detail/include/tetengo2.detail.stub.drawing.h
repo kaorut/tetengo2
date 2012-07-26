@@ -191,6 +191,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param from   A beginning position.
             \param to     An ending position.
             \param width  A width.
+            \param style  A style.
             \param color  A color.
         */
         template <typename Position, typename Size, typename Color>
@@ -199,6 +200,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      from,
             const Position&      to,
             const Size           width,
+            const int            style,
             const Color&         color
         )
         {}
