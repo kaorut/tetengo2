@@ -55,14 +55,14 @@ namespace tetengo2 { namespace text
         typedef Size size_type;
 
         //! The structure kind type.
-        enum structure_kind_type
+        struct structure_kind_type { enum enum_t
         {
-            structure_kind_begin, //!< The structure kind begin.
-            structure_kind_end,   //!< The structure kind end.
-        };
+            begin, //!< The structure kind begin.
+            end,   //!< The structure kind end.
+        };};
 
         //! The structure type.
-        template <structure_kind_type Kind>
+        template <typename structure_kind_type::enum_t Kind>
         class structure
         {
         public:
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace text
 
                 \return The kind.
             */
-            static structure_kind_type kind()
+            static typename structure_kind_type::enum_t kind()
             {
                 return Kind;
             }
@@ -134,10 +134,10 @@ namespace tetengo2 { namespace text
         };
 
         //! The beginning structure type.
-        typedef structure<structure_kind_begin> structure_begin_type;
+        typedef structure<structure_kind_type::begin> structure_begin_type;
 
         //! The ending structure type.
-        typedef structure<structure_kind_end> structure_end_type;
+        typedef structure<structure_kind_type::end> structure_end_type;
 
         //! The element type.
         typedef boost::variant<structure_begin_type, structure_end_type, value_type> element_type;
