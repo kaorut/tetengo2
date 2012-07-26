@@ -90,10 +90,6 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename train_kind_type::color_type color_type;
 
-        typedef typename train_kind_type::weight_type weight_type;
-
-        typedef typename train_kind_type::line_style_type line_style_type;
-
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stops_type stops_type;

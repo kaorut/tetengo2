@@ -370,8 +370,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -459,8 +459,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -683,8 +683,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -731,8 +731,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -779,8 +779,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -827,8 +827,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -886,8 +886,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Local")),
                     string_type(TETENGO2_TEXT("Local")),
                     color_type(0, 0, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -896,8 +896,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Rapid")),
                     string_type(TETENGO2_TEXT("Rapid")),
                     color_type(0, 128, 0),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -906,8 +906,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -955,8 +955,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Local")),
                     string_type(TETENGO2_TEXT("Local")),
                     color_type(0, 0, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -965,8 +965,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Rapid")),
                     string_type(TETENGO2_TEXT("Rapid")),
                     color_type(0, 128, 0),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -975,8 +975,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1028,8 +1028,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             string_type(TETENGO2_TEXT("Rapid")),
             string_type(TETENGO2_TEXT("Rapid")),
             color_type(0, 128, 0),
-            train_kind_type::weight_normal,
-            train_kind_type::line_style_solid
+            train_kind_type::weight_type::normal,
+            train_kind_type::line_style_type::solid
         );
         timetable.insert_train_kind(timetable.train_kinds().end(), kind0);
        
@@ -1039,8 +1039,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             string_type(TETENGO2_TEXT("Express")),
             string_type(TETENGO2_TEXT("Exp.")),
             color_type(255, 0, 0),
-            train_kind_type::weight_bold,
-            train_kind_type::line_style_solid
+            train_kind_type::weight_type::bold,
+            train_kind_type::line_style_type::solid
         );
         timetable.insert_train_kind(timetable.train_kinds().end(), kind2);
        
@@ -1071,8 +1071,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             string_type(TETENGO2_TEXT("Local")),
             string_type(TETENGO2_TEXT("Local")),
             color_type(0, 0, 255),
-            train_kind_type::weight_normal,
-            train_kind_type::line_style_solid
+            train_kind_type::weight_type::normal,
+            train_kind_type::line_style_type::solid
         );
         timetable.insert_train_kind(boost::next(timetable.train_kinds().begin(), 1), kind1);
         
@@ -1106,8 +1106,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 string_type(TETENGO2_TEXT("Local")),
                 string_type(TETENGO2_TEXT("Local")),
                 color_type(0, 0, 255),
-                train_kind_type::weight_normal,
-                train_kind_type::line_style_solid
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
             )
         );
         timetable.insert_train_kind(
@@ -1116,8 +1116,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 string_type(TETENGO2_TEXT("Rapid")),
                 string_type(TETENGO2_TEXT("Rapid")),
                 color_type(0, 128, 0),
-                train_kind_type::weight_normal,
-                train_kind_type::line_style_solid
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
             )
         );
 
@@ -1127,8 +1127,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 string_type(TETENGO2_TEXT("Limited Express")),
                 string_type(TETENGO2_TEXT("Ltd.Exp.")),
                 color_type(255, 0, 0),
-                train_kind_type::weight_bold,
-                train_kind_type::line_style_solid
+                train_kind_type::weight_type::bold,
+                train_kind_type::line_style_type::solid
             )
         );
 
@@ -1148,8 +1148,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Local")),
                     string_type(TETENGO2_TEXT("Local")),
                     color_type(0, 0, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -1158,8 +1158,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Rapid")),
                     string_type(TETENGO2_TEXT("Rapid")),
                     color_type(0, 128, 0),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
 
@@ -1180,8 +1180,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Local")),
                     string_type(TETENGO2_TEXT("Local")),
                     color_type(0, 0, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -1190,8 +1190,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Rapid")),
                     string_type(TETENGO2_TEXT("Rapid")),
                     color_type(0, 128, 0),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             timetable.insert_train_kind(
@@ -1200,8 +1200,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Limited Express")),
                     string_type(TETENGO2_TEXT("Ltd.Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1249,8 +1249,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Local")),
                     string_type(TETENGO2_TEXT("Local")),
                     color_type(0, 0, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1291,8 +1291,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1321,8 +1321,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1376,8 +1376,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1406,8 +1406,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1454,8 +1454,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1484,8 +1484,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1526,8 +1526,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1626,8 +1626,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1653,8 +1653,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1691,8 +1691,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1721,8 +1721,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1763,8 +1763,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1863,8 +1863,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
 
@@ -1890,8 +1890,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1928,8 +1928,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -1968,8 +1968,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2010,8 +2010,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2054,8 +2054,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2114,8 +2114,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2154,8 +2154,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2196,8 +2196,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             
@@ -2240,8 +2240,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     string_type(TETENGO2_TEXT("Express")),
                     string_type(TETENGO2_TEXT("Exp.")),
                     color_type(255, 0, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             

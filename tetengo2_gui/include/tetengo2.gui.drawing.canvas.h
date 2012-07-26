@@ -65,13 +65,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The line style type.
-        enum line_style_type
+        struct line_style_type { enum enum_t
         {
-            line_style_solid,      //!< Solid.
-            line_style_dashed,     //!< Dashed.
-            line_style_dotted,     //!< Dotted.
-            line_style_dot_dashed, //!< Dot-Dashed.
-        };
+            solid,      //!< Solid.
+            dashed,     //!< Dashed.
+            dotted,     //!< Dotted.
+            dot_dashed, //!< Dot-Dashed.
+        };};
 
         //! The font type.
         typedef typename traits_type::font_type font_type;
@@ -175,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        line_style_type line_style()
+        typename line_style_type::enum_t line_style()
         const
         {
             return m_line_style;
@@ -188,7 +188,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param line_style A line width.
         */
-        void set_line_style(const line_style_type line_style)
+        void set_line_style(const typename line_style_type::enum_t line_style)
         {
             m_line_style = line_style;
         }
@@ -365,7 +365,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_color(0, 0, 0, 255),
         m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
         m_line_width(1),
-        m_line_style(line_style_solid),
+        m_line_style(line_style_type::solid),
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
@@ -393,7 +393,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         size_type m_line_width;
 
-        line_style_type m_line_style;
+        typename line_style_type::enum_t m_line_style;
 
         font_type m_font;
 
