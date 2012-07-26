@@ -39,11 +39,11 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             typedef String string_type;
 
             //! The style type.
-            enum style_type
+            struct style_type { enum enum_t
             {
-                style_ok,     //!< With OK button.
-                style_yes_no, //!< With Yes and No buttons.
-            };
+                ok,     //!< With OK button.
+                yes_no, //!< With Yes and No buttons.
+            };};
 
 
             // static functions
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style ok(const bool cancellable)
             {
-                return button_style(style_ok, cancellable, boost::none, boost::none);
+                return button_style(style_type::ok, cancellable, boost::none, boost::none);
             }
 
             /*!
@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             {
                 return
                     button_style(
-                        style_ok,
+                        style_type::ok,
                         cancellable,
                         boost::make_optional<string_type>(std::forward<S>(ok_button_label)),
                         boost::none
@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style yes_no(const bool cancellable)
             {
-                return button_style(style_yes_no, cancellable, boost::none, boost::none);
+                return button_style(style_type::yes_no, cancellable, boost::none, boost::none);
             }
 
             /*!
@@ -111,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             {
                 return
                     button_style(
-                        style_yes_no,
+                        style_type::yes_no,
                         cancellable,
                         boost::none,
                         boost::make_optional<std::pair<string_type, string_type>>(
@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
                 \return The style.
             */
-            style_type style()
+            typename style_type::enum_t style()
             const
             {
                 return m_style;
@@ -176,7 +176,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             // constructors
 
             button_style(
-                const style_type&                                           style,
+                const typename style_type::enum_t                           style,
                 const bool                                                  cancellable,
                 const boost::optional<string_type>&                         ok_button_label,
                 const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels
@@ -191,7 +191,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             // variables
 
-            style_type m_style;
+            typename style_type::enum_t m_style;
 
             bool m_cancellable;
 
@@ -353,15 +353,15 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         static typename common_dialog_details_type::message_box_button_style_type
         to_details_button_style(
-            const typename button_style_type::style_type style
+            const typename button_style_type::style_type::enum_t style
         )
         {
             switch (style)
             {
-            case button_style_type::style_ok:
+            case button_style_type::style_type::ok:
                 return
                     common_dialog_details_type::message_box_button_style_ok;
-            case button_style_type::style_yes_no:
+            case button_style_type::style_type::yes_no:
                 return
                     common_dialog_details_type::message_box_button_style_yes_no;
             default:

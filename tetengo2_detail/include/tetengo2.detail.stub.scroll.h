@@ -43,11 +43,11 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
 
         //! The style type.
-        enum style_type
+        struct style_type { enum enum_t
         {
-            style_vertical,   //!< The vertical style.
-            style_horizontal, //!< The horizontal style.
-        };
+            vertical,   //!< The vertical style.
+            horizontal, //!< The horizontal style.
+        };};
 
 
         // static functions
@@ -66,8 +66,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename WidgetDetails>
         static scroll_bar_details_ptr_type create_scroll_bar(
-            const WidgetDetails& widget_details,
-            const style_type     style
+            const WidgetDetails&              widget_details,
+            const typename style_type::enum_t style
         )
         {
             return tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);

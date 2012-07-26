@@ -35,10 +35,10 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor(cursor_type::style_default);
+            const cursor_type cursor(cursor_type::style_type::default_);
         }
         {
-            const cursor_type cursor(cursor_type::style_hand);
+            const cursor_type cursor(cursor_type::style_type::hand);
         }
     }
 
@@ -47,14 +47,14 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor(cursor_type::style_default);
+            const cursor_type cursor(cursor_type::style_type::default_);
 
-            BOOST_CHECK(cursor.style() == cursor_type::style_default);
+            BOOST_CHECK(cursor.style() == cursor_type::style_type::default_);
         }
         {
-            const cursor_type cursor(cursor_type::style_hand);
+            const cursor_type cursor(cursor_type::style_type::hand);
 
-            BOOST_CHECK(cursor.style() == cursor_type::style_hand);
+            BOOST_CHECK(cursor.style() == cursor_type::style_type::hand);
         }
     }
 

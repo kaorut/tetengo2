@@ -508,13 +508,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         concrete_widget widget;
 
         std::unique_ptr<widget_type::cursor_type> p_cursor(
-            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_hand)
+            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
         );
         widget.set_cursor(std::move(p_cursor));
 
         const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
         BOOST_CHECK(cursor);
-        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_hand);
+        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
 
     BOOST_AUTO_TEST_CASE(vertical_scroll_bar)
