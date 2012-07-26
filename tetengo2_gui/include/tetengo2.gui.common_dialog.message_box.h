@@ -254,21 +254,21 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             message_box_style::button_style<string_type> button_style_type;
 
         //! The icon style type.
-        enum icon_style_type
+        struct icon_style_type { enum enum_t
         {
-            icon_style_error,       //!< Error.
-            icon_style_warning,     //!< Warning.
-            icon_style_information, //!< Information.
-        };
+            error,       //!< Error.
+            warning,     //!< Warning.
+            information, //!< Information.
+        };};
 
         //! The button ID type.
-        enum button_id_type
+        struct button_id_type { enum enum_t
         {
-            button_ok,     //!< OK button.
-            button_yes,    //!< Yes button.
-            button_no,     //!< No button.
-            button_cancel, //!< Cancel button.
-        };
+            ok,     //!< OK button.
+            yes,    //!< Yes button.
+            no,     //!< No button.
+            cancel, //!< Cancel button.
+        };};
 
 
         // constructors and destructor
@@ -289,12 +289,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         template <typename S1, typename S2, typename S3>
         message_box(
-            abstract_window_type&    parent,
-            S1&&                     title,
-            S2&&                     main_content,
-            S3&&                     sub_content,
-            const button_style_type& button_style,
-            const icon_style_type    icon_style
+            abstract_window_type&                  parent,
+            S1&&                                   title,
+            S2&&                                   main_content,
+            S3&&                                   sub_content,
+            const button_style_type&               button_style,
+            const typename icon_style_type::enum_t icon_style
         )
         :
         m_p_details(
@@ -321,7 +321,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The selected button id.
         */
-        button_id_type do_modal()
+        typename button_id_type::enum_t do_modal()
         {
             return to_button_id(common_dialog_details_type::show_message_box(*m_p_details));
         }
@@ -373,17 +373,17 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         }
 
         static typename common_dialog_details_type::message_box_icon_style_type
-        to_details_icon_style(const icon_style_type style)
+        to_details_icon_style(const typename icon_style_type::enum_t style)
         {
             switch (style)
             {
-            case icon_style_error:
+            case icon_style_type::error:
                 return
                     common_dialog_details_type::message_box_icon_style_error;
-            case icon_style_warning:
+            case icon_style_type::warning:
                 return
                     common_dialog_details_type::message_box_icon_style_warning;
-            case icon_style_information:
+            case icon_style_type::information:
                 return
                     common_dialog_details_type::message_box_icon_style_information;
             default:
@@ -394,7 +394,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             }
         }
 
-        static button_id_type to_button_id(
+        static typename button_id_type::enum_t to_button_id(
             const typename common_dialog_details_type::message_box_button_id_type
             details_button_id
         )
@@ -402,13 +402,13 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             switch (details_button_id)
             {
             case common_dialog_details_type::message_box_button_ok:
-                return button_ok;
+                return button_id_type::ok;
             case common_dialog_details_type::message_box_button_yes:
-                return button_yes;
+                return button_id_type::yes;
             case common_dialog_details_type::message_box_button_no:
-                return button_no;
+                return button_id_type::no;
             case common_dialog_details_type::message_box_button_cancel:
-                return button_cancel;
+                return button_id_type::cancel;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(

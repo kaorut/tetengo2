@@ -52,7 +52,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
         const string_type main_content;
         const string_type sub_content;
         const message_box_type message_box(
-            parent, title, main_content, sub_content, button_style_type::ok(true), message_box_type::icon_style_warning
+            parent,
+            title,
+            main_content,
+            sub_content,
+            button_style_type::ok(true),
+            message_box_type::icon_style_type::warning
         );
     }
 
@@ -65,7 +70,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
         const string_type main_content;
         const string_type sub_content;
         message_box_type message_box(
-            parent, title, main_content, sub_content, button_style_type::ok(true), message_box_type::icon_style_warning
+            parent,
+            title,
+            main_content,
+            sub_content,
+            button_style_type::ok(true),
+            message_box_type::icon_style_type::warning
         );
 
         message_box.do_modal();
@@ -86,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
                 main_content,
                 sub_content,
                 button_style_type::ok(true),
-                message_box_type::icon_style_warning
+                message_box_type::icon_style_type::warning
             );
 
             message_box.details();
@@ -102,7 +112,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
                 main_content,
                 sub_content,
                 button_style_type::ok(true),
-                message_box_type::icon_style_warning
+                message_box_type::icon_style_type::warning
             );
 
             message_box.details();

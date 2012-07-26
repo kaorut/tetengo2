@@ -94,10 +94,11 @@ namespace bobura { namespace load_save
             if (!m_model.changed())
                 return true;
 
-            const typename message_box_type::button_id_type selected_button = create_message_box(parent)->do_modal();
-            if (selected_button == message_box_type::button_cancel)
+            const typename message_box_type::button_id_type::enum_t selected_button =
+                create_message_box(parent)->do_modal();
+            if (selected_button == message_box_type::button_id_type::cancel)
                 return false;
-            if (selected_button == message_box_type::button_yes)
+            if (selected_button == message_box_type::button_id_type::yes)
             {
                 if (!m_save_to_file(m_model, parent))
                     return false;
@@ -140,7 +141,7 @@ namespace bobura { namespace load_save
                         m_message_catalog.get(TETENGO2_TEXT("Message:File:&Save")),
                         m_message_catalog.get(TETENGO2_TEXT("Message:File:&Don't save"))
                     ),
-                    message_box_type::icon_style_warning
+                    message_box_type::icon_style_type::warning
                 );
         }
 
