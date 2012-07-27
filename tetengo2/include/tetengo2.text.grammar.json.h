@@ -47,7 +47,7 @@ namespace tetengo2 { namespace text { namespace grammar
         typedef std::basic_string<char_type> string_type;
 
         //! The value type type.
-        struct value_type_type { enum enum_t
+        struct value_type_type { enum enum_t //!< Scoped enum.
         {
             string,  //!< A string.
             number,  //!< A number.

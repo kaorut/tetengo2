@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         typedef typename cursor_details_type::cursor_details_ptr_type details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t
+        struct style_type { enum enum_t //!< Scoped enum.
         {
             default_, //!< A default style.
             hand,     //!< A hand style.

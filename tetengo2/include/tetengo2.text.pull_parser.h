@@ -55,7 +55,7 @@ namespace tetengo2 { namespace text
         typedef Size size_type;
 
         //! The structure kind type.
-        struct structure_kind_type { enum enum_t
+        struct structure_kind_type { enum enum_t //!< Scoped enum.
         {
             begin, //!< The structure kind begin.
             end,   //!< The structure kind end.

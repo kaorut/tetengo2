@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef widget child_type;
 
         //! The scroll bar style type.
-        struct scroll_bar_style_type { enum enum_t
+        struct scroll_bar_style_type { enum enum_t //!< Scoped enum.
         {
             none,       //!< The widget has no scroll bar.
             vertical,   //!< The widget has a vertical scroll bar.

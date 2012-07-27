@@ -39,7 +39,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             typedef String string_type;
 
             //! The style type.
-            struct style_type { enum enum_t
+            struct style_type { enum enum_t //!< Scoped enum.
             {
                 ok,     //!< With OK button.
                 yes_no, //!< With Yes and No buttons.
@@ -254,7 +254,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             message_box_style::button_style<string_type> button_style_type;
 
         //! The icon style type.
-        struct icon_style_type { enum enum_t
+        struct icon_style_type { enum enum_t //!< Scoped enum.
         {
             error,       //!< Error.
             warning,     //!< Warning.
@@ -262,7 +262,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         };};
 
         //! The button ID type.
-        struct button_id_type { enum enum_t
+        struct button_id_type { enum enum_t //!< Scoped enum.
         {
             ok,     //!< OK button.
             yes,    //!< Yes button.

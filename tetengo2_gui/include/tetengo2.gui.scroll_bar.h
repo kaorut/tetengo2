@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t
+        struct style_type { enum enum_t //!< Scoped enum.
         {
             vertical,   //!< The vertical style.
             horizontal, //!< The horizontal style.

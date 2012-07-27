@@ -65,7 +65,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The line style type.
-        struct line_style_type { enum enum_t
+        struct line_style_type { enum enum_t //!< Scoped enum.
         {
             solid,      //!< Solid.
             dashed,     //!< Dashed.

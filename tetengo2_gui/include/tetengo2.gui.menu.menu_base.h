@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::template style_tag<menu_base> style_type;
 
         //! The state type.
-        struct state_type { enum enum_t
+        struct state_type { enum enum_t //!< Scoped enum.
         {
             default_,  //!< Default state.
             checked,   //!< Checked state.

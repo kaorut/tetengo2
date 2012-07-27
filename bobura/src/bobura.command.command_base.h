@@ -30,7 +30,7 @@ namespace bobura { namespace command
         typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
 
         //! The state type.
-        struct state_type { enum enum_t
+        struct state_type { enum enum_t //!< Scoped enum.
         {
             default_, //!< Default state.
             checked,  //!< Checked state.

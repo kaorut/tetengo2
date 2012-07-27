@@ -31,14 +31,14 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The message box button style type.
-        struct message_box_button_style_type { enum enum_t
+        struct message_box_button_style_type { enum enum_t //!< Scoped enum.
         {
             ok,     //!< With OK button.
             yes_no, //!< With Yes and No buttons.
         };};
 
         //! The message box icon style type.
-        struct message_box_icon_style_type { enum enum_t
+        struct message_box_icon_style_type { enum enum_t //!< Scoped enum.
         {
             error,       //!< Error.
             warning,     //!< Warning.
@@ -46,7 +46,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };};
 
         //! The message box button ID type.
-        struct message_box_button_id_type { enum enum_t
+        struct message_box_button_id_type { enum enum_t //!< Scoped enum.
         {
             ok,     //!< OK button.
             yes,    //!< Yes button.

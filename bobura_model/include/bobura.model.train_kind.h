@@ -35,14 +35,14 @@ namespace bobura { namespace model
         typedef Color color_type;
 
         //! The weight type.
-        struct weight_type { enum enum_t
+        struct weight_type { enum enum_t //!< Scoped enum.
         {
             normal, //!< Normal.
             bold,   //!< Bold.
         };};
 
         //! The line style type.
-        struct line_style_type { enum enum_t
+        struct line_style_type { enum enum_t //!< Scoped enum.
         {
             solid,      //!< Solid.
             dashed,     //!< Dashed.

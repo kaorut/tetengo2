@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t
+        struct style_type { enum enum_t //!< Scoped enum.
         {
             normal,   //!< A normal button.
             default_, //!< A default button.

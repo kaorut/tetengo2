@@ -787,7 +787,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // types
 
-        struct details_index_type { enum enum_t
+        struct details_index_type { enum enum_t //!< Scoped enum.
         {
             p_parent = 0,
             enabled,

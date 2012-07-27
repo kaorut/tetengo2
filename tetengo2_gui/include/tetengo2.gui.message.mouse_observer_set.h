@@ -42,7 +42,7 @@ namespace tetengo2 { namespace gui { namespace message
         typedef boost::rational<difference_type> delta_type;
 
         //! The mouse wheel direction type.
-        struct direction_type { enum enum_t
+        struct direction_type { enum enum_t //!< Scoped enum.
         {
             vertical,   //!< Vertical.
             horizontal, //!< Horizontal.

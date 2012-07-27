@@ -28,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The system color index type.
-        struct system_color_index_type { enum enum_t
+        struct system_color_index_type { enum enum_t //!< Scoped enum.
         {
             dialog_background, //!< Dialog background.
         };};

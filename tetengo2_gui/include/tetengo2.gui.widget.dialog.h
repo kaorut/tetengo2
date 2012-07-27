@@ -70,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace widget
             details_ptr_type;
 
         //! The result type.
-        struct result_type { enum enum_t
+        struct result_type { enum enum_t //!< Scoped enum.
         {
             undecided, //!< The result is not decided yet.
             accepted,  //!< The settings are accepted.
