@@ -78,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            base_type::scroll_bar_style_none,
+            base_type::scroll_bar_style_type::none,
             message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
         ),

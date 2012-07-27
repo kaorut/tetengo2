@@ -92,7 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            base_type::scroll_bar_style_none,
+            base_type::scroll_bar_style_type::none,
             message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type())
         ),
 #if defined(_MSC_VER)

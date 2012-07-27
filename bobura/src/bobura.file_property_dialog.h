@@ -242,7 +242,7 @@ namespace bobura
         std::unique_ptr<text_box_type> create_line_name_text_box()
         {
             std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_none);
+                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
 
             return std::move(p_text_box);
         }
@@ -261,7 +261,7 @@ namespace bobura
         std::unique_ptr<text_box_type> create_file_name_text_box()
         {
             std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_none);
+                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
 
             p_text_box->set_read_only(true);
 

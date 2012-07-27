@@ -108,8 +108,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&              parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
+            const boost::optional<Widget&>&                      parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
@@ -381,8 +381,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_picture_box(
-            Widget&                                      parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
+            Widget&                                              parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
@@ -441,8 +441,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_text_box(
-            Widget&                                      parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
+            Widget&                                              parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
             typename std::tuple_element<0, widget_details_type>::type p_widget(
@@ -1550,17 +1550,17 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename Widget>
-        static ::DWORD window_style_for_scroll_bars(const typename Widget::scroll_bar_style_type style)
+        static ::DWORD window_style_for_scroll_bars(const typename Widget::scroll_bar_style_type::enum_t style)
         {
             switch (style)
             {
-            case Widget::scroll_bar_style_none:
+            case Widget::scroll_bar_style_type::none:
                 return 0;
-            case Widget::scroll_bar_style_vertical:
+            case Widget::scroll_bar_style_type::vertical:
                 return WS_VSCROLL;
-            case Widget::scroll_bar_style_horizontal:
+            case Widget::scroll_bar_style_type::horizontal:
                 return WS_HSCROLL;
-            case Widget::scroll_bar_style_both:
+            case Widget::scroll_bar_style_type::both:
                 return WS_HSCROLL | WS_VSCROLL;
             default:
                 assert(false);

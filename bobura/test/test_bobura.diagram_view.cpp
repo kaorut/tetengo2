@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const view_type view(model);
 
         window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_both);
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         view.draw_to(
             *p_canvas, dimension_type(width_type(42), height_type(24)), position_type(left_type(2), top_type(3))
