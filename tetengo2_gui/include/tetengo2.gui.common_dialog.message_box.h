@@ -372,42 +372,36 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             }
         }
 
-        static typename common_dialog_details_type::message_box_icon_style_type
+        static typename common_dialog_details_type::message_box_icon_style_type::enum_t
         to_details_icon_style(const typename icon_style_type::enum_t style)
         {
             switch (style)
             {
             case icon_style_type::error:
-                return
-                    common_dialog_details_type::message_box_icon_style_error;
+                return common_dialog_details_type::message_box_icon_style_type::error;
             case icon_style_type::warning:
-                return
-                    common_dialog_details_type::message_box_icon_style_warning;
+                return common_dialog_details_type::message_box_icon_style_type::warning;
             case icon_style_type::information:
-                return
-                    common_dialog_details_type::message_box_icon_style_information;
+                return common_dialog_details_type::message_box_icon_style_type::information;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid icon style.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid icon style."));
             }
         }
 
         static typename button_id_type::enum_t to_button_id(
-            const typename common_dialog_details_type::message_box_button_id_type
-            details_button_id
+            const typename common_dialog_details_type::message_box_button_id_type::enum_t details_button_id
         )
         {
             switch (details_button_id)
             {
-            case common_dialog_details_type::message_box_button_ok:
+            case common_dialog_details_type::message_box_button_id_type::ok:
                 return button_id_type::ok;
-            case common_dialog_details_type::message_box_button_yes:
+            case common_dialog_details_type::message_box_button_id_type::yes:
                 return button_id_type::yes;
-            case common_dialog_details_type::message_box_button_no:
+            case common_dialog_details_type::message_box_button_id_type::no:
                 return button_id_type::no;
-            case common_dialog_details_type::message_box_button_cancel:
+            case common_dialog_details_type::message_box_button_id_type::cancel:
                 return button_id_type::cancel;
             default:
                 assert(false);

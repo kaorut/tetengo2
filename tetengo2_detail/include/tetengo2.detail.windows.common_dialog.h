@@ -81,21 +81,21 @@ namespace tetengo2 { namespace detail { namespace windows
         };};
 
         //! The message box icon style type.
-        enum message_box_icon_style_type
+        struct message_box_icon_style_type { enum enum_t
         {
-            message_box_icon_style_error,       //!< Error.
-            message_box_icon_style_warning,     //!< Warning.
-            message_box_icon_style_information, //!< Information.
-        };
+            error,       //!< Error.
+            warning,     //!< Warning.
+            information, //!< Information.
+        };};
 
         //! The message box button ID type.
-        enum message_box_button_id_type
+        struct message_box_button_id_type { enum enum_t
         {
-            message_box_button_ok,     //!< OK button.
-            message_box_button_yes,    //!< Yes button.
-            message_box_button_no,     //!< No button.
-            message_box_button_cancel, //!< Cancel button.
-        };
+            ok,     //!< OK button.
+            yes,    //!< Yes button.
+            no,     //!< No button.
+            cancel, //!< Cancel button.
+        };};
 
         //! The message box details type.
         typedef
@@ -106,7 +106,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 bool,
                 message_box_button_style_type::enum_t,
-                message_box_icon_style_type,
+                message_box_icon_style_type::enum_t,
                 std::vector<boost::optional<std::wstring>>
             >
             message_box_details_type;
@@ -183,7 +183,7 @@ namespace tetengo2 { namespace detail { namespace windows
             String3&&                                            sub_content,
             const bool                                           cancellable,
             const typename message_box_button_style_type::enum_t button_style,
-            const message_box_icon_style_type                    icon_style,
+            const typename message_box_icon_style_type::enum_t   icon_style,
             const boost::optional<String4>&                      custom_ok_button_label,
             const boost::optional<std::pair<String4, String4>>&  custom_yes_no_button_labels,
             const Encoder&                                       encoder
@@ -211,7 +211,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
+        static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
             const ::HWND parent_window_handle = std::get<0>(message_box);
             const std::wstring& title = std::get<1>(message_box);
@@ -219,7 +219,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring& sub_content = std::get<3>(message_box);
             const bool cancellable = std::get<4>(message_box);
             const message_box_button_style_type::enum_t button_style = std::get<5>(message_box);
-            const message_box_icon_style_type icon_style = std::get<6>(message_box);
+            const message_box_icon_style_type::enum_t icon_style = std::get<6>(message_box);
             const std::vector<boost::optional<std::wstring>>&
             custom_button_labels = std::get<7>(message_box);
 
@@ -669,15 +669,15 @@ namespace tetengo2 { namespace detail { namespace windows
             return flags;
         }
 
-        static ::PCWSTR to_task_dialog_icon(const message_box_icon_style_type style)
+        static ::PCWSTR to_task_dialog_icon(const message_box_icon_style_type::enum_t style)
         {
             switch (style)
             {
-            case message_box_icon_style_error:
+            case message_box_icon_style_type::error:
                 return TD_ERROR_ICON;
-            case message_box_icon_style_warning:
+            case message_box_icon_style_type::warning:
                 return TD_WARNING_ICON;
-            case message_box_icon_style_information:
+            case message_box_icon_style_type::information:
                 return TD_INFORMATION_ICON;
             default:
                 assert(false);
@@ -685,14 +685,14 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
-        static message_box_button_id_type to_message_box_button_id(const int win32_button_id)
+        static message_box_button_id_type::enum_t to_message_box_button_id(const int win32_button_id)
         {
             switch (win32_button_id)
             {
-            case IDOK:     return message_box_button_ok;
-            case IDCANCEL: return message_box_button_cancel;
-            case IDYES:    return message_box_button_yes;
-            case IDNO:     return message_box_button_no;
+            case IDOK:     return message_box_button_id_type::ok;
+            case IDCANCEL: return message_box_button_id_type::cancel;
+            case IDYES:    return message_box_button_id_type::yes;
+            case IDNO:     return message_box_button_id_type::no;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button ID."));
@@ -713,7 +713,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (path_string.length() < dotted_extension.length())
                 return false;
 
-            const String path_extension(boost::prior(path_string.end(), dotted_extension.length()), path_string.end());
+            const String path_extension(
+                boost::prior(path_string.end(), dotted_extension.length()), path_string.end()
+            );
 
             return path_extension == dotted_extension;
         }
