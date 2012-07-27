@@ -13,12 +13,14 @@
 #include <cassert>
 //#include <iterator>
 #include <numeric>
+#include <stdexcept>
 #include <tuple>
 //#include <utility>
 #include <vector>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>

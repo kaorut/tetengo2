@@ -20,9 +20,16 @@
 ::CreateWindowExW                                Windows.h
 ::D2D1CreateFactory                              Windows.h,d2d1.h
 ::D2D1_ALPHA_MODE_PREMULTIPLIED                  Windows.h,d2d1.h
+::D2D1_CAP_STYLE_ROUND                           Windows.h,d2d1.h
 ::D2D1_COLOR_F                                   Windows.h,d2d1.h
+::D2D1_DASH_STYLE                                Windows.h,d2d1.h
+::D2D1_DASH_STYLE_DASH                           Windows.h,d2d1.h
+::D2D1_DASH_STYLE_DASH_DOT                       Windows.h,d2d1.h
+::D2D1_DASH_STYLE_DOT                            Windows.h,d2d1.h
+::D2D1_DASH_STYLE_SOLID                          Windows.h,d2d1.h
 ::D2D1_FACTORY_TYPE_SINGLE_THREADED              Windows.h,d2d1.h
 ::D2D1_HWND_RENDER_TARGET_PROPERTIES             Windows.h,d2d1.h
+::D2D1_LINE_JOIN_ROUND                           Windows.h,d2d1.h
 ::D2D1_POINT_2F                                  Windows.h,d2d1.h
 ::D2D1_RECT_F                                    Windows.h,d2d1.h
 ::D2D1_RENDER_TARGET_PROPERTIES                  Windows.h,d2d1.h
@@ -106,6 +113,7 @@
 ::ID2D1HwndRenderTarget                          Windows.h,d2d1.h
 ::ID2D1RenderTarget                              Windows.h,d2d1.h
 ::ID2D1SolidColorBrush                           Windows.h,d2d1.h
+::ID2D1StrokeStyle                               Windows.h,d2d1.h
 ::IDWriteFactory                                 Windows.h,dwrite.h
 ::IDWriteTextFormat                              Windows.h,dwrite.h
 ::IDWriteTextLayout                              Windows.h,dwrite.h
@@ -229,6 +237,7 @@ D2D1::Point2F                                    Windows.h,d2d1.h
 D2D1::RectF                                      Windows.h,d2d1.h
 D2D1::RenderTargetProperties                     Windows.h,d2d1.h
 D2D1::SizeU                                      Windows.h,d2d1.h
+D2D1::StrokeStyleProperties                      Windows.h,d2d1.h
 D2DERR_BAD_NUMBER                                Windows.h,d2d1.h
 D2DERR_DISPLAY_FORMAT_NOT_SUPPORTED              Windows.h,d2d1.h
 D2DERR_DISPLAY_STATE_INVALID                     Windows.h,d2d1.h
@@ -413,8 +422,6 @@ WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
-WM_TETENGO2_COMMAND                              Windows.h
-WM_TETENGO2_CONTROL_COLOR                        Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::additive                                  boost/operators.hpp
