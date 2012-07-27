@@ -45,34 +45,34 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The widget details type.
         typedef
             std::tuple<
-                // details_p_parent: pointer to parent
+                // details_index_type::p_parent: pointer to parent
                 void*,
 
-                // details_enabled: enabled status
+                // details_index_type::enabled: enabled status
                 bool,
 
-                // details_visible: visible status
+                // details_index_type::visible: visible status
                 bool,
 
-                // details_position: position
+                // details_index_type::position: position
                 std::pair<std::ptrdiff_t, std::ptrdiff_t>,
 
-                // details_dimension: dimension and client dimension
+                // details_index_type::dimension: dimension and client dimension
                 std::pair<std::size_t, std::size_t>,
 
-                // details_text: text
+                // details_index_type::text: text
                 string_type,
 
-                // details_font: font
+                // details_index_type::font: font
                 std::tuple<string_type, std::size_t, bool, bool, bool, bool>,
 
-                // details_children: children
+                // details_index_type::children: children
                 std::vector<void*>,
 
-                // details_focusable: focusable status
+                // details_index_type::focusable: focusable status
                 bool,
 
-                // details_read_only: read-only status
+                // details_index_type::read_only: read-only status
                 bool
             >
             widget_details_type;
@@ -231,8 +231,11 @@ namespace tetengo2 { namespace detail { namespace stub
         static void associate_to_native_window_system(Widget& widget)
         {
             if (widget.has_parent())
-                std::get<details_children>(*widget.parent().details()).push_back(reinterpret_cast<void*>(&widget));
-
+            {
+                std::get<details_index_type::children>(*widget.parent().details()).push_back(
+                    reinterpret_cast<void*>(&widget)
+                );
+            }
         }
 
         /*!
@@ -248,7 +251,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return std::get<details_p_parent>(*widget.details());
+            return std::get<details_index_type::p_parent>(*widget.details());
         }
 
         /*!
@@ -268,7 +271,7 @@ namespace tetengo2 { namespace detail { namespace stub
             if (!has_parent(widget))
                 BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
 
-            return *reinterpret_cast<Widget*>(std::get<details_p_parent>(*widget.details()));
+            return *reinterpret_cast<Widget*>(std::get<details_index_type::p_parent>(*widget.details()));
         }
 
         /*!
@@ -299,7 +302,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_enabled(Widget& widget, const bool enabled)
         {
-            std::get<details_enabled>(*widget.details()) = enabled;
+            std::get<details_index_type::enabled>(*widget.details()) = enabled;
         }
 
         /*!
@@ -314,7 +317,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool enabled(const Widget& widget)
         {
-            return std::get<details_enabled>(*widget.details());
+            return std::get<details_index_type::enabled>(*widget.details());
         }
 
         /*!
@@ -328,7 +331,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_visible(Widget& widget, const bool visible)
         {
-            std::get<details_visible>(*widget.details()) = visible;
+            std::get<details_index_type::visible>(*widget.details()) = visible;
         }
 
         /*!
@@ -343,7 +346,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool visible(const Widget& widget)
         {
-            return std::get<details_visible>(*widget.details());
+            return std::get<details_index_type::visible>(*widget.details());
         }
 
         /*!
@@ -364,12 +367,12 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             typedef gui::position<Position> position_traits_type;
             typedef gui::dimension<Dimension> dimension_traits_type;
-            std::get<details_position>(*widget.details()) =
+            std::get<details_index_type::position>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(position_traits_type::left(position)),
                     gui::to_pixels<std::size_t>(position_traits_type::top(position))
                 );
-            std::get<details_dimension>(*widget.details()) =
+            std::get<details_index_type::dimension>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(dimension)),
                     gui::to_pixels<std::size_t>(dimension_traits_type::height(dimension))
@@ -395,10 +398,10 @@ namespace tetengo2 { namespace detail { namespace stub
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(
-                        std::get<details_position>(*widget.details()).first
+                        std::get<details_index_type::position>(*widget.details()).first
                     ),
                     gui::to_unit<typename position_traits_type::top_type>(
-                        std::get<details_position>(*widget.details()).second
+                        std::get<details_index_type::position>(*widget.details()).second
                     )
                 );
         }
@@ -442,10 +445,10 @@ namespace tetengo2 { namespace detail { namespace stub
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(
-                        std::get<details_dimension>(*widget.details()).first
+                        std::get<details_index_type::dimension>(*widget.details()).first
                     ),
                     gui::to_unit<typename dimension_traits_type::height_type>(
-                        std::get<details_dimension>(*widget.details()).second
+                        std::get<details_index_type::dimension>(*widget.details()).second
                     )
                 );
         }
@@ -466,7 +469,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            std::get<details_dimension>(*widget.details()) =
+            std::get<details_index_type::dimension>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(client_dimension)),
                     gui::to_pixels<std::size_t>(dimension_traits_type::height(client_dimension))
@@ -492,10 +495,10 @@ namespace tetengo2 { namespace detail { namespace stub
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(
-                        std::get<details_dimension>(*widget.details()).first
+                        std::get<details_index_type::dimension>(*widget.details()).first
                     ),
                     gui::to_unit<typename dimension_traits_type::height_type>(
-                        std::get<details_dimension>(*widget.details()).second
+                        std::get<details_index_type::dimension>(*widget.details()).second
                     )
                 );
         }
@@ -516,7 +519,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename String, typename Encoder>
         static void set_text(Widget& widget, String&& text, const Encoder& encoder)
         {
-            std::get<details_text>(*widget.details()) = encoder.encode(text);
+            std::get<details_index_type::text>(*widget.details()) = encoder.encode(text);
         }
 
         /*!
@@ -534,7 +537,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String, typename Widget, typename Encoder>
         static String text(const Widget& widget, const Encoder& encoder)
         {
-            return encoder.decode(std::get<details_text>(*widget.details()));
+            return encoder.decode(std::get<details_index_type::text>(*widget.details()));
         }
 
         /*!
@@ -553,7 +556,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Font, typename Encoder>
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
-            std::get<details_font>(*widget.details()) =
+            std::get<details_index_type::font>(*widget.details()) =
                 details_font_type(
                     encoder.encode(font.family()),
                     font.size(),
@@ -581,7 +584,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Widget, typename Encoder>
         static Font font(const Widget& widget, const Encoder& encoder)
         {
-            const details_font_type& font = std::get<details_font>(*widget.details());
+            const details_font_type& font = std::get<details_index_type::font>(*widget.details());
             return
                 Font(
                     encoder.decode(std::get<0>(font)),
@@ -606,7 +609,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Child, typename Widget>
         static std::vector<typename cpp11::reference_wrapper<Child>::type> children(Widget& widget)
         {
-            const std::vector<void*>& children_as_void = std::get<details_children>(*widget.details());
+            const std::vector<void*>& children_as_void = std::get<details_index_type::children>(*widget.details());
             std::vector<typename cpp11::reference_wrapper<Child>::type> children;
             children.reserve(children_as_void.size());
 
@@ -690,7 +693,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool focusable(const Widget& widget)
         {
-            return std::get<details_focusable>(*widget.details());
+            return std::get<details_index_type::focusable>(*widget.details());
         }
 
         /*!
@@ -706,7 +709,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_focusable(Widget& widget, const bool focusable)
         {
-            std::get<details_focusable>(*widget.details()) = focusable;
+            std::get<details_index_type::focusable>(*widget.details()) = focusable;
         }
 
         /*!
@@ -733,7 +736,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool read_only(const Widget& widget)
         {
-            return std::get<details_read_only>(*widget.details());
+            return std::get<details_index_type::read_only>(*widget.details());
         }
 
         /*!
@@ -749,7 +752,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_read_only(Widget& widget, const bool read_only)
         {
-            std::get<details_read_only>(*widget.details()) = read_only;
+            std::get<details_index_type::read_only>(*widget.details()) = read_only;
         }
 
         /*!
@@ -784,19 +787,19 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // types
 
-        enum details
+        struct details_index_type { enum enum_t
         {
-            details_p_parent = 0,
-            details_enabled,
-            details_visible,
-            details_position,
-            details_dimension,
-            details_text,
-            details_font,
-            details_children,
-            details_focusable,
-            details_read_only,
-        };
+            p_parent = 0,
+            enabled,
+            visible,
+            position,
+            dimension,
+            text,
+            font,
+            children,
+            focusable,
+            read_only,
+        };};
 
         typedef std::tuple<string_type, std::size_t, bool, bool, bool, bool> details_font_type;
 
