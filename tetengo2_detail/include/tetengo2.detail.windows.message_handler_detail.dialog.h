@@ -46,7 +46,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 }
                 else
                 {
-                    dialog.set_result(lo_wparam == IDOK ? Dialog::result_accepted : Dialog::result_canceled);
+                    dialog.set_result(
+                        lo_wparam == IDOK ? Dialog::result_type::accepted : Dialog::result_type::canceled
+                    );
                     dialog.close();
                 }
                 return boost::make_optional< ::LRESULT>(0);
@@ -67,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 }
                 else
                 {
-                    dialog.set_result(Dialog::result_canceled);
+                    dialog.set_result(Dialog::result_type::canceled);
                     dialog.close();
                 }
                 return boost::make_optional< ::LRESULT>(0);

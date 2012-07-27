@@ -48,7 +48,7 @@ namespace bobura { namespace message { namespace file_property_dialog
         void operator()()
         const
         {
-            m_dialog.set_result(dialog_type::result_accepted);
+            m_dialog.set_result(dialog_type::result_type::accepted);
             m_dialog.close();
         }
 
@@ -97,7 +97,7 @@ namespace bobura { namespace message { namespace file_property_dialog
         void operator()()
         const
         {
-            m_dialog.set_result(dialog_type::result_canceled);
+            m_dialog.set_result(dialog_type::result_type::canceled);
             m_dialog.close();
         }
 
