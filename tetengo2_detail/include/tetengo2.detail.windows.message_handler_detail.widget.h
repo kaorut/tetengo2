@@ -43,7 +43,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             ::PostMessageW(
                 reinterpret_cast< ::HWND>(l_param),
-                WM_TETENGO2_COMMAND,
+                custom_message_type::command,
                 w_param,
                 reinterpret_cast< ::LPARAM>(std::get<0>(*widget.details()).get())
             );
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (l_param == 0) return boost::none;
 
             const ::LRESULT result =
-                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), WM_TETENGO2_CONTROL_COLOR, w_param, 0);
+                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), custom_message_type::control_color, w_param, 0);
 
             return boost::make_optional(result, result);
         }

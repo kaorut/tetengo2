@@ -398,7 +398,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
-            map[message_handler_detail::WM_TETENGO2_COMMAND].push_back(
+            map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_tetengo2_command<Control>,
                     cpp11::ref(control),
@@ -406,7 +406,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
-            map[message_handler_detail::WM_TETENGO2_CONTROL_COLOR].push_back(
+            map[message_handler_detail::custom_message_type::control_color].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_control_color<Control>,
                     cpp11::ref(control),

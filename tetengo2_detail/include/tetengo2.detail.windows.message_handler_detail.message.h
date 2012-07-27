@@ -23,11 +23,11 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
-    enum message_type
+    struct custom_message_type { enum enum_t
     {
-        WM_TETENGO2_COMMAND = WM_APP + 1,
-        WM_TETENGO2_CONTROL_COLOR,
-    };
+        command = WM_APP + 1,
+        control_color,
+    };};
 
 
 }}}}
