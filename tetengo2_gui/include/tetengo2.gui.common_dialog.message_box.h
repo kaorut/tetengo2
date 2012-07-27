@@ -351,7 +351,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     private:
         // static functions
 
-        static typename common_dialog_details_type::message_box_button_style_type
+        static typename common_dialog_details_type::message_box_button_style_type::enum_t
         to_details_button_style(
             const typename button_style_type::style_type::enum_t style
         )
@@ -360,10 +360,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             {
             case button_style_type::style_type::ok:
                 return
-                    common_dialog_details_type::message_box_button_style_ok;
+                    common_dialog_details_type::message_box_button_style_type::ok;
             case button_style_type::style_type::yes_no:
                 return
-                    common_dialog_details_type::message_box_button_style_yes_no;
+                    common_dialog_details_type::message_box_button_style_type::yes_no;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(

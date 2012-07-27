@@ -74,11 +74,11 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The message box button style type.
-        enum message_box_button_style_type
+        struct message_box_button_style_type { enum enum_t
         {
-            message_box_button_style_ok,     //!< With OK button.
-            message_box_button_style_yes_no, //!< With Yes and No buttons.
-        };
+            ok,     //!< With OK button.
+            yes_no, //!< With Yes and No buttons.
+        };};
 
         //! The message box icon style type.
         enum message_box_icon_style_type
@@ -105,7 +105,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 std::wstring,
                 bool,
-                message_box_button_style_type,
+                message_box_button_style_type::enum_t,
                 message_box_icon_style_type,
                 std::vector<boost::optional<std::wstring>>
             >
@@ -177,16 +177,16 @@ namespace tetengo2 { namespace detail { namespace windows
             typename Encoder
         >
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                                     parent,
-            String1&&                                           title,
-            String2&&                                           main_content,
-            String3&&                                           sub_content,
-            const bool                                          cancellable,
-            const message_box_button_style_type                 button_style,
-            const message_box_icon_style_type                   icon_style,
-            const boost::optional<String4>&                     custom_ok_button_label,
-            const boost::optional<std::pair<String4, String4>>& custom_yes_no_button_labels,
-            const Encoder&                                      encoder
+            AbstractWindow&                                      parent,
+            String1&&                                            title,
+            String2&&                                            main_content,
+            String3&&                                            sub_content,
+            const bool                                           cancellable,
+            const typename message_box_button_style_type::enum_t button_style,
+            const message_box_icon_style_type                    icon_style,
+            const boost::optional<String4>&                      custom_ok_button_label,
+            const boost::optional<std::pair<String4, String4>>&  custom_yes_no_button_labels,
+            const Encoder&                                       encoder
         )
         {
             return
@@ -218,7 +218,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring& main_content = std::get<2>(message_box);
             const std::wstring& sub_content = std::get<3>(message_box);
             const bool cancellable = std::get<4>(message_box);
-            const message_box_button_style_type button_style = std::get<5>(message_box);
+            const message_box_button_style_type::enum_t button_style = std::get<5>(message_box);
             const message_box_icon_style_type icon_style = std::get<6>(message_box);
             const std::vector<boost::optional<std::wstring>>&
             custom_button_labels = std::get<7>(message_box);
@@ -637,7 +637,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
-            const message_box_button_style_type               style,
+            const message_box_button_style_type::enum_t       style,
             const bool                                        cancellable,
             const std::vector<boost::optional<std::wstring>>& custom_button_labels
         )
@@ -647,11 +647,11 @@ namespace tetengo2 { namespace detail { namespace windows
             ::TASKDIALOG_COMMON_BUTTON_FLAGS flags = 0;
             switch (style)
             {
-            case message_box_button_style_ok:
+            case message_box_button_style_type::ok:
                 if (!custom_button_labels[0])
                     flags = TDCBF_OK_BUTTON;
                 break;
-            case message_box_button_style_yes_no:
+            case message_box_button_style_type::yes_no:
                 if (!custom_button_labels[1])
                 {
                     assert(!custom_button_labels[2]);
