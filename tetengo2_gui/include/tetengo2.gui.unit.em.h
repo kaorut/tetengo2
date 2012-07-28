@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_GUI_UNIT_EM_H)
 #define TETENGO2_GUI_UNIT_EM_H
 
+#include <type_traits>
+
+#include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.unit.unit.h"
@@ -36,6 +39,21 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
         // static functions
+
+        /*!
+            \brief Returns a unit made from another em unit.
+
+            \tparam V  A value type.
+
+            \param another A value in another em unit.
+
+            \return A em unit.
+        */
+        template <typename V>
+        static em from(const em<V, unit_details_type>& another)
+        {
+            return em(cast<value_type>(another.value()));
+        }
 
         /*!
             \brief Returns an EM height unit made from a value in pixels.
@@ -218,6 +236,28 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
     private:
+        // static functions
+
+        template <typename To, typename From>
+        static To cast(
+            const From from,
+            typename std::enable_if<std::is_convertible<From, To>::value>::type* = NULL
+        )
+        {
+            return static_cast<To>(from);
+        }
+
+        template <typename To, typename FromInteger>
+        static To cast(const boost::rational<FromInteger>& from)
+        {
+            return
+                To(
+                    static_cast<typename To::int_type>(from.numerator()),
+                    static_cast<typename To::int_type>(from.denominator())
+                );
+        }
+
+
         // variables
 
         value_type m_value;
