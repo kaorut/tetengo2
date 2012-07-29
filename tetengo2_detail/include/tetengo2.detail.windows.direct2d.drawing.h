@@ -461,6 +461,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
+            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -471,7 +472,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color
+            const Color&         color,
+            const double         angle
         )
         {
             const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =

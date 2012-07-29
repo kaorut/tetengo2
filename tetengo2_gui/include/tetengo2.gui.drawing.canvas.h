@@ -284,15 +284,18 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a text.
 
+            The text is rotated around the argument position.
+
             \tparam P A position type.
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
+            \param angle    A clockwise angle in radians.
         */
         template <typename P>
-        void draw_text(const string_type& text, const P& position)
+        void draw_text(const string_type& text, const P& position, const double angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color, angle);
         }
 
         /*!

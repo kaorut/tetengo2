@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34));
+        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34), 56.78);
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)
