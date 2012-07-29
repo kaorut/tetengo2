@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 //#include <iterator>
 #include <numeric>
 #include <stdexcept>
@@ -20,6 +21,7 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -302,6 +304,77 @@ namespace bobura
                 return stop.arrival();
         }
 
+        static double calculate_train_name_angle(const position_type& departure, const position_type& arrival)
+        {
+            const top_type height =
+                tetengo2::gui::position<position_type>::top(arrival) -
+                tetengo2::gui::position<position_type>::top(departure);
+            const left_type width =
+                tetengo2::gui::position<position_type>::left(arrival) -
+                tetengo2::gui::position<position_type>::left(departure);
+
+            return
+                std::atan2(boost::rational_cast<double>(height.value()), boost::rational_cast<double>(width.value()));
+        }
+
+        static position_type calculate_train_name_position(
+            const position_type& departure,
+            const string_type&   train_name,
+            const double         angle,
+            const bool           down,
+            const canvas_type&   canvas
+        )
+        {
+            const dimension_type text_dimension = canvas.calc_text_dimension(train_name);
+            const height_type text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
+
+            if (down)
+            {
+                if (-pi() / 8 < angle && angle < pi() / 8)
+                {
+                    return
+                        position_type(
+                            tetengo2::gui::position<position_type>::left(departure),
+                            tetengo2::gui::position<position_type>::top(departure) - text_height
+                        );
+                }
+                else
+                {
+                    const double left_diff = boost::rational_cast<double>(text_height.value()) / std::sin(angle);
+                    const left_type left =
+                        tetengo2::gui::position<position_type>::left(departure) +
+                        typename left_type::value_type(
+                            static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
+                        );
+
+                    return position_type(left, tetengo2::gui::position<position_type>::top(departure));
+                }
+            }
+            else
+            {
+                const double left_diff = boost::rational_cast<double>(text_height.value()) * std::sin(angle);
+                const left_type left =
+                    tetengo2::gui::position<position_type>::left(departure) +
+                    typename left_type::value_type(
+                        static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
+                    );
+
+                const double top_diff = boost::rational_cast<double>(text_height.value()) * std::cos(angle);
+                const top_type top =
+                    tetengo2::gui::position<position_type>::top(departure) -
+                    typename top_type::value_type(
+                        static_cast<typename top_type::value_type::int_type>(top_diff * 0x10000), 0x10000
+                    );
+
+                return position_type(left, top);
+            }
+        }
+
+        static double pi()
+        {
+            return 3.14159265358979323846264338327950288;
+        }
+
 
         // variables
 
@@ -528,6 +601,7 @@ namespace bobura
             );
             canvas.set_line_style(translate_line_style(train_kind.line_style()));
 
+            bool train_name_drawn = false;
             for (stop_index_type i = 0; i < train.stops().size() - 1; )
             {
                 if (!has_time(train.stops()[i]))
@@ -552,10 +626,15 @@ namespace bobura
                             departure_time,
                             to,
                             arrival_time,
+                            !train_name_drawn ? train.number() : string_type(),
+                            down,
                             canvas,
                             canvas_dimension,
                             scroll_bar_position
                         );
+
+                        if (!train_name_drawn)
+                            train_name_drawn = true;
 
                         break;
                     }
@@ -613,6 +692,8 @@ namespace bobura
             const time_type&      departure_time,
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
+            const string_type&    train_name,
+            const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
@@ -627,7 +708,9 @@ namespace bobura
                     false,
                     arrival_station_index,
                     arrival_time,
+                    train_name,
                     false,
+                    down,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -641,7 +724,9 @@ namespace bobura
                     true,
                     arrival_station_index,
                     arrival_time,
+                    train_name,
                     false,
+                    down,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -652,7 +737,9 @@ namespace bobura
                     false,
                     arrival_station_index,
                     arrival_time,
+                    train_name,
                     true,
+                    down,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position
@@ -666,7 +753,9 @@ namespace bobura
             const bool            previous_day_departure,
             const stop_index_type arrival_station_index,
             const time_type&      arrival_time,
+            const string_type&    train_name,
             const bool            next_day_arrival,
+            const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
@@ -707,6 +796,16 @@ namespace bobura
                 return;
 
             canvas.draw_line(departure, arrival);
+
+            if (!train_name.empty())
+            {
+                const double train_name_angle = calculate_train_name_angle(departure, arrival);
+                canvas.draw_text(
+                    train_name,
+                    calculate_train_name_position(departure, train_name, train_name_angle, down, canvas),
+                    train_name_angle
+                );
+            }
         }
 
         left_type time_to_left(
