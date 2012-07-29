@@ -384,33 +384,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Position&      position,
             const Color&         color,
             const double         angle
-        )
-        {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection, encoder)
-            );
-            const Gdiplus::SolidBrush brush(Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()));
-
-            const std::wstring encoded_text = encoder.encode(text);
-            const Gdiplus::Status status =
-                canvas.DrawString(
-                    encoded_text.c_str(),
-                    static_cast< ::INT>(encoded_text.length()),
-                    p_gdiplus_font.get(),
-                    Gdiplus::PointF(
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
-                    ),
-                    &brush
-                );
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw text!")
-                );
-            }
-        }
+        );
 
         /*!
             \brief Paints a picture.
