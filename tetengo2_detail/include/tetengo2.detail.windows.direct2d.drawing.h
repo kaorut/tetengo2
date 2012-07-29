@@ -20,6 +20,7 @@
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
@@ -481,6 +482,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const background_details_ptr_type p_background_details = create_solid_background(color);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+
+            ::D2D1_MATRIX_3X2_F original_transform = D2D1::Matrix3x2F();
+            canvas.GetTransform(&original_transform);
+            BOOST_SCOPE_EXIT((&canvas)(&original_transform))
+            {
+                canvas.SetTransform(original_transform);
+            } BOOST_SCOPE_EXIT_END;
+            ::D2D1_MATRIX_3X2_F rotating_transform =
+                D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
+            canvas.SetTransform(rotating_transform);
+
             canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
         }
 
@@ -758,6 +770,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 
             return std::move(p_layout);
+        }
+
+        static ::FLOAT radian_to_degree(const double radian)
+        {
+            static const double pi = 3.14159265358979323846264338327950288;
+            return static_cast< ::FLOAT>(radian * 180.0 / pi);
         }
 
 
