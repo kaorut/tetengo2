@@ -630,7 +630,7 @@ namespace bobura
                                 departure_time,
                                 to,
                                 arrival_time,
-                                !train_name_drawn ? train.number() : string_type(),
+                                !train_name_drawn ? make_train_name(train) : string_type(),
                                 down,
                                 canvas,
                                 canvas_dimension,
@@ -675,7 +675,7 @@ namespace bobura
                                 departure_time,
                                 to,
                                 arrival_time,
-                                !train_name_drawn ? train.number() : string_type(),
+                                !train_name_drawn ? make_train_name(train) : string_type(),
                                 down,
                                 canvas,
                                 canvas_dimension,
@@ -735,6 +735,19 @@ namespace bobura
                 );
 
             return departure_interval < travel_time ? to_stop.departure() : from_departure + travel_time;
+        }
+
+        string_type make_train_name(const train_type& train)
+        const
+        {
+            string_type name;
+
+            name += train.number();
+            name += string_type(TETENGO2_TEXT(" "));
+            name += train.name();
+            name += train.name_number();
+
+            return name;
         }
 
         void draw_train_line(
