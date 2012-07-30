@@ -24,6 +24,9 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef
+        boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
+
     typedef boost::mpl::at<bobura::view_type_list, bobura::type::view::view>::type view_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
@@ -87,7 +90,8 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
         window_type window;
         picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
-        view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         const mouse_wheeled_type mouse_wheeled(picture_box, view);
     }
 
@@ -98,7 +102,8 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
         window_type window;
         picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
-        view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         const mouse_wheeled_type mouse_wheeled(picture_box, view);
 
         mouse_wheeled(42, mouse_observer_set_type::direction_type::vertical, false, false, false);
@@ -141,7 +146,8 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::none);
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         const paint_paint_type paint(picture_box, view);
     }
 
@@ -152,7 +158,8 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         const paint_paint_type paint(picture_box, view);
 
         std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
