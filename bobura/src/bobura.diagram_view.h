@@ -602,45 +602,95 @@ namespace bobura
             canvas.set_line_style(translate_line_style(train_kind.line_style()));
 
             bool train_name_drawn = false;
-            for (stop_index_type i = 0; i < train.stops().size() - 1; )
+            if (down)
             {
-                if (!has_time(train.stops()[i]))
+                for (stop_index_type i = 0; i < train.stops().size() - 1; )
                 {
-                    ++i;
-                    continue;
-                }
+                    const stop_index_type from = i;
 
-                stop_index_type j = i + 1;
-                for (; j < train.stops().size(); ++j)
-                {
-                    if (has_time(train.stops()[j]))
+                    if (!has_time(train.stops()[from]))
                     {
-                        const stop_index_type from = down ? i : j;
-                        const stop_index_type to = down ? j : i;
-
-                        const time_type& departure_time = get_departure_time(train.stops()[from]);
-                        const time_type arrival_time = estimate_arrival_time(departure_time, train.stops()[to], i, j);
-
-                        draw_train_line(
-                            from,
-                            departure_time,
-                            to,
-                            arrival_time,
-                            !train_name_drawn ? train.number() : string_type(),
-                            down,
-                            canvas,
-                            canvas_dimension,
-                            scroll_bar_position
-                        );
-
-                        if (!train_name_drawn)
-                            train_name_drawn = true;
-
-                        break;
+                        ++i;
+                        continue;
                     }
-                }
 
-                i = j;
+                    stop_index_type j = i + 1;
+                    for (; j < train.stops().size(); ++j)
+                    {
+                        const stop_index_type to = j;
+
+                        if (has_time(train.stops()[to]))
+                        {
+                            const time_type& departure_time = get_departure_time(train.stops()[from]);
+                            const time_type arrival_time =
+                                estimate_arrival_time(departure_time, train.stops()[to], from, to);
+
+                            draw_train_line(
+                                from,
+                                departure_time,
+                                to,
+                                arrival_time,
+                                !train_name_drawn ? train.number() : string_type(),
+                                down,
+                                canvas,
+                                canvas_dimension,
+                                scroll_bar_position
+                            );
+
+                            if (!train_name_drawn)
+                                train_name_drawn = true;
+
+                            break;
+                        }
+                    }
+
+                    i = j;
+                }
+            }
+            else
+            {
+                for (stop_index_type i = train.stops().size(); i > 1; )
+                {
+                    const stop_index_type from = i - 1;
+
+                    if (!has_time(train.stops()[from]))
+                    {
+                        --i;
+                        continue;
+                    }
+
+                    stop_index_type j = i - 1;
+                    for (; j > 0; --j)
+                    {
+                        const stop_index_type to = j - 1;
+
+                        if (has_time(train.stops()[to]))
+                        {
+                            const time_type& departure_time = get_departure_time(train.stops()[from]);
+                            const time_type arrival_time =
+                                estimate_arrival_time(departure_time, train.stops()[to], to, from);
+
+                            draw_train_line(
+                                from,
+                                departure_time,
+                                to,
+                                arrival_time,
+                                !train_name_drawn ? train.number() : string_type(),
+                                down,
+                                canvas,
+                                canvas_dimension,
+                                scroll_bar_position
+                            );
+
+                            if (!train_name_drawn)
+                                train_name_drawn = true;
+
+                            break;
+                        }
+                    }
+
+                    i = j;
+                }
             }
         }
 
