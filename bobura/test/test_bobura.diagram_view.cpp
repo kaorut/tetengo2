@@ -45,7 +45,10 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::solid_background>::type solid_background_type;
 
-    typedef bobura::diagram_view<model_type, canvas_type, solid_background_type> view_type;
+    typedef
+        boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
+
+    typedef bobura::diagram_view<model_type, canvas_type, solid_background_type, message_catalog_type> view_type;
 
     typedef view_type::horizontal_scale_type horizontal_scale_type;
 
@@ -64,7 +67,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(draw_to)
@@ -72,7 +76,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
@@ -87,7 +92,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
 
         view.horizontal_scale();
     }
@@ -97,7 +103,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
 
         view.set_horizontal_scale(horizontal_scale_type(42));
 
@@ -113,7 +120,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
 
         view.vertical_scale();
     }
@@ -123,7 +131,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
 
         view.set_vertical_scale(vertical_scale_type(42));
 
@@ -139,7 +148,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
 
         view.dimension();
     }
@@ -149,7 +159,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        view_type view(model);
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
 
         view.update_dimension();
     }
@@ -159,7 +170,8 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
 
         view.page_size(dimension_type(width_type(42), height_type(24)));
     }

@@ -36,8 +36,9 @@ namespace bobura
         \tparam Model           A model type.
         \tparam Canvas          A canvas type.
         \tparam SolidBackground A solid background type.
+        \tparam MessageCatalog  A message catalog type.
     */
-    template <typename Model, typename Canvas, typename SolidBackground>
+    template <typename Model, typename Canvas, typename SolidBackground, typename MessageCatalog>
     class diagram_view : private boost::noncopyable
     {
     public:
@@ -82,17 +83,22 @@ namespace bobura
         //! The solid background type.
         typedef SolidBackground solid_background_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a diagram view.
 
-            \param model A model.
+            \param model           A model.
+            \param message_catalog A message catalog.
         */
-        explicit diagram_view(const model_type& model)
+        diagram_view(const model_type& model, const message_catalog_type& message_catalog)
         :
         m_model(model),
+        m_message_catalog(message_catalog),
         m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
@@ -379,6 +385,8 @@ namespace bobura
         // variables
 
         const model_type& m_model;
+
+        const message_catalog_type& m_message_catalog;
 
         horizontal_scale_type m_horizontal_scale;
 

@@ -70,8 +70,7 @@ namespace bobura
         :
         m_gui_fixture(),
         m_settings(settings),
-        m_model(),
-        m_view(m_model)
+        m_model()
         {}
 
 
@@ -80,10 +79,11 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const command_set_holder_type command_set_holder(m_settings, m_model, m_view, message_catalog);
+            view_type view(m_model, message_catalog);
+            const command_set_holder_type command_set_holder(m_settings, m_model, view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(main_window);
+            set_message_observers(view, main_window);
             m_model.reset_timetable();
             main_window.set_menu_bar(
                 main_window_menu_builder(
@@ -165,39 +165,37 @@ namespace bobura
 
         model_type m_model;
 
-        view_type m_view;
-
 
         // functions
 
-        void set_message_observers(main_window_type& main_window)
+        void set_message_observers(view_type& view, main_window_type& main_window)
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
-                    m_model, m_view, main_window
+                    m_model, view, main_window
                 )
             );
             m_model.observer_set().changed().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
-                    m_model, m_view, main_window
+                    m_model, view, main_window
                 )
             );
 
             main_window.window_observer_set().resized().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
-                    m_view, main_window, main_window.diagram_picture_box()
+                    view, main_window, main_window.diagram_picture_box()
                 )
             );
 
             main_window.diagram_picture_box().mouse_observer_set().wheeled().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_wheeled
-                >::type(main_window.diagram_picture_box(), m_view)
+                >::type(main_window.diagram_picture_box(), view)
             );
             main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
-                >::type(main_window.diagram_picture_box(), m_view)
+                >::type(main_window.diagram_picture_box(), view)
             );
         }
 
