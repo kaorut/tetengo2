@@ -14,11 +14,13 @@
 #include <cmath>
 //#include <iterator>
 #include <numeric>
+#include <sstream>
 #include <stdexcept>
 #include <tuple>
 //#include <utility>
 #include <vector>
 
+#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
@@ -748,14 +750,23 @@ namespace bobura
         string_type make_train_name(const train_type& train)
         const
         {
-            string_type name;
+            std::basic_ostringstream<typename string_type::value_type> name;
 
-            name += train.number();
-            name += string_type(TETENGO2_TEXT(" "));
-            name += train.name();
-            name += train.name_number();
+            name << train.number();
+            name << string_type(TETENGO2_TEXT(" "));
+            if (train.name_number().empty())
+            {
+                name << train.name();
+            }
+            else
+            {
+                name <<
+                    boost::basic_format<typename string_type::value_type>(
+                        m_message_catalog.get(string_type(TETENGO2_TEXT("Diagram:%1% No. %2%")))
+                    ) % train.name() % train.name_number();
+            }
 
-            return name;
+            return name.str();
         }
 
         void draw_train_line(

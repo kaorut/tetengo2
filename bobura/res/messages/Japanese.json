@@ -16,6 +16,9 @@
         "App:Bobura": "鉄道系アプリケーション建設予定地",
         
         
+        "Diagram:%1% No. %2%": "%1%%2%号",
+        
+        
         "Menu:&File":             "ファイル(&F)",
         "Menu:File:&New":         "新規作成(&N)",
         "Menu:File:&Open...":     "開く(&O)...",
