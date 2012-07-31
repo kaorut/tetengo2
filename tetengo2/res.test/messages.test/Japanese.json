@@ -8,7 +8,7 @@
     "body":
     {
         "Language": "Japanese",
-        
-        "Name:Space:Hello": "Konnichiwa"
+        "Name:Space:Hello": "Konnichiwa",
+        "Name:Space:Colon:": "Colon:"
     }
 }

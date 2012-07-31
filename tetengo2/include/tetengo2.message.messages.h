@@ -83,7 +83,10 @@ namespace tetengo2 { namespace message
         */
         static string_type remove_namespace(const string_type& key)
         {
-            const std::size_t offset = key.rfind(TETENGO2_TEXT(':'));
+            if (key.length() <= 1)
+                return key;
+
+            const std::size_t offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
             return offset == string_type::npos ? key : key.substr(offset + 1);
         }
 

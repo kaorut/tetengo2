@@ -306,7 +306,7 @@ namespace bobura
         {
             std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name")));
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
@@ -344,7 +344,7 @@ namespace bobura
         {
             std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Note")));
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Note:")));
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
