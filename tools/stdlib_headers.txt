@@ -30,6 +30,7 @@
 ::D2D1_FACTORY_TYPE_SINGLE_THREADED              Windows.h,d2d1.h
 ::D2D1_HWND_RENDER_TARGET_PROPERTIES             Windows.h,d2d1.h
 ::D2D1_LINE_JOIN_ROUND                           Windows.h,d2d1.h
+::D2D1_MATRIX_3X2_F                              Windows.h,d2d1.h
 ::D2D1_POINT_2F                                  Windows.h,d2d1.h
 ::D2D1_RECT_F                                    Windows.h,d2d1.h
 ::D2D1_RENDER_TARGET_PROPERTIES                  Windows.h,d2d1.h
@@ -232,6 +233,8 @@ BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 D2D1::BrushProperties                            Windows.h,d2d1.h
 D2D1::ColorF                                     Windows.h,d2d1.h
 D2D1::HwndRenderTargetProperties                 Windows.h,d2d1.h
+D2D1::Matrix3x2F                                 Windows.h,d2d1.h
+D2D1::Matrix3x2F::Rotation                       Windows.h,d2d1.h
 D2D1::PixelFormat                                Windows.h,d2d1.h
 D2D1::Point2F                                    Windows.h,d2d1.h
 D2D1::RectF                                      Windows.h,d2d1.h
@@ -300,7 +303,6 @@ Gdiplus::NotTrueTypeFont                         GdiPlus.h,Windows.h
 Gdiplus::ObjectBusy                              GdiPlus.h,Windows.h
 Gdiplus::Ok                                      GdiPlus.h,Windows.h
 Gdiplus::OutOfMemory                             GdiPlus.h,Windows.h
-Gdiplus::PointF                                  GdiPlus.h,Windows.h
 Gdiplus::ProfileNotFound                         GdiPlus.h,Windows.h
 Gdiplus::PropertyNotFound                        GdiPlus.h,Windows.h
 Gdiplus::PropertyNotSupported                    GdiPlus.h,Windows.h
@@ -533,6 +535,7 @@ boost::variant                                   boost/variant.hpp
 std::accumulate                                  numeric
 std::advance                                     iterator
 std::any_of                                      algorithm
+std::atan2                                       cmath
 std::back_inserter                               iterator
 std::basic_istringstream                         sstream
 std::basic_ostream                               ostream
@@ -541,6 +544,7 @@ std::basic_string                                string
 std::bind                                        functional
 std::codecvt                                     locale
 std::copy                                        algorithm
+std::cos                                         cmath
 std::cref                                        functional
 std::distance                                    iterator
 std::enable_if                                   type_traits
@@ -605,6 +609,7 @@ std::reference_wrapper                           functional
 std::remove_pointer                              type_traits
 std::runtime_error                               stdexcept
 std::runtime_error::what                         stdexcept
+std::sin                                         cmath
 std::size_t                                      cstddef
 std::sort                                        algorithm
 std::stack                                       stack
