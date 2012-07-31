@@ -276,7 +276,9 @@ namespace bobura
 
         virtual void set_result_impl()
         {
+            m_company_name = m_p_company_name_text_box->text();
             m_line_name = m_p_line_name_text_box->text();
+            m_note = m_p_note_text_box->text();
         }
 
 
