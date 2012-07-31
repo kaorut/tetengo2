@@ -42,18 +42,22 @@ BOOST_AUTO_TEST_SUITE(window)
             const window_type window;
         }
         {
-            const window_type window(window_type::scroll_bar_style_none);
+            const window_type window(window_type::scroll_bar_style_type::none);
         }
         {
-            const window_type window(window_type::scroll_bar_style_both);
-        }
-        {
-            window_type parent;
-            const window_type window(static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_none);
+            const window_type window(window_type::scroll_bar_style_type::both);
         }
         {
             window_type parent;
-            const window_type window(static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_both);
+            const window_type window(
+                static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_type::none
+            );
+        }
+        {
+            window_type parent;
+            const window_type window(
+                static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_type::both
+            );
         }
     }
 

@@ -39,11 +39,11 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             typedef String string_type;
 
             //! The style type.
-            enum style_type
+            struct style_type { enum enum_t //!< Scoped enum.
             {
-                style_ok,     //!< With OK button.
-                style_yes_no, //!< With Yes and No buttons.
-            };
+                ok,     //!< With OK button.
+                yes_no, //!< With Yes and No buttons.
+            };};
 
 
             // static functions
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style ok(const bool cancellable)
             {
-                return button_style(style_ok, cancellable, boost::none, boost::none);
+                return button_style(style_type::ok, cancellable, boost::none, boost::none);
             }
 
             /*!
@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             {
                 return
                     button_style(
-                        style_ok,
+                        style_type::ok,
                         cancellable,
                         boost::make_optional<string_type>(std::forward<S>(ok_button_label)),
                         boost::none
@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style yes_no(const bool cancellable)
             {
-                return button_style(style_yes_no, cancellable, boost::none, boost::none);
+                return button_style(style_type::yes_no, cancellable, boost::none, boost::none);
             }
 
             /*!
@@ -111,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             {
                 return
                     button_style(
-                        style_yes_no,
+                        style_type::yes_no,
                         cancellable,
                         boost::none,
                         boost::make_optional<std::pair<string_type, string_type>>(
@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
                 \return The style.
             */
-            style_type style()
+            typename style_type::enum_t style()
             const
             {
                 return m_style;
@@ -176,7 +176,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             // constructors
 
             button_style(
-                const style_type&                                           style,
+                const typename style_type::enum_t                           style,
                 const bool                                                  cancellable,
                 const boost::optional<string_type>&                         ok_button_label,
                 const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels
@@ -191,7 +191,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             // variables
 
-            style_type m_style;
+            typename style_type::enum_t m_style;
 
             bool m_cancellable;
 
@@ -254,21 +254,21 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             message_box_style::button_style<string_type> button_style_type;
 
         //! The icon style type.
-        enum icon_style_type
+        struct icon_style_type { enum enum_t //!< Scoped enum.
         {
-            icon_style_error,       //!< Error.
-            icon_style_warning,     //!< Warning.
-            icon_style_information, //!< Information.
-        };
+            error,       //!< Error.
+            warning,     //!< Warning.
+            information, //!< Information.
+        };};
 
         //! The button ID type.
-        enum button_id_type
+        struct button_id_type { enum enum_t //!< Scoped enum.
         {
-            button_ok,     //!< OK button.
-            button_yes,    //!< Yes button.
-            button_no,     //!< No button.
-            button_cancel, //!< Cancel button.
-        };
+            ok,     //!< OK button.
+            yes,    //!< Yes button.
+            no,     //!< No button.
+            cancel, //!< Cancel button.
+        };};
 
 
         // constructors and destructor
@@ -289,12 +289,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         template <typename S1, typename S2, typename S3>
         message_box(
-            abstract_window_type&    parent,
-            S1&&                     title,
-            S2&&                     main_content,
-            S3&&                     sub_content,
-            const button_style_type& button_style,
-            const icon_style_type    icon_style
+            abstract_window_type&                  parent,
+            S1&&                                   title,
+            S2&&                                   main_content,
+            S3&&                                   sub_content,
+            const button_style_type&               button_style,
+            const typename icon_style_type::enum_t icon_style
         )
         :
         m_p_details(
@@ -321,7 +321,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The selected button id.
         */
-        button_id_type do_modal()
+        typename button_id_type::enum_t do_modal()
         {
             return to_button_id(common_dialog_details_type::show_message_box(*m_p_details));
         }
@@ -351,19 +351,19 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     private:
         // static functions
 
-        static typename common_dialog_details_type::message_box_button_style_type
+        static typename common_dialog_details_type::message_box_button_style_type::enum_t
         to_details_button_style(
-            const typename button_style_type::style_type style
+            const typename button_style_type::style_type::enum_t style
         )
         {
             switch (style)
             {
-            case button_style_type::style_ok:
+            case button_style_type::style_type::ok:
                 return
-                    common_dialog_details_type::message_box_button_style_ok;
-            case button_style_type::style_yes_no:
+                    common_dialog_details_type::message_box_button_style_type::ok;
+            case button_style_type::style_type::yes_no:
                 return
-                    common_dialog_details_type::message_box_button_style_yes_no;
+                    common_dialog_details_type::message_box_button_style_type::yes_no;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(
@@ -372,43 +372,37 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             }
         }
 
-        static typename common_dialog_details_type::message_box_icon_style_type
-        to_details_icon_style(const icon_style_type style)
+        static typename common_dialog_details_type::message_box_icon_style_type::enum_t
+        to_details_icon_style(const typename icon_style_type::enum_t style)
         {
             switch (style)
             {
-            case icon_style_error:
-                return
-                    common_dialog_details_type::message_box_icon_style_error;
-            case icon_style_warning:
-                return
-                    common_dialog_details_type::message_box_icon_style_warning;
-            case icon_style_information:
-                return
-                    common_dialog_details_type::message_box_icon_style_information;
+            case icon_style_type::error:
+                return common_dialog_details_type::message_box_icon_style_type::error;
+            case icon_style_type::warning:
+                return common_dialog_details_type::message_box_icon_style_type::warning;
+            case icon_style_type::information:
+                return common_dialog_details_type::message_box_icon_style_type::information;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid icon style.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid icon style."));
             }
         }
 
-        static button_id_type to_button_id(
-            const typename common_dialog_details_type::message_box_button_id_type
-            details_button_id
+        static typename button_id_type::enum_t to_button_id(
+            const typename common_dialog_details_type::message_box_button_id_type::enum_t details_button_id
         )
         {
             switch (details_button_id)
             {
-            case common_dialog_details_type::message_box_button_ok:
-                return button_ok;
-            case common_dialog_details_type::message_box_button_yes:
-                return button_yes;
-            case common_dialog_details_type::message_box_button_no:
-                return button_no;
-            case common_dialog_details_type::message_box_button_cancel:
-                return button_cancel;
+            case common_dialog_details_type::message_box_button_id_type::ok:
+                return button_id_type::ok;
+            case common_dialog_details_type::message_box_button_id_type::yes:
+                return button_id_type::yes;
+            case common_dialog_details_type::message_box_button_id_type::no:
+                return button_id_type::no;
+            case common_dialog_details_type::message_box_button_id_type::cancel:
+                return button_id_type::cancel;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(

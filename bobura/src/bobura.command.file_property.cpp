@@ -51,7 +51,7 @@ namespace bobura { namespace command
                 dialog.set_file_name(model.path().template string<string_type>());
 
             dialog.do_modal();
-            if (dialog.result() != dialog_base_type::result_accepted)
+            if (dialog.result() != dialog_base_type::result_type::accepted)
                 return;
 
             model.timetable().set_title(dialog.line_name());

@@ -192,7 +192,7 @@ namespace bobura { namespace load_save
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't create a temporary file.")),
                     path.template string<string_type>(),
                     message_box_type::button_style_type::ok(false),
-                    message_box_type::icon_style_error
+                    message_box_type::icon_style_type::error
                 );
         }
 
@@ -209,7 +209,7 @@ namespace bobura { namespace load_save
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't write to the file.")),
                     path.template string<string_type>(),
                     message_box_type::button_style_type::ok(false),
-                    message_box_type::icon_style_error
+                    message_box_type::icon_style_type::error
                 );
         }
 

@@ -400,7 +400,7 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
             }
 
-            boost::optional<weight_type> weight;
+            boost::optional<typename weight_type::enum_t> weight;
             {
                 const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
                 if (!member)
@@ -413,7 +413,7 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
             }
 
-            boost::optional<line_style_type> line_style;
+            boost::optional<typename line_style_type::enum_t> line_style;
             {
                 const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
                 if (!member)
@@ -463,25 +463,30 @@ namespace bobura { namespace model { namespace serializer
             return value;
         }
 
-        static boost::optional<weight_type> to_weight(const int weight_integer)
-        {
-            if (weight_integer < train_kind_type::weight_normal || train_kind_type::weight_bold < weight_integer)
-                return boost::none;
-
-            return static_cast<weight_type>(weight_integer);
-        }
-
-        static boost::optional<line_style_type> to_line_style(const int line_style_integer)
+        static boost::optional<typename weight_type::enum_t> to_weight(const int weight_integer)
         {
             if (
-                line_style_integer < train_kind_type::line_style_solid ||
-                train_kind_type::line_style_dot_dashed < line_style_integer
+                weight_integer < train_kind_type::weight_type::normal ||
+                train_kind_type::weight_type::bold < weight_integer
             )
             {
                 return boost::none;
             }
 
-            return static_cast<line_style_type>(line_style_integer);
+            return static_cast<typename weight_type::enum_t>(weight_integer);
+        }
+
+        static boost::optional<typename line_style_type::enum_t> to_line_style(const int line_style_integer)
+        {
+            if (
+                line_style_integer < train_kind_type::line_style_type::solid ||
+                train_kind_type::line_style_type::dot_dashed < line_style_integer
+            )
+            {
+                return boost::none;
+            }
+
+            return static_cast<typename line_style_type::enum_t>(line_style_integer);
         }
 
         static boost::optional<std::vector<train_type>> read_trains(

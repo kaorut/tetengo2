@@ -35,20 +35,20 @@ namespace bobura { namespace model
         typedef Color color_type;
 
         //! The weight type.
-        enum weight_type
+        struct weight_type { enum enum_t //!< Scoped enum.
         {
-            weight_normal, //!< Normal.
-            weight_bold,   //!< Bold.
-        };
+            normal, //!< Normal.
+            bold,   //!< Bold.
+        };};
 
         //! The line style type.
-        enum line_style_type
+        struct line_style_type { enum enum_t //!< Scoped enum.
         {
-            line_style_solid,      //!< Solid.
-            line_style_dashed,     //!< Dashed.
-            line_style_dotted,     //!< Dotted.
-            line_style_dot_dashed, //!< Dot-Dashed.
-        };
+            solid,      //!< Solid.
+            dashed,     //!< Dashed.
+            dotted,     //!< Dotted.
+            dot_dashed, //!< Dot-Dashed.
+        };};
 
 
         // constructors and destructor
@@ -68,11 +68,11 @@ namespace bobura { namespace model
         */
         template <typename S1, typename S2, typename C>
         train_kind(
-            S1&&                  name,
-            S2&&                  abbreviation,
-            C&&                   color,
-            const weight_type     weight,
-            const line_style_type line_style
+            S1&&                                   name,
+            S2&&                                   abbreviation,
+            C&&                                    color,
+            const typename weight_type::enum_t     weight,
+            const typename line_style_type::enum_t line_style
         )
         :
         m_name(std::forward<S1>(name)),
@@ -142,7 +142,7 @@ namespace bobura { namespace model
 
             \return The weight.
         */
-        weight_type weight()
+        typename weight_type::enum_t weight()
         const
         {
             return m_weight;
@@ -153,7 +153,7 @@ namespace bobura { namespace model
 
             \return The line style.
         */
-        line_style_type line_style()
+        typename line_style_type::enum_t line_style()
         const
         {
             return m_line_style;
@@ -169,9 +169,9 @@ namespace bobura { namespace model
 
         color_type m_color;
 
-        weight_type m_weight;
+        typename weight_type::enum_t m_weight;
 
-        line_style_type m_line_style;
+        typename line_style_type::enum_t m_line_style;
 
 
     };

@@ -18,6 +18,10 @@ namespace
 
     typedef boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::em>::type unit_type;
 
+    typedef
+        boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::another_em>::type
+        another_unit_type;
+
 
 }
 
@@ -27,6 +31,15 @@ BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(unit)
 BOOST_AUTO_TEST_SUITE(em)
     // test cases
+
+    BOOST_AUTO_TEST_CASE(from)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const unit_type unit = unit_type::from(another_unit_type(123));
+
+        BOOST_CHECK_EQUAL(unit.value(), 123);
+    }
 
     BOOST_AUTO_TEST_CASE(from_pixels)
     {

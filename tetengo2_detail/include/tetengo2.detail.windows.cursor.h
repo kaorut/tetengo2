@@ -78,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename SystemCursor>
-        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
+        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type::enum_t style)
         {
             cursor_details_ptr_type p_cursor(
                 reinterpret_cast< ::HCURSOR>(
@@ -109,12 +109,14 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         template <typename SystemCursor>
-        static ::WORD translate_style(const typename SystemCursor::style_type style)
+        static ::WORD translate_style(const typename SystemCursor::style_type::enum_t style)
         {
             switch (style)
             {
-            case SystemCursor::style_hand: return OCR_HAND;
-            default: return OCR_NORMAL;
+            case SystemCursor::style_type::hand:
+                return OCR_HAND;
+            default:
+                return OCR_NORMAL;
             }
         }
 

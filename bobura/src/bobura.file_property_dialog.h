@@ -242,7 +242,7 @@ namespace bobura
         std::unique_ptr<text_box_type> create_line_name_text_box()
         {
             std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_none);
+                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
 
             return std::move(p_text_box);
         }
@@ -261,7 +261,7 @@ namespace bobura
         std::unique_ptr<text_box_type> create_file_name_text_box()
         {
             std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_none);
+                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
 
             p_text_box->set_read_only(true);
 
@@ -271,7 +271,7 @@ namespace bobura
         std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button =
-                tetengo2::make_unique<button_type>(*this, button_type::style_default);
+                tetengo2::make_unique<button_type>(*this, button_type::style_type::default_);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
             p_button->mouse_observer_set().clicked().connect(
@@ -287,7 +287,7 @@ namespace bobura
         std::unique_ptr<button_type> create_cancel_button()
         {
             std::unique_ptr<button_type> p_button =
-                tetengo2::make_unique<button_type>(*this, button_type::style_cancel);
+                tetengo2::make_unique<button_type>(*this, button_type::style_type::cancel);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect(

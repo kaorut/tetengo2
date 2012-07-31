@@ -633,143 +633,150 @@ namespace bobura { namespace model { namespace serializer
 
         static void insert_preset_train_kinds(timetable_type& timetable)
         {
-            typedef std::tuple<input_string_type, input_string_type, weight_type, line_style_type> content_type;
+            typedef
+                std::tuple<
+                    input_string_type,
+                    input_string_type,
+                    typename weight_type::enum_t,
+                    typename line_style_type::enum_t
+                >
+                content_type;
             std::vector<content_type> contents;
 
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")), // "futsuu"
                     input_string_type(TETENGO2_TEXT("\x95\x81\x92\xCA")), // "futsuu"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")), // "kaosoku"
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC")), // "kaosoku"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x95\xCA\x89\xF5\x91\xAC")), // "tokubetsukaisoku"
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x89\xF5")), // "tokkai"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5\x91\xAC")), // "shinkaisoku"
                     input_string_type(TETENGO2_TEXT("\x90\x56\x89\xF5")), // "shinkai"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x89\xF5\x91\xAC")), // "tsuukinkaisoku"
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x89\xF5")), // "tsuukai"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")), // "junkyuu"
                     input_string_type(TETENGO2_TEXT("\x8F\x80\x8B\x7D")), // "junkyuu"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")), // "kyuukou"
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73")), // "kyuukou"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x8B\x7D\x8D\x73")), // "kaisokukyuukou"
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x8B\x7D")), // "kaikyuu"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")), // "tokkyuu"
                     input_string_type(TETENGO2_TEXT("\x93\xC1\x8B\x7D")), // "tokkyuu"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x91\xAC\x93\xC1\x8B\x7D")), // "kaisokutokkyuu"
                     input_string_type(TETENGO2_TEXT("\x89\xF5\x93\xC1")), // "kaitoku"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8F\x80\x8B\x7D")), // "tsuukinjunkyuu"
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8F\x80")), // "tsuujun"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\xCE\x8B\x7D\x8D\x73")), // "tsuukinkyuukou"
                     input_string_type(TETENGO2_TEXT("\x92\xCA\x8B\x7D")), // "tsuukyuu"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x89\xF5\x91\xAC")), // "kukankaisoku"
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x89\xF5")), // "kukai"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x8A\xD4\x8B\x7D\x8D\x73")), // "kukankyuukou"
                     input_string_type(TETENGO2_TEXT("\x8B\xE6\x8B\x7D")), // "kukyuu"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")), // "kaisou"
                     input_string_type(TETENGO2_TEXT("\x89\xF1\x91\x97")), // "kaisou"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_dot_dashed
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::dot_dashed
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")), // "kamotsu"
                     input_string_type(TETENGO2_TEXT("\x89\xDD\x95\xA8")), // "kamotsu"
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_dashed
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::dashed
                 )
             );
             contents.push_back(
                 content_type(
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x8D\x73\x89\xDD\x95\xA8")), // "kyuukoukamotsu"
                     input_string_type(TETENGO2_TEXT("\x8B\x7D\x89\xDD")), // "kyuuka"
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_dashed
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::dashed
                 )
             );
 
@@ -885,7 +892,7 @@ namespace bobura { namespace model { namespace serializer
             const unsigned int                             prop
         )
         {
-            const line_style_type line_style = to_line_style(prop & 0x03);
+            const typename line_style_type::enum_t line_style = to_line_style(prop & 0x03);
             const bool custom_color = (prop & 0x40) != 0;
             const boost::optional<color_type> color =
                 custom_color ?
@@ -893,7 +900,7 @@ namespace bobura { namespace model { namespace serializer
                 (base ? boost::make_optional(base->color()) : boost::make_optional(color_type(0, 0, 0)));
             if (!color)
                 return boost::none;
-            const weight_type weight = to_weight((prop & 0x80) != 0);
+            const typename weight_type::enum_t weight = to_weight((prop & 0x80) != 0);
 
             return
                 base ?
@@ -912,23 +919,23 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(preset_palette()[index]);
         }
 
-        static weight_type to_weight(const bool bold)
+        static typename weight_type::enum_t to_weight(const bool bold)
         {
-            return bold ? train_kind_type::weight_bold : train_kind_type::weight_normal;
+            return bold ? train_kind_type::weight_type::bold : train_kind_type::weight_type::normal;
         }
 
-        static line_style_type to_line_style(const std::size_t index)
+        static typename line_style_type::enum_t to_line_style(const std::size_t index)
         {
             switch (index)
             {
             case 0:
-                return train_kind_type::line_style_solid;
+                return train_kind_type::line_style_type::solid;
             case 1:
-                return train_kind_type::line_style_dashed;
+                return train_kind_type::line_style_type::dashed;
             case 2:
-                return train_kind_type::line_style_dotted;
+                return train_kind_type::line_style_type::dotted;
             case 3:
-                return train_kind_type::line_style_dot_dashed;
+                return train_kind_type::line_style_type::dot_dashed;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));

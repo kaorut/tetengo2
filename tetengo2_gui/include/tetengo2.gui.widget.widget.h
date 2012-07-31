@@ -119,13 +119,13 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef widget child_type;
 
         //! The scroll bar style type.
-        enum scroll_bar_style_type
+        struct scroll_bar_style_type { enum enum_t //!< Scoped enum.
         {
-            scroll_bar_style_none,       //!< The widget has no scroll bar.
-            scroll_bar_style_vertical,   //!< The widget has a vertical scroll bar.
-            scroll_bar_style_horizontal, //!< The widget has a horizontal scroll bar.
-            scroll_bar_style_both,       //!< The widget has both vertiacal and horizontal scroll bars.
-        };
+            none,       //!< The widget has no scroll bar.
+            vertical,   //!< The widget has a vertical scroll bar.
+            horizontal, //!< The widget has a horizontal scroll bar.
+            both,       //!< The widget has both vertiacal and horizontal scroll bars.
+        };};
 
 
         // constructors and destructor
@@ -759,7 +759,10 @@ namespace tetengo2 { namespace gui { namespace widget
             \param scroll_bar_style    A scroll bar style.
             \param message_handler_map A message handler map.
         */
-        widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
+        widget(
+            const typename scroll_bar_style_type::enum_t scroll_bar_style,
+            message_handler_map_type&&                   message_handler_map
+        )
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -873,7 +876,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<cursor_type> m_p_cursor;
 
-        const scroll_bar_style_type m_scroll_bar_style;
+        const typename scroll_bar_style_type::enum_t m_scroll_bar_style;
 
         std::unique_ptr<scroll_bar_type> m_p_vertical_scroll_bar;
 
@@ -902,18 +905,28 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<scroll_bar_type> create_vertical_scroll_bar()
         {
-            if (m_scroll_bar_style != scroll_bar_style_vertical && m_scroll_bar_style != scroll_bar_style_both)
+            if (
+                m_scroll_bar_style != scroll_bar_style_type::vertical &&
+                m_scroll_bar_style != scroll_bar_style_type::both
+            )
+            {
                 return std::unique_ptr<scroll_bar_type>();
+            }
 
-            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_vertical);
+            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
         {
-            if (m_scroll_bar_style != scroll_bar_style_horizontal && m_scroll_bar_style != scroll_bar_style_both)
+            if (
+                m_scroll_bar_style != scroll_bar_style_type::horizontal &&
+                m_scroll_bar_style != scroll_bar_style_type::both
+            )
+            {
                 return std::unique_ptr<scroll_bar_type>();
+            }
 
-            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_horizontal);
+            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
         }
 
 

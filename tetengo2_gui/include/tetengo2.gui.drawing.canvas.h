@@ -64,6 +64,15 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The solid background type.
         typedef typename traits_type::solid_background_type solid_background_type;
 
+        //! The line style type.
+        struct line_style_type { enum enum_t //!< Scoped enum.
+        {
+            solid,      //!< Solid.
+            dashed,     //!< Dashed.
+            dotted,     //!< Dotted.
+            dot_dashed, //!< Dot-Dashed.
+        };};
+
         //! The font type.
         typedef typename traits_type::font_type font_type;
 
@@ -138,6 +147,53 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Returns the line width.
+
+            \return The line_width.
+        */
+        const size_type& line_width()
+        const
+        {
+            return m_line_width;
+        }
+
+        /*!
+            \brief Sets a line width.
+
+            \tparam S A size type.
+
+            \param line_width A line width.
+        */
+        template <typename S>
+        void set_line_width(S&& line_width)
+        {
+            m_line_width = std::forward<S>(line_width);
+        }
+
+        /*!
+            \brief Returns the line style.
+
+            \return The line_width.
+        */
+        typename line_style_type::enum_t line_style()
+        const
+        {
+            return m_line_style;
+        }
+
+        /*!
+            \brief Sets a line style.
+
+            \tparam S A size type.
+
+            \param line_style A line width.
+        */
+        void set_line_style(const typename line_style_type::enum_t line_style)
+        {
+            m_line_style = line_style;
+        }
+
+        /*!
             \brief Returns the font.
 
             \return The font.
@@ -164,16 +220,18 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a line.
 
-            \tparam P A position type.
+            \tparam P  A position type #1.
+            \tparam P2 A position type #2.
 
-            \param from  A beginning position.
-            \param to    An ending position.
-            \param width A width.
+            \param from A beginning position.
+            \param to   An ending position.
         */
-        template <typename P>
-        void draw_line(const P& from, const P& to, const size_type width)
+        template <typename P1, typename P2>
+        void draw_line(const P1& from, const P2& to)
         {
-            drawing_details_type::draw_line(*m_p_details, from, to, width, m_color);
+            drawing_details_type::draw_line(
+                *m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color
+            );
         }
 
         /*!
@@ -226,15 +284,18 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a text.
 
+            The text is rotated around the argument position.
+
             \tparam P A position type.
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
+            \param angle    A clockwise angle in radians.
         */
         template <typename P>
-        void draw_text(const string_type& text, const P& position)
+        void draw_text(const string_type& text, const P& position, const double angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color, angle);
         }
 
         /*!
@@ -306,6 +367,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details)),
         m_color(0, 0, 0, 255),
         m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
+        m_line_width(1),
+        m_line_style(line_style_type::solid),
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
@@ -330,6 +393,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         color_type m_color;
 
         std::unique_ptr<const background_type> m_p_background;
+
+        size_type m_line_width;
+
+        typename line_style_type::enum_t m_line_style;
 
         font_type m_font;
 

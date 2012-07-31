@@ -43,7 +43,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             ::PostMessageW(
                 reinterpret_cast< ::HWND>(l_param),
-                WM_TETENGO2_COMMAND,
+                custom_message_type::command,
                 w_param,
                 reinterpret_cast< ::LPARAM>(std::get<0>(*widget.details()).get())
             );
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             widget.mouse_observer_set().wheeled()(
                 typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
-                Widget::mouse_observer_set_type::direction_vertical,
+                Widget::mouse_observer_set_type::direction_type::vertical,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
                 false
@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             widget.mouse_observer_set().wheeled()(
                 typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
-                Widget::mouse_observer_set_type::direction_horizontal,
+                Widget::mouse_observer_set_type::direction_type::horizontal,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
                 false
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (l_param == 0) return boost::none;
 
             const ::LRESULT result =
-                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), WM_TETENGO2_CONTROL_COLOR, w_param, 0);
+                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), custom_message_type::control_color, w_param, 0);
 
             return boost::make_optional(result, result);
         }

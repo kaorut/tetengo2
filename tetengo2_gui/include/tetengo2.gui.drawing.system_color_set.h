@@ -44,7 +44,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             static const color_type singleton(
                 system_color_details_type::template get_system_color<color_type>(
-                    system_color_details_type::system_color_index_dialog_background
+                    system_color_details_type::system_color_index_type::dialog_background
                 )
             );
             return singleton;

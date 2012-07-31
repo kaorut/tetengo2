@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        picture_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        picture_box(widget_type& parent, const typename scroll_bar_style_type::enum_t scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)

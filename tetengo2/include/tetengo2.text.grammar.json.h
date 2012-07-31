@@ -47,16 +47,17 @@ namespace tetengo2 { namespace text { namespace grammar
         typedef std::basic_string<char_type> string_type;
 
         //! The value type type.
-        enum value_type_type
+        struct value_type_type { enum enum_t //!< Scoped enum.
         {
-            value_type_string,  //!< A string.
-            value_type_number,  //!< A number.
-            value_type_boolean, //!< A boolean.
-            value_type_null,    //!< A null.
-        };
+            string,  //!< A string.
+            number,  //!< A number.
+            boolean, //!< A boolean.
+            null,    //!< A null.
+        };};
 
         //! The attribute type.
-        typedef std::tuple<string_type, value_type_type, const string_type&> structure_attribute_type;
+        typedef
+            std::tuple<string_type, typename value_type_type::enum_t, const string_type&> structure_attribute_type;
 
         //! The structure signal type.
         typedef
@@ -64,7 +65,8 @@ namespace tetengo2 { namespace text { namespace grammar
             structure_signal_type;
 
         //! The value signal type.
-        typedef boost::signals2::signal<void (value_type_type, const string_type&)> value_signal_type;
+        typedef
+            boost::signals2::signal<void (typename value_type_type::enum_t, const string_type&)> value_signal_type;
 
         //! The rule type.
         typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
@@ -367,7 +369,7 @@ namespace tetengo2 { namespace text { namespace grammar
             m_on_structure_begin(
                 string_type(TETENGO2_TEXT("member")),
                 std::vector<structure_attribute_type>(
-                    1, structure_attribute_type(string_type(TETENGO2_TEXT("name")), value_type_string, attribute)
+                    1, structure_attribute_type(string_type(TETENGO2_TEXT("name")), value_type_type::string, attribute)
                 )
             );
         }
@@ -389,22 +391,22 @@ namespace tetengo2 { namespace text { namespace grammar
 
         void string_passed(const string_type& attribute)
         {
-            m_on_value(value_type_string, attribute);
+            m_on_value(value_type_type::string, attribute);
         }
 
         void number_passed(const string_type& attribute)
         {
-            m_on_value(value_type_number, attribute);
+            m_on_value(value_type_type::number, attribute);
         }
 
         void boolean_passed(const string_type& attribute)
         {
-            m_on_value(value_type_boolean, attribute);
+            m_on_value(value_type_type::boolean, attribute);
         }
 
         void null_passed(const string_type& attribute)
         {
-            m_on_value(value_type_null, attribute);
+            m_on_value(value_type_type::null, attribute);
         }
 
         void define_rules()

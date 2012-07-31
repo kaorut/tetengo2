@@ -60,8 +60,8 @@ BOOST_AUTO_TEST_SUITE(reset)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
-        view_type view(model);
         const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
@@ -78,8 +78,8 @@ BOOST_AUTO_TEST_SUITE(reset)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
-        view_type view(model);
         const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
@@ -103,8 +103,8 @@ BOOST_AUTO_TEST_SUITE(changed)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
-        view_type view(model);
         const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
@@ -121,8 +121,8 @@ BOOST_AUTO_TEST_SUITE(changed)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
-        view_type view(model);
         const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));

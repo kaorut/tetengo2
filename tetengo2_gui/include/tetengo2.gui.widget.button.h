@@ -51,12 +51,12 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
         //! The style type.
-        enum style_type
+        struct style_type { enum enum_t //!< Scoped enum.
         {
-            style_normal,   //!< A normal button.
-            style_default,  //!< A default button.
-            style_cancel    //!< A cancel button.
-        };
+            normal,   //!< A normal button.
+            default_, //!< A default button.
+            cancel    //!< A cancel button.
+        };};
 
 
         // constructors and destructor
@@ -64,22 +64,23 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a button.
 
-            The window cannot have plural buttons with style_default. And so is style_cancel. When creating a second
-            button with style_default or style_cancel, std::runtime_error is thrown.
+            The window cannot have plural buttons with style_type::default_. And so is style_type::cancel.
+            When creating a second button with style_type::default_ or style_type::cancel, std::runtime_error is
+            thrown.
 
             \param parent A parent widget.
             \param style  A style.
         */
-        explicit button(widget_type& parent, const style_type style = style_normal)
+        explicit button(widget_type& parent, const typename style_type::enum_t style = style_type::normal)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            base_type::scroll_bar_style_none,
+            base_type::scroll_bar_style_type::none,
             message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type()),
-            widget_details_type::create_button(parent, style == style_default, style == style_cancel)
+            widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
@@ -103,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The style.
         */
-        style_type style()
+        typename style_type::enum_t style()
         const
         {
             return m_style;
@@ -118,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        const style_type m_style;
+        const typename style_type::enum_t m_style;
 
 
     };

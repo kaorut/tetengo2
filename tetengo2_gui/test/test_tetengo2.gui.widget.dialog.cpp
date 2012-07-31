@@ -71,31 +71,31 @@ BOOST_AUTO_TEST_SUITE(dialog)
             window_type parent;
             const concrete_dialog dialog(parent);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_undecided);
+            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::undecided);
         }
         {
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_undecided);
+            dialog.set_result(dialog_type::result_type::undecided);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_undecided);
+            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::undecided);
         }
         {
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_accepted);
+            dialog.set_result(dialog_type::result_type::accepted);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_accepted);
+            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::accepted);
         }
         {
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_canceled);
+            dialog.set_result(dialog_type::result_type::canceled);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_canceled);
+            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::canceled);
         }
     }
 
@@ -107,19 +107,19 @@ BOOST_AUTO_TEST_SUITE(dialog)
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_undecided);
+            dialog.set_result(dialog_type::result_type::undecided);
         }
         {
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_accepted);
+            dialog.set_result(dialog_type::result_type::accepted);
         }
         {
             window_type parent;
             concrete_dialog dialog(parent);
 
-            dialog.set_result(dialog_type::result_canceled);
+            dialog.set_result(dialog_type::result_type::canceled);
         }
     }
 

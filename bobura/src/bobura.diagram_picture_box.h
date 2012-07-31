@@ -60,7 +60,7 @@ namespace bobura
         */
         explicit diagram_picture_box(abstract_window_type& parent)
         :
-        base_type(parent, base_type::scroll_bar_style_both)
+        base_type(parent, base_type::scroll_bar_style_type::both)
         {
             set_observers();
         }

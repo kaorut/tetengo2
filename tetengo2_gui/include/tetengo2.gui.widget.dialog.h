@@ -70,12 +70,12 @@ namespace tetengo2 { namespace gui { namespace widget
             details_ptr_type;
 
         //! The result type.
-        enum result_type
+        struct result_type { enum enum_t //!< Scoped enum.
         {
-            result_undecided,   //!< The result is not decided yet.
-            result_accepted,    //!< The settings are accepted.
-            result_canceled,    //!< The settings are canceled.
-        };
+            undecided, //!< The result is not decided yet.
+            accepted,  //!< The settings are accepted.
+            canceled,  //!< The settings are canceled.
+        };};
 
 
         // constructors and destructor
@@ -92,13 +92,13 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            base_type::scroll_bar_style_none,
+            base_type::scroll_bar_style_type::none,
             message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type())
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_result(result_undecided),
+        m_result(result_type::undecided),
         m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent))
         {
             initialize(this);
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The result.
         */
-        result_type result()
+        typename result_type::enum_t result()
         const
         {
             return m_result;
@@ -129,9 +129,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param result A result.
         */
-        void set_result(const result_type result)
+        void set_result(const typename result_type::enum_t result)
         {
-            if (result == result_accepted)
+            if (result == result_type::accepted)
                 set_result_impl();
             m_result = result;
         }
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        result_type m_result;
+        typename result_type::enum_t m_result;
 
         const details_ptr_type m_p_details;
 

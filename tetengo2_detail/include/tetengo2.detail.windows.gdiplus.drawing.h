@@ -13,7 +13,6 @@
 //#include <cstddef>
 #include <limits>
 //#include <memory>
-//#include <string>
 //#include <system_error>
 #include <tuple>
 //#include <type_traits>
@@ -186,6 +185,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param from   A beginning position.
             \param to     An ending position.
             \param width  A width.
+            \param style  A style.
             \param color  A color.
         */
         template <typename Position, typename Size, typename Color>
@@ -194,6 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Position&      from,
             const Position&      to,
             const Size           width,
+            const int            style,
             const Color&         color
         );
 
@@ -369,6 +370,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
+            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -379,34 +381,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color
-        )
-        {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection, encoder)
-            );
-            const Gdiplus::SolidBrush brush(Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()));
-
-            const std::wstring encoded_text = encoder.encode(text);
-            const Gdiplus::Status status =
-                canvas.DrawString(
-                    encoded_text.c_str(),
-                    static_cast< ::INT>(encoded_text.length()),
-                    p_gdiplus_font.get(),
-                    Gdiplus::PointF(
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
-                    ),
-                    &brush
-                );
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw text!")
-                );
-            }
-        }
+            const Color&         color,
+            const double         angle
+        );
 
         /*!
             \brief Paints a picture.

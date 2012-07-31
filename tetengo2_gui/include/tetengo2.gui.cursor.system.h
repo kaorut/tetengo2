@@ -40,11 +40,11 @@ namespace tetengo2 { namespace gui { namespace cursor
         typedef typename cursor_details_type::cursor_details_ptr_type details_ptr_type;
 
         //! The style type.
-        enum style_type
+        struct style_type { enum enum_t //!< Scoped enum.
         {
-            style_default, //!< A default style.
-            style_hand,    //!< A hand style.
-        };
+            default_, //!< A default style.
+            hand,     //!< A hand style.
+        };};
 
 
         // constructors and destructor
@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace cursor
 
             \param style A style.
         */
-        explicit system(const style_type style)
+        explicit system(const typename style_type::enum_t style)
         :
         m_style(style),
         m_p_details(cursor_details_type::template create_system_cursor<system>(style))
@@ -74,7 +74,7 @@ namespace tetengo2 { namespace gui { namespace cursor
 
             \return The style.
         */
-        style_type style()
+        typename style_type::enum_t style()
         const
         {
             return m_style;
@@ -84,7 +84,7 @@ namespace tetengo2 { namespace gui { namespace cursor
     private:
         // variables
 
-        style_type m_style;
+        typename style_type::enum_t m_style;
 
         details_ptr_type m_p_details;
 

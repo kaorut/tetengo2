@@ -178,6 +178,8 @@ namespace bobura { namespace view
         {
             std::vector<scale_type> scales;
 
+            scales.push_back(scale_type(1, 10));
+            scales.push_back(scale_type(1, 4));
             scales.push_back(scale_type(1, 2));
             scales.push_back(scale_type(3, 4));
             scales.push_back(scale_type(1));
@@ -193,6 +195,8 @@ namespace bobura { namespace view
         {
             std::vector<string_type> labels;
 
+            labels.push_back(string_type(TETENGO2_TEXT("10%")));
+            labels.push_back(string_type(TETENGO2_TEXT("25%")));
             labels.push_back(string_type(TETENGO2_TEXT("50%")));
             labels.push_back(string_type(TETENGO2_TEXT("75%")));
             labels.push_back(string_type(TETENGO2_TEXT("100%")));

@@ -191,6 +191,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param from   A beginning position.
             \param to     An ending position.
             \param width  A width.
+            \param style  A style.
             \param color  A color.
         */
         template <typename Position, typename Size, typename Color>
@@ -199,6 +200,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      from,
             const Position&      to,
             const Size           width,
+            const int            style,
             const Color&         color
         )
         {}
@@ -304,6 +306,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
+            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -314,7 +317,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color
+            const Color&         color,
+            const double         angle
         )
         {}
 

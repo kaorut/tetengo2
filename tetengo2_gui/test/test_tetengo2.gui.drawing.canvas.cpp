@@ -22,6 +22,8 @@ namespace
 {
     // types
 
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type size_type;
+
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef
@@ -159,6 +161,50 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
     }
 
+    BOOST_AUTO_TEST_CASE(line_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const size_type line_width = canvas.line_width();
+
+        BOOST_CHECK_EQUAL(line_width, 1U);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_line_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.set_line_width(42);
+
+        BOOST_CHECK_EQUAL(canvas.line_width(), 42U);
+    }
+
+    BOOST_AUTO_TEST_CASE(line_style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const canvas_type::line_style_type::enum_t line_style = canvas.line_style();
+
+        BOOST_CHECK_EQUAL(line_style, canvas_type::line_style_type::solid);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_line_style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.set_line_style(canvas_type::line_style_type::dashed);
+
+        BOOST_CHECK_EQUAL(canvas.line_style(), canvas_type::line_style_type::dashed);
+    }
+
     BOOST_AUTO_TEST_CASE(font)
     {
         BOOST_TEST_PASSPOINT();
@@ -188,7 +234,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78), 42);
+        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(draw_focus_indication)
@@ -226,7 +272,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34));
+        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34), 56.78);
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)

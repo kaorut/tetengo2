@@ -53,11 +53,11 @@ namespace tetengo2 { namespace gui
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 
         //! The style type.
-        enum style_type
+        struct style_type { enum enum_t //!< Scoped enum.
         {
-            style_vertical,   //!< The vertical style.
-            style_horizontal, //!< The horizontal style.
-        };
+            vertical,   //!< The vertical style.
+            horizontal, //!< The horizontal style.
+        };};
 
 
         // constructors and destructor
@@ -69,7 +69,7 @@ namespace tetengo2 { namespace gui
             \param style          A style.
         */
         template <typename WidgetDetails>
-        scroll_bar(const WidgetDetails& widget_details, const style_type style)
+        scroll_bar(const WidgetDetails& widget_details, const typename style_type::enum_t style)
         :
         m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
         m_scroll_bar_observer_set(),
@@ -223,14 +223,14 @@ namespace tetengo2 { namespace gui
     private:
         // static functions
 
-        static typename details_type::style_type to_details_style(const style_type style)
+        static typename details_type::style_type::enum_t to_details_style(const typename style_type::enum_t style)
         {
             switch (style)
             {
-            case style_vertical:
-                return details_type::style_vertical;
-            case style_horizontal:
-                return details_type::style_horizontal;
+            case style_type::vertical:
+                return details_type::style_type::vertical;
+            case style_type::horizontal:
+                return details_type::style_type::horizontal;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));

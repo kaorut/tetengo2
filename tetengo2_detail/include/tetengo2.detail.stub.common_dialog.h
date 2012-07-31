@@ -31,28 +31,28 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The message box button style type.
-        enum message_box_button_style_type
+        struct message_box_button_style_type { enum enum_t //!< Scoped enum.
         {
-            message_box_button_style_ok,     //!< With OK button.
-            message_box_button_style_yes_no, //!< With Yes and No buttons.
-        };
+            ok,     //!< With OK button.
+            yes_no, //!< With Yes and No buttons.
+        };};
 
         //! The message box icon style type.
-        enum message_box_icon_style_type
+        struct message_box_icon_style_type { enum enum_t //!< Scoped enum.
         {
-            message_box_icon_style_error,       //!< Error.
-            message_box_icon_style_warning,     //!< Warning.
-            message_box_icon_style_information, //!< Information.
-        };
+            error,       //!< Error.
+            warning,     //!< Warning.
+            information, //!< Information.
+        };};
 
         //! The message box button ID type.
-        enum message_box_button_id_type
+        struct message_box_button_id_type { enum enum_t //!< Scoped enum.
         {
-            message_box_button_ok,     //!< OK button.
-            message_box_button_yes,    //!< Yes button.
-            message_box_button_no,     //!< No button.
-            message_box_button_cancel, //!< Cancel button.
-        };
+            ok,     //!< OK button.
+            yes,    //!< Yes button.
+            no,     //!< No button.
+            cancel, //!< Cancel button.
+        };};
 
         //! The message box details type.
         struct message_box_details_type {};
@@ -111,16 +111,16 @@ namespace tetengo2 { namespace detail { namespace stub
             typename Encoder
         >
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                                     parent,
-            String1&&                                           title,
-            String2&&                                           main_content,
-            String3&&                                           sub_content,
-            const bool                                          cancellable,
-            const message_box_button_style_type                 button_style,
-            const message_box_icon_style_type                   icon_style,
-            const boost::optional<String4>&                     custom_ok_button_label,
-            const boost::optional<std::pair<String4, String4>>& custom_yes_no_button_labels,
-            const Encoder&                                      encoder
+            AbstractWindow&                                      parent,
+            String1&&                                            title,
+            String2&&                                            main_content,
+            String3&&                                            sub_content,
+            const bool                                           cancellable,
+            const typename message_box_button_style_type::enum_t button_style,
+            const typename message_box_icon_style_type::enum_t   icon_style,
+            const boost::optional<String4>&                      custom_ok_button_label,
+            const boost::optional<std::pair<String4, String4>>&  custom_yes_no_button_labels,
+            const Encoder&                                       encoder
         )
         {
             return make_unique<message_box_details_type>();
@@ -135,9 +135,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
+        static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
-            return message_box_button_cancel;
+            return message_box_button_id_type::cancel;
         }
 
         /*!

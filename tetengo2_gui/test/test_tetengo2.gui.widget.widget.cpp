@@ -62,8 +62,9 @@ namespace
         }
 
         explicit concrete_widget(
-            widget_type* const                       p_parent = NULL,
-            const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_none
+            widget_type* const                               p_parent = NULL,
+            const widget_type::scroll_bar_style_type::enum_t scroll_bar_style =
+                widget_type::scroll_bar_style_type::none
         )
         :
         widget_type(scroll_bar_style, message_handler_map_type()),
@@ -508,13 +509,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         concrete_widget widget;
 
         std::unique_ptr<widget_type::cursor_type> p_cursor(
-            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_hand)
+            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
         );
         widget.set_cursor(std::move(p_cursor));
 
         const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
         BOOST_CHECK(cursor);
-        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_hand);
+        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
 
     BOOST_AUTO_TEST_CASE(vertical_scroll_bar)
@@ -522,22 +523,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_none);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_vertical);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_horizontal);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_both);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
@@ -548,22 +549,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_none);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_vertical);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_horizontal);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_both);
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }

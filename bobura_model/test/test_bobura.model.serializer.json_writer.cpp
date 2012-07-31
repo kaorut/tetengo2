@@ -189,8 +189,8 @@ namespace
                     string_type(TETENGO2_TEXT("nameA")),
                     string_type(TETENGO2_TEXT("abbrA")),
                     color_type(0, 128, 255),
-                    train_kind_type::weight_normal,
-                    train_kind_type::line_style_solid
+                    train_kind_type::weight_type::normal,
+                    train_kind_type::line_style_type::solid
                 )
             );
             p_timetable->insert_train_kind(
@@ -199,8 +199,8 @@ namespace
                     string_type(TETENGO2_TEXT("nameB")),
                     string_type(TETENGO2_TEXT("abbrB")),
                     color_type(255, 128, 0),
-                    train_kind_type::weight_bold,
-                    train_kind_type::line_style_dotted
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::dotted
                 )
             );
         }

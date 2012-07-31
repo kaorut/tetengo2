@@ -224,19 +224,19 @@ namespace tetengo2 { namespace text
         }
 
         static value_type to_value(
-            const typename grammar_type::value_type_type value_type,
-            const string_type&                           string_value
+            const typename grammar_type::value_type_type::enum_t value_type,
+            const string_type&                                   string_value
         )
         {
             switch (value_type)
             {
-            case grammar_type::value_type_string:
+            case grammar_type::value_type_type::string:
                 return to_string(string_value);
-            case grammar_type::value_type_number:
+            case grammar_type::value_type_type::number:
                 return to_number(string_value);
-            case grammar_type::value_type_boolean:
+            case grammar_type::value_type_type::boolean:
                 return to_boolean(string_value);
-            case grammar_type::value_type_null:
+            case grammar_type::value_type_type::null:
                 return to_null(string_value);
             default:
                 assert(false);
@@ -352,7 +352,7 @@ namespace tetengo2 { namespace text
             m_on_structure_end(structure_name, attribute_map_type());
         }
 
-        void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
+        void observe_value(const typename grammar_type::value_type_type::enum_t value_type, const string_type& value)
         {
             m_on_value(to_value(value_type, value));
         }

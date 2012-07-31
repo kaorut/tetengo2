@@ -74,16 +74,16 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta      True when meta key is pressed.
         */
         void operator()(
-            const delta_type&    delta,
-            const direction_type direction,
-            const bool           shift,
-            const bool           control,
-            const bool           meta
+            const delta_type&                     delta,
+            const typename direction_type::enum_t direction,
+            const bool                            shift,
+            const bool                            control,
+            const bool                            meta
         )
         const
         {
             const delta_type adjusted_delta =
-                direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta;
+                direction == picture_box_type::mouse_observer_set_type::direction_type::horizontal ? delta : -delta;
 
             if (!control && !meta)
                 scroll(adjusted_delta, is_vertical(direction, shift));
@@ -107,12 +107,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        bool is_vertical(const direction_type direction, const bool shift)
+        bool is_vertical(const typename direction_type::enum_t direction, const bool shift)
         const
         {
             return
-                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
-                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
+                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_type::vertical) ||
+                (shift && direction == picture_box_type::mouse_observer_set_type::direction_type::horizontal);
         }
 
         void scroll(const delta_type& delta, const bool vertical)
