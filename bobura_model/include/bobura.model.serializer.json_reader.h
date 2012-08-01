@@ -151,9 +151,21 @@ namespace bobura { namespace model { namespace serializer
                 return std::unique_ptr<timetable_type>();
             {
                 const typename header_type::const_iterator found =
+                    header->find(string_type(TETENGO2_TEXT("company_name")));
+                if (found != header->end())
+                    p_timetable->set_company_name(found->second);
+            }
+            {
+                const typename header_type::const_iterator found =
                     header->find(string_type(TETENGO2_TEXT("line_name")));
                 if (found != header->end())
                     p_timetable->set_line_name(found->second);
+            }
+            {
+                const typename header_type::const_iterator found =
+                    header->find(string_type(TETENGO2_TEXT("note")));
+                if (found != header->end())
+                    p_timetable->set_note(found->second);
             }
 
             const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);

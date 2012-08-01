@@ -127,7 +127,9 @@ namespace
     const std::string json6 =
         "[\n"
         "    {\n"
-        "        \"line_name\": \"hoge\"\n"
+        "        \"company_name\": \"hoge\",\n"
+        "        \"line_name\": \"fuga\",\n"
+        "        \"note\": \"piyo\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -593,6 +595,11 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_CHECK(p_timetable);
+
+            BOOST_CHECK(p_timetable->company_name() == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("piyo")));
+
             BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
             {
                 const train_type& train = p_timetable->down_trains()[0];

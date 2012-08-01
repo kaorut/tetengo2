@@ -73,7 +73,9 @@ namespace
     const std::string json0 =
         "[\n"
         "    {\n"
-        "        \"line_name\": \"\"\n"
+        "        \"company_name\": \"\",\n"
+        "        \"line_name\": \"\",\n"
+        "        \"note\": \"\"\n"
         "    },\n"
         "    [],\n"
         "    [],\n"
@@ -84,7 +86,9 @@ namespace
     const std::string json1 =
         "[\n"
         "    {\n"
-        "        \"line_name\": \"hoge\"\n"
+        "        \"company_name\": \"hoge\",\n"
+        "        \"line_name\": \"fuga\",\n"
+        "        \"note\": \"piyo\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -164,7 +168,9 @@ namespace
     {
         std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
-        p_timetable->set_line_name(string_type(TETENGO2_TEXT("hoge")));
+        p_timetable->set_company_name(string_type(TETENGO2_TEXT("hoge")));
+        p_timetable->set_line_name(string_type(TETENGO2_TEXT("fuga")));
+        p_timetable->set_note(string_type(TETENGO2_TEXT("piyo")));
 
         {
             p_timetable->insert_station_location(

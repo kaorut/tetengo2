@@ -216,7 +216,19 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level + 1, output_stream);
             write_object_entry(
+                string_type(TETENGO2_TEXT("company_name")), timetable.company_name(), level + 1, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 1, output_stream);
+            write_object_entry(
                 string_type(TETENGO2_TEXT("line_name")), timetable.line_name(), level + 1, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 1, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("note")), timetable.note(), level + 1, output_stream
             );
 
             new_line(level, output_stream);
