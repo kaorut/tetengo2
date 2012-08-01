@@ -94,7 +94,9 @@ namespace bobura { namespace model
         */
         timetable()
         :
+        m_company_name(),
         m_line_name(),
+        m_note(),
         m_station_locations(),
         m_train_kinds(),
         m_down_trains(),
@@ -117,10 +119,39 @@ namespace bobura { namespace model
         friend bool operator==(const timetable& one, const timetable& another)
         {
             return
+                one.m_company_name == another.m_company_name &&
+                one.m_line_name == another.m_line_name &&
+                one.m_note == another.m_note &&
                 one.m_station_locations == another.m_station_locations &&
                 one.m_train_kinds == another.m_train_kinds &&
                 one.m_down_trains == another.m_down_trains &&
                 one.m_up_trains == another.m_up_trains;
+        }
+
+        /*!
+            \brief Returns the company name.
+
+            \return The company name.
+        */
+        const string_type& company_name()
+        const
+        {
+            return m_company_name;
+        }
+
+        /*!
+            \brief Sets a company name.
+
+            \tparam S A string type.
+
+            \param company_name A company name.
+        */
+        template <typename S>
+        void set_company_name(S&& company_name)
+        {
+            m_company_name = std::forward<S>(company_name);
+
+            m_observer_set.changed()();
         }
 
         /*!
@@ -145,6 +176,32 @@ namespace bobura { namespace model
         void set_line_name(S&& line_name)
         {
             m_line_name = std::forward<S>(line_name);
+
+            m_observer_set.changed()();
+        }
+
+        /*!
+            \brief Returns the note.
+
+            \return The note.
+        */
+        const string_type& note()
+        const
+        {
+            return m_note;
+        }
+
+        /*!
+            \brief Sets a note.
+
+            \tparam S A string type.
+
+            \param note A note.
+        */
+        template <typename S>
+        void set_note(S&& note)
+        {
+            m_note = std::forward<S>(note);
 
             m_observer_set.changed()();
         }
@@ -583,7 +640,11 @@ namespace bobura { namespace model
 
         // variables
 
+        string_type m_company_name;
+
         string_type m_line_name;
+
+        string_type m_note;
 
         station_locations_type m_station_locations;
 
