@@ -46,7 +46,9 @@ namespace bobura { namespace command
         {
             file_property_dialog_type dialog(parent, m_message_catalog);
 
+            dialog.set_company_name(model.timetable().company_name());
             dialog.set_line_name(model.timetable().line_name());
+            dialog.set_note(model.timetable().note());
             if (model.has_path())
                 dialog.set_file_name(model.path().template string<string_type>());
 
@@ -54,7 +56,9 @@ namespace bobura { namespace command
             if (dialog.result() != dialog_base_type::result_type::accepted)
                 return;
 
+            model.timetable().set_company_name(dialog.company_name());
             model.timetable().set_line_name(dialog.line_name());
+            model.timetable().set_note(dialog.note());
         }
 
 
