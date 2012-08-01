@@ -150,9 +150,10 @@ namespace bobura { namespace model { namespace serializer
             if (!header)
                 return std::unique_ptr<timetable_type>();
             {
-                const typename header_type::const_iterator found = header->find(string_type(TETENGO2_TEXT("title")));
+                const typename header_type::const_iterator found =
+                    header->find(string_type(TETENGO2_TEXT("line_name")));
                 if (found != header->end())
-                    p_timetable->set_title(found->second);
+                    p_timetable->set_line_name(found->second);
             }
 
             const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);

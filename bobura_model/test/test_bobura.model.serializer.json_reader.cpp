@@ -70,7 +70,7 @@ namespace
     const std::string json3 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [],\n"
         "    [],\n"
@@ -81,8 +81,8 @@ namespace
     const std::string json4 =
         "[\n"
         "    {\n"
-        "        \"piyo\":  \"piyopiyo\",\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"piyo\":      \"piyopiyo\",\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -108,7 +108,7 @@ namespace
     const std::string json5 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -127,7 +127,7 @@ namespace
     const std::string json6 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -199,7 +199,7 @@ namespace
     const std::string json7 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -245,7 +245,7 @@ namespace
     const std::string json8 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -298,7 +298,7 @@ namespace
     const std::string json11 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -344,7 +344,7 @@ namespace
     const std::string json12 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -387,7 +387,7 @@ namespace
     const std::string json13 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"line_name\": \"hoge\"\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -531,7 +531,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(p_timetable->title().empty());
+            BOOST_CHECK(p_timetable->line_name().empty());
         }
         {
             std::istringstream input_stream(json3);
@@ -542,7 +542,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
             std::istringstream input_stream(json4);
@@ -553,7 +553,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
             {
                 const station_location_type& station_location = p_timetable->station_locations()[0];

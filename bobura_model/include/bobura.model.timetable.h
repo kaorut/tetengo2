@@ -94,7 +94,7 @@ namespace bobura { namespace model
         */
         timetable()
         :
-        m_title(),
+        m_line_name(),
         m_station_locations(),
         m_train_kinds(),
         m_down_trains(),
@@ -124,27 +124,27 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Returns the title.
+            \brief Returns the line name.
 
-            \return The title.
+            \return The line name.
         */
-        const string_type& title()
+        const string_type& line_name()
         const
         {
-            return m_title;
+            return m_line_name;
         }
 
         /*!
-            \brief Sets a title.
+            \brief Sets a line name.
 
             \tparam S A string type.
 
-            \param title A title.
+            \param line_name A line name.
         */
         template <typename S>
-        void set_title(S&& title)
+        void set_line_name(S&& line_name)
         {
-            m_title = std::forward<S>(title);
+            m_line_name = std::forward<S>(line_name);
 
             m_observer_set.changed()();
         }
@@ -583,7 +583,7 @@ namespace bobura { namespace model
 
         // variables
 
-        string_type m_title;
+        string_type m_line_name;
 
         station_locations_type m_station_locations;
 
