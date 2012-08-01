@@ -48,6 +48,54 @@ BOOST_AUTO_TEST_SUITE(file_property_dialog)
         const file_property_dialog_type file_property_dialog(window, message_catalog);
     }
 
+    BOOST_AUTO_TEST_CASE(company_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const message_catalog_type message_catalog;
+        const file_property_dialog_type file_property_dialog(window, message_catalog);
+
+        BOOST_CHECK(file_property_dialog.company_name().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_company_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const message_catalog_type message_catalog;
+        file_property_dialog_type file_property_dialog(window, message_catalog);
+
+        file_property_dialog.set_company_name(string_type(TETENGO2_TEXT("hoge")));
+
+        BOOST_CHECK(file_property_dialog.company_name() == string_type(TETENGO2_TEXT("hoge")));
+    }
+
+    BOOST_AUTO_TEST_CASE(note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const message_catalog_type message_catalog;
+        const file_property_dialog_type file_property_dialog(window, message_catalog);
+
+        BOOST_CHECK(file_property_dialog.note().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const message_catalog_type message_catalog;
+        file_property_dialog_type file_property_dialog(window, message_catalog);
+
+        file_property_dialog.set_note(string_type(TETENGO2_TEXT("hoge")));
+
+        BOOST_CHECK(file_property_dialog.note() == string_type(TETENGO2_TEXT("hoge")));
+    }
+
     BOOST_AUTO_TEST_CASE(line_name)
     {
         BOOST_TEST_PASSPOINT();
