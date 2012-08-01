@@ -1,6 +1,8 @@
 [
     {
-        "title": "豊肥本線"
+        "company_name": "JR 九州",
+        "line_name":    "豊肥本線",
+        "note":         "平成24.3.17 改正"
     },
     [
         {

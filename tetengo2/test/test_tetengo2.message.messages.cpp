@@ -225,6 +225,10 @@ BOOST_AUTO_TEST_SUITE(messages)
                     messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
                     string_type(TETENGO2_TEXT("ByeBye"))
                 );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
+                    string_type(TETENGO2_TEXT("Colon:"))
+                );
             }
             {
                 const set_global_locale global_locale(locale_ja);
@@ -256,6 +260,10 @@ BOOST_AUTO_TEST_SUITE(messages)
                     messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
                     string_type(TETENGO2_TEXT("ByeBye"))
                 );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
+                    string_type(TETENGO2_TEXT("Colon:"))
+                );
             }
             {
                 const set_global_locale global_locale(locale_zh);
@@ -275,6 +283,10 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
                     string_type(TETENGO2_TEXT("ByeBye"))
+                );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
+                    string_type(TETENGO2_TEXT("Colon:"))
                 );
             }
         }

@@ -48,9 +48,11 @@
         "Dialog:FileOpenSave:WinDIA Files":                 "WinDIA ファイル",
         "Dialog:FileOpenSave:All Files":                    "すべてのファイル",
         
-        "Dialog:FileProperty:File Property": "ファイルのプロパティ",
-        "Dialog:FileProperty:&Line Name:":   "路線名(&L):",
-        "Dialog:FileProperty:&File Name:":   "ファイル名(&F):",
+        "Dialog:FileProperty:File Property":  "ファイルのプロパティ",
+        "Dialog:FileProperty:&Company Name:": "会社名(&C):",
+        "Dialog:FileProperty:&Line Name:":    "路線名(&L):",
+        "Dialog:FileProperty:&Note:":         "記事(&N):",
+        "Dialog:FileProperty:&File Name:":    "ファイル名(&F):",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",

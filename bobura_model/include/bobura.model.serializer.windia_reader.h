@@ -138,7 +138,7 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
-                m_timetable.set_title(line);
+                m_timetable.set_line_name(line);
                 return true;
             }
 

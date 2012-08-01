@@ -421,7 +421,7 @@ namespace bobura
         {
             canvas.set_color(color_type(0x00, 0x00, 0x00, 0xFF));
 
-            canvas.draw_text(m_model.timetable().title(), position_type(left_type(0), top_type(0)));
+            canvas.draw_text(m_model.timetable().line_name(), position_type(left_type(0), top_type(0)));
         }
 
         void draw_time_lines(

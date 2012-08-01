@@ -81,21 +81,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable1;
-            timetable1.set_title(string_type(TETENGO2_TEXT("hoge")));
+            timetable1.set_line_name(string_type(TETENGO2_TEXT("hoge")));
 
             timetable_type timetable2;
-            timetable2.set_title(string_type(TETENGO2_TEXT("hoge")));
+            timetable2.set_line_name(string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(timetable1 == timetable2);
         }
         {
             timetable_type timetable1;
-            timetable1.set_title(string_type(TETENGO2_TEXT("hoge")));
+            timetable1.set_line_name(string_type(TETENGO2_TEXT("hoge")));
 
             timetable_type timetable2;
-            timetable2.set_title(string_type(TETENGO2_TEXT("fuga")));
+            timetable2.set_line_name(string_type(TETENGO2_TEXT("fuga")));
 
-            BOOST_CHECK(timetable1 == timetable2);
+            BOOST_CHECK(timetable1 != timetable2);
         }
         {
             timetable_type timetable1;
@@ -191,6 +191,66 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK(timetable1 == timetable2);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(company_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const timetable_type timetable;
+
+        BOOST_CHECK(timetable.company_name().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_company_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        timetable_type timetable;
+
+        timetable.set_company_name(string_type(TETENGO2_TEXT("hoge")));
+
+        BOOST_CHECK(timetable.company_name() == string_type(TETENGO2_TEXT("hoge")));
+    }
+
+    BOOST_AUTO_TEST_CASE(line_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const timetable_type timetable;
+
+        BOOST_CHECK(timetable.line_name().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_line_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        timetable_type timetable;
+
+        timetable.set_line_name(string_type(TETENGO2_TEXT("hoge")));
+
+        BOOST_CHECK(timetable.line_name() == string_type(TETENGO2_TEXT("hoge")));
+    }
+
+    BOOST_AUTO_TEST_CASE(note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const timetable_type timetable;
+
+        BOOST_CHECK(timetable.note().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        timetable_type timetable;
+
+        timetable.set_note(string_type(TETENGO2_TEXT("hoge")));
+
+        BOOST_CHECK(timetable.note() == string_type(TETENGO2_TEXT("hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(station_locations)

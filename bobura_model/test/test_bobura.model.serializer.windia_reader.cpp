@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(p_timetable->title().empty());
+            BOOST_CHECK(p_timetable->line_name().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
             BOOST_CHECK(p_timetable->train_kinds().empty());
             BOOST_CHECK(p_timetable->down_trains().empty());
@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("abc")));
+            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
 
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
             {
