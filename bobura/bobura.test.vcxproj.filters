@@ -19,6 +19,9 @@
     <Filter Include="sources\test_bobura\view">
       <UniqueIdentifier>{ef97df1a-c90f-499c-b241-4f9b846a504d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura\format">
+      <UniqueIdentifier>{4b166713-3d24-4086-adc3-70d445d0be0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -85,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.diagram_picture_box.cpp">
       <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.format.font_color_set.cpp">
+      <Filter>sources\test_bobura\format</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ sources = \
     test_bobura.about_dialog.cpp \
     test_bobura.diagram_picture_box.cpp \
     test_bobura.diagram_view.cpp \
+    test_bobura.format.font_color_set.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
     test_bobura.load_save.load_from_file.cpp \

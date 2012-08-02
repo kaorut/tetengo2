@@ -98,6 +98,7 @@
     <ClCompile Include="test\test_bobura.diagram_picture_box.cpp" />
     <ClCompile Include="test\test_bobura.diagram_view.cpp" />
     <ClCompile Include="test\test_bobura.file_property_dialog.cpp" />
+    <ClCompile Include="test\test_bobura.format.font_color_set.cpp" />
     <ClCompile Include="test\test_bobura.load_save.confirm_file_save.cpp" />
     <ClCompile Include="test\test_bobura.load_save.load_from_file.cpp" />
     <ClCompile Include="test\test_bobura.load_save.new_file.cpp" />
