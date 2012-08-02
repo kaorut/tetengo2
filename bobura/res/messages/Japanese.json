@@ -28,6 +28,9 @@
         "Menu:File:Proper&ty...": "プロパティ(&T)...",
         "Menu:File:E&xit":        "終了(&X)",
         
+        "Menu:F&ormat":                    "書式(&O)",
+        "Menu:Format:&Font And Colors...": "フォントと色(&F)...",
+        
         "Menu:&View":                          "表示(&V)",
         "Menu:View:&Horizontal Zoom":          "時刻方向拡大縮小(&H)",
         "Menu:View:Horizontal Zoom:Zoom &In":  "拡大(&I)",
