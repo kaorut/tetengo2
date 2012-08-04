@@ -96,6 +96,7 @@
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
+#include "bobura.format.font_color_set.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
@@ -272,6 +273,8 @@ namespace bobura
         struct gui_fixture;    //!< The GUI fixture type.
         struct position;       //!< The position type.
         struct color;          //!< The color type.
+        struct font;           //!< The font type.
+        struct fast_font;      //!< The fast font type.
         struct picture_reader; //!< The picture reader type.
         struct fast_picture_reader; //!< The fast picture reader type.
         struct canvas;         //!< The canvas type.
@@ -618,6 +621,8 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::color, detail::ui::color_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::font, detail::ui::font_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_font, detail::ui::fast_font_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::fast_picture_reader, detail::ui::fast_picture_reader_type>,
@@ -666,7 +671,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -674,6 +679,8 @@ namespace bobura
 
     namespace type { namespace model
     {
+        struct font_color;     //!< The font and color type.
+        struct font_color_set; //!< The font and color set type.
         struct model;          //!< The model type.
         struct reader_selector; //!< The reader selector type.
         struct reader_set;     //!< The reader set type.
@@ -736,6 +743,19 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::model::font_color,
+                format::font_color<
+                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::font_color_set,
+                int
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::model::model,
                 timetable_model<
                     detail::model::timetable_type,
@@ -783,7 +803,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>>
         model_type_list;
 
 
