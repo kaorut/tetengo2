@@ -93,39 +93,52 @@ namespace bobura { namespace format
     /*!
         \brief The class template for a font and color set.
 
-        \tparam Font  A font type.
-        \tparam Color A color type.
+        \tparam FontColor A font and color type.
     */
-    template <typename Font, typename Color>
-    class font_color_set
+    template <typename FontColor>
+    class font_color_set : private boost::equality_comparable<font_color_set<FontColor>>
     {
     public:
         // types
 
-        //! The font type.
-        typedef Font font_type;
-
-        //! The color type.
-        typedef Color color_type;
+        //! The font and color type.
+        typedef FontColor font_color_type;
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a font and color set.
+
+            \tparam FC1 A font and color type #1.
+
+            \param company_line_name A font and color set for the company and line names.
         */
-        font_color_set()
+        template <typename FC1>
+        font_color_set(FC1&& company_line_name)
+        :
+        m_company_line_name(std::forward<FC1>(company_line_name))
         {}
 
 
         // functions
 
+        /*!
+            \brief Returns the font and color set for the company and line names.
+
+            \return The font and color set for the company and line names.
+        */
+        const font_color_type& company_line_name()
+        const
+        {
+            return m_company_line_name;
+        }
+
 
     private:
-        // types
-
-
         // variables
+
+        font_color_type m_company_line_name;
 
 
     };
