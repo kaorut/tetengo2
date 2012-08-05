@@ -118,6 +118,12 @@ namespace bobura { namespace format
         //! The font and color type.
         typedef FontColor font_color_type;
 
+        //! The font type.
+        typedef typename font_color_type::font_type font_type;
+
+        //! The color type.
+        typedef typename font_color_type::color_type color_type;
+
 
         // constructors and destructor
 
