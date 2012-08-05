@@ -57,6 +57,20 @@ namespace bobura { namespace format
         // functions
 
         /*!
+            \brief Checks whether one font and color is equal to another.
+
+            \param one     One font and color.
+            \param another Another font and color.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const font_color& one, const font_color& another)
+        {
+            return one.m_font == another.m_font && one.m_color == another.m_color;
+        }
+
+        /*!
             \brief Returns the font.
 
             \return The font.
@@ -122,6 +136,20 @@ namespace bobura { namespace format
 
 
         // functions
+
+        /*!
+            \brief Checks whether one font and color set is equal to another.
+
+            \param one     One font and color set.
+            \param another Another font and color set.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const font_color_set& one, const font_color_set& another)
+        {
+            return one.m_company_line_name == another.m_company_line_name;
+        }
 
         /*!
             \brief Returns the font and color set for the company and line names.
