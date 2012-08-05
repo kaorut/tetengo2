@@ -172,7 +172,23 @@ namespace bobura { namespace format
     private:
         // variables
 
+        //color_type m_background;
+
         font_color_type m_company_line_name;
+
+        //font_color_type m_note;
+
+        //font_color_type m_time_line;
+
+        //font_color_type m_local_station;
+
+        //font_color_type m_principal_station;
+
+        //font_color_type m_local_terminal_station;
+
+        //font_color_type m_principal_terminal_station;
+
+        //font_type m_train_name;
 
 
     };
