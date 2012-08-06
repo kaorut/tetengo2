@@ -130,14 +130,58 @@ namespace bobura { namespace format
         /*!
             \brief Creates a font and color set.
 
+            \tparam C   A color type.
             \tparam FC1 A font and color type #1.
+            \tparam FC2 A font and color type #2.
+            \tparam FC3 A font and color type #3.
+            \tparam FC4 A font and color type #4.
+            \tparam FC5 A font and color type #5.
+            \tparam FC6 A font and color type #6.
+            \tparam FC7 A font and color type #7.
+            \tparam F   A font type.
 
-            \param company_line_name A font and color set for the company and line names.
+            \param background                 A color for the background.
+            \param company_line_name          A font and color for the company and line names.
+            \param note                       A font and color for the note.
+            \param time_line                  A font and color for the time line.
+            \param local_station              A font and color for the local station.
+            \param principal_station          A font and color for the principal station.
+            \param local_terminal_station     A font and color for the local terminal station.
+            \param principal_terminal_station A font and color for the principal terminal station.
+            \param train_name                 A font for the train name.
         */
-        template <typename FC1>
-        font_color_set(FC1&& company_line_name)
+        template <
+            typename C,
+            typename FC1,
+            typename FC2,
+            typename FC3,
+            typename FC4,
+            typename FC5,
+            typename FC6,
+            typename FC7,
+            typename F
+        >
+        font_color_set(
+            C&&   background,
+            FC1&& company_line_name,
+            FC2&& note,
+            FC3&& time_line,
+            FC4&& local_station,
+            FC5&& principal_station,
+            FC6&& local_terminal_station,
+            FC7&& principal_terminal_station,
+            F&&   train_name
+        )
         :
-        m_company_line_name(std::forward<FC1>(company_line_name))
+        m_background(std::forward<C>(background)),
+        m_company_line_name(std::forward<FC1>(company_line_name)),
+        m_note(std::forward<FC2>(note)),
+        m_time_line(std::forward<FC3>(time_line)),
+        m_local_station(std::forward<FC4>(local_station)),
+        m_principal_station(std::forward<FC5>(principal_station)),
+        m_local_terminal_station(std::forward<FC6>(local_terminal_station)),
+        m_principal_terminal_station(std::forward<FC7>(principal_terminal_station)),
+        m_train_name(std::forward<F>(train_name))
         {}
 
 
@@ -154,7 +198,27 @@ namespace bobura { namespace format
         */
         friend bool operator==(const font_color_set& one, const font_color_set& another)
         {
-            return one.m_company_line_name == another.m_company_line_name;
+            return
+                one.m_background == another.m_background &&
+                one.m_company_line_name == another.m_company_line_name &&
+                one.m_note == another.m_note &&
+                one.m_time_line == another.m_time_line &&
+                one.m_local_station == another.m_local_station &&
+                one.m_principal_station == another.m_principal_station &&
+                one.m_local_terminal_station == another.m_local_terminal_station &&
+                one.m_principal_terminal_station == another.m_principal_terminal_station &&
+                one.m_train_name == another.m_train_name;
+        }
+
+        /*!
+            \brief Returns the color set for the background.
+
+            \return The color set for the background.
+        */
+        const color_type& background()
+        const
+        {
+            return m_background;
         }
 
         /*!
@@ -168,27 +232,104 @@ namespace bobura { namespace format
             return m_company_line_name;
         }
 
+        /*!
+            \brief Returns the font and color for the note.
+
+            \return The font and color for the note.
+        */
+        const font_color_type& note()
+        const
+        {
+            return m_note;
+        }
+
+        /*!
+            \brief Returns the font and color for the time line.
+
+            \return The font and color for the time line.
+        */
+        const font_color_type& time_line()
+        const
+        {
+            return m_time_line;
+        }
+
+        /*!
+            \brief Returns the font and color for the local station.
+
+            \return The font and color for the local station.
+        */
+        const font_color_type& local_station()
+        const
+        {
+            return m_local_station;
+        }
+
+        /*!
+            \brief Returns the font and color for the principal station.
+
+            \return The font and color for the principal station.
+        */
+        const font_color_type& principal_station()
+        const
+        {
+            return m_principal_station;
+        }
+
+        /*!
+            \brief Returns the font and color for the local terminal station.
+
+            \return The font and color for the local terminal station.
+        */
+        const font_color_type& local_terminal_station()
+        const
+        {
+            return m_local_terminal_station;
+        }
+
+        /*!
+            \brief Returns the font and color for the principal terminal station.
+
+            \return The font and color for the principal terminal station.
+        */
+        const font_color_type& principal_terminal_station()
+        const
+        {
+            return m_principal_terminal_station;
+        }
+
+        /*!
+            \brief Returns the font for the train name.
+
+            \return The font for the train name.
+        */
+        const font_type& train_name()
+        const
+        {
+            return m_train_name;
+        }
+
 
     private:
         // variables
 
-        //color_type m_background;
+        color_type m_background;
 
         font_color_type m_company_line_name;
 
-        //font_color_type m_note;
+        font_color_type m_note;
 
-        //font_color_type m_time_line;
+        font_color_type m_time_line;
 
-        //font_color_type m_local_station;
+        font_color_type m_local_station;
 
-        //font_color_type m_principal_station;
+        font_color_type m_principal_station;
 
-        //font_color_type m_local_terminal_station;
+        font_color_type m_local_terminal_station;
 
-        //font_color_type m_principal_terminal_station;
+        font_color_type m_principal_terminal_station;
 
-        //font_type m_train_name;
+        font_type m_train_name;
 
 
     };
