@@ -697,6 +697,7 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::ui::color>::type
             >
             font_color_type;
+        typedef format::font_color_set<font_color_type> font_color_set_type;
         typedef
             bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;
@@ -748,14 +749,14 @@ namespace bobura
     //! The model type list.
     typedef
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::font_color, detail::model::font_color_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::font_color_set, format::font_color_set<detail::model::font_color_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::model::font_color_set, detail::model::font_color_set_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::model,
                 timetable_model<
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::path>::type,
+                    detail::model::font_color_set_type,
                     message::timetable_model_observer_set
                 >
             >,

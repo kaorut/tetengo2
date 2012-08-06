@@ -29,6 +29,14 @@ namespace
 
     typedef model_type::timetable_type timetable_type;
 
+    typedef model_type::font_color_set_type font_color_set_type;
+
+    typedef font_color_set_type::font_color_type font_color_type;
+
+    typedef font_color_type::font_type font_type;
+
+    typedef font_color_type::color_type color_type;
+
 
 }
 
@@ -53,6 +61,39 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         const timetable_type& timetable = model.timetable();
 
         BOOST_CHECK(timetable.line_name().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(reset_timetable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            model_type model;
+
+            model.reset_timetable();
+        }
+        {
+            model_type model;
+
+            model.reset_timetable(tetengo2::make_unique<timetable_type>());
+        }
+        {
+            model_type model;
+
+            model.reset_timetable(
+                tetengo2::make_unique<timetable_type>(), model_type::path_type(string_type(TETENGO2_TEXT("hoge")))
+            );
+        }
+        {
+            model_type model;
+
+            BOOST_CHECK_THROW(
+                model.reset_timetable(
+                    std::unique_ptr<timetable_type>(), model_type::path_type(string_type(TETENGO2_TEXT("hoge")))
+                ),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(has_path)
@@ -101,37 +142,30 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         BOOST_CHECK(model.path() == model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
     }
 
-    BOOST_AUTO_TEST_CASE(reset_timetable)
+    BOOST_AUTO_TEST_CASE(font_color_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            model_type model;
+        const model_type model;
 
-            model.reset_timetable();
-        }
-        {
-            model_type model;
+        model.font_color_set();
+    }
 
-            model.reset_timetable(tetengo2::make_unique<timetable_type>());
-        }
-        {
-            model_type model;
+    BOOST_AUTO_TEST_CASE(set_font_color_set)
+    {
+        BOOST_TEST_PASSPOINT();
 
-            model.reset_timetable(
-                tetengo2::make_unique<timetable_type>(), model_type::path_type(string_type(TETENGO2_TEXT("hoge")))
-            );
-        }
-        {
-            model_type model;
+        model_type model;
 
-            BOOST_CHECK_THROW(
-                model.reset_timetable(
-                    std::unique_ptr<timetable_type>(), model_type::path_type(string_type(TETENGO2_TEXT("hoge")))
-                ),
-                std::invalid_argument
-            );
-        }
+        const font_type font(string_type(TETENGO2_TEXT("hoge")), 42, false, true, false, true);
+        const color_type color(12, 34, 56);
+        const font_color_type font_color(font, color);
+        const font_color_set_type font_color_set(
+            color, font_color, font_color, font_color, font_color, font_color, font_color, font_color, font
+        );
+        model.set_font_color_set(font_color_set);
+
+        BOOST_CHECK(model.font_color_set() == font_color_set);
     }
 
     BOOST_AUTO_TEST_CASE(changed)

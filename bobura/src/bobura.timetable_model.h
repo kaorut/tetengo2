@@ -29,9 +29,10 @@ namespace bobura
 
         \tparam Timetable       A timetable type.
         \tparam Path            A path type.
+        \tparam FontColorSet    A font and color set type.
         \tparam ObserverSet     A observer set type.
     */
-    template <typename Timetable, typename Path, typename ObserverSet>
+    template <typename Timetable, typename Path, typename FontColorSet, typename ObserverSet>
     class timetable_model : private boost::noncopyable
     {
     public:
@@ -42,6 +43,9 @@ namespace bobura
 
         //! The path type.
         typedef Path path_type;
+
+        //! The font color set type.
+        typedef FontColorSet font_color_set_type;
 
         //! The observer set type.
         typedef ObserverSet observer_set_type;
@@ -56,6 +60,7 @@ namespace bobura
         :
         m_p_timetable(tetengo2::make_unique<timetable_type>()),
         m_path(),
+        m_font_color_set(font_color_set_type::default_()),
         m_changed(false),
         m_observer_set()
         {
@@ -64,50 +69,6 @@ namespace bobura
 
 
         // functions
-
-        /*!
-            \brief Checks whether the model has a path.
-
-            \retval true  When the model has a path.
-            \retval false Otherwise.
-        */
-        bool has_path()
-        const
-        {
-            return static_cast<bool>(m_path);
-        }
-
-        /*!
-            \brief Returns the path.
-
-            \return The path.
-
-            \throw std::logic_error When the model does not have a path.
-        */
-        const path_type& path()
-        const
-        {
-            if (!has_path())
-                BOOST_THROW_EXCEPTION(std::logic_error("This model does not have a path."));
-
-            return *m_path;
-        }
-
-        /*!
-            \brief Sets a path.
-
-            \tparam P A path type.
-
-            \param path A path.
-        */
-        template <typename P>
-        void set_path(P&& path)
-        {
-            m_path = boost::make_optional(std::forward<path_type>(path));
-            m_changed = false;
-
-            m_observer_set.reset()();
-        }
 
         /*!
             \brief Returns the timetable.
@@ -166,6 +127,74 @@ namespace bobura
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable, P&& path)
         {
             reset_timetable_impl(std::move(p_timetable), boost::make_optional<path_type>(std::forward<P>(path)));
+        }
+
+        /*!
+            \brief Checks whether the model has a path.
+
+            \retval true  When the model has a path.
+            \retval false Otherwise.
+        */
+        bool has_path()
+        const
+        {
+            return static_cast<bool>(m_path);
+        }
+
+        /*!
+            \brief Returns the path.
+
+            \return The path.
+
+            \throw std::logic_error When the model does not have a path.
+        */
+        const path_type& path()
+        const
+        {
+            if (!has_path())
+                BOOST_THROW_EXCEPTION(std::logic_error("This model does not have a path."));
+
+            return *m_path;
+        }
+
+        /*!
+            \brief Sets a path.
+
+            \tparam P A path type.
+
+            \param path A path.
+        */
+        template <typename P>
+        void set_path(P&& path)
+        {
+            m_path = boost::make_optional(std::forward<path_type>(path));
+            m_changed = false;
+
+            m_observer_set.reset()();
+        }
+
+        /*!
+            \brief Returns the font and color set.
+
+            \return The font and color set.
+        */
+        const font_color_set_type& font_color_set()
+        const
+        {
+            return m_font_color_set;
+        }
+
+        /*!
+            \brief Sets a font and color set.
+
+            \tpram FCS A font color set type.
+
+            \param font_color_set A font color set.
+        */
+        template <typename FCS>
+        void set_font_color_set(FCS&& font_color_set)
+        {
+            m_font_color_set = std::forward<FCS>(font_color_set);
         }
 
         /*!
@@ -243,6 +272,8 @@ namespace bobura
         std::unique_ptr<timetable_type> m_p_timetable;
 
         boost::optional<path_type> m_path;
+
+        font_color_set_type m_font_color_set;
 
         bool m_changed;
 
