@@ -99,6 +99,13 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(font_color_set)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(default_)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        font_color_set_type::default_();
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();

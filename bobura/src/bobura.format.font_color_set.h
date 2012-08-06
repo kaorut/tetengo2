@@ -125,6 +125,46 @@ namespace bobura { namespace format
         typedef typename font_color_type::color_type color_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the default font and color set.
+
+            \return The default font and color set.
+        */
+        static const font_color_set& default_()
+        {
+            static const font_type default_font = font_type::dialog_font();
+            static const color_type default_fore_color(64, 64, 64);
+            static const color_type default_back_color(255, 255, 255);
+            static const font_color_type default_font_color(default_font, default_fore_color);
+
+            static const font_color_set singleton(
+                default_back_color,
+                font_color_type(
+                    font_type(
+                        default_font.family(),
+                        default_font.size() * 2,
+                        default_font.bold(),
+                        default_font.italic(),
+                        default_font.underline(),
+                        default_font.strikeout()
+                    ),
+                    default_fore_color
+                ),
+                default_font_color,
+                default_font_color,
+                default_font_color,
+                default_font_color,
+                default_font_color,
+                default_font_color,
+                default_font
+            );
+
+            return singleton;
+        }
+
+
         // constructors and destructor
 
         /*!
