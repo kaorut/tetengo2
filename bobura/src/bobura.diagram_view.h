@@ -132,10 +132,10 @@ namespace bobura
         {
             clear_background(canvas, canvas_dimension);
 
-            draw_header(canvas, canvas_dimension);
-            draw_time_lines(canvas, canvas_dimension, scroll_bar_position);
-            draw_station_lines(canvas, canvas_dimension, scroll_bar_position);
-            draw_trains(canvas, canvas_dimension, scroll_bar_position);
+            const height_type header_height = draw_header(canvas, canvas_dimension);
+            draw_time_lines(canvas, canvas_dimension, header_height, scroll_bar_position);
+            draw_station_lines(canvas, canvas_dimension, header_height, scroll_bar_position);
+            draw_trains(canvas, canvas_dimension, header_height, scroll_bar_position);
         }
 
         /*!
@@ -487,6 +487,7 @@ namespace bobura
         void draw_time_lines(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
@@ -570,6 +571,7 @@ namespace bobura
         void draw_station_lines(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
@@ -624,14 +626,19 @@ namespace bobura
         void draw_trains(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
         {
             canvas.set_font(m_model.font_color_set().train_name());
 
-            draw_trains_impl(m_model.timetable().down_trains(), true, canvas, canvas_dimension, scroll_bar_position);
-            draw_trains_impl(m_model.timetable().up_trains(), false, canvas, canvas_dimension, scroll_bar_position);
+            draw_trains_impl(
+                m_model.timetable().down_trains(), true, canvas, canvas_dimension, header_height, scroll_bar_position
+            );
+            draw_trains_impl(
+                m_model.timetable().up_trains(), false, canvas, canvas_dimension, header_height, scroll_bar_position
+            );
         }
 
         void draw_trains_impl(
@@ -639,6 +646,7 @@ namespace bobura
             const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
@@ -653,6 +661,7 @@ namespace bobura
                     down,
                     tetengo2::cpp11::ref(canvas),
                     tetengo2::cpp11::cref(canvas_dimension),
+                    tetengo2::cpp11::cref(header_height),
                     tetengo2::cpp11::cref(scroll_bar_position)
                 )
             );
@@ -663,6 +672,7 @@ namespace bobura
             const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
@@ -708,6 +718,7 @@ namespace bobura
                                 down,
                                 canvas,
                                 canvas_dimension,
+                                header_height,
                                 scroll_bar_position
                             );
 
@@ -753,6 +764,7 @@ namespace bobura
                                 down,
                                 canvas,
                                 canvas_dimension,
+                                header_height,
                                 scroll_bar_position
                             );
 
@@ -842,6 +854,7 @@ namespace bobura
             const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
@@ -859,6 +872,7 @@ namespace bobura
                     down,
                     canvas,
                     canvas_dimension,
+                    header_height,
                     scroll_bar_position
                 );
             }
@@ -875,6 +889,7 @@ namespace bobura
                     down,
                     canvas,
                     canvas_dimension,
+                    header_height,
                     scroll_bar_position
                 );
                 draw_train_line_impl(
@@ -888,6 +903,7 @@ namespace bobura
                     down,
                     canvas,
                     canvas_dimension,
+                    header_height,
                     scroll_bar_position
                 );
             }
@@ -904,6 +920,7 @@ namespace bobura
             const bool            down,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
+            const height_type&    header_height,
             const position_type&  scroll_bar_position
         )
         const
