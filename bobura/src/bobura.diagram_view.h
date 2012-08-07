@@ -132,7 +132,7 @@ namespace bobura
         {
             clear_background(canvas, canvas_dimension);
 
-            draw_header(canvas);
+            draw_header(canvas, canvas_dimension);
             draw_time_lines(canvas, canvas_dimension, scroll_bar_position);
             draw_station_lines(canvas, canvas_dimension, scroll_bar_position);
             draw_trains(canvas, canvas_dimension, scroll_bar_position);
@@ -418,13 +418,70 @@ namespace bobura
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
 
-        void draw_header(canvas_type& canvas)
+        height_type draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         const
         {
+            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+
+            const string_type company_line_name =
+                m_model.timetable().company_name() +
+                string_type(TETENGO2_TEXT(" ")) +
+                m_model.timetable().line_name();
+            const string_type note = m_model.timetable().note();
+
             canvas.set_font(m_model.font_color_set().company_line_name().font());
             canvas.set_color(m_model.font_color_set().company_line_name().color());
+            const dimension_type company_line_name_dimension = canvas.calc_text_dimension(company_line_name);
+            const width_type company_line_name_width =
+                tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension);
+            const height_type company_line_name_height =
+                tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension);
 
-            canvas.draw_text(m_model.timetable().line_name(), position_type(left_type(0), top_type(0)));
+            canvas.set_font(m_model.font_color_set().note().font());
+            canvas.set_color(m_model.font_color_set().note().color());
+            const dimension_type note_dimension = canvas.calc_text_dimension(note);
+            const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension);
+            const height_type note_height = tetengo2::gui::dimension<dimension_type>::height(note_dimension);
+
+            position_type company_line_name_position(left_type(0), top_type(0));
+            position_type note_position(left_type(0), top_type(0));
+            height_type header_height(0);
+            if (company_line_name_width + note_width <= canvas_width)
+            {
+                const left_type height_diff =
+                    left_type::from(company_line_name_height) - left_type::from(note_height);
+                if (height_diff > 0)
+                {
+                    company_line_name_position = position_type(left_type(0), top_type(0));
+                    note_position =
+                        position_type(left_type::from(canvas_width - note_width), height_diff / top_type(2));
+                    header_height = company_line_name_height;
+                }
+                else
+                {
+                    company_line_name_position =
+                        position_type(left_type(0), (top_type(0) - height_diff) / top_type(2));
+                    note_position = position_type(left_type::from(canvas_width - note_width), top_type(0));
+                    header_height = note_height;
+                }
+
+            }
+            else
+            {
+                company_line_name_position = position_type(left_type(0), top_type(0));
+                note_position = position_type(left_type(0), top_type::from(company_line_name_height));
+                header_height = company_line_name_height + note_height;
+            }
+
+            canvas.set_font(m_model.font_color_set().company_line_name().font());
+            canvas.set_color(m_model.font_color_set().company_line_name().color());
+            canvas.draw_text(company_line_name, company_line_name_position);
+
+            canvas.set_font(m_model.font_color_set().note().font());
+            canvas.set_color(m_model.font_color_set().note().color());
+            canvas.draw_text(note, note_position);
+
+            return header_height;
         }
 
         void draw_time_lines(
