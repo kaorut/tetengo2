@@ -412,7 +412,9 @@ namespace bobura
         void clear_background(canvas_type& canvas, const dimension_type& canvas_dimension)
         const
         {
-            canvas.set_background(tetengo2::make_unique<const solid_background_type>(color_type(255, 255, 255)));
+            canvas.set_background(
+                tetengo2::make_unique<const solid_background_type>(m_model.font_color_set().background())
+            );
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
 
