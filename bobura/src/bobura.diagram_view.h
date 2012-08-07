@@ -421,7 +421,8 @@ namespace bobura
         void draw_header(canvas_type& canvas)
         const
         {
-            canvas.set_color(color_type(0x00, 0x00, 0x00, 0xFF));
+            canvas.set_font(m_model.font_color_set().company_line_name().font());
+            canvas.set_color(m_model.font_color_set().company_line_name().color());
 
             canvas.draw_text(m_model.timetable().line_name(), position_type(left_type(0), top_type(0)));
         }
@@ -448,7 +449,8 @@ namespace bobura
             const left_type minute_interval =
                 time_to_left(time_type(60), false, left_type(0)) - time_to_left(time_type(0), false, left_type(0));
 
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+            canvas.set_font(m_model.font_color_set().time_line().font());
+            canvas.set_color(m_model.font_color_set().time_line().color());
 
             typedef typename time_type::tick_type time_tick_type;
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
@@ -528,7 +530,8 @@ namespace bobura
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+            canvas.set_font(m_model.font_color_set().local_station().font());
+            canvas.set_color(m_model.font_color_set().local_station().color());
 
             for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
@@ -568,6 +571,8 @@ namespace bobura
         )
         const
         {
+            canvas.set_font(m_model.font_color_set().train_name());
+
             draw_trains_impl(m_model.timetable().down_trains(), true, canvas, canvas_dimension, scroll_bar_position);
             draw_trains_impl(m_model.timetable().up_trains(), false, canvas, canvas_dimension, scroll_bar_position);
         }
