@@ -134,33 +134,7 @@ namespace bobura { namespace format
         */
         static const font_color_set& default_()
         {
-            static const font_type default_font = font_type::dialog_font();
-            static const color_type default_fore_color(64, 64, 64);
-            static const color_type default_back_color(255, 255, 255);
-            static const font_color_type default_font_color(default_font, default_fore_color);
-
-            static const font_color_set singleton(
-                default_back_color,
-                font_color_type(
-                    font_type(
-                        default_font.family(),
-                        default_font.size() * 2,
-                        default_font.bold(),
-                        default_font.italic(),
-                        default_font.underline(),
-                        default_font.strikeout()
-                    ),
-                    default_fore_color
-                ),
-                default_font_color,
-                default_font_color,
-                default_font_color,
-                default_font_color,
-                default_font_color,
-                default_font_color,
-                default_font
-            );
-
+            static const font_color_set singleton = make_default();
             return singleton;
         }
 
@@ -351,6 +325,49 @@ namespace bobura { namespace format
 
 
     private:
+        // static functions
+
+        static font_color_set make_default()
+        {
+            const font_type default_font = font_type::dialog_font();
+            const font_type default_line_name_font(
+                default_font.family(),
+                default_font.size() * 2,
+                default_font.bold(),
+                default_font.italic(),
+                default_font.underline(),
+                default_font.strikeout()
+            );
+
+            const color_type default_back_color(0xF8, 0xFF, 0xF0);
+
+            const font_color_type default_line_name_font_color(default_font, color_type(0x40, 0x40, 0x40));
+            const font_color_type default_note_font_color(default_font, color_type(0x40, 0x40, 0x40));
+            const font_color_type default_time_line_font_color(default_font, color_type(0x80, 0x80, 0x80));
+            const font_color_type default_local_station_font_color(default_font, color_type(0xA0, 0xA0, 0xA0));
+            const font_color_type default_principal_station_font_color(default_font, color_type(0x40, 0x40, 0xA0));
+            const font_color_type default_local_terminal_station_font_color(
+                default_font, color_type(0xA0, 0x40, 0x40)
+            );
+            const font_color_type default_principal_terminal_station_font_color(
+                default_font, color_type(0x00, 0x00, 0x00)
+            );
+
+            return
+                font_color_set(
+                    default_back_color,
+                    default_line_name_font_color,
+                    default_note_font_color,
+                    default_time_line_font_color,
+                    default_local_station_font_color,
+                    default_principal_station_font_color,
+                    default_local_terminal_station_font_color,
+                    default_principal_terminal_station_font_color,
+                    default_font
+                );
+        }
+
+
         // variables
 
         color_type m_background;
