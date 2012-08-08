@@ -394,7 +394,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param picture_box A picture box.
             \param view        A view.
         */
-        paint_paint(const picture_box_type& picture_box, const view_type& view)
+        paint_paint(const picture_box_type& picture_box, view_type& view)
         :
         m_picture_box(picture_box),
         m_view(view)
@@ -448,7 +448,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         const picture_box_type& m_picture_box;
 
-        const view_type& m_view;
+        view_type& m_view;
 
 
     };
