@@ -46,9 +46,15 @@ namespace
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::solid_background>::type solid_background_type;
 
     typedef
+        boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
+        station_grade_type_set_type;
+
+    typedef
         boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef bobura::diagram_view<model_type, canvas_type, solid_background_type, message_catalog_type> view_type;
+    typedef
+        bobura::diagram_view<model_type, canvas_type, solid_background_type, station_grade_type_set_type, message_catalog_type>
+        view_type;
 
     typedef view_type::horizontal_scale_type horizontal_scale_type;
 
@@ -77,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
 
         const model_type model;
         const message_catalog_type message_catalog;
-        const view_type view(model, message_catalog);
+        view_type view(model, message_catalog);
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
