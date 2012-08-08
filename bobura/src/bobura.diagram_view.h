@@ -238,12 +238,14 @@ namespace bobura
         const
         {
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const width_type header_width = m_station_header_width;
             const width_type page_width =
-                canvas_width > m_station_header_width ? canvas_width - m_station_header_width : width_type(0);
+                canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
+            const height_type header_height = m_line_name_header_height + m_time_header_height;
             const height_type page_height =
-                canvas_height > m_time_header_height ? canvas_height - m_time_header_height : height_type(0);
+                canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -585,6 +587,7 @@ namespace bobura
                 );
             const left_type line_right = std::min(canvas_right, last_time_position);
 
+            const top_type canvas_top = top_type::from(m_line_name_header_height + m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
@@ -595,10 +598,8 @@ namespace bobura
             {
                 const top_type& position = m_station_positions[i];
                 const top_type line_position =
-                    position +
-                    top_type::from(m_time_header_height) -
-                    tetengo2::gui::position<position_type>::top(scroll_bar_position);
-                if (line_position < top_type::from(m_time_header_height))
+                    position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
+                if (line_position < canvas_top)
                     continue;
                 if (line_position > canvas_bottom)
                     break;
