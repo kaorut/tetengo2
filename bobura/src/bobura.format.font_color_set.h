@@ -341,7 +341,7 @@ namespace bobura { namespace format
 
             const color_type default_back_color(0xF8, 0xFF, 0xF0);
 
-            const font_color_type default_line_name_font_color(default_font, color_type(0x40, 0x40, 0x40));
+            const font_color_type default_line_name_font_color(default_line_name_font, color_type(0x40, 0x40, 0x40));
             const font_color_type default_note_font_color(default_font, color_type(0x40, 0x40, 0x40));
             const font_color_type default_time_line_font_color(default_font, color_type(0x80, 0x80, 0x80));
             const font_color_type default_local_station_font_color(default_font, color_type(0xA0, 0xA0, 0xA0));
