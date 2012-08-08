@@ -1016,10 +1016,9 @@ namespace bobura
         )
         const
         {
-            return
-                m_station_positions[station_index] -
-                vertical_scroll_bar_position +
-                top_type::from(m_time_header_height);
+            const top_type canvas_top =
+                top_type::from(m_line_name_header_height + m_time_header_height);
+            return m_station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
         }
 
 
