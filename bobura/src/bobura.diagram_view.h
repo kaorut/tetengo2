@@ -35,12 +35,19 @@ namespace bobura
    /*!
         \brief The class template for a diagram view.
 
-        \tparam Model           A model type.
-        \tparam Canvas          A canvas type.
-        \tparam SolidBackground A solid background type.
-        \tparam MessageCatalog  A message catalog type.
+        \tparam Model               A model type.
+        \tparam Canvas              A canvas type.
+        \tparam SolidBackground     A solid background type.
+        \tparam StationGradeTypeSet A station grade type set type.
+        \tparam MessageCatalog      A message catalog type.
     */
-    template <typename Model, typename Canvas, typename SolidBackground, typename MessageCatalog>
+    template <
+        typename Model,
+        typename Canvas,
+        typename SolidBackground,
+        typename StationGradeTypeSet,
+        typename MessageCatalog
+    >
     class diagram_view : private boost::noncopyable
     {
     public:
@@ -84,6 +91,9 @@ namespace bobura
 
         //! The solid background type.
         typedef SolidBackground solid_background_type;
+
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -256,13 +266,25 @@ namespace bobura
 
         typedef typename solid_background_type::color_type color_type;
 
-        typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+        typedef typename model_type::font_color_set_type font_color_set_type;
 
-        typedef typename model_type::timetable_type::train_type train_type;
+        typedef typename font_color_set_type::font_color_type font_color_type;
 
-        typedef typename model_type::timetable_type::trains_type trains_type;
+        typedef typename model_type::timetable_type timetable_type;
 
-        typedef typename model_type::timetable_type::train_kind_type train_kind_type;
+        typedef typename timetable_type::station_intervals_type station_intervals_type;
+
+        typedef typename timetable_type::station_location_type station_location_type;
+
+        typedef typename station_location_type::station_type station_type;
+
+        typedef typename station_type::grade_type station_grade_type;
+
+        typedef typename timetable_type::train_type train_type;
+
+        typedef typename timetable_type::trains_type trains_type;
+
+        typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_type::stop_type stop_type;
 
@@ -591,8 +613,8 @@ namespace bobura
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
-            canvas.set_font(m_model.font_color_set().local_station().font());
-            canvas.set_color(m_model.font_color_set().local_station().color());
+            canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+            canvas.set_line_style(canvas_type::line_style_type::solid);
 
             for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
@@ -604,14 +626,17 @@ namespace bobura
                 if (line_position > canvas_bottom)
                     break;
 
-                canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
-                canvas.set_line_style(canvas_type::line_style_type::solid);
+                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
+                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
+                const font_color_type& font_color =
+                    select_station_font_color(m_model.timetable().station_locations()[i].station().grade());
+                canvas.set_font(font_color.font());
+                canvas.set_color(font_color.color());
+
                 canvas.draw_line(
                     position_type(left_type(0), line_position), position_type(line_right, line_position)
                 );
 
-                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
-                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
                 canvas.draw_text(
                     station_name,
                     position_type(
@@ -620,6 +645,23 @@ namespace bobura
                             top_type::from(tetengo2::gui::dimension<dimension_type>::height(station_name_dimension))
                     )
                 );
+            }
+        }
+
+        const font_color_type& select_station_font_color(const station_grade_type& grade)
+        {
+            if      (&grade == &station_grade_type_set_type::local_type::instance())
+                return m_model.font_color_set().local_station();
+            else if (&grade == &station_grade_type_set_type::principal_type::instance())
+                return m_model.font_color_set().principal_station();
+            else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
+                return m_model.font_color_set().local_terminal_station();
+            else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
+                return m_model.font_color_set().principal_terminal_station();
+            else
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
             }
         }
 

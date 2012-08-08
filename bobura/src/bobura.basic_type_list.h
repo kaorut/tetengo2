@@ -682,6 +682,7 @@ namespace bobura
         struct font_color;     //!< The font and color type.
         struct font_color_set; //!< The font and color set type.
         struct model;          //!< The model type.
+        struct station_grade_type_set; //!< The station grade type set type.
         struct reader_selector; //!< The reader selector type.
         struct reader_set;     //!< The reader set type.
         struct writer_selector; //!< The writer selector type.
@@ -761,6 +762,8 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::model::station_grade_type_set, detail::model::station_grade_type_set_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::reader_selector,
                 model::serializer::reader_selector<
@@ -800,7 +803,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         model_type_list;
 
 
@@ -869,6 +872,7 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
+                    boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >
             >,
