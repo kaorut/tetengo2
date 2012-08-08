@@ -446,13 +446,18 @@ namespace bobura
 
         void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         {
-            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
-
             const string_type company_line_name =
                 m_model.timetable().company_name() +
-                string_type(TETENGO2_TEXT(" ")) +
+                (m_model.timetable().company_name().empty() ? string_type() : string_type(TETENGO2_TEXT(" "))) +
                 m_model.timetable().line_name();
             const string_type note = m_model.timetable().note();
+            if (company_line_name.empty() && note.empty())
+            {
+                m_line_name_header_height = height_type(0);
+                return;
+            }
+
+            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
 
             canvas.set_font(m_model.font_color_set().company_line_name().font());
             canvas.set_color(m_model.font_color_set().company_line_name().color());
@@ -460,13 +465,15 @@ namespace bobura
             const width_type company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension);
             const height_type company_line_name_height =
-                tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension);
+                company_line_name.empty() ?
+                height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension);
 
             canvas.set_font(m_model.font_color_set().note().font());
             canvas.set_color(m_model.font_color_set().note().color());
             const dimension_type note_dimension = canvas.calc_text_dimension(note);
             const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension);
-            const height_type note_height = tetengo2::gui::dimension<dimension_type>::height(note_dimension);
+            const height_type note_height =
+                note.empty() ? height_type(0) : tetengo2::gui::dimension<dimension_type>::height(note_dimension);
 
             position_type company_line_name_position(left_type(0), top_type(0));
             position_type note_position(left_type(0), top_type(0));
