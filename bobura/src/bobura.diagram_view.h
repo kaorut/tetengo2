@@ -977,7 +977,7 @@ namespace bobura
                 departure_station_index < arrival_station_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
-            if (lower_bound < top_type::from(m_time_header_height))
+            if (lower_bound < top_type::from(m_line_name_header_height + m_time_header_height))
                 return;
 
             canvas.draw_line(departure, arrival);
