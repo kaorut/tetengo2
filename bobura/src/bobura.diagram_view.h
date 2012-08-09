@@ -480,19 +480,19 @@ namespace bobura
             height_type header_height(0);
             if (company_line_name_width + note_width <= canvas_width)
             {
-                const left_type height_diff =
-                    left_type::from(company_line_name_height) - left_type::from(note_height);
+                const top_type height_diff =
+                    top_type::from(company_line_name_height) - top_type::from(note_height);
                 if (height_diff > 0)
                 {
+                    const top_type note_top(height_diff / top_type(2));
                     company_line_name_position = position_type(left_type(0), top_type(0));
-                    note_position =
-                        position_type(left_type::from(canvas_width - note_width), height_diff / top_type(2));
+                    note_position = position_type(left_type::from(canvas_width - note_width), note_top);
                     header_height = company_line_name_height;
                 }
                 else
                 {
-                    company_line_name_position =
-                        position_type(left_type(0), (top_type(0) - height_diff) / top_type(2));
+                    const top_type company_line_name_top((top_type(0) - height_diff) / top_type(2));
+                    company_line_name_position = position_type(left_type(0), company_line_name_top);
                     note_position = position_type(left_type::from(canvas_width - note_width), top_type(0));
                     header_height = note_height;
                 }

@@ -96,7 +96,6 @@
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
-#include "bobura.format.font_color_set.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
@@ -112,6 +111,7 @@
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.font_color_set.h"
 #include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train_info.stop.h"
@@ -693,12 +693,12 @@ namespace bobura
     namespace detail { namespace model
     {
         typedef
-            format::font_color<
+            bobura::model::timetable_info::font_color<
                 boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
                 boost::mpl::at<ui_type_list, type::ui::color>::type
             >
             font_color_type;
-        typedef format::font_color_set<font_color_type> font_color_set_type;
+        typedef bobura::model::timetable_info::font_color_set<font_color_type> font_color_set_type;
         typedef
             bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;

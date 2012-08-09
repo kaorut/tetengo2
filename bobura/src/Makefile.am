@@ -23,7 +23,6 @@ extra_headers = \
     bobura.diagram_picture_box.h \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
-    bobura.format.font_color_set.h \
     bobura.file_property_dialog.h \
     bobura.load_save.confirm_file_save.h \
     bobura.load_save.load_from_file.h \

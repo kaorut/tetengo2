@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::format::font_color_set.
+    \brief Test of class bobura::model::timetable_info::font_color_set.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -11,14 +11,16 @@
 
 #include <tetengo2.text.h>
 
-#include "bobura.type_list.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::font_color>::type font_color_type;
+    typedef
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::font_color>::type
+        font_color_type;
 
     typedef font_color_type::font_type font_type;
 
@@ -26,14 +28,17 @@ namespace
 
     typedef font_color_type::color_type color_type;
 
-    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::font_color_set>::type font_color_set_type;
+    typedef
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::font_color_set>::type
+        font_color_set_type;
 
 
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
-BOOST_AUTO_TEST_SUITE(format)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(timetable_info)
 BOOST_AUTO_TEST_SUITE(font_color)
     // test cases
 
@@ -692,6 +697,7 @@ BOOST_AUTO_TEST_SUITE(font_color_set)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

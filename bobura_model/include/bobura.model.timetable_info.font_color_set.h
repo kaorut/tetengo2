@@ -1,20 +1,20 @@
 /*! \file
-    \brief The definition of bobura::format::font_color_set.
+    \brief The definition of bobura::model::timetable_info::font_color_set.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_FORMAT_FONTCOLORSET_H)
-#define BOBURA_FORMAT_FONTCOLORSET_H
+#if !defined(BOBURA_MODEL_TIMETABLEINFO_FONTCOLORSET_H)
+#define BOBURA_MODEL_TIMETABLEINFO_FONTCOLORSET_H
 
 #include <utility>
 
 #include <boost/operators.hpp>
 
 
-namespace bobura { namespace format
+namespace bobura { namespace model { namespace timetable_info
 {
     /*!
         \brief The class template for a font and color.
@@ -392,7 +392,7 @@ namespace bobura { namespace format
     };
 
 
-}}
+}}}
 
 
 #endif
