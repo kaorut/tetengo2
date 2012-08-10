@@ -87,6 +87,16 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::string_type string_type;
 
+        typedef typename timetable_type::font_color_set_type font_color_set_type;
+
+        typedef typename font_color_set_type::font_color_type font_color_type;
+
+        typedef typename font_color_type::font_type font_type;
+
+        typedef typename font_color_type::color_type color_type;
+
+        typedef boost::variant<font_color_type, font_type, color_type> font_color_set_element_type;
+
         typedef typename timetable_type::train_kind_index_type train_kind_index_type;
 
         typedef typename push_parser_type::grammar_type grammar_type;
@@ -104,8 +114,6 @@ namespace bobura { namespace model { namespace serializer
         typedef typename station_location_type::meterage_type meterage_type;
 
         typedef typename timetable_type::train_kind_type train_kind_type;
-
-        typedef typename train_kind_type::color_type color_type;
 
         typedef typename train_kind_type::weight_type weight_type;
 
@@ -167,6 +175,11 @@ namespace bobura { namespace model { namespace serializer
                 if (found != header->end())
                     p_timetable->set_note(found->second);
             }
+
+            const boost::optional<font_color_set_type> font_color_set = read_font_color_set(pull_parser);
+            if (!font_color_set)
+                return std::unique_ptr<timetable_type>();
+            p_timetable->set_font_color_set(*font_color_set);
 
             const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
@@ -231,6 +244,55 @@ namespace bobura { namespace model { namespace serializer
             pull_parser.next();
 
             return boost::make_optional(std::move(header));
+        }
+
+        static boost::optional<font_color_set_type> read_font_color_set(pull_parser_type& pull_parser)
+        {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
+                return boost::none;
+            pull_parser.next();
+
+            for (;;)
+            {
+                const boost::optional<std::pair<string_type, font_color_set_element_type>> element =
+                    read_font_color_set_element(pull_parser);
+                if (!element)
+                    break;
+
+            }
+
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
+                return boost::none;
+            pull_parser.next();
+
+            return font_color_set_type::default_();
+        }
+
+        static boost::optional<std::pair<string_type, font_color_set_element_type>> read_font_color_set_element(
+            pull_parser_type& pull_parser
+        )
+        {
+            //if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+            //    return boost::none;
+            //const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            //if (key.empty())
+            //    return boost::none;
+            //pull_parser.next();
+
+            //const boost::optional<input_string_type> value = read_string(pull_parser);
+            //if (!value)
+            //    return boost::none;
+
+            //if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+            //    return boost::none;
+            //pull_parser.next();
+
+            //return
+            //    boost::make_optional(
+            //        std::make_pair(encoder().decode(std::move(key)), encoder().decode(std::move(*value)))
+            //    );
+
+            return boost::none;
         }
 
         static boost::optional<std::vector<station_location_type>> read_stations(pull_parser_type& pull_parser)
