@@ -29,14 +29,6 @@ namespace
 
     typedef model_type::timetable_type timetable_type;
 
-    typedef model_type::font_color_set_type font_color_set_type;
-
-    typedef font_color_set_type::font_color_type font_color_type;
-
-    typedef font_color_type::font_type font_type;
-
-    typedef font_color_type::color_type color_type;
-
 
 }
 
@@ -140,32 +132,6 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         model.set_path(model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
 
         BOOST_CHECK(model.path() == model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
-    }
-
-    BOOST_AUTO_TEST_CASE(font_color_set)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const model_type model;
-
-        model.font_color_set();
-    }
-
-    BOOST_AUTO_TEST_CASE(set_font_color_set)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        model_type model;
-
-        const font_type font(string_type(TETENGO2_TEXT("hoge")), 42, false, true, false, true);
-        const color_type color(12, 34, 56);
-        const font_color_type font_color(font, color);
-        const font_color_set_type font_color_set(
-            color, font_color, font_color, font_color, font_color, font_color, font_color, font_color, font
-        );
-        model.set_font_color_set(font_color_set);
-
-        BOOST_CHECK(model.font_color_set() == font_color_set);
     }
 
     BOOST_AUTO_TEST_CASE(changed)

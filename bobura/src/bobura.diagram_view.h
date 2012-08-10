@@ -266,11 +266,11 @@ namespace bobura
 
         typedef typename solid_background_type::color_type color_type;
 
-        typedef typename model_type::font_color_set_type font_color_set_type;
+        typedef typename model_type::timetable_type timetable_type;
+
+        typedef typename timetable_type::font_color_set_type font_color_set_type;
 
         typedef typename font_color_set_type::font_color_type font_color_type;
-
-        typedef typename model_type::timetable_type timetable_type;
 
         typedef typename timetable_type::station_intervals_type station_intervals_type;
 
@@ -439,7 +439,7 @@ namespace bobura
         const
         {
             canvas.set_background(
-                tetengo2::make_unique<const solid_background_type>(m_model.font_color_set().background())
+                tetengo2::make_unique<const solid_background_type>(m_model.timetable().font_color_set().background())
             );
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
@@ -459,8 +459,8 @@ namespace bobura
 
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
 
-            canvas.set_font(m_model.font_color_set().company_line_name().font());
-            canvas.set_color(m_model.font_color_set().company_line_name().color());
+            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
+            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
             const dimension_type company_line_name_dimension = canvas.calc_text_dimension(company_line_name);
             const width_type company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension);
@@ -468,8 +468,8 @@ namespace bobura
                 company_line_name.empty() ?
                 height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension);
 
-            canvas.set_font(m_model.font_color_set().note().font());
-            canvas.set_color(m_model.font_color_set().note().color());
+            canvas.set_font(m_model.timetable().font_color_set().note().font());
+            canvas.set_color(m_model.timetable().font_color_set().note().color());
             const dimension_type note_dimension = canvas.calc_text_dimension(note);
             const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension);
             const height_type note_height =
@@ -505,12 +505,12 @@ namespace bobura
                 header_height = company_line_name_height + note_height;
             }
 
-            canvas.set_font(m_model.font_color_set().company_line_name().font());
-            canvas.set_color(m_model.font_color_set().company_line_name().color());
+            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
+            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
             canvas.draw_text(company_line_name, company_line_name_position);
 
-            canvas.set_font(m_model.font_color_set().note().font());
-            canvas.set_color(m_model.font_color_set().note().color());
+            canvas.set_font(m_model.timetable().font_color_set().note().font());
+            canvas.set_color(m_model.timetable().font_color_set().note().color());
             canvas.draw_text(note, note_position);
 
             m_line_name_header_height = header_height;
@@ -539,8 +539,8 @@ namespace bobura
             const left_type minute_interval =
                 time_to_left(time_type(60), false, left_type(0)) - time_to_left(time_type(0), false, left_type(0));
 
-            canvas.set_font(m_model.font_color_set().time_line().font());
-            canvas.set_color(m_model.font_color_set().time_line().color());
+            canvas.set_font(m_model.timetable().font_color_set().time_line().font());
+            canvas.set_color(m_model.timetable().font_color_set().time_line().color());
 
             typedef typename time_type::tick_type time_tick_type;
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
@@ -658,13 +658,13 @@ namespace bobura
         const font_color_type& select_station_font_color(const station_grade_type& grade)
         {
             if      (&grade == &station_grade_type_set_type::local_type::instance())
-                return m_model.font_color_set().local_station();
+                return m_model.timetable().font_color_set().local_station();
             else if (&grade == &station_grade_type_set_type::principal_type::instance())
-                return m_model.font_color_set().principal_station();
+                return m_model.timetable().font_color_set().principal_station();
             else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
-                return m_model.font_color_set().local_terminal_station();
+                return m_model.timetable().font_color_set().local_terminal_station();
             else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
-                return m_model.font_color_set().principal_terminal_station();
+                return m_model.timetable().font_color_set().principal_terminal_station();
             else
             {
                 assert(false);
@@ -678,7 +678,7 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
-            canvas.set_font(m_model.font_color_set().train_name());
+            canvas.set_font(m_model.timetable().font_color_set().train_name());
 
             draw_trains_impl(m_model.timetable().down_trains(), true, canvas, canvas_dimension, scroll_bar_position);
             draw_trains_impl(m_model.timetable().up_trains(), false, canvas, canvas_dimension, scroll_bar_position);

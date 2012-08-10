@@ -152,7 +152,6 @@ namespace test_bobura { namespace model
 
     //! The model type list.
     typedef
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::model::font_color, detail::model::font_color_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::font_color_set, detail::model::font_color_set_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::grade_type_set, detail::model::grade_type_set_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::station, detail::model::station_type>,
@@ -176,11 +175,12 @@ namespace test_bobura { namespace model
                     detail::model::station_interval_calculator_type,
                     detail::model::train_kind_type,
                     detail::model::train_type,
+                    detail::model::font_color_set_type,
                     bobura::model::message::timetable_observer_set
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>
+        >>>>>>>>>>>
         model_type_list;
 
 

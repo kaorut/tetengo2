@@ -29,10 +29,9 @@ namespace bobura
 
         \tparam Timetable       A timetable type.
         \tparam Path            A path type.
-        \tparam FontColorSet    A font and color set type.
         \tparam ObserverSet     A observer set type.
     */
-    template <typename Timetable, typename Path, typename FontColorSet, typename ObserverSet>
+    template <typename Timetable, typename Path, typename ObserverSet>
     class timetable_model : private boost::noncopyable
     {
     public:
@@ -43,9 +42,6 @@ namespace bobura
 
         //! The path type.
         typedef Path path_type;
-
-        //! The font color set type.
-        typedef FontColorSet font_color_set_type;
 
         //! The observer set type.
         typedef ObserverSet observer_set_type;
@@ -60,7 +56,6 @@ namespace bobura
         :
         m_p_timetable(tetengo2::make_unique<timetable_type>()),
         m_path(),
-        m_font_color_set(font_color_set_type::default_()),
         m_changed(false),
         m_observer_set()
         {
@@ -174,30 +169,6 @@ namespace bobura
         }
 
         /*!
-            \brief Returns the font and color set.
-
-            \return The font and color set.
-        */
-        const font_color_set_type& font_color_set()
-        const
-        {
-            return m_font_color_set;
-        }
-
-        /*!
-            \brief Sets a font and color set.
-
-            \tpram FCS A font color set type.
-
-            \param font_color_set A font color set.
-        */
-        template <typename FCS>
-        void set_font_color_set(FCS&& font_color_set)
-        {
-            m_font_color_set = std::forward<FCS>(font_color_set);
-        }
-
-        /*!
             \brief Checks whether the model is changed.
 
             \retval true  When the model is changed.
@@ -272,8 +243,6 @@ namespace bobura
         std::unique_ptr<timetable_type> m_p_timetable;
 
         boost::optional<path_type> m_path;
-
-        font_color_set_type m_font_color_set;
 
         bool m_changed;
 
