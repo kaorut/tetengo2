@@ -120,9 +120,7 @@ namespace bobura
         m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
         m_station_positions()
-        {
-            update_dimension();
-        }
+        {}
 
 
         // functions
