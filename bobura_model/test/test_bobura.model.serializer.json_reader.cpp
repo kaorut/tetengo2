@@ -41,6 +41,14 @@ namespace
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
+    typedef timetable_type::font_color_set_type font_color_set_type;
+    
+    typedef font_color_set_type::font_color_type font_color_type;
+
+    typedef font_color_type::font_type font_type;
+
+    typedef font_color_type::color_type color_type;
+
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
@@ -619,6 +627,23 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(p_timetable->company_name() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("piyo")));
+
+            {
+                const font_color_set_type& font_color_set = p_timetable->font_color_set();
+
+                BOOST_CHECK(font_color_set.background() == color_type(0xAB, 0xCD, 0xEF));
+                BOOST_CHECK(
+                    font_color_set.company_line_name() ==
+                    font_color_type(
+                        font_type(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true),
+                        color_type(0xAB, 0xCD, 0xEF)
+                    )
+                );
+                BOOST_CHECK(
+                    font_color_set.train_name() ==
+                    font_type(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true)
+                );
+            }
 
             BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
             {
