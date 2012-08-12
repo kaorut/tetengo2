@@ -633,12 +633,13 @@ namespace bobura
                 if (line_position > canvas_bottom)
                     break;
 
-                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
-                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
                 const font_color_type& font_color =
                     select_station_font_color(m_model.timetable().station_locations()[i].station().grade());
                 canvas.set_font(font_color.font());
                 canvas.set_color(font_color.color());
+
+                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
+                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
 
                 canvas.draw_line(
                     position_type(left_type(0), line_position), position_type(line_right, line_position)
