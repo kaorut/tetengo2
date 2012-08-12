@@ -252,6 +252,17 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
+            color_type background_color = font_color_set_type::default_().background();
+            font_color_type company_line_name_font_color = font_color_set_type::default_().company_line_name();
+            font_color_type note_font_color = font_color_set_type::default_().note();
+            font_color_type time_line_font_color = font_color_set_type::default_().time_line();
+            font_color_type local_station_font_color = font_color_set_type::default_().local_station();
+            font_color_type principal_station_font_color = font_color_set_type::default_().principal_station();
+            font_color_type local_terminal_station_font_color =
+                font_color_set_type::default_().local_terminal_station();
+            font_color_type principal_terminal_station_font_color =
+                font_color_set_type::default_().principal_terminal_station();
+            font_type train_name_font = font_color_set_type::default_().train_name();
             for (;;)
             {
                 const boost::optional<std::pair<string_type, font_color_set_element_type>> element =
@@ -259,40 +270,189 @@ namespace bobura { namespace model { namespace serializer
                 if (!element)
                     break;
 
+                if      (element->first == string_type(TETENGO2_TEXT("background")))
+                {
+                    if (element->second.which() != 2)
+                        return boost::none;
+                    background_color = boost::get<color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("company_line_name")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    company_line_name_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("note")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    note_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("time_line")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    time_line_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("local_station")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    local_station_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("principal_station")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    principal_station_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("local_terminal_station")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    local_terminal_station_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("principal_terminal_station")))
+                {
+                    if (element->second.which() != 0)
+                        return boost::none;
+                    principal_terminal_station_font_color = boost::get<font_color_type>(element->second);
+                }
+                else if (element->first == string_type(TETENGO2_TEXT("train_name")))
+                {
+                    if (element->second.which() != 1)
+                        return boost::none;
+                    train_name_font = boost::get<font_type>(element->second);
+                }
+                else
+                {
+                    return boost::none;
+                }
             }
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
             pull_parser.next();
 
-            return font_color_set_type::default_();
+            return
+                font_color_set_type(
+                    std::move(background_color),
+                    std::move(company_line_name_font_color),
+                    std::move(note_font_color),
+                    std::move(time_line_font_color),
+                    std::move(local_station_font_color),
+                    std::move(principal_station_font_color),
+                    std::move(local_terminal_station_font_color),
+                    std::move(principal_terminal_station_font_color),
+                    std::move(train_name_font)
+                );
         }
 
         static boost::optional<std::pair<string_type, font_color_set_element_type>> read_font_color_set_element(
             pull_parser_type& pull_parser
         )
         {
-            //if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
-            //    return boost::none;
-            //const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
-            //if (key.empty())
-            //    return boost::none;
-            //pull_parser.next();
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+                return boost::none;
+            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            if (key.empty())
+                return boost::none;
+            pull_parser.next();
 
-            //const boost::optional<input_string_type> value = read_string(pull_parser);
-            //if (!value)
-            //    return boost::none;
+            const boost::optional<font_color_set_element_type> value = read_font_color(pull_parser);
+            if (!value)
+                return boost::none;
 
-            //if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
-            //    return boost::none;
-            //pull_parser.next();
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
+                return boost::none;
+            pull_parser.next();
 
-            //return
-            //    boost::make_optional(
-            //        std::make_pair(encoder().decode(std::move(key)), encoder().decode(std::move(*value)))
-            //    );
+            return boost::make_optional(std::make_pair(encoder().decode(std::move(key)), *value));
+        }
 
-            return boost::none;
+        static boost::optional<font_color_set_element_type> read_font_color(pull_parser_type& pull_parser)
+        {
+            if (next_is_string(pull_parser))
+            {
+                const boost::optional<color_type> color = read_color(pull_parser);
+                if (!color)
+                    return boost::none;
+                return boost::make_optional<font_color_set_element_type>(*color);
+            }
+
+            return read_font_or_font_color(pull_parser);
+        }
+
+        static boost::optional<font_color_set_element_type> read_font_or_font_color(pull_parser_type& pull_parser)
+        {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                return boost::none;
+            pull_parser.next();
+
+            if (next_is_string(pull_parser))
+            {
+                const boost::optional<input_string_type> font_name = read_string(pull_parser);
+                if (!font_name)
+                    return boost::none;
+                const boost::optional<typename font_type::size_type> font_size =
+                    read_integer<typename font_type::size_type>(pull_parser);
+                if (!font_size)
+                    return boost::none;
+                const boost::optional<bool> font_bold = read_boolean(pull_parser);
+                if (!font_bold)
+                    return boost::none;
+                const boost::optional<bool> font_italic = read_boolean(pull_parser);
+                if (!font_italic)
+                    return boost::none;
+                const boost::optional<bool> font_underline = read_boolean(pull_parser);
+                if (!font_underline)
+                    return boost::none;
+                const boost::optional<bool> font_strikeout = read_boolean(pull_parser);
+                if (!font_strikeout)
+                    return boost::none;
+
+                if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                    return boost::none;
+                pull_parser.next();
+
+                return
+                    boost::make_optional<font_color_set_element_type>(
+                        font_type(
+                            encoder().decode(*font_name),
+                            *font_size,
+                            *font_bold,
+                            *font_italic,
+                            *font_underline,
+                            *font_strikeout
+                        )
+                    );
+            }
+
+            const boost::optional<font_color_set_element_type> font = read_font_or_font_color(pull_parser);
+            if (!font || font->which() != 1)
+                return boost::none;
+
+            const boost::optional<color_type> color = read_color(pull_parser);
+            if (!color)
+                return boost::none;
+
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+                return boost::none;
+            pull_parser.next();
+
+            return
+                boost::make_optional<font_color_set_element_type>(
+                    font_color_type(boost::get<font_type>(*font), *color)
+                );
+
+        }
+
+        static boost::optional<color_type> read_color(pull_parser_type& pull_parser)
+        {
+            const boost::optional<input_string_type> color_string = read_string(pull_parser);
+            if (!color_string)
+                return boost::none;
+            return to_color(encoder().decode(*color_string));
         }
 
         static boost::optional<std::vector<station_location_type>> read_stations(pull_parser_type& pull_parser)
@@ -913,6 +1073,11 @@ namespace bobura { namespace model { namespace serializer
                 return false;
 
             return true;
+        }
+
+        static bool next_is_string(const pull_parser_type& pull_parser)
+        {
+            return next_is_value(pull_parser, 4);
         }
 
         static bool next_is_value(const pull_parser_type& pull_parser, const int which)
