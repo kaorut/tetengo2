@@ -236,6 +236,19 @@ namespace bobura
         }
 
         /*!
+            \brief Redraw to recalculate and updates the dimension.
+        */
+        void recalculate_and_update_dimension(
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
+        {
+            update_dimension();
+            draw_to(canvas, canvas_dimension, scroll_bar_position);
+        }
+
+        /*!
             \brief Returns the page size.
 
             \param canvas_dimension A canvas dimension.
