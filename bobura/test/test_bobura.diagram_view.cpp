@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.update_dimension();
     }
 
-    BOOST_AUTO_TEST_CASE(recalculate_and_update_dimension)
+    BOOST_AUTO_TEST_CASE(update_and_recalculate_dimension)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        view.recalculate_and_update_dimension(
+        view.update_and_recalculate_dimension(
             *p_canvas, dimension_type(width_type(42), height_type(24)), position_type(left_type(2), top_type(3))
         );
     }

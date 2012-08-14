@@ -571,7 +571,7 @@ namespace bobura { namespace model
         /*!
             \brief Sets a font and color set.
 
-            \tpram FCS A font color set type.
+            \tparam FCS A font color set type.
 
             \param font_color_set A font color set.
         */

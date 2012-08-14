@@ -236,9 +236,13 @@ namespace bobura
         }
 
         /*!
-            \brief Redraw to recalculate and updates the dimension.
+            \brief Update the dimension and redraw the canvas to recalculate the dimension.
+
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
         */
-        void recalculate_and_update_dimension(
+        void update_and_recalculate_dimension(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position

@@ -93,7 +93,7 @@ namespace bobura { namespace message { namespace timetable_model
             detail::set_main_window_title(m_timetable_model, m_main_window);
             {
                 const std::unique_ptr<canvas_type> p_canvas(m_main_window.diagram_picture_box().create_fast_canvas());
-                m_diagram_view.recalculate_and_update_dimension(
+                m_diagram_view.update_and_recalculate_dimension(
                     *p_canvas,
                     m_main_window.diagram_picture_box().client_dimension(),
                     to_position(
