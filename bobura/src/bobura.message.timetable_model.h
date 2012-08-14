@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_TIMETABLEMODEL_H)
 #define BOBURA_MESSAGE_TIMETABLEMODEL_H
 
+#include <memory>
+
 #include <boost/optional.hpp>
 
 #include <tetengo2.gui.measure.h>
