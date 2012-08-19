@@ -189,7 +189,7 @@ namespace bobura
 
             append_menu_command(
                 *p_popup_menu,
-                m_message_catalog.get(TETENGO2_TEXT("Menu:Format:&Font And Colors...")),
+                m_message_catalog.get(TETENGO2_TEXT("Menu:Format:&Fonts And Colors...")),
                 m_command_set.font_color(),
                 commands
             );

@@ -91,18 +91,9 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
-        m_company_name(),
-        m_line_name(),
-        m_note(),
-        m_file_name(),
-        m_p_company_name_label(),
-        m_p_company_name_text_box(),
-        m_p_line_name_label(),
-        m_p_line_name_text_box(),
-        m_p_note_label(),
-        m_p_note_text_box(),
-        m_p_file_name_label(),
-        m_p_file_name_text_box(),
+        //m_company_name(),
+        //m_p_company_name_label(),
+        //m_p_company_name_text_box(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -118,109 +109,31 @@ namespace bobura
 
         // functions
 
-        /*!
-            \brief Returns the company name.
+        ///*!
+        //    \brief Returns the company name.
 
-            \return The company name.
-        */
-        const string_type& company_name()
-        const
-        {
-            return m_company_name;
-        }
+        //    \return The company name.
+        //*/
+        //const string_type& company_name()
+        //const
+        //{
+        //    return m_company_name;
+        //}
 
-        /*!
-            \brief Sets a company name.
+        ///*!
+        //    \brief Sets a company name.
 
-            \tparam S A string type.
+        //    \tparam S A string type.
 
-            \param company_name A company name.
-        */
-        template <typename S>
-        void set_company_name(S&& company_name)
-        {
-            m_company_name = std::forward<S>(company_name);
-            if (!m_p_company_name_text_box->destroyed())
-                m_p_company_name_text_box->set_text(m_company_name);
-        }
-
-        /*!
-            \brief Returns the line name.
-
-            \return The line name.
-        */
-        const string_type& line_name()
-        const
-        {
-            return m_line_name;
-        }
-
-        /*!
-            \brief Sets a line name.
-
-            \tparam S A string type.
-
-            \param line_name A line name.
-        */
-        template <typename S>
-        void set_line_name(S&& line_name)
-        {
-            m_line_name = std::forward<S>(line_name);
-            if (!m_p_line_name_text_box->destroyed())
-                m_p_line_name_text_box->set_text(m_line_name);
-        }
-
-        /*!
-            \brief Returns the note.
-
-            \return The note.
-        */
-        const string_type& note()
-        const
-        {
-            return m_note;
-        }
-
-        /*!
-            \brief Sets a note.
-
-            \tparam S A string type.
-
-            \param note A note.
-        */
-        template <typename S>
-        void set_note(S&& note)
-        {
-            m_note = std::forward<S>(note);
-            if (!m_p_note_text_box->destroyed())
-                m_p_note_text_box->set_text(m_note);
-        }
-
-        /*!
-            \brief Returns the file name.
-
-            \return The file name.
-        */
-        const string_type& file_name()
-        const
-        {
-            return m_file_name;
-        }
-
-        /*!
-            \brief Sets a file name.
-
-            \tparam S A string type.
-
-            \param file_name A file name.
-        */
-        template <typename S>
-        void set_file_name(S&& file_name)
-        {
-            m_file_name = std::forward<S>(file_name);
-            if (!m_p_file_name_text_box->destroyed())
-                m_p_file_name_text_box->set_text(m_file_name);
-        }
+        //    \param company_name A company name.
+        //*/
+        //template <typename S>
+        //void set_company_name(S&& company_name)
+        //{
+        //    m_company_name = std::forward<S>(company_name);
+        //    if (!m_p_company_name_text_box->destroyed())
+        //        m_p_company_name_text_box->set_text(m_company_name);
+        //}
 
 
     private:
@@ -243,29 +156,11 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
-        string_type m_company_name;
+        //string_type m_company_name;
 
-        string_type m_line_name;
+        //std::unique_ptr<label_type> m_p_company_name_label;
 
-        string_type m_note;
-
-        string_type m_file_name;
-
-        std::unique_ptr<label_type> m_p_company_name_label;
-
-        std::unique_ptr<text_box_type> m_p_company_name_text_box;
-
-        std::unique_ptr<label_type> m_p_line_name_label;
-
-        std::unique_ptr<text_box_type> m_p_line_name_text_box;
-
-        std::unique_ptr<label_type> m_p_note_label;
-
-        std::unique_ptr<text_box_type> m_p_note_text_box;
-
-        std::unique_ptr<label_type> m_p_file_name_label;
-
-        std::unique_ptr<text_box_type> m_p_file_name_text_box;
+        //std::unique_ptr<text_box_type> m_p_company_name_text_box;
 
         std::unique_ptr<button_type> m_p_ok_button;
 
@@ -276,9 +171,7 @@ namespace bobura
 
         virtual void set_result_impl()
         {
-            m_company_name = m_p_company_name_text_box->text();
-            m_line_name = m_p_line_name_text_box->text();
-            m_note = m_p_note_text_box->text();
+            //m_company_name = m_p_company_name_text_box->text();
         }
 
 
@@ -286,101 +179,36 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
-            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:File Property")));
+            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Fonts And Colors")));
 
             this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
 
-            m_p_company_name_label = create_company_name_label();
-            m_p_company_name_text_box = create_company_name_text_box();
-            m_p_line_name_label = create_line_name_label();
-            m_p_line_name_text_box = create_line_name_text_box();
-            m_p_note_label = create_note_label();
-            m_p_note_text_box = create_note_text_box();
-            m_p_file_name_label = create_file_name_label();
-            m_p_file_name_text_box = create_file_name_text_box();
+            //m_p_company_name_label = create_company_name_label();
+            //m_p_company_name_text_box = create_company_name_text_box();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
         }
 
-        std::unique_ptr<label_type> create_company_name_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+        //std::unique_ptr<label_type> create_company_name_label()
+        //{
+        //    std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
+        //    p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
+        //    std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+        //    p_label->set_background(std::move(p_background));
 
-            return std::move(p_label);
-        }
+        //    return std::move(p_label);
+        //}
 
-        std::unique_ptr<text_box_type> create_company_name_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
+        //std::unique_ptr<text_box_type> create_company_name_text_box()
+        //{
+        //    std::unique_ptr<text_box_type> p_text_box =
+        //        tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
 
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_line_name_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Line Name:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_line_name_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_note_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Note:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_note_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_file_name_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&File Name:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_file_name_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            p_text_box->set_read_only(true);
-
-            return std::move(p_text_box);
-        }
+        //    return std::move(p_text_box);
+        //}
 
         std::unique_ptr<button_type> create_ok_button()
         {
@@ -418,45 +246,15 @@ namespace bobura
         {
             const left_type label_left(2);
 
-            m_p_company_name_label->fit_to_content();
-            m_p_company_name_label->set_position(position_type(label_left, top_type(1)));
+            //m_p_company_name_label->fit_to_content();
+            //m_p_company_name_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_company_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_company_name_text_box->set_position(
-                position_type(
-                    label_left, m_p_company_name_label->position().second + m_p_company_name_label->dimension().second
-                )
-            );
-
-            m_p_line_name_label->fit_to_content();
-            m_p_line_name_label->set_position(position_type(label_left, top_type(5)));
-
-            m_p_line_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_line_name_text_box->set_position(
-                position_type(
-                    label_left, m_p_line_name_label->position().second + m_p_line_name_label->dimension().second
-                )
-            );
-
-            m_p_note_label->fit_to_content();
-            m_p_note_label->set_position(position_type(label_left, top_type(9)));
-
-            m_p_note_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_note_text_box->set_position(
-                position_type(
-                    label_left, m_p_note_label->position().second + m_p_note_label->dimension().second
-                )
-            );
-
-            m_p_file_name_label->fit_to_content();
-            m_p_file_name_label->set_position(position_type(label_left, top_type(13)));
-
-            m_p_file_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_file_name_text_box->set_position(
-                position_type(
-                    label_left, m_p_file_name_label->position().second + m_p_file_name_label->dimension().second
-                )
-            );
+            //m_p_company_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
+            //m_p_company_name_text_box->set_position(
+            //    position_type(
+            //        label_left, m_p_company_name_label->position().second + m_p_company_name_label->dimension().second
+            //    )
+            //);
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(17), top_type(18)));

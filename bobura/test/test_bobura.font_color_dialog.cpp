@@ -45,101 +45,29 @@ BOOST_AUTO_TEST_SUITE(font_color_dialog)
         const font_color_dialog_type font_color_dialog(window, message_catalog);
     }
 
-    BOOST_AUTO_TEST_CASE(company_name)
-    {
-        BOOST_TEST_PASSPOINT();
+    //BOOST_AUTO_TEST_CASE(company_name)
+    //{
+    //    BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        const message_catalog_type message_catalog;
-        const font_color_dialog_type font_color_dialog(window, message_catalog);
+    //    window_type window;
+    //    const message_catalog_type message_catalog;
+    //    const font_color_dialog_type font_color_dialog(window, message_catalog);
 
-        BOOST_CHECK(font_color_dialog.company_name().empty());
-    }
+    //    BOOST_CHECK(font_color_dialog.company_name().empty());
+    //}
 
-    BOOST_AUTO_TEST_CASE(set_company_name)
-    {
-        BOOST_TEST_PASSPOINT();
+    //BOOST_AUTO_TEST_CASE(set_company_name)
+    //{
+    //    BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        const message_catalog_type message_catalog;
-        font_color_dialog_type font_color_dialog(window, message_catalog);
+    //    window_type window;
+    //    const message_catalog_type message_catalog;
+    //    font_color_dialog_type font_color_dialog(window, message_catalog);
 
-        font_color_dialog.set_company_name(string_type(TETENGO2_TEXT("hoge")));
+    //    font_color_dialog.set_company_name(string_type(TETENGO2_TEXT("hoge")));
 
-        BOOST_CHECK(font_color_dialog.company_name() == string_type(TETENGO2_TEXT("hoge")));
-    }
-
-    BOOST_AUTO_TEST_CASE(note)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        const font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        BOOST_CHECK(font_color_dialog.note().empty());
-    }
-
-    BOOST_AUTO_TEST_CASE(set_note)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        font_color_dialog.set_note(string_type(TETENGO2_TEXT("hoge")));
-
-        BOOST_CHECK(font_color_dialog.note() == string_type(TETENGO2_TEXT("hoge")));
-    }
-
-    BOOST_AUTO_TEST_CASE(line_name)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        const font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        BOOST_CHECK(font_color_dialog.line_name().empty());
-    }
-
-    BOOST_AUTO_TEST_CASE(set_line_name)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        font_color_dialog.set_line_name(string_type(TETENGO2_TEXT("hoge")));
-
-        BOOST_CHECK(font_color_dialog.line_name() == string_type(TETENGO2_TEXT("hoge")));
-    }
-
-    BOOST_AUTO_TEST_CASE(file_name)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        const font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        BOOST_CHECK(font_color_dialog.file_name().empty());
-    }
-
-    BOOST_AUTO_TEST_CASE(set_file_name)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const message_catalog_type message_catalog;
-        font_color_dialog_type font_color_dialog(window, message_catalog);
-
-        font_color_dialog.set_file_name(string_type(TETENGO2_TEXT("hoge")));
-
-        BOOST_CHECK(font_color_dialog.file_name() == string_type(TETENGO2_TEXT("hoge")));
-    }
+    //    BOOST_CHECK(font_color_dialog.company_name() == string_type(TETENGO2_TEXT("hoge")));
+    //}
 
 
 BOOST_AUTO_TEST_SUITE_END()
