@@ -96,6 +96,7 @@
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
+#include "bobura.font_color_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
@@ -892,6 +893,7 @@ namespace bobura
     {
         struct about_dialog;   //!< The about dialog type.
         struct file_property_dialog; //!< The file property dialog type.
+        struct font_color_dialog; //!< The font and color dialog type.
     }}
 
     //! The type list for the dialogs.
@@ -927,8 +929,23 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dialog::font_color_dialog,
+                font_color_dialog<
+                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::label>::type,
+                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::button>::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
+                    message::font_color_dialog::type_list<
+                        boost::mpl::at<ui_type_list, type::ui::dialog>::type
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         dialog_type_list;
 
 

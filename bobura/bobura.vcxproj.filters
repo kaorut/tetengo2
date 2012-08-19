@@ -177,6 +177,12 @@
     <ClInclude Include="src\bobura.command.font_color.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.message.font_color_dialog.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.font_color_dialog.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

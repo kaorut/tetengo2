@@ -25,6 +25,7 @@ extra_headers = \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
+    bobura.font_color_dialog.h \
     bobura.load_save.confirm_file_save.h \
     bobura.load_save.load_from_file.h \
     bobura.load_save.new_file.h \
@@ -33,7 +34,8 @@ extra_headers = \
     bobura.main_window_menu_builder.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
-    bobura.message.file_property_dialog_dialog.h \
+    bobura.message.file_property_dialog.h \
+    bobura.message.font_color_dialog.h \
     bobura.message.main_window.h \
     bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \

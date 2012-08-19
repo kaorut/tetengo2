@@ -12,6 +12,7 @@ sources = \
     test_bobura.diagram_picture_box.cpp \
     test_bobura.diagram_view.cpp \
     test_bobura.file_property_dialog.cpp \
+    test_bobura.font_color_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
     test_bobura.load_save.load_from_file.cpp \
     test_bobura.load_save.new_file.cpp \
@@ -20,6 +21,7 @@ sources = \
     test_bobura.message.about_dialog.cpp \
     test_bobura.message.diagram_picture_box.cpp \
     test_bobura.message.file_property_dialog.cpp \
+    test_bobura.message.font_color_dialog.cpp \
     test_bobura.message.main_window.cpp \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \

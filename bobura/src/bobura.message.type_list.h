@@ -76,6 +76,19 @@ namespace bobura { namespace message
         }
     }
 
+    namespace font_color_dialog
+    {
+        namespace type
+        {
+            //! The OK button mouse click observer type.
+            struct ok_button_mouse_clicked;
+
+            //! The cancel button mouse click observer type.
+            struct cancel_button_mouse_clicked;
+
+        }
+    }
+
     namespace about_dialog
     {
         namespace type

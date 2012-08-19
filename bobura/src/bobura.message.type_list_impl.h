@@ -16,6 +16,7 @@
 #include "bobura.message.about_dialog.h"
 #include "bobura.message.diagram_picture_box.h"
 #include "bobura.message.file_property_dialog.h"
+#include "bobura.message.font_color_dialog.h"
 #include "bobura.message.main_window.h"
 #include "bobura.message.timetable_model.h"
 #include "bobura.message.type_list.h"
@@ -143,6 +144,33 @@ namespace bobura { namespace message
             // types
 
             //! The type list for the file property dialog.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list_end
+                >>
+                type;
+
+
+        };
+    }
+
+    namespace font_color_dialog
+    {
+        /*!
+            \brief The meta function for the type list of the font and color dialog messages.
+
+            \tparam Dialog A dialog type.
+        */
+        template <typename Dialog>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the font and color dialog.
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
