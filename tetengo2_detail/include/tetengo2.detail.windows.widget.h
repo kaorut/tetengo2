@@ -368,6 +368,60 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a list box.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a list box.
+
+            \throw std::system_error When a list box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_list_box(
+            Widget&                                              parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            return widget_details_ptr_type();
+            //typename std::tuple_element<0, widget_details_type>::type p_widget(
+            //    ::CreateWindowExW(
+            //        WS_EX_CLIENTEDGE,
+            //        L"Edit",
+            //        L"",
+            //        WS_CHILD |
+            //            WS_TABSTOP |
+            //            WS_VISIBLE |
+            //            ES_AUTOHSCROLL |
+            //            window_style_for_scroll_bars<Widget>(scroll_bar_style),
+            //        CW_USEDEFAULT,
+            //        CW_USEDEFAULT,
+            //        CW_USEDEFAULT,
+            //        CW_USEDEFAULT,
+            //        std::get<0>(*parent.details()).get(),
+            //        NULL,
+            //        ::GetModuleHandle(NULL),
+            //        NULL
+            //    )
+            //);
+            //if (!p_widget)
+            //{
+            //    BOOST_THROW_EXCEPTION(
+            //        std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a text box!")
+            //    );
+            //}
+
+            //const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
+            //return 
+            //    make_unique<widget_details_type>(
+            //        std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+            //    );
+        }
+
+        /*!
             \brief Creates a picture box.
 
             \tparam Widget A widget type.

@@ -177,6 +177,27 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a list box.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a list box.
+
+            \throw std::system_error When a list box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_list_box(
+            Widget&                                              parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            return create_details<Widget>(&parent);
+        }
+
+        /*!
             \brief Creates a picture box.
 
             \tparam Widget A widget type.
