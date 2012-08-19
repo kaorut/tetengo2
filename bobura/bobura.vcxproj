@@ -95,6 +95,7 @@
     <ClInclude Include="src\bobura.command.command_base.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
     <ClInclude Include="src\bobura.command.file_property.h" />
+    <ClInclude Include="src\bobura.command.font_color.h" />
     <ClInclude Include="src\bobura.command.horizontally_zoom_in.h" />
     <ClInclude Include="src\bobura.command.horizontally_zoom_out.h" />
     <ClInclude Include="src\bobura.command.load_from_file.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="src\bobura.command.command_base.cpp" />
     <ClCompile Include="src\bobura.command.exit.cpp" />
     <ClCompile Include="src\bobura.command.file_property.cpp" />
+    <ClCompile Include="src\bobura.command.font_color.cpp" />
     <ClCompile Include="src\bobura.command.horizontally_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.horizontally_zoom_out.cpp" />
     <ClCompile Include="src\bobura.command.load_from_file.cpp" />

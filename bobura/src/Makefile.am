@@ -9,6 +9,7 @@ extra_headers = \
     bobura.command.command_base.h \
     bobura.command.exit.h \
     bobura.command.file_property.h \
+    bobura.command.font_color.h \
     bobura.command.horizontally_zoom_in.h \
     bobura.command.horizontally_zoom_out.h \
     bobura.command.load_from_file.h \
@@ -50,6 +51,7 @@ extra_sources = \
     bobura.command.command_base.cpp \
     bobura.command.exit.cpp \
     bobura.command.file_property.cpp \
+    bobura.command.font_color.cpp \
     bobura.command.horizontally_zoom_in.cpp \
     bobura.command.horizontally_zoom_out.cpp \
     bobura.command.load_from_file.cpp \
