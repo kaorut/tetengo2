@@ -17,6 +17,7 @@
 #include "bobura.command.command_base.h"
 #include "bobura.command.exit.h"
 #include "bobura.command.file_property.h"
+#include "bobura.command.font_color.h"
 #include "bobura.command.horizontally_zoom_in.h"
 #include "bobura.command.horizontally_zoom_out.h"
 #include "bobura.command.load_from_file.h"
@@ -72,6 +73,7 @@ namespace bobura { namespace command
         m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
+        m_p_font_color(create_font_color()),
         m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
         m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         m_p_load_from_file(create_load_from_file(load_from_file)),
@@ -105,6 +107,12 @@ namespace bobura { namespace command
         const
         {
             return *m_p_file_property;
+        }
+
+        const command_type& font_color()
+        const
+        {
+            return *m_p_font_color;
         }
 
         const command_type& horizontally_zoom_in()
@@ -208,6 +216,11 @@ namespace bobura { namespace command
             return tetengo2::make_unique<command::file_property>(message_catalog);
         }
 
+        static command_ptr_type create_font_color()
+        {
+            return tetengo2::make_unique<command::font_color>();
+        }
+
         static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
         {
             return tetengo2::make_unique<command::horizontally_zoom_in>(diagram_view);
@@ -291,6 +304,8 @@ namespace bobura { namespace command
 
         const command_ptr_type m_p_file_property;
 
+        const command_ptr_type m_p_font_color;
+
         const command_ptr_type m_p_horizontally_zoom_in;
 
         const command_ptr_type m_p_horizontally_zoom_out;
@@ -363,6 +378,12 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->file_property();
+    }
+
+    const set::command_type& set::font_color()
+    const
+    {
+        return m_p_impl->font_color();
     }
 
     const set::command_type& set::horizontally_zoom_in()
