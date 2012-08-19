@@ -42,7 +42,11 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-        
+            font_color_dialog_type dialog(parent, m_message_catalog);
+
+            dialog.do_modal();
+            if (dialog.result() != dialog_base_type::result_type::accepted)
+                return;
         
         }
 
