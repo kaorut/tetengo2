@@ -73,7 +73,7 @@ namespace bobura { namespace command
         m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
-        m_p_font_color(create_font_color()),
+        m_p_font_color(create_font_color(message_catalog)),
         m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
         m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         m_p_load_from_file(create_load_from_file(load_from_file)),
@@ -216,9 +216,9 @@ namespace bobura { namespace command
             return tetengo2::make_unique<command::file_property>(message_catalog);
         }
 
-        static command_ptr_type create_font_color()
+        static command_ptr_type create_font_color(const message_catalog_type& message_catalog)
         {
-            return tetengo2::make_unique<command::font_color>();
+            return tetengo2::make_unique<command::font_color>(message_catalog);
         }
 
         static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)

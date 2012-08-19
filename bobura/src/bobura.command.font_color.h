@@ -27,13 +27,27 @@ namespace bobura { namespace command
         //! The base type.
         typedef command_base base_type;
 
+        //! The font and color dialog type.
+        typedef boost::mpl::at<dialog_type_list, type::dialog::font_color_dialog>::type font_color_dialog_type;
+
+        //! The dialog base type.
+        typedef font_color_dialog_type::base_type dialog_base_type;
+
+        //! The string type.
+        typedef font_color_dialog_type::string_type string_type;
+
+        //! The message catalog type.
+        typedef font_color_dialog_type::message_catalog_type message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Create a font and color command.
+
+            \param message_catalog A message catalog.
         */
-        font_color();
+        explicit font_color(const message_catalog_type& message_catalog);
 
         /*!
             \brief Destroys a font and color command.
