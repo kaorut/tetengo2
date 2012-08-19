@@ -196,13 +196,46 @@ namespace bobura { namespace message { namespace timetable_model
         const
         {
             detail::set_main_window_title(m_timetable_model, m_main_window);
-            m_diagram_view.update_dimension();
+            {
+                const std::unique_ptr<canvas_type> p_canvas(m_main_window.diagram_picture_box().create_fast_canvas());
+                m_diagram_view.update_and_recalculate_dimension(
+                    *p_canvas,
+                    m_main_window.diagram_picture_box().client_dimension(),
+                    to_position(
+                        m_main_window.diagram_picture_box().horizontal_scroll_bar()->tracking_position(),
+                        m_main_window.diagram_picture_box().vertical_scroll_bar()->tracking_position()
+                    )
+                );
+            }
             m_main_window.diagram_picture_box().repaint();
             m_main_window.window_observer_set().resized()();
         }
 
 
     private:
+        // types
+
+        typedef typename main_window_type::diagram_picture_box_type::base_type picture_box_type;
+        
+        typedef typename picture_box_type::fast_canvas_type canvas_type;
+
+        typedef typename picture_box_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
+        // static functions
+
+        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
+        {
+            return position_type(left_type(left), top_type(top));
+        }
+
+
         // variables
 
         const timetable_model_type& m_timetable_model;
