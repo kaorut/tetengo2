@@ -66,6 +66,7 @@
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.list_box.h>
 #include <tetengo2.gui.widget.picture_box.h>
 #include <tetengo2.gui.widget.text_box.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
@@ -75,6 +76,7 @@
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.list_box_traits.h>
 #include <tetengo2.gui.widget.traits.picture_box_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
@@ -291,6 +293,7 @@ namespace bobura
         struct control;        //!< The control type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct list_box;       //!< The list box type.
         struct picture_box;    //!< The picture box type.
         struct text_box;       //!< The text box type.
         struct image;          //!< The image type.
@@ -614,6 +617,14 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             text_box_type;
+        typedef tetengo2::gui::widget::traits::list_box_traits<control_traits_type> list_box_traits_type;
+        typedef
+            tetengo2::gui::widget::list_box<
+                list_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            list_box_type;
     }}
 #endif
 
@@ -658,6 +669,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::control, detail::ui::control_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::list_box, detail::ui::list_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
@@ -672,7 +684,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -936,7 +948,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<ui_type_list, type::ui::label>::type,
-                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
                     boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
                     message::font_color_dialog::type_list<

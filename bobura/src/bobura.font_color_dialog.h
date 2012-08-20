@@ -29,7 +29,7 @@ namespace bobura
         \tparam Dialog                         A dialog type.
         \tparam MessageCatalog                 A message catalog type.
         \tparam Label                          A label type.
-        \tparam TextBox                        A text box type.
+        \tparam ListBox                        A list box type.
         \tparam Button                         A button type.
         \tparam TransparentBackground          A transparent background type.
         \tparam FontColorDialogMessageTypeList A message type.
@@ -38,7 +38,7 @@ namespace bobura
         typename Dialog,
         typename MessageCatalog,
         typename Label,
-        typename TextBox,
+        typename ListBox,
         typename Button,
         typename TransparentBackground,
         typename FontColorDialogMessageTypeList
@@ -66,8 +66,8 @@ namespace bobura
         //! The label type.
         typedef Label label_type;
 
-        //! The text box type.
-        typedef TextBox text_box_type;
+        //! The list box type.
+        typedef ListBox list_box_type;
 
         //! The button type.
         typedef Button button_type;
@@ -92,8 +92,8 @@ namespace bobura
         base_type(parent),
         m_message_catalog(message_catalog),
         //m_company_name(),
-        //m_p_company_name_label(),
-        //m_p_company_name_text_box(),
+        m_p_category_label(),
+        m_p_category_list_box(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -131,8 +131,8 @@ namespace bobura
         //void set_company_name(S&& company_name)
         //{
         //    m_company_name = std::forward<S>(company_name);
-        //    if (!m_p_company_name_text_box->destroyed())
-        //        m_p_company_name_text_box->set_text(m_company_name);
+        //    if (!m_p_category_list_box->destroyed())
+        //        m_p_category_list_box->set_text(m_company_name);
         //}
 
 
@@ -158,9 +158,9 @@ namespace bobura
 
         //string_type m_company_name;
 
-        //std::unique_ptr<label_type> m_p_company_name_label;
+        std::unique_ptr<label_type> m_p_category_label;
 
-        //std::unique_ptr<text_box_type> m_p_company_name_text_box;
+        std::unique_ptr<list_box_type> m_p_category_list_box;
 
         std::unique_ptr<button_type> m_p_ok_button;
 
@@ -171,7 +171,7 @@ namespace bobura
 
         virtual void set_result_impl()
         {
-            //m_company_name = m_p_company_name_text_box->text();
+            //m_company_name = m_p_category_list_box->text();
         }
 
 
@@ -183,32 +183,32 @@ namespace bobura
 
             this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
 
-            //m_p_company_name_label = create_company_name_label();
-            //m_p_company_name_text_box = create_company_name_text_box();
+            m_p_category_label = create_category_label();
+            m_p_category_list_box = create_category_list_box();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
         }
 
-        //std::unique_ptr<label_type> create_company_name_label()
-        //{
-        //    std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+        std::unique_ptr<label_type> create_category_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-        //    p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
-        //    std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-        //    p_label->set_background(std::move(p_background));
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontColor:&Categories:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
 
-        //    return std::move(p_label);
-        //}
+            return std::move(p_label);
+        }
 
-        //std::unique_ptr<text_box_type> create_company_name_text_box()
-        //{
-        //    std::unique_ptr<text_box_type> p_text_box =
-        //        tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
+        std::unique_ptr<list_box_type> create_category_list_box()
+        {
+            std::unique_ptr<list_box_type> p_list_box =
+                tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::none);
 
-        //    return std::move(p_text_box);
-        //}
+            return std::move(p_list_box);
+        }
 
         std::unique_ptr<button_type> create_ok_button()
         {
@@ -246,15 +246,15 @@ namespace bobura
         {
             const left_type label_left(2);
 
-            //m_p_company_name_label->fit_to_content();
-            //m_p_company_name_label->set_position(position_type(label_left, top_type(1)));
+            m_p_category_label->fit_to_content();
+            m_p_category_label->set_position(position_type(label_left, top_type(1)));
 
-            //m_p_company_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            //m_p_company_name_text_box->set_position(
-            //    position_type(
-            //        label_left, m_p_company_name_label->position().second + m_p_company_name_label->dimension().second
-            //    )
-            //);
+            m_p_category_list_box->set_dimension(dimension_type(width_type(12), height_type(12)));
+            m_p_category_list_box->set_position(
+                position_type(
+                    label_left, m_p_category_label->position().second + m_p_category_label->dimension().second
+                )
+            );
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(17), top_type(18)));
