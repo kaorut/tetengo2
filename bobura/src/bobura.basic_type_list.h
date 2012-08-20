@@ -949,7 +949,9 @@ namespace bobura
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<ui_type_list, type::ui::label>::type,
                     boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
+                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
                     message::font_color_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::ui::dialog>::type
