@@ -1427,6 +1427,34 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Appends a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam String  A string type.
+
+            \param list_box A list box.
+            \param item     An item.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename ListBox, typename String>
+        static void append_list_box_item(ListBox& list_box, const String& item)
+        {
+            const ::LRESULT result =
+                ::SendMessageW(
+                    std::get<0>(*list_box.details()).get(), LB_ADDSTRING, 0, reinterpret_cast< ::LPARAM>(item.c_str())
+                );
+            if (result == LB_ERR || result == LB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box item."
+                    )
+                );
+            }
+        }
+
+        /*!
             \brief Returns the window property key.
 
             This function is for an internal use.

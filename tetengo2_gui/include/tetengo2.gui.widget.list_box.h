@@ -88,6 +88,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
+        void append_item(const string_type& text)
+        {
+            widget_details_type::append_list_box_item(*this, text);
+        }
+
 
     private:
         // types

@@ -804,6 +804,21 @@ namespace tetengo2 { namespace detail { namespace stub
         static void open_target(const Widget& widget, const String& target)
         {}
 
+        /*!
+            \brief Appends a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam String  A string type.
+
+            \param list_box A list box.
+            \param item     An item.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename ListBox, typename String>
+        static void append_list_box_item(ListBox& list_box, const String& item)
+        {}
+
 
     private:
         // types

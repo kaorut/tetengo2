@@ -181,7 +181,7 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Fonts And Colors")));
 
-            this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
+            this->set_client_dimension(dimension_type(width_type(36), height_type(22)));
 
             m_p_category_label = create_category_label();
             m_p_category_list_box = create_category_list_box();
@@ -189,13 +189,15 @@ namespace bobura
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
+
+            insert_category_list_box_items();
         }
 
         std::unique_ptr<label_type> create_category_label()
         {
             std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontColor:&Categories:")));
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:&Categories:")));
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
@@ -205,7 +207,7 @@ namespace bobura
         std::unique_ptr<list_box_type> create_category_list_box()
         {
             std::unique_ptr<list_box_type> p_list_box =
-                tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::none);
+                tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::vertical);
 
             return std::move(p_list_box);
         }
@@ -249,7 +251,7 @@ namespace bobura
             m_p_category_label->fit_to_content();
             m_p_category_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_category_list_box->set_dimension(dimension_type(width_type(12), height_type(12)));
+            m_p_category_list_box->set_dimension(dimension_type(width_type(16), height_type(16)));
             m_p_category_list_box->set_position(
                 position_type(
                     label_left, m_p_category_label->position().second + m_p_category_label->dimension().second
@@ -257,10 +259,41 @@ namespace bobura
             );
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(17), top_type(18)));
+            m_p_ok_button->set_position(position_type(left_type(17), top_type(19)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(26), top_type(18)));
+            m_p_cancel_button->set_position(position_type(left_type(26), top_type(19)));
+        }
+
+        void insert_category_list_box_items()
+        {
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Background"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Company and Line Names"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Note"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Time Lines"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Stations"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Stations"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Terminal Stations"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Terminal Stations"))
+            );
+            m_p_category_list_box->append_item(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Train Names"))
+            );
         }
 
 

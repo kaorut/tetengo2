@@ -57,7 +57,17 @@
         "Dialog:FileProperty:&Note:":         "記事(&N):",
         "Dialog:FileProperty:&File Name:":    "ファイル名(&F):",
         
-        "Dialog:FontAndColor:Fonts And Colors": "フォントと色",
+        "Dialog:FontAndColor:Fonts And Colors":            "フォントと色",
+        "Dialog:FontAndColor:&Categories:":                "カテゴリー(&C):",
+        "Dialog:FontAndColor:Background":                  "背景",
+        "Dialog:FontAndColor:Company and Line Names":      "会社・路線名",
+        "Dialog:FontAndColor:Note":                        "記事",
+        "Dialog:FontAndColor:Time Lines":                  "時刻線",
+        "Dialog:FontAndColor:Local Stations":              "一般駅",
+        "Dialog:FontAndColor:Principal Stations":          "主要駅",
+        "Dialog:FontAndColor:Local Terminal Stations":     "ターミナル駅",
+        "Dialog:FontAndColor:Principal Terminal Stations": "主要ターミナル駅",
+        "Dialog:FontAndColor:Train Names":                 "列車名",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
