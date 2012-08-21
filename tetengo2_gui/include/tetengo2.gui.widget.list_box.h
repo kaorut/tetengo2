@@ -91,6 +91,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
+        /*!
+            \brief Appends an item.
+
+            \param text A text.
+        */
         void append_item(const string_type& text)
         {
             widget_details_type::append_list_box_item(*this, text);
