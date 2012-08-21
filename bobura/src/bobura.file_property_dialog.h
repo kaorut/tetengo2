@@ -424,7 +424,11 @@ namespace bobura
             m_p_company_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_company_name_text_box->set_position(
                 position_type(
-                    label_left, m_p_company_name_label->position().second + m_p_company_name_label->dimension().second
+                    label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_company_name_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_company_name_label->dimension())
+                        )
                 )
             );
 
@@ -434,7 +438,11 @@ namespace bobura
             m_p_line_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_line_name_text_box->set_position(
                 position_type(
-                    label_left, m_p_line_name_label->position().second + m_p_line_name_label->dimension().second
+                    label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_line_name_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_line_name_label->dimension())
+                        )
                 )
             );
 
@@ -444,7 +452,9 @@ namespace bobura
             m_p_note_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_note_text_box->set_position(
                 position_type(
-                    label_left, m_p_note_label->position().second + m_p_note_label->dimension().second
+                    label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_note_label->position()) +
+                        top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_note_label->dimension()))
                 )
             );
 
@@ -454,7 +464,11 @@ namespace bobura
             m_p_file_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_file_name_text_box->set_position(
                 position_type(
-                    label_left, m_p_file_name_label->position().second + m_p_file_name_label->dimension().second
+                    label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_file_name_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_file_name_label->dimension())
+                        )
                 )
             );
 

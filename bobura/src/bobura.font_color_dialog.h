@@ -346,7 +346,10 @@ namespace bobura
             m_p_category_list_box->set_position(
                 position_type(
                     category_label_left,
-                    m_p_category_label->position().second + m_p_category_label->dimension().second
+                    tetengo2::gui::position<position_type>::top(m_p_category_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_category_label->dimension())
+                        )
                 )
             );
 
@@ -368,7 +371,10 @@ namespace bobura
             m_p_sample_picture_box->set_position(
                 position_type(
                     font_text_box_left,
-                    m_p_sample_label->position().second + m_p_sample_label->dimension().second
+                    tetengo2::gui::position<position_type>::top(m_p_sample_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_sample_label->dimension())
+                        )
                 )
             );
 
