@@ -43,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type widget_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
