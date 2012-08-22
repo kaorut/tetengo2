@@ -617,7 +617,11 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             text_box_type;
-        typedef tetengo2::gui::widget::traits::list_box_traits<control_traits_type> list_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::list_box_traits<
+                control_traits_type, boost::mpl::at<common_type_list, type::size>::type
+            >
+            list_box_traits_type;
         typedef
             tetengo2::gui::widget::list_box<
                 list_box_traits_type,

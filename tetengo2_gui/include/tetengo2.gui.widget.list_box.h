@@ -31,6 +31,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         typedef Traits traits_type;
 
+        //! The integer size type.
+        typedef typename traits_type::int_size_type int_size_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 

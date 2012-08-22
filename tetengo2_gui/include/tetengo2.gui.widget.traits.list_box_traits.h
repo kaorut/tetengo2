@@ -16,14 +16,18 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a list box.
 
         \tparam ControlTraits A traits type for a control.
+        \tparam IntSize       A integer size type.
    */
-    template <typename ControlTraits>
+    template <typename ControlTraits, typename IntSize>
     struct list_box_traits
     {
         //types
 
         //! The base type.
         typedef ControlTraits base_type;
+
+        //! The integer size type.
+        typedef IntSize int_size_type;
 
 
     };
