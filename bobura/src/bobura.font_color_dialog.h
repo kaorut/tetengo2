@@ -387,31 +387,40 @@ namespace bobura
 
         void insert_category_list_box_items()
         {
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Background"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Company and Line Names"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Note"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Time Lines"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Stations"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Stations"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Terminal Stations"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Terminal Stations"))
             );
-            m_p_category_list_box->append_item(
+            m_p_category_list_box->insert_item(
+                m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Train Names"))
             );
         }

@@ -9,6 +9,11 @@
 #if !defined(TETENGO2_GUI_WIDGET_LISTBOX_H)
 #define TETENGO2_GUI_WIDGET_LISTBOX_H
 
+#include <stdexcept>
+
+#include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
+
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 
@@ -95,13 +100,90 @@ namespace tetengo2 { namespace gui { namespace widget
         // functions
 
         /*!
-            \brief Appends an item.
+            \brief Returns the item count.
 
-            \param text A text.
+            \return The item count.
         */
-        void append_item(const string_type& text)
+        int_size_type item_count()
+        const
         {
-            widget_details_type::append_list_box_item(*this, text);
+            return 0;
+        }
+
+        /*!
+            \brief Returns the item.
+
+            \param index An index.
+
+            \return The item.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        string_type item(const int_size_type index)
+        const
+        {
+            if (index >= item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            return string_type();
+        }
+
+        /*!
+            \brief Sets an item.
+
+            \param index An index.
+            \param item  An item.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void set_item(const int_size_type index, const string_type& item)
+        {
+            if (index >= item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+
+        }
+
+        /*!
+            \brief Inserts an item.
+
+            \param index An index.
+            \param item  An item.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void insert_item(const int_size_type index, const string_type& item)
+        {
+            if (index > item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            widget_details_type::append_list_box_item(*this, item);
+        }
+
+        /*!
+            \brief Returns the selected item index.
+
+            \return The selected item index. Or boost::none when no item is selected.
+        */
+        boost::optional<int_size_type> selected_item_index()
+        const
+        {
+            return boost::none;
+        }
+
+        /*!
+            \brief Selects an item.
+
+            \param index An index.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void select_item(const int_size_type index)
+        {
+            if (index >= item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+
         }
 
 
