@@ -107,7 +107,7 @@ namespace tetengo2 { namespace gui { namespace widget
         int_size_type item_count()
         const
         {
-            return 0;
+            return widget_details_type::list_box_item_count<int_size_type>(*this);
         }
 
         /*!
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index > item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::append_list_box_item(*this, item);
+            widget_details_type::insert_list_box_item(*this, index, item);
         }
 
         /*!

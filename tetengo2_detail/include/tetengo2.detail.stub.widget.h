@@ -805,18 +805,38 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
-            \brief Appends a list box item.
+            \brief Returns the list box item count.
+
+            \tparam Size    A size type.
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \return The list box item count.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename Size, typename ListBox>
+        static Size list_box_item_count(const ListBox& list_box)
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Inserts a list box item.
 
             \tparam ListBox A list box type.
+            \tparam Size    A size type.
             \tparam String  A string type.
 
             \param list_box A list box.
+            \param index    An index.
             \param item     An item.
 
             \throw std::system_error When the item cannot be appended.
         */
-        template <typename ListBox, typename String>
-        static void append_list_box_item(ListBox& list_box, const String& item)
+        template <typename ListBox, typename Size, typename String>
+        static void insert_list_box_item(ListBox& list_box, const Size index, const String& item)
         {}
 
 
