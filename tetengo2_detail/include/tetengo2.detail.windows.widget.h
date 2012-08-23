@@ -1473,7 +1473,34 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename ListBox, typename Size, typename Encoder>
         static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
-            return String();
+            const ::LRESULT length = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_GETTEXTLEN, index, 0);
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item length."
+                    )
+                );
+            }
+
+            std::vector<wchar_t> item(length + 1, 0);
+            const ::LRESULT result =
+                ::SendMessageW(
+                    std::get<0>(*list_box.details()).get(),
+                    LB_GETTEXT,
+                    index,
+                    reinterpret_cast< ::LPARAM>(item.data())
+                );
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item."
+                    )
+                );
+            }
+
+            return encoder.decode(std::wstring(item.data()));
         }
 
         /*!
@@ -1489,7 +1516,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param item     An item.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
@@ -1510,7 +1537,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param item     An item.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
@@ -1520,7 +1547,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::get<0>(*list_box.details()).get(),
                     LB_INSERTSTRING,
                     index,
-                    reinterpret_cast< ::LPARAM>(item.c_str())
+                    reinterpret_cast< ::LPARAM>(encoder.encode(item).c_str())
                 );
             if (result == LB_ERR || result == LB_ERRSPACE)
             {
@@ -1540,7 +1567,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param list_box A list box.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the selected item index cannot be obtained.
         */
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
@@ -1557,7 +1584,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be selected.
         */
         template <typename ListBox, typename Size>
         static void select_list_box_item(ListBox& list_box, const Size index)

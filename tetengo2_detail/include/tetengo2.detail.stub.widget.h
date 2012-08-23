@@ -886,7 +886,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param item     An item.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
@@ -907,7 +907,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param item     An item.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
@@ -926,7 +926,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param list_box A list box.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the selected item index cannot be obtained.
         */
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
@@ -943,7 +943,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be appended.
+            \throw std::system_error When the item cannot be selected.
         */
         template <typename ListBox, typename Size>
         static void select_list_box_item(ListBox& list_box, const Size index)
