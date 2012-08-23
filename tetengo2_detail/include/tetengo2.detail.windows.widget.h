@@ -1460,16 +1460,18 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam String  A string type.
             \tparam ListBox A list box type.
             \tparam Size    A size type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
+            \param encoder  An encoder.
 
             \return The list box item.
 
             \throw std::system_error When the item cannot be obtained.
         */
-        template <typename String, typename ListBox, typename Size>
-        static String list_box_item(const ListBox& list_box, const Size index)
+        template <typename String, typename ListBox, typename Size, typename Encoder>
+        static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
             return String();
         }
@@ -1480,15 +1482,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam ListBox A list box type.
             \tparam Size    A size type.
             \tparam String  A string type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param item     An item.
+            \param encoder  An encoder.
 
             \throw std::system_error When the item cannot be appended.
         */
-        template <typename ListBox, typename Size, typename String>
-        static void set_list_box_item(ListBox& list_box, const Size index, String&& item)
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
 
         }
@@ -1499,15 +1503,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam ListBox A list box type.
             \tparam Size    A size type.
             \tparam String  A string type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param item     An item.
+            \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be inserted.
+            \throw std::system_error When the item cannot be appended.
         */
-        template <typename ListBox, typename Size, typename String>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item)
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
             const ::LRESULT result =
                 ::SendMessageW(
@@ -1524,6 +1530,39 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             }
+        }
+
+        /*!
+            \brief Returns the selected list box item index.
+
+            \tparam Size    A size type.
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename Size, typename ListBox>
+        static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
+        {
+            return boost::none;
+        }
+
+        /*!
+            \brief Selects a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename ListBox, typename Size>
+        static void select_list_box_item(ListBox& list_box, const Size index)
+        {
+
         }
 
         /*!

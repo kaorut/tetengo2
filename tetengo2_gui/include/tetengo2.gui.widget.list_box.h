@@ -125,7 +125,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            return widget_details_type::list_box_item<string_type>(*this, index);
+            return widget_details_type::list_box_item<string_type>(*this, index, encoder());
         }
 
         /*!
@@ -144,7 +144,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::set_list_box_item(*this, index, std::forward<S>(item));
+            widget_details_type::set_list_box_item(*this, index, std::forward<S>(item), encoder());
         }
 
         /*!
@@ -163,7 +163,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index > item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::insert_list_box_item(*this, index, std::forward<S>(item));
+            widget_details_type::insert_list_box_item(*this, index, std::forward<S>(item), encoder());
         }
 
         /*!
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace widget
         boost::optional<int_size_type> selected_item_index()
         const
         {
-            return boost::none;
+            return widget_details_type::selected_list_box_item_index<int_size_type>(*this);
         }
 
         /*!
@@ -189,7 +189,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-
+            return widget_details_type::select_list_box_item(*this, index);
         }
 
 

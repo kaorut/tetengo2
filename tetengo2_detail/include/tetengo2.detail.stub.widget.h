@@ -57,6 +57,7 @@ namespace tetengo2 { namespace detail { namespace stub
             bool focusable;
             bool read_only;
             std::vector<string_type> list_box_items;
+            boost::optional<std::size_t> selected_list_box_item_index;
 
             widget_details_type()
             :
@@ -70,7 +71,8 @@ namespace tetengo2 { namespace detail { namespace stub
             children(),
             focusable(),
             read_only(),
-            list_box_items()
+            list_box_items(),
+            selected_list_box_item_index()
             {}
 
             widget_details_type(
@@ -84,8 +86,8 @@ namespace tetengo2 { namespace detail { namespace stub
                 const std::vector<void*>&                                           children,
                 const bool                                                          focusable,
                 const bool                                                          read_only,
-                const std::vector<string_type>&                                     list_box_items
-
+                const std::vector<string_type>&                                     list_box_items,
+                const boost::optional<std::size_t>&                                 selected_list_box_item_index
             )
             :
             p_parent(p_parent),
@@ -98,7 +100,8 @@ namespace tetengo2 { namespace detail { namespace stub
             children(children),
             focusable(focusable),
             read_only(read_only),
-            list_box_items(list_box_items)
+            list_box_items(list_box_items),
+            selected_list_box_item_index(selected_list_box_item_index)
             {}
 
         };
@@ -854,18 +857,20 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String  A string type.
             \tparam ListBox A list box type.
             \tparam Size    A size type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
+            \param encoder  An encoder.
 
             \return The list box item.
 
             \throw std::system_error When the item cannot be obtained.
         */
-        template <typename String, typename ListBox, typename Size>
-        static String list_box_item(const ListBox& list_box, const Size index)
+        template <typename String, typename ListBox, typename Size, typename Encoder>
+        static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
-            return list_box.details()->list_box_items[index];
+            return encoder.decode(list_box.details()->list_box_items[index]);
         }
 
         /*!
@@ -874,17 +879,19 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam ListBox A list box type.
             \tparam Size    A size type.
             \tparam String  A string type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param item     An item.
+            \param encoder  An encoder.
 
             \throw std::system_error When the item cannot be appended.
         */
-        template <typename ListBox, typename Size, typename String>
-        static void set_list_box_item(ListBox& list_box, const Size index, String&& item)
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
-            list_box.details()->list_box_items[index] = std::forward<String>(item);
+            list_box.details()->list_box_items[index] = encoder.encode(std::forward<String>(item));
         }
 
         /*!
@@ -893,19 +900,55 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam ListBox A list box type.
             \tparam Size    A size type.
             \tparam String  A string type.
+            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param item     An item.
+            \param encoder  An encoder.
 
             \throw std::system_error When the item cannot be appended.
         */
-        template <typename ListBox, typename Size, typename String>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item)
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
             list_box.details()->list_box_items.insert(
-                boost::next(list_box.details()->list_box_items.begin(), index), std::forward<String>(item)
+                boost::next(list_box.details()->list_box_items.begin(), index),
+                encoder.encode(std::forward<String>(item))
             );
+        }
+
+        /*!
+            \brief Returns the selected list box item index.
+
+            \tparam Size    A size type.
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename Size, typename ListBox>
+        static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
+        {
+            return list_box.details()->selected_list_box_item_index;
+        }
+
+        /*!
+            \brief Selects a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename ListBox, typename Size>
+        static void select_list_box_item(ListBox& list_box, const Size index)
+        {
+            list_box.details()->selected_list_box_item_index = boost::make_optional<std::size_t>(index);
         }
 
 
@@ -932,7 +975,8 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::vector<void*>(),
                     false,
                     false,
-                    std::vector<string_type>()
+                    std::vector<string_type>(),
+                    boost::none
                 );
 
             return std::move(p_details);
