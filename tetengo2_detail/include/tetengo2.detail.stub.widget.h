@@ -869,6 +869,25 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Sets a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+            \tparam String  A string type.
+
+            \param list_box A list box.
+            \param index    An index.
+            \param item     An item.
+
+            \throw std::system_error When the item cannot be appended.
+        */
+        template <typename ListBox, typename Size, typename String>
+        static void set_list_box_item(ListBox& list_box, const Size index, const String& item)
+        {
+            list_box.details()->list_box_items[index] = item;
+        }
+
+        /*!
             \brief Inserts a list box item.
 
             \tparam ListBox A list box type.

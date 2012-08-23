@@ -96,7 +96,21 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
+
+            list_box.set_item(0, string_type(TETENGO2_TEXT("fuga")));
+
+            BOOST_CHECK(list_box.item(0) == string_type(TETENGO2_TEXT("fuga")));
+        }
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_THROW(list_box.set_item(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(insert_item)
