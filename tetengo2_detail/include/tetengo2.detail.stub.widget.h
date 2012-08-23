@@ -23,6 +23,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
@@ -55,6 +56,7 @@ namespace tetengo2 { namespace detail { namespace stub
             std::vector<void*> children;
             bool focusable;
             bool read_only;
+            std::vector<string_type> list_box_items;
 
             widget_details_type()
             :
@@ -67,20 +69,23 @@ namespace tetengo2 { namespace detail { namespace stub
             font(),
             children(),
             focusable(),
-            read_only()
+            read_only(),
+            list_box_items()
             {}
 
             widget_details_type(
-                void*                                                        p_parent,
-                bool                                                         enabled,
-                bool                                                         visible,
-                std::pair<std::ptrdiff_t, std::ptrdiff_t>                    position,
-                std::pair<std::size_t, std::size_t>                          dimension,
-                string_type                                                  text,
-                std::tuple<string_type, std::size_t, bool, bool, bool, bool> font,
-                std::vector<void*>                                           children,
-                bool                                                         focusable,
-                bool                                                         read_only
+                void* const                                                         p_parent,
+                const bool                                                          enabled,
+                const bool                                                          visible,
+                const std::pair<std::ptrdiff_t, std::ptrdiff_t>&                    position,
+                const std::pair<std::size_t, std::size_t>&                          dimension,
+                const string_type&                                                  text,
+                const std::tuple<string_type, std::size_t, bool, bool, bool, bool>& font,
+                const std::vector<void*>&                                           children,
+                const bool                                                          focusable,
+                const bool                                                          read_only,
+                const std::vector<string_type>&                                     list_box_items
+
             )
             :
             p_parent(p_parent),
@@ -92,7 +97,8 @@ namespace tetengo2 { namespace detail { namespace stub
             font(font),
             children(children),
             focusable(focusable),
-            read_only(read_only)
+            read_only(read_only),
+            list_box_items(list_box_items)
             {}
 
         };
@@ -839,7 +845,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename ListBox>
         static Size list_box_item_count(const ListBox& list_box)
         {
-            return 0;
+            return list_box.details()->list_box_items.size();
         }
 
         /*!
@@ -857,7 +863,11 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename ListBox, typename Size, typename String>
         static void insert_list_box_item(ListBox& list_box, const Size index, const String& item)
-        {}
+        {
+            list_box.details()->list_box_items.insert(
+                boost::next(list_box.details()->list_box_items.begin(), index), item
+            );
+        }
 
 
     private:
@@ -872,7 +882,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
             widget_details_ptr_type p_details =
-                make_unique<widget_details_type>(
+                tetengo2::make_unique<widget_details_type>(
                     p_parent,
                     true,
                     true,
@@ -882,7 +892,8 @@ namespace tetengo2 { namespace detail { namespace stub
                     details_font_type(string_type(), 12, false, false, false, false),
                     std::vector<void*>(),
                     false,
-                    false
+                    false,
+                    std::vector<string_type>()
                 );
 
             return std::move(p_details);

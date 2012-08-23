@@ -9,6 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -23,6 +25,8 @@ namespace
     typedef
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::list_box>::type
         list_box_type;
+
+    typedef list_box_type::string_type string_type;
 
 
 }
@@ -52,7 +56,19 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent;
+            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_EQUAL(list_box.item_count(), 0U);
+        }
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
+
+            BOOST_CHECK_EQUAL(list_box.item_count(), 1U);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(item)
