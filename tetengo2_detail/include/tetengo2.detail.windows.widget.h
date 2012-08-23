@@ -1455,6 +1455,26 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Returns the list box item.
+
+            \tparam String  A string type.
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \return The list box item.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename String, typename ListBox, typename Size>
+        static String list_box_item(const ListBox& list_box, const Size index)
+        {
+            return String();
+        }
+
+        /*!
             \brief Inserts a list box item.
 
             \tparam ListBox A list box type.
