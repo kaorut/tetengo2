@@ -144,7 +144,10 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        BOOST_CHECK(!list_box.selected_item_index());
     }
 
     BOOST_AUTO_TEST_CASE(select_item)
