@@ -117,7 +117,27 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+            list_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box.insert_item(1, string_type(TETENGO2_TEXT("fuga")));
+            list_box.insert_item(0, string_type(TETENGO2_TEXT("piyo")));
+            list_box.insert_item(2, string_type(TETENGO2_TEXT("piyoyo")));
+
+            BOOST_CHECK_EQUAL(list_box.item_count(), 4U);
+            BOOST_CHECK(list_box.item(0) == string_type(TETENGO2_TEXT("piyo")));
+            BOOST_CHECK(list_box.item(1) == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(list_box.item(2) == string_type(TETENGO2_TEXT("piyoyo")));
+            BOOST_CHECK(list_box.item(3) == string_type(TETENGO2_TEXT("fuga")));
+        }
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_THROW(list_box.insert_item(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(selected_item_index)
