@@ -882,9 +882,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the item cannot be appended.
         */
         template <typename ListBox, typename Size, typename String>
-        static void set_list_box_item(ListBox& list_box, const Size index, const String& item)
+        static void set_list_box_item(ListBox& list_box, const Size index, String&& item)
         {
-            list_box.details()->list_box_items[index] = item;
+            list_box.details()->list_box_items[index] = std::forward<String>(item);
         }
 
         /*!
@@ -901,10 +901,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the item cannot be appended.
         */
         template <typename ListBox, typename Size, typename String>
-        static void insert_list_box_item(ListBox& list_box, const Size index, const String& item)
+        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item)
         {
             list_box.details()->list_box_items.insert(
-                boost::next(list_box.details()->list_box_items.begin(), index), item
+                boost::next(list_box.details()->list_box_items.begin(), index), std::forward<String>(item)
             );
         }
 

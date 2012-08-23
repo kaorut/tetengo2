@@ -131,33 +131,39 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets an item.
 
+            \tparam S A string type.
+
             \param index An index.
             \param item  An item.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_item(const int_size_type index, const string_type& item)
+        template <typename S>
+        void set_item(const int_size_type index, S&& item)
         {
             if (index >= item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::set_list_box_item(*this, index, item);
+            widget_details_type::set_list_box_item(*this, index, std::forward<S>(item));
         }
 
         /*!
             \brief Inserts an item.
 
+            \tparam S A string type.
+
             \param index An index.
             \param item  An item.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_item(const int_size_type index, const string_type& item)
+        template <typename S>
+        void insert_item(const int_size_type index, S&& item)
         {
             if (index > item_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::insert_list_box_item(*this, index, item);
+            widget_details_type::insert_list_box_item(*this, index, std::forward<S>(item));
         }
 
         /*!

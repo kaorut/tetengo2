@@ -1488,7 +1488,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the item cannot be appended.
         */
         template <typename ListBox, typename Size, typename String>
-        static void set_list_box_item(ListBox& list_box, const Size index, const String& item)
+        static void set_list_box_item(ListBox& list_box, const Size index, String&& item)
         {
 
         }
@@ -1507,7 +1507,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the item cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String>
-        static void insert_list_box_item(ListBox& list_box, const Size index, const String& item)
+        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item)
         {
             const ::LRESULT result =
                 ::SendMessageW(
