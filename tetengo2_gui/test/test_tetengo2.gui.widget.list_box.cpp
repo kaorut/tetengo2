@@ -140,6 +140,41 @@ BOOST_AUTO_TEST_SUITE(list_box)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(erase_item)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
+
+            list_box.erase_item(0);
+
+            BOOST_CHECK_EQUAL(list_box.item_count(), 0U);
+        }
+        {
+            window_type parent;
+            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_THROW(list_box.erase_item(0), std::out_of_range);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        list_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
+        list_box.insert_item(1, string_type(TETENGO2_TEXT("fuga")));
+
+        list_box.clear();
+
+        BOOST_CHECK_EQUAL(list_box.item_count(), 0U);
+    }
+
     BOOST_AUTO_TEST_CASE(selected_item_index)
     {
         BOOST_TEST_PASSPOINT();

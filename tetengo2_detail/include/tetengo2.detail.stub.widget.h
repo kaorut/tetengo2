@@ -919,6 +919,40 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Erases a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename ListBox, typename Size>
+        static void erase_list_box_item(ListBox& list_box, const Size index)
+        {
+            list_box.details()->list_box_items.erase(
+                boost::next(list_box.details()->list_box_items.begin(), index)
+            );
+        }
+
+        /*!
+            \brief Clears a list box.
+
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \throw std::system_error When the list box cannot be cleared.
+        */
+        template <typename ListBox>
+        static void clear_list_box(ListBox& list_box)
+        {
+            list_box.details()->list_box_items.clear();
+        }
+
+        /*!
             \brief Returns the selected list box item index.
 
             \tparam Size    A size type.

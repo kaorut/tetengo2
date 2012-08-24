@@ -1521,17 +1521,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
-            const ::LRESULT result =
-                ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_DELETESTRING, index, 0);
-            if (result == LB_ERR)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
-                    )
-                );
-            }
-
+            erase_list_box_item(list_box, index);
             insert_list_box_item(list_box, index, item, encoder);
         }
 
@@ -1568,6 +1558,47 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             }
+        }
+
+        /*!
+            \brief Erases a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename ListBox, typename Size>
+        static void erase_list_box_item(ListBox& list_box, const Size index)
+        {
+            const ::LRESULT result =
+                ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_DELETESTRING, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Clears a list box.
+
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \throw std::system_error When the list box cannot be cleared.
+        */
+        template <typename ListBox>
+        static void clear_list_box(ListBox& list_box)
+        {
+            ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_RESETCONTENT, 0, 0);
         }
 
         /*!

@@ -167,6 +167,29 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Erases an item.
+
+            \param index An index.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void erase_item(const int_size_type index)
+        {
+            if (index >= item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            widget_details_type::erase_list_box_item(*this, index);
+        }
+
+        /*!
+            \brief Clears the list box.
+        */
+        void clear()
+        {
+            widget_details_type::clear_list_box(*this);
+        }
+
+        /*!
             \brief Returns the selected item index.
 
             \return The selected item index. Or boost::none when no item is selected.
