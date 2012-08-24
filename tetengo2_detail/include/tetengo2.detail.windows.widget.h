@@ -1521,7 +1521,18 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
         {
+            const ::LRESULT result =
+                ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_DELETESTRING, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                    )
+                );
+            }
 
+            insert_list_box_item(list_box, index, item, encoder);
         }
 
         /*!
@@ -1572,7 +1583,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
         {
-            return boost::none;
+            const ::LRESULT index = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != LB_ERR, index);
         }
 
         /*!
@@ -1589,7 +1601,15 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size>
         static void select_list_box_item(ListBox& list_box, const Size index)
         {
-
+            const ::LRESULT result = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_SETCURSEL, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box item."
+                    )
+                );
+            }
         }
 
         /*!
