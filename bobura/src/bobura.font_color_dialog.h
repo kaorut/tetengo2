@@ -428,9 +428,9 @@ namespace bobura
 
         // virtual functions
 
-        virtual void set_result_impl()
+        virtual void do_modal_impl()
         {
-            //m_company_name = m_p_category_list_box->text();
+            m_p_category_list_box->select_item(0);
         }
 
 
@@ -657,8 +657,6 @@ namespace bobura
                 m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Train Names"))
             );
-
-            m_p_category_list_box->select_item(0);
         }
 
 
