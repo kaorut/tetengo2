@@ -33,6 +33,8 @@ namespace bobura
         \tparam TextBox                        A text box type.
         \tparam Button                         A button type.
         \tparam PictureBox                     A picture box type.
+        \tparam Font                           A font type.
+        \tparam Color                          A color type.
         \tparam TransparentBackground          A transparent background type.
         \tparam FontColorDialogMessageTypeList A message type.
     */
@@ -44,6 +46,8 @@ namespace bobura
         typename TextBox,
         typename Button,
         typename PictureBox,
+        typename Font,
+        typename Color,
         typename TransparentBackground,
         typename FontColorDialogMessageTypeList
     >
@@ -81,6 +85,12 @@ namespace bobura
 
         //! The picture box type.
         typedef PictureBox picture_box_type;
+
+        //! The font type.
+        typedef Font font_type;
+
+        //! The color type.
+        typedef Color color_type;
 
         //! The transparent background type.
         typedef TransparentBackground transparent_background_type;
