@@ -28,6 +28,10 @@ namespace
         boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::font_color_dialog>::type
         font_color_dialog_type;
 
+    typedef font_color_dialog_type::font_type font_type;
+
+    typedef font_color_dialog_type::color_type color_type;
+
 
 }
 
@@ -48,29 +52,141 @@ BOOST_AUTO_TEST_SUITE(font_color_dialog)
         const font_color_dialog_type font_color_dialog(window, message_catalog);
     }
 
-    //BOOST_AUTO_TEST_CASE(company_name)
-    //{
-    //    BOOST_TEST_PASSPOINT();
+    BOOST_AUTO_TEST_CASE(background)
+    {
+        BOOST_TEST_PASSPOINT();
 
-    //    window_type window;
-    //    const message_catalog_type message_catalog;
-    //    const font_color_dialog_type font_color_dialog(window, message_catalog);
+        window_type window;
+        const message_catalog_type message_catalog;
+        const font_color_dialog_type font_color_dialog(window, message_catalog);
 
-    //    BOOST_CHECK(font_color_dialog.company_name().empty());
-    //}
+        BOOST_CHECK_THROW(font_color_dialog.background(), std::logic_error);
+    }
 
-    //BOOST_AUTO_TEST_CASE(set_company_name)
-    //{
-    //    BOOST_TEST_PASSPOINT();
+    BOOST_AUTO_TEST_CASE(set_background)
+    {
+        BOOST_TEST_PASSPOINT();
 
-    //    window_type window;
-    //    const message_catalog_type message_catalog;
-    //    font_color_dialog_type font_color_dialog(window, message_catalog);
+        window_type window;
+        const message_catalog_type message_catalog;
+        font_color_dialog_type font_color_dialog(window, message_catalog);
 
-    //    font_color_dialog.set_company_name(string_type(TETENGO2_TEXT("hoge")));
+        font_color_dialog.set_background(color_type(12, 34, 56));
 
-    //    BOOST_CHECK(font_color_dialog.company_name() == string_type(TETENGO2_TEXT("hoge")));
-    //}
+        BOOST_CHECK(font_color_dialog.background() == color_type(12, 34, 56));
+    }
+
+    BOOST_AUTO_TEST_CASE(company_line_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_company_line_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_note)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(time_line)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_time_line)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(local_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_local_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(principal_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_principal_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(local_terminal_staiton)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_local_terminal_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(principal_terminal_station)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_principal_terminal_staiton)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(train_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_train_name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
 
 
 BOOST_AUTO_TEST_SUITE_END()

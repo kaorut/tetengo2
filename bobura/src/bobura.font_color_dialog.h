@@ -10,9 +10,13 @@
 #define BOBURA_FONTCOLORDIALOG_H
 
 //#include <memory>
+#include <stdexcept>
 //#include <utility>
+#include <vector>
 
 #include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
@@ -92,6 +96,8 @@ namespace bobura
         //! The color type.
         typedef Color color_type;
 
+        typedef std::pair<const font_type&, const color_type&> font_color_type;
+
         //! The transparent background type.
         typedef TransparentBackground transparent_background_type;
 
@@ -111,7 +117,7 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
-        //m_company_name(),
+        m_font_color_list(9, internal_font_color_type(boost::none, boost::none)),
         m_p_category_label(),
         m_p_category_list_box(),
         m_p_font_text_box(),
@@ -134,31 +140,220 @@ namespace bobura
 
         // functions
 
-        ///*!
-        //    \brief Returns the company name.
+        /*!
+            \brief Returns the color of the background.
 
-        //    \return The company name.
-        //*/
-        //const string_type& company_name()
-        //const
-        //{
-        //    return m_company_name;
-        //}
+            \return The color of the background.
 
-        ///*!
-        //    \brief Sets a company name.
+            \throw std::logic_error When the color has not been set.
+        */
+        const color_type& background()
+        const
+        {
+            return to_color(m_font_color_list[0]);
+        }
 
-        //    \tparam S A string type.
+        /*!
+            \brief Sets a color of the background.
 
-        //    \param company_name A company name.
-        //*/
-        //template <typename S>
-        //void set_company_name(S&& company_name)
-        //{
-        //    m_company_name = std::forward<S>(company_name);
-        //    if (!m_p_category_list_box->destroyed())
-        //        m_p_category_list_box->set_text(m_company_name);
-        //}
+            \param color A color.
+        */
+        void set_background(const color_type& color)
+        {
+            m_font_color_list[0] = internal_font_color_type(boost::none, boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the company and the line names.
+
+            \return The font and color of the company and the line names.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type company_line_name()
+        const
+        {
+            return to_font_color(m_font_color_list[1]);
+        }
+
+        /*!
+            \brief Sets a font and color of the company and the line names.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_company_line_name(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[1] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the note.
+
+            \return The font and color of the note.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type note()
+        const
+        {
+            return to_font_color(m_font_color_list[2]);
+        }
+
+        /*!
+            \brief Sets a font and color of the note.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_note(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[2] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the time lines.
+
+            \return The font and color of the time lines.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type time_line()
+        const
+        {
+            return to_font_color(m_font_color_list[3]);
+        }
+
+        /*!
+            \brief Sets a font and color of the time lines.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_time_line(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[3] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the local stations.
+
+            \return The font and color of the local stations.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type local_station()
+        const
+        {
+            return to_font_color(m_font_color_list[4]);
+        }
+
+        /*!
+            \brief Sets a font and color of the local stations.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_local_station(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[4] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the principal stations.
+
+            \return The font and color of the principal stations.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type principal_station()
+        const
+        {
+            return to_font_color(m_font_color_list[5]);
+        }
+
+        /*!
+            \brief Sets a font and color of the principal stations.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_principal_station(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[5] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the local terminal stations.
+
+            \return The font and color of the local terminal stations.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type local_terminal_station()
+        const
+        {
+            return to_font_color(m_font_color_list[6]);
+        }
+
+        /*!
+            \brief Sets a font and color of the local terminal stations.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_local_terminal_station(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[6] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font and color of the principal terminal stations.
+
+            \return The font and color of the principal terminal stations.
+
+            \throw std::logic_error When the font and color have not been set.
+        */
+        font_color_type principal_terminal_station()
+        const
+        {
+            return to_font_color(m_font_color_list[7]);
+        }
+
+        /*!
+            \brief Sets a font and color of the principal terminal stations.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_principal_terminal_station(const font_type& font, const color_type& color)
+        {
+            m_font_color_list[7] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+        }
+
+        /*!
+            \brief Returns the font of the train names.
+
+            \return The font of the train names.
+
+            \throw std::logic_error When the font has not been set.
+        */
+        const font_type& train_name()
+        const
+        {
+            return to_font(m_font_color_list[8]);
+        }
+
+        /*!
+            \brief Sets a font of the train names.
+
+            \param font  A font.
+            \param color A color.
+        */
+        void set_train_name(const font_type& font)
+        {
+            m_font_color_list[8] = internal_font_color_type(boost::make_optional(font), boost::none);
+        }
 
 
     private:
@@ -176,12 +371,41 @@ namespace bobura
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
+
+
+        // static functions
+
+        static const font_type& to_font(const internal_font_color_type& internal_font_color)
+        {
+            if (!internal_font_color.first)
+                BOOST_THROW_EXCEPTION(std::logic_error("The font has not been set."));
+
+            return *internal_font_color.first;
+        }
+
+        static const color_type& to_color(const internal_font_color_type& internal_font_color)
+        {
+            if (!internal_font_color.second)
+                BOOST_THROW_EXCEPTION(std::logic_error("The color has not been set."));
+
+            return *internal_font_color.second;
+        }
+
+        static font_color_type to_font_color(const internal_font_color_type& internal_font_color)
+        {
+            if (!internal_font_color.first || !internal_font_color.second)
+                BOOST_THROW_EXCEPTION(std::logic_error("The font and/or the color have not been set."));
+
+            return font_color_type(*internal_font_color.first, *internal_font_color.second);
+        }
+
 
         // variables
 
         const message_catalog_type& m_message_catalog;
 
-        //string_type m_company_name;
+        std::vector<internal_font_color_type> m_font_color_list;
 
         std::unique_ptr<label_type> m_p_category_label;
 
