@@ -44,6 +44,26 @@ namespace bobura { namespace command
         {
             font_color_dialog_type dialog(parent, m_message_catalog);
 
+            const font_color_set_type& font_color_set = model.timetable().font_color_set();
+            dialog.set_background(font_color_set.background());
+            dialog.set_company_line_name(
+                font_color_set.company_line_name().font(), font_color_set.company_line_name().color()
+            );
+            dialog.set_note(font_color_set.note().font(), font_color_set.note().color());
+            dialog.set_time_line(font_color_set.time_line().font(), font_color_set.time_line().color());
+            dialog.set_local_station(font_color_set.local_station().font(), font_color_set.local_station().color());
+            dialog.set_principal_station(
+                font_color_set.principal_station().font(), font_color_set.principal_station().color()
+            );
+            dialog.set_local_terminal_station(
+                font_color_set.local_terminal_station().font(), font_color_set.local_terminal_station().color()
+            );
+            dialog.set_principal_terminal_station(
+                font_color_set.principal_terminal_station().font(),
+                font_color_set.principal_terminal_station().color()
+            );
+            dialog.set_train_name(font_color_set.train_name());
+
             dialog.do_modal();
             if (dialog.result() != dialog_base_type::result_type::accepted)
                 return;
@@ -52,6 +72,11 @@ namespace bobura { namespace command
 
 
     private:
+        // types
+
+        typedef model_type::timetable_type::font_color_set_type font_color_set_type;
+
+
         // variables
 
         const message_catalog_type& m_message_catalog;
