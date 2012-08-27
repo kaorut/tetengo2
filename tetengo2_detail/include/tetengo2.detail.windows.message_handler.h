@@ -29,6 +29,7 @@
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.message_handler_detail.abstract_window.h"
+#include "tetengo2.detail.windows.message_handler_detail.button.h"
 #include "tetengo2.detail.windows.message_handler_detail.control.h"
 #include "tetengo2.detail.windows.message_handler_detail.dialog.h"
 #include "tetengo2.detail.windows.message_handler_detail.message.h"
@@ -398,14 +399,6 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
-            map[message_handler_detail::custom_message_type::command].push_back(
-                TETENGO2_CPP11_BIND(
-                    message_handler_detail::control::on_tetengo2_command<Control>,
-                    cpp11::ref(control),
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2()
-                )
-            );
             map[message_handler_detail::custom_message_type::control_color].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_control_color<Control>,
@@ -442,7 +435,18 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+
+            map[message_handler_detail::custom_message_type::command].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::button::on_tetengo2_command<Button>,
+                    cpp11::ref(button),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
         }
 
         /*!

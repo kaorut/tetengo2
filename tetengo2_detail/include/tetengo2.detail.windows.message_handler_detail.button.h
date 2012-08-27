@@ -33,6 +33,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 {
     namespace button
     {
+        template <typename Button>
+        boost::optional< ::LRESULT> on_tetengo2_command(
+            Button&        button,
+            const ::WPARAM w_param,
+            const ::LPARAM l_param
+        )
+        {
+            button.mouse_observer_set().clicked()();
+
+            return boost::make_optional< ::LRESULT>(0);
+        }
 
 
     }
