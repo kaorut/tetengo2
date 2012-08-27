@@ -15,10 +15,11 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a list box.
 
-        \tparam ControlTraits A traits type for a control.
-        \tparam IntSize       A integer size type.
+        \tparam ControlTraits      A traits type for a control.
+        \tparam IntSize            A integer size type.
+        \tparam ListBoxObserverSet A list box observer set type.
    */
-    template <typename ControlTraits, typename IntSize>
+    template <typename ControlTraits, typename IntSize, typename ListBoxObserverSet>
     struct list_box_traits
     {
         //types
@@ -28,6 +29,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The integer size type.
         typedef IntSize int_size_type;
+
+        //! The list box observer set type.
+        typedef ListBoxObserverSet list_box_observer_set_type;
 
 
     };

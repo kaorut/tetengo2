@@ -609,7 +609,9 @@ namespace test_tetengo2 { namespace gui
             link_label_traits_type;
         typedef
             tetengo2::gui::widget::traits::list_box_traits<
-                control_traits_type, boost::mpl::at<type_list, type::size>::type
+                control_traits_type,
+                boost::mpl::at<type_list, type::size>::type,
+                tetengo2::gui::message::list_box_observer_set
             >
             list_box_traits_type;
         typedef

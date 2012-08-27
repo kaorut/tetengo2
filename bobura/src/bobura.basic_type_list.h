@@ -49,6 +49,7 @@
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
+#include <tetengo2.gui.message.list_box_observer_set.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
 #include <tetengo2.gui.message.message_loop.h>
 #include <tetengo2.gui.message.message_loop_break.h>
@@ -619,7 +620,9 @@ namespace bobura
             text_box_type;
         typedef
             tetengo2::gui::widget::traits::list_box_traits<
-                control_traits_type, boost::mpl::at<common_type_list, type::size>::type
+                control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::list_box_observer_set
             >
             list_box_traits_type;
         typedef

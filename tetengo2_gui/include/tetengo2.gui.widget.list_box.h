@@ -39,6 +39,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The integer size type.
         typedef typename traits_type::int_size_type int_size_type;
 
+        //! The list box observer set type.
+        typedef typename traits_type::list_box_observer_set_type list_box_observer_set_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -82,10 +85,11 @@ namespace tetengo2 { namespace gui { namespace widget
             scroll_bar_style,
             message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_list_box(parent, scroll_bar_style)
-        )
+        ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_list_box_observer_set()
         {
             initialize(this);
         }
@@ -215,11 +219,37 @@ namespace tetengo2 { namespace gui { namespace widget
             return widget_details_type::select_list_box_item(*this, index);
         }
 
+        /*!
+            \brief Returns the list box observer set.
+
+            \return The list box observer set.
+        */
+        const list_box_observer_set_type& list_box_observer_set()
+        const
+        {
+            return m_list_box_observer_set;
+        }
+
+        /*!
+            \brief Returns the list box observer set.
+
+            \return The list box observer set.
+        */
+        list_box_observer_set_type& list_box_observer_set()
+        {
+            return m_list_box_observer_set;
+        }
+
 
     private:
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+
+
+        // variables
+
+        list_box_observer_set_type m_list_box_observer_set;
 
 
     };
