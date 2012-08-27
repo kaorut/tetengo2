@@ -12,7 +12,7 @@
 
 namespace bobura { namespace message { namespace font_color_dialog
 {
-     /*!
+    /*!
         \brief The class template for a mouse click observer of the OK button.
 
         \tparam Dialog A dialog type.
@@ -61,7 +61,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
     };
 
-     /*!
+    /*!
         \brief The class template for a mouse click observer of the cancel button.
 
         \tparam Dialog A dialog type.
