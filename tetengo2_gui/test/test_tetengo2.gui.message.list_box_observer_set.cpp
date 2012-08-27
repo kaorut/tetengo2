@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::message::control_observer_set.
+    \brief Test of class tetengo2::gui::message::list_box_observer_set.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -18,9 +18,9 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::control_observer_set
+            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::list_box_observer_set
         >::type
-        control_observer_set_type;
+        list_box_observer_set_type;
 
 
 }
@@ -29,7 +29,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(control_observer_set)
+BOOST_AUTO_TEST_SUITE(list_box_observer_set)
     // test cases
 
     BOOST_AUTO_TEST_CASE(selection_changed)
@@ -37,12 +37,12 @@ BOOST_AUTO_TEST_SUITE(control_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const control_observer_set_type observer_set;
+            const list_box_observer_set_type observer_set;
 
             observer_set.selection_changed();
         }
         {
-            control_observer_set_type observer_set;
+            list_box_observer_set_type observer_set;
 
             observer_set.selection_changed();
         }

@@ -212,7 +212,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.list_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.message.control_observer_set.cpp">
+    <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp">
       <Filter>sources\test_tetengo2::gui\message</Filter>
     </ClCompile>
   </ItemGroup>

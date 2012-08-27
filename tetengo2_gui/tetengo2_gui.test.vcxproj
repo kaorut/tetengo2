@@ -122,10 +122,10 @@
     <ClCompile Include="test\test_tetengo2.gui.menu.separator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.shortcut_key.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.shortcut_key_table.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.message.control_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.focus_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.keyboard_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.menu_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.message_loop_break.cpp" />

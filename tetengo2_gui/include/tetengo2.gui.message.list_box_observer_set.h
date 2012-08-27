@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::message::control_observer_set.
+    \brief The definition of tetengo2::gui::message::list_box_observer_set.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MESSAGE_CONTROLOBSERVERSET_H)
-#define TETENGO2_GUI_MESSAGE_CONTROLOBSERVERSET_H
+#if !defined(TETENGO2_GUI_MESSAGE_LISTBOXOBSERVERSET_H)
+#define TETENGO2_GUI_MESSAGE_LISTBOXOBSERVERSET_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -16,9 +16,9 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class for a control observer set.
+        \brief The class for a list box observer set.
     */
-    class control_observer_set : private boost::noncopyable
+    class list_box_observer_set : private boost::noncopyable
     {
     public:
         // types
