@@ -33,6 +33,7 @@
 #include "tetengo2.detail.windows.message_handler_detail.control.h"
 #include "tetengo2.detail.windows.message_handler_detail.dialog.h"
 #include "tetengo2.detail.windows.message_handler_detail.message.h"
+#include "tetengo2.detail.windows.message_handler_detail.list_box.h"
 #include "tetengo2.detail.windows.message_handler_detail.picture_box.h"
 #include "tetengo2.detail.windows.message_handler_detail.widget.h"
 #include "tetengo2.detail.windows.widget.h"
@@ -503,7 +504,18 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+
+            map[message_handler_detail::custom_message_type::command].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::list_box::on_tetengo2_command<ListBox>,
+                    cpp11::ref(list_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
         }
 
         /*!

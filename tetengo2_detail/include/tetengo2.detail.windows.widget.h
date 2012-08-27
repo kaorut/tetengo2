@@ -393,6 +393,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     WS_CHILD |
                         WS_TABSTOP |
                         WS_VISIBLE |
+                        LBS_NOTIFY |
                         window_style_for_scroll_bars<Widget>(scroll_bar_style),
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,

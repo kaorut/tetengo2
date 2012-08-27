@@ -33,6 +33,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 {
     namespace list_box
     {
+        template <typename ListBox>
+        boost::optional< ::LRESULT> on_tetengo2_command(
+            ListBox&       list_box,
+            const ::WPARAM w_param,
+            const ::LPARAM l_param
+        )
+        {
+            switch (HIWORD(w_param))
+            {
+            case LBN_SELCANCEL:
+            case LBN_SELCHANGE:
+                //button.mouse_observer_set().clicked()();
+                break;
+            default:
+                break;
+            }
+
+            return boost::make_optional< ::LRESULT>(0);
+        }
 
 
     }
