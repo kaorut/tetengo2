@@ -10,8 +10,12 @@
 #define BOBURA_MESSAGE_FONTCOLORDIALOG_H
 
 #include <limits>
+#include <memory>
+#include <utility>
 
 #include <boost/optional.hpp>
+
+#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace message { namespace font_color_dialog
@@ -81,6 +85,98 @@ namespace bobura { namespace message { namespace font_color_dialog
         const list_box_type& m_list_box;
 
         update_type m_update;
+
+
+    };
+
+    /*!
+        \brief The class template for a paint observer of the sample picture box.
+
+        \tparam IntSize A integer size type.
+        \tparam Canvas  A canvas type.
+    */
+    template <typename IntSize, typename Canvas>
+    class sample_picture_box_paint
+    {
+    public:
+        // types
+
+        //! The integer size type.
+        typedef IntSize int_size_type;
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The font type.
+        typedef typename Canvas::font_type font_type;
+
+        //! The color type.
+        typedef typename Canvas::color_type color_type;
+
+        //! The internal font and color type.
+        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
+
+        //! The dimension type.
+        typedef typename Canvas::dimension_type dimension_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a paint observer of the sample picture box.
+
+            \param font_color_list        A font and color list.
+            \param current_category_index A current category index.
+            \param canvas_dimension       A canvas dimension.
+        */
+        sample_picture_box_paint(
+            const std::vector<internal_font_color_type>& font_color_list,
+            const boost::optional<int_size_type>&        current_category_index,
+            const dimension_type&                        canvas_dimension
+        )
+        :
+        m_font_color_list(font_color_list),
+        m_current_category_index(current_category_index),
+        m_canvas_dimension(canvas_dimension)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the canvas needs to be repainted.
+
+            \param canvas A canvas.
+        */
+        void operator()(canvas_type& canvas)
+        const
+        {
+            assert(m_font_color_list[0].second);
+            std::unique_ptr<background_type> p_background =
+                tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
+            canvas.set_background(std::move(p_background));
+            
+            canvas.fill_rectangle(position_type(0, 0), m_canvas_dimension);
+        }
+
+
+    private:
+        // types
+
+        typedef typename canvas_type::position_type position_type;
+
+        typedef typename canvas_type::background_type background_type;
+
+        typedef typename canvas_type::solid_background_type solid_background_type;
+
+
+        // variables
+
+        const std::vector<internal_font_color_type>& m_font_color_list;
+
+        const boost::optional<int_size_type>& m_current_category_index;
+
+        const dimension_type m_canvas_dimension;
 
 
     };

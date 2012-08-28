@@ -965,7 +965,8 @@ namespace bobura
                     message::font_color_dialog::type_list<
                         boost::mpl::at<common_type_list, type::size>::type,
                         boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                        boost::mpl::at<ui_type_list, type::ui::list_box>::type
+                        boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                        boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
                     >::type
                 >
             >,

@@ -108,7 +108,7 @@ namespace bobura
         typedef TransparentBackground transparent_background_type;
 
         //! The message type list type.
-        typedef FontColorDialogMessageTypeList file_property_dialog_message_type_list_type;
+        typedef FontColorDialogMessageTypeList font_color_dialog_message_type_list_type;
 
 
         // constructors and destructor
@@ -484,7 +484,7 @@ namespace bobura
 
             p_list_box->list_box_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
-                    file_property_dialog_message_type_list_type,
+                    font_color_dialog_message_type_list_type,
                     message::font_color_dialog::type::category_list_box_selection_changed
                 >::type(
                     m_current_category_index,
@@ -514,7 +514,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:&Font...")));
             //p_button->mouse_observer_set().clicked().connect(
             //    typename boost::mpl::at<
-            //        file_property_dialog_message_type_list_type,
+            //        font_color_dialog_message_type_list_type,
             //        message::font_color_dialog::type::ok_button_mouse_clicked
             //    >::type(*this)
             //);
@@ -530,7 +530,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:&Color...")));
             //p_button->mouse_observer_set().clicked().connect(
             //    typename boost::mpl::at<
-            //        file_property_dialog_message_type_list_type,
+            //        font_color_dialog_message_type_list_type,
             //        message::font_color_dialog::type::ok_button_mouse_clicked
             //    >::type(*this)
             //);
@@ -554,6 +554,14 @@ namespace bobura
             std::unique_ptr<picture_box_type> p_picture_box =
                 tetengo2::make_unique<picture_box_type>(*this, list_box_type::scroll_bar_style_type::none);
 
+            p_picture_box->set_dimension(dimension_type(width_type(24), height_type(8)));
+            p_picture_box->fast_paint_observer_set().paint().connect(
+                typename boost::mpl::at<
+                    font_color_dialog_message_type_list_type,
+                    message::font_color_dialog::type::sample_picture_box_paint
+                >::type(m_font_color_list, m_current_category_index, p_picture_box->client_dimension())
+            );
+
             return std::move(p_picture_box);
         }
 
@@ -565,7 +573,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
-                    file_property_dialog_message_type_list_type,
+                    font_color_dialog_message_type_list_type,
                     message::font_color_dialog::type::ok_button_mouse_clicked
                 >::type(*this)
             );
@@ -581,7 +589,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
-                    file_property_dialog_message_type_list_type,
+                    font_color_dialog_message_type_list_type,
                     message::font_color_dialog::type::cancel_button_mouse_clicked
                 >::type(*this)
             );
@@ -623,7 +631,6 @@ namespace bobura
             m_p_sample_label->fit_to_content();
             m_p_sample_label->set_position(position_type(font_text_box_left, top_type(8)));
 
-            m_p_sample_picture_box->set_dimension(dimension_type(width_type(24), height_type(8)));
             m_p_sample_picture_box->set_position(
                 position_type(
                     font_text_box_left,
@@ -689,6 +696,8 @@ namespace bobura
             m_p_font_button->set_enabled(!font_name_and_size_.empty());
 
             m_p_color_button->set_enabled(color_enabled());
+
+            m_p_sample_picture_box->repaint();
         }
 
         string_type font_name_and_size()

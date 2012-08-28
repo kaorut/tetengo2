@@ -165,8 +165,9 @@ namespace bobura { namespace message
             \tparam Size    A size type.
             \tparam Dialog  A dialog type.
             \tparam ListBox A list box type.
+            \tparam Canvas  A canvas type.
         */
-        template <typename Size, typename Dialog, typename ListBox>
+        template <typename Size, typename Dialog, typename ListBox, typename Canvas>
         class type_list
         {
         public:
@@ -179,11 +180,13 @@ namespace bobura { namespace message
                         type::category_list_box_selection_changed, category_list_box_selection_changed<Size, ListBox>
                     >,
                 tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::sample_picture_box_paint, sample_picture_box_paint<Size, Canvas>>,
+                tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
-                >>>
+                >>>>
                 type;
 
 
