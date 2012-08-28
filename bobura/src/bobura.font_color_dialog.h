@@ -687,6 +687,8 @@ namespace bobura
             m_p_font_text_box->set_text(font_name_and_size_);
             m_p_font_text_box->set_enabled(!font_name_and_size_.empty());
             m_p_font_button->set_enabled(!font_name_and_size_.empty());
+
+            m_p_color_button->set_enabled(color_enabled());
         }
 
         string_type font_name_and_size()
@@ -694,17 +696,25 @@ namespace bobura
         {
             if (!m_current_category_index)
                 return string_type();
-            if (!m_font_color_list[*m_current_category_index].first)
+
+            const boost::optional<font_type>& font = m_font_color_list[*m_current_category_index].first;
+            if (!font)
                 return string_type();
 
             std::basic_ostringstream<typename string_type::value_type> stream;
             stream <<
                 boost::basic_format<typename string_type::value_type>(string_type(TETENGO2_TEXT("%s, %dpx"))) %
-                m_font_color_list[*m_current_category_index].first->family() %
-                m_font_color_list[*m_current_category_index].first->size();
+                font->family() %
+                font->size();
 
             return stream.str();
         }
+
+        bool color_enabled()
+        {
+            return m_current_category_index && m_font_color_list[*m_current_category_index].second;
+        }
+
 
     };
 
