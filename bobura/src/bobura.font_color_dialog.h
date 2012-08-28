@@ -10,10 +10,12 @@
 #define BOBURA_FONTCOLORDIALOG_H
 
 //#include <memory>
+#include <sstream>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
 
+#include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -681,9 +683,28 @@ namespace bobura
 
         void update(const boost::optional<int_size_type>& previous_category_index)
         {
-
+            const string_type font_name_and_size_ = font_name_and_size();
+            m_p_font_text_box->set_text(font_name_and_size_);
+            m_p_font_text_box->set_enabled(!font_name_and_size_.empty());
+            m_p_font_button->set_enabled(!font_name_and_size_.empty());
         }
 
+        string_type font_name_and_size()
+        const
+        {
+            if (!m_current_category_index)
+                return string_type();
+            if (!m_font_color_list[*m_current_category_index].first)
+                return string_type();
+
+            std::basic_ostringstream<typename string_type::value_type> stream;
+            stream <<
+                boost::basic_format<typename string_type::value_type>(string_type(TETENGO2_TEXT("%s, %dpx"))) %
+                m_font_color_list[*m_current_category_index].first->family() %
+                m_font_color_list[*m_current_category_index].first->size();
+
+            return stream.str();
+        }
 
     };
 
