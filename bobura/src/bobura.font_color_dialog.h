@@ -18,6 +18,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -81,6 +82,9 @@ namespace bobura
         //! The list box type.
         typedef ListBox list_box_type;
 
+        //! The integer size type.
+        typedef typename list_box_type::int_size_type int_size_type;
+
         //! The text box type.
         typedef TextBox text_box_type;
 
@@ -118,6 +122,7 @@ namespace bobura
         base_type(parent),
         m_message_catalog(message_catalog),
         m_font_color_list(9, internal_font_color_type(boost::none, boost::none)),
+        m_current_category_index(),
         m_p_category_label(),
         m_p_category_list_box(),
         m_p_font_text_box(),
@@ -407,6 +412,8 @@ namespace bobura
 
         std::vector<internal_font_color_type> m_font_color_list;
 
+        boost::optional<int_size_type> m_current_category_index;
+
         std::unique_ptr<label_type> m_p_category_label;
 
         std::unique_ptr<list_box_type> m_p_category_list_box;
@@ -431,6 +438,8 @@ namespace bobura
         virtual void do_modal_impl()
         {
             m_p_category_list_box->select_item(0);
+            m_current_category_index = boost::make_optional<int_size_type>(0);
+            update(boost::none);
         }
 
 
@@ -475,7 +484,11 @@ namespace bobura
                 typename boost::mpl::at<
                     file_property_dialog_message_type_list_type,
                     message::font_color_dialog::type::category_list_box_selection_changed
-                >::type(*this)
+                >::type(
+                    m_current_category_index,
+                    *p_list_box,
+                    TETENGO2_CPP11_BIND(&font_color_dialog::update, this, tetengo2::cpp11::placeholders_1())
+                )
             );
 
             return std::move(p_list_box);
@@ -664,6 +677,11 @@ namespace bobura
                 m_p_category_list_box->item_count(),
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Train Names"))
             );
+        }
+
+        void update(const boost::optional<int_size_type>& previous_category_index)
+        {
+
         }
 
 

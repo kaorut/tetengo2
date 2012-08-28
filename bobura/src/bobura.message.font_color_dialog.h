@@ -9,22 +9,33 @@
 #if !defined(BOBURA_MESSAGE_FONTCOLORDIALOG_H)
 #define BOBURA_MESSAGE_FONTCOLORDIALOG_H
 
+#include <limits>
+
+#include <boost/optional.hpp>
+
 
 namespace bobura { namespace message { namespace font_color_dialog
 {
     /*!
         \brief The class template for a selection change observer of the category list box.
 
-        \tparam Dialog A dialog type.
+        \tparam Size    A size type.
+        \tparam ListBox A list box type.
     */
-    template <typename Dialog>
+    template <typename Size, typename ListBox>
     class category_list_box_selection_changed
     {
     public:
         // types
 
-        //! The dialog type.
-        typedef Dialog dialog_type;
+        //! The size type.
+        typedef Size size_type;
+
+        //! The list box type.
+        typedef ListBox list_box_type;
+
+        //! The update type.
+        typedef std::function<void (const boost::optional<size_type>&)> update_type;
 
 
         // constructors and destructor
@@ -32,11 +43,19 @@ namespace bobura { namespace message { namespace font_color_dialog
         /*!
             \brief Create a selection change observer of the category list box.
 
-            \param dialog A dialog.
+            \param current_category_index A current category index.
+            \param list_box               A list box type.
+            \param update                 A update function.
         */
-        explicit category_list_box_selection_changed(dialog_type& dialog)
+        category_list_box_selection_changed(
+            boost::optional<size_type>& current_category_index,
+            const list_box_type&        list_box,
+            const update_type           update
+        )
         :
-        m_dialog(dialog)
+        m_current_category_index(current_category_index),
+        m_list_box(list_box),
+        m_update(update)
         {}
 
 
@@ -48,14 +67,20 @@ namespace bobura { namespace message { namespace font_color_dialog
         void operator()()
         const
         {
-
+            const boost::optional<size_type> previous_category_index = m_current_category_index;
+            m_current_category_index = m_list_box.selected_item_index();
+            m_update(previous_category_index);
         }
 
 
     private:
         // variables
 
-        dialog_type& m_dialog;
+        boost::optional<size_type>& m_current_category_index;
+
+        const list_box_type& m_list_box;
+
+        update_type m_update;
 
 
     };

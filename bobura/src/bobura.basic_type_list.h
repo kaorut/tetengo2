@@ -963,7 +963,9 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::color>::type,
                     boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
                     message::font_color_dialog::type_list<
-                        boost::mpl::at<ui_type_list, type::ui::dialog>::type
+                        boost::mpl::at<common_type_list, type::size>::type,
+                        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                        boost::mpl::at<ui_type_list, type::ui::list_box>::type
                     >::type
                 >
             >,

@@ -162,9 +162,11 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the font and color dialog messages.
 
-            \tparam Dialog A dialog type.
+            \tparam Size    A size type.
+            \tparam Dialog  A dialog type.
+            \tparam ListBox A list box type.
         */
-        template <typename Dialog>
+        template <typename Size, typename Dialog, typename ListBox>
         class type_list
         {
         public:
@@ -174,7 +176,7 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::category_list_box_selection_changed, category_list_box_selection_changed<Dialog>
+                        type::category_list_box_selection_changed, category_list_box_selection_changed<Size, ListBox>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
