@@ -13,6 +13,55 @@
 namespace bobura { namespace message { namespace font_color_dialog
 {
     /*!
+        \brief The class template for a selection change observer of the category list box.
+
+        \tparam Dialog A dialog type.
+    */
+    template <typename Dialog>
+    class category_list_box_selection_changed
+    {
+    public:
+        // types
+
+        //! The dialog type.
+        typedef Dialog dialog_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Create a selection change observer of the category list box.
+
+            \param dialog A dialog.
+        */
+        explicit category_list_box_selection_changed(dialog_type& dialog)
+        :
+        m_dialog(dialog)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the selection of the category list box is changed.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        dialog_type& m_dialog;
+
+
+    };
+
+
+    /*!
         \brief The class template for a mouse click observer of the OK button.
 
         \tparam Dialog A dialog type.
@@ -60,6 +109,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
 
     };
+
 
     /*!
         \brief The class template for a mouse click observer of the cancel button.

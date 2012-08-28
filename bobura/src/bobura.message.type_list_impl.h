@@ -173,11 +173,15 @@ namespace bobura { namespace message
             //! The type list for the font and color dialog.
             typedef
                 tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::category_list_box_selection_changed, category_list_box_selection_changed<Dialog>
+                    >,
+                tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
-                >>
+                >>>
                 type;
 
 
