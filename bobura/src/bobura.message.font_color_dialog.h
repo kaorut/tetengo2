@@ -15,7 +15,9 @@
 
 #include <boost/optional.hpp>
 
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.text.h>
 
 
 namespace bobura { namespace message { namespace font_color_dialog
@@ -155,15 +157,52 @@ namespace bobura { namespace message { namespace font_color_dialog
             std::unique_ptr<background_type> p_background =
                 tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
             canvas.set_background(std::move(p_background));
-            
             canvas.fill_rectangle(position_type(0, 0), m_canvas_dimension);
+
+            if (!m_current_category_index || *m_current_category_index == 0)
+                return;
+
+            assert(m_font_color_list[*m_current_category_index].first);
+            canvas.set_font(*m_font_color_list[*m_current_category_index].first);
+            canvas.set_color(
+                m_font_color_list[*m_current_category_index].second ?
+                *m_font_color_list[*m_current_category_index].second : color_type(0x40, 0x40, 0x40)
+            );
+
+            const string_type text(TETENGO2_TEXT("SAMPLE"));
+
+            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+
+            canvas.draw_text(text, position_type(1, text_and_line_tops.first));
+
+            canvas.set_line_width(width_type(size_type(1, 12)));
+            canvas.set_line_style(canvas_type::line_style_type::solid);
+            canvas.draw_line(
+                position_type(0, text_and_line_tops.second),
+                position_type(
+                    left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
+                    text_and_line_tops.second
+                )
+            );
         }
 
 
     private:
         // types
 
+        typedef typename canvas_type::string_type string_type;
+
         typedef typename canvas_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename width_type::value_type size_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename canvas_type::background_type background_type;
 
@@ -177,6 +216,30 @@ namespace bobura { namespace message { namespace font_color_dialog
         const boost::optional<int_size_type>& m_current_category_index;
 
         const dimension_type m_canvas_dimension;
+
+
+        // functions
+
+        std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
+        const
+        {
+            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
+            const height_type text_height =
+                tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
+
+            if (canvas_height > text_height)
+            {
+                const top_type text_top = top_type::from((canvas_height - text_height) / 2);
+                const top_type line_top = text_top + top_type::from(text_height);
+                return std::make_pair(text_top, line_top);
+            }
+            else
+            {
+                const top_type line_top = top_type::from(canvas_height);
+                const top_type text_top = line_top - top_type::from(text_height);
+                return std::make_pair(text_top, line_top);
+            }
+        }
 
 
     };
