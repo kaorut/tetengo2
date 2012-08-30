@@ -11,13 +11,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_LISTBOX_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_LISTBOX_H
 
-#include <memory>
-#include <system_error>
-#include <tuple>
-
 #include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)

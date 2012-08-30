@@ -9,10 +9,11 @@
 #if !defined(TETENGO2_GUI_WIDGET_LISTBOX_H)
 #define TETENGO2_GUI_WIDGET_LISTBOX_H
 
-#include <stdexcept>
+//#include <stdexcept>
+//#include <utility>
 
-#include <boost/optional.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/optional.hpp>
+//#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"

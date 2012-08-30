@@ -9,9 +9,11 @@
 #if !defined(BOBURA_MESSAGE_FONTCOLORDIALOG_H)
 #define BOBURA_MESSAGE_FONTCOLORDIALOG_H
 
-#include <limits>
-#include <memory>
-#include <utility>
+#include <cassert>
+#include <functional>
+//#include <memory>
+//#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
