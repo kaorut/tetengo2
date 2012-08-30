@@ -559,7 +559,9 @@ namespace bobura
                 typename boost::mpl::at<
                     font_color_dialog_message_type_list_type,
                     message::font_color_dialog::type::sample_picture_box_paint
-                >::type(m_font_color_list, m_current_category_index, p_picture_box->client_dimension())
+                >::type(
+                    m_font_color_list, m_current_category_index, p_picture_box->client_dimension(), m_message_catalog
+                )
             );
 
             return std::move(p_picture_box);

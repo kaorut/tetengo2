@@ -91,13 +91,15 @@ namespace bobura { namespace message { namespace font_color_dialog
 
     };
 
+
     /*!
         \brief The class template for a paint observer of the sample picture box.
 
-        \tparam IntSize A integer size type.
-        \tparam Canvas  A canvas type.
+        \tparam IntSize        A integer size type.
+        \tparam Canvas         A canvas type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename IntSize, typename Canvas>
+    template <typename IntSize, typename Canvas, typename MessageCatalog>
     class sample_picture_box_paint
     {
     public:
@@ -121,6 +123,9 @@ namespace bobura { namespace message { namespace font_color_dialog
         //! The dimension type.
         typedef typename Canvas::dimension_type dimension_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
@@ -130,16 +135,19 @@ namespace bobura { namespace message { namespace font_color_dialog
             \param font_color_list        A font and color list.
             \param current_category_index A current category index.
             \param canvas_dimension       A canvas dimension.
+            \param message_catalog        A message catalog.
         */
         sample_picture_box_paint(
             const std::vector<internal_font_color_type>& font_color_list,
             const boost::optional<int_size_type>&        current_category_index,
-            const dimension_type&                        canvas_dimension
+            const dimension_type&                        canvas_dimension,
+            const message_catalog_type&                  message_catalog
         )
         :
         m_font_color_list(font_color_list),
         m_current_category_index(current_category_index),
-        m_canvas_dimension(canvas_dimension)
+        m_canvas_dimension(canvas_dimension),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -169,7 +177,7 @@ namespace bobura { namespace message { namespace font_color_dialog
                 *m_font_color_list[*m_current_category_index].second : color_type(0x40, 0x40, 0x40)
             );
 
-            const string_type text(TETENGO2_TEXT("SAMPLE"));
+            const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
 
             const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
 
@@ -216,6 +224,8 @@ namespace bobura { namespace message { namespace font_color_dialog
         const boost::optional<int_size_type>& m_current_category_index;
 
         const dimension_type m_canvas_dimension;
+
+        const message_catalog_type& m_message_catalog;
 
 
         // functions

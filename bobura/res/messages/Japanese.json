@@ -71,6 +71,7 @@
         "Dialog:FontAndColor:&Font...":                    "フォント(&F)...",
         "Dialog:FontAndColor:&Color...":                   "色(&C)...",
         "Dialog:FontAndColor:&Sample:":                    "サンプル(&S):",
+        "Dialog:FontAndColor:SAMPLE":                      "みほん",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
