@@ -215,5 +215,8 @@
     <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp">
       <Filter>sources\test_tetengo2::gui\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.font.cpp">
+      <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

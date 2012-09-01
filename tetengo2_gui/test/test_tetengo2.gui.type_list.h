@@ -33,6 +33,7 @@
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.common_dialog.file_open.h"
 #include "tetengo2.gui.common_dialog.file_save.h"
+#include "tetengo2.gui.common_dialog.font.h"
 #include "tetengo2.gui.common_dialog.message_box.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
@@ -744,6 +745,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct file_open;      //!< The file open dialog type.
         struct file_save;      //!< The file save dialog type.
+        struct font;           //!< The font dialog type.
         struct message_box;    //!< The message box type.
         struct button_style;   //!< The button style type.
     }}
@@ -782,6 +784,17 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::common_dialog::font,
+                tetengo2::gui::common_dialog::font<
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<drawing_type_list, type::drawing::font>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::common_dialog::common_dialog_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::common_dialog::message_box,
                 tetengo2::gui::common_dialog::message_box<
                     boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
@@ -798,7 +811,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         common_dialog_type_list;
 
 

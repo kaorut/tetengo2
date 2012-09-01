@@ -12,6 +12,7 @@ sources = \
     test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
     test_tetengo2.gui.common_dialog.file_save.cpp \
+    test_tetengo2.gui.common_dialog.font.cpp \
     test_tetengo2.gui.common_dialog.message_box.cpp \
     test_tetengo2.gui.cursor.cursor_base.cpp \
     test_tetengo2.gui.cursor.system.cpp \

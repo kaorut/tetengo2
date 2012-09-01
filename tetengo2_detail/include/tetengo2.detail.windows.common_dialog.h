@@ -44,6 +44,7 @@
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -140,6 +141,12 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file save dialog details pointer type.
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
+        //! The font dialog details type.
+        struct font_dialog_details_type {};
+
+        //! The font dialog details pointer type.
+        typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
+
         
         // static functions
 
@@ -157,13 +164,11 @@ namespace tetengo2 { namespace detail { namespace windows
             \param title                       A title.
             \param main_content                A main content.
             \param sub_content                 A sub content.
-            \param cancellable                 Whether the message box is
-                                               cancellable.
+            \param cancellable                 Whether the message box is cancellable.
             \param button_style                A button style.
             \param icon_style                  An icon style.
             \param custom_ok_button_label      A custom OK button label.
-            \param custom_yes_no_button_labels A custom Yes and No button
-                                               labels.
+            \param custom_yes_no_button_labels A custom Yes and No button labels.
             \param encoder                     An encoder.
 
             \return A unique pointer to a message box.
@@ -258,15 +263,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param parent  A parent window.
             \param title   A title.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file open dialog.
 
-            \throw std::system_error When the file open dialog cannot be
-                                     created.
+            \throw std::system_error When the file open dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
@@ -309,8 +311,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The path.
 
-            \throw std::system_error When the file open dialog cannot be
-                                     shown.
+            \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
         static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
@@ -392,15 +393,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \param parent  A parent window.
             \param title   A title.
             \param path    A path.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file save dialog.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     created.
+            \throw std::system_error When the file save dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
@@ -446,8 +444,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The path.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     shown.
+            \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
         static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
@@ -563,6 +560,50 @@ namespace tetengo2 { namespace detail { namespace windows
             } BOOST_SCOPE_EXIT_END;
 
             return Path(encoder.decode(file_name));
+        }
+
+        /*!
+            \brief Creates a font dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam String         A string type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param title   A title.
+            \param encoder An encoder.
+
+            \return A unique pointer to a font dialog.
+
+            \throw std::system_error When the font dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename String, typename Encoder>
+        static font_dialog_details_ptr_type create_font_dialog(
+            AbstractWindow& parent,
+            String&&        title,
+            const Encoder&  encoder
+        )
+        {
+            return make_unique<font_dialog_details_type>();
+        }
+
+        /*!
+            \brief Shows a font dialog and return a font.
+
+            \tparam Font    A font type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A font dialog.
+            \param encoder An encoder.
+
+            \return The font.
+
+            \throw std::system_error When the font dialog cannot be shown.
+        */
+        template <typename Font, typename Encoder>
+        static Font show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            return Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true);
         }
 
 

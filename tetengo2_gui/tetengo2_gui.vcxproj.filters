@@ -240,5 +240,8 @@
     <ClInclude Include="include\tetengo2.gui.message.list_box_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.font.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

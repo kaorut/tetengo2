@@ -6,6 +6,7 @@ headers = \
     tetengo2.gui.alert.h \
     tetengo2.gui.common_dialog.file_open.h \
     tetengo2.gui.common_dialog.file_save.h \
+    tetengo2.gui.common_dialog.font.h \
     tetengo2.gui.common_dialog.message_box.h \
     tetengo2.gui.cursor.cursor_base.h \
     tetengo2.gui.cursor.system.h \

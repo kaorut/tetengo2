@@ -22,6 +22,7 @@
     <ClInclude Include="include\tetengo2.gui.alert.h" />
     <ClInclude Include="include\tetengo2.gui.common_dialog.file_open.h" />
     <ClInclude Include="include\tetengo2.gui.common_dialog.file_save.h" />
+    <ClInclude Include="include\tetengo2.gui.common_dialog.font.h" />
     <ClInclude Include="include\tetengo2.gui.common_dialog.message_box.h" />
     <ClInclude Include="include\tetengo2.gui.cursor.cursor_base.h" />
     <ClInclude Include="include\tetengo2.gui.cursor.system.h" />
