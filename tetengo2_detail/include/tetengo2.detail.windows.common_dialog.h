@@ -279,7 +279,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::IFileOpenDialog* p_raw_dialog = NULL;
             const ::HRESULT creation_result =
                 ::CoCreateInstance(__uuidof(::FileOpenDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
-            if (!SUCCEEDED(creation_result))
+            if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -316,7 +316,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
-            if (!SUCCEEDED(title_set_result))
+            if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
@@ -327,7 +327,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT default_extension_set_result =
                     std::get<0>(dialog)->SetDefaultExtension(std::get<3>(dialog).c_str());
-                if (!SUCCEEDED(default_extension_set_result))
+                if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -341,7 +341,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<4>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
-            if (!SUCCEEDED(filter_set_result))
+            if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -351,12 +351,12 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
-            if (!SUCCEEDED(showing_result))
+            if (FAILED(showing_result))
                 return Path();
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
-            if (!SUCCEEDED(result_result))
+            if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
@@ -366,7 +366,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
-            if (!SUCCEEDED(file_title_result))
+            if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
@@ -414,7 +414,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::IFileSaveDialog* p_raw_dialog = NULL;
             const ::HRESULT creation_result =
                 ::CoCreateInstance(__uuidof(::FileSaveDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
-            if (!SUCCEEDED(creation_result))
+            if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -453,7 +453,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
-            if (!SUCCEEDED(title_set_result))
+            if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
@@ -467,7 +467,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::SHCreateItemFromParsingName(
                         std::get<3>(dialog).c_str(), NULL, IID_PPV_ARGS(&p_raw_default_path)
                     );
-                if (!SUCCEEDED(default_path_result))
+                if (FAILED(default_path_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -484,7 +484,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!std::get<3>(dialog).empty())
             {
                 const ::HRESULT default_path_set_result = std::get<0>(dialog)->SetSaveAsItem(p_raw_default_path);
-                if (!SUCCEEDED(default_path_set_result))
+                if (FAILED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -498,7 +498,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT default_extension_set_result =
                     std::get<0>(dialog)->SetDefaultExtension(std::get<4>(dialog).c_str());
-                if (!SUCCEEDED(default_extension_set_result))
+                if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -512,7 +512,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<5>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
-            if (!SUCCEEDED(filter_set_result))
+            if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -525,7 +525,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT filter_index_set_result =
                     std::get<0>(dialog)->SetFileTypeIndex(static_cast< ::UINT>(std::get<6>(dialog)));
-                if (!SUCCEEDED(filter_index_set_result))
+                if (FAILED(filter_index_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -536,12 +536,12 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
-            if (!SUCCEEDED(showing_result))
+            if (FAILED(showing_result))
                 return Path();
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
-            if (!SUCCEEDED(result_result))
+            if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
@@ -551,7 +551,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
-            if (!SUCCEEDED(file_title_result))
+            if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
