@@ -61,16 +61,17 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a font dialog.
 
-            \tparam S A string type.
+            \tparam S  A string type.
 
             \param title        A title.
+            \param font         A font.
             \param parent       A parent widget.
         */
         template <typename S>
-        font(S&& title, abstract_window_type& parent)
+        font(S&& title, const boost::optional<font_type>& font, abstract_window_type& parent)
         :
         m_p_details(common_dialog_details_type::create_font_dialog(parent, std::forward<S>(title), encoder())),
-        m_result(font_type::dialog_font())
+        m_result(font ? *font : font_type::dialog_font())
         {}
 
 

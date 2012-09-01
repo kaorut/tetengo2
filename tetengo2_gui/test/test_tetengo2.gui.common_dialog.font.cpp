@@ -52,11 +52,15 @@ BOOST_AUTO_TEST_SUITE(font)
 
         {
             window_type parent;
-            const font_dialog_type font(string_type(), parent);
+            const font_dialog_type font(string_type(), boost::none, parent);
         }
         {
             window_type parent;
-            const font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+            const font_dialog_type font(
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::make_optional(font_type(string_type(TETENGO2_TEXT("fuga")), 42, false, true, false, true)),
+                parent
+            );
         }
     }
 
@@ -66,13 +70,13 @@ BOOST_AUTO_TEST_SUITE(font)
 
         {
             window_type parent;
-            const font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+            const font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
 
             BOOST_CHECK(font.result() == font_type::dialog_font());
         }
         {
             window_type parent;
-            font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+            font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
 
             font.do_modal();
 
@@ -85,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(font)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+        font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
 
         font.do_modal();
     }
@@ -96,13 +100,13 @@ BOOST_AUTO_TEST_SUITE(font)
 
         {
             window_type parent;
-            const font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+            const font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
 
             font.details();
         }
         {
             window_type parent;
-            font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), parent);
+            font_dialog_type font(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
 
             font.details();
         }
