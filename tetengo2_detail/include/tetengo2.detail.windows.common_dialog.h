@@ -142,7 +142,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
         //! The font dialog details type.
-        struct font_dialog_details_type {};
+        typedef std::tuple< ::HWND, std::wstring, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
 
         //! The font dialog details pointer type.
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
@@ -599,7 +599,36 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            return make_unique<font_dialog_details_type>();
+            std::unique_ptr< ::LOGFONTW> p_log_font;
+            if (font)
+            {
+                p_log_font = make_unique< ::LOGFONT>();
+                p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
+                p_log_font->lfWeight = font->bold() ? FW_BOLD : FW_NORMAL;
+                p_log_font->lfItalic = font->italic() ? TRUE : FALSE;
+                p_log_font->lfUnderline = font->underline() ? TRUE : FALSE;
+                p_log_font->lfStrikeOut = font->strikeout() ? TRUE : FALSE;
+                p_log_font->lfCharSet = DEFAULT_CHARSET;
+                p_log_font->lfOutPrecision = OUT_DEFAULT_PRECIS;
+                p_log_font->lfClipPrecision = CLIP_DEFAULT_PRECIS;
+                p_log_font->lfQuality = DEFAULT_QUALITY;
+                p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
+                
+                const std::wstring native_face_name = encoder.encode(font->family());
+                const std::size_t native_face_name_length =
+                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                std::copy(
+                    native_face_name.begin(),
+                    boost::next(native_face_name.begin(), native_face_name_length),
+                    p_log_font->lfFaceName
+                );
+                p_log_font->lfFaceName[native_face_name_length] = 0;
+            }
+
+            return
+                make_unique<font_dialog_details_type>(
+                    std::get<0>(*parent.details()).get(), encoder.encode(title), std::move(p_log_font)
+                );
         }
 
         /*!
