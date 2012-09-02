@@ -258,6 +258,104 @@ namespace bobura { namespace message { namespace font_color_dialog
 
 
     /*!
+        \brief The class template for a mouse click observer of the font button.
+
+        \tparam Dialog A dialog type.
+    */
+    template <typename Dialog>
+    class font_button_mouse_clicked
+    {
+    public:
+        // types
+
+        //! The dialog type.
+        typedef Dialog dialog_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the font button.
+
+            \param dialog A dialog.
+        */
+        explicit font_button_mouse_clicked(dialog_type& dialog)
+        :
+        m_dialog(dialog)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the font button is clicked.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        dialog_type& m_dialog;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse click observer of the color button.
+
+        \tparam Dialog A dialog type.
+    */
+    template <typename Dialog>
+    class color_button_mouse_clicked
+    {
+    public:
+        // types
+
+        //! The dialog type.
+        typedef Dialog dialog_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the color button.
+
+            \param dialog A dialog.
+        */
+        explicit color_button_mouse_clicked(dialog_type& dialog)
+        :
+        m_dialog(dialog)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the font button is clicked.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        dialog_type& m_dialog;
+
+
+    };
+
+
+    /*!
         \brief The class template for a mouse click observer of the OK button.
 
         \tparam Dialog A dialog type.

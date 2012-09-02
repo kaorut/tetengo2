@@ -512,12 +512,12 @@ namespace bobura
                 tetengo2::make_unique<button_type>(*this, button_type::style_type::normal);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:&Font...")));
-            //p_button->mouse_observer_set().clicked().connect(
-            //    typename boost::mpl::at<
-            //        font_color_dialog_message_type_list_type,
-            //        message::font_color_dialog::type::ok_button_mouse_clicked
-            //    >::type(*this)
-            //);
+            p_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    font_color_dialog_message_type_list_type,
+                    message::font_color_dialog::type::font_button_mouse_clicked
+                >::type(*this)
+            );
 
             return std::move(p_button);
         }
@@ -528,12 +528,12 @@ namespace bobura
                 tetengo2::make_unique<button_type>(*this, button_type::style_type::normal);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:&Color...")));
-            //p_button->mouse_observer_set().clicked().connect(
-            //    typename boost::mpl::at<
-            //        font_color_dialog_message_type_list_type,
-            //        message::font_color_dialog::type::ok_button_mouse_clicked
-            //    >::type(*this)
-            //);
+            p_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    font_color_dialog_message_type_list_type,
+                    message::font_color_dialog::type::color_button_mouse_clicked
+                >::type(*this)
+            );
 
             return std::move(p_button);
         }
