@@ -193,9 +193,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_open_dialog(
+            file_open_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
-            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
+            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
         /*!
@@ -243,9 +246,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_save_dialog(
+            file_save_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
-            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
+            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
         /*!
@@ -287,9 +293,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the font dialog cannot be shown.
         */
         template <typename Font, typename Encoder>
-        static Font show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true);
+            return
+                boost::make_optional(
+                    Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
+                );
         }
 
         /*!
@@ -331,9 +340,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the color dialog cannot be shown.
         */
         template <typename Color, typename Encoder>
-        static Color show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return Color(0xAB, 0xCD, 0xEF);
+            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 
 

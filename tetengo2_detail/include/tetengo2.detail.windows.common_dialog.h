@@ -320,7 +320,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_open_dialog(
+            file_open_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
             if (FAILED(title_set_result))
@@ -359,7 +362,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
             if (FAILED(showing_result))
-                return Path();
+                return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
@@ -384,7 +387,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return Path(encoder.decode(file_name));
+            return boost::make_optional(Path(encoder.decode(file_name)));
         }
 
         /*!
@@ -453,7 +456,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_save_dialog(
+            file_save_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
             if (FAILED(title_set_result))
@@ -540,7 +546,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
             if (FAILED(showing_result))
-                return Path();
+                return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
@@ -565,7 +571,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return Path(encoder.decode(file_name));
+            return boost::make_optional(Path(encoder.decode(file_name)));
         }
 
         /*!
@@ -607,9 +613,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the font dialog cannot be shown.
         */
         template <typename Font, typename Encoder>
-        static Font show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true);
+            return
+                boost::make_optional(
+                    Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
+                );
         }
 
         /*!
@@ -651,9 +660,9 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the color dialog cannot be shown.
         */
         template <typename Color, typename Encoder>
-        static Color show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return Color(0xAB, 0xCD, 0xEF);
+            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 
 

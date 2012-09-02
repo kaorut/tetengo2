@@ -344,7 +344,9 @@ namespace bobura { namespace message { namespace font_color_dialog
                 m_dialog
             );
 
-            font_dialog.do_modal();
+            const bool ok = font_dialog.do_modal();
+            if (!ok)
+                return;
 
             m_font_color_list[*m_current_category_index].first = boost::make_optional(font_dialog.result());
 
