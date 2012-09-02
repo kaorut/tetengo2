@@ -133,11 +133,11 @@ namespace bobura { namespace load_save
                 file_open_dialog_type dialog(
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
                 );
-                dialog.do_modal();
+                const bool ok = dialog.do_modal();
+                if (!ok)
+                    return;
 
                 path = dialog.result();
-                if (path.empty())
-                    return;
             }
             else
             {

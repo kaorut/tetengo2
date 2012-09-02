@@ -103,10 +103,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         /*!
             \brief Shows the dialog as model.
+
+            \retval true  When the OK button is pressed.
+            \retval false Otherwise.
         */
-        void do_modal()
+        bool do_modal()
         {
             m_result = common_dialog_details_type::template show_file_save_dialog<path_type>(*m_p_details, encoder());
+            return true;
         }
 
         /*!
