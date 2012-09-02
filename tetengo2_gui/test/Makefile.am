@@ -10,6 +10,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_tetengo2.gui.alert.cpp \
+    test_tetengo2.gui.common_dialog.color.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
     test_tetengo2.gui.common_dialog.file_save.cpp \
     test_tetengo2.gui.common_dialog.font.cpp \

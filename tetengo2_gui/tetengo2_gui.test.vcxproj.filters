@@ -218,5 +218,8 @@
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.font.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.color.cpp">
+      <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

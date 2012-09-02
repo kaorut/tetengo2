@@ -96,6 +96,7 @@
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.color.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_save.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.font.cpp" />

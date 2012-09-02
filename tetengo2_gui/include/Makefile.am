@@ -4,6 +4,7 @@
 
 headers = \
     tetengo2.gui.alert.h \
+    tetengo2.gui.common_dialog.color.h \
     tetengo2.gui.common_dialog.file_open.h \
     tetengo2.gui.common_dialog.file_save.h \
     tetengo2.gui.common_dialog.font.h \

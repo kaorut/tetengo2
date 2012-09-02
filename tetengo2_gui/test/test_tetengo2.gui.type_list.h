@@ -31,6 +31,7 @@
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
+#include "tetengo2.gui.common_dialog.color.h"
 #include "tetengo2.gui.common_dialog.file_open.h"
 #include "tetengo2.gui.common_dialog.file_save.h"
 #include "tetengo2.gui.common_dialog.font.h"
@@ -743,6 +744,7 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace common_dialog
     {
+        struct color;          //!< The color dialog type.
         struct file_open;      //!< The file open dialog type.
         struct file_save;      //!< The file save dialog type.
         struct font;           //!< The font dialog type.
@@ -760,6 +762,17 @@ namespace test_tetengo2 { namespace gui
 
     //! The common dialog type list.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::color,
+                tetengo2::gui::common_dialog::color<
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<drawing_type_list, type::drawing::color>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::common_dialog::common_dialog_details_type
+                >
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::file_open,
@@ -811,7 +824,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         common_dialog_type_list;
 
 

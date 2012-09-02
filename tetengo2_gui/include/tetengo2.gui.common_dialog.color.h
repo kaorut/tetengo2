@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::common_dialog::font.
+    \brief The definition of tetengo2::gui::common_dialog::color.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_COMMONDIALOG_FONT_H)
-#define TETENGO2_GUI_COMMONDIALOG_FONT_H
+#if !defined(TETENGO2_GUI_COMMONDIALOG_COLOR_H)
+#define TETENGO2_GUI_COMMONDIALOG_COLOR_H
 
 #include <utility>
 #include <vector>
@@ -21,16 +21,16 @@
 namespace tetengo2 { namespace gui { namespace common_dialog
 {
     /*!
-        \brief The class template for a font dialog.
+        \brief The class template for a color dialog.
 
         \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
-        \tparam Font                A font type.
+        \tparam Color               A color type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <typename AbstractWindow, typename String, typename Font, typename Encoder, typename CommonDialogDetails>
-    class font : private boost::noncopyable
+    template <typename AbstractWindow, typename String, typename Color, typename Encoder, typename CommonDialogDetails>
+    class color : private boost::noncopyable
     {
     public:
         // types
@@ -41,8 +41,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The string type.
         typedef String string_type;
 
-        //! The font type.
-        typedef Font font_type;
+        //! The color type.
+        typedef Color color_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -51,28 +51,28 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typedef CommonDialogDetails common_dialog_details_type;
 
         //! The detail implementation type.
-        typedef typename common_dialog_details_type::font_dialog_details_type details_type;
+        typedef typename common_dialog_details_type::color_dialog_details_type details_type;
 
         //! The detail implementaiton pointer type;
-        typedef typename common_dialog_details_type::font_dialog_details_ptr_type details_ptr_type;
+        typedef typename common_dialog_details_type::color_dialog_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a font dialog.
+            \brief Creates a color dialog.
 
             \tparam S  A string type.
 
             \param title  A title.
-            \param font   A font.
+            \param color  A color.
             \param parent A parent widget.
         */
         template <typename S>
-        font(S&& title, const boost::optional<font_type>& font, abstract_window_type& parent)
+        color(S&& title, const boost::optional<color_type>& color, abstract_window_type& parent)
         :
-        m_p_details(common_dialog_details_type::create_font_dialog(parent, std::forward<S>(title), encoder())),
-        m_result(font ? *font : font_type::dialog_font())
+        m_p_details(common_dialog_details_type::create_color_dialog(parent, std::forward<S>(title), encoder())),
+        m_result(color ? *color : color_type(0, 0, 0))
         {}
 
 
@@ -83,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const font_type& result()
+        const color_type& result()
         const
         {
             return m_result;
@@ -94,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-            m_result = common_dialog_details_type::template show_font_dialog<font_type>(*m_p_details, encoder());
+            m_result = common_dialog_details_type::template show_color_dialog<color_type>(*m_p_details, encoder());
         }
 
         /*!
@@ -133,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         details_ptr_type m_p_details;
 
-        font_type m_result;
+        color_type m_result;
 
 
     };

@@ -81,6 +81,12 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The font dialog details pointer type.
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
 
+        //! The color dialog details type.
+        struct color_dialog_details_type {};
+
+        //! The color dialog details pointer type.
+        typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
+
         
         // static functions
 
@@ -284,6 +290,50 @@ namespace tetengo2 { namespace detail { namespace stub
         static Font show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
             return Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true);
+        }
+
+        /*!
+            \brief Creates a color dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam String         A string type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param title   A title.
+            \param encoder An encoder.
+
+            \return A unique pointer to a color dialog.
+
+            \throw std::system_error When the color dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename String, typename Encoder>
+        static color_dialog_details_ptr_type create_color_dialog(
+            AbstractWindow& parent,
+            String&&        title,
+            const Encoder&  encoder
+        )
+        {
+            return make_unique<color_dialog_details_type>();
+        }
+
+        /*!
+            \brief Shows a color dialog and return a font.
+
+            \tparam Color   A color type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A font dialog.
+            \param encoder An encoder.
+
+            \return The color.
+
+            \throw std::system_error When the color dialog cannot be shown.
+        */
+        template <typename Color, typename Encoder>
+        static Color show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            return Color(0xAB, 0xCD, 0xEF);
         }
 
 
