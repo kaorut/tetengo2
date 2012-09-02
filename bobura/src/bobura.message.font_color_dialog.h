@@ -335,7 +335,20 @@ namespace bobura { namespace message { namespace font_color_dialog
         void operator()()
         const
         {
+            if (!m_current_category_index)
+                return;
 
+            font_dialog_type font_dialog(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Select Font")),
+                m_font_color_list[*m_current_category_index].first,
+                m_dialog
+            );
+
+            font_dialog.do_modal();
+
+            m_font_color_list[*m_current_category_index].first = boost::make_optional(font_dialog.result());
+
+            m_update(m_current_category_index);
         }
 
 
