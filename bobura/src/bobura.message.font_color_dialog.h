@@ -52,7 +52,7 @@ namespace bobura { namespace message { namespace font_color_dialog
             \brief Create a selection change observer of the category list box.
 
             \param current_category_index A current category index.
-            \param list_box               A list box type.
+            \param list_box               A list box.
             \param update                 A update function.
         */
         category_list_box_selection_changed(
@@ -260,16 +260,44 @@ namespace bobura { namespace message { namespace font_color_dialog
     /*!
         \brief The class template for a mouse click observer of the font button.
 
-        \tparam Dialog A dialog type.
+        \tparam Size           A size type.
+        \tparam Dialog         A dialog type.
+        \tparam FontDialog     A font dialog type.
+        \tparam Canvas         A canvas type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename Dialog>
+    template <typename Size, typename Dialog, typename FontDialog, typename Canvas, typename MessageCatalog>
     class font_button_mouse_clicked
     {
     public:
         // types
 
+        //! The size type.
+        typedef Size size_type;
+
         //! The dialog type.
         typedef Dialog dialog_type;
+
+        //! The font dialog type.
+        typedef FontDialog font_dialog_type;
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The font type.
+        typedef typename Canvas::font_type font_type;
+
+        //! The color type.
+        typedef typename Canvas::color_type color_type;
+
+        //! The internal font and color type.
+        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
+        //! The update type.
+        typedef std::function<void (const boost::optional<size_type>&)> update_type;
 
 
         // constructors and destructor
@@ -277,11 +305,25 @@ namespace bobura { namespace message { namespace font_color_dialog
         /*!
             \brief Creates a mouse click observer of the font button.
 
-            \param dialog A dialog.
+            \param dialog                 A dialog.
+            \param font_color_list        A font and color list.
+            \param current_category_index A current category index.
+            \param update                 A update function.
+            \param message_catalog        A message catalog.
         */
-        explicit font_button_mouse_clicked(dialog_type& dialog)
+        font_button_mouse_clicked(
+            dialog_type&                           dialog,
+            std::vector<internal_font_color_type>& font_color_list,
+            const boost::optional<size_type>&      current_category_index,
+            const update_type                      update,
+            const message_catalog_type&            message_catalog
+        )
         :
-        m_dialog(dialog)
+        m_dialog(dialog),
+        m_font_color_list(font_color_list),
+        m_current_category_index(current_category_index),
+        m_update(update),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -301,6 +343,14 @@ namespace bobura { namespace message { namespace font_color_dialog
         // variables
 
         dialog_type& m_dialog;
+
+        std::vector<internal_font_color_type>& m_font_color_list;
+
+        const boost::optional<size_type>& m_current_category_index;
+
+        update_type m_update;
+
+        const message_catalog_type& m_message_catalog;
 
 
     };

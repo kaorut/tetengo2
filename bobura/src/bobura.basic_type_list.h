@@ -24,6 +24,7 @@
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.common_dialog.file_save.h>
+#include <tetengo2.gui.common_dialog.font.h>
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -830,6 +831,7 @@ namespace bobura
         struct message_box;    //!< The message box type.
         struct file_open_dialog; //!< The file open dialog type.
         struct file_save_dialog; //!< The file save dialog type.
+        struct font;           //!< The font dialog type.
     }}
 
     //! The type list for the commong dialogs.
@@ -866,8 +868,19 @@ namespace bobura
                     boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::font,
+                tetengo2::gui::common_dialog::font<
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<common_type_list, type::string>::type,
+                    boost::mpl::at<ui_type_list, type::ui::font>::type,
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         common_dialog_type_list;
 
 
@@ -967,6 +980,7 @@ namespace bobura
                         boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                         boost::mpl::at<ui_type_list, type::ui::list_box>::type,
                         boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
                         boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                     >::type
                 >
