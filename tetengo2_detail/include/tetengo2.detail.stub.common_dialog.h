@@ -259,20 +259,23 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam AbstractWindow An abstract window type.
             \tparam String         A string type.
+            \tparam OptionalFont   An optional font type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
             \param title   A title.
+            \param font    A font.
             \param encoder An encoder.
 
             \return A unique pointer to a font dialog.
 
             \throw std::system_error When the font dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename Encoder>
+        template <typename AbstractWindow, typename String, typename OptionalFont, typename Encoder>
         static font_dialog_details_ptr_type create_font_dialog(
             AbstractWindow& parent,
             String&&        title,
+            OptionalFont&&  font,
             const Encoder&  encoder
         )
         {

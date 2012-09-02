@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         template <typename S>
         font(S&& title, const boost::optional<font_type>& font, abstract_window_type& parent)
         :
-        m_p_details(common_dialog_details_type::create_font_dialog(parent, std::forward<S>(title), encoder())),
+        m_p_details(common_dialog_details_type::create_font_dialog(parent, std::forward<S>(title), font, encoder())),
         m_result(font ? *font : font_type::dialog_font())
         {}
 
