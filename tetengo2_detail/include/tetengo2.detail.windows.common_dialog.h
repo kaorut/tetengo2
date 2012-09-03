@@ -647,9 +647,38 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Font, typename Encoder>
         static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
+            ::CHOOSEFONTW choose_font = {};
+            choose_font.lStructSize = sizeof(::CHOOSEFONTW);
+            choose_font.hwndOwner = std::get<0>(dialog);
+            choose_font.hDC = NULL;
+            choose_font.lpLogFont = std::get<2>(dialog).get();
+            choose_font.iPointSize = 0;
+            choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_INITTOLOGFONTSTRUCT;
+            choose_font.rgbColors = 0;
+            choose_font.lCustData = 0;
+            choose_font.lpfnHook = NULL;
+            choose_font.lpTemplateName = NULL;
+            choose_font.hInstance = NULL;
+            choose_font.lpszStyle = NULL;
+            choose_font.nFontType = 0;
+            choose_font.nSizeMin = 0;
+            choose_font.nSizeMax = 0;
+
+            const ::BOOL result = ::ChooseFontW(&choose_font);
+            if (result == FALSE)
+                return boost::none;
+
             return
                 boost::make_optional(
-                    Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
+                    Font(
+                        choose_font.lpLogFont->lfFaceName,
+                        choose_font.lpLogFont->lfHeight < 0 ?
+                            -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight,
+                        choose_font.lpLogFont->lfWeight >= FW_BOLD,
+                        choose_font.lpLogFont->lfItalic != FALSE,
+                        choose_font.lpLogFont->lfUnderline != FALSE,
+                        choose_font.lpLogFont->lfStrikeOut != FALSE
+                    )
                 );
         }
 
