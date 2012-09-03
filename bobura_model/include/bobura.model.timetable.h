@@ -579,6 +579,8 @@ namespace bobura { namespace model
         void set_font_color_set(FCS&& font_color_set)
         {
             m_font_color_set = std::forward<FCS>(font_color_set);
+
+            m_observer_set.changed()();
         }
 
         /*!
