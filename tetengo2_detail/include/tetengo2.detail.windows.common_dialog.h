@@ -142,7 +142,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
         //! The font dialog details type.
-        typedef std::tuple< ::HWND, std::wstring, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
+        typedef std::tuple< ::HWND, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
 
         //! The font dialog details pointer type.
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
@@ -578,12 +578,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a font dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
             \tparam OptionalFont   An optional font type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
-            \param title   A title.
             \param font    A font.
             \param encoder An encoder.
 
@@ -591,10 +589,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \throw std::system_error When the font dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename OptionalFont, typename Encoder>
+        template <typename AbstractWindow, typename OptionalFont, typename Encoder>
         static font_dialog_details_ptr_type create_font_dialog(
             AbstractWindow& parent,
-            String&&        title,
             OptionalFont&&  font,
             const Encoder&  encoder
         )
@@ -625,10 +622,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 p_log_font->lfFaceName[native_face_name_length] = 0;
             }
 
-            return
-                make_unique<font_dialog_details_type>(
-                    std::get<0>(*parent.details()).get(), encoder.encode(title), std::move(p_log_font)
-                );
+            return make_unique<font_dialog_details_type>(std::get<0>(*parent.details()).get(), std::move(p_log_font));
         }
 
         /*!
@@ -651,7 +645,7 @@ namespace tetengo2 { namespace detail { namespace windows
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
             choose_font.hwndOwner = std::get<0>(dialog);
             choose_font.hDC = NULL;
-            choose_font.lpLogFont = std::get<2>(dialog).get();
+            choose_font.lpLogFont = std::get<1>(dialog).get();
             choose_font.iPointSize = 0;
             choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_INITTOLOGFONTSTRUCT;
             choose_font.rgbColors = 0;

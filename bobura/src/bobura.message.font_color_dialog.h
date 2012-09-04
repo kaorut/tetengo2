@@ -338,11 +338,7 @@ namespace bobura { namespace message { namespace font_color_dialog
             if (!m_current_category_index)
                 return;
 
-            font_dialog_type font_dialog(
-                m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Select Font")),
-                m_font_color_list[*m_current_category_index].first,
-                m_dialog
-            );
+            font_dialog_type font_dialog(m_font_color_list[*m_current_category_index].first, m_dialog);
 
             const bool ok = font_dialog.do_modal();
             if (!ok)

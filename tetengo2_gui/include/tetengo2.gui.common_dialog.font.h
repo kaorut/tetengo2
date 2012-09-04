@@ -24,12 +24,11 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         \brief The class template for a font dialog.
 
         \tparam AbstractWindow      An abstract window type.
-        \tparam String              A string type.
         \tparam Font                A font type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <typename AbstractWindow, typename String, typename Font, typename Encoder, typename CommonDialogDetails>
+    template <typename AbstractWindow, typename Font, typename Encoder, typename CommonDialogDetails>
     class font : private boost::noncopyable
     {
     public:
@@ -37,9 +36,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
-
-        //! The string type.
-        typedef String string_type;
 
         //! The font type.
         typedef Font font_type;
@@ -62,16 +58,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a font dialog.
 
-            \tparam S  A string type.
-
-            \param title  A title.
             \param font   A font.
             \param parent A parent widget.
         */
-        template <typename S>
-        font(S&& title, const boost::optional<font_type>& font, abstract_window_type& parent)
+        font(const boost::optional<font_type>& font, abstract_window_type& parent)
         :
-        m_p_details(common_dialog_details_type::create_font_dialog(parent, std::forward<S>(title), font, encoder())),
+        m_p_details(common_dialog_details_type::create_font_dialog(parent, font, encoder())),
         m_result(font ? *font : font_type::dialog_font())
         {}
 
