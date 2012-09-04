@@ -11,8 +11,6 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.text.h"
-
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -23,8 +21,6 @@ namespace
     typedef
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
         window_type;
-
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
@@ -52,15 +48,11 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent;
-            const color_dialog_type color(string_type(), boost::none, parent);
+            const color_dialog_type color(boost::none, parent);
         }
         {
             window_type parent;
-            const color_dialog_type color(
-                string_type(TETENGO2_TEXT("hoge")),
-                boost::make_optional(color_type(12, 34, 56)),
-                parent
-            );
+            const color_dialog_type color(boost::make_optional(color_type(12, 34, 56)), parent);
         }
     }
 
@@ -70,13 +62,13 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent;
-            const color_dialog_type color(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
+            const color_dialog_type color(boost::none, parent);
 
             BOOST_CHECK(color.result() == color_type(0, 0, 0));
         }
         {
             window_type parent;
-            color_dialog_type color(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
+            color_dialog_type color(boost::none, parent);
 
             color.do_modal();
 
@@ -89,7 +81,7 @@ BOOST_AUTO_TEST_SUITE(color)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        color_dialog_type color(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
+        color_dialog_type color(boost::none, parent);
 
         color.do_modal();
     }
@@ -100,13 +92,13 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent;
-            const color_dialog_type color(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
+            const color_dialog_type color(boost::none, parent);
 
             color.details();
         }
         {
             window_type parent;
-            color_dialog_type color(string_type(TETENGO2_TEXT("hoge")), boost::none, parent);
+            color_dialog_type color(boost::none, parent);
 
             color.details();
         }

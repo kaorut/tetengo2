@@ -680,21 +680,21 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a color dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
+            \tparam OptionalColor  An optional color type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
-            \param title   A title.
+            \param color   A color.
             \param encoder An encoder.
 
             \return A unique pointer to a color dialog.
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename Encoder>
+        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
         static color_dialog_details_ptr_type create_color_dialog(
             AbstractWindow& parent,
-            String&&        title,
+            OptionalColor&& color,
             const Encoder&  encoder
         )
         {
@@ -707,7 +707,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam Color   A color type.
             \tparam Encoder An encoder type.
 
-            \param dialog  A font dialog.
+            \param dialog  A color dialog.
             \param encoder An encoder.
 
             \return The color.

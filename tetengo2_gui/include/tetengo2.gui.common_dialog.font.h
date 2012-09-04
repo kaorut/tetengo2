@@ -15,8 +15,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.text.h"
-
 
 namespace tetengo2 { namespace gui { namespace common_dialog
 {

@@ -15,8 +15,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.text.h"
-
 
 namespace tetengo2 { namespace gui { namespace common_dialog
 {
@@ -24,12 +22,11 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         \brief The class template for a color dialog.
 
         \tparam AbstractWindow      An abstract window type.
-        \tparam String              A string type.
         \tparam Color               A color type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <typename AbstractWindow, typename String, typename Color, typename Encoder, typename CommonDialogDetails>
+    template <typename AbstractWindow, typename Color, typename Encoder, typename CommonDialogDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -37,9 +34,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
-
-        //! The string type.
-        typedef String string_type;
 
         //! The color type.
         typedef Color color_type;
@@ -62,16 +56,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a color dialog.
 
-            \tparam S  A string type.
-
-            \param title  A title.
             \param color  A color.
             \param parent A parent widget.
         */
-        template <typename S>
-        color(S&& title, const boost::optional<color_type>& color, abstract_window_type& parent)
+        color(const boost::optional<color_type>& color, abstract_window_type& parent)
         :
-        m_p_details(common_dialog_details_type::create_color_dialog(parent, std::forward<S>(title), encoder())),
+        m_p_details(common_dialog_details_type::create_color_dialog(parent, color, encoder())),
         m_result(color ? *color : color_type(0, 0, 0))
         {}
 
