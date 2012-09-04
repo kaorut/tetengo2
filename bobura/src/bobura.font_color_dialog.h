@@ -538,7 +538,13 @@ namespace bobura
                 typename boost::mpl::at<
                     font_color_dialog_message_type_list_type,
                     message::font_color_dialog::type::color_button_mouse_clicked
-                >::type(*this)
+                >::type(
+                    *this,
+                    m_font_color_list,
+                    m_current_category_index,
+                    TETENGO2_CPP11_BIND(&font_color_dialog::update, this, tetengo2::cpp11::placeholders_1()),
+                    m_message_catalog
+                )
             );
 
             return std::move(p_button);

@@ -22,6 +22,7 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.gui.alert.h>
+#include <tetengo2.gui.common_dialog.color.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.common_dialog.file_save.h>
 #include <tetengo2.gui.common_dialog.font.h>
@@ -828,6 +829,7 @@ namespace bobura
 
     namespace type { namespace common_dialog
     {
+        struct color;          //!< The color dialog type.
         struct message_box;    //!< The message box type.
         struct file_open_dialog; //!< The file open dialog type.
         struct file_save_dialog; //!< The file save dialog type.
@@ -836,6 +838,16 @@ namespace bobura
 
     //! The type list for the commong dialogs.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::color,
+                tetengo2::gui::common_dialog::color<
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type,
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
+                >
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::message_box,
@@ -879,7 +891,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         common_dialog_type_list;
 
 
@@ -980,6 +992,7 @@ namespace bobura
                         boost::mpl::at<ui_type_list, type::ui::list_box>::type,
                         boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                         boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
                         boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                     >::type
                 >
