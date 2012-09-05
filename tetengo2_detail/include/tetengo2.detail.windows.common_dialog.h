@@ -148,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
 
         //! The color dialog details type.
-        struct color_dialog_details_type {};
+        typedef std::tuple< ::HWND, ::COLORREF> color_dialog_details_type;
 
         //! The color dialog details pointer type.
         typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
@@ -698,7 +698,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            return make_unique<color_dialog_details_type>();
+            const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
+            return make_unique<color_dialog_details_type>(std::get<0>(*parent.details()).get(), native_color);
         }
 
         /*!
@@ -717,6 +718,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Color, typename Encoder>
         static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
         {
+
             return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 
