@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <utility>
+
 #include "bobura.command.font_color.h"
 
 

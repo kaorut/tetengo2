@@ -4,11 +4,15 @@
 ::BOOL                                           Windows.h
 ::BYTE                                           Windows.h
 ::BeginPaint                                     Windows.h
+::CHOOSECOLORW                                   Windows.h
+::CHOOSEFONTW                                    Windows.h
 ::CLSID_WICImagingFactory                        Windows.h,wincodec.h
 ::CLSID_WICImagingFactory1                       Windows.h,wincodec.h
 ::COLORREF                                       Windows.h
 ::COMDLG_FILTERSPEC                              Windows.h,ShTypes.h
 ::CallWindowProcW                                Windows.h
+::ChooseColorW                                   Windows.h
+::ChooseFontW                                    Windows.h
 ::ClientToScreen                                 Windows.h
 ::CoCreateInstance                               Windows.h,ObjBase.h
 ::CoInitializeEx                                 Windows.h,ObjBase.h
@@ -546,6 +550,7 @@ std::codecvt                                     locale
 std::copy                                        algorithm
 std::cos                                         cmath
 std::cref                                        functional
+std::decay                                       type_traits
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip

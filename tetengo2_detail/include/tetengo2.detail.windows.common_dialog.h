@@ -18,7 +18,7 @@
 //#include <string>
 //#include <system_error>
 #include <tuple>
-#include <type_traits>
+//#include <type_traits>
 //#include <utility>
 //#include <vector>
 
@@ -597,7 +597,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONT>();
+            std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONTW>();
             if (font)
             {
                 p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
