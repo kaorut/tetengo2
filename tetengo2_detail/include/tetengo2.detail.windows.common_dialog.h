@@ -739,8 +739,30 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Color, typename Encoder>
         static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
         {
+            static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
+            ::CHOOSECOLORW choose_color = {};
+            choose_color.lStructSize = sizeof(::CHOOSECOLORW);
+            choose_color.hwndOwner = std::get<0>(dialog);
+            choose_color.hInstance = NULL;
+            choose_color.rgbResult = std::get<1>(dialog);
+            choose_color.lpCustColors = custom_colors.data();
+            choose_color.Flags = CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN;
+            choose_color.lCustData = 0;
+            choose_color.lpfnHook = NULL;
+            choose_color.lpTemplateName = NULL;
 
-            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
+            const ::BOOL result = ::ChooseColorW(&choose_color);
+            if (result == FALSE)
+                return boost::none;
+
+            return
+                boost::make_optional(
+                    Color(
+                        GetRValue(choose_color.rgbResult),
+                        GetGValue(choose_color.rgbResult),
+                        GetBValue(choose_color.rgbResult)
+                    )
+                );
         }
 
 
