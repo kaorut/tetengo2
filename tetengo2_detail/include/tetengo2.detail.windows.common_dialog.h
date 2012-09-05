@@ -18,6 +18,7 @@
 //#include <string>
 //#include <system_error>
 #include <tuple>
+#include <type_traits>
 //#include <utility>
 //#include <vector>
 
@@ -596,20 +597,14 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            std::unique_ptr< ::LOGFONTW> p_log_font;
+            std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONT>();
             if (font)
             {
-                p_log_font = make_unique< ::LOGFONT>();
                 p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
                 p_log_font->lfWeight = font->bold() ? FW_BOLD : FW_NORMAL;
                 p_log_font->lfItalic = font->italic() ? TRUE : FALSE;
                 p_log_font->lfUnderline = font->underline() ? TRUE : FALSE;
                 p_log_font->lfStrikeOut = font->strikeout() ? TRUE : FALSE;
-                p_log_font->lfCharSet = DEFAULT_CHARSET;
-                p_log_font->lfOutPrecision = OUT_DEFAULT_PRECIS;
-                p_log_font->lfClipPrecision = CLIP_DEFAULT_PRECIS;
-                p_log_font->lfQuality = DEFAULT_QUALITY;
-                p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
                 
                 const std::wstring native_face_name = encoder.encode(font->family());
                 const std::size_t native_face_name_length =
@@ -621,6 +616,32 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
                 p_log_font->lfFaceName[native_face_name_length] = 0;
             }
+            else
+            {
+                typedef typename std::decay<OptionalFont>::type::value_type font_type;
+                const font_type& dialog_font = font_type::dialog_font();
+
+                p_log_font->lfHeight = -static_cast< ::LONG>(dialog_font.size());
+                p_log_font->lfWeight = dialog_font.bold() ? FW_BOLD : FW_NORMAL;
+                p_log_font->lfItalic = dialog_font.italic() ? TRUE : FALSE;
+                p_log_font->lfUnderline = dialog_font.underline() ? TRUE : FALSE;
+                p_log_font->lfStrikeOut = dialog_font.strikeout() ? TRUE : FALSE;
+                
+                const std::wstring native_face_name = encoder.encode(dialog_font.family());
+                const std::size_t native_face_name_length =
+                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                std::copy(
+                    native_face_name.begin(),
+                    boost::next(native_face_name.begin(), native_face_name_length),
+                    p_log_font->lfFaceName
+                );
+                p_log_font->lfFaceName[native_face_name_length] = 0;
+            }
+            p_log_font->lfCharSet = DEFAULT_CHARSET;
+            p_log_font->lfOutPrecision = OUT_DEFAULT_PRECIS;
+            p_log_font->lfClipPrecision = CLIP_DEFAULT_PRECIS;
+            p_log_font->lfQuality = DEFAULT_QUALITY;
+            p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
             return make_unique<font_dialog_details_type>(std::get<0>(*parent.details()).get(), std::move(p_log_font));
         }
