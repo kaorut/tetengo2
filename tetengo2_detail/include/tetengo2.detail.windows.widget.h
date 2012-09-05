@@ -1609,6 +1609,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam ListBox A list box type.
 
             \param list_box A list box.
+            
+            \return The selected list box item index.
 
             \throw std::system_error When the selected item index cannot be obtained.
         */

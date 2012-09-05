@@ -46,6 +46,7 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The widget details type.
         struct widget_details_type
         {
+#if !defined(DOCUMENTATION)
             void* p_parent;
             bool enabled;
             bool visible;
@@ -103,6 +104,7 @@ namespace tetengo2 { namespace detail { namespace stub
             list_box_items(list_box_items),
             selected_list_box_item_index(selected_list_box_item_index)
             {}
+#endif
 
         };
 
@@ -959,6 +961,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam ListBox A list box type.
 
             \param list_box A list box.
+
+            \return The selected list box item index.
 
             \throw std::system_error When the selected item index cannot be obtained.
         */

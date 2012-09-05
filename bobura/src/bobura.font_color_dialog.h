@@ -102,6 +102,7 @@ namespace bobura
         //! The color type.
         typedef Color color_type;
 
+        //! The font and color type.
         typedef std::pair<const font_type&, const color_type&> font_color_type;
 
         //! The transparent background type.
@@ -355,7 +356,6 @@ namespace bobura
             \brief Sets a font of the train names.
 
             \param font  A font.
-            \param color A color.
         */
         void set_train_name(const font_type& font)
         {
