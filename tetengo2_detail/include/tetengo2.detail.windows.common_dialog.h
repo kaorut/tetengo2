@@ -668,7 +668,7 @@ namespace tetengo2 { namespace detail { namespace windows
             choose_font.hDC = NULL;
             choose_font.lpLogFont = std::get<1>(dialog).get();
             choose_font.iPointSize = 0;
-            choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_INITTOLOGFONTSTRUCT;
+            choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_NOVERTFONTS | CF_INITTOLOGFONTSTRUCT;
             choose_font.rgbColors = 0;
             choose_font.lCustData = 0;
             choose_font.lpfnHook = NULL;
