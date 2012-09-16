@@ -231,5 +231,20 @@
     <ClInclude Include="include\tetengo2.gui.drawing.canvas_traits.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.list_box_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.list_box.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.list_box_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.font.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.color.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

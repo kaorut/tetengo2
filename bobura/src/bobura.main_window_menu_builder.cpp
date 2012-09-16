@@ -87,6 +87,7 @@ namespace bobura
             std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
 
             p_menu_bar->insert(p_menu_bar->end(), build_file_menu());
+            p_menu_bar->insert(p_menu_bar->end(), build_format_menu());
             p_menu_bar->insert(p_menu_bar->end(), build_view_menu());
             p_menu_bar->insert(p_menu_bar->end(), build_help_menu());
 
@@ -172,6 +173,24 @@ namespace bobura
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
                 m_command_set.exit(),
+                commands
+            );
+
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
+            return std::move(p_popup_menu);
+        }
+
+        std::unique_ptr<popup_menu_type> build_format_menu()
+        const
+        {
+            std::unique_ptr<popup_menu_type> p_popup_menu =
+                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:F&ormat")));
+            commands_type commands;
+
+            append_menu_command(
+                *p_popup_menu,
+                m_message_catalog.get(TETENGO2_TEXT("Menu:Format:&Fonts And Colors...")),
+                m_command_set.font_color(),
                 commands
             );
 

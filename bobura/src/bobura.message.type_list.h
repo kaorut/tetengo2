@@ -76,6 +76,31 @@ namespace bobura { namespace message
         }
     }
 
+    namespace font_color_dialog
+    {
+        namespace type
+        {
+            //! The category list box selection change observer type.
+            struct category_list_box_selection_changed;
+
+            //! The sample picture box paint observer type.
+            struct sample_picture_box_paint;
+
+            //! The font button mouse click observer type.
+            struct font_button_mouse_clicked;
+
+            //! The color button mouse click observer type.
+            struct color_button_mouse_clicked;
+
+            //! The OK button mouse click observer type.
+            struct ok_button_mouse_clicked;
+
+            //! The cancel button mouse click observer type.
+            struct cancel_button_mouse_clicked;
+
+        }
+    }
+
     namespace about_dialog
     {
         namespace type

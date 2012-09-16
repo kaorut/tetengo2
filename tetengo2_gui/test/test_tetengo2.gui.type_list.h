@@ -31,8 +31,10 @@
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
+#include "tetengo2.gui.common_dialog.color.h"
 #include "tetengo2.gui.common_dialog.file_open.h"
 #include "tetengo2.gui.common_dialog.file_save.h"
+#include "tetengo2.gui.common_dialog.font.h"
 #include "tetengo2.gui.common_dialog.message_box.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
@@ -60,6 +62,7 @@
 #include "tetengo2.gui.message.dialog_message_loop.h"
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
+#include "tetengo2.gui.message.list_box_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.message_loop.h"
 #include "tetengo2.gui.message.message_loop_break.h"
@@ -78,6 +81,7 @@
 #include "tetengo2.gui.widget.image.h"
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.gui.widget.link_label.h"
+#include "tetengo2.gui.widget.list_box.h"
 #include "tetengo2.gui.widget.picture_box.h"
 #include "tetengo2.gui.widget.text_box.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
@@ -87,6 +91,7 @@
 #include "tetengo2.gui.widget.traits.image_traits.h"
 #include "tetengo2.gui.widget.traits.label_traits.h"
 #include "tetengo2.gui.widget.traits.link_label_traits.h"
+#include "tetengo2.gui.widget.traits.list_box_traits.h"
 #include "tetengo2.gui.widget.traits.picture_box_traits.h"
 #include "tetengo2.gui.widget.traits.text_box_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
@@ -356,6 +361,7 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace observer_set
     {
         struct window_observer_set; //!< The window observer set type.
+        struct list_box_observer_set; //!< The list box observer set type.
         struct focus_observer_set; //!< The focus observer set type.
         struct paint_observer_set; //!< The paint observer set type.
         struct keyboard_observer_set; //!< The keyboard observer set type.
@@ -368,6 +374,10 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::window_observer_set, tetengo2::gui::message::window_observer_set>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::list_box_observer_set, tetengo2::gui::message::list_box_observer_set
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::focus_observer_set, tetengo2::gui::message::focus_observer_set>,
         tetengo2::meta::assoc_list<
@@ -398,7 +408,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::message::scroll_bar_observer_set<boost::mpl::at<type_list, type::size>::type>
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         observer_set_type_list;
 
 
@@ -526,6 +536,7 @@ namespace test_tetengo2 { namespace gui
         struct image;          //!< The image type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct list_box;       //!< The list box type.
         struct picture_box;    //!< The picture box type.
         struct text_box;       //!< The text box type.
     }}
@@ -598,6 +609,13 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
             >
             link_label_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::list_box_traits<
+                control_traits_type,
+                boost::mpl::at<type_list, type::size>::type,
+                tetengo2::gui::message::list_box_observer_set
+            >
+            list_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -692,6 +710,15 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::widget::list_box,
+                tetengo2::gui::widget::list_box<
+                    detail::widget::list_box_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::widget::picture_box,
                 tetengo2::gui::widget::picture_box<
                     detail::widget::picture_box_traits_type,
@@ -709,7 +736,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>
         widget_type_list;
 
 
@@ -717,8 +744,10 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace common_dialog
     {
+        struct color;          //!< The color dialog type.
         struct file_open;      //!< The file open dialog type.
         struct file_save;      //!< The file save dialog type.
+        struct font;           //!< The font dialog type.
         struct message_box;    //!< The message box type.
         struct button_style;   //!< The button style type.
     }}
@@ -733,6 +762,16 @@ namespace test_tetengo2 { namespace gui
 
     //! The common dialog type list.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::color,
+                tetengo2::gui::common_dialog::color<
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
+                    boost::mpl::at<drawing_type_list, type::drawing::color>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::common_dialog::common_dialog_details_type
+                >
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::file_open,
@@ -757,6 +796,16 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::common_dialog::font,
+                tetengo2::gui::common_dialog::font<
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
+                    boost::mpl::at<drawing_type_list, type::drawing::font>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::common_dialog::common_dialog_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::common_dialog::message_box,
                 tetengo2::gui::common_dialog::message_box<
                     boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
@@ -773,7 +822,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>>
         common_dialog_type_list;
 
 

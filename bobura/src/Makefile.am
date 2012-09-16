@@ -9,6 +9,7 @@ extra_headers = \
     bobura.command.command_base.h \
     bobura.command.exit.h \
     bobura.command.file_property.h \
+    bobura.command.font_color.h \
     bobura.command.horizontally_zoom_in.h \
     bobura.command.horizontally_zoom_out.h \
     bobura.command.load_from_file.h \
@@ -24,6 +25,7 @@ extra_headers = \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
+    bobura.font_color_dialog.h \
     bobura.load_save.confirm_file_save.h \
     bobura.load_save.load_from_file.h \
     bobura.load_save.new_file.h \
@@ -32,7 +34,8 @@ extra_headers = \
     bobura.main_window_menu_builder.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
-    bobura.message.file_property_dialog_dialog.h \
+    bobura.message.file_property_dialog.h \
+    bobura.message.font_color_dialog.h \
     bobura.message.main_window.h \
     bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \
@@ -50,6 +53,7 @@ extra_sources = \
     bobura.command.command_base.cpp \
     bobura.command.exit.cpp \
     bobura.command.file_property.cpp \
+    bobura.command.font_color.cpp \
     bobura.command.horizontally_zoom_in.cpp \
     bobura.command.horizontally_zoom_out.cpp \
     bobura.command.load_from_file.cpp \

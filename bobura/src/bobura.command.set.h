@@ -112,6 +112,14 @@ namespace bobura { namespace command
         const;
 
         /*!
+            \brief Returns the command font and color.
+
+            \return The command.
+        */
+        const command_type& font_color()
+        const;
+
+        /*!
             \brief Returns the command horizontal zoom-in.
 
             \return The command.

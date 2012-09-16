@@ -35,6 +35,7 @@ namespace bobura { namespace model
         \tparam StationIntervalCalculator A station interval calculatortype.
         \tparam TrainKind                 A train kind type.
         \tparam Train                     A train type.
+        \tparam FontColorSet              A font and color set type.
         \tparam ObserverSet               An observer set type.
     */
     template <
@@ -43,11 +44,12 @@ namespace bobura { namespace model
         typename StationIntervalCalculator,
         typename TrainKind,
         typename Train,
+        typename FontColorSet, 
         typename ObserverSet
     >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, ObserverSet>
+            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, FontColorSet, ObserverSet>
         >
     {
     public:
@@ -83,6 +85,9 @@ namespace bobura { namespace model
         //! The trains type.
         typedef std::vector<train_type> trains_type;
 
+        //! The font color set type.
+        typedef FontColorSet font_color_set_type;
+
         //! The observer set type.
         typedef ObserverSet observer_set_type;
 
@@ -101,6 +106,7 @@ namespace bobura { namespace model
         m_train_kinds(),
         m_down_trains(),
         m_up_trains(),
+        m_font_color_set(font_color_set_type::default_()),
         m_observer_set()
         {}
 
@@ -552,6 +558,32 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Returns the font and color set.
+
+            \return The font and color set.
+        */
+        const font_color_set_type& font_color_set()
+        const
+        {
+            return m_font_color_set;
+        }
+
+        /*!
+            \brief Sets a font and color set.
+
+            \tparam FCS A font color set type.
+
+            \param font_color_set A font color set.
+        */
+        template <typename FCS>
+        void set_font_color_set(FCS&& font_color_set)
+        {
+            m_font_color_set = std::forward<FCS>(font_color_set);
+
+            m_observer_set.changed()();
+        }
+
+        /*!
             \brief Returns the observer set.
 
             \return The observer set.
@@ -653,6 +685,8 @@ namespace bobura { namespace model
         trains_type m_down_trains;
 
         trains_type m_up_trains;
+
+        font_color_set_type m_font_color_set;
 
         observer_set_type m_observer_set;
 

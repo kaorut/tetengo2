@@ -368,6 +368,59 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a list box.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a list box.
+
+            \throw std::system_error When a list box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_list_box(
+            Widget&                                              parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_CLIENTEDGE,
+                    L"ListBox",
+                    L"",
+                    WS_CHILD |
+                        WS_TABSTOP |
+                        WS_VISIBLE |
+                        LBS_NOTIFY |
+                        window_style_for_scroll_bars<Widget>(scroll_bar_style),
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    std::get<0>(*parent.details()).get(),
+                    NULL,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a list box!")
+                );
+            }
+
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
+        }
+
+        /*!
             \brief Creates a picture box.
 
             \tparam Widget A widget type.
@@ -1369,6 +1422,225 @@ namespace tetengo2 { namespace detail { namespace windows
                             win32_category()
                         ),
                         "Can't open target."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the list box item count.
+
+            \tparam Size    A size type.
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \return The list box item count.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename Size, typename ListBox>
+        static Size list_box_item_count(const ListBox& list_box)
+        {
+            const ::LRESULT result = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_GETCOUNT, 0, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item count."
+                    )
+                );
+            }
+
+            return result;
+        }
+
+        /*!
+            \brief Returns the list box item.
+
+            \tparam String  A string type.
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+            \tparam Encoder An encoder type.
+
+            \param list_box A list box.
+            \param index    An index.
+            \param encoder  An encoder.
+
+            \return The list box item.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename String, typename ListBox, typename Size, typename Encoder>
+        static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
+        {
+            const ::LRESULT length = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_GETTEXTLEN, index, 0);
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item length."
+                    )
+                );
+            }
+
+            std::vector<wchar_t> item(length + 1, 0);
+            const ::LRESULT result =
+                ::SendMessageW(
+                    std::get<0>(*list_box.details()).get(),
+                    LB_GETTEXT,
+                    index,
+                    reinterpret_cast< ::LPARAM>(item.data())
+                );
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item."
+                    )
+                );
+            }
+
+            return encoder.decode(std::wstring(item.data()));
+        }
+
+        /*!
+            \brief Sets a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param list_box A list box.
+            \param index    An index.
+            \param item     An item.
+            \param encoder  An encoder.
+
+            \throw std::system_error When the item cannot be set.
+        */
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        {
+            erase_list_box_item(list_box, index);
+            insert_list_box_item(list_box, index, item, encoder);
+        }
+
+        /*!
+            \brief Inserts a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param list_box A list box.
+            \param index    An index.
+            \param item     An item.
+            \param encoder  An encoder.
+
+            \throw std::system_error When the item cannot be inserted.
+        */
+        template <typename ListBox, typename Size, typename String, typename Encoder>
+        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        {
+            const ::LRESULT result =
+                ::SendMessageW(
+                    std::get<0>(*list_box.details()).get(),
+                    LB_INSERTSTRING,
+                    index,
+                    reinterpret_cast< ::LPARAM>(encoder.encode(item).c_str())
+                );
+            if (result == LB_ERR || result == LB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Erases a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename ListBox, typename Size>
+        static void erase_list_box_item(ListBox& list_box, const Size index)
+        {
+            const ::LRESULT result =
+                ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_DELETESTRING, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Clears a list box.
+
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+
+            \throw std::system_error When the list box cannot be cleared.
+        */
+        template <typename ListBox>
+        static void clear_list_box(ListBox& list_box)
+        {
+            ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_RESETCONTENT, 0, 0);
+        }
+
+        /*!
+            \brief Returns the selected list box item index.
+
+            \tparam Size    A size type.
+            \tparam ListBox A list box type.
+
+            \param list_box A list box.
+            
+            \return The selected list box item index.
+
+            \throw std::system_error When the selected item index cannot be obtained.
+        */
+        template <typename Size, typename ListBox>
+        static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
+        {
+            const ::LRESULT index = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != LB_ERR, index);
+        }
+
+        /*!
+            \brief Selects a list box item.
+
+            \tparam ListBox A list box type.
+            \tparam Size    A size type.
+
+            \param list_box A list box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be selected.
+        */
+        template <typename ListBox, typename Size>
+        static void select_list_box_item(ListBox& list_box, const Size index)
+        {
+            const ::LRESULT result = ::SendMessageW(std::get<0>(*list_box.details()).get(), LB_SETCURSEL, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box item."
                     )
                 );
             }

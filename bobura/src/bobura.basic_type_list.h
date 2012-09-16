@@ -22,8 +22,10 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.gui.alert.h>
+#include <tetengo2.gui.common_dialog.color.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.common_dialog.file_save.h>
+#include <tetengo2.gui.common_dialog.font.h>
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -49,6 +51,7 @@
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
+#include <tetengo2.gui.message.list_box_observer_set.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
 #include <tetengo2.gui.message.message_loop.h>
 #include <tetengo2.gui.message.message_loop_break.h>
@@ -66,6 +69,7 @@
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.list_box.h>
 #include <tetengo2.gui.widget.picture_box.h>
 #include <tetengo2.gui.widget.text_box.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
@@ -75,6 +79,7 @@
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.list_box_traits.h>
 #include <tetengo2.gui.widget.traits.picture_box_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
@@ -96,6 +101,7 @@
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
+#include "bobura.font_color_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
@@ -111,6 +117,7 @@
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.font_color_set.h"
 #include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train_info.stop.h"
@@ -272,6 +279,8 @@ namespace bobura
         struct gui_fixture;    //!< The GUI fixture type.
         struct position;       //!< The position type.
         struct color;          //!< The color type.
+        struct font;           //!< The font type.
+        struct fast_font;      //!< The fast font type.
         struct picture_reader; //!< The picture reader type.
         struct fast_picture_reader; //!< The fast picture reader type.
         struct canvas;         //!< The canvas type.
@@ -287,6 +296,7 @@ namespace bobura
         struct control;        //!< The control type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct list_box;       //!< The list box type.
         struct picture_box;    //!< The picture box type.
         struct text_box;       //!< The text box type.
         struct image;          //!< The image type.
@@ -610,6 +620,20 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             text_box_type;
+        typedef
+            tetengo2::gui::widget::traits::list_box_traits<
+                control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::list_box_observer_set
+            >
+            list_box_traits_type;
+        typedef
+            tetengo2::gui::widget::list_box<
+                list_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            list_box_type;
     }}
 #endif
 
@@ -618,6 +642,8 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::color, detail::ui::color_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::font, detail::ui::font_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_font, detail::ui::fast_font_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::fast_picture_reader, detail::ui::fast_picture_reader_type>,
@@ -652,6 +678,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::control, detail::ui::control_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::list_box, detail::ui::list_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
@@ -666,7 +693,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -675,6 +702,7 @@ namespace bobura
     namespace type { namespace model
     {
         struct model;          //!< The model type.
+        struct station_grade_type_set; //!< The station grade type set type.
         struct reader_selector; //!< The reader selector type.
         struct reader_set;     //!< The reader set type.
         struct writer_selector; //!< The writer selector type.
@@ -684,6 +712,13 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace model
     {
+        typedef
+            bobura::model::timetable_info::font_color<
+                boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                boost::mpl::at<ui_type_list, type::ui::color>::type
+            >
+            font_color_type;
+        typedef bobura::model::timetable_info::font_color_set<font_color_type> font_color_set_type;
         typedef
             bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;
@@ -726,6 +761,7 @@ namespace bobura
                 station_interval_calculator_type,
                 train_kind_type,
                 train_type,
+                font_color_set_type,
                 bobura::model::message::timetable_observer_set
             >
             timetable_type;
@@ -743,6 +779,8 @@ namespace bobura
                     message::timetable_model_observer_set
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::model::station_grade_type_set, detail::model::station_grade_type_set_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::reader_selector,
@@ -783,7 +821,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         model_type_list;
 
 
@@ -791,13 +829,25 @@ namespace bobura
 
     namespace type { namespace common_dialog
     {
+        struct color;          //!< The color dialog type.
         struct message_box;    //!< The message box type.
         struct file_open_dialog; //!< The file open dialog type.
         struct file_save_dialog; //!< The file save dialog type.
+        struct font;           //!< The font dialog type.
     }}
 
     //! The type list for the commong dialogs.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::color,
+                tetengo2::gui::common_dialog::color<
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type,
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
+                >
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::message_box,
@@ -830,8 +880,18 @@ namespace bobura
                     boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::font,
+                tetengo2::gui::common_dialog::font<
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>>
         common_dialog_type_list;
 
 
@@ -852,6 +912,7 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
+                    boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >
             >,
@@ -875,6 +936,7 @@ namespace bobura
     {
         struct about_dialog;   //!< The about dialog type.
         struct file_property_dialog; //!< The file property dialog type.
+        struct font_color_dialog; //!< The font and color dialog type.
     }}
 
     //! The type list for the dialogs.
@@ -910,8 +972,33 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dialog::font_color_dialog,
+                font_color_dialog<
+                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::label>::type,
+                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::button>::type,
+                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
+                    message::font_color_dialog::type_list<
+                        boost::mpl::at<common_type_list, type::size>::type,
+                        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                        boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                        boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
+                        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         dialog_type_list;
 
 

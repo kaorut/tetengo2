@@ -13,6 +13,7 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.text.h"
 
@@ -101,10 +102,19 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         /*!
             \brief Shows the dialog as model.
+
+            \retval true  When the OK button is pressed.
+            \retval false Otherwise.
         */
-        void do_modal()
+        bool do_modal()
         {
-            m_result = common_dialog_details_type::template show_file_open_dialog<path_type>(*m_p_details, encoder());
+            const boost::optional<path_type> result =
+                common_dialog_details_type::template show_file_open_dialog<path_type>(*m_p_details, encoder());
+            if (!result)
+                return false;
+
+            m_result = *result;
+            return true;
         }
 
         /*!

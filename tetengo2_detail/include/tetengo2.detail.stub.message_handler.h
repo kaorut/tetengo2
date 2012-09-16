@@ -194,6 +194,25 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Make a message handler map for a list box.
+
+            \tparam ListBox A list box type.
+
+            \param list_box    A list box.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename ListBox>
+        static message_handler_map_type make_list_box_message_handler_map(
+            ListBox&                   list_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
+        /*!
             \brief Make a message handler map for a picture box.
 
             \tparam PictureBox A picture box type.

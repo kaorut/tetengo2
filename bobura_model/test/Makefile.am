@@ -24,6 +24,7 @@ sources = \
     test_bobura.model.station.cpp \
     test_bobura.model.station_info.grade.cpp \
     test_bobura.model.timetable.cpp \
+    test_bobura.model.timetable_info.font_color_set.cpp \
     test_bobura.model.timetable_info.station_interval_calculator.cpp \
     test_bobura.model.timetable_info.station_location.cpp \
     test_bobura.model.train.cpp \

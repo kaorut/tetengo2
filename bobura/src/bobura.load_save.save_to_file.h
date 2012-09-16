@@ -109,11 +109,11 @@ namespace bobura { namespace load_save
                     make_file_filters(),
                     parent
                 );
-                dialog.do_modal();
+                const bool ok = dialog.do_modal();
+                if (!ok)
+                    return false;
 
                 path = dialog.result();
-                if (path.empty())
-                    return false;
             }
             else
             {

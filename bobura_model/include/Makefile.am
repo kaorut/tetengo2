@@ -18,6 +18,7 @@ headers = \
     bobura.model.station.h \
     bobura.model.station_info.grade.h \
     bobura.model.timetable.h \
+    bobura.model.timetable_info.font_color_set.h \
     bobura.model.timetable_info.station_interval_calculator.h \
     bobura.model.timetable_info.station_location.h \
     bobura.model.train.h \

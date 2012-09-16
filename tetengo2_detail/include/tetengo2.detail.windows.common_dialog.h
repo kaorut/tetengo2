@@ -18,6 +18,7 @@
 //#include <string>
 //#include <system_error>
 #include <tuple>
+//#include <type_traits>
 //#include <utility>
 //#include <vector>
 
@@ -44,6 +45,7 @@
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -140,6 +142,18 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file save dialog details pointer type.
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
+        //! The font dialog details type.
+        typedef std::tuple< ::HWND, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
+
+        //! The font dialog details pointer type.
+        typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
+
+        //! The color dialog details type.
+        typedef std::tuple< ::HWND, ::COLORREF> color_dialog_details_type;
+
+        //! The color dialog details pointer type.
+        typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
+
         
         // static functions
 
@@ -157,13 +171,11 @@ namespace tetengo2 { namespace detail { namespace windows
             \param title                       A title.
             \param main_content                A main content.
             \param sub_content                 A sub content.
-            \param cancellable                 Whether the message box is
-                                               cancellable.
+            \param cancellable                 Whether the message box is cancellable.
             \param button_style                A button style.
             \param icon_style                  An icon style.
             \param custom_ok_button_label      A custom OK button label.
-            \param custom_yes_no_button_labels A custom Yes and No button
-                                               labels.
+            \param custom_yes_no_button_labels A custom Yes and No button labels.
             \param encoder                     An encoder.
 
             \return A unique pointer to a message box.
@@ -258,15 +270,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param parent  A parent window.
             \param title   A title.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file open dialog.
 
-            \throw std::system_error When the file open dialog cannot be
-                                     created.
+            \throw std::system_error When the file open dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
@@ -279,7 +288,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::IFileOpenDialog* p_raw_dialog = NULL;
             const ::HRESULT creation_result =
                 ::CoCreateInstance(__uuidof(::FileOpenDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
-            if (!SUCCEEDED(creation_result))
+            if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -309,14 +318,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The path.
 
-            \throw std::system_error When the file open dialog cannot be
-                                     shown.
+            \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_open_dialog(
+            file_open_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
-            if (!SUCCEEDED(title_set_result))
+            if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
@@ -327,7 +338,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT default_extension_set_result =
                     std::get<0>(dialog)->SetDefaultExtension(std::get<3>(dialog).c_str());
-                if (!SUCCEEDED(default_extension_set_result))
+                if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -341,7 +352,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<4>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
-            if (!SUCCEEDED(filter_set_result))
+            if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -351,12 +362,12 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
-            if (!SUCCEEDED(showing_result))
-                return Path();
+            if (FAILED(showing_result))
+                return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
-            if (!SUCCEEDED(result_result))
+            if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
@@ -366,7 +377,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
-            if (!SUCCEEDED(file_title_result))
+            if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
@@ -377,7 +388,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return Path(encoder.decode(file_name));
+            return boost::make_optional(Path(encoder.decode(file_name)));
         }
 
         /*!
@@ -392,15 +403,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \param parent  A parent window.
             \param title   A title.
             \param path    A path.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file save dialog.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     created.
+            \throw std::system_error When the file save dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
@@ -414,7 +422,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::IFileSaveDialog* p_raw_dialog = NULL;
             const ::HRESULT creation_result =
                 ::CoCreateInstance(__uuidof(::FileSaveDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
-            if (!SUCCEEDED(creation_result))
+            if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -446,14 +454,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The path.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     shown.
+            \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_save_dialog(
+            file_save_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
             const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
-            if (!SUCCEEDED(title_set_result))
+            if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
@@ -467,7 +477,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::SHCreateItemFromParsingName(
                         std::get<3>(dialog).c_str(), NULL, IID_PPV_ARGS(&p_raw_default_path)
                     );
-                if (!SUCCEEDED(default_path_result))
+                if (FAILED(default_path_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -484,7 +494,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!std::get<3>(dialog).empty())
             {
                 const ::HRESULT default_path_set_result = std::get<0>(dialog)->SetSaveAsItem(p_raw_default_path);
-                if (!SUCCEEDED(default_path_set_result))
+                if (FAILED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -498,7 +508,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT default_extension_set_result =
                     std::get<0>(dialog)->SetDefaultExtension(std::get<4>(dialog).c_str());
-                if (!SUCCEEDED(default_extension_set_result))
+                if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -512,7 +522,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<5>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
-            if (!SUCCEEDED(filter_set_result))
+            if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -525,7 +535,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HRESULT filter_index_set_result =
                     std::get<0>(dialog)->SetFileTypeIndex(static_cast< ::UINT>(std::get<6>(dialog)));
-                if (!SUCCEEDED(filter_index_set_result))
+                if (FAILED(filter_index_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
@@ -536,12 +546,12 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
-            if (!SUCCEEDED(showing_result))
-                return Path();
+            if (FAILED(showing_result))
+                return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
-            if (!SUCCEEDED(result_result))
+            if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
@@ -551,7 +561,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
-            if (!SUCCEEDED(file_title_result))
+            if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
@@ -562,7 +572,197 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return Path(encoder.decode(file_name));
+            return boost::make_optional(Path(encoder.decode(file_name)));
+        }
+
+        /*!
+            \brief Creates a font dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam OptionalFont   An optional font type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param font    A font.
+            \param encoder An encoder.
+
+            \return A unique pointer to a font dialog.
+
+            \throw std::system_error When the font dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename OptionalFont, typename Encoder>
+        static font_dialog_details_ptr_type create_font_dialog(
+            AbstractWindow& parent,
+            OptionalFont&&  font,
+            const Encoder&  encoder
+        )
+        {
+            std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONTW>();
+            if (font)
+            {
+                p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
+                p_log_font->lfWeight = font->bold() ? FW_BOLD : FW_NORMAL;
+                p_log_font->lfItalic = font->italic() ? TRUE : FALSE;
+                p_log_font->lfUnderline = font->underline() ? TRUE : FALSE;
+                p_log_font->lfStrikeOut = font->strikeout() ? TRUE : FALSE;
+                
+                const std::wstring native_face_name = encoder.encode(font->family());
+                const std::size_t native_face_name_length =
+                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                std::copy(
+                    native_face_name.begin(),
+                    boost::next(native_face_name.begin(), native_face_name_length),
+                    p_log_font->lfFaceName
+                );
+                p_log_font->lfFaceName[native_face_name_length] = 0;
+            }
+            else
+            {
+                typedef typename std::decay<OptionalFont>::type::value_type font_type;
+                const font_type& dialog_font = font_type::dialog_font();
+
+                p_log_font->lfHeight = -static_cast< ::LONG>(dialog_font.size());
+                p_log_font->lfWeight = dialog_font.bold() ? FW_BOLD : FW_NORMAL;
+                p_log_font->lfItalic = dialog_font.italic() ? TRUE : FALSE;
+                p_log_font->lfUnderline = dialog_font.underline() ? TRUE : FALSE;
+                p_log_font->lfStrikeOut = dialog_font.strikeout() ? TRUE : FALSE;
+                
+                const std::wstring native_face_name = encoder.encode(dialog_font.family());
+                const std::size_t native_face_name_length =
+                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                std::copy(
+                    native_face_name.begin(),
+                    boost::next(native_face_name.begin(), native_face_name_length),
+                    p_log_font->lfFaceName
+                );
+                p_log_font->lfFaceName[native_face_name_length] = 0;
+            }
+            p_log_font->lfCharSet = DEFAULT_CHARSET;
+            p_log_font->lfOutPrecision = OUT_DEFAULT_PRECIS;
+            p_log_font->lfClipPrecision = CLIP_DEFAULT_PRECIS;
+            p_log_font->lfQuality = DEFAULT_QUALITY;
+            p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
+
+            return make_unique<font_dialog_details_type>(std::get<0>(*parent.details()).get(), std::move(p_log_font));
+        }
+
+        /*!
+            \brief Shows a font dialog and return a font.
+
+            \tparam Font    A font type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A font dialog.
+            \param encoder An encoder.
+
+            \return The font.
+
+            \throw std::system_error When the font dialog cannot be shown.
+        */
+        template <typename Font, typename Encoder>
+        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            ::CHOOSEFONTW choose_font = {};
+            choose_font.lStructSize = sizeof(::CHOOSEFONTW);
+            choose_font.hwndOwner = std::get<0>(dialog);
+            choose_font.hDC = NULL;
+            choose_font.lpLogFont = std::get<1>(dialog).get();
+            choose_font.iPointSize = 0;
+            choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_NOVERTFONTS | CF_INITTOLOGFONTSTRUCT;
+            choose_font.rgbColors = 0;
+            choose_font.lCustData = 0;
+            choose_font.lpfnHook = NULL;
+            choose_font.lpTemplateName = NULL;
+            choose_font.hInstance = NULL;
+            choose_font.lpszStyle = NULL;
+            choose_font.nFontType = 0;
+            choose_font.nSizeMin = 0;
+            choose_font.nSizeMax = 0;
+
+            const ::BOOL result = ::ChooseFontW(&choose_font);
+            if (result == FALSE)
+                return boost::none;
+
+            return
+                boost::make_optional(
+                    Font(
+                        choose_font.lpLogFont->lfFaceName,
+                        choose_font.lpLogFont->lfHeight < 0 ?
+                            -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight,
+                        choose_font.lpLogFont->lfWeight >= FW_BOLD,
+                        choose_font.lpLogFont->lfItalic != FALSE,
+                        choose_font.lpLogFont->lfUnderline != FALSE,
+                        choose_font.lpLogFont->lfStrikeOut != FALSE
+                    )
+                );
+        }
+
+        /*!
+            \brief Creates a color dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam OptionalColor  An optional color type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param color   A color.
+            \param encoder An encoder.
+
+            \return A unique pointer to a color dialog.
+
+            \throw std::system_error When the color dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
+        static color_dialog_details_ptr_type create_color_dialog(
+            AbstractWindow& parent,
+            OptionalColor&& color,
+            const Encoder&  encoder
+        )
+        {
+            const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
+            return make_unique<color_dialog_details_type>(std::get<0>(*parent.details()).get(), native_color);
+        }
+
+        /*!
+            \brief Shows a color dialog and return a font.
+
+            \tparam Color   A color type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A color dialog.
+            \param encoder An encoder.
+
+            \return The color.
+
+            \throw std::system_error When the color dialog cannot be shown.
+        */
+        template <typename Color, typename Encoder>
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
+            ::CHOOSECOLORW choose_color = {};
+            choose_color.lStructSize = sizeof(::CHOOSECOLORW);
+            choose_color.hwndOwner = std::get<0>(dialog);
+            choose_color.hInstance = NULL;
+            choose_color.rgbResult = std::get<1>(dialog);
+            choose_color.lpCustColors = custom_colors.data();
+            choose_color.Flags = CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN;
+            choose_color.lCustData = 0;
+            choose_color.lpfnHook = NULL;
+            choose_color.lpTemplateName = NULL;
+
+            const ::BOOL result = ::ChooseColorW(&choose_color);
+            if (result == FALSE)
+                return boost::none;
+
+            return
+                boost::make_optional(
+                    Color(
+                        GetRValue(choose_color.rgbResult),
+                        GetGValue(choose_color.rgbResult),
+                        GetBValue(choose_color.rgbResult)
+                    )
+                );
         }
 
 

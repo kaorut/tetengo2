@@ -66,50 +66,6 @@ namespace bobura
         // functions
 
         /*!
-            \brief Checks whether the model has a path.
-
-            \retval true  When the model has a path.
-            \retval false Otherwise.
-        */
-        bool has_path()
-        const
-        {
-            return static_cast<bool>(m_path);
-        }
-
-        /*!
-            \brief Returns the path.
-
-            \return The path.
-
-            \throw std::logic_error When the model does not have a path.
-        */
-        const path_type& path()
-        const
-        {
-            if (!has_path())
-                BOOST_THROW_EXCEPTION(std::logic_error("This model does not have a path."));
-
-            return *m_path;
-        }
-
-        /*!
-            \brief Sets a path.
-
-            \tparam P A path type.
-
-            \param path A path.
-        */
-        template <typename P>
-        void set_path(P&& path)
-        {
-            m_path = boost::make_optional(std::forward<path_type>(path));
-            m_changed = false;
-
-            m_observer_set.reset()();
-        }
-
-        /*!
             \brief Returns the timetable.
 
             \return The timetable.
@@ -166,6 +122,50 @@ namespace bobura
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable, P&& path)
         {
             reset_timetable_impl(std::move(p_timetable), boost::make_optional<path_type>(std::forward<P>(path)));
+        }
+
+        /*!
+            \brief Checks whether the model has a path.
+
+            \retval true  When the model has a path.
+            \retval false Otherwise.
+        */
+        bool has_path()
+        const
+        {
+            return static_cast<bool>(m_path);
+        }
+
+        /*!
+            \brief Returns the path.
+
+            \return The path.
+
+            \throw std::logic_error When the model does not have a path.
+        */
+        const path_type& path()
+        const
+        {
+            if (!has_path())
+                BOOST_THROW_EXCEPTION(std::logic_error("This model does not have a path."));
+
+            return *m_path;
+        }
+
+        /*!
+            \brief Sets a path.
+
+            \tparam P A path type.
+
+            \param path A path.
+        */
+        template <typename P>
+        void set_path(P&& path)
+        {
+            m_path = boost::make_optional(std::forward<path_type>(path));
+            m_changed = false;
+
+            m_observer_set.reset()();
         }
 
         /*!

@@ -216,12 +216,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         \tparam CommonDialogDetails A detail implementation type of common
                                     dialogs.
     */
-    template <
-        typename AbstractWindow,
-        typename String,
-        typename Encoder,
-        typename CommonDialogDetails
-    >
+    template <typename AbstractWindow, typename String, typename Encoder, typename CommonDialogDetails>
     class message_box : private boost::noncopyable
     {
     public:

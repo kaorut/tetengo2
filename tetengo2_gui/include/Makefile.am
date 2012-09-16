@@ -4,8 +4,10 @@
 
 headers = \
     tetengo2.gui.alert.h \
+    tetengo2.gui.common_dialog.color.h \
     tetengo2.gui.common_dialog.file_open.h \
     tetengo2.gui.common_dialog.file_save.h \
+    tetengo2.gui.common_dialog.font.h \
     tetengo2.gui.common_dialog.message_box.h \
     tetengo2.gui.cursor.cursor_base.h \
     tetengo2.gui.cursor.system.h \
@@ -35,6 +37,7 @@ headers = \
     tetengo2.gui.message.dialog_message_loop.h \
     tetengo2.gui.message.focus_observer_set.h \
     tetengo2.gui.message.keyboard_observer_set.h \
+    tetengo2.gui.message.list_box_observer_set.h \
     tetengo2.gui.message.menu_observer_set.h \
     tetengo2.gui.message.message_loop.h \
     tetengo2.gui.message.message_loop_break.h \
@@ -54,6 +57,7 @@ headers = \
     tetengo2.gui.widget.image.h \
     tetengo2.gui.widget.label.h \
     tetengo2.gui.widget.link_label.h \
+    tetengo2.gui.widget.list_box.h \
     tetengo2.gui.widget.picture_box.h \
     tetengo2.gui.widget.text_box.h \
     tetengo2.gui.widget.traits.abstract_window_traits.h \
@@ -63,6 +67,7 @@ headers = \
     tetengo2.gui.widget.traits.image_traits.h \
     tetengo2.gui.widget.traits.label_traits.h \
     tetengo2.gui.widget.traits.link_label_traits.h \
+    tetengo2.gui.widget.traits.list_box_traits.h \
     tetengo2.gui.widget.traits.picture_box_traits.h \
     tetengo2.gui.widget.traits.text_box_traits.h \
     tetengo2.gui.widget.traits.widget_traits.h \

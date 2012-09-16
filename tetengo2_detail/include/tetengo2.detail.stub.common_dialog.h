@@ -18,6 +18,7 @@
 #include <boost/optional.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -74,6 +75,18 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The file save dialog details pointer type.
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
+        //! The font dialog details type.
+        struct font_dialog_details_type {};
+
+        //! The font dialog details pointer type.
+        typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
+
+        //! The color dialog details type.
+        struct color_dialog_details_type {};
+
+        //! The color dialog details pointer type.
+        typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
+
         
         // static functions
 
@@ -91,13 +104,11 @@ namespace tetengo2 { namespace detail { namespace stub
             \param title                       A title.
             \param main_content                A main content.
             \param sub_content                 A sub content.
-            \param cancellable                 Whether the message box is
-                                               cancellable.
+            \param cancellable                 Whether the message box is cancellable.
             \param button_style                A button style.
             \param icon_style                  An icon style.
             \param custom_ok_button_label      A custom OK button label.
-            \param custom_yes_no_button_labels A custom Yes and No button
-                                               labels.
+            \param custom_yes_no_button_labels A custom Yes and No button labels.
             \param encoder                     An encoder.
 
             \return A unique pointer to a message box.
@@ -150,15 +161,12 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param parent  A parent window.
             \param title   A title.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file open dialog.
 
-            \throw std::system_error When the file open dialog cannot be
-                   created.
+            \throw std::system_error When the file open dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
@@ -182,13 +190,15 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The path.
 
-            \throw std::system_error When the file open dialog cannot be
-                                     shown.
+            \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_open_dialog(
+            file_open_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
-            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
+            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
         /*!
@@ -203,15 +213,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \param parent  A parent window.
             \param title   A title.
             \param path    A path.
-            \param filters A file filters.
-                           Each element is a pair of a label and a file
-                           pattern.
+            \param filters A file filters. Each element is a pair of a label and a file pattern.
             \param encoder An encoder.
 
             \return A unique pointer to a file save dialog.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     created.
+            \throw std::system_error When the file save dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
@@ -236,13 +243,106 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The path.
 
-            \throw std::system_error When the file save dialog cannot be
-                                     shown.
+            \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Path> show_file_save_dialog(
+            file_save_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
         {
-            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
+            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
+        }
+
+        /*!
+            \brief Creates a font dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam OptionalFont   An optional font type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param font    A font.
+            \param encoder An encoder.
+
+            \return A unique pointer to a font dialog.
+
+            \throw std::system_error When the font dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename OptionalFont, typename Encoder>
+        static font_dialog_details_ptr_type create_font_dialog(
+            AbstractWindow& parent,
+            OptionalFont&&  font,
+            const Encoder&  encoder
+        )
+        {
+            return make_unique<font_dialog_details_type>();
+        }
+
+        /*!
+            \brief Shows a font dialog and return a font.
+
+            \tparam Font    A font type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A font dialog.
+            \param encoder An encoder.
+
+            \return The font.
+
+            \throw std::system_error When the font dialog cannot be shown.
+        */
+        template <typename Font, typename Encoder>
+        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            return
+                boost::make_optional(
+                    Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
+                );
+        }
+
+        /*!
+            \brief Creates a color dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam OptionalColor  An optional color type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param color   A color.
+            \param encoder An encoder.
+
+            \return A unique pointer to a color dialog.
+
+            \throw std::system_error When the color dialog cannot be created.
+        */
+        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
+        static color_dialog_details_ptr_type create_color_dialog(
+            AbstractWindow& parent,
+            OptionalColor&& color,
+            const Encoder&  encoder
+        )
+        {
+            return make_unique<color_dialog_details_type>();
+        }
+
+        /*!
+            \brief Shows a color dialog and return a font.
+
+            \tparam Color   A color type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A color dialog.
+            \param encoder An encoder.
+
+            \return The color.
+
+            \throw std::system_error When the color dialog cannot be shown.
+        */
+        template <typename Color, typename Encoder>
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        {
+            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 
 

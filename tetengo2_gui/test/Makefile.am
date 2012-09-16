@@ -10,8 +10,10 @@ extra_headers =
 sources = \
     master.cpp \
     test_tetengo2.gui.alert.cpp \
+    test_tetengo2.gui.common_dialog.color.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
     test_tetengo2.gui.common_dialog.file_save.cpp \
+    test_tetengo2.gui.common_dialog.font.cpp \
     test_tetengo2.gui.common_dialog.message_box.cpp \
     test_tetengo2.gui.cursor.cursor_base.cpp \
     test_tetengo2.gui.cursor.system.cpp \
@@ -39,6 +41,7 @@ sources = \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
     test_tetengo2.gui.message.focus_observer_set.cpp \
     test_tetengo2.gui.message.keyboard_observer_set.cpp \
+    test_tetengo2.gui.message.list_box_observer_set.cpp \
     test_tetengo2.gui.message.menu_observer_set.cpp \
     test_tetengo2.gui.message.message_loop.cpp \
     test_tetengo2.gui.message.message_loop_break.cpp \
@@ -58,6 +61,7 @@ sources = \
     test_tetengo2.gui.widget.image.cpp \
     test_tetengo2.gui.widget.label.cpp \
     test_tetengo2.gui.widget.link_label.cpp \
+    test_tetengo2.gui.widget.list_box.cpp \
     test_tetengo2.gui.widget.picture_box.cpp \
     test_tetengo2.gui.widget.text_box.cpp \
     test_tetengo2.gui.widget.widget.cpp \

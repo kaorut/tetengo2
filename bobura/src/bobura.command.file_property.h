@@ -35,7 +35,7 @@ namespace bobura { namespace command
         //! The file property dialog type.
         typedef boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type file_property_dialog_type;
 
-        //! The base type.
+        //! The dialog base type.
         typedef file_property_dialog_type::base_type dialog_base_type;
 
         //! The string type.

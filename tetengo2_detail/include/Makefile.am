@@ -35,8 +35,10 @@ extra_headers = \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_handler.h \
     tetengo2.detail.windows.message_handler_detail.abstract_window.h \
+    tetengo2.detail.windows.message_handler_detail.button.h \
     tetengo2.detail.windows.message_handler_detail.control.h \
     tetengo2.detail.windows.message_handler_detail.dialog.h \
+    tetengo2.detail.windows.message_handler_detail.list_box.h \
     tetengo2.detail.windows.message_handler_detail.message.h \
     tetengo2.detail.windows.message_handler_detail.picture_box.h \
     tetengo2.detail.windows.message_handler_detail.widget.h \

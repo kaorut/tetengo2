@@ -4,6 +4,17 @@
         "line_name":    "高徳線・牟岐線",
         "note":         "平成24.3.17 改正"
     },
+    {
+        "background":                 "F8F8E0",
+        "company_line_name":          [["ＭＳ Ｐゴシック", 24, false, false, false, false], "404040"],
+        "note":                       [["ＭＳ Ｐ明朝",     12, false, false, false, false], "404040"],
+        "time_line":                  [["ＭＳ Ｐ明朝",     16, false, false, false, false], "808080"],
+        "local_station":              [["ＭＳ Ｐ明朝",     12, false, false, false, false], "A0A0A0"],
+        "principal_station":          [["ＭＳ Ｐゴシック", 12, false, false, false, false], "4040A0"],
+        "local_terminal_station":     [["ＭＳ Ｐゴシック", 16, false, false, false, false], "A04040"],
+        "principal_terminal_station": [["ＭＳ Ｐゴシック", 16, false, false, false, false], "000000"],
+        "train_name":                 ["ＭＳ Ｐ明朝",     12, false, false, false, false]
+    },
     [
         {
             "name":                    "板野",

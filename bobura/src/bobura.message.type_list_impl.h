@@ -16,6 +16,7 @@
 #include "bobura.message.about_dialog.h"
 #include "bobura.message.diagram_picture_box.h"
 #include "bobura.message.file_property_dialog.h"
+#include "bobura.message.font_color_dialog.h"
 #include "bobura.message.main_window.h"
 #include "bobura.message.timetable_model.h"
 #include "bobura.message.type_list.h"
@@ -150,6 +151,65 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
                 >>
+                type;
+
+
+        };
+    }
+
+    namespace font_color_dialog
+    {
+        /*!
+            \brief The meta function for the type list of the font and color dialog messages.
+
+            \tparam Size           A size type.
+            \tparam Dialog         A dialog type.
+            \tparam ListBox        A list box type.
+            \tparam Canvas         A canvas type.
+            \tparam FontDialog     A font dialog type.
+            \tparam ColorDialog    A color dialog type.
+            \tparam MessageCatalog A message catalog type.
+        */
+        template <
+            typename Size,
+            typename Dialog,
+            typename ListBox,
+            typename Canvas,
+            typename FontDialog,
+            typename ColorDialog,
+            typename MessageCatalog
+        >
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the font and color dialog.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::category_list_box_selection_changed, category_list_box_selection_changed<Size, ListBox>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::sample_picture_box_paint, sample_picture_box_paint<Size, Canvas, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::font_button_mouse_clicked,
+                        font_button_mouse_clicked<Size, Dialog, FontDialog, Canvas, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::color_button_mouse_clicked,
+                        color_button_mouse_clicked<Size, Dialog, ColorDialog, Canvas, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list_end
+                >>>>>>
                 type;
 
 

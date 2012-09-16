@@ -48,13 +48,21 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
-    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
-
     typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
+    typedef timetable_type::font_color_set_type font_color_set_type;
+
+    typedef font_color_set_type::font_color_type font_color_type;
+
+    typedef font_color_type::font_type font_type;
+
+    typedef font_color_type::color_type color_type;
+
+
 }
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
@@ -2346,6 +2354,32 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("3")));
             BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("z")));
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(font_color_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const timetable_type timetable;
+
+        timetable.font_color_set();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_font_color_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        timetable_type timetable;
+
+        const font_type font(string_type(TETENGO2_TEXT("hoge")), 42, false, true, false, true);
+        const color_type color(12, 34, 56);
+        const font_color_type font_color(font, color);
+        const font_color_set_type font_color_set(
+            color, font_color, font_color, font_color, font_color, font_color, font_color, font_color, font
+        );
+        timetable.set_font_color_set(font_color_set);
+
+        BOOST_CHECK(timetable.font_color_set() == font_color_set);
     }
 
     BOOST_AUTO_TEST_CASE(observer_set)

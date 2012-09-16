@@ -55,9 +55,15 @@ namespace
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
-    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
+    typedef timetable_type::font_color_set_type font_color_set_type;
 
-    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::color>::type color_type;
+    typedef font_color_set_type::font_color_type font_color_type;
+
+    typedef font_color_type::font_type font_type;
+
+    typedef font_color_type::color_type color_type;
+
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
         boost::mpl::at<
@@ -77,6 +83,7 @@ namespace
         "        \"line_name\": \"\",\n"
         "        \"note\": \"\"\n"
         "    },\n"
+        "    {},\n"
         "    [],\n"
         "    [],\n"
         "    [],\n"
@@ -89,6 +96,11 @@ namespace
         "        \"company_name\": \"hoge\",\n"
         "        \"line_name\": \"fuga\",\n"
         "        \"note\": \"piyo\"\n"
+        "    },\n"
+        "    {\n"
+        "        \"background\": \"ABCDEF\",\n"
+        "        \"company_line_name\": [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"train_name\": [\"hogefont\", 42, false, true, false, true]\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -171,7 +183,25 @@ namespace
         p_timetable->set_company_name(string_type(TETENGO2_TEXT("hoge")));
         p_timetable->set_line_name(string_type(TETENGO2_TEXT("fuga")));
         p_timetable->set_note(string_type(TETENGO2_TEXT("piyo")));
+        {
+            const font_type font(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true);
+            const color_type color(0xAB, 0xCD, 0xEF);
+            const font_color_type font_color(font, color);
 
+            const font_color_set_type font_color_set(
+                color,
+                font_color,
+                font_color_set_type::default_().note(),
+                font_color_set_type::default_().time_line(),
+                font_color_set_type::default_().local_station(),
+                font_color_set_type::default_().principal_station(),
+                font_color_set_type::default_().local_terminal_station(),
+                font_color_set_type::default_().principal_terminal_station(),
+                font
+            );
+
+            p_timetable->set_font_color_set(font_color_set);
+        }
         {
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),

@@ -19,6 +19,7 @@
 #include <boost/mpl/pair.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
+#include "tetengo2.detail.stub.drawing.h"
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>
@@ -27,6 +28,7 @@
 #include <tetengo2.text.pull_parser.h>
 #include <tetengo2.text.push_parser.h>
 #include <tetengo2.gui.drawing.color.h>
+#include <tetengo2.gui.drawing.font.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.bzip2_reader.h"
@@ -43,6 +45,7 @@
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.font_color_set.h"
 #include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train.h"
@@ -63,8 +66,16 @@ namespace test_bobura { namespace model
         struct string;         //!< The string type.
         struct path;           //!< The path type.
         struct output_stream;  //!< The output stream type.
+        struct font;           //!< The font type.
         struct color;          //!< The color type.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail
+    {
+        typedef tetengo2::detail::stub::drawing drawing_details_type;
+    }
+#endif
 
     //! The common type list.
     typedef
@@ -73,9 +84,13 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::output_stream, std::ostream>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::font, tetengo2::gui::drawing::font<std::string, std::size_t, detail::drawing_details_type>
+            >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::color, tetengo2::gui::drawing::color<unsigned char>>,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         type_list;
 
 
@@ -83,6 +98,8 @@ namespace test_bobura { namespace model
 
     namespace type { namespace model
     {
+        struct font_color;     //!< The font and color type.
+        struct font_color_set; //!< The font and color set type.
         struct grade_type_set; //!< The station grade type set type.
         struct station;        //!< The station type.
         struct station_location; //!< The station location type.
@@ -98,6 +115,12 @@ namespace test_bobura { namespace model
 #if !defined(DOCUMENTATION)
     namespace detail { namespace model
     {
+        typedef
+            bobura::model::timetable_info::font_color<
+                boost::mpl::at<type_list, type::font>::type, boost::mpl::at<type_list, type::color>::type
+            >
+            font_color_type;
+        typedef bobura::model::timetable_info::font_color_set<font_color_type> font_color_set_type;
         typedef
             bobura::model::station_info::grade_type_set<boost::mpl::at<type_list, type::string>::type>
             grade_type_set_type;
@@ -129,6 +152,7 @@ namespace test_bobura { namespace model
 
     //! The model type list.
     typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::model::font_color_set, detail::model::font_color_set_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::grade_type_set, detail::model::grade_type_set_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::station, detail::model::station_type>,
         tetengo2::meta::assoc_list<
@@ -151,11 +175,12 @@ namespace test_bobura { namespace model
                     detail::model::station_interval_calculator_type,
                     detail::model::train_kind_type,
                     detail::model::train_type,
+                    detail::model::font_color_set_type,
                     bobura::model::message::timetable_observer_set
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>
         model_type_list;
 
 

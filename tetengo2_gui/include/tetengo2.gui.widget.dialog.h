@@ -141,6 +141,8 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void do_modal()
         {
+            do_modal_impl();
+
             assert(this->has_parent());
             base_type& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
@@ -171,8 +173,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
+        virtual void do_modal_impl()
+        {}
+
         virtual void set_result_impl()
-        = 0;
+        {}
 
         virtual boost::optional<const details_type&> details_impl()
         const

@@ -88,8 +88,6 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_kind_type train_kind_type;
 
-        typedef typename train_kind_type::color_type color_type;
-
         typedef typename timetable_type::train_type train_type;
 
         typedef typename train_type::stops_type stops_type;
@@ -99,6 +97,14 @@ namespace bobura { namespace model { namespace serializer
         typedef typename stop_type::time_type time_type;
 
         typedef typename timetable_type::string_type string_type;
+
+        typedef typename timetable_type::font_color_set_type font_color_set_type;
+
+        typedef typename font_color_set_type::font_color_type font_color_type;
+
+        typedef typename font_color_type::font_type font_type;
+
+        typedef typename font_color_type::color_type color_type;
 
         typedef typename string_type::value_type char_type;
 
@@ -202,6 +208,11 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             write_object_key(key, level, output_stream);
+            write_bool(value, output_stream);
+        }
+
+        static void write_bool(const bool value, output_stream_type& output_stream)
+        {
             output_stream <<
                 (value ? output_string_type(TETENGO2_TEXT("true")) : output_string_type(TETENGO2_TEXT("false")));
         }
@@ -233,6 +244,191 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level, output_stream);
             output_stream << object_end();
+        }
+
+        static void write_font_color_set(
+            const timetable_type& timetable,
+            const size_type       level,
+            output_stream_type&   output_stream
+        )
+        {
+            output_stream << object_begin();
+
+            const font_color_set_type& font_color_set = timetable.font_color_set();
+            bool output = false;
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("background")),
+                    font_color_set.background(),
+                    font_color_set_type::default_().background(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("company_line_name")),
+                    font_color_set.company_line_name(),
+                    font_color_set_type::default_().company_line_name(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("note")),
+                    font_color_set.note(),
+                    font_color_set_type::default_().note(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("local_station")),
+                    font_color_set.local_station(),
+                    font_color_set_type::default_().local_station(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("principal_station")),
+                    font_color_set.principal_station(),
+                    font_color_set_type::default_().principal_station(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("local_terminal_station")),
+                    font_color_set.local_terminal_station(),
+                    font_color_set_type::default_().local_terminal_station(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("principal_terminal_station")),
+                    font_color_set.principal_terminal_station(),
+                    font_color_set_type::default_().principal_terminal_station(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+            output |=
+                write_font_color_set_element(
+                    string_type(TETENGO2_TEXT("train_name")),
+                    font_color_set.train_name(),
+                    font_color_set_type::default_().train_name(),
+                    level + 1,
+                    output_stream,
+                    !output
+                );
+
+            if (output)
+                new_line(level, output_stream);
+            output_stream << object_end();
+        }
+
+        static bool write_font_color_set_element(
+            const string_type&  key,
+            const color_type&   color,
+            const color_type&   default_color,
+            const size_type     level,
+            output_stream_type& output_stream,
+            const bool          first_element
+        )
+        {
+            if (color == default_color)
+                return false;
+
+            if (!first_element)
+                output_stream << comma();
+
+            new_line(level, output_stream);
+            write_object_entry(key, to_string(color), level, output_stream);
+
+            return true;
+        }
+
+        static bool write_font_color_set_element(
+            const string_type&  key,
+            const font_type&    font,
+            const font_type&    default_font,
+            const size_type     level,
+            output_stream_type& output_stream,
+            const bool          first_element
+        )
+        {
+            if (font == default_font)
+                return false;
+
+            if (!first_element)
+                output_stream << comma();
+
+            new_line(level, output_stream);
+            write_object_key(key, level, output_stream);
+            write_font(font, output_stream);
+
+            return true;
+        }
+
+        static bool write_font_color_set_element(
+            const string_type&     key,
+            const font_color_type& font_color,
+            const font_color_type& default_font_color,
+            const size_type        level,
+            output_stream_type&    output_stream,
+            const bool             first_element
+        )
+        {
+            if (font_color == default_font_color)
+                return false;
+
+            if (!first_element)
+                output_stream << comma();
+
+            new_line(level, output_stream);
+            write_object_key(key, level, output_stream);
+
+            output_stream << array_begin();
+
+            write_font(font_color.font(), output_stream);
+            output_stream << comma() << space();
+
+            output_stream << encoder().encode(quote(to_string(font_color.color())));
+
+            output_stream << array_end();
+
+            return true;
+        }
+
+        static void write_font(const font_type& font, output_stream_type& output_stream)
+        {
+            output_stream << array_begin();
+
+            output_stream << encoder().encode(quote(font.family()));
+            output_stream << comma() << space();
+
+            output_stream << font.size();
+            output_stream << comma() << space();
+
+            write_bool(font.bold(), output_stream);
+            output_stream << comma() << space();
+
+            write_bool(font.italic(), output_stream);
+            output_stream << comma() << space();
+
+            write_bool(font.underline(), output_stream);
+            output_stream << comma() << space();
+
+            write_bool(font.strikeout(), output_stream);
+
+            output_stream << array_end();
         }
 
         static void write_station_locations(
@@ -587,6 +783,10 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(1, output_stream);
             write_header(timetable, 1, output_stream);
+            output_stream << comma();
+
+            new_line(1, output_stream);
+            write_font_color_set(timetable, 1, output_stream);
             output_stream << comma();
 
             new_line(1, output_stream);

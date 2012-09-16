@@ -41,6 +41,14 @@ namespace
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
+    typedef timetable_type::font_color_set_type font_color_set_type;
+    
+    typedef font_color_set_type::font_color_type font_color_type;
+
+    typedef font_color_type::font_type font_type;
+
+    typedef font_color_type::color_type color_type;
+
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
@@ -52,38 +60,41 @@ namespace
 
     // variables
 
-    const std::string json0;
+    const std::string json_empty0;
 
-    const std::string json1 =
+    const std::string json_empty1 =
         "[]";
 
-    const std::string json2 =
+    const std::string json_empty2 =
         "[\n"
         "    {\n"
         "    },\n"
+        "    {},\n"
         "    [],\n"
         "    [],\n"
         "    [],\n"
         "    []\n"
         "]\n";
 
-    const std::string json3 =
+    const std::string json_line_name_only =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [],\n"
         "    [],\n"
         "    [],\n"
         "    []\n"
         "]\n";
 
-    const std::string json4 =
+    const std::string json_station_only =
         "[\n"
         "    {\n"
         "        \"piyo\":      \"piyopiyo\",\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -105,11 +116,12 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json5 =
+    const std::string json_invalid_station_grade =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -124,12 +136,23 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json6 =
+    const std::string json_full_content =
         "[\n"
         "    {\n"
         "        \"company_name\": \"hoge\",\n"
         "        \"line_name\": \"fuga\",\n"
         "        \"note\": \"piyo\"\n"
+        "    },\n"
+        "    {\n"
+        "        \"background\":                 \"ABCDEF\",\n"
+        "        \"company_line_name\":          [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"note\":                       [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"time_line\":                  [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"local_station\":              [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"principal_station\":          [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"local_terminal_station\":     [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"principal_terminal_station\": [[\"hogefont\", 42, false, true, false, true], \"ABCDEF\"],\n"
+        "        \"train_name\":                 [\"hogefont\", 42, false, true, false, true]\n"
         "    },\n"
         "    [\n"
         "        {\n"
@@ -198,11 +221,12 @@ namespace
         "    ]\n"
         "]\n";
 
-    const std::string json7 =
+    const std::string json_invalid_stop_time =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -244,11 +268,12 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json8 =
+    const std::string json_too_many_stops =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -291,17 +316,18 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json9 =
+    const std::string json_white_space_before_start_element =
         "    \t    \n    []\n";
 
-    const std::string json10 =
+    const std::string json_not_json =
         "hoge\n";
 
-    const std::string json11 =
+    const std::string json_invalid_time_format =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -343,11 +369,12 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json12 =
+    const std::string json_train_with_no_stop =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -386,11 +413,12 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json13 =
+    const std::string json_invalid_kind_index =
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
         "    },\n"
+        "    {},\n"
         "    [\n"
         "        {\n"
         "            \"name\":                    \"stationA\",\n"
@@ -453,7 +481,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
 
         reader_type json_reader;
         {
-            std::istringstream input_stream(json0);
+            std::istringstream input_stream(json_empty0);
             BOOST_CHECK(
                 !json_reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -462,7 +490,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             );
         }
         {
-            std::istringstream input_stream(json1);
+            std::istringstream input_stream(json_empty1);
             BOOST_CHECK(
                 json_reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -471,7 +499,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             );
         }
         {
-            std::istringstream input_stream(json2);
+            std::istringstream input_stream(json_empty2);
             BOOST_CHECK(
                 json_reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -480,7 +508,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             );
         }
         {
-            std::istringstream input_stream(json9);
+            std::istringstream input_stream(json_white_space_before_start_element);
             BOOST_CHECK(
                 json_reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -489,7 +517,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             );
         }
         {
-            std::istringstream input_stream(json10);
+            std::istringstream input_stream(json_not_json);
             BOOST_CHECK(
                 !json_reader.selects(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -505,7 +533,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
 
         reader_type json_reader;
         {
-            std::istringstream input_stream(json10);
+            std::istringstream input_stream(json_not_json);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -515,7 +543,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json1);
+            std::istringstream input_stream(json_empty1);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -525,7 +553,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json2);
+            std::istringstream input_stream(json_empty2);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -536,7 +564,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(p_timetable->line_name().empty());
         }
         {
-            std::istringstream input_stream(json3);
+            std::istringstream input_stream(json_line_name_only);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -547,7 +575,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            std::istringstream input_stream(json4);
+            std::istringstream input_stream(json_station_only);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -577,7 +605,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             }
         }
         {
-            std::istringstream input_stream(json5);
+            std::istringstream input_stream(json_invalid_station_grade);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -587,7 +615,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json6);
+            std::istringstream input_stream(json_full_content);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -599,6 +627,23 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(p_timetable->company_name() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("piyo")));
+
+            {
+                const font_color_set_type& font_color_set = p_timetable->font_color_set();
+
+                BOOST_CHECK(font_color_set.background() == color_type(0xAB, 0xCD, 0xEF));
+                BOOST_CHECK(
+                    font_color_set.company_line_name() ==
+                    font_color_type(
+                        font_type(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true),
+                        color_type(0xAB, 0xCD, 0xEF)
+                    )
+                );
+                BOOST_CHECK(
+                    font_color_set.train_name() ==
+                    font_type(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true)
+                );
+            }
 
             BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
             {
@@ -661,7 +706,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             }
         }
         {
-            std::istringstream input_stream(json7);
+            std::istringstream input_stream(json_invalid_stop_time);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -671,7 +716,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json8);
+            std::istringstream input_stream(json_too_many_stops);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -681,7 +726,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json11);
+            std::istringstream input_stream(json_invalid_time_format);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -691,7 +736,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json12);
+            std::istringstream input_stream(json_train_with_no_stop);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -701,7 +746,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(!p_timetable);
         }
         {
-            std::istringstream input_stream(json13);
+            std::istringstream input_stream(json_invalid_kind_index);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),

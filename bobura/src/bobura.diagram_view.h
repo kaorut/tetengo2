@@ -35,12 +35,19 @@ namespace bobura
    /*!
         \brief The class template for a diagram view.
 
-        \tparam Model           A model type.
-        \tparam Canvas          A canvas type.
-        \tparam SolidBackground A solid background type.
-        \tparam MessageCatalog  A message catalog type.
+        \tparam Model               A model type.
+        \tparam Canvas              A canvas type.
+        \tparam SolidBackground     A solid background type.
+        \tparam StationGradeTypeSet A station grade type set type.
+        \tparam MessageCatalog      A message catalog type.
     */
-    template <typename Model, typename Canvas, typename SolidBackground, typename MessageCatalog>
+    template <
+        typename Model,
+        typename Canvas,
+        typename SolidBackground,
+        typename StationGradeTypeSet,
+        typename MessageCatalog
+    >
     class diagram_view : private boost::noncopyable
     {
     public:
@@ -85,6 +92,9 @@ namespace bobura
         //! The solid background type.
         typedef SolidBackground solid_background_type;
 
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -104,14 +114,13 @@ namespace bobura
         m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
+        m_line_name_header_height(0),
         m_station_header_width(8),
         m_time_header_height(3),
         m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
         m_station_positions()
-        {
-            update_dimension();
-        }
+        {}
 
 
         // functions
@@ -128,11 +137,10 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             clear_background(canvas, canvas_dimension);
 
-            draw_header(canvas);
+            draw_header(canvas, canvas_dimension);
             draw_time_lines(canvas, canvas_dimension, scroll_bar_position);
             draw_station_lines(canvas, canvas_dimension, scroll_bar_position);
             draw_trains(canvas, canvas_dimension, scroll_bar_position);
@@ -228,6 +236,23 @@ namespace bobura
         }
 
         /*!
+            \brief Update the dimension and redraw the canvas to recalculate the dimension.
+
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
+        */
+        void update_and_recalculate_dimension(
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
+        {
+            update_dimension();
+            draw_to(canvas, canvas_dimension, scroll_bar_position);
+        }
+
+        /*!
             \brief Returns the page size.
 
             \param canvas_dimension A canvas dimension.
@@ -238,12 +263,14 @@ namespace bobura
         const
         {
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const width_type header_width = m_station_header_width;
             const width_type page_width =
-                canvas_width > m_station_header_width ? canvas_width - m_station_header_width : width_type(0);
+                canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
+            const height_type header_height = m_line_name_header_height + m_time_header_height;
             const height_type page_height =
-                canvas_height > m_time_header_height ? canvas_height - m_time_header_height : height_type(0);
+                canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -254,13 +281,25 @@ namespace bobura
 
         typedef typename solid_background_type::color_type color_type;
 
-        typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+        typedef typename model_type::timetable_type timetable_type;
 
-        typedef typename model_type::timetable_type::train_type train_type;
+        typedef typename timetable_type::font_color_set_type font_color_set_type;
 
-        typedef typename model_type::timetable_type::trains_type trains_type;
+        typedef typename font_color_set_type::font_color_type font_color_type;
 
-        typedef typename model_type::timetable_type::train_kind_type train_kind_type;
+        typedef typename timetable_type::station_intervals_type station_intervals_type;
+
+        typedef typename timetable_type::station_location_type station_location_type;
+
+        typedef typename station_location_type::station_type station_type;
+
+        typedef typename station_type::grade_type station_grade_type;
+
+        typedef typename timetable_type::train_type train_type;
+
+        typedef typename timetable_type::trains_type trains_type;
+
+        typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_type::stop_type stop_type;
 
@@ -396,6 +435,8 @@ namespace bobura
 
         dimension_type m_dimension;
 
+        height_type m_line_name_header_height;
+
         width_type m_station_header_width;
 
         height_type m_time_header_height;
@@ -412,16 +453,82 @@ namespace bobura
         void clear_background(canvas_type& canvas, const dimension_type& canvas_dimension)
         const
         {
-            canvas.set_background(tetengo2::make_unique<const solid_background_type>(color_type(255, 255, 255)));
+            canvas.set_background(
+                tetengo2::make_unique<const solid_background_type>(m_model.timetable().font_color_set().background())
+            );
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
 
-        void draw_header(canvas_type& canvas)
-        const
+        void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         {
-            canvas.set_color(color_type(0x00, 0x00, 0x00, 0xFF));
+            const string_type company_line_name =
+                m_model.timetable().company_name() +
+                (m_model.timetable().company_name().empty() ? string_type() : string_type(TETENGO2_TEXT(" "))) +
+                m_model.timetable().line_name();
+            const string_type note = m_model.timetable().note();
+            if (company_line_name.empty() && note.empty())
+            {
+                m_line_name_header_height = height_type(0);
+                return;
+            }
 
-            canvas.draw_text(m_model.timetable().line_name(), position_type(left_type(0), top_type(0)));
+            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+
+            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
+            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
+            const dimension_type company_line_name_dimension = canvas.calc_text_dimension(company_line_name);
+            const width_type company_line_name_width =
+                tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension);
+            const height_type company_line_name_height =
+                company_line_name.empty() ?
+                height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension);
+
+            canvas.set_font(m_model.timetable().font_color_set().note().font());
+            canvas.set_color(m_model.timetable().font_color_set().note().color());
+            const dimension_type note_dimension = canvas.calc_text_dimension(note);
+            const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension);
+            const height_type note_height =
+                note.empty() ? height_type(0) : tetengo2::gui::dimension<dimension_type>::height(note_dimension);
+
+            position_type company_line_name_position(left_type(0), top_type(0));
+            position_type note_position(left_type(0), top_type(0));
+            height_type header_height(0);
+            if (company_line_name_width + note_width <= canvas_width)
+            {
+                const top_type height_diff =
+                    top_type::from(company_line_name_height) - top_type::from(note_height);
+                if (height_diff > 0)
+                {
+                    const top_type note_top(height_diff / top_type(2));
+                    company_line_name_position = position_type(left_type(0), top_type(0));
+                    note_position = position_type(left_type::from(canvas_width - note_width), note_top);
+                    header_height = company_line_name_height;
+                }
+                else
+                {
+                    const top_type company_line_name_top((top_type(0) - height_diff) / top_type(2));
+                    company_line_name_position = position_type(left_type(0), company_line_name_top);
+                    note_position = position_type(left_type::from(canvas_width - note_width), top_type(0));
+                    header_height = note_height;
+                }
+
+            }
+            else
+            {
+                company_line_name_position = position_type(left_type(0), top_type(0));
+                note_position = position_type(left_type(0), top_type::from(company_line_name_height));
+                header_height = company_line_name_height + note_height;
+            }
+
+            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
+            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
+            canvas.draw_text(company_line_name, company_line_name_position);
+
+            canvas.set_font(m_model.timetable().font_color_set().note().font());
+            canvas.set_color(m_model.timetable().font_color_set().note().color());
+            canvas.draw_text(note, note_position);
+
+            m_line_name_header_height = header_height;
         }
 
         void draw_time_lines(
@@ -429,24 +536,26 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             const left_type canvas_left = left_type::from(m_station_header_width);
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
-            const top_type canvas_top = top_type::from(m_time_header_height);
+            const top_type canvas_top =
+                top_type::from(m_line_name_header_height + m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
             const top_type station_position_bottom =
-                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height) -
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_dimension)) +
+                canvas_top -
                 tetengo2::gui::position<position_type>::top(scroll_bar_position);
             const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
             const left_type minute_interval =
                 time_to_left(time_type(60), false, left_type(0)) - time_to_left(time_type(0), false, left_type(0));
 
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+            canvas.set_font(m_model.timetable().font_color_set().time_line().font());
+            canvas.set_color(m_model.timetable().font_color_set().time_line().color());
 
             typedef typename time_type::tick_type time_tick_type;
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
@@ -471,9 +580,9 @@ namespace bobura
                 top_type line_top = canvas_top;
                 if (minutes == 0)
                 {
-                    line_top = top_type(1);
+                    line_top = top_type::from(m_line_name_header_height);
 
-                    canvas.draw_text(boost::lexical_cast<string_type>(hours), position_type(position, top_type(1)));
+                    canvas.draw_text(boost::lexical_cast<string_type>(hours), position_type(position, line_top));
                     canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
                 }
                 else if (minutes % 10 == 0)
@@ -511,7 +620,6 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
@@ -523,31 +631,35 @@ namespace bobura
                 );
             const left_type line_right = std::min(canvas_right, last_time_position);
 
+            const top_type canvas_top = top_type::from(m_line_name_header_height + m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+            canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+            canvas.set_line_style(canvas_type::line_style_type::solid);
 
             for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
                 const top_type& position = m_station_positions[i];
                 const top_type line_position =
-                    position +
-                    top_type::from(m_time_header_height) -
-                    tetengo2::gui::position<position_type>::top(scroll_bar_position);
-                if (line_position < top_type::from(m_time_header_height))
+                    position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
+                if (line_position < canvas_top)
                     continue;
                 if (line_position > canvas_bottom)
                     break;
 
-                canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
-                canvas.set_line_style(canvas_type::line_style_type::solid);
+                const font_color_type& font_color =
+                    select_station_font_color(m_model.timetable().station_locations()[i].station().grade());
+                canvas.set_font(font_color.font());
+                canvas.set_color(font_color.color());
+
+                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
+                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
+
                 canvas.draw_line(
                     position_type(left_type(0), line_position), position_type(line_right, line_position)
                 );
 
-                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
-                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
                 canvas.draw_text(
                     station_name,
                     position_type(
@@ -559,13 +671,31 @@ namespace bobura
             }
         }
 
+        const font_color_type& select_station_font_color(const station_grade_type& grade)
+        {
+            if      (&grade == &station_grade_type_set_type::local_type::instance())
+                return m_model.timetable().font_color_set().local_station();
+            else if (&grade == &station_grade_type_set_type::principal_type::instance())
+                return m_model.timetable().font_color_set().principal_station();
+            else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
+                return m_model.timetable().font_color_set().local_terminal_station();
+            else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
+                return m_model.timetable().font_color_set().principal_terminal_station();
+            else
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
+            }
+        }
+
         void draw_trains(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
+            canvas.set_font(m_model.timetable().font_color_set().train_name());
+
             draw_trains_impl(m_model.timetable().down_trains(), true, canvas, canvas_dimension, scroll_bar_position);
             draw_trains_impl(m_model.timetable().up_trains(), false, canvas, canvas_dimension, scroll_bar_position);
         }
@@ -577,7 +707,6 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             std::for_each(
                 trains.begin(),
@@ -601,7 +730,6 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             const train_kind_type& train_kind = m_model.timetable().train_kinds()[train.kind_index()];
             canvas.set_color(train_kind.color());
@@ -780,7 +908,6 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             if (departure_time - m_time_offset < arrival_time - m_time_offset)
             {
@@ -842,7 +969,6 @@ namespace bobura
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
-        const
         {
             const left_type horizontal_scroll_bar_position =
                 tetengo2::gui::position<position_type>::left(scroll_bar_position);
@@ -874,7 +1000,7 @@ namespace bobura
                 departure_station_index < arrival_station_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
-            if (lower_bound < top_type::from(m_time_header_height))
+            if (lower_bound < top_type::from(m_line_name_header_height + m_time_header_height))
                 return;
 
             canvas.draw_line(departure, arrival);
@@ -913,10 +1039,9 @@ namespace bobura
         )
         const
         {
-            return
-                m_station_positions[station_index] -
-                vertical_scroll_bar_position +
-                top_type::from(m_time_header_height);
+            const top_type canvas_top =
+                top_type::from(m_line_name_header_height + m_time_header_height);
+            return m_station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
         }
 
 

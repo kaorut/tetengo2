@@ -28,6 +28,9 @@
         "Menu:File:Proper&ty...": "プロパティ(&T)...",
         "Menu:File:E&xit":        "終了(&X)",
         
+        "Menu:F&ormat":                     "書式(&O)",
+        "Menu:Format:&Fonts And Colors...": "フォントと色(&F)...",
+        
         "Menu:&View":                          "表示(&V)",
         "Menu:View:&Horizontal Zoom":          "時刻方向拡大縮小(&H)",
         "Menu:View:Horizontal Zoom:Zoom &In":  "拡大(&I)",
@@ -53,6 +56,22 @@
         "Dialog:FileProperty:&Line Name:":    "路線名(&L):",
         "Dialog:FileProperty:&Note:":         "記事(&N):",
         "Dialog:FileProperty:&File Name:":    "ファイル名(&F):",
+        
+        "Dialog:FontAndColor:Fonts And Colors":            "フォントと色",
+        "Dialog:FontAndColor:C&ategories:":                "カテゴリー(&A):",
+        "Dialog:FontAndColor:Background":                  "背景",
+        "Dialog:FontAndColor:Company and Line Names":      "会社・路線名",
+        "Dialog:FontAndColor:Note":                        "記事",
+        "Dialog:FontAndColor:Time Lines":                  "時刻線",
+        "Dialog:FontAndColor:Local Stations":              "一般駅",
+        "Dialog:FontAndColor:Principal Stations":          "主要駅",
+        "Dialog:FontAndColor:Local Terminal Stations":     "ターミナル駅",
+        "Dialog:FontAndColor:Principal Terminal Stations": "主要ターミナル駅",
+        "Dialog:FontAndColor:Train Names":                 "列車名",
+        "Dialog:FontAndColor:&Font...":                    "フォント(&F)...",
+        "Dialog:FontAndColor:&Color...":                   "色(&C)...",
+        "Dialog:FontAndColor:&Sample:":                    "サンプル(&S):",
+        "Dialog:FontAndColor:SAMPLE":                      "みほん",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",

@@ -86,5 +86,11 @@
     <ClCompile Include="test\test_bobura.diagram_picture_box.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.font_color_dialog.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.message.font_color_dialog.cpp">
+      <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

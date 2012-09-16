@@ -96,8 +96,10 @@
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.color.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_save.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.message_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.cursor.system.cpp" />
@@ -125,6 +127,7 @@
     <ClCompile Include="test\test_tetengo2.gui.message.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.focus_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.keyboard_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.menu_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.message_loop_break.cpp" />
@@ -144,6 +147,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.link_label.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.widget.list_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.picture_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.text_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.widget.cpp" />

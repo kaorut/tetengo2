@@ -79,7 +79,9 @@ namespace
                 details_font_type(string_type(), 12, false, false, false, false),
                 std::vector<void*>(),
                 false,
-                false
+                false,
+                std::vector<string_type>(),
+                boost::none
             )
         )
         {
