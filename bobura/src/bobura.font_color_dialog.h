@@ -128,8 +128,8 @@ namespace bobura
         m_current_category_index(),
         m_p_category_label(),
         m_p_category_list_box(),
-        m_p_font_text_box(),
         m_p_font_button(),
+        m_p_font_text_box(),
         m_p_color_button(),
         m_p_sample_label(),
         m_p_sample_picture_box(),
@@ -420,9 +420,9 @@ namespace bobura
 
         std::unique_ptr<list_box_type> m_p_category_list_box;
 
-        std::unique_ptr<text_box_type> m_p_font_text_box;
-
         std::unique_ptr<button_type> m_p_font_button;
+
+        std::unique_ptr<text_box_type> m_p_font_text_box;
 
         std::unique_ptr<button_type> m_p_color_button;
 
@@ -453,8 +453,8 @@ namespace bobura
 
             m_p_category_label = create_category_label();
             m_p_category_list_box = create_category_list_box();
-            m_p_font_text_box = create_font_text_box();
             m_p_font_button = create_font_button();
+            m_p_font_text_box = create_font_text_box();
             m_p_color_button = create_color_button();
             m_p_sample_label = create_sample_label();
             m_p_sample_picture_box = create_sample_picture_box();
@@ -496,16 +496,6 @@ namespace bobura
             return std::move(p_list_box);
         }
 
-        std::unique_ptr<text_box_type> create_font_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, list_box_type::scroll_bar_style_type::none);
-
-            p_text_box->set_read_only(true);
-
-            return std::move(p_text_box);
-        }
-
         std::unique_ptr<button_type> create_font_button()
         {
             std::unique_ptr<button_type> p_button =
@@ -526,6 +516,16 @@ namespace bobura
             );
 
             return std::move(p_button);
+        }
+
+        std::unique_ptr<text_box_type> create_font_text_box()
+        {
+            std::unique_ptr<text_box_type> p_text_box =
+                tetengo2::make_unique<text_box_type>(*this, list_box_type::scroll_bar_style_type::none);
+
+            p_text_box->set_read_only(true);
+
+            return std::move(p_text_box);
         }
 
         std::unique_ptr<button_type> create_color_button()
@@ -631,23 +631,23 @@ namespace bobura
                 )
             );
 
-            const left_type font_text_box_left(20);
+            const left_type font_button_left(20);
             
-            m_p_font_text_box->set_dimension(dimension_type(width_type(16), height_type(2)));
-            m_p_font_text_box->set_position(position_type(font_text_box_left, top_type(2)));
-
             m_p_font_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_font_button->set_position(position_type(font_text_box_left + left_type(16), top_type(2)));
+            m_p_font_button->set_position(position_type(font_button_left, top_type(2)));
+
+            m_p_font_text_box->set_dimension(dimension_type(width_type(16), height_type(2)));
+            m_p_font_text_box->set_position(position_type(font_button_left + left_type(8), top_type(2)));
 
             m_p_color_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_color_button->set_position(position_type(font_text_box_left + left_type(16), top_type(5)));
+            m_p_color_button->set_position(position_type(font_button_left, top_type(5)));
 
             m_p_sample_label->fit_to_content();
-            m_p_sample_label->set_position(position_type(font_text_box_left, top_type(8)));
+            m_p_sample_label->set_position(position_type(font_button_left, top_type(8)));
 
             m_p_sample_picture_box->set_position(
                 position_type(
-                    font_text_box_left,
+                    font_button_left,
                     tetengo2::gui::position<position_type>::top(m_p_sample_label->position()) +
                         top_type::from(
                             tetengo2::gui::dimension<dimension_type>::height(m_p_sample_label->dimension())
