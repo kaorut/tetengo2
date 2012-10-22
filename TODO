@@ -23,6 +23,11 @@ Depends on  : (none)
 Description : Create bobura::model::train_info::stop::operational().
 ------------------------------------------------------------------------------
 Number      : 00000201
+Added on    : 2012/10/23
+Depends on  : (none)
+Description : Make the code compilable with Visual C++ 2012.
+------------------------------------------------------------------------------
+Number      : 00000202
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
