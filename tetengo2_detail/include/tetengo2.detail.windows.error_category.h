@@ -91,7 +91,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(const value_type error_value)
+        virtual std::string message(const int error_value)
         const
         {
             const std::size_t message_capacity = 64 * 1024;
@@ -176,7 +176,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(const value_type error_value)
+        virtual std::string message(const int error_value)
         const
         {
             switch (error_value)

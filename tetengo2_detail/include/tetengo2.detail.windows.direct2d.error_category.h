@@ -71,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \return The message.
         */
-        virtual std::string message(const value_type error_value)
+        virtual std::string message(const int error_value)
         const
         {
             if (error_value == D2DERR_INSUFFICIENT_BUFFER)
