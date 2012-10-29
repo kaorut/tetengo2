@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 
@@ -113,6 +112,23 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
+        struct call_calc_text_dimension_type
+        {
+            const string_type& m_text;
+
+            explicit call_calc_text_dimension_type(const string_type& text)
+            :
+            m_text(text)
+            {}
+
+            dimension_type operator()(const canvas_type& canvas)
+            const
+            {
+                return canvas.calc_text_dimension(m_text);
+            }
+
+        };
+
 
         // functions
 
@@ -121,10 +137,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             return
                 widget_details_type::template use_canvas<dimension_type>(
-                    *this,
-                    TETENGO2_CPP11_BIND(
-                        &canvas_type::calc_text_dimension, cpp11::placeholders_1(), cpp11::cref(this->text())
-                    )
+                    *this, call_calc_text_dimension_type(this->text())
                 );
         }
 

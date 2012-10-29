@@ -16,7 +16,6 @@
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.text.h"
 
 
