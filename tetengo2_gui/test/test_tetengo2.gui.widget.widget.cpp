@@ -26,7 +26,9 @@ namespace
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
-    typedef std::tuple<string_type, std::size_t, bool, bool, bool, bool> details_font_type;
+    typedef
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::details_font>::type
+        details_font_type;
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type position_type;
 
