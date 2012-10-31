@@ -309,6 +309,49 @@ namespace bobura
 
         typedef typename train_type::stops_type::size_type stop_index_type;
 
+        class call_draw_train
+        {
+        public:
+            call_draw_train(
+                diagram_view&         self,
+                const bool            down,
+                canvas_type&          canvas,
+                const dimension_type& canvas_dimension,
+                const position_type&  scroll_bar_position
+            )
+            :
+            m_self(self),
+            m_down(down),
+            m_canvas(canvas),
+            m_canvas_dimension(canvas_dimension),
+            m_scroll_bar_position(scroll_bar_position)
+            {}
+
+            void operator()(const train_type& train)
+            const
+            {
+                m_self.draw_train(
+                    train,
+                    m_down,
+                    m_canvas,
+                    m_canvas_dimension,
+                    m_scroll_bar_position
+                );
+            }
+
+        private:
+            diagram_view& m_self;
+
+            const bool m_down;
+
+            canvas_type& m_canvas;
+
+            const dimension_type& m_canvas_dimension;
+
+            const position_type& m_scroll_bar_position;
+
+        };
+
         class to_station_position
         {
         public:
@@ -711,15 +754,7 @@ namespace bobura
             std::for_each(
                 trains.begin(),
                 trains.end(),
-                TETENGO2_CPP11_BIND(
-                    &diagram_view::draw_train,
-                    this,
-                    tetengo2::cpp11::placeholders_1(),
-                    down,
-                    tetengo2::cpp11::ref(canvas),
-                    tetengo2::cpp11::cref(canvas_dimension),
-                    tetengo2::cpp11::cref(scroll_bar_position)
-                )
+                call_draw_train(*this, down, canvas, canvas_dimension, scroll_bar_position)
             );
         }
 
