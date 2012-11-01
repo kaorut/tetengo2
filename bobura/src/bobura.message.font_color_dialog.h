@@ -167,7 +167,7 @@ namespace bobura { namespace message { namespace font_color_dialog
             std::unique_ptr<background_type> p_background =
                 tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
             canvas.set_background(std::move(p_background));
-            canvas.fill_rectangle(position_type(0, 0), m_canvas_dimension);
+            canvas.fill_rectangle(position_type(top_type(0), top_type(0)), m_canvas_dimension);
 
             if (!m_current_category_index || *m_current_category_index == 0)
                 return;
@@ -183,12 +183,12 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
 
-            canvas.draw_text(text, position_type(1, text_and_line_tops.first));
+            canvas.draw_text(text, position_type(top_type(1), text_and_line_tops.first));
 
             canvas.set_line_width(width_type(size_type(1, 12)));
             canvas.set_line_style(canvas_type::line_style_type::solid);
             canvas.draw_line(
-                position_type(0, text_and_line_tops.second),
+                position_type(top_type(0), text_and_line_tops.second),
                 position_type(
                     left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
                     text_and_line_tops.second
