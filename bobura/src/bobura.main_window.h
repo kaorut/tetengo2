@@ -159,8 +159,28 @@ namespace bobura
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
-        struct paint_background
+        class call_focus_on_diagram_picture_box_type
         {
+        public:
+            explicit call_focus_on_diagram_picture_box_type(main_window& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            const
+            {
+                m_self.focus_on_diagram_picture_box();
+            }
+
+        private:
+            main_window& m_self;
+
+        };
+
+        class paint_background_type
+        {
+        public:
             bool operator()(typename base_type::canvas_type& canvas)
             const
             {
@@ -199,10 +219,8 @@ namespace bobura
 
         void set_message_observers()
         {
-            this->focus_observer_set().got_focus().connect(
-                TETENGO2_CPP11_BIND(&main_window::focus_on_diagram_picture_box, this)
-            );
-            this->paint_observer_set().paint_background().connect(paint_background());
+            this->focus_observer_set().got_focus().connect(call_focus_on_diagram_picture_box_type(*this));
+            this->paint_observer_set().paint_background().connect(paint_background_type());
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
                     *this, m_confirm_file_save
