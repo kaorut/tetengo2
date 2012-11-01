@@ -100,18 +100,39 @@ namespace tetengo2 { namespace detail { namespace windows
         };};
 
         //! The message box details type.
-        typedef
-            std::tuple<
-                ::HWND,
-                std::wstring,
-                std::wstring,
-                std::wstring,
-                bool,
-                message_box_button_style_type::enum_t,
-                message_box_icon_style_type::enum_t,
-                std::vector<boost::optional<std::wstring>>
-            >
-            message_box_details_type;
+        struct message_box_details_type
+        {
+            ::HWND handle;
+            std::wstring title;
+            std::wstring main_content;
+            std::wstring sub_content;
+            bool cancellable;
+            message_box_button_style_type::enum_t button_style;
+            message_box_icon_style_type::enum_t icon_style;
+            std::vector<boost::optional<std::wstring>> custom_button_labels;
+
+            message_box_details_type(
+                const ::HWND                                      handle,
+                const std::wstring&                               title,
+                const std::wstring&                               main_content,
+                const std::wstring&                               sub_content,
+                const bool                                        cancellable,
+                const message_box_button_style_type::enum_t       button_style,
+                const message_box_icon_style_type::enum_t         icon_style,
+                const std::vector<boost::optional<std::wstring>>& custom_button_labels
+            )
+            :
+            handle(handle),
+            title(title),
+            main_content(main_content),
+            sub_content(sub_content),
+            cancellable(cancellable),
+            button_style(button_style),
+            icon_style(icon_style),
+            custom_button_labels(custom_button_labels)
+            {}
+
+        };
 
         //! The message box details pointer type.
         typedef std::unique_ptr<message_box_details_type> message_box_details_ptr_type;
@@ -225,15 +246,15 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
-            const ::HWND parent_window_handle = std::get<0>(message_box);
-            const std::wstring& title = std::get<1>(message_box);
-            const std::wstring& main_content = std::get<2>(message_box);
-            const std::wstring& sub_content = std::get<3>(message_box);
-            const bool cancellable = std::get<4>(message_box);
-            const message_box_button_style_type::enum_t button_style = std::get<5>(message_box);
-            const message_box_icon_style_type::enum_t icon_style = std::get<6>(message_box);
-            const std::vector<boost::optional<std::wstring>>&
-            custom_button_labels = std::get<7>(message_box);
+            const ::HWND parent_window_handle = message_box.handle;
+            const std::wstring& title = message_box.title;
+            const std::wstring& main_content = message_box.main_content;
+            const std::wstring& sub_content = message_box.sub_content;
+            const bool cancellable = message_box.cancellable;
+            const message_box_button_style_type::enum_t button_style = message_box.button_style;
+            const message_box_icon_style_type::enum_t icon_style = message_box.icon_style;
+            const std::vector<boost::optional<std::wstring>>& custom_button_labels =
+                message_box.custom_button_labels;
 
             const std::vector< ::TASKDIALOG_BUTTON> custom_buttons = make_custom_buttons(custom_button_labels);
 
