@@ -102,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The message box details type.
         struct message_box_details_type
         {
-            ::HWND handle;
+            ::HWND parent_handle;
             std::wstring title;
             std::wstring main_content;
             std::wstring sub_content;
@@ -112,7 +112,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                                      handle,
+                const ::HWND                                      parent_handle,
                 const std::wstring&                               title,
                 const std::wstring&                               main_content,
                 const std::wstring&                               sub_content,
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const std::vector<boost::optional<std::wstring>>& custom_button_labels
             )
             :
-            handle(handle),
+            parent_handle(parent_handle),
             title(title),
             main_content(main_content),
             sub_content(sub_content),
@@ -138,27 +138,65 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<message_box_details_type> message_box_details_ptr_type;
 
         //! The file open dialog details type.
-        typedef
-            std::tuple<
-                detail::file_open_dialog_ptr_type, ::HWND, std::wstring, std::wstring, detail::native_filters_type
-            >
-            file_open_dialog_details_type;
+        struct file_open_dialog_details_type
+        {
+            detail::file_open_dialog_ptr_type p_dialog;
+            ::HWND parent_handle;
+            std::wstring title;
+            std::wstring default_extension;
+            detail::native_filters_type native_filters;
+
+            file_open_dialog_details_type(
+                detail::file_open_dialog_ptr_type&& p_dialog,
+                const ::HWND                        parent_handle,
+                const std::wstring&                 title,
+                const std::wstring&                 default_extension,
+                const detail::native_filters_type&  native_filters
+            )
+            :
+            p_dialog(std::forward<detail::file_open_dialog_ptr_type>(p_dialog)),
+            parent_handle(parent_handle),
+            title(title),
+            default_extension(default_extension),
+            native_filters(native_filters)
+            {}
+
+        };
 
         //! The file open dialog details pointer type.
         typedef std::unique_ptr<file_open_dialog_details_type> file_open_dialog_details_ptr_type;
 
         //! The file save dialog details type.
-        typedef
-            std::tuple<
-                detail::file_save_dialog_ptr_type,
-                ::HWND,
-                std::wstring,
-                std::wstring,
-                std::wstring,
-                detail::native_filters_type,
-                std::size_t
-            >
-            file_save_dialog_details_type;
+        struct file_save_dialog_details_type
+        {
+            detail::file_save_dialog_ptr_type p_dialog;
+            ::HWND parent_handle;
+            std::wstring title;
+            std::wstring path;
+            std::wstring default_extension;
+            detail::native_filters_type native_filters;
+            std::size_t filter_index;
+
+            file_save_dialog_details_type(
+                detail::file_save_dialog_ptr_type&& p_dialog,
+                const ::HWND                        parent_handle,
+                const std::wstring&                 title,
+                const std::wstring&                 path,
+                const std::wstring&                 default_extension,
+                const detail::native_filters_type&  native_filters,
+                const std::size_t                   filter_index
+            )
+            :
+            p_dialog(std::forward<detail::file_save_dialog_ptr_type>(p_dialog)),
+            parent_handle(parent_handle),
+            title(title),
+            path(path),
+            default_extension(default_extension),
+            native_filters(native_filters),
+            filter_index(filter_index)
+            {}
+
+        };
 
         //! The file save dialog details pointer type.
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
@@ -246,7 +284,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
-            const ::HWND parent_window_handle = message_box.handle;
+            const ::HWND parent_window_handle = message_box.parent_handle;
             const std::wstring& title = message_box.title;
             const std::wstring& main_content = message_box.main_content;
             const std::wstring& sub_content = message_box.sub_content;
@@ -347,7 +385,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            const ::HRESULT title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -355,10 +393,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            if (!std::get<4>(dialog).empty())
+            if (!dialog.native_filters.empty())
             {
                 const ::HRESULT default_extension_set_result =
-                    std::get<0>(dialog)->SetDefaultExtension(std::get<3>(dialog).c_str());
+                    dialog.p_dialog->SetDefaultExtension(dialog.default_extension.c_str());
                 if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -370,9 +408,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<4>(dialog));
+            std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(dialog.native_filters);
             const ::HRESULT filter_set_result =
-                std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
+                dialog.p_dialog->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
             if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -382,12 +420,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
+            const ::HRESULT showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
                 return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
-            const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
+            const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -483,7 +521,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            const ::HRESULT title_set_result = std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            const ::HRESULT title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -492,11 +530,11 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             ::IShellItem* p_raw_default_path = NULL;
-            if (!std::get<3>(dialog).empty())
+            if (!dialog.path.empty())
             {
                 const ::HRESULT default_path_result =
                     ::SHCreateItemFromParsingName(
-                        std::get<3>(dialog).c_str(), NULL, IID_PPV_ARGS(&p_raw_default_path)
+                        dialog.path.c_str(), NULL, IID_PPV_ARGS(&p_raw_default_path)
                     );
                 if (FAILED(default_path_result))
                 {
@@ -512,9 +550,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (p_raw_default_path)
                     p_raw_default_path->Release();
             } BOOST_SCOPE_EXIT_END;
-            if (!std::get<3>(dialog).empty())
+            if (!dialog.path.empty())
             {
-                const ::HRESULT default_path_set_result = std::get<0>(dialog)->SetSaveAsItem(p_raw_default_path);
+                const ::HRESULT default_path_set_result = dialog.p_dialog->SetSaveAsItem(p_raw_default_path);
                 if (FAILED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -525,10 +563,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            if (!std::get<4>(dialog).empty())
+            if (!dialog.default_extension.empty())
             {
                 const ::HRESULT default_extension_set_result =
-                    std::get<0>(dialog)->SetDefaultExtension(std::get<4>(dialog).c_str());
+                    dialog.p_dialog->SetDefaultExtension(dialog.default_extension.c_str());
                 if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -540,9 +578,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            const std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(std::get<5>(dialog));
+            const std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(dialog.native_filters);
             const ::HRESULT filter_set_result =
-                std::get<0>(dialog)->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
+                dialog.p_dialog->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
             if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -552,10 +590,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            if (std::get<6>(dialog) > 0)
+            if (dialog.filter_index > 0)
             {
                 const ::HRESULT filter_index_set_result =
-                    std::get<0>(dialog)->SetFileTypeIndex(static_cast< ::UINT>(std::get<6>(dialog)));
+                    dialog.p_dialog->SetFileTypeIndex(static_cast< ::UINT>(dialog.filter_index));
                 if (FAILED(filter_index_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -566,12 +604,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            const ::HRESULT showing_result = std::get<0>(dialog)->Show(std::get<1>(dialog));
+            const ::HRESULT showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
                 return boost::none;
 
             ::IShellItem* p_raw_item = NULL;
-            const ::HRESULT result_result = std::get<0>(dialog)->GetResult(&p_raw_item);
+            const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
