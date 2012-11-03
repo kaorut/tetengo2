@@ -102,6 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The message box details type.
         struct message_box_details_type
         {
+#if !defined(DOCUMENTATION)
             ::HWND parent_handle;
             std::wstring title;
             std::wstring main_content;
@@ -132,6 +133,7 @@ namespace tetengo2 { namespace detail { namespace windows
             custom_button_labels(custom_button_labels)
             {}
 
+#endif
         };
 
         //! The message box details pointer type.
@@ -140,6 +142,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file open dialog details type.
         struct file_open_dialog_details_type
         {
+#if !defined(DOCUMENTATION)
             detail::file_open_dialog_ptr_type p_dialog;
             ::HWND parent_handle;
             std::wstring title;
@@ -161,6 +164,7 @@ namespace tetengo2 { namespace detail { namespace windows
             native_filters(native_filters)
             {}
 
+#endif
         };
 
         //! The file open dialog details pointer type.
@@ -169,6 +173,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file save dialog details type.
         struct file_save_dialog_details_type
         {
+#if !defined(DOCUMENTATION)
             detail::file_save_dialog_ptr_type p_dialog;
             ::HWND parent_handle;
             std::wstring title;
@@ -196,6 +201,7 @@ namespace tetengo2 { namespace detail { namespace windows
             filter_index(filter_index)
             {}
 
+#endif
         };
 
         //! The file save dialog details pointer type.
