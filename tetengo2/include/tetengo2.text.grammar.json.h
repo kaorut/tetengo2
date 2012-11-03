@@ -16,7 +16,6 @@
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.text.h"
 
 
@@ -282,6 +281,27 @@ namespace tetengo2 { namespace text { namespace grammar
 
         typedef boost::spirit::qi::rule<iterator, char_type ()> char_rule_type;
 
+        struct call_handler_type
+        {
+            typedef void (json::* handler_type)(const string_type& attribute);
+
+            json& m_self;
+            handler_type const m_handler;
+
+            call_handler_type(json& self, const handler_type handler)
+            :
+            m_self(self),
+            m_handler(handler)
+            {}
+
+            void operator()(const string_type& attribute, const boost::spirit::qi::unused_type&, const bool)
+            const
+            {
+                (m_self.*m_handler)(attribute);
+            }
+
+        };
+
 
         // variables
 
@@ -354,12 +374,12 @@ namespace tetengo2 { namespace text { namespace grammar
 
         // functions
 
-        void object_begun(const boost::spirit::qi::unused_type&)
+        void object_begun(const string_type&)
         {
             m_on_structure_begin(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
         }
 
-        void object_ended(const boost::spirit::qi::unused_type&)
+        void object_ended(const string_type&)
         {
             m_on_structure_end(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
         }
@@ -374,17 +394,17 @@ namespace tetengo2 { namespace text { namespace grammar
             );
         }
 
-        void member_ended(const boost::spirit::qi::unused_type&)
+        void member_ended(const string_type&)
         {
             m_on_structure_end(string_type(TETENGO2_TEXT("member")), std::vector<structure_attribute_type>());
         }
 
-        void array_begun(const boost::spirit::qi::unused_type&)
+        void array_begun(const string_type&)
         {
             m_on_structure_begin(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
         }
 
-        void array_ended(const boost::spirit::qi::unused_type&)
+        void array_ended(const string_type&)
         {
             m_on_structure_end(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
         }
@@ -432,13 +452,13 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.1. Values
             m_value =
-                m_false[TETENGO2_CPP11_BIND(&json::boolean_passed, this, cpp11::placeholders_1())] |
-                m_null[TETENGO2_CPP11_BIND(&json::null_passed, this, cpp11::placeholders_1())] |
-                m_true[TETENGO2_CPP11_BIND(&json::boolean_passed, this, cpp11::placeholders_1())] |
+                m_false[call_handler_type(*this, &json::boolean_passed)] |
+                m_null[call_handler_type(*this, &json::null_passed)] |
+                m_true[call_handler_type(*this, &json::boolean_passed)] |
                 m_object |
                 m_array |
-                m_number[TETENGO2_CPP11_BIND(&json::number_passed, this, cpp11::placeholders_1())] |
-                m_string[TETENGO2_CPP11_BIND(&json::string_passed, this, cpp11::placeholders_1())];
+                m_number[call_handler_type(*this, &json::number_passed)] |
+                m_string[call_handler_type(*this, &json::string_passed)];
             m_value.name("value");
             m_false = qi::string(string_type(TETENGO2_TEXT("false")));
             m_null = qi::string(string_type(TETENGO2_TEXT("null")));
@@ -446,21 +466,21 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.2. Objects
             m_object =
-                m_begin_object[TETENGO2_CPP11_BIND(&json::object_begun, this, cpp11::placeholders_1())] >>
+                m_begin_object[call_handler_type(*this, &json::object_begun)] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
-                m_end_object[TETENGO2_CPP11_BIND(&json::object_ended, this, cpp11::placeholders_1())];
+                m_end_object[call_handler_type(*this, &json::object_ended)];
             m_object.name("object");
             m_member =
-                m_string[TETENGO2_CPP11_BIND(&json::member_begun, this, cpp11::placeholders_1())] >>
+                m_string[call_handler_type(*this, &json::member_begun)] >>
                 m_name_separator >>
-                m_value[TETENGO2_CPP11_BIND(&json::member_ended, this, cpp11::placeholders_1())];
+                m_value[call_handler_type(*this, &json::member_ended)];
             m_member.name("member");
 
             // 2.3. Arrays
             m_array =
-                m_begin_array[TETENGO2_CPP11_BIND(&json::array_begun, this, cpp11::placeholders_1())] >>
+                m_begin_array[call_handler_type(*this, &json::array_begun)] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
-                m_end_array[TETENGO2_CPP11_BIND(&json::array_ended, this, cpp11::placeholders_1())];
+                m_end_array[call_handler_type(*this, &json::array_ended)];
             m_array.name("array");
 
             // 2.4. Numbers

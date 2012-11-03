@@ -58,9 +58,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        typedef
-            std::tuple< ::UINT, std::unique_ptr<typename std::remove_pointer< ::HMENU>::type, menu_deleter>, ::HMENU>
-            id_handle_type;
+        typedef std::unique_ptr<typename std::remove_pointer< ::HMENU>::type, menu_deleter> handle_type;
+
+        typedef std::tuple< ::UINT, handle_type, ::HMENU> id_handle_type;
 
         struct accelerator_table_deleter
         {
@@ -136,7 +136,9 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_menu_bar()
         {
             menu_details_ptr_type p_menu(
-                make_unique<menu_details_type>(get_and_increment_id(), ::CreateMenu(), static_cast< ::HMENU>(NULL))
+                make_unique<menu_details_type>(
+                    get_and_increment_id(), detail::handle_type(::CreateMenu()), static_cast< ::HMENU>(NULL)
+                )
             );
             if (!std::get<1>(*p_menu))
             {
@@ -159,7 +161,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             menu_details_ptr_type p_menu(
                 make_unique<menu_details_type>(
-                    get_and_increment_id(), ::CreatePopupMenu(), static_cast< ::HMENU>(NULL)
+                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), static_cast< ::HMENU>(NULL)
                 )
             );
             if (!std::get<1>(*p_menu))
@@ -183,7 +185,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return
                 make_unique<menu_details_type>(
-                    get_and_increment_id(), static_cast< ::HMENU>(NULL), static_cast< ::HMENU>(NULL)
+                    get_and_increment_id(), detail::handle_type(), static_cast< ::HMENU>(NULL)
                 );
         }
         

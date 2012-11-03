@@ -1417,10 +1417,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            static_cast<typename std::error_code::value_type>(reinterpret_cast< ::UINT_PTR>(result)),
-                            win32_category()
-                        ),
+                        std::error_code(static_cast<int>(reinterpret_cast< ::UINT_PTR>(result)), win32_category()),
                         "Can't open target."
                     )
                 );

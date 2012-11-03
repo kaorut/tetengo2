@@ -78,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \return The message.
         */
-        virtual std::string message(const value_type error_value)
+        virtual std::string message(const int error_value)
         const
         {
             switch (error_value)

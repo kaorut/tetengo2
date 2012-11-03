@@ -527,6 +527,7 @@ namespace test_tetengo2 { namespace gui
         struct message_loop;   //!< The message loop type.
         struct dialog_message_loop; //!< The dialog message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct details_font;   //!< The font type for widget details.
         struct widget;         //!< The widget type.
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
@@ -571,6 +572,7 @@ namespace test_tetengo2 { namespace gui
             abstract_window_traits_type;
         typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;
         typedef tetengo2::detail::stub::widget widget_details_type;
+        typedef tetengo2::detail::stub::widget::details_font_type details_font_type;
         typedef tetengo2::detail::stub::message_handler message_handler_details_type;
         typedef
             tetengo2::gui::widget::abstract_window<
@@ -634,6 +636,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::widget::dialog_message_loop, detail::widget::dialog_message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::widget::message_loop_break, detail::widget::message_loop_break_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget::details_font, detail::widget::details_font_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::widget,
@@ -736,7 +739,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>
         widget_type_list;
 
 

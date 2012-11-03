@@ -16,7 +16,6 @@
 #include <stdexcept>
 #include <string>
 #include <system_error>
-#include <tuple>
 //#include <utility>
 #include <vector>
 
@@ -43,6 +42,46 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The string type.
         typedef std::string string_type;
 
+#if !defined(DOCUMENTATION)
+        struct details_font_type
+        {
+            string_type family;
+            std::size_t size;
+            bool bold;
+            bool italic;
+            bool underline;
+            bool strikeout;
+
+            details_font_type()
+            :
+            family(),
+            size(),
+            bold(),
+            italic(),
+            underline(),
+            strikeout()
+            {}
+
+            details_font_type(
+                const string_type& family,
+                const std::size_t  size,
+                const bool         bold,
+                const bool         italic,
+                const bool         underline,
+                const bool         strikeout
+            )
+            :
+            family(family),
+            size(size),
+            bold(bold),
+            italic(italic),
+            underline(underline),
+            strikeout(strikeout)
+            {}
+
+        };
+#endif
+
         //! The widget details type.
         struct widget_details_type
         {
@@ -53,7 +92,7 @@ namespace tetengo2 { namespace detail { namespace stub
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
             std::pair<std::size_t, std::size_t> dimension;
             string_type text;
-            std::tuple<string_type, std::size_t, bool, bool, bool, bool> font;
+            details_font_type font;
             std::vector<void*> children;
             bool focusable;
             bool read_only;
@@ -77,18 +116,18 @@ namespace tetengo2 { namespace detail { namespace stub
             {}
 
             widget_details_type(
-                void* const                                                         p_parent,
-                const bool                                                          enabled,
-                const bool                                                          visible,
-                const std::pair<std::ptrdiff_t, std::ptrdiff_t>&                    position,
-                const std::pair<std::size_t, std::size_t>&                          dimension,
-                const string_type&                                                  text,
-                const std::tuple<string_type, std::size_t, bool, bool, bool, bool>& font,
-                const std::vector<void*>&                                           children,
-                const bool                                                          focusable,
-                const bool                                                          read_only,
-                const std::vector<string_type>&                                     list_box_items,
-                const boost::optional<std::size_t>&                                 selected_list_box_item_index
+                void* const                                      p_parent,
+                const bool                                       enabled,
+                const bool                                       visible,
+                const std::pair<std::ptrdiff_t, std::ptrdiff_t>& position,
+                const std::pair<std::size_t, std::size_t>&       dimension,
+                const string_type&                               text,
+                const details_font_type&                         font,
+                const std::vector<void*>&                        children,
+                const bool                                       focusable,
+                const bool                                       read_only,
+                const std::vector<string_type>&                  list_box_items,
+                const boost::optional<std::size_t>&              selected_list_box_item_index
             )
             :
             p_parent(p_parent),
@@ -638,14 +677,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             const details_font_type& font = widget.details()->font;
             return
-                Font(
-                    encoder.decode(std::get<0>(font)),
-                    std::get<1>(font),
-                    std::get<2>(font),
-                    std::get<3>(font),
-                    std::get<4>(font),
-                    std::get<5>(font)
-                );
+                Font(encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout);
         }
 
         /*!
@@ -991,11 +1023,6 @@ namespace tetengo2 { namespace detail { namespace stub
 
 
     private:
-        // types
-
-        typedef std::tuple<string_type, std::size_t, bool, bool, bool, bool> details_font_type;
-
-
         // static functions
 
         template <typename Widget>

@@ -142,7 +142,7 @@ namespace tetengo2 { namespace gui { namespace menu
             {
                 if (!i->has_shortcut_key()) continue;
 
-                entries.push_back(entry_type(i->shortcut_key(), *i));
+                entries.push_back(entry_type(i->shortcut_key(), tetengo2::cpp11::cref<menu_base_type>(*i)));
             }
 
             return entries;
