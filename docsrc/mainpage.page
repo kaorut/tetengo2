@@ -20,9 +20,9 @@ Tetengo2 is a kind of GUI toolkit.
 
 \arg Visual C++ 2012 (on Windows)
 \arg g++ 4.4.5 or 4.5.3 with -std=gnu++0x option (on UNIX)
-\arg Boost 1.51.0 or later
-\arg bzip2 1.0.6 or later
-\arg Doxygen 1.8.2 or later
+\arg Boost 1.52.0
+\arg bzip2 1.0.6
+\arg Doxygen 1.8.2
 
 
 Copyright (C) 2007-2012 kaoru
