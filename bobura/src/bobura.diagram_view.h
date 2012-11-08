@@ -16,7 +16,6 @@
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
-#include <tuple>
 //#include <utility>
 #include <vector>
 
@@ -601,14 +600,14 @@ namespace bobura
             canvas.set_color(m_model.timetable().font_color_set().time_line().color());
 
             typedef typename time_type::tick_type time_tick_type;
+            typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
             {
                 const time_type time(i * 60 + m_time_offset.seconds());
-                const std::tuple<time_tick_type, time_tick_type, time_tick_type> hours_minutes_seconds =
-                    time.hours_minutes_seconds();
-                const time_tick_type hours = std::get<0>(hours_minutes_seconds);
-                const time_tick_type minutes = std::get<1>(hours_minutes_seconds);
-                assert(std::get<2>(hours_minutes_seconds) == 0);
+                const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
+                const time_tick_type hours = hours_minutes_seconds.hours();
+                const time_tick_type minutes = hours_minutes_seconds.minutes();
+                assert(hours_minutes_seconds.seconds() == 0);
 
                 const left_type position =
                     time_to_left(

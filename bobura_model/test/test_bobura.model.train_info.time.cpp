@@ -7,7 +7,6 @@
 */
 
 //#include <stdexcept>
-//#include <tuple>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -374,27 +373,27 @@ BOOST_AUTO_TEST_SUITE(time)
         {
             const time_type time(0, 0, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 0U, 0U));
         }
         {
             const time_type time(0, 0, 1);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 1U));
+            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 0U, 1U));
         }
         {
             const time_type time(0, 1, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 1U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 1U, 0U));
         }
         {
             const time_type time(1, 0, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(1U, 0U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(1U, 0U, 0U));
         }
         {
             const time_type time(1, 2, 3);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(1U, 2U, 3U));
+            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(1U, 2U, 3U));
         }
         {
             BOOST_CHECK_THROW(time_type::uninitialized().hours_minutes_seconds(), std::logic_error);
