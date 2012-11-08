@@ -15,7 +15,6 @@
 //#include <memory>
 #include <stdexcept>
 #include <string>
-#include <tuple>
 //#include <utility>
 #include <vector>
 
@@ -233,16 +232,29 @@ namespace bobura { namespace model { namespace serializer
                 if (!split)
                     return false;
 
-                if (std::get<0>(*split) == string_type(TETENGO2_TEXT("LINES")))
-                    return set_line_props(std::get<2>(*split));
-                else if (std::get<0>(*split) == string_type(TETENGO2_TEXT("Train")))
-                    return set_name(std::get<1>(*split), std::get<2>(*split));
+                if (split->key == string_type(TETENGO2_TEXT("LINES")))
+                    return set_line_props(split->values);
+                else if (split->key == string_type(TETENGO2_TEXT("Train")))
+                    return set_name(split->index, split->values);
                 else
                     return false;
             }
 
         private:
-            typedef std::tuple<string_type, std::size_t, std::vector<string_type>> split_type;
+            struct split_type
+            {
+                string_type key;
+                std::size_t index;
+                std::vector<string_type> values;
+
+                split_type(string_type&& key, const std::size_t index, std::vector<string_type>&& values)
+                :
+                key(std::forward<string_type>(key)),
+                index(index),
+                values(std::forward<std::vector<string_type>>(values))
+                {}
+
+            };
 
             static boost::optional<split_type> split_line(const string_type& line)
             {
@@ -633,14 +645,27 @@ namespace bobura { namespace model { namespace serializer
 
         static void insert_preset_train_kinds(timetable_type& timetable)
         {
-            typedef
-                std::tuple<
-                    input_string_type,
-                    input_string_type,
-                    typename weight_type::enum_t,
-                    typename line_style_type::enum_t
-                >
-                content_type;
+            struct content_type
+            {
+                input_string_type name;
+                input_string_type abbreviation;
+                typename weight_type::enum_t weight;
+                typename line_style_type::enum_t line_style;
+
+                content_type(
+                    input_string_type&&                    name,
+                    input_string_type&&                    abbreviation,
+                    const typename weight_type::enum_t     weight,
+                    const typename line_style_type::enum_t line_style
+                )
+                :
+                name(std::forward<input_string_type>(name)),
+                abbreviation(std::forward<input_string_type>(abbreviation)),
+                weight(weight),
+                line_style(line_style)
+                {}
+
+            };
             std::vector<content_type> contents;
 
             contents.push_back(
@@ -785,11 +810,11 @@ namespace bobura { namespace model { namespace serializer
                 timetable.insert_train_kind(
                     timetable.train_kinds().end(),
                     train_kind_type(
-                        encoder().decode(std::get<0>(content)),
-                        encoder().decode(std::get<1>(content)),
+                        encoder().decode(content.name),
+                        encoder().decode(content.abbreviation),
                         color_type(0, 0, 0),
-                        std::get<2>(content),
-                        std::get<3>(content)
+                        content.weight,
+                        content.line_style
                     )
                 );
             }
