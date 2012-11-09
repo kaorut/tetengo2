@@ -17,7 +17,6 @@
 //#include <stdexcept>
 //#include <string>
 //#include <system_error>
-#include <tuple>
 //#include <type_traits>
 //#include <utility>
 //#include <vector>
@@ -60,7 +59,20 @@ namespace tetengo2 { namespace detail { namespace windows
 
         typedef std::unique_ptr<typename std::remove_pointer< ::HMENU>::type, menu_deleter> handle_type;
 
-        typedef std::tuple< ::UINT, handle_type, ::HMENU> id_handle_type;
+        struct id_handle_type
+        {
+            ::UINT id;
+            handle_type handle;
+            ::HMENU parent_handle;
+
+            id_handle_type(const ::UINT id, handle_type&& handle, const ::HMENU parent_handle)
+            :
+            id(id),
+            handle(std::move(handle)),
+            parent_handle(parent_handle)
+            {}
+
+        };
 
         struct accelerator_table_deleter
         {
@@ -140,7 +152,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     get_and_increment_id(), detail::handle_type(::CreateMenu()), static_cast< ::HMENU>(NULL)
                 )
             );
-            if (!std::get<1>(*p_menu))
+            if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a menu bar.")
@@ -164,7 +176,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), static_cast< ::HMENU>(NULL)
                 )
             );
-            if (!std::get<1>(*p_menu))
+            if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -200,12 +212,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
         {
-            if (!std::get<2>(*menu.details()))
+            if (!menu.details()->parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(
-                std::get<2>(*menu.details()), std::get<0>(*menu.details()), enabled, menu.state()
-            );
+            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, enabled, menu.state());
         }
 
         /*!
@@ -219,12 +229,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
         {
-            if (!std::get<2>(*menu.details()))
+            if (!menu.details()->parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(
-                std::get<2>(*menu.details()), std::get<0>(*menu.details()), menu.enabled(), state
-            );
+            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, menu.enabled(), state);
         }
 
         /*!
@@ -305,7 +313,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&        encoder
         )
         {
-            assert(!std::get<2>(*menu.details()));
+            assert(!menu.details()->parent_handle);
 
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
@@ -315,7 +323,7 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(popup_menu.details());
             const ::BOOL result =
                 ::InsertMenuItem(
-                    &*std::get<1>(*popup_menu.details()),
+                    popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     TRUE,
                     &menu_info
@@ -329,7 +337,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            std::get<2>(*menu.details()) = &*std::get<1>(*popup_menu.details());
+            menu.details()->parent_handle = popup_menu.details()->handle.get();
         }
 
         /*!
@@ -453,8 +461,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 menu_info.dwTypeData = text.data();
                 menu_info.cch = static_cast< ::UINT>(text.size() - 1);
-                menu_info.wID = std::get<0>(details);
-                menu_info.hSubMenu = &*std::get<1>(details);
+                menu_info.wID = details.id;
+                menu_info.hSubMenu = details.handle.get();
             }
 
 
@@ -485,7 +493,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 menu_info.dwTypeData = text.data();
                 menu_info.cch = static_cast< ::UINT>(text.size() - 1);
-                menu_info.wID = std::get<0>(details);
+                menu_info.wID = details.id;
             }
 
 
@@ -570,7 +578,7 @@ namespace tetengo2 { namespace detail { namespace windows
             accel.key = shortcut_key.key().code();
 
             assert(menu.details());
-            accel.cmd = static_cast< ::WORD>(std::get<0>(*menu.details()));
+            accel.cmd = static_cast< ::WORD>(menu.details()->id);
 
             return accel;
         }
@@ -604,12 +612,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menu(PopupMenu& popup_menu, const ForwardIterator offset)
         {
-            assert(std::get<1>(*popup_menu.details()));
-            assert(std::get<2>(*offset->details()));
+            assert(popup_menu.details()->handle);
+            assert(offset->details()->parent_handle);
 
             const ::BOOL result =
                 ::RemoveMenu(
-                    &*std::get<1>(*popup_menu.details()),
+                    popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     MF_BYPOSITION
                 );
@@ -622,7 +630,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            std::get<2>(*offset->details()) = NULL;
+            offset->details()->parent_handle = NULL;
         }
 
 
