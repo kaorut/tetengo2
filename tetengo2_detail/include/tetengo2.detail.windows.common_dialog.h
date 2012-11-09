@@ -17,7 +17,6 @@
 //#include <stdexcept>
 //#include <string>
 //#include <system_error>
-#include <tuple>
 //#include <type_traits>
 //#include <utility>
 //#include <vector>
@@ -208,13 +207,40 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
         //! The font dialog details type.
-        typedef std::tuple< ::HWND, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
+        struct font_dialog_details_type
+        {
+#if !defined(DOCUMENTATION)
+            ::HWND parent_handle;
+            std::unique_ptr< ::LOGFONTW> p_log_font;
+
+            font_dialog_details_type(const ::HWND parent_handle, std::unique_ptr< ::LOGFONTW>&& p_log_font)
+            :
+            parent_handle(parent_handle),
+            p_log_font(std::move(p_log_font))
+            {}
+#endif
+
+        };
+
 
         //! The font dialog details pointer type.
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
 
         //! The color dialog details type.
-        typedef std::tuple< ::HWND, ::COLORREF> color_dialog_details_type;
+        struct color_dialog_details_type
+        {
+#if !defined(DOCUMENTATION)
+            ::HWND parent_handle;
+            ::COLORREF native_color;
+
+            color_dialog_details_type(const ::HWND parent_handle, const ::COLORREF native_color)
+            :
+            parent_handle(parent_handle),
+            native_color(native_color)
+            {}
+#endif
+
+        };
 
         //! The color dialog details pointer type.
         typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
@@ -729,9 +755,9 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::CHOOSEFONTW choose_font = {};
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
-            choose_font.hwndOwner = std::get<0>(dialog);
+            choose_font.hwndOwner = dialog.parent_handle;
             choose_font.hDC = NULL;
-            choose_font.lpLogFont = std::get<1>(dialog).get();
+            choose_font.lpLogFont = dialog.p_log_font.get();
             choose_font.iPointSize = 0;
             choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_NOVERTFONTS | CF_INITTOLOGFONTSTRUCT;
             choose_font.rgbColors = 0;
@@ -807,9 +833,9 @@ namespace tetengo2 { namespace detail { namespace windows
             static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
             ::CHOOSECOLORW choose_color = {};
             choose_color.lStructSize = sizeof(::CHOOSECOLORW);
-            choose_color.hwndOwner = std::get<0>(dialog);
+            choose_color.hwndOwner = dialog.parent_handle;
             choose_color.hInstance = NULL;
-            choose_color.rgbResult = std::get<1>(dialog);
+            choose_color.rgbResult = dialog.native_color;
             choose_color.lpCustColors = custom_colors.data();
             choose_color.Flags = CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN;
             choose_color.lCustData = 0;
