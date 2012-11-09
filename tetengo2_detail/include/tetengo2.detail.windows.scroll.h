@@ -50,7 +50,22 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::pair<size_type, size_type> range_type;
 
         //! The scroll bar details type.
-        typedef std::tuple< ::HWND, int, bool> scroll_bar_details_type;
+        struct scroll_bar_details_type
+        {
+#if !defined(DOCUMENTATION)
+            ::HWND window_handle;
+            int native_style;
+            bool enabled;
+
+            scroll_bar_details_type(const ::HWND window_handle, const int native_style, const bool enabled)
+            :
+            window_handle(window_handle),
+            native_style(native_style),
+            enabled(enabled)
+            {}
+#endif
+
+        };
 
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
@@ -108,7 +123,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS;
             
-            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
+            if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -135,7 +150,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_POS | SIF_DISABLENOSCROLL;
             info.nPos = static_cast<int>(position);
 
-            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
+            ::SetScrollInfo(details.window_handle, details.native_style, &info, TRUE);
         }
 
         /*!
@@ -153,7 +168,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_RANGE;
             
-            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
+            if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -184,7 +199,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.nMin = static_cast<int>(range.first);
             info.nMax = static_cast<int>(range.second);
 
-            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
+            ::SetScrollInfo(details.window_handle, details.native_style, &info, TRUE);
         }
 
         /*!
@@ -202,7 +217,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE;
             
-            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
+            if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -229,7 +244,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_PAGE | SIF_DISABLENOSCROLL;
             info.nPage = static_cast< ::UINT>(page_size);
 
-            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
+            ::SetScrollInfo(details.window_handle, details.native_style, &info, TRUE);
         }
 
         /*!
@@ -242,7 +257,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static bool enabled(const scroll_bar_details_type& details)
         {
-            return std::get<2>(details);
+            return details.enabled;
         }
 
         /*!
@@ -254,9 +269,9 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_enabled(scroll_bar_details_type& details, const bool enabled)
         {
             ::EnableScrollBar(
-                std::get<0>(details), std::get<1>(details), enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH
+                details.window_handle, details.native_style, enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH
             );
-            std::get<2>(details) = enabled;
+            details.enabled = enabled;
         }
 
 
