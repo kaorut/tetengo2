@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_GRAMMAR_JSON_H
 
 #include <string>
-#include <tuple>
 #include <vector>
 
 #include <boost/signals2.hpp>
@@ -54,9 +53,69 @@ namespace tetengo2 { namespace text { namespace grammar
             null,    //!< A null.
         };};
 
-        //! The attribute type.
-        typedef
-            std::tuple<string_type, typename value_type_type::enum_t, const string_type&> structure_attribute_type;
+        //! The structure attribute type.
+        class structure_attribute_type
+        {
+        public:
+            /*!
+                \brief Creates a structure attribute.
+
+                \param name       A name.
+                \param value_type A value type.
+                \param attribute  An attribute.
+            */
+            structure_attribute_type(
+                string_type&&                          name,
+                const typename value_type_type::enum_t value_type,
+                const string_type&                     attribute
+            )
+            :
+            m_name(std::forward<string_type>(name)),
+            m_value_type(value_type),
+            m_attribute(attribute)
+            {}
+
+            /*!
+                \brief Returns the name.
+
+                \return The name.
+            */
+            const string_type& name()
+            const
+            {
+                return m_name;
+            }
+
+            /*!
+                \brief Returns the value type.
+
+                \return The value type.
+            */
+            typename value_type_type::enum_t value_type()
+            const
+            {
+                return m_value_type;
+            }
+
+            /*!
+                \brief Returns the attribute.
+
+                \return The attribute.
+            */
+            const string_type& attribute()
+            const
+            {
+                return m_attribute;
+            }
+
+        private:
+            string_type m_name;
+
+            typename value_type_type::enum_t m_value_type;
+
+            const string_type& m_attribute;
+
+        };
 
         //! The structure signal type.
         typedef
