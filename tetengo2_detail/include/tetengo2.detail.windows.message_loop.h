@@ -11,7 +11,6 @@
 
 //#include <cstddef>
 //#include <system_error>
-#include <tuple>
 
 //#include <boost/noncopyable.hpp>
 //#include <boost/throw_exception.hpp>

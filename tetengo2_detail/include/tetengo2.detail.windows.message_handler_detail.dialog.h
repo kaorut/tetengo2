@@ -13,7 +13,6 @@
 
 #include <cassert>
 #include <cstddef>
-#include <tuple>
 
 #include <boost/optional.hpp>
 

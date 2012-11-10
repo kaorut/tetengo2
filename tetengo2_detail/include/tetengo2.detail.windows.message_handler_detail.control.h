@@ -13,7 +13,6 @@
 
 #include <cstddef>
 #include <system_error>
-#include <tuple>
 
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>

@@ -16,7 +16,6 @@
 #include <cstddef>
 #include <stdexcept>
 #include <system_error>
-#include <tuple>
 
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>

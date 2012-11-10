@@ -15,7 +15,6 @@
 //#include <stdexcept>
 //#include <string>
 //#include <system_error>
-#include <tuple>
 //#include <utility>
 
 //#include <boost/noncopyable.hpp>

@@ -12,7 +12,6 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_ABSTRACTWINDOW_H
 
 #include <algorithm>
-#include <tuple>
 
 #include <boost/optional.hpp>
 

@@ -10,6 +10,7 @@
 #define TETENGO2_TEXT_GRAMMAR_JSON_H
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <boost/signals2.hpp>
