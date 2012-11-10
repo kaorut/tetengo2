@@ -294,7 +294,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return
                 make_unique<message_box_details_type>(
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String1>(title)),
                     encoder.encode(std::forward<String2>(main_content)),
                     encoder.encode(std::forward<String3>(sub_content)),
@@ -391,7 +391,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String>(title)),
                     encoder.encode(to_default_extension(filters)),
                     to_native_filters(filters, encoder)
@@ -525,7 +525,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String>(title)),
                     encoder.encode(to_native_path<String>(path)),
                     encoder.encode(to_default_extension(filters)),
@@ -734,7 +734,7 @@ namespace tetengo2 { namespace detail { namespace windows
             p_log_font->lfQuality = DEFAULT_QUALITY;
             p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
-            return make_unique<font_dialog_details_type>(std::get<0>(*parent.details()).get(), std::move(p_log_font));
+            return make_unique<font_dialog_details_type>(parent.details()->handle.get(), std::move(p_log_font));
         }
 
         /*!
@@ -811,7 +811,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
-            return make_unique<color_dialog_details_type>(std::get<0>(*parent.details()).get(), native_color);
+            return make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
         }
 
         /*!

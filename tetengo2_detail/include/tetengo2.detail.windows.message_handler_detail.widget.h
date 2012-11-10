@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 reinterpret_cast< ::HWND>(l_param),
                 custom_message_type::command,
                 w_param,
-                reinterpret_cast< ::LPARAM>(std::get<0>(*widget.details()).get())
+                reinterpret_cast< ::LPARAM>(widget.details()->handle.get())
             );
             return boost::none;
         }
@@ -245,13 +245,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT);
+                    new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_VERT);
                 widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT);
+                    new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_VERT);
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
                     widget.vertical_scroll_bar()->set_position(new_position);
@@ -285,13 +285,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ);
+                    new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_HORZ);
                 widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ);
+                    new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_HORZ);
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
                     widget.horizontal_scroll_bar()->set_position(new_position);
@@ -328,7 +328,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::none;
 
             ::PAINTSTRUCT paint_struct = {};
-            if (!::BeginPaint(std::get<0>(*widget.details()).get(), &paint_struct))
+            if (!::BeginPaint(widget.details()->handle.get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint.")
@@ -336,7 +336,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             }
             BOOST_SCOPE_EXIT((&widget)(&paint_struct))
             {
-                ::EndPaint(std::get<0>(*widget.details()).get(), &paint_struct);
+                ::EndPaint(widget.details()->handle.get(), &paint_struct);
             } BOOST_SCOPE_EXIT_END;
             typename Widget::widget_canvas_type canvas(paint_struct.hdc);
 
@@ -349,9 +349,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         void delete_current_font(Widget& widget)
         {
             const ::HFONT font_handle =
-                reinterpret_cast< ::HFONT>(::SendMessageW(std::get<0>(*widget.details()).get(), WM_GETFONT, 0, 0));
+                reinterpret_cast< ::HFONT>(::SendMessageW(widget.details()->handle.get(), WM_GETFONT, 0, 0));
 
-            ::SendMessageW(std::get<0>(*widget.details()).get(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
+            ::SendMessageW(widget.details()->handle.get(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
 
             if (font_handle && ::DeleteObject(font_handle) == 0)
             {
@@ -376,7 +376,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const Widget* const p_widget =
                 reinterpret_cast<const Widget*>(
                     ::RemovePropW(
-                        std::get<0>(*widget.details()).get(), WidgetDetails::property_key_for_cpp_instance().c_str()
+                        widget.details()->handle.get(), WidgetDetails::property_key_for_cpp_instance().c_str()
                     )
                 );
             p_widget;
