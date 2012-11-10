@@ -15,7 +15,6 @@
 #include <locale>
 #include <sstream>
 #include <string>
-#include <tuple>
 #include <type_traits>
 
 #include <boost/format.hpp>
@@ -756,12 +755,12 @@ namespace bobura { namespace model { namespace serializer
                 return output_string_type(TETENGO2_TEXT("    -1"));
 
             typedef typename time_type::tick_type tick_type;
-            typedef std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds_type;
+            typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
             const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
             const tick_type representation =
-                std::get<0>(hours_minutes_seconds) * 10000 +
-                std::get<1>(hours_minutes_seconds) * 100 +
-                std::get<2>(hours_minutes_seconds);
+                hours_minutes_seconds.hours() * 10000 +
+                hours_minutes_seconds.minutes() * 100 +
+                hours_minutes_seconds.seconds();
             std::basic_ostringstream<output_char_type> stream;
             stream <<
                 boost::basic_format<output_char_type>(TETENGO2_TEXT("%6d"), std::locale::classic()) % representation;

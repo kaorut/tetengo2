@@ -10,7 +10,6 @@
 #include <cassert>
 #include <stdexcept>
 //#include <string>
-//#include <tuple>
 //#include <vector>
 
 //#include <boost/spirit/include/qi.hpp>
@@ -135,7 +134,7 @@ namespace
 
     void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute)
     {
-        value_passed(output, std::get<1>(structure_attribute), std::get<2>(structure_attribute));
+        value_passed(output, structure_attribute.value_type(), structure_attribute.attribute());
     }
 
 

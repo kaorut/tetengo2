@@ -15,7 +15,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <tuple>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -218,8 +217,8 @@ namespace tetengo2 { namespace text
         {
             return
                 typename attribute_map_type::value_type(
-                    std::get<0>(structure_attribute),
-                    to_value(std::get<1>(structure_attribute), std::get<2>(structure_attribute))
+                    structure_attribute.name(),
+                    to_value(structure_attribute.value_type(), structure_attribute.attribute())
                 );
         }
 

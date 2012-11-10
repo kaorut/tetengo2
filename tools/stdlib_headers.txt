@@ -557,13 +557,11 @@ std::endl                                        iomanip
 std::equal_to                                    functional
 std::error_category                              system_error
 std::error_code                                  system_error
-std::error_code::value_type                      system_error
 std::exception                                   exception
 std::find_if                                     algorithm
 std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
-std::get                                         tuple
 std::greater                                     functional
 std::has_facet                                   locale
 std::hex                                         ios
@@ -584,7 +582,6 @@ std::locale::classic                             locale
 std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
-std::make_tuple                                  tuple
 std::max                                         algorithm
 std::mbstate_t                                   cwchar
 std::messages                                    locale
@@ -622,8 +619,6 @@ std::string                                      string
 std::string::const_iterator                      string
 std::system_error                                system_error
 std::transform                                   algorithm
-std::tuple                                       tuple
-std::tuple_element                               tuple
 std::unary_function                              functional
 std::unique_ptr                                  memory
 std::unordered_map                               unordered_map

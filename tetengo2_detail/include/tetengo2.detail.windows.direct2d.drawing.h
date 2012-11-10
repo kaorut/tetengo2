@@ -15,7 +15,6 @@
 //#include <stdexcept>
 //#include <string>
 //#include <system_error>
-#include <tuple>
 //#include <utility>
 
 //#include <boost/noncopyable.hpp>
@@ -178,7 +177,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename WidgetDetails>
         static canvas_details_ptr_type create_canvas(const WidgetDetails& widget_details)
         {
-            const ::HWND window_handle = std::get<0>(widget_details).get();
+            const ::HWND window_handle = widget_details.handle.get();
 
             ::D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties();
             props.pixelFormat = D2D1::PixelFormat(::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED);

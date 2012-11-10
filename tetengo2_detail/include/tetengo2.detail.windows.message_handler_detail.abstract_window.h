@@ -12,7 +12,6 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_ABSTRACTWINDOW_H
 
 #include <algorithm>
-#include <tuple>
 
 #include <boost/optional.hpp>
 
@@ -35,14 +34,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename MenuBase>
         bool same_menu(const MenuBase& menu1, const ::UINT menu2_id)
         {
-            return std::get<0>(*menu1.details()) == menu2_id;
+            return menu1.details()->id == menu2_id;
         }
 
         template <typename MenuBase>
         bool same_popup_menu(const MenuBase& menu1, const ::HMENU menu2_handle)
         {
             if (!menu1.details() || !menu2_handle) return false;
-            return &*std::get<1>(*menu1.details()) == menu2_handle;
+            return menu1.details()->handle.get() == menu2_handle;
         }
 
         template <typename AbstractWindow>

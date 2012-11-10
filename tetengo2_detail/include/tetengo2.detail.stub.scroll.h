@@ -12,7 +12,6 @@
 #include <cstddef>
 //#include <memory>
 #include <system_error>
-#include <tuple>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -37,7 +36,29 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef std::pair<size_type, size_type> range_type;
 
         //! The scroll bar details type.
-        typedef std::tuple<size_type, std::pair<size_type, size_type>, size_type, bool> scroll_bar_details_type;
+        struct scroll_bar_details_type
+        {
+#if !defined(DOCUMENTATION)
+            size_type position;
+            std::pair<size_type, size_type> range;
+            size_type page_size;
+            bool enabled;
+
+            scroll_bar_details_type(
+                const size_type                   position,
+                std::pair<size_type, size_type>&& range,
+                const size_type                   page_size,
+                const bool                        enabled
+            )
+            :
+            position(position),
+            range(std::forward<std::pair<size_type, size_type>>(range)),
+            page_size(page_size),
+            enabled(enabled)
+            {}
+#endif
+
+        };
 
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
@@ -84,7 +105,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static size_type position(const scroll_bar_details_type& details)
         {
-            return std::get<0>(details);
+            return details.position;
         }
 
         /*!
@@ -97,7 +118,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void set_position(scroll_bar_details_type& details, const size_type position)
         {
-            std::get<0>(details) = position;
+            details.position = position;
         }
 
         /*!
@@ -111,7 +132,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static const range_type& range(const scroll_bar_details_type& details)
         {
-            return std::get<1>(details);
+            return details.range;
         }
 
         /*!
@@ -127,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename R>
         static void set_range(scroll_bar_details_type& details, R&& range)
         {
-            std::get<1>(details) = std::forward<R>(range);
+            details.range = std::forward<R>(range);
         }
 
         /*!
@@ -141,7 +162,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static size_type page_size(const scroll_bar_details_type& details)
         {
-            return std::get<2>(details);
+            return details.page_size;
         }
 
         /*!
@@ -154,7 +175,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
         {
-            std::get<2>(details) = page_size;
+            details.page_size = page_size;
         }
 
         /*!
@@ -167,7 +188,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static bool enabled(const scroll_bar_details_type& details)
         {
-            return std::get<3>(details);
+            return details.enabled;
         }
 
         /*!
@@ -178,7 +199,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void set_enabled(scroll_bar_details_type& details, const bool enabled)
         {
-            std::get<3>(details) = enabled;
+            details.enabled = enabled;
         }
 
 

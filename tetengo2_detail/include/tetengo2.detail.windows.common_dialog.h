@@ -17,7 +17,6 @@
 //#include <stdexcept>
 //#include <string>
 //#include <system_error>
-#include <tuple>
 //#include <type_traits>
 //#include <utility>
 //#include <vector>
@@ -113,24 +112,24 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                                      parent_handle,
-                const std::wstring&                               title,
-                const std::wstring&                               main_content,
-                const std::wstring&                               sub_content,
-                const bool                                        cancellable,
-                const message_box_button_style_type::enum_t       button_style,
-                const message_box_icon_style_type::enum_t         icon_style,
-                const std::vector<boost::optional<std::wstring>>& custom_button_labels
+                const ::HWND                                 parent_handle,
+                std::wstring&&                               title,
+                std::wstring&&                               main_content,
+                std::wstring&&                               sub_content,
+                const bool                                   cancellable,
+                const message_box_button_style_type::enum_t  button_style,
+                const message_box_icon_style_type::enum_t    icon_style,
+                std::vector<boost::optional<std::wstring>>&& custom_button_labels
             )
             :
             parent_handle(parent_handle),
-            title(title),
-            main_content(main_content),
-            sub_content(sub_content),
+            title(std::forward<std::wstring>(title)),
+            main_content(std::forward<std::wstring>(main_content)),
+            sub_content(std::forward<std::wstring>(sub_content)),
             cancellable(cancellable),
             button_style(button_style),
             icon_style(icon_style),
-            custom_button_labels(custom_button_labels)
+            custom_button_labels(std::forward<std::vector<boost::optional<std::wstring>>>(custom_button_labels))
             {}
 
 #endif
@@ -152,16 +151,16 @@ namespace tetengo2 { namespace detail { namespace windows
             file_open_dialog_details_type(
                 detail::file_open_dialog_ptr_type&& p_dialog,
                 const ::HWND                        parent_handle,
-                const std::wstring&                 title,
-                const std::wstring&                 default_extension,
-                const detail::native_filters_type&  native_filters
+                std::wstring&&                      title,
+                std::wstring&&                      default_extension,
+                detail::native_filters_type&&       native_filters
             )
             :
-            p_dialog(std::forward<detail::file_open_dialog_ptr_type>(p_dialog)),
+            p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(title),
-            default_extension(default_extension),
-            native_filters(native_filters)
+            title(std::forward<std::wstring>(title)),
+            default_extension(std::forward<std::wstring>(default_extension)),
+            native_filters(std::forward<detail::native_filters_type>(native_filters))
             {}
 
 #endif
@@ -185,19 +184,19 @@ namespace tetengo2 { namespace detail { namespace windows
             file_save_dialog_details_type(
                 detail::file_save_dialog_ptr_type&& p_dialog,
                 const ::HWND                        parent_handle,
-                const std::wstring&                 title,
-                const std::wstring&                 path,
-                const std::wstring&                 default_extension,
-                const detail::native_filters_type&  native_filters,
+                std::wstring&&                      title,
+                std::wstring&&                      path,
+                std::wstring&&                      default_extension,
+                detail::native_filters_type&&       native_filters,
                 const std::size_t                   filter_index
             )
             :
-            p_dialog(std::forward<detail::file_save_dialog_ptr_type>(p_dialog)),
+            p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(title),
-            path(path),
-            default_extension(default_extension),
-            native_filters(native_filters),
+            title(std::forward<std::wstring>(title)),
+            path(std::forward<std::wstring>(path)),
+            default_extension(std::forward<std::wstring>(default_extension)),
+            native_filters(std::forward<detail::native_filters_type>(native_filters)),
             filter_index(filter_index)
             {}
 
@@ -208,13 +207,40 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
         //! The font dialog details type.
-        typedef std::tuple< ::HWND, std::unique_ptr< ::LOGFONTW>> font_dialog_details_type;
+        struct font_dialog_details_type
+        {
+#if !defined(DOCUMENTATION)
+            ::HWND parent_handle;
+            std::unique_ptr< ::LOGFONTW> p_log_font;
+
+            font_dialog_details_type(const ::HWND parent_handle, std::unique_ptr< ::LOGFONTW>&& p_log_font)
+            :
+            parent_handle(parent_handle),
+            p_log_font(std::move(p_log_font))
+            {}
+#endif
+
+        };
+
 
         //! The font dialog details pointer type.
         typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
 
         //! The color dialog details type.
-        typedef std::tuple< ::HWND, ::COLORREF> color_dialog_details_type;
+        struct color_dialog_details_type
+        {
+#if !defined(DOCUMENTATION)
+            ::HWND parent_handle;
+            ::COLORREF native_color;
+
+            color_dialog_details_type(const ::HWND parent_handle, const ::COLORREF native_color)
+            :
+            parent_handle(parent_handle),
+            native_color(native_color)
+            {}
+#endif
+
+        };
 
         //! The color dialog details pointer type.
         typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
@@ -268,7 +294,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return
                 make_unique<message_box_details_type>(
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String1>(title)),
                     encoder.encode(std::forward<String2>(main_content)),
                     encoder.encode(std::forward<String3>(sub_content)),
@@ -365,7 +391,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String>(title)),
                     encoder.encode(to_default_extension(filters)),
                     to_native_filters(filters, encoder)
@@ -499,7 +525,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
-                    std::get<0>(*parent.details()).get(),
+                    parent.details()->handle.get(),
                     encoder.encode(std::forward<String>(title)),
                     encoder.encode(to_native_path<String>(path)),
                     encoder.encode(to_default_extension(filters)),
@@ -708,7 +734,7 @@ namespace tetengo2 { namespace detail { namespace windows
             p_log_font->lfQuality = DEFAULT_QUALITY;
             p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
-            return make_unique<font_dialog_details_type>(std::get<0>(*parent.details()).get(), std::move(p_log_font));
+            return make_unique<font_dialog_details_type>(parent.details()->handle.get(), std::move(p_log_font));
         }
 
         /*!
@@ -729,9 +755,9 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::CHOOSEFONTW choose_font = {};
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
-            choose_font.hwndOwner = std::get<0>(dialog);
+            choose_font.hwndOwner = dialog.parent_handle;
             choose_font.hDC = NULL;
-            choose_font.lpLogFont = std::get<1>(dialog).get();
+            choose_font.lpLogFont = dialog.p_log_font.get();
             choose_font.iPointSize = 0;
             choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_NOVERTFONTS | CF_INITTOLOGFONTSTRUCT;
             choose_font.rgbColors = 0;
@@ -785,7 +811,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
-            return make_unique<color_dialog_details_type>(std::get<0>(*parent.details()).get(), native_color);
+            return make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
         }
 
         /*!
@@ -807,9 +833,9 @@ namespace tetengo2 { namespace detail { namespace windows
             static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
             ::CHOOSECOLORW choose_color = {};
             choose_color.lStructSize = sizeof(::CHOOSECOLORW);
-            choose_color.hwndOwner = std::get<0>(dialog);
+            choose_color.hwndOwner = dialog.parent_handle;
             choose_color.hInstance = NULL;
-            choose_color.rgbResult = std::get<1>(dialog);
+            choose_color.rgbResult = dialog.native_color;
             choose_color.lpCustColors = custom_colors.data();
             choose_color.Flags = CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN;
             choose_color.lCustData = 0;

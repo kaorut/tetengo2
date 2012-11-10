@@ -9,8 +9,6 @@
 #if !defined(BOBURA_DETAILTYPELIST_H)
 #define BOBURA_DETAILTYPELIST_H
 
-//#include <tuple>
-
 #include <boost/mpl/pair.hpp>
 
 #if defined(USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION)
@@ -81,9 +79,11 @@ namespace bobura
         typedef tetengo2::detail::windows::gdiplus::drawing drawing_type;
         typedef tetengo2::detail::windows::direct2d::drawing fast_drawing_type;
         typedef tetengo2::detail::windows::encoding encoding_type;
-        typedef
-            std::tuple<tetengo2::detail::windows::gui_fixture, tetengo2::detail::windows::gdiplus::gui_fixture>
-            gui_fixture_type;
+        struct gui_fixture_type
+        {
+            tetengo2::detail::windows::gui_fixture m_windows_gui_fixture;
+            tetengo2::detail::windows::gdiplus::gui_fixture m_gdiplus_gui_fixutre;
+        };
         typedef tetengo2::detail::windows::menu menu_type;
         typedef tetengo2::detail::windows::message_handler message_handler_type;
         typedef tetengo2::detail::windows::message_loop message_loop_type;
@@ -99,7 +99,10 @@ namespace bobura
         typedef tetengo2::detail::stub::drawing drawing_type;
         typedef tetengo2::detail::stub::drawing fast_drawing_type;
         typedef tetengo2::detail::stub::encoding encoding_type;
-        typedef std::tuple<tetengo2::detail::stub::gui_fixture> gui_fixture_type;
+        struct gui_fixture_type
+        {
+            tetengo2::detail::stub::gui_fixture m_stub_gui_fixture;
+        };
         typedef tetengo2::detail::stub::menu menu_type;
         typedef tetengo2::detail::stub::message_handler message_handler_type;
         typedef tetengo2::detail::stub::message_loop message_loop_type;

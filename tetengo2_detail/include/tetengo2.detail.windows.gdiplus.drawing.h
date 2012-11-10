@@ -14,7 +14,6 @@
 #include <limits>
 //#include <memory>
 //#include <system_error>
-#include <tuple>
 //#include <type_traits>
 //#include <utility>
 //#include <vector>
@@ -488,9 +487,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(
-                make_unique<Gdiplus::Graphics>(std::get<0>(widget_details).get())
-            );
+            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.handle.get()));
 
             initialize_canvas(*p_canvas);
 

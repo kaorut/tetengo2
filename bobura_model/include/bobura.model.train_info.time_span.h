@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_TRAININFO_TIMESPAN_H
 
 #include <stdexcept>
-#include <tuple>
 
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
@@ -34,6 +33,84 @@ namespace bobura { namespace model { namespace train_info
 
         //! The tick type.
         typedef TimeSpanTick tick_type;
+
+        //! The hours-minutes-seconds type.
+        class hours_minutes_seconds_type : private boost::equality_comparable<hours_minutes_seconds_type>
+        {
+        public:
+            /*!
+                \brief Creates hours-minutes-seconds.
+
+                \param hours   Hours.
+                \param minutes Minutes.
+                \param seconds Seconds.
+            */
+            hours_minutes_seconds_type(const tick_type hours, const tick_type minutes, const tick_type seconds)
+            :
+            m_hours(hours),
+            m_minutes(minutes),
+            m_seconds(seconds)
+            {}
+
+            /*!
+                \brief Checks whether one hours-minutes-seconds is equal to another.
+
+                \param one     One hours-minutes-seconds.
+                \param another Another hours-minutes-seconds.
+
+                \retval true  When the one is equal to the other.
+                \retval false Otherwise.
+            */
+            friend bool operator==(const hours_minutes_seconds_type& one, const hours_minutes_seconds_type& another)
+            {
+                return
+                    one.m_hours == another.m_hours &&
+                    one.m_minutes == another.m_minutes &&
+                    one.m_seconds == another.m_seconds;
+            }
+
+            /*!
+                \brief Returns hours.
+
+                \return Hours.
+            */
+            tick_type hours()
+            const
+            {
+                return m_hours;
+            }
+
+            /*!
+                \brief Returns minutes.
+
+                \return Minutes.
+            */
+            tick_type minutes()
+            const
+            {
+                return m_minutes;
+            }
+
+            /*!
+                \brief Returns seconds.
+
+                \return Seconds.
+            */
+            tick_type seconds()
+            const
+            {
+                return m_seconds;
+            }
+
+
+        private:
+            tick_type m_hours;
+
+            tick_type m_minutes;
+
+            tick_type m_seconds;
+
+        };
 
 
         // static functions
@@ -160,16 +237,16 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Returns the hours, minutes and seconds.
 
-            \return The hours, minutes and seconds, which are stored in a std::tuple object in this order.
+            \return The hours, minutes and seconds.
         */
-        const std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds()
+        const hours_minutes_seconds_type hours_minutes_seconds()
         const
         {
             const tick_type hours = m_seconds / (60 * 60);
             const tick_type minutes = m_seconds / 60 - hours * 60;
             const tick_type seconds = m_seconds - hours * 60 * 60 - minutes * 60;
 
-            return std::make_tuple(hours, minutes, seconds);
+            return hours_minutes_seconds_type(hours, minutes, seconds);
         }
 
 
