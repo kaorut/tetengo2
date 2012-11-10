@@ -76,7 +76,7 @@ namespace bobura { namespace model { namespace train_info
             }
 
             /*!
-                \breif Returns hours.
+                \brief Returns hours.
 
                 \return Hours.
             */
@@ -87,7 +87,7 @@ namespace bobura { namespace model { namespace train_info
             }
 
             /*!
-                \breif Returns minutes.
+                \brief Returns minutes.
 
                 \return Minutes.
             */
@@ -98,7 +98,7 @@ namespace bobura { namespace model { namespace train_info
             }
 
             /*!
-                \breif Returns seconds.
+                \brief Returns seconds.
 
                 \return Seconds.
             */
