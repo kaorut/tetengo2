@@ -88,7 +88,7 @@ namespace bobura { namespace model { namespace train_info
             tick_type minutes()
             const
             {
-                return m_munites;
+                return m_minutes;
             }
 
             /*!
