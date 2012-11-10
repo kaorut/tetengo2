@@ -119,9 +119,9 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             const string_type& m_text;
 
-            explicit call_calc_text_dimension_type(const string_type& text)
+            explicit call_calc_text_dimension_type(string_type&& text)
             :
-            m_text(text)
+            m_text(std::forward<string_type>(text))
             {}
 
             dimension_type operator()(const canvas_type& canvas)
