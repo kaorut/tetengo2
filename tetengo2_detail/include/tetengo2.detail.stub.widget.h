@@ -63,15 +63,15 @@ namespace tetengo2 { namespace detail { namespace stub
             {}
 
             details_font_type(
-                const string_type& family,
-                const std::size_t  size,
-                const bool         bold,
-                const bool         italic,
-                const bool         underline,
-                const bool         strikeout
+                string_type&&     family,
+                const std::size_t size,
+                const bool        bold,
+                const bool        italic,
+                const bool        underline,
+                const bool        strikeout
             )
             :
-            family(family),
+            family(std::forward<string_type>(family)),
             size(size),
             bold(bold),
             italic(italic),
@@ -116,32 +116,32 @@ namespace tetengo2 { namespace detail { namespace stub
             {}
 
             widget_details_type(
-                void* const                                      p_parent,
-                const bool                                       enabled,
-                const bool                                       visible,
-                const std::pair<std::ptrdiff_t, std::ptrdiff_t>& position,
-                const std::pair<std::size_t, std::size_t>&       dimension,
-                const string_type&                               text,
-                const details_font_type&                         font,
-                const std::vector<void*>&                        children,
-                const bool                                       focusable,
-                const bool                                       read_only,
-                const std::vector<string_type>&                  list_box_items,
-                const boost::optional<std::size_t>&              selected_list_box_item_index
+                void* const                                 p_parent,
+                const bool                                  enabled,
+                const bool                                  visible,
+                std::pair<std::ptrdiff_t, std::ptrdiff_t>&& position,
+                std::pair<std::size_t, std::size_t>&&       dimension,
+                string_type&&                               text,
+                details_font_type&&                         font,
+                std::vector<void*>&&                        children,
+                const bool                                  focusable,
+                const bool                                  read_only,
+                std::vector<string_type>&&                  list_box_items,
+                boost::optional<std::size_t>&&              selected_list_box_item_index
             )
             :
             p_parent(p_parent),
             enabled(enabled),
             visible(visible),
-            position(position),
-            dimension(dimension),
-            text(text),
-            font(font),
-            children(children),
+            position(std::forward<std::pair<std::ptrdiff_t, std::ptrdiff_t>>(position)),
+            dimension(std::forward<std::pair<std::size_t, std::size_t>>(dimension)),
+            text(std::forward<string_type>(text)),
+            font(std::forward<details_font_type>(font)),
+            children(std::forward<std::vector<void*>>(children)),
             focusable(focusable),
             read_only(read_only),
-            list_box_items(list_box_items),
-            selected_list_box_item_index(selected_list_box_item_index)
+            list_box_items(std::forward<std::vector<string_type>>(list_box_items)),
+            selected_list_box_item_index(std::forward<boost::optional<std::size_t>>(selected_list_box_item_index))
             {}
 #endif
 
