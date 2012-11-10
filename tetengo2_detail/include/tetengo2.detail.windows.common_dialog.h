@@ -112,24 +112,24 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                                      parent_handle,
-                const std::wstring&                               title,
-                const std::wstring&                               main_content,
-                const std::wstring&                               sub_content,
-                const bool                                        cancellable,
-                const message_box_button_style_type::enum_t       button_style,
-                const message_box_icon_style_type::enum_t         icon_style,
-                const std::vector<boost::optional<std::wstring>>& custom_button_labels
+                const ::HWND                                 parent_handle,
+                std::wstring&&                               title,
+                std::wstring&&                               main_content,
+                std::wstring&&                               sub_content,
+                const bool                                   cancellable,
+                const message_box_button_style_type::enum_t  button_style,
+                const message_box_icon_style_type::enum_t    icon_style,
+                std::vector<boost::optional<std::wstring>>&& custom_button_labels
             )
             :
             parent_handle(parent_handle),
-            title(title),
-            main_content(main_content),
-            sub_content(sub_content),
+            title(std::forward<std::wstring>(title)),
+            main_content(std::forward<std::wstring>(main_content)),
+            sub_content(std::forward<std::wstring>(sub_content)),
             cancellable(cancellable),
             button_style(button_style),
             icon_style(icon_style),
-            custom_button_labels(custom_button_labels)
+            custom_button_labels(std::forward<std::vector<boost::optional<std::wstring>>>(custom_button_labels))
             {}
 
 #endif
@@ -151,16 +151,16 @@ namespace tetengo2 { namespace detail { namespace windows
             file_open_dialog_details_type(
                 detail::file_open_dialog_ptr_type&& p_dialog,
                 const ::HWND                        parent_handle,
-                const std::wstring&                 title,
-                const std::wstring&                 default_extension,
-                const detail::native_filters_type&  native_filters
+                std::wstring&&                      title,
+                std::wstring&&                      default_extension,
+                detail::native_filters_type&&       native_filters
             )
             :
-            p_dialog(std::forward<detail::file_open_dialog_ptr_type>(p_dialog)),
+            p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(title),
-            default_extension(default_extension),
-            native_filters(native_filters)
+            title(std::forward<std::wstring>(title)),
+            default_extension(std::forward<std::wstring>(default_extension)),
+            native_filters(std::forward<detail::native_filters_type>(native_filters))
             {}
 
 #endif
@@ -184,19 +184,19 @@ namespace tetengo2 { namespace detail { namespace windows
             file_save_dialog_details_type(
                 detail::file_save_dialog_ptr_type&& p_dialog,
                 const ::HWND                        parent_handle,
-                const std::wstring&                 title,
-                const std::wstring&                 path,
-                const std::wstring&                 default_extension,
-                const detail::native_filters_type&  native_filters,
+                std::wstring&&                      title,
+                std::wstring&&                      path,
+                std::wstring&&                      default_extension,
+                detail::native_filters_type&&       native_filters,
                 const std::size_t                   filter_index
             )
             :
-            p_dialog(std::forward<detail::file_save_dialog_ptr_type>(p_dialog)),
+            p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(title),
-            path(path),
-            default_extension(default_extension),
-            native_filters(native_filters),
+            title(std::forward<std::wstring>(title)),
+            path(std::forward<std::wstring>(path)),
+            default_extension(std::forward<std::wstring>(default_extension)),
+            native_filters(std::forward<detail::native_filters_type>(native_filters)),
             filter_index(filter_index)
             {}
 
