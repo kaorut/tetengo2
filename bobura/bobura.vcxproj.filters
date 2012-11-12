@@ -43,6 +43,9 @@
     <Filter Include="sources\bobura\view">
       <UniqueIdentifier>{2ce8d513-3d16-4c50-b8fe-bb84b32e8cfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\bobura\view\diagram">
+      <UniqueIdentifier>{b26bb1bc-d399-43b2-861f-0a4b64379d58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
