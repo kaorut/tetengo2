@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::view::zoom.
+    \brief The definition of bobura::view::diagram::zoom.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -15,10 +15,10 @@
 
 #include <tetengo2.unique.h>
 
-#include "bobura.view.zoom.h"
+#include "bobura.view.diagram.zoom.h"
 
 
-namespace bobura { namespace view
+namespace bobura { namespace view { namespace diagram
 {
     class zoom::impl : private boost::noncopyable
     {
@@ -183,4 +183,4 @@ namespace bobura { namespace view
     }
 
 
-}}
+}}}

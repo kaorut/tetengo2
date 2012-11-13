@@ -20,7 +20,7 @@
 #include "bobura.diagram_picture_box.h"
 #include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
-#include "bobura.view.zoom.h"
+#include "bobura.view.diagram.zoom.h"
 
 
 namespace bobura
@@ -43,7 +43,7 @@ namespace bobura
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
-                bobura::view::zoom,
+                bobura::view::diagram::zoom,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
             >::type
             diagram_picture_box_message_type_list;

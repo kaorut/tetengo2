@@ -46,6 +46,9 @@
     <Filter Include="headers\bobura\view\diagram">
       <UniqueIdentifier>{b26bb1bc-d399-43b2-861f-0a4b64379d58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bobura\view\diagram">
+      <UniqueIdentifier>{dc5d02ae-19b0-4505-99fd-6fa0b11d6f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -168,9 +171,6 @@
     <ClInclude Include="src\bobura.diagram_picture_box.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
-    <ClInclude Include="src\bobura.view.zoom.h">
-      <Filter>headers\bobura\view</Filter>
-    </ClInclude>
     <ClInclude Include="src\bobura.command.set_horizontal_scale.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
@@ -185,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="src\bobura.font_color_dialog.h">
       <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.view.diagram.zoom.h">
+      <Filter>headers\bobura\view\diagram</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,9 +270,6 @@
     <ClCompile Include="src\bobura.command.set.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
-    <ClCompile Include="src\bobura.view.zoom.cpp">
-      <Filter>sources\bobura\view</Filter>
-    </ClCompile>
     <ClCompile Include="src\bobura.command.set_horizontal_scale.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
@@ -278,6 +278,9 @@
     </ClCompile>
     <ClCompile Include="src\bobura.command.font_color.cpp">
       <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.view.diagram.zoom.cpp">
+      <Filter>sources\bobura\view\diagram</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

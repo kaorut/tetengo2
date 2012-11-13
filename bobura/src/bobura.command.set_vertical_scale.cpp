@@ -11,7 +11,7 @@
 //#include <boost/mpl/at.hpp>
 
 #include "bobura.type_list.h"
-#include "bobura.view.zoom.h"
+#include "bobura.view.diagram.zoom.h"
 
 #include "bobura.command.set_vertical_scale.h"
 
@@ -67,7 +67,7 @@ namespace bobura { namespace command
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
-        typedef view::zoom zoom_type;
+        typedef view::diagram::zoom zoom_type;
 
 
         // variables
