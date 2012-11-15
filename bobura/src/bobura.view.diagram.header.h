@@ -12,6 +12,7 @@
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.text.h>
 
 
 namespace bobura { namespace view { namespace diagram
@@ -51,10 +52,25 @@ namespace bobura { namespace view { namespace diagram
         */
         header(const model_type& model, const canvas_type& canvas)
         :
-        m_model(model),
+        m_company_line_name(make_company_line_name(model)),
+        m_company_line_position(left_type(0), top_type(0)),
+        m_company_line_dimension(width_type(0), height_type(0)),
+        m_note(make_note(model)),
+        m_note_position(left_type(0), top_type(0)),
+        m_note_dimension(width_type(0), height_type(0)),
         m_position(left_type(0), top_type(0)),
         m_dimension(width_type(0), height_type(0))
-        {}
+        {
+            calculate_positions_and_dimensions(
+                canvas,
+                m_company_line_position,
+                m_company_line_dimension,
+                m_note_position,
+                m_note_dimension,
+                m_position,
+                m_dimension
+            );
+        }
 
 
         // functions
@@ -74,6 +90,8 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
+        typedef typename canvas_type::string_type string_type;
+
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
@@ -83,13 +101,52 @@ namespace bobura { namespace view { namespace diagram
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
 
+        // static functions
+
+        static string_type make_company_line_name(const model_type& model)
+        {
+            return
+                model.timetable().company_name() +
+                (model.timetable().company_name().empty() ? string_type() : string_type(TETENGO2_TEXT(" "))) +
+                model.timetable().line_name();
+        }
+
+        static string_type make_note(const model_type& model)
+        {
+            return model.timetable().note();
+        }
+
+        static void calculate_positions_and_dimensions(
+            const canvas_type& canvas,
+            position_type&     company_line_position,
+            dimension_type&    company_line_dimension,
+            position_type&     note_position,
+            dimension_type&    note_dimension,
+            position_type&     position,
+            dimension_type&    dimension
+        )
+        {
+
+        }
+
+
         // variables
 
-        const model_type& m_model;
+        const string_type m_company_line_name;
 
-        const position_type m_position;
+        position_type m_company_line_position;
 
-        const dimension_type m_dimension;
+        dimension_type m_company_line_dimension;
+
+        const string_type m_note;
+
+        position_type m_note_position;
+
+        dimension_type m_note_dimension;
+
+        position_type m_position;
+
+        dimension_type m_dimension;
 
 
     };
