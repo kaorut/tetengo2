@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cmath>
 //#include <iterator>
+#include <memory>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
@@ -27,6 +28,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.unique.h>
 
 
 namespace bobura
@@ -34,6 +36,7 @@ namespace bobura
    /*!
         \brief The class template for a diagram view.
 
+        \tparam Header              A header type.
         \tparam Model               A model type.
         \tparam Canvas              A canvas type.
         \tparam SolidBackground     A solid background type.
@@ -41,6 +44,7 @@ namespace bobura
         \tparam MessageCatalog      A message catalog type.
     */
     template <
+        typename Header,
         typename Model,
         typename Canvas,
         typename SolidBackground,
@@ -51,6 +55,9 @@ namespace bobura
     {
     public:
         // types
+
+        //! The header type.
+        typedef Header header_type;
 
         //! The model type.
         typedef Model model_type;
@@ -108,6 +115,7 @@ namespace bobura
         */
         diagram_view(const model_type& model, const message_catalog_type& message_catalog)
         :
+        m_p_header(),
         m_model(model),
         m_message_catalog(message_catalog),
         m_horizontal_scale(1),
@@ -467,6 +475,8 @@ namespace bobura
 
         // variables
 
+        std::unique_ptr<header_type> m_p_header;
+
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
@@ -503,6 +513,9 @@ namespace bobura
 
         void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         {
+            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas);
+            m_p_header->draw_to(canvas);
+
             const string_type company_line_name =
                 m_model.timetable().company_name() +
                 (m_model.timetable().company_name().empty() ? string_type() : string_type(TETENGO2_TEXT(" "))) +

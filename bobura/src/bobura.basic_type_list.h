@@ -126,6 +126,7 @@
 #include "bobura.model.train_kind.h"
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
+#include "bobura.view.diagram.header.h"
 #include "bobura.view.scale_list.h"
 
 
@@ -900,8 +901,21 @@ namespace bobura
     namespace type { namespace view
     {
         struct view;           //!< The view type.
+        struct diagram_header; //!< The diagram header type.
         struct scale_list;     //!< The scale list type.
     }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace view
+    {
+        typedef
+            bobura::view::diagram::header<
+                boost::mpl::at<model_type_list, type::model::model>::type,
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+            >
+            diagram_header_type;
+    }}
+#endif
 
     //! The view type list.
     typedef
@@ -909,6 +923,7 @@ namespace bobura
             boost::mpl::pair<
                 type::view::view,
                 bobura::diagram_view<
+                    detail::view::diagram_header_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
@@ -916,6 +931,7 @@ namespace bobura
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >
             >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::view::diagram_header, detail::view::diagram_header_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::view::scale_list,
@@ -926,7 +942,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         view_type_list;
 
 
