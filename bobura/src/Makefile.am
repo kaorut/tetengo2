@@ -44,6 +44,7 @@ extra_headers = \
     bobura.settings.h \
     bobura.timetable_model.h \
     bobura.type_list.h \
+    bobura.view.diagram.header.h \
     bobura.view.diagram.zoom.h \
     bobura.view.scale_list.h
 

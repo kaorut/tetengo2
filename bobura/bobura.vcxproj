@@ -134,6 +134,7 @@
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.timetable_model.h" />
     <ClInclude Include="src\bobura.type_list.h" />
+    <ClInclude Include="src\bobura.view.diagram.header.h" />
     <ClInclude Include="src\bobura.view.diagram.zoom.h" />
     <ClInclude Include="src\bobura.view.scale_list.h" />
   </ItemGroup>
