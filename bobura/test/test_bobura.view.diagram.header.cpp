@@ -6,7 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include "bobura.type_list.h"
 
 #include "bobura.view.diagram.header.h"
 
@@ -14,6 +17,16 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
+
+    typedef bobura::view::diagram::header<model_type, canvas_type> header_type;
 
 
 }
@@ -29,7 +42,25 @@ BOOST_AUTO_TEST_SUITE(header)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<const canvas_type> p_canvas(picture_box.create_canvas());
+
+        const header_type header(model, *p_canvas);
+    }
+
+    BOOST_AUTO_TEST_CASE(draw_to)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const header_type header(model, *p_canvas);
+
+        header.draw_to(*p_canvas);
     }
 
 
