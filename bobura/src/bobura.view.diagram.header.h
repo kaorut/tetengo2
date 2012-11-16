@@ -91,7 +91,24 @@ namespace bobura { namespace view { namespace diagram
         void draw_to(canvas_type& canvas)
         const
         {
+            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
+            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
+            canvas.draw_text(m_company_line_name, m_company_line_name_position);
 
+            canvas.set_font(m_model.timetable().font_color_set().note().font());
+            canvas.set_color(m_model.timetable().font_color_set().note().color());
+            canvas.draw_text(m_note, m_note_position);
+        }
+
+        /*!
+            \brief Returns the dimension.
+
+            \return The dimension.
+        */
+        const dimension_type& dimension()
+        const
+        {
+            return m_dimension;
         }
 
 
