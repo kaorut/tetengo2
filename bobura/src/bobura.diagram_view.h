@@ -513,7 +513,7 @@ namespace bobura
 
         void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         {
-            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas);
+            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
             m_p_header->draw_to(canvas);
 
             const string_type company_line_name =
