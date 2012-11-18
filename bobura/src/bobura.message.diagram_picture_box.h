@@ -413,7 +413,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             assert(m_picture_box.vertical_scroll_bar());
             assert(m_picture_box.horizontal_scroll_bar());
-            m_view.draw_to(
+            m_view.draw_on(
                 canvas,
                 m_picture_box.client_dimension(),
                 to_position(

@@ -138,7 +138,7 @@ namespace bobura
             \param canvas_dimension    A canvas dimension.
             \param scroll_bar_position A scroll bar position.
         */
-        void draw_to(
+        void draw_on(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
@@ -255,7 +255,7 @@ namespace bobura
         )
         {
             update_dimension();
-            draw_to(canvas, canvas_dimension, scroll_bar_position);
+            draw_on(canvas, canvas_dimension, scroll_bar_position);
         }
 
         /*!
@@ -511,7 +511,7 @@ namespace bobura
         void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
         {
             m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
-            m_p_header->draw_to(canvas);
+            m_p_header->draw_on(canvas);
         }
 
         const height_type& header_height()

@@ -58,19 +58,6 @@ BOOST_AUTO_TEST_SUITE(header)
         const header_type header(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
     }
 
-    BOOST_AUTO_TEST_CASE(draw_to)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const model_type model;
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        const header_type header(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
-
-        header.draw_to(*p_canvas);
-    }
-
     BOOST_AUTO_TEST_CASE(dimension)
     {
         BOOST_TEST_PASSPOINT();

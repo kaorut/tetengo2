@@ -20,15 +20,13 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
-
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
-    typedef bobura::view::diagram::item<model_type, canvas_type> item_type;
+    typedef bobura::view::diagram::item<canvas_type> item_type;
 
     class concrete_item : public item_type
     {

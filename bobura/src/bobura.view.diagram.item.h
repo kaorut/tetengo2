@@ -19,17 +19,13 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for the diagram view item.
 
-        \tparam Model  A model type.
         \tparam Canvas A canvas type.
     */
-    template <typename Model, typename Canvas>
+    template <typename Canvas>
     class item : boost::noncopyable
     {
     public:
         // types
-
-        //! The model type.
-        typedef Model model_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
