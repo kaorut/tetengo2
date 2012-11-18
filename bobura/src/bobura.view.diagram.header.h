@@ -93,11 +93,6 @@ namespace bobura { namespace view { namespace diagram
         // functions
 
         /*!
-            \brief Draws to the canvas.
-
-            \param canvas A canvas.
-        */
-        /*!
             \brief Returns the dimension.
 
             \return The dimension.
