@@ -192,6 +192,9 @@
     <ClInclude Include="src\bobura.view.diagram.header.h">
       <Filter>headers\bobura\view\diagram</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.view.diagram.item.h">
+      <Filter>headers\bobura\view\diagram</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

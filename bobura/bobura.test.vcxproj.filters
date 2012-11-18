@@ -98,5 +98,8 @@
     <ClCompile Include="test\test_bobura.view.diagram.header.cpp">
       <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.item.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
