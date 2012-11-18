@@ -10,8 +10,7 @@
 #define BOBURA_VIEW_DIAGRAM_HEADER_H
 
 #include <algorithm>
-
-#include <boost/noncopyable.hpp>
+//#include <utility>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
@@ -157,7 +156,7 @@ namespace bobura { namespace view { namespace diagram
 
             canvas.set_font(model.timetable().font_color_set().company_line_name().font());
             canvas.set_color(model.timetable().font_color_set().company_line_name().color());
-            const dimension_type company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
+            dimension_type company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
             const width_type company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension_);
             const height_type company_line_name_height =
@@ -204,12 +203,12 @@ namespace bobura { namespace view { namespace diagram
                 header_height = company_line_name_height + note_height;
             }
 
-            company_line_name_position = company_line_name_position_;
-            company_line_name_dimension = company_line_name_dimension_;
-            note_position = note_position_;
-            note_dimension = note_dimension_;
+            company_line_name_position = std::move(company_line_name_position_);
+            company_line_name_dimension = std::move(company_line_name_dimension_);
+            note_position = std::move(note_position_);
+            note_dimension = std::move(note_dimension_);
             position = position_type(left_type(0), top_type(0));
-            dimension = dimension_type(header_width, header_height);
+            dimension = dimension_type(std::move(header_width), std::move(header_height));
         }
 
 
