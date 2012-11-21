@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
 
@@ -22,11 +23,19 @@ namespace
 {
     // types
 
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
+
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
+
+    typedef picture_box_type::position_type position_type;
+
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+    typedef tetengo2::gui::position<position_type>::top_type top_type;
 
     typedef picture_box_type::dimension_type dimension_type;
 
@@ -35,6 +44,12 @@ namespace
     typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
+
+    typedef canvas_type::font_type font_type;
+
+    typedef canvas_type::color_type color_type;
+
+    typedef bobura::view::diagram::company_line_name_header<canvas_type> company_line_name_header_type;
 
     typedef bobura::view::diagram::header<model_type, canvas_type> header_type;
 
@@ -45,6 +60,24 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(view)
 BOOST_AUTO_TEST_SUITE(diagram)
+BOOST_AUTO_TEST_SUITE(company_line_name_header)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const company_line_name_header_type header(
+            string_type(TETENGO2_TEXT("hoge")),
+            font_type::dialog_font(),
+            color_type(12, 34, 56),
+            position_type(left_type(42), top_type(24)),
+            dimension_type(width_type(24), height_type(42))
+        );
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(header)
     // test cases
 

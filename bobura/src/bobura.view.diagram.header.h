@@ -10,17 +10,112 @@
 #define BOBURA_VIEW_DIAGRAM_HEADER_H
 
 #include <algorithm>
+#include <memory>
 //#include <utility>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.view.diagram.item.h"
 
 
 namespace bobura { namespace view { namespace diagram
 {
+     /*!
+        \brief The class template for a header of the company and line name in the diagram view.
+
+        \tparam Model  A model type.
+        \tparam Canvas A canvas type.
+    */
+    template <typename Canvas>
+    class company_line_name_header : public item<Canvas>
+    {
+    public:
+        // types
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The string type.
+        typedef typename canvas_type::string_type string_type;
+
+        //! The font type.
+        typedef typename canvas_type::font_type font_type;
+
+        //! The color type.
+        typedef typename canvas_type::color_type color_type;
+
+        //! The position type.
+        typedef typename canvas_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename canvas_type::dimension_type dimension_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a company and line name header.
+
+            \param company_line_name A company and line name.
+            \param font              A font.
+            \param color             A color.
+            \param position          A position.
+            \param dimension         A dimension.
+        */
+        company_line_name_header(
+            string_type&&     company_line_name,
+            const font_type&  font,
+            const color_type& color,
+            position_type&&   position,
+            dimension_type&&  dimension
+        )
+        :
+        m_company_line_name(std::forward<string_type>(company_line_name)),
+        m_font(font),
+        m_color(color),
+        m_position(std::forward<position_type>(position)),
+        m_dimension(std::forward<dimension_type>(dimension))
+        {}
+
+        /*!
+            \brief Destroys the company and line name header.
+        */
+        virtual ~company_line_name_header()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+    private:
+        // variables
+
+        const string_type m_company_line_name;
+
+        const font_type& m_font;
+
+        const color_type& m_color;
+
+        const position_type m_position;
+
+        const dimension_type m_dimension;
+
+
+        // virtual functions
+
+        virtual void draw_on_impl(canvas_type& canvas)
+        const
+        {
+            canvas.set_font(m_font);
+            canvas.set_color(m_color);
+            canvas.draw_text(m_company_line_name, m_position);
+        }
+
+
+    };
+
+
      /*!
         \brief The class template for a header in the diagram view.
 
@@ -57,29 +152,39 @@ namespace bobura { namespace view { namespace diagram
         */
         header(const model_type& model, canvas_type& canvas, const dimension_type& canvas_dimension)
         :
+        m_p_company_line_name_header(),
         m_model(model),
-        m_company_line_name(make_company_line_name(model)),
-        m_company_line_name_position(left_type(0), top_type(0)),
-        m_company_line_name_dimension(width_type(0), height_type(0)),
         m_note(make_note(model)),
         m_note_position(left_type(0), top_type(0)),
         m_note_dimension(width_type(0), height_type(0)),
         m_position(left_type(0), top_type(0)),
         m_dimension(width_type(0), height_type(0))
         {
+            string_type company_line_name = make_company_line_name(model);
+            position_type company_line_name_position(left_type(0), top_type(0));
+            dimension_type company_line_name_dimension(width_type(0), height_type(0));
             calculate_positions_and_dimensions(
                 model,
                 canvas,
                 canvas_dimension,
-                m_company_line_name,
+                company_line_name,
                 m_note,
-                m_company_line_name_position,
-                m_company_line_name_dimension,
+                company_line_name_position,
+                company_line_name_dimension,
                 m_note_position,
                 m_note_dimension,
                 m_position,
                 m_dimension
             );
+
+            m_p_company_line_name_header =
+                tetengo2::make_unique<company_line_name_header_type>(
+                    std::move(company_line_name),
+                    model.timetable().font_color_set().company_line_name().font(),
+                    model.timetable().font_color_set().company_line_name().color(),
+                    std::move(company_line_name_position),
+                    std::move(company_line_name_dimension)
+                );
         }
 
         /*!
@@ -106,6 +211,8 @@ namespace bobura { namespace view { namespace diagram
 
     private:
         // types
+
+        typedef company_line_name_header<canvas_type> company_line_name_header_type;
 
         typedef typename canvas_type::string_type string_type;
 
@@ -209,13 +316,9 @@ namespace bobura { namespace view { namespace diagram
 
         // variables
 
+        std::unique_ptr<company_line_name_header_type> m_p_company_line_name_header;
+
         const model_type& m_model;
-
-        const string_type m_company_line_name;
-
-        position_type m_company_line_name_position;
-
-        dimension_type m_company_line_name_dimension;
 
         const string_type m_note;
 
@@ -233,9 +336,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_font(m_model.timetable().font_color_set().company_line_name().font());
-            canvas.set_color(m_model.timetable().font_color_set().company_line_name().color());
-            canvas.draw_text(m_company_line_name, m_company_line_name_position);
+            assert(m_p_company_line_name_header);
+            m_p_company_line_name_header->draw_on(canvas);
 
             canvas.set_font(m_model.timetable().font_color_set().note().font());
             canvas.set_color(m_model.timetable().font_color_set().note().color());
