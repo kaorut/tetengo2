@@ -37,6 +37,7 @@ namespace bobura
         \brief The class template for a diagram view.
 
         \tparam Header              A header type.
+        \tparam TimeLineList        A time line list type.
         \tparam Model               A model type.
         \tparam Canvas              A canvas type.
         \tparam SolidBackground     A solid background type.
@@ -45,6 +46,7 @@ namespace bobura
     */
     template <
         typename Header,
+        typename TimeLineList,
         typename Model,
         typename Canvas,
         typename SolidBackground,
@@ -58,6 +60,9 @@ namespace bobura
 
         //! The header type.
         typedef Header header_type;
+
+        //! The time line list type.
+        typedef TimeLineList time_line_list_type;
 
         //! The model type.
         typedef Model model_type;
@@ -116,6 +121,7 @@ namespace bobura
         diagram_view(const model_type& model, const message_catalog_type& message_catalog)
         :
         m_p_header(),
+        m_p_time_line_list(),
         m_model(model),
         m_message_catalog(message_catalog),
         m_horizontal_scale(1),
@@ -476,6 +482,8 @@ namespace bobura
 
         std::unique_ptr<header_type> m_p_header;
 
+        std::unique_ptr<time_line_list_type> m_p_time_line_list;
+
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
@@ -529,6 +537,9 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
+            m_p_time_line_list = tetengo2::make_unique<time_line_list_type>(m_model, canvas, canvas_dimension);
+            m_p_time_line_list->draw_on(canvas);
+
             const left_type canvas_left = left_type::from(m_station_header_width);
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));

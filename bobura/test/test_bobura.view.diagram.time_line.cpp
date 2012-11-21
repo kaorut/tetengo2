@@ -49,11 +49,9 @@ namespace
 
     typedef canvas_type::color_type color_type;
 
-    //typedef bobura::view::diagram::company_line_name_header<canvas_type> company_line_name_header_type;
+    typedef bobura::view::diagram::time_line<model_type, canvas_type> time_line_type;
 
-    //typedef bobura::view::diagram::note_header<canvas_type> note_header_type;
-
-    //typedef bobura::view::diagram::time_line<model_type, canvas_type> header_type;
+    typedef bobura::view::diagram::time_line_list<model_type, canvas_type> time_line_list_type;
 
 
 }
@@ -69,12 +67,12 @@ BOOST_AUTO_TEST_SUITE(time_line)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const model_type model;
-        //window_type window;
-        //const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        //const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
 
-        //const header_type time_line(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        const time_line_type time_line(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
     }
 
 
@@ -86,12 +84,12 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const model_type model;
-        //window_type window;
-        //const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        //const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
 
-        //const header_type time_line(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        const time_line_list_type time_line_list(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
     }
 
 
