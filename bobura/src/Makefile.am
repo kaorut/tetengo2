@@ -47,6 +47,7 @@ extra_headers = \
     bobura.view.diagram.header.h \
     bobura.view.diagram.item.h \
     bobura.view.diagram.time_line.h \
+    bobura.view.diagram.utility.h \
     bobura.view.diagram.zoom.h \
     bobura.view.scale_list.h
 

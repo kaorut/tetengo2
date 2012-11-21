@@ -104,5 +104,8 @@
     <ClCompile Include="test\test_bobura.view.diagram.time_line.cpp">
       <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.utility.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

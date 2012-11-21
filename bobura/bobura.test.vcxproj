@@ -120,6 +120,7 @@
     <ClCompile Include="test\test_bobura.view.diagram.header.cpp" />
     <ClCompile Include="test\test_bobura.view.diagram.item.cpp" />
     <ClCompile Include="test\test_bobura.view.diagram.time_line.cpp" />
+    <ClCompile Include="test\test_bobura.view.diagram.utility.cpp" />
     <ClCompile Include="test\test_bobura.view.scale_list.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

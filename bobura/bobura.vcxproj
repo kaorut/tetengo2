@@ -137,6 +137,7 @@
     <ClInclude Include="src\bobura.view.diagram.header.h" />
     <ClInclude Include="src\bobura.view.diagram.item.h" />
     <ClInclude Include="src\bobura.view.diagram.time_line.h" />
+    <ClInclude Include="src\bobura.view.diagram.utility.h" />
     <ClInclude Include="src\bobura.view.diagram.zoom.h" />
     <ClInclude Include="src\bobura.view.scale_list.h" />
   </ItemGroup>
