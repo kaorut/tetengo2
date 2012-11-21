@@ -10,7 +10,8 @@
 #define BOBURA_VIEW_DIAGRAM_HEADER_H
 
 #include <algorithm>
-#include <memory>
+#include <cassert>
+//#include <memory>
 //#include <utility>
 
 #include <tetengo2.cpp11.h>
