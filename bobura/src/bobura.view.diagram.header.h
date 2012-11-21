@@ -26,7 +26,6 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a header of the company and line name in the diagram view.
 
-        \tparam Model  A model type.
         \tparam Canvas A canvas type.
     */
     template <typename Canvas>
@@ -117,6 +116,98 @@ namespace bobura { namespace view { namespace diagram
 
 
      /*!
+        \brief The class template for a header of the note in the diagram view.
+
+        \tparam Canvas A canvas type.
+    */
+    template <typename Canvas>
+    class note_header : public item<Canvas>
+    {
+    public:
+        // types
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The string type.
+        typedef typename canvas_type::string_type string_type;
+
+        //! The font type.
+        typedef typename canvas_type::font_type font_type;
+
+        //! The color type.
+        typedef typename canvas_type::color_type color_type;
+
+        //! The position type.
+        typedef typename canvas_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename canvas_type::dimension_type dimension_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a note header.
+
+            \param note      A company and line name.
+            \param font      A font.
+            \param color     A color.
+            \param position  A position.
+            \param dimension A dimension.
+        */
+        note_header(
+            string_type&&     note,
+            const font_type&  font,
+            const color_type& color,
+            position_type&&   position,
+            dimension_type&&  dimension
+        )
+        :
+        m_note(std::forward<string_type>(note)),
+        m_font(font),
+        m_color(color),
+        m_position(std::forward<position_type>(position)),
+        m_dimension(std::forward<dimension_type>(dimension))
+        {}
+
+        /*!
+            \brief Destroys the note header.
+        */
+        virtual ~note_header()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+    private:
+        // variables
+
+        const string_type m_note;
+
+        const font_type& m_font;
+
+        const color_type& m_color;
+
+        const position_type m_position;
+
+        const dimension_type m_dimension;
+
+
+        // virtual functions
+
+        virtual void draw_on_impl(canvas_type& canvas)
+        const
+        {
+            canvas.set_font(m_font);
+            canvas.set_color(m_color);
+            canvas.draw_text(m_note, m_position);
+        }
+
+
+    };
+
+
+     /*!
         \brief The class template for a header in the diagram view.
 
         \tparam Model  A model type.
@@ -153,26 +244,33 @@ namespace bobura { namespace view { namespace diagram
         header(const model_type& model, canvas_type& canvas, const dimension_type& canvas_dimension)
         :
         m_p_company_line_name_header(),
-        m_model(model),
-        m_note(make_note(model)),
-        m_note_position(left_type(0), top_type(0)),
-        m_note_dimension(width_type(0), height_type(0)),
+        m_p_note_header(),
         m_position(left_type(0), top_type(0)),
         m_dimension(width_type(0), height_type(0))
         {
             string_type company_line_name = make_company_line_name(model);
+            const font_type& company_line_name_font = model.timetable().font_color_set().company_line_name().font();
+            const color_type& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
+            string_type note = make_note(model);
+            const font_type& note_font = model.timetable().font_color_set().note().font();
+            const color_type& note_color = model.timetable().font_color_set().note().color();
             position_type company_line_name_position(left_type(0), top_type(0));
             dimension_type company_line_name_dimension(width_type(0), height_type(0));
+            position_type note_position(left_type(0), top_type(0));
+            dimension_type note_dimension(width_type(0), height_type(0));
             calculate_positions_and_dimensions(
-                model,
                 canvas,
                 canvas_dimension,
                 company_line_name,
-                m_note,
+                company_line_name_font,
+                company_line_name_color,
+                note,
+                note_font,
+                note_color,
                 company_line_name_position,
                 company_line_name_dimension,
-                m_note_position,
-                m_note_dimension,
+                note_position,
+                note_dimension,
                 m_position,
                 m_dimension
             );
@@ -180,11 +278,15 @@ namespace bobura { namespace view { namespace diagram
             m_p_company_line_name_header =
                 tetengo2::make_unique<company_line_name_header_type>(
                     std::move(company_line_name),
-                    model.timetable().font_color_set().company_line_name().font(),
-                    model.timetable().font_color_set().company_line_name().color(),
+                    company_line_name_font,
+                    company_line_name_color,
                     std::move(company_line_name_position),
                     std::move(company_line_name_dimension)
                 );
+            m_p_note_header =
+                tetengo2::make_unique<note_header_type>(
+                    std::move(note), note_font, note_color, std::move(note_position), std::move(note_dimension)
+                );                    
         }
 
         /*!
@@ -214,7 +316,13 @@ namespace bobura { namespace view { namespace diagram
 
         typedef company_line_name_header<canvas_type> company_line_name_header_type;
 
+        typedef note_header<canvas_type> note_header_type;
+
         typedef typename canvas_type::string_type string_type;
+
+        typedef typename canvas_type::font_type font_type;
+
+        typedef typename canvas_type::color_type color_type;
 
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
@@ -241,11 +349,14 @@ namespace bobura { namespace view { namespace diagram
         }
 
         static void calculate_positions_and_dimensions(
-            const model_type&     model,
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const string_type&    company_line_name,
+            const font_type&      company_line_name_font,
+            const color_type&     company_line_name_color,
             const string_type&    note,
+            const font_type&      note_font,
+            const color_type&     note_color,
             position_type&        company_line_name_position,
             dimension_type&       company_line_name_dimension,
             position_type&        note_position,
@@ -256,8 +367,8 @@ namespace bobura { namespace view { namespace diagram
         {
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
 
-            canvas.set_font(model.timetable().font_color_set().company_line_name().font());
-            canvas.set_color(model.timetable().font_color_set().company_line_name().color());
+            canvas.set_font(company_line_name_font);
+            canvas.set_color(company_line_name_color);
             dimension_type company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
             const width_type company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension_);
@@ -265,8 +376,8 @@ namespace bobura { namespace view { namespace diagram
                 company_line_name.empty() ?
                 height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension_);
 
-            canvas.set_font(model.timetable().font_color_set().note().font());
-            canvas.set_color(model.timetable().font_color_set().note().color());
+            canvas.set_font(note_font);
+            canvas.set_color(note_color);
             const dimension_type note_dimension_ = canvas.calc_text_dimension(note);
             const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension_);
             const height_type note_height =
@@ -318,13 +429,7 @@ namespace bobura { namespace view { namespace diagram
 
         std::unique_ptr<company_line_name_header_type> m_p_company_line_name_header;
 
-        const model_type& m_model;
-
-        const string_type m_note;
-
-        position_type m_note_position;
-
-        dimension_type m_note_dimension;
+        std::unique_ptr<note_header_type> m_p_note_header;
 
         position_type m_position;
 
@@ -339,9 +444,8 @@ namespace bobura { namespace view { namespace diagram
             assert(m_p_company_line_name_header);
             m_p_company_line_name_header->draw_on(canvas);
 
-            canvas.set_font(m_model.timetable().font_color_set().note().font());
-            canvas.set_color(m_model.timetable().font_color_set().note().color());
-            canvas.draw_text(m_note, m_note_position);
+            assert(m_p_note_header);
+            m_p_note_header->draw_on(canvas);
         }
 
 
