@@ -274,7 +274,7 @@ namespace bobura
                 canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            const height_type header_height_ = header_height() + m_time_header_height;
+            const height_type header_height_ = height_type::from(header_bottom()) + m_time_header_height;
             const height_type page_height =
                 canvas_height > header_height_ ? canvas_height - header_height_ : height_type(0);
 
@@ -514,12 +514,13 @@ namespace bobura
             m_p_header->draw_on(canvas);
         }
 
-        const height_type& header_height()
+        top_type header_bottom()
         const
         {
-            static const height_type zero_height(0);
             return
-                m_p_header ? tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension()) : zero_height;
+                m_p_header ?
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension())) :
+                top_type(0);
         }
 
         void draw_time_lines(
@@ -532,8 +533,7 @@ namespace bobura
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
-            const top_type canvas_top =
-                top_type::from(header_height() + m_time_header_height);
+            const top_type canvas_top = header_bottom() + top_type::from(m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
             const top_type station_position_bottom =
@@ -571,7 +571,7 @@ namespace bobura
                 top_type line_top = canvas_top;
                 if (minutes == 0)
                 {
-                    line_top = top_type::from(header_height());
+                    line_top = header_bottom();
 
                     canvas.draw_text(boost::lexical_cast<string_type>(hours), position_type(position, line_top));
                     canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
@@ -622,7 +622,7 @@ namespace bobura
                 );
             const left_type line_right = std::min(canvas_right, last_time_position);
 
-            const top_type canvas_top = top_type::from(header_height() + m_time_header_height);
+            const top_type canvas_top = header_bottom() + top_type::from(m_time_header_height);
             const top_type canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
@@ -983,7 +983,7 @@ namespace bobura
                 departure_station_index < arrival_station_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
-            if (lower_bound < top_type::from(header_height() + m_time_header_height))
+            if (lower_bound < header_bottom() + top_type::from(m_time_header_height))
                 return;
 
             canvas.draw_line(departure, arrival);
@@ -1022,7 +1022,7 @@ namespace bobura
         )
         const
         {
-            const top_type canvas_top = top_type::from(header_height() + m_time_header_height);
+            const top_type canvas_top = header_bottom() + top_type::from(m_time_header_height);
             return m_station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
         }
 
