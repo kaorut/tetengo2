@@ -11,14 +11,15 @@
 
 #include <algorithm>
 #include <cassert>
-//#include <memory>
 //#include <utility>
 #include <vector>
+
+#include <boost/lexical_cast.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.view.diagram.item.h"
 #include "bobura.view.diagram.utility.h"
@@ -29,26 +30,32 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a time line in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Canvas   A canvas type.
+        \tparam TimeTick A time tick type.
     */
-    template <typename Model, typename Canvas>
+    template <typename Canvas, typename TimeTick>
     class time_line : public item<Canvas>
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
         //! The canvas type.
         typedef Canvas canvas_type;
+
+        //! The size type.
+        typedef typename canvas_type::size_type size_type;
 
         //! The position type.
         typedef typename canvas_type::position_type position_type;
 
-        //! The dimension type.
-        typedef typename canvas_type::dimension_type dimension_type;
+        //! The left type.
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        //! The top type.
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        //! The time tick type.
+        typedef TimeTick time_tick_type;
 
 
         // constructors and destructor
@@ -56,17 +63,40 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a time line.
 
-            \param model            A model.
-            \param canvas           A canvas.
-            \param canvas_dimension A canvas dimension.
+            \param left   A left position.
+            \param top    A top position.
+            \param bottom A bottom position.
+            \param width  A width.
+            \param hours  Hours.
         */
-        time_line(const model_type& model, canvas_type& canvas, const dimension_type& canvas_dimension)
+        time_line(
+            const left_type&                       left,
+            const top_type&                        top,
+            const top_type&                        bottom,
+            const size_type                        width,
+            const boost::optional<time_tick_type>& hours
+        )
         :
-        m_position(left_type(0), top_type(0)),
-        m_dimension(width_type(0), height_type(0))
-        {
+        m_left(left),
+        m_top(top),
+        m_bottom(bottom),
+        m_width(width),
+        m_hours(hours)
+        {}
 
-        }
+        /*!
+            \brief Moves a time line.
+
+            \param another Another time line.
+        */
+        time_line(time_line&& another)
+        :
+        m_left(std::move(another.m_left)),
+        m_top(std::move(another.m_top)),
+        m_bottom(std::move(another.m_bottom)),
+        m_width(another.m_width),
+        m_hours(another.m_hours)
+        {}
 
         /*!
             \brief Destroys the time line.
@@ -81,27 +111,18 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename canvas_type::string_type string_type;
 
-        typedef typename canvas_type::font_type font_type;
-
-        typedef typename canvas_type::color_type color_type;
-
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
-
-        // static functions
-
 
         // variables
 
-        position_type m_position;
+        left_type m_left;
 
-        dimension_type m_dimension;
+        top_type m_top;
+
+        top_type m_bottom;
+
+        size_type m_width;
+
+        boost::optional<time_tick_type> m_hours;
 
 
         // virtual functions
@@ -196,8 +217,8 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         :
-        m_p_time_lines(
-            create_time_lines(
+        m_time_lines(
+            make_time_lines(
                 model,
                 time_offset,
                 canvas,
@@ -224,12 +245,16 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef time_line<model_type, canvas_type> time_line_type;
+        typedef typename time_type::tick_type time_tick_type;
+
+        typedef time_line<canvas_type, time_tick_type> time_line_type;
+
+        typedef typename canvas_type::size_type size_type;
 
 
         // static functions
 
-        std::vector<std::unique_ptr<time_line_type>> create_time_lines(
+        std::vector<time_line_type> make_time_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
             canvas_type&                 canvas,
@@ -263,15 +288,90 @@ namespace bobura { namespace view { namespace diagram
                 ) -
                 time_to_left(time_type(0), time_offset, 0, left_type(0), station_header_right, horizontal_scale_left);
 
-            std::vector<std::unique_ptr<time_line_type>> p_time_lines;
+            typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
+            std::vector<time_line_type> time_lines;
+            time_lines.reserve(24 * 60);
+            for (time_tick_type i = 0; i <= 24 * 60; ++i)
+            {
+                const time_type time(i * 60 + time_offset.seconds());
+                const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
+                const time_tick_type hours = hours_minutes_seconds.hours();
+                const time_tick_type minutes = hours_minutes_seconds.minutes();
+                assert(hours_minutes_seconds.seconds() == 0);
 
-            return std::move(p_time_lines);
+                const left_type position =
+                    time_to_left(
+                        time,
+                        time_offset,
+                        i == 24 * 60,
+                        tetengo2::gui::position<position_type>::left(scroll_bar_position),
+                        station_header_right,
+                        horizontal_scale_left
+                    );
+                if (position < canvas_left)
+                    continue;
+                if (position > canvas_right)
+                    break;
+
+                if (minutes == 0)
+                {
+                    time_lines.emplace_back(
+                        position,
+                        header_bottom,
+                        line_bottom,
+                        size_type(typename size_type::value_type(1, 12)),
+                        boost::make_optional(hours)
+                    );
+                }
+                else if (minutes % 10 == 0)
+                {
+                    if (minute_interval >= typename left_type::value_type(4, 12 * 10))
+                    {
+                        time_lines.emplace_back(
+                            position,
+                            canvas_top,
+                            line_bottom,
+                            size_type(typename size_type::value_type(1, 24)),
+                            boost::none
+                        );
+                    }
+                }
+                else if (minutes % 2 == 0)
+                {
+                    if (minute_interval >= typename left_type::value_type(4, 12 * 2))
+                    {
+                        time_lines.emplace_back(
+                            position,
+                            canvas_top,
+                            line_bottom,
+                            size_type(typename size_type::value_type(1, 48)),
+                            boost::none
+                        );
+                    }
+                }
+                else
+                {
+                    if (minute_interval >= typename left_type::value_type(4, 12))
+                    {
+                        time_lines.emplace_back(
+                            position,
+                            canvas_top,
+                            line_bottom,
+                            size_type(typename size_type::value_type(1, 48)),
+                            boost::none
+                        );
+                    }
+                }
+            }
+            time_lines.shrink_to_fit();
+
+            return std::move(time_lines);
         }
 
 
         // variables
 
-        std::vector<std::unique_ptr<time_line_type>> m_p_time_lines;
+        std::vector<time_line_type> m_time_lines;
 
 
         // virtual functions

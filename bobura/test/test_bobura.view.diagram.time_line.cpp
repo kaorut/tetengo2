@@ -35,6 +35,8 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
 
+    typedef picture_box_type::size_type size_type;
+
     typedef picture_box_type::position_type position_type;
 
     typedef tetengo2::gui::position<position_type>::left_type left_type;
@@ -57,7 +59,7 @@ namespace
 
     typedef canvas_type::color_type color_type;
 
-    typedef bobura::view::diagram::time_line<model_type, canvas_type> time_line_type;
+    typedef bobura::view::diagram::time_line<canvas_type, time_type::tick_type> time_line_type;
 
     typedef bobura::view::diagram::time_line_list<model_type, canvas_type> time_line_list_type;
 
@@ -80,7 +82,13 @@ BOOST_AUTO_TEST_SUITE(time_line)
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
 
-        const time_line_type time_line(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        const time_line_type time_line(
+            left_type(42),
+            top_type(24),
+            top_type(42),
+            size_type(size_type::value_type(1, 2)),
+            boost::make_optional<time_type::tick_type>(12)
+        );
     }
 
 
@@ -99,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
 
         const time_line_list_type time_line_list(
             model,
-            time_span_type(42),
+            time_span_type(42 * 60),
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
