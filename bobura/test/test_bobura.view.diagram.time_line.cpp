@@ -27,6 +27,10 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
+
+    typedef time_type::time_span_type time_span_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
@@ -42,6 +46,10 @@ namespace
     typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
     typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+    typedef width_type::value_type horizontal_scale_type;
+
+    typedef height_type::value_type vertical_scale_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
@@ -91,9 +99,16 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
 
         const time_line_list_type time_line_list(
             model,
+            time_span_type(42),
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
-            position_type(left_type(24), top_type(42))
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            left_type(24),
+            top_type(42),
+            height_type(24),
+            horizontal_scale_type(42),
+            vertical_scale_type(24)
         );
     }
 
