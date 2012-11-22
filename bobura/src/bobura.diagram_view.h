@@ -535,7 +535,8 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
-            m_p_time_line_list = tetengo2::make_unique<time_line_list_type>(m_model, canvas, canvas_dimension);
+            m_p_time_line_list =
+                tetengo2::make_unique<time_line_list_type>(m_model, canvas, canvas_dimension, scroll_bar_position);
             m_p_time_line_list->draw_on(canvas);
 
             const left_type canvas_left = left_type::from(m_station_header_width);

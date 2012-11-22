@@ -13,6 +13,7 @@
 #include <cassert>
 //#include <memory>
 //#include <utility>
+#include <vector>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
@@ -144,17 +145,20 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a time line list.
 
-            \param model            A model.
-            \param canvas           A canvas.
-            \param canvas_dimension A canvas dimension.
+            \param model               A model.
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
         */
-        time_line_list(const model_type& model, canvas_type& canvas, const dimension_type& canvas_dimension)
+        time_line_list(
+            const model_type&     model,
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
         :
-        m_position(left_type(0), top_type(0)),
-        m_dimension(width_type(0), height_type(0))
-        {
-
-        }
+        m_p_time_lines(create_time_lines(model, canvas, canvas_dimension, scroll_bar_position))
+        {}
 
         /*!
             \brief Destroys the time line list.
@@ -167,29 +171,27 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef typename canvas_type::string_type string_type;
-
-        typedef typename canvas_type::font_type font_type;
-
-        typedef typename canvas_type::color_type color_type;
-
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        typedef time_line<model_type, canvas_type> time_line_type;
 
 
         // static functions
 
+        std::vector<std::unique_ptr<time_line_type>> create_time_lines(
+            const model_type&     model,
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
+        {
+            std::vector<std::unique_ptr<time_line_type>> p_time_lines;
+
+            return std::move(p_time_lines);
+        }
+
 
         // variables
 
-        position_type m_position;
-
-        dimension_type m_dimension;
+        std::vector<std::unique_ptr<time_line_type>> m_p_time_lines;
 
 
         // virtual functions
