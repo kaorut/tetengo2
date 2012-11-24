@@ -28,6 +28,11 @@ Depends on  : (none)
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
 Number      : 00000203
+Added on    : 2012/11/25
+Depends on  : (none)
+Description : Replace push_back() calls to emplace_back().
+------------------------------------------------------------------------------
+Number      : 00000204
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
