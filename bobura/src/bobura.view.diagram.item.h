@@ -22,7 +22,7 @@ namespace bobura { namespace view { namespace diagram
         \tparam Canvas A canvas type.
     */
     template <typename Canvas>
-    class item : boost::noncopyable
+    class item : private boost::noncopyable
     {
     public:
         // types
@@ -32,6 +32,12 @@ namespace bobura { namespace view { namespace diagram
 
 
         // constructors and destructor
+
+        /*!
+            \brief Creates an item.
+        */
+        item()
+        {}
 
         /*!
             \brief Destroys the item.

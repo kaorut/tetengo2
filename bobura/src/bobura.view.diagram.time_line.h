@@ -14,6 +14,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 
@@ -73,7 +74,7 @@ namespace bobura { namespace view { namespace diagram
             const left_type&                       left,
             const top_type&                        top,
             const top_type&                        bottom,
-            const size_type                        width,
+            const size_type&                       width,
             const boost::optional<time_tick_type>& hours
         )
         :
@@ -94,7 +95,7 @@ namespace bobura { namespace view { namespace diagram
         m_left(std::move(another.m_left)),
         m_top(std::move(another.m_top)),
         m_bottom(std::move(another.m_bottom)),
-        m_width(another.m_width),
+        m_width(std::move(another.m_width)),
         m_hours(another.m_hours)
         {}
 
@@ -104,6 +105,30 @@ namespace bobura { namespace view { namespace diagram
         virtual ~time_line()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Assigns a time line.
+
+            \param another Another time line.
+
+            \return This time line.
+        */
+        time_line& operator=(time_line&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_left = std::move(another.m_left);
+            m_top = std::move(another.m_top);
+            m_bottom = std::move(another.m_bottom);
+            m_width = std::move(another.m_width);
+            m_hours = another.m_hours;
+
+            return *this;
+        }
 
 
     private:
@@ -130,7 +155,12 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            if (m_hours)
+                canvas.draw_text(boost::lexical_cast<string_type>(*m_hours), position_type(m_left, m_top));
 
+            canvas.set_line_style(canvas_type::line_style_type::solid);
+            canvas.set_line_width(m_width);
+            canvas.draw_line(position_type(m_left, m_top), position_type(m_left, m_bottom));
         }
 
 
@@ -160,6 +190,12 @@ namespace bobura { namespace view { namespace diagram
 
         //! The canvas type.
         typedef Canvas canvas_type;
+
+        //! The font type.
+        typedef typename canvas_type::font_type font_type;
+
+        //! The color type.
+        typedef typename canvas_type::color_type color_type;
 
         //! The position type.
         typedef typename canvas_type::position_type position_type;
@@ -217,6 +253,8 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         :
+        m_font(model.timetable().font_color_set().time_line().font()),
+        m_color(model.timetable().font_color_set().time_line().color()),
         m_time_lines(
             make_time_lines(
                 model,
@@ -371,6 +409,10 @@ namespace bobura { namespace view { namespace diagram
 
         // variables
 
+        const font_type& m_font;
+
+        const color_type& m_color;
+
         std::vector<time_line_type> m_time_lines;
 
 
@@ -379,7 +421,13 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            canvas.set_font(m_font);
+            canvas.set_color(m_color);
 
+            BOOST_FOREACH (const time_line_type& time_line, m_time_lines)
+            {
+                time_line.draw_on(canvas);
+            }
         }
 
 
