@@ -21,7 +21,6 @@
 #include <vector>
 
 #include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
