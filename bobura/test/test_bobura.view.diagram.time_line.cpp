@@ -7,6 +7,7 @@
 */
 
 //#include <memory>
+#include <utility>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
@@ -82,14 +83,40 @@ BOOST_AUTO_TEST_SUITE(time_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-
-        const time_line_type time_line(
+        time_line_type time_line1(
             left_type(42),
             top_type(24),
             top_type(42),
             size_type(size_type::value_type(1, 2)),
             boost::make_optional<time_type::tick_type>(12)
         );
+        const time_line_type time_line2(std::move(time_line1));
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        time_line_type time_line1(
+            left_type(42),
+            top_type(24),
+            top_type(42),
+            size_type(size_type::value_type(1, 2)),
+            boost::make_optional<time_type::tick_type>(12)
+        );
+        time_line_type time_line2(
+            left_type(42),
+            top_type(24),
+            top_type(42),
+            size_type(size_type::value_type(1, 2)),
+            boost::make_optional<time_type::tick_type>(12)
+        );
+
+        time_line1 = std::move(time_line2);
     }
 
 
