@@ -132,8 +132,7 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-
-        const time_line_list_type time_line_list(
+        time_line_list_type time_line_list1(
             model,
             time_span_type(42 * 60),
             *p_canvas,
@@ -146,6 +145,45 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
             horizontal_scale_type(42),
             vertical_scale_type(24)
         );
+        const time_line_list_type time_line_list2(std::move(time_line_list1));
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        time_line_list_type time_line_list1(
+            model,
+            time_span_type(42 * 60),
+            *p_canvas,
+            dimension_type(width_type(42), height_type(24)),
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            left_type(24),
+            top_type(42),
+            height_type(24),
+            horizontal_scale_type(42),
+            vertical_scale_type(24)
+        );
+        time_line_list_type time_line_list2(
+            model,
+            time_span_type(42 * 60),
+            *p_canvas,
+            dimension_type(width_type(42), height_type(24)),
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            left_type(24),
+            top_type(42),
+            height_type(24),
+            horizontal_scale_type(42),
+            vertical_scale_type(24)
+        );
+
+        time_line_list1 = std::move(time_line_list2);
     }
 
 

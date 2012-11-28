@@ -253,8 +253,8 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         :
-        m_font(model.timetable().font_color_set().time_line().font()),
-        m_color(model.timetable().font_color_set().time_line().color()),
+        m_p_font(&model.timetable().font_color_set().time_line().font()),
+        m_p_color(&model.timetable().font_color_set().time_line().color()),
         m_time_lines(
             make_time_lines(
                 model,
@@ -273,11 +273,45 @@ namespace bobura { namespace view { namespace diagram
         {}
 
         /*!
+            \brief Moves a time line list.
+
+            \param another Another time line list.
+        */
+        time_line_list(time_line_list&& another)
+        :
+        m_p_font(another.m_p_font),
+        m_p_color(another.m_p_color),
+        m_time_lines(std::move(another.m_time_lines))
+        {}
+
+        /*!
             \brief Destroys the time line list.
         */
         virtual ~time_line_list()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Assigns a time line list.
+
+            \param another Another time line list.
+
+            \return This time line list.
+        */
+        time_line_list& operator=(time_line_list&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_p_font = another.m_p_font;
+            m_p_color = another.m_p_color;
+            m_time_lines = std::move(another.m_time_lines);
+
+            return *this;
+        }
 
 
     private:
@@ -409,9 +443,9 @@ namespace bobura { namespace view { namespace diagram
 
         // variables
 
-        const font_type& m_font;
+        const font_type* m_p_font;
 
-        const color_type& m_color;
+        const color_type* m_p_color;
 
         std::vector<time_line_type> m_time_lines;
 
@@ -421,8 +455,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_font(m_font);
-            canvas.set_color(m_color);
+            canvas.set_font(*m_p_font);
+            canvas.set_color(*m_p_color);
 
             BOOST_FOREACH (const time_line_type& time_line, m_time_lines)
             {
