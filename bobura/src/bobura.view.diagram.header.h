@@ -74,10 +74,24 @@ namespace bobura { namespace view { namespace diagram
         )
         :
         m_company_line_name(std::forward<string_type>(company_line_name)),
-        m_font(font),
-        m_color(color),
+        m_p_font(&font),
+        m_p_color(&color),
         m_position(std::forward<position_type>(position)),
         m_dimension(std::forward<dimension_type>(dimension))
+        {}
+
+        /*!
+            \brief Moves a company and line name header.
+
+            \param another Another company and line name header.
+        */
+        company_line_name_header(company_line_name_header&& another)
+        :
+        m_company_line_name(std::move(another.m_company_line_name)),
+        m_p_font(another.m_p_font),
+        m_p_color(another.m_p_color),
+        m_position(std::move(another.m_position)),
+        m_dimension(std::move(another.m_dimension))
         {}
 
         /*!
@@ -88,18 +102,42 @@ namespace bobura { namespace view { namespace diagram
         {}
 
 
+        // functions
+
+        /*!
+            \brief Assigns a company and line name header.
+
+            \param another Another company and line name header.
+
+            \return This company and line name header.
+        */
+        company_line_name_header& operator=(company_line_name_header&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_company_line_name = std::move(another.m_company_line_name);
+            m_p_font = another.m_p_font;
+            m_p_color = another.m_p_color;
+            m_position = std::move(another.m_position);
+            m_dimension = std::move(another.m_dimension);
+
+            return *this;
+        }
+
+
     private:
         // variables
 
-        const string_type m_company_line_name;
+        string_type m_company_line_name;
 
-        const font_type& m_font;
+        const font_type* m_p_font;
 
-        const color_type& m_color;
+        const color_type* m_p_color;
 
-        const position_type m_position;
+        position_type m_position;
 
-        const dimension_type m_dimension;
+        dimension_type m_dimension;
 
 
         // virtual functions
@@ -107,8 +145,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_font(m_font);
-            canvas.set_color(m_color);
+            canvas.set_font(*m_p_font);
+            canvas.set_color(*m_p_color);
             canvas.draw_text(m_company_line_name, m_position);
         }
 
@@ -166,8 +204,8 @@ namespace bobura { namespace view { namespace diagram
         )
         :
         m_note(std::forward<string_type>(note)),
-        m_font(font),
-        m_color(color),
+        m_p_font(&font),
+        m_p_color(&color),
         m_position(std::forward<position_type>(position)),
         m_dimension(std::forward<dimension_type>(dimension))
         {}
@@ -185,9 +223,9 @@ namespace bobura { namespace view { namespace diagram
 
         const string_type m_note;
 
-        const font_type& m_font;
+        const font_type* m_p_font;
 
-        const color_type& m_color;
+        const color_type* m_p_color;
 
         const position_type m_position;
 
@@ -199,8 +237,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_font(m_font);
-            canvas.set_color(m_color);
+            canvas.set_font(*m_p_font);
+            canvas.set_color(*m_p_color);
             canvas.draw_text(m_note, m_position);
         }
 
