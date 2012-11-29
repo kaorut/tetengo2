@@ -111,13 +111,36 @@ BOOST_AUTO_TEST_SUITE(note_header)
     {
         BOOST_TEST_PASSPOINT();
 
-        const note_header_type header(
+        note_header_type header1(
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
             position_type(left_type(42), top_type(24)),
             dimension_type(width_type(24), height_type(42))
         );
+        const note_header_type header2(std::move(header1));
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        note_header_type header1(
+            string_type(TETENGO2_TEXT("hoge")),
+            font_type::dialog_font(),
+            color_type(12, 34, 56),
+            position_type(left_type(42), top_type(24)),
+            dimension_type(width_type(24), height_type(42))
+        );
+        note_header_type header2(
+            string_type(TETENGO2_TEXT("hoge")),
+            font_type::dialog_font(),
+            color_type(12, 34, 56),
+            position_type(left_type(42), top_type(24)),
+            dimension_type(width_type(24), height_type(42))
+        );
+
+        header1 = std::move(header2);
     }
 
 

@@ -211,6 +211,20 @@ namespace bobura { namespace view { namespace diagram
         {}
 
         /*!
+            \brief Moves a note header.
+
+            \param another Another note header.
+        */
+        note_header(note_header&& another)
+        :
+        m_note(std::move(another.m_note)),
+        m_p_font(another.m_p_font),
+        m_p_color(another.m_p_color),
+        m_position(std::move(another.m_position)),
+        m_dimension(std::move(another.m_dimension))
+        {}
+
+        /*!
             \brief Destroys the note header.
         */
         virtual ~note_header()
@@ -218,18 +232,42 @@ namespace bobura { namespace view { namespace diagram
         {}
 
 
+        // functions
+
+        /*!
+            \brief Assigns a note header.
+
+            \param another Another note header.
+
+            \return This note header.
+        */
+        note_header& operator=(note_header&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_note = std::move(another.m_note);
+            m_p_font = another.m_p_font;
+            m_p_color = another.m_p_color;
+            m_position = std::move(another.m_position);
+            m_dimension = std::move(another.m_dimension);
+
+            return *this;
+        }
+
+
     private:
         // variables
 
-        const string_type m_note;
+        string_type m_note;
 
         const font_type* m_p_font;
 
         const color_type* m_p_color;
 
-        const position_type m_position;
+        position_type m_position;
 
-        const dimension_type m_dimension;
+        dimension_type m_dimension;
 
 
         // virtual functions
