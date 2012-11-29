@@ -18,7 +18,7 @@ Tetengo2 is a kind of GUI toolkit.
 
 \section requirements Requirements
 
-\arg Visual C++ 2012 (on Windows)
+\arg Visual C++ 2012 Update 1 (on Windows)
 \arg g++ 4.4.5 or 4.5.3 with -std=gnu++0x option (on UNIX)
 \arg Boost 1.52.0
 \arg bzip2 1.0.6
