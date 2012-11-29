@@ -367,6 +367,19 @@ namespace bobura { namespace view { namespace diagram
         }
 
         /*!
+            \brief Moves a header.
+
+            \param another Another header
+        */
+        header(header&& another)
+        :
+        m_p_company_line_name_header(std::move(another.m_p_company_line_name_header)),
+        m_p_note_header(std::move(another.m_p_note_header)),
+        m_position(std::move(another.m_position)),
+        m_dimension(std::move(another.m_dimension))
+        {}
+
+        /*!
             \brief Destroys the header.
         */
         virtual ~header()
@@ -375,6 +388,26 @@ namespace bobura { namespace view { namespace diagram
 
 
         // functions
+
+        /*!
+            \brief Assigns a header.
+
+            \param another Another header.
+
+            \return This header.
+        */
+        header& operator=(header&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_p_company_line_name_header = std::move(another.m_p_company_line_name_header);
+            m_p_note_header = std::move(another.m_p_note_header);
+            m_position = std::move(another.m_position);
+            m_dimension = std::move(another.m_dimension);
+
+            return *this;
+        }
 
         /*!
             \brief Returns the dimension.
