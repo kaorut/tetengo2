@@ -37,6 +37,7 @@ namespace bobura
 
         \tparam Header              A header type.
         \tparam TimeLineList        A time line list type.
+        \tparam StationLineList     A station line list type.
         \tparam Model               A model type.
         \tparam Canvas              A canvas type.
         \tparam SolidBackground     A solid background type.
@@ -46,6 +47,7 @@ namespace bobura
     template <
         typename Header,
         typename TimeLineList,
+        typename StationLineList,
         typename Model,
         typename Canvas,
         typename SolidBackground,
@@ -62,6 +64,8 @@ namespace bobura
 
         //! The time line list type.
         typedef TimeLineList time_line_list_type;
+
+        typedef StationLineList station_line_list_type;
 
         //! The model type.
         typedef Model model_type;
@@ -121,6 +125,7 @@ namespace bobura
         :
         m_p_header(),
         m_p_time_line_list(),
+        m_p_station_line_list(),
         m_model(model),
         m_message_catalog(message_catalog),
         m_horizontal_scale(1),
@@ -481,6 +486,8 @@ namespace bobura
 
         std::unique_ptr<time_line_list_type> m_p_time_line_list;
 
+        std::unique_ptr<station_line_list_type> m_p_station_line_list;
+
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
@@ -557,6 +564,21 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
+            m_p_station_line_list =
+                tetengo2::make_unique<station_line_list_type>(
+                    m_model,
+                    canvas,
+                    canvas_dimension,
+                    m_dimension,
+                    scroll_bar_position,
+                    left_type::from(m_station_header_width),
+                    header_bottom(),
+                    m_time_header_height,
+                    m_horizontal_scale,
+                    m_vertical_scale
+                );
+            m_p_station_line_list->draw_on(canvas);
+
             const left_type canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
             const left_type last_time_position =
