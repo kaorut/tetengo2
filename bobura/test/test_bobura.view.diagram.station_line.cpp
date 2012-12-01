@@ -7,10 +7,9 @@
 */
 
 //#include <memory>
-#include <utility>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
