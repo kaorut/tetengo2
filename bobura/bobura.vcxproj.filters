@@ -201,6 +201,9 @@
     <ClInclude Include="src\bobura.view.diagram.utility.h">
       <Filter>headers\bobura\view\diagram</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.view.diagram.station_line.h">
+      <Filter>headers\bobura\view\diagram</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
