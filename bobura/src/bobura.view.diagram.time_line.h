@@ -71,18 +71,18 @@ namespace bobura { namespace view { namespace diagram
             \param hours  Hours.
         */
         time_line(
-            const left_type&                       left,
-            const top_type&                        top,
-            const top_type&                        bottom,
-            const size_type&                       width,
-            const boost::optional<time_tick_type>& hours
+            left_type&&                       left,
+            const top_type&                   top,
+            const top_type&                   bottom,
+            size_type&&                       width,
+            boost::optional<time_tick_type>&& hours
         )
         :
-        m_left(left),
+        m_left(std::forward<left_type>(left)),
         m_top(top),
         m_bottom(bottom),
-        m_width(width),
-        m_hours(hours)
+        m_width(std::forward<size_type>(width)),
+        m_hours(std::forward<boost::optional<time_tick_type>>(hours))
         {}
 
         /*!
@@ -371,7 +371,7 @@ namespace bobura { namespace view { namespace diagram
                 const time_tick_type minutes = hours_minutes_seconds.minutes();
                 assert(hours_minutes_seconds.seconds() == 0);
 
-                const left_type position =
+                left_type position =
                     time_to_left(
                         time,
                         time_offset,
@@ -388,7 +388,7 @@ namespace bobura { namespace view { namespace diagram
                 if (minutes == 0)
                 {
                     time_lines.emplace_back(
-                        position,
+                        std::move(position),
                         header_bottom,
                         line_bottom,
                         size_type(typename size_type::value_type(1, 12)),
@@ -400,7 +400,7 @@ namespace bobura { namespace view { namespace diagram
                     if (minute_interval >= typename left_type::value_type(4, 12 * 10))
                     {
                         time_lines.emplace_back(
-                            position,
+                            std::move(position),
                             canvas_top,
                             line_bottom,
                             size_type(typename size_type::value_type(1, 24)),
@@ -413,7 +413,7 @@ namespace bobura { namespace view { namespace diagram
                     if (minute_interval >= typename left_type::value_type(4, 12 * 2))
                     {
                         time_lines.emplace_back(
-                            position,
+                            std::move(position),
                             canvas_top,
                             line_bottom,
                             size_type(typename size_type::value_type(1, 48)),
@@ -426,7 +426,7 @@ namespace bobura { namespace view { namespace diagram
                     if (minute_interval >= typename left_type::value_type(4, 12))
                     {
                         time_lines.emplace_back(
-                            position,
+                            std::move(position),
                             canvas_top,
                             line_bottom,
                             size_type(typename size_type::value_type(1, 48)),

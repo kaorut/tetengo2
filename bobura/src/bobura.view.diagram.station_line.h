@@ -55,10 +55,10 @@ namespace bobura { namespace view { namespace diagram
             \param left A left position.
             \param top  A top position.
         */
-        station_line(const left_type& left, const top_type& top)
+        station_line(left_type&& left, top_type&& top)
         :
-        m_left(left),
-        m_top(top)
+        m_left(std::forward<left_type>(left)),
+        m_top(std::forward<top_type>(top))
         {}
 
         /*!
