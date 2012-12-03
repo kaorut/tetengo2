@@ -567,6 +567,7 @@ namespace bobura
             m_p_station_line_list =
                 tetengo2::make_unique<station_line_list_type>(
                     m_model,
+                    m_time_offset,
                     canvas,
                     canvas_dimension,
                     m_dimension,

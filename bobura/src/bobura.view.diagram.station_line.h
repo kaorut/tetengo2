@@ -136,6 +136,12 @@ namespace bobura { namespace view { namespace diagram
         //! The model type.
         typedef Model model_type;
         
+        //! The time type.
+        typedef typename model_type::timetable_type::train_type::stop_type::time_type time_type;
+
+        //! The time span type.
+        typedef typename time_type::time_span_type time_span_type;
+
         //! The canvas type.
         typedef Canvas canvas_type;
 
@@ -170,6 +176,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Creates a station line list.
 
             \param model                A model.
+            \param time_offset          A time offset.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -182,6 +189,7 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line_list(
             const model_type&            model,
+            const time_span_type&        time_offset,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -196,6 +204,7 @@ namespace bobura { namespace view { namespace diagram
         m_station_lines(
             make_station_lines(
                 model,
+                time_offset,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -257,6 +266,7 @@ namespace bobura { namespace view { namespace diagram
 
         std::vector<station_line_type> make_station_lines(
             const model_type&            model,
+            const time_span_type&        time_offset,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,

@@ -28,6 +28,10 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
+
+    typedef time_type::time_span_type time_span_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
@@ -105,6 +109,7 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_list_type station_line_list1(
             model,
+            time_span_type(42 * 60),
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -128,6 +133,7 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_list_type station_line_list1(
             model,
+            time_span_type(42 * 60),
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -140,6 +146,7 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         );
         station_line_list_type station_line_list2(
             model,
+            time_span_type(42 * 60),
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
