@@ -124,10 +124,11 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a station line list in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model               A model type.
+        \tparam Canvas              A canvas type.
+        \tparam StationGradeTypeSet A station grade type set type.
     */
-    template <typename Model, typename Canvas>
+    template <typename Model, typename Canvas, typename StationGradeTypeSet>
     class station_line_list : public item<Canvas>
     {
     public:
@@ -169,6 +170,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
+
 
         // constructors and destructor
 
@@ -186,6 +190,7 @@ namespace bobura { namespace view { namespace diagram
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
             \param vertical_scale       A vertical scale.
+            \param station_positions    Station positions
         */
         station_line_list(
             const model_type&            model,
@@ -198,7 +203,8 @@ namespace bobura { namespace view { namespace diagram
             const top_type&              header_bottom,
             const height_type&           time_header_height,
             const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale
+            const vertical_scale_type&   vertical_scale,
+            const std::vector<top_type>& station_positions
         )
         :
         m_station_lines(
@@ -213,7 +219,8 @@ namespace bobura { namespace view { namespace diagram
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale
+                vertical_scale,
+                station_positions
             )
         )
         {}
@@ -261,6 +268,22 @@ namespace bobura { namespace view { namespace diagram
 
         typedef station_line<canvas_type> station_line_type;
 
+        typedef typename model_type::timetable_type timetable_type;
+
+        typedef typename timetable_type::font_color_set_type font_color_set_type;
+
+        typedef typename font_color_set_type::font_color_type font_color_type;
+
+        typedef typename timetable_type::station_location_type station_location_type;
+
+        typedef typename station_location_type::station_type station_type;
+
+        typedef typename station_type::grade_type station_grade_type;
+
+        typedef typename canvas_type::size_type size_type;
+
+        typedef typename canvas_type::string_type string_type;
+
 
         // static functions
 
@@ -275,10 +298,68 @@ namespace bobura { namespace view { namespace diagram
             const top_type&              header_bottom,
             const height_type&           time_header_height,
             const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale
+            const vertical_scale_type&   vertical_scale,
+            const std::vector<top_type>& station_positions
         )
         {
-            return std::vector<station_line_type>();
+            const left_type canvas_right =
+                left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const left_type last_time_position =
+                time_to_left(
+                    time_type(24 * 60 * 60 + time_offset.seconds()),
+                    time_offset,
+                    1,
+                    tetengo2::gui::position<position_type>::left(scroll_bar_position),
+                    station_header_right,
+                    horizontal_scale_left
+                );
+            const left_type line_right = std::min(canvas_right, last_time_position);
+
+            const top_type canvas_top = header_bottom + top_type::from(time_header_height);
+            const top_type canvas_bottom =
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+
+            std::vector<station_line_type> station_lines;
+            station_lines.reserve(station_positions.size());
+            for (typename std::vector<top_type>::size_type i = 0; i < station_positions.size(); ++i)
+            {
+                const top_type& position = station_positions[i];
+                const top_type line_position =
+                    position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
+                if (line_position < canvas_top)
+                    continue;
+                if (line_position > canvas_bottom)
+                    break;
+
+                //const font_color_type& font_color =
+                //    select_station_font_color(model, model.timetable().station_locations()[i].station().grade());
+                //const string_type& station_name = model.timetable().station_locations()[i].station().name();
+                //const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
+
+
+            }
+            station_lines.shrink_to_fit();
+
+            return std::move(station_lines);
+        }
+
+        static const font_color_type& select_station_font_color(
+            const model_type&         model,
+            const station_grade_type& grade
+        )
+        {
+            if      (&grade == &station_grade_type_set_type::local_type::instance())
+                return model.timetable().font_color_set().local_station();
+            else if (&grade == &station_grade_type_set_type::principal_type::instance())
+                return model.timetable().font_color_set().principal_station();
+            else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
+                return model.timetable().font_color_set().local_terminal_station();
+            else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
+                return model.timetable().font_color_set().principal_terminal_station();
+
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
         }
 
 
@@ -292,6 +373,9 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+            canvas.set_line_style(canvas_type::line_style_type::solid);
+
             BOOST_FOREACH (const station_line_type& station_line, m_station_lines)
             {
                 station_line.draw_on(canvas);

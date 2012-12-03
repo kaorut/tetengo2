@@ -927,7 +927,8 @@ namespace bobura
         typedef
             bobura::view::diagram::station_line_list<
                 boost::mpl::at<model_type_list, type::model::model>::type,
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type
             >
             diagram_station_line_list_type;
     }}

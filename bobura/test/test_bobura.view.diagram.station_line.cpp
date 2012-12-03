@@ -54,9 +54,15 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
+    typedef
+        boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
+        station_grade_type_set_type;
+    
     typedef bobura::view::diagram::station_line<canvas_type> station_line_type;
 
-    typedef bobura::view::diagram::station_line_list<model_type, canvas_type> station_line_list_type;
+    typedef
+        bobura::view::diagram::station_line_list<model_type, canvas_type, station_grade_type_set_type>
+        station_line_list_type;
 
 
 }
@@ -118,7 +124,8 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            std::vector<top_type>(2, top_type(42))
         );
         const station_line_list_type station_line_list2(std::move(station_line_list1));
     }
@@ -142,7 +149,8 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            std::vector<top_type>(2, top_type(42))
         );
         station_line_list_type station_line_list2(
             model,
@@ -155,7 +163,8 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            std::vector<top_type>(2, top_type(42))
         );
 
         station_line_list1 = std::move(station_line_list2);

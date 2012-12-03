@@ -576,7 +576,8 @@ namespace bobura
                     header_bottom(),
                     m_time_header_height,
                     m_horizontal_scale,
-                    m_vertical_scale
+                    m_vertical_scale,
+                    m_station_positions
                 );
             m_p_station_line_list->draw_on(canvas);
 
