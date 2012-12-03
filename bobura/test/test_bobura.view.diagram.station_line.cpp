@@ -54,6 +54,10 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
+    typedef canvas_type::font_type font_type;
+
+    typedef canvas_type::color_type color_type;
+
     typedef
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
         station_grade_type_set_type;
@@ -82,7 +86,14 @@ BOOST_AUTO_TEST_SUITE(station_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        station_line_type station_line1(left_type(42), top_type(24));
+        station_line_type station_line1(
+            left_type(42),
+            top_type(24),
+            string_type(),
+            dimension_type(width_type(24), height_type(42)),
+            font_type::dialog_font(),
+            color_type(12, 34, 56)
+        );
         const station_line_type station_line2(std::move(station_line1));
     }
 
@@ -94,9 +105,22 @@ BOOST_AUTO_TEST_SUITE(station_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        station_line_type station_line1(left_type(42), top_type(24));
-        station_line_type station_line2(left_type(42), top_type(24));
-
+        station_line_type station_line1(
+            left_type(42),
+            top_type(24),
+            string_type(),
+            dimension_type(width_type(24), height_type(42)),
+            font_type::dialog_font(),
+            color_type(12, 34, 56)
+        );
+        station_line_type station_line2(
+            left_type(42),
+            top_type(24),
+            string_type(),
+            dimension_type(width_type(24), height_type(42)),
+            font_type::dialog_font(),
+            color_type(12, 34, 56)
+        );
         station_line1 = std::move(station_line2);
     }
 

@@ -37,6 +37,15 @@ namespace bobura { namespace view { namespace diagram
         //! The canvas type.
         typedef Canvas canvas_type;
 
+        //! The string type.
+        typedef typename canvas_type::string_type string_type;
+
+        //! The font type.
+        typedef typename canvas_type::font_type font_type;
+
+        //! The color type.
+        typedef typename canvas_type::color_type color_type;
+
         //! The position type.
         typedef typename canvas_type::position_type position_type;
 
@@ -46,19 +55,37 @@ namespace bobura { namespace view { namespace diagram
         //! The top type.
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        //! The dimension type.
+        typedef typename canvas_type::dimension_type dimension_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a station line.
 
-            \param left A left position.
-            \param top  A top position.
+            \param right          A right position.
+            \param top            A top position.
+            \param name           A name.
+            \param name_dimension A name dimension.
+            \param font           A font.
+            \param color          A color.
         */
-        station_line(left_type&& left, top_type&& top)
+        station_line(
+            const left_type&   right,
+            top_type&&         top,
+            const string_type& name,
+            dimension_type&&   name_dimension,
+            const font_type&   font,
+            const color_type&  color
+        )
         :
-        m_left(std::forward<left_type>(left)),
-        m_top(std::forward<top_type>(top))
+        m_right(right),
+        m_top(std::forward<top_type>(top)),
+        m_p_name(&name),
+        m_name_dimension(std::forward<dimension_type>(name_dimension)),
+        m_p_font(&font),
+        m_p_color(&color)
         {}
 
         /*!
@@ -68,8 +95,12 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line(station_line&& another)
         :
-        m_left(std::move(another.m_left)),
-        m_top(std::move(another.m_top))
+        m_right(std::move(another.m_right)),
+        m_top(std::move(another.m_top)),
+        m_p_name(another.m_p_name),
+        m_name_dimension(std::move(another.m_name_dimension)),
+        m_p_font(another.m_p_font),
+        m_p_color(another.m_p_color)
         {}
 
         /*!
@@ -94,8 +125,12 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
-            m_left = std::move(another.m_left);
+            m_right = std::move(another.m_right);
             m_top = std::move(another.m_top);
+            m_p_name = another.m_p_name;
+            m_name_dimension = std::move(another.m_name_dimension);
+            m_p_font = another.m_p_font;
+            m_p_color = another.m_p_color;
 
             return *this;
         }
@@ -104,9 +139,17 @@ namespace bobura { namespace view { namespace diagram
     private:
         // variables
 
-        left_type m_left;
+        left_type m_right;
 
         top_type m_top;
+
+        const string_type* m_p_name;
+
+        dimension_type m_name_dimension;
+
+        const font_type* m_p_font;
+
+        const color_type* m_p_color;
 
 
         // virtual functions
@@ -114,7 +157,18 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            canvas.set_font(*m_p_font);
+            canvas.set_color(*m_p_color);
 
+            canvas.draw_line(position_type(left_type(0), m_top), position_type(m_right, m_top));
+
+            canvas.draw_text(
+                *m_p_name,
+                position_type(
+                    left_type(0),
+                    m_top - top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_name_dimension))
+                )
+            );
         }
 
 
@@ -325,19 +379,28 @@ namespace bobura { namespace view { namespace diagram
             for (typename std::vector<top_type>::size_type i = 0; i < station_positions.size(); ++i)
             {
                 const top_type& position = station_positions[i];
-                const top_type line_position =
+                top_type line_position =
                     position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
                 if (line_position < canvas_top)
                     continue;
                 if (line_position > canvas_bottom)
                     break;
 
-                //const font_color_type& font_color =
-                //    select_station_font_color(model, model.timetable().station_locations()[i].station().grade());
-                //const string_type& station_name = model.timetable().station_locations()[i].station().name();
-                //const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
+                const font_color_type& font_color =
+                    select_station_font_color(model, model.timetable().station_locations()[i].station().grade());
+                const string_type& station_name = model.timetable().station_locations()[i].station().name();
+                dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
 
-
+                station_lines.push_back(
+                    station_line_type(
+                        line_right,
+                        std::move(line_position),
+                        station_name,
+                        std::move(station_name_dimension),
+                        font_color.font(),
+                        font_color.color()
+                    )
+                );
             }
             station_lines.shrink_to_fit();
 
