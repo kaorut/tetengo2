@@ -129,6 +129,7 @@
 #include "bobura.view.diagram.header.h"
 #include "bobura.view.diagram.station_line.h"
 #include "bobura.view.diagram.time_line.h"
+#include "bobura.view.diagram.train_line.h"
 #include "bobura.view.scale_list.h"
 
 
@@ -906,6 +907,7 @@ namespace bobura
         struct diagram_header; //!< The diagram header type.
         struct diagram_time_line_list; //!< The diagram time line list type.
         struct diagram_station_line_list; //!< The diagram station line list type.
+        struct diagram_train_line_list; //!< The diagram train line list type.
         struct scale_list;     //!< The scale list type.
     }}
 
@@ -931,6 +933,12 @@ namespace bobura
                 boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type
             >
             diagram_station_line_list_type;
+        typedef
+            bobura::view::diagram::train_line_list<
+                boost::mpl::at<model_type_list, type::model::model>::type,
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+            >
+            diagram_train_line_list_type;
     }}
 #endif
 
@@ -943,6 +951,7 @@ namespace bobura
                     detail::view::diagram_header_type,
                     detail::view::diagram_time_line_list_type,
                     detail::view::diagram_station_line_list_type,
+                    detail::view::diagram_train_line_list_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
@@ -955,6 +964,8 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::view::diagram_station_line_list, detail::view::diagram_station_line_list_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::view::diagram_train_line_list, detail::view::diagram_train_line_list_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::view::scale_list,
                 bobura::view::scale_list<
@@ -964,7 +975,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         view_type_list;
 
 

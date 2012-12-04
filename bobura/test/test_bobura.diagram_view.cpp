@@ -32,6 +32,9 @@ namespace
         boost::mpl::at<bobura::view_type_list, bobura::type::view::diagram_station_line_list>::type
         station_line_list_type;
 
+    typedef
+        boost::mpl::at<bobura::view_type_list, bobura::type::view::diagram_train_line_list>::type train_line_list_type;
+
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
@@ -62,6 +65,7 @@ namespace
             header_type,
             time_line_list_type,
             station_line_list_type,
+            train_line_list_type,
             model_type,
             canvas_type,
             solid_background_type,
