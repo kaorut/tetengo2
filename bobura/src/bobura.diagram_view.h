@@ -35,14 +35,13 @@ namespace bobura
    /*!
         \brief The class template for a diagram view.
 
-        \tparam Header              A header type.
-        \tparam TimeLineList        A time line list type.
-        \tparam StationLineList     A station line list type.
-        \tparam Model               A model type.
-        \tparam Canvas              A canvas type.
-        \tparam SolidBackground     A solid background type.
-        \tparam StationGradeTypeSet A station grade type set type.
-        \tparam MessageCatalog      A message catalog type.
+        \tparam Header          A header type.
+        \tparam TimeLineList    A time line list type.
+        \tparam StationLineList A station line list type.
+        \tparam Model           A model type.
+        \tparam Canvas          A canvas type.
+        \tparam SolidBackground A solid background type.
+        \tparam MessageCatalog  A message catalog type.
     */
     template <
         typename Header,
@@ -51,7 +50,6 @@ namespace bobura
         typename Model,
         typename Canvas,
         typename SolidBackground,
-        typename StationGradeTypeSet,
         typename MessageCatalog
     >
     class diagram_view : private boost::noncopyable
@@ -65,6 +63,7 @@ namespace bobura
         //! The time line list type.
         typedef TimeLineList time_line_list_type;
 
+        //! The station line list type.
         typedef StationLineList station_line_list_type;
 
         //! The model type.
@@ -105,9 +104,6 @@ namespace bobura
 
         //! The solid background type.
         typedef SolidBackground solid_background_type;
-
-        //! The station grade type set type.
-        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -293,21 +289,9 @@ namespace bobura
     private:
         // types
 
-        typedef typename solid_background_type::color_type color_type;
-
         typedef typename model_type::timetable_type timetable_type;
 
-        typedef typename timetable_type::font_color_set_type font_color_set_type;
-
-        typedef typename font_color_set_type::font_color_type font_color_type;
-
         typedef typename timetable_type::station_intervals_type station_intervals_type;
-
-        typedef typename timetable_type::station_location_type station_location_type;
-
-        typedef typename station_location_type::station_type station_type;
-
-        typedef typename station_type::grade_type station_grade_type;
 
         typedef typename timetable_type::train_type train_type;
 

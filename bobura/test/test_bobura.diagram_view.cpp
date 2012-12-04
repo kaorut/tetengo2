@@ -55,10 +55,6 @@ namespace
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::solid_background>::type solid_background_type;
 
     typedef
-        boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
-        station_grade_type_set_type;
-
-    typedef
         boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
     typedef
@@ -69,7 +65,6 @@ namespace
             model_type,
             canvas_type,
             solid_background_type,
-            station_grade_type_set_type,
             message_catalog_type
         >
         view_type;
