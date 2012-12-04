@@ -110,5 +110,8 @@
     <ClCompile Include="test\test_bobura.view.diagram.station_line.cpp">
       <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.train_line.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

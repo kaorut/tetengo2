@@ -31,6 +31,7 @@ sources = \
     test_bobura.view.diagram.item.cpp \
     test_bobura.view.diagram.station_line.cpp \
     test_bobura.view.diagram.time_line.cpp \
+    test_bobura.view.diagram.train_line.cpp \
     test_bobura.view.diagram.utility.cpp \
     test_bobura.view.scale_list.cpp
 

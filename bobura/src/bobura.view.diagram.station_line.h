@@ -248,7 +248,7 @@ namespace bobura { namespace view { namespace diagram
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
             \param vertical_scale       A vertical scale.
-            \param station_positions    Station positions
+            \param station_positions    Station positions.
         */
         station_line_list(
             const model_type&            model,
