@@ -9,10 +9,14 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_STATIONLINE_H)
 #define BOBURA_VIEW_DIAGRAM_STATIONLINE_H
 
+#include <algorithm>
+#include <cassert>
+#include <stdexcept>
 //#include <utility>
 #include <vector>
 
 #include <boost/foreach.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
