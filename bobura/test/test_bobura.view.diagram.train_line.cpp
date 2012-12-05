@@ -54,6 +54,8 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
+    typedef bobura::view::diagram::train_line_fragment<canvas_type> train_line_fragment_type;
+
     typedef bobura::view::diagram::train_line<canvas_type> train_line_type;
 
     typedef
@@ -66,6 +68,36 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(view)
 BOOST_AUTO_TEST_SUITE(diagram)
+BOOST_AUTO_TEST_SUITE(train_line_fragment)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        train_line_fragment_type train_line_fragment1(left_type(42), top_type(24));
+        const train_line_fragment_type train_line_fragment2(std::move(train_line_fragment1));
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
+        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        train_line_fragment_type train_line_fragment1(left_type(42), top_type(24));
+        train_line_fragment_type train_line_fragment2(left_type(42), top_type(24));
+        train_line_fragment1 = std::move(train_line_fragment2);
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(train_line)
     // test cases
 

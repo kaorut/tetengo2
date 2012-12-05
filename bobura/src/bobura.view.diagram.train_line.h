@@ -202,6 +202,14 @@ namespace bobura { namespace view { namespace diagram
         typedef train_line_fragment<canvas_type> train_line_fragment_type;
 
 
+        // static functions
+
+        static std::vector<train_line_fragment_type> make_fragments()
+        {
+            return std::vector<train_line_fragment_type>();
+        }
+
+
         // variables
 
         std::vector<train_line_fragment_type> m_fragments;
