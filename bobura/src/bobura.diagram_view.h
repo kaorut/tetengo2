@@ -592,7 +592,8 @@ namespace bobura
                     header_bottom(),
                     m_time_header_height,
                     m_horizontal_scale,
-                    m_vertical_scale
+                    m_vertical_scale,
+                    m_station_intervals
                 );
             m_p_train_line_list->draw_on(canvas);
 

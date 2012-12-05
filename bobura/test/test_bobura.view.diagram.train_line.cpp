@@ -28,7 +28,9 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef train_type::stop_type::time_type time_type;
 
     typedef time_type::time_span_type time_span_type;
 
@@ -56,7 +58,7 @@ namespace
 
     typedef bobura::view::diagram::train_line_fragment<canvas_type> train_line_fragment_type;
 
-    typedef bobura::view::diagram::train_line<canvas_type> train_line_type;
+    typedef bobura::view::diagram::train_line<train_type, canvas_type> train_line_type;
 
     typedef
         bobura::view::diagram::train_line_list<model_type, canvas_type> train_line_list_type;
@@ -109,7 +111,15 @@ BOOST_AUTO_TEST_SUITE(train_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        train_line_type train_line1(left_type(42), top_type(24));
+        train_line_type train_line1(
+            train_type(
+                string_type(TETENGO2_TEXT("number")),
+                0,
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("name_number")),
+                string_type(TETENGO2_TEXT("note"))
+            )
+        );
         const train_line_type train_line2(std::move(train_line1));
     }
 
@@ -121,8 +131,24 @@ BOOST_AUTO_TEST_SUITE(train_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        train_line_type train_line1(left_type(42), top_type(24));
-        train_line_type train_line2(left_type(42), top_type(24));
+        train_line_type train_line1(
+            train_type(
+                string_type(TETENGO2_TEXT("number")),
+                0,
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("name_number")),
+                string_type(TETENGO2_TEXT("note"))
+            )
+        );
+        train_line_type train_line2(
+            train_type(
+                string_type(TETENGO2_TEXT("number")),
+                0,
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("name_number")),
+                string_type(TETENGO2_TEXT("note"))
+            )
+        );
         train_line1 = std::move(train_line2);
     }
 
