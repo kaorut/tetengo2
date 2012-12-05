@@ -24,6 +24,104 @@
 namespace bobura { namespace view { namespace diagram
 {
      /*!
+        \brief The class template for a train line fragment in the diagram view.
+
+        \tparam Canvas A canvas type.
+    */
+    template <typename Canvas>
+    class train_line_fragment : public item<Canvas>
+    {
+    public:
+        // types
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The position type.
+        typedef typename canvas_type::position_type position_type;
+
+        //! The left type.
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        //! The top type.
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a train line fragment.
+
+            \param right A right position.
+            \param top   A top position.
+        */
+        train_line_fragment(const left_type& right, top_type&& top)
+        :
+        m_right(right),
+        m_top(std::forward<top_type>(top))
+        {}
+
+        /*!
+            \brief Moves a train line fragment.
+
+            \param another Another train line fragment.
+        */
+        train_line_fragment(train_line_fragment&& another)
+        :
+        m_right(std::move(another.m_right)),
+        m_top(std::move(another.m_top))
+        {}
+
+        /*!
+            \brief Destroys the train line fragment.
+        */
+        virtual ~train_line_fragment()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Assigns a train line fragment.
+
+            \param another Another train line fragment.
+
+            \return This train line fraqment.
+        */
+        train_line_fragment& operator=(train_line_fragment&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_right = std::move(another.m_right);
+            m_top = std::move(another.m_top);
+
+            return *this;
+        }
+
+
+    private:
+        // variables
+
+        left_type m_right;
+
+        top_type m_top;
+
+
+        // virtual functions
+
+        virtual void draw_on_impl(canvas_type& canvas)
+        const
+        {
+
+        }
+
+
+    };
+
+
+     /*!
         \brief The class template for a train line in the diagram view.
 
         \tparam Canvas A canvas type.
@@ -57,8 +155,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line(const left_type& right, top_type&& top)
         :
-        m_right(right),
-        m_top(std::forward<top_type>(top))
+        m_fragments(make_fragments())
         {}
 
         /*!
@@ -68,8 +165,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line(train_line&& another)
         :
-        m_right(std::move(another.m_right)),
-        m_top(std::move(another.m_top))
+        m_fragments(std::move(another.m_fragments))
         {}
 
         /*!
@@ -94,19 +190,21 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
-            m_right = std::move(another.m_right);
-            m_top = std::move(another.m_top);
+            m_fragments = std::move(another.m_fragments);
 
             return *this;
         }
 
 
     private:
+        // types
+
+        typedef train_line_fragment<canvas_type> train_line_fragment_type;
+
+
         // variables
 
-        left_type m_right;
-
-        top_type m_top;
+        std::vector<train_line_fragment_type> m_fragments;
 
 
         // virtual functions
@@ -114,7 +212,10 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-
+            BOOST_FOREACH (const train_line_fragment_type& fragment, m_fragments)
+            {
+                fragment.draw_on(canvas);
+            }
         }
 
 
@@ -201,6 +302,7 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         :
+        m_p_font(&model.timetable().font_color_set().train_name()),
         m_train_lines(
             make_train_lines(
                 model,
@@ -225,6 +327,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_list(train_line_list&& another)
         :
+        m_p_font(another.m_p_font),
         m_train_lines(std::move(another.m_train_lines))
         {}
 
@@ -250,6 +353,7 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
+            m_p_font = another.m_p_font;
             m_train_lines = std::move(another.m_train_lines);
 
             return *this;
@@ -260,6 +364,12 @@ namespace bobura { namespace view { namespace diagram
         // types
 
         typedef train_line<canvas_type> train_line_type;
+
+        typedef typename model_type::timetable_type timetable_type;
+
+        typedef typename timetable_type::trains_type trains_type;
+
+        typedef typename canvas_type::font_type font_type;
 
 
         // static functions
@@ -278,11 +388,65 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         {
-            return std::vector<train_line_type>();
+            std::vector<train_line_type> train_lines;
+
+            make_train_lines_impl(
+                model.timetable().down_trains(),
+                true,
+                time_offset,
+                canvas,
+                canvas_dimension,
+                timetable_dimension,
+                scroll_bar_position,
+                station_header_right,
+                header_bottom,
+                time_header_height,
+                horizontal_scale,
+                vertical_scale,
+                train_lines
+            );
+            make_train_lines_impl(
+                model.timetable().up_trains(),
+                false,
+                time_offset,
+                canvas,
+                canvas_dimension,
+                timetable_dimension,
+                scroll_bar_position,
+                station_header_right,
+                header_bottom,
+                time_header_height,
+                horizontal_scale,
+                vertical_scale,
+                train_lines
+            );
+
+            return std::move(train_lines);
+        }
+
+        void make_train_lines_impl(
+            const trains_type&            trains,
+            const bool                    down,
+            const time_span_type&         time_offset,
+            canvas_type&                  canvas,
+            const dimension_type&         canvas_dimension,
+            const dimension_type&         timetable_dimension,
+            const position_type&          scroll_bar_position,
+            const left_type&              station_header_right,
+            const top_type&               header_bottom,
+            const height_type&            time_header_height,
+            const horizontal_scale_type&  horizontal_scale,
+            const vertical_scale_type&    vertical_scale,
+            std::vector<train_line_type>& train_lines
+        )
+        {
+
         }
 
 
         // variables
+
+        const font_type* m_p_font;
 
         std::vector<train_line_type> m_train_lines;
 
@@ -292,6 +456,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            canvas.set_font(*m_p_font);
+
             BOOST_FOREACH (const train_line_type& train_line, m_train_lines)
             {
                 train_line.draw_on(canvas);
