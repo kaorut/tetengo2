@@ -34,6 +34,12 @@ namespace
 
     typedef time_type::time_span_type time_span_type;
 
+    typedef model_type::timetable_type::train_kind_type train_kind_type;
+
+    typedef model_type::timetable_type::station_interval_calculator_type station_interval_calculator_type;
+
+    typedef station_interval_calculator_type::station_intervals_type station_intervals_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
@@ -56,9 +62,11 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
+    typedef canvas_type::color_type color_type;
+
     typedef bobura::view::diagram::train_line_fragment<canvas_type> train_line_fragment_type;
 
-    typedef bobura::view::diagram::train_line<train_type, canvas_type> train_line_type;
+    typedef bobura::view::diagram::train_line<model_type, canvas_type> train_line_type;
 
     typedef
         bobura::view::diagram::train_line_list<model_type, canvas_type> train_line_list_type;
@@ -111,6 +119,14 @@ BOOST_AUTO_TEST_SUITE(train_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const train_kind_type train_kind(
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("abbrev")),
+            color_type(0x12, 0x34, 0x56),
+            train_kind_type::weight_type::normal,
+            train_kind_type::line_style_type::solid
+        );
+        const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
         train_line_type train_line1(
             train_type(
                 string_type(TETENGO2_TEXT("number")),
@@ -118,7 +134,10 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("name")),
                 string_type(TETENGO2_TEXT("name_number")),
                 string_type(TETENGO2_TEXT("note"))
-            )
+            ),
+            train_kind,
+            false,
+            station_intervals
         );
         const train_line_type train_line2(std::move(train_line1));
     }
@@ -131,6 +150,14 @@ BOOST_AUTO_TEST_SUITE(train_line)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const train_kind_type train_kind(
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("abbrev")),
+            color_type(0x12, 0x34, 0x56),
+            train_kind_type::weight_type::normal,
+            train_kind_type::line_style_type::solid
+        );
+        const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
         train_line_type train_line1(
             train_type(
                 string_type(TETENGO2_TEXT("number")),
@@ -138,7 +165,10 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("name")),
                 string_type(TETENGO2_TEXT("name_number")),
                 string_type(TETENGO2_TEXT("note"))
-            )
+            ),
+            train_kind,
+            false,
+            station_intervals
         );
         train_line_type train_line2(
             train_type(
@@ -147,7 +177,10 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("name")),
                 string_type(TETENGO2_TEXT("name_number")),
                 string_type(TETENGO2_TEXT("note"))
-            )
+            ),
+            train_kind,
+            false,
+            station_intervals
         );
         train_line1 = std::move(train_line2);
     }
@@ -165,6 +198,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
@@ -176,7 +210,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            station_intervals
         );
         const train_line_list_type train_line_list2(std::move(train_line_list1));
     }
@@ -189,6 +224,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
@@ -200,7 +236,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            station_intervals
         );
         train_line_list_type train_line_list2(
             model,
@@ -213,7 +250,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             top_type(42),
             height_type(24),
             horizontal_scale_type(42),
-            vertical_scale_type(24)
+            vertical_scale_type(24),
+            station_intervals
         );
 
         train_line_list1 = std::move(train_line_list2);
