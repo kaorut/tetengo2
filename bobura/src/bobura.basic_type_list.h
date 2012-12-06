@@ -936,7 +936,8 @@ namespace bobura
         typedef
             bobura::view::diagram::train_line_list<
                 boost::mpl::at<model_type_list, type::model::model>::type,
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
             >
             diagram_train_line_list_type;
     }}

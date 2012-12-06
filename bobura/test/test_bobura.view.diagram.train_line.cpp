@@ -64,12 +64,14 @@ namespace
 
     typedef canvas_type::color_type color_type;
 
+    typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
+
     typedef bobura::view::diagram::train_line_fragment<canvas_type> train_line_fragment_type;
 
-    typedef bobura::view::diagram::train_line<model_type, canvas_type> train_line_type;
+    typedef bobura::view::diagram::train_line<model_type, canvas_type, message_catalog_type> train_line_type;
 
     typedef
-        bobura::view::diagram::train_line_list<model_type, canvas_type> train_line_list_type;
+        bobura::view::diagram::train_line_list<model_type, canvas_type, message_catalog_type> train_line_list_type;
 
 
 }
@@ -127,6 +129,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind_type::line_style_type::solid
         );
         const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
+        const message_catalog_type message_catalog;
         train_line_type train_line1(
             train_type(
                 string_type(TETENGO2_TEXT("number")),
@@ -137,7 +140,11 @@ BOOST_AUTO_TEST_SUITE(train_line)
             ),
             train_kind,
             false,
-            station_intervals
+            station_intervals,
+            *p_canvas,
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            message_catalog
         );
         const train_line_type train_line2(std::move(train_line1));
     }
@@ -158,6 +165,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind_type::line_style_type::solid
         );
         const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
+        const message_catalog_type message_catalog;
         train_line_type train_line1(
             train_type(
                 string_type(TETENGO2_TEXT("number")),
@@ -168,7 +176,11 @@ BOOST_AUTO_TEST_SUITE(train_line)
             ),
             train_kind,
             false,
-            station_intervals
+            station_intervals,
+            *p_canvas,
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            message_catalog
         );
         train_line_type train_line2(
             train_type(
@@ -180,7 +192,11 @@ BOOST_AUTO_TEST_SUITE(train_line)
             ),
             train_kind,
             false,
-            station_intervals
+            station_intervals,
+            *p_canvas,
+            dimension_type(width_type(42), height_type(24)),
+            position_type(left_type(24), top_type(42)),
+            message_catalog
         );
         train_line1 = std::move(train_line2);
     }
@@ -199,6 +215,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
+        const message_catalog_type message_catalog;
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
@@ -211,7 +228,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             height_type(24),
             horizontal_scale_type(42),
             vertical_scale_type(24),
-            station_intervals
+            station_intervals,
+            message_catalog
         );
         const train_line_list_type train_line_list2(std::move(train_line_list1));
     }
@@ -225,6 +243,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         const station_intervals_type station_intervals(2, station_interval_calculator_type::default_interval());
+        const message_catalog_type message_catalog;
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
@@ -237,7 +256,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             height_type(24),
             horizontal_scale_type(42),
             vertical_scale_type(24),
-            station_intervals
+            station_intervals,
+            message_catalog
         );
         train_line_list_type train_line_list2(
             model,
@@ -251,7 +271,8 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
             height_type(24),
             horizontal_scale_type(42),
             vertical_scale_type(24),
-            station_intervals
+            station_intervals,
+            message_catalog
         );
 
         train_line_list1 = std::move(train_line_list2);

@@ -9,13 +9,16 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_TRAINLINE_H)
 #define BOBURA_VIEW_DIAGRAM_TRAINLINE_H
 
+#include <sstream>
 //#include <utility>
 #include <vector>
 
 #include <boost/foreach.hpp>
+#include <boost/format.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.text.h>
 
 #include "bobura.view.diagram.item.h"
 #include "bobura.view.diagram.utility.h"
@@ -124,10 +127,11 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a train line in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model          A model type.
+        \tparam Canvas         A canvas type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas>
+    template <typename Model, typename Canvas, typename MessageCatalog>
     class train_line : public item<Canvas>
     {
     public:
@@ -157,6 +161,12 @@ namespace bobura { namespace view { namespace diagram
         //! The top type.
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        //! The dimension type.
+        typedef typename canvas_type::dimension_type dimension_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
@@ -171,11 +181,19 @@ namespace bobura { namespace view { namespace diagram
             const train_type&             train,
             const train_kind_type&        train_kind,
             const bool                    down,
-            const station_intervals_type& station_intervals
+            const station_intervals_type& station_intervals,
+            canvas_type&                  canvas,
+            const dimension_type&         canvas_dimension,
+            const position_type&          scroll_bar_position,
+            const message_catalog_type&   message_catalog
         )
         :
         m_p_train_kind(&train_kind),
-        m_fragments(make_fragments(train, down, station_intervals))
+        m_fragments(
+            make_fragments(
+                train, down, station_intervals, canvas, canvas_dimension, scroll_bar_position, message_catalog
+            )
+        )
         {}
 
         /*!
@@ -225,6 +243,8 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename canvas_type::size_type size_type;
 
+        typedef typename canvas_type::string_type string_type;
+
         typedef typename train_type::stops_type::size_type stop_index_type;
 
         typedef typename train_type::stop_type stop_type;
@@ -239,7 +259,11 @@ namespace bobura { namespace view { namespace diagram
         static std::vector<train_line_fragment_type> make_fragments(
             const train_type&             train,
             const bool                    down,
-            const station_intervals_type& station_intervals
+            const station_intervals_type& station_intervals,
+            canvas_type&                  canvas,
+            const dimension_type&         canvas_dimension,
+            const position_type&          scroll_bar_position,
+            const message_catalog_type&   message_catalog
         )
         {
             std::vector<train_line_fragment_type> fragments;
@@ -268,17 +292,17 @@ namespace bobura { namespace view { namespace diagram
                             const time_type arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], from, to);
 
-                            //draw_train_line(
-                            //    from,
-                            //    departure_time,
-                            //    to,
-                            //    arrival_time,
-                            //    !train_name_drawn ? make_train_name(train) : string_type(),
-                            //    down,
-                            //    canvas,
-                            //    canvas_dimension,
-                            //    scroll_bar_position
-                            //);
+                            make_fragment(
+                                from,
+                                departure_time,
+                                to,
+                                arrival_time,
+                                !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
+                                down,
+                                canvas,
+                                canvas_dimension,
+                                scroll_bar_position
+                            );
 
                             if (!train_name_drawn)
                                 train_name_drawn = true;
@@ -313,17 +337,17 @@ namespace bobura { namespace view { namespace diagram
                             const time_type arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], to, from);
 
-                            //draw_train_line(
-                            //    from,
-                            //    departure_time,
-                            //    to,
-                            //    arrival_time,
-                            //    !train_name_drawn ? make_train_name(train) : string_type(),
-                            //    down,
-                            //    canvas,
-                            //    canvas_dimension,
-                            //    scroll_bar_position
-                            //);
+                            make_fragment(
+                                from,
+                                departure_time,
+                                to,
+                                arrival_time,
+                                !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
+                                down,
+                                canvas,
+                                canvas_dimension,
+                                scroll_bar_position
+                            );
 
                             if (!train_name_drawn)
                                 train_name_drawn = true;
@@ -373,6 +397,42 @@ namespace bobura { namespace view { namespace diagram
                 );
 
             return departure_interval < travel_time ? to_stop.departure() : from_departure + travel_time;
+        }
+
+        static string_type make_train_name(const train_type& train, const message_catalog_type& message_catalog)
+        {
+            std::basic_ostringstream<typename string_type::value_type> name;
+
+            name << train.number();
+            name << string_type(TETENGO2_TEXT(" "));
+            if (train.name_number().empty())
+            {
+                name << train.name();
+            }
+            else
+            {
+                name <<
+                    boost::basic_format<typename string_type::value_type>(
+                        message_catalog.get(string_type(TETENGO2_TEXT("Diagram:%1% No. %2%")))
+                    ) % train.name() % train.name_number();
+            }
+
+            return name.str();
+        }
+
+        static void make_fragment(
+            const stop_index_type departure_station_index,
+            const time_type&      departure_time,
+            const stop_index_type arrival_station_index,
+            const time_type&      arrival_time,
+            const string_type&    train_name,
+            const bool            down,
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
+        {
+
         }
 
         static typename canvas_type::line_style_type::enum_t translate_line_style(
@@ -428,10 +488,11 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a train line list in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model          A model type.
+        \tparam Canvas         A canvas type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas>
+    template <typename Model, typename Canvas, typename MessageCatalog>
     class train_line_list : public item<Canvas>
     {
     public:
@@ -476,6 +537,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
@@ -494,6 +558,7 @@ namespace bobura { namespace view { namespace diagram
             \param horizontal_scale     A horizontal scale.
             \param vertical_scale       A vertical scale.
             \param station_intervals    Station intervals.
+            \param message_catalog      A message catalog.
         */
         train_line_list(
             const model_type&             model,
@@ -507,7 +572,8 @@ namespace bobura { namespace view { namespace diagram
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
-            const station_intervals_type& station_intervals
+            const station_intervals_type& station_intervals,
+            const message_catalog_type&   message_catalog
         )
         :
         m_p_font(&model.timetable().font_color_set().train_name()),
@@ -524,7 +590,8 @@ namespace bobura { namespace view { namespace diagram
                 time_header_height,
                 horizontal_scale,
                 vertical_scale,
-                station_intervals
+                station_intervals,
+                message_catalog
             )
         )
         {}
@@ -572,7 +639,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef train_line<model_type, canvas_type> train_line_type;
+        typedef train_line<model_type, canvas_type, message_catalog_type> train_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 
@@ -601,7 +668,8 @@ namespace bobura { namespace view { namespace diagram
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
-            const station_intervals_type& station_intervals
+            const station_intervals_type& station_intervals,
+            const message_catalog_type&   message_catalog
         )
         {
             std::vector<train_line_type> train_lines;
@@ -621,6 +689,7 @@ namespace bobura { namespace view { namespace diagram
                 horizontal_scale,
                 vertical_scale,
                 station_intervals,
+                message_catalog,
                 train_lines
             );
             make_train_lines_impl(
@@ -638,6 +707,7 @@ namespace bobura { namespace view { namespace diagram
                 horizontal_scale,
                 vertical_scale,
                 station_intervals,
+                message_catalog,
                 train_lines
             );
 
@@ -659,12 +729,23 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
+            const message_catalog_type&   message_catalog,
             std::vector<train_line_type>& train_lines
         )
         {
             BOOST_FOREACH (const train_type& train, trains)
             {
-                train_lines.emplace_back(train, train_kinds[train.kind_index()], down, station_intervals);
+                train_lines.push_back(
+                    train_line_type(
+                        train,
+                        train_kinds[train.kind_index()],
+                        down, station_intervals,
+                        canvas,
+                        canvas_dimension,
+                        scroll_bar_position,
+                        message_catalog
+                    )
+                );
             }
         }
 

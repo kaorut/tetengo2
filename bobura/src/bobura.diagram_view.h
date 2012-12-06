@@ -580,8 +580,8 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
-            m_p_train_line_list =
-                tetengo2::make_unique<train_line_list_type>(
+            m_p_train_line_list.reset(
+                new train_line_list_type(
                     m_model,
                     m_time_offset,
                     canvas,
@@ -593,8 +593,10 @@ namespace bobura
                     m_time_header_height,
                     m_horizontal_scale,
                     m_vertical_scale,
-                    m_station_intervals
-                );
+                    m_station_intervals,
+                    m_message_catalog
+                )
+            );
             m_p_train_line_list->draw_on(canvas);
 
             canvas.set_font(m_model.timetable().font_color_set().train_name());
