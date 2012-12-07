@@ -48,6 +48,34 @@ namespace bobura { namespace view { namespace diagram
         return Left(left_value) - horizontal_scroll_bar_position + station_header_right;
     }
 
+    /*!
+        \brief Calculates a vertical position by a station index.
+
+        \tparam Top              A top type.
+        \tparam StationPositions A station positions type.
+        \tparam StationIndex     A station index type.
+
+        \param station_positions            Station positions.
+        \param station_index                A station index.
+        \param vertical_scroll_bar_position A vertical scroll bar position.
+        \param header_bottom                A header bottom.
+        \param time_header_bottom           A time header bottom.
+
+        \return The vertical position.
+    */
+    template <typename Top, typename StationPositions, typename StationIndex>
+    Top station_index_to_top(
+        const StationPositions& station_positions,
+        const StationIndex      station_index,
+        const Top&              vertical_scroll_bar_position,
+        const Top&              header_bottom,
+        const Top&              time_header_bottom
+    )
+    {
+        const Top canvas_top = header_bottom + time_header_bottom;
+        return station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
+    }
+
 
 }}}
 

@@ -594,6 +594,7 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale,
                     m_station_intervals,
+                    m_station_positions,
                     m_message_catalog
                 )
             );

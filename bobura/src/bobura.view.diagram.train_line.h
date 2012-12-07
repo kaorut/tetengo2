@@ -143,6 +143,12 @@ namespace bobura { namespace view { namespace diagram
         //! The train type.
         typedef typename model_type::timetable_type::train_type train_type;
 
+        //! The time type.
+        typedef typename train_type::stop_type::time_type time_type;
+
+        //! The time span type.
+        typedef typename time_type::time_span_type time_span_type;
+
         //! The train kind type.
         typedef typename model_type::timetable_type::train_kind_type train_kind_type;
 
@@ -164,6 +170,18 @@ namespace bobura { namespace view { namespace diagram
         //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
 
+        //! The width type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        //! The height type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+        //! The horizontal scale type.
+        typedef typename width_type::value_type horizontal_scale_type;
+
+        //! The vertical scale type.
+        typedef typename height_type::value_type vertical_scale_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -181,17 +199,38 @@ namespace bobura { namespace view { namespace diagram
             const train_type&             train,
             const train_kind_type&        train_kind,
             const bool                    down,
-            const station_intervals_type& station_intervals,
+            const time_span_type&         time_offset,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
+            const left_type&              station_header_right,
+            const top_type&               header_bottom,
+            const height_type&            time_header_height,
+            const horizontal_scale_type&  horizontal_scale,
+            const vertical_scale_type&    vertical_scale,
+            const station_intervals_type& station_intervals,
+            const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
         )
         :
         m_p_train_kind(&train_kind),
         m_fragments(
             make_fragments(
-                train, down, station_intervals, canvas, canvas_dimension, scroll_bar_position, message_catalog
+                train,
+                train_kind,
+                down,
+                time_offset,
+                canvas,
+                canvas_dimension,
+                scroll_bar_position,
+                station_header_right,
+                header_bottom,
+                time_header_height,
+                horizontal_scale,
+                vertical_scale,
+                station_intervals,
+                station_positions,
+                message_catalog
             )
         )
         {}
@@ -249,20 +288,24 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename train_type::stop_type stop_type;
 
-        typedef typename train_type::stop_type::time_type time_type;
-
-        typedef typename time_type::time_span_type time_span_type;
-
 
         // static functions
 
         static std::vector<train_line_fragment_type> make_fragments(
             const train_type&             train,
+            const train_kind_type&        train_kind,
             const bool                    down,
-            const station_intervals_type& station_intervals,
+            const time_span_type&         time_offset,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
+            const left_type&              station_header_right,
+            const top_type&               header_bottom,
+            const height_type&            time_header_height,
+            const horizontal_scale_type&  horizontal_scale,
+            const vertical_scale_type&    vertical_scale,
+            const station_intervals_type& station_intervals,
+            const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
         )
         {
@@ -299,9 +342,17 @@ namespace bobura { namespace view { namespace diagram
                                 arrival_time,
                                 !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
+                                time_offset,
                                 canvas,
                                 canvas_dimension,
-                                scroll_bar_position
+                                scroll_bar_position,
+                                station_header_right,
+                                header_bottom,
+                                time_header_height,
+                                horizontal_scale,
+                                vertical_scale,
+                                station_positions,
+                                fragments
                             );
 
                             if (!train_name_drawn)
@@ -344,9 +395,17 @@ namespace bobura { namespace view { namespace diagram
                                 arrival_time,
                                 !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
+                                time_offset,
                                 canvas,
                                 canvas_dimension,
-                                scroll_bar_position
+                                scroll_bar_position,
+                                station_header_right,
+                                header_bottom,
+                                time_header_height,
+                                horizontal_scale,
+                                vertical_scale,
+                                station_positions,
+                                fragments
                             );
 
                             if (!train_name_drawn)
@@ -421,18 +480,190 @@ namespace bobura { namespace view { namespace diagram
         }
 
         static void make_fragment(
-            const stop_index_type departure_station_index,
-            const time_type&      departure_time,
-            const stop_index_type arrival_station_index,
-            const time_type&      arrival_time,
-            const string_type&    train_name,
-            const bool            down,
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
+            const stop_index_type                  departure_station_index,
+            const time_type&                       departure_time,
+            const stop_index_type                  arrival_station_index,
+            const time_type&                       arrival_time,
+            const string_type&                     train_name,
+            const bool                             down,
+            const time_span_type&                  time_offset,
+            canvas_type&                           canvas,
+            const dimension_type&                  canvas_dimension,
+            const position_type&                   scroll_bar_position,
+            const left_type&                       station_header_right,
+            const top_type&                        header_bottom,
+            const height_type&                     time_header_height,
+            const horizontal_scale_type&           horizontal_scale,
+            const vertical_scale_type&             vertical_scale,
+            const std::vector<top_type>&           station_positions,
+            std::vector<train_line_fragment_type>& fragments
         )
         {
+            if (departure_time - time_offset < arrival_time - time_offset)
+            {
+                make_fragment_impl(
+                    departure_station_index,
+                    departure_time,
+                    false,
+                    arrival_station_index,
+                    arrival_time,
+                    false,
+                    train_name,
+                    down,
+                    time_offset,
+                    canvas,
+                    canvas_dimension,
+                    scroll_bar_position,
+                    station_header_right,
+                    header_bottom,
+                    time_header_height,
+                    horizontal_scale,
+                    vertical_scale,
+                    station_positions,
+                    fragments
+                );
+            }
+            else
+            {
+                make_fragment_impl(
+                    departure_station_index,
+                    departure_time,
+                    true,
+                    arrival_station_index,
+                    arrival_time,
+                    false,
+                    train_name,
+                    down,
+                    time_offset,
+                    canvas,
+                    canvas_dimension,
+                    scroll_bar_position,
+                    station_header_right,
+                    header_bottom,
+                    time_header_height,
+                    horizontal_scale,
+                    vertical_scale,
+                    station_positions,
+                    fragments
+                );
+                make_fragment_impl(
+                    departure_station_index,
+                    departure_time,
+                    false,
+                    arrival_station_index,
+                    arrival_time,
+                    true,
+                    train_name,
+                    down,
+                    time_offset,
+                    canvas,
+                    canvas_dimension,
+                    scroll_bar_position,
+                    station_header_right,
+                    header_bottom,
+                    time_header_height,
+                    horizontal_scale,
+                    vertical_scale,
+                    station_positions,
+                    fragments
+                );
+            }
+        }
 
+        static void make_fragment_impl(
+            const stop_index_type                  departure_station_index,
+            const time_type&                       departure_time,
+            const bool                             previous_day_departure,
+            const stop_index_type                  arrival_station_index,
+            const time_type&                       arrival_time,
+            const bool                             next_day_arrival,
+            const string_type&                     train_name,
+            const bool                             down,
+            const time_span_type&                  time_offset,
+            canvas_type&                           canvas,
+            const dimension_type&                  canvas_dimension,
+            const position_type&                   scroll_bar_position,
+            const left_type&                       station_header_right,
+            const top_type&                        header_bottom,
+            const height_type&                     time_header_height,
+            const horizontal_scale_type&           horizontal_scale,
+            const vertical_scale_type&             vertical_scale,
+            const std::vector<top_type>&           station_positions,
+            std::vector<train_line_fragment_type>& fragments
+        )
+        {
+            const left_type horizontal_scroll_bar_position =
+                tetengo2::gui::position<position_type>::left(scroll_bar_position);
+            const top_type vertical_scroll_bar_position =
+                tetengo2::gui::position<position_type>::top(scroll_bar_position);
+
+            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const top_type time_header_bottom = top_type::from(time_header_height);
+            const position_type departure(
+                time_to_left(
+                    departure_time,
+                    time_offset,
+                    previous_day_departure ? -1 : 0,
+                    horizontal_scroll_bar_position,
+                    station_header_right,
+                    horizontal_scale_left
+                ),
+                station_index_to_top(
+                    station_positions,
+                    departure_station_index,
+                    vertical_scroll_bar_position,
+                    header_bottom,
+                    time_header_bottom
+                )
+            );
+            const position_type arrival(
+                time_to_left(
+                    arrival_time,
+                    time_offset,
+                    next_day_arrival ? 1 : 0,
+                    horizontal_scroll_bar_position,
+                    station_header_right,
+                    horizontal_scale_left
+                ),
+                station_index_to_top(
+                    station_positions,
+                    arrival_station_index,
+                    vertical_scroll_bar_position,
+                    header_bottom,
+                    time_header_bottom
+                )
+            );
+            
+            const left_type left_bound = tetengo2::gui::position<position_type>::left(departure);
+            if (left_bound > left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension)))
+                return;
+            const left_type right_bound = tetengo2::gui::position<position_type>::left(arrival);
+            if (right_bound < station_header_right)
+                return;
+            const top_type upper_bound =
+                departure_station_index < arrival_station_index ? 
+                tetengo2::gui::position<position_type>::top(departure) :
+                tetengo2::gui::position<position_type>::top(arrival);
+            if (upper_bound > top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension)))
+                return;
+            const top_type lower_bound =
+                departure_station_index < arrival_station_index ? 
+                tetengo2::gui::position<position_type>::top(arrival) :
+                tetengo2::gui::position<position_type>::top(departure);
+            if (lower_bound < header_bottom + time_header_bottom)
+                return;
+
+            //canvas.draw_line(departure, arrival);
+
+            //if (!train_name.empty())
+            //{
+            //    const double train_name_angle = calculate_train_name_angle(departure, arrival);
+            //    canvas.draw_text(
+            //        train_name,
+            //        calculate_train_name_position(departure, train_name, train_name_angle, down, canvas),
+            //        train_name_angle
+            //    );
+            //}
         }
 
         static typename canvas_type::line_style_type::enum_t translate_line_style(
@@ -558,6 +789,7 @@ namespace bobura { namespace view { namespace diagram
             \param horizontal_scale     A horizontal scale.
             \param vertical_scale       A vertical scale.
             \param station_intervals    Station intervals.
+            \param station_positions    Station positions.
             \param message_catalog      A message catalog.
         */
         train_line_list(
@@ -573,6 +805,7 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
+            const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
         )
         :
@@ -591,6 +824,7 @@ namespace bobura { namespace view { namespace diagram
                 horizontal_scale,
                 vertical_scale,
                 station_intervals,
+                station_positions,
                 message_catalog
             )
         )
@@ -669,6 +903,7 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
+            const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
         )
         {
@@ -689,6 +924,7 @@ namespace bobura { namespace view { namespace diagram
                 horizontal_scale,
                 vertical_scale,
                 station_intervals,
+                station_positions,
                 message_catalog,
                 train_lines
             );
@@ -707,6 +943,7 @@ namespace bobura { namespace view { namespace diagram
                 horizontal_scale,
                 vertical_scale,
                 station_intervals,
+                station_positions,
                 message_catalog,
                 train_lines
             );
@@ -729,6 +966,7 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&  horizontal_scale,
             const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
+            const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog,
             std::vector<train_line_type>& train_lines
         )
@@ -739,10 +977,18 @@ namespace bobura { namespace view { namespace diagram
                     train_line_type(
                         train,
                         train_kinds[train.kind_index()],
-                        down, station_intervals,
+                        down,
+                        time_offset,
                         canvas,
                         canvas_dimension,
                         scroll_bar_position,
+                        station_header_right,
+                        header_bottom,
+                        time_header_height,
+                        horizontal_scale,
+                        vertical_scale,
+                        station_intervals,
+                        station_positions,
                         message_catalog
                     )
                 );
