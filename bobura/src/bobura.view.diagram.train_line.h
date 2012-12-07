@@ -9,14 +9,19 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_TRAINLINE_H)
 #define BOBURA_VIEW_DIAGRAM_TRAINLINE_H
 
+#include <cassert>
 #include <cmath>
+#include <numeric>
 #include <sstream>
+#include <stdexcept>
 //#include <utility>
 #include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
+#include <boost/rational.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>

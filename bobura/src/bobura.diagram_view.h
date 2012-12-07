@@ -10,20 +10,12 @@
 #define BOBURA_DIAGRAMVIEW_H
 
 #include <algorithm>
-#include <cassert>
-#include <cmath>
 //#include <iterator>
 //#include <memory>
-#include <numeric>
-#include <sstream>
-#include <stdexcept>
 //#include <utility>
 #include <vector>
 
-#include <boost/format.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/rational.hpp>
-#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
