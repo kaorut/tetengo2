@@ -9,12 +9,14 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_TRAINLINE_H)
 #define BOBURA_VIEW_DIAGRAM_TRAINLINE_H
 
+#include <cmath>
 #include <sstream>
 //#include <utility>
 #include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
+#include <boost/math/constants/constants.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
@@ -40,14 +42,11 @@ namespace bobura { namespace view { namespace diagram
         //! The canvas type.
         typedef Canvas canvas_type;
 
+        //! The string type.
+        typedef typename canvas_type::string_type string_type;
+
         //! The position type.
         typedef typename canvas_type::position_type position_type;
-
-        //! The left type.
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        //! The top type.
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
 
         // constructors and destructor
@@ -55,13 +54,22 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a train line fragment.
 
-            \param right A right position.
-            \param top   A top position.
+            \param departure  A departure position.
+            \param arrival    A arrival position.
+            \param train_name A train name.
+            \param down       Set true for a down train.
         */
-        train_line_fragment(const left_type& right, top_type&& top)
+        train_line_fragment(
+            position_type&&    departure,
+            position_type&&    arrival,
+            const string_type& train_name,
+            const bool         down
+        )
         :
-        m_right(right),
-        m_top(std::forward<top_type>(top))
+        m_departure(std::forward<position_type>(departure)),
+        m_arrival(std::forward<position_type>(arrival)),
+        m_train_name(train_name),
+        m_down(down)
         {}
 
         /*!
@@ -71,8 +79,10 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_fragment(train_line_fragment&& another)
         :
-        m_right(std::move(another.m_right)),
-        m_top(std::move(another.m_top))
+        m_departure(std::move(another.m_departure)),
+        m_arrival(std::move(another.m_arrival)),
+        m_train_name(std::move(another.m_train_name)),
+        m_down(another.m_down)
         {}
 
         /*!
@@ -97,19 +107,110 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
-            m_right = std::move(another.m_right);
-            m_top = std::move(another.m_top);
+            m_departure = std::move(another.m_departure);
+            m_arrival = std::move(another.m_arrival);
+            m_train_name = std::move(another.m_train_name);
+            m_down = another.m_down;
 
             return *this;
         }
 
 
     private:
+        // types
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename canvas_type::dimension_type dimension_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+
+        // static functions
+
+        static double calculate_train_name_angle(const position_type& departure, const position_type& arrival)
+        {
+            const top_type height =
+                tetengo2::gui::position<position_type>::top(arrival) -
+                tetengo2::gui::position<position_type>::top(departure);
+            const left_type width =
+                tetengo2::gui::position<position_type>::left(arrival) -
+                tetengo2::gui::position<position_type>::left(departure);
+
+            return
+                std::atan2(boost::rational_cast<double>(height.value()), boost::rational_cast<double>(width.value()));
+        }
+
+        static position_type calculate_train_name_position(
+            const position_type& departure,
+            const string_type&   train_name,
+            const double         angle,
+            const bool           down,
+            const canvas_type&   canvas
+        )
+        {
+            const dimension_type text_dimension = canvas.calc_text_dimension(train_name);
+            const height_type text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
+
+            if (down)
+            {
+                if (
+                    -boost::math::constants::pi<double>() / 8 < angle &&
+                    angle < boost::math::constants::pi<double>() / 8
+                )
+                {
+                    return
+                        position_type(
+                            tetengo2::gui::position<position_type>::left(departure),
+                            tetengo2::gui::position<position_type>::top(departure) - text_height
+                        );
+                }
+                else
+                {
+                    const double left_diff = boost::rational_cast<double>(text_height.value()) / std::sin(angle);
+                    const left_type left =
+                        tetengo2::gui::position<position_type>::left(departure) +
+                        typename left_type::value_type(
+                            static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
+                        );
+
+                    return position_type(left, tetengo2::gui::position<position_type>::top(departure));
+                }
+            }
+            else
+            {
+                const double left_diff = boost::rational_cast<double>(text_height.value()) * std::sin(angle);
+                const left_type left =
+                    tetengo2::gui::position<position_type>::left(departure) +
+                    typename left_type::value_type(
+                        static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
+                    );
+
+                const double top_diff = boost::rational_cast<double>(text_height.value()) * std::cos(angle);
+                const top_type top =
+                    tetengo2::gui::position<position_type>::top(departure) -
+                    typename top_type::value_type(
+                        static_cast<typename top_type::value_type::int_type>(top_diff * 0x10000), 0x10000
+                    );
+
+                return position_type(left, top);
+            }
+        }
+
+
         // variables
 
-        left_type m_right;
+        position_type m_departure;
 
-        top_type m_top;
+        position_type m_arrival;
+
+        string_type m_train_name;
+
+        bool m_down;
 
 
         // virtual functions
@@ -117,7 +218,17 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            canvas.draw_line(m_departure, m_arrival);
 
+            if (!m_train_name.empty())
+            {
+                const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
+                canvas.draw_text(
+                    m_train_name,
+                    calculate_train_name_position(m_departure, m_train_name, train_name_angle, m_down, canvas),
+                    train_name_angle
+                );
+            }
         }
 
 
@@ -599,7 +710,7 @@ namespace bobura { namespace view { namespace diagram
 
             const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
             const top_type time_header_bottom = top_type::from(time_header_height);
-            const position_type departure(
+            position_type departure(
                 time_to_left(
                     departure_time,
                     time_offset,
@@ -616,7 +727,7 @@ namespace bobura { namespace view { namespace diagram
                     time_header_bottom
                 )
             );
-            const position_type arrival(
+            position_type arrival(
                 time_to_left(
                     arrival_time,
                     time_offset,
@@ -653,17 +764,7 @@ namespace bobura { namespace view { namespace diagram
             if (lower_bound < header_bottom + time_header_bottom)
                 return;
 
-            //canvas.draw_line(departure, arrival);
-
-            //if (!train_name.empty())
-            //{
-            //    const double train_name_angle = calculate_train_name_angle(departure, arrival);
-            //    canvas.draw_text(
-            //        train_name,
-            //        calculate_train_name_position(departure, train_name, train_name_angle, down, canvas),
-            //        train_name_angle
-            //    );
-            //}
+            fragments.emplace_back(std::move(departure), std::move(arrival), train_name, down);
         }
 
         static typename canvas_type::line_style_type::enum_t translate_line_style(

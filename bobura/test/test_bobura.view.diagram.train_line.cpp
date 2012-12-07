@@ -91,7 +91,12 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        train_line_fragment_type train_line_fragment1(left_type(42), top_type(24));
+        train_line_fragment_type train_line_fragment1(
+            position_type(left_type(24), top_type(42)),
+            position_type(left_type(42), top_type(24)),
+            string_type(TETENGO2_TEXT("train_name")),
+            false
+        );
         const train_line_fragment_type train_line_fragment2(std::move(train_line_fragment1));
     }
 
@@ -103,8 +108,18 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        train_line_fragment_type train_line_fragment1(left_type(42), top_type(24));
-        train_line_fragment_type train_line_fragment2(left_type(42), top_type(24));
+        train_line_fragment_type train_line_fragment1(
+            position_type(left_type(24), top_type(42)),
+            position_type(left_type(42), top_type(24)),
+            string_type(TETENGO2_TEXT("train_name")),
+            false
+        );
+        train_line_fragment_type train_line_fragment2(
+            position_type(left_type(24), top_type(42)),
+            position_type(left_type(42), top_type(24)),
+            string_type(TETENGO2_TEXT("train_name")),
+            false
+        );
         train_line_fragment1 = std::move(train_line_fragment2);
     }
 
