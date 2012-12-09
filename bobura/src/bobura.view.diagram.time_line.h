@@ -435,7 +435,7 @@ namespace bobura { namespace view { namespace diagram
                     }
                 }
             }
-            time_lines.shrink_to_fit();
+            tetengo2::cpp11::shrink_to_fit(time_lines);
 
             return std::move(time_lines);
         }
