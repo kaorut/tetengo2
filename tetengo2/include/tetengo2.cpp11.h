@@ -376,9 +376,7 @@ namespace tetengo2 { namespace cpp11
 #else
     template <typename Container>
     void shrink_to_fit(Container& container)
-    {
-        Container(container).swap(container);
-    }
+    {}
 #endif
 }}
 
