@@ -83,10 +83,6 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_type station_line1(
             left_type(42),
             top_type(24),
@@ -102,10 +98,6 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_type station_line1(
             left_type(42),
             top_type(24),
