@@ -180,17 +180,6 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.dimension();
     }
 
-    BOOST_AUTO_TEST_CASE(update_dimension)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const model_type model;
-        const message_catalog_type message_catalog;
-        view_type view(model, message_catalog);
-
-        view.update_dimension();
-    }
-
     BOOST_AUTO_TEST_CASE(update_and_recalculate_dimension)
     {
         BOOST_TEST_PASSPOINT();

@@ -215,34 +215,6 @@ namespace bobura
         }
 
         /*!
-            \brief Updates the dimension.
-        */
-        void update_dimension()
-        {
-            const width_type width(20 * 24 * m_horizontal_scale);
-
-            m_station_intervals = m_model.timetable().station_intervals();
-            if (m_station_intervals.empty())
-            {
-                m_station_positions.clear();
-                m_dimension = dimension_type(width, height_type(0));
-                return;
-            }
-            
-            std::vector<top_type> positions;
-            positions.reserve(m_station_intervals.size());
-            std::transform(
-                m_station_intervals.begin(),
-                m_station_intervals.end(),
-                std::back_inserter(positions),
-                to_station_position(m_vertical_scale)
-            );
-
-            m_station_positions = std::move(positions);
-            m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
-        }
-
-        /*!
             \brief Update the dimension and redraw the canvas to recalculate the dimension.
 
             \param canvas              A canvas.
@@ -269,12 +241,12 @@ namespace bobura
         dimension_type page_size(const dimension_type& canvas_dimension)
         const
         {
-            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
-            const width_type header_width = m_station_header_width;
+            const width_type& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const width_type& header_width = m_station_header_width;
             width_type page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
-            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            const height_type header_height_ = height_type::from(header_bottom()) + m_time_header_height;
+            const height_type& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
+            const height_type& header_height_ = height_type::from(header_bottom()) + m_time_header_height;
             height_type page_height = canvas_height > header_height_ ? canvas_height - header_height_ : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
@@ -451,6 +423,31 @@ namespace bobura
                 )
             );
             m_p_train_line_list->draw_on(canvas);
+        }
+
+        void update_dimension()
+        {
+            const width_type width(20 * 24 * m_horizontal_scale);
+
+            m_station_intervals = m_model.timetable().station_intervals();
+            if (m_station_intervals.empty())
+            {
+                m_station_positions.clear();
+                m_dimension = dimension_type(width, height_type(0));
+                return;
+            }
+            
+            std::vector<top_type> positions;
+            positions.reserve(m_station_intervals.size());
+            std::transform(
+                m_station_intervals.begin(),
+                m_station_intervals.end(),
+                std::back_inserter(positions),
+                to_station_position(m_vertical_scale)
+            );
+
+            m_station_positions = std::move(positions);
+            m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
         }
 
 
