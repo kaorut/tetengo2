@@ -458,8 +458,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a scroll bar observer of the picture box.
 
         \tparam PictureBox A picture box type.
+        \tparam View       A view type.
     */
-    template <typename PictureBox>
+    template <typename PictureBox, typename View>
     class scroll_bar_scrolled
     {
     public:
@@ -471,6 +472,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The size type.
         typedef typename picture_box_type::scroll_bar_type::size_type size_type;
 
+        //! The view type.
+        typedef View view_type;
 
         // constructors and destructor
 
@@ -478,10 +481,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \brief Creates a scroll bar observer of the picture box.
 
             \param picture_box A picture box.
+            \param view        A view.
         */
-        explicit scroll_bar_scrolled(const picture_box_type& picture_box)
+        scroll_bar_scrolled(const picture_box_type& picture_box, view_type& view)
         :
-        m_picture_box(picture_box)
+        m_picture_box(picture_box),
+        m_view(view)
         {}
 
 
@@ -495,6 +500,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(const size_type new_position)
         const
         {
+            m_view.update_dimension();
             m_picture_box.repaint();
         }
 
@@ -503,6 +509,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         // variables
 
         const picture_box_type& m_picture_box;
+
+        view_type& m_view;
 
 
     };

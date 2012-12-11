@@ -130,28 +130,6 @@ namespace bobura
                     message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
                 >::type(*this)
             );
-            assert(this->vertical_scroll_bar());
-            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            assert(this->horizontal_scroll_bar());
-            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
         }
 
         template <typename Size>

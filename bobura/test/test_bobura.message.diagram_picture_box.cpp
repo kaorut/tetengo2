@@ -71,7 +71,8 @@ namespace
         bobura::message::diagram_picture_box::paint_paint<canvas_type, picture_box_type, view_type> paint_paint_type;
 
     typedef
-        bobura::message::diagram_picture_box::scroll_bar_scrolled<picture_box_type> scroll_bar_scrolled_type;
+        bobura::message::diagram_picture_box::scroll_bar_scrolled<picture_box_type, view_type>
+        scroll_bar_scrolled_type;
 
 
 }
@@ -180,7 +181,10 @@ BOOST_AUTO_TEST_SUITE(scroll_bar_scrolled)
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const scroll_bar_scrolled_type scrolled(picture_box);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        const scroll_bar_scrolled_type scrolled(picture_box, view);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -189,7 +193,10 @@ BOOST_AUTO_TEST_SUITE(scroll_bar_scrolled)
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const scroll_bar_scrolled_type scrolled(picture_box);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        const scroll_bar_scrolled_type scrolled(picture_box, view);
 
         scrolled(42);
     }

@@ -123,7 +123,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::keyboard_key_down, keyboard_key_down<PictureBox>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas, PictureBox, View>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox>>,
+                    boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox, View>>,
                 tetengo2::meta::assoc_list_end
                 >>>>
                 type;
