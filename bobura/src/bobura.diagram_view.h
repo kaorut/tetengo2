@@ -184,7 +184,7 @@ namespace bobura
         )
         {
             m_horizontal_scale = std::forward<HS>(scale);
-            update_and_recalculate_dimension(canvas, canvas_dimension, scroll_bar_position);
+            update_dimension();
         }
 
         /*!
@@ -217,7 +217,7 @@ namespace bobura
         )
         {
             m_vertical_scale = std::forward<VS>(scale);
-            update_and_recalculate_dimension(canvas, canvas_dimension, scroll_bar_position);
+            update_dimension();
         }
 
         /*!
@@ -232,13 +232,9 @@ namespace bobura
         }
 
         /*!
-            \brief Update the dimension and redraw the canvas to recalculate the dimension.
+            \brief Update the dimension.
         */
-        void update_and_recalculate_dimension(
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
-        )
+        void update_dimension()
         {
             const width_type width(20 * 24 * m_horizontal_scale);
 
