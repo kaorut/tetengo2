@@ -147,10 +147,11 @@ namespace bobura
         {
             clear_background(canvas, canvas_dimension);
 
-            draw_header(canvas, canvas_dimension);
-            draw_time_lines(canvas, canvas_dimension, scroll_bar_position);
-            draw_station_lines(canvas, canvas_dimension, scroll_bar_position);
-            draw_trains(canvas, canvas_dimension, scroll_bar_position);
+            ensure_items_created(canvas, canvas_dimension, scroll_bar_position);
+            m_p_header->draw_on(canvas);
+            m_p_time_line_list->draw_on(canvas);
+            m_p_station_line_list->draw_on(canvas);
+            m_p_train_line_list->draw_on(canvas);
         }
 
         /*!
@@ -232,10 +233,6 @@ namespace bobura
 
         /*!
             \brief Update the dimension and redraw the canvas to recalculate the dimension.
-
-            \param canvas              A canvas.
-            \param canvas_dimension    A canvas dimension.
-            \param scroll_bar_position A scroll bar position.
         */
         void update_and_recalculate_dimension(
             canvas_type&          canvas,
@@ -265,7 +262,10 @@ namespace bobura
             m_station_positions = std::move(positions);
             m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
 
-            draw_on(canvas, canvas_dimension, scroll_bar_position);
+            m_p_header.reset();
+            m_p_time_line_list.reset();
+            m_p_station_line_list.reset();
+            m_p_train_line_list.reset();
         }
 
         /*!
@@ -373,27 +373,19 @@ namespace bobura
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
 
-        void draw_header(canvas_type& canvas, const dimension_type& canvas_dimension)
-        {
-            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
-            m_p_header->draw_on(canvas);
-        }
-
-        top_type header_bottom()
-        const
-        {
-            return
-                m_p_header ?
-                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension())) :
-                top_type(0);
-        }
-
-        void draw_time_lines(
+        void ensure_items_created(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
             const position_type&  scroll_bar_position
         )
         {
+            if (m_p_header)
+            {
+                assert(m_p_time_line_list && m_p_station_line_list && m_p_train_line_list);
+                return;
+            }
+
+            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
             m_p_time_line_list =
                 tetengo2::make_unique<time_line_list_type>(
                     m_model,
@@ -408,15 +400,6 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale
                 );
-            m_p_time_line_list->draw_on(canvas);
-        }
-
-        void draw_station_lines(
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
-        )
-        {
             m_p_station_line_list =
                 tetengo2::make_unique<station_line_list_type>(
                     m_model,
@@ -432,15 +415,6 @@ namespace bobura
                     m_vertical_scale,
                     m_station_positions
                 );
-            m_p_station_line_list->draw_on(canvas);
-        }
-
-        void draw_trains(
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
-        )
-        {
             m_p_train_line_list.reset(
                 new train_line_list_type(
                     m_model,
@@ -459,7 +433,15 @@ namespace bobura
                     m_message_catalog
                 )
             );
-            m_p_train_line_list->draw_on(canvas);
+        }
+
+        top_type header_bottom()
+        const
+        {
+            return
+                m_p_header ?
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension())) :
+                top_type(0);
         }
 
 
