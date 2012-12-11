@@ -169,10 +169,18 @@ namespace bobura
 
             \tparam HS A horizontal scale type.
 
-            \param scale A horizontal scale.
+            \param scale               A horizontal scale.
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
         */
         template <typename HS>
-        void set_horizontal_scale(HS&& scale)
+        void set_horizontal_scale(
+            HS&&                  scale,
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
         {
             m_horizontal_scale = std::forward<HS>(scale);
             update_dimension();
@@ -194,13 +202,21 @@ namespace bobura
 
             \tparam VS A vertical scale type.
 
-            \param scale A vertical scale.
+            \param scale               A vertical scale.
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
         */
         template <typename VS>
-        void set_vertical_scale(VS&& scale)
+        void set_vertical_scale(
+            VS&&                  scale,
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
         {
             m_vertical_scale = std::forward<VS>(scale);
-            update_dimension();
+            update_and_recalculate_dimension(canvas, canvas_dimension, scroll_bar_position);
         }
 
         /*!

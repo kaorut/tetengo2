@@ -7,6 +7,7 @@
 */
 
 //#include <cassert>
+#include <memory>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
@@ -14,6 +15,7 @@
 #include "bobura.type_list.h"
 
 #include <tetengo2.unique.h>
+#include <tetengo2.gui.measure.h>
 
 #include "bobura.view.diagram.zoom.h"
 
@@ -53,7 +55,16 @@ namespace bobura { namespace view { namespace diagram
 
         void set_horizontal_scale(const scale_type& scale)
         {
-            m_diagram_view.set_horizontal_scale(scale);
+            {
+                const std::unique_ptr<canvas_type> p_canvas = m_p_diagram_picture_box->create_fast_canvas();
+                m_diagram_view.set_horizontal_scale(
+                    scale, *p_canvas, m_p_diagram_picture_box->client_dimension(),
+                    to_position(
+                        m_p_diagram_picture_box->horizontal_scroll_bar()->tracking_position(),
+                        m_p_diagram_picture_box->vertical_scroll_bar()->tracking_position()
+                    )
+                );
+            }
 
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(),
@@ -76,7 +87,16 @@ namespace bobura { namespace view { namespace diagram
 
         void set_vertical_scale(const scale_type& scale)
         {
-            m_diagram_view.set_vertical_scale(scale);
+            {
+                const std::unique_ptr<canvas_type> p_canvas = m_p_diagram_picture_box->create_fast_canvas();
+                m_diagram_view.set_vertical_scale(
+                    scale, *p_canvas, m_p_diagram_picture_box->client_dimension(),
+                    to_position(
+                        m_p_diagram_picture_box->horizontal_scroll_bar()->tracking_position(),
+                        m_p_diagram_picture_box->vertical_scroll_bar()->tracking_position()
+                    )
+                );
+            }
 
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(),
@@ -99,6 +119,19 @@ namespace bobura { namespace view { namespace diagram
 
 
     private:
+        // types
+
+        typedef picture_box_type::fast_canvas_type canvas_type;
+
+        typedef picture_box_type::position_type position_type;
+
+        typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
         // static functions
 
         static scale_type larger(
@@ -132,6 +165,12 @@ namespace bobura { namespace view { namespace diagram
 
             return smaller_scale;
         }
+
+        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
+        {
+            return position_type(left_type(left), top_type(top));
+        }
+
 
 
         // variables
