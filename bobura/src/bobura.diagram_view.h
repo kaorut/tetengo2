@@ -183,7 +183,7 @@ namespace bobura
         )
         {
             m_horizontal_scale = std::forward<HS>(scale);
-            update_dimension();
+            update_and_recalculate_dimension(canvas, canvas_dimension, scroll_bar_position);
         }
 
         /*!
@@ -243,7 +243,28 @@ namespace bobura
             const position_type&  scroll_bar_position
         )
         {
-            update_dimension();
+            const width_type width(20 * 24 * m_horizontal_scale);
+
+            m_station_intervals = m_model.timetable().station_intervals();
+            if (m_station_intervals.empty())
+            {
+                m_station_positions.clear();
+                m_dimension = dimension_type(width, height_type(0));
+                return;
+            }
+            
+            std::vector<top_type> positions;
+            positions.reserve(m_station_intervals.size());
+            std::transform(
+                m_station_intervals.begin(),
+                m_station_intervals.end(),
+                std::back_inserter(positions),
+                to_station_position(m_vertical_scale)
+            );
+
+            m_station_positions = std::move(positions);
+            m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
+
             draw_on(canvas, canvas_dimension, scroll_bar_position);
         }
 
@@ -439,31 +460,6 @@ namespace bobura
                 )
             );
             m_p_train_line_list->draw_on(canvas);
-        }
-
-        void update_dimension()
-        {
-            const width_type width(20 * 24 * m_horizontal_scale);
-
-            m_station_intervals = m_model.timetable().station_intervals();
-            if (m_station_intervals.empty())
-            {
-                m_station_positions.clear();
-                m_dimension = dimension_type(width, height_type(0));
-                return;
-            }
-            
-            std::vector<top_type> positions;
-            positions.reserve(m_station_intervals.size());
-            std::transform(
-                m_station_intervals.begin(),
-                m_station_intervals.end(),
-                std::back_inserter(positions),
-                to_station_position(m_vertical_scale)
-            );
-
-            m_station_positions = std::move(positions);
-            m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
         }
 
 
