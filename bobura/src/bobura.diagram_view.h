@@ -243,6 +243,12 @@ namespace bobura
             {
                 m_station_positions.clear();
                 m_dimension = dimension_type(width, height_type(0));
+
+                m_p_header.reset();
+                m_p_time_line_list.reset();
+                m_p_station_line_list.reset();
+                m_p_train_line_list.reset();
+
                 return;
             }
             
