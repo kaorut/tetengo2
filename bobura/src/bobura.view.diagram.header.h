@@ -478,7 +478,6 @@ namespace bobura { namespace view { namespace diagram
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
 
             canvas.set_font(company_line_name_font);
-            canvas.set_color(company_line_name_color);
             dimension_type company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
             const width_type company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension_);
@@ -487,7 +486,6 @@ namespace bobura { namespace view { namespace diagram
                 height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension_);
 
             canvas.set_font(note_font);
-            canvas.set_color(note_color);
             const dimension_type note_dimension_ = canvas.calc_text_dimension(note);
             const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension_);
             const height_type note_height =

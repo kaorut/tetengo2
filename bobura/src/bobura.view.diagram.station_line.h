@@ -393,6 +393,7 @@ namespace bobura { namespace view { namespace diagram
                 const font_color_type& font_color =
                     select_station_font_color(model, model.timetable().station_locations()[i].station().grade());
                 const string_type& station_name = model.timetable().station_locations()[i].station().name();
+                canvas.set_font(font_color.font());
                 dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
 
                 station_lines.push_back(
