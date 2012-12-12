@@ -55,17 +55,7 @@ namespace bobura { namespace view { namespace diagram
 
         void set_horizontal_scale(const scale_type& scale)
         {
-            {
-                const std::unique_ptr<canvas_type> p_canvas = m_p_diagram_picture_box->create_fast_canvas();
-                m_diagram_view.set_horizontal_scale(
-                    scale, *p_canvas, m_p_diagram_picture_box->client_dimension(),
-                    to_position(
-                        m_p_diagram_picture_box->horizontal_scroll_bar()->tracking_position(),
-                        m_p_diagram_picture_box->vertical_scroll_bar()->tracking_position()
-                    )
-                );
-            }
-
+            m_diagram_view.set_horizontal_scale(scale);
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(),
                 m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
@@ -87,17 +77,7 @@ namespace bobura { namespace view { namespace diagram
 
         void set_vertical_scale(const scale_type& scale)
         {
-            {
-                const std::unique_ptr<canvas_type> p_canvas = m_p_diagram_picture_box->create_fast_canvas();
-                m_diagram_view.set_vertical_scale(
-                    scale, *p_canvas, m_p_diagram_picture_box->client_dimension(),
-                    to_position(
-                        m_p_diagram_picture_box->horizontal_scroll_bar()->tracking_position(),
-                        m_p_diagram_picture_box->vertical_scroll_bar()->tracking_position()
-                    )
-                );
-            }
-
+            m_diagram_view.set_vertical_scale(scale);
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(),
                 m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),

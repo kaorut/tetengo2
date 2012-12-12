@@ -132,26 +132,11 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
 
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        view.set_horizontal_scale(
-            horizontal_scale_type(42),
-            *p_canvas,
-            dimension_type(width_type(42),
-            height_type(24)),
-            position_type(left_type(2), top_type(3))
-        );
+        view.set_horizontal_scale(horizontal_scale_type(42));
 
         BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(42));
 
-        view.set_horizontal_scale(
-            horizontal_scale_type(24),
-            *p_canvas,
-            dimension_type(width_type(42),
-            height_type(24)),
-            position_type(left_type(2), top_type(3))
-        );
+        view.set_horizontal_scale(horizontal_scale_type(24));
 
         BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(24));
     }
@@ -175,26 +160,11 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
 
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        view.set_vertical_scale(
-            vertical_scale_type(42),
-            *p_canvas,
-            dimension_type(width_type(42),
-            height_type(24)),
-            position_type(left_type(2), top_type(3))
-        );
+        view.set_vertical_scale(vertical_scale_type(42));
 
         BOOST_CHECK(view.vertical_scale() == vertical_scale_type(42));
 
-        view.set_vertical_scale(
-            vertical_scale_type(24),
-            *p_canvas,
-            dimension_type(width_type(42),
-            height_type(24)),
-            position_type(left_type(2), top_type(3))
-        );
+        view.set_vertical_scale(vertical_scale_type(24));
 
         BOOST_CHECK(view.vertical_scale() == vertical_scale_type(24));
     }
