@@ -155,8 +155,11 @@ namespace bobura
                         calculate_scroll_bar_position(
                             scroll_bar, view_size, previous_size, page_size, size - page_size + 1
                         );
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    if (new_position != scroll_bar.position())
+                    {
+                        scroll_bar.set_position(new_position);
+                        scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    }
                 }
             }
             else
@@ -164,8 +167,11 @@ namespace bobura
                 if (view_size <= page_size)
                 {
                     const scroll_bar_size_type new_position = 0;
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    if (new_position != scroll_bar.position())
+                    {
+                        scroll_bar.set_position(new_position);
+                        scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    }
                 }
 
                 scroll_bar.set_enabled(false);
