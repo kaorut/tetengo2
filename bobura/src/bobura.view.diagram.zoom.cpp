@@ -57,9 +57,7 @@ namespace bobura { namespace view { namespace diagram
         {
             m_diagram_view.set_horizontal_scale(scale);
             m_p_diagram_picture_box->update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
-                true
+                m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
         }
 
@@ -79,9 +77,7 @@ namespace bobura { namespace view { namespace diagram
         {
             m_diagram_view.set_vertical_scale(scale);
             m_p_diagram_picture_box->update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
-                true
+                m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
         }
 
