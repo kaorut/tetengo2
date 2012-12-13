@@ -46,6 +46,10 @@ namespace bobura
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
         typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
+            diagram_picture_box_type;
+
+        typedef
             boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
             main_window_message_type_list_type;
 
@@ -156,6 +160,23 @@ namespace bobura
 
         };
 
+        class call_update_scroll_bars
+        {
+        public:
+            call_update_scroll_bars(diagram_picture_box_type& diagram_picture_box)
+            :
+            m_diagram_picture_box(diagram_picture_box)
+            {}
+
+            void operator()(view_type& view)
+            {
+
+            }
+
+        private:
+            diagram_picture_box_type& m_diagram_picture_box;
+
+        };
 
         // variables
 
@@ -195,7 +216,9 @@ namespace bobura
             main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
-                >::type(main_window.diagram_picture_box(), view)
+                >::type(
+                    main_window.diagram_picture_box(), view, call_update_scroll_bars(main_window.diagram_picture_box())
+                )
             );
             assert(main_window.diagram_picture_box().vertical_scroll_bar());
             main_window.diagram_picture_box().vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(

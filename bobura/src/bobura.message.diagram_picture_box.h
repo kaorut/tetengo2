@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+#include <functional>
 
 #include <boost/rational.hpp>
 
@@ -385,19 +386,28 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The view type.
         typedef View view_type;
 
+        //! The update-scroll-bars function type.
+        typedef std::function<void (view_type&)> update_scroll_bars_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a paint observer of the picture box.
 
-            \param picture_box A picture box.
-            \param view        A view.
+            \param picture_box        A picture box.
+            \param view               A view.
+            \param update_scroll_bars An update-scroll-bars function.
         */
-        paint_paint(const picture_box_type& picture_box, view_type& view)
+        paint_paint(
+            const picture_box_type&        picture_box,
+            view_type&                     view,
+            const update_scroll_bars_type& update_scroll_bars
+        )
         :
         m_picture_box(picture_box),
-        m_view(view)
+        m_view(view),
+        m_update_scroll_bars(update_scroll_bars)
         {}
 
 
@@ -413,6 +423,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             assert(m_picture_box.vertical_scroll_bar());
             assert(m_picture_box.horizontal_scroll_bar());
+            m_update_scroll_bars(m_view);
             m_view.draw_on(
                 canvas,
                 m_picture_box.client_dimension(),
@@ -449,6 +460,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         const picture_box_type& m_picture_box;
 
         view_type& m_view;
+
+        const update_scroll_bars_type m_update_scroll_bars;
 
 
     };
