@@ -122,8 +122,9 @@ namespace bobura
         m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
-        m_station_header_width(8),
+        m_header_height(0),
         m_time_header_height(3),
+        m_station_header_width(8),
         m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
         m_station_positions()
@@ -269,8 +270,8 @@ namespace bobura
             width_type page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
             const height_type& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            const height_type& header_height_ = height_type::from(header_bottom()) + m_time_header_height;
-            height_type page_height = canvas_height > header_height_ ? canvas_height - header_height_ : height_type(0);
+            const height_type& header_height = m_header_height + m_time_header_height;
+            height_type page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -337,9 +338,11 @@ namespace bobura
 
         dimension_type m_dimension;
 
-        width_type m_station_header_width;
+        height_type m_header_height;
 
         height_type m_time_header_height;
+
+        width_type m_station_header_width;
 
         time_span_type m_time_offset;
 
@@ -372,6 +375,7 @@ namespace bobura
             }
 
             m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
+            m_header_height = tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension());
             m_p_time_line_list =
                 tetengo2::make_unique<time_line_list_type>(
                     m_model,
@@ -381,7 +385,7 @@ namespace bobura
                     m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
-                    header_bottom(),
+                    top_type::from(m_header_height),
                     m_time_header_height,
                     m_horizontal_scale,
                     m_vertical_scale
@@ -395,7 +399,7 @@ namespace bobura
                     m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
-                    header_bottom(),
+                    top_type::from(m_header_height),
                     m_time_header_height,
                     m_horizontal_scale,
                     m_vertical_scale,
@@ -410,7 +414,7 @@ namespace bobura
                     m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
-                    header_bottom(),
+                    top_type::from(m_header_height),
                     m_time_header_height,
                     m_horizontal_scale,
                     m_vertical_scale,
@@ -419,15 +423,6 @@ namespace bobura
                     m_message_catalog
                 )
             );
-        }
-
-        top_type header_bottom()
-        const
-        {
-            return
-                m_p_header ?
-                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension())) :
-                top_type(0);
         }
 
 
