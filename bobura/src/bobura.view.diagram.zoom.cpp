@@ -7,7 +7,6 @@
 */
 
 //#include <cassert>
-#include <memory>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>

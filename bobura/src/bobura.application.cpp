@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <cassert>
+
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 

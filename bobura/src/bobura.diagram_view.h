@@ -10,6 +10,7 @@
 #define BOBURA_DIAGRAMVIEW_H
 
 #include <algorithm>
+#include <cassert>
 //#include <iterator>
 //#include <memory>
 //#include <utility>
