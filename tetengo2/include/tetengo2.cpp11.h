@@ -360,7 +360,7 @@ namespace tetengo2 { namespace cpp11
 
 namespace tetengo2 { namespace cpp11
 {
-#if TETENGO2_CPP11_SHRINKTOFIT_SUPPORTED
+#if TETENGO2_CPP11_SHRINKTOFIT_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief Shrinks the container to fit.
 

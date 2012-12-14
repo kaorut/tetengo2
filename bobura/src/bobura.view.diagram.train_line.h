@@ -307,9 +307,21 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a train line.
 
-            \param train      A train.
-            \param train_kind A train kind.
-            \param down       Set true for a down train.
+            \param train                A train.
+            \param train_kind           A train kind.
+            \param down                 Set true for a down train.
+            \param time_offset          A time offet.
+            \param canvas               A canva.
+            \param canvas_dimension     A canvas dimension.
+            \param scroll_bar_position  A scroll bar position.
+            \param station_header_right A station header right position.
+            \param header_bottom        A header bottom position.
+            \param time_header_height   A time header height.
+            \param horizontal_scale     A horizontal scale.
+            \param vertical_scale       A vertical scale.
+            \param station_intervals    Station intervals.
+            \param station_positions    Station positions.
+            \param message_catalog      A mesage catalog.
         */
         train_line(
             const train_type&             train,
