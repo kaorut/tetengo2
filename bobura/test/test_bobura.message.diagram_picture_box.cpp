@@ -75,12 +75,6 @@ namespace
         scroll_bar_scrolled_type;
 
 
-    // functions
-
-    void call_update_scroll_bars(view_type& view)
-    {}
-
-
 }
 
 
@@ -158,7 +152,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
-        const paint_paint_type paint(picture_box, view, call_update_scroll_bars);
+        const paint_paint_type paint(picture_box, view);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -170,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
-        const paint_paint_type paint(picture_box, view, call_update_scroll_bars);
+        const paint_paint_type paint(picture_box, view);
 
         std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         paint(*p_canvas);
