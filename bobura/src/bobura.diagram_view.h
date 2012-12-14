@@ -114,10 +114,6 @@ namespace bobura
         */
         diagram_view(const model_type& model, const message_catalog_type& message_catalog)
         :
-        m_p_header(),
-        m_p_time_line_list(),
-        m_p_station_line_list(),
-        m_p_train_line_list(),
         m_model(model),
         m_message_catalog(message_catalog),
         m_horizontal_scale(1),
@@ -128,7 +124,11 @@ namespace bobura
         m_station_header_width(8),
         m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
-        m_station_positions()
+        m_station_positions(),
+        m_p_header(),
+        m_p_time_line_list(),
+        m_p_station_line_list(),
+        m_p_train_line_list()
         {}
 
 
@@ -321,14 +321,6 @@ namespace bobura
 
         // variables
 
-        std::unique_ptr<header_type> m_p_header;
-
-        std::unique_ptr<time_line_list_type> m_p_time_line_list;
-
-        std::unique_ptr<station_line_list_type> m_p_station_line_list;
-
-        std::unique_ptr<train_line_list_type> m_p_train_line_list;
-
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
@@ -350,6 +342,14 @@ namespace bobura
         station_intervals_type m_station_intervals;
 
         std::vector<top_type> m_station_positions;
+
+        std::unique_ptr<header_type> m_p_header;
+
+        std::unique_ptr<time_line_list_type> m_p_time_line_list;
+
+        std::unique_ptr<station_line_list_type> m_p_station_line_list;
+
+        std::unique_ptr<train_line_list_type> m_p_train_line_list;
 
 
         // functions

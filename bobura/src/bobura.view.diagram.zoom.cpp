@@ -58,6 +58,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
+            m_p_diagram_picture_box->repaint();
         }
 
         void horizontally_zoom_in(const bool snap_to_scale_list)
@@ -78,6 +79,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
+            m_p_diagram_picture_box->repaint();
         }
 
         void vertically_zoom_in(const bool snap_to_scale_list)
