@@ -44,8 +44,14 @@ extra_headers = \
     bobura.settings.h \
     bobura.timetable_model.h \
     bobura.type_list.h \
-    bobura.view.scale_list.h \
-    bobura.view.zoom.h
+    bobura.view.diagram.header.h \
+    bobura.view.diagram.item.h \
+    bobura.view.diagram.station_line.h \
+    bobura.view.diagram.time_line.h \
+    bobura.view.diagram.train_line.h \
+    bobura.view.diagram.utility.h \
+    bobura.view.diagram.zoom.h \
+    bobura.view.scale_list.h
 
 extra_sources = \
     bobura.application.cpp \
@@ -66,7 +72,7 @@ extra_sources = \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
     bobura.main_window_menu_builder.cpp \
-    bobura.view.zoom.cpp \
+    bobura.view.diagram.zoom.cpp \
     main.cpp
 
 EXTRA_DIST = $(extra_headers) $(extra_sources)

@@ -27,6 +27,12 @@ sources = \
     test_bobura.message.timetable_model_observer_set.cpp \
     test_bobura.settings.cpp \
     test_bobura.timetable_model.cpp \
+    test_bobura.view.diagram.header.cpp \
+    test_bobura.view.diagram.item.cpp \
+    test_bobura.view.diagram.station_line.cpp \
+    test_bobura.view.diagram.time_line.cpp \
+    test_bobura.view.diagram.train_line.cpp \
+    test_bobura.view.diagram.utility.cpp \
     test_bobura.view.scale_list.cpp
 
 extra_sources =

@@ -134,8 +134,14 @@
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.timetable_model.h" />
     <ClInclude Include="src\bobura.type_list.h" />
+    <ClInclude Include="src\bobura.view.diagram.header.h" />
+    <ClInclude Include="src\bobura.view.diagram.item.h" />
+    <ClInclude Include="src\bobura.view.diagram.station_line.h" />
+    <ClInclude Include="src\bobura.view.diagram.time_line.h" />
+    <ClInclude Include="src\bobura.view.diagram.train_line.h" />
+    <ClInclude Include="src\bobura.view.diagram.utility.h" />
+    <ClInclude Include="src\bobura.view.diagram.zoom.h" />
     <ClInclude Include="src\bobura.view.scale_list.h" />
-    <ClInclude Include="src\bobura.view.zoom.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\win32\bobura.rc" />
@@ -170,7 +176,7 @@
     <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
-    <ClCompile Include="src\bobura.view.zoom.cpp" />
+    <ClCompile Include="src\bobura.view.diagram.zoom.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>

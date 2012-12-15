@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <cassert>
+
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
@@ -44,6 +46,10 @@ namespace bobura
         typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
+
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
+            diagram_picture_box_type;
 
         typedef
             boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
@@ -195,6 +201,28 @@ namespace bobura
             main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
+                >::type(main_window.diagram_picture_box(), view)
+            );
+            assert(main_window.diagram_picture_box().vertical_scroll_bar());
+            main_window.diagram_picture_box().vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(main_window.diagram_picture_box(), view)
+            );
+            main_window.diagram_picture_box().vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(main_window.diagram_picture_box(), view)
+            );
+            assert(main_window.diagram_picture_box().horizontal_scroll_bar());
+            main_window.diagram_picture_box().horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(main_window.diagram_picture_box(), view)
+            );
+            main_window.diagram_picture_box().horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(main_window.diagram_picture_box(), view)
             );
         }

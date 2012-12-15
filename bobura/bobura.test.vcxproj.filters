@@ -19,6 +19,9 @@
     <Filter Include="sources\test_bobura\view">
       <UniqueIdentifier>{ef97df1a-c90f-499c-b241-4f9b846a504d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura\view\diagram">
+      <UniqueIdentifier>{e17730fd-fc2c-46fa-8ca0-614174a26045}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -91,6 +94,24 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.font_color_dialog.cpp">
       <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.header.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.item.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.time_line.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.utility.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.station_line.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.diagram.train_line.cpp">
+      <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -236,7 +236,7 @@ namespace bobura { namespace message { namespace main_window
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
         */
-        window_resized(const view_type& view, abstract_window_type& window, diagram_picture_box_type& diagram_picture_box)
+        window_resized(view_type& view, abstract_window_type& window, diagram_picture_box_type& diagram_picture_box)
         :
         m_view(view),
         m_window(window),
@@ -255,10 +255,11 @@ namespace bobura { namespace message { namespace main_window
             m_diagram_picture_box.set_position_and_dimension(
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
-
+            m_view.update_dimension();
             m_diagram_picture_box.update_scroll_bars(
-                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension()), false
+                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension())
             );
+            m_diagram_picture_box.repaint();
         }
 
 
@@ -276,7 +277,7 @@ namespace bobura { namespace message { namespace main_window
 
         // variables
 
-        const view_type& m_view;
+        view_type& m_view;
 
         abstract_window_type& m_window;
 

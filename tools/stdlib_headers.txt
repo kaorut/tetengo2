@@ -466,6 +466,7 @@ boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_indirect_iterator                    boost/iterator/indirect_iterator.hpp
 boost::make_optional                             boost/optional.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
+boost::math::constants::pi                       boost/math/constants/constants.hpp
 boost::mpl::at                                   boost/mpl/at.hpp
 boost::mpl::begin                                boost/mpl/begin.hpp
 boost::mpl::clear                                boost/mpl/clear.hpp

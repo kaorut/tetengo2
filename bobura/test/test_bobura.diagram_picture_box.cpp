@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
         diagram_picture_box_type picture_box(window);
 
         picture_box.update_scroll_bars(
-            dimension_type(width_type(24), height_type(24)), dimension_type(width_type(42), width_type(42)), false
+            dimension_type(width_type(24), height_type(24)), dimension_type(width_type(42), width_type(42))
         );
     }
 

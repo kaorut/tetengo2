@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::view::zoom.
+    \brief The definition of bobura::view::diagram::zoom.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -14,11 +14,12 @@
 #include "bobura.type_list.h"
 
 #include <tetengo2.unique.h>
+#include <tetengo2.gui.measure.h>
 
-#include "bobura.view.zoom.h"
+#include "bobura.view.diagram.zoom.h"
 
 
-namespace bobura { namespace view
+namespace bobura { namespace view { namespace diagram
 {
     class zoom::impl : private boost::noncopyable
     {
@@ -54,12 +55,10 @@ namespace bobura { namespace view
         void set_horizontal_scale(const scale_type& scale)
         {
             m_diagram_view.set_horizontal_scale(scale);
-
             m_p_diagram_picture_box->update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
-                true
+                m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
+            m_p_diagram_picture_box->repaint();
         }
 
         void horizontally_zoom_in(const bool snap_to_scale_list)
@@ -77,12 +76,10 @@ namespace bobura { namespace view
         void set_vertical_scale(const scale_type& scale)
         {
             m_diagram_view.set_vertical_scale(scale);
-
             m_p_diagram_picture_box->update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
-                true
+                m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
+            m_p_diagram_picture_box->repaint();
         }
 
         void vertically_zoom_in(const bool snap_to_scale_list)
@@ -99,6 +96,19 @@ namespace bobura { namespace view
 
 
     private:
+        // types
+
+        typedef picture_box_type::fast_canvas_type canvas_type;
+
+        typedef picture_box_type::position_type position_type;
+
+        typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
         // static functions
 
         static scale_type larger(
@@ -132,6 +142,12 @@ namespace bobura { namespace view
 
             return smaller_scale;
         }
+
+        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
+        {
+            return position_type(left_type(left), top_type(top));
+        }
+
 
 
         // variables
@@ -183,4 +199,4 @@ namespace bobura { namespace view
     }
 
 
-}}
+}}}

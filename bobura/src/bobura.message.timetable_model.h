@@ -9,9 +9,11 @@
 #if !defined(BOBURA_MESSAGE_TIMETABLEMODEL_H)
 #define BOBURA_MESSAGE_TIMETABLEMODEL_H
 
-#include <memory>
+#include <cassert>
+//#include <utility>
 
 #include <boost/optional.hpp>
+#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
 
@@ -91,17 +93,8 @@ namespace bobura { namespace message { namespace timetable_model
         const
         {
             detail::set_main_window_title(m_timetable_model, m_main_window);
-            {
-                const std::unique_ptr<canvas_type> p_canvas(m_main_window.diagram_picture_box().create_fast_canvas());
-                m_diagram_view.update_and_recalculate_dimension(
-                    *p_canvas,
-                    m_main_window.diagram_picture_box().client_dimension(),
-                    to_position(
-                        m_main_window.diagram_picture_box().horizontal_scroll_bar()->tracking_position(),
-                        m_main_window.diagram_picture_box().vertical_scroll_bar()->tracking_position()
-                    )
-                );
-            }
+            m_diagram_view.update_dimension();
+            reset_scroll_bars(m_main_window.diagram_picture_box(), m_diagram_view);
             m_main_window.diagram_picture_box().repaint();
             m_main_window.window_observer_set().resized()();
         }
@@ -110,24 +103,43 @@ namespace bobura { namespace message { namespace timetable_model
     private:
         // types
 
-        typedef typename main_window_type::diagram_picture_box_type::base_type picture_box_type;
-        
-        typedef typename picture_box_type::fast_canvas_type canvas_type;
+        typedef typename diagram_view_type::dimension_type dimension_type;
 
-        typedef typename picture_box_type::position_type position_type;
+        typedef typename main_window_type::diagram_picture_box_type diagram_picture_box_type;
 
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+        typedef typename diagram_picture_box_type::scroll_bar_type scroll_bar_type;
 
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+        typedef typename scroll_bar_type::size_type scroll_bar_size_type;
 
 
         // static functions
 
-        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
+        static void reset_scroll_bars(diagram_picture_box_type& picture_box, const diagram_view_type& view)
         {
-            return position_type(left_type(left), top_type(top));
+            assert(picture_box.vertical_scroll_bar());
+            reset_scroll_bar(
+                *picture_box.vertical_scroll_bar(),
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(view.dimension()).value()
+                )
+            );
+
+            assert(picture_box.horizontal_scroll_bar());
+            reset_scroll_bar(
+                *picture_box.horizontal_scroll_bar(),
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::width(view.dimension()).value()
+                )
+            );
+
+            picture_box.update_scroll_bars(view.dimension(), view.page_size(picture_box.client_dimension()));
+        }
+
+        static void reset_scroll_bar(scroll_bar_type& scroll_bar, const scroll_bar_size_type size)
+        {
+            scroll_bar.set_range(std::make_pair<scroll_bar_size_type>(0, size));
+            scroll_bar.set_position(0);
+            scroll_bar.scroll_bar_observer_set().scrolled()(0);
         }
 
 
@@ -196,46 +208,13 @@ namespace bobura { namespace message { namespace timetable_model
         const
         {
             detail::set_main_window_title(m_timetable_model, m_main_window);
-            {
-                const std::unique_ptr<canvas_type> p_canvas(m_main_window.diagram_picture_box().create_fast_canvas());
-                m_diagram_view.update_and_recalculate_dimension(
-                    *p_canvas,
-                    m_main_window.diagram_picture_box().client_dimension(),
-                    to_position(
-                        m_main_window.diagram_picture_box().horizontal_scroll_bar()->tracking_position(),
-                        m_main_window.diagram_picture_box().vertical_scroll_bar()->tracking_position()
-                    )
-                );
-            }
-            m_main_window.diagram_picture_box().repaint();
+            m_diagram_view.update_dimension();
             m_main_window.window_observer_set().resized()();
+            m_main_window.diagram_picture_box().repaint();
         }
 
 
     private:
-        // types
-
-        typedef typename main_window_type::diagram_picture_box_type::base_type picture_box_type;
-        
-        typedef typename picture_box_type::fast_canvas_type canvas_type;
-
-        typedef typename picture_box_type::position_type position_type;
-
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
-
-
-        // static functions
-
-        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
-        {
-            return position_type(left_type(left), top_type(top));
-        }
-
-
         // variables
 
         const timetable_model_type& m_timetable_model;

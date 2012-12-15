@@ -42,7 +42,10 @@ namespace bobura
         typedef typename base_type::base_type control_type;
 
         //! The dimension type.
-        typedef typename control_type::dimension_type dimension_type;
+        typedef typename base_type::dimension_type dimension_type;
+
+        //! The scroll bar type.
+        typedef typename base_type::scroll_bar_type scroll_bar_type;
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
@@ -79,13 +82,8 @@ namespace bobura
 
             \param view_dimension A view dimension.
             \param page_dimension A page dimension.
-            \param zooming        True when zooming.
         */
-        void update_scroll_bars(
-            const dimension_type& view_dimension,
-            const dimension_type& page_dimension,
-            const bool            zooming
-        )
+        void update_scroll_bars(const dimension_type& view_dimension, const dimension_type& page_dimension)
         {
             assert(this->vertical_scroll_bar());
             assert(this->horizontal_scroll_bar());
@@ -95,16 +93,14 @@ namespace bobura
                 tetengo2::gui::dimension<dimension_type>::height(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
-                ),
-                zooming
+                )
             );
             update_scroll_bar(
                 *this->horizontal_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::width(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()
-                ),
-                zooming
+                )
             );
         }
 
@@ -115,8 +111,6 @@ namespace bobura
         typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
-        typedef typename control_type::scroll_bar_type scroll_bar_type;
 
         typedef typename scroll_bar_type::size_type scroll_bar_size_type;
 
@@ -130,36 +124,13 @@ namespace bobura
                     message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
                 >::type(*this)
             );
-            assert(this->vertical_scroll_bar());
-            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            assert(this->horizontal_scroll_bar());
-            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
-            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*this)
-            );
         }
 
         template <typename Size>
         void update_scroll_bar(
             scroll_bar_type&           scroll_bar,
             const Size&                view_size,
-            const scroll_bar_size_type page_size,
-            const bool                 zooming
+            const scroll_bar_size_type page_size
 
         )
         {
@@ -172,20 +143,24 @@ namespace bobura
                 scroll_bar.set_enabled(true);
                 scroll_bar.set_range(std::make_pair(0U, size));
                 scroll_bar.set_page_size(page_size);
+
                 if (scroll_bar.position() + page_size > size)
                 {
                     const scroll_bar_size_type new_position = size - page_size + 1;
                     scroll_bar.set_position(new_position);
                     scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
-                else if (zooming && previous_size > 0 && previous_size != view_size.value())
+                else if (previous_size > 0 && previous_size != view_size.value())
                 {
                     const scroll_bar_size_type new_position =
                         calculate_scroll_bar_position(
                             scroll_bar, view_size, previous_size, page_size, size - page_size + 1
                         );
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    if (new_position != scroll_bar.position())
+                    {
+                        scroll_bar.set_position(new_position);
+                        scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    }
                 }
             }
             else
@@ -193,9 +168,13 @@ namespace bobura
                 if (view_size <= page_size)
                 {
                     const scroll_bar_size_type new_position = 0;
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    if (new_position != scroll_bar.position())
+                    {
+                        scroll_bar.set_position(new_position);
+                        scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
+                    }
                 }
+
                 scroll_bar.set_enabled(false);
             }
         }
