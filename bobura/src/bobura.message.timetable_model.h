@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_TIMETABLEMODEL_H
 
 #include <cassert>
+//#include <utility>
 
 #include <boost/optional.hpp>
 #include <boost/rational.hpp>
