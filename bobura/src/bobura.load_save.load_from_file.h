@@ -228,35 +228,24 @@ namespace bobura { namespace load_save
         {
             typename file_open_dialog_type::file_filters_type filters;
 
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Timetable Files")),
-                    string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.dia"))
-                )
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Timetable Files")),
+                string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.dia"))
             );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
-                    string_type(TETENGO2_TEXT("btt"))
-                )
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
+                string_type(TETENGO2_TEXT("btt"))
             );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
-                    string_type(TETENGO2_TEXT("btt_bz2"))
-                )
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
+                string_type(TETENGO2_TEXT("btt_bz2"))
             );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:WinDIA Files")),
-                    string_type(TETENGO2_TEXT("dia"))
-                )
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:WinDIA Files")),
+                string_type(TETENGO2_TEXT("dia"))
             );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Files")),
-                    string_type(TETENGO2_TEXT("*"))
-                )
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Files")), string_type(TETENGO2_TEXT("*"))
             );
 
             return filters;
