@@ -39,7 +39,7 @@ namespace
     {
         file_open_dialog_type::file_filters_type filters;
 
-        filters.push_back(std::make_pair(string_type(TETENGO2_TEXT("All Files")), string_type(TETENGO2_TEXT("*.*"))));
+        filters.emplace_back(string_type(TETENGO2_TEXT("All Files")), string_type(TETENGO2_TEXT("*.*")));
 
         return filters;
     }
