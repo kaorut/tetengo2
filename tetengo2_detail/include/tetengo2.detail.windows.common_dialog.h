@@ -872,14 +872,14 @@ namespace tetengo2 { namespace detail { namespace windows
             labels.reserve(3);
 
             if (ok_button_label)
-                labels.push_back(boost::make_optional(encoder.encode(*ok_button_label)));
+                labels.emplace_back(encoder.encode(*ok_button_label));
             else
                 labels.push_back(boost::none);
 
             if (yes_no_button_labels)
             {
-                labels.push_back(boost::make_optional(encoder.encode(yes_no_button_labels->first)));
-                labels.push_back(boost::make_optional(encoder.encode(yes_no_button_labels->second)));
+                labels.emplace_back(encoder.encode(yes_no_button_labels->first));
+                labels.emplace_back(encoder.encode(yes_no_button_labels->second));
             }
             else
             {
