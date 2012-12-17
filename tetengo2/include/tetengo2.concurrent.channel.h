@@ -90,7 +90,7 @@ namespace tetengo2 { namespace concurrent
                 return;
             }
 
-            m_queue.push(boost::make_optional(queue_element_type(std::forward<V>(value))));
+            m_queue.emplace(queue_element_type(std::forward<V>(value)));
 
             m_condition_variable.notify_all();
         }
