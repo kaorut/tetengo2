@@ -132,14 +132,11 @@ namespace bobura
         /*!
             \brief Sets a company name.
 
-            \tparam S A string type.
-
             \param company_name A company name.
         */
-        template <typename S>
-        void set_company_name(S&& company_name)
+        void set_company_name(string_type company_name)
         {
-            m_company_name = std::forward<S>(company_name);
+            m_company_name = std::move(company_name);
             if (!m_p_company_name_text_box->destroyed())
                 m_p_company_name_text_box->set_text(m_company_name);
         }
@@ -158,14 +155,11 @@ namespace bobura
         /*!
             \brief Sets a line name.
 
-            \tparam S A string type.
-
             \param line_name A line name.
         */
-        template <typename S>
-        void set_line_name(S&& line_name)
+        void set_line_name(string_type line_name)
         {
-            m_line_name = std::forward<S>(line_name);
+            m_line_name = std::move(line_name);
             if (!m_p_line_name_text_box->destroyed())
                 m_p_line_name_text_box->set_text(m_line_name);
         }
@@ -184,14 +178,11 @@ namespace bobura
         /*!
             \brief Sets a note.
 
-            \tparam S A string type.
-
             \param note A note.
         */
-        template <typename S>
-        void set_note(S&& note)
+        void set_note(string_type note)
         {
-            m_note = std::forward<S>(note);
+            m_note = std::move(note);
             if (!m_p_note_text_box->destroyed())
                 m_p_note_text_box->set_text(m_note);
         }
@@ -210,14 +201,11 @@ namespace bobura
         /*!
             \brief Sets a file name.
 
-            \tparam S A string type.
-
             \param file_name A file name.
         */
-        template <typename S>
-        void set_file_name(S&& file_name)
+        void set_file_name(string_type file_name)
         {
-            m_file_name = std::forward<S>(file_name);
+            m_file_name = std::move(file_name);
             if (!m_p_file_name_text_box->destroyed())
                 m_p_file_name_text_box->set_text(m_file_name);
         }
