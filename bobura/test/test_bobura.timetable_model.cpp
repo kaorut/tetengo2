@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         {
             model_type model;
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
-            model.reset_timetable(std::move(p_timetable), model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
+            model.reset_timetable(std::move(p_timetable), string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(model.has_path());
         }
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         {
             model_type model;
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
-            model.reset_timetable(std::move(p_timetable), model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
+            model.reset_timetable(std::move(p_timetable), string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(model.path() == model_type::path_type(string_type(TETENGO2_TEXT("hoge"))));
         }

@@ -93,7 +93,7 @@ namespace bobura
         */
         void reset_timetable()
         {
-            reset_timetable_impl(tetengo2::make_unique<timetable_type>(), boost::optional<path_type>());
+            reset_timetable_impl(tetengo2::make_unique<timetable_type>(), boost::none);
         }
 
         /*!
@@ -105,23 +105,20 @@ namespace bobura
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
         {
-            reset_timetable_impl(std::move(p_timetable), boost::optional<path_type>());
+            reset_timetable_impl(std::move(p_timetable), boost::none);
         }
 
         /*!
             \brief Resets a timetable.
-
-            \tparam P A path type.
 
             \param p_timetable A unique pointer to a timetable.
             \param path        A path.
 
             \throw std::invalid_argument When p_timetable is NULL.
         */
-        template <typename P>
-        void reset_timetable(std::unique_ptr<timetable_type> p_timetable, P&& path)
+        void reset_timetable(std::unique_ptr<timetable_type> p_timetable, path_type path)
         {
-            reset_timetable_impl(std::move(p_timetable), boost::make_optional<path_type>(std::forward<P>(path)));
+            reset_timetable_impl(std::move(p_timetable), boost::make_optional(std::move(path)));
         }
 
         /*!
@@ -155,14 +152,11 @@ namespace bobura
         /*!
             \brief Sets a path.
 
-            \tparam P A path type.
-
             \param path A path.
         */
-        template <typename P>
-        void set_path(P&& path)
+        void set_path(path_type path)
         {
-            m_path = boost::make_optional(std::forward<path_type>(path));
+            m_path = boost::make_optional(std::move(path));
             m_changed = false;
 
             m_observer_set.reset()();
