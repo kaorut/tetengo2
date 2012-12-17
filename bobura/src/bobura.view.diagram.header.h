@@ -66,18 +66,18 @@ namespace bobura { namespace view { namespace diagram
             \param dimension         A dimension.
         */
         company_line_name_header(
-            string_type&&     company_line_name,
+            string_type       company_line_name,
             const font_type&  font,
             const color_type& color,
-            position_type&&   position,
-            dimension_type&&  dimension
+            position_type     position,
+            dimension_type    dimension
         )
         :
-        m_company_line_name(std::forward<string_type>(company_line_name)),
+        m_company_line_name(std::move(company_line_name)),
         m_p_font(&font),
         m_p_color(&color),
-        m_position(std::forward<position_type>(position)),
-        m_dimension(std::forward<dimension_type>(dimension))
+        m_position(std::move(position)),
+        m_dimension(std::move(dimension))
         {}
 
         /*!
@@ -196,18 +196,18 @@ namespace bobura { namespace view { namespace diagram
             \param dimension A dimension.
         */
         note_header(
-            string_type&&     note,
+            string_type       note,
             const font_type&  font,
             const color_type& color,
-            position_type&&   position,
-            dimension_type&&  dimension
+            position_type     position,
+            dimension_type    dimension
         )
         :
-        m_note(std::forward<string_type>(note)),
+        m_note(std::move(note)),
         m_p_font(&font),
         m_p_color(&color),
-        m_position(std::forward<position_type>(position)),
-        m_dimension(std::forward<dimension_type>(dimension))
+        m_position(std::move(position)),
+        m_dimension(std::move(dimension))
         {}
 
         /*!
