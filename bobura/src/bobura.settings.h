@@ -44,18 +44,14 @@ namespace bobura
         /*!
             \brief Creates settings.
 
-            \tparam V A vector of string type.
-            \tparam P A path type.
-
             \param command_line_arguments Command line arguments.
             \param base_path              A base path.
         */
-        template <typename V, typename P>
-        settings(V&& command_line_arguments, P&& base_path)
+        settings(std::vector<string_type> command_line_arguments, path_type base_path)
         :
         m_options(make_options()),
-        m_option_values(make_option_values(m_options, std::forward<V>(command_line_arguments))),
-        m_base_path(std::forward<P>(base_path))
+        m_option_values(make_option_values(m_options, std::move(command_line_arguments))),
+        m_base_path(std::move(base_path))
         {}
 
 
@@ -127,7 +123,7 @@ namespace bobura
 
         static boost::program_options::variables_map make_option_values(
             const boost::program_options::options_description& options,
-            const std::vector<string_type>&                    command_line_arguments
+            const std::vector<string_type>                     command_line_arguments
         )
         {
             const boost::program_options::wparsed_options parsed_options =
