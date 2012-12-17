@@ -63,7 +63,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param scale A scale.
         */
-        void set_horizontal_scale(const scale_type& scale);
+        void set_horizontal_scale(scale_type scale);
 
         /*!
             \brief Hozirontally zoom in.
@@ -84,7 +84,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param scale A scale.
         */
-        void set_vertical_scale(const scale_type& scale);
+        void set_vertical_scale(scale_type scale);
 
         /*!
             \brief Vertically zoom in.

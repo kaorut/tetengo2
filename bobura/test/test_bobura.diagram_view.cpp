@@ -132,11 +132,11 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
 
-        view.set_horizontal_scale(horizontal_scale_type(42));
+        view.set_horizontal_scale(42);
 
         BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(42));
 
-        view.set_horizontal_scale(horizontal_scale_type(24));
+        view.set_horizontal_scale(24);
 
         BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(24));
     }
@@ -160,11 +160,11 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
 
-        view.set_vertical_scale(vertical_scale_type(42));
+        view.set_vertical_scale(42);
 
         BOOST_CHECK(view.vertical_scale() == vertical_scale_type(42));
 
-        view.set_vertical_scale(vertical_scale_type(24));
+        view.set_vertical_scale(24);
 
         BOOST_CHECK(view.vertical_scale() == vertical_scale_type(24));
     }

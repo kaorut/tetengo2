@@ -52,9 +52,9 @@ namespace bobura { namespace view { namespace diagram
 
         // functions
 
-        void set_horizontal_scale(const scale_type& scale)
+        void set_horizontal_scale(scale_type scale)
         {
-            m_diagram_view.set_horizontal_scale(scale);
+            m_diagram_view.set_horizontal_scale(std::move(scale));
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
@@ -73,9 +73,9 @@ namespace bobura { namespace view { namespace diagram
             set_horizontal_scale(smaller(m_diagram_view.horizontal_scale(), scale_list, snap_to_scale_list));
         }
 
-        void set_vertical_scale(const scale_type& scale)
+        void set_vertical_scale(scale_type scale)
         {
-            m_diagram_view.set_vertical_scale(scale);
+            m_diagram_view.set_vertical_scale(std::move(scale));
             m_p_diagram_picture_box->update_scroll_bars(
                 m_diagram_view.dimension(), m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension())
             );
@@ -168,9 +168,9 @@ namespace bobura { namespace view { namespace diagram
     zoom::~zoom()
     {}
 
-    void zoom::set_horizontal_scale(const scale_type& scale)
+    void zoom::set_horizontal_scale(scale_type scale)
     {
-        m_p_impl->set_horizontal_scale(scale);
+        m_p_impl->set_horizontal_scale(std::move(scale));
     }
 
     void zoom::horizontally_zoom_in(const bool snap_to_scale_list)
@@ -183,9 +183,9 @@ namespace bobura { namespace view { namespace diagram
         m_p_impl->horizontally_zoom_out(snap_to_scale_list);
     }
 
-    void zoom::set_vertical_scale(const scale_type& scale)
+    void zoom::set_vertical_scale(scale_type scale)
     {
-        m_p_impl->set_vertical_scale(scale);
+        m_p_impl->set_vertical_scale(std::move(scale));
     }
 
     void zoom::vertically_zoom_in(const bool snap_to_scale_list)
