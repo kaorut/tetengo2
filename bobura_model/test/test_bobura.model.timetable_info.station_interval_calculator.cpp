@@ -269,9 +269,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(1 * 60));
-                expected.push_back(time_span_type(2 * 60));
-                expected.push_back(time_span_type(3 * 60));
+                expected.emplace_back(1 * 60);
+                expected.emplace_back(2 * 60);
+                expected.emplace_back(3 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);
@@ -309,9 +309,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(1 * 60));
-                expected.push_back(time_span_type(1 * 60));
-                expected.push_back(time_span_type(1 * 60));
+                expected.emplace_back(1 * 60);
+                expected.emplace_back(1 * 60);
+                expected.emplace_back(1 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);
@@ -349,9 +349,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(1 * 60));
-                expected.push_back(time_span_type(2 * 60));
-                expected.push_back(time_span_type(2 * 60));
+                expected.emplace_back(1 * 60);
+                expected.emplace_back(2 * 60);
+                expected.emplace_back(2 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);
@@ -381,9 +381,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(4 * 60));
-                expected.push_back(time_span_type(4 * 60));
-                expected.push_back(time_span_type(4 * 60));
+                expected.emplace_back(4 * 60);
+                expected.emplace_back(4 * 60);
+                expected.emplace_back(4 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);
@@ -421,9 +421,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(3 * 60));
-                expected.push_back(time_span_type(2 * 60));
-                expected.push_back(time_span_type(2 * 60));
+                expected.emplace_back(3 * 60);
+                expected.emplace_back(2 * 60);
+                expected.emplace_back(2 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);
@@ -461,9 +461,9 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(time_span_type(5 * 60));
-                expected.push_back(time_span_type(4 * 60));
-                expected.push_back(time_span_type(4 * 60));
+                expected.emplace_back(5 * 60);
+                expected.emplace_back(4 * 60);
+                expected.emplace_back(4 * 60);
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
             BOOST_CHECK(intervals == expected);

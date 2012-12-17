@@ -52,7 +52,7 @@ namespace
         std::vector<parsed_structure_type>& parsed_structures
     )
     {
-        parsed_structures.push_back(std::make_pair(structure, boost::none));
+        parsed_structures.emplace_back(structure, boost::none);
     }
 
     void value_observer0(const push_parser_type::value_type& value)
@@ -63,9 +63,7 @@ namespace
         std::vector<parsed_structure_type>& parsed_structures
     )
     {
-        parsed_structures.push_back(
-            std::make_pair("value", boost::make_optional(value))
-        );
+        parsed_structures.emplace_back("value", boost::make_optional(value));
     }
 
 

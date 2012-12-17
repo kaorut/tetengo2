@@ -48,7 +48,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(NULL),
         m_parents()
         {
-            m_parents.push(parent_and_index_type(static_cast<menu_base_type*>(NULL), 0));
+            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
         }
 
         /*!
@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.push(parent_and_index_type(static_cast<menu_base_type*>(NULL), 0));
+            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
         }
 
 
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace menu
             if (m_parents.top().second < std::distance(m_p_menu->begin(), m_p_menu->end()))
             {
                 const menu_difference_type index = m_parents.top().second;
-                m_parents.push(parent_and_index_type(m_p_menu, 0));
+                m_parents.emplace(m_p_menu, 0);
                 m_p_menu = &*boost::next(m_p_menu->begin(), index);
                 return;
             }

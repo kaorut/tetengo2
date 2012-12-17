@@ -178,14 +178,14 @@ namespace bobura { namespace view
         {
             std::vector<scale_type> scales;
 
-            scales.push_back(scale_type(1, 10));
-            scales.push_back(scale_type(1, 4));
-            scales.push_back(scale_type(1, 2));
-            scales.push_back(scale_type(3, 4));
-            scales.push_back(scale_type(1));
-            scales.push_back(scale_type(3, 2));
-            scales.push_back(scale_type(2));
-            scales.push_back(scale_type(4));
+            scales.emplace_back(1, 10);
+            scales.emplace_back(1, 4);
+            scales.emplace_back(1, 2);
+            scales.emplace_back(3, 4);
+            scales.emplace_back(1);
+            scales.emplace_back(3, 2);
+            scales.emplace_back(2);
+            scales.emplace_back(4);
 
             assert(std::is_sorted(scales.begin(), scales.end(), std::less<scale_type>()));
             return scales;
@@ -195,14 +195,14 @@ namespace bobura { namespace view
         {
             std::vector<string_type> labels;
 
-            labels.push_back(string_type(TETENGO2_TEXT("10%")));
-            labels.push_back(string_type(TETENGO2_TEXT("25%")));
-            labels.push_back(string_type(TETENGO2_TEXT("50%")));
-            labels.push_back(string_type(TETENGO2_TEXT("75%")));
-            labels.push_back(string_type(TETENGO2_TEXT("100%")));
-            labels.push_back(string_type(TETENGO2_TEXT("150%")));
-            labels.push_back(string_type(TETENGO2_TEXT("200%")));
-            labels.push_back(string_type(TETENGO2_TEXT("400%")));
+            labels.emplace_back(TETENGO2_TEXT("10%"));
+            labels.emplace_back(TETENGO2_TEXT("25%"));
+            labels.emplace_back(TETENGO2_TEXT("50%"));
+            labels.emplace_back(TETENGO2_TEXT("75%"));
+            labels.emplace_back(TETENGO2_TEXT("100%"));
+            labels.emplace_back(TETENGO2_TEXT("150%"));
+            labels.emplace_back(TETENGO2_TEXT("200%"));
+            labels.emplace_back(TETENGO2_TEXT("400%"));
 
             assert(labels.size() == scales().size());
             return labels;
