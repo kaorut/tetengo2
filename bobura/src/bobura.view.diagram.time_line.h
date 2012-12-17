@@ -71,18 +71,18 @@ namespace bobura { namespace view { namespace diagram
             \param hours  Hours.
         */
         time_line(
-            left_type&&                       left,
-            const top_type&                   top,
-            const top_type&                   bottom,
-            size_type&&                       width,
-            boost::optional<time_tick_type>&& hours
+            left_type                       left,
+            const top_type&                 top,
+            const top_type&                 bottom,
+            size_type                       width,
+            boost::optional<time_tick_type> hours
         )
         :
-        m_left(std::forward<left_type>(left)),
+        m_left(std::move(left)),
         m_top(top),
         m_bottom(bottom),
-        m_width(std::forward<size_type>(width)),
-        m_hours(std::forward<boost::optional<time_tick_type>>(hours))
+        m_width(std::move(width)),
+        m_hours(std::move(hours))
         {}
 
         /*!
