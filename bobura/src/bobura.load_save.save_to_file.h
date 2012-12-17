@@ -11,7 +11,6 @@
 
 #include <ios>
 #include <memory>
-#include <utility>
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
