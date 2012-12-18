@@ -184,20 +184,20 @@ namespace
         p_timetable->set_line_name(string_type(TETENGO2_TEXT("fuga")));
         p_timetable->set_note(string_type(TETENGO2_TEXT("piyo")));
         {
-            const font_type font(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true);
-            const color_type color(0xAB, 0xCD, 0xEF);
+            font_type font(string_type(TETENGO2_TEXT("hogefont")), 42, false, true, false, true);
+            color_type color(0xAB, 0xCD, 0xEF);
             const font_color_type font_color(font, color);
 
             const font_color_set_type font_color_set(
-                color,
-                font_color,
+                std::move(color),
+                std::move(font_color),
                 font_color_set_type::default_().note(),
                 font_color_set_type::default_().time_line(),
                 font_color_set_type::default_().local_station(),
                 font_color_set_type::default_().principal_station(),
                 font_color_set_type::default_().local_terminal_station(),
                 font_color_set_type::default_().principal_terminal_station(),
-                font
+                std::move(font)
             );
 
             p_timetable->set_font_color_set(font_color_set);

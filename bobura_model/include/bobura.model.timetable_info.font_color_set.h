@@ -40,17 +40,13 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Creates a font and color.
 
-            \tparam F A font type.
-            \tparam C A color type.
-
             \param font  A font.
             \param color A color.
         */
-        template <typename F, typename C>
-        font_color(F&& font, C&& color)
+        font_color(font_type font, color_type color)
         :
-        m_font(std::forward<F>(font)),
-        m_color(std::forward<C>(color))
+        m_font(std::move(font)),
+        m_color(std::move(color))
         {}
 
 
@@ -144,16 +140,6 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Creates a font and color set.
 
-            \tparam C   A color type.
-            \tparam FC1 A font and color type #1.
-            \tparam FC2 A font and color type #2.
-            \tparam FC3 A font and color type #3.
-            \tparam FC4 A font and color type #4.
-            \tparam FC5 A font and color type #5.
-            \tparam FC6 A font and color type #6.
-            \tparam FC7 A font and color type #7.
-            \tparam F   A font type.
-
             \param background                 A color for the background.
             \param company_line_name          A font and color for the company and line names.
             \param note                       A font and color for the note.
@@ -164,38 +150,27 @@ namespace bobura { namespace model { namespace timetable_info
             \param principal_terminal_station A font and color for the principal terminal station.
             \param train_name                 A font for the train name.
         */
-        template <
-            typename C,
-            typename FC1,
-            typename FC2,
-            typename FC3,
-            typename FC4,
-            typename FC5,
-            typename FC6,
-            typename FC7,
-            typename F
-        >
         font_color_set(
-            C&&   background,
-            FC1&& company_line_name,
-            FC2&& note,
-            FC3&& time_line,
-            FC4&& local_station,
-            FC5&& principal_station,
-            FC6&& local_terminal_station,
-            FC7&& principal_terminal_station,
-            F&&   train_name
+            color_type      background,
+            font_color_type company_line_name,
+            font_color_type note,
+            font_color_type time_line,
+            font_color_type local_station,
+            font_color_type principal_station,
+            font_color_type local_terminal_station,
+            font_color_type principal_terminal_station,
+            font_type       train_name
         )
         :
-        m_background(std::forward<C>(background)),
-        m_company_line_name(std::forward<FC1>(company_line_name)),
-        m_note(std::forward<FC2>(note)),
-        m_time_line(std::forward<FC3>(time_line)),
-        m_local_station(std::forward<FC4>(local_station)),
-        m_principal_station(std::forward<FC5>(principal_station)),
-        m_local_terminal_station(std::forward<FC6>(local_terminal_station)),
-        m_principal_terminal_station(std::forward<FC7>(principal_terminal_station)),
-        m_train_name(std::forward<F>(train_name))
+        m_background(std::move(background)),
+        m_company_line_name(std::move(company_line_name)),
+        m_note(std::move(note)),
+        m_time_line(std::move(time_line)),
+        m_local_station(std::move(local_station)),
+        m_principal_station(std::move(principal_station)),
+        m_local_terminal_station(std::move(local_terminal_station)),
+        m_principal_terminal_station(std::move(principal_terminal_station)),
+        m_train_name(std::move(train_name))
         {}
 
 
@@ -329,8 +304,8 @@ namespace bobura { namespace model { namespace timetable_info
 
         static font_color_set make_default()
         {
-            const font_type default_font = font_type::dialog_font();
-            const font_type default_line_name_font(
+            font_type default_font = font_type::dialog_font();
+            font_type default_line_name_font(
                 default_font.family(),
                 default_font.size() * 2,
                 default_font.bold(),
@@ -339,31 +314,33 @@ namespace bobura { namespace model { namespace timetable_info
                 default_font.strikeout()
             );
 
-            const color_type default_back_color(0xF8, 0xFF, 0xF0);
+            color_type default_back_color(0xF8, 0xFF, 0xF0);
 
-            const font_color_type default_line_name_font_color(default_line_name_font, color_type(0x40, 0x40, 0x40));
-            const font_color_type default_note_font_color(default_font, color_type(0x40, 0x40, 0x40));
-            const font_color_type default_time_line_font_color(default_font, color_type(0x80, 0x80, 0x80));
-            const font_color_type default_local_station_font_color(default_font, color_type(0xA0, 0xA0, 0xA0));
-            const font_color_type default_principal_station_font_color(default_font, color_type(0x40, 0x40, 0xA0));
-            const font_color_type default_local_terminal_station_font_color(
+            font_color_type default_line_name_font_color(
+                std::move(default_line_name_font), color_type(0x40, 0x40, 0x40)
+            );
+            font_color_type default_note_font_color(default_font, color_type(0x40, 0x40, 0x40));
+            font_color_type default_time_line_font_color(default_font, color_type(0x80, 0x80, 0x80));
+            font_color_type default_local_station_font_color(default_font, color_type(0xA0, 0xA0, 0xA0));
+            font_color_type default_principal_station_font_color(default_font, color_type(0x40, 0x40, 0xA0));
+            font_color_type default_local_terminal_station_font_color(
                 default_font, color_type(0xA0, 0x40, 0x40)
             );
-            const font_color_type default_principal_terminal_station_font_color(
+            font_color_type default_principal_terminal_station_font_color(
                 default_font, color_type(0x00, 0x00, 0x00)
             );
 
             return
                 font_color_set(
-                    default_back_color,
-                    default_line_name_font_color,
-                    default_note_font_color,
-                    default_time_line_font_color,
-                    default_local_station_font_color,
-                    default_principal_station_font_color,
-                    default_local_terminal_station_font_color,
-                    default_principal_terminal_station_font_color,
-                    default_font
+                    std::move(default_back_color),
+                    std::move(default_line_name_font_color),
+                    std::move(default_note_font_color),
+                    std::move(default_time_line_font_color),
+                    std::move(default_local_station_font_color),
+                    std::move(default_principal_station_font_color),
+                    std::move(default_local_terminal_station_font_color),
+                    std::move(default_principal_terminal_station_font_color),
+                    std::move(default_font)
                 );
         }
 
