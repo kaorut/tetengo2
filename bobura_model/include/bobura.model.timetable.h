@@ -148,14 +148,11 @@ namespace bobura { namespace model
         /*!
             \brief Sets a company name.
 
-            \tparam S A string type.
-
             \param company_name A company name.
         */
-        template <typename S>
-        void set_company_name(S&& company_name)
+        void set_company_name(string_type company_name)
         {
-            m_company_name = std::forward<S>(company_name);
+            m_company_name = std::move(company_name);
 
             m_observer_set.changed()();
         }
@@ -174,14 +171,11 @@ namespace bobura { namespace model
         /*!
             \brief Sets a line name.
 
-            \tparam S A string type.
-
             \param line_name A line name.
         */
-        template <typename S>
-        void set_line_name(S&& line_name)
+        void set_line_name(string_type line_name)
         {
-            m_line_name = std::forward<S>(line_name);
+            m_line_name = std::move(line_name);
 
             m_observer_set.changed()();
         }
@@ -200,14 +194,11 @@ namespace bobura { namespace model
         /*!
             \brief Sets a note.
 
-            \tparam S A string type.
-
             \param note A note.
         */
-        template <typename S>
-        void set_note(S&& note)
+        void set_note(string_type note)
         {
-            m_note = std::forward<S>(note);
+            m_note = std::move(note);
 
             m_observer_set.changed()();
         }
@@ -231,18 +222,15 @@ namespace bobura { namespace model
             It also inserts a stop to the every train with uninitialized arrival and departure time and an empty
             platform, so that the count of the station locations coincides with the one of the every train stop.
 
-            \tparam SL A station location type.
-
             \param position         A position where a station location is inserted.
             \param station_location A station location.
 
             \throw std::invalid_argument When the station locations are not sequenced in ascending order after the
                                          insertion.
         */
-        template <typename SL>
         void insert_station_location(
             const typename station_locations_type::const_iterator position,
-            SL&&                                                  station_location
+            station_location_type                                 station_location
         )
         {
             if (!can_insert_to(position, station_location))
@@ -251,7 +239,7 @@ namespace bobura { namespace model
             const difference_type offset =
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), position);
 
-            m_station_locations.insert(to_mutable(position, m_station_locations), std::forward<SL>(station_location));
+            m_station_locations.insert(to_mutable(position, m_station_locations), std::move(station_location));
 
             std::for_each(
                 m_down_trains.begin(),
@@ -377,22 +365,19 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a train kind.
 
-            \tparam TK A train kind type.
-
             \param position   A position where a train kind is inserted.
             \param train_kind A train kind.
         */
-        template <typename TK>
         void insert_train_kind(
             const typename train_kinds_type::const_iterator position,
-            TK&&                                            train_kind
+            train_kind_type                                 train_kind
         )
         {
             const train_kind_index_type inserted_index =
                 std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
 
             m_train_kinds.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::forward<TK>(train_kind)
+                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::move(train_kind)
             );
 
             std::for_each(
@@ -412,15 +397,12 @@ namespace bobura { namespace model
         /*!
             \brief Sets a train kind.
 
-            \tparam TK A train kind type.
-
             \param position   A position where a train kind is inserted.
             \param train_kind A train kind.
         */
-        template <typename TK>
         void set_train_kind(
             const typename train_kinds_type::const_iterator position,
-            TK&&                                            train_kind
+            train_kind_type                                 train_kind
         )
         {
             typename train_kinds_type::iterator mutable_position = m_train_kinds.begin();
@@ -429,7 +411,7 @@ namespace bobura { namespace model
                 std::distance(static_cast<typename train_kinds_type::const_iterator>(m_train_kinds.begin()), position)
             );
 
-            *mutable_position = std::forward<TK>(train_kind);
+            *mutable_position = std::move(train_kind);
 
             m_observer_set.changed();
         }
@@ -494,8 +476,6 @@ namespace bobura { namespace model
 
             The count of train stops must coincide with the one of the station locations.
 
-            \tparam T A train type.
-
             \param position A position where a down train is inserted.
             \param train    A down train.
 
@@ -503,18 +483,15 @@ namespace bobura { namespace model
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
-        template <typename T>
-        void insert_down_train(const typename trains_type::const_iterator position, T&& train)
+        void insert_down_train(const typename trains_type::const_iterator position, train_type train)
         {
-            insert_train_impl(m_down_trains, position, std::forward<T>(train));
+            insert_train_impl(m_down_trains, position, std::move(train));
         }
 
         /*!
             \brief Inserts a up train.
 
             The count of train stops must coincide with the one of the station locations.
-
-            \tparam T A train type.
 
             \param position A position where a up train is inserted.
             \param train    A up train.
@@ -523,10 +500,9 @@ namespace bobura { namespace model
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
-        template <typename T>
-        void insert_up_train(const typename trains_type::const_iterator position, T&& train)
+        void insert_up_train(const typename trains_type::const_iterator position, train_type train)
         {
-            insert_train_impl(m_up_trains, position, std::forward<T>(train));
+            insert_train_impl(m_up_trains, position, std::move(train));
         }
 
         /*!
@@ -571,14 +547,11 @@ namespace bobura { namespace model
         /*!
             \brief Sets a font and color set.
 
-            \tparam FCS A font color set type.
-
             \param font_color_set A font color set.
         */
-        template <typename FCS>
-        void set_font_color_set(FCS&& font_color_set)
+        void set_font_color_set(font_color_set_type font_color_set)
         {
-            m_font_color_set = std::forward<FCS>(font_color_set);
+            m_font_color_set = std::move(font_color_set);
 
             m_observer_set.changed()();
         }
@@ -708,8 +681,11 @@ namespace bobura { namespace model
             return true;
         }
 
-        template <typename T>
-        void insert_train_impl(trains_type& trains, const typename trains_type::const_iterator position, T&& train)
+        void insert_train_impl(
+            trains_type&                               trains,
+            const typename trains_type::const_iterator position,
+            train_type                                 train
+        )
         {
             if (train.kind_index() >= m_train_kinds.size())
             {
@@ -726,7 +702,7 @@ namespace bobura { namespace model
                 );
             }
 
-            trains.insert(to_mutable(position, trains), std::forward<T>(train));
+            trains.insert(to_mutable(position, trains), std::move(train));
 
             m_observer_set.changed()();
         }
