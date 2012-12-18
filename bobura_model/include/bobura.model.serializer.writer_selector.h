@@ -58,19 +58,16 @@ namespace bobura { namespace model { namespace serializer
             When no writer selects the file type, the first writer of
             p_writers is used.
 
-            \tparam P A path type.
-
             \param p_writers Unique pointers to writers.
             \param path      A path.
 
             \throw std::invalid_argument When the count of the writers is
                                          empty.
         */
-        template <typename P>
-        writer_selector(std::vector<std::unique_ptr<base_type>> p_writers, P&& path)
+        writer_selector(std::vector<std::unique_ptr<base_type>> p_writers, path_type path)
         :
         m_p_writers(std::move(p_writers)),
-        m_path(std::forward<P>(path))
+        m_path(std::move(path))
         {
             if (m_p_writers.empty())
                 BOOST_THROW_EXCEPTION(std::invalid_argument("No writer is specified."));
