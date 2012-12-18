@@ -247,11 +247,11 @@ namespace bobura { namespace model { namespace serializer
                 std::size_t index;
                 std::vector<string_type> values;
 
-                split_type(string_type&& key, const std::size_t index, std::vector<string_type>&& values)
+                split_type(string_type key, const std::size_t index, std::vector<string_type> values)
                 :
-                key(std::forward<string_type>(key)),
+                key(std::move(key)),
                 index(index),
-                values(std::forward<std::vector<string_type>>(values))
+                values(std::move(values))
                 {}
 
             };
@@ -424,7 +424,7 @@ namespace bobura { namespace model { namespace serializer
                 return std::make_pair(line.substr(0, percent_position), line.substr(percent_position + 1));
             }
 
-            virtual void insert_train(train_type&& train)
+            virtual void insert_train(train_type train)
             = 0;
 
             boost::optional<train_kind_index_type> to_train_kind_index(const string_type& train_kind_string)
@@ -488,10 +488,10 @@ namespace bobura { namespace model { namespace serializer
                 return boost::make_optional<train_kind_index_type>(m_timetable.train_kinds().size() - 1);
             }
 
-            boost::optional<stop_type> to_stop(string_type&& time_string)
+            boost::optional<stop_type> to_stop(string_type time_string)
             {
                 const std::pair<string_type, string_type> arrival_and_departure_string =
-                    split_time_string(std::forward<string_type>(time_string));
+                    split_time_string(std::move(time_string));
 
                 boost::optional<time_type> arrival = to_time(arrival_and_departure_string.first);
                 if (!arrival)
@@ -503,11 +503,11 @@ namespace bobura { namespace model { namespace serializer
                 return stop_type(std::move(*arrival), std::move(*departure), string_type());
             }
 
-            std::pair<string_type, string_type> split_time_string(string_type&& time_string)
+            std::pair<string_type, string_type> split_time_string(string_type time_string)
             {
                 const std::size_t slash_position = time_string.find(TETENGO2_TEXT('/'));
                 if (slash_position == string_type::npos)
-                    return std::make_pair(string_type(), std::forward<string_type>(time_string));
+                    return std::make_pair(string_type(), std::move(time_string));
 
                 return std::make_pair(time_string.substr(0, slash_position), time_string.substr(slash_position + 1));
             }
@@ -564,10 +564,10 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type&& train)
+            virtual void insert_train(train_type train)
             {
                 train_state::m_timetable.insert_down_train(
-                    train_state::m_timetable.down_trains().end(), std::forward<train_type>(train)
+                    train_state::m_timetable.down_trains().end(), std::move(train)
                 );
             }
 
@@ -585,10 +585,10 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type&& train)
+            virtual void insert_train(train_type train)
             {
                 train_state::m_timetable.insert_up_train(
-                    train_state::m_timetable.up_trains().end(), std::forward<train_type>(train)
+                    train_state::m_timetable.up_trains().end(), std::move(train)
                 );
             }
 
@@ -602,14 +602,14 @@ namespace bobura { namespace model { namespace serializer
             typename line_style_type::enum_t line_style;
 
             preset_train_kind_type(
-                input_string_type&&                    name,
-                input_string_type&&                    abbreviation,
+                input_string_type                      name,
+                input_string_type                      abbreviation,
                 const typename weight_type::enum_t     weight,
                 const typename line_style_type::enum_t line_style
             )
             :
-            name(std::forward<input_string_type>(name)),
-            abbreviation(std::forward<input_string_type>(abbreviation)),
+            name(std::move(name)),
+            abbreviation(std::move(abbreviation)),
             weight(weight),
             line_style(line_style)
             {}
