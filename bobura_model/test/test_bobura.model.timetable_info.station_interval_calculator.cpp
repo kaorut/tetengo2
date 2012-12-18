@@ -111,11 +111,11 @@ namespace
 
     stop_type make_stop(const bool arrival, const time_tick_type hours, const time_tick_type minutes)
     {
-        const time_type time(hours, minutes, 0);
+        time_type time(hours, minutes, 0);
         return
             stop_type(
-                arrival ? time : time_type::uninitialized(),
-                arrival ? time_type::uninitialized() : time,
+                arrival ? std::move(time) : time_type::uninitialized(),
+                arrival ? time_type::uninitialized() : std::move(time),
                 string_type()
             );
     }

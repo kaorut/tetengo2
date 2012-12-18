@@ -40,19 +40,15 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a stop.
 
-            \tparam AT A time type.
-            \tparam S  A string type.
-
             \param arrival   An arrival time.
             \param departure A departure time.
             \param platform  A platform.
         */
-        template <typename AT, typename DT, typename S>
-        stop(AT&& arrival, DT&& departure, S&& platform)
+        stop(time_type arrival, time_type departure, string_type platform)
         :
-        m_arrival(std::forward<AT>(arrival)),
-        m_departure(std::forward<DT>(departure)),
-        m_platform(std::forward<S>(platform))
+        m_arrival(std::move(arrival)),
+        m_departure(std::move(departure)),
+        m_platform(std::move(platform))
         {}
 
 
