@@ -59,17 +59,13 @@ namespace tetengo2 { namespace text
         /*!
             \brief Creates an encoder.
 
-            \tparam IE An internal encoding type.
-            \tparam EE An external encoding type.
-
             \param internal_encoding An internal encoding.
             \param external_encoding An external encoding.
         */
-        template <typename IE, typename EE>
-        explicit encoder(IE&& internal_encoding, EE&& external_encoding)
+        explicit encoder(internal_encoding_type internal_encoding, external_encoding_type external_encoding)
         :
-        m_internal_encoding(std::forward<IE>(internal_encoding)),
-        m_external_encoding(std::forward<EE>(external_encoding))
+        m_internal_encoding(std::move(internal_encoding)),
+        m_external_encoding(std::move(external_encoding))
         {}
 
 
@@ -116,33 +112,27 @@ namespace tetengo2 { namespace text
         /*!
             \brief Encodes a string.
 
-            \tparam IS An internal string type.
-
             \param string A string
 
             \return An encoded string.
         */
-        template <typename IS>
-        external_string_type encode(IS&& string)
+        external_string_type encode(internal_string_type string)
         const
         {
-            return encode_impl(std::forward<IS>(string), m_internal_encoding, m_external_encoding);
+            return encode_impl(std::move(string), m_internal_encoding, m_external_encoding);
         }
 
         /*!
             \brief Decodes a string.
 
-            \tparam ES An external string type.
-
             \param string A string.
 
             \return A decoded string.
         */
-        template <typename ES>
-        internal_string_type decode(ES&& string)
+        internal_string_type decode(external_string_type string)
         const
         {
-            return decode_impl(std::forward<ES>(string), m_internal_encoding, m_external_encoding);
+            return decode_impl(std::move(string), m_internal_encoding, m_external_encoding);
         }
 
 
@@ -154,74 +144,74 @@ namespace tetengo2 { namespace text
 
         // static functions
 
-        template <typename IS, typename InternEnc, typename ExternEnc>
+        template <typename IE, typename EE>
         static external_string_type encode_impl(
-            IS&&             string,
-            const InternEnc& internal_encoding,
-            const ExternEnc& external_encoding,
-            const typename std::enable_if<std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
+            internal_string_type&& string,
+            const IE&              internal_encoding,
+            const EE&              external_encoding,
+            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = NULL
         )
         {
-            return std::forward<IS>(string);
+            return std::move(string);
         }
 
-        template <typename IS, typename InternEnc, typename ExternEnc>
+        template <typename IE, typename EE>
         static external_string_type encode_impl(
-            IS&&             string,
-            const InternEnc& internal_encoding,
-            const ExternEnc& external_encoding,
-            const typename std::enable_if<!std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
+            internal_string_type&& string,
+            const IE&              internal_encoding,
+            const EE&              external_encoding,
+            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = NULL
         )
         {
-            return external_encoding.from_pivot(internal_encoding.to_pivot(std::forward<IS>(string)));
+            return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
         }
 
-        template <typename IS, typename Str, typename DE>
+        template <typename S, typename D>
         static external_string_type encode_impl(
-            IS&&                             string,
-            const encoding::locale<Str, DE>& internal_encoding,
-            const encoding::locale<Str, DE>& external_encoding
+            internal_string_type&&        string,
+            const encoding::locale<S, D>& internal_encoding,
+            const encoding::locale<S, D>& external_encoding
         )
         {
             if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
-                return std::forward<IS>(string);
+                return std::move(string);
             else
-                return external_encoding.from_pivot(internal_encoding.to_pivot(std::forward<IS>(string)));
+                return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
         }
 
-        template <typename ES, typename InternEnc, typename ExternEnc>
+        template <typename IE, typename EE>
         static internal_string_type decode_impl(
-            ES&&             string,
-            const InternEnc& internal_encoding,
-            const ExternEnc& external_encoding,
-            const typename std::enable_if<std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
+            external_string_type&& string,
+            const IE&              internal_encoding,
+            const EE&              external_encoding,
+            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = NULL
         )
         {
-            return std::forward<ES>(string);
+            return std::move(string);
         }
 
-        template <typename ES, typename InternEnc, typename ExternEnc>
+        template <typename IE, typename EE>
         static internal_string_type decode_impl(
-            ES&&             string,
-            const InternEnc& internal_encoding,
-            const ExternEnc& external_encoding,
-            const typename std::enable_if<!std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
+            external_string_type&& string,
+            const IE&              internal_encoding,
+            const EE&              external_encoding,
+            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = NULL
         )
         {
-            return internal_encoding.from_pivot(external_encoding.to_pivot(std::forward<ES>(string)));
+            return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));
         }
 
-        template <typename ES, typename Str, typename DE>
+        template <typename S, typename D>
         static internal_string_type decode_impl(
-            ES&&                             string,
-            const encoding::locale<Str, DE>& internal_encoding,
-            const encoding::locale<Str, DE>& external_encoding
+            external_string_type&&        string,
+            const encoding::locale<S, D>& internal_encoding,
+            const encoding::locale<S, D>& external_encoding
         )
         {
             if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
-                return std::forward<ES>(string);
+                return std::move(string);
             else
-                return internal_encoding.from_pivot(external_encoding.to_pivot(std::forward<ES>(string)));
+                return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));
         }
 
 
