@@ -56,28 +56,23 @@ namespace bobura { namespace model
         /*!
             \brief Creates a train kind.
 
-            \tparam S1 A string type #1.
-            \tparam S2 A string type #2.
-            \tparam C  A color type.
-
             \param name         A name.
             \param abbreviation An abbreviated name.
             \param color        A color.
             \param weight       A weight.
             \param line_style   A line style.
         */
-        template <typename S1, typename S2, typename C>
         train_kind(
-            S1&&                                   name,
-            S2&&                                   abbreviation,
-            C&&                                    color,
+            string_type                            name,
+            string_type                            abbreviation,
+            color_type                             color,
             const typename weight_type::enum_t     weight,
             const typename line_style_type::enum_t line_style
         )
         :
-        m_name(std::forward<S1>(name)),
-        m_abbreviation(std::forward<S2>(abbreviation)),
-        m_color(std::forward<C>(color)),
+        m_name(std::move(name)),
+        m_abbreviation(std::move(abbreviation)),
+        m_color(std::move(color)),
         m_weight(weight),
         m_line_style(line_style)
         {}
