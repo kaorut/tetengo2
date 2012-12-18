@@ -42,22 +42,19 @@ namespace bobura { namespace model
         /*!
             \brief Creates a station.
 
-            \tparam S A string type.
-
             \param name                     A name.
             \param grade                    A grade.
             \param shows_down_arrival_times True when the arrival times of down trains are shown.
             \param shows_up_arrival_times   True when the arrival times of up trains are shown.
         */
-        template <typename S>
         station(
-            S&& name,
+            string_type       name,
             const grade_type& grade,
-            const bool shows_down_arrival_times,
-            const bool shows_up_arrival_times
+            const bool        shows_down_arrival_times,
+            const bool        shows_up_arrival_times
         )
         :
-        m_name(std::forward<S>(name)),
+        m_name(std::move(name)),
         m_grade(grade),
         m_shows_down_arrival_times(shows_down_arrival_times),
         m_shows_up_arrival_times(shows_up_arrival_times)
