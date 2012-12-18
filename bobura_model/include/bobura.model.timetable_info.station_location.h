@@ -40,17 +40,13 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Creates a station location.
 
-            \tparam S A station type.
-            \tparam M A meterage type.
-
             \param station  A station.
             \param meterage A meterage.
         */
-        template <typename S, typename M>
-        station_location(S&& station, M&& meterage)
+        station_location(station_type station, meterage_type meterage)
         :
-        m_station(std::forward<S>(station)),
-        m_meterage(std::forward<M>(meterage))
+        m_station(std::move(station)),
+        m_meterage(std::move(meterage))
         {}
 
 

@@ -59,14 +59,12 @@ namespace
 
     // functions
 
-    station_location_type make_station_location(string_type&& name, meterage_type&& meterage)
+    station_location_type make_station_location(string_type name, meterage_type meterage)
     {
         return
             station_location_type(
-                station_type(
-                    std::forward<string_type>(name), grade_type_set_type::local_type::instance(), false, false
-                ),
-                std::forward<meterage_type>(meterage)
+                station_type(std::move(name), grade_type_set_type::local_type::instance(), false, false),
+                std::move(meterage)
             );
     }
 
