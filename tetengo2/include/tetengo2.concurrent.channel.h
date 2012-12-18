@@ -73,26 +73,13 @@ namespace tetengo2 { namespace concurrent
 
             The values inserted after a close() call are just discarded.
 
-            \tparam V A value type.
-
             \param value A value.
 
             \throw boost::thread_interrupted When the thread is interrupted.
         */
-        template <typename V>
-        void insert(V&& value)
+        void insert(value_type value)
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_insert, this));
-            if (can_take() && !m_queue.back())
-            {
-                m_condition_variable.notify_all();
-                return;
-            }
-
-            m_queue.emplace(queue_element_type(std::forward<V>(value)));
-
-            m_condition_variable.notify_all();
+            insert_impl(std::move(value));
         }
 
         /*!
@@ -106,7 +93,7 @@ namespace tetengo2 { namespace concurrent
         */
         void insert_exception(const boost::exception_ptr& p_exception)
         {
-            insert(p_exception);
+            insert_impl(p_exception);
         }
 
         /*!
@@ -222,6 +209,21 @@ namespace tetengo2 { namespace concurrent
         const
         {
             return !m_queue.empty() && !m_queue.front();
+        }
+
+        void insert_impl(queue_element_type value)
+        {
+            boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_insert, this));
+            if (can_take() && !m_queue.back())
+            {
+                m_condition_variable.notify_all();
+                return;
+            }
+
+            m_queue.emplace(queue_element_type(std::move(value)));
+
+            m_condition_variable.notify_all();
         }
 
         bool can_insert()
