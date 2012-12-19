@@ -130,8 +130,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const color_type color(12, 34, 56, 78);
-        canvas.set_color(color);
+        color_type color(12, 34, 56, 78);
+        canvas.set_color(std::move(color));
 
         BOOST_CHECK(canvas.color() == color);
     }
@@ -222,8 +222,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const font_type font(TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true);
-        canvas.set_font(font);
+        font_type font(TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true);
+        canvas.set_font(std::move(font));
 
         BOOST_CHECK(canvas.font() == font);
     }
