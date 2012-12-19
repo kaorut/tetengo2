@@ -182,15 +182,12 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Sets a range.
 
-            \tparam R A range type.
-
             \param details A detail implementation of a scroll bar.
             \param range   A range.
 
             \throw std::system_error When the scroll information cannot be set.
         */
-        template <typename R>
-        static void set_range(scroll_bar_details_type& details, R&& range)
+        static void set_range(scroll_bar_details_type& details, const range_type& range)
         {
             ::SCROLLINFO info = {};
             info.cbSize = sizeof(::SCROLLINFO);
