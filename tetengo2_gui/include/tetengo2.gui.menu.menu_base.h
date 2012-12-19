@@ -360,15 +360,12 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a menu base with a shortcut key.
 
-            \tparam S A string type.
-
             \param text      A text.
             \param p_details A unique pointer to a detail implementation.
         */
-        template <typename S>
-        menu_base(S&& text, details_ptr_type p_details)
+        menu_base(string_type text, details_ptr_type p_details)
         :
-        m_text(std::forward<S>(text)),
+        m_text(std::move(text)),
         m_enabled(true),
         m_state(state_type::default_),
         m_shortcut_key(),
@@ -382,20 +379,16 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a menu base without a shortcut key.
 
-            \tparam S  A string type.
-            \tparam SK A shortcut key type.
-
             \param text         A text.
             \param shortcut_key A shortcut key.
             \param p_details    A unique pointer to a detail implementation.
         */
-        template <typename S, typename SK>
-        menu_base(S&& text, SK&& shortcut_key, details_ptr_type p_details)
+        menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
         :
-        m_text(std::forward<S>(text)),
+        m_text(std::move(text)),
         m_enabled(true),
         m_state(state_type::default_),
-        m_shortcut_key(std::forward<SK>(shortcut_key)),
+        m_shortcut_key(std::move(shortcut_key)),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
         {
