@@ -37,20 +37,20 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef abstract_popup<traits_type, menu_details_type> base_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a popup menu.
 
-            \tparam S A string type.
-
             \param text A text.
         */
-        template <typename S>
-        explicit popup(S&& text)
+        explicit popup(string_type text)
         :
-        base_type(std::forward<S>(text), menu_details_type::create_popup_menu())
+        base_type(std::move(text), menu_details_type::create_popup_menu())
         {}
 
         /*!
