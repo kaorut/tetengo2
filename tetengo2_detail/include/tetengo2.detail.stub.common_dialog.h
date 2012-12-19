@@ -94,10 +94,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Creates a message box.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String1        A string type #1.
-            \tparam String2        A string type #2.
-            \tparam String3        A string type #3.
-            \tparam String4        A string type #4.
+            \tparam String         A string type.
             \tparam Encoder        An encoder type.
 
             \param parent                      A parent window.
@@ -113,24 +110,17 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a message box.
         */
-        template <
-            typename AbstractWindow,
-            typename String1,
-            typename String2,
-            typename String3,
-            typename String4,
-            typename Encoder
-        >
+        template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
             AbstractWindow&                                      parent,
-            String1&&                                            title,
-            String2&&                                            main_content,
-            String3&&                                            sub_content,
+            String                                               title,
+            String                                               main_content,
+            String                                               sub_content,
             const bool                                           cancellable,
             const typename message_box_button_style_type::enum_t button_style,
             const typename message_box_icon_style_type::enum_t   icon_style,
-            const boost::optional<String4>&                      custom_ok_button_label,
-            const boost::optional<std::pair<String4, String4>>&  custom_yes_no_button_labels,
+            boost::optional<String>                              custom_ok_button_label,
+            boost::optional<std::pair<String, String>>           custom_yes_no_button_labels,
             const Encoder&                                       encoder
         )
         {
@@ -171,8 +161,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
             AbstractWindow& parent,
-            String&&        title,
-            Filters&&       filters,
+            String          title,
+            const Filters&  filters,
             const Encoder&  encoder
         )
         {
@@ -222,11 +212,11 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
-            AbstractWindow& parent,
-            String&&        title,
-            OptionalPath&&  path,
-            Filters&&       filters,
-            const Encoder&  encoder
+            AbstractWindow&     parent,
+            String              title,
+            const OptionalPath& path,
+            const Filters&      filters,
+            const Encoder&      encoder
         )
         {
             return make_unique<file_save_dialog_details_type>();
@@ -271,9 +261,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename AbstractWindow, typename OptionalFont, typename Encoder>
         static font_dialog_details_ptr_type create_font_dialog(
-            AbstractWindow& parent,
-            OptionalFont&&  font,
-            const Encoder&  encoder
+            AbstractWindow&     parent,
+            const OptionalFont& font,
+            const Encoder&      encoder
         )
         {
             return make_unique<font_dialog_details_type>();
@@ -318,9 +308,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename AbstractWindow, typename OptionalColor, typename Encoder>
         static color_dialog_details_ptr_type create_color_dialog(
-            AbstractWindow& parent,
-            OptionalColor&& color,
-            const Encoder&  encoder
+            AbstractWindow&      parent,
+            const OptionalColor& color,
+            const Encoder&       encoder
         )
         {
             return make_unique<color_dialog_details_type>();
