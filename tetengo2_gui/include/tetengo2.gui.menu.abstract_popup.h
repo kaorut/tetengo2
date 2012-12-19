@@ -44,6 +44,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The shortcut key type.
         typedef typename base_type::shortcut_key_type shortcut_key_type;
 
