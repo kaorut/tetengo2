@@ -47,14 +47,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a picture reader.
 
-            \tparam P A path type.
-
             \param path A path.
         */
-        template <typename P>
-        explicit picture_reader(P&& path)
+        explicit picture_reader(path_type path)
         :
-        m_path(std::forward<P>(path))
+        m_path(std::move(path))
         {}
 
 
