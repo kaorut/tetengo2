@@ -126,14 +126,11 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a target.
 
-            \tparam S A string type.
-
             \param target a target.
         */
-        template <typename S>
-        void set_target(S&& target)
+        void set_target(string_type target)
         {
-            m_target = std::forward<S>(target);
+            m_target = std::move(target);
         }
 
 
