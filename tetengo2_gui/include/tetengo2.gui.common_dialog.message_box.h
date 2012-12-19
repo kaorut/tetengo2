@@ -63,21 +63,18 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             /*!
                 \brief Makes an OK button style with a custom label.
 
-                \tparam S A string type.
-
                 \param cancellable     Whether the message box is cancellable.
                 \param ok_button_label An OK button label.
 
                 \return A button style.
             */
-            template <typename S>
-            static button_style ok(const bool cancellable, S&& ok_button_label)
+            static button_style ok(const bool cancellable, string_type ok_button_label)
             {
                 return
                     button_style(
                         style_type::ok,
                         cancellable,
-                        boost::make_optional<string_type>(std::forward<S>(ok_button_label)),
+                        boost::make_optional(std::move(ok_button_label)),
                         boost::none
                     );
             }
@@ -97,28 +94,24 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             /*!
                 \brief Makes a OK button style with a custom label.
 
-                \tparam S1 A string type #1.
-                \tparam S2 A string type #2.
-
                 \param cancellable      Whether the message box is cancellable.
                 \param yes_button_label A Yes button label.
                 \param no_button_label  A No button label.
 
                 \return A button style.
             */
-            template <typename S1, typename S2>
-            static button_style yes_no(const bool cancellable, S1&& yes_button_label, S2&& no_button_label)
+            static button_style yes_no(
+                const bool  cancellable,
+                string_type yes_button_label,
+                string_type no_button_label
+            )
             {
                 return
                     button_style(
                         style_type::yes_no,
                         cancellable,
                         boost::none,
-                        boost::make_optional<std::pair<string_type, string_type>>(
-                            std::pair<string_type, string_type>(
-                                std::forward<S1>(yes_button_label), std::forward<S2>(no_button_label)
-                            )
-                        )
+                        boost::make_optional(std::make_pair(std::move(yes_button_label), std::move(no_button_label)))
                     );
             }
 
@@ -271,10 +264,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a message box.
 
-            \tparam S1 A string type #1.
-            \tparam S2 A string type #2.
-            \tparam S3 A string type #3.
-
             \param parent       A parent window.
             \param title        A title.
             \param main_content A main content.
@@ -282,12 +271,11 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param button_style A button style.
             \param icon_style   An icon style.
         */
-        template <typename S1, typename S2, typename S3>
         message_box(
             abstract_window_type&                  parent,
-            S1&&                                   title,
-            S2&&                                   main_content,
-            S3&&                                   sub_content,
+            string_type                            title,
+            string_type                            main_content,
+            string_type                            sub_content,
             const button_style_type&               button_style,
             const typename icon_style_type::enum_t icon_style
         )
@@ -295,9 +283,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         m_p_details(
             common_dialog_details_type::create_message_box(
                 parent,
-                std::forward<S1>(title),
-                std::forward<S2>(main_content),
-                std::forward<S3>(sub_content),
+                std::move(title),
+                std::move(main_content),
+                std::move(sub_content),
                 button_style.cancellable(),
                 to_details_button_style(button_style.style()),
                 to_details_icon_style(icon_style),
