@@ -60,8 +60,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             When family is not installed, the family of the dialog font is set instead.
 
-            \tparam S A string type.
-
             \param family    A family.
             \param size      A size.
             \param bold      Whether this font is bold.
@@ -69,9 +67,8 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param underline Whether this font is underlined.
             \param strikeout Whether this font is striked out.
         */
-        template <typename S>
         font(
-            S&&             family,
+            string_type     family,
             const size_type size,
             const bool      bold,
             const bool      italic,
@@ -79,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             const bool      strikeout
         )
         :
-        m_family(std::forward<S>(family)),
+        m_family(std::move(family)),
         m_size(size),
         m_bold(bold),
         m_italic(italic),

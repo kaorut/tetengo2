@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        font_type font(TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true);
+        font_type font(string_type(TETENGO2_TEXT("AnotherFont")), 42, true, true, true, true);
         canvas.set_font(std::move(font));
 
         BOOST_CHECK(canvas.font() == font);
