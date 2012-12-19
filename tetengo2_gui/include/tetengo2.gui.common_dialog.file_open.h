@@ -68,19 +68,15 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a file open dialog.
 
-            \tparam S  A string type.
-            \tparam FF A file filters type.
-
             \param title        A title.
             \param file_filters A file filters.
             \param parent       A parent widget.
         */
-        template <typename S, typename FF>
-        file_open(S&& title, FF&& file_filters, abstract_window_type& parent)
+        file_open(string_type title, file_filters_type file_filters, abstract_window_type& parent)
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(
-                parent, std::forward<S>(title), std::forward<FF>(file_filters), encoder()
+                parent, std::move(title), std::move(file_filters), encoder()
             )
         ),
         m_result()
