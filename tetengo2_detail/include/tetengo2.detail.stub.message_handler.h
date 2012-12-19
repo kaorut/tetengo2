@@ -57,7 +57,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -76,7 +76,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -95,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -114,7 +114,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -133,7 +133,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -152,7 +152,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -171,7 +171,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -190,7 +190,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -228,7 +228,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -247,7 +247,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
 

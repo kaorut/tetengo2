@@ -81,7 +81,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -263,7 +263,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -333,7 +333,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -379,7 +379,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -398,7 +398,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[message_handler_detail::custom_message_type::control_color].push_back(
                 TETENGO2_CPP11_BIND(
@@ -436,7 +436,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
@@ -466,7 +466,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -485,7 +485,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
         /*!
@@ -504,7 +504,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
@@ -534,7 +534,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+            message_handler_map_type map(std::move(initial_map));
 
             map[WM_ERASEBKGND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -572,7 +572,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            return std::move(initial_map);
         }
 
 
