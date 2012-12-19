@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::HWND first_child_handle;
 
             widget_details_type(
-                handle_type&&   handle,
+                handle_type     handle,
                 const ::WNDPROC window_procedure,
                 const ::HWND    first_child_handle
             )
@@ -982,10 +982,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the text cannot be set.
         */
         template <typename Widget, typename String, typename Encoder>
-        static void set_text(Widget& widget, String&& text, const Encoder& encoder)
+        static void set_text(Widget& widget, String text, const Encoder& encoder)
         {
             const ::BOOL result =
-                ::SetWindowTextW(widget.details()->handle.get(), encoder.encode(std::forward<String>(text)).c_str());
+                ::SetWindowTextW(widget.details()->handle.get(), encoder.encode(std::move(text)).c_str());
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1524,10 +1524,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the item cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        static void set_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
             erase_list_box_item(list_box, index);
-            insert_list_box_item(list_box, index, item, encoder);
+            insert_list_box_item(list_box, index, std::move(item), encoder);
         }
 
         /*!
@@ -1546,14 +1546,14 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the item cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
             const ::LRESULT result =
                 ::SendMessageW(
                     list_box.details()->handle.get(),
                     LB_INSERTSTRING,
                     index,
-                    reinterpret_cast< ::LPARAM>(encoder.encode(item).c_str())
+                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
                 );
             if (result == LB_ERR || result == LB_ERRSPACE)
             {

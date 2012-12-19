@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace stub
             {}
 
             details_font_type(
-                string_type&&     family,
+                string_type       family,
                 const std::size_t size,
                 const bool        bold,
                 const bool        italic,
@@ -71,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 const bool        strikeout
             )
             :
-            family(std::forward<string_type>(family)),
+            family(std::move(family)),
             size(size),
             bold(bold),
             italic(italic),
@@ -119,29 +119,29 @@ namespace tetengo2 { namespace detail { namespace stub
                 void* const                                 p_parent,
                 const bool                                  enabled,
                 const bool                                  visible,
-                std::pair<std::ptrdiff_t, std::ptrdiff_t>&& position,
-                std::pair<std::size_t, std::size_t>&&       dimension,
-                string_type&&                               text,
-                details_font_type&&                         font,
-                std::vector<void*>&&                        children,
+                std::pair<std::ptrdiff_t, std::ptrdiff_t>   position,
+                std::pair<std::size_t, std::size_t>         dimension,
+                string_type                                 text,
+                details_font_type                           font,
+                std::vector<void*>                          children,
                 const bool                                  focusable,
                 const bool                                  read_only,
-                std::vector<string_type>&&                  list_box_items,
-                boost::optional<std::size_t>&&              selected_list_box_item_index
+                std::vector<string_type>                    list_box_items,
+                boost::optional<std::size_t>                selected_list_box_item_index
             )
             :
             p_parent(p_parent),
             enabled(enabled),
             visible(visible),
-            position(std::forward<std::pair<std::ptrdiff_t, std::ptrdiff_t>>(position)),
-            dimension(std::forward<std::pair<std::size_t, std::size_t>>(dimension)),
-            text(std::forward<string_type>(text)),
-            font(std::forward<details_font_type>(font)),
-            children(std::forward<std::vector<void*>>(children)),
+            position(std::move(position)),
+            dimension(std::move(dimension)),
+            text(std::move(text)),
+            font(std::move(font)),
+            children(std::move(children)),
             focusable(focusable),
             read_only(read_only),
-            list_box_items(std::forward<std::vector<string_type>>(list_box_items)),
-            selected_list_box_item_index(std::forward<boost::optional<std::size_t>>(selected_list_box_item_index))
+            list_box_items(std::move(list_box_items)),
+            selected_list_box_item_index(std::move(selected_list_box_item_index))
             {}
 #endif
 
@@ -608,9 +608,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the text cannot be set.
         */
         template <typename Widget, typename String, typename Encoder>
-        static void set_text(Widget& widget, String&& text, const Encoder& encoder)
+        static void set_text(Widget& widget, String text, const Encoder& encoder)
         {
-            widget.details()->text = encoder.encode(text);
+            widget.details()->text = encoder.encode(std::move(text));
         }
 
         /*!
@@ -923,9 +923,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the item cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void set_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        static void set_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
-            list_box.details()->list_box_items[index] = encoder.encode(std::forward<String>(item));
+            list_box.details()->list_box_items[index] = encoder.encode(std::move(item));
         }
 
         /*!
@@ -944,11 +944,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the item cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String&& item, const Encoder& encoder)
+        static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
             list_box.details()->list_box_items.insert(
-                boost::next(list_box.details()->list_box_items.begin(), index),
-                encoder.encode(std::forward<String>(item))
+                boost::next(list_box.details()->list_box_items.begin(), index), encoder.encode(std::move(item))
             );
         }
 
