@@ -140,7 +140,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         control(
             const typename scroll_bar_style_type::enum_t scroll_bar_style,
-            message_handler_map_type                     message_handler_map,
+            message_handler_map_type&&                   message_handler_map,
             details_ptr_type                             p_details
         )
         :
