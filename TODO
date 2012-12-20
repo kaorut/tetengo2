@@ -22,12 +22,6 @@ Added on    : 2012/11/13
 Depends on  : (none)
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
-Number      : 00000205
-Added on    : 2012/12/18
-Depends on  : (none)
-Description : Replace to_mutable() to
-            : tetengo2::cpp11::as_insertion_iterator().
-------------------------------------------------------------------------------
 Number      : 00000206
 Added on    : 2012/12/18
 Depends on  : (none)
