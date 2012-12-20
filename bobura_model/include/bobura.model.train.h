@@ -15,6 +15,8 @@
 
 #include <boost/operators.hpp>
 
+#include <tetengo2.cpp11.h>
+
 
 namespace bobura { namespace model
 {
@@ -229,7 +231,7 @@ namespace bobura { namespace model
         */
         void insert_stop(const typename stops_type::const_iterator position, stop_type stop)
         {
-            m_stops.insert(to_mutable(position, m_stops), std::move(stop));
+            m_stops.insert(tetengo2::cpp11::as_insertion_iterator(m_stops, position), std::move(stop));
         }
 
         /*!
@@ -243,7 +245,10 @@ namespace bobura { namespace model
             const typename stops_type::const_iterator last
         )
         {
-            m_stops.erase(to_mutable(first, m_stops), to_mutable(last, m_stops));
+            m_stops.erase(
+                tetengo2::cpp11::as_insertion_iterator(m_stops, first),
+                tetengo2::cpp11::as_insertion_iterator(m_stops, last)
+            );
         }
 
 
@@ -261,22 +266,6 @@ namespace bobura { namespace model
         string_type m_note;
 
         stops_type m_stops;
-
-
-        // functions
-
-        template <typename Container>
-        typename Container::iterator to_mutable(
-            const typename Container::const_iterator const_iter,
-            Container&                               container
-        )
-        {
-            typename Container::iterator mutable_iter = container.begin();
-            std::advance(
-                mutable_iter, std::distance<typename Container::const_iterator>(container.begin(), const_iter)
-            );
-            return mutable_iter;
-        }
 
 
     };
