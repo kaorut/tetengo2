@@ -48,10 +48,10 @@ namespace
     public:
         typedef std::basic_string<output_stream_type::char_type> output_string_type;
 
-        explicit concrete_writer(path_type&& extension)
+        explicit concrete_writer(path_type extension)
         :
         writer_type(),
-        m_extension(std::forward<path_type>(extension))
+        m_extension(std::move(extension))
         {}
 
         virtual ~concrete_writer()

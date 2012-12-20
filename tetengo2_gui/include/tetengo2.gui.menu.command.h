@@ -37,6 +37,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The shortcut key type.
         typedef typename base_type::shortcut_key_type shortcut_key_type;
 
@@ -46,29 +49,22 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a menu command without a shortcut key.
 
-            \tparam S A string type.
-
             \param text A text.
         */
-        template <typename S>
-        explicit command(S&& text)
+        explicit command(string_type text)
         :
-        base_type(std::forward<S>(text), menu_details_type::create_menu())
+        base_type(std::move(text), menu_details_type::create_menu())
         {}
 
         /*!
             \brief Creates a menu command with a shortcut key.
 
-            \tparam S A string type.
-            \tparam SK A shortcut key type.
-
             \param text         A text.
             \param shortcut_key A shortcut key.
         */
-        template <typename S, typename SK>
-        command(S&& text, SK&& shortcut_key)
+        command(string_type text, shortcut_key_type shortcut_key)
         :
-        base_type(std::forward<S>(text), std::forward<SK>(shortcut_key), menu_details_type::create_menu())
+        base_type(std::move(text), std::move(shortcut_key), menu_details_type::create_menu())
         {}
 
         /*!

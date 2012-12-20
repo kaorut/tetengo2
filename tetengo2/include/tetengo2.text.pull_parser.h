@@ -84,17 +84,13 @@ namespace tetengo2 { namespace text
             /*!
                 \brief Creates a structure type.
 
-                \tparam S  A string type.
-                \tparam AM A attribute map type.
-
                 \param name          A name.
                 \param attribute_map A attribute map.
             */
-            template <typename S, typename AM>
-            structure(S&& name, AM&& attribute_map)
+            structure(string_type name, attribute_map_type attribute_map)
             :
-            m_name(std::forward<S>(name)),
-            m_attribute_map(std::forward<AM>(attribute_map))
+            m_name(std::move(name)),
+            m_attribute_map(std::move(attribute_map))
             {}
 
 

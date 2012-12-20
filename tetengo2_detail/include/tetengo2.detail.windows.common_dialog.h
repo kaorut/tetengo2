@@ -112,24 +112,24 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                                 parent_handle,
-                std::wstring&&                               title,
-                std::wstring&&                               main_content,
-                std::wstring&&                               sub_content,
-                const bool                                   cancellable,
-                const message_box_button_style_type::enum_t  button_style,
-                const message_box_icon_style_type::enum_t    icon_style,
-                std::vector<boost::optional<std::wstring>>&& custom_button_labels
+                const ::HWND                                parent_handle,
+                std::wstring                                title,
+                std::wstring                                main_content,
+                std::wstring                                sub_content,
+                const bool                                  cancellable,
+                const message_box_button_style_type::enum_t button_style,
+                const message_box_icon_style_type::enum_t   icon_style,
+                std::vector<boost::optional<std::wstring>>  custom_button_labels
             )
             :
             parent_handle(parent_handle),
-            title(std::forward<std::wstring>(title)),
-            main_content(std::forward<std::wstring>(main_content)),
-            sub_content(std::forward<std::wstring>(sub_content)),
+            title(std::move(title)),
+            main_content(std::move(main_content)),
+            sub_content(std::move(sub_content)),
             cancellable(cancellable),
             button_style(button_style),
             icon_style(icon_style),
-            custom_button_labels(std::forward<std::vector<boost::optional<std::wstring>>>(custom_button_labels))
+            custom_button_labels(std::move(custom_button_labels))
             {}
 
 #endif
@@ -149,18 +149,18 @@ namespace tetengo2 { namespace detail { namespace windows
             detail::native_filters_type native_filters;
 
             file_open_dialog_details_type(
-                detail::file_open_dialog_ptr_type&& p_dialog,
-                const ::HWND                        parent_handle,
-                std::wstring&&                      title,
-                std::wstring&&                      default_extension,
-                detail::native_filters_type&&       native_filters
+                detail::file_open_dialog_ptr_type p_dialog,
+                const ::HWND                      parent_handle,
+                std::wstring                      title,
+                std::wstring                      default_extension,
+                detail::native_filters_type       native_filters
             )
             :
             p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(std::forward<std::wstring>(title)),
-            default_extension(std::forward<std::wstring>(default_extension)),
-            native_filters(std::forward<detail::native_filters_type>(native_filters))
+            title(std::move(title)),
+            default_extension(std::move(default_extension)),
+            native_filters(std::move(native_filters))
             {}
 
 #endif
@@ -182,21 +182,21 @@ namespace tetengo2 { namespace detail { namespace windows
             std::size_t filter_index;
 
             file_save_dialog_details_type(
-                detail::file_save_dialog_ptr_type&& p_dialog,
-                const ::HWND                        parent_handle,
-                std::wstring&&                      title,
-                std::wstring&&                      path,
-                std::wstring&&                      default_extension,
-                detail::native_filters_type&&       native_filters,
-                const std::size_t                   filter_index
+                detail::file_save_dialog_ptr_type p_dialog,
+                const ::HWND                      parent_handle,
+                std::wstring                      title,
+                std::wstring                      path,
+                std::wstring                      default_extension,
+                detail::native_filters_type       native_filters,
+                const std::size_t                 filter_index
             )
             :
             p_dialog(std::move(p_dialog)),
             parent_handle(parent_handle),
-            title(std::forward<std::wstring>(title)),
-            path(std::forward<std::wstring>(path)),
-            default_extension(std::forward<std::wstring>(default_extension)),
-            native_filters(std::forward<detail::native_filters_type>(native_filters)),
+            title(std::move(title)),
+            path(std::move(path)),
+            default_extension(std::move(default_extension)),
+            native_filters(std::move(native_filters)),
             filter_index(filter_index)
             {}
 
@@ -252,10 +252,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a message box.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String1        A string type #1.
-            \tparam String2        A string type #2.
-            \tparam String3        A string type #3.
-            \tparam String4        A string type #4.
+            \tparam String         A string type.
             \tparam Encoder        An encoder type.
 
             \param parent                      A parent window.
@@ -271,37 +268,32 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A unique pointer to a message box.
         */
-        template <
-            typename AbstractWindow,
-            typename String1,
-            typename String2,
-            typename String3,
-            typename String4,
-            typename Encoder
-        >
+        template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
             AbstractWindow&                                      parent,
-            String1&&                                            title,
-            String2&&                                            main_content,
-            String3&&                                            sub_content,
+            String                                               title,
+            String                                               main_content,
+            String                                               sub_content,
             const bool                                           cancellable,
             const typename message_box_button_style_type::enum_t button_style,
             const typename message_box_icon_style_type::enum_t   icon_style,
-            const boost::optional<String4>&                      custom_ok_button_label,
-            const boost::optional<std::pair<String4, String4>>&  custom_yes_no_button_labels,
+            boost::optional<String>                              custom_ok_button_label,
+            boost::optional<std::pair<String, String>>           custom_yes_no_button_labels,
             const Encoder&                                       encoder
         )
         {
             return
                 make_unique<message_box_details_type>(
                     parent.details()->handle.get(),
-                    encoder.encode(std::forward<String1>(title)),
-                    encoder.encode(std::forward<String2>(main_content)),
-                    encoder.encode(std::forward<String3>(sub_content)),
+                    encoder.encode(std::move(title)),
+                    encoder.encode(std::move(main_content)),
+                    encoder.encode(std::move(sub_content)),
                     cancellable,
                     button_style,
                     icon_style,
-                    to_custom_button_labels(custom_ok_button_label, custom_yes_no_button_labels, encoder)
+                    to_custom_button_labels(
+                        std::move(custom_ok_button_label), std::move(custom_yes_no_button_labels), encoder
+                    )
                 );
         }
 
@@ -371,8 +363,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
             AbstractWindow& parent,
-            String&&        title,
-            Filters&&       filters,
+            String          title,
+            const Filters&  filters,
             const Encoder&  encoder
         )
         {
@@ -392,7 +384,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
                     parent.details()->handle.get(),
-                    encoder.encode(std::forward<String>(title)),
+                    encoder.encode(std::move(title)),
                     encoder.encode(to_default_extension(filters)),
                     to_native_filters(filters, encoder)
                 );
@@ -503,11 +495,11 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
-            AbstractWindow& parent,
-            String&&        title,
-            OptionalPath&&  path,
-            Filters&&       filters,
-            const Encoder&  encoder
+            AbstractWindow&     parent,
+            String              title,
+            const OptionalPath& path,
+            const Filters&      filters,
+            const Encoder&      encoder
         )
         {
             ::IFileSaveDialog* p_raw_dialog = NULL;
@@ -526,7 +518,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
                     parent.details()->handle.get(),
-                    encoder.encode(std::forward<String>(title)),
+                    encoder.encode(std::move(title)),
                     encoder.encode(to_native_path<String>(path)),
                     encoder.encode(to_default_extension(filters)),
                     to_native_filters(filters, encoder),
@@ -683,9 +675,9 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename AbstractWindow, typename OptionalFont, typename Encoder>
         static font_dialog_details_ptr_type create_font_dialog(
-            AbstractWindow& parent,
-            OptionalFont&&  font,
-            const Encoder&  encoder
+            AbstractWindow&     parent,
+            const OptionalFont& font,
+            const Encoder&      encoder
         )
         {
             std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONTW>();
@@ -805,9 +797,9 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename AbstractWindow, typename OptionalColor, typename Encoder>
         static color_dialog_details_ptr_type create_color_dialog(
-            AbstractWindow& parent,
-            OptionalColor&& color,
-            const Encoder&  encoder
+            AbstractWindow&      parent,
+            const OptionalColor& color,
+            const Encoder&       encoder
         )
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;

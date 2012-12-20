@@ -81,10 +81,11 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        const station_type station(string_type(), local_type::instance(), false, false);
-        const station_location_type station_location(station, 0);
+        const station_location_type station_location(
+            station_type(string_type(), local_type::instance(), false, false), 0
+        );
 
-        BOOST_CHECK(station_location.station() == station);
+        BOOST_CHECK(station_location.station() == station_type(string_type(), local_type::instance(), false, false));
     }
 
     BOOST_AUTO_TEST_CASE(meterage)

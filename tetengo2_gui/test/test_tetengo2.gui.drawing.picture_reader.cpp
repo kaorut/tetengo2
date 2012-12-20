@@ -7,6 +7,7 @@
 */
 
 //#include <memory>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -42,16 +43,16 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        const path_type path;
-        const picture_reader_type reader(path);
+        path_type path;
+        const picture_reader_type reader(std::move(path));
     }
 
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
 
-        const path_type path;
-        picture_reader_type reader(path);
+        path_type path;
+        picture_reader_type reader(std::move(path));
 
         const std::unique_ptr<picture_type> p_picture(reader.read());
     }

@@ -170,14 +170,11 @@ namespace bobura
         /*!
             \brief Sets a horizontal scale.
 
-            \tparam HS A horizontal scale type.
-
             \param scale A horizontal scale.
         */
-        template <typename HS>
-        void set_horizontal_scale(HS&& scale)
+        void set_horizontal_scale(horizontal_scale_type scale)
         {
-            m_horizontal_scale = std::forward<HS>(scale);
+            m_horizontal_scale = std::move(scale);
             update_dimension();
         }
 
@@ -195,14 +192,11 @@ namespace bobura
         /*!
             \brief Sets a vertical scale.
 
-            \tparam VS A vertical scale type.
-
             \param scale A vertical scale.
         */
-        template <typename VS>
-        void set_vertical_scale(VS&& scale)
+        void set_vertical_scale(vertical_scale_type scale)
         {
-            m_vertical_scale = std::forward<VS>(scale);
+            m_vertical_scale = std::move(scale);
             update_dimension();
         }
 

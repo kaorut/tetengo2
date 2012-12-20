@@ -59,14 +59,12 @@ namespace
 
     // functions
 
-    station_location_type make_station_location(string_type&& name, meterage_type&& meterage)
+    station_location_type make_station_location(string_type name, meterage_type meterage)
     {
         return
             station_location_type(
-                station_type(
-                    std::forward<string_type>(name), grade_type_set_type::local_type::instance(), false, false
-                ),
-                std::forward<meterage_type>(meterage)
+                station_type(std::move(name), grade_type_set_type::local_type::instance(), false, false),
+                std::move(meterage)
             );
     }
 
@@ -113,11 +111,11 @@ namespace
 
     stop_type make_stop(const bool arrival, const time_tick_type hours, const time_tick_type minutes)
     {
-        const time_type time(hours, minutes, 0);
+        time_type time(hours, minutes, 0);
         return
             stop_type(
-                arrival ? time : time_type::uninitialized(),
-                arrival ? time_type::uninitialized() : time,
+                arrival ? std::move(time) : time_type::uninitialized(),
+                arrival ? time_type::uninitialized() : std::move(time),
                 string_type()
             );
     }

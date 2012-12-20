@@ -138,19 +138,16 @@ namespace tetengo2 { namespace gui
             The range.first must be smaller than the range.second, and the position must be inside the range;
             i.e., range.first <= position() <= range.second.
 
-            \tparam R A range type.
-
             \param range A range.
 
             \throw std::out_of_range When the position is outside the range.
         */
-        template <typename R>
-        void set_range(R&& range)
+        void set_range(range_type range)
         {
             if (range.first > range.second)
                 BOOST_THROW_EXCEPTION(std::out_of_range("Reversed range is not allowed."));
 
-            details_type::set_range(*m_p_details, std::forward<R>(range));
+            details_type::set_range(*m_p_details, std::move(range));
         }
 
         /*!

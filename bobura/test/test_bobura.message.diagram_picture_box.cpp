@@ -31,8 +31,6 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
 
-    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_reader>::type picture_reader_type;
-
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;

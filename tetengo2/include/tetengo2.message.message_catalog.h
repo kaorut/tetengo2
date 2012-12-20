@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <locale>
-#include <type_traits>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -66,31 +65,34 @@ namespace tetengo2 { namespace message
             When no corresponding value to the key is found, it returns the key in which the namespace part is removed.
             Namespaces and the other are separated by colons (':').
 
-            \tparam S A string type.
-
             \param key A key.
 
             \return The localized text.
         */
-        template <typename S>
-        string_type get(S&& key, typename std::enable_if<std::is_convertible<S&&, string_type>::value>::type* = NULL)
+        string_type get(string_type key)
         const
         {
             if (!m_p_messages || m_catalog_id < 0)
                 return messages_type::remove_namespace(key);
 
-            return m_p_messages->get(m_catalog_id, 0, 0, key);
+            return m_p_messages->get(m_catalog_id, 0, 0, std::move(key));
         }
 
-#if !defined(DOCUMENTATION)
-        template <typename S>
-        string_type get(S&& key, typename std::enable_if<!std::is_convertible<S&&, string_type>::value>::type* = NULL)
+        /*!
+            \brief Returns the localized text.
+
+            When no corresponding value to the key is found, it returns the key in which the namespace part is removed.
+            Namespaces and the other are separated by colons (':').
+
+            \param p_key A pointer to a key.
+
+            \return The localized text.
+        */
+        string_type get(const typename string_type::value_type* const p_key)
         const
         {
-            return get(string_type(std::forward<S>(key)));
+            return get(string_type(p_key));
         }
-
-#endif
 
 
     private:

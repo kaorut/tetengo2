@@ -65,14 +65,14 @@ namespace bobura { namespace view { namespace diagram
             \param down       Set true for a down train.
         */
         train_line_fragment(
-            position_type&&    departure,
-            position_type&&    arrival,
+            position_type      departure,
+            position_type      arrival,
             const string_type& train_name,
             const bool         down
         )
         :
-        m_departure(std::forward<position_type>(departure)),
-        m_arrival(std::forward<position_type>(arrival)),
+        m_departure(std::move(departure)),
+        m_arrival(std::move(arrival)),
         m_train_name(train_name),
         m_down(down)
         {}

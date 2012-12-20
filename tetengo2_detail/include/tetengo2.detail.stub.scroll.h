@@ -145,10 +145,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the scroll information cannot be set.
         */
-        template <typename R>
-        static void set_range(scroll_bar_details_type& details, R&& range)
+        static void set_range(scroll_bar_details_type& details, range_type range)
         {
-            details.range = std::forward<R>(range);
+            details.range = std::move(range);
         }
 
         /*!

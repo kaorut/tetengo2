@@ -66,12 +66,12 @@ namespace tetengo2 { namespace text { namespace grammar
                 \param attribute  An attribute.
             */
             structure_attribute_type(
-                string_type&&                          name,
+                string_type                            name,
                 const typename value_type_type::enum_t value_type,
                 const string_type&                     attribute
             )
             :
-            m_name(std::forward<string_type>(name)),
+            m_name(std::move(name)),
             m_value_type(value_type),
             m_attribute(attribute)
             {}

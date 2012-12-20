@@ -378,14 +378,11 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a text.
 
-            \tparam S A string type.
-
             \param text A text.
         */
-        template <typename S>
-        void set_text(S&& text)
+        void set_text(string_type text)
         {
-            widget_details_type::set_text(*this, std::forward<S>(text), encoder());
+            widget_details_type::set_text(*this, std::move(text), encoder());
         }
 
         /*!
@@ -769,9 +766,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(disable: 4355)
 #endif
         m_message_handler_map(
-            message_handler_details_type::make_widget_message_handler_map(
-                *this, std::forward<message_handler_map_type>(message_handler_map)
-            )
+            message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)

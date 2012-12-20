@@ -44,6 +44,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The shortcut key type.
         typedef typename base_type::shortcut_key_type shortcut_key_type;
 
@@ -72,15 +75,12 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates an abstract popup menu.
 
-            \tparam S A string type.
-
             \param text      A text.
             \param p_details A unique pointer to a detail implementation.
         */
-        template <typename S>
-        abstract_popup(S&& text, details_ptr_type p_details)
+        abstract_popup(string_type text, details_ptr_type p_details)
         :
-        base_type(std::forward<S>(text), std::move(p_details)),
+        base_type(std::move(text), std::move(p_details)),
         m_children()
         {}
 

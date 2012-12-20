@@ -345,14 +345,14 @@ namespace bobura
 
         void append_menu_command(
             popup_menu_type&    popup_menu,
-            string_type&&       text,
+            string_type         text,
             const command_type& command,
             commands_type&      commands
         )
         const
         {
             std::unique_ptr<menu_command_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(std::forward<string_type>(text))
+                tetengo2::make_unique<menu_command_type>(std::move(text))
             );
 
             append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
@@ -360,17 +360,15 @@ namespace bobura
 
         void append_menu_command(
             popup_menu_type&    popup_menu,
-            string_type&&       text,
+            string_type         text,
             const command_type& command,
             commands_type&      commands,
-            shortcut_key_type&& shortcut_key
+            shortcut_key_type   shortcut_key
         )
         const
         {
             std::unique_ptr<menu_command_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(
-                    std::forward<string_type>(text), std::forward<shortcut_key_type>(shortcut_key)
-                )
+                tetengo2::make_unique<menu_command_type>(std::move(text), std::move(shortcut_key))
             );
 
             append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
@@ -402,13 +400,13 @@ namespace bobura
             commands.push_back(NULL);
         }
 
-        void connect_popup_menu_observer(popup_menu_type& popup_menu, commands_type&& commands)
+        void connect_popup_menu_observer(popup_menu_type& popup_menu, commands_type commands)
         const
         {
             popup_menu.menu_observer_set().selected().connect(
                 boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(popup_menu, std::forward<commands_type>(commands), m_model)
+                >::type(popup_menu, std::move(commands), m_model)
             );
         }
 

@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-//#include <utility>
-
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 
@@ -121,9 +119,9 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             const string_type& m_text;
 
-            explicit call_calc_text_dimension_type(string_type&& text)
+            explicit call_calc_text_dimension_type(const string_type& text)
             :
-            m_text(std::forward<string_type>(text))
+            m_text(text)
             {}
 
             dimension_type operator()(const canvas_type& canvas)

@@ -850,16 +850,16 @@ namespace tetengo2 { namespace gui
             return key_map;
         }
 
-        static void insert_key(key_map_type& key_map, code_and_string_type&& code_and_string)
+        static void insert_key(key_map_type& key_map, code_and_string_type code_and_string)
         {
             const code_type code = code_and_string.first;
-            key_map.insert(std::make_pair(code, virtual_key(std::forward<code_and_string_type>(code_and_string))));
+            key_map.insert(std::make_pair(code, virtual_key(std::move(code_and_string))));
         }
 
 
         // constructors
 
-        explicit virtual_key(code_and_string_type&& code_and_string)
+        explicit virtual_key(code_and_string_type code_and_string)
         :
         m_code(code_and_string.first),
         m_string(std::move(code_and_string.second))

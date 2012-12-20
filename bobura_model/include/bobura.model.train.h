@@ -49,25 +49,25 @@ namespace bobura { namespace model
         /*!
             \brief Creates a train.
 
-            \tparam S1 A string type #1.
-            \tparam S2 A string type #2.
-            \tparam S3 A string type #3.
-            \tparam S4 A string type #4.
-
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
             \param name_number A name number.
             \param note        A note.
         */
-        template <typename S1, typename S2, typename S3, typename S4>
-        train(S1&& number, const kind_index_type kind_index, S2&& name, S3&& name_number, S4&& note)
+        train(
+            string_type           number,
+            const kind_index_type kind_index,
+            string_type           name,
+            string_type           name_number,
+            string_type           note
+        )
         :
-        m_number(std::forward<S1>(number)),
+        m_number(std::move(number)),
         m_kind_index(kind_index),
-        m_name(std::forward<S2>(name)),
-        m_name_number(std::forward<S3>(name_number)),
-        m_note(std::forward<S4>(note)),
+        m_name(std::move(name)),
+        m_name_number(std::move(name_number)),
+        m_note(std::move(note)),
         m_stops()
         {}
 
@@ -76,14 +76,6 @@ namespace bobura { namespace model
 
             kind_index must be less than the train kind count in the timetable.
 
-            \tparam InputIterator An input iterator for stops.
-
-            \tparam S1 A string type #1.
-            \tparam S2 A string type #2.
-            \tparam S3 A string type #3.
-            \tparam S4 A string type #4.
-            \tparam Ss A stops type.
-
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -91,26 +83,26 @@ namespace bobura { namespace model
             \param note        A note.
             \param stops       Stops.
         */
-        template <typename S1, typename S2, typename S3, typename S4, typename Ss>
-        train(S1&& number, const kind_index_type kind_index, S2&& name, S3&& name_number, S4&& note, Ss&& stops)
+        train(
+            string_type           number,
+            const kind_index_type kind_index,
+            string_type           name,
+            string_type           name_number,
+            string_type           note,
+            stops_type            stops
+        )
         :
-        m_number(std::forward<S1>(number)),
+        m_number(std::move(number)),
         m_kind_index(kind_index),
-        m_name(std::forward<S2>(name)),
-        m_name_number(std::forward<S3>(name_number)),
-        m_note(std::forward<S4>(note)),
-        m_stops(std::forward<Ss>(stops))
+        m_name(std::move(name)),
+        m_name_number(std::move(name_number)),
+        m_note(std::move(note)),
+        m_stops(std::move(stops))
         {}
 
         /*!
             \brief Creates a train.
 
-            \tparam InputIterator An input iterator for stops.
-
-            \tparam S1            A string type #1.
-            \tparam S2            A string type #2.
-            \tparam S3            A string type #3.
-            \tparam S4            A string type #4.
             \tparam InputIterator An input iterator type.
 
             \param number      A number.
@@ -121,22 +113,22 @@ namespace bobura { namespace model
             \param stop_first  The first iterator among stops.
             \param stop_last   The last iterator among stops.
         */
-        template <typename S1, typename S2, typename S3, typename S4, typename InputIterator>
+        template <typename InputIterator>
         train(
-            S1&&                  number,
+            string_type           number,
             const kind_index_type kind_index,
-            S2&&                  name,
-            S3&&                  name_number,
-            S4&&                  note,
+            string_type           name,
+            string_type           name_number,
+            string_type           note,
             const InputIterator   stop_first,
             const InputIterator   stop_last
         )
         :
-        m_number(std::forward<S1>(number)),
+        m_number(std::move(number)),
         m_kind_index(kind_index),
-        m_name(std::forward<S2>(name)),
-        m_name_number(std::forward<S3>(name_number)),
-        m_note(std::forward<S4>(note)),
+        m_name(std::move(name)),
+        m_name_number(std::move(name_number)),
+        m_note(std::move(note)),
         m_stops(stop_first, stop_last)
         {}
 
@@ -232,15 +224,12 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a stop.
 
-            \tparam S A stop type.
-
             \param position A position where a stop is inserted.
             \param stop     A stop.
         */
-        template <typename S>
-        void insert_stop(const typename stops_type::const_iterator position, S&& stop)
+        void insert_stop(const typename stops_type::const_iterator position, stop_type stop)
         {
-            m_stops.insert(to_mutable(position, m_stops), std::forward<S>(stop));
+            m_stops.insert(to_mutable(position, m_stops), std::move(stop));
         }
 
         /*!

@@ -77,17 +77,17 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line(
             const left_type&   right,
-            top_type&&         top,
+            top_type           top,
             const string_type& name,
-            dimension_type&&   name_dimension,
+            dimension_type     name_dimension,
             const font_type&   font,
             const color_type&  color
         )
         :
         m_right(right),
-        m_top(std::forward<top_type>(top)),
+        m_top(std::move(top)),
         m_p_name(&name),
-        m_name_dimension(std::forward<dimension_type>(name_dimension)),
+        m_name_dimension(std::move(name_dimension)),
         m_p_font(&font),
         m_p_color(&color)
         {}

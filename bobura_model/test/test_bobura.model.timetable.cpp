@@ -7,6 +7,7 @@
 */
 
 //#include <stdexcept>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -474,8 +475,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             timetable.insert_station_location(
                 timetable.station_locations().end(),
-                station_location_type(station_type(
-                    string_type(TETENGO2_TEXT("C")), local_type::instance(), false, false), 3
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("C")), local_type::instance(), false, false), 3
                 )
             );
 
@@ -499,8 +500,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 1,
-                station_location_type(station_type(
-                    string_type(TETENGO2_TEXT("B")), local_type::instance(), false, false), 2
+                station_location_type(
+                    station_type(string_type(TETENGO2_TEXT("B")), local_type::instance(), false, false), 2
                 )
             );
 
@@ -2355,9 +2356,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
         timetable_type timetable;
 
-        const font_type font(string_type(TETENGO2_TEXT("hoge")), 42, false, true, false, true);
-        const color_type color(12, 34, 56);
-        const font_color_type font_color(font, color);
+        font_type font(string_type(TETENGO2_TEXT("hoge")), 42, false, true, false, true);
+        color_type color(12, 34, 56);
+        const font_color_type font_color(std::move(font), std::move(color));
         const font_color_set_type font_color_set(
             color, font_color, font_color, font_color, font_color, font_color, font_color, font_color, font
         );

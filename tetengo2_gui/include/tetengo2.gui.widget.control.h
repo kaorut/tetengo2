@@ -90,22 +90,13 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a text color.
 
-            \tparam C A color type.
-
             \param text_color A text color.
         */
-        template <typename C /* = boost::optional<color_type> */>
-        void set_text_color(C&& text_color /* = boost::none */)
+        void set_text_color(boost::optional<color_type> text_color = boost::none)
         {
-            m_text_color = std::forward<C>(text_color);
+            m_text_color = std::move(text_color);
         }
 
-#if !defined(DOCUMENTATION)
-        void set_text_color()
-        {
-            m_text_color = boost::none;
-        }
-#endif
         /*!
             \brief Checks whether the control accepts a focus.
 
@@ -159,9 +150,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             scroll_bar_style,
-            message_handler_details_type::make_control_message_handler_map(
-                *this, std::forward<message_handler_map_type>(message_handler_map)
-            )
+            message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)

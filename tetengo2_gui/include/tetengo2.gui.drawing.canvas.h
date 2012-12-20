@@ -114,14 +114,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Sets a color.
 
-            \tparam C A color type.
-
             \param color A color.
         */
-        template <typename C>
-        void set_color(C&& color)
+        void set_color(color_type color)
         {
-            m_color = std::forward<C>(color);
+            m_color = std::move(color);
         }
 
         /*!
@@ -160,14 +157,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Sets a line width.
 
-            \tparam S A size type.
-
             \param line_width A line width.
         */
-        template <typename S>
-        void set_line_width(S&& line_width)
+        void set_line_width(size_type line_width)
         {
-            m_line_width = std::forward<S>(line_width);
+            m_line_width = std::move(line_width);
         }
 
         /*!
@@ -211,10 +205,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param font A font.
         */
-        template <typename F>
-        void set_font(F&& font)
+        void set_font(font_type font)
         {
-            m_font = std::forward<F>(font);
+            m_font = std::move(font);
         }
 
         /*!
