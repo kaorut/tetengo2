@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-//#include <utility>
-
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 

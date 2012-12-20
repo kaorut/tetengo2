@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <locale>
-#include <type_traits>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
