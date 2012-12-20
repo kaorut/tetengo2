@@ -239,7 +239,9 @@ namespace bobura { namespace model
             const difference_type offset =
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), position);
 
-            m_station_locations.insert(to_mutable(position, m_station_locations), std::move(station_location));
+            m_station_locations.insert(
+                tetengo2::cpp11::as_insertion_iterator(m_station_locations, position), std::move(station_location)
+            );
 
             std::for_each(
                 m_down_trains.begin(),
@@ -274,7 +276,10 @@ namespace bobura { namespace model
             const difference_type last_offset =
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), last);
 
-            m_station_locations.erase(to_mutable(first, m_station_locations), to_mutable(last, m_station_locations));
+            m_station_locations.erase(
+                tetengo2::cpp11::as_insertion_iterator(m_station_locations, first),
+                tetengo2::cpp11::as_insertion_iterator(m_station_locations, last)
+            );
 
             std::for_each(
                 m_down_trains.begin(),
@@ -629,19 +634,6 @@ namespace bobura { namespace model
             train = new_train;
         }
 
-        template <typename Container>
-        static typename Container::iterator to_mutable(
-            const typename Container::const_iterator const_iter,
-            Container&                               container
-        )
-        {
-            typename Container::iterator mutable_iter = container.begin();
-            std::advance(
-                mutable_iter, std::distance<typename Container::const_iterator>(container.begin(), const_iter)
-            );
-            return mutable_iter;
-        }
-
 
         // variables
 
@@ -702,7 +694,7 @@ namespace bobura { namespace model
                 );
             }
 
-            trains.insert(to_mutable(position, trains), std::move(train));
+            trains.insert(tetengo2::cpp11::as_insertion_iterator(trains, position), std::move(train));
 
             m_observer_set.changed()();
         }
@@ -713,7 +705,10 @@ namespace bobura { namespace model
             const typename trains_type::const_iterator last
         )
         {
-            trains.erase(to_mutable(first, trains), to_mutable(last, trains));
+            trains.erase(
+                tetengo2::cpp11::as_insertion_iterator(trains, first),
+                tetengo2::cpp11::as_insertion_iterator(trains, last)
+            );
 
             m_observer_set.changed()();
         }
