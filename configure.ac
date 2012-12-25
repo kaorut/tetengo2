@@ -19,6 +19,7 @@ AC_CONFIG_FILES([
     bobura_model/test/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
+    tetengo2/src/Makefile
     tetengo2/test/Makefile
     tetengo2/res.test/Makefile
     tetengo2_detail/Makefile
@@ -44,6 +45,7 @@ AC_SUBST(PRECOMPILE_BUILT_SOURCES)
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_RANLIB
 AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING(
