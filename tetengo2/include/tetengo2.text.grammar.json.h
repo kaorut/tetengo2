@@ -69,12 +69,7 @@ namespace tetengo2 { namespace text { namespace grammar
                 string_type                            name,
                 const typename value_type_type::enum_t value_type,
                 const string_type&                     attribute
-            )
-            :
-            m_name(std::move(name)),
-            m_value_type(value_type),
-            m_attribute(attribute)
-            {}
+            );
 
             /*!
                 \brief Returns the name.
@@ -82,10 +77,7 @@ namespace tetengo2 { namespace text { namespace grammar
                 \return The name.
             */
             const string_type& name()
-            const
-            {
-                return m_name;
-            }
+            const;
 
             /*!
                 \brief Returns the value type.
@@ -93,10 +85,7 @@ namespace tetengo2 { namespace text { namespace grammar
                 \return The value type.
             */
             typename value_type_type::enum_t value_type()
-            const
-            {
-                return m_value_type;
-            }
+            const;
 
             /*!
                 \brief Returns the attribute.
@@ -104,10 +93,7 @@ namespace tetengo2 { namespace text { namespace grammar
                 \return The attribute.
             */
             const string_type& attribute()
-            const
-            {
-                return m_attribute;
-            }
+            const;
 
         private:
             string_type m_name;
