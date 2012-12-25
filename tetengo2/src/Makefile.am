@@ -1,0 +1,35 @@
+# Automake Settings
+# Copyright (C) 2007-2012 kaoru
+# $Id$
+
+headers = \
+
+extra_headers =
+
+sources = \
+    tetengo2.text.grammar.json.cpp
+
+extra_sources =
+
+BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
+
+pkglib_LIBRARIES = libtetengo2.a
+EXTRA_DIST = $(extra_headers) $(extra_sources)
+
+libtetengo2_a_CPPFLAGS = \
+    $(PRECOMPILE_CPPFLAGS) \
+    $(BOOST_CPPFLAGS) \
+    -I$(top_srcdir)/tetengo2/include
+libtetengo2_a_LDFLAGS = $(BOOST_LDFLAGS)
+libtetengo2_a_LDADD = \
+    $(BOOST_DATE_TIME_LIB) \
+    $(BOOST_FILESYSTEM_LIB) \
+    $(BOOST_PROGRAM_OPTIONS_LIB) \
+    $(BOOST_SYSTEM_LIB) \
+    $(BOOST_THREAD_LIB) \
+    $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
+libtetengo2_a_SOURCES = $(headers) $(sources)
+
+$(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
+	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
+
