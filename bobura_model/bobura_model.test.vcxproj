@@ -123,6 +123,11 @@
     <ClCompile Include="test\test_bobura.model.train_info.time_span.cpp" />
     <ClCompile Include="test\test_bobura.model.train_kind.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tetengo2\tetengo2.vcxproj">
+      <Project>{a5ebac50-5464-4e80-b47a-a28fa0d7a3cc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
