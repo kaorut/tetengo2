@@ -6,6 +6,17 @@
     $Id$
 */
 
+//#include <iterator>
+//#include <string>
+//#include <utility>
+//#include <vector>
+
+#include <boost/noncopyable.hpp>
+//#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
+
+#include "tetengo2.text.h"
+
 #include "tetengo2.text.grammar.json.h"
 
 
