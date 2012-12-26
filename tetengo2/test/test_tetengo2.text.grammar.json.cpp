@@ -21,6 +21,9 @@
 #include "tetengo2.text.grammar.json.h"
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 namespace
 {
     // types
@@ -141,9 +144,6 @@ namespace
 }
 
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(grammar)
