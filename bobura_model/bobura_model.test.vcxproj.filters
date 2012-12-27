@@ -101,9 +101,6 @@
     <ClCompile Include="test\test_bobura.model.serializer.bzip2_reader.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calculator.cpp">
-      <Filter>sources\test_bobura::model\timetable_info</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.model.train_kind.cpp">
       <Filter>sources\test_bobura::model</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.timetable_info.font_color_set.cpp">
+      <Filter>sources\test_bobura::model\timetable_info</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calcula.cpp">
       <Filter>sources\test_bobura::model\timetable_info</Filter>
     </ClCompile>
   </ItemGroup>
