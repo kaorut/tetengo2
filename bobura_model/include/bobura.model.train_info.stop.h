@@ -40,14 +40,16 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a stop.
 
-            \param arrival   An arrival time.
-            \param departure A departure time.
-            \param platform  A platform.
+            \param arrival     An arrival time.
+            \param departure   A departure time.
+            \param operational Set true for an operational stop.
+            \param platform    A platform.
         */
-        stop(time_type arrival, time_type departure, string_type platform)
+        stop(time_type arrival, time_type departure, const bool operational, string_type platform)
         :
         m_arrival(std::move(arrival)),
         m_departure(std::move(departure)),
+        m_operational(operational),
         m_platform(std::move(platform))
         {}
 
@@ -68,6 +70,7 @@ namespace bobura { namespace model { namespace train_info
             return
                 one.m_arrival == another.m_arrival &&
                 one.m_departure == another.m_departure &&
+                one.m_operational == another.m_operational &&
                 one.m_platform == another.m_platform;
         }
 
@@ -94,6 +97,18 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
+            \brief Checks whether the stop is operational.
+
+            \retval true  When the stop is operational.
+            \retval false Otherwise.
+        */
+        bool operational()
+        const
+        {
+            return m_operational;
+        }
+
+        /*!
             \brief Returns the platform.
 
             \return The platform.
@@ -111,6 +126,8 @@ namespace bobura { namespace model { namespace train_info
         time_type m_arrival;
 
         time_type m_departure;
+
+        bool m_operational;
 
         string_type m_platform;
 

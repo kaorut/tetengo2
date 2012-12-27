@@ -500,7 +500,9 @@ namespace bobura { namespace model { namespace serializer
                 if (!departure)
                     return boost::none;
 
-                return stop_type(std::move(*arrival), std::move(*departure), string_type());
+                const bool operational = false;
+
+                return stop_type(std::move(*arrival), std::move(*departure), operational, string_type());
             }
 
             std::pair<string_type, string_type> split_time_string(string_type time_string)

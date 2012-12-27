@@ -457,8 +457,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(timetable.down_trains()[0].stops()[0].platform().empty());
 
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
@@ -546,8 +546,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(timetable.up_trains()[0].stops()[0].platform().empty());
 
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
@@ -742,8 +742,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
@@ -790,8 +790,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
@@ -838,8 +838,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
@@ -886,8 +886,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("a")));
+            stops.emplace_back(time_type(3), time_type(4), true, string_type(TETENGO2_TEXT("b")));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
@@ -1647,7 +1647,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(0), time_type(0), string_type());
+            stops.emplace_back(time_type(0), time_type(0), false, string_type());
 
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
@@ -1712,7 +1712,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(0), time_type(0), string_type());
+            stops.emplace_back(time_type(0), time_type(0), false, string_type());
 
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
@@ -1884,7 +1884,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(0), time_type(0), string_type());
+            stops.emplace_back(time_type(0), time_type(0), false, string_type());
 
             BOOST_CHECK_THROW(
                 timetable.insert_up_train(
@@ -1949,7 +1949,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
             
             train_type::stops_type stops;
-            stops.emplace_back(time_type(0), time_type(0), string_type());
+            stops.emplace_back(time_type(0), time_type(0), false, string_type());
 
             BOOST_CHECK_THROW(
                 timetable.insert_up_train(
