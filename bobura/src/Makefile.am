@@ -5,6 +5,7 @@
 extra_headers = \
     bobura.about_dialog.h \
     bobura.application.h \
+    bobura.basic_type_list.h \
     bobura.command.about.h \
     bobura.command.command_base.h \
     bobura.command.exit.h \

@@ -10,17 +10,21 @@ AC_CONFIG_SRCDIR([bobura_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     Makefile
-    precompiled/Makefile
     bobura/Makefile
+    bobura/res/Makefile
     bobura/src/Makefile
     bobura/test/Makefile
     bobura_model/Makefile
     bobura_model/include/Makefile
     bobura_model/test/Makefile
+    docsrc/Makefile
+    precompiled/Makefile
+    samples/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
-    tetengo2/test/Makefile
     tetengo2/res.test/Makefile
+    tetengo2/src/Makefile
+    tetengo2/test/Makefile
     tetengo2_detail/Makefile
     tetengo2_detail/include/Makefile
     tetengo2_gui/Makefile
@@ -44,6 +48,7 @@ AC_SUBST(PRECOMPILE_BUILT_SOURCES)
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_RANLIB
 AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING(

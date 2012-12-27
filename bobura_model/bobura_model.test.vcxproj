@@ -115,13 +115,18 @@
     <ClCompile Include="test\test_bobura.model.station_info.grade.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable_info.font_color_set.cpp" />
-    <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calculator.cpp" />
+    <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calcula.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable_info.station_location.cpp" />
     <ClCompile Include="test\test_bobura.model.train.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.stop.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.time.cpp" />
     <ClCompile Include="test\test_bobura.model.train_info.time_span.cpp" />
     <ClCompile Include="test\test_bobura.model.train_kind.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tetengo2\tetengo2.vcxproj">
+      <Project>{a5ebac50-5464-4e80-b47a-a28fa0d7a3cc}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

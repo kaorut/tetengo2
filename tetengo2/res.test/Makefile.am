@@ -3,5 +3,6 @@
 # $Id$
 
 EXTRA_DIST = \
-    messages.test/English.txt \
-    messages.test/Japanese.txt
+    messages.test/_catalogs.json \
+    messages.test/English.json \
+    messages.test/Japanese.json

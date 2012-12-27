@@ -183,6 +183,11 @@
     <None Include="res\win32\COMCTL32.DLL.Win32.manifest" />
     <None Include="res\win32\COMCTL32.DLL.x64.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tetengo2\tetengo2.vcxproj">
+      <Project>{a5ebac50-5464-4e80-b47a-a28fa0d7a3cc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

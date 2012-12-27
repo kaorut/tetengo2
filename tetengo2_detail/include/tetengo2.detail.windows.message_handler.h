@@ -28,13 +28,13 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.detail.windows.message_handler_detail.abstract_window.h"
+#include "tetengo2.detail.windows.message_handler_detail.abstra.h"
 #include "tetengo2.detail.windows.message_handler_detail.button.h"
-#include "tetengo2.detail.windows.message_handler_detail.control.h"
+#include "tetengo2.detail.windows.message_handler_detail.contro.h"
 #include "tetengo2.detail.windows.message_handler_detail.dialog.h"
-#include "tetengo2.detail.windows.message_handler_detail.message.h"
-#include "tetengo2.detail.windows.message_handler_detail.list_box.h"
-#include "tetengo2.detail.windows.message_handler_detail.picture_box.h"
+#include "tetengo2.detail.windows.message_handler_detail.messag.h"
+#include "tetengo2.detail.windows.message_handler_detail.list_b.h"
+#include "tetengo2.detail.windows.message_handler_detail.pictur.h"
 #include "tetengo2.detail.windows.message_handler_detail.widget.h"
 #include "tetengo2.detail.windows.widget.h"
 

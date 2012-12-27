@@ -25,6 +25,18 @@
     <Filter Include="headers\tetengo2\message">
       <UniqueIdentifier>{9bee3c30-6bf6-40f6-a5f2-01adaecdee2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{e64efb71-5d8d-420f-8b36-a838048b9a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2">
+      <UniqueIdentifier>{154e5474-c402-4b0b-833b-2236539182bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2\text">
+      <UniqueIdentifier>{649492b9-7708-47fd-8491-9bf35c5d96e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2\text\grammar">
+      <UniqueIdentifier>{d75ae191-42e6-4913-ad9f-0617ddbc9c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.text.h">
@@ -84,5 +96,16 @@
     <ClInclude Include="include\tetengo2.text.encoding.cp932.h">
       <Filter>headers\tetengo2\text\encoding</Filter>
     </ClInclude>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\tetengo2.text.grammar.json.cpp">
+      <Filter>sources\tetengo2\text\grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ list_sources()
         $1/bobura/src \
         $1/bobura_model/include \
         $1/tetengo2/include \
+        $1/tetengo2/src \
         $1/tetengo2_detail/include \
         $1/tetengo2_gui/include \
         -maxdepth 1 \
