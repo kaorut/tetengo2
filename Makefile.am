@@ -3,8 +3,10 @@
 # $Id$
 
 SUBDIRS = \
-     precompiled \
      bobura bobura_model \
+     docsrc \
+     precompiled \
+     samples \
      tetengo2 tetengo2_detail tetengo2_gui
 
 EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test

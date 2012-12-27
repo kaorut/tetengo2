@@ -2,7 +2,7 @@
 # Copyright (C) 2007-2012 kaoru
 # $Id$
 
-SUBDIRS = include src test res.test
+SUBDIRS = include res.test src test
 
 EXTRA_DIST = \
     tetengo2.vcxproj tetengo2.vcxproj.filters \
