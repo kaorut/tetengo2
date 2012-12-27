@@ -500,7 +500,9 @@ namespace bobura { namespace model { namespace serializer
                 if (!departure)
                     return boost::none;
 
-                const bool operational = false;
+                const bool operational =
+                    is_operational(arrival_and_departure_string.first) ||
+                    is_operational(arrival_and_departure_string.second);
 
                 return stop_type(std::move(*arrival), std::move(*departure), operational, string_type());
             }
@@ -550,6 +552,11 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
 
                 return time_type(hours, minutes, 0);
+            }
+
+            bool is_operational(const string_type& time_string)
+            {
+                return !time_string.empty() && time_string.back() == char_type(TETENGO2_TEXT('?'));
             }
 
         };
