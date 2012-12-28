@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         const solid_background_type* const p_solid_background =
             dynamic_cast<const solid_background_type*>(&background);
 
-        BOOST_CHECK(p_solid_background);
+        BOOST_REQUIRE(p_solid_background);
         BOOST_CHECK(p_solid_background->color() == color_type(255, 255, 255, 255));
     }
 
