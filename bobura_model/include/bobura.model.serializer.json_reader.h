@@ -843,7 +843,7 @@ namespace bobura { namespace model { namespace serializer
 
         static stop_type empty_stop()
         {
-            return stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type());
+            return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
         }
 
         static boost::optional<std::vector<stop_type>> read_stops(pull_parser_type& pull_parser)
@@ -903,6 +903,10 @@ namespace bobura { namespace model { namespace serializer
             if (!departure_time)
                 return boost::none;
 
+            const boost::optional<bool> operational = read_boolean(pull_parser);
+            if (!operational)
+                return boost::none;
+
             boost::optional<input_string_type> platform = read_string(pull_parser);
             if (!platform)
                 return boost::none;
@@ -914,7 +918,10 @@ namespace bobura { namespace model { namespace serializer
             return
                 boost::make_optional(
                     stop_type(
-                        std::move(*arrival_time), std::move(*departure_time), encoder().decode(std::move(*platform))
+                        std::move(*arrival_time),
+                        std::move(*departure_time),
+                        *operational,
+                        encoder().decode(std::move(*platform))
                     )
                 );
         }

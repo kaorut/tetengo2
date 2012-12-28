@@ -142,8 +142,8 @@ namespace
         "            \"name_number\": \"bar\",\n"
         "            \"note\": \"fuga\",\n"
         "            \"stops\": [\n"
-        "                [    -1,     -1, \"\"],\n"
-        "                [    -1,     -1, \"\"]\n"
+        "                [    -1,     -1, false, \"\"],\n"
+        "                [    -1,     -1, false, \"\"]\n"
         "            ]\n"
         "        },\n"
         "        {\n"
@@ -153,8 +153,8 @@ namespace
         "            \"name_number\": \"bazz\",\n"
         "            \"note\": \"\",\n"
         "            \"stops\": [\n"
-        "                [    -1,  60030, \"1\"],\n"
-        "                [100545,     -1, \"\"]\n"
+        "                [    -1,  60030,  true, \"1\"],\n"
+        "                [100545,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -166,8 +166,8 @@ namespace
         "            \"name_number\": \"def\",\n"
         "            \"note\": \"piyo\",\n"
         "            \"stops\": [\n"
-        "                [    -1,  62000, \"0A\"],\n"
-        "                [    -1,     -1, \"\"]\n"
+        "                [    -1,  62000, false, \"0A\"],\n"
+        "                [    -1,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ]\n"
@@ -251,11 +251,11 @@ namespace
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type())
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type())
                 );
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
@@ -269,10 +269,11 @@ namespace
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
+                    stop_type(time_type::uninitialized(), time_type( 6, 0, 30), true, string_type(TETENGO2_TEXT("1")))
                 );
                 train.insert_stop(
-                    train.stops().end(), stop_type(time_type(10, 5, 45), time_type::uninitialized(), string_type())
+                    train.stops().end(),
+                    stop_type(time_type(10, 5, 45), time_type::uninitialized(), false, string_type())
                 );
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
@@ -288,11 +289,11 @@ namespace
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type(6, 20, 0), string_type(TETENGO2_TEXT("0A")))
+                    stop_type(time_type::uninitialized(), time_type(6, 20, 0), false, string_type(TETENGO2_TEXT("0A")))
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type())
                 );
                 p_timetable->insert_up_train(p_timetable->up_trains().end(), train);
             }

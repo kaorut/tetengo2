@@ -517,7 +517,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         widget.set_cursor(std::move(p_cursor));
 
         const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
-        BOOST_CHECK(cursor);
+        BOOST_REQUIRE(cursor);
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
 

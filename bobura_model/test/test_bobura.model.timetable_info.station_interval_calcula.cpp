@@ -105,6 +105,7 @@ namespace
             stop_type(
                 time_type(arrival_hours, arrival_minutes, 0),
                 time_type(departure_hours, departure_minutes, 0),
+                false,
                 string_type()
             );
     }
@@ -116,13 +117,14 @@ namespace
             stop_type(
                 arrival ? std::move(time) : time_type::uninitialized(),
                 arrival ? time_type::uninitialized() : std::move(time),
+                false,
                 string_type()
             );
     }
 
     stop_type make_stop()
     {
-        return stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type());
+        return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
     }
 
 

@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_SUITE(reader)
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
             );
 
-        BOOST_CHECK(p_timetable);
+        BOOST_REQUIRE(p_timetable);
     }
 
 

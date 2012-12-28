@@ -81,14 +81,14 @@ namespace
         "[\x89\xBA\x82\xE8]\n" // kudari
         ",121D,,,1000,1010,1020/1030,1040/1050,1100,1110/,\\\n"
         "\t%\n"
-        "6,101D,foo,1,1100,-,-,1130/1140,-,1150/,\\\n"
+        "6,101D,foo,1,1100,-,-,1130/1140?,-,1150/,\\\n"
         "\t%\n"
         "(96),123D,,,1200,1210,1220/1230,1240/,,,\\\n"
         "\t%xyzw\n"
         "\n"
         "[\x8F\xE3\x82\xE8]\n" // nobori
         ",122D,,,1040/,1030/,1010/1020,1000,,\n"
-        ",124D,,,1210/,1200/,1140/1150,1120/1130,1110/,1100,\\\n"
+        ",124D,,,1210/,1200/,1140?/1150,1120/1130,1110/,1100,\\\n"
         "\t%\n"
         "6(213),102D,bar,2,1230/,-,-,-,-,1200,\\\n"
         "\t%\n";
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(!p_timetable);
+            BOOST_REQUIRE(!p_timetable);
         }
         {
             reader_type reader;
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(p_timetable);
+            BOOST_REQUIRE(p_timetable);
             BOOST_CHECK(p_timetable->line_name().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
             BOOST_CHECK(p_timetable->train_kinds().empty());
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(p_timetable);
+            BOOST_REQUIRE(p_timetable);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
 
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
@@ -250,6 +250,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(10, 0, 0));
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
@@ -257,6 +258,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                     BOOST_CHECK(stop.arrival() == time_type(10, 20, 0));
                     BOOST_CHECK(stop.departure() == time_type(10, 30, 0));
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -272,6 +274,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(11, 0, 0));
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
@@ -279,6 +282,15 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = train.stops()[3];
+
+                    BOOST_CHECK(stop.arrival() == time_type(11, 30, 0));
+                    BOOST_CHECK(stop.departure() == time_type(11, 40, 0));
+                    BOOST_CHECK(stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -292,10 +304,19 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 BOOST_CHECK_EQUAL(train.kind_index(), 0U);
                 BOOST_CHECK_EQUAL(train.stops().size(), 6U);
                 {
+                    const stop_type& stop = train.stops()[2];
+
+                    BOOST_CHECK(stop.arrival() == time_type(11, 40, 00));
+                    BOOST_CHECK(stop.departure() == time_type(11, 50, 00));
+                    BOOST_CHECK(stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
                     const stop_type& stop = train.stops()[4];
 
                     BOOST_CHECK(stop.arrival() == time_type(11, 10, 0));
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -311,6 +332,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -325,7 +347,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(!p_timetable);
+            BOOST_REQUIRE(!p_timetable);
         }
     }
 
