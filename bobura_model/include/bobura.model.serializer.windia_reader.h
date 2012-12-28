@@ -556,7 +556,7 @@ namespace bobura { namespace model { namespace serializer
 
             bool is_operational(const string_type& time_string)
             {
-                return !time_string.empty() && time_string.back() == char_type(TETENGO2_TEXT('?'));
+                return !time_string.empty() && time_string[time_string.length() - 1] == char_type(TETENGO2_TEXT('?'));
             }
 
         };
