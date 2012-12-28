@@ -202,8 +202,8 @@ namespace
         "            \"name_number\": \"bazz\",\n"
         "            \"note\":        \"\",\n"
         "            \"stops\":       [\n"
-        "                [    -1,  60030, \"1\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
+        "                [    -1,  60030,  true, \"1\"],\n"
+        "                [ 60545,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -215,7 +215,7 @@ namespace
         "            \"name_number\": \"def\",\n"
         "            \"note\":        \"piyo\",\n"
         "            \"stops\":       [\n"
-        "                [  -1,  62000, \"0A\"]\n"
+        "                [  -1,  62000, false, \"0A\"]\n"
         "            ]\n"
         "        }\n"
         "    ]\n"
@@ -260,8 +260,8 @@ namespace
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
         "            \"stops\":       [\n"
-        "                [    -1,  66030, \"1\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
+        "                [    -1,  66030,  true, \"1\"],\n"
+        "                [ 60545,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -307,9 +307,9 @@ namespace
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
         "            \"stops\":       [\n"
-        "                [    -1,  60030, \"1\"],\n"
-        "                [ 60230,  60315, \"\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
+        "                [    -1,  60030,  true, \"1\"],\n"
+        "                [ 60230,  60315, false, \"\"],\n"
+        "                [ 60545,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -361,8 +361,8 @@ namespace
         "            \"name_number\": \"bar\",\n"
         "            \"note\":        \"\",\n"
         "            \"stops\":       [\n"
-        "                [    -1, 235000, \"1\"],\n"
-        "                [ 01000,     -1, \"\"]\n"
+        "                [    -1, 235000,  true, \"1\"],\n"
+        "                [ 01000,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -656,12 +656,14 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -675,12 +677,14 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 0, 30));
+                    BOOST_CHECK(stop.operational());
                     BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("1")));
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type(6, 5, 45));
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -695,12 +699,14 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 20, 0));
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("0A")));
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }

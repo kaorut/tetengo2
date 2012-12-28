@@ -903,7 +903,9 @@ namespace bobura { namespace model { namespace serializer
             if (!departure_time)
                 return boost::none;
 
-            const bool operational = false;
+            const boost::optional<bool> operational = read_boolean(pull_parser);
+            if (!operational)
+                return boost::none;
 
             boost::optional<input_string_type> platform = read_string(pull_parser);
             if (!platform)
@@ -918,7 +920,7 @@ namespace bobura { namespace model { namespace serializer
                     stop_type(
                         std::move(*arrival_time),
                         std::move(*departure_time),
-                        operational,
+                        *operational,
                         encoder().decode(std::move(*platform))
                     )
                 );
