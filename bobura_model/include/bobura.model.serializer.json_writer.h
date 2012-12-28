@@ -742,6 +742,9 @@ namespace bobura { namespace model { namespace serializer
             output_stream << time_representation(stop.departure());
             output_stream << comma() << space();
 
+            output_stream << boolean_representation(stop.operational());
+            output_stream << comma() << space();
+
             output_stream << encoder().encode(quote(stop.platform()));
 
             output_stream << array_end();
@@ -765,6 +768,11 @@ namespace bobura { namespace model { namespace serializer
             stream <<
                 boost::basic_format<output_char_type>(TETENGO2_TEXT("%6d"), std::locale::classic()) % representation;
             return stream.str();
+        }
+
+        static output_string_type boolean_representation(const bool value)
+        {
+            return value ? output_string_type(TETENGO2_TEXT(" true")) : output_string_type(TETENGO2_TEXT("false"));
         }
 
 

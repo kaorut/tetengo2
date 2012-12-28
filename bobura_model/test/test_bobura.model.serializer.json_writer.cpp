@@ -142,8 +142,8 @@ namespace
         "            \"name_number\": \"bar\",\n"
         "            \"note\": \"fuga\",\n"
         "            \"stops\": [\n"
-        "                [    -1,     -1, \"\"],\n"
-        "                [    -1,     -1, \"\"]\n"
+        "                [    -1,     -1, false, \"\"],\n"
+        "                [    -1,     -1, false, \"\"]\n"
         "            ]\n"
         "        },\n"
         "        {\n"
@@ -153,8 +153,8 @@ namespace
         "            \"name_number\": \"bazz\",\n"
         "            \"note\": \"\",\n"
         "            \"stops\": [\n"
-        "                [    -1,  60030, \"1\"],\n"
-        "                [100545,     -1, \"\"]\n"
+        "                [    -1,  60030,  true, \"1\"],\n"
+        "                [100545,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ],\n"
@@ -166,8 +166,8 @@ namespace
         "            \"name_number\": \"def\",\n"
         "            \"note\": \"piyo\",\n"
         "            \"stops\": [\n"
-        "                [    -1,  62000, \"0A\"],\n"
-        "                [    -1,     -1, \"\"]\n"
+        "                [    -1,  62000, false, \"0A\"],\n"
+        "                [    -1,     -1, false, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ]\n"
@@ -269,7 +269,7 @@ namespace
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(time_type::uninitialized(), time_type( 6, 0, 30), false, string_type(TETENGO2_TEXT("1")))
+                    stop_type(time_type::uninitialized(), time_type( 6, 0, 30), true, string_type(TETENGO2_TEXT("1")))
                 );
                 train.insert_stop(
                     train.stops().end(),
