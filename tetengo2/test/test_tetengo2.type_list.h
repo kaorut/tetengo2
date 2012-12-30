@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of test_tetengo2::type_list.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
