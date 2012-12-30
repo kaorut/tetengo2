@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of C++11 alternatives for tetengo2.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */

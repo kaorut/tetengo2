@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class bobura::model::timetable_info::font_color_set.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */

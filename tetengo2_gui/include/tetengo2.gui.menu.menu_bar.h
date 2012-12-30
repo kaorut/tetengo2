@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::menu::menu_bar.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */

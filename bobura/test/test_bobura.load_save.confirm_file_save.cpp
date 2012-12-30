@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class bobura::load_save::confirm_file_save.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */

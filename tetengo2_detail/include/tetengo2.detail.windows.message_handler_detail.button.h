@@ -2,7 +2,7 @@
     \brief The definition of
            tetengo2::detail::windows::message_handler_detail::button.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */

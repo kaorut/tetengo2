@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::diagram_view.
 
-    Copyright (C) 2007-2012 kaoru
+    Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
