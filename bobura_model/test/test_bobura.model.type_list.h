@@ -35,6 +35,7 @@
 #include "bobura.model.serializer.bzip2_writer.h"
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.json_writer.h"
+#include "bobura.model.serializer.oudia_reader.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
@@ -192,6 +193,7 @@ namespace test_bobura { namespace model
         struct reader_selector; //!< The reader selector type.
         struct json_reader;    //!< The JSON reader type.
         struct bzip2_reader;   //!< The bzip2 reader type.
+        struct oudia_reader;   //!< The OuDia reader type.
         struct windia_reader;  //!< The WinDIA reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
@@ -269,6 +271,10 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::oudia_reader, detail::serialization::reader_set_type::windia_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::windia_reader, detail::serialization::reader_set_type::windia_reader_type
             >,
         tetengo2::meta::assoc_list<
@@ -302,7 +308,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::writer_set, detail::serialization::writer_set_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>
+        >>>>>>>>>>>>
         serialization_type_list;
 
 
