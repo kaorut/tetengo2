@@ -49,9 +49,9 @@ namespace
 
     // variables
 
-    const std::string data0;
+    const std::string data_empty;
 
-    const std::string data1 =
+    const std::string data_no_train =
         "FileType=OuDia.1.02\n"
         "Rosen.\n"
         "Rosenmei=\n"
@@ -90,7 +90,7 @@ namespace
         ".\n"
         "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
-    const std::string data2 =
+    const std::string data_full =
         "FileType=OuDia.1.02\n"
         "Rosen.\n"
         "Rosenmei=abc\n"
@@ -215,8 +215,83 @@ namespace
         ".\n"
         "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
-    const std::string data3 =
-        "FileType=hoge\n";
+    const std::string data_too_old_version =
+        "FileType=OuDia.1.01\n"
+        "Rosen.\n"
+        "Rosenmei=\n"
+        "Ressyasyubetsu.\n"
+        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "JikokuhyouMojiColor=00000000\n"
+        "JikokuhyouFontIndex=0\n"
+        "DiagramSenColor=00000000\n"
+        "DiagramSenStyle=SenStyle_Jissen\n"
+        "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
+        ".\n"
+        "KitenJikoku=000\n"
+        "DiagramDgrYZahyouKyoriDefault=60\n"
+        "Comment=\n"
+        ".\n"
+        "DispProp.\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@MS Gothic\n"
+        "DiaEkimeiFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaJikokuFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaRessyaFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "CommentFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaMojiColor=00000000\n"
+        "DiaHaikeiColor=00FFFFFF\n"
+        "DiaRessyaColor=00000000\n"
+        "DiaJikuColor=00C0C0C0\n"
+        "EkimeiLength=6\n"
+        "JikokuhyouRessyaWidth=5\n"
+        ".\n"
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
+
+    const std::string data_too_new_version =
+        "FileType=OuDia.1.03\n"
+        "Rosen.\n"
+        "Rosenmei=\n"
+        "Ressyasyubetsu.\n"
+        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "JikokuhyouMojiColor=00000000\n"
+        "JikokuhyouFontIndex=0\n"
+        "DiagramSenColor=00000000\n"
+        "DiagramSenStyle=SenStyle_Jissen\n"
+        "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
+        ".\n"
+        "KitenJikoku=000\n"
+        "DiagramDgrYZahyouKyoriDefault=60\n"
+        "Comment=\n"
+        ".\n"
+        "DispProp.\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@MS Gothic\n"
+        "DiaEkimeiFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaJikokuFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaRessyaFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "CommentFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaMojiColor=00000000\n"
+        "DiaHaikeiColor=00FFFFFF\n"
+        "DiaRessyaColor=00000000\n"
+        "DiaJikuColor=00C0C0C0\n"
+        "EkimeiLength=6\n"
+        "JikokuhyouRessyaWidth=5\n"
+        ".\n"
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
 
 }
@@ -242,7 +317,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data0);
+        //    std::istringstream input_stream(data_empty);
         //    BOOST_CHECK(
         //        !reader.selects(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -253,7 +328,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data1);
+        //    std::istringstream input_stream(data_no_train);
         //    BOOST_CHECK(
         //        reader.selects(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -264,7 +339,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data3);
+        //    std::istringstream input_stream(data_too_old_version);
         //    BOOST_CHECK(
         //        !reader.selects(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -281,7 +356,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data0);
+        //    std::istringstream input_stream(data_empty);
         //    const std::unique_ptr<timetable_type> p_timetable =
         //        reader.read(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -293,7 +368,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data1);
+        //    std::istringstream input_stream(data_no_train);
         //    const std::unique_ptr<timetable_type> p_timetable =
         //        reader.read(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -310,7 +385,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data2);
+        //    std::istringstream input_stream(data_full);
         //    const std::unique_ptr<timetable_type> p_timetable =
         //        reader.read(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -462,7 +537,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //{
         //    reader_type reader;
 
-        //    std::istringstream input_stream(data3);
+        //    std::istringstream input_stream(data_too_old_version);
         //    const std::unique_ptr<timetable_type> p_timetable =
         //        reader.read(
         //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
