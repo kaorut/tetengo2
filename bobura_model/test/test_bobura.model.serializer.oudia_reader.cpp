@@ -51,11 +51,172 @@ namespace
 
     const std::string data0;
 
-    const std::string data1;
+    const std::string data1 =
+        "FileType=OuDia.1.02\n"
+        "Rosen.\n"
+        "Rosenmei=\n"
+        "Ressyasyubetsu.\n"
+        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "JikokuhyouMojiColor=00000000\n"
+        "JikokuhyouFontIndex=0\n"
+        "DiagramSenColor=00000000\n"
+        "DiagramSenStyle=SenStyle_Jissen\n"
+        "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
+        ".\n"
+        "KitenJikoku=000\n"
+        "DiagramDgrYZahyouKyoriDefault=60\n"
+        "Comment=\n"
+        ".\n"
+        "DispProp.\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Itaric=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1;Itaric=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaEkimeiFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaJikokuFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaRessyaFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "CommentFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaMojiColor=00000000\n"
+        "DiaHaikeiColor=00FFFFFF\n"
+        "DiaRessyaColor=00000000\n"
+        "DiaJikuColor=00C0C0C0\n"
+        "EkimeiLength=6\n"
+        "JikokuhyouRessyaWidth=5\n"
+        ".\n"
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
-    const std::string data2;
+    const std::string data2 =
+        "FileType=OuDia.1.02\n"
+        "Rosen.\n"
+        "Rosenmei=abc\n"
+        "Eki.\n"
+        "Ekimei=hoge\n"
+        "Ekijikokukeisiki=Jikokukeisiki_Hatsu\n"
+        "Ekikibo=Ekikibo_Ippan\n"
+        ".\n"
+        "Eki.\n"
+        "Ekimei=fuga\n"
+        "Ekijikokukeisiki=Jikokukeisiki_NoboriChaku\n"
+        "Ekikibo=Ekikibo_Ippan\n"
+        ".\n"
+        "Eki.\n"
+        "Ekimei=piyo\n"
+        "Ekijikokukeisiki=Jikokukeisiki_Hatsuchaku\n"
+        "Ekikibo=Ekikibo_Ippan\n"
+        ".\n"
+        "Eki.\n"
+        "Ekimei=mnu\n"
+        "Ekijikokukeisiki=Jikokukeisiki_Hatsuchaku\n"
+        "Ekikibo=Ekikibo_Syuyou\n"
+        ".\n"
+        "Eki.\n"
+        "Ekimei=iroha\n"
+        "Ekijikokukeisiki=Jikokukeisiki_NoboriChaku\n"
+        "Ekikibo=Ekikibo_Ippan\n"
+        ".\n"
+        "Eki.\n"
+        "Ekimei=nihohe\n"
+        "Ekijikokukeisiki=Jikokukeisiki_Hatsu\n"
+        "Ekikibo=Ekikibo_Ippan\n"
+        ".\n"
+        "Ressyasyubetsu.\n"
+        "Syubetsumei=futsuu\n"
+        "JikokuhyouMojiColor=00000000\n"
+        "JikokuhyouFontIndex=0\n"
+        "DiagramSenColor=00000000\n"
+        "DiagramSenStyle=SenStyle_Jissen\n"
+        "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
+        ".\n"
+        "Ressyasyubetsu.\n"
+        "Syubetsumei=Super Kaisoku\n"
+        "Ryakusyou=SKai\n"
+        "JikokuhyouMojiColor=00000000\n"
+        "JikokuhyouFontIndex=0\n"
+        "DiagramSenColor=00000000\n"
+        "DiagramSenStyle=SenStyle_Hasen\n"
+        "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
+        ".\n"
+        "Dia.\n"
+        "DiaName=Dia\n"
+        "Kudari.\n"
+        "Ressya.\n"
+        "Houkou=Kudari\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=121D\n"
+        "EkiJikoku=1;1000,1;1010,1;1020/1030,1;1040/1050,1;1100,1;1100\n"
+        ".\n"
+        "Ressya.\n"
+        "Houkou=Kudari\n"
+        "Syubetsu=1\n"
+        "Ressyabangou=101D\n"
+        "Ressyamei=foo\n"
+        "Gousuu=1\n"
+        "EkiJikoku=1;1100,2,2,2:1130/1140,2,1;1150\n"
+        ".\n"
+        "Ressya.\n"
+        "Houkou=Kudari\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=123D\n"
+        "EkiJikoku=1;1200,1;1210,1;1220/1230,1;1240/,,\n"
+        ".\n"
+        ".\n"
+        "Nobori.\n"
+        "Ressya.\n"
+        "Houkou=Nobori\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=122D\n"
+        "EkiJikoku=,,1;1000,1;1010/1020,1;1030/,1;1040\n"
+        ".\n"
+        "Ressya.\n"
+        "Houkou=Nobori\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=124D\n"
+        "EkiJikoku=1;1100,1:1110/,1;1120/1130,2;1140/1150,1;1200/,1;1210\n"
+        ".\n"
+        "Ressya.\n"
+        "Houkou=Nobori\n"
+        "Syubetsu=1\n"
+        "Ressyabangou=102D\n"
+        "Ressyamei=bar\n"
+        "Gousuu=2\n"
+        "EkiJikoku=1;1200,2,2,2,2,1;1230\n"
+        ".\n"
+        ".\n"
+        ".\n"
+        "KitenJikoku=000\n"
+        "DiagramDgrYZahyouKyoriDefault=60\n"
+        "Comment=\n"
+        ".\n"
+        "DispProp.\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Itaric=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1;Itaric=1\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaEkimeiFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaJikokuFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaRessyaFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "CommentFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "DiaMojiColor=00000000\n"
+        "DiaHaikeiColor=00FFFFFF\n"
+        "DiaRessyaColor=00000000\n"
+        "DiaJikuColor=00C0C0C0\n"
+        "EkimeiLength=6\n"
+        "JikokuhyouRessyaWidth=5\n"
+        ".\n"
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
-    const std::string data3;
+    const std::string data3 =
+        "FileType=hoge\n";
 
 
 }
