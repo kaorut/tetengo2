@@ -19,6 +19,7 @@
 
 #include "bobura.model.serializer.bzip2_reader.h"
 #include "bobura.model.serializer.json_reader.h"
+#include "bobura.model.serializer.oudia_reader.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.windia_reader.h"
@@ -80,6 +81,10 @@ namespace bobura { namespace model { namespace serializer
 
         //! The bzip2 reader type.
         typedef bzip2_reader<iterator, timetable_type> bzip2_reader_type;
+
+        //! The OuDia reader type.
+        typedef
+            oudia_reader<iterator, timetable_type, station_grade_type_set_type, cp932_encoder_type> oudia_reader_type;
 
         //! The WinDIA reader type.
         typedef

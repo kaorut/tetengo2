@@ -265,7 +265,7 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::oudia_reader, detail::serialization::reader_set_type::windia_reader_type
+                type::serialization::oudia_reader, detail::serialization::reader_set_type::oudia_reader_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
