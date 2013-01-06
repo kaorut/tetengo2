@@ -31,15 +31,9 @@
 #include <tetengo2.gui.drawing.font.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.serializer.bzip2_reader.h"
-#include "bobura.model.serializer.bzip2_writer.h"
-#include "bobura.model.serializer.json_reader.h"
-#include "bobura.model.serializer.json_writer.h"
-#include "bobura.model.serializer.oudia_reader.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
-#include "bobura.model.serializer.windia_reader.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
