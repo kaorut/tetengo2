@@ -68,19 +68,19 @@ namespace
         "Comment=\n"
         ".\n"
         "DispProp.\n"
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Itaric=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1;Itaric=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouVFont=PointTextHeight=9;Facename=@\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaEkimeiFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaJikokuFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaRessyaFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "CommentFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@MS Gothic\n"
+        "DiaEkimeiFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaJikokuFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaRessyaFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "CommentFont=PointTextHeight=9;Facename=MS Gothic\n"
         "DiaMojiColor=00000000\n"
         "DiaHaikeiColor=00FFFFFF\n"
         "DiaRessyaColor=00000000\n"
@@ -193,19 +193,19 @@ namespace
         "Comment=\n"
         ".\n"
         "DispProp.\n"
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Itaric=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E;Bold=1;Itaric=1\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "JikokuhyouVFont=PointTextHeight=9;Facename=@\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaEkimeiFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaJikokuFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "DiaRessyaFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
-        "CommentFont=PointTextHeight=9;Facename=\x82\x6C\x82\x72 \x83\x53\x83\x56\x83\x62\x83\x4E\n" // MS Gothic
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic;Bold=1;Itaric=1\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "JikokuhyouVFont=PointTextHeight=9;Facename=@MS Gothic\n"
+        "DiaEkimeiFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaJikokuFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "DiaRessyaFont=PointTextHeight=9;Facename=MS Gothic\n"
+        "CommentFont=PointTextHeight=9;Facename=MS Gothic\n"
         "DiaMojiColor=00000000\n"
         "DiaHaikeiColor=00FFFFFF\n"
         "DiaRessyaColor=00000000\n"
