@@ -376,23 +376,23 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
 
             BOOST_REQUIRE(!p_timetable);
         }
-        //{
-        //    reader_type reader;
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_no_train);
-        //    const std::unique_ptr<timetable_type> p_timetable =
-        //        reader.read(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        );
+            std::istringstream input_stream(data_no_train);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
 
-        //    BOOST_REQUIRE(p_timetable);
-        //    BOOST_CHECK(p_timetable->line_name().empty());
-        //    BOOST_CHECK(p_timetable->station_locations().empty());
-        //    BOOST_CHECK(p_timetable->train_kinds().empty());
-        //    BOOST_CHECK(p_timetable->down_trains().empty());
-        //    BOOST_CHECK(p_timetable->up_trains().empty());
-        //}
+            BOOST_REQUIRE(p_timetable);
+            //BOOST_CHECK(p_timetable->line_name().empty());
+            //BOOST_CHECK(p_timetable->station_locations().empty());
+            //BOOST_CHECK(p_timetable->train_kinds().empty());
+            //BOOST_CHECK(p_timetable->down_trains().empty());
+            //BOOST_CHECK(p_timetable->up_trains().empty());
+        }
         //{
         //    reader_type reader;
 

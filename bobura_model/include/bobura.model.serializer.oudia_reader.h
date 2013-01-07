@@ -132,20 +132,55 @@ namespace bobura { namespace model { namespace serializer
             virtual ~state()
             {}
 
-            virtual bool parse(const string_type& line)
+            bool parse(const string_type& line)
+            {
+                std::pair<string_type, string_type> key_value = parse_line(line);
+                if (key_value.first.empty())
+                    return false;
+
+                return parse_impl(key_value.first, std::move(key_value.second));
+            }
+
+        private:
+            virtual bool parse_impl(const string_type& key, string_type value)
             = 0;
+
+        };
+
+        class unknown_state : public state
+        {
+        public:
+            virtual ~unknown_state()
+            {}
+
+        private:
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                return true;
+            }
 
         };
 
         class initial_state : public state
         {
         public:
+            explicit initial_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
             virtual ~initial_state()
             {}
 
-            virtual bool parse(const string_type& line)
+        private:
+            timetable_type& m_timetable;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
             {
-                return false;
+                if (key == string_type(TETENGO2_TEXT("Comment")))
+                    m_timetable.set_note(std::move(value));
+
+                return true;
             }
 
         };
@@ -163,7 +198,9 @@ namespace bobura { namespace model { namespace serializer
         {
             skip_line_breaks(first, last);
             const iterator next_line_break = std::find_if(first, last, line_break);
-            return encoder().decode(input_string_type(first, next_line_break));
+            string_type line = encoder().decode(input_string_type(first, next_line_break));
+            first = next_line_break;
+            return line;
         }
 
         static void skip_line_breaks(iterator& first, const iterator last)
@@ -179,11 +216,16 @@ namespace bobura { namespace model { namespace serializer
                 character == input_char_type(TETENGO2_TEXT('\n'));
         }
 
-        static std::vector<string_type> split(const string_type& string, const char_type splitter)
+        static std::unique_ptr<state> move_to_another_state(const string_type& line, timetable_type& timetable)
         {
-            std::vector<string_type> result;
-            boost::split(result, string, is_splitter(splitter));
-            return result;
+            if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
+                return std::unique_ptr<state>();
+
+            const string_type name = line.substr(0, line.length() - 1);
+            if (name.empty())
+                return tetengo2::make_unique<initial_state>(timetable);
+            else
+                return tetengo2::make_unique<unknown_state>();
         }
 
         static std::pair<string_type, string_type> parse_line(const string_type& line)
@@ -195,16 +237,11 @@ namespace bobura { namespace model { namespace serializer
             return std::make_pair(std::move(splitted[0]), std::move(splitted[1]));
         }
 
-        static const string_type& key_initial_filetype()
+        static std::vector<string_type> split(const string_type& string, const char_type splitter)
         {
-            static const string_type singleton(TETENGO2_TEXT("FileType"));
-            return singleton;
-        }
-
-        static const string_type& value_initial_filetype_oudia()
-        {
-            static const string_type singleton(TETENGO2_TEXT("OuDia"));
-            return singleton;
+            std::vector<string_type> result;
+            boost::split(result, string, is_splitter(splitter));
+            return result;
         }
 
         static file_type parse_file_type(const string_type& file_type_string)
@@ -226,8 +263,8 @@ namespace bobura { namespace model { namespace serializer
             const file_type file_type_ = parse_file_type(key_value.second);
 
             return
-                key_value.first == key_initial_filetype() &&
-                file_type_.m_name == value_initial_filetype_oudia() &&
+                key_value.first == string_type(TETENGO2_TEXT("FileType")) &&
+                file_type_.m_name == string_type(TETENGO2_TEXT("OuDia")) &&
                 file_type_.m_major_version == 1 &&
                 file_type_.m_minor_version == 2;
         }
@@ -239,7 +276,7 @@ namespace bobura { namespace model { namespace serializer
 
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
-            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
+            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);
             iterator next_line_first = first;
             for (;;)
             {
@@ -247,24 +284,19 @@ namespace bobura { namespace model { namespace serializer
                 if (next_line_first == last)
                     break;
 
-                //if      (input_line == windia_section_label())
-                //    p_state = tetengo2::make_unique<windia_state>(*p_timetable);
-                //else if (input_line == station_section_label())
-                //    p_state = tetengo2::make_unique<station_state>(*p_timetable);
-                //else if (input_line == line_kind_section_label())
-                //    p_state = tetengo2::make_unique<line_kind_state>(*p_timetable);
-                //else if (input_line == down_train_section_label())
-                //    p_state = tetengo2::make_unique<down_train_state>(*p_timetable);
-                //else if (input_line == up_train_section_label())
-                //    p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
-                //else
+                std::unique_ptr<state> p_new_state = move_to_another_state(input_line, *p_timetable);
+                if (p_new_state)
+                {
+                    p_state = std::move(p_new_state);
+                }
+                else
                 {
                     if (!p_state->parse(input_line))
                         return std::unique_ptr<timetable_type>();
                 }
             }
 
-            if (dynamic_cast<initial_state*>(p_state.get()) == 0)
+            if (!dynamic_cast<initial_state*>(p_state.get()))
                 return std::unique_ptr<timetable_type>();
 
             return std::move(p_timetable);
