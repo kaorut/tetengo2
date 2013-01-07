@@ -364,18 +364,18 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    reader_type reader;
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_empty);
-        //    const std::unique_ptr<timetable_type> p_timetable =
-        //        reader.read(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        );
+            std::istringstream input_stream(data_empty);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
 
-        //    BOOST_REQUIRE(!p_timetable);
-        //}
+            BOOST_REQUIRE(!p_timetable);
+        }
         //{
         //    reader_type reader;
 

@@ -137,6 +137,19 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class initial_state : public state
+        {
+        public:
+            virtual ~initial_state()
+            {}
+
+            virtual bool parse(const string_type& line)
+            {
+                return false;
+            }
+
+        };
+
 
         // static functions
 
@@ -221,39 +234,38 @@ namespace bobura { namespace model { namespace serializer
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
+            if (!selects(first, last))
+                return std::unique_ptr<timetable_type>();
+
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
-            //insert_preset_train_kinds(*p_timetable);
+            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
+            iterator next_line_first = first;
+            for (;;)
+            {
+                const string_type input_line = next_line(next_line_first, last);
+                if (next_line_first == last)
+                    break;
 
-            //std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
-            //iterator next_line_first = first;
-            //for (;;)
-            //{
-            //    const string_type input_line = next_line(next_line_first, last);
-            //    if (next_line_first == last)
-            //        break;
+                //if      (input_line == windia_section_label())
+                //    p_state = tetengo2::make_unique<windia_state>(*p_timetable);
+                //else if (input_line == station_section_label())
+                //    p_state = tetengo2::make_unique<station_state>(*p_timetable);
+                //else if (input_line == line_kind_section_label())
+                //    p_state = tetengo2::make_unique<line_kind_state>(*p_timetable);
+                //else if (input_line == down_train_section_label())
+                //    p_state = tetengo2::make_unique<down_train_state>(*p_timetable);
+                //else if (input_line == up_train_section_label())
+                //    p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
+                //else
+                {
+                    if (!p_state->parse(input_line))
+                        return std::unique_ptr<timetable_type>();
+                }
+            }
 
-            //    if      (input_line == windia_section_label())
-            //        p_state = tetengo2::make_unique<windia_state>(*p_timetable);
-            //    else if (input_line == station_section_label())
-            //        p_state = tetengo2::make_unique<station_state>(*p_timetable);
-            //    else if (input_line == line_kind_section_label())
-            //        p_state = tetengo2::make_unique<line_kind_state>(*p_timetable);
-            //    else if (input_line == down_train_section_label())
-            //        p_state = tetengo2::make_unique<down_train_state>(*p_timetable);
-            //    else if (input_line == up_train_section_label())
-            //        p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
-            //    else
-            //    {
-            //        if (!p_state->parse(input_line))
-            //            return std::unique_ptr<timetable_type>();
-            //    }
-            //}
-
-            //erase_unreferred_train_kinds(*p_timetable);
-
-            //if (dynamic_cast<up_train_state*>(p_state.get()) == 0)
-            //    return std::unique_ptr<timetable_type>();
+            if (dynamic_cast<initial_state*>(p_state.get()) == 0)
+                return std::unique_ptr<timetable_type>();
 
             return std::move(p_timetable);
         }
