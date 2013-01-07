@@ -228,6 +228,7 @@ BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
+BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
@@ -527,6 +528,7 @@ boost::spirit::qi::grammar                       boost/spirit/include/qi.hpp
 boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
+boost::split                                     boost/algorithm/string.hpp
 boost::swap                                      boost/swap.hpp
 boost::system::error_code                        boost/system/system_error.hpp
 boost::this_thread::sleep                        boost/thread.hpp
