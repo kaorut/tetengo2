@@ -18,6 +18,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
@@ -100,6 +101,38 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_type train_type;
 
+        struct is_splitter
+        {
+            char_type m_splitter;
+
+            explicit is_splitter(const char_type splitter)
+            :
+            m_splitter(splitter)
+            {}
+
+            bool operator()(const char_type character)
+            const
+            {
+                return character == m_splitter;
+            }
+
+        };
+
+        struct file_type
+        {
+            string_type m_name;
+            int         m_major_version;
+            int         m_minor_version;
+
+            file_type(string_type name, int major_version, int minor_version)
+            :
+            m_name(std::move(name)),
+            m_major_version(major_version),
+            m_minor_version(minor_version)
+            {}
+
+        };
+
         class state
         {
         public:
@@ -122,21 +155,9 @@ namespace bobura { namespace model { namespace serializer
 
         static string_type next_line(iterator& first, const iterator last)
         {
-            string_type line;
-            for (;;)
-            {
-                skip_line_breaks(first, last);
-                const iterator next_line_break = std::find_if(first, last, line_break);
-                line += encoder().decode(input_string_type(first, next_line_break));
-
-                first = next_line_break;
-                if (!line.empty() && line_contination(line[line.length() - 1]))
-                    line.resize(line.length() - 1);
-                else
-                    break;
-            }
-
-            return line;
+            skip_line_breaks(first, last);
+            const iterator next_line_break = std::find_if(first, last, line_break);
+            return encoder().decode(input_string_type(first, next_line_break));
         }
 
         static void skip_line_breaks(iterator& first, const iterator last)
@@ -152,14 +173,57 @@ namespace bobura { namespace model { namespace serializer
                 character == input_char_type(TETENGO2_TEXT('\n'));
         }
 
+        static std::vector<string_type> split(const string_type& string, const char_type splitter)
+        {
+            std::vector<string_type> result;
+            boost::algorithm::split(result, string, is_splitter(splitter));
+            return result;
+        }
+
+        static std::pair<string_type, string_type> parse_line(const string_type& line)
+        {
+            std::vector<string_type> splitted = split(line, char_type(TETENGO2_TEXT('=')));
+            if (splitted.size() < 2)
+                return std::make_pair(line, string_type());
+
+            return std::make_pair(std::move(splitted[0]), std::move(splitted[1]));
+        }
+
+        static const string_type& key_initial_filetype()
+        {
+            static const string_type singleton(TETENGO2_TEXT("FileType"));
+            return singleton;
+        }
+
+        static const string_type& value_initial_filetype_oudia()
+        {
+            static const string_type singleton(TETENGO2_TEXT("OuDia"));
+            return singleton;
+        }
+
+        static file_type parse_file_type(const string_type& file_type_string)
+        {
+            std::vector<string_type> splitted = split(file_type_string, char_type(TETENGO2_TEXT('.')));
+            string_type name = splitted.size() >= 1 ? std::move(splitted[0]) : string_type();
+            const int major_version = splitted.size() >= 2 ? boost::lexical_cast<int>(splitted[1]) : 0;
+            const int minor_version = splitted.size() >= 3 ? boost::lexical_cast<int>(splitted[2]) : 0;
+            return file_type(std::move(name), major_version, minor_version);
+        }
+
 
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return false;
-            //iterator mutable_first = first;
-            //return next_line(mutable_first, last) == windia_section_label();
+            iterator mutable_first = first;
+            const std::pair<string_type, string_type> key_value = parse_line(next_line(mutable_first, last));
+            const file_type file_type_ = parse_file_type(key_value.second);
+
+            return
+                key_value.first == key_initial_filetype() &&
+                file_type_.m_name == value_initial_filetype_oudia() &&
+                file_type_.m_major_version == 1 &&
+                file_type_.m_minor_version == 2;
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)

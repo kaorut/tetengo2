@@ -314,39 +314,50 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    reader_type reader;
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_empty);
-        //    BOOST_CHECK(
-        //        !reader.selects(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        )
-        //    );
-        //}
-        //{
-        //    reader_type reader;
+            std::istringstream input_stream(data_empty);
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_no_train);
-        //    BOOST_CHECK(
-        //        reader.selects(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        )
-        //    );
-        //}
-        //{
-        //    reader_type reader;
+            std::istringstream input_stream(data_no_train);
+            BOOST_CHECK(
+                reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_too_old_version);
-        //    BOOST_CHECK(
-        //        !reader.selects(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        )
-        //    );
-        //}
+            std::istringstream input_stream(data_too_old_version);
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data_too_new_version);
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                )
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(read)
