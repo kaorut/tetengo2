@@ -190,7 +190,7 @@ namespace
         ".\n"
         "KitenJikoku=000\n"
         "DiagramDgrYZahyouKyoriDefault=60\n"
-        "Comment=\n"
+        "Comment=def\n"
         ".\n"
         "DispProp.\n"
         "JikokuhyouFont=PointTextHeight=9;Facename=MS Gothic\n"
@@ -387,24 +387,26 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(p_timetable);
-            //BOOST_CHECK(p_timetable->line_name().empty());
-            //BOOST_CHECK(p_timetable->station_locations().empty());
-            //BOOST_CHECK(p_timetable->train_kinds().empty());
-            //BOOST_CHECK(p_timetable->down_trains().empty());
-            //BOOST_CHECK(p_timetable->up_trains().empty());
+            BOOST_CHECK(p_timetable->line_name().empty());
+            BOOST_CHECK(p_timetable->note().empty());
+            BOOST_CHECK(p_timetable->station_locations().empty());
+            BOOST_CHECK(p_timetable->train_kinds().empty());
+            BOOST_CHECK(p_timetable->down_trains().empty());
+            BOOST_CHECK(p_timetable->up_trains().empty());
         }
-        //{
-        //    reader_type reader;
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_full);
-        //    const std::unique_ptr<timetable_type> p_timetable =
-        //        reader.read(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        );
+            std::istringstream input_stream(data_full);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
 
-        //    BOOST_REQUIRE(p_timetable);
-        //    BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
+            BOOST_REQUIRE(p_timetable);
+            //BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
+            BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("def")));
 
         //    BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
         //    {
@@ -544,19 +546,31 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //            BOOST_CHECK(stop.platform().empty());
         //        }
         //    }
-        //}
-        //{
-        //    reader_type reader;
+        }
+        {
+            reader_type reader;
 
-        //    std::istringstream input_stream(data_too_old_version);
-        //    const std::unique_ptr<timetable_type> p_timetable =
-        //        reader.read(
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-        //            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
-        //        );
+            std::istringstream input_stream(data_too_old_version);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
 
-        //    BOOST_REQUIRE(!p_timetable);
-        //}
+            BOOST_REQUIRE(!p_timetable);
+        }
+        {
+            reader_type reader;
+
+            std::istringstream input_stream(data_too_new_version);
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
+
+            BOOST_REQUIRE(!p_timetable);
+        }
     }
 
 

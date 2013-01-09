@@ -189,7 +189,7 @@ namespace bobura { namespace model { namespace serializer
             virtual bool parse_impl(const string_type& key, string_type value)
             {
                 if (key == string_type(TETENGO2_TEXT("Comment")))
-                    m_timetable.set_note(std::move(value));
+                    m_timetable.set_note(remove_line_break_escape_sequences(std::move(value)));
 
                 return true;
             }
@@ -228,6 +228,15 @@ namespace bobura { namespace model { namespace serializer
             return
                 character == input_char_type(TETENGO2_TEXT('\r')) ||
                 character == input_char_type(TETENGO2_TEXT('\n'));
+        }
+
+        static string_type remove_line_break_escape_sequences(string_type string)
+        {
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r\\n")), string_type());
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type());
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type());
+
+            return string;
         }
 
         static std::unique_ptr<state> move_to_another_state(const string_type& line, timetable_type& timetable)
