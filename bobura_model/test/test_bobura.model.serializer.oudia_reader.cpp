@@ -56,7 +56,7 @@ namespace
         "Rosen.\n"
         "Rosenmei=\n"
         "Ressyasyubetsu.\n"
-        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "Syubetsumei=futsuu\n"
         "JikokuhyouMojiColor=00000000\n"
         "JikokuhyouFontIndex=0\n"
         "DiagramSenColor=00000000\n"
@@ -220,7 +220,7 @@ namespace
         "Rosen.\n"
         "Rosenmei=\n"
         "Ressyasyubetsu.\n"
-        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "Syubetsumei=futsuu\n"
         "JikokuhyouMojiColor=00000000\n"
         "JikokuhyouFontIndex=0\n"
         "DiagramSenColor=00000000\n"
@@ -259,7 +259,7 @@ namespace
         "Rosen.\n"
         "Rosenmei=\n"
         "Ressyasyubetsu.\n"
-        "Syubetsumei=\x95\x81\x92\xCA\n" // futsuu
+        "Syubetsumei=futsuu\n"
         "JikokuhyouMojiColor=00000000\n"
         "JikokuhyouFontIndex=0\n"
         "DiagramSenColor=00000000\n"
@@ -408,34 +408,34 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("def")));
 
-        //    BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
-        //    {
-        //        const station_location_type& station_location = p_timetable->station_locations()[0];
-        //        BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("hoge")));
-        //        BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
-        //        BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
-        //    }
-        //    {
-        //        const station_location_type& station_location = p_timetable->station_locations()[2];
-        //        BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("piyo")));
-        //        BOOST_CHECK(
-        //            station_location.station().grade().name() == string_type(TETENGO2_TEXT("local terminal"))
-        //        );
-        //        BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
-        //    }
-        //    {
-        //        const station_location_type& station_location = p_timetable->station_locations()[4];
-        //        BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("iroha")));
-        //        BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
-        //        BOOST_CHECK(station_location.station().shows_up_arrival_times());
-        //        BOOST_CHECK_EQUAL(station_location.meterage(), 4U);
-        //    }
+            BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
+            {
+                const station_location_type& station_location = p_timetable->station_locations()[0];
+                BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("hoge")));
+                BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
+                BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
+            }
+            {
+                const station_location_type& station_location = p_timetable->station_locations()[2];
+                BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("piyo")));
+                BOOST_CHECK(
+                    station_location.station().grade().name() == string_type(TETENGO2_TEXT("local terminal"))
+                );
+                BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
+            }
+            {
+                const station_location_type& station_location = p_timetable->station_locations()[4];
+                BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("iroha")));
+                BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
+                BOOST_CHECK(station_location.station().shows_up_arrival_times());
+                BOOST_CHECK_EQUAL(station_location.meterage(), 4U);
+            }
 
         //    BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 4U);
         //    {
         //        const train_kind_type& train_kind = p_timetable->train_kinds()[0];
 
-        //        BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("\x95\x81\x92\xCA"))); // futsuu
+        //        BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("futsuu")));
         //        BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
         //        BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::normal);
         //    }

@@ -84,6 +84,14 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename string_type::value_type char_type;
 
+        typedef typename timetable_type::station_location_type station_location_type;
+
+        typedef typename station_location_type::station_type station_type;
+
+        typedef typename station_type::grade_type station_grade_type;
+
+        typedef typename station_location_type::meterage_type meterage_type;
+
         typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_kind_type::color_type color_type;
@@ -226,6 +234,95 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class eki_state : public state
+        {
+        public:
+            explicit eki_state(timetable_type& timetable)
+            :
+            m_timetable(timetable),
+            m_ekimei(),
+            m_ekijikokukeisiki(),
+            m_ekikibo()
+            {}
+
+            virtual ~eki_state()
+            {}
+
+        private:
+            static const station_grade_type& to_station_grade(
+                const string_type& ekijikokukeisiki,
+                const string_type& ekikibo
+            )
+            {
+                const bool both_arrival_and_departure =
+                    ekijikokukeisiki == string_type(TETENGO2_TEXT("Jikokukeisiki_Hatsuchaku"));
+                const bool principal = ekikibo == string_type(TETENGO2_TEXT("Ekikibo_Syuyou"));
+
+                if (both_arrival_and_departure)
+                {
+                    if (principal)
+                        return station_grade_type_set_type::principal_terminal_type::instance();
+                    else
+                        return station_grade_type_set_type::local_terminal_type::instance();
+                }
+                else
+                {
+                    if (principal)
+                        return station_grade_type_set_type::principal_type::instance();
+                    else
+                        return station_grade_type_set_type::local_type::instance();
+                }
+            }
+
+            static bool shows_down_arrival_times(const string_type& ekijikokukeisiki)
+            {
+                return ekijikokukeisiki == string_type(TETENGO2_TEXT("Jikokukeisiki_KudariChaku"));
+            }
+
+            static bool shows_up_arrival_times(const string_type& ekijikokukeisiki)
+            {
+                return ekijikokukeisiki == string_type(TETENGO2_TEXT("Jikokukeisiki_NoboriChaku"));
+            }
+
+            timetable_type& m_timetable;
+
+            string_type m_ekimei;
+
+            string_type m_ekijikokukeisiki;
+
+            string_type m_ekikibo;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                if (key == string_type(TETENGO2_TEXT("Ekimei")))
+                    m_ekimei = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Ekijikokukeisiki")))
+                    m_ekijikokukeisiki = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Ekikibo")))
+                    m_ekikibo = std::move(value);
+
+                return true;
+            }
+
+            virtual void leaving_impl()
+            {
+                m_timetable.insert_station_location(
+                    m_timetable.station_locations().end(),
+                    station_location_type(
+                        station_type(
+                            std::move(m_ekimei),
+                            to_station_grade(m_ekijikokukeisiki, m_ekikibo),
+                            shows_down_arrival_times(m_ekijikokukeisiki),
+                            shows_up_arrival_times(m_ekijikokukeisiki)
+                        ),
+                        m_timetable.station_locations().empty() ?
+                            0 : m_timetable.station_locations().back().meterage() + 1
+                    )
+                );
+            }
+
+        };
+
 
         // static functions
 
@@ -274,8 +371,10 @@ namespace bobura { namespace model { namespace serializer
             const string_type name = line.substr(0, line.length() - 1);
             if (name.empty())
                 return tetengo2::make_unique<initial_state>(timetable);
-            if (name == string_type(TETENGO2_TEXT("Rosen")))
+            else if (name == string_type(TETENGO2_TEXT("Rosen")))
                 return tetengo2::make_unique<rosen_state>(timetable);
+            else if (name == string_type(TETENGO2_TEXT("Eki")))
+                return tetengo2::make_unique<eki_state>(timetable);
             else
                 return tetengo2::make_unique<unknown_state>();
         }
