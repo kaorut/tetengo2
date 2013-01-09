@@ -141,8 +141,16 @@ namespace bobura { namespace model { namespace serializer
                 return parse_impl(key_value.first, std::move(key_value.second));
             }
 
+            void moving_to_another()
+            {
+                moving_to_another_impl();
+            }
+
         private:
             virtual bool parse_impl(const string_type& key, string_type value)
+            = 0;
+
+            virtual void moving_to_another_impl()
             = 0;
 
         };
@@ -158,6 +166,9 @@ namespace bobura { namespace model { namespace serializer
             {
                 return true;
             }
+
+            virtual void moving_to_another_impl()
+            {}
 
         };
 
@@ -182,6 +193,9 @@ namespace bobura { namespace model { namespace serializer
 
                 return true;
             }
+
+            virtual void moving_to_another_impl()
+            {}
 
         };
 
@@ -287,6 +301,7 @@ namespace bobura { namespace model { namespace serializer
                 std::unique_ptr<state> p_new_state = move_to_another_state(input_line, *p_timetable);
                 if (p_new_state)
                 {
+                    p_state->moving_to_another();
                     p_state = std::move(p_new_state);
                 }
                 else
