@@ -405,7 +405,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(p_timetable);
-            //BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
+            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("def")));
 
         //    BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);

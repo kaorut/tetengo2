@@ -141,16 +141,16 @@ namespace bobura { namespace model { namespace serializer
                 return parse_impl(key_value.first, std::move(key_value.second));
             }
 
-            void moving_to_another()
+            void leaving()
             {
-                moving_to_another_impl();
+                leaving_impl();
             }
 
         private:
             virtual bool parse_impl(const string_type& key, string_type value)
             = 0;
 
-            virtual void moving_to_another_impl()
+            virtual void leaving_impl()
             = 0;
 
         };
@@ -167,7 +167,7 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void moving_to_another_impl()
+            virtual void leaving_impl()
             {}
 
         };
@@ -194,7 +194,34 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void moving_to_another_impl()
+            virtual void leaving_impl()
+            {}
+
+        };
+
+        class rosen_state : public state
+        {
+        public:
+            explicit rosen_state(timetable_type& timetable)
+            :
+            m_timetable(timetable)
+            {}
+
+            virtual ~rosen_state()
+            {}
+
+        private:
+            timetable_type& m_timetable;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                if (key == string_type(TETENGO2_TEXT("Rosenmei")))
+                    m_timetable.set_line_name(std::move(value));
+
+                return true;
+            }
+
+            virtual void leaving_impl()
             {}
 
         };
@@ -239,7 +266,7 @@ namespace bobura { namespace model { namespace serializer
             return string;
         }
 
-        static std::unique_ptr<state> move_to_another_state(const string_type& line, timetable_type& timetable)
+        static std::unique_ptr<state> dispatch(const string_type& line, timetable_type& timetable)
         {
             if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
                 return std::unique_ptr<state>();
@@ -247,6 +274,8 @@ namespace bobura { namespace model { namespace serializer
             const string_type name = line.substr(0, line.length() - 1);
             if (name.empty())
                 return tetengo2::make_unique<initial_state>(timetable);
+            if (name == string_type(TETENGO2_TEXT("Rosen")))
+                return tetengo2::make_unique<rosen_state>(timetable);
             else
                 return tetengo2::make_unique<unknown_state>();
         }
@@ -307,10 +336,10 @@ namespace bobura { namespace model { namespace serializer
                 if (next_line_first == last)
                     break;
 
-                std::unique_ptr<state> p_new_state = move_to_another_state(input_line, *p_timetable);
+                std::unique_ptr<state> p_new_state = dispatch(input_line, *p_timetable);
                 if (p_new_state)
                 {
-                    p_state->moving_to_another();
+                    p_state->leaving();
                     p_state = std::move(p_new_state);
                 }
                 else
