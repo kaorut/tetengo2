@@ -458,6 +458,50 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class kudari_state : public state
+        {
+        public:
+            explicit kudari_state(bool& down)
+            {
+                down = true;
+            }
+
+            virtual ~kudari_state()
+            {}
+
+        private:
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                return true;
+            }
+
+            virtual void leaving_impl()
+            {}
+
+        };
+
+        class nobori_state : public state
+        {
+        public:
+            explicit nobori_state(bool& down)
+            {
+                down = false;
+            }
+
+            virtual ~nobori_state()
+            {}
+
+        private:
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                return true;
+            }
+
+            virtual void leaving_impl()
+            {}
+
+        };
+
 
         // static functions
 
@@ -547,7 +591,8 @@ namespace bobura { namespace model { namespace serializer
             const string_type& line,
             timetable_type&    timetable,
             const string_type& selected_diagram_name,
-            string_type&       current_diagram_name
+            string_type&       current_diagram_name,
+            bool&              down
         )
         {
             if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
@@ -576,7 +621,12 @@ namespace bobura { namespace model { namespace serializer
             }
             else if (!current_diagram_name.empty() && current_diagram_name == selected_diagram_name)
             {
-                return tetengo2::make_unique<unknown_state>();
+                if      (name == string_type(TETENGO2_TEXT("Kudari")))
+                    return tetengo2::make_unique<kudari_state>(down);
+                else if (name == string_type(TETENGO2_TEXT("Nobori")))
+                    return tetengo2::make_unique<nobori_state>(down);
+                else
+                    return tetengo2::make_unique<unknown_state>();
             }
             else
             {
@@ -675,6 +725,7 @@ namespace bobura { namespace model { namespace serializer
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
             string_type current_diagram_name;
+            bool down = true;
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);
             iterator next_line_first = first;
@@ -685,7 +736,7 @@ namespace bobura { namespace model { namespace serializer
                     break;
 
                 std::unique_ptr<state> p_new_state =
-                    dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name);
+                    dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name, down);
                 if (p_new_state)
                 {
                     p_state->leaving();
