@@ -13,12 +13,15 @@
 #include <ios>
 //#include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 //#include <utility>
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -77,12 +80,17 @@ namespace bobura { namespace model { namespace serializer
             \brief Creates a WinDIA reader.
 
             \param p_diagram_selector A unique pointer to a diagram selector.
+
+            \throw std::invalid_argument When p_diagram_selector is NULL.
         */
         explicit oudia_reader(std::unique_ptr<diagram_selector_type> p_diagram_selector)
         :
         base_type(),
         m_p_diagram_selector(std::move(p_diagram_selector))
-        {}
+        {
+            if (!m_p_diagram_selector)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Diagram selector is NULL."));
+        }
 
         /*!
             \brief Destroys the oudia_reader.
@@ -432,6 +440,29 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
+        static std::vector<string_type> collect_diagram_names(const iterator first, const iterator last)
+        {
+            std::vector<string_type> names;
+
+            iterator next_line_first = first;
+            for (;;)
+            {
+                const string_type input_line = next_line(next_line_first, last);
+                if (next_line_first == last)
+                    break;
+
+                std::pair<string_type, string_type> key_value = parse_line(input_line);
+                if (key_value.first.empty() || key_value.second.empty())
+                    continue;
+                if (key_value.first != string_type(TETENGO2_TEXT("DiaName")))
+                    continue;
+
+                names.push_back(std::move(key_value.second));
+            }
+
+            return names;
+        }
+
         static string_type next_line(iterator& first, const iterator last)
         {
             skip_line_breaks(first, last);
@@ -560,7 +591,38 @@ namespace bobura { namespace model { namespace serializer
                 error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
             }
+            
+            const boost::optional<string_type> selected_diagram_name = select_diagram(first, last);
+            if (!selected_diagram_name)
+            {
+                error = error_type::canceled;
+                return std::unique_ptr<timetable_type>();
+            }
 
+            return read_timetable(first, last, error, *selected_diagram_name);
+        }
+
+
+        // functions
+
+        boost::optional<string_type> select_diagram(const iterator first, const iterator last)
+        {
+            std::vector<string_type> diagram_names = collect_diagram_names(first, last);
+            if (diagram_names.empty())
+                return string_type();
+
+            const typename std::vector<string_type>::const_iterator found =
+                m_p_diagram_selector->select(diagram_names);
+            return boost::make_optional(found != diagram_names.end(), std::move(*found));
+        }
+
+        std::unique_ptr<timetable_type> read_timetable(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error,
+            const string_type&           selected_diagram_name
+        )
+        {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);

@@ -332,9 +332,15 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::unique_ptr<diagram_selector_type> p_diagram_selector =
-            tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-        const reader_type reader(std::move(p_diagram_selector));
+        {
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            const reader_type reader(std::move(p_diagram_selector));
+        }
+        {
+            std::unique_ptr<diagram_selector_type> p_diagram_selector;
+            BOOST_CHECK_THROW(reader_type(std::move(p_diagram_selector)), std::invalid_argument);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(selects)
