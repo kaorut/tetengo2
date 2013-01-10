@@ -431,6 +431,33 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class dia_state : public state
+        {
+        public:
+            explicit dia_state(string_type& current_diagram_name)
+            :
+            m_current_diagram_name(current_diagram_name)
+            {}
+
+            virtual ~dia_state()
+            {}
+
+        private:
+            string_type& m_current_diagram_name;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                if (key == string_type(TETENGO2_TEXT("DiaName")))
+                    m_current_diagram_name = std::move(value);
+
+                return true;
+            }
+
+            virtual void leaving_impl()
+            {}
+
+        };
+
 
         // static functions
 
@@ -516,22 +543,45 @@ namespace bobura { namespace model { namespace serializer
             return result;
         }
 
-        static std::unique_ptr<state> dispatch(const string_type& line, timetable_type& timetable)
+        static std::unique_ptr<state> dispatch(
+            const string_type& line,
+            timetable_type&    timetable,
+            const string_type& selected_diagram_name,
+            string_type&       current_diagram_name
+        )
         {
             if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
                 return std::unique_ptr<state>();
 
             const string_type name = line.substr(0, line.length() - 1);
             if (name.empty())
+            {
                 return tetengo2::make_unique<initial_state>(timetable);
+            }
             else if (name == string_type(TETENGO2_TEXT("Rosen")))
+            {
                 return tetengo2::make_unique<rosen_state>(timetable);
+            }
             else if (name == string_type(TETENGO2_TEXT("Eki")))
+            {
                 return tetengo2::make_unique<eki_state>(timetable);
+            }
             else if (name == string_type(TETENGO2_TEXT("Ressyasyubetsu")))
+            {
                 return tetengo2::make_unique<ressyasyubetsu_state>(timetable);
-            else
+            }
+            else if (name == string_type(TETENGO2_TEXT("Dia")))
+            {
+                return tetengo2::make_unique<dia_state>(current_diagram_name);
+            }
+            else if (!current_diagram_name.empty() && current_diagram_name == selected_diagram_name)
+            {
                 return tetengo2::make_unique<unknown_state>();
+            }
+            else
+            {
+                return tetengo2::make_unique<unknown_state>();
+            }
         }
 
         static std::pair<string_type, string_type> parse_line(const string_type& line)
@@ -624,6 +674,7 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+            string_type current_diagram_name;
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);
             iterator next_line_first = first;
@@ -633,7 +684,8 @@ namespace bobura { namespace model { namespace serializer
                 if (next_line_first == last)
                     break;
 
-                std::unique_ptr<state> p_new_state = dispatch(input_line, *p_timetable);
+                std::unique_ptr<state> p_new_state =
+                    dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name);
                 if (p_new_state)
                 {
                     p_state->leaving();
