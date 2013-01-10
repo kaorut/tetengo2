@@ -137,8 +137,9 @@ namespace
         "Ryakusyou=SKai\n"
         "JikokuhyouMojiColor=00000000\n"
         "JikokuhyouFontIndex=0\n"
-        "DiagramSenColor=00000000\n"
+        "DiagramSenColor=00ABCDEF\n"
         "DiagramSenStyle=SenStyle_Hasen\n"
+        "DiagramSenIsBold=1\n"
         "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
         ".\n"
         "Dia.\n"
@@ -390,7 +391,16 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->line_name().empty());
             BOOST_CHECK(p_timetable->note().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
-            BOOST_CHECK(p_timetable->train_kinds().empty());
+
+            BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 1U);
+            {
+                const train_kind_type& train_kind = p_timetable->train_kinds()[0];
+
+                BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("futsuu")));
+                BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
+                BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::normal);
+            }
+
             BOOST_CHECK(p_timetable->down_trains().empty());
             BOOST_CHECK(p_timetable->up_trains().empty());
         }
@@ -431,21 +441,21 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK_EQUAL(station_location.meterage(), 4U);
             }
 
-        //    BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 4U);
-        //    {
-        //        const train_kind_type& train_kind = p_timetable->train_kinds()[0];
+            BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 2U);
+            {
+                const train_kind_type& train_kind = p_timetable->train_kinds()[0];
 
-        //        BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("futsuu")));
-        //        BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
-        //        BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::normal);
-        //    }
-        //    {
-        //        const train_kind_type& train_kind = p_timetable->train_kinds()[3];
+                BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("futsuu")));
+                BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
+                BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::normal);
+            }
+            {
+                const train_kind_type& train_kind = p_timetable->train_kinds()[1];
 
-        //        BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("express")));
-        //        BOOST_CHECK(train_kind.color() == color_type(255, 0, 0));
-        //        BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::bold);
-        //    }
+                BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("Super Kaisoku")));
+                BOOST_CHECK(train_kind.color() == color_type(0xAB, 0xCD, 0xEF));
+                BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::bold);
+            }
 
         //    BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 3U);
         //    {

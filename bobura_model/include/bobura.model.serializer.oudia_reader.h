@@ -10,7 +10,9 @@
 #define BOBURA_MODEL_SERIALIZER_OUDIAREADER_H
 
 #include <algorithm>
+#include <iomanip>
 //#include <memory>
+#include <sstream>
 #include <string>
 //#include <utility>
 #include <vector>
@@ -323,6 +325,88 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class ressyasyubetsu_state : public state
+        {
+        public:
+            explicit ressyasyubetsu_state(timetable_type& timetable)
+            :
+            m_timetable(timetable),
+            m_syubetsumei(),
+            m_ryakusyou(),
+            m_diagram_sen_color(),
+            m_diagram_sen_style(),
+            m_diagram_sen_is_bold()
+            {}
+
+            virtual ~ressyasyubetsu_state()
+            {}
+
+        private:
+            static typename weight_type::enum_t to_weight(const string_type& weight_string)
+            {
+                if (weight_string == string_type(TETENGO2_TEXT("1")))
+                    return weight_type::bold;
+                else
+                    return weight_type::normal;
+            }
+
+            static typename line_style_type::enum_t to_line_style(const string_type& line_style_string)
+            {
+                if      (line_style_string == string_type(TETENGO2_TEXT("SenStyle_Hasen")))
+                    return line_style_type::dashed;
+                else if (line_style_string == string_type(TETENGO2_TEXT("SenStyle_Tensen")))
+                    return line_style_type::dotted;
+                else if (line_style_string == string_type(TETENGO2_TEXT("SenStyle_Ittensasen")))
+                    return line_style_type::dot_dashed;
+                else
+                    return line_style_type::solid;
+            }
+
+            timetable_type& m_timetable;
+
+            string_type m_syubetsumei;
+
+            string_type m_ryakusyou;
+
+            string_type m_diagram_sen_color;
+
+            string_type m_diagram_sen_style;
+
+            string_type m_diagram_sen_is_bold;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                if (key == string_type(TETENGO2_TEXT("Syubetsumei")))
+                    m_syubetsumei = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Ryakusyou")))
+                    m_ryakusyou = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("DiagramSenColor")))
+                    m_diagram_sen_color = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("DiagramSenStyle")))
+                    m_diagram_sen_style = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("DiagramSenIsBold")))
+                    m_diagram_sen_is_bold = std::move(value);
+
+                return true;
+            }
+
+            virtual void leaving_impl()
+            {
+                string_type abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
+                m_timetable.insert_train_kind(
+                    m_timetable.train_kinds().end(),
+                    train_kind_type(
+                        std::move(m_syubetsumei),
+                        std::move(abbreviation),
+                        to_color(m_diagram_sen_color),
+                        to_weight(m_diagram_sen_is_bold),
+                        to_line_style(m_diagram_sen_style)
+                    )
+                );
+            }
+
+        };
+
 
         // static functions
 
@@ -363,6 +447,28 @@ namespace bobura { namespace model { namespace serializer
             return string;
         }
 
+        static color_type to_color(const string_type& color_string)
+        {
+            if (color_string.length() != 8)
+                return color_type(0, 0, 0);
+
+            return
+                color_type(
+                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(2, 2))),
+                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(4, 2))),
+                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(6, 2)))
+                );
+        }
+
+        template <typename T>
+        static T from_hex_string(const string_type& hex_string)
+        {
+            std::basic_istringstream<char_type> stream(hex_string);
+            T result = 0;
+            stream >> std::hex >> result;
+            return result;
+        }
+
         static std::unique_ptr<state> dispatch(const string_type& line, timetable_type& timetable)
         {
             if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
@@ -375,6 +481,8 @@ namespace bobura { namespace model { namespace serializer
                 return tetengo2::make_unique<rosen_state>(timetable);
             else if (name == string_type(TETENGO2_TEXT("Eki")))
                 return tetengo2::make_unique<eki_state>(timetable);
+            else if (name == string_type(TETENGO2_TEXT("Ressyasyubetsu")))
+                return tetengo2::make_unique<ressyasyubetsu_state>(timetable);
             else
                 return tetengo2::make_unique<unknown_state>();
         }
