@@ -10,10 +10,13 @@
 //#include <memory>
 //#include <sstream>
 //#include <string>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.unique.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -45,6 +48,8 @@ namespace
             test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::oudia_reader
         >::type
         reader_type;
+
+    typedef reader_type::diagram_selector_type diagram_selector_type;
 
     typedef reader_type::error_type error_type;
 
@@ -145,7 +150,7 @@ namespace
         "StopMarkDrawType=EStopMarkDrawType_DrawOnStop\n"
         ".\n"
         "Dia.\n"
-        "DiaName=Dia\n"
+        "DiaName=Dia1\n"
         "Kudari.\n"
         "Ressya.\n"
         "Houkou=Kudari\n"
@@ -188,6 +193,23 @@ namespace
         "Ressyamei=bar\n"
         "Gousuu=2\n"
         "EkiJikoku=1;1200,2,2,2,2,1;1230\n"
+        ".\n"
+        "Dia.\n"
+        "DiaName=Dia2\n"
+        "Kudari.\n"
+        "Ressya.\n"
+        "Houkou=Kudari\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=121D\n"
+        "EkiJikoku=1;1000,1;1010,1;1020/1030,1;1040/1050,1;1100,1;1100\n"
+        ".\n"
+        ".\n"
+        "Nobori.\n"
+        "Ressya.\n"
+        "Houkou=Nobori\n"
+        "Syubetsu=0\n"
+        "Ressyabangou=122D\n"
+        "EkiJikoku=,,1;1000,1;1010/1020,1;1030/,1;1040\n"
         ".\n"
         ".\n"
         ".\n"
@@ -310,7 +332,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        const reader_type reader;
+        std::unique_ptr<diagram_selector_type> p_diagram_selector =
+            tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+        const reader_type reader(std::move(p_diagram_selector));
     }
 
     BOOST_AUTO_TEST_CASE(selects)
@@ -318,7 +342,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_empty);
             BOOST_CHECK(
@@ -329,7 +355,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_no_train);
             BOOST_CHECK(
@@ -340,7 +368,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_too_old_version);
             BOOST_CHECK(
@@ -351,7 +381,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_too_new_version);
             BOOST_CHECK(
@@ -368,7 +400,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_empty);
             error_type::enum_t error = error_type::none;
@@ -383,7 +417,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_no_train);
             error_type::enum_t error = error_type::none;
@@ -413,7 +449,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->up_trains().empty());
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_full);
             error_type::enum_t error = error_type::none;
@@ -569,7 +607,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         //    }
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_too_old_version);
             error_type::enum_t error = error_type::none;
@@ -584,7 +624,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
-            reader_type reader;
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_diagram_selector));
 
             std::istringstream input_stream(data_too_new_version);
             error_type::enum_t error = error_type::none;

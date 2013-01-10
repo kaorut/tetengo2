@@ -75,10 +75,13 @@ namespace bobura { namespace model { namespace serializer
 
         /*!
             \brief Creates a WinDIA reader.
+
+            \param p_diagram_selector A unique pointer to a diagram selector.
         */
-        oudia_reader()
+        explicit oudia_reader(std::unique_ptr<diagram_selector_type> p_diagram_selector)
         :
-        base_type()
+        base_type(),
+        m_p_diagram_selector(std::move(p_diagram_selector))
         {}
 
         /*!
@@ -524,6 +527,11 @@ namespace bobura { namespace model { namespace serializer
             const int minor_version = splitted.size() >= 3 ? boost::lexical_cast<int>(splitted[2]) : 0;
             return file_type(std::move(name), major_version, minor_version);
         }
+
+
+        // variables
+
+        const std::unique_ptr<diagram_selector_type> m_p_diagram_selector;
 
 
         // virtual functions
