@@ -30,18 +30,20 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a reader set.
 
-        \tparam ForwardIterator     A forward iterator type.
-        \tparam Timetable           A timetable type.
-        \tparam PullParser          A pull parser type.
-        \tparam StationGradeTypeSet A station grade type set type.
-        \tparam Utf8Encoder         A UTF-8 encoder type.
-        \tparam Cp932Encoder        A CP932 encoder type.
+        \tparam ForwardIterator      A forward iterator type.
+        \tparam Timetable            A timetable type.
+        \tparam PullParser           A pull parser type.
+        \tparam StationGradeTypeSet  A station grade type set type.
+        \tparam OuDiaDiagramSelector An OuDia diagram selector type.
+        \tparam Utf8Encoder          A UTF-8 encoder type.
+        \tparam Cp932Encoder         A CP932 encoder type.
     */
     template <
         typename ForwardIterator,
         typename Timetable,
         typename PullParser,
         typename StationGradeTypeSet,
+        typename OuDiaDiagramSelector,
         typename Utf8Encoder,
         typename Cp932Encoder
     >
@@ -65,6 +67,9 @@ namespace bobura { namespace model { namespace serializer
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
+        //! The OuDia diagram selector type.
+        typedef OuDiaDiagramSelector oudia_diagram_selector_type;
+
         //! The UTF-8 encoder type.
         typedef Utf8Encoder utf8_encoder_type;
 
@@ -84,7 +89,10 @@ namespace bobura { namespace model { namespace serializer
 
         //! The OuDia reader type.
         typedef
-            oudia_reader<iterator, timetable_type, station_grade_type_set_type, cp932_encoder_type> oudia_reader_type;
+            oudia_reader<
+                iterator, timetable_type, station_grade_type_set_type, oudia_diagram_selector_type, cp932_encoder_type
+            >
+            oudia_reader_type;
 
         //! The WinDIA reader type.
         typedef

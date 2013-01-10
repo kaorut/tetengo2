@@ -800,6 +800,7 @@ namespace bobura
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     detail::model::station_grade_type_set_type,
+                    int,
                     boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type,
                     boost::mpl::at<locale_type_list, type::locale::windia_file_encoder>::type
                 >
