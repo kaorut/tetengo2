@@ -10,7 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_OUDIAREADER_H
 
 #include <algorithm>
-#include <iomanip>
+#include <ios>
 //#include <memory>
 #include <sstream>
 #include <string>

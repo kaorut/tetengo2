@@ -9,11 +9,13 @@
 #if !defined(TESTBOBURA_MODEL_TYPELIST_H)
 #define TESTBOBURA_MODEL_TYPELIST_H
 
+//#include <algorithm>
 //#include <cstddef>
 //#include <iterator>
 #include <ostream>
 //#include <string>
-#include <vector>
+//#include <utility>
+//#include <vector>
 
 #include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
