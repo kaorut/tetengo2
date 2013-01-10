@@ -30,6 +30,8 @@ namespace
         >::type
         reader_type;
 
+    typedef reader_type::error_type error_type;
+
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
@@ -60,7 +62,11 @@ namespace
             return true;
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator      first,
+            const iterator      last,
+            error_type::enum_t& error
+        )
         {
             return tetengo2::make_unique<timetable_type>();
         }
@@ -124,13 +130,16 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
         bzip2_reader_type bzip2_reader(std::move(p_reader));
 
         std::istringstream input_stream("BZ");
+        error_type::enum_t error = error_type::none;
         const std::unique_ptr<timetable_type> p_timetable =
             bzip2_reader.read(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                error
             );
 
         BOOST_REQUIRE(p_timetable);
+        BOOST_CHECK_EQUAL(error, error_type::none);
     }
 
 

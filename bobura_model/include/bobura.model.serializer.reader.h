@@ -35,6 +35,14 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
+        //! The error type.
+        struct error_type { enum enum_t
+        {
+            none,     //!< No error.
+            canceled, //!< Canceled.
+            failed,   //!< Failed.
+        };};
+
 
         // constructors and destructor
 
@@ -68,12 +76,17 @@ namespace bobura { namespace model { namespace serializer
 
             \param first The first position of an input.
             \param last  The last position of an input.
+            \param error The error. (For output)
 
             \return A unique pointer to a timetable.
         */
-        std::unique_ptr<timetable_type> read(const iterator first, const iterator last)
+        std::unique_ptr<timetable_type> read(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
-            return read_impl(first, last);
+            return read_impl(first, last, error);
         }
 
 
@@ -93,7 +106,11 @@ namespace bobura { namespace model { namespace serializer
         virtual bool selects_impl(const iterator first, const iterator last)
         = 0;
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         = 0;
 
 

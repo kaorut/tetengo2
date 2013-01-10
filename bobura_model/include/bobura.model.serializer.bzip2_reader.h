@@ -47,6 +47,9 @@ namespace bobura { namespace model { namespace serializer
         //! The base type.
         typedef reader<iterator, timetable_type> base_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
 
         // constructors and destructor
 
@@ -118,7 +121,11 @@ namespace bobura { namespace model { namespace serializer
             }
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             std::istringstream input_stream(input_string_type(first, last));
             boost::iostreams::filtering_istream filtering_input_stream;
@@ -134,11 +141,13 @@ namespace bobura { namespace model { namespace serializer
                         ),
                         boost::spirit::make_default_multi_pass(
                             std::istreambuf_iterator<typename iterator::value_type>()
-                        )
+                        ),
+                        error
                     );
             }
             catch (const boost::iostreams::bzip2_error&)
             {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
             }
             catch (...)

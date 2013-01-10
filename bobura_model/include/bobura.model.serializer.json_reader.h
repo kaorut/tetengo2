@@ -61,6 +61,9 @@ namespace bobura { namespace model { namespace serializer
         //! The base type.
         typedef reader<iterator, timetable_type> base_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
         //! The encoder type.
         typedef Encoder encoder_type;
 
@@ -146,17 +149,26 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
-        static std::unique_ptr<timetable_type> read_timetable(pull_parser_type& pull_parser)
+        static std::unique_ptr<timetable_type> read_timetable(
+            pull_parser_type&            pull_parser,
+            typename error_type::enum_t& error
+        )
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             pull_parser.next();
 
             boost::optional<header_type> header = read_header(pull_parser);
             if (!header)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             {
                 const typename header_type::iterator found =
                     header->find(string_type(TETENGO2_TEXT("company_name")));
@@ -178,12 +190,18 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<font_color_set_type> font_color_set = read_font_color_set(pull_parser);
             if (!font_color_set)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             p_timetable->set_font_color_set(std::move(*font_color_set));
 
             boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             BOOST_FOREACH (station_location_type& station, *stations)
             {
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), std::move(station));
@@ -191,7 +209,10 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<std::vector<train_kind_type>> train_kinds = read_train_kinds(pull_parser);
             if (!train_kinds)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             BOOST_FOREACH (train_kind_type& train_kind, *train_kinds)
             {
                 p_timetable->insert_train_kind(p_timetable->train_kinds().end(), std::move(train_kind));
@@ -200,7 +221,10 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<std::vector<train_type>> down_trains =
                 read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!down_trains)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             BOOST_FOREACH (train_type& train, *down_trains)
             {
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), std::move(train));
@@ -209,14 +233,20 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<std::vector<train_type>> up_trains =
                 read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!up_trains)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             BOOST_FOREACH (train_type& train, *up_trains)
             {
                 p_timetable->insert_up_train(p_timetable->up_trains().end(), std::move(train));
             }
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
             pull_parser.next();
 
             return std::move(p_timetable);
@@ -1130,13 +1160,17 @@ namespace bobura { namespace model { namespace serializer
                 next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array")));
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             std::unique_ptr<push_parser_type> p_push_parser =
                 tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
-            return read_timetable(pull_parser);
+            return read_timetable(pull_parser, error);
         }
 
 

@@ -152,10 +152,12 @@ namespace bobura { namespace load_save
             }
 
             reader_selector_type reader_selector(reader_set_type::create_readers());
+            typename reader_error_type::enum_t error = reader_error_type::none;
             std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
             if (!p_timetable)
             {
@@ -175,6 +177,8 @@ namespace bobura { namespace load_save
         typedef typename file_open_dialog_type::path_type path_type;
 
         typedef typename model_type::timetable_type timetable_type;
+
+        typedef typename reader_selector_type::error_type reader_error_type;
 
 
         // variables

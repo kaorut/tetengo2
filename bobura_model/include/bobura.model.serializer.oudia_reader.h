@@ -51,6 +51,9 @@ namespace bobura { namespace model { namespace serializer
         //! The base type.
         typedef reader<iterator, timetable_type> base_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
@@ -528,10 +531,17 @@ namespace bobura { namespace model { namespace serializer
                 file_type_.m_minor_version == 2;
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             if (!selects(first, last))
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
 
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
@@ -552,12 +562,18 @@ namespace bobura { namespace model { namespace serializer
                 else
                 {
                     if (!p_state->parse(input_line))
+                    {
+                        error = error_type::failed;
                         return std::unique_ptr<timetable_type>();
+                    }
                 }
             }
 
             if (!dynamic_cast<initial_state*>(p_state.get()))
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
 
             return std::move(p_timetable);
         }

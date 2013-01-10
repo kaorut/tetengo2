@@ -57,6 +57,8 @@ namespace
         >::type
         reader_type;
 
+    typedef reader_type::error_type error_type;
+
 
     // variables
 
@@ -534,55 +536,70 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         reader_type json_reader;
         {
             std::istringstream input_stream(json_not_json);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_empty1);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_empty2);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name().empty());
         }
         {
             std::istringstream input_stream(json_line_name_only);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
             std::istringstream input_stream(json_station_only);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
             {
@@ -606,23 +623,29 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         }
         {
             std::istringstream input_stream(json_invalid_station_grade);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_full_content);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
 
             BOOST_CHECK(p_timetable->company_name() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
@@ -713,53 +736,68 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         }
         {
             std::istringstream input_stream(json_invalid_stop_time);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_too_many_stops);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_invalid_time_format);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_train_with_no_stop);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             std::istringstream input_stream(json_invalid_kind_index);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
     }
 

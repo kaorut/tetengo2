@@ -58,6 +58,9 @@ namespace bobura { namespace model { namespace serializer
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
         //! The encoder type.
         typedef Encoder encoder_type;
 
@@ -977,7 +980,11 @@ namespace bobura { namespace model { namespace serializer
             return next_line(mutable_first, last) == windia_section_label();
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
@@ -1004,14 +1011,20 @@ namespace bobura { namespace model { namespace serializer
                 else
                 {
                     if (!p_state->parse(input_line))
+                    {
+                        error = error_type::failed;
                         return std::unique_ptr<timetable_type>();
+                    }
                 }
             }
 
             erase_unreferred_train_kinds(*p_timetable);
 
             if (dynamic_cast<up_train_state*>(p_state.get()) == 0)
+            {
+                error = error_type::failed;
                 return std::unique_ptr<timetable_type>();
+            }
 
             return std::move(p_timetable);
         }

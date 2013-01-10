@@ -46,6 +46,8 @@ namespace
         >::type
         reader_type;
 
+    typedef reader_type::error_type error_type;
+
 
     // variables
 
@@ -160,25 +162,31 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data0);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
         {
             reader_type reader;
 
             std::istringstream input_stream(data1);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
             BOOST_CHECK(p_timetable->train_kinds().empty());
@@ -189,13 +197,16 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data2);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
 
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
@@ -341,13 +352,16 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data3);
+            error_type::enum_t error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
 
             BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::failed);
         }
     }
 
