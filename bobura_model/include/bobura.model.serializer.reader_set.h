@@ -33,7 +33,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam ForwardIterator     A forward iterator type.
         \tparam Timetable           A timetable type.
         \tparam PullParser          A pull parser type.
-        \tparam StationGradeTypeSet A station grade type set.
+        \tparam StationGradeTypeSet A station grade type set type.
         \tparam Utf8Encoder         A UTF-8 encoder type.
         \tparam Cp932Encoder        A CP932 encoder type.
     */

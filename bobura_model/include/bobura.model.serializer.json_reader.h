@@ -34,7 +34,7 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam PullParser          A pull parser type.
         \tparam Timetable           A timetable type.
-        \tparam StationGradeTypeSet A station grade type set.
+        \tparam StationGradeTypeSet A station grade type set type.
         \tparam Encoder             An encoder type.
     */
     template <typename PullParser, typename Timetable, typename StationGradeTypeSet, typename Encoder>
