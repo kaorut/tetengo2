@@ -537,6 +537,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
+                BOOST_CHECK(train.note() == string_type(TETENGO2_TEXT("xyz")));
             }
             {
                 const train_type& train = p_timetable->down_trains()[1];
