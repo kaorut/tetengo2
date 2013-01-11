@@ -175,6 +175,11 @@ namespace bobura { namespace model { namespace serializer
                 return parse_impl(key_value.first, std::move(key_value.second));
             }
 
+            void entered()
+            {
+                entered_impl();
+            }
+
             void leaving()
             {
                 leaving_impl();
@@ -182,6 +187,9 @@ namespace bobura { namespace model { namespace serializer
 
         private:
             virtual bool parse_impl(const string_type& key, string_type value)
+            = 0;
+
+            virtual void entered_impl()
             = 0;
 
             virtual void leaving_impl()
@@ -200,6 +208,9 @@ namespace bobura { namespace model { namespace serializer
             {
                 return true;
             }
+
+            virtual void entered_impl()
+            {}
 
             virtual void leaving_impl()
             {}
@@ -228,6 +239,9 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
+            virtual void entered_impl()
+            {}
+
             virtual void leaving_impl()
             {}
 
@@ -254,6 +268,9 @@ namespace bobura { namespace model { namespace serializer
 
                 return true;
             }
+
+            virtual void entered_impl()
+            {}
 
             virtual void leaving_impl()
             {}
@@ -329,6 +346,9 @@ namespace bobura { namespace model { namespace serializer
 
                 return true;
             }
+
+            virtual void entered_impl()
+            {}
 
             virtual void leaving_impl()
             {
@@ -414,6 +434,9 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
+            virtual void entered_impl()
+            {}
+
             virtual void leaving_impl()
             {
                 string_type abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
@@ -453,6 +476,9 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
+            virtual void entered_impl()
+            {}
+
             virtual void leaving_impl()
             {}
 
@@ -462,17 +488,24 @@ namespace bobura { namespace model { namespace serializer
         {
         public:
             explicit kudari_state(bool& down)
-            {
-                down = true;
-            }
+            :
+            m_down(down)
+            {}
 
             virtual ~kudari_state()
             {}
 
         private:
+            bool& m_down;
+
             virtual bool parse_impl(const string_type& key, string_type value)
             {
                 return true;
+            }
+
+            virtual void entered_impl()
+            {
+                m_down = true;
             }
 
             virtual void leaving_impl()
@@ -484,17 +517,24 @@ namespace bobura { namespace model { namespace serializer
         {
         public:
             explicit nobori_state(bool& down)
-            {
-                down = false;
-            }
+            :
+            m_down(down)
+            {}
 
             virtual ~nobori_state()
             {}
 
         private:
+            bool& m_down;
+
             virtual bool parse_impl(const string_type& key, string_type value)
             {
                 return true;
+            }
+
+            virtual void entered_impl()
+            {
+                m_down = false;
             }
 
             virtual void leaving_impl()
@@ -741,6 +781,7 @@ namespace bobura { namespace model { namespace serializer
                 {
                     p_state->leaving();
                     p_state = std::move(p_new_state);
+                    p_state->entered();
                 }
                 else
                 {
