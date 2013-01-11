@@ -11,6 +11,7 @@
 
 //#include <memory>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.control.h"
 
 
@@ -101,6 +102,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the picture box.
         */
         virtual ~picture_box()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

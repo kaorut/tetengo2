@@ -14,6 +14,7 @@
 
 #include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -113,6 +114,7 @@ namespace bobura
             \brief Destroys the file property dialog.
         */
         virtual ~file_property_dialog()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

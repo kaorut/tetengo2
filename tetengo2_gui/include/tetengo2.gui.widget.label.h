@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 
@@ -94,6 +95,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the label.
         */
         virtual ~label()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

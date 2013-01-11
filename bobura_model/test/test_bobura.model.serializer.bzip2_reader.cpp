@@ -15,6 +15,7 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
 
 #include "test_bobura.model.type_list.h"
@@ -53,6 +54,7 @@ namespace
         {}
 
         virtual ~concrete_reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

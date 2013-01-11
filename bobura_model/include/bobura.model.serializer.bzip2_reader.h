@@ -19,6 +19,7 @@
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 
 #include "bobura.model.serializer.reader.h"
@@ -68,6 +69,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the bzip2_reader.
         */
         virtual ~bzip2_reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

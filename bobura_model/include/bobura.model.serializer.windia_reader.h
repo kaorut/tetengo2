@@ -24,6 +24,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -79,6 +80,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the windia_reader.
         */
         virtual ~windia_reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

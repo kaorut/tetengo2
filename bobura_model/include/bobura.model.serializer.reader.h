@@ -14,6 +14,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp11.h>
+
 
 namespace bobura { namespace model { namespace serializer
 {
@@ -50,6 +52,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the reader.
         */
         virtual ~reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
