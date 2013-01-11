@@ -928,7 +928,10 @@ namespace bobura { namespace model { namespace serializer
 
             const typename std::vector<string_type>::const_iterator found =
                 m_p_diagram_selector->select(diagram_names);
-            return boost::make_optional(found != diagram_names.end(), std::move(*found));
+            if (found == diagram_names.end())
+                return boost::none;
+
+            return std::move(*found);
         }
 
         std::unique_ptr<timetable_type> read_timetable(

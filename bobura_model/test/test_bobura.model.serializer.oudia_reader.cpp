@@ -616,6 +616,42 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         }
         {
             std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia2")));
+            reader_type reader(std::move(p_diagram_selector));
+
+            std::istringstream input_stream(data_full);
+            error_type::enum_t error = error_type::none;
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
+                );
+
+            BOOST_REQUIRE(p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::none);
+            BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 1U);
+            BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
+        }
+        {
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
+                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia3")));
+            reader_type reader(std::move(p_diagram_selector));
+
+            std::istringstream input_stream(data_full);
+            error_type::enum_t error = error_type::none;
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
+                );
+
+            BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::canceled);
+        }
+        {
+            std::unique_ptr<diagram_selector_type> p_diagram_selector =
                 tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_diagram_selector));
 
