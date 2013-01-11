@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <ios>
+#include <iterator>
 //#include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -121,12 +122,6 @@ namespace bobura { namespace model { namespace serializer
         typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_kind_type::color_type color_type;
-
-        typedef typename train_kind_type::weight_type weight_type;
-
-        typedef typename train_kind_type::line_style_type line_style_type;
-
-        typedef typename timetable_type::train_type train_type;
 
         struct is_splitter
         {
@@ -386,6 +381,10 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
+            typedef typename train_kind_type::weight_type weight_type;
+
+            typedef typename train_kind_type::line_style_type line_style_type;
+
             static typename weight_type::enum_t to_weight(const string_type& weight_string)
             {
                 if (weight_string == string_type(TETENGO2_TEXT("1")))
@@ -542,6 +541,167 @@ namespace bobura { namespace model { namespace serializer
 
         };
 
+        class ressya_state : public state
+        {
+        public:
+            explicit ressya_state(timetable_type& timetable, const bool down)
+            :
+            m_timetable(timetable),
+            m_down(down),
+            m_syubetsu(),
+            m_ressyabangou(),
+            m_ressyamei(),
+            m_gousuu(),
+            m_eki_jikoku()
+            {}
+
+            virtual ~ressya_state()
+            {}
+
+        private:
+            typedef typename timetable_type::train_type train_type;
+
+            typedef typename train_type::stop_type stop_type;
+
+            typedef typename stop_type::time_type time_type;
+
+            struct insert_stop
+            {
+                train_type& m_train;
+
+                explicit insert_stop(train_type& train)
+                :
+                m_train(train)
+                {}
+
+                void operator()(stop_type& stop)
+                {
+                    m_train.insert_stop(m_train.stops().end(), std::move(stop));
+                }
+
+            };
+
+            static std::vector<stop_type> parse_stops(const string_type& stops_string, const bool direction_down)
+            {
+                const std::vector<string_type> stop_strings = split(stops_string, char_type(TETENGO2_TEXT(',')));
+
+                std::vector<stop_type> stops;
+                stops.reserve(stop_strings.size());
+                std::transform(stop_strings.begin(), stop_strings.end(), std::back_inserter(stops), parse_stop);
+
+                if (!direction_down)
+                    std::reverse(stops.begin(), stops.end());
+
+                return stops;
+            }
+
+            static stop_type parse_stop(const string_type& stop_string)
+            {
+                const std::vector<string_type> kind_time = split(stop_string, char_type(TETENGO2_TEXT(';')));
+                if (kind_time.empty())
+                    return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
+
+                const bool stopping = kind_time[0] == string_type(TETENGO2_TEXT("1")) && kind_time.size() >= 2;
+                const bool operational = !stopping && kind_time.size() >= 2;
+                if (!stopping && !operational)
+                    return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
+
+                const std::vector<string_type> arrival_departure = split(kind_time[1], char_type(TETENGO2_TEXT('/')));
+                if (arrival_departure.empty())
+                    return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
+
+                time_type arrival = time_type::uninitialized();
+                time_type departure = time_type::uninitialized();
+                if (arrival_departure.size() < 2)
+                {
+                    departure = parse_time(arrival_departure[0]);
+                }
+                else
+                {
+                    arrival = parse_time(arrival_departure[0]);
+                    departure = parse_time(arrival_departure[1]);
+                }
+
+                return stop_type(std::move(arrival), std::move(departure), operational, string_type());
+            }
+
+            static time_type parse_time(const string_type& time_string)
+            {
+                if (time_string.size() != 4)
+                    return time_type::uninitialized();
+
+                const unsigned int hours = to_number<unsigned int>(time_string.substr(0, 2));
+                if (hours >= 24)
+                    return time_type::uninitialized();
+                const unsigned int minutes = to_number<unsigned int>(time_string.substr(2, 2));
+                if (minutes >= 60)
+                    return time_type::uninitialized();
+
+                return time_type(hours, minutes, 0);
+            }
+
+            timetable_type& m_timetable;
+
+            const bool m_down;
+
+            string_type m_houkou;
+
+            string_type m_syubetsu;
+
+            string_type m_ressyabangou;
+
+            string_type m_ressyamei;
+
+            string_type m_gousuu;
+
+            string_type m_eki_jikoku;
+
+            string_type m_bikou;
+
+            virtual bool parse_impl(const string_type& key, string_type value)
+            {
+                if      (key == string_type(TETENGO2_TEXT("Houkou")))
+                    m_houkou = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Syubetsu")))
+                    m_syubetsu = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Ressyabangou")))
+                    m_ressyabangou = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Ressyamei")))
+                    m_ressyamei = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Gousuu")))
+                    m_gousuu = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("EkiJikoku")))
+                    m_eki_jikoku = std::move(value);
+                else if (key == string_type(TETENGO2_TEXT("Bikou")))
+                    m_bikou = std::move(value);
+
+                return true;
+            }
+
+            virtual void entered_impl()
+            {}
+
+            virtual void leaving_impl()
+            {
+                const typename timetable_type::train_kind_index_type train_kind_index =
+                    to_number<typename timetable_type::train_kind_index_type>(m_syubetsu);
+                if (train_kind_index >= m_timetable.train_kinds().size())
+                    return;
+
+                train_type train(m_ressyabangou, train_kind_index, m_ressyamei, m_gousuu, m_bikou);
+
+                std::vector<stop_type> stops =
+                    parse_stops(m_eki_jikoku, m_houkou == string_type(TETENGO2_TEXT("Kudari")));
+                std::for_each(stops.begin(), stops.end(), insert_stop(train));
+
+                if (m_down)
+                    m_timetable.insert_down_train(m_timetable.down_trains().end(), std::move(train));
+                else
+                    m_timetable.insert_up_train(m_timetable.up_trains().end(), std::move(train));
+            }
+
+        };
+
 
         // static functions
 
@@ -605,6 +765,19 @@ namespace bobura { namespace model { namespace serializer
             return string;
         }
 
+        template <typename T>
+        static T to_number(const string_type& number_string)
+        {
+            try
+            {
+                return boost::lexical_cast<T>(number_string);
+            }
+            catch (const boost::bad_lexical_cast&)
+            {
+                return 0;
+            }
+        }
+
         static color_type to_color(const string_type& color_string)
         {
             if (color_string.length() != 8)
@@ -665,6 +838,8 @@ namespace bobura { namespace model { namespace serializer
                     return tetengo2::make_unique<kudari_state>(down);
                 else if (name == string_type(TETENGO2_TEXT("Nobori")))
                     return tetengo2::make_unique<nobori_state>(down);
+                else if (name == string_type(TETENGO2_TEXT("Ressya")))
+                    return tetengo2::make_unique<ressya_state>(timetable, down);
                 else
                     return tetengo2::make_unique<unknown_state>();
             }
@@ -694,8 +869,8 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<string_type> splitted = split(file_type_string, char_type(TETENGO2_TEXT('.')));
             string_type name = splitted.size() >= 1 ? std::move(splitted[0]) : string_type();
-            const int major_version = splitted.size() >= 2 ? boost::lexical_cast<int>(splitted[1]) : 0;
-            const int minor_version = splitted.size() >= 3 ? boost::lexical_cast<int>(splitted[2]) : 0;
+            const int major_version = splitted.size() >= 2 ? to_number<int>(splitted[1]) : 0;
+            const int minor_version = splitted.size() >= 3 ? to_number<int>(splitted[2]) : 0;
             return file_type(std::move(name), major_version, minor_version);
         }
 

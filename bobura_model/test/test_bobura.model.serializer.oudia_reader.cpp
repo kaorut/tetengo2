@@ -157,6 +157,7 @@ namespace
         "Syubetsu=0\n"
         "Ressyabangou=121D\n"
         "EkiJikoku=1;1000,1;1010,1;1020/1030,1;1040/1050,1;1100,1;1100\n"
+        "Bikou=xyz\n"
         ".\n"
         "Ressya.\n"
         "Houkou=Kudari\n"
@@ -164,7 +165,7 @@ namespace
         "Ressyabangou=101D\n"
         "Ressyamei=foo\n"
         "Gousuu=1\n"
-        "EkiJikoku=1;1100,2,2,2:1130/1140,2,1;1150\n"
+        "EkiJikoku=1;1100,2,2,2;1130/1140,2,1;1150\n"
         ".\n"
         "Ressya.\n"
         "Houkou=Kudari\n"
@@ -184,7 +185,7 @@ namespace
         "Houkou=Nobori\n"
         "Syubetsu=0\n"
         "Ressyabangou=124D\n"
-        "EkiJikoku=1;1100,1:1110/,1;1120/1130,2;1140/1150,1;1200/,1;1210\n"
+        "EkiJikoku=1;1100,1;1110/,1;1120/1130,2;1140/1150,1;1200/,1;1210\n"
         ".\n"
         "Ressya.\n"
         "Houkou=Nobori\n"
@@ -512,105 +513,105 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::bold);
             }
 
-        //    BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 3U);
-        //    {
-        //        const train_type& train = p_timetable->down_trains()[0];
+            BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 3U);
+            {
+                const train_type& train = p_timetable->down_trains()[0];
 
-        //        BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("121D")));
-        //        BOOST_CHECK(train.name().empty());
-        //        BOOST_CHECK_EQUAL(train.kind_index(), 0U);
-        //        BOOST_CHECK_EQUAL(train.stops().size(), 6U);
-        //        {
-        //            const stop_type& stop = train.stops()[0];
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("121D")));
+                BOOST_CHECK(train.name().empty());
+                BOOST_CHECK_EQUAL(train.kind_index(), 0U);
+                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                {
+                    const stop_type& stop = train.stops()[0];
 
-        //            BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-        //            BOOST_CHECK(stop.departure() == time_type(10, 0, 0));
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //        {
-        //            const stop_type& stop = train.stops()[2];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type(10, 0, 0));
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = train.stops()[2];
 
-        //            BOOST_CHECK(stop.arrival() == time_type(10, 20, 0));
-        //            BOOST_CHECK(stop.departure() == time_type(10, 30, 0));
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //    }
-        //    {
-        //        const train_type& train = p_timetable->down_trains()[1];
+                    BOOST_CHECK(stop.arrival() == time_type(10, 20, 0));
+                    BOOST_CHECK(stop.departure() == time_type(10, 30, 0));
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+            }
+            {
+                const train_type& train = p_timetable->down_trains()[1];
 
-        //        BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
-        //        BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("foo")));
-        //        BOOST_CHECK_EQUAL(train.kind_index(), 1U);
-        //        BOOST_CHECK_EQUAL(train.stops().size(), 6U);
-        //        {
-        //            const stop_type& stop = train.stops()[0];
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
+                BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("foo")));
+                BOOST_CHECK_EQUAL(train.kind_index(), 1U);
+                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                {
+                    const stop_type& stop = train.stops()[0];
 
-        //            BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-        //            BOOST_CHECK(stop.departure() == time_type(11, 0, 0));
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //        {
-        //            const stop_type& stop = train.stops()[2];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type(11, 0, 0));
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = train.stops()[2];
 
-        //            BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-        //            BOOST_CHECK(stop.departure() == time_type::uninitialized());
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //        {
-        //            const stop_type& stop = train.stops()[3];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = train.stops()[3];
 
-        //            BOOST_CHECK(stop.arrival() == time_type(11, 30, 0));
-        //            BOOST_CHECK(stop.departure() == time_type(11, 40, 0));
-        //            BOOST_CHECK(stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //    }
+                    BOOST_CHECK(stop.arrival() == time_type(11, 30, 0));
+                    BOOST_CHECK(stop.departure() == time_type(11, 40, 0));
+                    BOOST_CHECK(stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+            }
 
-        //    BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 3U);
-        //    {
-        //        const train_type& train = p_timetable->up_trains()[1];
+            BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 3U);
+            {
+                const train_type& train = p_timetable->up_trains()[1];
 
-        //        BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("124D")));
-        //        BOOST_CHECK(train.name().empty());
-        //        BOOST_CHECK_EQUAL(train.kind_index(), 0U);
-        //        BOOST_CHECK_EQUAL(train.stops().size(), 6U);
-        //        {
-        //            const stop_type& stop = train.stops()[2];
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("124D")));
+                BOOST_CHECK(train.name().empty());
+                BOOST_CHECK_EQUAL(train.kind_index(), 0U);
+                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                {
+                    const stop_type& stop = train.stops()[2];
 
-        //            BOOST_CHECK(stop.arrival() == time_type(11, 40, 00));
-        //            BOOST_CHECK(stop.departure() == time_type(11, 50, 00));
-        //            BOOST_CHECK(stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //        {
-        //            const stop_type& stop = train.stops()[4];
+                    BOOST_CHECK(stop.arrival() == time_type(11, 40, 00));
+                    BOOST_CHECK(stop.departure() == time_type(11, 50, 00));
+                    BOOST_CHECK(stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = train.stops()[4];
 
-        //            BOOST_CHECK(stop.arrival() == time_type(11, 10, 0));
-        //            BOOST_CHECK(stop.departure() == time_type::uninitialized());
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //    }
-        //    {
-        //        const train_type& train = p_timetable->up_trains()[2];
+                    BOOST_CHECK(stop.arrival() == time_type(11, 10, 0));
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+            }
+            {
+                const train_type& train = p_timetable->up_trains()[2];
 
-        //        BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("102D")));
-        //        BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("bar")));
-        //        BOOST_CHECK_EQUAL(train.kind_index(), 3U);
-        //        BOOST_CHECK_EQUAL(train.stops().size(), 6U);
-        //        {
-        //            const stop_type& stop = train.stops()[4];
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("102D")));
+                BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("bar")));
+                BOOST_CHECK_EQUAL(train.kind_index(), 1U);
+                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                {
+                    const stop_type& stop = train.stops()[4];
 
-        //            BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-        //            BOOST_CHECK(stop.departure() == time_type::uninitialized());
-        //            BOOST_CHECK(!stop.operational());
-        //            BOOST_CHECK(stop.platform().empty());
-        //        }
-        //    }
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.operational());
+                    BOOST_CHECK(stop.platform().empty());
+                }
+            }
         }
         {
             std::unique_ptr<diagram_selector_type> p_diagram_selector =
