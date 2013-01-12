@@ -387,6 +387,8 @@ namespace bobura { namespace model { namespace serializer
                 const boost::optional<train_kind_index_type> train_kind_index = to_train_kind_index(split[0]);
                 if (!train_kind_index)
                     return false;
+                if (*train_kind_index >= m_timetable.train_kinds().size())
+                    return false;
 
                 train_type train(
                     std::move(split[1]),
@@ -429,7 +431,15 @@ namespace bobura { namespace model { namespace serializer
                 return std::make_pair(line.substr(0, percent_position), line.substr(percent_position + 1));
             }
 
-            virtual void insert_train(train_type train)
+            void insert_train(train_type train)
+            {
+                if (train.stops().size() != m_timetable.station_locations().size())
+                    return;
+
+                insert_train_impl(std::move(train));
+            }
+
+            virtual void insert_train_impl(train_type train)
             = 0;
 
             boost::optional<train_kind_index_type> to_train_kind_index(const string_type& train_kind_string)
@@ -578,7 +588,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type train)
+            virtual void insert_train_impl(train_type train)
             {
                 train_state::m_timetable.insert_down_train(
                     train_state::m_timetable.down_trains().end(), std::move(train)
@@ -599,7 +609,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type train)
+            virtual void insert_train_impl(train_type train)
             {
                 train_state::m_timetable.insert_up_train(
                     train_state::m_timetable.up_trains().end(), std::move(train)
