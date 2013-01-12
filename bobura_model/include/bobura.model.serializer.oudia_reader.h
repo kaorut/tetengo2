@@ -231,7 +231,7 @@ namespace bobura { namespace model { namespace serializer
             virtual bool parse_impl(const string_type& key, string_type value)
             {
                 if (key == string_type(TETENGO2_TEXT("Comment")))
-                    m_timetable.set_note(remove_line_break_escape_sequences(std::move(value)));
+                    m_timetable.set_note(std::move(value));
 
                 return true;
             }
@@ -758,15 +758,6 @@ namespace bobura { namespace model { namespace serializer
                 character == input_char_type(TETENGO2_TEXT('\n'));
         }
 
-        static string_type remove_line_break_escape_sequences(string_type string)
-        {
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r\\n")), string_type());
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type());
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type());
-
-            return string;
-        }
-
         template <typename T>
         static T to_number(const string_type& number_string)
         {
@@ -857,7 +848,7 @@ namespace bobura { namespace model { namespace serializer
             if (splitted.size() < 2)
                 return std::make_pair(line, string_type());
 
-            return std::make_pair(std::move(splitted[0]), std::move(splitted[1]));
+            return std::make_pair(std::move(splitted[0]), remove_escape_sequences(std::move(splitted[1])));
         }
 
         static std::vector<string_type> split(const string_type& string, const char_type splitter)
@@ -865,6 +856,17 @@ namespace bobura { namespace model { namespace serializer
             std::vector<string_type> result;
             boost::split(result, string, is_splitter(splitter));
             return result;
+        }
+
+        static string_type remove_escape_sequences(string_type string)
+        {
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r\\n")), string_type(TETENGO2_TEXT(" ")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type(TETENGO2_TEXT(" ")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type(TETENGO2_TEXT(" ")));
+
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\")), string_type());
+
+            return string;
         }
 
         static file_type parse_file_type(const string_type& file_type_string)
