@@ -694,6 +694,8 @@ namespace bobura { namespace model { namespace serializer
 
                 std::vector<stop_type> stops =
                     parse_stops(m_eki_jikoku, m_houkou == string_type(TETENGO2_TEXT("Kudari")));
+                if (stops.size() != m_timetable.station_locations().size())
+                    return;
                 std::for_each(stops.begin(), stops.end(), insert_stop(train));
 
                 if (m_down)
