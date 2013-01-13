@@ -157,6 +157,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                     error
                 );
 
+            BOOST_REQUIRE(p_timetable);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
@@ -172,6 +173,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                     error
                 );
 
+            BOOST_REQUIRE(p_timetable);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
         }
         {
@@ -187,7 +189,8 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                     error
                 );
 
-            BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_REQUIRE(!p_timetable);
+            BOOST_CHECK_EQUAL(error, error_type::unsupported);
         }
     }
 

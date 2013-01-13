@@ -422,7 +422,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::unique_ptr<diagram_selector_type> p_diagram_selector =
@@ -666,7 +666,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::unique_ptr<diagram_selector_type> p_diagram_selector =
@@ -683,7 +683,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
     }
 

@@ -149,7 +149,7 @@ namespace bobura { namespace model { namespace serializer
             }
             catch (const boost::iostreams::bzip2_error&)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             catch (...)

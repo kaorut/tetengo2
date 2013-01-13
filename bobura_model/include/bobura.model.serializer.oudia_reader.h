@@ -910,7 +910,7 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!selects(first, last))
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             
@@ -972,7 +972,7 @@ namespace bobura { namespace model { namespace serializer
                 {
                     if (!p_state->parse(input_line))
                     {
-                        error = error_type::failed;
+                        error = error_type::broken;
                         return std::unique_ptr<timetable_type>();
                     }
                 }
@@ -980,7 +980,7 @@ namespace bobura { namespace model { namespace serializer
 
             if (!dynamic_cast<initial_state*>(p_state.get()))
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
 

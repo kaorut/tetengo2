@@ -40,9 +40,10 @@ namespace bobura { namespace model { namespace serializer
         //! The error type.
         struct error_type { enum enum_t //!< Scoped enum.
         {
-            none,     //!< No error.
-            canceled, //!< Canceled.
-            failed,   //!< Failed.
+            none,        //!< No error.
+            canceled,    //!< Canceled.
+            broken,      //!< Broken data.
+            unsupported, //!< Unsupported format.
         };};
 
 

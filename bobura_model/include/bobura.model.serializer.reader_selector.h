@@ -106,8 +106,8 @@ namespace bobura { namespace model { namespace serializer
                 );
             if (found == m_p_readers.end())
             {
-                assert(!m_p_readers.empty());
-                return m_p_readers.front()->read(first, last, error);
+                error = error_type::unsupported;
+                return std::unique_ptr<timetable_type>();
             }
 
             return (*found)->read(first, last, error);

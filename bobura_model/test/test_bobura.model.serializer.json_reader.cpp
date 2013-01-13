@@ -545,7 +545,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_empty1);
@@ -558,7 +558,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_empty2);
@@ -632,7 +632,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_full_content);
@@ -745,7 +745,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_too_many_stops);
@@ -758,7 +758,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_invalid_time_format);
@@ -771,7 +771,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_train_with_no_stop);
@@ -784,7 +784,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
             std::istringstream input_stream(json_invalid_kind_index);
@@ -797,7 +797,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::failed);
+            BOOST_CHECK_EQUAL(error, error_type::broken);
         }
     }
 

@@ -160,7 +160,7 @@ namespace bobura { namespace model { namespace serializer
 
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             pull_parser.next();
@@ -168,7 +168,7 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<header_type> header = read_header(pull_parser);
             if (!header)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             {
@@ -193,7 +193,7 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<font_color_set_type> font_color_set = read_font_color_set(pull_parser);
             if (!font_color_set)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             p_timetable->set_font_color_set(std::move(*font_color_set));
@@ -201,7 +201,7 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             BOOST_FOREACH (station_location_type& station, *stations)
@@ -212,7 +212,7 @@ namespace bobura { namespace model { namespace serializer
             boost::optional<std::vector<train_kind_type>> train_kinds = read_train_kinds(pull_parser);
             if (!train_kinds)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             BOOST_FOREACH (train_kind_type& train_kind, *train_kinds)
@@ -224,7 +224,7 @@ namespace bobura { namespace model { namespace serializer
                 read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!down_trains)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             BOOST_FOREACH (train_type& train, *down_trains)
@@ -236,7 +236,7 @@ namespace bobura { namespace model { namespace serializer
                 read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!up_trains)
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             BOOST_FOREACH (train_type& train, *up_trains)
@@ -246,7 +246,7 @@ namespace bobura { namespace model { namespace serializer
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
             {
-                error = error_type::failed;
+                error = error_type::broken;
                 return std::unique_ptr<timetable_type>();
             }
             pull_parser.next();
