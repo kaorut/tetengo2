@@ -38,7 +38,7 @@ namespace bobura { namespace model { namespace serializer
         typedef Timetable timetable_type;
 
         //! The error type.
-        struct error_type { enum enum_t
+        struct error_type { enum enum_t //!< Scoped enum.
         {
             none,     //!< No error.
             canceled, //!< Canceled.
