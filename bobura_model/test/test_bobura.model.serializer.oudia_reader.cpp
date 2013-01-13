@@ -50,7 +50,7 @@ namespace
         >::type
         reader_type;
 
-    typedef reader_type::diagram_selector_type diagram_selector_type;
+    typedef reader_type::select_diagram_type select_diagram_type;
 
     typedef reader_type::error_type error_type;
 
@@ -335,13 +335,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            const reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            const reader_type reader(std::move(p_select_diagram));
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector;
-            BOOST_CHECK_THROW(reader_type(std::move(p_diagram_selector)), std::invalid_argument);
+            std::unique_ptr<select_diagram_type> p_select_diagram;
+            BOOST_CHECK_THROW(reader_type(std::move(p_select_diagram)), std::invalid_argument);
         }
     }
 
@@ -350,9 +350,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_empty);
             BOOST_CHECK(
@@ -363,9 +363,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_no_train);
             BOOST_CHECK(
@@ -376,9 +376,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_old_version);
             BOOST_CHECK(
@@ -389,9 +389,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_new_version);
             BOOST_CHECK(
@@ -408,9 +408,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_empty);
             error_type::enum_t error = error_type::none;
@@ -425,9 +425,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_no_train);
             error_type::enum_t error = error_type::none;
@@ -457,9 +457,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->up_trains().empty());
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type::enum_t error = error_type::none;
@@ -616,9 +616,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             }
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia2")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia2")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type::enum_t error = error_type::none;
@@ -635,9 +635,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia3")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia3")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type::enum_t error = error_type::none;
@@ -652,9 +652,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(error, error_type::canceled);
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_old_version);
             error_type::enum_t error = error_type::none;
@@ -669,9 +669,9 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(error, error_type::broken);
         }
         {
-            std::unique_ptr<diagram_selector_type> p_diagram_selector =
-                tetengo2::make_unique<diagram_selector_type>(string_type(TETENGO2_TEXT("Dia1")));
-            reader_type reader(std::move(p_diagram_selector));
+            std::unique_ptr<select_diagram_type> p_select_diagram =
+                tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
+            reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_new_version);
             error_type::enum_t error = error_type::none;

@@ -40,14 +40,14 @@ namespace bobura { namespace model { namespace serializer
         \tparam ForwardIterator     A forward iterator type.
         \tparam Timetable           A timetable type.
         \tparam StationGradeTypeSet A station grade type set type.
-        \tparam DiagramSelector     A diagram selector type.
+        \tparam SelectDiagram       A diagram selecting type.
         \tparam Encoder             An encoder type.
     */
     template <
         typename ForwardIterator,
         typename Timetable,
         typename StationGradeTypeSet,
-        typename DiagramSelector,
+        typename SelectDiagram,
         typename Encoder
     >
     class oudia_reader : public reader<ForwardIterator, Timetable>
@@ -70,8 +70,8 @@ namespace bobura { namespace model { namespace serializer
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
-        //! The diagram selector type.
-        typedef DiagramSelector diagram_selector_type;
+        //! The diagram selecting type.
+        typedef SelectDiagram select_diagram_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -82,16 +82,16 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Creates a WinDIA reader.
 
-            \param p_diagram_selector A unique pointer to a diagram selector.
+            \param p_select_diagram A unique pointer to a diagram selecting.
 
-            \throw std::invalid_argument When p_diagram_selector is NULL.
+            \throw std::invalid_argument When p_select_diagram is NULL.
         */
-        explicit oudia_reader(std::unique_ptr<diagram_selector_type> p_diagram_selector)
+        explicit oudia_reader(std::unique_ptr<select_diagram_type> p_select_diagram)
         :
         base_type(),
-        m_p_diagram_selector(std::move(p_diagram_selector))
+        m_p_select_diagram(std::move(p_select_diagram))
         {
-            if (!m_p_diagram_selector)
+            if (!m_p_select_diagram)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Diagram selector is NULL."));
         }
 
@@ -884,7 +884,7 @@ namespace bobura { namespace model { namespace serializer
 
         // variables
 
-        const std::unique_ptr<diagram_selector_type> m_p_diagram_selector;
+        const std::unique_ptr<select_diagram_type> m_p_select_diagram;
 
 
         // virtual functions
@@ -934,7 +934,7 @@ namespace bobura { namespace model { namespace serializer
                 return string_type();
 
             const typename std::vector<string_type>::const_iterator found =
-                m_p_diagram_selector->select(diagram_names);
+                (*m_p_select_diagram)(diagram_names.begin(), diagram_names.end());
             if (found == diagram_names.end())
                 return boost::none;
 

@@ -34,7 +34,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam Timetable            A timetable type.
         \tparam PullParser           A pull parser type.
         \tparam StationGradeTypeSet  A station grade type set type.
-        \tparam OuDiaDiagramSelector An OuDia diagram selector type.
+        \tparam SelectOuDiaDiagram   An OuDia diagram selecting type.
         \tparam Utf8Encoder          A UTF-8 encoder type.
         \tparam Cp932Encoder         A CP932 encoder type.
     */
@@ -43,7 +43,7 @@ namespace bobura { namespace model { namespace serializer
         typename Timetable,
         typename PullParser,
         typename StationGradeTypeSet,
-        typename OuDiaDiagramSelector,
+        typename SelectOuDiaDiagram,
         typename Utf8Encoder,
         typename Cp932Encoder
     >
@@ -67,8 +67,8 @@ namespace bobura { namespace model { namespace serializer
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
-        //! The OuDia diagram selector type.
-        typedef OuDiaDiagramSelector oudia_diagram_selector_type;
+        //! The OuDia diagram selecting type.
+        typedef SelectOuDiaDiagram select_oudia_diagram_type;
 
         //! The UTF-8 encoder type.
         typedef Utf8Encoder utf8_encoder_type;
@@ -90,7 +90,7 @@ namespace bobura { namespace model { namespace serializer
         //! The OuDia reader type.
         typedef
             oudia_reader<
-                iterator, timetable_type, station_grade_type_set_type, oudia_diagram_selector_type, cp932_encoder_type
+                iterator, timetable_type, station_grade_type_set_type, select_oudia_diagram_type, cp932_encoder_type
             >
             oudia_reader_type;
 

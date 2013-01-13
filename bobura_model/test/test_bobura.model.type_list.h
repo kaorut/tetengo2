@@ -211,21 +211,22 @@ namespace test_bobura { namespace model
         typedef
             tetengo2::text::pull_parser<push_parser_type, boost::mpl::at<type_list, type::size>::type>
             pull_parser_type;
-        struct oudia_diagram_selector_type
+        struct select_oudia_diagram_type
         {
             typedef boost::mpl::at<type_list, type::string>::type string_type;
 
             string_type m_wanted;
 
-            explicit oudia_diagram_selector_type(string_type wanted)
+            explicit select_oudia_diagram_type(string_type wanted)
             :
             m_wanted(std::move(wanted))
             {}
 
-            std::vector<string_type>::const_iterator select(const std::vector<string_type>& diagram_names)
+            template <typename Iterator>
+            Iterator operator()(const Iterator first, const Iterator last)
             const
             {
-                return std::find(diagram_names.begin(), diagram_names.end(), m_wanted);
+                return std::find(first, last, m_wanted);
             }
 
         };
@@ -242,7 +243,7 @@ namespace test_bobura { namespace model
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 pull_parser_type,
                 boost::mpl::at<model_type_list, type::model::grade_type_set>::type,
-                oudia_diagram_selector_type,
+                select_oudia_diagram_type,
                 timetable_file_encoder_type,
                 timetable_file_encoder_type
             >
