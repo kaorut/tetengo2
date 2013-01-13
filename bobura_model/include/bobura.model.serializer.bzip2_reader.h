@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_BZIP2READER_H)
 #define BOBURA_MODEL_SERIALIZER_BZIP2READER_H
 
-#include <iterator>
+//#include <iterator>
 //#include <memory>
 #include <sstream>
 #include <string>

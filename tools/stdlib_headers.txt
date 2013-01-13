@@ -613,6 +613,7 @@ std::queue                                       queue
 std::ref                                         functional
 std::reference_wrapper                           functional
 std::remove_pointer                              type_traits
+std::reverse                                     algorithm
 std::runtime_error                               stdexcept
 std::runtime_error::what                         stdexcept
 std::sin                                         cmath
