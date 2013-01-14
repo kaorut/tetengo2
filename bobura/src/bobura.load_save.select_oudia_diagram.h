@@ -52,7 +52,7 @@ namespace bobura { namespace load_save
         ForwardIterator operator()(const ForwardIterator first, const ForwardIterator last)
         const
         {
-            return first;
+            return last;
         }
 
 

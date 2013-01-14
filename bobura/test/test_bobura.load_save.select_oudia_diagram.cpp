@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <vector>
+
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -35,14 +37,20 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const select_oudia_diagram_type select_oudia_diagram_type;
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const select_oudia_diagram_type select_oudia_diagram;
+
+        std::vector<string_type> diagram_names;
+        const std::vector<string_type>::const_iterator selected =
+            select_oudia_diagram(diagram_names.begin(), diagram_names.end());
+
+        BOOST_CHECK(selected == diagram_names.end());
     }
 
 
