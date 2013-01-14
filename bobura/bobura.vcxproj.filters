@@ -207,6 +207,9 @@
     <ClInclude Include="src\bobura.view.diagram.train_line.h">
       <Filter>headers\bobura\view\diagram</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.load_save.select_oudia_diagram.h">
+      <Filter>headers\bobura\load_save</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
