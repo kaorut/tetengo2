@@ -216,6 +216,11 @@ namespace test_bobura { namespace model
 
             string_type m_wanted;
 
+            select_oudia_diagram_type()
+            :
+            m_wanted()
+            {}
+
             explicit select_oudia_diagram_type(string_type wanted)
             :
             m_wanted(std::move(wanted))

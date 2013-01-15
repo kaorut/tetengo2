@@ -113,6 +113,7 @@ namespace bobura { namespace model { namespace serializer
 
             readers.push_back(tetengo2::make_unique<json_reader_type>());
             readers.push_back(tetengo2::make_unique<bzip2_reader_type>(tetengo2::make_unique<json_reader_type>()));
+            readers.push_back(create_oudia_reader());
             readers.push_back(tetengo2::make_unique<windia_reader_type>());
 
             return std::move(readers);
@@ -120,6 +121,16 @@ namespace bobura { namespace model { namespace serializer
 
 
     private:
+        // static functions
+
+        static std::unique_ptr<reader_type> create_oudia_reader()
+        {
+            std::unique_ptr<select_oudia_diagram_type> p_select_oudia_diagram =
+                tetengo2::make_unique<select_oudia_diagram_type>();
+            return tetengo2::make_unique<oudia_reader_type>(std::move(p_select_oudia_diagram));
+        }
+
+
         // forbidden operations
 
         reader_set();
