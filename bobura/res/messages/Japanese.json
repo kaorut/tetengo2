@@ -48,6 +48,7 @@
         "Dialog:FileOpenSave:All Timetable Files":          "すべての時刻表ファイル",
         "Dialog:FileOpenSave:Timetable Files":              "時刻表ファイル",
         "Dialog:FileOpenSave:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
+        "Dialog:FileOpenSave:OuDia Files":                  "OuDia ファイル",
         "Dialog:FileOpenSave:WinDIA Files":                 "WinDIA ファイル",
         "Dialog:FileOpenSave:All Files":                    "すべてのファイル",
         

@@ -234,7 +234,7 @@ namespace bobura { namespace load_save
 
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Timetable Files")),
-                string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.dia"))
+                string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.oud;*.dia"))
             );
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
@@ -243,6 +243,10 @@ namespace bobura { namespace load_save
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
                 string_type(TETENGO2_TEXT("btt_bz2"))
+            );
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:OuDia Files")),
+                string_type(TETENGO2_TEXT("oud"))
             );
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:WinDIA Files")),
