@@ -116,5 +116,8 @@
     <ClCompile Include="test\test_bobura.model.serializer.oudia_reader.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.select_oudia_diagram.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

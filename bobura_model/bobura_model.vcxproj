@@ -95,6 +95,7 @@
     <ClInclude Include="include\bobura.model.serializer.reader.h" />
     <ClInclude Include="include\bobura.model.serializer.reader_selector.h" />
     <ClInclude Include="include\bobura.model.serializer.reader_set.h" />
+    <ClInclude Include="include\bobura.model.serializer.select_oudia_diagram.h" />
     <ClInclude Include="include\bobura.model.serializer.windia_reader.h" />
     <ClInclude Include="include\bobura.model.serializer.writer.h" />
     <ClInclude Include="include\bobura.model.serializer.writer_selector.h" />

@@ -120,7 +120,6 @@
     <ClInclude Include="src\bobura.load_save.load_from_file.h" />
     <ClInclude Include="src\bobura.load_save.new_file.h" />
     <ClInclude Include="src\bobura.load_save.save_to_file.h" />
-    <ClInclude Include="src\bobura.load_save.select_oudia_diagram.h" />
     <ClInclude Include="src\bobura.main_window.h" />
     <ClInclude Include="src\bobura.main_window_menu_builder.h" />
     <ClInclude Include="src\bobura.message.about_dialog.h" />

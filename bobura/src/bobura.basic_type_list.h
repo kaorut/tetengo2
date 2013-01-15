@@ -106,12 +106,12 @@
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
 #include "bobura.load_save.save_to_file.h"
-#include "bobura.load_save.select_oudia_diagram.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
+#include "bobura.model.serializer.select_oudia_diagram.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
 #include "bobura.model.station.h"
@@ -870,7 +870,7 @@ namespace bobura
             bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;
         typedef
-            bobura::load_save::select_oudia_diagram<boost::mpl::at<common_type_list, type::string>::type>
+            bobura::model::serializer::select_oudia_diagram<boost::mpl::at<common_type_list, type::string>::type>
             select_oudia_diagram_type;
         typedef station_grade_type_set_type::grade_type grade_type;
         typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;

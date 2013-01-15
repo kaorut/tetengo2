@@ -1,16 +1,16 @@
 /*! \file
-    \brief The definition of bobura::load_save::select_oudia_diagram.
+    \brief The definition of bobura::model::serializer::select_oudia_diagram.
 
     Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_LOADSAVE_SELECTOUDIADIAGRAM_H)
-#define BOBURA_LOADSAVE_SELECTOUDIADIAGRAM_H
+#if !defined(BOBURA_MODEL_SERIALIZER_SELECTOUDIADIAGRAM_H)
+#define BOBURA_MODEL_SERIALIZER_SELECTOUDIADIAGRAM_H
 
 
-namespace bobura { namespace load_save
+namespace bobura { namespace model { namespace serializer
 {
     /*!
         \brief The class template for an OuDia diagram selecting.
@@ -59,7 +59,7 @@ namespace bobura { namespace load_save
     };
 
 
-}}
+}}}
 
 
 #endif

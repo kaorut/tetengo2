@@ -31,7 +31,6 @@ extra_headers = \
     bobura.load_save.load_from_file.h \
     bobura.load_save.new_file.h \
     bobura.load_save.save_to_file.h \
-    bobura.load_save.select_oudia_diagram.h \
     bobura.main_window.h \
     bobura.main_window_menu_builder.h \
     bobura.message.about_dialog.h \
