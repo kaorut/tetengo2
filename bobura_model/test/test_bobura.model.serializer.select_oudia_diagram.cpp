@@ -22,7 +22,12 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
-    typedef bobura::model::serializer::select_oudia_diagram<string_type> select_oudia_diagram_type;
+    struct oudia_diagram_dialog
+    {
+
+    };
+
+    typedef bobura::model::serializer::select_oudia_diagram<oudia_diagram_dialog> select_oudia_diagram_type;
 
 
 }

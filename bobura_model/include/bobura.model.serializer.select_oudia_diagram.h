@@ -15,16 +15,16 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for an OuDia diagram selecting.
 
-        \tparam String A string type.
+        \tparam OuDiaDiagramDialog An OuDia diagram dialog type.
     */
-    template <typename String>
+    template <typename OuDiaDiagramDialog>
     class select_oudia_diagram
     {
     public:
         // types
 
-        //! The string type.
-        typedef String string_type;
+        //! The OuDia diagram dialog type.
+        typedef OuDiaDiagramDialog oudia_diagram_dialog_type;
 
 
         // constructors and destructor
