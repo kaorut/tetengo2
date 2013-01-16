@@ -9,13 +9,16 @@
 #if !defined(BOBURA_LOADSAVE_LOADFROMFILE_H)
 #define BOBURA_LOADSAVE_LOADFROMFILE_H
 
+#include <cassert>
 #include <ios>
 #include <iterator>
 //#include <memory>
+#include <stdexcept>
 //#include <utility>
 
 #include <boost/filesystem/fstream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -161,7 +164,20 @@ namespace bobura { namespace load_save
                 );
             if (!p_timetable)
             {
-                create_file_broken_message_box(path, parent)->do_modal();
+                switch (error)
+                {
+                case reader_error_type::canceled:
+                    break; // Do nothing.
+                case reader_error_type::broken:
+                    create_file_broken_message_box(path, parent)->do_modal();
+                    break;
+                case reader_error_type::unsupported:
+                    create_unsupported_format_file_message_box(path, parent)->do_modal();
+                    break;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::logic_error("Unknown reader error."));
+                }
                 return;
             }
 
@@ -220,6 +236,23 @@ namespace bobura { namespace load_save
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is broken.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_type::error
+                );
+        }
+
+        std::unique_ptr<message_box_type> create_unsupported_format_file_message_box(
+            const path_type&      path,
+            abstract_window_type& parent
+        )
+        const
+        {
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:Unsupported format file.")),
                     path.template string<string_type>(),
                     message_box_type::button_style_type::ok(false),
                     message_box_type::icon_style_type::error

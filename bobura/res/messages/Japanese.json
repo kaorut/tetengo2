@@ -84,6 +84,7 @@
         "Message:File:&Don't save":                    "保存しない(&D)",
         "Message:File:Can't open the file.":           "ファイルを開けません。",
         "Message:File:The timetable file is broken.":  "時刻表ファイルが破損しています。",
+        "Message:File:Unsupported format file.":       "このアプリケーションでは読み込めない形式のファイルです。",
         "Message:File:Can't create a temporary file.": "一時ファイルを作成できません。",
         "Message:File:Can't write to the file.":       "ファイルに書き込みできません。"
     }
