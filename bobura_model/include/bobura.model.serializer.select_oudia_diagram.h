@@ -52,7 +52,7 @@ namespace bobura { namespace model { namespace serializer
         ForwardIterator operator()(const ForwardIterator first, const ForwardIterator last)
         const
         {
-            return last;
+            return first;
         }
 
 
