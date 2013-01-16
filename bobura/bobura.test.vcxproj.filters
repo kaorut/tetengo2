@@ -113,5 +113,11 @@
     <ClCompile Include="test\test_bobura.view.diagram.train_line.cpp">
       <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.message.oudia_diagram_dialog.cpp">
+      <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.oudia_diagram_dialog.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

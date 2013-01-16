@@ -23,8 +23,10 @@ sources = \
     test_bobura.message.file_property_dialog.cpp \
     test_bobura.message.font_color_dialog.cpp \
     test_bobura.message.main_window.cpp \
+    test_bobura.message.oudia_diagram_dialog.cpp \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \
+    test_bobura.oudia_diagram_dialog.cpp \
     test_bobura.settings.cpp \
     test_bobura.timetable_model.cpp \
     test_bobura.view.diagram.header.cpp \
