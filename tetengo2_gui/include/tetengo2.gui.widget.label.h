@@ -9,6 +9,14 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
+#include <cmath>
+#include <cstddef>
+#include <limits>
+#include <type_traits>
+#include <utility>
+
+#include <boost/rational.hpp>
+
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
@@ -49,6 +57,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
+
+        //! The width type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        //! The height type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         //! The string type.
         typedef typename base_type::string_type string_type;
@@ -111,6 +125,30 @@ namespace tetengo2 { namespace gui { namespace widget
             set_client_dimension(calc_text_dimension());
         }
 
+        /*!
+            \brief Fit the dimension to the dimension of the text.
+
+            \param max_width A maximum width.
+        */
+        void fit_to_content(width_type max_width)
+        {
+            if (this->text().empty() || max_width == width_type(0)) return;
+
+            dimension_type one_line_dimension = calc_text_dimension();
+            const width_type line_count =
+                tetengo2::gui::dimension<dimension_type>::width(one_line_dimension) / max_width;
+            if (line_count <= width_type(1))
+            {
+                set_client_dimension(std::move(one_line_dimension));
+                return;
+            }
+
+            const std::size_t int_line_count =
+                static_cast<std::size_t>(std::ceil(to_double(line_count)));
+            height_type height = tetengo2::gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
+            set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
+        }
+
 
     private:
         // types
@@ -133,6 +171,21 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
         };
+
+
+        // static functions
+
+        template <typename T>
+        double to_double(const T value, typename std::enable_if<std::is_integral<T>::value>::type* = NULL)
+        {
+            return static_cast<double>(value);
+        }
+
+        template <typename T>
+        double to_double(const T value, typename std::enable_if<!std::is_integral<T>::value>::type* = NULL)
+        {
+            return boost::rational_cast<double>(value.value());
+        }
 
 
         // functions
