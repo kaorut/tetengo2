@@ -228,7 +228,7 @@ namespace test_bobura { namespace model
 
             string_type m_wanted;
 
-            select_oudia_diagram_type()
+            select_oudia_diagram_type(abstract_window_type&, const message_catalog_type&)
             :
             m_wanted()
             {}

@@ -8,6 +8,7 @@
 
 //#include <utility>
 
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.unit.pixel.h"
@@ -58,6 +59,46 @@ BOOST_AUTO_TEST_SUITE(gui)
             const unit_type unit = tetengo2::gui::to_unit<unit_type>(value);
 
             BOOST_CHECK_EQUAL(unit, 456);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(ceil)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const tetengo2::gui::unit::pixel<boost::rational<int>> value(boost::rational<int>(3, 2));
+
+            const int ceiling = tetengo2::gui::ceil<int>(value);
+
+            BOOST_CHECK_EQUAL(ceiling, 2);
+        }
+        {
+            const int value = 42;
+
+            const int ceiling = tetengo2::gui::ceil<int>(value);
+
+            BOOST_CHECK_EQUAL(ceiling, 42);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(floor)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const tetengo2::gui::unit::pixel<boost::rational<int>> value(boost::rational<int>(3, 2));
+
+            const int floor = tetengo2::gui::floor<int>(value);
+
+            BOOST_CHECK_EQUAL(floor, 1);
+        }
+        {
+            const int value = 42;
+
+            const int floor = tetengo2::gui::floor<int>(value);
+
+            BOOST_CHECK_EQUAL(floor, 42);
         }
     }
 

@@ -9,10 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-#include <cmath>
-#include <cstddef>
-#include <limits>
-#include <type_traits>
 #include <utility>
 
 #include <boost/rational.hpp>
@@ -144,8 +140,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
             }
 
-            const std::size_t int_line_count =
-                static_cast<std::size_t>(std::ceil(to_double(line_count)));
+            const std::size_t int_line_count = tetengo2::gui::ceil<std::size_t>(line_count);
             height_type height = tetengo2::gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
             set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
         }
@@ -172,21 +167,6 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
         };
-
-
-        // static functions
-
-        template <typename T>
-        double to_double(const T value, typename std::enable_if<std::is_integral<T>::value>::type* = NULL)
-        {
-            return static_cast<double>(value);
-        }
-
-        template <typename T>
-        double to_double(const T value, typename std::enable_if<!std::is_integral<T>::value>::type* = NULL)
-        {
-            return boost::rational_cast<double>(value.value());
-        }
 
 
         // functions
