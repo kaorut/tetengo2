@@ -299,7 +299,7 @@ namespace bobura
         {
             const left_type label_left(2);
 
-            m_p_prompt_label->set_dimension(dimension_type(width_type(20), height_type(3)));
+            m_p_prompt_label->fit_to_content(width_type(20));
             m_p_prompt_label->set_position(position_type(label_left, top_type(1)));
 
             m_p_diagram_list_box->set_dimension(dimension_type(width_type(20), height_type(10)));
