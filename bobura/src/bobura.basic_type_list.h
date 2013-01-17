@@ -125,6 +125,7 @@
 #include "bobura.model.train_info.time.h"
 #include "bobura.model.train_info.time_span.h"
 #include "bobura.model.train_kind.h"
+#include "bobura.oudia_diagram_dialog.h"
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
 #include "bobura.view.diagram.header.h"
@@ -779,6 +780,7 @@ namespace bobura
         struct about_dialog;   //!< The about dialog type.
         struct file_property_dialog; //!< The file property dialog type.
         struct font_color_dialog; //!< The font and color dialog type.
+        struct oudia_diagram_dialog; //!< The OuDia diagram dialog type.
     }}
 
     //! The type list for the dialogs.
@@ -839,8 +841,23 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dialog::oudia_diagram_dialog,
+                oudia_diagram_dialog<
+                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::label>::type,
+                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::button>::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
+                    message::oudia_diagram_dialog::type_list<
+                        boost::mpl::at<ui_type_list, type::ui::dialog>::type
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         dialog_type_list;
 
 

@@ -33,7 +33,7 @@ namespace bobura
         \tparam TextBox                           A text box type.
         \tparam Button                            A button type.
         \tparam TransparentBackground             A transparent background type.
-        \tparam FilePropertyDialogMessageTypeList A message type.
+        \tparam FilePropertyDialogMessageTypeList A message type list type.
     */
     template <
         typename Dialog,

@@ -25,24 +25,24 @@
 namespace bobura
 {
     /*!
-        \brief The class template for the file property dialog.
+        \brief The class template for the OuDia diagram dialog.
 
         \tparam Dialog                            A dialog type.
         \tparam MessageCatalog                    A message catalog type.
         \tparam Label                             A label type.
-        \tparam TextBox                           A text box type.
+        \tparam ListBox                           A list box type.
         \tparam Button                            A button type.
         \tparam TransparentBackground             A transparent background type.
-        \tparam FilePropertyDialogMessageTypeList A message type.
+        \tparam OuDiaDiagramDialogMessageTypeList A message type list type.
     */
     template <
         typename Dialog,
         typename MessageCatalog,
         typename Label,
-        typename TextBox,
+        typename ListBox,
         typename Button,
         typename TransparentBackground,
-        typename FilePropertyDialogMessageTypeList
+        typename OuDiaDiagramDialogMessageTypeList
     >
     class oudia_diagram_dialog : public Dialog
     {
@@ -67,8 +67,11 @@ namespace bobura
         //! The label type.
         typedef Label label_type;
 
-        //! The text box type.
-        typedef TextBox text_box_type;
+        //! The list box type.
+        typedef ListBox list_box_type;
+
+        //! The integer size type.
+        typedef typename list_box_type::int_size_type int_size_type;
 
         //! The button type.
         typedef Button button_type;
@@ -77,13 +80,13 @@ namespace bobura
         typedef TransparentBackground transparent_background_type;
 
         //! The message type list type.
-        typedef FilePropertyDialogMessageTypeList file_property_dialog_message_type_list_type;
+        typedef OuDiaDiagramDialogMessageTypeList oudia_diagram_dialog_message_type_list_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a file property dialog.
+            \brief Creates a OuDia diagram dialog.
 
             \param parent          A parent window.
             \param message_catalog A message catalog.
@@ -92,18 +95,9 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
-        m_company_name(),
-        m_line_name(),
-        m_note(),
-        m_file_name(),
-        m_p_company_name_label(),
-        m_p_company_name_text_box(),
-        m_p_line_name_label(),
-        m_p_line_name_text_box(),
-        m_p_note_label(),
-        m_p_note_text_box(),
-        m_p_file_name_label(),
-        m_p_file_name_text_box(),
+        m_selected_index(),
+        m_p_prompt_label(),
+        m_p_diagram_list_box(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -111,7 +105,7 @@ namespace bobura
         }
 
         /*!
-            \brief Destroys the file property dialog.
+            \brief Destroys the OuDia diagram dialog.
         */
         virtual ~oudia_diagram_dialog()
         TETENGO2_CPP11_NOEXCEPT
@@ -121,95 +115,26 @@ namespace bobura
         // functions
 
         /*!
-            \brief Returns the company name.
+            \brief Returns the selected index.
 
-            \return The company name.
+            \return The selected index.
         */
-        const string_type& company_name()
+        int_size_type selected_index()
         const
         {
-            return m_company_name;
+            return m_selected_index;
         }
 
         /*!
-            \brief Sets a company name.
+            \brief Sets a selected index.
 
-            \param company_name A company name.
+            \param index An index.
         */
-        void set_company_name(string_type company_name)
+        void set_selected_index(const int_size_type index)
         {
-            m_company_name = std::move(company_name);
-            if (!m_p_company_name_text_box->destroyed())
-                m_p_company_name_text_box->set_text(m_company_name);
-        }
-
-        /*!
-            \brief Returns the line name.
-
-            \return The line name.
-        */
-        const string_type& line_name()
-        const
-        {
-            return m_line_name;
-        }
-
-        /*!
-            \brief Sets a line name.
-
-            \param line_name A line name.
-        */
-        void set_line_name(string_type line_name)
-        {
-            m_line_name = std::move(line_name);
-            if (!m_p_line_name_text_box->destroyed())
-                m_p_line_name_text_box->set_text(m_line_name);
-        }
-
-        /*!
-            \brief Returns the note.
-
-            \return The note.
-        */
-        const string_type& note()
-        const
-        {
-            return m_note;
-        }
-
-        /*!
-            \brief Sets a note.
-
-            \param note A note.
-        */
-        void set_note(string_type note)
-        {
-            m_note = std::move(note);
-            if (!m_p_note_text_box->destroyed())
-                m_p_note_text_box->set_text(m_note);
-        }
-
-        /*!
-            \brief Returns the file name.
-
-            \return The file name.
-        */
-        const string_type& file_name()
-        const
-        {
-            return m_file_name;
-        }
-
-        /*!
-            \brief Sets a file name.
-
-            \param file_name A file name.
-        */
-        void set_file_name(string_type file_name)
-        {
-            m_file_name = std::move(file_name);
-            if (!m_p_file_name_text_box->destroyed())
-                m_p_file_name_text_box->set_text(m_file_name);
+            m_selected_index = index;
+            //if (!m_p_diagram_list_box->destroyed())
+            //    m_p_diagram_list_box->set_text(m_company_name);
         }
 
 
@@ -233,29 +158,11 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
-        string_type m_company_name;
+        int_size_type m_selected_index;
 
-        string_type m_line_name;
+        std::unique_ptr<label_type> m_p_prompt_label;
 
-        string_type m_note;
-
-        string_type m_file_name;
-
-        std::unique_ptr<label_type> m_p_company_name_label;
-
-        std::unique_ptr<text_box_type> m_p_company_name_text_box;
-
-        std::unique_ptr<label_type> m_p_line_name_label;
-
-        std::unique_ptr<text_box_type> m_p_line_name_text_box;
-
-        std::unique_ptr<label_type> m_p_note_label;
-
-        std::unique_ptr<text_box_type> m_p_note_text_box;
-
-        std::unique_ptr<label_type> m_p_file_name_label;
-
-        std::unique_ptr<text_box_type> m_p_file_name_text_box;
+        std::unique_ptr<list_box_type> m_p_diagram_list_box;
 
         std::unique_ptr<button_type> m_p_ok_button;
 
@@ -266,9 +173,7 @@ namespace bobura
 
         virtual void set_result_impl()
         {
-            m_company_name = m_p_company_name_text_box->text();
-            m_line_name = m_p_line_name_text_box->text();
-            m_note = m_p_note_text_box->text();
+            //m_selected_index = m_p_company_name_text_box->text();
         }
 
 
@@ -276,100 +181,39 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
-            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:File Property")));
+            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:OuDiaDiagram:Diagram Selection")));
 
             this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
 
-            m_p_company_name_label = create_company_name_label();
-            m_p_company_name_text_box = create_company_name_text_box();
-            m_p_line_name_label = create_line_name_label();
-            m_p_line_name_text_box = create_line_name_text_box();
-            m_p_note_label = create_note_label();
-            m_p_note_text_box = create_note_text_box();
-            m_p_file_name_label = create_file_name_label();
-            m_p_file_name_text_box = create_file_name_text_box();
+            m_p_prompt_label = create_prompt_label();
+            m_p_diagram_list_box = create_diagram_list_box();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
         }
 
-        std::unique_ptr<label_type> create_company_name_label()
+        std::unique_ptr<label_type> create_prompt_label()
         {
             std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
+            p_label->set_text(
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Dialog:OuDiaDiagram:The timetable file has multiple diagrams. Choose one to load.")
+                )
+            );
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
 
-        std::unique_ptr<text_box_type> create_company_name_text_box()
+        std::unique_ptr<list_box_type> create_diagram_list_box()
         {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
+            std::unique_ptr<list_box_type> p_list_box =
+                tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::vertical);
 
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_line_name_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Line Name:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_line_name_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_note_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Note:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_note_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            return std::move(p_text_box);
-        }
-
-        std::unique_ptr<label_type> create_file_name_label()
-        {
-            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
-
-            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&File Name:")));
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
-            p_label->set_background(std::move(p_background));
-
-            return std::move(p_label);
-        }
-
-        std::unique_ptr<text_box_type> create_file_name_text_box()
-        {
-            std::unique_ptr<text_box_type> p_text_box =
-                tetengo2::make_unique<text_box_type>(*this, text_box_type::scroll_bar_style_type::none);
-
-            p_text_box->set_read_only(true);
-
-            return std::move(p_text_box);
+            return std::move(p_list_box);
         }
 
         std::unique_ptr<button_type> create_ok_button()
@@ -380,7 +224,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
-                    file_property_dialog_message_type_list_type,
+                    oudia_diagram_dialog_message_type_list_type,
                     message::oudia_diagram_dialog::type::ok_button_mouse_clicked
                 >::type(*this)
             );
@@ -396,7 +240,7 @@ namespace bobura
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
-                    file_property_dialog_message_type_list_type,
+                    oudia_diagram_dialog_message_type_list_type,
                     message::oudia_diagram_dialog::type::cancel_button_mouse_clicked
                 >::type(*this)
             );
@@ -408,57 +252,15 @@ namespace bobura
         {
             const left_type label_left(2);
 
-            m_p_company_name_label->fit_to_content();
-            m_p_company_name_label->set_position(position_type(label_left, top_type(1)));
+            m_p_prompt_label->fit_to_content();
+            m_p_prompt_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_company_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_company_name_text_box->set_position(
+            m_p_diagram_list_box->set_dimension(dimension_type(width_type(32), height_type(2)));
+            m_p_diagram_list_box->set_position(
                 position_type(
                     label_left,
-                    tetengo2::gui::position<position_type>::top(m_p_company_name_label->position()) +
-                        top_type::from(
-                            tetengo2::gui::dimension<dimension_type>::height(m_p_company_name_label->dimension())
-                        )
-                )
-            );
-
-            m_p_line_name_label->fit_to_content();
-            m_p_line_name_label->set_position(position_type(label_left, top_type(5)));
-
-            m_p_line_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_line_name_text_box->set_position(
-                position_type(
-                    label_left,
-                    tetengo2::gui::position<position_type>::top(m_p_line_name_label->position()) +
-                        top_type::from(
-                            tetengo2::gui::dimension<dimension_type>::height(m_p_line_name_label->dimension())
-                        )
-                )
-            );
-
-            m_p_note_label->fit_to_content();
-            m_p_note_label->set_position(position_type(label_left, top_type(9)));
-
-            m_p_note_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_note_text_box->set_position(
-                position_type(
-                    label_left,
-                    tetengo2::gui::position<position_type>::top(m_p_note_label->position()) +
-                        top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_note_label->dimension()))
-                )
-            );
-
-            m_p_file_name_label->fit_to_content();
-            m_p_file_name_label->set_position(position_type(label_left, top_type(13)));
-
-            m_p_file_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
-            m_p_file_name_text_box->set_position(
-                position_type(
-                    label_left,
-                    tetengo2::gui::position<position_type>::top(m_p_file_name_label->position()) +
-                        top_type::from(
-                            tetengo2::gui::dimension<dimension_type>::height(m_p_file_name_label->dimension())
-                        )
+                    tetengo2::gui::position<position_type>::top(m_p_prompt_label->position()) +
+                        top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_prompt_label->dimension()))
                 )
             );
 

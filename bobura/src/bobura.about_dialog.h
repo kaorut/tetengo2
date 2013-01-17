@@ -38,7 +38,7 @@ namespace bobura
         \tparam Button                     A button type.
         \tparam PictureReader              A picture reader type.
         \tparam TransparentBackground      A transparent background type.
-        \tparam AboutDialogMessageTypeList A message type.
+        \tparam AboutDialogMessageTypeList A message type list type.
     */
     template <
         typename Dialog,

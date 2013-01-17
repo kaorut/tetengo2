@@ -24,9 +24,9 @@ namespace
 
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
-    //typedef
-    //    boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::oudia_diagram_dialog>::type
-    //    oudia_diagram_dialog_type;
+    typedef
+        boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::oudia_diagram_dialog>::type
+        oudia_diagram_dialog_type;
 
 
 }
@@ -40,12 +40,12 @@ BOOST_AUTO_TEST_SUITE(oudia_diagram_dialog)
     {
         BOOST_TEST_PASSPOINT();
 
-        //window_type window;
-        //const message_catalog_type message_catalog;
-        //const oudia_diagram_dialog_type oudia_diagram_dialog(window, message_catalog);
+        window_type window;
+        const message_catalog_type message_catalog;
+        const oudia_diagram_dialog_type oudia_diagram_dialog(window, message_catalog);
     }
 
-    BOOST_AUTO_TEST_CASE(company_name)
+    BOOST_AUTO_TEST_CASE(selected_index)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(oudia_diagram_dialog)
         //BOOST_CHECK(oudia_diagram_dialog.company_name().empty());
     }
 
-    BOOST_AUTO_TEST_CASE(set_company_name)
+    BOOST_AUTO_TEST_CASE(set_selected_index)
     {
         BOOST_TEST_PASSPOINT();
 

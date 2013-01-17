@@ -43,7 +43,7 @@ namespace bobura
         \tparam Font                           A font type.
         \tparam Color                          A color type.
         \tparam TransparentBackground          A transparent background type.
-        \tparam FontColorDialogMessageTypeList A message type.
+        \tparam FontColorDialogMessageTypeList A message type list type.
     */
     template <
         typename Dialog,
