@@ -12,7 +12,9 @@
 //#include <memory>
 //#include <utility>
 #include <stdexcept>
+#include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -98,6 +100,7 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_names(),
         m_selected_index(),
         m_p_prompt_label(),
         m_p_diagram_list_box(),
@@ -116,6 +119,37 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Returns the names.
+
+            \return The names.
+        */
+        const std::vector<string_type>& names()
+        const
+        {
+            return m_names;
+        }
+
+        /*!
+            \brief Sets names.
+
+            \param names Names.
+        */
+        void set_names(std::vector<string_type> names)
+        {
+            m_names = std::move(names);
+            if (!m_p_diagram_list_box->destroyed())
+            {
+                m_p_diagram_list_box->clear();
+                BOOST_FOREACH (const string_type& name, m_names)
+                {
+                    m_p_diagram_list_box->insert_item(m_p_diagram_list_box->item_count(), name);
+                }
+            }
+
+            m_selected_index = m_p_diagram_list_box->selected_item_index();
+        }
 
         /*!
             \brief Returns the selected index.
@@ -165,6 +199,8 @@ namespace bobura
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+        std::vector<string_type> m_names;
 
         boost::optional<int_size_type> m_selected_index;
 
