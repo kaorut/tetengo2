@@ -11,8 +11,11 @@
 
 //#include <memory>
 //#include <utility>
+#include <stdexcept>
 
 #include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
@@ -119,7 +122,7 @@ namespace bobura
 
             \return The selected index.
         */
-        int_size_type selected_index()
+        const boost::optional<int_size_type>& selected_index()
         const
         {
             return m_selected_index;
@@ -129,12 +132,17 @@ namespace bobura
             \brief Sets a selected index.
 
             \param index An index.
+
+            \throw std::out_of_range When index is greater than the diagram count.
         */
         void set_selected_index(const int_size_type index)
         {
-            m_selected_index = index;
-            //if (!m_p_diagram_list_box->destroyed())
-            //    m_p_diagram_list_box->set_text(m_company_name);
+            if (index >= m_p_diagram_list_box->item_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is greater than the diagram count."));
+
+            m_selected_index = boost::make_optional(index);
+            if (!m_p_diagram_list_box->destroyed())
+                m_p_diagram_list_box->select_item(*m_selected_index);
         }
 
 
@@ -158,7 +166,7 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
-        int_size_type m_selected_index;
+        boost::optional<int_size_type> m_selected_index;
 
         std::unique_ptr<label_type> m_p_prompt_label;
 
@@ -173,7 +181,7 @@ namespace bobura
 
         virtual void set_result_impl()
         {
-            //m_selected_index = m_p_company_name_text_box->text();
+            m_selected_index = m_p_diagram_list_box->selected_item_index();
         }
 
 
