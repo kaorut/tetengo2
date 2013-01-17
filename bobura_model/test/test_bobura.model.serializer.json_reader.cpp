@@ -601,7 +601,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_REQUIRE(p_timetable);
             BOOST_CHECK_EQUAL(error, error_type::none);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
-            BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
+            BOOST_REQUIRE_EQUAL(p_timetable->station_locations().size(), 2U);
             {
                 const station_location_type& station_location = p_timetable->station_locations()[0];
                 const station_type& station = station_location.station();
@@ -668,13 +668,13 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 );
             }
 
-            BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
+            BOOST_REQUIRE_EQUAL(p_timetable->down_trains().size(), 2U);
             {
                 const train_type& train = p_timetable->down_trains()[0];
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
                 BOOST_CHECK(train.note() == string_type(TETENGO2_TEXT("fuga")));
                 const train_type::stops_type& stops = train.stops();
-                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
@@ -695,7 +695,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("123D")));
                 BOOST_CHECK(train.note().empty());
                 const train_type::stops_type& stops = train.stops();
-                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
@@ -711,13 +711,13 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
-            BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
+            BOOST_REQUIRE_EQUAL(p_timetable->up_trains().size(), 1U);
             {
                 const train_type& train = p_timetable->up_trains()[0];
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("9324M")));
                 BOOST_CHECK(train.note() == string_type(TETENGO2_TEXT("piyo")));
                 const train_type::stops_type& stops = train.stops();
-                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());

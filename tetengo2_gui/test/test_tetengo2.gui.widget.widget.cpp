@@ -592,7 +592,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget child2(&widget);
             child2.set_text("fuga");
 
-            BOOST_CHECK_EQUAL(widget.children().size(), 2U);
+            BOOST_REQUIRE_EQUAL(widget.children().size(), 2U);
             BOOST_CHECK(widget.children()[0].get().text() == "hoge" || widget.children()[1].get().text() == "hoge");
             BOOST_CHECK(widget.children()[0].get().text() == "fuga" || widget.children()[1].get().text() == "fuga");
         }

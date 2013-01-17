@@ -444,7 +444,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->note().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
 
-            BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 1U);
+            BOOST_REQUIRE_EQUAL(p_timetable->train_kinds().size(), 1U);
             {
                 const train_kind_type& train_kind = p_timetable->train_kinds()[0];
 
@@ -475,7 +475,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("def")));
 
-            BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 6U);
+            BOOST_REQUIRE_EQUAL(p_timetable->station_locations().size(), 6U);
             {
                 const station_location_type& station_location = p_timetable->station_locations()[0];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("hoge")));
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK_EQUAL(station_location.meterage(), 4U);
             }
 
-            BOOST_CHECK_EQUAL(p_timetable->train_kinds().size(), 2U);
+            BOOST_REQUIRE_EQUAL(p_timetable->train_kinds().size(), 2U);
             {
                 const train_kind_type& train_kind = p_timetable->train_kinds()[0];
 
@@ -514,14 +514,14 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::bold);
             }
 
-            BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 3U);
+            BOOST_REQUIRE_EQUAL(p_timetable->down_trains().size(), 3U);
             {
                 const train_type& train = p_timetable->down_trains()[0];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("121D")));
                 BOOST_CHECK(train.name().empty());
                 BOOST_CHECK_EQUAL(train.kind_index(), 0U);
-                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
                     const stop_type& stop = train.stops()[0];
 
@@ -546,7 +546,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
                 BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("foo")));
                 BOOST_CHECK_EQUAL(train.kind_index(), 1U);
-                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
                     const stop_type& stop = train.stops()[0];
 
@@ -573,14 +573,14 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 }
             }
 
-            BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 3U);
+            BOOST_REQUIRE_EQUAL(p_timetable->up_trains().size(), 3U);
             {
                 const train_type& train = p_timetable->up_trains()[1];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("124D")));
                 BOOST_CHECK(train.name().empty());
                 BOOST_CHECK_EQUAL(train.kind_index(), 0U);
-                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
                     const stop_type& stop = train.stops()[2];
 
@@ -604,7 +604,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("102D")));
                 BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("bar")));
                 BOOST_CHECK_EQUAL(train.kind_index(), 1U);
-                BOOST_CHECK_EQUAL(train.stops().size(), 6U);
+                BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
                     const stop_type& stop = train.stops()[4];
 
