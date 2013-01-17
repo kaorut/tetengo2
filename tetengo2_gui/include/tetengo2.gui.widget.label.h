@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-#include <utility>
-
-#include <boost/rational.hpp>
+//#include <cstddef>
+//#include <utility>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"

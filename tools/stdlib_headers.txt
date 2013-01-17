@@ -550,6 +550,7 @@ std::basic_ostream                               ostream
 std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::bind                                        functional
+std::ceil                                        cmath
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::cos                                         cmath
@@ -564,6 +565,7 @@ std::error_code                                  system_error
 std::exception                                   exception
 std::find                                        algorithm
 std::find_if                                     algorithm
+std::floor                                       cmath
 std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional

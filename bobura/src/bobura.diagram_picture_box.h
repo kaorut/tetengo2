@@ -13,7 +13,7 @@
 //#include <utility>
 
 #include <boost/mpl/at.hpp>
-#include <boost/rational.hpp>
+//#include <boost/rational.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>

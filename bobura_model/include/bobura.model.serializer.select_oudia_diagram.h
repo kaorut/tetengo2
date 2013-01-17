@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <iterator>
+#include <vector>
 
 #include <boost/optional.hpp>
 #include <boost/utility.hpp>
