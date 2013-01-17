@@ -64,6 +64,10 @@ namespace bobura { namespace model { namespace serializer
         ForwardIterator operator()(const ForwardIterator first, const ForwardIterator last)
         const
         {
+            {
+                oudia_diagram_dialog_type dialog(m_parent, m_message_catalog);
+                dialog.do_modal();
+            }
             return first;
         }
 

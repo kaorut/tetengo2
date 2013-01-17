@@ -40,6 +40,12 @@ namespace
             boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
             message_catalog_type;
 
+        oudia_diagram_dialog(abstract_window_type&, const message_catalog_type&)
+        {}
+
+        void do_modal()
+        {}
+
     };
 
     typedef bobura::model::serializer::select_oudia_diagram<oudia_diagram_dialog> select_oudia_diagram_type;
