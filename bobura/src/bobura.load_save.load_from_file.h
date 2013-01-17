@@ -154,7 +154,7 @@ namespace bobura { namespace load_save
                 return;
             }
 
-            reader_selector_type reader_selector(reader_set_type::create_readers());
+            reader_selector_type reader_selector(reader_set_type::create_readers(parent, m_message_catalog));
             typename reader_error_type::enum_t error = reader_error_type::none;
             std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(

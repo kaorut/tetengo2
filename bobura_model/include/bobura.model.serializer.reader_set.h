@@ -70,6 +70,12 @@ namespace bobura { namespace model { namespace serializer
         //! The OuDia diagram selecting type.
         typedef SelectOuDiaDiagram select_oudia_diagram_type;
 
+        //! The abstract window type.
+        typedef typename select_oudia_diagram_type::abstract_window_type abstract_window_type;
+
+        //! The message catalog type.
+        typedef typename select_oudia_diagram_type::message_catalog_type message_catalog_type;
+
         //! The UTF-8 encoder type.
         typedef Utf8Encoder utf8_encoder_type;
 
@@ -105,15 +111,21 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Creates readers.
 
+            \param parent          A parent window.
+            \param message_catalog A message catalog.
+
             \return Unique pointers to readers.
         */
-        static std::vector<std::unique_ptr<reader_type>> create_readers()
+        static std::vector<std::unique_ptr<reader_type>> create_readers(
+            abstract_window_type&       parent,
+            const message_catalog_type& message_catalog
+        )
         {
             std::vector<std::unique_ptr<reader_type>> readers;
 
             readers.push_back(tetengo2::make_unique<json_reader_type>());
             readers.push_back(tetengo2::make_unique<bzip2_reader_type>(tetengo2::make_unique<json_reader_type>()));
-            readers.push_back(create_oudia_reader());
+            readers.push_back(create_oudia_reader(parent, message_catalog));
             readers.push_back(tetengo2::make_unique<windia_reader_type>());
 
             return std::move(readers);
@@ -123,10 +135,13 @@ namespace bobura { namespace model { namespace serializer
     private:
         // static functions
 
-        static std::unique_ptr<reader_type> create_oudia_reader()
+        static std::unique_ptr<reader_type> create_oudia_reader(
+            abstract_window_type&       parent,
+            const message_catalog_type& message_catalog
+        )
         {
             std::unique_ptr<select_oudia_diagram_type> p_select_oudia_diagram =
-                tetengo2::make_unique<select_oudia_diagram_type>();
+                tetengo2::make_unique<select_oudia_diagram_type>(parent, message_catalog);
             return tetengo2::make_unique<oudia_reader_type>(std::move(p_select_oudia_diagram));
         }
 

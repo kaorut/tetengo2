@@ -886,7 +886,11 @@ namespace bobura
         typedef
             bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;
-        typedef bobura::model::serializer::select_oudia_diagram<int> select_oudia_diagram_type;
+        typedef
+            bobura::model::serializer::select_oudia_diagram<
+                boost::mpl::at<dialog_type_list, type::dialog::oudia_diagram_dialog>::type
+            >
+            select_oudia_diagram_type;
         typedef station_grade_type_set_type::grade_type grade_type;
         typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;
         typedef

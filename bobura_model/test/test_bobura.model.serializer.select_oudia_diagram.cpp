@@ -22,8 +22,23 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
+    typedef
+        boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::abstract_window>::type
+        abstract_window_type;
+
+    typedef
+        boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
+        message_catalog_type;
+
     struct oudia_diagram_dialog
     {
+        typedef
+            boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::abstract_window>::type
+            abstract_window_type;
+
+        typedef
+            boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
+            message_catalog_type;
 
     };
 
@@ -43,14 +58,18 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
     {
         BOOST_TEST_PASSPOINT();
 
-        const select_oudia_diagram_type select_oudia_diagram_type;
+        abstract_window_type parent;
+        const message_catalog_type message_catalog;
+        const select_oudia_diagram_type select_oudia_diagram(parent, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        const select_oudia_diagram_type select_oudia_diagram;
+        abstract_window_type parent;
+        const message_catalog_type message_catalog;
+        const select_oudia_diagram_type select_oudia_diagram(parent, message_catalog);
 
         std::vector<string_type> diagram_names;
         const std::vector<string_type>::const_iterator selected =

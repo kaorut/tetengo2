@@ -65,12 +65,18 @@ namespace test_bobura { namespace model
         struct output_stream;  //!< The output stream type.
         struct font;           //!< The font type.
         struct color;          //!< The color type.
+        struct abstract_window; //!< The abstract window type.
+        struct message_catalog; //!< The message catalog type.
     }
 
 #if !defined(DOCUMENTATION)
     namespace detail
     {
         typedef tetengo2::detail::stub::drawing drawing_details_type;
+        struct abstract_window_type
+        {};
+        struct message_catalog_type
+        {};
     }
 #endif
 
@@ -86,8 +92,10 @@ namespace test_bobura { namespace model
                 type::font, tetengo2::gui::drawing::font<std::string, std::size_t, detail::drawing_details_type>
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::color, tetengo2::gui::drawing::color<unsigned char>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::abstract_window, detail::abstract_window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::message_catalog, detail::message_catalog_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>>
         type_list;
 
 
@@ -213,6 +221,10 @@ namespace test_bobura { namespace model
         struct select_oudia_diagram_type
         {
             typedef boost::mpl::at<type_list, type::string>::type string_type;
+
+            typedef boost::mpl::at<type_list, type::abstract_window>::type abstract_window_type;
+
+            typedef boost::mpl::at<type_list, type::message_catalog>::type message_catalog_type;
 
             string_type m_wanted;
 

@@ -26,13 +26,25 @@ namespace bobura { namespace model { namespace serializer
         //! The OuDia diagram dialog type.
         typedef OuDiaDiagramDialog oudia_diagram_dialog_type;
 
+        //! The abstract window type.
+        typedef typename oudia_diagram_dialog_type::abstract_window_type abstract_window_type;
+
+        //! The message catalog type.
+        typedef typename oudia_diagram_dialog_type::message_catalog_type message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates an OuDia diagram selecting.
+
+            \param parent          A parent window.
+            \param message_catalog A message catalog.
         */
-        select_oudia_diagram()
+        select_oudia_diagram(abstract_window_type& parent, const message_catalog_type& message_catalog)
+        :
+        m_parent(parent),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -54,6 +66,14 @@ namespace bobura { namespace model { namespace serializer
         {
             return first;
         }
+
+
+    private:
+        // variables
+
+        abstract_window_type& m_parent;
+
+        const message_catalog_type& m_message_catalog;
 
 
     };
