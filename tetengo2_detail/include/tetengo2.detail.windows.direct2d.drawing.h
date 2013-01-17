@@ -17,6 +17,7 @@
 //#include <system_error>
 //#include <utility>
 
+#include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
@@ -776,8 +777,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static ::FLOAT radian_to_degree(const double radian)
         {
-            static const double pi = 3.14159265358979323846264338327950288;
-            return static_cast< ::FLOAT>(radian * 180.0 / pi);
+            return static_cast< ::FLOAT>(radian * 180.0 / boost::math::constants::pi<double>());
         }
 
 
