@@ -9,6 +9,12 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_SELECTOUDIADIAGRAM_H)
 #define BOBURA_MODEL_SERIALIZER_SELECTOUDIADIAGRAM_H
 
+#include <cassert>
+#include <iterator>
+
+#include <boost/optional.hpp>
+#include <boost/utility.hpp>
+
 
 namespace bobura { namespace model { namespace serializer
 {
@@ -28,6 +34,9 @@ namespace bobura { namespace model { namespace serializer
 
         //! The abstract window type.
         typedef typename oudia_diagram_dialog_type::abstract_window_type abstract_window_type;
+
+        //! The string type.
+        typedef typename oudia_diagram_dialog_type::string_type string_type;
 
         //! The message catalog type.
         typedef typename oudia_diagram_dialog_type::message_catalog_type message_catalog_type;
@@ -64,15 +73,37 @@ namespace bobura { namespace model { namespace serializer
         ForwardIterator operator()(const ForwardIterator first, const ForwardIterator last)
         const
         {
+            if (std::distance(first, last) < 1)
+                return last;
+
+            oudia_diagram_dialog_type dialog(m_parent, m_message_catalog);
+
+            dialog.set_names(std::vector<string_type>(first, last));
+            dialog.set_selected_index(0);
+
+            dialog.do_modal();
+            if (dialog.result() != oudia_diagram_dialog_type::result_type::accepted)
+                return last;
+
+            const boost::optional<selected_index_type> selected_index = dialog.selected_index();
+            if (selected_index)
             {
-                oudia_diagram_dialog_type dialog(m_parent, m_message_catalog);
-                dialog.do_modal();
+                assert(*selected_index < static_cast<selected_index_type>(std::distance(first, last)));
+                return boost::next(first, *selected_index);
             }
-            return first;
+            else
+            {
+                return last;
+            }
         }
 
 
     private:
+        // types
+
+        typedef typename oudia_diagram_dialog_type::int_size_type selected_index_type;
+
+
         // variables
 
         abstract_window_type& m_parent;

@@ -66,6 +66,9 @@ namespace bobura
         //! The background type.
         typedef typename base_type::background_type background_type;
 
+        //! The result type.
+        typedef typename base_type::result_type result_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -227,7 +230,7 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:OuDiaDiagram:Diagram Selection")));
 
-            this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
+            this->set_client_dimension(dimension_type(width_type(24), height_type(18)));
 
             m_p_prompt_label = create_prompt_label();
             m_p_diagram_list_box = create_diagram_list_box();
@@ -296,10 +299,10 @@ namespace bobura
         {
             const left_type label_left(2);
 
-            m_p_prompt_label->fit_to_content();
+            m_p_prompt_label->set_dimension(dimension_type(width_type(20), height_type(3)));
             m_p_prompt_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_diagram_list_box->set_dimension(dimension_type(width_type(32), height_type(2)));
+            m_p_diagram_list_box->set_dimension(dimension_type(width_type(20), height_type(10)));
             m_p_diagram_list_box->set_position(
                 position_type(
                     label_left,
@@ -309,10 +312,10 @@ namespace bobura
             );
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(17), top_type(18)));
+            m_p_ok_button->set_position(position_type(left_type(5), top_type(15)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(26), top_type(18)));
+            m_p_cancel_button->set_position(position_type(left_type(14), top_type(15)));
         }
 
 

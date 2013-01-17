@@ -6,9 +6,11 @@
     $Id$
 */
 
+#include <cstddef>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_bobura.model.type_list.h"
@@ -36,16 +38,53 @@ namespace
             boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::abstract_window>::type
             abstract_window_type;
 
+        typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
+
         typedef
             boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
             message_catalog_type;
 
+        struct result_type { enum enum_t
+        {
+            undecided,
+            accepted,
+            canceled,
+        };};
+
+        typedef std::size_t int_size_type;
+
         oudia_diagram_dialog(abstract_window_type&, const message_catalog_type&)
         {}
+
+        result_type::enum_t result()
+        const
+        {
+            return result_type::undecided;
+        }
 
         void do_modal()
         {}
 
+        const std::vector<string_type>& names()
+        const
+        {
+            static const std::vector<string_type> singleton;
+            return singleton;
+        }
+
+        void set_names(std::vector<string_type>)
+        {}
+
+        boost::optional<int_size_type> selected_index()
+        const
+        {
+            return boost::none;
+        }
+
+        void set_selected_index(int_size_type)
+        {}
+
+        
     };
 
     typedef bobura::model::serializer::select_oudia_diagram<oudia_diagram_dialog> select_oudia_diagram_type;
