@@ -301,6 +301,13 @@ namespace bobura
             std::unique_ptr<list_box_type> p_list_box =
                 tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::vertical);
 
+            p_list_box->mouse_observer_set().doubleclicked().connect(
+                typename boost::mpl::at<
+                    oudia_diagram_dialog_message_type_list_type,
+                    message::oudia_diagram_dialog::type::ok_button_mouse_clicked
+                >::type(*this)
+            );
+
             return std::move(p_list_box);
         }
 
