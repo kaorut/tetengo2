@@ -107,6 +107,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
+        boost::optional< ::LRESULT> on_l_button_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (widget.mouse_observer_set().clicked().empty())
+                return boost::none;
+
+            if (w_param == 0 && !widget.mouse_observer_set().clicked().empty())
+                widget.mouse_observer_set().clicked()();
+
+            return boost::make_optional< ::LRESULT>(0);
+        }
+
+        template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (widget.mouse_observer_set().wheeled().empty())
