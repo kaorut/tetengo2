@@ -74,9 +74,15 @@ namespace test_bobura { namespace model
     {
         typedef tetengo2::detail::stub::drawing drawing_details_type;
         struct abstract_window_type
-        {};
+        {
+            abstract_window_type()
+            {}
+        };
         struct message_catalog_type
-        {};
+        {
+            message_catalog_type()
+            {}
+        };
     }
 #endif
 
