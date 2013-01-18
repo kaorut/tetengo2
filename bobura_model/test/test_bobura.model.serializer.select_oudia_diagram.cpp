@@ -7,15 +7,17 @@
 */
 
 //#include <cstddef>
+#include <utility>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.model.type_list.h"
+#include <tetengo2.text.h>
 
 #include "bobura.model.serializer.select_oudia_diagram.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
@@ -65,6 +67,16 @@ namespace
         void do_modal()
         {}
 
+        const string_type& file_name()
+        const
+        {
+            static const string_type singleton;
+            return singleton;
+        }
+
+        void set_file_name(string_type)
+        {}
+
         const std::vector<string_type>& names()
         const
         {
@@ -104,8 +116,9 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
         BOOST_TEST_PASSPOINT();
 
         abstract_window_type parent;
+        string_type file_name(TETENGO2_TEXT("hoge"));
         const message_catalog_type message_catalog;
-        const select_oudia_diagram_type select_oudia_diagram(parent, message_catalog);
+        const select_oudia_diagram_type select_oudia_diagram(parent, std::move(file_name), message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -113,8 +126,9 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
         BOOST_TEST_PASSPOINT();
 
         abstract_window_type parent;
+        string_type file_name(TETENGO2_TEXT("hoge"));
         const message_catalog_type message_catalog;
-        const select_oudia_diagram_type select_oudia_diagram(parent, message_catalog);
+        const select_oudia_diagram_type select_oudia_diagram(parent, std::move(file_name), message_catalog);
 
         std::vector<string_type> diagram_names;
         const std::vector<string_type>::const_iterator selected =

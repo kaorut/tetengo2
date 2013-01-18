@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <iterator>
+#include <utility>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -39,6 +40,9 @@ namespace bobura { namespace model { namespace serializer
         //! The string type.
         typedef typename oudia_diagram_dialog_type::string_type string_type;
 
+        //! The string type.
+        typedef typename oudia_diagram_dialog_type::string_type string_type;
+
         //! The message catalog type.
         typedef typename oudia_diagram_dialog_type::message_catalog_type message_catalog_type;
 
@@ -49,11 +53,17 @@ namespace bobura { namespace model { namespace serializer
             \brief Creates an OuDia diagram selecting.
 
             \param parent          A parent window.
+            \param file_name       A file name.
             \param message_catalog A message catalog.
         */
-        select_oudia_diagram(abstract_window_type& parent, const message_catalog_type& message_catalog)
+        select_oudia_diagram(
+            abstract_window_type&       parent,
+            string_type                 file_name,
+            const message_catalog_type& message_catalog
+        )
         :
         m_parent(parent),
+        m_file_name(std::move(file_name)),
         m_message_catalog(message_catalog)
         {}
 
@@ -79,6 +89,7 @@ namespace bobura { namespace model { namespace serializer
 
             oudia_diagram_dialog_type dialog(m_parent, m_message_catalog);
 
+            dialog.set_file_name(m_file_name);
             dialog.set_names(std::vector<string_type>(first, last));
             dialog.set_selected_index(0);
 
@@ -108,6 +119,8 @@ namespace bobura { namespace model { namespace serializer
         // variables
 
         abstract_window_type& m_parent;
+
+        const string_type m_file_name;
 
         const message_catalog_type& m_message_catalog;
 
