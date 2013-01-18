@@ -74,6 +74,10 @@
         "Dialog:FontAndColor:&Sample:":                    "サンプル(&S):",
         "Dialog:FontAndColor:SAMPLE":                      "みほん",
         
+        "Dialog:OuDiaDiagram:Diagram Selection":  "ダイヤグラムの選択",
+        "Dialog:OuDiaDiagram:This file has plural diagrams. Choose one to load.":
+          "このファイルには複数のダイヤグラムが含まれています。読み込むものを選択してください。",
+        
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
         
