@@ -103,8 +103,10 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_file_name(),
         m_names(),
         m_selected_index(),
+        m_p_file_name_label(),
         m_p_prompt_label(),
         m_p_diagram_list_box(),
         m_p_ok_button(),
@@ -122,6 +124,29 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Returns the file name.
+
+            \return The file name.
+        */
+        const string_type& file_name()
+        const
+        {
+            return m_file_name;
+        }
+
+        /*!
+            \brief Sets a file name.
+
+            \param file_name A file name.
+        */
+        void set_file_name(string_type file_name)
+        {
+            m_file_name = std::move(file_name);
+            if (!m_p_file_name_label->destroyed())
+                m_p_file_name_label->set_text(m_file_name);
+        }
 
         /*!
             \brief Returns the names.
@@ -203,9 +228,13 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
+        string_type m_file_name;
+
         std::vector<string_type> m_names;
 
         boost::optional<int_size_type> m_selected_index;
+
+        std::unique_ptr<label_type> m_p_file_name_label;
 
         std::unique_ptr<label_type> m_p_prompt_label;
 
@@ -230,8 +259,9 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:OuDiaDiagram:Diagram Selection")));
 
-            this->set_client_dimension(dimension_type(width_type(24), height_type(18)));
+            this->set_client_dimension(dimension_type(width_type(32), height_type(19)));
 
+            m_p_file_name_label = create_file_name_label();
             m_p_prompt_label = create_prompt_label();
             m_p_diagram_list_box = create_diagram_list_box();
             m_p_ok_button = create_ok_button();
@@ -240,13 +270,24 @@ namespace bobura
             locate_controls();
         }
 
+        std::unique_ptr<label_type> create_file_name_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_file_name);
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
         std::unique_ptr<label_type> create_prompt_label()
         {
             std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
             p_label->set_text(
                 m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:OuDiaDiagram:The timetable file has multiple diagrams. Choose one to load.")
+                    TETENGO2_TEXT("Dialog:OuDiaDiagram:This file has plural diagrams. Choose one to load.")
                 )
             );
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
@@ -298,11 +339,15 @@ namespace bobura
         void locate_controls()
         {
             const left_type label_left(2);
+            const width_type control_width(28);
 
-            m_p_prompt_label->fit_to_content(width_type(20));
-            m_p_prompt_label->set_position(position_type(label_left, top_type(1)));
+            m_p_diagram_list_box->set_dimension(dimension_type(control_width, height_type(2)));
+            m_p_file_name_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_diagram_list_box->set_dimension(dimension_type(width_type(20), height_type(10)));
+            m_p_prompt_label->fit_to_content(control_width);
+            m_p_prompt_label->set_position(position_type(label_left, top_type(3)));
+
+            m_p_diagram_list_box->set_dimension(dimension_type(control_width, height_type(10)));
             m_p_diagram_list_box->set_position(
                 position_type(
                     label_left,
@@ -312,10 +357,10 @@ namespace bobura
             );
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(5), top_type(15)));
+            m_p_ok_button->set_position(position_type(left_type(13), top_type(16)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(14), top_type(15)));
+            m_p_cancel_button->set_position(position_type(left_type(22), top_type(16)));
         }
 
 
