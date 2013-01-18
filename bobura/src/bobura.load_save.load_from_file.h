@@ -170,7 +170,7 @@ namespace bobura { namespace load_save
                 {
                 case reader_error_type::canceled:
                     break; // Do nothing.
-                case reader_error_type::broken:
+                case reader_error_type::corrupted:
                     create_file_broken_message_box(path, parent)->do_modal();
                     break;
                 case reader_error_type::unsupported:
@@ -237,7 +237,7 @@ namespace bobura { namespace load_save
                 tetengo2::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                    m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is broken.")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is corrupted.")),
                     path.template string<string_type>(),
                     message_box_type::button_style_type::ok(false),
                     message_box_type::icon_style_type::error

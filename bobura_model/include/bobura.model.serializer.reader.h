@@ -42,7 +42,7 @@ namespace bobura { namespace model { namespace serializer
         {
             none,        //!< No error.
             canceled,    //!< Canceled.
-            broken,      //!< Broken data.
+            corrupted,   //!< Corrupted data.
             unsupported, //!< Unsupported format.
         };};
 

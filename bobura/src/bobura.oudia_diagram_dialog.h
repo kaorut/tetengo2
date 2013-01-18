@@ -287,7 +287,7 @@ namespace bobura
 
             p_label->set_text(
                 m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:OuDiaDiagram:This file has plural diagrams. Choose one to load.")
+                    TETENGO2_TEXT("Dialog:OuDiaDiagram:&Select a diagram to load:")
                 )
             );
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());

@@ -74,9 +74,8 @@
         "Dialog:FontAndColor:&Sample:":                    "サンプル(&S):",
         "Dialog:FontAndColor:SAMPLE":                      "みほん",
         
-        "Dialog:OuDiaDiagram:Diagram Selection":  "ダイヤグラムの選択",
-        "Dialog:OuDiaDiagram:This file has plural diagrams. Choose one to load.":
-          "このファイルには複数のダイヤグラムが含まれています。読み込むものを選択してください。",
+        "Dialog:OuDiaDiagram:Diagram Selection":          "ダイヤグラムの選択",
+        "Dialog:OuDiaDiagram:&Select a diagram to load:": "読み込むダイアグラムを選択してください(&S):",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
@@ -84,12 +83,12 @@
         
         "Message:File:The file has been changed. Do you want to save the changes?":
           "ファイルの内容が変更されています。保存しますか？",
-        "Message:File:&Save":                          "保存する(&S)",
-        "Message:File:&Don't save":                    "保存しない(&D)",
-        "Message:File:Can't open the file.":           "ファイルを開けません。",
-        "Message:File:The timetable file is broken.":  "時刻表ファイルが破損しています。",
-        "Message:File:Unsupported format file.":       "このアプリケーションでは読み込めない形式のファイルです。",
-        "Message:File:Can't create a temporary file.": "一時ファイルを作成できません。",
-        "Message:File:Can't write to the file.":       "ファイルに書き込みできません。"
+        "Message:File:&Save":                            "保存する(&S)",
+        "Message:File:&Don't save":                      "保存しない(&D)",
+        "Message:File:Can't open the file.":             "ファイルを開けません。",
+        "Message:File:The timetable file is corrupted.": "時刻表ファイルが破損しています。",
+        "Message:File:Unsupported format file.":         "このアプリケーションでは読み込めない形式のファイルです。",
+        "Message:File:Can't create a temporary file.":   "一時ファイルを作成できません。",
+        "Message:File:Can't write to the file.":         "ファイルに書き込みできません。"
     }
 }

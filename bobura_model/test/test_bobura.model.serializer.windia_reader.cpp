@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::broken);
+            BOOST_CHECK_EQUAL(error, error_type::corrupted);
         }
         {
             reader_type reader;
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::broken);
+            BOOST_CHECK_EQUAL(error, error_type::corrupted);
         }
     }
 
