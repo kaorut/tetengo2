@@ -38,6 +38,14 @@ namespace tetengo2 { namespace gui { namespace message
         //! The signal type of clicked.
         typedef boost::signals2::signal<clicked_type> clicked_signal_type;
 
+        /*!
+            \brief The observer type of double-clicked.
+        */
+        typedef void doubleclicked_type();
+
+        //! The signal type of double-clicked.
+        typedef boost::signals2::signal<doubleclicked_type> doubleclicked_signal_type;
+
         //! The mouse wheel delta type.
         typedef boost::rational<difference_type> delta_type;
 
@@ -94,6 +102,27 @@ namespace tetengo2 { namespace gui { namespace message
         }
 
         /*!
+            \brief Returns the observer called when a mouse button is double-clicked.
+
+            \return The observer called when a mouse button is double-clicked.
+        */
+        const doubleclicked_signal_type& doubleclicked()
+        const
+        {
+            return m_doubleclicked;
+        }
+
+        /*!
+            \brief Returns the observer called when a mouse button is double-clicked.
+
+            \return The observer called when a mouse button is double-clicked.
+        */
+        doubleclicked_signal_type& doubleclicked()
+        {
+            return m_doubleclicked;
+        }
+
+        /*!
             \brief Returns the observer called when a mouse wheel is wheeled.
 
             \return The observer called when a mouse wheel is wheeled.
@@ -119,6 +148,8 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         clicked_signal_type m_clicked;
+
+        doubleclicked_signal_type m_doubleclicked;
 
         wheeled_signal_type m_wheeled;
 
