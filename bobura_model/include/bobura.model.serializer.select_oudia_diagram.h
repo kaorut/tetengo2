@@ -84,8 +84,8 @@ namespace bobura { namespace model { namespace serializer
         ForwardIterator operator()(const ForwardIterator first, const ForwardIterator last)
         const
         {
-            if (std::distance(first, last) < 1)
-                return last;
+            if (std::distance(first, last) < 2)
+                return first;
 
             oudia_diagram_dialog_type dialog(m_parent, m_message_catalog);
 
