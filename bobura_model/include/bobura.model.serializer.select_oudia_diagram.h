@@ -40,9 +40,6 @@ namespace bobura { namespace model { namespace serializer
         //! The string type.
         typedef typename oudia_diagram_dialog_type::string_type string_type;
 
-        //! The string type.
-        typedef typename oudia_diagram_dialog_type::string_type string_type;
-
         //! The message catalog type.
         typedef typename oudia_diagram_dialog_type::message_catalog_type message_catalog_type;
 
