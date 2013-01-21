@@ -21,6 +21,7 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -173,33 +174,15 @@ namespace bobura { namespace model { namespace serializer
                 return parse_impl(key_value.first, std::move(key_value.second));
             }
 
-            void entered()
+            bool entered()
             {
-                entered_impl();
+                return entered_impl();
             }
 
-            void leaving()
+            bool leaving()
             {
-                leaving_impl();
+                return leaving_impl();
             }
-
-        private:
-            virtual bool parse_impl(const string_type& key, string_type value)
-            = 0;
-
-            virtual void entered_impl()
-            = 0;
-
-            virtual void leaving_impl()
-            = 0;
-
-        };
-
-        class unknown_state : public state
-        {
-        public:
-            virtual ~unknown_state()
-            {}
 
         private:
             virtual bool parse_impl(const string_type& key, string_type value)
@@ -207,10 +190,22 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
+            virtual bool entered_impl()
+            {
+                return true;
+            }
 
-            virtual void leaving_impl()
+            virtual bool leaving_impl()
+            {
+                return true;
+            }
+
+        };
+
+        class unknown_state : public state
+        {
+        public:
+            virtual ~unknown_state()
             {}
 
         };
@@ -237,12 +232,6 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
-            {}
-
         };
 
         class rosen_state : public state
@@ -266,12 +255,6 @@ namespace bobura { namespace model { namespace serializer
 
                 return true;
             }
-
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
-            {}
 
         };
 
@@ -345,10 +328,7 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
+            virtual bool leaving_impl()
             {
                 m_timetable.insert_station_location(
                     m_timetable.station_locations().end(),
@@ -363,6 +343,8 @@ namespace bobura { namespace model { namespace serializer
                             0 : m_timetable.station_locations().back().meterage() + 1
                     )
                 );
+
+                return true;
             }
 
         };
@@ -436,22 +418,24 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
+            virtual bool leaving_impl()
             {
                 string_type abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
+                boost::optional<color_type> color = to_color(m_diagram_sen_color);
+                if (!color)
+                    return false;
                 m_timetable.insert_train_kind(
                     m_timetable.train_kinds().end(),
                     train_kind_type(
                         std::move(m_syubetsumei),
                         std::move(abbreviation),
-                        to_color(m_diagram_sen_color),
+                        std::move(*color),
                         to_weight(m_diagram_sen_is_bold),
                         to_line_style(m_diagram_sen_style)
                     )
                 );
+
+                return true;
             }
 
         };
@@ -478,12 +462,6 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
-            {}
-
         };
 
         class kudari_state : public state
@@ -500,18 +478,11 @@ namespace bobura { namespace model { namespace serializer
         private:
             bool& m_down;
 
-            virtual bool parse_impl(const string_type& key, string_type value)
-            {
-                return true;
-            }
-
-            virtual void entered_impl()
+            virtual bool entered_impl()
             {
                 m_down = true;
+                return true;
             }
-
-            virtual void leaving_impl()
-            {}
 
         };
 
@@ -529,18 +500,11 @@ namespace bobura { namespace model { namespace serializer
         private:
             bool& m_down;
 
-            virtual bool parse_impl(const string_type& key, string_type value)
-            {
-                return true;
-            }
-
-            virtual void entered_impl()
+            virtual bool entered_impl()
             {
                 m_down = false;
+                return true;
             }
-
-            virtual void leaving_impl()
-            {}
 
         };
 
@@ -584,13 +548,22 @@ namespace bobura { namespace model { namespace serializer
 
             };
 
-            static std::vector<stop_type> parse_stops(const string_type& stops_string, const bool direction_down)
+            static boost::optional<std::vector<stop_type>> parse_stops(
+                const string_type& stops_string,
+                const bool         direction_down
+            )
             {
                 const std::vector<string_type> stop_strings = split(stops_string, char_type(TETENGO2_TEXT(',')));
 
                 std::vector<stop_type> stops;
                 stops.reserve(stop_strings.size());
-                std::transform(stop_strings.begin(), stop_strings.end(), std::back_inserter(stops), parse_stop);
+                BOOST_FOREACH (const string_type& stop_string, stop_strings)
+                {
+                    boost::optional<stop_type> stop = parse_stop(stop_string);
+                    if (!stop)
+                        return boost::none;
+                    stops.push_back(std::move(*stop));
+                }
 
                 if (!direction_down)
                     std::reverse(stops.begin(), stops.end());
@@ -598,11 +571,11 @@ namespace bobura { namespace model { namespace serializer
                 return stops;
             }
 
-            static stop_type parse_stop(const string_type& stop_string)
+            static boost::optional<stop_type> parse_stop(const string_type& stop_string)
             {
                 const std::vector<string_type> kind_time = split(stop_string, char_type(TETENGO2_TEXT(';')));
                 if (kind_time.empty())
-                    return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
+                    return boost::none;
 
                 const bool stopping = kind_time[0] == string_type(TETENGO2_TEXT("1")) && kind_time.size() >= 2;
                 const bool operational = !stopping && kind_time.size() >= 2;
@@ -611,36 +584,47 @@ namespace bobura { namespace model { namespace serializer
 
                 const std::vector<string_type> arrival_departure = split(kind_time[1], char_type(TETENGO2_TEXT('/')));
                 if (arrival_departure.empty())
-                    return stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type());
+                    return boost::none;
 
-                time_type arrival = time_type::uninitialized();
-                time_type departure = time_type::uninitialized();
+                boost::optional<time_type> arrival = boost::make_optional(time_type::uninitialized());
+                boost::optional<time_type> departure = boost::make_optional(time_type::uninitialized());
                 if (arrival_departure.size() < 2)
                 {
                     departure = parse_time(arrival_departure[0]);
+                    if (!departure)
+                        return boost::none;
                 }
                 else
                 {
                     arrival = parse_time(arrival_departure[0]);
+                    if (!arrival)
+                        return boost::none;
                     departure = parse_time(arrival_departure[1]);
+                    if (!departure)
+                        return boost::none;
                 }
 
-                return stop_type(std::move(arrival), std::move(departure), operational, string_type());
+                return
+                    boost::make_optional(
+                        stop_type(std::move(*arrival), std::move(*departure), operational, string_type())
+                    );
             }
 
-            static time_type parse_time(const string_type& time_string)
+            static boost::optional<time_type> parse_time(const string_type& time_string)
             {
+                if (time_string.empty())
+                    return boost::make_optional(time_type::uninitialized());
                 if (time_string.size() != 4)
-                    return time_type::uninitialized();
+                    return boost::none;
 
-                const unsigned int hours = to_number<unsigned int>(time_string.substr(0, 2));
-                if (hours >= 24)
-                    return time_type::uninitialized();
-                const unsigned int minutes = to_number<unsigned int>(time_string.substr(2, 2));
-                if (minutes >= 60)
-                    return time_type::uninitialized();
+                const boost::optional<unsigned int> hours = to_number<unsigned int>(time_string.substr(0, 2));
+                if (!hours || *hours >= 24)
+                    return boost::none;
+                const boost::optional<unsigned int> minutes = to_number<unsigned int>(time_string.substr(2, 2));
+                if (!minutes || *minutes >= 60)
+                    return boost::none;
 
-                return time_type(hours, minutes, 0);
+                return boost::make_optional(time_type(*hours, *minutes, 0));
             }
 
             timetable_type& m_timetable;
@@ -681,28 +665,27 @@ namespace bobura { namespace model { namespace serializer
                 return true;
             }
 
-            virtual void entered_impl()
-            {}
-
-            virtual void leaving_impl()
+            virtual bool leaving_impl()
             {
-                const typename timetable_type::train_kind_index_type train_kind_index =
+                const boost::optional<typename timetable_type::train_kind_index_type> train_kind_index =
                     to_number<typename timetable_type::train_kind_index_type>(m_syubetsu);
-                if (train_kind_index >= m_timetable.train_kinds().size())
-                    return;
+                if (!train_kind_index || *train_kind_index >= m_timetable.train_kinds().size())
+                    return false;
 
-                train_type train(m_ressyabangou, train_kind_index, m_ressyamei, m_gousuu, m_bikou);
+                train_type train(m_ressyabangou, *train_kind_index, m_ressyamei, m_gousuu, m_bikou);
 
-                std::vector<stop_type> stops =
+                boost::optional<std::vector<stop_type>> stops =
                     parse_stops(m_eki_jikoku, m_houkou == string_type(TETENGO2_TEXT("Kudari")));
-                if (stops.size() != m_timetable.station_locations().size())
-                    return;
-                std::for_each(stops.begin(), stops.end(), insert_stop(train));
+                if (!stops || stops->size() != m_timetable.station_locations().size())
+                    return false;
+                std::for_each(stops->begin(), stops->end(), insert_stop(train));
 
                 if (m_down)
                     m_timetable.insert_down_train(m_timetable.down_trains().end(), std::move(train));
                 else
                     m_timetable.insert_up_train(m_timetable.up_trains().end(), std::move(train));
+
+                return true;
             }
 
         };
@@ -762,38 +745,49 @@ namespace bobura { namespace model { namespace serializer
         }
 
         template <typename T>
-        static T to_number(const string_type& number_string)
+        static boost::optional<T> to_number(const string_type& number_string)
         {
             try
             {
-                return boost::lexical_cast<T>(number_string);
+                return boost::make_optional(boost::lexical_cast<T>(number_string));
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return 0;
+                return boost::none;
             }
         }
 
-        static color_type to_color(const string_type& color_string)
+        static boost::optional<color_type> to_color(const string_type& color_string)
         {
             if (color_string.length() != 8)
-                return color_type(0, 0, 0);
+                return boost::none;
 
+            const boost::optional<unsigned int> red = from_hex_string<unsigned int>(color_string.substr(2, 2));
+            if (!red)
+                return boost::none;
+            const boost::optional<unsigned int> green = from_hex_string<unsigned int>(color_string.substr(4, 2));
+            if (!green)
+                return boost::none;
+            const boost::optional<unsigned int> blue = from_hex_string<unsigned int>(color_string.substr(6, 2));
+            if (!blue)
+                return boost::none;
             return
-                color_type(
-                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(2, 2))),
-                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(4, 2))),
-                    static_cast<unsigned char>(from_hex_string<unsigned int>(color_string.substr(6, 2)))
+                boost::make_optional(
+                    color_type(
+                        static_cast<unsigned char>(*red),
+                        static_cast<unsigned char>(*green),
+                        static_cast<unsigned char>(*blue)
+                    )
                 );
         }
 
         template <typename T>
-        static T from_hex_string(const string_type& hex_string)
+        static boost::optional<T> from_hex_string(const string_type& hex_string)
         {
             std::basic_istringstream<char_type> stream(hex_string);
             T result = 0;
             stream >> std::hex >> result;
-            return result;
+            return boost::make_optional(stream.eof() || stream.good(), std::move(result));
         }
 
         static std::unique_ptr<state> dispatch(
@@ -876,9 +870,11 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<string_type> splitted = split(file_type_string, char_type(TETENGO2_TEXT('.')));
             string_type name = splitted.size() >= 1 ? std::move(splitted[0]) : string_type();
-            const int major_version = splitted.size() >= 2 ? to_number<int>(splitted[1]) : 0;
-            const int minor_version = splitted.size() >= 3 ? to_number<int>(splitted[2]) : 0;
-            return file_type(std::move(name), major_version, minor_version);
+            const boost::optional<int> major_version =
+                splitted.size() >= 2 ? to_number<int>(splitted[1]) : boost::none;
+            const boost::optional<int> minor_version =
+                splitted.size() >= 3 ? to_number<int>(splitted[2]) : boost::none;
+            return file_type(std::move(name), major_version ? *major_version : 0, minor_version ? *minor_version : 0);
         }
 
 
@@ -964,9 +960,17 @@ namespace bobura { namespace model { namespace serializer
                     dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name, down);
                 if (p_new_state)
                 {
-                    p_state->leaving();
+                    if (!p_state->leaving())
+                    {
+                        error = error_type::corrupted;
+                        return std::unique_ptr<timetable_type>();
+                    }
                     p_state = std::move(p_new_state);
-                    p_state->entered();
+                    if (!p_state->entered())
+                    {
+                        error = error_type::corrupted;
+                        return std::unique_ptr<timetable_type>();
+                    }
                 }
                 else
                 {
