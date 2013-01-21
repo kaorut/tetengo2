@@ -549,8 +549,9 @@ namespace bobura { namespace model { namespace serializer
             };
 
             static boost::optional<std::vector<stop_type>> parse_stops(
-                const string_type& stops_string,
-                const bool         direction_down
+                const string_type&                               stops_string,
+                const typename std::vector<stop_type>::size_type station_location_count,
+                const bool                                       direction_down
             )
             {
                 const std::vector<string_type> stop_strings = split(stops_string, char_type(TETENGO2_TEXT(',')));
@@ -564,7 +565,15 @@ namespace bobura { namespace model { namespace serializer
                         return boost::none;
                     stops.push_back(std::move(*stop));
                 }
+                if (stops.size() > station_location_count)
+                    return boost::none;
 
+                std::fill_n(
+                    std::back_inserter(stops),
+                    station_location_count - stops.size(),
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type())
+                );
+                
                 if (!direction_down)
                     std::reverse(stops.begin(), stops.end());
 
@@ -614,13 +623,19 @@ namespace bobura { namespace model { namespace serializer
             {
                 if (time_string.empty())
                     return boost::make_optional(time_type::uninitialized());
-                if (time_string.size() != 4)
+                if (time_string.size() > 4)
                     return boost::none;
 
-                const boost::optional<unsigned int> hours = to_number<unsigned int>(time_string.substr(0, 2));
+                const boost::optional<unsigned int> hours =
+                    time_string.length() > 2 ?
+                    to_number<unsigned int>(time_string.substr(0, time_string.length() - 2)) :
+                    boost::make_optional<unsigned int>(0);
                 if (!hours || *hours >= 24)
                     return boost::none;
-                const boost::optional<unsigned int> minutes = to_number<unsigned int>(time_string.substr(2, 2));
+                const boost::optional<unsigned int> minutes =
+                    time_string.length() > 2 ?
+                    to_number<unsigned int>(time_string.substr(time_string.length() - 2)) :
+                    to_number<unsigned int>(time_string);
                 if (!minutes || *minutes >= 60)
                     return boost::none;
 
@@ -675,7 +690,11 @@ namespace bobura { namespace model { namespace serializer
                 train_type train(m_ressyabangou, *train_kind_index, m_ressyamei, m_gousuu, m_bikou);
 
                 boost::optional<std::vector<stop_type>> stops =
-                    parse_stops(m_eki_jikoku, m_houkou == string_type(TETENGO2_TEXT("Kudari")));
+                    parse_stops(
+                        m_eki_jikoku,
+                        m_timetable.station_locations().size(),
+                        m_houkou == string_type(TETENGO2_TEXT("Kudari"))
+                    );
                 if (!stops || stops->size() != m_timetable.station_locations().size())
                     return false;
                 std::for_each(stops->begin(), stops->end(), insert_stop(train));
