@@ -420,6 +420,8 @@ WM_INITMENUPOPUP                                 Windows.h
 WM_KEYDOWN                                       Windows.h
 WM_KEYUP                                         Windows.h
 WM_KILLFOCUS                                     Windows.h
+WM_LBUTTONDBLCLK                                 Windows.h
+WM_LBUTTONUP                                     Windows.h
 WM_MOUSEHWHEEL                                   Windows.h
 WM_MOUSEWHEEL                                    Windows.h
 WM_NCDESTROY                                     Windows.h
@@ -563,6 +565,7 @@ std::equal_to                                    functional
 std::error_category                              system_error
 std::error_code                                  system_error
 std::exception                                   exception
+std::fill_n                                      algorithm
 std::find                                        algorithm
 std::find_if                                     algorithm
 std::floor                                       cmath
