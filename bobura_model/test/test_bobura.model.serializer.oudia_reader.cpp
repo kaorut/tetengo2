@@ -243,7 +243,7 @@ namespace
         "FileTypeAppComment=OuDia Ver. 1.02.01\n";
 
     const std::string data_too_old_version =
-        "FileType=OuDia.1.01\n"
+        "FileType=OuDia.1.00\n"
         "Rosen.\n"
         "Rosenmei=\n"
         "Ressyasyubetsu.\n"

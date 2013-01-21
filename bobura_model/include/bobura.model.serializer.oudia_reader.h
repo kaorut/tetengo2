@@ -914,7 +914,7 @@ namespace bobura { namespace model { namespace serializer
                 key_value.first == string_type(TETENGO2_TEXT("FileType")) &&
                 file_type_.m_name == string_type(TETENGO2_TEXT("OuDia")) &&
                 file_type_.m_major_version == 1 &&
-                file_type_.m_minor_version == 2;
+                (1 <= file_type_.m_minor_version && file_type_.m_minor_version <= 2);
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
