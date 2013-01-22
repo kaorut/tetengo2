@@ -77,6 +77,7 @@
 ::GetDC                                          Windows.h
 ::GetDesktopWindow                               Windows.h
 ::GetDlgItem                                     Windows.h
+::GetDoubleClickTime                             Windows.h
 ::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
@@ -142,6 +143,7 @@
 ::IsWindow                                       Windows.h
 ::IsWindowEnabled                                Windows.h
 ::IsWindowVisible                                Windows.h
+::KillTimer                                      Windows.h
 ::LANGID                                         Windows.h
 ::LCID                                           Windows.h
 ::LCTYPE                                         Windows.h
@@ -185,6 +187,7 @@
 ::SetPropW                                       Windows.h
 ::SetScrollInfo                                  Windows.h
 ::SetTextColor                                   Windows.h
+::SetTimer                                       Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowLongW                                 Windows.h
 ::SetWindowTextW                                 Windows.h
@@ -421,7 +424,7 @@ WM_KEYDOWN                                       Windows.h
 WM_KEYUP                                         Windows.h
 WM_KILLFOCUS                                     Windows.h
 WM_LBUTTONDBLCLK                                 Windows.h
-WM_LBUTTONUP                                     Windows.h
+WM_LBUTTONDOWN                                   Windows.h
 WM_MOUSEHWHEEL                                   Windows.h
 WM_MOUSEWHEEL                                    Windows.h
 WM_NCDESTROY                                     Windows.h
@@ -432,6 +435,7 @@ WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
+WM_TIMER                                         Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::additive                                  boost/operators.hpp
