@@ -75,7 +75,7 @@
         "Dialog:FontAndColor:SAMPLE":                      "みほん",
         
         "Dialog:OuDiaDiagram:Diagram Selection":          "ダイヤグラムの選択",
-        "Dialog:OuDiaDiagram:&Select a diagram to load:": "読み込むダイアグラムを選択してください(&S):",
+        "Dialog:OuDiaDiagram:&Select a diagram to load:": "読み込むダイヤグラムを選択してください(&S):",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
