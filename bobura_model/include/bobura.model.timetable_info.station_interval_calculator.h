@@ -154,6 +154,9 @@ namespace bobura { namespace model { namespace timetable_info
                 interval -= whole_day2();
             else if (interval >= whole_day())
                 interval -= whole_day();
+            
+            if (interval <= time_span_type(0))
+                interval = default_interval();
         }
 
         static const time_span_type& select(const time_span_type& interval1, const time_span_type& interval2)
