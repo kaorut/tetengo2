@@ -28,11 +28,36 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
     namespace button
     {
         template <typename Button>
-        boost::optional< ::LRESULT> on_tetengo2_command(
-            Button&        button,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::optional< ::LRESULT> on_timer(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (w_param == WM_LBUTTONDOWN)
+            {
+                if (
+                    button.mouse_observer_set().clicked().empty() &&
+                    button.mouse_observer_set().doubleclicked().empty()
+                )
+                {
+                    return boost::none;
+                }
+
+                const ::BOOL result = ::KillTimer(button.details()->handle.get(), WM_LBUTTONDOWN);
+                if (result == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(::GetLastError(), win32_category()), "Can't kill a timer for mouse clicks."
+                        )
+                    );
+                }
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            return boost::none;
+        }
+
+        template <typename Button>
+        boost::optional< ::LRESULT> on_tetengo2_command(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             button.mouse_observer_set().clicked()();
 
