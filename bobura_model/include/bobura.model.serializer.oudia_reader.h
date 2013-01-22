@@ -682,6 +682,9 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool leaving_impl()
             {
+                if (m_houkou.empty() || m_syubetsu.empty())
+                    return true;
+
                 const boost::optional<typename timetable_type::train_kind_index_type> train_kind_index =
                     to_number<typename timetable_type::train_kind_index_type>(m_syubetsu);
                 if (!train_kind_index || *train_kind_index >= m_timetable.train_kinds().size())
