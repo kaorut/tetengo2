@@ -104,9 +104,11 @@
     <ClCompile Include="test\test_bobura.model.serializer.bzip2_writer.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_writer.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.oudia_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader_selector.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader_set.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.select_oudia_diagram.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.windia_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.writer.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.writer_selector.cpp" />

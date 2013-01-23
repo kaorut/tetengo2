@@ -13,9 +13,10 @@
 //#include <memory>
 //#include <utility>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -107,6 +108,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the link label.
         */
         virtual ~link_label()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

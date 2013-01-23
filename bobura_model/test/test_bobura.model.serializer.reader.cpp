@@ -14,6 +14,7 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -36,6 +37,8 @@ namespace
         >::type
         reader_type;
 
+    typedef reader_type::error_type error_type;
+
     class concrete_reader : public reader_type
     {
     public:
@@ -45,6 +48,7 @@ namespace
         {}
 
         virtual ~concrete_reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -54,7 +58,11 @@ namespace
             return string_type(first, last) == string_type(TETENGO2_TEXT("hoge"));
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator      first,
+            const iterator      last,
+            error_type::enum_t& error
+        )
         {
             return tetengo2::make_unique<timetable_type>();
         }
@@ -110,13 +118,16 @@ BOOST_AUTO_TEST_SUITE(reader)
 
         concrete_reader reader;
         std::istringstream input_stream("hoge");
+        error_type::enum_t error = error_type::none;
         const std::unique_ptr<timetable_type> p_timetable =
             reader.read(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                error
             );
 
         BOOST_REQUIRE(p_timetable);
+        BOOST_CHECK_EQUAL(error, error_type::none);
     }
 
 

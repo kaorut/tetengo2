@@ -35,7 +35,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam OutputStream        A output stream type.
         \tparam Timetable           A timetable type.
         \tparam Path                A path type.
-        \tparam StationGradeTypeSet A station grade type set.
+        \tparam StationGradeTypeSet A station grade type set type.
         \tparam Encoder             An encoder type.
     */
     template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
@@ -77,6 +77,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the json_writer.
         */
         virtual ~json_writer()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

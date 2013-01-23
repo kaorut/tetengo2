@@ -11,6 +11,7 @@
 
 //#include <utility>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.menu_base.h"
 
 
@@ -71,6 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu command.
         */
         virtual ~command()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

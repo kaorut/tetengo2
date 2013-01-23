@@ -9,13 +9,16 @@
 #if !defined(BOBURA_LOADSAVE_LOADFROMFILE_H)
 #define BOBURA_LOADSAVE_LOADFROMFILE_H
 
+#include <cassert>
 #include <ios>
 #include <iterator>
 //#include <memory>
+#include <stdexcept>
 //#include <utility>
 
 #include <boost/filesystem/fstream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -151,15 +154,32 @@ namespace bobura { namespace load_save
                 return;
             }
 
-            reader_selector_type reader_selector(reader_set_type::create_readers());
+            reader_selector_type reader_selector(
+                reader_set_type::create_readers(parent, path.template string<string_type>(), m_message_catalog)
+            );
+            typename reader_error_type::enum_t error = reader_error_type::none;
             std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    error
                 );
             if (!p_timetable)
             {
-                create_file_broken_message_box(path, parent)->do_modal();
+                switch (error)
+                {
+                case reader_error_type::canceled:
+                    break; // Do nothing.
+                case reader_error_type::corrupted:
+                    create_file_broken_message_box(path, parent)->do_modal();
+                    break;
+                case reader_error_type::unsupported:
+                    create_unsupported_format_file_message_box(path, parent)->do_modal();
+                    break;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::logic_error("Unknown reader error."));
+                }
                 return;
             }
 
@@ -175,6 +195,8 @@ namespace bobura { namespace load_save
         typedef typename file_open_dialog_type::path_type path_type;
 
         typedef typename model_type::timetable_type timetable_type;
+
+        typedef typename reader_selector_type::error_type reader_error_type;
 
 
         // variables
@@ -215,7 +237,24 @@ namespace bobura { namespace load_save
                 tetengo2::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                    m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is broken.")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is corrupted.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_type::error
+                );
+        }
+
+        std::unique_ptr<message_box_type> create_unsupported_format_file_message_box(
+            const path_type&      path,
+            abstract_window_type& parent
+        )
+        const
+        {
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:Unsupported format file.")),
                     path.template string<string_type>(),
                     message_box_type::button_style_type::ok(false),
                     message_box_type::icon_style_type::error
@@ -230,7 +269,7 @@ namespace bobura { namespace load_save
 
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Timetable Files")),
-                string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.dia"))
+                string_type(TETENGO2_TEXT("btt;*.btt_bz2;*.oud;*.dia"))
             );
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
@@ -239,6 +278,10 @@ namespace bobura { namespace load_save
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
                 string_type(TETENGO2_TEXT("btt_bz2"))
+            );
+            filters.emplace_back(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:OuDia Files")),
+                string_type(TETENGO2_TEXT("oud"))
             );
             filters.emplace_back(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:WinDIA Files")),

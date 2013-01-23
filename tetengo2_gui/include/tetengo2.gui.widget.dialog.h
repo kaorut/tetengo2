@@ -108,6 +108,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the dialog.
         */
         virtual ~dialog()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

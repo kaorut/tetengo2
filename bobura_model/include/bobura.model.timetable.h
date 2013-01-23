@@ -625,8 +625,8 @@ namespace bobura { namespace model
                 return;
 
             train_type new_train(
-                    train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
-                );
+                train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
+            );
             BOOST_FOREACH (const stop_type& stop, train.stops())
             {
                 new_train.insert_stop(new_train.stops().end(), stop);

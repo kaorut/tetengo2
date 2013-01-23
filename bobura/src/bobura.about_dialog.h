@@ -16,6 +16,7 @@
 #include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -37,7 +38,7 @@ namespace bobura
         \tparam Button                     A button type.
         \tparam PictureReader              A picture reader type.
         \tparam TransparentBackground      A transparent background type.
-        \tparam AboutDialogMessageTypeList A message type.
+        \tparam AboutDialogMessageTypeList A message type list type.
     */
     template <
         typename Dialog,
@@ -127,6 +128,7 @@ namespace bobura
             \brief Destroys the about dialog.
         */
         virtual ~about_dialog()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

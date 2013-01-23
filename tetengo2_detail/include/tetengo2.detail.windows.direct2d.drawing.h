@@ -17,6 +17,7 @@
 //#include <system_error>
 //#include <utility>
 
+#include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
@@ -35,6 +36,7 @@
 #include <dxgiformat.h>
 //#include <Unknwn.h>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.direct2d.error_category.h"
 #include "tetengo2.detail.windows.font.h"
@@ -73,6 +75,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
         public:
             virtual ~background_details()
+            TETENGO2_CPP11_NOEXCEPT
             {}
         
 
@@ -95,6 +98,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             {}
 
             virtual ~solid_background_details()
+            TETENGO2_CPP11_NOEXCEPT
             {}
 
             unsigned char red()
@@ -773,8 +777,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static ::FLOAT radian_to_degree(const double radian)
         {
-            static const double pi = 3.14159265358979323846264338327950288;
-            return static_cast< ::FLOAT>(radian * 180.0 / pi);
+            return static_cast< ::FLOAT>(radian * 180.0 / boost::math::constants::pi<double>());
         }
 
 

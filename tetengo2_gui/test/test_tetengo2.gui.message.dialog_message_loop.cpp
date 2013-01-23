@@ -10,6 +10,8 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -39,6 +41,7 @@ namespace
         }
 
         virtual ~concrete_window()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
         virtual boost::optional<const details_type&> details_impl()

@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_SERIALIZER_READERSELECTOR_H
 
 #include <algorithm>
-#include <cassert>
 //#include <memory>
 #include <stdexcept>
 #include <utility>
@@ -46,6 +45,9 @@ namespace bobura { namespace model { namespace serializer
         //! The base type.
         typedef reader<iterator, timetable_type> base_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
 
         // constructors and destructor
 
@@ -68,6 +70,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the reader_selector.
         */
         virtual ~reader_selector()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -84,7 +87,11 @@ namespace bobura { namespace model { namespace serializer
             BOOST_THROW_EXCEPTION(std::logic_error("This function cannot be called."));
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
 
@@ -98,11 +105,11 @@ namespace bobura { namespace model { namespace serializer
                 );
             if (found == m_p_readers.end())
             {
-                assert(!m_p_readers.empty());
-                return m_p_readers.front()->read(first, last);
+                error = error_type::unsupported;
+                return std::unique_ptr<timetable_type>();
             }
 
-            return (*found)->read(first, last);
+            return (*found)->read(first, last, error);
         }
 
 

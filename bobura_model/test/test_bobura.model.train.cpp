@@ -525,7 +525,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
             train.erase_stops(train.stops().begin(), train.stops().begin());
 
-            BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+            BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
             BOOST_CHECK(train.stops()[0].arrival() == time_type(0));
             BOOST_CHECK(train.stops()[0].departure() == time_type(0));
             BOOST_CHECK(!train.stops()[0].operational());
@@ -553,7 +553,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
             train.erase_stops(train.stops().begin() + 1, train.stops().begin() + 2);
 
-            BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+            BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
             BOOST_CHECK(train.stops()[0].arrival() == time_type(0));
             BOOST_CHECK(train.stops()[0].departure() == time_type(0));
             BOOST_CHECK(!train.stops()[0].operational());

@@ -17,6 +17,7 @@
 //#include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.widget.h"
 
 
@@ -217,6 +218,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the abstract window.
         */
         virtual ~abstract_window()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

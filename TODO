@@ -7,17 +7,12 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000176
-Added on    : 2012/06/12
-Depends on  : (none)
-Description : Create bobura::model::serializer::oudia_reader.
-------------------------------------------------------------------------------
 Number      : 00000202
 Added on    : 2012/11/13
 Depends on  : (none)
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
-Number      : 00000209
+Number      : 00000211
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 

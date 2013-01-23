@@ -10,7 +10,7 @@
 #define BOBURA_VIEW_DIAGRAM_TRAINLINE_H
 
 #include <cassert>
-#include <cmath>
+//#include <cmath>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
@@ -20,7 +20,7 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
-#include <boost/rational.hpp>
+//#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -627,7 +627,7 @@ namespace bobura { namespace view { namespace diagram
             std::vector<train_line_fragment_type>& fragments
         )
         {
-            if (departure_time - time_offset < arrival_time - time_offset)
+            if (departure_time - time_offset <= arrival_time - time_offset)
             {
                 make_fragment_impl(
                     departure_station_index,

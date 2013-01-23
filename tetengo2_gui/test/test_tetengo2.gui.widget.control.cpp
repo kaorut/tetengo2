@@ -9,7 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.unique.h"
+#include <tetengo2.cpp11.h>
+#include <tetengo2.unique.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -43,6 +44,7 @@ namespace
         }
 
         virtual ~concrete_control()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

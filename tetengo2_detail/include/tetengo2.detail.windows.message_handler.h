@@ -115,6 +115,22 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
+            map[WM_LBUTTONDOWN].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::widget::on_l_button_down<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_LBUTTONDBLCLK].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::widget::on_l_doubleclick<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
             map[WM_MOUSEWHEEL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_mouse_wheel<Widget>,
@@ -126,6 +142,14 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_MOUSEHWHEEL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_mouse_h_wheel<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_TIMER].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::widget::on_timer<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
@@ -438,6 +462,14 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
+            map[WM_TIMER].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::button::on_timer<Button>,
+                    cpp11::ref(button),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::button::on_tetengo2_command<Button>,

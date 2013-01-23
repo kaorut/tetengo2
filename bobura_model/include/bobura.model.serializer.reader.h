@@ -14,6 +14,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp11.h>
+
 
 namespace bobura { namespace model { namespace serializer
 {
@@ -35,6 +37,15 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
+        //! The error type.
+        struct error_type { enum enum_t //!< Scoped enum.
+        {
+            none,        //!< No error.
+            canceled,    //!< Canceled.
+            corrupted,   //!< Corrupted data.
+            unsupported, //!< Unsupported format.
+        };};
+
 
         // constructors and destructor
 
@@ -42,6 +53,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the reader.
         */
         virtual ~reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -68,12 +80,17 @@ namespace bobura { namespace model { namespace serializer
 
             \param first The first position of an input.
             \param last  The last position of an input.
+            \param error The error. (For output)
 
             \return A unique pointer to a timetable.
         */
-        std::unique_ptr<timetable_type> read(const iterator first, const iterator last)
+        std::unique_ptr<timetable_type> read(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
-            return read_impl(first, last);
+            return read_impl(first, last, error);
         }
 
 
@@ -93,7 +110,11 @@ namespace bobura { namespace model { namespace serializer
         virtual bool selects_impl(const iterator first, const iterator last)
         = 0;
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         = 0;
 
 

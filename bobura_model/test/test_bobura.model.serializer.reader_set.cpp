@@ -7,10 +7,13 @@
 */
 
 //#include <memory>
+//#include <utility>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.text.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -18,6 +21,16 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
+
+    typedef
+        boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::abstract_window>::type
+        abstract_window_type;
+
+    typedef
+        boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
+        message_catalog_type;
 
     typedef
         boost::mpl::at<
@@ -48,7 +61,11 @@ BOOST_AUTO_TEST_SUITE(reader_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::vector<std::unique_ptr<reader_type>> p_readers = reader_set_type::create_readers();
+        abstract_window_type parent;
+        string_type file_name(TETENGO2_TEXT("hoge"));
+        const message_catalog_type message_catalog;
+        const std::vector<std::unique_ptr<reader_type>> p_readers =
+            reader_set_type::create_readers(parent, std::move(file_name), message_catalog);
 
         BOOST_CHECK(!p_readers.empty());
         BOOST_CHECK(p_readers[0]);

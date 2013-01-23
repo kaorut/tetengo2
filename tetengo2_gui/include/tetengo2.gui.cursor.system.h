@@ -11,6 +11,7 @@
 
 //#include <boost/optional.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 
 
@@ -64,6 +65,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the system cursor.
         */
         virtual ~system()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

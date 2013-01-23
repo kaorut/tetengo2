@@ -107,6 +107,50 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
+        boost::optional< ::LRESULT> on_l_button_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (widget.mouse_observer_set().clicked().empty() && widget.mouse_observer_set().doubleclicked().empty())
+                return boost::none;
+
+            const ::UINT_PTR result =
+                ::SetTimer(widget.details()->handle.get(), WM_LBUTTONDOWN, ::GetDoubleClickTime(), NULL);
+            if (!result)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a timer for mouse clicks."
+                    )
+                );
+            }
+
+            return boost::none;
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_l_doubleclick(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (widget.mouse_observer_set().clicked().empty() && widget.mouse_observer_set().doubleclicked().empty())
+                return boost::none;
+
+            const ::BOOL result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't kill a timer for mouse clicks."
+                    )
+                );
+            }
+
+            if (widget.mouse_observer_set().doubleclicked().empty())
+                return boost::none;
+
+            widget.mouse_observer_set().doubleclicked()();
+
+            return boost::make_optional< ::LRESULT>(0);
+        }
+
+        template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (widget.mouse_observer_set().wheeled().empty())
@@ -144,6 +188,40 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             );
 
             return boost::make_optional< ::LRESULT>(0);
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_timer(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (w_param == WM_LBUTTONDOWN)
+            {
+                if (
+                    widget.mouse_observer_set().clicked().empty() &&
+                    widget.mouse_observer_set().doubleclicked().empty()
+                )
+                {
+                    return boost::none;
+                }
+
+                const ::BOOL result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
+                if (result == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(::GetLastError(), win32_category()), "Can't kill a timer for mouse clicks."
+                        )
+                    );
+                }
+
+                if (widget.mouse_observer_set().clicked().empty())
+                    return boost::none;
+
+                widget.mouse_observer_set().clicked()();
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            return boost::none;
         }
 
         template <typename Widget>

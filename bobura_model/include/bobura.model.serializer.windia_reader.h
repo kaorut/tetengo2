@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_SERIALIZER_WINDIA2READER_H)
-#define BOBURA_MODEL_SERIALIZER_WINDIA2READER_H
+#if !defined(BOBURA_MODEL_SERIALIZER_WINDIAREADER_H)
+#define BOBURA_MODEL_SERIALIZER_WINDIAREADER_H
 
 #include <algorithm>
 #include <cassert>
@@ -24,6 +24,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -37,7 +38,7 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam ForwardIterator     A forward iterator type.
         \tparam Timetable           A timetable type.
-        \tparam StationGradeTypeSet A station grade type set.
+        \tparam StationGradeTypeSet A station grade type set type.
         \tparam Encoder             An encoder type.
     */
     template <typename ForwardIterator, typename Timetable, typename StationGradeTypeSet, typename Encoder>
@@ -58,6 +59,9 @@ namespace bobura { namespace model { namespace serializer
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
+        //! The error type.
+        typedef typename base_type::error_type error_type;
+
         //! The encoder type.
         typedef Encoder encoder_type;
 
@@ -76,6 +80,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the windia_reader.
         */
         virtual ~windia_reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -382,6 +387,8 @@ namespace bobura { namespace model { namespace serializer
                 const boost::optional<train_kind_index_type> train_kind_index = to_train_kind_index(split[0]);
                 if (!train_kind_index)
                     return false;
+                if (*train_kind_index >= m_timetable.train_kinds().size())
+                    return false;
 
                 train_type train(
                     std::move(split[1]),
@@ -424,7 +431,15 @@ namespace bobura { namespace model { namespace serializer
                 return std::make_pair(line.substr(0, percent_position), line.substr(percent_position + 1));
             }
 
-            virtual void insert_train(train_type train)
+            void insert_train(train_type train)
+            {
+                if (train.stops().size() != m_timetable.station_locations().size())
+                    return;
+
+                insert_train_impl(std::move(train));
+            }
+
+            virtual void insert_train_impl(train_type train)
             = 0;
 
             boost::optional<train_kind_index_type> to_train_kind_index(const string_type& train_kind_string)
@@ -573,7 +588,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type train)
+            virtual void insert_train_impl(train_type train)
             {
                 train_state::m_timetable.insert_down_train(
                     train_state::m_timetable.down_trains().end(), std::move(train)
@@ -594,7 +609,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            virtual void insert_train(train_type train)
+            virtual void insert_train_impl(train_type train)
             {
                 train_state::m_timetable.insert_up_train(
                     train_state::m_timetable.up_trains().end(), std::move(train)
@@ -977,7 +992,11 @@ namespace bobura { namespace model { namespace serializer
             return next_line(mutable_first, last) == windia_section_label();
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
+        virtual std::unique_ptr<timetable_type> read_impl(
+            const iterator               first,
+            const iterator               last,
+            typename error_type::enum_t& error
+        )
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
@@ -1004,14 +1023,20 @@ namespace bobura { namespace model { namespace serializer
                 else
                 {
                     if (!p_state->parse(input_line))
+                    {
+                        error = error_type::corrupted;
                         return std::unique_ptr<timetable_type>();
+                    }
                 }
             }
 
             erase_unreferred_train_kinds(*p_timetable);
 
             if (dynamic_cast<up_train_state*>(p_state.get()) == 0)
+            {
+                error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
+            }
 
             return std::move(p_timetable);
         }

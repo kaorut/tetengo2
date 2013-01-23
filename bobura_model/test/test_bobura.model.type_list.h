@@ -9,10 +9,12 @@
 #if !defined(TESTBOBURA_MODEL_TYPELIST_H)
 #define TESTBOBURA_MODEL_TYPELIST_H
 
+//#include <algorithm>
 //#include <cstddef>
 //#include <iterator>
 #include <ostream>
 //#include <string>
+//#include <utility>
 
 #include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
@@ -31,14 +33,9 @@
 #include <tetengo2.gui.drawing.font.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.serializer.bzip2_reader.h"
-#include "bobura.model.serializer.bzip2_writer.h"
-#include "bobura.model.serializer.json_reader.h"
-#include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
-#include "bobura.model.serializer.windia_reader.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
@@ -68,12 +65,24 @@ namespace test_bobura { namespace model
         struct output_stream;  //!< The output stream type.
         struct font;           //!< The font type.
         struct color;          //!< The color type.
+        struct abstract_window; //!< The abstract window type.
+        struct message_catalog; //!< The message catalog type.
     }
 
 #if !defined(DOCUMENTATION)
     namespace detail
     {
         typedef tetengo2::detail::stub::drawing drawing_details_type;
+        struct abstract_window_type
+        {
+            abstract_window_type()
+            {}
+        };
+        struct message_catalog_type
+        {
+            message_catalog_type()
+            {}
+        };
     }
 #endif
 
@@ -89,8 +98,10 @@ namespace test_bobura { namespace model
                 type::font, tetengo2::gui::drawing::font<std::string, std::size_t, detail::drawing_details_type>
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::color, tetengo2::gui::drawing::color<unsigned char>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::abstract_window, detail::abstract_window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::message_catalog, detail::message_catalog_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>>
         type_list;
 
 
@@ -192,6 +203,7 @@ namespace test_bobura { namespace model
         struct reader_selector; //!< The reader selector type.
         struct json_reader;    //!< The JSON reader type.
         struct bzip2_reader;   //!< The bzip2 reader type.
+        struct oudia_reader;   //!< The OuDia reader type.
         struct windia_reader;  //!< The WinDIA reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
@@ -212,6 +224,34 @@ namespace test_bobura { namespace model
         typedef
             tetengo2::text::pull_parser<push_parser_type, boost::mpl::at<type_list, type::size>::type>
             pull_parser_type;
+        struct select_oudia_diagram_type
+        {
+            typedef boost::mpl::at<type_list, type::string>::type string_type;
+
+            typedef boost::mpl::at<type_list, type::abstract_window>::type abstract_window_type;
+
+            typedef boost::mpl::at<type_list, type::message_catalog>::type message_catalog_type;
+
+            string_type m_wanted;
+
+            select_oudia_diagram_type(abstract_window_type&, string_type, const message_catalog_type&)
+            :
+            m_wanted()
+            {}
+
+            explicit select_oudia_diagram_type(string_type wanted)
+            :
+            m_wanted(std::move(wanted))
+            {}
+
+            template <typename Iterator>
+            Iterator operator()(const Iterator first, const Iterator last)
+            const
+            {
+                return std::find(first, last, m_wanted);
+            }
+
+        };
         typedef tetengo2::detail::stub::encoding encoding_details_type;
         typedef
             tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>
@@ -225,6 +265,7 @@ namespace test_bobura { namespace model
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 pull_parser_type,
                 boost::mpl::at<model_type_list, type::model::grade_type_set>::type,
+                select_oudia_diagram_type,
                 timetable_file_encoder_type,
                 timetable_file_encoder_type
             >
@@ -269,6 +310,10 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::oudia_reader, detail::serialization::reader_set_type::oudia_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::windia_reader, detail::serialization::reader_set_type::windia_reader_type
             >,
         tetengo2::meta::assoc_list<
@@ -302,7 +347,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::serialization::writer_set, detail::serialization::writer_set_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>
+        >>>>>>>>>>>>
         serialization_type_list;
 
 
