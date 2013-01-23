@@ -7,25 +7,10 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000176
-Added on    : 2012/06/12
-Depends on  : 00000209, 00000210
-Description : Create bobura::model::serializer::oudia_reader.
-------------------------------------------------------------------------------
 Number      : 00000202
 Added on    : 2012/11/13
 Depends on  : (none)
 Description : Replace std/boost::bind to C++ lambda.
-------------------------------------------------------------------------------
-Number      : 00000209
-Added on    : 2013/01/13
-Depends on  : (none)
-Description : Create bobura::load_save::oudia_diagram_selector.
-------------------------------------------------------------------------------
-Number      : 00000210
-Added on    : 2013/01/13
-Depends on  : (none)
-Description : Create bobura::oudia_diagram_selection_dialog.
 ------------------------------------------------------------------------------
 Number      : 00000211
 Added on    : 2013/mm/dd
