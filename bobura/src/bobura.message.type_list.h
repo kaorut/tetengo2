@@ -63,6 +63,19 @@ namespace bobura { namespace message
         }
     }
 
+    namespace oudia_diagram_dialog
+    {
+        namespace type
+        {
+            //! The OK button mouse click observer type.
+            struct ok_button_mouse_clicked;
+
+            //! The cancel button mouse click observer type.
+            struct cancel_button_mouse_clicked;
+
+        }
+    }
+
     namespace file_property_dialog
     {
         namespace type
@@ -92,19 +105,6 @@ namespace bobura { namespace message
             //! The color button mouse click observer type.
             struct color_button_mouse_clicked;
 
-            //! The OK button mouse click observer type.
-            struct ok_button_mouse_clicked;
-
-            //! The cancel button mouse click observer type.
-            struct cancel_button_mouse_clicked;
-
-        }
-    }
-
-    namespace oudia_diagram_dialog
-    {
-        namespace type
-        {
             //! The OK button mouse click observer type.
             struct ok_button_mouse_clicked;
 
