@@ -184,15 +184,22 @@ namespace bobura
         const
         {
             std::unique_ptr<popup_menu_type> p_popup_menu =
-                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:F&ormat")));
+                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:D&iagram")));
             commands_type commands;
 
             append_menu_command(
                 *p_popup_menu,
-                m_message_catalog.get(TETENGO2_TEXT("Menu:Format:&Fonts And Colors...")),
+                m_message_catalog.get(TETENGO2_TEXT("Menu:Diagram:&Fonts And Colors...")),
                 m_command_set.font_color(),
                 commands
             );
+            append_menu_command(
+                *p_popup_menu,
+                m_message_catalog.get(TETENGO2_TEXT("Menu:Diagram:Train &Kinds...")),
+                m_command_set.nop(),
+                commands
+            );
+
 
             connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
