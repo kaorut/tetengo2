@@ -205,6 +205,14 @@ namespace bobura { namespace command
         const;
 
         /*!
+            \brief Returns the command train-kind.
+
+            \return The command.
+        */
+        const command_type& train_kind()
+        const;
+
+        /*!
             \brief Returns the command vertical zoom-in.
 
             \return The command.
