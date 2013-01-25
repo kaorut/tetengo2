@@ -130,11 +130,13 @@
     <ClInclude Include="src\bobura.message.oudia_diagram_dialog.h" />
     <ClInclude Include="src\bobura.message.timetable_model.h" />
     <ClInclude Include="src\bobura.message.timetable_model_observer_set.h" />
+    <ClInclude Include="src\bobura.message.train_kind_dialog.h" />
     <ClInclude Include="src\bobura.message.type_list.h" />
     <ClInclude Include="src\bobura.message.type_list_impl.h" />
     <ClInclude Include="src\bobura.oudia_diagram_dialog.h" />
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.timetable_model.h" />
+    <ClInclude Include="src\bobura.train_kind_dialog.h" />
     <ClInclude Include="src\bobura.type_list.h" />
     <ClInclude Include="src\bobura.view.diagram.header.h" />
     <ClInclude Include="src\bobura.view.diagram.item.h" />

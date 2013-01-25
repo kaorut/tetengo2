@@ -128,6 +128,7 @@
 #include "bobura.oudia_diagram_dialog.h"
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
+#include "bobura.train_kind_dialog.h"
 #include "bobura.view.diagram.header.h"
 #include "bobura.view.diagram.station_line.h"
 #include "bobura.view.diagram.time_line.h"
@@ -781,6 +782,7 @@ namespace bobura
         struct file_property_dialog; //!< The file property dialog type.
         struct font_color_dialog; //!< The font and color dialog type.
         struct oudia_diagram_dialog; //!< The OuDia diagram dialog type.
+        struct train_kind_dialog; //!< The train kind dialog type.
     }}
 
     //! The type list for the dialogs.
@@ -856,8 +858,33 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dialog::train_kind_dialog,
+                train_kind_dialog<
+                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::label>::type,
+                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::button>::type,
+                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
+                    message::train_kind_dialog::type_list<
+                        boost::mpl::at<common_type_list, type::size>::type,
+                        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                        boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                        boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
+                        boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
+                        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         dialog_type_list;
 
 
