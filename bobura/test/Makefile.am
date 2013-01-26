@@ -26,9 +26,11 @@ sources = \
     test_bobura.message.oudia_diagram_dialog.cpp \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \
+    test_bobura.message.train_kind_dialog.cpp \
     test_bobura.oudia_diagram_dialog.cpp \
     test_bobura.settings.cpp \
     test_bobura.timetable_model.cpp \
+    test_bobura.train_kind_dialog.cpp \
     test_bobura.view.diagram.header.cpp \
     test_bobura.view.diagram.item.cpp \
     test_bobura.view.diagram.station_line.cpp \
