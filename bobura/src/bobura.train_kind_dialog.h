@@ -53,8 +53,7 @@ namespace bobura
         typename TextBox,
         typename Button,
         typename PictureBox,
-        typename Font,
-        typename Color,
+        typename TrainKind,
         typename TransparentBackground,
         typename TrainKindDialogMessageTypeList
     >
@@ -96,14 +95,8 @@ namespace bobura
         //! The picture box type.
         typedef PictureBox picture_box_type;
 
-        //! The font type.
-        typedef Font font_type;
-
-        //! The color type.
-        typedef Color color_type;
-
         //! The train kind type.
-        typedef std::pair<const font_type&, const color_type&> font_color_type;
+        typedef TrainKind train_kind_type;
 
         //! The transparent background type.
         typedef TransparentBackground transparent_background_type;

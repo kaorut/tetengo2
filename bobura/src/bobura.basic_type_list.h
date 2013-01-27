@@ -785,6 +785,18 @@ namespace bobura
         struct train_kind_dialog; //!< The train kind dialog type.
     }}
 
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace dialog
+    {
+        typedef
+            bobura::model::train_kind<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<ui_type_list, type::ui::color>::type
+            >
+            train_kind_type;
+    }}
+#endif
+
     //! The type list for the dialogs.
     typedef
         tetengo2::meta::assoc_list<
@@ -869,18 +881,9 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::text_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
                     boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
-                    boost::mpl::at<ui_type_list, type::ui::color>::type,
+                    detail::dialog::train_kind_type,
                     boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
-                    message::train_kind_dialog::type_list<
-                        boost::mpl::at<common_type_list, type::size>::type,
-                        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                        boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                        boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                        boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
-                        boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
-                        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
-                    >::type
+                    message::train_kind_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
                 >
             >,
         tetengo2::meta::assoc_list_end

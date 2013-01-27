@@ -29,10 +29,6 @@ namespace
     typedef
         boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::train_kind_dialog>::type train_kind_dialog_type;
 
-    typedef train_kind_dialog_type::font_type font_type;
-
-    typedef train_kind_dialog_type::color_type color_type;
-
 
 }
 
