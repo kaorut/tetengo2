@@ -259,8 +259,6 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:OuDiaDiagram:Diagram Selection")));
 
-            this->set_client_dimension(dimension_type(width_type(32), height_type(19)));
-
             m_p_file_name_label = create_file_name_label();
             m_p_prompt_label = create_prompt_label();
             m_p_diagram_list_box = create_diagram_list_box();
@@ -345,6 +343,8 @@ namespace bobura
 
         void locate_controls()
         {
+            this->set_client_dimension(dimension_type(width_type(32), height_type(19)));
+
             const left_type label_left(2);
             const width_type control_width(28);
 

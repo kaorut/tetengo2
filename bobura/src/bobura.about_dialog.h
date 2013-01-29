@@ -179,8 +179,6 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:About:About")));
 
-            this->set_client_dimension(dimension_type(width_type(36), height_type(10)));
-
             m_p_application_image = create_application_image();
             m_p_title_label = create_title_label();
             m_p_copyright_label = create_copyright_label();
@@ -259,6 +257,8 @@ namespace bobura
 
         void locate_controls()
         {
+            this->set_client_dimension(dimension_type(width_type(36), height_type(10)));
+
             m_p_application_image->fit_to_content();
             m_p_application_image->set_position(position_type(left_type(2), top_type(1)));
             

@@ -278,8 +278,6 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:File Property")));
 
-            this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
-
             m_p_company_name_label = create_company_name_label();
             m_p_company_name_text_box = create_company_name_text_box();
             m_p_line_name_label = create_line_name_label();
@@ -406,6 +404,8 @@ namespace bobura
 
         void locate_controls()
         {
+            this->set_client_dimension(dimension_type(width_type(36), height_type(21)));
+
             const left_type label_left(2);
 
             m_p_company_name_label->fit_to_content();
