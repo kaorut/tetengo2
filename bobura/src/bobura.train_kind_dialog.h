@@ -119,6 +119,10 @@ namespace bobura
         m_message_catalog(message_catalog),
         m_p_train_kind_label(),
         m_p_train_kind_list_box(),
+        m_p_add_button(),
+        m_p_delete_button(),
+        m_p_up_button(),
+        m_p_down_button(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -184,6 +188,14 @@ namespace bobura
 
         std::unique_ptr<list_box_type> m_p_train_kind_list_box;
 
+        std::unique_ptr<button_type> m_p_add_button;
+
+        std::unique_ptr<button_type> m_p_delete_button;
+
+        std::unique_ptr<button_type> m_p_up_button;
+
+        std::unique_ptr<button_type> m_p_down_button;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
@@ -207,6 +219,10 @@ namespace bobura
 
             m_p_train_kind_label = create_train_kind_label();
             m_p_train_kind_list_box = create_train_kind_list_box();
+            m_p_add_button = create_add_button();
+            m_p_delete_button = create_delete_button();
+            m_p_up_button = create_up_button();
+            m_p_down_button = create_down_button();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
@@ -243,7 +259,67 @@ namespace bobura
             return std::move(p_list_box);
         }
 
-std::unique_ptr<button_type> create_ok_button()
+        std::unique_ptr<button_type> create_add_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Add")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
+        std::unique_ptr<button_type> create_delete_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Delete")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
+        std::unique_ptr<button_type> create_up_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Up")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
+        std::unique_ptr<button_type> create_down_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Down")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
+        std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button =
                 tetengo2::make_unique<button_type>(*this, button_type::style_type::default_);
@@ -294,6 +370,36 @@ std::unique_ptr<button_type> create_ok_button()
                         )
                 )
             );
+
+            const width_type list_box_button_width = width_type(4);
+            left_type list_box_button_left =
+                tetengo2::gui::position<position_type>::left(m_p_train_kind_list_box->position()) +
+                left_type::from(
+                    tetengo2::gui::dimension<dimension_type>::width(m_p_train_kind_list_box->dimension())
+                ) -
+                left_type::from(list_box_button_width);
+            const top_type list_box_button_top =
+                tetengo2::gui::position<position_type>::top(m_p_train_kind_list_box->position()) +
+                top_type::from(
+                    tetengo2::gui::dimension<dimension_type>::height(m_p_train_kind_list_box->dimension())
+                );
+            m_p_down_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
+            m_p_down_button->set_position(position_type(list_box_button_left, list_box_button_top));
+
+            list_box_button_left -=
+                left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 4));
+            m_p_up_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
+            m_p_up_button->set_position(position_type(list_box_button_left, list_box_button_top));
+
+            list_box_button_left -=
+                left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 4));
+            m_p_delete_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
+            m_p_delete_button->set_position(position_type(list_box_button_left, list_box_button_top));
+
+            list_box_button_left -=
+                left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 4));
+            m_p_add_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
+            m_p_add_button->set_position(position_type(list_box_button_left, list_box_button_top));
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(27), top_type(19)));
