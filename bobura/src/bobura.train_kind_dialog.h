@@ -117,6 +117,8 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_p_train_kind_label(),
+        m_p_train_kind_list_box(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -178,6 +180,10 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
+        std::unique_ptr<label_type> m_p_train_kind_label;
+
+        std::unique_ptr<list_box_type> m_p_train_kind_list_box;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
@@ -197,15 +203,47 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
-            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Fonts And Colors")));
+            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Train Kinds")));
 
+            m_p_train_kind_label = create_train_kind_label();
+            m_p_train_kind_list_box = create_train_kind_list_box();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
         }
 
-        std::unique_ptr<button_type> create_ok_button()
+        std::unique_ptr<label_type> create_train_kind_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Train &Kinds:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<list_box_type> create_train_kind_list_box()
+        {
+            std::unique_ptr<list_box_type> p_list_box =
+                tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::vertical);
+
+            //p_list_box->list_box_observer_set().selection_changed().connect(
+            //    typename boost::mpl::at<
+            //        font_color_dialog_message_type_list_type,
+            //        message::font_color_dialog::type::category_list_box_selection_changed
+            //    >::type(
+            //        m_current_category_index,
+            //        *p_list_box,
+            //        TETENGO2_CPP11_BIND(&font_color_dialog::update, this, tetengo2::cpp11::placeholders_1())
+            //    )
+            //);
+
+            return std::move(p_list_box);
+        }
+
+std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button =
                 tetengo2::make_unique<button_type>(*this, button_type::style_type::default_);
@@ -241,7 +279,21 @@ namespace bobura
         {
             this->set_client_dimension(dimension_type(width_type(46), height_type(22)));
 
-            const left_type category_label_left(2);
+            const left_type train_kind_label_left(2);
+
+            m_p_train_kind_label->fit_to_content();
+            m_p_train_kind_label->set_position(position_type(train_kind_label_left, top_type(1)));
+
+            m_p_train_kind_list_box->set_dimension(dimension_type(width_type(16), height_type(16)));
+            m_p_train_kind_list_box->set_position(
+                position_type(
+                    train_kind_label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_train_kind_label->position()) +
+                        top_type::from(
+                            tetengo2::gui::dimension<dimension_type>::height(m_p_train_kind_label->dimension())
+                        )
+                )
+            );
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(27), top_type(19)));
