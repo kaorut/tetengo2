@@ -278,7 +278,7 @@ namespace bobura
         {
             std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
 
-            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Delete")));
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:D&elete")));
             //p_button->mouse_observer_set().clicked().connect(
             //    typename boost::mpl::at<
             //        train_kind_dialog_message_type_list_type,
@@ -353,14 +353,16 @@ namespace bobura
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type(width_type(46), height_type(22)));
+            this->set_client_dimension(dimension_type(width_type(46), height_type(27)));
 
             const left_type train_kind_label_left(2);
 
             m_p_train_kind_label->fit_to_content();
             m_p_train_kind_label->set_position(position_type(train_kind_label_left, top_type(1)));
 
-            m_p_train_kind_list_box->set_dimension(dimension_type(width_type(16), height_type(16)));
+            const width_type list_box_width(20);
+            const height_type list_box_height(16);
+            m_p_train_kind_list_box->set_dimension(dimension_type(list_box_width, list_box_height));
             m_p_train_kind_list_box->set_position(
                 position_type(
                     train_kind_label_left,
@@ -371,18 +373,14 @@ namespace bobura
                 )
             );
 
-            const width_type list_box_button_width = width_type(4);
-            left_type list_box_button_left =
-                tetengo2::gui::position<position_type>::left(m_p_train_kind_list_box->position()) +
-                left_type::from(
-                    tetengo2::gui::dimension<dimension_type>::width(m_p_train_kind_list_box->dimension())
-                ) -
-                left_type::from(list_box_button_width);
-            const top_type list_box_button_top =
+            const width_type list_box_button_width(typename width_type::value_type(9, 2));
+            left_type list_box_button_left(
+                train_kind_label_left + left_type::from(list_box_width) - left_type::from(list_box_button_width)
+            );
+            const top_type list_box_button_top(
                 tetengo2::gui::position<position_type>::top(m_p_train_kind_list_box->position()) +
-                top_type::from(
-                    tetengo2::gui::dimension<dimension_type>::height(m_p_train_kind_list_box->dimension())
-                );
+                    top_type::from(list_box_height)
+            );
             m_p_down_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
             m_p_down_button->set_position(position_type(list_box_button_left, list_box_button_top));
 
@@ -392,7 +390,7 @@ namespace bobura
             m_p_up_button->set_position(position_type(list_box_button_left, list_box_button_top));
 
             list_box_button_left -=
-                left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 4));
+                left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 2));
             m_p_delete_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
             m_p_delete_button->set_position(position_type(list_box_button_left, list_box_button_top));
 
@@ -402,10 +400,10 @@ namespace bobura
             m_p_add_button->set_position(position_type(list_box_button_left, list_box_button_top));
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(27), top_type(19)));
+            m_p_ok_button->set_position(position_type(left_type(27), top_type(24)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(36), top_type(19)));
+            m_p_cancel_button->set_position(position_type(left_type(36), top_type(24)));
         }
 
 
