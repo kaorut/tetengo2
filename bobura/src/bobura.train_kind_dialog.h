@@ -123,6 +123,10 @@ namespace bobura
         m_p_delete_button(),
         m_p_up_button(),
         m_p_down_button(),
+        m_p_name_label(),
+        m_p_name_text_box(),
+        m_p_abbreviation_label(),
+        m_p_abbreviation_text_box(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -196,6 +200,14 @@ namespace bobura
 
         std::unique_ptr<button_type> m_p_down_button;
 
+        std::unique_ptr<label_type> m_p_name_label;
+
+        std::unique_ptr<text_box_type> m_p_name_text_box;
+
+        std::unique_ptr<label_type> m_p_abbreviation_label;
+
+        std::unique_ptr<text_box_type> m_p_abbreviation_text_box;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
@@ -223,6 +235,10 @@ namespace bobura
             m_p_delete_button = create_delete_button();
             m_p_up_button = create_up_button();
             m_p_down_button = create_down_button();
+            m_p_name_label = create_name_label();
+            m_p_name_text_box = create_name_text_box();
+            m_p_abbreviation_label = create_abbreviation_label();
+            m_p_abbreviation_text_box = create_abbreviation_text_box();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
@@ -319,6 +335,44 @@ namespace bobura
             return std::move(p_button);
         }
 
+        std::unique_ptr<label_type> create_name_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Name:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<text_box_type> create_name_text_box()
+        {
+            std::unique_ptr<text_box_type> p_text_box =
+                tetengo2::make_unique<text_box_type>(*this, list_box_type::scroll_bar_style_type::none);
+
+            return std::move(p_text_box);
+        }
+
+        std::unique_ptr<label_type> create_abbreviation_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:A&bbreviation:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<text_box_type> create_abbreviation_text_box()
+        {
+            std::unique_ptr<text_box_type> p_text_box =
+                tetengo2::make_unique<text_box_type>(*this, list_box_type::scroll_bar_style_type::none);
+
+            return std::move(p_text_box);
+        }
+
         std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button =
@@ -398,6 +452,20 @@ namespace bobura
                 left_type::from(list_box_button_width) + left_type(typename left_type::value_type(1, 4));
             m_p_add_button->set_dimension(dimension_type(list_box_button_width, height_type(2)));
             m_p_add_button->set_position(position_type(list_box_button_left, list_box_button_top));
+
+            const left_type name_label_left(24);
+            m_p_name_label->fit_to_content();
+            m_p_name_label->set_position(position_type(name_label_left, top_type(1)));
+
+            const left_type name_text_box_left(32);
+            m_p_name_text_box->set_dimension(dimension_type(width_type(12), height_type(2)));
+            m_p_name_text_box->set_position(position_type(name_text_box_left, top_type(1)));
+
+            m_p_abbreviation_label->fit_to_content();
+            m_p_abbreviation_label->set_position(position_type(name_label_left, top_type(4)));
+
+            m_p_abbreviation_text_box->set_dimension(dimension_type(width_type(12), height_type(2)));
+            m_p_abbreviation_text_box->set_position(position_type(name_text_box_left, top_type(4)));
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(27), top_type(24)));
