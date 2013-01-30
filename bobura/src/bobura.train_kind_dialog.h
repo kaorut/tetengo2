@@ -127,6 +127,7 @@ namespace bobura
         m_p_name_text_box(),
         m_p_abbreviation_label(),
         m_p_abbreviation_text_box(),
+        m_p_color_button(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -208,6 +209,8 @@ namespace bobura
 
         std::unique_ptr<text_box_type> m_p_abbreviation_text_box;
 
+        std::unique_ptr<button_type> m_p_color_button;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
@@ -239,6 +242,7 @@ namespace bobura
             m_p_name_text_box = create_name_text_box();
             m_p_abbreviation_label = create_abbreviation_label();
             m_p_abbreviation_text_box = create_abbreviation_text_box();
+            m_p_color_button = create_color_button();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
@@ -373,6 +377,21 @@ namespace bobura
             return std::move(p_text_box);
         }
 
+        std::unique_ptr<button_type> create_color_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Color")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
         std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button =
@@ -466,6 +485,9 @@ namespace bobura
 
             m_p_abbreviation_text_box->set_dimension(dimension_type(width_type(12), height_type(2)));
             m_p_abbreviation_text_box->set_position(position_type(name_text_box_left, top_type(4)));
+
+            m_p_color_button->set_dimension(dimension_type(width_type(8), height_type(2)));
+            m_p_color_button->set_position(position_type(name_text_box_left, top_type(7)));
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_ok_button->set_position(position_type(left_type(27), top_type(24)));
