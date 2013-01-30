@@ -35,6 +35,7 @@ headers = \
     tetengo2.gui.menu.shortcut_key_table.h \
     tetengo2.gui.menu.traits.h \
     tetengo2.gui.message.dialog_message_loop.h \
+    tetengo2.gui.message.dropdown_box_observer_set.h \
     tetengo2.gui.message.focus_observer_set.h \
     tetengo2.gui.message.keyboard_observer_set.h \
     tetengo2.gui.message.list_box_observer_set.h \
@@ -54,6 +55,7 @@ headers = \
     tetengo2.gui.widget.button.h \
     tetengo2.gui.widget.control.h \
     tetengo2.gui.widget.dialog.h \
+    tetengo2.gui.widget.dropdown_box.h \
     tetengo2.gui.widget.image.h \
     tetengo2.gui.widget.label.h \
     tetengo2.gui.widget.link_label.h \
@@ -64,6 +66,7 @@ headers = \
     tetengo2.gui.widget.traits.button_traits.h \
     tetengo2.gui.widget.traits.control_traits.h \
     tetengo2.gui.widget.traits.dialog_traits.h \
+    tetengo2.gui.widget.traits.dropdown_box_traits.h \
     tetengo2.gui.widget.traits.image_traits.h \
     tetengo2.gui.widget.traits.label_traits.h \
     tetengo2.gui.widget.traits.link_label_traits.h \

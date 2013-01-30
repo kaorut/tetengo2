@@ -51,6 +51,7 @@
     <ClInclude Include="include\tetengo2.gui.menu.shortcut_key_table.h" />
     <ClInclude Include="include\tetengo2.gui.menu.traits.h" />
     <ClInclude Include="include\tetengo2.gui.message.dialog_message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.message.dropdown_box_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.message.focus_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.message.keyboard_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.message.list_box_observer_set.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="include\tetengo2.gui.widget.button.h" />
     <ClInclude Include="include\tetengo2.gui.widget.control.h" />
     <ClInclude Include="include\tetengo2.gui.widget.dialog.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.dropdown_box.h" />
     <ClInclude Include="include\tetengo2.gui.widget.image.h" />
     <ClInclude Include="include\tetengo2.gui.widget.label.h" />
     <ClInclude Include="include\tetengo2.gui.widget.link_label.h" />
@@ -80,6 +82,7 @@
     <ClInclude Include="include\tetengo2.gui.widget.traits.button_traits.h" />
     <ClInclude Include="include\tetengo2.gui.widget.traits.control_traits.h" />
     <ClInclude Include="include\tetengo2.gui.widget.traits.dialog_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.traits.dropdown_box_traits.h" />
     <ClInclude Include="include\tetengo2.gui.widget.traits.image_traits.h" />
     <ClInclude Include="include\tetengo2.gui.widget.traits.label_traits.h" />
     <ClInclude Include="include\tetengo2.gui.widget.traits.link_label_traits.h" />

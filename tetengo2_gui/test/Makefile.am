@@ -39,6 +39,7 @@ sources = \
     test_tetengo2.gui.menu.shortcut_key.cpp \
     test_tetengo2.gui.menu.shortcut_key_table.cpp \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
+    test_tetengo2.gui.message.dropdown_box_observer_set.cpp \
     test_tetengo2.gui.message.focus_observer_set.cpp \
     test_tetengo2.gui.message.keyboard_observer_set.cpp \
     test_tetengo2.gui.message.list_box_observer_set.cpp \
@@ -58,6 +59,7 @@ sources = \
     test_tetengo2.gui.widget.button.cpp \
     test_tetengo2.gui.widget.control.cpp \
     test_tetengo2.gui.widget.dialog.cpp \
+    test_tetengo2.gui.widget.dropdown_box.cpp \
     test_tetengo2.gui.widget.image.cpp \
     test_tetengo2.gui.widget.label.cpp \
     test_tetengo2.gui.widget.link_label.cpp \

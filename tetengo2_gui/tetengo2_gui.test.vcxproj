@@ -129,6 +129,7 @@
     <ClCompile Include="test\test_tetengo2.gui.menu.shortcut_key.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.shortcut_key_table.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.dialog_message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.dropdown_box_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.focus_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.keyboard_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.button.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.dialog.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.widget.dropdown_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.link_label.cpp" />

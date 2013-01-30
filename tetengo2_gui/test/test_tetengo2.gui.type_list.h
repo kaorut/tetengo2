@@ -60,6 +60,7 @@
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.dialog_message_loop.h"
+#include "tetengo2.gui.message.dropdown_box_observer_set.h"
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.list_box_observer_set.h"
@@ -78,6 +79,7 @@
 #include "tetengo2.gui.widget.button.h"
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.gui.widget.dialog.h"
+#include "tetengo2.gui.widget.dropdown_box.h"
 #include "tetengo2.gui.widget.image.h"
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.gui.widget.link_label.h"
@@ -88,6 +90,7 @@
 #include "tetengo2.gui.widget.traits.button_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
 #include "tetengo2.gui.widget.traits.dialog_traits.h"
+#include "tetengo2.gui.widget.traits.dropdown_box_traits.h"
 #include "tetengo2.gui.widget.traits.image_traits.h"
 #include "tetengo2.gui.widget.traits.label_traits.h"
 #include "tetengo2.gui.widget.traits.link_label_traits.h"
@@ -362,6 +365,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct window_observer_set; //!< The window observer set type.
         struct list_box_observer_set; //!< The list box observer set type.
+        struct dropdown_box_observer_set; //!< The dropdown box observer set type.
         struct focus_observer_set; //!< The focus observer set type.
         struct paint_observer_set; //!< The paint observer set type.
         struct keyboard_observer_set; //!< The keyboard observer set type.
@@ -377,6 +381,10 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::list_box_observer_set, tetengo2::gui::message::list_box_observer_set
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::dropdown_box_observer_set, tetengo2::gui::message::dropdown_box_observer_set
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::focus_observer_set, tetengo2::gui::message::focus_observer_set>,
@@ -408,7 +416,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::message::scroll_bar_observer_set<boost::mpl::at<type_list, type::size>::type>
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         observer_set_type_list;
 
 
@@ -534,6 +542,7 @@ namespace test_tetengo2 { namespace gui
         struct dialog;         //!< The dialog type.
         struct control;        //!< The control type.
         struct button;         //!< The button type.
+        struct dropdown_box;   //!< The dropdown box type.
         struct image;          //!< The image type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
@@ -598,6 +607,13 @@ namespace test_tetengo2 { namespace gui
             >
             control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::dropdown_box_traits<
+                control_traits_type,
+                boost::mpl::at<type_list, type::size>::type,
+                tetengo2::gui::message::dropdown_box_observer_set
+            >
+            dropdown_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::image_traits<
                 control_traits_type, boost::mpl::at<drawing_type_list, type::drawing::picture>::type
@@ -686,6 +702,15 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::widget::dropdown_box,
+                tetengo2::gui::widget::dropdown_box<
+                    detail::widget::dropdown_box_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::widget::image,
                 tetengo2::gui::widget::image<
                     detail::widget::image_traits_type,
@@ -739,7 +764,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>
         widget_type_list;
 
 
