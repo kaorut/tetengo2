@@ -262,7 +262,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     0,
-                    L"Button",
+                    WC_BUTTONW,
                     L"tetengo2_button",
                     create_window_style,
                     CW_USEDEFAULT,
@@ -307,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     0,
-                    L"Static",
+                    WC_STATICW,
                     L"tetengo2_image",
                     WS_CHILD | WS_VISIBLE,
                     CW_USEDEFAULT,
@@ -352,7 +352,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     0,
-                    L"Static",
+                    WC_STATICW,
                     L"tetengo2_label",
                     WS_CHILD | WS_VISIBLE | SS_NOTIFY,
                     CW_USEDEFAULT,
@@ -401,7 +401,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
-                    L"ListBox",
+                    WC_LISTBOXW,
                     L"",
                     WS_CHILD |
                         WS_TABSTOP |
@@ -514,7 +514,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
-                    L"Edit",
+                    WC_EDITW,
                     L"",
                     WS_CHILD |
                         WS_TABSTOP |
