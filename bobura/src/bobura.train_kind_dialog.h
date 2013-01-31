@@ -413,7 +413,7 @@ namespace bobura
         {
             std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
 
-            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Color...")));
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Color...")));
             //p_button->mouse_observer_set().clicked().connect(
             //    typename boost::mpl::at<
             //        train_kind_dialog_message_type_list_type,
