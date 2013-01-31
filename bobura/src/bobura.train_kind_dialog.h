@@ -38,6 +38,7 @@ namespace bobura
         \tparam Label                          A label type.
         \tparam ListBox                        A list box type.
         \tparam TextBox                        A text box type.
+        \tparam DropdownBox                    A dropdown box type.
         \tparam Button                         A button type.
         \tparam PictureBox                     A picture box type.
         \tparam Font                           A font type.
@@ -51,6 +52,7 @@ namespace bobura
         typename Label,
         typename ListBox,
         typename TextBox,
+        typename DropdownBox,
         typename Button,
         typename PictureBox,
         typename TrainKind,
@@ -88,6 +90,9 @@ namespace bobura
 
         //! The text box type.
         typedef TextBox text_box_type;
+
+        //! The dropdown box type.
+        typedef DropdownBox dropdown_box_type;
 
         //! The button type.
         typedef Button button_type;

@@ -49,6 +49,7 @@
 #include <tetengo2.gui.menu.shortcut_key_table.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
+#include <tetengo2.gui.message.dropdown_box_observer_set.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
 #include <tetengo2.gui.message.list_box_observer_set.h>
@@ -66,6 +67,7 @@
 #include <tetengo2.gui.widget.button.h>
 #include <tetengo2.gui.widget.control.h>
 #include <tetengo2.gui.widget.dialog.h>
+#include <tetengo2.gui.widget.dropdown_box.h>
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
@@ -76,6 +78,7 @@
 #include <tetengo2.gui.widget.traits.button_traits.h>
 #include <tetengo2.gui.widget.traits.control_traits.h>
 #include <tetengo2.gui.widget.traits.dialog_traits.h>
+#include <tetengo2.gui.widget.traits.dropdown_box_traits.h>
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
@@ -304,6 +307,7 @@ namespace bobura
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
         struct list_box;       //!< The list box type.
+        struct dropdown_box;   //!< The dropdown box type.
         struct picture_box;    //!< The picture box type.
         struct text_box;       //!< The text box type.
         struct image;          //!< The image type.
@@ -641,6 +645,20 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             list_box_type;
+        typedef
+            tetengo2::gui::widget::traits::dropdown_box_traits<
+                control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::dropdown_box_observer_set
+            >
+            dropdown_box_traits_type;
+        typedef
+            tetengo2::gui::widget::dropdown_box<
+                dropdown_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            dropdown_box_type;
     }}
 #endif
 
@@ -686,6 +704,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::list_box, detail::ui::list_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dropdown_box, detail::ui::dropdown_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
@@ -700,7 +719,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -879,6 +898,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::label>::type,
                     boost::mpl::at<ui_type_list, type::ui::list_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::text_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
                     boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                     detail::dialog::train_kind_type,
