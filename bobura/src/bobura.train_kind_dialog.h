@@ -133,6 +133,12 @@ namespace bobura
         m_p_abbreviation_label(),
         m_p_abbreviation_text_box(),
         m_p_color_button(),
+        m_p_weight_label(),
+        m_p_weight_dropdown_box(),
+        m_p_line_style_label(),
+        m_p_line_style_dropdown_box(),
+        m_p_sample_picture_box(),
+        m_p_apply_button(),
         m_p_ok_button(),
         m_p_cancel_button()
         {
@@ -216,6 +222,20 @@ namespace bobura
 
         std::unique_ptr<button_type> m_p_color_button;
 
+        std::unique_ptr<label_type> m_p_weight_label;
+
+        std::unique_ptr<dropdown_box_type> m_p_weight_dropdown_box;
+
+        std::unique_ptr<label_type> m_p_line_style_label;
+
+        std::unique_ptr<dropdown_box_type> m_p_line_style_dropdown_box;
+
+        std::unique_ptr<label_type> m_p_sample_label;
+
+        std::unique_ptr<picture_box_type> m_p_sample_picture_box;
+
+        std::unique_ptr<button_type> m_p_apply_button;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
@@ -248,6 +268,13 @@ namespace bobura
             m_p_abbreviation_label = create_abbreviation_label();
             m_p_abbreviation_text_box = create_abbreviation_text_box();
             m_p_color_button = create_color_button();
+            m_p_weight_label = create_weight_label();
+            m_p_weight_dropdown_box = create_weight_dropdown_box();
+            m_p_line_style_label = create_line_style_label();
+            m_p_line_style_dropdown_box = create_line_style_dropdown_box();
+            m_p_sample_label = create_sample_label();
+            m_p_sample_picture_box = create_sample_picture_box();
+            m_p_apply_button = create_apply_button();
             m_p_ok_button = create_ok_button();
             m_p_cancel_button = create_cancel_button();
 
@@ -386,7 +413,106 @@ namespace bobura
         {
             std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
 
-            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Color")));
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Color...")));
+            //p_button->mouse_observer_set().clicked().connect(
+            //    typename boost::mpl::at<
+            //        train_kind_dialog_message_type_list_type,
+            //        message::train_kind_dialog::type::ok_button_mouse_clicked
+            //    >::type(*this)
+            //);
+
+            return std::move(p_button);
+        }
+
+        std::unique_ptr<label_type> create_weight_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Weight:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<dropdown_box_type> create_weight_dropdown_box()
+        {
+            std::unique_ptr<dropdown_box_type> p_dropdown_box = tetengo2::make_unique<dropdown_box_type>(*this);
+
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Normal"))
+            );
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Bold"))
+            );
+
+            return std::move(p_dropdown_box);
+        }
+
+        std::unique_ptr<label_type> create_line_style_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Style:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<dropdown_box_type> create_line_style_dropdown_box()
+        {
+            std::unique_ptr<dropdown_box_type> p_dropdown_box = tetengo2::make_unique<dropdown_box_type>(*this);
+
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Solid"))
+            );
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dashed"))
+            );
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dotted"))
+            );
+            p_dropdown_box->insert_item(
+                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dot-Dashed"))
+            );
+
+            return std::move(p_dropdown_box);
+        }
+
+        std::unique_ptr<label_type> create_sample_label()
+        {
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
+
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Sa&mple:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<picture_box_type> create_sample_picture_box()
+        {
+            std::unique_ptr<picture_box_type> p_picture_box =
+                tetengo2::make_unique<picture_box_type>(*this, list_box_type::scroll_bar_style_type::none);
+
+            //p_picture_box->fast_paint_observer_set().paint().connect(
+            //    typename boost::mpl::at<
+            //        font_color_dialog_message_type_list_type,
+            //        message::font_color_dialog::type::sample_picture_box_paint
+            //    >::type(
+            //        m_font_color_list, m_current_category_index, p_picture_box->client_dimension(), m_message_catalog
+            //    )
+            //);
+
+            return std::move(p_picture_box);
+        }
+
+        std::unique_ptr<button_type> create_apply_button()
+        {
+            std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
+
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:A&pply")));
             //p_button->mouse_observer_set().clicked().connect(
             //    typename boost::mpl::at<
             //        train_kind_dialog_message_type_list_type,
@@ -431,7 +557,7 @@ namespace bobura
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type(width_type(46), height_type(27)));
+            this->set_client_dimension(dimension_type(width_type(46), height_type(28)));
 
             const left_type train_kind_label_left(2);
 
@@ -439,7 +565,7 @@ namespace bobura
             m_p_train_kind_label->set_position(position_type(train_kind_label_left, top_type(1)));
 
             const width_type list_box_width(20);
-            const height_type list_box_height(16);
+            const height_type list_box_height(19);
             m_p_train_kind_list_box->set_dimension(dimension_type(list_box_width, list_box_height));
             m_p_train_kind_list_box->set_position(
                 position_type(
@@ -494,11 +620,38 @@ namespace bobura
             m_p_color_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_color_button->set_position(position_type(name_text_box_left, top_type(7)));
 
+            m_p_weight_label->fit_to_content();
+            m_p_weight_label->set_position(position_type(name_label_left, top_type(10)));
+
+            m_p_weight_dropdown_box->set_dimension(dimension_type(width_type(12), height_type(2)));
+            m_p_weight_dropdown_box->set_position(position_type(name_text_box_left, top_type(10)));
+
+            m_p_line_style_label->fit_to_content();
+            m_p_line_style_label->set_position(position_type(name_label_left, top_type(13)));
+
+            m_p_line_style_dropdown_box->set_dimension(dimension_type(width_type(12), height_type(2)));
+            m_p_line_style_dropdown_box->set_position(position_type(name_text_box_left, top_type(13)));
+
+            m_p_sample_label->fit_to_content();
+            m_p_sample_label->set_position(position_type(name_label_left, top_type(16)));
+
+            m_p_sample_picture_box->set_dimension(dimension_type(width_type(20), height_type(3)));
+            m_p_sample_picture_box->set_position(
+                position_type(
+                    name_label_left,
+                    tetengo2::gui::position<position_type>::top(m_p_sample_label->position()) +
+                        top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_sample_label->dimension()))
+                )
+            );
+
+            m_p_apply_button->set_dimension(dimension_type(width_type(8), height_type(2)));
+            m_p_apply_button->set_position(position_type(left_type(36), top_type(21)));
+
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(27), top_type(24)));
+            m_p_ok_button->set_position(position_type(left_type(27), top_type(25)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(36), top_type(24)));
+            m_p_cancel_button->set_position(position_type(left_type(36), top_type(25)));
         }
 
 
