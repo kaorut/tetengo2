@@ -44,14 +44,8 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent;
-            const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
-        }
-        {
-            window_type parent;
-            const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::both);
-        }
+        window_type parent;
+        const dropdown_box_type dropdown_box(parent);
     }
 
     BOOST_AUTO_TEST_CASE(item_count)
@@ -60,13 +54,13 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            const dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_EQUAL(dropdown_box.item_count(), 0U);
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK_EQUAL(dropdown_box.item_count(), 1U);
@@ -79,14 +73,14 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(dropdown_box.item(0) == string_type(TETENGO2_TEXT("hoge")));
         }
         {
             window_type parent;
-            const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            const dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_THROW(dropdown_box.item(0), std::out_of_range);
         }
@@ -98,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
 
             dropdown_box.set_item(0, string_type(TETENGO2_TEXT("fuga")));
@@ -107,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_THROW(dropdown_box.set_item(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
         }
@@ -119,7 +113,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
             dropdown_box.insert_item(1, string_type(TETENGO2_TEXT("fuga")));
@@ -134,7 +128,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_THROW(dropdown_box.insert_item(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
         }
@@ -146,7 +140,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
 
             dropdown_box.erase_item(0);
@@ -155,7 +149,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_THROW(dropdown_box.erase_item(0), std::out_of_range);
         }
@@ -166,7 +160,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+        dropdown_box_type dropdown_box(parent);
         dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
         dropdown_box.insert_item(1, string_type(TETENGO2_TEXT("fuga")));
 
@@ -180,7 +174,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+        const dropdown_box_type dropdown_box(parent);
 
         BOOST_CHECK(!dropdown_box.selected_item_index());
     }
@@ -191,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
             dropdown_box.insert_item(0, string_type(TETENGO2_TEXT("hoge")));
 
             dropdown_box.select_item(0);
@@ -201,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             BOOST_CHECK_THROW(dropdown_box.select_item(0), std::out_of_range);
         }
@@ -213,13 +207,13 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent;
-            const dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            const dropdown_box_type dropdown_box(parent);
 
             dropdown_box.dropdown_box_observer_set();
         }
         {
             window_type parent;
-            dropdown_box_type dropdown_box(parent, dropdown_box_type::scroll_bar_style_type::none);
+            dropdown_box_type dropdown_box(parent);
 
             dropdown_box.dropdown_box_observer_set();
         }

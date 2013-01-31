@@ -483,6 +483,36 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Make a message handler map for a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+            \param initial_map  An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename DropdownBox>
+        static message_handler_map_type make_dropdown_box_message_handler_map(
+            DropdownBox&               dropdown_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(std::move(initial_map));
+
+            map[message_handler_detail::custom_message_type::command].push_back(
+                TETENGO2_CPP11_BIND(
+                    message_handler_detail::list_box::on_tetengo2_command<DropdownBox>,
+                    cpp11::ref(dropdown_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
+        }
+
+        /*!
             \brief Make a message handler map for an image.
 
             \tparam Image An image type.

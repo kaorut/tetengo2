@@ -156,6 +156,25 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Make a message handler map for a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+            \param initial_map  An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename DropdownBox>
+        static message_handler_map_type make_dropdown_box_message_handler_map(
+            DropdownBox&               dropdown_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::move(initial_map);
+        }
+
+        /*!
             \brief Make a message handler map for an image.
 
             \tparam Image An image type.

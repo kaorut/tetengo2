@@ -291,6 +291,55 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a dropdown box.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a dropdown box.
+
+            \throw std::system_error When a dropdown box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_dropdown_box(Widget& parent)
+        {
+            typename widget_details_type::handle_type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_CLIENTEDGE,
+                    WC_LISTBOXW,
+                    L"",
+                    WS_CHILD |
+                        WS_TABSTOP |
+                        WS_VISIBLE |
+                        LBS_NOTIFY |
+                        window_style_for_scroll_bars<Widget>(Widget::scroll_bar_style_type::none),
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent.details()->handle.get(),
+                    NULL,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a list box!")
+                );
+            }
+
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
+        }
+
+        /*!
             \brief Creates an image.
 
             \tparam Widget A widget type.
@@ -1426,6 +1475,234 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(
                         std::error_code(static_cast<int>(reinterpret_cast< ::UINT_PTR>(result)), win32_category()),
                         "Can't open target."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the dropdown box item count.
+
+            \tparam Size        A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The dropdown box item count.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETCOUNT, 0, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item count."
+                    )
+                );
+            }
+
+            return result;
+        }
+
+        /*!
+            \brief Returns the dropdown box item.
+
+            \tparam String      A string type.
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param encoder      An encoder.
+
+            \return The dropdown box item.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename String, typename DropdownBox, typename Size, typename Encoder>
+        static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        {
+            const ::LRESULT length = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETTEXTLEN, index, 0);
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item length."
+                    )
+                );
+            }
+
+            std::vector<wchar_t> item(length + 1, 0);
+            const ::LRESULT result =
+                ::SendMessageW(
+                    dropdown_box.details()->handle.get(),
+                    LB_GETTEXT,
+                    index,
+                    reinterpret_cast< ::LPARAM>(item.data())
+                );
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item."
+                    )
+                );
+            }
+
+            return encoder.decode(std::wstring(item.data()));
+        }
+
+        /*!
+            \brief Sets a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be set.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void set_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            erase_dropdown_box_item(dropdown_box, index);
+            insert_dropdown_box_item(dropdown_box, index, std::move(item), encoder);
+        }
+
+        /*!
+            \brief Inserts a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be inserted.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void insert_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            const ::LRESULT result =
+                ::SendMessageW(
+                    dropdown_box.details()->handle.get(),
+                    LB_INSERTSTRING,
+                    index,
+                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
+                );
+            if (result == LB_ERR || result == LB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Erases a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename DropdownBox, typename Size>
+        static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_DELETESTRING, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Clears a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \throw std::system_error When the dropdown box cannot be cleared.
+        */
+        template <typename DropdownBox>
+        static void clear_dropdown_box(DropdownBox& dropdown_box)
+        {
+            ::SendMessageW(dropdown_box.details()->handle.get(), LB_RESETCONTENT, 0, 0);
+        }
+
+        /*!
+            \brief Returns the selected dropdown box item index.
+
+            \tparam Size    A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The selected dropdown box item index.
+
+            \throw std::system_error When the selected item index cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
+        {
+            const ::LRESULT index = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != LB_ERR, index);
+        }
+
+        /*!
+            \brief Selects a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be selected.
+        */
+        template <typename DropdownBox, typename Size>
+        static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_SETCURSEL, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box item."
                     )
                 );
             }
