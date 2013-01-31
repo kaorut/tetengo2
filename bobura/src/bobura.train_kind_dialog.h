@@ -445,6 +445,7 @@ namespace bobura
             p_dropdown_box->insert_item(
                 p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Bold"))
             );
+            p_dropdown_box->select_item(0);
 
             return std::move(p_dropdown_box);
         }
@@ -476,6 +477,7 @@ namespace bobura
             p_dropdown_box->insert_item(
                 p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dot-Dashed"))
             );
+            p_dropdown_box->select_item(0);
 
             return std::move(p_dropdown_box);
         }
@@ -557,7 +559,7 @@ namespace bobura
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type(width_type(46), height_type(28)));
+            this->set_client_dimension(dimension_type(width_type(46), height_type(29)));
 
             const left_type train_kind_label_left(2);
 
@@ -635,7 +637,7 @@ namespace bobura
             m_p_sample_label->fit_to_content();
             m_p_sample_label->set_position(position_type(name_label_left, top_type(16)));
 
-            m_p_sample_picture_box->set_dimension(dimension_type(width_type(20), height_type(3)));
+            m_p_sample_picture_box->set_dimension(dimension_type(width_type(20), height_type(4)));
             m_p_sample_picture_box->set_position(
                 position_type(
                     name_label_left,
@@ -645,13 +647,13 @@ namespace bobura
             );
 
             m_p_apply_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_apply_button->set_position(position_type(left_type(36), top_type(21)));
+            m_p_apply_button->set_position(position_type(left_type(36), top_type(22)));
 
             m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_ok_button->set_position(position_type(left_type(27), top_type(25)));
+            m_p_ok_button->set_position(position_type(left_type(27), top_type(26)));
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-            m_p_cancel_button->set_position(position_type(left_type(36), top_type(25)));
+            m_p_cancel_button->set_position(position_type(left_type(36), top_type(26)));
         }
 
 
