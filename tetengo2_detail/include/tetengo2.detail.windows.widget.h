@@ -307,13 +307,12 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
-                    WC_LISTBOXW,
+                    WC_COMBOBOXW,
                     L"",
                     WS_CHILD |
                         WS_TABSTOP |
                         WS_VISIBLE |
-                        LBS_NOTIFY |
-                        window_style_for_scroll_bars<Widget>(Widget::scroll_bar_style_type::none),
+                        CBS_DROPDOWNLIST,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -327,7 +326,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a list box!")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a dropdown box!"
+                    )
                 );
             }
 
@@ -1495,12 +1496,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename DropdownBox>
         static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETCOUNT, 0, 0);
-            if (result == LB_ERR)
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCOUNT, 0, 0);
+            if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item count."
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't obtain the dropdown box item count."
                     )
                 );
             }
@@ -1527,12 +1529,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename DropdownBox, typename Size, typename Encoder>
         static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
         {
-            const ::LRESULT length = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETTEXTLEN, index, 0);
-            if (length == LB_ERR)
+            const ::LRESULT length = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETLBTEXTLEN, index, 0);
+            if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item length."
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't obtain the dropdown box item length."
                     )
                 );
             }
@@ -1541,15 +1544,15 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::LRESULT result =
                 ::SendMessageW(
                     dropdown_box.details()->handle.get(),
-                    LB_GETTEXT,
+                    CB_GETLBTEXT,
                     index,
                     reinterpret_cast< ::LPARAM>(item.data())
                 );
-            if (length == LB_ERR)
+            if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropdown box item."
                     )
                 );
             }
@@ -1610,15 +1613,15 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::LRESULT result =
                 ::SendMessageW(
                     dropdown_box.details()->handle.get(),
-                    LB_INSERTSTRING,
+                    CB_INSERTSTRING,
                     index,
                     reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
                 );
-            if (result == LB_ERR || result == LB_ERRSPACE)
+            if (result == CB_ERR || result == CB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a dropdown box item."
                     )
                 );
             }
@@ -1638,8 +1641,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename DropdownBox, typename Size>
         static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_DELETESTRING, index, 0);
-            if (result == LB_ERR)
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_DELETESTRING, index, 0);
+            if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -1661,7 +1664,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename DropdownBox>
         static void clear_dropdown_box(DropdownBox& dropdown_box)
         {
-            ::SendMessageW(dropdown_box.details()->handle.get(), LB_RESETCONTENT, 0, 0);
+            ::SendMessageW(dropdown_box.details()->handle.get(), CB_RESETCONTENT, 0, 0);
         }
 
         /*!
@@ -1679,8 +1682,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename DropdownBox>
         static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
         {
-            const ::LRESULT index = ::SendMessageW(dropdown_box.details()->handle.get(), LB_GETCURSEL, 0, 0);
-            return boost::make_optional<Size>(index != LB_ERR, index);
+            const ::LRESULT index = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != CB_ERR, index);
         }
 
         /*!
@@ -1697,12 +1700,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename DropdownBox, typename Size>
         static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), LB_SETCURSEL, index, 0);
-            if (result == LB_ERR)
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_SETCURSEL, index, 0);
+            if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a dropdown box item."
                     )
                 );
             }

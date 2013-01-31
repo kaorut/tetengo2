@@ -36,8 +36,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             switch (HIWORD(w_param))
             {
-            case LBN_SELCANCEL:
-            case LBN_SELCHANGE:
+            case CBN_SELCHANGE:
                 dropdown_box.dropdown_box_observer_set().selection_changed()();
                 break;
             default:
