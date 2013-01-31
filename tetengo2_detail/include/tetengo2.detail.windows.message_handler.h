@@ -32,6 +32,7 @@
 #include "tetengo2.detail.windows.message_handler_detail.button.h"
 #include "tetengo2.detail.windows.message_handler_detail.contro.h"
 #include "tetengo2.detail.windows.message_handler_detail.dialog.h"
+#include "tetengo2.detail.windows.message_handler_detail.dropdo.h"
 #include "tetengo2.detail.windows.message_handler_detail.messag.h"
 #include "tetengo2.detail.windows.message_handler_detail.list_b.h"
 #include "tetengo2.detail.windows.message_handler_detail.pictur.h"
@@ -502,7 +503,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
-                    message_handler_detail::list_box::on_tetengo2_command<DropdownBox>,
+                    message_handler_detail::dropdown_box::on_tetengo2_command<DropdownBox>,
                     cpp11::ref(dropdown_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
