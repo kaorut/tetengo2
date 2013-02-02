@@ -108,120 +108,6 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
-            \brief Creates a window.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget. When uninitialized, the window has no parent.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a window.
-
-            \throw std::system_error When a window cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
-        )
-        {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (!instance_handle)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
-                );
-            }
-
-            if (!window_class_is_registered(window_class_name(), instance_handle))
-                register_window_class_for_window<Widget>(instance_handle);
-
-            typename widget_details_type::handle_type p_widget(
-                ::CreateWindowExW(
-                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
-                    window_class_name().c_str(),
-                    window_class_name().c_str(),
-                    WS_OVERLAPPEDWINDOW,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
-                    NULL,
-                    instance_handle,
-                    NULL
-                )
-            );
-            if (!p_widget)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
-                );
-            }
-
-            return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
-        }
-
-        /*!
-            \brief Creates a dialog.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget. When uninitialized, the dialog has no parent.
-
-            \return A unique pointer to a dialog.
-
-            \throw std::system_error When a dialog cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
-        {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (!instance_handle)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
-                );
-            }
-
-            if (!window_class_is_registered(dialog_class_name(), instance_handle))
-                register_window_class_for_dialog<Widget>(instance_handle);
-
-            typename widget_details_type::handle_type p_widget(
-                ::CreateWindowExW(
-                    WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
-                    dialog_class_name().c_str(),
-                    dialog_class_name().c_str(),
-                    WS_POPUPWINDOW | WS_CAPTION,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
-                    NULL,
-                    instance_handle,
-                    NULL
-                )
-            );
-            if (!p_widget)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a dialog!")
-                );
-            }
-
-            delete_system_menus(p_widget.get());
-
-            return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
-        }
-
-        /*!
             \brief Creates a button.
 
             \tparam Widget A widget type.
@@ -288,6 +174,62 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<widget_details_type>(
                     std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
                 );
+        }
+
+        /*!
+            \brief Creates a dialog.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget. When uninitialized, the dialog has no parent.
+
+            \return A unique pointer to a dialog.
+
+            \throw std::system_error When a dialog cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
+        {
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
+                    )
+                );
+            }
+
+            if (!window_class_is_registered(dialog_class_name(), instance_handle))
+                register_window_class_for_dialog<Widget>(instance_handle);
+
+            typename widget_details_type::handle_type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
+                    dialog_class_name().c_str(),
+                    dialog_class_name().c_str(),
+                    WS_POPUPWINDOW | WS_CAPTION,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a dialog!")
+                );
+            }
+
+            delete_system_menus(p_widget.get());
+
+            return
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -594,6 +536,64 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<widget_details_type>(
                     std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
                 );
+        }
+
+        /*!
+            \brief Creates a window.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a window.
+
+            \throw std::system_error When a window cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&                      parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
+                    )
+                );
+            }
+
+            if (!window_class_is_registered(window_class_name(), instance_handle))
+                register_window_class_for_window<Widget>(instance_handle);
+
+            typename widget_details_type::handle_type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
+                    window_class_name().c_str(),
+                    window_class_name().c_str(),
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
+                );
+            }
+
+            return
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!

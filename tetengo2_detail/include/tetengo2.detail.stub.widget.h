@@ -154,44 +154,6 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Creates a window.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget. When uninitialized, the window has no parent.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a window.
-
-            \throw std::system_error When a window cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
-        )
-        {
-            return create_details<Widget>(parent ? &*parent : NULL);
-        }
-
-        /*!
-            \brief Creates a dialog.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget. When uninitialized, the dialog has no parent.
-
-            \return A unique pointer to a dialog.
-
-            \throw std::system_error When a dialog cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
-        {
-            return create_details<Widget>(parent ? &*parent : NULL);
-        }
-
-        /*!
             \brief Creates a button.
 
             \tparam Widget A widget type.
@@ -210,6 +172,23 @@ namespace tetengo2 { namespace detail { namespace stub
         static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
             return create_details<Widget>(&parent);
+        }
+
+        /*!
+            \brief Creates a dialog.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget. When uninitialized, the dialog has no parent.
+
+            \return A unique pointer to a dialog.
+
+            \throw std::system_error When a dialog cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
+        {
+            return create_details<Widget>(parent ? &*parent : NULL);
         }
 
         /*!
@@ -324,6 +303,27 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             return create_details<Widget>(&parent);
+        }
+
+        /*!
+            \brief Creates a window.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a window.
+
+            \throw std::system_error When a window cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&                      parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            return create_details<Widget>(parent ? &*parent : NULL);
         }
 
         /*!

@@ -567,6 +567,37 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             control_type;
+        typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
+        typedef
+            tetengo2::gui::widget::button<
+                button_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            button_type;
+        typedef
+            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type> image_traits_type;
+        typedef
+            tetengo2::gui::widget::image<
+                image_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            image_type;
+        typedef
+            tetengo2::gui::widget::traits::dropdown_box_traits<
+                control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::dropdown_box_observer_set
+            >
+            dropdown_box_traits_type;
+        typedef
+            tetengo2::gui::widget::dropdown_box<
+                dropdown_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            dropdown_box_type;
         typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;
         typedef
             tetengo2::gui::widget::label<
@@ -593,22 +624,19 @@ namespace bobura
             >
             link_label_type;
         typedef
-            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type> image_traits_type;
+            tetengo2::gui::widget::traits::list_box_traits<
+                control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::list_box_observer_set
+            >
+            list_box_traits_type;
         typedef
-            tetengo2::gui::widget::image<
-                image_traits_type,
+            tetengo2::gui::widget::list_box<
+                list_box_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
-            image_type;
-        typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
-        typedef
-            tetengo2::gui::widget::button<
-                button_traits_type,
-                boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
-            >
-            button_type;
+            list_box_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -631,34 +659,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             text_box_type;
-        typedef
-            tetengo2::gui::widget::traits::list_box_traits<
-                control_traits_type,
-                boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::list_box_observer_set
-            >
-            list_box_traits_type;
-        typedef
-            tetengo2::gui::widget::list_box<
-                list_box_traits_type,
-                boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
-            >
-            list_box_type;
-        typedef
-            tetengo2::gui::widget::traits::dropdown_box_traits<
-                control_traits_type,
-                boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::dropdown_box_observer_set
-            >
-            dropdown_box_traits_type;
-        typedef
-            tetengo2::gui::widget::dropdown_box<
-                dropdown_box_traits_type,
-                boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
-            >
-            dropdown_box_type;
     }}
 #endif
 
