@@ -109,6 +109,82 @@ namespace bobura
         //! The message type list type.
         typedef TrainKindDialogMessageTypeList train_kind_dialog_message_type_list_type;
 
+        //! The information set type.
+        class info_set_type
+        {
+        public:
+
+            /*!
+                \brief Creates an information set.
+
+                \param original_index An original index.
+                \param referred       A referred status.
+                \param train_kind     A train kind.
+            */
+            info_set_type(
+                boost::optional<int_size_type> original_index,
+                const bool                     referred,
+                train_kind_type                train_kind
+            )
+            :
+            m_original_index(std::move(original_index)),
+            m_referred(referred),
+            m_train_kind(std::move(train_kind))
+            {}
+
+
+            /*!
+                \brief Returns the original index.
+
+                \return The original index.
+            */
+            const boost::optional<int_size_type>& original_index()
+            const
+            {
+                return m_original_index;
+            }
+
+            /*!
+                \brief Returns the referred status.
+
+                \return The referred status.
+            */
+            bool referred()
+            const
+            {
+                return m_referred;
+            }
+
+            /*!
+                \brief Returns the train kind.
+
+                \return The train kind.
+            */
+            const train_kind_type& train_kind()
+            const
+            {
+                return m_train_kind;
+            }
+
+            /*!
+                \brief Returns the train kind.
+
+                \return The train kind.
+            */
+            train_kind_type& train_kind()
+            {
+                return m_train_kind;
+            }
+
+        private:
+            boost::optional<int_size_type> m_original_index;
+
+            bool m_referred;
+
+            train_kind_type m_train_kind;
+
+        };
+
 
         // constructors and destructor
 
@@ -122,6 +198,7 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_info_sets(),
         m_p_train_kind_label(),
         m_p_train_kind_list_box(),
         m_p_add_button(),
@@ -155,28 +232,26 @@ namespace bobura
 
         // functions
 
-        ///*!
-        //    \brief Returns the font of the train names.
+        /*!
+            \brief Returns the information sets.
 
-        //    \return The font of the train names.
+            \return The information sets.
+        */
+        const std::vector<info_set_type> info_sets()
+        const
+        {
+            return m_info_sets;
+        }
 
-        //    \throw std::logic_error When the font has not been set.
-        //*/
-        //const font_type& train_name()
-        //const
-        //{
-        //    return to_font(m_font_color_list[8]);
-        //}
+        /*!
+            \brief Sets information sets.
 
-        ///*!
-        //    \brief Sets a font of the train names.
-
-        //    \param font  A font.
-        //*/
-        //void set_train_name(const font_type& font)
-        //{
-        //    m_font_color_list[8] = internal_font_color_type(boost::make_optional(font), boost::none);
-        //}
+            \param info_sets Information sets.
+        */
+        void set_info_sets(std::vector<info_set_type> info_sets)
+        {
+            m_info_sets = std::move(info_sets);
+        }
 
 
     private:
@@ -199,6 +274,8 @@ namespace bobura
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+        std::vector<info_set_type> m_info_sets;
 
         std::unique_ptr<label_type> m_p_train_kind_label;
 

@@ -7,6 +7,7 @@
 */
 
 //#include <stdexcept>
+#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -29,6 +30,12 @@ namespace
     typedef
         boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::train_kind_dialog>::type train_kind_dialog_type;
 
+    typedef train_kind_dialog_type::info_set_type info_set_type;
+
+    typedef train_kind_dialog_type::int_size_type int_size_type;
+
+    typedef train_kind_dialog_type::train_kind_type train_kind_type;
+
 
 }
 
@@ -49,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(train_kind_dialog)
         const train_kind_dialog_type train_kind_dialog(window, message_catalog);
     }
 
-    BOOST_AUTO_TEST_CASE(background)
+    BOOST_AUTO_TEST_CASE(info_sets)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -57,10 +64,10 @@ BOOST_AUTO_TEST_SUITE(train_kind_dialog)
         const message_catalog_type message_catalog;
         const train_kind_dialog_type train_kind_dialog(window, message_catalog);
 
-        //BOOST_CHECK_THROW(train_kind_dialog.background(), std::logic_error);
+        BOOST_CHECK(train_kind_dialog.info_sets().empty());
     }
 
-    BOOST_AUTO_TEST_CASE(set_background)
+    BOOST_AUTO_TEST_CASE(set_info_sets)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -68,9 +75,23 @@ BOOST_AUTO_TEST_SUITE(train_kind_dialog)
         const message_catalog_type message_catalog;
         train_kind_dialog_type train_kind_dialog(window, message_catalog);
 
-        //train_kind_dialog.set_background(color_type(12, 34, 56));
+        std::vector<info_set_type> info_sets;
+        info_sets.emplace_back(
+            boost::make_optional<int_size_type>(42),
+            true,
+            train_kind_type(
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("abbreviation")),
+                train_kind_type::color_type(12, 34, 56),
+                train_kind_type::weight_type::bold,
+                train_kind_type::line_style_type::dotted
+            )
+        );
+        train_kind_dialog.set_info_sets(std::move(info_sets));
 
-        //BOOST_CHECK(train_kind_dialog.background() == color_type(12, 34, 56));
+        BOOST_REQUIRE_EQUAL(train_kind_dialog.info_sets().size(), 1U);
+        BOOST_REQUIRE(train_kind_dialog.info_sets()[0].original_index());
+        BOOST_CHECK_EQUAL(*train_kind_dialog.info_sets()[0].original_index(), 42U);
     }
 
 
