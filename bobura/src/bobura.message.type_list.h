@@ -121,6 +121,9 @@ namespace bobura { namespace message
             //! The train kind list box selection change observer type.
             struct train_kind_list_box_selection_changed;
 
+            //! The apply button mouse click observer type.
+            struct apply_button_mouse_clicked;
+
             //! The OK button mouse click observer type.
             struct ok_button_mouse_clicked;
 

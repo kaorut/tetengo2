@@ -627,12 +627,12 @@ namespace bobura
             std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(*this);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:A&pply")));
-            //p_button->mouse_observer_set().clicked().connect(
-            //    typename boost::mpl::at<
-            //        train_kind_dialog_message_type_list_type,
-            //        message::train_kind_dialog::type::ok_button_mouse_clicked
-            //    >::type(*this)
-            //);
+            p_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    train_kind_dialog_message_type_list_type,
+                    message::train_kind_dialog::type::apply_button_mouse_clicked
+                >::type(*this, TETENGO2_CPP11_BIND(&train_kind_dialog::apply, this))
+            );
 
             return std::move(p_button);
         }
@@ -818,6 +818,11 @@ namespace bobura
             }
 
             m_p_sample_picture_box->repaint();
+        }
+
+        void apply()
+        {
+
         }
 
 
