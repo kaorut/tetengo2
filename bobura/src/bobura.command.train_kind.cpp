@@ -6,7 +6,9 @@
     $Id$
 */
 
+#include <iterator>
 //#include <utility>
+#include <vector>
 
 #include "bobura.command.train_kind.h"
 
@@ -46,8 +48,8 @@ namespace bobura { namespace command
         {
             train_kind_dialog_type dialog(parent, m_message_catalog);
 
-            //const train_kind_set_type& train_kind_set = model.timetable().train_kind_set();
-            //dialog.set_background(train_kind_set.background());
+            std::vector<info_set_type> info_sets = to_info_sets(model.timetable());
+            dialog.set_info_sets(std::move(info_sets));
 
             dialog.do_modal();
             if (dialog.result() != dialog_base_type::result_type::accepted)
@@ -71,6 +73,40 @@ namespace bobura { namespace command
 
 
     private:
+        // types
+
+        typedef train_kind_dialog_type::int_size_type int_size_type;
+
+        typedef train_kind_dialog_type::info_set_type info_set_type;
+
+        typedef model_type::timetable_type timetable_type;
+
+        typedef timetable_type::train_kinds_type train_kinds_type;
+
+        typedef timetable_type::train_kind_type train_kind_type;
+
+
+        // static functions
+
+        static std::vector<info_set_type> to_info_sets(const timetable_type& timetable)
+        {
+            std::vector<info_set_type> info_sets;
+            info_sets.reserve(timetable.train_kinds().size());
+
+            for (
+                train_kinds_type::const_iterator i = timetable.train_kinds().begin();
+                i != timetable.train_kinds().end();
+                ++i
+            )
+            {
+                const int_size_type index = std::distance(timetable.train_kinds().begin(), i);
+                info_sets.emplace_back(boost::make_optional(index), timetable.train_kind_referred(i), *i);
+            }
+
+            return info_sets;
+        }
+
+
         // variables
 
         const message_catalog_type& m_message_catalog;
