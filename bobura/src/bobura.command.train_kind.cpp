@@ -94,7 +94,7 @@ namespace bobura { namespace command
             info_sets.reserve(timetable.train_kinds().size());
 
             for (
-                typename train_kinds_type::const_iterator i = timetable.train_kinds().begin();
+                train_kinds_type::const_iterator i = timetable.train_kinds().begin();
                 i != timetable.train_kinds().end();
                 ++i
             )
