@@ -269,6 +269,44 @@ namespace bobura
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        typedef typename train_kind_type::weight_type weight_type;
+
+        typedef typename train_kind_type::line_style_type line_style_type;
+
+
+        // static functions
+
+        static int_size_type to_weight_dropdown_box_index(const typename weight_type::enum_t weight)
+        {
+            switch (weight)
+            {
+            case weight_type::normal:
+                return 0;
+            case weight_type::bold:
+                return 1;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid weight."));
+            }
+        }
+
+        static int_size_type to_line_style_dropdown_box_index(const typename line_style_type::enum_t line_style)
+        {
+            switch (line_style)
+            {
+            case line_style_type::solid:
+                return 0;
+            case line_style_type::dashed:
+                return 1;
+            case line_style_type::dotted:
+                return 2;
+            case line_style_type::dot_dashed:
+                return 3;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid line style."));
+            }
+        }
 
 
         // variables
@@ -748,7 +786,38 @@ namespace bobura
 
         void update()
         {
-            
+            const boost::optional<int_size_type>& selected_index = m_p_train_kind_list_box->selected_item_index();
+
+            m_p_name_label->set_enabled(selected_index);
+            m_p_name_text_box->set_enabled(selected_index);
+            m_p_abbreviation_label->set_enabled(selected_index);
+            m_p_abbreviation_text_box->set_enabled(selected_index);
+            m_p_color_button->set_enabled(selected_index);
+            m_p_weight_label->set_enabled(selected_index);
+            m_p_weight_dropdown_box->set_enabled(selected_index);
+            m_p_line_style_label->set_enabled(selected_index);
+            m_p_line_style_dropdown_box->set_enabled(selected_index);
+            m_p_apply_button->set_enabled(selected_index);
+
+            if (selected_index)
+            {
+                assert(m_info_sets.size() == m_p_train_kind_list_box->item_count());
+                const train_kind_type& train_kind = m_info_sets[*selected_index].train_kind();
+
+                m_p_name_text_box->set_text(train_kind.name());
+                m_p_abbreviation_text_box->set_text(train_kind.abbreviation());
+                m_p_weight_dropdown_box->select_item(to_weight_dropdown_box_index(train_kind.weight()));
+                m_p_line_style_dropdown_box->select_item(to_line_style_dropdown_box_index(train_kind.line_style()));
+            }
+            else
+            {
+                m_p_name_text_box->set_text(string_type());
+                m_p_abbreviation_text_box->set_text(string_type());
+                m_p_weight_dropdown_box->select_item(0);
+                m_p_line_style_dropdown_box->select_item(0);
+            }
+
+            m_p_sample_picture_box->repaint();
         }
 
 
