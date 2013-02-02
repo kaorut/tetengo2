@@ -25,13 +25,13 @@
 namespace bobura { namespace message { namespace train_kind_dialog
 {
     /*!
-        \brief The class template for a selection change observer of the category list box.
+        \brief The class template for a selection change observer of the train kind list box.
 
         \tparam Size    A size type.
         \tparam ListBox A list box type.
     */
     template <typename Size, typename ListBox>
-    class category_list_box_selection_changed
+    class train_kind_list_box_selection_changed
     {
     public:
         // types
@@ -43,25 +43,19 @@ namespace bobura { namespace message { namespace train_kind_dialog
         typedef ListBox list_box_type;
 
         //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
+        typedef std::function<void ()> update_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Create a selection change observer of the category list box.
+            \brief Create a selection change observer of the train kind list box.
 
-            \param current_category_index A current category index.
-            \param list_box               A list box.
-            \param update                 A update function.
+            \param list_box A list box.
+            \param update   A update function.
         */
-        category_list_box_selection_changed(
-            boost::optional<size_type>& current_category_index,
-            const list_box_type&        list_box,
-            const update_type           update
-        )
+        train_kind_list_box_selection_changed(const list_box_type& list_box, const update_type update)
         :
-        m_current_category_index(current_category_index),
         m_list_box(list_box),
         m_update(update)
         {}
@@ -70,21 +64,17 @@ namespace bobura { namespace message { namespace train_kind_dialog
         // functions
 
         /*!
-            \brief Called when the selection of the category list box is changed.
+            \brief Called when the selection of the train kind list box is changed.
         */
         void operator()()
         const
         {
-            const boost::optional<size_type> previous_category_index = m_current_category_index;
-            m_current_category_index = m_list_box.selected_item_index();
-            m_update(previous_category_index);
+            m_update();
         }
 
 
     private:
         // variables
-
-        boost::optional<size_type>& m_current_category_index;
 
         const list_box_type& m_list_box;
 

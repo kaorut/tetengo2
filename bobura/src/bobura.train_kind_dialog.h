@@ -322,9 +322,9 @@ namespace bobura
 
         virtual void do_modal_impl()
         {
-            //m_p_category_list_box->select_item(0);
-            //m_current_category_index = boost::make_optional<int_size_type>(0);
-            //update(boost::none);
+            if (m_p_train_kind_list_box->item_count() > 0)
+                m_p_train_kind_list_box->select_item(0);
+            update();
         }
 
 
@@ -374,16 +374,12 @@ namespace bobura
             std::unique_ptr<list_box_type> p_list_box =
                 tetengo2::make_unique<list_box_type>(*this, list_box_type::scroll_bar_style_type::vertical);
 
-            //p_list_box->list_box_observer_set().selection_changed().connect(
-            //    typename boost::mpl::at<
-            //        font_color_dialog_message_type_list_type,
-            //        message::font_color_dialog::type::category_list_box_selection_changed
-            //    >::type(
-            //        m_current_category_index,
-            //        *p_list_box,
-            //        TETENGO2_CPP11_BIND(&font_color_dialog::update, this, tetengo2::cpp11::placeholders_1())
-            //    )
-            //);
+            p_list_box->list_box_observer_set().selection_changed().connect(
+                typename boost::mpl::at<
+                    train_kind_dialog_message_type_list_type,
+                    message::train_kind_dialog::type::train_kind_list_box_selection_changed
+                >::type(*p_list_box, TETENGO2_CPP11_BIND(&train_kind_dialog::update, this))
+            );
 
             return std::move(p_list_box);
         }
@@ -731,6 +727,11 @@ namespace bobura
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_cancel_button->set_position(position_type(left_type(36), top_type(26)));
+        }
+
+        void update()
+        {
+            
         }
 
 

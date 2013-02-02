@@ -254,11 +254,17 @@ namespace bobura { namespace message
             \tparam Dialog         A dialog type.
             \tparam ListBox        A list box type.
             \tparam Canvas         A canvas type.
-            \tparam FontDialog     A font dialog type.
             \tparam ColorDialog    A color dialog type.
             \tparam MessageCatalog A message catalog type.
         */
-        template <typename Dialog>
+        template <
+            typename Size,
+            typename Dialog,
+            typename ListBox,
+            typename Canvas,
+            typename ColorDialog,
+            typename MessageCatalog
+        >
         class type_list
         {
         public:
@@ -267,11 +273,16 @@ namespace bobura { namespace message
             //! The type list for the font and color dialog.
             typedef
                 tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::train_kind_list_box_selection_changed,
+                        train_kind_list_box_selection_changed<Size, ListBox>
+                    >,
+                tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
-                >>
+                >>>
                 type;
 
 
