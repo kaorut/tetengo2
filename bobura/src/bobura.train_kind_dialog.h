@@ -772,7 +772,7 @@ namespace bobura
         {
             m_p_train_kind_list_box->clear();
             for (
-                std::vector<info_set_type>::const_iterator i = m_info_sets.begin();
+                typename std::vector<info_set_type>::const_iterator i = m_info_sets.begin();
                 i != m_info_sets.end();
                 ++i
             )
