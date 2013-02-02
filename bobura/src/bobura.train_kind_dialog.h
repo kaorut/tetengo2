@@ -322,6 +322,7 @@ namespace bobura
 
         virtual void do_modal_impl()
         {
+            sync_list_box_with_info_sets();
             if (m_p_train_kind_list_box->item_count() > 0)
                 m_p_train_kind_list_box->select_item(0);
             update();
@@ -727,6 +728,22 @@ namespace bobura
 
             m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
             m_p_cancel_button->set_position(position_type(left_type(36), top_type(26)));
+        }
+
+        void sync_list_box_with_info_sets()
+        {
+            m_p_train_kind_list_box->clear();
+            for (
+                std::vector<info_set_type>::const_iterator i = m_info_sets.begin();
+                i != m_info_sets.end();
+                ++i
+            )
+            {
+                m_p_train_kind_list_box->insert_item(
+                    m_p_train_kind_list_box->item_count(),
+                    i->train_kind().name()
+                );
+            }
         }
 
         void update()
