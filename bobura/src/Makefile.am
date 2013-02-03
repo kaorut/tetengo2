@@ -79,6 +79,7 @@ extra_sources = \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
     bobura.main_window_menu_builder.cpp \
+    bobura.train_kind_dialog.cpp \
     bobura.view.diagram.zoom.cpp \
     main.cpp
 
