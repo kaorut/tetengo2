@@ -824,14 +824,7 @@ namespace bobura
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    boost::mpl::at<common_type_list, type::settings>::type,
-                    boost::mpl::at<ui_type_list, type::ui::label>::type,
-                    boost::mpl::at<ui_type_list, type::ui::link_label>::type,
-                    boost::mpl::at<ui_type_list, type::ui::image>::type,
-                    boost::mpl::at<ui_type_list, type::ui::button>::type,
-                    boost::mpl::at<ui_type_list, type::ui::picture_reader>::type,
-                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
-                    message::about_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
+                    boost::mpl::at<common_type_list, type::settings>::type
                 >
             >,
         tetengo2::meta::assoc_list<

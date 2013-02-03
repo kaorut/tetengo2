@@ -17,7 +17,6 @@
 
 #include <tetengo2.cpp11.h>
 
-#include "bobura.message.type_list.h"
 
 
 namespace bobura

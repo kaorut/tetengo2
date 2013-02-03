@@ -22,6 +22,7 @@
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
+#include "bobura.message.type_list.h"
 #include "bobura.type_list.h"
 
 #include "bobura.train_kind_dialog.h"
@@ -110,7 +111,7 @@ namespace bobura
                 initialize_dialog(parent);
             }
 
-            virtual ~impl()
+            ~impl()
             TETENGO2_CPP11_NOEXCEPT
             {}
 
