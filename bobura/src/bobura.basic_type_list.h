@@ -895,22 +895,8 @@ namespace bobura
                 train_kind_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    boost::mpl::at<ui_type_list, type::ui::label>::type,
-                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::text_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::button>::type,
-                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                    detail::dialog::train_kind_type,
-                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
-                    message::train_kind_dialog::type_list<
-                        boost::mpl::at<common_type_list, type::size>::type,
-                        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                        boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                        boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                        boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
-                        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
-                    >::type
+                    boost::mpl::at<common_type_list, type::size>::type,
+                    detail::dialog::train_kind_type
                 >
             >,
         tetengo2::meta::assoc_list_end

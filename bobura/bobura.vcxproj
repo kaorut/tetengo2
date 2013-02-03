@@ -182,6 +182,7 @@
     <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
+    <ClCompile Include="src\bobura.train_kind_dialog.cpp" />
     <ClCompile Include="src\bobura.view.diagram.zoom.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>

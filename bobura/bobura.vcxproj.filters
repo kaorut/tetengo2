@@ -318,5 +318,8 @@
     <ClCompile Include="src\bobura.command.train_kind.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.train_kind_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
