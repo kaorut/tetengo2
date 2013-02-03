@@ -8,11 +8,8 @@ extra_headers =
 
 sources = \
     master.cpp \
-    test_bobura.about_dialog.cpp \
     test_bobura.diagram_picture_box.cpp \
     test_bobura.diagram_view.cpp \
-    test_bobura.file_property_dialog.cpp \
-    test_bobura.font_color_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
     test_bobura.load_save.load_from_file.cpp \
     test_bobura.load_save.new_file.cpp \
@@ -27,7 +24,6 @@ sources = \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \
     test_bobura.message.train_kind_dialog.cpp \
-    test_bobura.oudia_diagram_dialog.cpp \
     test_bobura.settings.cpp \
     test_bobura.timetable_model.cpp \
     test_bobura.view.diagram.header.cpp \

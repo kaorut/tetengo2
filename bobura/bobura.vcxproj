@@ -163,6 +163,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\bobura.about_dialog.cpp" />
     <ClCompile Include="src\bobura.application.cpp" />
     <ClCompile Include="src\bobura.command.about.cpp" />
     <ClCompile Include="src\bobura.command.command_base.cpp" />
@@ -181,7 +182,10 @@
     <ClCompile Include="src\bobura.command.train_kind.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp" />
+    <ClCompile Include="src\bobura.file_property_dialog.cpp" />
+    <ClCompile Include="src\bobura.font_color_dialog.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
+    <ClCompile Include="src\bobura.oudia_diagram_dialog.cpp" />
     <ClCompile Include="src\bobura.train_kind_dialog.cpp" />
     <ClCompile Include="src\bobura.view.diagram.zoom.cpp" />
     <ClCompile Include="src\main.cpp" />

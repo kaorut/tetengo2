@@ -60,6 +60,7 @@ extra_headers = \
     bobura.view.scale_list.h
 
 extra_sources = \
+    bobura.about_dialog.cpp \
     bobura.application.cpp \
     bobura.command.about.cpp \
     bobura.command.command_base.cpp \
@@ -78,7 +79,10 @@ extra_sources = \
     bobura.command.train_kind.cpp \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
+    bobura.file_property_dialog.cpp \
+    bobura.font_color_dialog.cpp \
     bobura.main_window_menu_builder.cpp \
+    bobura.oudia_diagram_dialog.cpp \
     bobura.train_kind_dialog.cpp \
     bobura.view.diagram.zoom.cpp \
     main.cpp

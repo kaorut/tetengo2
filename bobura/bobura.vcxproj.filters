@@ -321,5 +321,17 @@
     <ClCompile Include="src\bobura.train_kind_dialog.cpp">
       <Filter>sources\bobura</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.about_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.file_property_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.font_color_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.oudia_diagram_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
