@@ -370,7 +370,9 @@ namespace bobura
                     position_type(
                         label_left,
                         tetengo2::gui::position<position_type>::top(m_p_note_label->position()) +
-                            top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_note_label->dimension()))
+                            top_type::from(
+                                tetengo2::gui::dimension<dimension_type>::height(m_p_note_label->dimension())
+                            )
                     )
                 );
 

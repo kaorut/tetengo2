@@ -630,7 +630,9 @@ namespace bobura
                     position_type(
                         name_label_left,
                         tetengo2::gui::position<position_type>::top(m_p_sample_label->position()) +
-                            top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_p_sample_label->dimension()))
+                            top_type::from(
+                                tetengo2::gui::dimension<dimension_type>::height(m_p_sample_label->dimension())
+                            )
                     )
                 );
 
@@ -683,7 +685,9 @@ namespace bobura
                     m_p_name_text_box->set_text(train_kind.name());
                     m_p_abbreviation_text_box->set_text(train_kind.abbreviation());
                     m_p_weight_dropdown_box->select_item(to_weight_dropdown_box_index(train_kind.weight()));
-                    m_p_line_style_dropdown_box->select_item(to_line_style_dropdown_box_index(train_kind.line_style()));
+                    m_p_line_style_dropdown_box->select_item(
+                        to_line_style_dropdown_box_index(train_kind.line_style())
+                    );
                 }
                 else
                 {
