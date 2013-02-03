@@ -6,9 +6,11 @@
     $Id$
 */
 
-#include <iterator>
+//#include <iterator>
 //#include <utility>
-#include <vector>
+//#include <vector>
+
+//#include <boost/optional.hpp>
 
 #include "bobura.command.train_kind.h"
 

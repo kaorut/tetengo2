@@ -6,8 +6,20 @@
     $Id$
 */
 
-#include <boost/noncopyable.hpp>
+//#include <cassert>
+//#include <memory>
+//#include <stdexcept>
+//#include <utility>
+//#include <vector>
 
+//#include <boost/mpl/at.hpp>
+//#include <boost/noncopyable.hpp>
+//#include <boost/optional.hpp>
+//#include <boost/throw_exception.hpp>
+
+#include <tetengo2.cpp11.h>
+#include <tetengo2.gui.measure.h>
+#include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
