@@ -17,11 +17,6 @@ Added on    : 2013/01/24
 Depends on  : 00000213
 Description : Create bobura::train_kind_dialog.
 ------------------------------------------------------------------------------
-Number      : 00000213
-Added on    : 2013/02/01
-Depends on  : (none)
-Description : Create bobura.*_dialog.cpp.
-------------------------------------------------------------------------------
 Number      : 00000214
 Added on    : 2013/mm/dd
 Depends on  : (none)
