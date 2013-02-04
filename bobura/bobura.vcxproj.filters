@@ -333,5 +333,8 @@
     <ClCompile Include="src\bobura.oudia_diagram_dialog.cpp">
       <Filter>sources\bobura</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.main_window.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

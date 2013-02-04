@@ -35,9 +35,6 @@
     <ClCompile Include="test\master.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.main_window.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.settings.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
