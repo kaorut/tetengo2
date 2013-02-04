@@ -9,18 +9,11 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-#include <cassert>
-//#include <memory>
+#include <memory>
 
-#include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2.cpp11.h>
-#include <tetengo2.gui.measure.h>
-#include <tetengo2.text.h>
-#include <tetengo2.unique.h>
-
-#include "bobura.message.type_list.h"
 
 
 namespace bobura
@@ -33,17 +26,13 @@ namespace bobura
         \tparam DiagramPictureBox A diagram picture box type.
         \tparam Settings          A settings type.
         \tparam ConfirmFileSave   A file save confirmation type.
-        \tparam MessageLoopBreak  A message loop break type.
-        \tparam MessageTypeList   A message type list type.
     */
     template <
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
         typename Settings,
-        typename ConfirmFileSave,
-        typename MessageLoopBreak,
-        typename MessageTypeList
+        typename ConfirmFileSave
     >
     class main_window : public Window
     {
@@ -68,43 +57,27 @@ namespace bobura
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
-        //! The message loop break type.
-        typedef MessageLoopBreak message_loop_break_type;
-
-        //! The message type list type.
-        typedef MessageTypeList message_type_list_type;
-
 
         // constructors and destructor
 
         /*!
             \brief Creates a main window.
 
-            \param message_catalog       A message catalog.
-            \param settings              Settings.
-            \param confirm_file_save     A file save confirmation.
+            \param message_catalog   A message catalog.
+            \param settings          Settings.
+            \param confirm_file_save A file save confirmation.
         */
         main_window(
             const message_catalog_type&   message_catalog,
             const settings_type&          settings,
             const confirm_file_save_type& confirm_file_save
-        )
-        :
-        base_type(),
-        m_message_catalog(message_catalog),
-        m_p_diagram_picture_box(),
-        m_settings(settings),
-        m_confirm_file_save(confirm_file_save)
-        {
-            initialize_window();
-        }
+        );
 
         /*!
             \brief Destroys the main window.
         */
         virtual ~main_window()
-        TETENGO2_CPP11_NOEXCEPT
-        {}
+        TETENGO2_CPP11_NOEXCEPT;
 
 
         // functions
@@ -115,17 +88,7 @@ namespace bobura
             \param document_name A document name.
             \param changed       A changed status.
         */
-        void set_title(const boost::optional<string_type>& document_name, const bool changed)
-        {
-            string_type title =
-                document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
-            if (changed)
-                title += string_type(TETENGO2_TEXT(" *"));
-            title += string_type(TETENGO2_TEXT(" - "));
-            title += m_message_catalog.get(TETENGO2_TEXT("App:Bobura"));
-
-            set_text(title);
-        }
+        void set_title(const boost::optional<string_type>& document_name, const bool changed);
 
         /*!
             \brief Returns the diagram picture box.
@@ -133,102 +96,25 @@ namespace bobura
             \return The diagram picture box.
         */
         const diagram_picture_box_type& diagram_picture_box()
-        const
-        {
-            assert(m_p_diagram_picture_box);
-            return *m_p_diagram_picture_box;
-        }
+        const;
 
         /*!
             \brief Returns the diagram picture box.
 
             \return The diagram picture box.
         */
-        diagram_picture_box_type& diagram_picture_box()
-        {
-            assert(m_p_diagram_picture_box);
-            return *m_p_diagram_picture_box;
-        }
+        diagram_picture_box_type& diagram_picture_box();
 
 
     private:
         // types
 
-        typedef typename main_window::position_type position_type;
-
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        class call_focus_on_diagram_picture_box_type
-        {
-        public:
-            explicit call_focus_on_diagram_picture_box_type(main_window& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            const
-            {
-                m_self.focus_on_diagram_picture_box();
-            }
-
-        private:
-            main_window& m_self;
-
-        };
-
-        class paint_background_type
-        {
-        public:
-            bool operator()(typename base_type::canvas_type& canvas)
-            const
-            {
-                return true;
-            }
-
-        };
+        class impl;
 
 
         // variables
 
-        const message_catalog_type& m_message_catalog;
-
-        std::unique_ptr<diagram_picture_box_type> m_p_diagram_picture_box;
-
-        const settings_type& m_settings;
-
-        const confirm_file_save_type& m_confirm_file_save;
-
-
-        // functions
-
-        void initialize_window()
-        {
-            m_p_diagram_picture_box = tetengo2::make_unique<diagram_picture_box_type>(*this);
-
-            set_message_observers();
-
-            set_title(boost::none, false);
-        }
-
-        void focus_on_diagram_picture_box()
-        {
-            m_p_diagram_picture_box->set_focus();
-        }
-
-        void set_message_observers()
-        {
-            this->focus_observer_set().got_focus().connect(call_focus_on_diagram_picture_box_type(*this));
-            this->paint_observer_set().paint_background().connect(paint_background_type());
-            this->window_observer_set().closing().connect(
-                typename boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
-                    *this, m_confirm_file_save
-                )
-            );
-            this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
-        }
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };

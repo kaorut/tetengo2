@@ -80,9 +80,7 @@ namespace bobura
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     detail::main_window::diagram_picture_box_type,
                     boost::mpl::at<common_type_list, type::settings>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
-                    boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
-                    detail::main_window::main_window_message_type_list
+                    boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
                 >
             >,
         tetengo2::meta::assoc_list<
