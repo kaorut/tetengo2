@@ -128,7 +128,8 @@ namespace bobura
             typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
 
             typedef
-                message::train_kind_dialog::type_list<
+                typename message::train_kind_dialog::type_list<
+                    info_set_type,
                     boost::mpl::at<common_type_list, type::size>::type,
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<ui_type_list, type::ui::list_box>::type,
@@ -487,7 +488,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::sample_picture_box_paint
-                    >::type(p_picture_box->client_dimension())
+                    >::type(m_info_sets, boost::none, p_picture_box->client_dimension())
                 );
 
                 return std::move(p_picture_box);

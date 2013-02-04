@@ -197,13 +197,21 @@ namespace bobura { namespace message { namespace train_kind_dialog
     /*!
         \brief The class template for a paint observer of the sample picture box.
 
-        \tparam Canvas A canvas type.
+        \tparam InfoSet An information set type.
+        \tparam IntSize An integer size type.
+        \tparam Canvas  A canvas type.
     */
-    template <typename Canvas>
+    template <typename InfoSet, typename IntSize, typename Canvas>
     class sample_picture_box_paint
     {
     public:
         // types
+
+        //! The information set type.
+        typedef InfoSet info_set_type;
+
+        //! The integer size type.
+        typedef IntSize int_size_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -225,8 +233,14 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
             \param canvas_dimension A canvas dimension.
         */
-        sample_picture_box_paint(const dimension_type& canvas_dimension)
+        sample_picture_box_paint(
+            const std::vector<info_set_type>&     info_sets,
+            const boost::optional<int_size_type>& current_train_kind_index,
+            const dimension_type&                 canvas_dimension
+        )
         :
+        m_info_sets(info_sets),
+        m_current_train_kind_index(current_train_kind_index),
         m_canvas_dimension(canvas_dimension)
         {}
 
@@ -298,6 +312,10 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
         // variables
+
+        const std::vector<info_set_type>& m_info_sets;
+
+        const boost::optional<int_size_type>& m_current_train_kind_index;
 
         const dimension_type m_canvas_dimension;
 

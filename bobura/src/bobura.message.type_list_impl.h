@@ -250,6 +250,7 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the train kind dialog messages.
 
+            \tparam InfoSet        An information set type.
             \tparam Size           A size type.
             \tparam Dialog         A dialog type.
             \tparam ListBox        A list box type.
@@ -258,6 +259,7 @@ namespace bobura { namespace message
             \tparam MessageCatalog A message catalog type.
         */
         template <
+            typename InfoSet,
             typename Size,
             typename Dialog,
             typename ListBox,
@@ -278,7 +280,9 @@ namespace bobura { namespace message
                         train_kind_list_box_selection_changed<Size, ListBox>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::sample_picture_box_paint, sample_picture_box_paint<Canvas>>,
+                    boost::mpl::pair<
+                        type::sample_picture_box_paint, sample_picture_box_paint<InfoSet, Size, Canvas>
+                    >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::apply_button_mouse_clicked, apply_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
