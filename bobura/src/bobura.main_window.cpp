@@ -72,10 +72,6 @@ namespace bobura
                 initialize_window();
             }
 
-            ~impl()
-            TETENGO2_CPP11_NOEXCEPT
-            {}
-
 
             // functions
 

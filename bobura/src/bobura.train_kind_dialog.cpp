@@ -86,10 +86,6 @@ namespace bobura
                 initialize_dialog(parent);
             }
 
-            ~impl()
-            TETENGO2_CPP11_NOEXCEPT
-            {}
-
 
             // functions
 

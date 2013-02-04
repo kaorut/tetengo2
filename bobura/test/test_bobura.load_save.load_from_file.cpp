@@ -12,6 +12,8 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.model.serializer.select_oudia_diagram.h"
 #include "bobura.type_list.h"
 
@@ -36,7 +38,7 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
-    struct oudia_diagram_dialog : public boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type
+    struct oudia_diagram_dialog_type : public boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type
     {
         typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type base_type;
 
@@ -49,9 +51,13 @@ namespace
 
         typedef boost::mpl::at<bobura::common_type_list, bobura::type::size>::type int_size_type;
 
-        oudia_diagram_dialog(abstract_window_type& parent, const message_catalog_type& message_catalog)
+        oudia_diagram_dialog_type(abstract_window_type& parent, const message_catalog_type& message_catalog)
         :
         base_type(parent)
+        {}
+
+        virtual ~oudia_diagram_dialog_type()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
         const string_type& file_name()
@@ -92,7 +98,7 @@ namespace
             timetable_type,
             boost::mpl::at<bobura::common_type_list, bobura::type::pull_parser>::type,
             boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type,
-            bobura::model::serializer::select_oudia_diagram<oudia_diagram_dialog>,
+            bobura::model::serializer::select_oudia_diagram<oudia_diagram_dialog_type>,
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::timetable_file_encoder>::type,
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::windia_file_encoder>::type
         >
