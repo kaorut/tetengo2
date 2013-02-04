@@ -131,16 +131,18 @@ namespace bobura
         private:
             // types
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
 
             typedef
-                message::oudia_diagram_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
+                typename boost::mpl::at<ui_type_list, type::ui::transparent_background>::type
+                transparent_background_type;
+
+            typedef
+                typename message::oudia_diagram_dialog::type_list<base_type>::type
                 oudia_diagram_dialog_message_type_list_type;
 
             typedef typename base_type::dimension_type dimension_type;
@@ -370,9 +372,9 @@ namespace bobura
 
 
     template class oudia_diagram_dialog<
-        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-        boost::mpl::at<common_type_list, type::size>::type
+        typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+        typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+        typename boost::mpl::at<common_type_list, type::size>::type
     >;
 
 

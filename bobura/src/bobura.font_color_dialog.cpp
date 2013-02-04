@@ -56,7 +56,7 @@ namespace bobura
             typedef Color color_type;
 
             typedef
-                typename typename font_color_dialog<Dialog, MessageCatalog, IntSize, Font, Color>::font_color_type
+                typename font_color_dialog<Dialog, MessageCatalog, IntSize, Font, Color>::font_color_type
                 font_color_type;
 
 
@@ -107,7 +107,8 @@ namespace bobura
 
             void set_company_line_name(const font_type& font, const color_type& color)
             {
-                m_font_color_list[1] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[1] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type note()
@@ -118,7 +119,8 @@ namespace bobura
 
             void set_note(const font_type& font, const color_type& color)
             {
-                m_font_color_list[2] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[2] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type time_line()
@@ -129,7 +131,8 @@ namespace bobura
 
             void set_time_line(const font_type& font, const color_type& color)
             {
-                m_font_color_list[3] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[3] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type local_station()
@@ -140,7 +143,8 @@ namespace bobura
 
             void set_local_station(const font_type& font, const color_type& color)
             {
-                m_font_color_list[4] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[4] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type principal_station()
@@ -151,7 +155,8 @@ namespace bobura
 
             void set_principal_station(const font_type& font, const color_type& color)
             {
-                m_font_color_list[5] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[5] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type local_terminal_station()
@@ -162,7 +167,8 @@ namespace bobura
 
             void set_local_terminal_station(const font_type& font, const color_type& color)
             {
-                m_font_color_list[6] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[6] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             font_color_type principal_terminal_station()
@@ -173,7 +179,8 @@ namespace bobura
 
             void set_principal_terminal_station(const font_type& font, const color_type& color)
             {
-                m_font_color_list[7] = internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
+                m_font_color_list[7] =
+                    internal_font_color_type(boost::make_optional(font), boost::make_optional(color));
             }
 
             const font_type& train_name()
@@ -199,27 +206,29 @@ namespace bobura
         private:
             // types
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
 
             typedef
-                message::font_color_dialog::type_list<
-                    boost::mpl::at<common_type_list, type::size>::type,
-                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                    boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
-                    boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
-                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+                typename boost::mpl::at<ui_type_list, type::ui::transparent_background>::type
+                transparent_background_type;
+
+            typedef
+                typename message::font_color_dialog::type_list<
+                    int_size_type,
+                    base_type,
+                    list_box_type,
+                    typename boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                    typename boost::mpl::at<common_dialog_type_list, type::common_dialog::font>::type,
+                    typename boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
+                    message_catalog_type
                 >::type
                 font_color_dialog_message_type_list_type;
 
@@ -764,11 +773,11 @@ namespace bobura
 
 
     template class font_color_dialog<
-        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-        boost::mpl::at<common_type_list, type::size>::type,
-        boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
-        boost::mpl::at<ui_type_list, type::ui::color>::type
+        typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+        typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+        typename boost::mpl::at<common_type_list, type::size>::type,
+        typename boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+        typename boost::mpl::at<ui_type_list, type::ui::color>::type
     >;
 
 

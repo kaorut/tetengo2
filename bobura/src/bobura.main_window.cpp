@@ -104,10 +104,10 @@ namespace bobura
         private:
             // types
 
-            typedef boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type message_loop_break_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type message_loop_break_type;
 
             typedef
-                boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
+                typename boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
                 message_type_list_type;
 
             typedef typename base_type::position_type position_type;
@@ -271,11 +271,11 @@ namespace bobura
 
 
     template class main_window<
-        boost::mpl::at<ui_type_list, type::ui::window>::type,
-        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+        typename boost::mpl::at<ui_type_list, type::ui::window>::type,
+        typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         detail::main_window::diagram_picture_box_type,
-        boost::mpl::at<common_type_list, type::settings>::type,
-        boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
+        typename boost::mpl::at<common_type_list, type::settings>::type,
+        typename boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
     >;
 
 

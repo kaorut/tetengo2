@@ -113,29 +113,31 @@ namespace bobura
         private:
             // types
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type dropdown_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type dropdown_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+            typedef
+                typename boost::mpl::at<ui_type_list, type::ui::transparent_background>::type
+                transparent_background_type;
 
             typedef
                 typename message::train_kind_dialog::type_list<
                     info_set_type,
-                    boost::mpl::at<common_type_list, type::size>::type,
-                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                    boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
-                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+                    int_size_type,
+                    base_type,
+                    list_box_type,
+                    typename boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                    typename boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
+                    message_catalog_type
                 >::type
                 train_kind_dialog_message_type_list_type;
 
@@ -748,14 +750,14 @@ namespace bobura
 
     typedef
         bobura::model::train_kind<
-            boost::mpl::at<common_type_list, type::string>::type,
-            boost::mpl::at<ui_type_list, type::ui::color>::type
+            typename boost::mpl::at<common_type_list, type::string>::type,
+            typename boost::mpl::at<ui_type_list, type::ui::color>::type
         >
         train_kind_type;
     template class train_kind_dialog<
-        boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-        boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-        boost::mpl::at<common_type_list, type::size>::type,
+        typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+        typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+        typename boost::mpl::at<common_type_list, type::size>::type,
         train_kind_type
     >;
 
