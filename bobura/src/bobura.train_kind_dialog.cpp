@@ -482,14 +482,13 @@ namespace bobura
                 std::unique_ptr<picture_box_type> p_picture_box =
                     tetengo2::make_unique<picture_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
 
-                //p_picture_box->fast_paint_observer_set().paint().connect(
-                //    typename boost::mpl::at<
-                //        font_color_dialog_message_type_list_type,
-                //        message::font_color_dialog::type::sample_picture_box_paint
-                //    >::type(
-                //        m_font_color_list, m_current_category_index, p_picture_box->client_dimension(), m_message_catalog
-                //    )
-                //);
+                p_picture_box->set_dimension(dimension_type(width_type(20), height_type(4)));
+                p_picture_box->fast_paint_observer_set().paint().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::sample_picture_box_paint
+                    >::type(p_picture_box->client_dimension())
+                );
 
                 return std::move(p_picture_box);
             }
@@ -621,7 +620,6 @@ namespace bobura
                 m_p_sample_label->fit_to_content();
                 m_p_sample_label->set_position(position_type(name_label_left, top_type(16)));
 
-                m_p_sample_picture_box->set_dimension(dimension_type(width_type(20), height_type(4)));
                 m_p_sample_picture_box->set_position(
                     position_type(
                         name_label_left,

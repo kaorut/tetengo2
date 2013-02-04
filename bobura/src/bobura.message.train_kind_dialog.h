@@ -85,279 +85,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
     /*!
-        \brief The class template for a paint observer of the sample picture box.
-
-        \tparam IntSize        A integer size type.
-        \tparam Canvas         A canvas type.
-        \tparam MessageCatalog A message catalog type.
-    */
-    template <typename IntSize, typename Canvas, typename MessageCatalog>
-    class sample_picture_box_paint
-    {
-    public:
-        // types
-
-        //! The integer size type.
-        typedef IntSize int_size_type;
-
-        //! The canvas type.
-        typedef Canvas canvas_type;
-
-        //! The font type.
-        typedef typename Canvas::font_type font_type;
-
-        //! The color type.
-        typedef typename Canvas::color_type color_type;
-
-        //! The internal font and color type.
-        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
-
-        //! The dimension type.
-        typedef typename Canvas::dimension_type dimension_type;
-
-        //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a paint observer of the sample picture box.
-
-            \param font_color_list        A font and color list.
-            \param current_category_index A current category index.
-            \param canvas_dimension       A canvas dimension.
-            \param message_catalog        A message catalog.
-        */
-        sample_picture_box_paint(
-            const std::vector<internal_font_color_type>& font_color_list,
-            const boost::optional<int_size_type>&        current_category_index,
-            const dimension_type&                        canvas_dimension,
-            const message_catalog_type&                  message_catalog
-        )
-        :
-        m_font_color_list(font_color_list),
-        m_current_category_index(current_category_index),
-        m_canvas_dimension(canvas_dimension),
-        m_message_catalog(message_catalog)
-        {}
-
-
-        // functions
-
-        /*!
-            \brief Called when the canvas needs to be repainted.
-
-            \param canvas A canvas.
-        */
-        void operator()(canvas_type& canvas)
-        const
-        {
-            assert(m_font_color_list[0].second);
-            std::unique_ptr<background_type> p_background =
-                tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
-            canvas.set_background(std::move(p_background));
-            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
-
-            if (!m_current_category_index || *m_current_category_index == 0)
-                return;
-
-            assert(m_font_color_list[*m_current_category_index].first);
-            canvas.set_font(*m_font_color_list[*m_current_category_index].first);
-            canvas.set_color(
-                m_font_color_list[*m_current_category_index].second ?
-                *m_font_color_list[*m_current_category_index].second : color_type(0x40, 0x40, 0x40)
-            );
-
-            const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
-
-            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
-
-            canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
-
-            canvas.set_line_width(width_type(size_type(1, 12)));
-            canvas.set_line_style(canvas_type::line_style_type::solid);
-            canvas.draw_line(
-                position_type(left_type(0), text_and_line_tops.second),
-                position_type(
-                    left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
-                    text_and_line_tops.second
-                )
-            );
-        }
-
-
-    private:
-        // types
-
-        typedef typename canvas_type::string_type string_type;
-
-        typedef typename canvas_type::position_type position_type;
-
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename width_type::value_type size_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
-        typedef typename canvas_type::background_type background_type;
-
-        typedef typename canvas_type::solid_background_type solid_background_type;
-
-
-        // variables
-
-        const std::vector<internal_font_color_type>& m_font_color_list;
-
-        const boost::optional<int_size_type>& m_current_category_index;
-
-        const dimension_type m_canvas_dimension;
-
-        const message_catalog_type& m_message_catalog;
-
-
-        // functions
-
-        std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
-        const
-        {
-            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
-            const height_type text_height =
-                tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
-
-            if (canvas_height > text_height)
-            {
-                const top_type text_top = top_type::from((canvas_height - text_height) / 2);
-                const top_type line_top = text_top + top_type::from(text_height);
-                return std::make_pair(text_top, line_top);
-            }
-            else
-            {
-                const top_type line_top = top_type::from(canvas_height);
-                const top_type text_top = line_top - top_type::from(text_height);
-                return std::make_pair(text_top, line_top);
-            }
-        }
-
-
-    };
-
-
-    /*!
-        \brief The class template for a mouse click observer of the font button.
-
-        \tparam Size           A size type.
-        \tparam Dialog         A dialog type.
-        \tparam FontDialog     A font dialog type.
-        \tparam Canvas         A canvas type.
-        \tparam MessageCatalog A message catalog type.
-    */
-    template <typename Size, typename Dialog, typename FontDialog, typename Canvas, typename MessageCatalog>
-    class font_button_mouse_clicked
-    {
-    public:
-        // types
-
-        //! The size type.
-        typedef Size size_type;
-
-        //! The dialog type.
-        typedef Dialog dialog_type;
-
-        //! The font dialog type.
-        typedef FontDialog font_dialog_type;
-
-        //! The canvas type.
-        typedef Canvas canvas_type;
-
-        //! The font type.
-        typedef typename Canvas::font_type font_type;
-
-        //! The color type.
-        typedef typename Canvas::color_type color_type;
-
-        //! The internal font and color type.
-        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
-
-        //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
-
-        //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a mouse click observer of the font button.
-
-            \param dialog                 A dialog.
-            \param font_color_list        A font and color list.
-            \param current_category_index A current category index.
-            \param update                 A update function.
-            \param message_catalog        A message catalog.
-        */
-        font_button_mouse_clicked(
-            dialog_type&                           dialog,
-            std::vector<internal_font_color_type>& font_color_list,
-            const boost::optional<size_type>&      current_category_index,
-            const update_type                      update,
-            const message_catalog_type&            message_catalog
-        )
-        :
-        m_dialog(dialog),
-        m_font_color_list(font_color_list),
-        m_current_category_index(current_category_index),
-        m_update(update),
-        m_message_catalog(message_catalog)
-        {}
-
-
-        // functions
-
-        /*!
-            \brief Called when the font button is clicked.
-        */
-        void operator()()
-        const
-        {
-            if (!m_current_category_index)
-                return;
-
-            font_dialog_type font_dialog(m_font_color_list[*m_current_category_index].first, m_dialog);
-
-            const bool ok = font_dialog.do_modal();
-            if (!ok)
-                return;
-
-            m_font_color_list[*m_current_category_index].first = boost::make_optional(font_dialog.result());
-
-            m_update(m_current_category_index);
-        }
-
-
-    private:
-        // variables
-
-        dialog_type& m_dialog;
-
-        std::vector<internal_font_color_type>& m_font_color_list;
-
-        const boost::optional<size_type>& m_current_category_index;
-
-        update_type m_update;
-
-        const message_catalog_type& m_message_catalog;
-
-
-    };
-
-
-    /*!
         \brief The class template for a mouse click observer of the color button.
 
         \tparam Size           A size type.
@@ -462,6 +189,117 @@ namespace bobura { namespace message { namespace train_kind_dialog
         update_type m_update;
 
         const message_catalog_type& m_message_catalog;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a paint observer of the sample picture box.
+
+        \tparam Canvas A canvas type.
+    */
+    template <typename Canvas>
+    class sample_picture_box_paint
+    {
+    public:
+        // types
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
+
+        //! The font type.
+        typedef typename Canvas::font_type font_type;
+
+        //! The color type.
+        typedef typename Canvas::color_type color_type;
+
+        //! The dimension type.
+        typedef typename Canvas::dimension_type dimension_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a paint observer of the sample picture box.
+
+            \param canvas_dimension A canvas dimension.
+        */
+        sample_picture_box_paint(const dimension_type& canvas_dimension)
+        :
+        m_canvas_dimension(canvas_dimension)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the canvas needs to be repainted.
+
+            \param canvas A canvas.
+        */
+        void operator()(canvas_type& canvas)
+        const
+        {
+            //assert(m_font_color_list[0].second);
+            std::unique_ptr<background_type> p_background =
+                tetengo2::make_unique<solid_background_type>(color_type(0xFF, 0xFF, 0xFF));
+            canvas.set_background(std::move(p_background));
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
+
+            //if (!m_current_category_index || *m_current_category_index == 0)
+            //    return;
+
+            //assert(m_font_color_list[*m_current_category_index].first);
+            //canvas.set_font(*m_font_color_list[*m_current_category_index].first);
+            //canvas.set_color(
+            //    m_font_color_list[*m_current_category_index].second ?
+            //    *m_font_color_list[*m_current_category_index].second : color_type(0x40, 0x40, 0x40)
+            //);
+
+            //const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
+
+            //const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+
+            //canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
+
+            //canvas.set_line_width(width_type(size_type(1, 12)));
+            //canvas.set_line_style(canvas_type::line_style_type::solid);
+            //canvas.draw_line(
+            //    position_type(left_type(0), text_and_line_tops.second),
+            //    position_type(
+            //        left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
+            //        text_and_line_tops.second
+            //    )
+            //);
+        }
+
+
+    private:
+        // types
+
+        typedef typename canvas_type::string_type string_type;
+
+        typedef typename canvas_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename width_type::value_type size_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+        typedef typename canvas_type::background_type background_type;
+
+        typedef typename canvas_type::solid_background_type solid_background_type;
+
+
+        // variables
+
+        const dimension_type m_canvas_dimension;
 
 
     };
