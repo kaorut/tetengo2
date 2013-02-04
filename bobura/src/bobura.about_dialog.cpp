@@ -45,24 +45,6 @@ namespace bobura
 
             typedef Settings settings_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
-
-            typedef typename label_type::color_type color_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::link_label>::type link_label_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::image>::type image_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::picture_reader>::type picture_reader_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
-
-            typedef
-                message::about_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
-                about_dialog_message_type_list_type;
-
 
             // constructors and destructor
 
@@ -93,15 +75,33 @@ namespace bobura
         private:
             // types
 
+            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+
+            typedef typename label_type::color_type color_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::link_label>::type link_label_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::image>::type image_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::picture_reader>::type picture_reader_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+
+            typedef
+                message::about_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
+                about_dialog_message_type_list_type;
+
             typedef typename base_type::string_type string_type;
 
-            typedef typename about_dialog::dimension_type dimension_type;
+            typedef typename base_type::dimension_type dimension_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
-            typedef typename about_dialog::position_type position_type;
+            typedef typename base_type::position_type position_type;
 
             typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 

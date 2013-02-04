@@ -43,18 +43,6 @@ namespace bobura
 
             typedef MessageCatalog message_catalog_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
-
-            typedef
-                message::file_property_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
-                file_property_dialog_message_type_list_type;
-
 
             // constructors and destructor
 
@@ -150,13 +138,25 @@ namespace bobura
         private:
             // types
 
-            typedef typename file_property_dialog::dimension_type dimension_type;
+            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+
+            typedef
+                message::file_property_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
+                file_property_dialog_message_type_list_type;
+
+            typedef typename base_type::dimension_type dimension_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
-            typedef typename file_property_dialog::position_type position_type;
+            typedef typename base_type::position_type position_type;
 
             typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 

@@ -55,31 +55,6 @@ namespace bobura
             typedef
                 typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::info_set_type info_set_type;
 
-            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type dropdown_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
-
-            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
-
-            typedef
-                message::train_kind_dialog::type_list<
-                    boost::mpl::at<common_type_list, type::size>::type,
-                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                    boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
-                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
-                >::type
-                train_kind_dialog_message_type_list_type;
-
 
             // constructors and destructor
 
@@ -142,13 +117,38 @@ namespace bobura
         private:
             // types
 
-            typedef typename impl::dimension_type dimension_type;
+            typedef boost::mpl::at<ui_type_list, type::ui::label>::type label_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::list_box>::type list_box_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::text_box>::type text_box_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::dropdown_box>::type dropdown_box_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::picture_box>::type picture_box_type;
+
+            typedef boost::mpl::at<ui_type_list, type::ui::transparent_background>::type transparent_background_type;
+
+            typedef
+                message::train_kind_dialog::type_list<
+                    boost::mpl::at<common_type_list, type::size>::type,
+                    boost::mpl::at<ui_type_list, type::ui::dialog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::list_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                    boost::mpl::at<common_dialog_type_list, type::common_dialog::color>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+                >::type
+                train_kind_dialog_message_type_list_type;
+
+            typedef typename base_type::dimension_type dimension_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
             typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
-            typedef typename impl::position_type position_type;
+            typedef typename base_type::position_type position_type;
 
             typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
