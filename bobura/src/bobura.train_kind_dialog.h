@@ -69,6 +69,8 @@ namespace bobura
         class info_set_type
         {
         public:
+            //! The train kind type.
+            typedef TrainKind train_kind_type;
 
             /*!
                 \brief Creates an information set.

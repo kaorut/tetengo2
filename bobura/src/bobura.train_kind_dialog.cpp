@@ -83,6 +83,7 @@ namespace bobura
             m_base(base),
             m_message_catalog(message_catalog),
             m_info_sets(),
+            m_current_train_kind_index(),
             m_p_train_kind_label(),
             m_p_train_kind_list_box(),
             m_p_add_button(),
@@ -124,7 +125,10 @@ namespace bobura
             {
                 sync_list_box_with_info_sets();
                 if (m_p_train_kind_list_box->item_count() > 0)
+                {
                     m_p_train_kind_list_box->select_item(0);
+                    m_current_train_kind_index = boost::make_optional<int_size_type>(0);
+                }
                 update();
             }
 
@@ -221,6 +225,8 @@ namespace bobura
 
             std::vector<info_set_type> m_info_sets;
 
+            boost::optional<int_size_type> m_current_train_kind_index;
+
             std::unique_ptr<label_type> m_p_train_kind_label;
 
             std::unique_ptr<list_box_type> m_p_train_kind_list_box;
@@ -316,7 +322,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::train_kind_list_box_selection_changed
-                    >::type(*p_list_box, TETENGO2_CPP11_BIND(&impl::update, this))
+                    >::type(m_current_train_kind_index, *p_list_box, TETENGO2_CPP11_BIND(&impl::update, this))
                 );
 
                 return std::move(p_list_box);
@@ -517,7 +523,13 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::sample_picture_box_paint
-                    >::type(m_info_sets, boost::none, font, background_color, p_picture_box->client_dimension())
+                    >::type(
+                        m_info_sets,
+                        m_current_train_kind_index,
+                        font,
+                        background_color,
+                        p_picture_box->client_dimension()
+                    )
                 );
 
                 return std::move(p_picture_box);

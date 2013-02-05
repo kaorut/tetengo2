@@ -51,11 +51,17 @@ namespace bobura { namespace message { namespace train_kind_dialog
         /*!
             \brief Create a selection change observer of the train kind list box.
 
-            \param list_box A list box.
-            \param update   A update function.
+            \param current_train_kind_index A current train kind index.
+            \param list_box                 A list box.
+            \param update                   A update function.
         */
-        train_kind_list_box_selection_changed(const list_box_type& list_box, const update_type update)
+        train_kind_list_box_selection_changed(
+            boost::optional<size_type>& current_train_kind_index,
+            const list_box_type&        list_box,
+            const update_type           update
+        )
         :
+        m_current_train_kind_index(current_train_kind_index),
         m_list_box(list_box),
         m_update(update)
         {}
@@ -69,12 +75,15 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()()
         const
         {
+            m_current_train_kind_index = m_list_box.selected_item_index();
             m_update();
         }
 
 
     private:
         // variables
+
+        boost::optional<size_type>& m_current_train_kind_index;
 
         const list_box_type& m_list_box;
 
@@ -259,7 +268,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()(canvas_type& canvas)
         const
         {
-            //assert(m_font_color_list[0].second);
             std::unique_ptr<background_type> p_background =
                 tetengo2::make_unique<solid_background_type>(m_background_color);
             canvas.set_background(std::move(p_background));
@@ -268,31 +276,29 @@ namespace bobura { namespace message { namespace train_kind_dialog
             if (!m_current_train_kind_index)
                 return;
 
-            //if (!m_current_category_index || *m_current_category_index == 0)
-            //    return;
+            const train_kind_type& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
 
-            //assert(m_font_color_list[*m_current_category_index].first);
-            //canvas.set_font(*m_font_color_list[*m_current_category_index].first);
-            //canvas.set_color(
-            //    m_font_color_list[*m_current_category_index].second ?
-            //    *m_font_color_list[*m_current_category_index].second : color_type(0x40, 0x40, 0x40)
-            //);
+            canvas.set_font(fixed_size_font(m_font));
+            canvas.set_color(train_kind.color());
 
-            //const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
+            const string_type& text =
+                train_kind.abbreviation().empty() ? train_kind.name() : train_kind.abbreviation();
+            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+            canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
 
-            //const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
-
-            //canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
-
-            //canvas.set_line_width(width_type(size_type(1, 12)));
-            //canvas.set_line_style(canvas_type::line_style_type::solid);
-            //canvas.draw_line(
-            //    position_type(left_type(0), text_and_line_tops.second),
-            //    position_type(
-            //        left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
-            //        text_and_line_tops.second
-            //    )
-            //);
+            width_type line_width =
+                train_kind.weight() == train_kind_type::weight_type::bold ?
+                width_type(size_type(1, 6)) : width_type(size_type(1, 12));
+            canvas.set_line_width(std::move(line_width));
+            
+            canvas.set_line_style(to_canvas_line_style(train_kind.line_style()));
+            canvas.draw_line(
+                position_type(left_type(0), text_and_line_tops.second),
+                position_type(
+                    left_type::from(tetengo2::gui::dimension<dimension_type>::width(m_canvas_dimension)),
+                    text_and_line_tops.second
+                )
+            );
         }
 
 
@@ -317,6 +323,44 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
         typedef typename canvas_type::solid_background_type solid_background_type;
 
+        typedef typename info_set_type::train_kind_type train_kind_type;
+
+
+        // static functions
+
+        static font_type fixed_size_font(const font_type& base)
+        {
+            return
+                font_type(
+                    base.family(),
+                    font_type::dialog_font().size(),
+                    base.bold(),
+                    base.italic(),
+                    base.underline(),
+                    base.strikeout()
+                );
+        }
+
+        static typename canvas_type::line_style_type::enum_t to_canvas_line_style(
+            const typename train_kind_type::line_style_type::enum_t line_style
+        )
+        {
+            switch (line_style)
+            {
+            case train_kind_type::line_style_type::solid:
+                return canvas_type::line_style_type::solid;
+            case train_kind_type::line_style_type::dashed:
+                return canvas_type::line_style_type::dashed;
+            case train_kind_type::line_style_type::dotted:
+                return canvas_type::line_style_type::dotted;
+            case train_kind_type::line_style_type::dot_dashed:
+                return canvas_type::line_style_type::dot_dashed;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown line style."));
+            }
+        }
+
 
         // variables
 
@@ -329,6 +373,30 @@ namespace bobura { namespace message { namespace train_kind_dialog
         const color_type& m_background_color;
 
         const dimension_type m_canvas_dimension;
+
+
+        // functions
+
+        std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
+        const
+        {
+            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
+            const height_type text_height =
+                tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
+
+            if (canvas_height > text_height)
+            {
+                const top_type text_top = top_type::from((canvas_height - text_height) / 2);
+                const top_type line_top = text_top + top_type::from(text_height);
+                return std::make_pair(text_top, line_top);
+            }
+            else
+            {
+                const top_type line_top = top_type::from(canvas_height);
+                const top_type text_top = line_top - top_type::from(text_height);
+                return std::make_pair(text_top, line_top);
+            }
+        }
 
 
     };
