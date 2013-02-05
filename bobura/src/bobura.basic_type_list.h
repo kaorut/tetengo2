@@ -862,7 +862,9 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<common_type_list, type::size>::type,
-                    detail::dialog::train_kind_type
+                    detail::dialog::train_kind_type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<ui_type_list, type::ui::color>::type
                 >
             >,
         tetengo2::meta::assoc_list_end

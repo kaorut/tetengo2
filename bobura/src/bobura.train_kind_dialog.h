@@ -28,8 +28,17 @@ namespace bobura
         \tparam MessageCatalog A message catalog type.
         \tparam IntSize        An integer size type.
         \tparam TrainKind      A train kind type.
+        \tparam Font           A font type.
+        \tparam Color          A color type.
     */
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
     class train_kind_dialog : public Dialog
     {
     public:
@@ -49,6 +58,12 @@ namespace bobura
 
         //! The train kind type.
         typedef TrainKind train_kind_type;
+
+        //! The font type.
+        typedef Font font_type;
+
+        //! The color type.
+        typedef Color color_type;
 
         //! The information set type.
         class info_set_type
@@ -132,10 +147,17 @@ namespace bobura
         /*!
             \brief Creates a train kind dialog.
 
-            \param parent          A parent window.
-            \param message_catalog A message catalog.
+            \param parent           A parent window.
+            \param message_catalog  A message catalog.
+            \param font             A font for the sample.
+            \param background_color A background color for the sample.
         */
-        train_kind_dialog(abstract_window_type& parent, const message_catalog_type& message_catalog);
+        train_kind_dialog(
+            abstract_window_type&       parent,
+            const message_catalog_type& message_catalog,
+            const font_type&            font,
+            const color_type&           background_color
+        );
 
         /*!
             \brief Destroys the train kind dialog.

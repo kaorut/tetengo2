@@ -236,11 +236,15 @@ namespace bobura { namespace message { namespace train_kind_dialog
         sample_picture_box_paint(
             const std::vector<info_set_type>&     info_sets,
             const boost::optional<int_size_type>& current_train_kind_index,
+            const font_type&                      font,
+            const color_type&                     background_color,
             const dimension_type&                 canvas_dimension
         )
         :
         m_info_sets(info_sets),
         m_current_train_kind_index(current_train_kind_index),
+        m_font(font),
+        m_background_color(background_color),
         m_canvas_dimension(canvas_dimension)
         {}
 
@@ -257,9 +261,12 @@ namespace bobura { namespace message { namespace train_kind_dialog
         {
             //assert(m_font_color_list[0].second);
             std::unique_ptr<background_type> p_background =
-                tetengo2::make_unique<solid_background_type>(color_type(0xFF, 0xFF, 0xFF));
+                tetengo2::make_unique<solid_background_type>(m_background_color);
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
+
+            if (!m_current_train_kind_index)
+                return;
 
             //if (!m_current_category_index || *m_current_category_index == 0)
             //    return;
@@ -316,6 +323,10 @@ namespace bobura { namespace message { namespace train_kind_dialog
         const std::vector<info_set_type>& m_info_sets;
 
         const boost::optional<int_size_type>& m_current_train_kind_index;
+
+        const font_type& m_font;
+
+        const color_type& m_background_color;
 
         const dimension_type m_canvas_dimension;
 

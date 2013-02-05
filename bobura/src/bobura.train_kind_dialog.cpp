@@ -32,8 +32,16 @@ namespace bobura
 {
     namespace
     {
-        template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-        class train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::impl : private boost::noncopyable
+        template <
+            typename Dialog,
+            typename MessageCatalog,
+            typename IntSize,
+            typename TrainKind,
+            typename Font,
+            typename Color
+        >
+        class train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::impl :
+            private boost::noncopyable
         {
         public:
             // types
@@ -52,13 +60,25 @@ namespace bobura
 
             typedef TrainKind train_kind_type;
 
+            typedef Font font_type;
+
+            typedef Color color_type;
+
             typedef
-                typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::info_set_type info_set_type;
+                typename train_kind_dialog<
+                    Dialog, MessageCatalog, IntSize, TrainKind, Font, Color
+                >::info_set_type info_set_type;
 
 
             // constructors and destructor
 
-            impl(base_type& base, abstract_window_type& parent, const message_catalog_type& message_catalog)
+            impl(
+                base_type&                  base,
+                abstract_window_type&       parent,
+                const message_catalog_type& message_catalog,
+                const font_type&            font,
+                const color_type&           background_color
+            )
             :
             m_base(base),
             m_message_catalog(message_catalog),
@@ -83,7 +103,7 @@ namespace bobura
             m_p_ok_button(),
             m_p_cancel_button()
             {
-                initialize_dialog(parent);
+                initialize_dialog(parent, font, background_color);
             }
 
 
@@ -244,7 +264,11 @@ namespace bobura
 
             // functions
 
-            void initialize_dialog(const abstract_window_type& parent)
+            void initialize_dialog(
+                const abstract_window_type& parent,
+                const font_type&            font,
+                const color_type&           background_color
+            )
             {
                 m_base.set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Train Kinds")));
 
@@ -264,7 +288,7 @@ namespace bobura
                 m_p_line_style_label = create_line_style_label();
                 m_p_line_style_dropdown_box = create_line_style_dropdown_box();
                 m_p_sample_label = create_sample_label();
-                m_p_sample_picture_box = create_sample_picture_box();
+                m_p_sample_picture_box = create_sample_picture_box(font, background_color);
                 m_p_apply_button = create_apply_button();
                 m_p_ok_button = create_ok_button();
                 m_p_cancel_button = create_cancel_button();
@@ -480,7 +504,10 @@ namespace bobura
                 return std::move(p_label);
             }
 
-            std::unique_ptr<picture_box_type> create_sample_picture_box()
+            std::unique_ptr<picture_box_type> create_sample_picture_box(
+                const font_type&  font,
+                const color_type& background_color
+            )
             {
                 std::unique_ptr<picture_box_type> p_picture_box =
                     tetengo2::make_unique<picture_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
@@ -490,7 +517,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::sample_picture_box_paint
-                    >::type(m_info_sets, boost::none, p_picture_box->client_dimension())
+                    >::type(m_info_sets, boost::none, font, background_color, p_picture_box->client_dimension())
                 );
 
                 return std::move(p_picture_box);
@@ -708,45 +735,81 @@ namespace bobura
 
     }
 
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::train_kind_dialog(
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::train_kind_dialog(
         abstract_window_type&       parent,
-        const message_catalog_type& message_catalog
+        const message_catalog_type& message_catalog,
+        const font_type&            font,
+        const color_type&           background_color
     )
     :
     base_type(parent),
-    m_p_impl(tetengo2::make_unique<impl>(*this, parent, message_catalog))
+    m_p_impl(tetengo2::make_unique<impl>(*this, parent, message_catalog, font, background_color))
     {}
 
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::~train_kind_dialog()
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::~train_kind_dialog()
     TETENGO2_CPP11_NOEXCEPT
     {}
     
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-    const std::vector<
-        typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::info_set_type
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
     >
-    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::info_sets()
+    const std::vector<
+        typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type
+    >
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_sets()
     const
     {
         return m_p_impl->info_sets();
     }
 
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-    void train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::set_info_sets(
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    void train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::set_info_sets(
         std::vector<info_set_type> info_sets
     )
     {
         m_p_impl->set_info_sets(std::move(info_sets));
     }
 
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename TrainKind>
-    void train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind>::do_modal_impl()
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    void train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::do_modal_impl()
     {
         m_p_impl->do_modal_impl();
     }
-
 
     typedef
         bobura::model::train_kind<
@@ -758,7 +821,9 @@ namespace bobura
         typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         typename boost::mpl::at<common_type_list, type::size>::type,
-        train_kind_type
+        train_kind_type,
+        typename boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+        typename boost::mpl::at<ui_type_list, type::ui::color>::type
     >;
 
 

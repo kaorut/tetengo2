@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cassert>
 //#include <iterator>
 //#include <utility>
 //#include <vector>
@@ -48,7 +49,10 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            train_kind_dialog_type dialog(parent, m_message_catalog);
+            const font_color_set_type& font_color_set = model.timetable().font_color_set();
+            train_kind_dialog_type dialog(
+                parent, m_message_catalog, font_color_set.train_name(), font_color_set.background()
+            );
 
             std::vector<info_set_type> info_sets = to_info_sets(model.timetable());
             dialog.set_info_sets(std::move(info_sets));
@@ -86,6 +90,8 @@ namespace bobura { namespace command
         typedef timetable_type::train_kinds_type train_kinds_type;
 
         typedef timetable_type::train_kind_type train_kind_type;
+
+        typedef timetable_type::font_color_set_type font_color_set_type;
 
 
         // static functions
