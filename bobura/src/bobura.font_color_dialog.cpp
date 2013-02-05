@@ -198,7 +198,7 @@ namespace bobura
             {
                 m_p_category_list_box->select_item(0);
                 m_current_category_index = boost::make_optional<int_size_type>(0);
-                update(boost::none);
+                update();
             }
 
 
@@ -344,11 +344,7 @@ namespace bobura
                     typename boost::mpl::at<
                         font_color_dialog_message_type_list_type,
                         message::font_color_dialog::type::category_list_box_selection_changed
-                    >::type(
-                        m_current_category_index,
-                        *p_list_box,
-                        TETENGO2_CPP11_BIND(&impl::update, this, tetengo2::cpp11::placeholders_1())
-                    )
+                    >::type(m_current_category_index, *p_list_box, TETENGO2_CPP11_BIND(&impl::update, this))
                 );
 
                 return std::move(p_list_box);
@@ -368,7 +364,7 @@ namespace bobura
                         m_base,
                         m_font_color_list,
                         m_current_category_index,
-                        TETENGO2_CPP11_BIND(&impl::update, this, tetengo2::cpp11::placeholders_1()),
+                        TETENGO2_CPP11_BIND(&impl::update, this),
                         m_message_catalog
                     )
                 );
@@ -400,7 +396,7 @@ namespace bobura
                         m_base,
                         m_font_color_list,
                         m_current_category_index,
-                        TETENGO2_CPP11_BIND(&impl::update, this, tetengo2::cpp11::placeholders_1()),
+                        TETENGO2_CPP11_BIND(&impl::update, this),
                         m_message_catalog
                     )
                 );
@@ -560,7 +556,7 @@ namespace bobura
                 );
             }
 
-            void update(const boost::optional<int_size_type>& previous_category_index)
+            void update()
             {
                 const string_type font_name_and_size_ = font_name_and_size();
                 m_p_font_text_box->set_text(font_name_and_size_);
