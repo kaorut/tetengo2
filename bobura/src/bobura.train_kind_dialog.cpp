@@ -747,6 +747,91 @@ namespace bobura
 
     }
 
+
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type::info_set_type(
+        boost::optional<int_size_type> original_index,
+        const bool                     referred,
+        train_kind_type                train_kind
+    )
+    :
+    m_original_index(std::move(original_index)),
+    m_referred(referred),
+    m_train_kind(std::move(train_kind))
+    {}
+
+
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    const boost::optional<
+        typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::int_size_type
+    >&
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type::original_index()
+    const
+    {
+        return m_original_index;
+    }
+
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    bool train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type::referred()
+    const
+    {
+        return m_referred;
+    }
+
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    const typename train_kind_dialog<
+        Dialog, MessageCatalog, IntSize, TrainKind, Font, Color
+    >::info_set_type::train_kind_type&
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type::train_kind()
+    const
+    {
+        return m_train_kind;
+    }
+
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename TrainKind,
+        typename Font,
+        typename Color
+    >
+    typename train_kind_dialog<
+        Dialog, MessageCatalog, IntSize, TrainKind, Font, Color
+    >::info_set_type::train_kind_type&
+    train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type::train_kind()
+    {
+        return m_train_kind;
+    }
+
     template <
         typename Dialog,
         typename MessageCatalog,

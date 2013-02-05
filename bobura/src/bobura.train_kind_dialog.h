@@ -83,12 +83,7 @@ namespace bobura
                 boost::optional<int_size_type> original_index,
                 const bool                     referred,
                 train_kind_type                train_kind
-            )
-            :
-            m_original_index(std::move(original_index)),
-            m_referred(referred),
-            m_train_kind(std::move(train_kind))
-            {}
+            );
 
 
             /*!
@@ -97,10 +92,7 @@ namespace bobura
                 \return The original index.
             */
             const boost::optional<int_size_type>& original_index()
-            const
-            {
-                return m_original_index;
-            }
+            const;
 
             /*!
                 \brief Returns the referred status.
@@ -108,10 +100,7 @@ namespace bobura
                 \return The referred status.
             */
             bool referred()
-            const
-            {
-                return m_referred;
-            }
+            const;
 
             /*!
                 \brief Returns the train kind.
@@ -119,20 +108,14 @@ namespace bobura
                 \return The train kind.
             */
             const train_kind_type& train_kind()
-            const
-            {
-                return m_train_kind;
-            }
+            const;
 
             /*!
                 \brief Returns the train kind.
 
                 \return The train kind.
             */
-            train_kind_type& train_kind()
-            {
-                return m_train_kind;
-            }
+            train_kind_type& train_kind();
 
         private:
             boost::optional<int_size_type> m_original_index;
