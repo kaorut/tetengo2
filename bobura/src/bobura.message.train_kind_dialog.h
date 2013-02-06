@@ -154,7 +154,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         // constructors and destructor
 
         /*!
-            \brief Create a change observer of the name text box.
+            \brief Create a change observer of the abbreviation text box.
 
             \param apply An apply function
         */
@@ -290,6 +290,98 @@ namespace bobura { namespace message { namespace train_kind_dialog
         update_type m_update;
 
         const message_catalog_type& m_message_catalog;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a selection change observer of the weight dropdown box.
+    */
+    class weight_dropdown_box_selection_changed
+    {
+    public:
+        // types
+
+        //! The apply type.
+        typedef std::function<void ()> apply_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Create a selection change observer of the weight dropdown box.
+
+            \param apply An apply function
+        */
+        explicit weight_dropdown_box_selection_changed(const apply_type apply)
+        :
+        m_apply(apply)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the selection of the weight dropdown box is changed.
+        */
+        void operator()()
+        const
+        {
+            m_apply();
+        }
+
+
+    private:
+        // variables
+
+        apply_type m_apply;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a selection change observer of the line style dropdown box.
+    */
+    class line_style_dropdown_box_selection_changed
+    {
+    public:
+        // types
+
+        //! The apply type.
+        typedef std::function<void ()> apply_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Create a selection change observer of the line style dropdown box.
+
+            \param apply An apply function
+        */
+        explicit line_style_dropdown_box_selection_changed(const apply_type apply)
+        :
+        m_apply(apply)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the selection of the line style dropdown box is changed.
+        */
+        void operator()()
+        const
+        {
+            m_apply();
+        }
+
+
+    private:
+        // variables
+
+        apply_type m_apply;
 
 
     };

@@ -513,6 +513,13 @@ namespace bobura
                 );
                 p_dropdown_box->select_item(0);
 
+                p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::weight_dropdown_box_selection_changed
+                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                );
+
                 return std::move(p_dropdown_box);
             }
 
@@ -544,6 +551,13 @@ namespace bobura
                     p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dot-Dashed"))
                 );
                 p_dropdown_box->select_item(0);
+
+                p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::line_style_dropdown_box_selection_changed
+                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                );
 
                 return std::move(p_dropdown_box);
             }
