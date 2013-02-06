@@ -37,7 +37,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             switch (HIWORD(w_param))
             {
             case EN_CHANGE:
-            //    text_box.text_box_observer_set().selection_changed()();
+                text_box.text_box_observer_set().changed()();
                 break;
             default:
                 break;
