@@ -59,6 +59,7 @@
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.scroll_bar_observer_set.h>
+#include <tetengo2.gui.message.text_box_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.scroll_bar.h>
 #include <tetengo2.gui.unit.em.h>
@@ -651,7 +652,11 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             picture_box_type;
-        typedef tetengo2::gui::widget::traits::text_box_traits<control_traits_type> text_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::text_box_traits<
+                control_traits_type, tetengo2::gui::message::text_box_observer_set
+            >
+            text_box_traits_type;
         typedef
             tetengo2::gui::widget::text_box<
                 text_box_traits_type,

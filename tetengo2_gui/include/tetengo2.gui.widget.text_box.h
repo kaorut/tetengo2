@@ -32,6 +32,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         typedef Traits traits_type;
 
+        //! The text box observer set type.
+        typedef typename traits_type::text_box_observer_set_type text_box_observer_set_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -72,10 +75,11 @@ namespace tetengo2 { namespace gui { namespace widget
             scroll_bar_style,
             message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_text_box(parent, scroll_bar_style)
-        )
+        ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_text_box_observer_set()
         {
             initialize(this);
         }
@@ -112,11 +116,37 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::set_read_only(*this, read_only);
         }
 
+        /*!
+            \brief Returns the text box observer set.
+
+            \return The text box observer set.
+        */
+        const text_box_observer_set_type& text_box_observer_set()
+        const
+        {
+            return m_text_box_observer_set;
+        }
+
+        /*!
+            \brief Returns the text box observer set.
+
+            \return The text box observer set.
+        */
+        text_box_observer_set_type& text_box_observer_set()
+        {
+            return m_text_box_observer_set;
+        }
+
 
     private:
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+
+
+        // variables
+
+        text_box_observer_set_type m_text_box_observer_set;
 
 
     };
