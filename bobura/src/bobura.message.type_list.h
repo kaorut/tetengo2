@@ -127,6 +127,9 @@ namespace bobura { namespace message
             //! The abbreviation text box change observer type.
             struct abbreviation_text_box_changed;
 
+            //! The color button mouse click observer type.
+            struct color_button_mouse_clicked;
+
             //! The weight dropdown box selection change observer type.
             struct weight_dropdown_box_selection_changed;
 

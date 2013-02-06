@@ -188,20 +188,14 @@ namespace bobura { namespace message { namespace train_kind_dialog
     /*!
         \brief The class template for a mouse click observer of the color button.
 
-        \tparam Size           A size type.
-        \tparam Dialog         A dialog type.
-        \tparam ColorDialog    A color dialog type.
-        \tparam Canvas         A canvas type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam Dialog      A dialog type.
+        \tparam ColorDialog A color dialog type.
     */
-    template <typename Size, typename Dialog, typename ColorDialog, typename Canvas, typename MessageCatalog>
+    template <typename Dialog, typename ColorDialog>
     class color_button_mouse_clicked
     {
     public:
         // types
-
-        //! The size type.
-        typedef Size size_type;
 
         //! The dialog type.
         typedef Dialog dialog_type;
@@ -209,23 +203,11 @@ namespace bobura { namespace message { namespace train_kind_dialog
         //! The color dialog type.
         typedef ColorDialog color_dialog_type;
 
-        //! The canvas type.
-        typedef Canvas canvas_type;
-
-        //! The font type.
-        typedef typename Canvas::font_type font_type;
-
         //! The color type.
-        typedef typename Canvas::color_type color_type;
+        typedef typename color_dialog_type::color_type color_type;
 
-        //! The internal font and color type.
-        typedef std::pair<boost::optional<font_type>, boost::optional<color_type>> internal_font_color_type;
-
-        //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
-
-        //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
+        //! The apply type.
+        typedef std::function<void ()> apply_type;
 
 
         // constructors and destructor
@@ -233,25 +215,15 @@ namespace bobura { namespace message { namespace train_kind_dialog
         /*!
             \brief Creates a mouse click observer of the color button.
 
-            \param dialog                 A dialog.
-            \param font_color_list        A font and color list.
-            \param current_category_index A current category index.
-            \param update                 A update function.
-            \param message_catalog        A message catalog.
+            \param dialog A dialog,
+            \param color  A color.
+            \param apply  An apply function.
         */
-        explicit color_button_mouse_clicked(
-            dialog_type&                           dialog,
-            std::vector<internal_font_color_type>& font_color_list,
-            const boost::optional<size_type>&      current_category_index,
-            const update_type                      update,
-            const message_catalog_type&            message_catalog
-        )
+        color_button_mouse_clicked(dialog_type& dialog, color_type& color, const apply_type apply)
         :
         m_dialog(dialog),
-        m_font_color_list(font_color_list),
-        m_current_category_index(current_category_index),
-        m_update(update),
-        m_message_catalog(message_catalog)
+        m_color(color),
+        m_apply(apply)
         {}
 
 
@@ -263,18 +235,15 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()()
         const
         {
-            if (!m_current_category_index)
-                return;
-
-            color_dialog_type color_dialog(m_font_color_list[*m_current_category_index].second, m_dialog);
+            color_dialog_type color_dialog(m_color, m_dialog);
 
             const bool ok = color_dialog.do_modal();
             if (!ok)
                 return;
 
-            m_font_color_list[*m_current_category_index].second = boost::make_optional(color_dialog.result());
+            m_color = color_dialog.result();
 
-            m_update(m_current_category_index);
+            m_apply();
         }
 
 
@@ -283,13 +252,9 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
         dialog_type& m_dialog;
 
-        std::vector<internal_font_color_type>& m_font_color_list;
+        color_type& m_color;
 
-        const boost::optional<size_type>& m_current_category_index;
-
-        update_type m_update;
-
-        const message_catalog_type& m_message_catalog;
+        apply_type m_apply;
 
 
     };
