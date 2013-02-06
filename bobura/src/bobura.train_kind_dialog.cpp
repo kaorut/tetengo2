@@ -404,6 +404,13 @@ namespace bobura
                 std::unique_ptr<text_box_type> p_text_box =
                     tetengo2::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
 
+                p_text_box->text_box_observer_set().changed().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::name_text_box_changed
+                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                );
+
                 return std::move(p_text_box);
             }
 
@@ -422,6 +429,13 @@ namespace bobura
             {
                 std::unique_ptr<text_box_type> p_text_box =
                     tetengo2::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
+
+                p_text_box->text_box_observer_set().changed().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::abbreviation_text_box_changed
+                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                );
 
                 return std::move(p_text_box);
             }
@@ -738,7 +752,24 @@ namespace bobura
 
             void apply()
             {
+                if (!m_current_train_kind_index)
+                    return;
 
+                train_kind_type& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
+
+                train_kind =
+                    train_kind_type(
+                        m_p_name_text_box->text(),
+                        m_p_abbreviation_text_box->text(),
+                        train_kind.color(),
+                        train_kind.weight(),
+                        train_kind.line_style()
+                    );
+
+                m_p_train_kind_list_box->set_item(*m_current_train_kind_index, train_kind.name());
+                m_p_train_kind_list_box->select_item(*m_current_train_kind_index);
+
+                m_p_sample_picture_box->repaint();
             }
 
 

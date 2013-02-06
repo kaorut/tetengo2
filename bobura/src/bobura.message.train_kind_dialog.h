@@ -94,6 +94,98 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
     /*!
+        \brief The class template for a change observer of the name text box.
+    */
+    class name_text_box_changed
+    {
+    public:
+        // types
+
+        //! The apply type.
+        typedef std::function<void ()> apply_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Create a change observer of the name text box.
+
+            \param apply An apply function
+        */
+        explicit name_text_box_changed(const apply_type apply)
+        :
+        m_apply(apply)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the name text box is changed.
+        */
+        void operator()()
+        const
+        {
+            m_apply();
+        }
+
+
+    private:
+        // variables
+
+        apply_type m_apply;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a change observer of the abbreviation text box.
+    */
+    class abbreviation_text_box_changed
+    {
+    public:
+        // types
+
+        //! The apply type.
+        typedef std::function<void ()> apply_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Create a change observer of the name text box.
+
+            \param apply An apply function
+        */
+        explicit abbreviation_text_box_changed(const apply_type apply)
+        :
+        m_apply(apply)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the abbreviation text box is changed.
+        */
+        void operator()()
+        const
+        {
+            m_apply();
+        }
+
+
+    private:
+        // variables
+
+        apply_type m_apply;
+
+
+    };
+
+
+    /*!
         \brief The class template for a mouse click observer of the color button.
 
         \tparam Size           A size type.

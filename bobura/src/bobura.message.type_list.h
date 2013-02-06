@@ -121,6 +121,12 @@ namespace bobura { namespace message
             //! The train kind list box selection change observer type.
             struct train_kind_list_box_selection_changed;
 
+            //! The name text box change observer type.
+            struct name_text_box_changed;
+
+            //! The abbreviation text box change observer type.
+            struct abbreviation_text_box_changed;
+
             //! The sample picture box paint observer type.
             struct sample_picture_box_paint;
 
