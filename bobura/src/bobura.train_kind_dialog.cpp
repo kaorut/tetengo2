@@ -84,6 +84,7 @@ namespace bobura
             m_message_catalog(message_catalog),
             m_info_sets(),
             m_current_train_kind_index(),
+            m_current_train_kind_color(0, 0, 0),
             m_p_train_kind_label(),
             m_p_train_kind_list_box(),
             m_p_add_button(),
@@ -198,6 +199,20 @@ namespace bobura
                 }
             }
 
+            static typename weight_type::enum_t to_weight(const int_size_type dropdown_box_index)
+            {
+                switch (dropdown_box_index)
+                {
+                case 0:
+                    return weight_type::normal;
+                case 1:
+                    return weight_type::bold;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid weight dropdown box index."));
+                }
+            }
+
             static int_size_type to_line_style_dropdown_box_index(const typename line_style_type::enum_t line_style)
             {
                 switch (line_style)
@@ -216,6 +231,24 @@ namespace bobura
                 }
             }
 
+            static typename line_style_type::enum_t to_line_style(const int_size_type dropdown_box_index)
+            {
+                switch (dropdown_box_index)
+                {
+                case 0:
+                    return line_style_type::solid;
+                case 1:
+                    return line_style_type::dashed;
+                case 2:
+                    return line_style_type::dotted;
+                case 3:
+                    return line_style_type::dot_dashed;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid line style dropdown box index."));
+                }
+            }
+
 
             // variables
 
@@ -226,6 +259,8 @@ namespace bobura
             std::vector<info_set_type> m_info_sets;
 
             boost::optional<int_size_type> m_current_train_kind_index;
+
+            color_type m_current_train_kind_color;
 
             std::unique_ptr<label_type> m_p_train_kind_label;
 
@@ -732,6 +767,7 @@ namespace bobura
                     assert(m_info_sets.size() == m_p_train_kind_list_box->item_count());
                     const train_kind_type& train_kind = m_info_sets[*selected_index].train_kind();
 
+                    m_current_train_kind_color = train_kind.color();
                     m_p_name_text_box->set_text(train_kind.name());
                     m_p_abbreviation_text_box->set_text(train_kind.abbreviation());
                     m_p_weight_dropdown_box->select_item(to_weight_dropdown_box_index(train_kind.weight()));
@@ -741,6 +777,7 @@ namespace bobura
                 }
                 else
                 {
+                    m_current_train_kind_color = color_type(0, 0, 0);
                     m_p_name_text_box->set_text(string_type());
                     m_p_abbreviation_text_box->set_text(string_type());
                     m_p_weight_dropdown_box->select_item(0);
@@ -757,13 +794,15 @@ namespace bobura
 
                 train_kind_type& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
 
+                assert(m_p_weight_dropdown_box->selected_item_index());
+                assert(m_p_weight_dropdown_box->selected_item_index());
                 train_kind =
                     train_kind_type(
                         m_p_name_text_box->text(),
                         m_p_abbreviation_text_box->text(),
-                        train_kind.color(),
-                        train_kind.weight(),
-                        train_kind.line_style()
+                        m_current_train_kind_color,
+                        to_weight(*m_p_weight_dropdown_box->selected_item_index()),
+                        to_line_style(*m_p_line_style_dropdown_box->selected_item_index())
                     );
 
                 m_p_train_kind_list_box->set_item(*m_current_train_kind_index, train_kind.name());
