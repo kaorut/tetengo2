@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace message
         */
         typedef void selection_changed_type();
 
-        //! The signal type of scrolling.
+        //! The signal type of a selection change.
         typedef boost::signals2::signal<selection_changed_type> selection_changed_signal_type;
 
 

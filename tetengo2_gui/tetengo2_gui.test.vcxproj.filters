@@ -227,5 +227,8 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.dropdown_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message.text_box_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

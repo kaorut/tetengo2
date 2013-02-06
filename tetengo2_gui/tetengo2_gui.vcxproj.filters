@@ -255,5 +255,8 @@
     <ClInclude Include="include\tetengo2.gui.widget.traits.dropdown_box_traits.h">
       <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.text_box_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

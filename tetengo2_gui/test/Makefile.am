@@ -49,6 +49,7 @@ sources = \
     test_tetengo2.gui.message.mouse_observer_set.cpp \
     test_tetengo2.gui.message.paint_observer_set.cpp \
     test_tetengo2.gui.message.scroll_bar_observer_set.cpp \
+    test_tetengo2.gui.message.text_box_observer_set.cpp \
     test_tetengo2.gui.message.window_observer_set.cpp \
     test_tetengo2.gui.scroll_bar.cpp \
     test_tetengo2.gui.unit.em.cpp \
