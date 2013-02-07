@@ -397,12 +397,12 @@ namespace bobura
                 std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Up")));
-                //p_button->mouse_observer_set().clicked().connect(
-                //    typename boost::mpl::at<
-                //        train_kind_dialog_message_type_list_type,
-                //        message::train_kind_dialog::type::ok_button_mouse_clicked
-                //    >::type(m_base)
-                //);
+                p_button->mouse_observer_set().clicked().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::up_button_mouse_clicked
+                    >::type(m_info_sets, m_current_train_kind_index, TETENGO2_CPP11_BIND(&impl::sync, this))
+                );
 
                 return std::move(p_button);
             }
@@ -412,12 +412,12 @@ namespace bobura
                 std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Down")));
-                //p_button->mouse_observer_set().clicked().connect(
-                //    typename boost::mpl::at<
-                //        train_kind_dialog_message_type_list_type,
-                //        message::train_kind_dialog::type::ok_button_mouse_clicked
-                //    >::type(m_base)
-                //);
+                p_button->mouse_observer_set().clicked().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::down_button_mouse_clicked
+                    >::type(m_info_sets, m_current_train_kind_index, TETENGO2_CPP11_BIND(&impl::sync, this))
+                );
 
                 return std::move(p_button);
             }
@@ -770,9 +770,12 @@ namespace bobura
 
             void update()
             {
-                const boost::optional<int_size_type>& selected_index = m_p_train_kind_list_box->selected_item_index();
+                assert(m_p_train_kind_list_box->item_count() == m_info_sets.size());
 
-                m_p_delete_button->set_enabled(selected_index);
+                const boost::optional<int_size_type>& selected_index = m_p_train_kind_list_box->selected_item_index();
+                assert(selected_index == m_current_train_kind_index);
+
+                m_p_delete_button->set_enabled(selected_index && !m_info_sets[*selected_index].referred());
                 m_p_up_button->set_enabled(selected_index && *selected_index > 0);
                 m_p_down_button->set_enabled(
                     selected_index && *selected_index + 1 < m_p_train_kind_list_box->item_count()

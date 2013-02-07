@@ -273,15 +273,156 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
     private:
+        // variables
+
+        std::vector<info_set_type>& m_info_sets;
+
+        boost::optional<size_type>& m_current_train_kind_index;
+
+        sync_type m_sync;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse click observer of the up button.
+
+        \tparam InfoSet An information set type.
+        \tparam Size    A size type.
+    */
+    template <typename InfoSet, typename Size>
+    class up_button_mouse_clicked
+    {
+    public:
         // types
 
-        typedef typename info_set_type::train_kind_type train_kind_type;
+        //! The information set type.
+        typedef InfoSet info_set_type;
 
-        typedef typename train_kind_type::string_type string_type;
+        //! The size type.
+        typedef Size size_type;
 
-        typedef typename train_kind_type::color_type color_type;
+        //! The sync type.
+        typedef std::function<void ()> sync_type;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the up button.
+
+            \param info_sets                Information sets.
+            \param current_train_kind_index A current train kind index.
+            \param sync                     A sync function type.
+            \param message_catalog          A message catalog.
+        */
+        up_button_mouse_clicked(
+            std::vector<info_set_type>& info_sets,
+            boost::optional<size_type>& current_train_kind_index,
+            const sync_type             sync
+        )
+        :
+        m_info_sets(info_sets),
+        m_current_train_kind_index(current_train_kind_index),
+        m_sync(sync)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the up button is clicked.
+        */
+        void operator()()
+        const
+        {
+            assert(m_current_train_kind_index);
+            assert(1 <= *m_current_train_kind_index && *m_current_train_kind_index < m_info_sets.size());
+
+            std::swap(m_info_sets[*m_current_train_kind_index - 1], m_info_sets[*m_current_train_kind_index]);
+            --(*m_current_train_kind_index);
+
+            m_sync();
+        }
+
+
+    private:
+        // variables
+
+        std::vector<info_set_type>& m_info_sets;
+
+        boost::optional<size_type>& m_current_train_kind_index;
+
+        sync_type m_sync;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse click observer of the down button.
+
+        \tparam InfoSet An information set type.
+        \tparam Size    A size type.
+    */
+    template <typename InfoSet, typename Size>
+    class down_button_mouse_clicked
+    {
+    public:
+        // types
+
+        //! The information set type.
+        typedef InfoSet info_set_type;
+
+        //! The size type.
+        typedef Size size_type;
+
+        //! The sync type.
+        typedef std::function<void ()> sync_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the down button.
+
+            \param info_sets                Information sets.
+            \param current_train_kind_index A current train kind index.
+            \param sync                     A sync function type.
+            \param message_catalog          A message catalog.
+        */
+        down_button_mouse_clicked(
+            std::vector<info_set_type>& info_sets,
+            boost::optional<size_type>& current_train_kind_index,
+            const sync_type             sync
+        )
+        :
+        m_info_sets(info_sets),
+        m_current_train_kind_index(current_train_kind_index),
+        m_sync(sync)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the down button is clicked.
+        */
+        void operator()()
+        const
+        {
+            assert(m_current_train_kind_index);
+            assert(0 <= *m_current_train_kind_index && *m_current_train_kind_index + 1 < m_info_sets.size());
+
+            std::swap(m_info_sets[*m_current_train_kind_index], m_info_sets[*m_current_train_kind_index + 1]);
+            ++(*m_current_train_kind_index);
+
+            m_sync();
+        }
+
+
+    private:
         // variables
 
         std::vector<info_set_type>& m_info_sets;
