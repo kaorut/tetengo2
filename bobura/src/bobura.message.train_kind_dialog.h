@@ -203,6 +203,98 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
     /*!
+        \brief The class template for a mouse click observer of the delete button.
+
+        \tparam InfoSet An information set type.
+        \tparam Size    A size type.
+    */
+    template <typename InfoSet, typename Size>
+    class delete_button_mouse_clicked
+    {
+    public:
+        // types
+
+        //! The information set type.
+        typedef InfoSet info_set_type;
+
+        //! The size type.
+        typedef Size size_type;
+
+        //! The sync type.
+        typedef std::function<void ()> sync_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the delete button.
+
+            \param info_sets                Information sets.
+            \param current_train_kind_index A current train kind index.
+            \param sync                     A sync function type.
+            \param message_catalog          A message catalog.
+        */
+        delete_button_mouse_clicked(
+            std::vector<info_set_type>& info_sets,
+            boost::optional<size_type>& current_train_kind_index,
+            const sync_type             sync
+        )
+        :
+        m_info_sets(info_sets),
+        m_current_train_kind_index(current_train_kind_index),
+        m_sync(sync)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the delete button is clicked.
+        */
+        void operator()()
+        const
+        {
+            assert(m_current_train_kind_index);
+            assert(*m_current_train_kind_index < m_info_sets.size());
+            const std::vector<info_set_type>::const_iterator deletion_position =
+                boost::next(m_info_sets.begin(), *m_current_train_kind_index);
+
+            m_info_sets.erase(tetengo2::cpp11::as_insertion_iterator(m_info_sets, deletion_position));
+            if (*m_current_train_kind_index >= m_info_sets.size())
+            {
+                if (m_info_sets.empty())
+                    m_current_train_kind_index = boost::none;
+                else
+                    m_current_train_kind_index = boost::make_optional(m_info_sets.size() - 1);
+            }
+
+            m_sync();
+        }
+
+
+    private:
+        // types
+
+        typedef typename info_set_type::train_kind_type train_kind_type;
+
+        typedef typename train_kind_type::string_type string_type;
+
+        typedef typename train_kind_type::color_type color_type;
+
+
+        // variables
+
+        std::vector<info_set_type>& m_info_sets;
+
+        boost::optional<size_type>& m_current_train_kind_index;
+
+        sync_type m_sync;
+
+
+    };
+
+
+    /*!
         \brief The class template for a change observer of the name text box.
     */
     class name_text_box_changed

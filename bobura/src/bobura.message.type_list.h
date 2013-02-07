@@ -124,6 +124,9 @@ namespace bobura { namespace message
             //! The add button mouse click observer type.
             struct add_button_mouse_clicked;
 
+            //! The delete button mouse click observer type.
+            struct delete_button_mouse_clicked;
+
             //! The name text box change observer type.
             struct name_text_box_changed;
 
