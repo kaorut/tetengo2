@@ -18,6 +18,11 @@ Depends on  : 00000213
 Description : Create bobura::train_kind_dialog.
 ------------------------------------------------------------------------------
 Number      : 00000214
+Added on    : 2013/02/07
+Depends on  : (none)
+Description : Introduce boost::string_ref.
+------------------------------------------------------------------------------
+Number      : 00000215
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
