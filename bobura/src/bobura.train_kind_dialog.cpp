@@ -124,13 +124,7 @@ namespace bobura
 
             void do_modal_impl()
             {
-                sync_list_box_with_info_sets();
-                if (m_p_train_kind_list_box->item_count() > 0)
-                {
-                    m_p_train_kind_list_box->select_item(0);
-                    m_current_train_kind_index = boost::make_optional<int_size_type>(0);
-                }
-                update();
+                sync();
             }
 
 
@@ -368,12 +362,17 @@ namespace bobura
                 std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Add")));
-                //p_button->mouse_observer_set().clicked().connect(
-                //    typename boost::mpl::at<
-                //        train_kind_dialog_message_type_list_type,
-                //        message::train_kind_dialog::type::ok_button_mouse_clicked
-                //    >::type(m_base)
-                //);
+                p_button->mouse_observer_set().clicked().connect(
+                    typename boost::mpl::at<
+                        train_kind_dialog_message_type_list_type,
+                        message::train_kind_dialog::type::add_button_mouse_clicked
+                    >::type(
+                        m_info_sets,
+                        m_current_train_kind_index,
+                        TETENGO2_CPP11_BIND(&impl::sync, this),
+                        m_message_catalog
+                    )
+                );
 
                 return std::move(p_button);
             }
@@ -745,7 +744,7 @@ namespace bobura
                 m_p_cancel_button->set_position(position_type(left_type(36), top_type(26)));
             }
 
-            void sync_list_box_with_info_sets()
+            void sync()
             {
                 m_p_train_kind_list_box->clear();
                 for (
@@ -759,6 +758,14 @@ namespace bobura
                         i->train_kind().name()
                     );
                 }
+
+                if (m_p_train_kind_list_box->item_count() > 0)
+                {
+                    if (!m_current_train_kind_index)
+                        m_current_train_kind_index = boost::make_optional<int_size_type>(0);
+                    m_p_train_kind_list_box->select_item(*m_current_train_kind_index);
+                }
+                update();
             }
 
             void update()

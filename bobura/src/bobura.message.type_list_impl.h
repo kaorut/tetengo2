@@ -279,6 +279,10 @@ namespace bobura { namespace message
                         type::train_kind_list_box_selection_changed,
                         train_kind_list_box_selection_changed<Size, ListBox>
                     >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::add_button_mouse_clicked, add_button_mouse_clicked<InfoSet, Size, MessageCatalog>
+                    >,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::name_text_box_changed, name_text_box_changed>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::abbreviation_text_box_changed, abbreviation_text_box_changed>,
@@ -305,7 +309,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
-                >>>>>>>>>>
+                >>>>>>>>>>>
                 type;
 
 

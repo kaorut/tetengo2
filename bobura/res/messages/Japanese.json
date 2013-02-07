@@ -97,6 +97,7 @@
         "Dialog:TrainKind:Dot-Dashed":     "一点鎖線",
         "Dialog:TrainKind:Sa&mple:":       "サンプル(&M):",
         "Dialog:TrainKind:A&pply":         "適用(&P)",
+        "Dialog:TrainKind:New Kind":       "新しい種別",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",

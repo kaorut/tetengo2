@@ -18,7 +18,9 @@
 
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.unique.h>
 #include <tetengo2.text.h>
@@ -90,6 +92,111 @@ namespace bobura { namespace message { namespace train_kind_dialog
         const list_box_type& m_list_box;
 
         update_type m_update;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse click observer of the add button.
+
+        \tparam InfoSet        An information set type.
+        \tparam Size           A size type.
+        \tparam MessageCatalog A message catalog type.
+    */
+    template <typename InfoSet, typename Size, typename MessageCatalog>
+    class add_button_mouse_clicked
+    {
+    public:
+        // types
+
+        //! The information set type.
+        typedef InfoSet info_set_type;
+
+        //! The size type.
+        typedef Size size_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
+        //! The sync type.
+        typedef std::function<void ()> sync_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse click observer of the add button.
+
+            \param info_sets                Information sets.
+            \param current_train_kind_index A current train kind index.
+            \param sync                     A sync function type.
+            \param message_catalog          A message catalog.
+        */
+        add_button_mouse_clicked(
+            std::vector<info_set_type>&       info_sets,
+            const boost::optional<size_type>& current_train_kind_index,
+            const sync_type                   sync,
+            const message_catalog_type&       message_catalog
+        )
+        :
+        m_info_sets(info_sets),
+        m_current_train_kind_index(current_train_kind_index),
+        m_sync(sync),
+        m_message_catalog(message_catalog)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the add button is clicked.
+        */
+        void operator()()
+        const
+        {
+            const std::vector<info_set_type>::const_iterator insertion_position =
+                m_current_train_kind_index ?
+                boost::next(m_info_sets.begin(), *m_current_train_kind_index) : m_info_sets.end();
+
+            m_info_sets.insert(
+                tetengo2::cpp11::as_insertion_iterator(m_info_sets, insertion_position),
+                info_set_type(
+                    boost::none,
+                    false,
+                    train_kind_type(
+                        m_message_catalog.get(string_type(TETENGO2_TEXT("Dialog:TrainKind:New Kind"))),
+                        string_type(),
+                        color_type(0, 0, 0),
+                        train_kind_type::weight_type::normal,
+                        train_kind_type::line_style_type::solid
+                    )
+                )
+            );
+
+            m_sync();
+        }
+
+
+    private:
+        // types
+
+        typedef typename info_set_type::train_kind_type train_kind_type;
+
+        typedef typename train_kind_type::string_type string_type;
+
+        typedef typename train_kind_type::color_type color_type;
+
+
+        // variables
+
+        std::vector<info_set_type>& m_info_sets;
+
+        const boost::optional<size_type>& m_current_train_kind_index;
+
+        sync_type m_sync;
+
+        const message_catalog_type& m_message_catalog;
 
 
     };
