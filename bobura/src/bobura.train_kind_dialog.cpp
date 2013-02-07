@@ -772,6 +772,12 @@ namespace bobura
             {
                 const boost::optional<int_size_type>& selected_index = m_p_train_kind_list_box->selected_item_index();
 
+                m_p_delete_button->set_enabled(selected_index);
+                m_p_up_button->set_enabled(selected_index && *selected_index > 0);
+                m_p_down_button->set_enabled(
+                    selected_index && *selected_index + 1 < m_p_train_kind_list_box->item_count()
+                );
+
                 m_p_name_label->set_enabled(selected_index);
                 m_p_name_text_box->set_enabled(selected_index);
                 m_p_abbreviation_label->set_enabled(selected_index);
