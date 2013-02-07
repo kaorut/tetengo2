@@ -10,13 +10,11 @@
 #define BOBURA_TRAINKINDDIALOG_H
 
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include <boost/optional.hpp>
 
 #include <tetengo2.cpp11.h>
-
 
 
 namespace bobura
