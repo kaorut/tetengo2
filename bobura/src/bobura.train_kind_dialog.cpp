@@ -985,17 +985,15 @@ namespace bobura
         m_p_impl->do_modal_impl();
     }
 
-    typedef
-        bobura::model::train_kind<
-            typename boost::mpl::at<common_type_list, type::string>::type,
-            typename boost::mpl::at<ui_type_list, type::ui::color>::type
-        >
-        train_kind_type;
+
     template class train_kind_dialog<
         typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         typename boost::mpl::at<common_type_list, type::size>::type,
-        train_kind_type,
+        bobura::model::train_kind<
+            typename boost::mpl::at<common_type_list, type::string>::type,
+            typename boost::mpl::at<ui_type_list, type::ui::color>::type
+        >,
         typename boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
         typename boost::mpl::at<ui_type_list, type::ui::color>::type
     >;

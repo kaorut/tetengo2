@@ -232,7 +232,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
             \param info_sets                Information sets.
             \param current_train_kind_index A current train kind index.
             \param sync                     A sync function type.
-            \param message_catalog          A message catalog.
         */
         delete_button_mouse_clicked(
             std::vector<info_set_type>& info_sets,
@@ -315,7 +314,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
             \param info_sets                Information sets.
             \param current_train_kind_index A current train kind index.
             \param sync                     A sync function type.
-            \param message_catalog          A message catalog.
         */
         up_button_mouse_clicked(
             std::vector<info_set_type>& info_sets,
@@ -390,7 +388,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
             \param info_sets                Information sets.
             \param current_train_kind_index A current train kind index.
             \param sync                     A sync function type.
-            \param message_catalog          A message catalog.
         */
         down_button_mouse_clicked(
             std::vector<info_set_type>& info_sets,
@@ -731,7 +728,11 @@ namespace bobura { namespace message { namespace train_kind_dialog
         /*!
             \brief Creates a paint observer of the sample picture box.
 
-            \param canvas_dimension A canvas dimension.
+            \param info_sets                Information sets.
+            \param current_train_kind_index A current train kind index.
+            \param font                     A font.
+            \param background_color         A background color.
+            \param canvas_dimension         A canvas dimension.
         */
         sample_picture_box_paint(
             const std::vector<info_set_type>&     info_sets,
