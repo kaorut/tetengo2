@@ -9,7 +9,10 @@
 //#include <utility>
 //#include <vector>
 
+#include <tetengo2.cpp11.h>
+
 //#include <boost/mpl/at.hpp>
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.type_list.h"
@@ -39,8 +42,47 @@ namespace
 
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
-    typedef
-        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::main_window>::type main_window_type;
+    class main_window_type : public boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
+    {
+    public:
+        typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type base_type;
+
+        typedef
+            boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::diagram_picture_box>::type
+            diagram_picture_box_type;
+
+        main_window_type(
+            const message_catalog_type&   message_catalog,
+            const settings_type&          settings,
+            const confirm_file_save_type& confirm_file_save
+        )
+        :
+        base_type(),
+        m_diagram_picture_box(*this)
+        {}
+
+        virtual ~main_window_type()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+        void set_title(const boost::optional<string_type>& document_name, const bool changed)
+        {}
+
+        const diagram_picture_box_type& diagram_picture_box()
+        const
+        {
+            return m_diagram_picture_box;
+        }
+
+        diagram_picture_box_type& diagram_picture_box()
+        {
+            return m_diagram_picture_box;
+        }
+
+    private:
+        diagram_picture_box_type m_diagram_picture_box;
+
+    };
 
 
 }

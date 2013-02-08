@@ -20,6 +20,7 @@
 #include "bobura.message.main_window.h"
 #include "bobura.message.oudia_diagram_dialog.h"
 #include "bobura.message.timetable_model.h"
+#include "bobura.message.train_kind_dialog.h"
 #include "bobura.message.type_list.h"
 
 
@@ -238,6 +239,81 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
                 >>>>>>
+                type;
+
+
+        };
+    }
+
+    namespace train_kind_dialog
+    {
+        /*!
+            \brief The meta function for the type list of the train kind dialog messages.
+
+            \tparam InfoSet        An information set type.
+            \tparam Size           A size type.
+            \tparam Dialog         A dialog type.
+            \tparam ListBox        A list box type.
+            \tparam Canvas         A canvas type.
+            \tparam ColorDialog    A color dialog type.
+            \tparam MessageCatalog A message catalog type.
+        */
+        template <
+            typename InfoSet,
+            typename Size,
+            typename Dialog,
+            typename ListBox,
+            typename Canvas,
+            typename ColorDialog,
+            typename MessageCatalog
+        >
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the font and color dialog.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::train_kind_list_box_selection_changed,
+                        train_kind_list_box_selection_changed<Size, ListBox>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::add_button_mouse_clicked, add_button_mouse_clicked<InfoSet, Size, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::delete_button_mouse_clicked, delete_button_mouse_clicked<InfoSet, Size>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::up_button_mouse_clicked, up_button_mouse_clicked<InfoSet, Size>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::down_button_mouse_clicked, down_button_mouse_clicked<InfoSet, Size>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::name_text_box_changed, name_text_box_changed>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::abbreviation_text_box_changed, abbreviation_text_box_changed>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::color_button_mouse_clicked, color_button_mouse_clicked<Dialog, ColorDialog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::weight_dropdown_box_selection_changed, weight_dropdown_box_selection_changed
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::line_style_dropdown_box_selection_changed, line_style_dropdown_box_selection_changed
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::sample_picture_box_paint, sample_picture_box_paint<InfoSet, Size, Canvas>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
+                tetengo2::meta::assoc_list_end
+                >>>>>>>>>>>>>
                 type;
 
 

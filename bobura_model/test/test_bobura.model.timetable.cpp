@@ -8,6 +8,7 @@
 
 //#include <stdexcept>
 //#include <utility>
+//#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -52,6 +53,10 @@ namespace
     typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
+
+    typedef timetable_type::train_kinds_type train_kinds_type;
+
+    typedef timetable_type::train_kind_index_type train_kind_index_type;
 
     typedef timetable_type::font_color_set_type font_color_set_type;
 
@@ -1321,6 +1326,179 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_THROW(
                 timetable.erase_train_kind(timetable.train_kinds().begin()),
                 std::invalid_argument
+            );
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(assign_train_kinds)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            timetable_type timetable;
+
+            train_kinds_type train_kinds;
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Local")),
+                string_type(TETENGO2_TEXT("Local")),
+                color_type(0, 0, 255),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Rapid")),
+                string_type(TETENGO2_TEXT("Rapid")),
+                color_type(0, 128, 0),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+
+            timetable.assign_train_kinds(std::move(train_kinds), std::vector<train_kind_index_type>());
+
+            BOOST_REQUIRE_EQUAL(timetable.train_kinds().size(), 2U);
+            BOOST_CHECK(timetable.train_kinds()[0].name() == string_type(TETENGO2_TEXT("Local")));
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
+                )
+            );
+            
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+
+            train_kinds_type train_kinds;
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Local")),
+                string_type(TETENGO2_TEXT("Local")),
+                color_type(0, 0, 255),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Rapid")),
+                string_type(TETENGO2_TEXT("Rapid")),
+                color_type(0, 128, 0),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+
+            std::vector<train_kind_index_type> train_kind_index_map;
+            train_kind_index_map.push_back(1);
+
+            timetable.assign_train_kinds(std::move(train_kinds), train_kind_index_map);
+
+            BOOST_REQUIRE_EQUAL(timetable.train_kinds().size(), 2U);
+            BOOST_CHECK(timetable.train_kinds()[0].name() == string_type(TETENGO2_TEXT("Local")));
+
+            BOOST_CHECK_EQUAL(timetable.down_trains()[0].kind_index(), 1U);
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
+                )
+            );
+            
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+
+            train_kinds_type train_kinds;
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Local")),
+                string_type(TETENGO2_TEXT("Local")),
+                color_type(0, 0, 255),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Rapid")),
+                string_type(TETENGO2_TEXT("Rapid")),
+                color_type(0, 128, 0),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+
+            std::vector<train_kind_index_type> train_kind_index_map;
+
+            BOOST_CHECK_THROW(
+                timetable.assign_train_kinds(std::move(train_kinds), train_kind_index_map), std::out_of_range
+            );
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
+                )
+            );
+            
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+
+            train_kinds_type train_kinds;
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Local")),
+                string_type(TETENGO2_TEXT("Local")),
+                color_type(0, 0, 255),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+            train_kinds.emplace_back(
+                string_type(TETENGO2_TEXT("Rapid")),
+                string_type(TETENGO2_TEXT("Rapid")),
+                color_type(0, 128, 0),
+                train_kind_type::weight_type::normal,
+                train_kind_type::line_style_type::solid
+            );
+
+            std::vector<train_kind_index_type> train_kind_index_map;
+            train_kind_index_map.push_back(2);
+
+            BOOST_CHECK_THROW(
+                timetable.assign_train_kinds(std::move(train_kinds), train_kind_index_map), std::out_of_range
             );
         }
     }

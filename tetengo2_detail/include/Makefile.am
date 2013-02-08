@@ -41,6 +41,7 @@ extra_headers = \
     tetengo2.detail.windows.message_handler_detail.list_b.h \
     tetengo2.detail.windows.message_handler_detail.messag.h \
     tetengo2.detail.windows.message_handler_detail.pictur.h \
+    tetengo2.detail.windows.message_handler_detail.text_b.h \
     tetengo2.detail.windows.message_handler_detail.widget.h \
     tetengo2.detail.windows.picture.h \
     tetengo2.detail.windows.scroll.h \

@@ -42,25 +42,6 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Make a message handler map for a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget      A widget.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Widget>
-        static message_handler_map_type make_widget_message_handler_map(
-            Widget&                    widget,
-            message_handler_map_type&& initial_map
-        )
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
             \brief Make a message handler map for an abstract window.
 
             \tparam AbstractWindow An abstract window type.
@@ -80,37 +61,18 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Make a message handler map for a dialog.
+            \brief Make a message handler map for a button.
 
-            \tparam Dialog A dialog type.
+            \tparam Button A button type.
 
-            \param dialog      A dialog.
+            \param button      A button.
             \param initial_map An initial message handler map.
 
             \return A message handler map.
         */
-        template <typename Dialog>
-        static message_handler_map_type make_dialog_message_handler_map(
-            Dialog&                    dialog,
-            message_handler_map_type&& initial_map
-        )
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a window.
-
-            \tparam Window A window type.
-
-            \param window      A window.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Window>
-        static message_handler_map_type make_window_message_handler_map(
-            Window&                    window,
+        template <typename Button>
+        static message_handler_map_type make_button_message_handler_map(
+            Button&                    button,
             message_handler_map_type&& initial_map
         )
         {
@@ -137,18 +99,37 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Make a message handler map for a button.
+            \brief Make a message handler map for a dialog.
 
-            \tparam Button A button type.
+            \tparam Dialog A dialog type.
 
-            \param button      A button.
+            \param dialog      A dialog.
             \param initial_map An initial message handler map.
 
             \return A message handler map.
         */
-        template <typename Button>
-        static message_handler_map_type make_button_message_handler_map(
-            Button&                    button,
+        template <typename Dialog>
+        static message_handler_map_type make_dialog_message_handler_map(
+            Dialog&                    dialog,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::move(initial_map);
+        }
+
+        /*!
+            \brief Make a message handler map for a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+            \param initial_map  An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename DropdownBox>
+        static message_handler_map_type make_dropdown_box_message_handler_map(
+            DropdownBox&               dropdown_box,
             message_handler_map_type&& initial_map
         )
         {
@@ -244,6 +225,44 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename TextBox>
         static message_handler_map_type make_text_box_message_handler_map(
             TextBox&                   text_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::move(initial_map);
+        }
+
+        /*!
+            \brief Make a message handler map for a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget      A widget.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Widget>
+        static message_handler_map_type make_widget_message_handler_map(
+            Widget&                    widget,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::move(initial_map);
+        }
+
+        /*!
+            \brief Make a message handler map for a window.
+
+            \tparam Window A window type.
+
+            \param window      A window.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Window>
+        static message_handler_map_type make_window_message_handler_map(
+            Window&                    window,
             message_handler_map_type&& initial_map
         )
         {

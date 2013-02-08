@@ -35,12 +35,6 @@
     <ClCompile Include="test\master.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.about_dialog.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.main_window.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.settings.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
@@ -61,9 +55,6 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.file_property_dialog.cpp">
       <Filter>sources\test_bobura\message</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.file_property_dialog.cpp">
-      <Filter>sources\test_bobura</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.load_save.confirm_file_save.cpp">
       <Filter>sources\test_bobura\load_save</Filter>
@@ -87,9 +78,6 @@
       <Filter>sources\test_bobura\view</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.diagram_picture_box.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_bobura.font_color_dialog.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.font_color_dialog.cpp">
@@ -116,8 +104,8 @@
     <ClCompile Include="test\test_bobura.message.oudia_diagram_dialog.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.oudia_diagram_dialog.cpp">
-      <Filter>sources\test_bobura</Filter>
+    <ClCompile Include="test\test_bobura.message.train_kind_dialog.cpp">
+      <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

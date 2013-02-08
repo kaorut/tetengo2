@@ -213,6 +213,15 @@
     <ClInclude Include="src\bobura.oudia_diagram_dialog.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.train_kind_dialog.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.message.train_kind_dialog.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.train_kind.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
@@ -305,6 +314,27 @@
     </ClCompile>
     <ClCompile Include="src\bobura.view.diagram.zoom.cpp">
       <Filter>sources\bobura\view\diagram</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.train_kind.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.train_kind_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.about_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.file_property_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.font_color_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.oudia_diagram_dialog.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.main_window.cpp">
+      <Filter>sources\bobura</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

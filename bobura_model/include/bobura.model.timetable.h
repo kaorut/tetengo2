@@ -455,6 +455,38 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Assign train kinds.
+
+            train_kind_index_map is a vector such that train_kind_index_map[old_index] returns the new index.
+            The train kind index stored in the trains are updated.
+
+            \param train_kinds          Train kinds.
+            \param train_kind_index_map A train kind index map.
+
+            \throw std::out_of_range When the size and/or the elements of train_kind_index_map is out of range.
+        */
+        void assign_train_kinds(
+            train_kinds_type                          train_kinds,
+            const std::vector<train_kind_index_type>& train_kind_index_map
+        )
+        {
+            std::for_each(
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                replace_train_kind_index(train_kinds, train_kind_index_map)
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
+                replace_train_kind_index(train_kinds, train_kind_index_map)
+            );
+
+            m_train_kinds = std::move(train_kinds);
+
+            m_observer_set.changed()();
+        }
+
+        /*!
             \brief Returns the down trains.
 
             \return The down trains
@@ -589,6 +621,35 @@ namespace bobura { namespace model
         typedef typename train_type::stops_type::difference_type difference_type;
 
         typedef typename train_type::stop_type stop_type;
+
+        struct replace_train_kind_index
+        {
+            const train_kinds_type& m_train_kinds;
+
+            const std::vector<train_kind_index_type>& m_train_kind_index_map;
+
+            replace_train_kind_index(
+                const train_kinds_type&                   train_kinds,
+                const std::vector<train_kind_index_type>& train_kind_index_map
+            )
+            :
+            m_train_kinds(train_kinds),
+            m_train_kind_index_map(train_kind_index_map)
+            {}
+
+            void operator()(train_type& train)
+            const
+            {
+                if (train.kind_index() >= m_train_kind_index_map.size())
+                    BOOST_THROW_EXCEPTION(std::out_of_range("Invalid old index in the train kind index map."));
+                const train_kind_index_type new_index = m_train_kind_index_map[train.kind_index()];
+                if (new_index >= m_train_kinds.size())
+                    BOOST_THROW_EXCEPTION(std::out_of_range("Invalid new index in the train_kind index map."));
+
+                train.set_kind_index(new_index);
+            }
+
+        };
 
 
         // static functions

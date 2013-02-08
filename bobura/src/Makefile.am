@@ -20,6 +20,7 @@ extra_headers = \
     bobura.command.set.h \
     bobura.command.set_horizontal_scale.h \
     bobura.command.set_vertical_scale.h \
+    bobura.command.train_kind.h \
     bobura.command.vertically_zoom_in.h \
     bobura.command.vertically_zoom_out.h \
     bobura.diagram_picture_box.h \
@@ -41,11 +42,13 @@ extra_headers = \
     bobura.message.oudia_diagram_dialog.h \
     bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \
+    bobura.message.train_kind_dialog.h \
     bobura.message.type_list.h \
     bobura.message.type_list_impl.h \
     bobura.oudia_diagram_dialog.h \
     bobura.settings.h \
     bobura.timetable_model.h \
+    bobura.train_kind_dialog.h \
     bobura.type_list.h \
     bobura.view.diagram.header.h \
     bobura.view.diagram.item.h \
@@ -57,6 +60,7 @@ extra_headers = \
     bobura.view.scale_list.h
 
 extra_sources = \
+    bobura.about_dialog.cpp \
     bobura.application.cpp \
     bobura.command.about.cpp \
     bobura.command.command_base.cpp \
@@ -72,9 +76,15 @@ extra_sources = \
     bobura.command.set.cpp \
     bobura.command.set_horizontal_scale.cpp \
     bobura.command.set_vertical_scale.cpp \
+    bobura.command.train_kind.cpp \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
+    bobura.file_property_dialog.cpp \
+    bobura.font_color_dialog.cpp \
+    bobura.main_window.cpp \
     bobura.main_window_menu_builder.cpp \
+    bobura.oudia_diagram_dialog.cpp \
+    bobura.train_kind_dialog.cpp \
     bobura.view.diagram.zoom.cpp \
     main.cpp
 

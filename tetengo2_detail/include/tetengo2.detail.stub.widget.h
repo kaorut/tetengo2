@@ -154,24 +154,24 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Creates a window.
+            \brief Creates a button.
 
             \tparam Widget A widget type.
 
-            \param parent           A parent widget. When uninitialized, the window has no parent.
-            \param scroll_bar_style A scroll bar style.
+            \param parent     A parent widget.
+            \param is_default Set true to create a default button.
+            \param is_cancel  Set true to create a cancel button.
 
-            \return A unique pointer to a window.
+            \return A unique pointer to a button.
 
-            \throw std::system_error When a window cannot be created.
+            \throw std::invalid_argument When a default button already exists and is_default is true.
+            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
+            \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
-        )
+        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
-            return create_details<Widget>(parent ? &*parent : NULL);
+            return create_details<Widget>(&parent);
         }
 
         /*!
@@ -192,22 +192,18 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Creates a button.
+            \brief Creates a dropdown box.
 
             \tparam Widget A widget type.
 
-            \param parent     A parent widget.
-            \param is_default Set true to create a default button.
-            \param is_cancel  Set true to create a cancel button.
+            \param parent A parent widget.
 
-            \return A unique pointer to a button.
+            \return A unique pointer to a dropdown box.
 
-            \throw std::invalid_argument When a default button already exists and is_default is true.
-            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
-            \throw std::system_error     When a button cannot be created.
+            \throw std::system_error When a dropdown box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
+        static widget_details_ptr_type create_dropdown_box(Widget& parent)
         {
             return create_details<Widget>(&parent);
         }
@@ -307,6 +303,27 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             return create_details<Widget>(&parent);
+        }
+
+        /*!
+            \brief Creates a window.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a window.
+
+            \throw std::system_error When a window cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&                      parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            return create_details<Widget>(parent ? &*parent : NULL);
         }
 
         /*!
@@ -866,6 +883,169 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename String>
         static void open_target(const Widget& widget, const String& target)
         {}
+
+        /*!
+            \brief Returns the dropdown box item count.
+
+            \tparam Size        A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The dropdown box item count.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
+        {
+            return dropdown_box.details()->list_box_items.size();
+        }
+
+        /*!
+            \brief Returns the dropdown box item.
+
+            \tparam String      A string type.
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param encoder      An encoder.
+
+            \return The dropdown box item.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename String, typename DropdownBox, typename Size, typename Encoder>
+        static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        {
+            return encoder.decode(dropdown_box.details()->list_box_items[index]);
+        }
+
+        /*!
+            \brief Sets a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be set.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void set_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            dropdown_box.details()->list_box_items[index] = encoder.encode(std::move(item));
+        }
+
+        /*!
+            \brief Inserts a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be inserted.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void insert_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            dropdown_box.details()->list_box_items.insert(
+                boost::next(dropdown_box.details()->list_box_items.begin(), index), encoder.encode(std::move(item))
+            );
+        }
+
+        /*!
+            \brief Erases a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename DropdownBox, typename Size>
+        static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            dropdown_box.details()->list_box_items.erase(
+                boost::next(dropdown_box.details()->list_box_items.begin(), index)
+            );
+        }
+
+        /*!
+            \brief Clears a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \throw std::system_error When the dropdown box cannot be cleared.
+        */
+        template <typename DropdownBox>
+        static void clear_dropdown_box(DropdownBox& dropdown_box)
+        {
+            dropdown_box.details()->list_box_items.clear();
+        }
+
+        /*!
+            \brief Returns the selected dropdown box item index.
+
+            \tparam Size    A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The selected dropdown box item index.
+
+            \throw std::system_error When the selected item index cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
+        {
+            return dropdown_box.details()->selected_list_box_item_index;
+        }
+
+        /*!
+            \brief Selects a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be selected.
+        */
+        template <typename DropdownBox, typename Size>
+        static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            dropdown_box.details()->selected_list_box_item_index = boost::make_optional<std::size_t>(index);
+        }
 
         /*!
             \brief Returns the list box item count.

@@ -108,61 +108,72 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
-            \brief Creates a window.
+            \brief Creates a button.
 
             \tparam Widget A widget type.
 
-            \param parent           A parent widget. When uninitialized, the window has no parent.
-            \param scroll_bar_style A scroll bar style.
+            \param parent     A parent widget.
+            \param is_default Set true to create a default button.
+            \param is_cancel  Set true to create a cancel button.
 
-            \return A unique pointer to a window.
+            \return A unique pointer to a button.
 
-            \throw std::system_error When a window cannot be created.
+            \throw std::invalid_argument When a default button already exists and is_default is true.
+            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
+            \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
-        )
+        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (!instance_handle)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
-                );
-            }
+            assert(!is_default || !is_cancel);
 
-            if (!window_class_is_registered(window_class_name(), instance_handle))
-                register_window_class_for_window<Widget>(instance_handle);
+            const ::DWORD create_window_style =
+                is_default ?
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
+            ::HMENU id = NULL;
+            if (is_default)
+            {
+                if (::GetDlgItem(parent.root_ancestor().details()->handle.get(), IDOK))
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Default button already exists."));
+                id = reinterpret_cast< ::HMENU>(IDOK);
+            }
+            else if (is_cancel)
+            {
+                if (::GetDlgItem(parent.root_ancestor().details()->handle.get(), IDCANCEL))
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Cancel button already exists."));
+                id = reinterpret_cast< ::HMENU>(IDCANCEL);
+            }
 
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
-                    window_class_name().c_str(),
-                    window_class_name().c_str(),
-                    WS_OVERLAPPEDWINDOW,
+                    0,
+                    WC_BUTTONW,
+                    L"tetengo2_button",
+                    create_window_style,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
-                    NULL,
-                    instance_handle,
+                    parent.details()->handle.get(),
+                    id,
+                    ::GetModuleHandle(NULL),
                     NULL
                 )
             );
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a button!")
                 );
             }
 
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -222,55 +233,34 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Creates a button.
+            \brief Creates a dropdown box.
 
             \tparam Widget A widget type.
 
-            \param parent     A parent widget.
-            \param is_default Set true to create a default button.
-            \param is_cancel  Set true to create a cancel button.
+            \param parent A parent widget.
 
-            \return A unique pointer to a button.
+            \return A unique pointer to a dropdown box.
 
-            \throw std::invalid_argument When a default button already exists and is_default is true.
-            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
-            \throw std::system_error     When a button cannot be created.
+            \throw std::system_error When a dropdown box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
+        static widget_details_ptr_type create_dropdown_box(Widget& parent)
         {
-            assert(!is_default || !is_cancel);
-
-            const ::DWORD create_window_style =
-                is_default ?
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
-            ::HMENU id = NULL;
-            if (is_default)
-            {
-                if (::GetDlgItem(parent.root_ancestor().details()->handle.get(), IDOK))
-                    BOOST_THROW_EXCEPTION(std::invalid_argument("Default button already exists."));
-                id = reinterpret_cast< ::HMENU>(IDOK);
-            }
-            else if (is_cancel)
-            {
-                if (::GetDlgItem(parent.root_ancestor().details()->handle.get(), IDCANCEL))
-                    BOOST_THROW_EXCEPTION(std::invalid_argument("Cancel button already exists."));
-                id = reinterpret_cast< ::HMENU>(IDCANCEL);
-            }
-
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    0,
-                    L"Button",
-                    L"tetengo2_button",
-                    create_window_style,
+                    WS_EX_CLIENTEDGE,
+                    WC_COMBOBOXW,
+                    L"",
+                    WS_CHILD |
+                        WS_TABSTOP |
+                        WS_VISIBLE |
+                        CBS_DROPDOWNLIST,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    id,
+                    NULL,
                     ::GetModuleHandle(NULL),
                     NULL
                 )
@@ -278,13 +268,15 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a button!")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a dropdown box!"
+                    )
                 );
             }
 
             const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return
+            return 
                 make_unique<widget_details_type>(
                     std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
                 );
@@ -307,7 +299,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     0,
-                    L"Static",
+                    WC_STATICW,
                     L"tetengo2_image",
                     WS_CHILD | WS_VISIBLE,
                     CW_USEDEFAULT,
@@ -352,7 +344,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     0,
-                    L"Static",
+                    WC_STATICW,
                     L"tetengo2_label",
                     WS_CHILD | WS_VISIBLE | SS_NOTIFY,
                     CW_USEDEFAULT,
@@ -401,7 +393,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
-                    L"ListBox",
+                    WC_LISTBOXW,
                     L"",
                     WS_CHILD |
                         WS_TABSTOP |
@@ -514,7 +506,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
-                    L"Edit",
+                    WC_EDITW,
                     L"",
                     WS_CHILD |
                         WS_TABSTOP |
@@ -544,6 +536,64 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<widget_details_type>(
                     std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
                 );
+        }
+
+        /*!
+            \brief Creates a window.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a window.
+
+            \throw std::system_error When a window cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&                      parent,
+            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+        )
+        {
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
+                    )
+                );
+            }
+
+            if (!window_class_is_registered(window_class_name(), instance_handle))
+                register_window_class_for_window<Widget>(instance_handle);
+
+            typename widget_details_type::handle_type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
+                    window_class_name().c_str(),
+                    window_class_name().c_str(),
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent ? parent->details()->handle.get() : HWND_DESKTOP,
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
+                );
+            }
+
+            return
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -1426,6 +1476,236 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(
                         std::error_code(static_cast<int>(reinterpret_cast< ::UINT_PTR>(result)), win32_category()),
                         "Can't open target."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the dropdown box item count.
+
+            \tparam Size        A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The dropdown box item count.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCOUNT, 0, 0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't obtain the dropdown box item count."
+                    )
+                );
+            }
+
+            return result;
+        }
+
+        /*!
+            \brief Returns the dropdown box item.
+
+            \tparam String      A string type.
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param encoder      An encoder.
+
+            \return The dropdown box item.
+
+            \throw std::system_error When the item cannot be obtained.
+        */
+        template <typename String, typename DropdownBox, typename Size, typename Encoder>
+        static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        {
+            const ::LRESULT length = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETLBTEXTLEN, index, 0);
+            if (length == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't obtain the dropdown box item length."
+                    )
+                );
+            }
+
+            std::vector<wchar_t> item(length + 1, 0);
+            const ::LRESULT result =
+                ::SendMessageW(
+                    dropdown_box.details()->handle.get(),
+                    CB_GETLBTEXT,
+                    index,
+                    reinterpret_cast< ::LPARAM>(item.data())
+                );
+            if (length == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropdown box item."
+                    )
+                );
+            }
+
+            return encoder.decode(std::wstring(item.data()));
+        }
+
+        /*!
+            \brief Sets a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be set.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void set_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            erase_dropdown_box_item(dropdown_box, index);
+            insert_dropdown_box_item(dropdown_box, index, std::move(item), encoder);
+        }
+
+        /*!
+            \brief Inserts a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size        A size type.
+            \tparam String      A string type.
+            \tparam Encoder     An encoder type.
+
+            \param dropdown_box A dropdown box.
+            \param index        An index.
+            \param item         An item.
+            \param encoder      An encoder.
+
+            \throw std::system_error When the item cannot be inserted.
+        */
+        template <typename DropdownBox, typename Size, typename String, typename Encoder>
+        static void insert_dropdown_box_item(
+            DropdownBox&   dropdown_box,
+            const Size     index,
+            String         item,
+            const Encoder& encoder
+        )
+        {
+            const ::LRESULT result =
+                ::SendMessageW(
+                    dropdown_box.details()->handle.get(),
+                    CB_INSERTSTRING,
+                    index,
+                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
+                );
+            if (result == CB_ERR || result == CB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a dropdown box item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Erases a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be erased.
+        */
+        template <typename DropdownBox, typename Size>
+        static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_DELETESTRING, index, 0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Clears a dropdown box.
+
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \throw std::system_error When the dropdown box cannot be cleared.
+        */
+        template <typename DropdownBox>
+        static void clear_dropdown_box(DropdownBox& dropdown_box)
+        {
+            ::SendMessageW(dropdown_box.details()->handle.get(), CB_RESETCONTENT, 0, 0);
+        }
+
+        /*!
+            \brief Returns the selected dropdown box item index.
+
+            \tparam Size    A size type.
+            \tparam DropdownBox A dropdown box type.
+
+            \param dropdown_box A dropdown box.
+
+            \return The selected dropdown box item index.
+
+            \throw std::system_error When the selected item index cannot be obtained.
+        */
+        template <typename Size, typename DropdownBox>
+        static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
+        {
+            const ::LRESULT index = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != CB_ERR, index);
+        }
+
+        /*!
+            \brief Selects a dropdown box item.
+
+            \tparam DropdownBox A dropdown box type.
+            \tparam Size    A size type.
+
+            \param dropdown_box A dropdown box.
+            \param index    An index.
+
+            \throw std::system_error When the item cannot be selected.
+        */
+        template <typename DropdownBox, typename Size>
+        static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        {
+            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_SETCURSEL, index, 0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a dropdown box item."
                     )
                 );
             }

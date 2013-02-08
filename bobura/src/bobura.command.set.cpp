@@ -26,6 +26,7 @@
 #include "bobura.command.save_to_file.h"
 #include "bobura.command.set_horizontal_scale.h"
 #include "bobura.command.set_vertical_scale.h"
+#include "bobura.command.train_kind.h"
 #include "bobura.command.vertically_zoom_in.h"
 #include "bobura.command.vertically_zoom_out.h"
 #include "bobura.type_list.h"
@@ -84,6 +85,7 @@ namespace bobura { namespace command
         m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_and_save_to_file)),
         m_p_set_horizontal_scale(create_set_horizontal_scale(diagram_view)),
         m_p_set_vertical_scale(create_set_vertical_scale(diagram_view)),
+        m_p_train_kind(create_train_kind(message_catalog)),
         m_p_vertically_zoom_in(create_vertically_zoom_in(diagram_view)),
         m_p_vertically_zoom_out(create_vertically_zoom_out(diagram_view))
         {}
@@ -173,6 +175,12 @@ namespace bobura { namespace command
         const
         {
             return *m_p_set_vertical_scale[index];
+        }
+
+        const command_type& train_kind()
+        const
+        {
+            return *m_p_train_kind;
         }
 
         const command_type& vertically_zoom_in()
@@ -285,6 +293,11 @@ namespace bobura { namespace command
             return commands;
         }
 
+        static command_ptr_type create_train_kind(const message_catalog_type& message_catalog)
+        {
+            return tetengo2::make_unique<command::train_kind>(message_catalog);
+        }
+
         static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
         {
             return tetengo2::make_unique<command::vertically_zoom_in>(diagram_view);
@@ -325,6 +338,8 @@ namespace bobura { namespace command
         const std::vector<command_ptr_type> m_p_set_horizontal_scale;
 
         const std::vector<command_ptr_type> m_p_set_vertical_scale;
+
+        const command_ptr_type m_p_train_kind;
 
         const command_ptr_type m_p_vertically_zoom_in;
 
@@ -444,6 +459,12 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->set_vertical_scale(index);
+    }
+
+    const set::command_type& set::train_kind()
+    const
+    {
+        return m_p_impl->train_kind();
     }
 
     const set::command_type& set::vertically_zoom_in()

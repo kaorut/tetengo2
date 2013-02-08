@@ -80,6 +80,24 @@ BOOST_AUTO_TEST_SUITE(text_box)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(text_box_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            const text_box_type text_box(parent, text_box_type::scroll_bar_style_type::none);
+
+            text_box.text_box_observer_set();
+        }
+        {
+            window_type parent;
+            text_box_type text_box(parent, text_box_type::scroll_bar_style_type::none);
+
+            text_box.text_box_observer_set();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

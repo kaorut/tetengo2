@@ -52,9 +52,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.button.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.contro.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.dialog.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.dropdo.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.list_b.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.messag.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.pictur.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.text_b.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.widget.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_loop.h" />
     <ClInclude Include="include\tetengo2.detail.windows.picture.h" />

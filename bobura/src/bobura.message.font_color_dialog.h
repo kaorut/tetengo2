@@ -43,7 +43,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         typedef ListBox list_box_type;
 
         //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
+        typedef std::function<void ()> update_type;
 
 
         // constructors and destructor
@@ -75,9 +75,8 @@ namespace bobura { namespace message { namespace font_color_dialog
         void operator()()
         const
         {
-            const boost::optional<size_type> previous_category_index = m_current_category_index;
             m_current_category_index = m_list_box.selected_item_index();
-            m_update(previous_category_index);
+            m_update();
         }
 
 
@@ -297,7 +296,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         typedef MessageCatalog message_catalog_type;
 
         //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
+        typedef std::function<void ()> update_type;
 
 
         // constructors and destructor
@@ -346,7 +345,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             m_font_color_list[*m_current_category_index].first = boost::make_optional(font_dialog.result());
 
-            m_update(m_current_category_index);
+            m_update();
         }
 
 
@@ -407,7 +406,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         typedef MessageCatalog message_catalog_type;
 
         //! The update type.
-        typedef std::function<void (const boost::optional<size_type>&)> update_type;
+        typedef std::function<void ()> update_type;
 
 
         // constructors and destructor
@@ -456,7 +455,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             m_font_color_list[*m_current_category_index].second = boost::make_optional(color_dialog.result());
 
-            m_update(m_current_category_index);
+            m_update();
         }
 
 
