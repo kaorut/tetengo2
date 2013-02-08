@@ -155,7 +155,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()()
         const
         {
-            const std::vector<info_set_type>::const_iterator insertion_position =
+            const typename std::vector<info_set_type>::const_iterator insertion_position =
                 m_current_train_kind_index ?
                 boost::next(m_info_sets.begin(), *m_current_train_kind_index) : m_info_sets.end();
 
@@ -255,7 +255,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         {
             assert(m_current_train_kind_index);
             assert(*m_current_train_kind_index < m_info_sets.size());
-            const std::vector<info_set_type>::const_iterator deletion_position =
+            const typename std::vector<info_set_type>::const_iterator deletion_position =
                 boost::next(m_info_sets.begin(), *m_current_train_kind_index);
 
             m_info_sets.erase(tetengo2::cpp11::as_insertion_iterator(m_info_sets, deletion_position));
