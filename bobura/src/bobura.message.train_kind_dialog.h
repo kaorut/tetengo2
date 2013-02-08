@@ -10,7 +10,7 @@
 #define BOBURA_MESSAGE_TRAINKINDDIALOG_H
 
 #include <cassert>
-#include <functional>
+//#include <functional>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>

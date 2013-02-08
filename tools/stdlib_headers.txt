@@ -632,6 +632,7 @@ std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
 std::string::const_iterator                      string
+std::swap                                        utility
 std::system_error                                system_error
 std::transform                                   algorithm
 std::unary_function                              functional
