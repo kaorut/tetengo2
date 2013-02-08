@@ -306,6 +306,23 @@ BOOST_AUTO_TEST_SUITE(train)
         BOOST_CHECK_EQUAL(train.kind_index(), 42U);
     }
 
+    BOOST_AUTO_TEST_CASE(set_kind_index)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        train_type train(
+            string_type(TETENGO2_TEXT("1")),
+            42,
+            string_type(TETENGO2_TEXT("a")),
+            string_type(TETENGO2_TEXT("42")),
+            string_type(TETENGO2_TEXT("x"))
+        );
+
+        train.set_kind_index(24);
+
+        BOOST_CHECK_EQUAL(train.kind_index(), 24U);
+    }
+
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();

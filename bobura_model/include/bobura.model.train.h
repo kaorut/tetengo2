@@ -179,6 +179,16 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Sets a kind index.
+
+            \param kind_index A kind index.
+        */
+        void set_kind_index(const kind_index_type kind_index)
+        {
+            m_kind_index = kind_index;
+        }
+
+        /*!
             \brief Returns the name.
 
             \return The name.
