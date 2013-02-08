@@ -12,6 +12,8 @@
 
 //#include <boost/optional.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.train_kind.h"
 
 
@@ -60,20 +62,10 @@ namespace bobura { namespace command
             if (dialog.result() != dialog_base_type::result_type::accepted)
                 return;
         
-            //train_kind_set_type new_train_kind_set(
-            //    dialog.background(),
-            //    train_kind_type(dialog.company_line_name().first, dialog.company_line_name().second),
-            //    train_kind_type(dialog.note().first, dialog.note().second),
-            //    train_kind_type(dialog.time_line().first, dialog.time_line().second),
-            //    train_kind_type(dialog.local_station().first, dialog.local_station().second),
-            //    train_kind_type(dialog.principal_station().first, dialog.principal_station().second),
-            //    train_kind_type(dialog.local_terminal_station().first, dialog.local_terminal_station().second),
-            //    train_kind_type(
-            //        dialog.principal_terminal_station().first, dialog.principal_terminal_station().second
-            //    ),
-            //    dialog.train_name()
-            //);
-            //model.timetable().set_train_kind_set(std::move(new_train_kind_set));
+            model.timetable().assign_train_kinds(
+                to_train_kinds(dialog.info_sets()),
+                to_train_kind_index_map(dialog.info_sets(), model.timetable().train_kinds().size())
+            );
         }
 
 
@@ -87,6 +79,8 @@ namespace bobura { namespace command
         typedef model_type::timetable_type timetable_type;
 
         typedef timetable_type::train_kinds_type train_kinds_type;
+
+        typedef timetable_type::train_kind_index_type train_kind_index_type;
 
         typedef timetable_type::train_kind_type train_kind_type;
 
@@ -111,6 +105,40 @@ namespace bobura { namespace command
             }
 
             return info_sets;
+        }
+
+        static train_kinds_type to_train_kinds(const std::vector<info_set_type>& info_sets)
+        {
+            train_kinds_type train_kinds;
+            train_kinds.reserve(info_sets.size());
+
+            std::transform(info_sets.begin(), info_sets.end(), std::back_inserter(train_kinds), call_train_kind);
+
+            return train_kinds;
+        }
+
+        static const train_kind_type& call_train_kind(const info_set_type& info_set)
+        {
+            return info_set.train_kind();
+        }
+
+        static std::vector<train_kind_index_type> to_train_kind_index_map(
+            const std::vector<info_set_type>& info_sets,
+            const train_kind_index_type       original_train_kind_count
+        )
+        {
+            std::vector<train_kind_index_type> map(original_train_kind_count, 0);
+
+            for (train_kind_index_type i = 0; i < info_sets.size(); ++i)
+            {
+                if (!info_sets[i].original_index())
+                    continue;
+
+                assert(*info_sets[i].original_index() < original_train_kind_count);
+                map[*info_sets[i].original_index()] = i;
+            }
+
+            return map;
         }
 
 

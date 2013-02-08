@@ -482,6 +482,8 @@ namespace bobura { namespace model
                 m_up_trains.end(),
                 replace_train_kind_index(m_train_kinds, train_kind_index_map)
             );
+
+            m_observer_set.changed()();
         }
 
         /*!
