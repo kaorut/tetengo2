@@ -309,13 +309,11 @@ namespace bobura { namespace message
                         type::sample_picture_box_paint, sample_picture_box_paint<InfoSet, Size, Canvas>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::apply_button_mouse_clicked, apply_button_mouse_clicked<Dialog>>,
-                tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
-                >>>>>>>>>>>>>>
+                >>>>>>>>>>>>>
                 type;
 
 

@@ -894,62 +894,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
 
     /*!
-        \brief The class template for a mouse click observer of the apply button.
-
-        \tparam Dialog A dialog type.
-    */
-    template <typename Dialog>
-    class apply_button_mouse_clicked
-    {
-    public:
-        // types
-
-        //! The dialog type.
-        typedef Dialog dialog_type;
-
-        //! The apply type.
-        typedef std::function<void ()> apply_type;
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a mouse click observer of the apply button.
-
-            \param dialog A dialog.
-            \param apply  A apply function.
-        */
-        apply_button_mouse_clicked(dialog_type& dialog, const apply_type apply)
-        :
-        m_dialog(dialog),
-        m_apply(apply)
-        {}
-
-
-        // functions
-
-        /*!
-            \brief Called when the apply button is clicked.
-        */
-        void operator()()
-        const
-        {
-            m_apply();
-        }
-
-
-    private:
-        // variables
-
-        dialog_type& m_dialog;
-
-        apply_type m_apply;
-
-
-    };
-
-
-    /*!
         \brief The class template for a mouse click observer of the OK button.
 
         \tparam Dialog A dialog type.

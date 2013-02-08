@@ -151,9 +151,6 @@ namespace bobura { namespace message
             //! The sample picture box paint observer type.
             struct sample_picture_box_paint;
 
-            //! The apply button mouse click observer type.
-            struct apply_button_mouse_clicked;
-
             //! The OK button mouse click observer type.
             struct ok_button_mouse_clicked;
 

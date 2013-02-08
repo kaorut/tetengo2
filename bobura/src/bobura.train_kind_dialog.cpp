@@ -101,7 +101,6 @@ namespace bobura
             m_p_line_style_label(),
             m_p_line_style_dropdown_box(),
             m_p_sample_picture_box(),
-            m_p_apply_button(),
             m_p_ok_button(),
             m_p_cancel_button()
             {
@@ -290,8 +289,6 @@ namespace bobura
 
             std::unique_ptr<picture_box_type> m_p_sample_picture_box;
 
-            std::unique_ptr<button_type> m_p_apply_button;
-
             std::unique_ptr<button_type> m_p_ok_button;
 
             std::unique_ptr<button_type> m_p_cancel_button;
@@ -324,7 +321,6 @@ namespace bobura
                 m_p_line_style_dropdown_box = create_line_style_dropdown_box();
                 m_p_sample_label = create_sample_label();
                 m_p_sample_picture_box = create_sample_picture_box(font, background_color);
-                m_p_apply_button = create_apply_button();
                 m_p_ok_button = create_ok_button();
                 m_p_cancel_button = create_cancel_button();
 
@@ -597,21 +593,6 @@ namespace bobura
                 return std::move(p_picture_box);
             }
 
-            std::unique_ptr<button_type> create_apply_button()
-            {
-                std::unique_ptr<button_type> p_button = tetengo2::make_unique<button_type>(m_base);
-
-                p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:A&pply")));
-                p_button->mouse_observer_set().clicked().connect(
-                    typename boost::mpl::at<
-                        train_kind_dialog_message_type_list_type,
-                        message::train_kind_dialog::type::apply_button_mouse_clicked
-                    >::type(m_base, TETENGO2_CPP11_BIND(&impl::apply, this))
-                );
-
-                return std::move(p_button);
-            }
-
             std::unique_ptr<button_type> create_ok_button()
             {
                 std::unique_ptr<button_type> p_button =
@@ -646,7 +627,7 @@ namespace bobura
 
             void locate_controls()
             {
-                m_base.set_client_dimension(dimension_type(width_type(46), height_type(29)));
+                m_base.set_client_dimension(dimension_type(width_type(46), height_type(26)));
 
                 const left_type train_kind_label_left(2);
 
@@ -654,7 +635,7 @@ namespace bobura
                 m_p_train_kind_label->set_position(position_type(train_kind_label_left, top_type(1)));
 
                 const width_type list_box_width(20);
-                const height_type list_box_height(19);
+                const height_type list_box_height(17);
                 m_p_train_kind_list_box->set_dimension(dimension_type(list_box_width, list_box_height));
                 m_p_train_kind_list_box->set_position(
                     position_type(
@@ -734,14 +715,11 @@ namespace bobura
                     )
                 );
 
-                m_p_apply_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-                m_p_apply_button->set_position(position_type(left_type(36), top_type(22)));
-
                 m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-                m_p_ok_button->set_position(position_type(left_type(27), top_type(26)));
+                m_p_ok_button->set_position(position_type(left_type(27), top_type(23)));
 
                 m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
-                m_p_cancel_button->set_position(position_type(left_type(36), top_type(26)));
+                m_p_cancel_button->set_position(position_type(left_type(36), top_type(23)));
             }
 
             void sync()
@@ -790,7 +768,6 @@ namespace bobura
                 m_p_weight_dropdown_box->set_enabled(selected_index);
                 m_p_line_style_label->set_enabled(selected_index);
                 m_p_line_style_dropdown_box->set_enabled(selected_index);
-                m_p_apply_button->set_enabled(selected_index);
 
                 if (selected_index)
                 {
