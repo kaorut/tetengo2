@@ -470,18 +470,18 @@ namespace bobura { namespace model
             const std::vector<train_kind_index_type>& train_kind_index_map
         )
         {
-            m_train_kinds = std::move(train_kinds);
-
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                replace_train_kind_index(m_train_kinds, train_kind_index_map)
+                replace_train_kind_index(train_kinds, train_kind_index_map)
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                replace_train_kind_index(m_train_kinds, train_kind_index_map)
+                replace_train_kind_index(train_kinds, train_kind_index_map)
             );
+
+            m_train_kinds = std::move(train_kinds);
 
             m_observer_set.changed()();
         }
