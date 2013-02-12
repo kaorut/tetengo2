@@ -255,8 +255,12 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int>>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::unit::point, tetengo2::gui::unit::point<int, detail::unit::unit_details_type>>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::unit::another_point, tetengo2::gui::unit::point<unsigned short, detail::unit::unit_details_type>
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         unit_type_list;
 
 
