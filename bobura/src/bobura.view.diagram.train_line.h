@@ -600,7 +600,7 @@ namespace bobura { namespace view { namespace diagram
             {
                 name <<
                     boost::basic_format<typename string_type::value_type>(
-                        message_catalog.get(string_type(TETENGO2_TEXT("Diagram:%1% No. %2%")))
+                        message_catalog.get(TETENGO2_TEXT("Diagram:%1% No. %2%"))
                     ) % train.name() % train.name_number();
             }
 
