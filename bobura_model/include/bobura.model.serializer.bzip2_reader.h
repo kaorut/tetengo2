@@ -18,6 +18,7 @@
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
+#include <boost/utility/string_ref.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
@@ -78,6 +79,10 @@ namespace bobura { namespace model { namespace serializer
 
         typedef std::basic_string<typename iterator::value_type> input_string_type;
 
+        typedef
+            boost::basic_string_ref<typename iterator::value_type, std::char_traits<typename iterator::value_type>>
+            input_string_ref_type;
+
         typedef std::basic_istringstream<typename iterator::value_type> input_stream_type;
 
 
@@ -93,7 +98,7 @@ namespace bobura { namespace model { namespace serializer
             const input_string_type input_string(first, last);
             if (input_string.length() < 2)
                 return false;
-            if (input_string.substr(0, 2) != input_string_type(TETENGO2_TEXT("BZ")))
+            if (input_string_ref_type(input_string).substr(0, 2) != input_string_ref_type(TETENGO2_TEXT("BZ")))
                 return false;
 
             std::istringstream input_stream(input_string);
