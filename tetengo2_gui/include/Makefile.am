@@ -50,6 +50,7 @@ headers = \
     tetengo2.gui.scroll_bar.h \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
+    tetengo2.gui.unit.point.h \
     tetengo2.gui.unit.unit.h \
     tetengo2.gui.virtual_key.h \
     tetengo2.gui.widget.abstract_window.h \

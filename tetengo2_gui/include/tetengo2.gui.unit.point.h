@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::em.
+    \brief The definition of tetengo2::gui::unit::point.
 
     Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_UNIT_EM_H)
-#define TETENGO2_GUI_UNIT_EM_H
+#if !defined(TETENGO2_GUI_UNIT_POINT_H)
+#define TETENGO2_GUI_UNIT_POINT_H
 
 #include <cstddef>
 #include <type_traits>
@@ -21,13 +21,13 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     /*!
-        \brief The class template for an EM height unit.
+        \brief The class template for a point height unit.
 
         \tparam Value       A value type.
         \tparam UnitDetails A detail implementation type of a unit.
    */
     template <typename Value, typename UnitDetails>
-    class em : public unit<em<Value, UnitDetails>, Value>
+    class point : public unit<point<Value, UnitDetails>, Value>
     {
     public:
         // types
@@ -42,44 +42,44 @@ namespace tetengo2 { namespace gui { namespace unit
         // static functions
 
         /*!
-            \brief Returns a unit made from another em unit.
+            \brief Returns a unit made from another point unit.
 
             \tparam V  A value type.
 
-            \param another A value in another em unit.
+            \param another A value in another point unit.
 
-            \return A em unit.
+            \return A point unit.
         */
         template <typename V>
-        static em from(const em<V, unit_details_type>& another)
+        static point from(const point<V, unit_details_type>& another)
         {
-            return em(cast<value_type>(another.value()));
+            return point(cast<value_type>(another.value()));
         }
 
         /*!
-            \brief Returns an EM height unit made from a value in pixels.
+            \brief Returns a point height unit made from a value in pixels.
 
             \tparam PixelValue A pixel value type.
 
             \param value A value in pixels.
 
-            \return An EM height unit.
+            \return An point height unit.
         */
         template <typename PixelValue>
-        static em from_pixels(const PixelValue value)
+        static point from_pixels(const PixelValue value)
         {
-            return em(unit_details_type::template pixels_to_em<value_type>(value));
+            return point(unit_details_type::template pixels_to_em<value_type>(value));
         }
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates an EM height unit.
+            \brief Creates a point height unit.
 
             \param value A value.
         */
-        explicit em(const value_type& value)
+        explicit point(const value_type& value)
         :
         m_value(value)
         {}
@@ -88,57 +88,57 @@ namespace tetengo2 { namespace gui { namespace unit
         // functions
 
         /*!
-            \brief Checks whether one EM height unit is equal to another.
+            \brief Checks whether one point height unit is equal to another.
 
-            \param one     One EM height unit.
-            \param another Another value in EM height unit.
+            \param one     One point height unit.
+            \param another Another value in point height unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const em& one, const value_type& another)
+        friend bool operator==(const point& one, const value_type& another)
         {
             return one.m_value == another;
         }
 
         /*!
-            \brief Checks whether one EM height unit is less than another.
+            \brief Checks whether one point height unit is less than another.
 
-            \param one     One EM height unit.
-            \param another Another value in EM height unit.
+            \param one     One point height unit.
+            \param another Another value in point height unit.
 
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const em& one, const value_type& another)
+        friend bool operator<(const point& one, const value_type& another)
         {
             return one.m_value < another;
         }
 
         /*!
-            \brief Checks whether one EM height unit is greater than another.
+            \brief Checks whether one point height unit is greater than another.
 
-            \param one     One EM height unit.
-            \param another Another value in EM height unit.
+            \param one     One point height unit.
+            \param another Another value in point height unit.
 
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const em& one, const value_type& another)
+        friend bool operator>(const point& one, const value_type& another)
         {
             return one.m_value > another;
         }
 
         /*!
-            \brief Adds another value in EM height unit.
+            \brief Adds another value in point height unit.
 
-            \param another Another value in EM height unit.
+            \param another Another value in point height unit.
 
             \return This object.
         */
-        em& add(const value_type& another)
+        point& add(const value_type& another)
         {
-            em temp(*this);
+            point temp(*this);
 
             temp.m_value += another;
 
@@ -147,15 +147,15 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Subtracts another value in EM height unit.
+            \brief Subtracts another value in point height unit.
 
-            \param another Another value in EM height unit.
+            \param another Another value in point height unit.
 
             \return This object.
         */
-        em& subtract(const value_type& another)
+        point& subtract(const value_type& another)
         {
-            em temp(*this);
+            point temp(*this);
 
             temp.m_value -= another;
 
@@ -164,15 +164,15 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Multiplies another value in EM height unit.
+            \brief Multiplies another value in point height unit.
 
-            \param another Another value in EM height unit.
+            \param another Another value in point height unit.
 
             \return This object.
         */
-        em& multiply(const value_type& another)
+        point& multiply(const value_type& another)
         {
-            em temp(*this);
+            point temp(*this);
 
             temp.m_value *= another;
 
@@ -181,15 +181,15 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Divides by another value in EM height unit.
+            \brief Divides by another value in point height unit.
 
-            \param another Another value in EM height unit.
+            \param another Another value in point height unit.
 
             \return This object.
         */
-        em& divide_by(const value_type& another)
+        point& divide_by(const value_type& another)
         {
-            em temp(*this);
+            point temp(*this);
 
             temp.m_value /= another;
 
@@ -198,13 +198,13 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Divides by another EM height unit.
+            \brief Divides by another point height unit.
 
-            \param another Another EM height unit.
+            \param another Another point height unit.
 
             \return A value.
         */
-        value_type divide_by(const em& another)
+        value_type divide_by(const point& another)
         const
         {
             return value() / another.value();
