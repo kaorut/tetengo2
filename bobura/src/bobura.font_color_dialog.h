@@ -25,9 +25,17 @@ namespace bobura
         \tparam MessageCatalog A message catalog type.
         \tparam IntSize        An integer size type.
         \tparam Font           A font type.
+        \tparam PointSize      A point size type.
         \tparam Color          A color type.
     */
-    template <typename Dialog, typename MessageCatalog, typename IntSize, typename Font, typename Color>
+    template <
+        typename Dialog,
+        typename MessageCatalog,
+        typename IntSize,
+        typename Font,
+        typename PointSize,
+        typename Color
+    >
     class font_color_dialog : public Dialog
     {
     public:
@@ -47,6 +55,9 @@ namespace bobura
 
         //! The font type.
         typedef Font font_type;
+
+        //! The point size type.
+        typedef PointSize point_size_type;
 
         //! The color type.
         typedef Color color_type;
