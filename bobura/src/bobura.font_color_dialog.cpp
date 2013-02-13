@@ -16,7 +16,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
-#include <boost/rational.hpp>
+//#include <boost/rational.hpp>
 //#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>

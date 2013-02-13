@@ -9,15 +9,16 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_UNIT_H)
 #define TETENGO2_DETAIL_WINDOWS_UNIT_H
 
-#include <cassert>
+//#include <cassert>
 //#include <cstddef>
-#include <system_error>
+//#include <system_error>
 //#include <type_traits>
+//#include <utility>
 
 //#include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)

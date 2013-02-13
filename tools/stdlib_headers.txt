@@ -76,6 +76,7 @@
 ::GetCommandLineW                                Windows.h
 ::GetDC                                          Windows.h
 ::GetDesktopWindow                               Windows.h
+::GetDeviceCaps                                  Windows.h
 ::GetDlgItem                                     Windows.h
 ::GetDoubleClickTime                             Windows.h
 ::GetKeyState                                    Windows.h
@@ -441,6 +442,7 @@ assert                                           cassert
 boost::additive                                  boost/operators.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
+boost::basic_string_ref                          boost/utility/string_ref.hpp
 boost::bind                                      boost/bind.hpp
 boost::condition_variable                        boost/thread.hpp
 boost::copy_exception                            boost/exception_ptr.hpp
@@ -557,6 +559,7 @@ std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::bind                                        functional
 std::ceil                                        cmath
+std::char_traits                                 string
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::cos                                         cmath
