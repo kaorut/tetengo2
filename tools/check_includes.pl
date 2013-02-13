@@ -85,7 +85,9 @@ my($show_progress) = $ARGV[3] ne '';
 	foreach my $key (sort(keys(%subincludes)))
 	{
 		my($value) = $subincludes{$key};
-		print 'SUBINC: #include <'.$key.'> in '.$value."\n";
+		my($print_line) = 'SUBINC: #include <'.$key.'> in '.$value;
+		$print_line = substr($print_line, 0, 116)."..." if length($print_line) > 119;
+		print $print_line."\n";
 	}
 	while (my($key, $value) = each(%stdlib_header_usage))
 	{
@@ -116,6 +118,7 @@ sub scan_source
 		$r_subincludes,
 		$r_stdlib_header_usage
 	) = @_;
+	my(%subincludes_rev);
 	
 	print STDERR "Scanning: $file_name        \r" if $show_progress;
 	open(my $fh, $file_name) || die("Can't open $file_name");
@@ -147,7 +150,10 @@ sub scan_source
 				my(@directories) = @special_header_directories;
 				push(@directories, dirname($file_name));
 				scan_subsource(
-					$subfile_name, \@directories, $r_subincludes
+					$subfile_name,
+					\@directories,
+					$r_subincludes,
+					\%subincludes_rev
 				);
 			}
 		}
@@ -214,14 +220,18 @@ sub scan_source
 
 sub scan_subsource
 {
-	my($file_name, $r_directories, $r_includes) = @_;
+	my($file_name, $r_directories, $r_includes, $r_includes_rev) = @_;
+	
+	my($cached) = $$r_includes_rev{$file_name};
+	return if $cached ne '';
 	
 	print STDERR "Scanning: $file_name        \r" if $show_progress;
 	my($fh);
 	my($opened) = 0;
 	foreach my $directory (@$r_directories)
 	{
-		if (open($fh, $directory.'/'.$file_name))
+		my($path) = $directory.'/'.$file_name;
+		if (open($fh, $path))
 		{
 			$opened = 1;
 			last;
@@ -253,6 +263,9 @@ sub scan_subsource
 				)
 				{
 					$$r_includes{$subfile_name} .= basename($file_name).", ";
+					
+					$$r_includes_rev{basename($file_name)} .=
+						$subfile_name.',';
 				}
 			}
 			else
@@ -260,7 +273,7 @@ sub scan_subsource
 				my(@directories) = @special_header_directories;
 				push(@directories, dirname($file_name));
 				scan_subsource(
-					$subfile_name, \@directories, $r_includes
+					$subfile_name, \@directories, $r_includes, $r_includes_rev
 				);
 			}
 		}
