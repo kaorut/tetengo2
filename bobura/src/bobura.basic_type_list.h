@@ -63,6 +63,7 @@
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.scroll_bar.h>
 #include <tetengo2.gui.unit.em.h>
+#include <tetengo2.gui.unit.point.h>
 #include <tetengo2.gui.virtual_key.h>
 #include <tetengo2.gui.widget.abstract_window.h>
 #include <tetengo2.gui.widget.button.h>
@@ -312,6 +313,7 @@ namespace bobura
         struct message_loop_break; //!< The message loop break type.
         struct picture_box;    //!< The picture box type.
         struct picture_reader; //!< The picture reader type.
+        struct point_unit_size; //!< The point unit size type.
         struct popup_menu;     //!< The popup menu type.
         struct position;       //!< The position type.
         struct solid_background; //!< The solid background type.
@@ -711,6 +713,14 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::ui::point_unit_size,
+                tetengo2::gui::unit::point<
+                    boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
+                    boost::mpl::at<detail_type_list, type::detail::unit>::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::ui::popup_menu,
                 tetengo2::gui::menu::popup<
                     detail::ui::menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
@@ -724,7 +734,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -848,6 +858,7 @@ namespace bobura
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<common_type_list, type::size>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_font>::type,
+                    boost::mpl::at<ui_type_list, type::ui::point_unit_size>::type,
                     boost::mpl::at<ui_type_list, type::ui::color>::type
                 >
             >,

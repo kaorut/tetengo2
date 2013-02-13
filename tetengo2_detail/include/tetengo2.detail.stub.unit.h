@@ -55,7 +55,39 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename PixelValue, typename Value>
         static PixelValue em_to_pixels(const Value& value)
         {
-            return to_pixel_value<PixelValue, Value>(value * 12);
+            return to_pixel_value<PixelValue, Value>(value * 12, 1);
+        }
+
+        /*!
+            \brief Translates a value in pixels into a value in points.
+
+            \tparam Value      A value type.
+            \tparam PixelValue A pixel value type.
+
+            \param pixel_value A value in pixels.
+
+            \return The value in points.
+        */
+        template <typename Value, typename PixelValue>
+        static Value pixels_to_points(const PixelValue pixel_value)
+        {
+            return to_value<Value, PixelValue>(pixel_value * 3, 4);
+        }
+
+        /*!
+            \brief Translates a value in points into a value in pixels.
+
+            \tparam PixelValue A pixel value type.
+            \tparam Value      A value type.
+
+            \param value A value in points.
+
+            \return The value in pixels.
+        */
+        template <typename PixelValue, typename Value>
+        static PixelValue points_to_pixels(const Value& value)
+        {
+            return to_pixel_value<PixelValue, Value>(value * 4, 3);
         }
 
 
@@ -86,22 +118,24 @@ namespace tetengo2 { namespace detail { namespace stub
 
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
-            const Value& value,
+            const Value& numerator,
+            const Value& denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
-            return boost::rational_cast<PixelValue>(value);
+            return boost::rational_cast<PixelValue>(numerator / denominator);
         }
 
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
-            const Value value,
+            const Value numerator,
+            const Value denominator,
             typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
-            return static_cast<PixelValue>(value);
+            return static_cast<PixelValue>(numerator / denominator);
         }
 
 

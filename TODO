@@ -37,11 +37,6 @@ Added on    : 2013/02/08
 Depends on  : (none)
 Description : Create tetengo2::configuration.
 ------------------------------------------------------------------------------
-Number      : 00000220
-Added on    : 2013/02/08
-Depends on  : (none)
-Description : Create tetengo2::gui::unit::point.
-------------------------------------------------------------------------------
 Number      : 00000221
 Added on    : 2013/mm/dd
 Depends on  : (none)

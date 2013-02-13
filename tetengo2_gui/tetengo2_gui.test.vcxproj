@@ -144,6 +144,7 @@
     <ClCompile Include="test\test_tetengo2.gui.scroll_bar.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.unit.point.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.virtual_key.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.abstract_window.cpp" />

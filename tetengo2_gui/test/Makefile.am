@@ -54,6 +54,7 @@ sources = \
     test_tetengo2.gui.scroll_bar.cpp \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
+    test_tetengo2.gui.unit.point.cpp \
     test_tetengo2.gui.unit.unit.cpp \
     test_tetengo2.gui.virtual_key.cpp \
     test_tetengo2.gui.widget.abstract_window.cpp \

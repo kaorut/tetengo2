@@ -9,11 +9,16 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_UNIT_H)
 #define TETENGO2_DETAIL_WINDOWS_UNIT_H
 
+//#include <cassert>
 //#include <cstddef>
+//#include <system_error>
 //#include <type_traits>
+//#include <utility>
 
 //#include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
+#include <boost/scope_exit.hpp>
+//#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
@@ -24,6 +29,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 
 
@@ -68,8 +74,41 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue em_to_pixels(const Value& value)
         {
             const ::LOGFONTW& message_font = get_message_font();
-            return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight);
+            return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight, 1);
         }
+
+        /*!
+            \brief Translates a value in pixels into a value in points.
+
+            \tparam Value      A value type.
+            \tparam PixelValue A pixel value type.
+
+            \param pixel_value A value in pixels.
+
+            \return The value in points.
+        */
+        template <typename Value, typename PixelValue>
+        static Value pixels_to_points(const PixelValue pixel_value)
+        {
+            return to_value<Value, PixelValue>(pixel_value * 72, dpi().second);
+        }
+
+        /*!
+            \brief Translates a value in points into a value in pixels.
+
+            \tparam PixelValue A pixel value type.
+            \tparam Value      A value type.
+
+            \param value A value in points.
+
+            \return The value in pixels.
+        */
+        template <typename PixelValue, typename Value>
+        static PixelValue points_to_pixels(const Value& value)
+        {
+            return to_pixel_value<PixelValue, Value>(value * dpi().second, 72);
+        }
+
 
 
     private:
@@ -101,22 +140,53 @@ namespace tetengo2 { namespace detail { namespace windows
 
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
-            const Value& value,
+            const Value& numerator,
+            const Value& denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
-            return boost::rational_cast<PixelValue>(value);
+            return boost::rational_cast<PixelValue>(numerator / denominator);
         }
 
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
-            const Value value,
+            const Value numerator,
+            const Value denominator,
             typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
-            return static_cast<PixelValue>(value);
+            return static_cast<PixelValue>(numerator / denominator);
+        }
+
+        static const std::pair<int, int>& dpi()
+        {
+            static const std::pair<int, int> singleton = get_dpi();
+            return singleton;
+        }
+
+        static std::pair<int, int> get_dpi()
+        {
+            const ::HDC device_context = ::GetDC(NULL);
+            if (!device_context)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the desktop device context."
+                    )
+                );
+            }
+            BOOST_SCOPE_EXIT((device_context))
+            {
+                ::ReleaseDC(NULL, device_context);
+            } BOOST_SCOPE_EXIT_END;
+
+            const int dpi_x = ::GetDeviceCaps(device_context, LOGPIXELSX);
+            assert(dpi_x != 0);
+            const int dpi_y = ::GetDeviceCaps(device_context, LOGPIXELSY);
+            assert(dpi_y != 0);
+            return std::make_pair(dpi_x, dpi_y);
         }
 
 
