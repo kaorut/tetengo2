@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static point from_pixels(const PixelValue value)
         {
-            return point(unit_details_type::template pixels_to_em<value_type>(value));
+            return point(unit_details_type::template pixels_to_points<value_type>(value));
         }
 
 
@@ -226,13 +226,13 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam PixelValue A pixel value type.
 
-            \return The value in ems.
+            \return The value in points.
         */
         template <typename PixelValue>
         PixelValue to_pixels()
         const
         {
-            return unit_details_type::template em_to_pixels<PixelValue>(m_value);
+            return unit_details_type::template points_to_pixels<PixelValue>(m_value);
         }
 
 

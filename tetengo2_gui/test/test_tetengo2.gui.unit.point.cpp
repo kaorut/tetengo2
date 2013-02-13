@@ -36,18 +36,18 @@ BOOST_AUTO_TEST_SUITE(point)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit = unit_type::from(another_unit_type(123));
+        const unit_type unit = unit_type::from(another_unit_type(12));
 
-        BOOST_CHECK_EQUAL(unit.value(), 123);
+        BOOST_CHECK_EQUAL(unit.value(), 12);
     }
 
     BOOST_AUTO_TEST_CASE(from_pixels)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit = unit_type::from_pixels(123 * 12);
+        const unit_type unit = unit_type::from_pixels(16);
 
-        BOOST_CHECK_EQUAL(unit.value(), 123);
+        BOOST_CHECK_EQUAL(unit.value(), 12);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -55,11 +55,11 @@ BOOST_AUTO_TEST_SUITE(point)
         BOOST_TEST_PASSPOINT();
 
         {
-            const int value = 123;
+            const int value = 12;
             const unit_type unit(value);
         }
         {
-            const unit_type unit(123);
+            const unit_type unit(12);
         }
     }
 
@@ -68,14 +68,14 @@ BOOST_AUTO_TEST_SUITE(point)
         BOOST_TEST_PASSPOINT();
 
         {
-            const unit_type unit1(123);
+            const unit_type unit1(12);
 
-            BOOST_CHECK(unit1 == 123);
+            BOOST_CHECK(unit1 == 12);
         }
         {
-            const unit_type unit1(456);
+            const unit_type unit1(34);
 
-            BOOST_CHECK(unit1 != 123);
+            BOOST_CHECK(unit1 != 12);
         }
     }
 
@@ -83,51 +83,51 @@ BOOST_AUTO_TEST_SUITE(point)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1(123);
+        const unit_type unit1(12);
 
-        BOOST_CHECK(unit1 < 456);
+        BOOST_CHECK(unit1 < 34);
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1(456);
+        const unit_type unit1(34);
 
-        BOOST_CHECK(unit1 > 123);
+        BOOST_CHECK(unit1 > 12);
     }
 
     BOOST_AUTO_TEST_CASE(add)
     {
         BOOST_TEST_PASSPOINT();
 
-        unit_type unit1(456);
+        unit_type unit1(34);
 
-        unit1.add(123);
+        unit1.add(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 579);
+        BOOST_CHECK_EQUAL(unit1.value(), 46);
     }
 
     BOOST_AUTO_TEST_CASE(subtract)
     {
         BOOST_TEST_PASSPOINT();
 
-        unit_type unit1(456);
+        unit_type unit1(34);
 
-        unit1.subtract(123);
+        unit1.subtract(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 333);
+        BOOST_CHECK_EQUAL(unit1.value(), 22);
     }
 
     BOOST_AUTO_TEST_CASE(multiply)
     {
         BOOST_TEST_PASSPOINT();
 
-        unit_type unit1(456);
+        unit_type unit1(34);
 
-        unit1.multiply(123);
+        unit1.multiply(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 56088);
+        BOOST_CHECK_EQUAL(unit1.value(), 408);
     }
 
     BOOST_AUTO_TEST_CASE(divide_by)
@@ -135,15 +135,15 @@ BOOST_AUTO_TEST_SUITE(point)
         BOOST_TEST_PASSPOINT();
 
         {
-            unit_type unit1(456);
+            unit_type unit1(36);
 
-            unit1.divide_by(123);
+            unit1.divide_by(12);
 
             BOOST_CHECK_EQUAL(unit1.value(), 3);
         }
         {
-            const unit_type unit1(456);
-            const unit_type unit2(123);
+            const unit_type unit1(36);
+            const unit_type unit2(12);
 
             BOOST_CHECK_EQUAL(unit1.divide_by(unit2), 3);
         }
@@ -153,18 +153,18 @@ BOOST_AUTO_TEST_SUITE(point)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit(123);
+        const unit_type unit(12);
 
-        BOOST_CHECK_EQUAL(unit.value(), 123);
+        BOOST_CHECK_EQUAL(unit.value(), 12);
     }
 
     BOOST_AUTO_TEST_CASE(to_pixels)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit(123);
+        const unit_type unit(12);
 
-        BOOST_CHECK_EQUAL(unit.to_pixels<int>(), 123 * 12);
+        BOOST_CHECK_EQUAL(unit.to_pixels<int>(), 16);
     }
 
 
