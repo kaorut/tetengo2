@@ -21,7 +21,7 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     /*!
-        \brief The class template for a point height unit.
+        \brief The class template for a point unit.
 
         \tparam Value       A value type.
         \tparam UnitDetails A detail implementation type of a unit.
@@ -57,13 +57,13 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Returns a point height unit made from a value in pixels.
+            \brief Returns a point unit made from a value in pixels.
 
             \tparam PixelValue A pixel value type.
 
             \param value A value in pixels.
 
-            \return An point height unit.
+            \return An point unit.
         */
         template <typename PixelValue>
         static point from_pixels(const PixelValue value)
@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace unit
         // constructors and destructor
 
         /*!
-            \brief Creates a point height unit.
+            \brief Creates a point unit.
 
             \param value A value.
         */
@@ -88,10 +88,10 @@ namespace tetengo2 { namespace gui { namespace unit
         // functions
 
         /*!
-            \brief Checks whether one point height unit is equal to another.
+            \brief Checks whether one point unit is equal to another.
 
-            \param one     One point height unit.
-            \param another Another value in point height unit.
+            \param one     One point unit.
+            \param another Another value in point unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
@@ -102,10 +102,10 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Checks whether one point height unit is less than another.
+            \brief Checks whether one point unit is less than another.
 
-            \param one     One point height unit.
-            \param another Another value in point height unit.
+            \param one     One point unit.
+            \param another Another value in point unit.
 
             \retval true  When the one is less than the other.
             \retval false Otherwise.
@@ -116,10 +116,10 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Checks whether one point height unit is greater than another.
+            \brief Checks whether one point unit is greater than another.
 
-            \param one     One point height unit.
-            \param another Another value in point height unit.
+            \param one     One point unit.
+            \param another Another value in point unit.
 
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
@@ -130,9 +130,9 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Adds another value in point height unit.
+            \brief Adds another value in point unit.
 
-            \param another Another value in point height unit.
+            \param another Another value in point unit.
 
             \return This object.
         */
@@ -147,9 +147,9 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Subtracts another value in point height unit.
+            \brief Subtracts another value in point unit.
 
-            \param another Another value in point height unit.
+            \param another Another value in point unit.
 
             \return This object.
         */
@@ -164,9 +164,9 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Multiplies another value in point height unit.
+            \brief Multiplies another value in point unit.
 
-            \param another Another value in point height unit.
+            \param another Another value in point unit.
 
             \return This object.
         */
@@ -181,9 +181,9 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Divides by another value in point height unit.
+            \brief Divides by another value in point unit.
 
-            \param another Another value in point height unit.
+            \param another Another value in point unit.
 
             \return This object.
         */
@@ -198,9 +198,9 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Divides by another point height unit.
+            \brief Divides by another point unit.
 
-            \param another Another point height unit.
+            \param another Another point unit.
 
             \return A value.
         */
