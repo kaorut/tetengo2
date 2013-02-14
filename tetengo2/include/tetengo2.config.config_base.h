@@ -13,6 +13,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
 
@@ -37,6 +38,9 @@ namespace tetengo2 { namespace config
         //! The unsigned integer type.
         typedef UInt uint_type;
 
+        //! The value type.
+        typedef boost::variant<string_type, uint_type> value_type;
+
 
         // constructors and destructor
 
@@ -57,29 +61,16 @@ namespace tetengo2 { namespace config
         // functions
         
         /*!
-            \brief Returns the string value.
+            \brief Returns the value.
 
             \param key A key.
 
             \return The value.
         */
-        boost::optional<string_type> get_string(const string_type& key)
+        boost::optional<value_type> get(const string_type& key)
         const
         {
-            return get_string_impl(key);
-        }
-
-        /*!
-            \brief Returns the unsigned integer value.
-
-            \param key A key.
-
-            \return The value.
-        */
-        boost::optional<uint_type> get_uint(const string_type& key)
-        const
-        {
-            return get_uint_impl(key);
+            return get_impl(key);
         }
 
         /*!
@@ -88,36 +79,19 @@ namespace tetengo2 { namespace config
             \param key   A key.
             \param value A value.
         */
-        void set(const string_type& key, string_type value)
+        void set(const string_type& key, value_type value)
         {
             set_impl(key, std::move(value));
-        }
-
-        /*!
-            \brief Sets a unsigned integer value.
-
-            \param key   A key.
-            \param value A value.
-        */
-        void set(const string_type& key, const uint_type value)
-        {
-            set_impl(key, value);
         }
 
 
     private:
         // virtual functions
 
-        virtual boost::optional<string_type> get_string_impl(const string_type& key)
+        virtual boost::optional<value_type> get_impl(const string_type& key)
         const = 0;
 
-        virtual boost::optional<uint_type> get_uint_impl(const string_type& key)
-        const = 0;
-
-        virtual void set_impl(const string_type& key, string_type value)
-        = 0;
-
-        virtual void set_impl(const string_type& key, const uint_type value)
+        virtual void set_impl(const string_type& key, value_type value)
         = 0;
 
 
