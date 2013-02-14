@@ -11,6 +11,7 @@
 
 #include <utility>
 
+#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"
