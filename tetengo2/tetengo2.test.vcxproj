@@ -103,6 +103,7 @@
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.producer.cpp" />
     <ClCompile Include="test\test_tetengo2.config.config_base.cpp" />
+    <ClCompile Include="test\test_tetengo2.config.temporary_config.cpp" />
     <ClCompile Include="test\test_tetengo2.message.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp" />

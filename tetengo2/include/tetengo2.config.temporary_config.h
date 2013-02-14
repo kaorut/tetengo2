@@ -1,0 +1,83 @@
+/*! \file
+    \brief The definition of tetengo2::config::temporary_config.
+
+    Copyright (C) 2007-2013 kaoru
+
+    $Id$
+*/
+
+#if !defined(TETENGO2_CONFIG_TEMPORARYCONFIG_H)
+#define TETENGO2_CONFIG_TEMPORARYCONFIG_H
+
+#include <boost/optional.hpp>
+#include <boost/variant.hpp>
+
+#include "tetengo2.cpp11.h"
+#include "tetengo2.config.config_base.h"
+
+
+namespace tetengo2 { namespace config
+{
+    /*!
+        \brief The class template for a temporary configuration.
+
+        \tparam String A string type.
+        \tparam UInt   An unsigned integer type.
+    */
+    template <typename String, typename UInt>
+    class temporary_config : public config_base<String, UInt>
+    {
+    public:
+        // types
+
+        //! The string type.
+        typedef String string_type;
+
+        //! The unsigned integer type.
+        typedef UInt uint_type;
+
+        //! The base type.
+        typedef config_base<string_type, uint_type> base_type;
+
+        //! The value type.
+        typedef typename base_type::value_type value_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a temporary configuration.
+        */
+        temporary_config()
+        {}
+
+        /*!
+            \brief Destroys the temporary configuration.
+        */
+        virtual ~temporary_config()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+    private:
+        // virtual functions
+
+        virtual boost::optional<value_type> get_impl(const string_type& key)
+        const
+        {
+            return boost::make_optional<value_type>(uint_type(0));
+        }
+
+        virtual void set_impl(const string_type& key, value_type value)
+        {
+
+        }
+
+
+    };
+
+
+}}
+
+
+#endif
