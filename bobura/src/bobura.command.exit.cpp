@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.exit.h"
 
 
@@ -39,6 +41,7 @@ namespace bobura { namespace command
     {}
 
     exit::~exit()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void exit::execute_impl(model_type& model, abstract_window_type& parent)

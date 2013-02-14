@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.nop.h"
 
 
@@ -37,6 +39,7 @@ namespace bobura { namespace command
     {}
 
     nop::~nop()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void nop::execute_impl(model_type& model, abstract_window_type& parent)

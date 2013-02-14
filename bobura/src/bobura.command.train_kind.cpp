@@ -158,6 +158,7 @@ namespace bobura { namespace command
     {}
 
     train_kind::~train_kind()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void train_kind::execute_impl(model_type& model, abstract_window_type& parent)

@@ -10,6 +10,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.zoom.h"
 
@@ -86,6 +88,7 @@ namespace bobura { namespace command
     {}
 
     set_vertical_scale::~set_vertical_scale()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     set_vertical_scale::state_type::enum_t set_vertical_scale::state_impl()

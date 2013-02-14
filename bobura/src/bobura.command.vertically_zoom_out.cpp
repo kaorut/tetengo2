@@ -10,6 +10,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.zoom.h"
 
@@ -73,6 +75,7 @@ namespace bobura { namespace command
     {}
 
     vertically_zoom_out::~vertically_zoom_out()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void vertically_zoom_out::execute_impl(model_type& model, abstract_window_type& parent)

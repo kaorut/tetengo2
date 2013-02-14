@@ -11,6 +11,8 @@
 
 //#include <memory>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.command_base.h"
 
 
@@ -31,14 +33,15 @@ namespace bobura { namespace command
         // constructors and destructor
 
         /*!
-            \brief Creates an about command.
+            \brief Creates an exit command.
         */
         exit();
 
         /*!
-            \brief Destroys the about command.
+            \brief Destroys the exit command.
         */
-        ~exit();
+        ~exit()
+        TETENGO2_CPP11_NOEXCEPT;
 
 
     private:

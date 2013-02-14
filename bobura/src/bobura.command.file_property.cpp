@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.file_property.h"
 
 
@@ -77,6 +79,7 @@ namespace bobura { namespace command
     {}
 
     file_property::~file_property()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void file_property::execute_impl(model_type& model, abstract_window_type& parent)

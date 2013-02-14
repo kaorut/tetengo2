@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.save_to_file.h"
 
 
@@ -55,6 +57,7 @@ namespace bobura { namespace command
     {}
 
     save_to_file::~save_to_file()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void save_to_file::execute_impl(model_type& model, abstract_window_type& parent)

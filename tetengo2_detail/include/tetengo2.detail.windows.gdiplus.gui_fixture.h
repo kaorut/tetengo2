@@ -61,6 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \brief Destroys the detail implementation of a GUI fixture.
         */
         ~gui_fixture()
+        TETENGO2_CPP11_NOEXCEPT
         {
             teardown_gdiplus(m_gdiplus_token);
         }

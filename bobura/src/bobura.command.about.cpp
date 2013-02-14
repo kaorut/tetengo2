@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.about.h"
 
 
@@ -62,6 +64,7 @@ namespace bobura { namespace command
     {}
 
     about::~about()
+    TETENGO2_CPP11_NOEXCEPT
     {}
     
     void about::execute_impl(model_type& model, abstract_window_type& parent)
