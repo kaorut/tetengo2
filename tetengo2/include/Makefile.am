@@ -6,6 +6,7 @@ headers = \
     tetengo2.concurrent.channel.h \
     tetengo2.concurrent.consumer.h \
     tetengo2.concurrent.producer.h \
+    tetengo2.config.config_base.h \
     tetengo2.cpp11.h \
     tetengo2.message.messages.h \
     tetengo2.message.message_catalog.h \

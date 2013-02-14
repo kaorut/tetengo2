@@ -12,6 +12,7 @@ sources = \
     test_tetengo2.concurrent.channel.cpp \
     test_tetengo2.concurrent.consumer.cpp \
     test_tetengo2.concurrent.producer.cpp \
+    test_tetengo2.config.config_base.cpp \
     test_tetengo2.message.messages.cpp \
     test_tetengo2.message.message_catalog.cpp \
     test_tetengo2.message.message_catalog_parser.cpp \

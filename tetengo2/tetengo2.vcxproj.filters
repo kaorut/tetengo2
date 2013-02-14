@@ -37,6 +37,9 @@
     <Filter Include="sources\tetengo2\text\grammar">
       <UniqueIdentifier>{d75ae191-42e6-4913-ad9f-0617ddbc9c4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2\config">
+      <UniqueIdentifier>{5e9bcbff-781a-4714-b305-fd10b0083950}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.text.h">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.config.config_base.h">
+      <Filter>headers\tetengo2\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
