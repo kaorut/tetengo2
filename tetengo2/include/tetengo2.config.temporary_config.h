@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_CONFIG_TEMPORARYCONFIG_H)
 #define TETENGO2_CONFIG_TEMPORARYCONFIG_H
 
+#include <unordered_map>
+#include <utility>
+
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
@@ -49,6 +52,22 @@ namespace tetengo2 { namespace config
             \brief Creates a temporary configuration.
         */
         temporary_config()
+        :
+        m_values()
+        {}
+
+        /*!
+            \brief Creates a temporary configuration.
+
+            \tparam InputIterator An input iterator type.
+
+            \param first The first position of values.
+            \param last  The last position of values.
+        */
+        template <typename InputIterator>
+        temporary_config(const InputIterator first, const InputIterator last)
+        :
+        m_values(first, last)
         {}
 
         /*!
@@ -60,17 +79,28 @@ namespace tetengo2 { namespace config
 
 
     private:
+        // types
+
+        typedef std::unordered_map<string_type, value_type> key_value_type;
+
+
+        // variables
+
+        key_value_type m_values;
+
+
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            return boost::make_optional<value_type>(uint_type(0));
+            const key_value_type::const_iterator found = m_values.find(key);
+            return found != m_values.end() ? boost::make_optional<value_type>(found->second) : boost::none;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-
+            m_values[key] = std::move(value);
         }
 
 

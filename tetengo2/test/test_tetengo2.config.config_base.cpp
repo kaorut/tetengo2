@@ -20,11 +20,9 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
+    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
 
     typedef tetengo2::config::config_base<string_type, uint_type> config_base_type;
 
