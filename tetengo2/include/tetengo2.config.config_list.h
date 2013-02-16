@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::config::temporary_config.
+    \brief The definition of tetengo2::config::config_list.
 
     Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_CONFIG_TEMPORARYCONFIG_H)
-#define TETENGO2_CONFIG_TEMPORARYCONFIG_H
+#if !defined(TETENGO2_CONFIG_CONFIGLIST_H)
+#define TETENGO2_CONFIG_CONFIGLIST_H
 
 #include <unordered_map>
 #include <utility>
@@ -22,13 +22,13 @@
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a temporary configuration.
+        \brief The class template for a configuration list.
 
         \tparam String A string type.
         \tparam UInt   An unsigned integer type.
     */
     template <typename String, typename UInt>
-    class temporary_config : public config_base<String, UInt>
+    class config_list : public config_base<String, UInt>
     {
     public:
         // types
@@ -49,15 +49,15 @@ namespace tetengo2 { namespace config
         // constructors and destructor
 
         /*!
-            \brief Creates a temporary configuration.
+            \brief Creates a configuration list.
         */
-        temporary_config()
+        config_list()
         :
         m_values()
         {}
 
         /*!
-            \brief Creates a temporary configuration.
+            \brief Creates a configuration list.
 
             \tparam InputIterator An input iterator type.
 
@@ -65,15 +65,15 @@ namespace tetengo2 { namespace config
             \param last  The last position of values.
         */
         template <typename InputIterator>
-        temporary_config(const InputIterator first, const InputIterator last)
+        config_list(const InputIterator first, const InputIterator last)
         :
         m_values(first, last)
         {}
 
         /*!
-            \brief Destroys the temporary configuration.
+            \brief Destroys the configuration list.
         */
-        virtual ~temporary_config()
+        virtual ~config_list()
         TETENGO2_CPP11_NOEXCEPT
         {}
 

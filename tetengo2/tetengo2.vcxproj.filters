@@ -108,6 +108,9 @@
     <ClInclude Include="include\tetengo2.config.temporary_config.h">
       <Filter>headers\tetengo2\config</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.config.config_list.h">
+      <Filter>headers\tetengo2\config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp">
