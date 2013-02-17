@@ -9,14 +9,17 @@
 #if !defined(TETENGO2_CONFIG_CONFIGLIST_H)
 #define TETENGO2_CONFIG_CONFIGLIST_H
 
-#include <unordered_map>
+#include <algorithm>
+#include <memory>
 #include <utility>
+#include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.config.config_base.h"
+#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace config
@@ -50,24 +53,12 @@ namespace tetengo2 { namespace config
 
         /*!
             \brief Creates a configuration list.
+
+            \param p_configs A vector of unique pointers to configurations.
         */
-        config_list()
+        config_list(std::vector<std::unique_ptr<base_type>> p_configs)
         :
-        m_values()
-        {}
-
-        /*!
-            \brief Creates a configuration list.
-
-            \tparam InputIterator An input iterator type.
-
-            \param first The first position of values.
-            \param last  The last position of values.
-        */
-        template <typename InputIterator>
-        config_list(const InputIterator first, const InputIterator last)
-        :
-        m_values(first, last)
+        m_p_configs(std::move(p_configs))
         {}
 
         /*!
@@ -79,14 +70,9 @@ namespace tetengo2 { namespace config
 
 
     private:
-        // types
-
-        typedef std::unordered_map<string_type, value_type> key_value_type;
-
-
         // variables
 
-        key_value_type m_values;
+        std::vector<std::unique_ptr<base_type>> m_p_configs;
 
 
         // virtual functions
@@ -94,13 +80,23 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            const typename key_value_type::const_iterator found = m_values.find(key);
-            return found != m_values.end() ? boost::make_optional<value_type>(found->second) : boost::none;
+            BOOST_FOREACH (const std::unique_ptr<base_type>& p_config, m_p_configs)
+            {
+                const boost::optional<value_type> value = p_config->get(key);
+                if (value)
+                    return value;
+            }
+
+            return boost::none;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-            m_values[key] = std::move(value);
+            std::for_each(
+                m_p_configs.begin(),
+                m_p_configs.end(),
+                TETENGO2_CPP11_BIND(&base_type::set, tetengo2::cpp11::placeholders_1(), key, value)
+            );
         }
 
 
