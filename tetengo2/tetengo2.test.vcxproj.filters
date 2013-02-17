@@ -119,6 +119,9 @@
     <ClCompile Include="test\test_tetengo2.config.config_list.cpp">
       <Filter>sources\test_tetengo2\config</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.config.cached_config.cpp">
+      <Filter>sources\test_tetengo2\config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.json">

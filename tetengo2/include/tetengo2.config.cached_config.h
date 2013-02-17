@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::config::config_list.
+    \brief The definition of tetengo2::config::cached_config.
 
     Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_CONFIG_CONFIGLIST_H)
-#define TETENGO2_CONFIG_CONFIGLIST_H
+#if !defined(TETENGO2_CONFIG_CACHEDCONFIG_H)
+#define TETENGO2_CONFIG_CACHEDCONFIG_H
 
 #include <algorithm>
 #include <memory>
@@ -25,13 +25,13 @@
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a configuration list.
+        \brief The class template for a cached configuration.
 
         \tparam String A string type.
         \tparam UInt   An unsigned integer type.
     */
     template <typename String, typename UInt>
-    class config_list : public config_base<String, UInt>
+    class cached_config : public config_base<String, UInt>
     {
     public:
         // types
@@ -52,19 +52,19 @@ namespace tetengo2 { namespace config
         // constructors and destructor
 
         /*!
-            \brief Creates a configuration list.
+            \brief Creates a cached configuration.
 
             \param p_configs A vector of unique pointers to configurations.
         */
-        explicit config_list(std::vector<std::unique_ptr<base_type>> p_configs)
+        explicit cached_config(std::vector<std::unique_ptr<base_type>> p_configs)
         :
         m_p_configs(std::move(p_configs))
         {}
 
         /*!
-            \brief Destroys the configuration list.
+            \brief Destroys the cached configuration.
         */
-        virtual ~config_list()
+        virtual ~cached_config()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
