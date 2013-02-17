@@ -10,10 +10,9 @@
 #define TETENGO2_CONFIG_TEMPORARYCONFIG_H
 
 #include <unordered_map>
-#include <utility>
+//#include <utility>
 
-#include <boost/optional.hpp>
-#include <boost/variant.hpp>
+//#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
 #include "tetengo2.cpp11.h"
