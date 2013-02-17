@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\tetengo2.detail.stub.alert.h" />
     <ClInclude Include="include\tetengo2.detail.stub.common_dialog.h" />
+    <ClInclude Include="include\tetengo2.detail.stub.config.h" />
     <ClInclude Include="include\tetengo2.detail.stub.cursor.h" />
     <ClInclude Include="include\tetengo2.detail.stub.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.stub.encoding.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="include\tetengo2.detail.windows.alert.h" />
     <ClInclude Include="include\tetengo2.detail.windows.common_dialog.h" />
     <ClInclude Include="include\tetengo2.detail.windows.com_ptr.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.config.h" />
     <ClInclude Include="include\tetengo2.detail.windows.cursor.h" />
     <ClInclude Include="include\tetengo2.detail.windows.direct2d.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.windows.direct2d.error_category.h" />
