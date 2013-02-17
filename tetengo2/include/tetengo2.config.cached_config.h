@@ -9,16 +9,14 @@
 #if !defined(TETENGO2_CONFIG_CACHEDCONFIG_H)
 #define TETENGO2_CONFIG_CACHEDCONFIG_H
 
-#include <algorithm>
 #include <memory>
 #include <utility>
-#include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
 #include "tetengo2.config.config_base.h"
+#include "tetengo2.config.temporary_config.h"
 #include "tetengo2.cpp11.h"
 
 
@@ -54,11 +52,12 @@ namespace tetengo2 { namespace config
         /*!
             \brief Creates a cached configuration.
 
-            \param p_configs A vector of unique pointers to configurations.
+            \param p_config A unique pointer to a configuration.
         */
-        explicit cached_config(std::vector<std::unique_ptr<base_type>> p_configs)
+        explicit cached_config(std::unique_ptr<base_type> p_config)
         :
-        m_p_configs(std::move(p_configs))
+        m_p_config(std::move(p_config)),
+        m_cache()
         {}
 
         /*!
@@ -70,9 +69,16 @@ namespace tetengo2 { namespace config
 
 
     private:
+        // types
+
+        typedef temporary_config<string_type, uint_type> cache_type;
+
+
         // variables
 
-        std::vector<std::unique_ptr<base_type>> m_p_configs;
+        std::unique_ptr<base_type> m_p_config;
+
+        mutable cache_type m_cache;
 
 
         // virtual functions
@@ -80,23 +86,21 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            BOOST_FOREACH (const std::unique_ptr<base_type>& p_config, m_p_configs)
-            {
-                const boost::optional<value_type> value = p_config->get(key);
-                if (value)
-                    return value;
-            }
+            boost::optional<value_type> cached_value = m_cache.get(key);
+            if (cached_value)
+                return cached_value;
 
-            return boost::none;
+            boost::optional<value_type> value = m_p_config->get(key);
+            if (value)
+                m_cache.set(key, *value);
+
+            return value;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-            std::for_each(
-                m_p_configs.begin(),
-                m_p_configs.end(),
-                TETENGO2_CPP11_BIND(&base_type::set, tetengo2::cpp11::placeholders_1(), key, value)
-            );
+            m_cache.set(key, value);
+            m_p_config->set(key, std::move(value));
         }
 
 
