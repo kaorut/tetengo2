@@ -9,13 +9,11 @@
 #if !defined(TETENGO2_CONFIG_PERSISTENTCONFIG_H)
 #define TETENGO2_CONFIG_PERSISTENTCONFIG_H
 
-#include <memory>
 //#include <utility>
 
 //#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
-#include "tetengo2.config.temporary_config.h"
 #include "tetengo2.cpp11.h"
 
 
@@ -24,10 +22,11 @@ namespace tetengo2 { namespace config
     /*!
         \brief The class template for a persistent configuration.
 
-        \tparam String A string type.
-        \tparam UInt   An unsigned integer type.
+        \tparam String        A string type.
+        \tparam UInt          An unsigned integer type.
+        \tparam ConfigDetails A detail implementation type of a configuration.
     */
-    template <typename String, typename UInt>
+    template <typename String, typename UInt, typename ConfigDetails>
     class persistent_config : public config_base<String, UInt>
     {
     public:
@@ -38,6 +37,9 @@ namespace tetengo2 { namespace config
 
         //! The unsigned integer type.
         typedef UInt uint_type;
+
+        //! The detail implementation type of a configuration.
+        typedef ConfigDetails configuration_details_type;
 
         //! The base type.
         typedef config_base<string_type, uint_type> base_type;
@@ -51,12 +53,11 @@ namespace tetengo2 { namespace config
         /*!
             \brief Creates a persistent configuration.
 
-            \param p_config A unique pointer to a configuration.
+            \param group_name A group name.
         */
-        explicit persistent_config(std::unique_ptr<base_type> p_config)
+        explicit persistent_config(string_type group_name)
         :
-        m_p_config(std::move(p_config)),
-        m_cache()
+        m_group_name(std::move(group_name))
         {}
 
         /*!
@@ -68,16 +69,9 @@ namespace tetengo2 { namespace config
 
 
     private:
-        // types
-
-        typedef temporary_config<string_type, uint_type> cache_type;
-
-
         // variables
 
-        std::unique_ptr<base_type> m_p_config;
-
-        mutable cache_type m_cache;
+        const string_type m_group_name;
 
 
         // virtual functions
@@ -85,21 +79,12 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            boost::optional<value_type> cached_value = m_cache.get(key);
-            if (cached_value)
-                return cached_value;
-
-            boost::optional<value_type> value = m_p_config->get(key);
-            if (value)
-                m_cache.set(key, *value);
-
-            return value;
+            return boost::none;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-            m_cache.set(key, value);
-            m_p_config->set(key, std::move(value));
+
         }
 
 
