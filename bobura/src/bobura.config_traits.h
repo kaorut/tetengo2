@@ -56,7 +56,10 @@ namespace bobura
         typedef
             tetengo2::config::persistent_config<string_type, uint_type, config_details_type> persistent_config_type;
 
+    };
+
 
 }
+
 
 #endif
