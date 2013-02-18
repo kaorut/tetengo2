@@ -14,6 +14,7 @@
 #if defined(USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION)
 #   include <tetengo2.detail.windows.alert.h>
 #   include <tetengo2.detail.windows.common_dialog.h>
+#   include <tetengo2.detail.windows.config.h>
 #   include <tetengo2.detail.windows.cursor.h>
 #   include <tetengo2.detail.windows.direct2d.drawing.h>
 #   include <tetengo2.detail.windows.encoding.h>
@@ -31,6 +32,7 @@
 #else
 #   include <tetengo2.detail.stub.alert.h>
 #   include <tetengo2.detail.stub.common_dialog.h>
+#   include <tetengo2.detail.stub.config.h>
 #   include <tetengo2.detail.stub.cursor.h>
 #   include <tetengo2.detail.stub.drawing.h>
 #   include <tetengo2.detail.stub.encoding.h>
@@ -54,6 +56,7 @@ namespace bobura
     {
         struct alert;          //!< The detail implementation type of the alert.
         struct common_dialog;  //!< The detail implementation type of the common dialogs.
+        struct config;         //!< The detail implementation type of the configuration.
         struct cursor;         //!< The detail implementation type of the cursor.
         struct drawing;        //!< The detail implementation type of the drawing.
         struct fast_drawing;   //!< The detail implementation type of the fast drawing.
@@ -75,6 +78,7 @@ namespace bobura
 #if defined(USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION)
         typedef tetengo2::detail::windows::alert alert_type;
         typedef tetengo2::detail::windows::common_dialog common_dialog_type;
+        typedef tetengo2::detail::windows::config config_type;
         typedef tetengo2::detail::windows::cursor cursor_type;
         typedef tetengo2::detail::windows::gdiplus::drawing drawing_type;
         typedef tetengo2::detail::windows::direct2d::drawing fast_drawing_type;
@@ -95,6 +99,7 @@ namespace bobura
 #else
         typedef tetengo2::detail::stub::alert alert_type;
         typedef tetengo2::detail::stub::common_dialog common_dialog_type;
+        typedef tetengo2::detail::stub::config config_type;
         typedef tetengo2::detail::stub::cursor cursor_type;
         typedef tetengo2::detail::stub::drawing drawing_type;
         typedef tetengo2::detail::stub::drawing fast_drawing_type;

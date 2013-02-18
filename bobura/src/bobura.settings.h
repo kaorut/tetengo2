@@ -23,10 +23,11 @@ namespace bobura
     /*!
         \brief The class template for settings of bobura.
 
-        \tparam String A string type.
-        \tparam Path   A path type.
+        \tparam String       A string type.
+        \tparam Path         A path type.
+        \tparam ConfigTraits A configuration traits type.
     */
-    template <typename String, typename Path>
+    template <typename String, typename Path, typename ConfigTraits>
     class settings : private boost::noncopyable
     {
     public:
@@ -37,6 +38,9 @@ namespace bobura
 
         //! The path type.
         typedef Path path_type;
+
+        //! The configuration traits type.
+        typedef ConfigTraits config_traits_type;
 
 
         // constructors and destructor
