@@ -29,10 +29,38 @@ namespace tetengo2 { namespace detail { namespace windows
     class config : private boost::noncopyable
     {
     public:
-        // types
-
-
         // static functions
+
+        /*!
+            \brief Returns the configuration value.
+
+            \tparam String A string type.
+            \tparam UInt   An unsigned integer type.
+
+            \param group_name A group name.
+            \param key        A key.
+
+            \return The value.
+        */
+        template <typename String, typename UInt>
+        static boost::optional<boost::variant<String, UInt>> get(const String& group_name, const String& key)
+        {
+            return boost::none;
+        }
+
+        /*!
+            \brief Sets a configuration value.
+
+            \tparam String A string type.
+            \tparam UInt   An unsigned integer type.
+
+            \param group_name A group_name.
+            \param key        A key.
+            \param value      A value.
+        */
+        template <typename String, typename UInt>
+        static void set(const String& group_name, const String& key, boost::variant<String, UInt> value)
+        {}
 
 
     };
