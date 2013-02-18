@@ -71,7 +71,7 @@ namespace tetengo2 { namespace config
     private:
         // variables
 
-        std::vector<std::unique_ptr<base_type>> m_p_configs;
+        const std::vector<std::unique_ptr<base_type>> m_p_configs;
 
 
         // virtual functions

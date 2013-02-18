@@ -75,7 +75,7 @@ namespace tetengo2 { namespace config
 
         // variables
 
-        std::unique_ptr<base_type> m_p_config;
+        const std::unique_ptr<base_type> m_p_config;
 
         mutable cache_type m_cache;
 
