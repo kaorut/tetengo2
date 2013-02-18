@@ -79,12 +79,12 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            return boost::none;
+            return configuration_details_type::template get<string_type, uint_type>(m_group_name, key);
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-
+            configuration_details_type::set(m_group_name, key, std::move(value));
         }
 
 

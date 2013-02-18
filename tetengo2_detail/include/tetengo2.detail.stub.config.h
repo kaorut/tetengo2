@@ -10,6 +10,8 @@
 #define TETENGO2_DETAIL_STUB_CONFIG_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -20,10 +22,19 @@ namespace tetengo2 { namespace detail { namespace stub
     class config : private boost::noncopyable
     {
     public:
-        // types
-
-
         // static functions
+
+        template <typename String, typename UInt>
+        static boost::optional<boost::variant<String, UInt>> get(const String& group_name, const String& key)
+        {
+            return boost::none;
+        }
+
+        template <typename String, typename UInt>
+        static void set(const String& group_name, const String& key, boost::variant<String, UInt> value)
+        {
+
+        }
 
 
     };
