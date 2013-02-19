@@ -6,14 +6,8 @@
     $Id$
 */
 
-//#include <memory>
-//#include <utility>
-//#include <vector>
-
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
-//#include <boost/variant.hpp>
 
 #include "test_tetengo2.type_list.h"
 #include "tetengo2.detail.stub.config.h"

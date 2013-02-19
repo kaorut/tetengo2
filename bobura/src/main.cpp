@@ -6,14 +6,12 @@
     $Id$
 */
 
-//#include <cassert>
 //#include <cstddef>
 //#include <exception>
 //#include <locale>
 //#include <memory>
 //#include <stdexcept>
 //#include <string>
-//#include <utility>
 //#include <vector>
 
 //#include <boost/exception/all.hpp>
@@ -27,7 +25,6 @@
 //#include <Windows.h>
 
 #include <tetengo2.cpp11.h>
-#include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.application.h"

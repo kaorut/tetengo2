@@ -9,12 +9,13 @@
 #if !defined(BOBURA_SETTINGS_H)
 #define BOBURA_SETTINGS_H
 
-#include <memory>
+#include <cassert>
+//#include <memory>
 #include <string>
-#include <utility>
+//#include <utility>
 #include <vector>
 
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 

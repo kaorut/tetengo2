@@ -10,15 +10,8 @@
 #define TETENGO2_DETAIL_WINDOWS_CONFIG_H
 
 #include <boost/noncopyable.hpp>
-
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
-//#pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 
 namespace tetengo2 { namespace detail { namespace windows
