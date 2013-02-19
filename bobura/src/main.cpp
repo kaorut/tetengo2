@@ -106,10 +106,7 @@ TETENGO2_CPP11_NOEXCEPT
 
     try
     {
-        std::vector<std::wstring> command_line_arguments = boost::program_options::split_winmain(::GetCommandLineW());
-        assert(!command_line_arguments.empty());
-        boost::filesystem::path base_path = boost::filesystem::path(command_line_arguments[0]).parent_path();
-        const settings_type settings(std::move(command_line_arguments), std::move(base_path));
+        const settings_type settings(boost::program_options::split_winmain(::GetCommandLineW()));
 
         set_locale(settings.message_directory_path());
 

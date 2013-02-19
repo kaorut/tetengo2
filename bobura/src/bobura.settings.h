@@ -14,6 +14,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/filesystem/path.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
@@ -52,14 +53,13 @@ namespace bobura
             \brief Creates settings.
 
             \param command_line_arguments Command line arguments.
-            \param base_path              A base path.
         */
-        settings(std::vector<string_type> command_line_arguments, path_type base_path)
+        explicit settings(const std::vector<string_type>& command_line_arguments)
         :
-        m_base_path(std::move(base_path)),
+        m_base_path(),
         m_p_config()
         {
-            initialize(std::move(command_line_arguments));
+            initialize(command_line_arguments);
         }
 
 
@@ -120,7 +120,7 @@ namespace bobura
         // static functions
 
         static boost::program_options::variables_map parse_command_line_arguments(
-            std::vector<string_type> command_line_arguments
+            const std::vector<string_type>& command_line_arguments
         )
         {
             boost::program_options::options_description visible_options;
@@ -150,7 +150,7 @@ namespace bobura
                     command_line_parser_type;
                 const parsed_options_type parsed_options =
                     command_line_parser_type(
-                        std::move(command_line_arguments)
+                        command_line_arguments
                     ).options(std::move(options)).positional(std::move(positional_options)).run();
                 boost::program_options::store(parsed_options, option_values);
             }
@@ -158,20 +158,20 @@ namespace bobura
             {}
             boost::program_options::notify(option_values);
 
-            return std::move(option_values);
+            return option_values;
         }
 
-        static std::unique_ptr<config_base_type> create_config(boost::program_options::variables_map options)
+        static std::unique_ptr<config_base_type> create_config(const boost::program_options::variables_map& options)
         {
             std::vector<std::unique_ptr<config_base_type>> p_configs;
-            p_configs.push_back(create_temporary_config(std::move(options)));
+            p_configs.push_back(create_temporary_config(options));
             p_configs.push_back(create_persistent_config());
 
             return tetengo2::make_unique<config_list_type>(std::move(p_configs));
         }
 
         static std::unique_ptr<config_base_type> create_temporary_config(
-            boost::program_options::variables_map options
+            const boost::program_options::variables_map& options
         )
         {
             std::vector<std::pair<string_type, uint_type>> values;
@@ -190,18 +190,21 @@ namespace bobura
 
         // variables
 
-        const path_type m_base_path;
+        path_type m_base_path;
 
         std::unique_ptr<config_base_type> m_p_config;
 
 
         // functions
 
-        void initialize(std::vector<string_type> command_line_arguments)
+        void initialize(const std::vector<string_type>& command_line_arguments)
         {
-            boost::program_options::variables_map options = parse_command_line_arguments(command_line_arguments);
+            const boost::program_options::variables_map options = parse_command_line_arguments(command_line_arguments);
 
-            m_p_config = create_config(std::move(options));
+            assert(options.find("exe") != options.end());
+            m_base_path = boost::filesystem::path(options["exe"].as<std::string>()).parent_path();
+
+            m_p_config = create_config(options);
         }
 
 
