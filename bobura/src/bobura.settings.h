@@ -117,7 +117,7 @@ namespace bobura
 
         typedef typename config_traits_type::persistent_config_type persistent_config_type;
 
-        template <typename T, typename String>
+        template <typename T, typename Str>
         struct value_impl;
 
         template <typename T>
@@ -187,10 +187,10 @@ namespace bobura
             return option_values;
         }
 
-        template <typename T, typename String>
-        static boost::program_options::typed_value<T, typename String::value_type>* value()
+        template <typename T, typename Str>
+        static boost::program_options::typed_value<T, typename Str::value_type>* value()
         {
-            return value_impl<T, String>()();
+            return value_impl<T, Str>()();
         }
 
         static std::unique_ptr<config_base_type> create_config(const boost::program_options::variables_map& options)
