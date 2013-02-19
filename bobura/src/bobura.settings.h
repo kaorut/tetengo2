@@ -15,8 +15,11 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/program_options.hpp>
 
 #include <tetengo2.text.h>
@@ -109,6 +112,8 @@ namespace bobura
 
         typedef typename config_traits_type::config_base_type config_base_type;
 
+        typedef typename config_base_type::value_type config_value_type;
+
         typedef typename config_traits_type::config_list_type config_list_type;
 
         typedef typename config_traits_type::cached_config_type cached_config_type;
@@ -138,6 +143,23 @@ namespace bobura
             const
             {
                 return boost::program_options::wvalue<T>();
+            }
+
+        };
+
+        struct is_splitter
+        {
+            typename string_type::value_type m_splitter;
+
+            explicit is_splitter(const typename string_type::value_type splitter)
+            :
+            m_splitter(splitter)
+            {}
+
+            bool operator()(const typename string_type::value_type character)
+            const
+            {
+                return character == m_splitter;
             }
 
         };
@@ -206,9 +228,60 @@ namespace bobura
             const boost::program_options::variables_map& options
         )
         {
-            std::vector<std::pair<string_type, uint_type>> values;
+            std::vector<std::pair<string_type, config_value_type>> values;
+            {
+                const boost::optional<std::pair<uint_type, uint_type>> main_window_dimension_ =
+                    main_window_dimension(options);
+                if (main_window_dimension_)
+                {
+                    values.emplace_back(
+                        string_type(TETENGO2_TEXT("MainWindowWidth")),
+                        config_value_type(main_window_dimension_->first)
+                    );
+                    values.emplace_back(
+                        string_type(TETENGO2_TEXT("MainWindowHeight")),
+                        config_value_type(main_window_dimension_->second)
+                    );
+                }
+            }
 
             return tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+        }
+
+        static boost::optional<std::pair<uint_type, uint_type>> main_window_dimension(
+            const boost::program_options::variables_map& options
+        )
+        {
+            const typename boost::program_options::variables_map::const_iterator found = options.find("dimension");
+            if (found == options.end())
+                return boost::none;
+
+            const boost::optional<std::pair<uint_type, uint_type>> width_and_height =
+                parse_dimension(found->second.as<string_type>());
+            if (!width_and_height)
+                return boost::none;
+
+            return width_and_height;
+        }
+
+        static boost::optional<std::pair<uint_type, uint_type>> parse_dimension(const string_type& dimension_string)
+        {
+            std::vector<string_type> result;
+            boost::split(result, dimension_string, is_splitter(typename string_type::value_type(TETENGO2_TEXT('x'))));
+            if (result.size() < 2)
+                return boost::none;
+
+            try
+            {
+                return
+                    std::make_pair(
+                        boost::lexical_cast<uint_type>(result[0]), boost::lexical_cast<uint_type>(result[1])
+                    );
+            }
+            catch (const boost::bad_lexical_cast&)
+            {
+                return boost::none;
+            }
         }
 
         static std::unique_ptr<config_base_type> create_persistent_config()
