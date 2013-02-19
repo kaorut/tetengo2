@@ -117,6 +117,31 @@ namespace bobura
 
         typedef typename config_traits_type::persistent_config_type persistent_config_type;
 
+        template <typename T, typename String>
+        struct value_impl;
+
+        template <typename T>
+        struct value_impl<T, std::string>
+        {
+            boost::program_options::typed_value<T, char>* operator()()
+            const
+            {
+                return boost::program_options::value<T>();
+            }
+
+        };
+
+        template <typename T>
+        struct value_impl<T, std::wstring>
+        {
+            boost::program_options::typed_value<T, wchar_t>* operator()()
+            const
+            {
+                return boost::program_options::wvalue<T>();
+            }
+
+        };
+
 
         // static functions
 
@@ -126,13 +151,13 @@ namespace bobura
         {
             boost::program_options::options_description visible_options;
             visible_options.add_options()
-            ("dimension,d", boost::program_options::value<std::string>(), "Set a dimension of the main window.")
+            ("dimension,d", value<string_type, string_type>(), "Set a dimension of the main window.")
             ("help", "Shows a help message.");
 
             boost::program_options::options_description hidden_options;
             hidden_options.add_options()
-            ("exe", boost::program_options::value<std::string>())
-            ("input", boost::program_options::value<std::vector<std::string>>());
+            ("exe", value<string_type, string_type>())
+            ("input", value<std::vector<string_type>, string_type>());
 
             boost::program_options::options_description options;
             options.add(visible_options).add(hidden_options);
@@ -160,6 +185,12 @@ namespace bobura
             boost::program_options::notify(option_values);
 
             return option_values;
+        }
+
+        template <typename T, typename String>
+        static boost::program_options::typed_value<T, typename String::value_type>* value()
+        {
+            return value_impl<T, String>()();
         }
 
         static std::unique_ptr<config_base_type> create_config(const boost::program_options::variables_map& options)
@@ -203,7 +234,7 @@ namespace bobura
             const boost::program_options::variables_map options = parse_command_line_arguments(command_line_arguments);
 
             assert(options.find("exe") != options.end());
-            m_base_path = boost::filesystem::path(options["exe"].as<std::string>()).parent_path();
+            m_base_path = boost::filesystem::path(options["exe"].as<string_type>()).parent_path();
 
             m_p_config = create_config(options);
         }
