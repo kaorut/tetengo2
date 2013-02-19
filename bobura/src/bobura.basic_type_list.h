@@ -172,7 +172,7 @@ namespace bobura
         typedef tetengo2::text::pull_parser<push_parser_type, size_type> pull_parser_type;
         typedef boost::filesystem::path path_type;
         typedef
-            config_traits<string_type, size_type, boost::mpl::at<detail_type_list, type::detail::encoding>::type>
+            config_traits<string_type, size_type, boost::mpl::at<detail_type_list, type::detail::config>::type>
             config_traits_type;
         typedef settings<string_type, path_type, config_traits_type> settings_type;
     }

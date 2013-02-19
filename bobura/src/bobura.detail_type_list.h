@@ -125,6 +125,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::alert_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::config, detail::detail::config_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::fast_drawing, detail::detail::fast_drawing_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
@@ -139,7 +140,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>
         detail_type_list;
 
 

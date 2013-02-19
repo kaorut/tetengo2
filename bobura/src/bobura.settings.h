@@ -9,6 +9,8 @@
 #if !defined(BOBURA_SETTINGS_H)
 #define BOBURA_SETTINGS_H
 
+#include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -16,6 +18,7 @@
 #include <boost/program_options.hpp>
 
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 
 namespace bobura
@@ -53,10 +56,11 @@ namespace bobura
         */
         settings(std::vector<string_type> command_line_arguments, path_type base_path)
         :
-        m_options(make_options()),
-        m_option_values(make_option_values(m_options, std::move(command_line_arguments))),
-        m_base_path(std::move(base_path))
-        {}
+        m_base_path(std::move(base_path)),
+        m_p_config()
+        {
+            initialize(std::move(command_line_arguments));
+        }
 
 
         // functions
@@ -100,44 +104,104 @@ namespace bobura
 
         typedef typename path_type::string_type path_string_type;
 
+        typedef typename config_traits_type::uint_type uint_type;
+
+        typedef typename config_traits_type::config_base_type config_base_type;
+
+        typedef typename config_traits_type::config_list_type config_list_type;
+
+        typedef typename config_traits_type::cached_config_type cached_config_type;
+
+        typedef typename config_traits_type::temporary_config_type temporary_config_type;
+
+        typedef typename config_traits_type::persistent_config_type persistent_config_type;
+
+
+        // static functions
+
+        static boost::program_options::variables_map parse_command_line_arguments(
+            std::vector<string_type> command_line_arguments
+        )
+        {
+            boost::program_options::options_description visible_options;
+            visible_options.add_options()
+            ("dimension,d", boost::program_options::value<std::string>(), "Set a dimension of the main window.")
+            ("help", "Shows a help message.");
+
+            boost::program_options::options_description hidden_options;
+            hidden_options.add_options()
+            ("exe", boost::program_options::value<std::string>())
+            ("input", boost::program_options::value<std::vector<std::string>>());
+
+            boost::program_options::options_description options;
+            options.add(visible_options).add(hidden_options);
+
+            boost::program_options::positional_options_description positional_options;
+            positional_options.add("exe", 1);
+            positional_options.add("input", -1);
+
+            boost::program_options::variables_map option_values;
+            try
+            {
+                typedef
+                    boost::program_options::basic_parsed_options<typename string_type::value_type> parsed_options_type;
+                typedef
+                    boost::program_options::basic_command_line_parser<typename string_type::value_type>
+                    command_line_parser_type;
+                const parsed_options_type parsed_options =
+                    command_line_parser_type(
+                        std::move(command_line_arguments)
+                    ).options(std::move(options)).positional(std::move(positional_options)).run();
+                boost::program_options::store(parsed_options, option_values);
+            }
+            catch (const boost::program_options::error&)
+            {}
+            boost::program_options::notify(option_values);
+
+            return std::move(option_values);
+        }
+
+        static std::unique_ptr<config_base_type> create_config(boost::program_options::variables_map options)
+        {
+            std::vector<std::unique_ptr<config_base_type>> p_configs;
+            p_configs.push_back(create_temporary_config(std::move(options)));
+            p_configs.push_back(create_persistent_config());
+
+            return tetengo2::make_unique<config_list_type>(std::move(p_configs));
+        }
+
+        static std::unique_ptr<config_base_type> create_temporary_config(
+            boost::program_options::variables_map options
+        )
+        {
+            std::vector<std::pair<string_type, uint_type>> values;
+
+            return tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+        }
+
+        static std::unique_ptr<config_base_type> create_persistent_config()
+        {
+            return
+                tetengo2::make_unique<cached_config_type>(
+                    tetengo2::make_unique<persistent_config_type>(string_type(TETENGO2_TEXT("bobura")))
+                );
+        }
+
 
         // variables
 
-        const boost::program_options::options_description m_options;
-
-        const boost::program_options::variables_map m_option_values;
-
         const path_type m_base_path;
+
+        std::unique_ptr<config_base_type> m_p_config;
 
 
         // functions
 
-        static boost::program_options::options_description
-        make_options()
+        void initialize(std::vector<string_type> command_line_arguments)
         {
-            boost::program_options::options_description options("bobura");
+            boost::program_options::variables_map options = parse_command_line_arguments(command_line_arguments);
 
-            options.add_options()
-            ("help,h", "help")
-            ("geometry,g", boost::program_options::value<int>()->default_value(640), "geometry")
-            ;
-
-            return std::move(options);
-        }
-
-        static boost::program_options::variables_map make_option_values(
-            const boost::program_options::options_description& options,
-            const std::vector<string_type>                     command_line_arguments
-        )
-        {
-            const boost::program_options::wparsed_options parsed_options =
-                boost::program_options::wcommand_line_parser(command_line_arguments).options(options).run();
-
-            boost::program_options::variables_map option_values;
-            boost::program_options::store(parsed_options, option_values);
-            boost::program_options::notify(option_values);
-
-            return std::move(option_values);
+            m_p_config = create_config(std::move(options));
         }
 
 
@@ -145,5 +209,6 @@ namespace bobura
 
 
 }
+
 
 #endif
