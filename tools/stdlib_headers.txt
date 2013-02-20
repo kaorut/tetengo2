@@ -110,6 +110,7 @@
 ::HFONT                                          Windows.h
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
+::HKEY                                           Windows.h
 ::HMENU                                          Windows.h
 ::HMONITOR                                       Windows.h
 ::HRESULT                                        Windows.h
@@ -152,6 +153,7 @@
 ::LONG                                           Windows.h
 ::LONG_PTR                                       Windows.h
 ::LPARAM                                         Windows.h
+::LPBYTE                                         Windows.h
 ::LPWSTR                                         Windows.h
 ::LRESULT                                        Windows.h
 ::LoadImageW                                     Windows.h
@@ -172,6 +174,10 @@
 ::PostMessageW                                   Windows.h
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
+::REGSAM                                         Windows.h
+::RegCloseKey                                    Windows.h
+::RegCreateKeyExW                                Windows.h
+::RegQueryValueExW                               Windows.h
 ::RegisterClassExW                               Windows.h
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
@@ -472,6 +478,7 @@ boost::iostreams::bzip2_error                    boost/iostreams/filter/bzip2.hp
 boost::iostreams::filtering_istream              boost/iostreams/filtering_stream.hpp
 boost::iostreams::filtering_ostream              boost/iostreams/filtering_stream.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
+boost::join                                      boost/algorithm/string.hpp
 boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_indirect_iterator                    boost/iterator/indirect_iterator.hpp
 boost::make_optional                             boost/optional.hpp
@@ -526,6 +533,7 @@ boost::program_options::store                    boost/program_options.hpp
 boost::program_options::typed_value              boost/program_options.hpp
 boost::program_options::value                    boost/program_options.hpp
 boost::program_options::variables_map            boost/program_options.hpp
+boost::program_options::variables_map::const_iterator boost/program_options.hpp
 boost::program_options::wvalue                   boost/program_options.hpp
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp

@@ -9,7 +9,11 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_CONFIG_H)
 #define TETENGO2_DETAIL_WINDOWS_CONFIG_H
 
+#include <cassert>
+#include <cstddef>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
