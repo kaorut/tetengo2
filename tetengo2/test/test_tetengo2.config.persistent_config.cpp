@@ -25,7 +25,7 @@ namespace
     typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
 
     typedef
-        tetengo2::config::persistent_config<string_type, uint_type, tetengo2::detail::stub::config>
+        tetengo2::config::persistent_config<string_type, uint_type, int, tetengo2::detail::stub::config>
         persistent_config_type;
 
     typedef persistent_config_type::base_type config_base_type;

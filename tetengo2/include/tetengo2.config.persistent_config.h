@@ -24,9 +24,10 @@ namespace tetengo2 { namespace config
 
         \tparam String        A string type.
         \tparam UInt          An unsigned integer type.
+        \tparam Encoder       An encoder type.
         \tparam ConfigDetails A detail implementation type of a configuration.
     */
-    template <typename String, typename UInt, typename ConfigDetails>
+    template <typename String, typename UInt, typename Encoder, typename ConfigDetails>
     class persistent_config : public config_base<String, UInt>
     {
     public:
@@ -37,6 +38,9 @@ namespace tetengo2 { namespace config
 
         //! The unsigned integer type.
         typedef UInt uint_type;
+
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The detail implementation type of a configuration.
         typedef ConfigDetails configuration_details_type;

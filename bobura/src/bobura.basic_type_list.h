@@ -752,6 +752,7 @@ namespace bobura
             config_traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type,
+                int,
                 boost::mpl::at<detail_type_list, type::detail::config>::type>
             config_traits_type;
         typedef

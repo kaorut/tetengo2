@@ -23,9 +23,10 @@ namespace bobura
 
         \tparam String        A string type.
         \tparam UInt          An unsigned integer type.
+        \tparam Encoder       An encoder type.
         \tparam ConfigDetails A detail implementation type of a configuration.
     */
-    template <typename String, typename UInt, typename ConfigDetails>
+    template <typename String, typename UInt, typename Encoder, typename ConfigDetails>
     class config_traits
     {
     public:
@@ -36,6 +37,9 @@ namespace bobura
 
         //! The unsigned integer type.
         typedef UInt uint_type;
+
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The detail implementation type of the configuration.
         typedef ConfigDetails config_details_type;
@@ -54,7 +58,9 @@ namespace bobura
 
         //! The persistent configuration type.
         typedef
-            tetengo2::config::persistent_config<string_type, uint_type, config_details_type> persistent_config_type;
+            tetengo2::config::persistent_config<string_type, uint_type, encoder_type, config_details_type>
+            persistent_config_type;
+
 
     };
 
