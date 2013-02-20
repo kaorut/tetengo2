@@ -76,6 +76,19 @@ BOOST_AUTO_TEST_SUITE(settings)
         BOOST_CHECK(settings.image_directory_path() == path_type(string_type(TETENGO2_TEXT("path/to/images"))));
     }
 
+    BOOST_AUTO_TEST_CASE(main_window_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            const settings_type settings(arguments);
+
+            BOOST_REQUIRE(!settings.main_window_dimension());
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

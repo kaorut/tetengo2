@@ -174,7 +174,7 @@ namespace bobura
         typedef
             config_traits<string_type, size_type, boost::mpl::at<detail_type_list, type::detail::config>::type>
             config_traits_type;
-        typedef settings<string_type, path_type, config_traits_type> settings_type;
+        typedef settings<string_type, path_type, config_traits_type, int> settings_type;
     }
 #endif
 

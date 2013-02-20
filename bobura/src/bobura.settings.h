@@ -33,9 +33,10 @@ namespace bobura
 
         \tparam String       A string type.
         \tparam Path         A path type.
+        \tparam Dimension    A dimension type.
         \tparam ConfigTraits A configuration traits type.
     */
-    template <typename String, typename Path, typename ConfigTraits>
+    template <typename String, typename Path, typename ConfigTraits, typename Dimension>
     class settings : private boost::noncopyable
     {
     public:
@@ -46,6 +47,9 @@ namespace bobura
 
         //! The path type.
         typedef Path path_type;
+
+        //! The dimension type.
+        typedef Dimension dimension_type;
 
         //! The configuration traits type.
         typedef ConfigTraits config_traits_type;
@@ -100,6 +104,17 @@ namespace bobura
         const
         {
             return m_base_path / path_string_type(TETENGO2_TEXT("images"));
+        }
+
+        /*!
+            \brief Returns the main window dimension.
+
+            \return The main window dimension.
+        */
+        boost::optional<dimension_type> main_window_dimension()
+        const
+        {
+            return boost::none;
         }
 
 
@@ -231,7 +246,7 @@ namespace bobura
             std::vector<std::pair<string_type, config_value_type>> values;
             {
                 const boost::optional<std::pair<uint_type, uint_type>> main_window_dimension_ =
-                    main_window_dimension(options);
+                    main_window_dimension_in_command_line(options);
                 if (main_window_dimension_)
                 {
                     values.emplace_back(
@@ -248,7 +263,7 @@ namespace bobura
             return tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
         }
 
-        static boost::optional<std::pair<uint_type, uint_type>> main_window_dimension(
+        static boost::optional<std::pair<uint_type, uint_type>> main_window_dimension_in_command_line(
             const boost::program_options::variables_map& options
         )
         {
