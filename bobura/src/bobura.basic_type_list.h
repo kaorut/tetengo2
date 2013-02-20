@@ -293,6 +293,7 @@ namespace bobura
         struct color;          //!< The color type.
         struct control;        //!< The control type.
         struct dialog;         //!< The dialog type.
+        struct dimension;      //!< The dimension type.
         struct dropdown_box;   //!< The dropdown box type.
         struct fast_canvas;    //!< The fast canvas type.
         struct fast_font;      //!< The fast font type.
@@ -676,6 +677,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::control, detail::ui::control_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::color, detail::ui::color_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dimension, detail::ui::dimension_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dropdown_box, detail::ui::dropdown_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_canvas, detail::ui::fast_canvas_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_font, detail::ui::fast_font_type>,
@@ -732,7 +734,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -756,8 +758,8 @@ namespace bobura
             settings<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::path>::type,
-                config_traits_type,
-                int
+                boost::mpl::at<ui_type_list, type::ui::dimension>::type,
+                config_traits_type
             >
             settings_type;
     }}

@@ -36,7 +36,7 @@ namespace bobura
         \tparam Dimension    A dimension type.
         \tparam ConfigTraits A configuration traits type.
     */
-    template <typename String, typename Path, typename ConfigTraits, typename Dimension>
+    template <typename String, typename Path, typename Dimension, typename ConfigTraits>
     class settings : private boost::noncopyable
     {
     public:
