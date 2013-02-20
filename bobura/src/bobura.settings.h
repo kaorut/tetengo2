@@ -208,8 +208,7 @@ namespace bobura
         {
             boost::program_options::options_description visible_options;
             visible_options.add_options()
-            ("dimension,d", value<string_type, string_type>(), "Set a dimension of the main window.")
-            ("help", "Shows a help message.");
+            ("dimension,d", value<string_type, string_type>());
 
             boost::program_options::options_description hidden_options;
             hidden_options.add_options()
