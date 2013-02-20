@@ -21,9 +21,11 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
+#include <boost/variant.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.gui.measure.h>
 
 
 namespace bobura
@@ -114,7 +116,21 @@ namespace bobura
         boost::optional<dimension_type> main_window_dimension()
         const
         {
-            return boost::none;
+            const boost::optional<config_value_type> width =
+                m_p_config->get(string_type(TETENGO2_TEXT("MainWindowWidth")));
+            const boost::optional<config_value_type> height =
+                m_p_config->get(string_type(TETENGO2_TEXT("MainWindowHeight")));
+            if (!width || !height)
+                return boost::none;
+            assert(width->which() == 1 && height->which() == 1);
+
+            return
+                boost::make_optional(
+                    dimension_type(
+                        width_type::from_pixels(boost::get<uint_type>(*width)),
+                        height_type::from_pixels(boost::get<uint_type>(*height))
+                    )
+                );
         }
 
 
@@ -122,6 +138,10 @@ namespace bobura
         // types
 
         typedef typename path_type::string_type path_string_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename config_traits_type::uint_type uint_type;
 

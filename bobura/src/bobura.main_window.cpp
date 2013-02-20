@@ -116,6 +116,8 @@ namespace bobura
 
             typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+            typedef typename base_type::dimension_type dimension_type;
+
             class call_focus_on_diagram_picture_box_type
             {
             public:
@@ -169,6 +171,10 @@ namespace bobura
                 set_message_observers();
 
                 set_title(boost::none, false);
+                
+                boost::optional<dimension_type> dimension = m_settings.main_window_dimension();
+                if (dimension)
+                    m_base.set_dimension(std::move(*dimension));
             }
 
             void focus_on_diagram_picture_box()
