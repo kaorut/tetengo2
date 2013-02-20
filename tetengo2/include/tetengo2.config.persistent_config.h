@@ -73,6 +73,15 @@ namespace tetengo2 { namespace config
 
 
     private:
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+
         // variables
 
         const string_type m_group_name;
@@ -83,12 +92,12 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            return configuration_details_type::template get<string_type, uint_type>(m_group_name, key);
+            return configuration_details_type::template get<string_type, uint_type>(m_group_name, key, encoder());
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         {
-            configuration_details_type::set(m_group_name, key, std::move(value));
+            configuration_details_type::set(m_group_name, key, std::move(value), encoder());
         }
 
 

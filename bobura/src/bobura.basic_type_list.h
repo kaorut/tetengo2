@@ -192,8 +192,9 @@ namespace bobura
 
     namespace type { namespace locale
     {
-        struct ui_encoder;     //!< The encoder type for the user interface.
         struct exception_encoder; //!< The encoder type for exceptions.
+        struct ui_encoder;     //!< The encoder type for the user interface.
+        struct config_encoder; //!< The encoder type for the user interface.
         struct messages_facet; //!< The messages facet type.
         struct message_catalog; //!< The message catalog type.
         struct timetable_file_encoder; //!< The encoder type for the timetable file.
@@ -210,18 +211,24 @@ namespace bobura
             >
             internal_encoding_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type,
-                boost::mpl::at<detail_type_list, type::detail::encoding>::type
-            >
-            ui_encoding_type;
-        typedef
             tetengo2::text::encoding::utf8<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             utf8_encoding_type;
         typedef
             tetengo2::text::encoding::cp932<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             cp932_encoding_type;
         typedef utf8_encoding_type exception_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            >
+            ui_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::config>::type::string_type,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            >
+            config_encoding_type;
         typedef utf8_encoding_type message_catalog_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
@@ -258,15 +265,20 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::locale::ui_encoder,
-                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::ui_encoding_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::locale::exception_encoder,
                 tetengo2::text::encoder<
                     detail::locale::internal_encoding_type, detail::locale::exception_encoding_type
                 >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::locale::config_encoder,
+                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::config_encoding_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::locale::ui_encoder,
+                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::ui_encoding_type>
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::locale::messages_facet, detail::locale::messages_type>,
         tetengo2::meta::assoc_list<
@@ -278,7 +290,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::locale::windia_file_encoder, detail::locale::windia_file_encoder_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         locale_type_list;
 
 
@@ -752,7 +764,7 @@ namespace bobura
             config_traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                int,
+                boost::mpl::at<locale_type_list, type::locale::config_encoder>::type,
                 boost::mpl::at<detail_type_list, type::detail::config>::type>
             config_traits_type;
         typedef
