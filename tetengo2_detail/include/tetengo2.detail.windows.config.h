@@ -14,7 +14,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
@@ -69,42 +68,33 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::pair<String, String> registry_key_and_value_name =
                 build_registry_key_and_value_name(group_name, key);
 
-            ::HKEY handle = NULL;
-            const ::LONG create_key_result =
-                ::RegCreateKeyExW(
-                    HKEY_CURRENT_USER,
-                    encoder.encode(registry_key_and_value_name.first).c_str(),
-                    0,
-                    NULL,
-                    REG_OPTION_NON_VOLATILE,
-                    KEY_READ,
-                    NULL,
-                    &handle,
-                    NULL
-                );
-            if (create_key_result != ERROR_SUCCESS)
+            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_READ);
+            if (!handle.get())
                 return boost::none;
-            BOOST_SCOPE_EXIT((handle))
+
+            const std::pair<typename value_type::enum_t, typename String::size_type> type =
+                query_value_type(handle.get(), registry_key_and_value_name.second, encoder);
+
+            switch (type.first)
             {
-                ::RegCloseKey(handle);
-            } BOOST_SCOPE_EXIT_END;
-
-            ::DWORD type = REG_DWORD;
-            ::DWORD value = 0;
-            ::DWORD value_size = sizeof(::DWORD);
-            const ::LONG query_value_result =
-                ::RegQueryValueExW(
-                    handle,
-                    encoder.encode(registry_key_and_value_name.second).c_str(),
-                    0,
-                    &type,
-                    reinterpret_cast< ::LPBYTE>(&value),
-                    &value_size
-                );
-            if (query_value_result != ERROR_SUCCESS)
+            case value_type::string:
+                return
+                    boost::make_optional(
+                        boost::variant<String, UInt>(
+                            get_string(handle.get(), registry_key_and_value_name.second, type.second, encoder)
+                        )
+                    );
+            case value_type::dword:
+                return
+                    boost::make_optional(
+                        boost::variant<String, UInt>(
+                            get_dword(handle.get(), registry_key_and_value_name.second, encoder)
+                        )
+                    );
+            default:
+                assert(type.first == value_type::unknown);
                 return boost::none;
-
-            return boost::make_optional(boost::variant<String, UInt>(value));
+            }
         }
 
         /*!
@@ -130,6 +120,62 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     private:
+        // types
+
+        template <typename String, typename Encoder>
+        class registry
+        {
+        public:
+            registry(const String& key, const Encoder& encoder, const ::REGSAM mode)
+            :
+            m_handle(create(key, encoder, mode))
+            {}
+
+            ~registry()
+            {
+                ::RegCloseKey(m_handle);
+            }
+
+            const ::HKEY get()
+            const
+            {
+                return m_handle;
+            }
+
+        private:
+            static ::HKEY create(const String&  key, const Encoder& encoder, const ::REGSAM mode)
+            {
+                ::HKEY handle = NULL;
+                const ::LONG create_key_result =
+                    ::RegCreateKeyExW(
+                        HKEY_CURRENT_USER,
+                        encoder.encode(key).c_str(),
+                        0,
+                        NULL,
+                        REG_OPTION_NON_VOLATILE,
+                        mode,
+                        NULL,
+                        &handle,
+                        NULL
+                    );
+                if (create_key_result != ERROR_SUCCESS)
+                    return NULL;
+
+                return handle;
+            }
+
+            const ::HKEY m_handle;
+
+        };
+
+        struct value_type { enum enum_t
+        {
+            unknown,
+            string,
+            dword,
+        };};
+
+
         // static functions
 
         template <typename String>
@@ -157,6 +203,74 @@ namespace tetengo2 { namespace detail { namespace windows
         static bool is_splitter(const Char character)
         {
             return character == Char(TETENGO2_TEXT('/'));
+        }
+
+        template <typename String, typename Encoder>
+        static std::pair<typename value_type::enum_t, typename String::size_type> query_value_type(
+            const ::HKEY   handle,
+            const String&  key,
+            const Encoder& encoder
+        )
+        {
+            ::DWORD type = 0;
+            ::DWORD value_size = 0;
+            const ::LONG query_value_result =
+                ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, NULL, &value_size);
+            if (query_value_result != ERROR_SUCCESS)
+                return std::make_pair(value_type::unknown, 0);
+
+            switch (type)
+            {
+            case REG_SZ:
+                return std::make_pair(value_type::string, value_size / sizeof(typename String::value_type));
+            case REG_DWORD:
+                return std::make_pair(value_type::dword, 0);
+            default:
+                return std::make_pair(value_type::unknown, 0);
+            }
+        }
+
+        template <typename String, typename Encoder>
+        static String get_string(
+            const ::HKEY                     handle,
+            const String&                    key,
+            const typename String::size_type result_length,
+            const Encoder&                   encoder
+        )
+        {
+            std::vector<typename String::value_type> value(result_length, 0);
+            ::DWORD value_size = static_cast< ::DWORD>(result_length * sizeof(typename String::value_type));
+            const ::LONG query_value_result =
+                ::RegQueryValueExW(
+                    handle,
+                    encoder.encode(key).c_str(),
+                    0,
+                    NULL,
+                    reinterpret_cast< ::LPBYTE>(value.data()),
+                    &value_size
+                );
+            assert(query_value_result == ERROR_SUCCESS);
+
+            return encoder.decode(std::wstring(value.begin(), value.end()));
+        }
+
+        template <typename String, typename Encoder>
+        static ::DWORD get_dword(const ::HKEY handle, const String& key, const Encoder& encoder)
+        {
+            ::DWORD value = 0;
+            ::DWORD value_size = sizeof(::DWORD);
+            const ::LONG query_value_result =
+                ::RegQueryValueExW(
+                    handle,
+                    encoder.encode(key).c_str(),
+                    0,
+                    NULL,
+                    reinterpret_cast< ::LPBYTE>(&value),
+                    &value_size
+                );
+            assert(query_value_result == ERROR_SUCCESS);
+
+            return value;
         }
 
 

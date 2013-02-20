@@ -118,11 +118,12 @@ namespace bobura
         {
             const boost::optional<config_value_type> width =
                 m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Width")));
+            if (!width || width->which() != 1)
+                return boost::none;
             const boost::optional<config_value_type> height =
                 m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Height")));
-            if (!width || !height)
+            if (!height || height->which() != 1)
                 return boost::none;
-            assert(width->which() == 1 && height->which() == 1);
 
             return
                 boost::make_optional(
