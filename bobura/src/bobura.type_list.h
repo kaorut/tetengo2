@@ -79,7 +79,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::window>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     detail::main_window::diagram_picture_box_type,
-                    boost::mpl::at<common_type_list, type::settings>::type,
+                    boost::mpl::at<setting_type_list, type::setting::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
                 >
             >,

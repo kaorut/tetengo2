@@ -274,7 +274,7 @@ namespace bobura
         typename boost::mpl::at<ui_type_list, type::ui::window>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         detail::main_window::diagram_picture_box_type,
-        typename boost::mpl::at<common_type_list, type::settings>::type,
+        typename boost::mpl::at<setting_type_list, type::setting::settings>::type,
         typename boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
     >;
 

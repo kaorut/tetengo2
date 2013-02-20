@@ -30,7 +30,7 @@ namespace
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
+    typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
     typedef boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::save_to_file>::type save_to_file_type;
 

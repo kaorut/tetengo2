@@ -24,7 +24,7 @@ namespace bobura
 {
     namespace
     {
-        typedef boost::mpl::at<common_type_list, type::settings>::type settings_type;
+        typedef boost::mpl::at<setting_type_list, type::setting::settings>::type settings_type;
 
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
 

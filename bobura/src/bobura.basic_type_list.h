@@ -155,7 +155,6 @@ namespace bobura
         struct input_stream_iterator; //!< The input stream iterator type.
         struct pull_parser;    //!< The pull parser_type.
         struct output_stream;  //!< The output stream type.
-        struct settings;       //!< The settings type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -171,10 +170,6 @@ namespace bobura
             tetengo2::text::push_parser<input_stream_iterator_type, json_grammar_type, int, double> push_parser_type;
         typedef tetengo2::text::pull_parser<push_parser_type, size_type> pull_parser_type;
         typedef boost::filesystem::path path_type;
-        typedef
-            config_traits<string_type, size_type, boost::mpl::at<detail_type_list, type::detail::config>::type>
-            config_traits_type;
-        typedef settings<string_type, path_type, config_traits_type, int> settings_type;
     }
 #endif
 
@@ -188,9 +183,8 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::basic_ostream<detail::io_string_type::value_type>>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>
         common_type_list;
 
 
@@ -742,6 +736,41 @@ namespace bobura
         ui_type_list;
 
 
+    /**** Setting ***********************************************************/
+
+    namespace type { namespace setting
+    {
+        struct settings;       //!< The settings type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace setting
+    {
+        typedef
+            config_traits<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<detail_type_list, type::detail::config>::type>
+            config_traits_type;
+        typedef
+            settings<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::path>::type,
+                config_traits_type,
+                int
+            >
+            settings_type;
+    }}
+#endif
+
+    //! The type list for the settings.
+    typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::setting::settings, detail::setting::settings_type>,
+        tetengo2::meta::assoc_list_end
+        >
+        setting_type_list;
+
+
     /**** Common Dialog *****************************************************/
 
     namespace type { namespace common_dialog
@@ -843,7 +872,7 @@ namespace bobura
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    boost::mpl::at<common_type_list, type::settings>::type
+                    boost::mpl::at<setting_type_list, type::setting::settings>::type
                 >
             >,
         tetengo2::meta::assoc_list<
