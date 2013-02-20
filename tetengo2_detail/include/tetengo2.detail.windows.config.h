@@ -70,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 build_registry_key_and_value_name(group_name, key);
 
             ::HKEY handle = NULL;
-            const ::LONG create_key_error_code =
+            const ::LONG create_key_result =
                 ::RegCreateKeyExW(
                     HKEY_CURRENT_USER,
                     encoder.encode(registry_key_and_value_name.first).c_str(),
@@ -82,14 +82,29 @@ namespace tetengo2 { namespace detail { namespace windows
                     &handle,
                     NULL
                 );
-            if (create_key_error_code != ERROR_SUCCESS)
+            if (create_key_result != ERROR_SUCCESS)
                 return boost::none;
             BOOST_SCOPE_EXIT((handle))
             {
                 ::RegCloseKey(handle);
             } BOOST_SCOPE_EXIT_END;
 
-            return boost::none;
+            ::DWORD type = REG_DWORD;
+            ::DWORD value = 0;
+            ::DWORD value_size = sizeof(::DWORD);
+            const ::LONG query_value_result =
+                ::RegQueryValueExW(
+                    handle,
+                    encoder.encode(registry_key_and_value_name.second).c_str(),
+                    0,
+                    &type,
+                    reinterpret_cast< ::LPBYTE>(&value),
+                    &value_size
+                );
+            if (query_value_result != ERROR_SUCCESS)
+                return boost::none;
+
+            return boost::make_optional(boost::variant<String, UInt>(value));
         }
 
         /*!
