@@ -178,6 +178,7 @@
 ::RegCloseKey                                    Windows.h
 ::RegCreateKeyExW                                Windows.h
 ::RegQueryValueExW                               Windows.h
+::RegSetValueEx                                  Windows.h
 ::RegisterClassExW                               Windows.h
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
