@@ -6,8 +6,12 @@
     $Id$
 */
 
+#include <vector>
+
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
 
@@ -17,6 +21,8 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
@@ -40,6 +46,8 @@ namespace
     typedef
         boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::confirm_file_save>::type
         confirm_file_save_type;
+
+    typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -96,9 +104,10 @@ BOOST_AUTO_TEST_SUITE(window)
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
-        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type> window(
-            parent, confirm_file_save
-        );
+        const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(command_line_arguments);
+        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
+        window(parent, confirm_file_save, settings);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -110,9 +119,10 @@ BOOST_AUTO_TEST_SUITE(window)
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
-        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type> window(
-            parent, confirm_file_save
-        );
+        const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(command_line_arguments);
+        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
+        window(parent, confirm_file_save, settings);
 
         bool cancel = false;
         window(cancel);

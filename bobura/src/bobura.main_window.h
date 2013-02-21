@@ -69,7 +69,7 @@ namespace bobura
         */
         main_window(
             const message_catalog_type&   message_catalog,
-            const settings_type&          settings,
+            settings_type&                settings,
             const confirm_file_save_type& confirm_file_save
         );
 

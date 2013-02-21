@@ -72,7 +72,7 @@ namespace
         std::locale::global(global_locale);
     }
 
-    int run_application(const settings_type& settings)
+    int run_application(settings_type& settings)
     {
         return bobura::application(settings).run();
     }
@@ -103,7 +103,7 @@ TETENGO2_CPP11_NOEXCEPT
 
     try
     {
-        const settings_type settings(boost::program_options::split_winmain(::GetCommandLineW()));
+        settings_type settings(boost::program_options::split_winmain(::GetCommandLineW()));
 
         set_locale(settings.message_directory_path());
 

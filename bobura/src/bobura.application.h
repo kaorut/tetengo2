@@ -40,7 +40,7 @@ namespace bobura
 
             \param settings Settings of the bobura.
         */
-        explicit application(const settings_type& settings);
+        explicit application(settings_type& settings);
 
         /*!
             \brief Destroys the bobura application.

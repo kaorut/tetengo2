@@ -60,7 +60,7 @@ namespace bobura
             impl(
                 base_type&                    base,
                 const message_catalog_type&   message_catalog,
-                const settings_type&          settings,
+                settings_type&                settings,
                 const confirm_file_save_type& confirm_file_save
             )
             :
@@ -158,7 +158,7 @@ namespace bobura
 
             std::unique_ptr<diagram_picture_box_type> m_p_diagram_picture_box;
 
-            const settings_type& m_settings;
+            settings_type& m_settings;
 
             const confirm_file_save_type& m_confirm_file_save;
 
@@ -189,7 +189,7 @@ namespace bobura
                 m_base.paint_observer_set().paint_background().connect(paint_background_type());
                 m_base.window_observer_set().closing().connect(
                     typename boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
-                        m_base, m_confirm_file_save
+                        m_base, m_confirm_file_save, m_settings
                     )
                 );
                 m_base.window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
@@ -211,7 +211,7 @@ namespace bobura
     >
     main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::main_window(
         const message_catalog_type&   message_catalog,
-        const settings_type&          settings,
+        settings_type&                settings,
         const confirm_file_save_type& confirm_file_save
     )
     :

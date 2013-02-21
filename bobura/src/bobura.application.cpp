@@ -73,7 +73,7 @@ namespace bobura
     public:
         // constructors and destructor
 
-        explicit impl(const settings_type& settings)
+        explicit impl(settings_type& settings)
         :
         m_gui_fixture(),
         m_settings(settings),
@@ -110,7 +110,7 @@ namespace bobura
         {
         public:
             command_set_holder_type(
-                const settings_type&        settings,
+                settings_type&              settings,
                 model_type&                 model,
                 view_type&                  view,
                 const message_catalog_type& message_catalog
@@ -168,7 +168,7 @@ namespace bobura
 
         const gui_fixture_type m_gui_fixture;
 
-        const settings_type& m_settings;
+        settings_type& m_settings;
 
         model_type m_model;
 
@@ -231,7 +231,7 @@ namespace bobura
     };
 
 
-    application::application(const settings_type& settings)
+    application::application(settings_type& settings)
     :
     m_p_impl(tetengo2::make_unique<impl>(settings))
     {}
