@@ -120,7 +120,32 @@ namespace tetengo2 { namespace detail { namespace windows
             boost::variant<String, UInt> value,
             const Encoder&               encoder
         )
-        {}
+        {
+            const std::pair<String, String> registry_key_and_value_name =
+                build_registry_key_and_value_name(group_name, key);
+
+            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_WRITE);
+            if (!handle.get())
+                return;
+
+            switch (value.which())
+            {
+            case 0:
+                set_string(handle.get(), registry_key_and_value_name.second, boost::get<String>(value), encoder);
+                break;
+            case 1:
+                set_dword(
+                    handle.get(),
+                    registry_key_and_value_name.second,
+                    static_cast< ::DWORD>(boost::get<UInt>(value)),
+                    encoder
+                );
+                break;
+            default:
+                assert(false);
+                break;
+            }
+        }
 
 
     private:
@@ -275,6 +300,33 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(query_value_result == ERROR_SUCCESS);
 
             return value;
+        }
+
+        template <typename String, typename Encoder>
+        static void set_string(const ::HKEY handle, const String& key, const String& value, const Encoder& encoder)
+        {
+            const std::wstring encoded_value = encoder.encode(value);
+            ::RegSetValueEx(
+                handle,
+                encoder.encode(key).c_str(),
+                0,
+                REG_SZ,
+                reinterpret_cast<const ::BYTE*>(encoded_value.c_str()),
+                static_cast< ::DWORD>((encoded_value.length() + 1) * sizeof(typename String::value_type))
+            );
+        }
+
+        template <typename String, typename Encoder>
+        static void set_dword(const ::HKEY handle, const String& key, const ::DWORD value, const Encoder& encoder)
+        {
+            ::RegSetValueEx(
+                handle,
+                encoder.encode(key).c_str(),
+                0,
+                REG_DWORD,
+                reinterpret_cast<const ::BYTE*>(&value),
+                sizeof(::DWORD)
+            );
         }
 
 
