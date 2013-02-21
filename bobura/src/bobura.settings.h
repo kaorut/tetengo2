@@ -134,6 +134,24 @@ namespace bobura
                 );
         }
 
+        /*!
+            \brief Sets a main window dimension.
+
+            \param dimension A dimension.
+        */
+        void set_main_window_dimension(const dimension_type& dimension)
+        {
+            const width_type& width = tetengo2::gui::dimension<dimension_type>::width(dimension);
+            m_p_config->set(
+                string_type(TETENGO2_TEXT("MainWindow/Width")), config_value_type(width.to_pixels<uint_type>())
+            );
+
+            const height_type& height = tetengo2::gui::dimension<dimension_type>::height(dimension);
+            m_p_config->set(
+                string_type(TETENGO2_TEXT("MainWindow/Height")), config_value_type(height.to_pixels<uint_type>())
+            );
+        }
+
 
     private:
         // types

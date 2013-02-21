@@ -6,11 +6,13 @@
     $Id$
 */
 
+#include <cstddef>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
@@ -23,6 +25,12 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::path>::type path_type;
 
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dimension>::type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
@@ -85,7 +93,61 @@ BOOST_AUTO_TEST_SUITE(settings)
             arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
             const settings_type settings(arguments);
 
-            BOOST_REQUIRE(!settings.main_window_dimension());
+            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+
+            BOOST_REQUIRE(!dimension);
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            arguments.push_back(string_type(TETENGO2_TEXT("--dimension=240x120")));
+            const settings_type settings(arguments);
+
+            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+
+            BOOST_REQUIRE(dimension);
+            BOOST_CHECK_EQUAL(
+                tetengo2::gui::dimension<dimension_type>::width(*dimension).to_pixels<std::size_t>(), 240
+            );
+            BOOST_CHECK_EQUAL(
+                tetengo2::gui::dimension<dimension_type>::height(*dimension).to_pixels<std::size_t>(), 120
+            );
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            arguments.push_back(string_type(TETENGO2_TEXT("-d")));
+            arguments.push_back(string_type(TETENGO2_TEXT("240x120")));
+            const settings_type settings(arguments);
+
+            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+
+            BOOST_REQUIRE(dimension);
+            BOOST_CHECK_EQUAL(
+                tetengo2::gui::dimension<dimension_type>::width(*dimension).to_pixels<std::size_t>(), 240U
+            );
+            BOOST_CHECK_EQUAL(
+                tetengo2::gui::dimension<dimension_type>::height(*dimension).to_pixels<std::size_t>(), 120U
+            );
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_main_window_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_main_window_dimension(dimension_type(width_type(42), height_type(24)));
+
+            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+
+            BOOST_REQUIRE(dimension);
+            BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::width(*dimension) == width_type(42));
+            BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::height(*dimension) == height_type(24));
         }
     }
 

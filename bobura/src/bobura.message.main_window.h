@@ -342,6 +342,9 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             cancel = !m_confirm_file_save(m_window);
+
+            if (!cancel)
+                m_settings.set_main_window_dimension(m_window.dimension());
         }
 
 
