@@ -172,7 +172,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -229,7 +229,9 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL), 0
+                );
         }
 
         /*!
@@ -278,7 +280,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -323,7 +325,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -368,7 +370,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -421,7 +423,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -482,7 +484,9 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return 
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL), 0
+                );
         }
 
         /*!
@@ -534,7 +538,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL), 0
                 );
         }
 
@@ -593,7 +597,9 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL), 0
+                );
         }
 
         /*!
@@ -729,8 +735,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param widget A widget.
-            \param visible A visible status.
+            \param widget   A widget.
+            \param visible_ A visible status.
         */
         template <typename Widget>
         static void set_visible(Widget& widget, const bool visible)
@@ -753,6 +759,83 @@ namespace tetengo2 { namespace detail { namespace windows
         static bool visible(const Widget& widget)
         {
             return ::IsWindowVisible(const_cast< ::HWND>(widget.details()->handle.get())) == TRUE;
+        }
+
+        /*!
+            \brief Sets a window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+            \param state  A window state.
+
+            \throw std::system_error When a window state cannot be set.
+        */
+        template <typename WindowState, typename Widget>
+        static void set_window_state(Widget& widget, const typename WindowState::enum_t state)
+        {
+            if (!visible(widget))
+                return;
+
+            ::WINDOWPLACEMENT window_placement = {};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const ::BOOL get_result =
+                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
+                    )
+                );
+            }
+
+            switch (state)
+            {
+            case WindowState::normal:
+                window_placement.showCmd = SW_RESTORE;
+                break;
+            case WindowState::maximized:
+                window_placement.showCmd = SW_SHOWMAXIMIZED;
+                break;
+            default:
+                assert(state == WindowState::minimized);
+                window_placement.showCmd = SW_MINIMIZE;
+                break;
+            }
+
+            const ::BOOL set_result =
+                ::SetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (set_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't set window placement."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+
+            \return The window state.
+        */
+        template <typename WindowState, typename Widget>
+        static typename WindowState::enum_t window_state(const Widget& widget)
+        {
+            if      (::IsZoomed(const_cast< ::HWND>(widget.details()->handle.get())))
+                return WindowState::maximized;
+            else if (::IsIconic(const_cast< ::HWND>(widget.details()->handle.get())))
+                return WindowState::minimized;
+            else
+                return WindowState::normal;
         }
 
         /*!

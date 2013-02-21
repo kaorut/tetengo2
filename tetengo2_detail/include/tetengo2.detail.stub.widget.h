@@ -89,6 +89,7 @@ namespace tetengo2 { namespace detail { namespace stub
             void* p_parent;
             bool enabled;
             bool visible;
+            int window_state;
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
             std::pair<std::size_t, std::size_t> dimension;
             string_type text;
@@ -104,6 +105,7 @@ namespace tetengo2 { namespace detail { namespace stub
             p_parent(),
             enabled(),
             visible(),
+            window_state(),
             position(),
             dimension(),
             text(),
@@ -119,6 +121,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 void* const                                 p_parent,
                 const bool                                  enabled,
                 const bool                                  visible,
+                const int                                   window_state,
                 std::pair<std::ptrdiff_t, std::ptrdiff_t>   position,
                 std::pair<std::size_t, std::size_t>         dimension,
                 string_type                                 text,
@@ -133,6 +136,7 @@ namespace tetengo2 { namespace detail { namespace stub
             p_parent(p_parent),
             enabled(enabled),
             visible(visible),
+            window_state(window_state),
             position(std::move(position)),
             dimension(std::move(dimension)),
             text(std::move(text)),
@@ -455,6 +459,39 @@ namespace tetengo2 { namespace detail { namespace stub
         static bool visible(const Widget& widget)
         {
             return widget.details()->visible;
+        }
+
+        /*!
+            \brief Sets a window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+            \param state  A window state.
+
+            \throw std::system_error When a window state cannot be set.
+        */
+        template <typename WindowState, typename Widget>
+        static void set_window_state(Widget& widget, const typename WindowState::enum_t state)
+        {
+            widget.details()->window_state = state;
+        }
+
+        /*!
+            \brief Returns the window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+
+            \return The window state.
+        */
+        template <typename WindowState, typename Widget>
+        static typename WindowState::enum_t window_state(const Widget& widget)
+        {
+            return static_cast<typename WindowState::enum_t>(widget.details()->window_state);
         }
 
         /*!
@@ -1207,11 +1244,12 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details =
-                tetengo2::make_unique<widget_details_type>(
+            widget_details_ptr_type p_details(
+                new widget_details_type(
                     p_parent,
                     true,
                     true,
+                    0,
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
                     string_type(),
@@ -1221,7 +1259,8 @@ namespace tetengo2 { namespace detail { namespace stub
                     false,
                     std::vector<string_type>(),
                     boost::none
-                );
+                )
+            );
 
             return std::move(p_details);
         }
