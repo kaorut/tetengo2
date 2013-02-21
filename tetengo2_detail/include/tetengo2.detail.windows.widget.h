@@ -86,6 +86,7 @@ namespace tetengo2 { namespace detail { namespace windows
             handle_type handle;
             ::WNDPROC window_procedure;
             ::HWND first_child_handle;
+            int window_state_when_hidden;
 
             widget_details_type(
                 handle_type     handle,
@@ -95,7 +96,8 @@ namespace tetengo2 { namespace detail { namespace windows
             :
             handle(std::move(handle)),
             window_procedure(window_procedure),
-            first_child_handle(first_child_handle)
+            first_child_handle(first_child_handle),
+            window_state_when_hidden(SW_RESTORE)
             {}
 #endif
 
@@ -733,10 +735,39 @@ namespace tetengo2 { namespace detail { namespace windows
             \param visible_ A visible status.
         */
         template <typename Widget>
-        static void set_visible(Widget& widget, const bool visible)
+        static void set_visible(Widget& widget, const bool visible_)
         {
-            ::ShowWindow(widget.details()->handle.get(), visible ? SW_SHOW : SW_HIDE);
-            if (visible)
+            int command = SW_HIDE;
+            if (visible_)
+            {
+                if (visible(widget))
+                {
+                    if (::IsZoomed(widget.details()->handle.get()))
+                        command = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget.details()->handle.get()))
+                        command = SW_MINIMIZE;
+                    else
+                        command = SW_RESTORE;
+                }
+                else
+                {
+                    command = widget.details()->window_state_when_hidden;
+                }
+            }
+            else
+            {
+                if (visible(widget))
+                {
+                    if (::IsZoomed(widget.details()->handle.get()))
+                        widget.details()->window_state_when_hidden = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget.details()->handle.get()))
+                        widget.details()->window_state_when_hidden = SW_MINIMIZE;
+                    else
+                        widget.details()->window_state_when_hidden = SW_RESTORE;
+                }
+            }
+            ::ShowWindow(widget.details()->handle.get(), command);
+            if (visible_)
                 ::UpdateWindow(widget.details()->handle.get());
         }
 
@@ -769,6 +800,20 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename WindowState, typename Widget>
         static void set_window_state(Widget& widget, const typename WindowState::enum_t state)
         {
+            switch (state)
+            {
+            case WindowState::normal:
+                widget.details()->window_state_when_hidden = SW_RESTORE;
+                break;
+            case WindowState::maximized:
+                widget.details()->window_state_when_hidden = SW_SHOWMAXIMIZED;
+                break;
+            default:
+                assert(state == WindowState::minimized);
+                widget.details()->window_state_when_hidden = SW_MINIMIZE;
+                break;
+            }
+
             if (!visible(widget))
                 return;
 
@@ -785,19 +830,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            switch (state)
-            {
-            case WindowState::normal:
-                window_placement.showCmd = SW_RESTORE;
-                break;
-            case WindowState::maximized:
-                window_placement.showCmd = SW_SHOWMAXIMIZED;
-                break;
-            default:
-                assert(state == WindowState::minimized);
-                window_placement.showCmd = SW_MINIMIZE;
-                break;
-            }
+            window_placement.showCmd = widget.details()->window_state_when_hidden;
 
             const ::BOOL set_result =
                 ::SetWindowPlacement(widget.details()->handle.get(), &window_placement);
@@ -824,12 +857,28 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename WindowState, typename Widget>
         static typename WindowState::enum_t window_state(const Widget& widget)
         {
-            if      (::IsZoomed(const_cast< ::HWND>(widget.details()->handle.get())))
-                return WindowState::maximized;
-            else if (::IsIconic(const_cast< ::HWND>(widget.details()->handle.get())))
-                return WindowState::minimized;
+            if (visible(widget))
+            {
+                if      (::IsZoomed(const_cast< ::HWND>(widget.details()->handle.get())))
+                    return WindowState::maximized;
+                else if (::IsIconic(const_cast< ::HWND>(widget.details()->handle.get())))
+                    return WindowState::minimized;
+                else
+                    return WindowState::normal;
+            }
             else
-                return WindowState::normal;
+            {
+                switch (widget.details()->window_state_when_hidden)
+                {
+                case SW_RESTORE:
+                    return WindowState::normal;
+                case SW_SHOWMAXIMIZED:
+                    return WindowState::maximized;
+                default:
+                    assert(widget.details()->window_state_when_hidden == SW_MINIMIZE);
+                    return WindowState::minimized;
+                }
+            }
         }
 
         /*!
