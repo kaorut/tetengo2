@@ -113,8 +113,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         Position l_param_to_position(const ::LPARAM l_param)
         {
             return Position(
-                tetengo2::gui::to_unit<typename tetengo2::gui::position<Position>::left_type>(GET_X_LPARAM(l_param)),
-                tetengo2::gui::to_unit<typename tetengo2::gui::position<Position>::top_type>(GET_Y_LPARAM(l_param))
+                gui::to_unit<typename gui::position<Position>::left_type>(GET_X_LPARAM(l_param)),
+                gui::to_unit<typename gui::position<Position>::top_type>(GET_Y_LPARAM(l_param))
             );
         }
 

@@ -249,10 +249,10 @@ namespace tetengo2 { namespace gui
         void set_observers()
         {
             m_scroll_bar_observer_set.scrolling().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
             );
             m_scroll_bar_observer_set.scrolled().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
             );
         }
 

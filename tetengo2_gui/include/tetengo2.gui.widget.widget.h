@@ -909,7 +909,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
+            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -922,7 +922,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
+            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
         }
 
 

@@ -94,7 +94,7 @@ namespace tetengo2 { namespace config
             std::for_each(
                 m_p_configs.begin(),
                 m_p_configs.end(),
-                TETENGO2_CPP11_BIND(&base_type::set, tetengo2::cpp11::placeholders_1(), key, value)
+                TETENGO2_CPP11_BIND(&base_type::set, cpp11::placeholders_1(), key, value)
             );
         }
 

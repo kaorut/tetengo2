@@ -248,7 +248,7 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(p_link_label);
 
             p_link_label->set_background(
-                tetengo2::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
             const font_type original_font = p_link_label->font();
