@@ -45,6 +45,9 @@ namespace bobura
         //! The string type.
         typedef typename base_type::string_type string_type;
 
+        //! The window state type.
+        typedef typename base_type::window_state_type window_state_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -69,7 +72,7 @@ namespace bobura
         */
         main_window(
             const message_catalog_type&   message_catalog,
-            const settings_type&          settings,
+            settings_type&                settings,
             const confirm_file_save_type& confirm_file_save
         );
 

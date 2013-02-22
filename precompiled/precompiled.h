@@ -104,6 +104,7 @@
 #include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
+#include <boost/utility/string_ref.hpp>
 #include <boost/variant.hpp>
 
 
@@ -119,6 +120,7 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+#include <windowsx.h>
 #include <CommCtrl.h>
 #include <d2d1.h>
 #include <dwrite.h>

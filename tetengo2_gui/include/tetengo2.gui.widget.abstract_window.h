@@ -72,6 +72,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
+        //! The window state type.
+        struct window_state_type { enum enum_t //!< Scoped enum.
+        {
+            normal,    //!< Normal state.
+            maximized, //!< Maximized state.
+            minimized, //!< Minimized state.
+        };};
+
 
         // functions
 
@@ -81,6 +89,38 @@ namespace tetengo2 { namespace gui { namespace widget
         void activate()
         {
             widget_details_type::activate(*this);
+        }
+
+        /*!
+            \brief Returns the window state.
+
+            \return The window state.
+        */
+        typename window_state_type::enum_t window_state()
+        const
+        {
+            return widget_details_type::template window_state<window_state_type>(*this);
+        }
+
+        /*!
+            \brief Sets a window state.
+
+            \param state A window state.
+        */
+        void set_window_state(const typename window_state_type::enum_t state)
+        {
+            return widget_details_type::template set_window_state<window_state_type>(*this, state);
+        }
+
+        /*!
+            \brief Returns the normal dimension.
+
+            \return The normal dimension.
+        */
+        dimension_type normal_dimension()
+        const
+        {
+            return widget_details_type::template normal_dimension<dimension_type>(*this);
         }
 
         /*!

@@ -99,6 +99,7 @@
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
 ::GetWindowLongW                                 Windows.h
+::GetWindowPlacement                             Windows.h
 ::GetWindowRect                                  Windows.h
 ::GetWindowTextLengthW                           Windows.h
 ::GetWindowTextW                                 Windows.h
@@ -110,6 +111,7 @@
 ::HFONT                                          Windows.h
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
+::HKEY                                           Windows.h
 ::HMENU                                          Windows.h
 ::HMONITOR                                       Windows.h
 ::HRESULT                                        Windows.h
@@ -140,10 +142,12 @@
 ::InsertMenuItem                                 Windows.h
 ::InvalidateRect                                 Windows.h
 ::IsDialogMessageW                               Windows.h
+::IsIconic                                       Windows.h
 ::IsMenu                                         Windows.h
 ::IsWindow                                       Windows.h
 ::IsWindowEnabled                                Windows.h
 ::IsWindowVisible                                Windows.h
+::IsZoomed                                       Windows.h
 ::KillTimer                                      Windows.h
 ::LANGID                                         Windows.h
 ::LCID                                           Windows.h
@@ -152,6 +156,7 @@
 ::LONG                                           Windows.h
 ::LONG_PTR                                       Windows.h
 ::LPARAM                                         Windows.h
+::LPBYTE                                         Windows.h
 ::LPWSTR                                         Windows.h
 ::LRESULT                                        Windows.h
 ::LoadImageW                                     Windows.h
@@ -172,6 +177,11 @@
 ::PostMessageW                                   Windows.h
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
+::REGSAM                                         Windows.h
+::RegCloseKey                                    Windows.h
+::RegCreateKeyExW                                Windows.h
+::RegQueryValueExW                               Windows.h
+::RegSetValueEx                                  Windows.h
 ::RegisterClassExW                               Windows.h
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
@@ -191,6 +201,7 @@
 ::SetTimer                                       Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowLongW                                 Windows.h
+::SetWindowPlacement                             Windows.h
 ::SetWindowTextW                                 Windows.h
 ::ShellExecuteW                                  Windows.h
 ::ShowWindow                                     Windows.h
@@ -212,6 +223,7 @@
 ::WICBitmapCacheOnDemand                         Windows.h,wincodec.h
 ::WICPixelFormatGUID                             Windows.h,wincodec.h
 ::WICRect                                        Windows.h,wincodec.h
+::WINDOWPLACEMENT                                Windows.h
 ::WNDCLASSEXW                                    Windows.h
 ::WNDPROC                                        Windows.h
 ::WORD                                           Windows.h
@@ -282,6 +294,8 @@ D2DERR_WRONG_FACTORY                             Windows.h,d2d1.h
 D2DERR_WRONG_RESOURCE_DOMAIN                     Windows.h,d2d1.h
 D2DERR_WRONG_STATE                               Windows.h,d2d1.h
 D2DERR_ZERO_VECTOR                               Windows.h,d2d1.h
+GET_X_LPARAM                                     windowsx.h
+GET_Y_LPARAM                                     windowsx.h
 Gdiplus::ARGB                                    GdiPlus.h,Windows.h
 Gdiplus::Aborted                                 GdiPlus.h,Windows.h
 Gdiplus::AccessDenied                            GdiPlus.h,Windows.h
@@ -426,6 +440,7 @@ WM_KEYUP                                         Windows.h
 WM_KILLFOCUS                                     Windows.h
 WM_LBUTTONDBLCLK                                 Windows.h
 WM_LBUTTONDOWN                                   Windows.h
+WM_LBUTTONUP                                     Windows.h
 WM_MOUSEHWHEEL                                   Windows.h
 WM_MOUSEWHEEL                                    Windows.h
 WM_NCDESTROY                                     Windows.h
@@ -472,6 +487,7 @@ boost::iostreams::bzip2_error                    boost/iostreams/filter/bzip2.hp
 boost::iostreams::filtering_istream              boost/iostreams/filtering_stream.hpp
 boost::iostreams::filtering_ostream              boost/iostreams/filtering_stream.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
+boost::join                                      boost/algorithm/string.hpp
 boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_indirect_iterator                    boost/iterator/indirect_iterator.hpp
 boost::make_optional                             boost/optional.hpp
@@ -515,14 +531,19 @@ boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
 boost::posix_time::milliseconds                  boost/date_time/posix_time/posix_time.hpp
 boost::prior                                     boost/utility.hpp
+boost::program_options::basic_command_line_parser boost/program_options.hpp
+boost::program_options::basic_parsed_options     boost/program_options.hpp
+boost::program_options::error                    boost/program_options.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp
+boost::program_options::positional_options_description boost/program_options.hpp
 boost::program_options::split_winmain            boost/program_options.hpp
 boost::program_options::store                    boost/program_options.hpp
+boost::program_options::typed_value              boost/program_options.hpp
 boost::program_options::value                    boost/program_options.hpp
 boost::program_options::variables_map            boost/program_options.hpp
-boost::program_options::wcommand_line_parser     boost/program_options.hpp
-boost::program_options::wparsed_options          boost/program_options.hpp
+boost::program_options::variables_map::const_iterator boost/program_options.hpp
+boost::program_options::wvalue                   boost/program_options.hpp
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
 boost::ref                                       boost/ref.hpp

@@ -23,6 +23,7 @@ extra_headers = \
     bobura.command.train_kind.h \
     bobura.command.vertically_zoom_in.h \
     bobura.command.vertically_zoom_out.h \
+    bobura.config_traits.h \
     bobura.diagram_picture_box.h \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \

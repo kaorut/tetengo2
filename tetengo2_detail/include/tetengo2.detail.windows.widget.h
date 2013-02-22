@@ -86,6 +86,7 @@ namespace tetengo2 { namespace detail { namespace windows
             handle_type handle;
             ::WNDPROC window_procedure;
             ::HWND first_child_handle;
+            int window_state_when_hidden;
 
             widget_details_type(
                 handle_type     handle,
@@ -95,7 +96,8 @@ namespace tetengo2 { namespace detail { namespace windows
             :
             handle(std::move(handle)),
             window_procedure(window_procedure),
-            first_child_handle(first_child_handle)
+            first_child_handle(first_child_handle),
+            window_state_when_hidden(SW_RESTORE)
             {}
 #endif
 
@@ -729,14 +731,43 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param widget A widget.
-            \param visible A visible status.
+            \param widget   A widget.
+            \param visible_ A visible status.
         */
         template <typename Widget>
-        static void set_visible(Widget& widget, const bool visible)
+        static void set_visible(Widget& widget, const bool visible_)
         {
-            ::ShowWindow(widget.details()->handle.get(), visible ? SW_SHOW : SW_HIDE);
-            if (visible)
+            int command = SW_HIDE;
+            if (visible_)
+            {
+                if (visible(widget))
+                {
+                    if (::IsZoomed(widget.details()->handle.get()))
+                        command = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget.details()->handle.get()))
+                        command = SW_MINIMIZE;
+                    else
+                        command = SW_RESTORE;
+                }
+                else
+                {
+                    command = widget.details()->window_state_when_hidden;
+                }
+            }
+            else
+            {
+                if (visible(widget))
+                {
+                    if (::IsZoomed(widget.details()->handle.get()))
+                        widget.details()->window_state_when_hidden = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget.details()->handle.get()))
+                        widget.details()->window_state_when_hidden = SW_MINIMIZE;
+                    else
+                        widget.details()->window_state_when_hidden = SW_RESTORE;
+                }
+            }
+            ::ShowWindow(widget.details()->handle.get(), command);
+            if (visible_)
                 ::UpdateWindow(widget.details()->handle.get());
         }
 
@@ -753,6 +784,101 @@ namespace tetengo2 { namespace detail { namespace windows
         static bool visible(const Widget& widget)
         {
             return ::IsWindowVisible(const_cast< ::HWND>(widget.details()->handle.get())) == TRUE;
+        }
+
+        /*!
+            \brief Sets a window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+            \param state  A window state.
+
+            \throw std::system_error When a window state cannot be set.
+        */
+        template <typename WindowState, typename Widget>
+        static void set_window_state(Widget& widget, const typename WindowState::enum_t state)
+        {
+            switch (state)
+            {
+            case WindowState::normal:
+                widget.details()->window_state_when_hidden = SW_RESTORE;
+                break;
+            case WindowState::maximized:
+                widget.details()->window_state_when_hidden = SW_SHOWMAXIMIZED;
+                break;
+            default:
+                assert(state == WindowState::minimized);
+                widget.details()->window_state_when_hidden = SW_MINIMIZE;
+                break;
+            }
+
+            if (!visible(widget))
+                return;
+
+            ::WINDOWPLACEMENT window_placement = {};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const ::BOOL get_result =
+                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
+                    )
+                );
+            }
+
+            window_placement.showCmd = widget.details()->window_state_when_hidden;
+
+            const ::BOOL set_result =
+                ::SetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (set_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't set window placement."
+                    )
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the window state.
+
+            \tparam WindowState A window state type.
+            \tparam Widget      A widget type.
+
+            \param widget A widget.
+
+            \return The window state.
+        */
+        template <typename WindowState, typename Widget>
+        static typename WindowState::enum_t window_state(const Widget& widget)
+        {
+            if (visible(widget))
+            {
+                if      (::IsZoomed(const_cast< ::HWND>(widget.details()->handle.get())))
+                    return WindowState::maximized;
+                else if (::IsIconic(const_cast< ::HWND>(widget.details()->handle.get())))
+                    return WindowState::minimized;
+                else
+                    return WindowState::normal;
+            }
+            else
+            {
+                switch (widget.details()->window_state_when_hidden)
+                {
+                case SW_RESTORE:
+                    return WindowState::normal;
+                case SW_SHOWMAXIMIZED:
+                    return WindowState::maximized;
+                default:
+                    assert(widget.details()->window_state_when_hidden == SW_MINIMIZE);
+                    return WindowState::minimized;
+                }
+            }
         }
 
         /*!
@@ -1008,6 +1134,45 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            typedef gui::dimension<Dimension> dimension_traits_type;
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                );
+        }
+
+        /*!
+            \brief Returns the normal dimension.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+
+            \param widget A widget.
+
+            \return The normal dimension.
+
+            \throw std::system_error When the normal dimension cannot be obtained.
+        */
+        template <typename Dimension, typename Widget>
+        static Dimension normal_dimension(const Widget& widget)
+        {
+            ::WINDOWPLACEMENT window_placement = {};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const ::BOOL get_result =
+                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
+                    )
+                );
+            }
+
+            const ::RECT& rectangle = window_placement.rcNormalPosition;
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;

@@ -54,10 +54,10 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename base_type::dimension_type dimension_type;
 
         //! The width type.
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
 
         //! The height type.
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        typedef typename gui::dimension<dimension_type>::height_type height_type;
 
         //! The string type.
         typedef typename base_type::string_type string_type;
@@ -130,17 +130,15 @@ namespace tetengo2 { namespace gui { namespace widget
             if (this->text().empty() || max_width == width_type(0)) return;
 
             dimension_type one_line_dimension = calc_text_dimension();
-            const width_type line_count(
-                tetengo2::gui::dimension<dimension_type>::width(one_line_dimension) / max_width
-            );
+            const width_type line_count(gui::dimension<dimension_type>::width(one_line_dimension) / max_width);
             if (line_count <= width_type(1))
             {
                 set_client_dimension(std::move(one_line_dimension));
                 return;
             }
 
-            const std::size_t int_line_count = tetengo2::gui::ceil<std::size_t>(line_count);
-            height_type height = tetengo2::gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
+            const std::size_t int_line_count = ceil<std::size_t>(line_count);
+            height_type height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
             set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
         }
 

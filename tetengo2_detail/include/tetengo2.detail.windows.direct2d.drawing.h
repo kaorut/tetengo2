@@ -234,9 +234,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static background_details_ptr_type create_solid_background(const Color& color)
         {
             return
-                tetengo2::make_unique<detail::solid_background_details>(
-                    color.red(), color.green(), color.blue(), color.alpha()
-                );
+                make_unique<detail::solid_background_details>(color.red(), color.green(), color.blue(), color.alpha());
         }
 
         /*!

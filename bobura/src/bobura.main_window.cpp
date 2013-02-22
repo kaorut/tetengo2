@@ -8,6 +8,7 @@
 
 //#include <cassert>
 //#include <memory>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
@@ -45,6 +46,8 @@ namespace bobura
 
             typedef typename base_type::string_type string_type;
 
+            typedef typename base_type::window_state_type window_state_type;
+
             typedef MessageCatalog message_catalog_type;
 
             typedef DiagramPictureBox diagram_picture_box_type;
@@ -59,7 +62,7 @@ namespace bobura
             impl(
                 base_type&                    base,
                 const message_catalog_type&   message_catalog,
-                const settings_type&          settings,
+                settings_type&                settings,
                 const confirm_file_save_type& confirm_file_save
             )
             :
@@ -116,6 +119,8 @@ namespace bobura
 
             typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+            typedef typename base_type::dimension_type dimension_type;
+
             class call_focus_on_diagram_picture_box_type
             {
             public:
@@ -155,7 +160,7 @@ namespace bobura
 
             std::unique_ptr<diagram_picture_box_type> m_p_diagram_picture_box;
 
-            const settings_type& m_settings;
+            settings_type& m_settings;
 
             const confirm_file_save_type& m_confirm_file_save;
 
@@ -169,6 +174,15 @@ namespace bobura
                 set_message_observers();
 
                 set_title(boost::none, false);
+                
+                boost::optional<dimension_type> dimension = m_settings.main_window_dimension();
+                if (dimension)
+                    m_base.set_dimension(std::move(*dimension));
+                const boost::optional<bool> maximized = m_settings.main_window_maximized();
+                if (maximized && *maximized)
+                    m_base.set_window_state(window_state_type::maximized);
+                else
+                    m_base.set_window_state(window_state_type::normal);
             }
 
             void focus_on_diagram_picture_box()
@@ -182,7 +196,7 @@ namespace bobura
                 m_base.paint_observer_set().paint_background().connect(paint_background_type());
                 m_base.window_observer_set().closing().connect(
                     typename boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
-                        m_base, m_confirm_file_save
+                        m_base, m_confirm_file_save, m_settings
                     )
                 );
                 m_base.window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
@@ -204,7 +218,7 @@ namespace bobura
     >
     main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::main_window(
         const message_catalog_type&   message_catalog,
-        const settings_type&          settings,
+        settings_type&                settings,
         const confirm_file_save_type& confirm_file_save
     )
     :
@@ -274,7 +288,7 @@ namespace bobura
         typename boost::mpl::at<ui_type_list, type::ui::window>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         detail::main_window::diagram_picture_box_type,
-        typename boost::mpl::at<common_type_list, type::settings>::type,
+        typename boost::mpl::at<setting_type_list, type::setting::settings>::type,
         typename boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
     >;
 

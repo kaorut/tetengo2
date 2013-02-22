@@ -91,6 +91,33 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         window.activate();
     }
 
+    BOOST_AUTO_TEST_CASE(window_state)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_window window;
+
+        window.window_state();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_window_state)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_window window;
+
+        window.set_window_state(abstract_window_type::window_state_type::normal);
+    }
+
+    BOOST_AUTO_TEST_CASE(normal_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_window window;
+
+        window.normal_dimension();
+    }
+
     BOOST_AUTO_TEST_CASE(has_menu_bar)
     {
         BOOST_TEST_PASSPOINT();

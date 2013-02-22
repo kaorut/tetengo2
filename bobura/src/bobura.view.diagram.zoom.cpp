@@ -14,6 +14,7 @@
 
 #include "bobura.type_list.h"
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
 #include <tetengo2.gui.measure.h>
 
@@ -167,6 +168,7 @@ namespace bobura { namespace view { namespace diagram
     {}
 
     zoom::~zoom()
+    TETENGO2_CPP11_NOEXCEPT
     {}
 
     void zoom::set_horizontal_scale(scale_type scale)

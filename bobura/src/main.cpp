@@ -6,14 +6,12 @@
     $Id$
 */
 
-//#include <cassert>
 //#include <cstddef>
 //#include <exception>
 //#include <locale>
 //#include <memory>
 //#include <stdexcept>
 //#include <string>
-//#include <utility>
 //#include <vector>
 
 //#include <boost/exception/all.hpp>
@@ -27,7 +25,6 @@
 //#include <Windows.h>
 
 #include <tetengo2.cpp11.h>
-#include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.application.h"
@@ -38,7 +35,7 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
+    typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
 
     // functions
@@ -75,7 +72,7 @@ namespace
         std::locale::global(global_locale);
     }
 
-    int run_application(const settings_type& settings)
+    int run_application(settings_type& settings)
     {
         return bobura::application(settings).run();
     }
@@ -106,10 +103,7 @@ TETENGO2_CPP11_NOEXCEPT
 
     try
     {
-        std::vector<std::wstring> command_line_arguments = boost::program_options::split_winmain(::GetCommandLineW());
-        assert(!command_line_arguments.empty());
-        boost::filesystem::path base_path = boost::filesystem::path(command_line_arguments[0]).parent_path();
-        const settings_type settings(std::move(command_line_arguments), std::move(base_path));
+        settings_type settings(boost::program_options::split_winmain(::GetCommandLineW()));
 
         set_locale(settings.message_directory_path());
 

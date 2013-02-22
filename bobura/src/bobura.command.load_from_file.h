@@ -13,6 +13,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.command_base.h"
 
 
@@ -45,7 +47,8 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the load-from-file command.
         */
-        ~load_from_file();
+        ~load_from_file()
+        TETENGO2_CPP11_NOEXCEPT;
 
 
     private:

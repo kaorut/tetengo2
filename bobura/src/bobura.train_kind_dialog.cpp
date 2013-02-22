@@ -990,7 +990,7 @@ namespace bobura
         typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
         typename boost::mpl::at<common_type_list, type::size>::type,
-        bobura::model::train_kind<
+        model::train_kind<
             typename boost::mpl::at<common_type_list, type::string>::type,
             typename boost::mpl::at<ui_type_list, type::ui::color>::type
         >,

@@ -174,6 +174,7 @@ sub scan_source
 				$code_line =~ /(WINCODEC_[A-Z0-9_]*)/ ||
 				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WM_[A-Z0-9_]*)/ ||
+				$code_line =~ /(GET_[XY]_LPARAM)/ ||
 				$code_line =~ /(WINAPI)/
 			)
 			{
@@ -315,6 +316,7 @@ sub is_std_or_boost_header
 	return 1 if $header_name =~ /^[a-z0-9_\/]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
 	return 1 if $header_name =~ /^Windows\.h$/;
+	return 1 if $header_name =~ /^windowsx\.h$/;
 	return 1 if $header_name =~ /^atlbase\.h$/;
 	return 1 if $header_name =~ /^CommCtrl\.h$/;
 	return 1 if $header_name =~ /^d2d1\.h$/;

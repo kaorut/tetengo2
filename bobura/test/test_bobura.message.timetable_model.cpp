@@ -6,10 +6,10 @@
     $Id$
 */
 
-//#include <utility>
 //#include <vector>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
@@ -30,9 +30,7 @@ namespace
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef boost::mpl::at<bobura::common_type_list, bobura::type::path>::type path_type;
-
-    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
+    typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
     typedef boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::save_to_file>::type save_to_file_type;
 
@@ -105,8 +103,8 @@ BOOST_AUTO_TEST_SUITE(reset)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
         std::vector<string_type> arguments;
-        path_type path;
-        const settings_type settings(std::move(arguments), std::move(path));
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
@@ -123,8 +121,8 @@ BOOST_AUTO_TEST_SUITE(reset)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
         std::vector<string_type> arguments;
-        path_type path;
-        const settings_type settings(std::move(arguments), std::move(path));
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
@@ -148,8 +146,8 @@ BOOST_AUTO_TEST_SUITE(changed)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
         std::vector<string_type> arguments;
-        path_type path;
-        const settings_type settings(std::move(arguments), std::move(path));
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
@@ -166,8 +164,8 @@ BOOST_AUTO_TEST_SUITE(changed)
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
         std::vector<string_type> arguments;
-        path_type path;
-        const settings_type settings(std::move(arguments), std::move(path));
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);

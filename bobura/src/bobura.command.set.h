@@ -14,6 +14,8 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.basic_type_list.h"
 
 
@@ -45,7 +47,7 @@ namespace bobura { namespace command
         typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
         //! The settings type.
-        typedef boost::mpl::at<common_type_list, type::settings>::type settings_type;
+        typedef boost::mpl::at<setting_type_list, type::setting::settings>::type settings_type;
 
         //! The message catalog type.
         typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
@@ -82,7 +84,8 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the command set.
         */
-        ~set();
+        ~set()
+        TETENGO2_CPP11_NOEXCEPT;
 
 
         // functions

@@ -11,6 +11,7 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.command.about.h"
@@ -375,6 +376,7 @@ namespace bobura { namespace command
     {}
 
     set::~set()
+    TETENGO2_CPP11_NOEXCEPT
     {}
 
     const set::command_type& set::about()

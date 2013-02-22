@@ -456,7 +456,7 @@ namespace tetengo2 { namespace text { namespace grammar
     :
     json::base_type(m_json_text, "json"),
     m_json_text(),
-    m_p_impl(tetengo2::make_unique<impl>(m_json_text))
+    m_p_impl(make_unique<impl>(m_json_text))
     {}
 
     template <typename ForwardIterator>

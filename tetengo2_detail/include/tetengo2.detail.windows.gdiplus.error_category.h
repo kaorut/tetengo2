@@ -32,6 +32,8 @@
 #undef min
 #undef max
 
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
@@ -54,7 +56,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Destroys the detail implementation of the error category.
         */
-        ~error_category()
+        virtual ~error_category()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

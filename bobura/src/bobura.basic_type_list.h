@@ -103,6 +103,7 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
+#include "bobura.config_traits.h"
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
@@ -154,7 +155,6 @@ namespace bobura
         struct input_stream_iterator; //!< The input stream iterator type.
         struct pull_parser;    //!< The pull parser_type.
         struct output_stream;  //!< The output stream type.
-        struct settings;       //!< The settings type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -170,7 +170,6 @@ namespace bobura
             tetengo2::text::push_parser<input_stream_iterator_type, json_grammar_type, int, double> push_parser_type;
         typedef tetengo2::text::pull_parser<push_parser_type, size_type> pull_parser_type;
         typedef boost::filesystem::path path_type;
-        typedef settings<string_type, path_type> settings_type;
     }
 #endif
 
@@ -184,9 +183,8 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::basic_ostream<detail::io_string_type::value_type>>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>
         common_type_list;
 
 
@@ -194,8 +192,9 @@ namespace bobura
 
     namespace type { namespace locale
     {
-        struct ui_encoder;     //!< The encoder type for the user interface.
         struct exception_encoder; //!< The encoder type for exceptions.
+        struct ui_encoder;     //!< The encoder type for the user interface.
+        struct config_encoder; //!< The encoder type for the user interface.
         struct messages_facet; //!< The messages facet type.
         struct message_catalog; //!< The message catalog type.
         struct timetable_file_encoder; //!< The encoder type for the timetable file.
@@ -212,18 +211,24 @@ namespace bobura
             >
             internal_encoding_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type,
-                boost::mpl::at<detail_type_list, type::detail::encoding>::type
-            >
-            ui_encoding_type;
-        typedef
             tetengo2::text::encoding::utf8<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             utf8_encoding_type;
         typedef
             tetengo2::text::encoding::cp932<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             cp932_encoding_type;
         typedef utf8_encoding_type exception_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            >
+            ui_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::config>::type::string_type,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            >
+            config_encoding_type;
         typedef utf8_encoding_type message_catalog_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
@@ -260,15 +265,20 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::locale::ui_encoder,
-                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::ui_encoding_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::locale::exception_encoder,
                 tetengo2::text::encoder<
                     detail::locale::internal_encoding_type, detail::locale::exception_encoding_type
                 >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::locale::config_encoder,
+                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::config_encoding_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::locale::ui_encoder,
+                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::ui_encoding_type>
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::locale::messages_facet, detail::locale::messages_type>,
         tetengo2::meta::assoc_list<
@@ -280,7 +290,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::locale::windia_file_encoder, detail::locale::windia_file_encoder_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         locale_type_list;
 
 
@@ -295,6 +305,7 @@ namespace bobura
         struct color;          //!< The color type.
         struct control;        //!< The control type.
         struct dialog;         //!< The dialog type.
+        struct dimension;      //!< The dimension type.
         struct dropdown_box;   //!< The dropdown box type.
         struct fast_canvas;    //!< The fast canvas type.
         struct fast_font;      //!< The fast font type.
@@ -481,7 +492,9 @@ namespace bobura
                 tetengo2::gui::message::keyboard_observer_set<
                     virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
-                tetengo2::gui::message::mouse_observer_set<boost::mpl::at<common_type_list, type::difference>::type>
+                tetengo2::gui::message::mouse_observer_set<
+                    position_type, boost::mpl::at<common_type_list, type::difference>::type
+                >
             >
             widget_traits_type;
         typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
@@ -678,6 +691,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::control, detail::ui::control_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::color, detail::ui::color_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dimension, detail::ui::dimension_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dropdown_box, detail::ui::dropdown_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_canvas, detail::ui::fast_canvas_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::fast_font, detail::ui::fast_font_type>,
@@ -734,8 +748,44 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
+
+
+    /**** Setting ***********************************************************/
+
+    namespace type { namespace setting
+    {
+        struct settings;       //!< The settings type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace setting
+    {
+        typedef
+            config_traits<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<locale_type_list, type::locale::config_encoder>::type,
+                boost::mpl::at<detail_type_list, type::detail::config>::type>
+            config_traits_type;
+        typedef
+            settings<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::path>::type,
+                boost::mpl::at<ui_type_list, type::ui::dimension>::type,
+                config_traits_type
+            >
+            settings_type;
+    }}
+#endif
+
+    //! The type list for the settings.
+    typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::setting::settings, detail::setting::settings_type>,
+        tetengo2::meta::assoc_list_end
+        >
+        setting_type_list;
 
 
     /**** Common Dialog *****************************************************/
@@ -839,7 +889,7 @@ namespace bobura
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    boost::mpl::at<common_type_list, type::settings>::type
+                    boost::mpl::at<setting_type_list, type::setting::settings>::type
                 >
             >,
         tetengo2::meta::assoc_list<

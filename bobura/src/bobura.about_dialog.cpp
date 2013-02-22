@@ -263,7 +263,7 @@ namespace bobura
     template class about_dialog<
         typename boost::mpl::at<ui_type_list, type::ui::dialog>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-        typename boost::mpl::at<common_type_list, type::settings>::type
+        typename boost::mpl::at<setting_type_list, type::setting::settings>::type
     >;
 
 

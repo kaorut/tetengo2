@@ -13,6 +13,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.command.command_base.h"
 
 
@@ -45,7 +47,8 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the vertical zoom-in command.
         */
-        ~vertically_zoom_in();
+        ~vertically_zoom_in()
+        TETENGO2_CPP11_NOEXCEPT;
 
 
     private:

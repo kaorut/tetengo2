@@ -13,7 +13,7 @@
 
 #include <algorithm>
 #include <cassert>
-#include <cstddef>
+//#include <cstddef>
 #include <stdexcept>
 #include <system_error>
 
@@ -29,6 +29,9 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+#include <windowsx.h>
+
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
@@ -106,24 +109,88 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return boost::make_optional< ::LRESULT>(0);
         }
 
+        template <typename Position>
+        Position l_param_to_position(const ::LPARAM l_param)
+        {
+            return Position(
+                gui::to_unit<typename gui::position<Position>::left_type>(GET_X_LPARAM(l_param)),
+                gui::to_unit<typename gui::position<Position>::top_type>(GET_Y_LPARAM(l_param))
+            );
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_button_down_impl(
+            Widget&                                                                   widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
+            const ::WPARAM                                                            w_param,
+            const ::LPARAM                                                            l_param
+        )
+        {
+            if (widget.mouse_observer_set().pressed().empty())
+                return boost::none;
+
+            widget.mouse_observer_set().pressed()(
+                button,
+                l_param_to_position<typename Widget::position_type>(l_param),
+                (w_param & MK_SHIFT) != 0,
+                (w_param & MK_CONTROL) != 0,
+                ::GetKeyState(VK_MENU) != 0
+            );
+
+            return boost::none;
+        }
+
         template <typename Widget>
         boost::optional< ::LRESULT> on_l_button_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            if (widget.mouse_observer_set().clicked().empty() && widget.mouse_observer_set().doubleclicked().empty())
-                return boost::none;
-
-            const ::UINT_PTR result =
-                ::SetTimer(widget.details()->handle.get(), WM_LBUTTONDOWN, ::GetDoubleClickTime(), NULL);
-            if (!result)
+            if (!widget.mouse_observer_set().clicked().empty() || !widget.mouse_observer_set().doubleclicked().empty())
             {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a timer for mouse clicks."
-                    )
-                );
+                const ::UINT_PTR result =
+                    ::SetTimer(widget.details()->handle.get(), WM_LBUTTONDOWN, ::GetDoubleClickTime(), NULL);
+                if (!result)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(::GetLastError(), win32_category()),
+                            "Can't create a timer for mouse clicks."
+                        )
+                    );
+                }
             }
 
+            return
+                on_button_down_impl(
+                    widget, Widget::mouse_observer_set_type::mouse_button_type::left, w_param, l_param
+                );
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_button_up_impl(
+            Widget&                                                                   widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
+            const ::WPARAM                                                            w_param,
+            const ::LPARAM                                                            l_param
+        )
+        {
+            if (widget.mouse_observer_set().released().empty())
+                return boost::none;
+
+            widget.mouse_observer_set().released()(
+                button,
+                l_param_to_position<typename Widget::position_type>(l_param),
+                (w_param & MK_SHIFT) != 0,
+                (w_param & MK_CONTROL) != 0,
+                ::GetKeyState(VK_MENU) != 0
+            );
+
             return boost::none;
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_l_button_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+           return
+               on_button_up_impl(widget, Widget::mouse_observer_set_type::mouse_button_type::left, w_param, l_param);
         }
 
         template <typename Widget>
@@ -164,7 +231,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 Widget::mouse_observer_set_type::direction_type::vertical,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
-                false
+                ::GetKeyState(VK_MENU) != 0
             );
 
             return boost::make_optional< ::LRESULT>(0);
@@ -184,7 +251,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 Widget::mouse_observer_set_type::direction_type::horizontal,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
-                false
+                ::GetKeyState(VK_MENU) != 0
             );
 
             return boost::make_optional< ::LRESULT>(0);

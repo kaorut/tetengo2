@@ -14,6 +14,8 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp11.h>
+
 #include "bobura.type_list.h"
 
 
@@ -28,7 +30,7 @@ namespace bobura
         // types
 
         //! The settings type.
-        typedef boost::mpl::at<common_type_list, type::settings>::type settings_type;
+        typedef boost::mpl::at<setting_type_list, type::setting::settings>::type settings_type;
 
 
         // constructors and destructor
@@ -38,12 +40,13 @@ namespace bobura
 
             \param settings Settings of the bobura.
         */
-        explicit application(const settings_type& settings);
+        explicit application(settings_type& settings);
 
         /*!
             \brief Destroys the bobura application.
         */
-        ~application();
+        ~application()
+        TETENGO2_CPP11_NOEXCEPT;
 
 
         // functions

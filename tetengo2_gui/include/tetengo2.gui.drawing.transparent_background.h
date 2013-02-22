@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         virtual std::unique_ptr<base_type> clone_impl()
         const
         {
-            return tetengo2::make_unique<transparent_background>();
+            return make_unique<transparent_background>();
         }
 
         virtual boost::optional<const details_type&>

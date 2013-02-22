@@ -18,6 +18,7 @@
 #include <boost/mpl/pair.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
+#include "tetengo2.detail.stub.config.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.message.message_catalog.h"
 #include "tetengo2.message.message_catalog_parser.h"
@@ -49,6 +50,35 @@ namespace test_tetengo2
         tetengo2::meta::assoc_list_end
         >>>
         type_list;
+
+
+    /**** Configuration *****************************************************/
+
+    namespace type { namespace config
+    {
+        struct encoder;        //!< The encoder tyep.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace config
+    {
+        typedef tetengo2::detail::stub::encoding encoding_details_type;
+        typedef
+            tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>
+            internal_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<tetengo2::detail::stub::config::string_type, encoding_details_type>
+            config_encoding_type;
+        typedef tetengo2::text::encoder<internal_encoding_type, config_encoding_type> encoder_type;
+    }}
+#endif
+
+    //! The configuration type list.
+    typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::config::encoder, detail::config::encoder_type>,
+        tetengo2::meta::assoc_list_end
+        >
+        config_type_list;
 
 
     /**** Text **************************************************************/

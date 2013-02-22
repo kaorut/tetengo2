@@ -59,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            return tetengo2::make_unique<menu_details_type>();
+            return make_unique<menu_details_type>();
         }
 
         /*!
@@ -71,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            return tetengo2::make_unique<menu_details_type>();
+            return make_unique<menu_details_type>();
         }
 
         /*!
@@ -81,7 +81,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu()
         {
-            return tetengo2::make_unique<menu_details_type>();
+            return make_unique<menu_details_type>();
         }
 
         /*!

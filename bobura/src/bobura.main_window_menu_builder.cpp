@@ -13,6 +13,7 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
 #include <tetengo2.text.h>
 
@@ -432,6 +433,7 @@ namespace bobura
     {}
 
     main_window_menu_builder::~main_window_menu_builder()
+    TETENGO2_CPP11_NOEXCEPT
     {}
 
     std::unique_ptr<main_window_menu_builder::menu_bar_type> main_window_menu_builder::build()

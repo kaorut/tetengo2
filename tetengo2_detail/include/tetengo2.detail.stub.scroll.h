@@ -91,7 +91,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename style_type::enum_t style
         )
         {
-            return tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
+            return make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }
 
         /*!
