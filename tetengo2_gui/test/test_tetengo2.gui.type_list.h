@@ -417,7 +417,9 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::mouse_observer_set,
-                tetengo2::gui::message::mouse_observer_set<boost::mpl::at<type_list, type::difference>::type>
+                tetengo2::gui::message::mouse_observer_set<
+                    boost::mpl::at<type_list, type::position>::type, boost::mpl::at<type_list, type::difference>::type
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::menu_observer_set, tetengo2::gui::message::menu_observer_set>,

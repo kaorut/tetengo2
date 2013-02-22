@@ -492,7 +492,9 @@ namespace bobura
                 tetengo2::gui::message::keyboard_observer_set<
                     virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
-                tetengo2::gui::message::mouse_observer_set<boost::mpl::at<common_type_list, type::difference>::type>
+                tetengo2::gui::message::mouse_observer_set<
+                    position_type, boost::mpl::at<common_type_list, type::difference>::type
+                >
             >
             widget_traits_type;
         typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
