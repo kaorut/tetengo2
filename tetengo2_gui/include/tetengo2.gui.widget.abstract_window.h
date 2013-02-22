@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typename window_state_type::enum_t window_state()
         const
         {
-            return widget_details_type::window_state<window_state_type>(*this);
+            return widget_details_type::template window_state<window_state_type>(*this);
         }
 
         /*!
@@ -109,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_window_state(const typename window_state_type::enum_t state)
         {
-            return widget_details_type::set_window_state<window_state_type>(*this, state);
+            return widget_details_type::template set_window_state<window_state_type>(*this, state);
         }
 
         /*!
