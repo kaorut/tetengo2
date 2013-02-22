@@ -32,12 +32,12 @@ Added on    : 2013/02/08
 Depends on  : 00000217
 Description : Create bobura::station_dialog.
 ------------------------------------------------------------------------------
-Number      : 00000219
-Added on    : 2013/02/08
-Depends on  : (none)
-Description : Create tetengo2::configuration.
-------------------------------------------------------------------------------
 Number      : 00000221
+Added on    : 2013/02/22
+Depends on  : (none)
+Description : Support high DPI.
+------------------------------------------------------------------------------
+Number      : 00000222
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
