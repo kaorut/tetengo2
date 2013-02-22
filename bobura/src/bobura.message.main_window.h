@@ -345,7 +345,7 @@ namespace bobura { namespace message { namespace main_window
 
             if (!cancel)
             {
-                m_settings.set_main_window_dimension(m_window.dimension());
+                m_settings.set_main_window_dimension(m_window.normal_dimension());
                 m_settings.set_main_window_maximized(m_window.window_state() == window_state_type::maximized);
             }
         }
