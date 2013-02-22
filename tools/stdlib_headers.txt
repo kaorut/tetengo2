@@ -294,6 +294,8 @@ D2DERR_WRONG_FACTORY                             Windows.h,d2d1.h
 D2DERR_WRONG_RESOURCE_DOMAIN                     Windows.h,d2d1.h
 D2DERR_WRONG_STATE                               Windows.h,d2d1.h
 D2DERR_ZERO_VECTOR                               Windows.h,d2d1.h
+GET_X_LPARAM                                     windowsx.h
+GET_Y_LPARAM                                     windowsx.h
 Gdiplus::ARGB                                    GdiPlus.h,Windows.h
 Gdiplus::Aborted                                 GdiPlus.h,Windows.h
 Gdiplus::AccessDenied                            GdiPlus.h,Windows.h
@@ -438,6 +440,7 @@ WM_KEYUP                                         Windows.h
 WM_KILLFOCUS                                     Windows.h
 WM_LBUTTONDBLCLK                                 Windows.h
 WM_LBUTTONDOWN                                   Windows.h
+WM_LBUTTONUP                                     Windows.h
 WM_MOUSEHWHEEL                                   Windows.h
 WM_MOUSEWHEEL                                    Windows.h
 WM_NCDESTROY                                     Windows.h
