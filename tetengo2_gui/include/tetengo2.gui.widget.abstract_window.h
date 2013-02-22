@@ -113,6 +113,17 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the normal dimension.
+
+            \return The normal dimension.
+        */
+        dimension_type normal_dimension()
+        const
+        {
+            return widget_details_type::template normal_dimension<dimension_type>(*this);
+        }
+
+        /*!
             \brief Returns true when the abstract window has a menu bar.
 
             \retval true  When the abstract window has a menu bar.

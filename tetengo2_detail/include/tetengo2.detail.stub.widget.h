@@ -649,6 +649,33 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Returns the normal dimension.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+
+            \param widget A widget.
+
+            \return The normal dimension.
+
+            \throw std::system_error When the normal dimension cannot be obtained.
+        */
+        template <typename Dimension, typename Widget>
+        static Dimension normal_dimension(const Widget& widget)
+        {
+            typedef gui::dimension<Dimension> dimension_traits_type;
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(
+                        widget.details()->dimension.first
+                    ),
+                    gui::to_unit<typename dimension_traits_type::height_type>(
+                        widget.details()->dimension.second
+                    )
+                );
+        }
+
+        /*!
             \brief Sets a text.
 
             \tparam Widget  A widget type.

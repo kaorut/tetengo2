@@ -1145,6 +1145,45 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Returns the normal dimension.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+
+            \param widget A widget.
+
+            \return The normal dimension.
+
+            \throw std::system_error When the normal dimension cannot be obtained.
+        */
+        template <typename Dimension, typename Widget>
+        static Dimension normal_dimension(const Widget& widget)
+        {
+            ::WINDOWPLACEMENT window_placement = {};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const ::BOOL get_result =
+                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
+                    )
+                );
+            }
+
+            const ::RECT& rectangle = window_placement.rcNormalPosition;
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            typedef gui::dimension<Dimension> dimension_traits_type;
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                );
+        }
+
+        /*!
             \brief Sets a text.
 
             \tparam Widget  A widget type.
