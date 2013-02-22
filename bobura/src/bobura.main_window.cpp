@@ -46,6 +46,8 @@ namespace bobura
 
             typedef typename base_type::string_type string_type;
 
+            typedef typename base_type::window_state_type window_state_type;
+
             typedef MessageCatalog message_catalog_type;
 
             typedef DiagramPictureBox diagram_picture_box_type;
@@ -176,6 +178,11 @@ namespace bobura
                 boost::optional<dimension_type> dimension = m_settings.main_window_dimension();
                 if (dimension)
                     m_base.set_dimension(std::move(*dimension));
+                const boost::optional<bool> maximized = m_settings.main_window_maximized();
+                if (maximized && *maximized)
+                    m_base.set_window_state(window_state_type::maximized);
+                else
+                    m_base.set_window_state(window_state_type::normal);
             }
 
             void focus_on_diagram_picture_box()

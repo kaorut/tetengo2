@@ -344,11 +344,19 @@ namespace bobura { namespace message { namespace main_window
             cancel = !m_confirm_file_save(m_window);
 
             if (!cancel)
+            {
                 m_settings.set_main_window_dimension(m_window.dimension());
+                m_settings.set_main_window_maximized(m_window.window_state() == window_state_type::maximized);
+            }
         }
 
 
     private:
+        // types
+
+        typedef typename abstract_window_type::window_state_type window_state_type;
+
+
         // variables
 
         abstract_window_type& m_window;

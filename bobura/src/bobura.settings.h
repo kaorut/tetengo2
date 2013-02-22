@@ -154,6 +154,32 @@ namespace bobura
             );
         }
 
+        /*!
+            \brief Returns the maximized status of the main window.
+
+            \return The maximized status.
+        */
+        boost::optional<bool> main_window_maximized()
+        const
+        {
+            const boost::optional<config_value_type> status =
+                m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Maximized")));
+            if (!status || status->which() != 1)
+                return boost::none;
+
+            return boost::make_optional(boost::get<uint_type>(*status) != 0);
+        }
+
+        /*!
+            \brief Sets a maximized status of the main window.
+
+            \param status A maximized status.
+        */
+        void set_main_window_maximized(const bool status)
+        {
+            m_p_config->set(string_type(TETENGO2_TEXT("MainWindow/Maximized")), config_value_type(status ? 1 : 0));
+        }
+
 
     private:
         // types

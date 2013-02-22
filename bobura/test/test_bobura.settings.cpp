@@ -152,6 +152,51 @@ BOOST_AUTO_TEST_SUITE(settings)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(main_window_maximized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            const settings_type settings(arguments);
+
+            const boost::optional<bool> maximized = settings.main_window_maximized();
+
+            BOOST_REQUIRE(!maximized);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_main_window_maximized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_main_window_maximized(false);
+
+            const boost::optional<bool> maximized = settings.main_window_maximized();
+
+            BOOST_REQUIRE(maximized);
+            BOOST_CHECK(!*maximized);
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_main_window_maximized(true);
+
+            const boost::optional<bool> maximized = settings.main_window_maximized();
+
+            BOOST_REQUIRE(maximized);
+            BOOST_CHECK(*maximized);
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
