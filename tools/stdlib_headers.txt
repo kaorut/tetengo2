@@ -99,6 +99,7 @@
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
 ::GetWindowLongW                                 Windows.h
+::GetWindowPlacement                             Windows.h
 ::GetWindowRect                                  Windows.h
 ::GetWindowTextLengthW                           Windows.h
 ::GetWindowTextW                                 Windows.h
@@ -141,10 +142,12 @@
 ::InsertMenuItem                                 Windows.h
 ::InvalidateRect                                 Windows.h
 ::IsDialogMessageW                               Windows.h
+::IsIconic                                       Windows.h
 ::IsMenu                                         Windows.h
 ::IsWindow                                       Windows.h
 ::IsWindowEnabled                                Windows.h
 ::IsWindowVisible                                Windows.h
+::IsZoomed                                       Windows.h
 ::KillTimer                                      Windows.h
 ::LANGID                                         Windows.h
 ::LCID                                           Windows.h
@@ -198,6 +201,7 @@
 ::SetTimer                                       Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowLongW                                 Windows.h
+::SetWindowPlacement                             Windows.h
 ::SetWindowTextW                                 Windows.h
 ::ShellExecuteW                                  Windows.h
 ::ShowWindow                                     Windows.h
@@ -219,6 +223,7 @@
 ::WICBitmapCacheOnDemand                         Windows.h,wincodec.h
 ::WICPixelFormatGUID                             Windows.h,wincodec.h
 ::WICRect                                        Windows.h,wincodec.h
+::WINDOWPLACEMENT                                Windows.h
 ::WNDCLASSEXW                                    Windows.h
 ::WNDPROC                                        Windows.h
 ::WORD                                           Windows.h
