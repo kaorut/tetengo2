@@ -194,6 +194,11 @@ namespace bobura
                 )
             );
 
+            main_window.diagram_picture_box().mouse_observer_set().pressed().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_pressed
+                >::type(main_window.diagram_picture_box(), view)
+            );
             main_window.diagram_picture_box().mouse_observer_set().wheeled().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_wheeled

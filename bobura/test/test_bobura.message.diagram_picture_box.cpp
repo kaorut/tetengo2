@@ -11,6 +11,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.gui.measure.h>
+
 #include "bobura.type_list.h"
 
 #include "bobura.message.diagram_picture_box.h"
@@ -31,11 +33,19 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
 
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+    typedef tetengo2::gui::position<position_type>::top_type top_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
 
     typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
+
+    typedef mouse_observer_set_type::mouse_button_type mouse_button_type;
+
+    typedef bobura::message::diagram_picture_box::mouse_pressed<picture_box_type, view_type> mouse_pressed_type;
 
     struct dummy_view_zoom_type
     {
@@ -82,6 +92,37 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(diagram_picture_box)
+BOOST_AUTO_TEST_SUITE(mouse_pressed)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        const mouse_pressed_type mouse_pressed(picture_box, view);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        const mouse_pressed_type mouse_pressed(picture_box, view);
+
+        mouse_pressed(mouse_button_type::left, position_type(left_type(24), top_type(42)), false, false, false);
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(mouse_wheeled)
     // test cases
 
