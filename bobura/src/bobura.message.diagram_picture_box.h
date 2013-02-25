@@ -61,7 +61,82 @@ namespace bobura { namespace message { namespace diagram_picture_box
         // functions
 
         /*!
-            \brief Called when the mouse wheel is wheeled.
+            \brief Called when the mouse button is pressed.
+
+            \param button   A button kind.
+            \param position A position.
+            \param shift    True when shift key is pressed.
+            \param control  True when control key is pressed.
+            \param meta     True when meta key is pressed.
+        */
+        void operator()(
+            const typename mouse_button_type::enum_t button,
+            const position_type&                     position,
+            const bool                               shift,
+            const bool                               control,
+            const bool                               meta
+        )
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        picture_box_type& m_picture_box;
+
+        view_type& m_view;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse released observer of the picture box.
+
+        \tparam PictureBox A picture box type.
+        \tparam View       A view type.
+    */
+    template <typename PictureBox, typename View>
+    class mouse_released
+    {
+    public:
+        // types
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
+
+        //! The position type.
+        typedef typename picture_box_type::position_type position_type;
+
+        //! The button kind type.
+        typedef typename picture_box_type::mouse_observer_set_type::mouse_button_type mouse_button_type;
+
+        //! The view type.
+        typedef View view_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse released observer of the picture box.
+
+            \param picture_box A picture box.
+            \param view        A view.
+        */
+        mouse_released(picture_box_type& picture_box, view_type& view)
+        :
+        m_picture_box(picture_box),
+        m_view(view)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the mouse button is released.
 
             \param button   A button kind.
             \param position A position.
