@@ -261,5 +261,8 @@
     <ClInclude Include="include\tetengo2.gui.unit.point.h">
       <Filter>headers\tetengo2::gui\unit</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.mouse_capture.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

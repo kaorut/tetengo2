@@ -29,6 +29,7 @@
     <ClInclude Include="include\tetengo2.detail.stub.menu.h" />
     <ClInclude Include="include\tetengo2.detail.stub.message_handler.h" />
     <ClInclude Include="include\tetengo2.detail.stub.message_loop.h" />
+    <ClInclude Include="include\tetengo2.detail.stub.mouse_capture.h" />
     <ClInclude Include="include\tetengo2.detail.stub.scroll.h" />
     <ClInclude Include="include\tetengo2.detail.stub.system_color.h" />
     <ClInclude Include="include\tetengo2.detail.stub.unit.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.text_b.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.widget.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_loop.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.mouse_capture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.picture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.scroll.h" />
     <ClInclude Include="include\tetengo2.detail.windows.system_color.h" />

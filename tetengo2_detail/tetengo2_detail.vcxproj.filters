@@ -171,5 +171,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.config.h">
       <Filter>headers\tetengo2::detail\windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.mouse_capture.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.mouse_capture.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

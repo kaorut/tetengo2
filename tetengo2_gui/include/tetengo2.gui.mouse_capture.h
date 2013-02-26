@@ -1,0 +1,54 @@
+/*! \file
+    \brief The definition of tetengo2::gui::mouse_capture.
+
+    Copyright (C) 2007-2013 kaoru
+
+    $Id$
+*/
+
+#if !defined(TETENGO2_GUI_MOUSECAPTURE_H)
+#define TETENGO2_GUI_MOUSECAPTURE_H
+
+#include <boost/noncopyable.hpp>
+
+
+namespace tetengo2 { namespace gui
+{
+    /*!
+        \brief The class template for a mouse capture.
+
+        \tparam MouseCaptureDetails A detail implementation type of a mouse_capture.
+    */
+    template <typename MouseCaptureDetails>
+    class mouse_capture : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The detail implementation type of a mouse capture.
+        typedef MouseCaptureDetails mouse_capture_details_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse capture.
+        */
+        mouse_capture()
+        :
+        m_mouse_capture_details()
+        {}
+
+
+    private:
+        // variables
+
+        const mouse_capture_details_type m_mouse_capture_details;
+
+
+    };
+
+
+}}
+
+#endif
