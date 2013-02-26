@@ -20,10 +20,18 @@ namespace tetengo2 { namespace detail { namespace stub
     class mouse_capture : private boost::noncopyable
     {
     public:
-        // types
+        // constructors and destructor
 
+        /*!
+            \brief Creates a detail implementation of a mouse capture.
 
-        // static functions
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        explicit mouse_capture(const Widget& widget)
+        {}
 
 
     };

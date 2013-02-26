@@ -10,6 +10,8 @@
 
 #include "tetengo2.detail.stub.mouse_capture.h"
 
+#include "test_tetengo2.gui.type_list.h"
+
 #include "tetengo2.gui.mouse_capture.h"
 
 
@@ -17,7 +19,15 @@ namespace
 {
     // types
 
-    typedef tetengo2::gui::mouse_capture<tetengo2::detail::stub::mouse_capture> mouse_capture_type;
+    typedef
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
+        widget_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
+        window_type;
+
+    typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
 
 
 }
@@ -32,7 +42,8 @@ BOOST_AUTO_TEST_SUITE(mouse_capture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const mouse_capture_type mouse_capture;
+        const window_type window;
+        const mouse_capture_type mouse_capture(window);
     }
 
 
