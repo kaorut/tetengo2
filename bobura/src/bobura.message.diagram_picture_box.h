@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+#include <functional>
 
 //#include <boost/rational.hpp>
 
@@ -22,9 +23,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a mouse pressed observer of the picture box.
 
         \tparam PictureBox A picture box type.
-        \tparam View       A view type.
     */
-    template <typename PictureBox, typename View>
+    template <typename PictureBox>
     class mouse_pressed
     {
     public:
@@ -39,8 +39,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The button kind type.
         typedef typename picture_box_type::mouse_observer_set_type::mouse_button_type mouse_button_type;
 
-        //! The view type.
-        typedef View view_type;
+        //! The set-mouse-capture function type.
+        typedef std::function<void ()> set_mouse_capture_type;
 
 
         // constructors and destructor
@@ -48,13 +48,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
         /*!
             \brief Creates a mouse pressed observer of the picture box.
 
-            \param picture_box A picture box.
-            \param view        A view.
+            \param set_mouse_capture A set-mouse-capture function.
         */
-        mouse_pressed(picture_box_type& picture_box, view_type& view)
+        explicit mouse_pressed(const set_mouse_capture_type& set_mouse_capture)
         :
-        m_picture_box(picture_box),
-        m_view(view)
+        m_set_mouse_capture(set_mouse_capture)
         {}
 
 
@@ -78,16 +76,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-
+            m_set_mouse_capture();
         }
 
 
     private:
         // variables
 
-        picture_box_type& m_picture_box;
-
-        view_type& m_view;
+        set_mouse_capture_type m_set_mouse_capture;
 
 
     };
@@ -117,18 +113,21 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The view type.
         typedef View view_type;
 
+        //! The release-mouse-capture function type.
+        typedef std::function<void ()> release_mouse_capture_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a mouse released observer of the picture box.
 
-            \param picture_box A picture box.
-            \param view        A view.
+            \param release_mouse_capture A set-mouse-capture function.
+            \param view                  A view.
         */
-        mouse_released(picture_box_type& picture_box, view_type& view)
+        mouse_released(const release_mouse_capture_type& release_mouse_capture, view_type& view)
         :
-        m_picture_box(picture_box),
+        m_release_mouse_capture(release_mouse_capture),
         m_view(view)
         {}
 
@@ -153,14 +152,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-
+            m_release_mouse_capture();
         }
 
 
     private:
         // variables
 
-        picture_box_type& m_picture_box;
+        release_mouse_capture_type m_release_mouse_capture;
 
         view_type& m_view;
 

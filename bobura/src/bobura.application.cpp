@@ -163,6 +163,40 @@ namespace bobura
 
         };
 
+        struct call_set_mouse_capture
+        {
+            const diagram_picture_box_type& m_diagram_picture_box;
+
+            explicit call_set_mouse_capture(const diagram_picture_box_type& diagram_picture_box)
+            :
+            m_diagram_picture_box(diagram_picture_box)
+            {}
+
+            void operator()()
+            const
+            {
+                m_diagram_picture_box.set_mouse_capture();
+            }
+
+        };
+
+        struct call_release_mouse_capture
+        {
+            const diagram_picture_box_type& m_diagram_picture_box;
+
+            explicit call_release_mouse_capture(const diagram_picture_box_type& diagram_picture_box)
+            :
+            m_diagram_picture_box(diagram_picture_box)
+            {}
+
+            void operator()()
+            const
+            {
+                m_diagram_picture_box.release_mouse_capture();
+            }
+
+        };
+
 
         // variables
 
@@ -197,12 +231,12 @@ namespace bobura
             main_window.diagram_picture_box().mouse_observer_set().pressed().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_pressed
-                >::type(main_window.diagram_picture_box(), view)
+                >::type(call_set_mouse_capture(main_window.diagram_picture_box()))
             );
             main_window.diagram_picture_box().mouse_observer_set().released().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_released
-                >::type(main_window.diagram_picture_box(), view)
+                >::type(call_release_mouse_capture(main_window.diagram_picture_box()), view)
             );
             main_window.diagram_picture_box().mouse_observer_set().wheeled().connect(
                 boost::mpl::at<

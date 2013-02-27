@@ -26,18 +26,18 @@ namespace bobura
     /*!
         \brief The class template for the diagram picture box.
 
-        \tparam DiagramPictureBox A picture box type.
-        \tparam AbstractWindow    An abstract window type.
-        \tparam MessageTypeList   A message type list.
+        \tparam PictureBox      A picture box type.
+        \tparam AbstractWindow  An abstract window type.
+        \tparam MessageTypeList A message type list.
     */
-    template <typename DiagramPictureBox, typename AbstractWindow, typename MessageTypeList>
-    class diagram_picture_box : public DiagramPictureBox
+    template <typename PictureBox, typename AbstractWindow, typename MessageTypeList>
+    class diagram_picture_box : public PictureBox
     {
     public:
         // types
 
         //! The base type.
-        typedef DiagramPictureBox base_type;
+        typedef PictureBox base_type;
 
         //! The control type.
         typedef typename base_type::base_type control_type;
@@ -84,6 +84,24 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Sets a mouse capture.
+        */
+        void set_mouse_capture()
+        const
+        {
+
+        }
+
+        /*!
+            \brief Releases a mouse capture.
+        */
+        void release_mouse_capture()
+        const
+        {
+
+        }
 
         /*!
             \brief Updates the scroll bars.

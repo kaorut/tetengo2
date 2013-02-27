@@ -46,6 +46,27 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
         const diagram_picture_box_type picture_box(window);
     }
 
+    BOOST_AUTO_TEST_CASE(set_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const diagram_picture_box_type picture_box(window);
+
+        picture_box.set_mouse_capture();
+        picture_box.release_mouse_capture();
+    }
+
+    BOOST_AUTO_TEST_CASE(release_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const diagram_picture_box_type picture_box(window);
+
+        picture_box.release_mouse_capture();
+    }
+
     BOOST_AUTO_TEST_CASE(update_scroll_bars)
     {
         BOOST_TEST_PASSPOINT();

@@ -45,7 +45,7 @@ namespace
 
     typedef mouse_observer_set_type::mouse_button_type mouse_button_type;
 
-    typedef bobura::message::diagram_picture_box::mouse_pressed<picture_box_type, view_type> mouse_pressed_type;
+    typedef bobura::message::diagram_picture_box::mouse_pressed<picture_box_type> mouse_pressed_type;
 
     typedef bobura::message::diagram_picture_box::mouse_released<picture_box_type, view_type> mouse_released_type;
 
@@ -85,6 +85,15 @@ namespace
         scroll_bar_scrolled_type;
 
 
+    // functions
+
+    void set_mouse_capture()
+    {}
+
+    void release_mouse_capture()
+    {}
+
+
 }
 
 
@@ -101,24 +110,14 @@ BOOST_AUTO_TEST_SUITE(mouse_pressed)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
-        const model_type model;
-        const message_catalog_type message_catalog;
-        view_type view(model, message_catalog);
-        const mouse_pressed_type mouse_pressed(picture_box, view);
+        const mouse_pressed_type mouse_pressed(set_mouse_capture);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
-        const model_type model;
-        const message_catalog_type message_catalog;
-        view_type view(model, message_catalog);
-        const mouse_pressed_type mouse_pressed(picture_box, view);
+        const mouse_pressed_type mouse_pressed(set_mouse_capture);
 
         mouse_pressed(mouse_button_type::left, position_type(left_type(24), top_type(42)), false, false, false);
     }
@@ -132,24 +131,20 @@ BOOST_AUTO_TEST_SUITE(mouse_released)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
-        const mouse_released_type mouse_released(picture_box, view);
+        const mouse_released_type mouse_released(release_mouse_capture, view);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
-        const mouse_released_type mouse_released(picture_box, view);
+        const mouse_released_type mouse_released(release_mouse_capture, view);
 
         mouse_released(mouse_button_type::left, position_type(left_type(24), top_type(42)), false, false, false);
     }
