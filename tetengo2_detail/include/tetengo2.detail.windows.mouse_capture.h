@@ -11,6 +11,17 @@
 
 #include <boost/noncopyable.hpp>
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows
 {
@@ -31,13 +42,18 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         explicit mouse_capture(const Widget& widget)
-        {}
+        {
+            ::SetCapture(widget.details()->handle.get());
+        }
 
         /*!
             \brief Destroys the detail implementation of a mouse capture.
         */
         ~mouse_capture()
-        {}
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            ::ReleaseCapture();
+        }
 
 
     private:
