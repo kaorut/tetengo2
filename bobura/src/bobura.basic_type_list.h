@@ -61,6 +61,7 @@
 #include <tetengo2.gui.message.scroll_bar_observer_set.h>
 #include <tetengo2.gui.message.text_box_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
+#include <tetengo2.gui.mouse_capture.h>
 #include <tetengo2.gui.scroll_bar.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.unit.point.h>
@@ -89,6 +90,7 @@
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
+#include <tetengo2.gui.widget.widget.h>
 #include <tetengo2.gui.widget.window.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
@@ -322,6 +324,7 @@ namespace bobura
         struct menu_separator; //!< The menu separator type;
         struct message_loop;   //!< The message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct mouse_capture;  //!< The mouse capture type.
         struct picture_box;    //!< The picture box type.
         struct picture_reader; //!< The picture reader type.
         struct point_unit_size; //!< The point unit size type.
@@ -497,6 +500,13 @@ namespace bobura
                 >
             >
             widget_traits_type;
+        typedef
+            tetengo2::gui::widget::widget<
+                widget_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            widget_type;
         typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
         typedef
             tetengo2::gui::menu::traits<
@@ -723,6 +733,13 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::ui::mouse_capture,
+                tetengo2::gui::mouse_capture<
+                    detail::ui::widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+                >
+            >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
@@ -748,7 +765,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

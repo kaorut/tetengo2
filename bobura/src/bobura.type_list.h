@@ -51,6 +51,7 @@ namespace bobura
             diagram_picture_box<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                boost::mpl::at<ui_type_list, type::ui::mouse_capture>::type,
                 diagram_picture_box_message_type_list
             >
             diagram_picture_box_type;

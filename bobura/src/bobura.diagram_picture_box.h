@@ -28,9 +28,10 @@ namespace bobura
 
         \tparam PictureBox      A picture box type.
         \tparam AbstractWindow  An abstract window type.
+        \tparam MouseCapture    A mouse capture type.
         \tparam MessageTypeList A message type list.
     */
-    template <typename PictureBox, typename AbstractWindow, typename MessageTypeList>
+    template <typename PictureBox, typename AbstractWindow, typename MouseCapture, typename MessageTypeList>
     class diagram_picture_box : public PictureBox
     {
     public:
@@ -56,6 +57,9 @@ namespace bobura
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The mouse capture type.
+        typedef MouseCapture mouse_capture_type;
 
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
