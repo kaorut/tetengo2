@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const diagram_picture_box_type picture_box(window);
+        diagram_picture_box_type picture_box(window);
 
         picture_box.set_mouse_capture();
         picture_box.release_mouse_capture();
@@ -62,8 +62,9 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const diagram_picture_box_type picture_box(window);
+        diagram_picture_box_type picture_box(window);
 
+        picture_box.set_mouse_capture();
         picture_box.release_mouse_capture();
     }
 

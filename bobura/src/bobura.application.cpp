@@ -165,9 +165,9 @@ namespace bobura
 
         struct call_set_mouse_capture
         {
-            const diagram_picture_box_type& m_diagram_picture_box;
+            diagram_picture_box_type& m_diagram_picture_box;
 
-            explicit call_set_mouse_capture(const diagram_picture_box_type& diagram_picture_box)
+            explicit call_set_mouse_capture(diagram_picture_box_type& diagram_picture_box)
             :
             m_diagram_picture_box(diagram_picture_box)
             {}
@@ -182,9 +182,9 @@ namespace bobura
 
         struct call_release_mouse_capture
         {
-            const diagram_picture_box_type& m_diagram_picture_box;
+            diagram_picture_box_type& m_diagram_picture_box;
 
-            explicit call_release_mouse_capture(const diagram_picture_box_type& diagram_picture_box)
+            explicit call_release_mouse_capture(diagram_picture_box_type& diagram_picture_box)
             :
             m_diagram_picture_box(diagram_picture_box)
             {}

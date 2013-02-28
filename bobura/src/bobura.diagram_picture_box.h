@@ -10,6 +10,7 @@
 #define BOBURA_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+#include <memory>
 //#include <utility>
 
 #include <boost/mpl/at.hpp>
@@ -17,6 +18,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
 
@@ -74,7 +76,8 @@ namespace bobura
         */
         explicit diagram_picture_box(abstract_window_type& parent)
         :
-        base_type(parent, base_type::scroll_bar_style_type::both)
+        base_type(parent, base_type::scroll_bar_style_type::both),
+        m_p_mouse_capture()
         {
             set_observers();
         }
@@ -93,18 +96,18 @@ namespace bobura
             \brief Sets a mouse capture.
         */
         void set_mouse_capture()
-        const
         {
-
+            assert(!m_p_mouse_capture);
+            m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
         }
 
         /*!
             \brief Releases a mouse capture.
         */
         void release_mouse_capture()
-        const
         {
-
+            assert(m_p_mouse_capture);
+            m_p_mouse_capture.reset();
         }
 
         /*!
@@ -143,6 +146,11 @@ namespace bobura
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename scroll_bar_type::size_type scroll_bar_size_type;
+
+
+        // variables
+
+        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
 
         // functions
