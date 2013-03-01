@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------
 Number      : 00000202
 Added on    : 2012/11/13
-Depends on  : (none)
+Depends on  : 00000222
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
 Number      : 00000215
@@ -38,6 +38,11 @@ Depends on  : (none)
 Description : Support high DPI.
 ------------------------------------------------------------------------------
 Number      : 00000222
+Added on    : 2013/03/01
+Depends on  : (none)
+Description : Upgrade gcc to 4.7.x.
+------------------------------------------------------------------------------
+Number      : 00000223
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
