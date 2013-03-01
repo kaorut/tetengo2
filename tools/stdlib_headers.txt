@@ -183,6 +183,7 @@
 ::RegQueryValueExW                               Windows.h
 ::RegSetValueEx                                  Windows.h
 ::RegisterClassExW                               Windows.h
+::ReleaseCapture                                 Windows.h
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
 ::RemovePropW                                    Windows.h
@@ -191,6 +192,7 @@
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
+::SetCapture                                     Windows.h
 ::SetCursor                                      Windows.h
 ::SetFocus                                       Windows.h
 ::SetMenu                                        Windows.h
@@ -442,10 +444,13 @@ WM_LBUTTONDBLCLK                                 Windows.h
 WM_LBUTTONDOWN                                   Windows.h
 WM_LBUTTONUP                                     Windows.h
 WM_MOUSEHWHEEL                                   Windows.h
+WM_MOUSEMOVE                                     Windows.h
 WM_MOUSEWHEEL                                    Windows.h
 WM_NCDESTROY                                     Windows.h
 WM_PAINT                                         Windows.h
 WM_QUERYENDSESSION                               Windows.h
+WM_RBUTTONDOWN                                   Windows.h
+WM_RBUTTONUP                                     Windows.h
 WM_SETCURSOR                                     Windows.h
 WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h

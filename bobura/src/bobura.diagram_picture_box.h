@@ -10,7 +10,7 @@
 #define BOBURA_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
-#include <memory>
+//#include <memory>
 //#include <utility>
 
 #include <boost/mpl/at.hpp>
