@@ -137,6 +137,10 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
+        typedef typename canvas_type::size_type size_type;
+
+        typedef std::pair<double, double> geo_vector_type;
+
 
         // static functions
 
@@ -209,6 +213,64 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
+        static size_type calculate_distance(
+            const position_type& point,
+            const position_type& line_segment_begin,
+            const position_type& line_segment_end
+        )
+        {
+            const geo_vector_type p = to_geo_vector(point);
+            const geo_vector_type lsb = to_geo_vector(line_segment_begin);
+            const geo_vector_type lse = to_geo_vector(line_segment_end);
+
+            double d = 0.0;
+            if      (geo_dot(geo_minus(lse, lsb), geo_minus(p, lsb)) < 0.0)
+                d = geo_abs(geo_minus(p, lsb));
+            else if (geo_dot(geo_minus(lsb, lse), geo_minus(p, lse)) < 0.0)
+                d = geo_abs(geo_minus(p, lse));
+            else
+                d = std::abs(geo_cross(geo_minus(lse, lsb), geo_minus(p, lsb))) / geo_abs(geo_minus(lse, lsb));
+
+            return to_size(d);
+        }
+
+        static geo_vector_type to_geo_vector(const position_type& position)
+        {
+            return
+                geo_vector_type(
+                    boost::rational_cast<double>(tetengo2::gui::position<position_type>::left(position).value()),
+                    boost::rational_cast<double>(tetengo2::gui::position<position_type>::top(position).value())
+                );
+        }
+
+        static size_type to_size(const double value)
+        {
+            return
+                size_type(
+                    typename size_type::value_type(typename size_type::value_type::int_type(value * 256.0), 256)
+                );
+        }
+
+        static geo_vector_type geo_minus(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return geo_vector_type(v1.first - v2.first, v1.second - v2.second);
+        }
+
+        static double geo_abs(const geo_vector_type& v)
+        {
+            return std::sqrt(v.first * v.first + v.second * v.second);
+        }
+
+        static double geo_dot(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return v1.first * v2.first + v1.second * v2.second;
+        }
+
+        static double geo_cross(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return v1.first * v2.second - v1.second * v2.first;
+        }
+
 
         // variables
 
@@ -241,7 +303,10 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            return NULL;
+            if (calculate_distance(position, m_departure, m_arrival) <= size_type(1))
+                return this;
+            else
+                return NULL;
         }
 
         virtual bool selected_impl()
@@ -852,6 +917,13 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
+            BOOST_FOREACH (train_line_fragment_type& fragment, m_fragments)
+            {
+                base_type* const p_item = fragment.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
             return NULL;
         }
 
@@ -1173,6 +1245,13 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
+            BOOST_FOREACH (train_line_type& train_line, m_train_lines)
+            {
+                base_type* const p_item = train_line.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
             return NULL;
         }
 
