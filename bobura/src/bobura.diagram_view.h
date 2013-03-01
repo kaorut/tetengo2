@@ -301,6 +301,14 @@ namespace bobura
             return NULL;
         }
 
+        /*!
+            \brief Unselects all items.
+        */
+        void unselect_all_items()
+        {
+
+        }
+
 
     private:
         // types

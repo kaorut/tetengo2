@@ -206,11 +206,31 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            const view_type view(model, message_catalog);
+
+            view.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            view_type view(model, message_catalog);
+
+            view.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(unselect_all_items)
+    {
+        BOOST_TEST_PASSPOINT();
+
         const model_type model;
         const message_catalog_type message_catalog;
-        const view_type view(model, message_catalog);
+        view_type view(model, message_catalog);
 
-        view.p_item_by_position(position_type(left_type(42), top_type(24)));
+        view.unselect_all_items();
     }
 
 
