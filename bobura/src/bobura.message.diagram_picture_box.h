@@ -154,7 +154,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             if (m_release_mouse_capture())
             {
-
+                typedef typename view_type::item_type item_type;
+                const item_type* const p_item = m_view.p_item_by_position(position);
+                p_item;
             }
         }
 

@@ -202,6 +202,17 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.page_size(dimension_type(width_type(42), height_type(24)));
     }
 
+    BOOST_AUTO_TEST_CASE(p_item_by_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
+
+        view.p_item_by_position(position_type(left_type(42), top_type(24)));
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

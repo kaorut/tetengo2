@@ -274,6 +274,20 @@ namespace bobura
             return dimension_type(std::move(page_width), std::move(page_height));
         }
 
+        /*!
+            \brief Returns a ponter to the item by the position.
+
+            When position is in the region of an item, this function returns a pointer to the item.
+            Otherwise, this function returns NULL;
+
+            \return A pointer to the item.
+        */
+        const item_type* p_item_by_position(const position_type& position)
+        const
+        {
+            return NULL;
+        }
+
 
     private:
         // types

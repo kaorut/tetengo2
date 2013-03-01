@@ -28,6 +28,12 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
+    typedef canvas_type::position_type position_type;
+
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+    typedef tetengo2::gui::position<position_type>::top_type top_type;
+
     typedef bobura::view::diagram::item<canvas_type> item_type;
 
     class concrete_item : public item_type
@@ -80,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(item)
 
         const concrete_item item;
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        item.p_item_by_position(position_type(left_type(42), top_type(24)));
     }
 
 
