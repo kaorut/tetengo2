@@ -37,6 +37,12 @@ namespace
         const
         {}
 
+        virtual const item_type* p_item_by_position_impl(const position_type& position)
+        const
+        {
+            return NULL;
+        }
+
     };
 
 
@@ -61,10 +67,20 @@ BOOST_AUTO_TEST_SUITE(item)
         BOOST_TEST_PASSPOINT();
 
         const concrete_item item;
+
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         item.draw_on(*p_canvas);
+    }
+
+    BOOST_AUTO_TEST_CASE(p_item_by_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_item item;
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

@@ -55,6 +55,9 @@ namespace bobura
         //! The header type.
         typedef Header header_type;
 
+        //! The item type.
+        typedef typename header_type::base_type item_type;
+
         //! The time line list type.
         typedef TimeLineList time_line_list_type;
 

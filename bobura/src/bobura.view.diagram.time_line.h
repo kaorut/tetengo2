@@ -55,6 +55,9 @@ namespace bobura { namespace view { namespace diagram
         //! The top type.
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        //! The base type.
+        typedef item<canvas_type> base_type;
+
         //! The time tick type.
         typedef TimeTick time_tick_type;
 
@@ -163,6 +166,12 @@ namespace bobura { namespace view { namespace diagram
             canvas.draw_line(position_type(m_left, m_top), position_type(m_left, m_bottom));
         }
 
+        virtual const base_type* p_item_by_position_impl(const position_type& position)
+        const
+        {
+            return NULL;
+        }
+
 
     };
 
@@ -220,6 +229,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
+
+        //! The base type.
+        typedef item<canvas_type> base_type;
 
 
         // constructors and destructor
@@ -462,6 +474,12 @@ namespace bobura { namespace view { namespace diagram
             {
                 time_line.draw_on(canvas);
             }
+        }
+
+        virtual const base_type* p_item_by_position_impl(const position_type& position)
+        const
+        {
+            return NULL;
         }
 
 

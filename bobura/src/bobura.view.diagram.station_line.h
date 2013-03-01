@@ -62,6 +62,9 @@ namespace bobura { namespace view { namespace diagram
         //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
 
+        //! The base type.
+        typedef item<canvas_type> base_type;
+
 
         // constructors and destructor
 
@@ -175,6 +178,12 @@ namespace bobura { namespace view { namespace diagram
             );
         }
 
+        virtual const base_type* p_item_by_position_impl(const position_type& position)
+        const
+        {
+            return NULL;
+        }
+
 
     };
 
@@ -227,6 +236,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
+
+        //! The base type.
+        typedef item<canvas_type> base_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
@@ -448,6 +460,12 @@ namespace bobura { namespace view { namespace diagram
             {
                 station_line.draw_on(canvas);
             }
+        }
+
+        virtual const base_type* p_item_by_position_impl(const position_type& position)
+        const
+        {
+            return NULL;
         }
 
 
