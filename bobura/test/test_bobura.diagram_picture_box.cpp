@@ -61,11 +61,23 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        diagram_picture_box_type picture_box(window);
+        {
+            window_type window;
+            diagram_picture_box_type picture_box(window);
 
-        picture_box.set_mouse_capture();
-        picture_box.release_mouse_capture();
+            const bool captured = picture_box.release_mouse_capture();
+
+            BOOST_CHECK(!captured);
+        }
+        {
+            window_type window;
+            diagram_picture_box_type picture_box(window);
+
+            picture_box.set_mouse_capture();
+            const bool captured = picture_box.release_mouse_capture();
+
+            BOOST_CHECK(captured);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(update_scroll_bars)

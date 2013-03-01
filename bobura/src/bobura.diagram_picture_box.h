@@ -103,11 +103,21 @@ namespace bobura
 
         /*!
             \brief Releases a mouse capture.
+
+            \retval true  When the mouse is actually captured.
+            \retval false Otherwise.
         */
-        void release_mouse_capture()
+        bool release_mouse_capture()
         {
-            assert(m_p_mouse_capture);
-            m_p_mouse_capture.reset();
+            if (m_p_mouse_capture)
+            {
+                m_p_mouse_capture.reset();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /*!

@@ -90,8 +90,10 @@ namespace
     void set_mouse_capture()
     {}
 
-    void release_mouse_capture()
-    {}
+    bool release_mouse_capture()
+    {
+        return false;
+    }
 
 
 }

@@ -189,10 +189,10 @@ namespace bobura
             m_diagram_picture_box(diagram_picture_box)
             {}
 
-            void operator()()
+            bool operator()()
             const
             {
-                m_diagram_picture_box.release_mouse_capture();
+                return m_diagram_picture_box.release_mouse_capture();
             }
 
         };

@@ -114,7 +114,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         typedef View view_type;
 
         //! The release-mouse-capture function type.
-        typedef std::function<void ()> release_mouse_capture_type;
+        typedef std::function<bool ()> release_mouse_capture_type;
 
 
         // constructors and destructor
@@ -152,7 +152,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            m_release_mouse_capture();
+            if (m_release_mouse_capture())
+            {
+
+            }
         }
 
 
