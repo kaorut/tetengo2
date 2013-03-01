@@ -34,6 +34,9 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(diagram_picture_box)
     // test cases
@@ -95,3 +98,4 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif
