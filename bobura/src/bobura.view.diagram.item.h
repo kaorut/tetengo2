@@ -90,6 +90,27 @@ namespace bobura { namespace view { namespace diagram
             return const_cast<item*>(this)->p_item_by_position_impl(position);
         }
 
+        /*!
+            \brief Returns the selected status.
+
+            \return The selected status.
+        */
+        bool selected()
+        const
+        {
+            return selected_impl();
+        }
+
+        /*!
+            \brief Sets a selected status.
+
+            \param selected A selected status.
+        */
+        void set_selected(const bool selected)
+        {
+            set_selected_impl(selected);
+        }
+
 
     private:
         // virtual functions
@@ -98,6 +119,12 @@ namespace bobura { namespace view { namespace diagram
         const = 0;
 
         virtual item* p_item_by_position_impl(const position_type& position)
+        = 0;
+
+        virtual bool selected_impl()
+        const = 0;
+
+        virtual void set_selected_impl(const bool selected)
         = 0;
 
 

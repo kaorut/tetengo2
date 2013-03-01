@@ -38,7 +38,15 @@ namespace
 
     class concrete_item : public item_type
     {
+    public:
+        concrete_item()
+        :
+        m_selected(false)
+        {}
+
     private:
+        bool m_selected;
+
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {}
@@ -46,6 +54,17 @@ namespace
         virtual item_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
+        }
+
+        virtual bool selected_impl()
+        const
+        {
+            return m_selected;
+        }
+
+        virtual void set_selected_impl(const bool selected)
+        {
+            m_selected = selected;
         }
 
     };
@@ -93,6 +112,30 @@ BOOST_AUTO_TEST_SUITE(item)
 
             item.p_item_by_position(position_type(left_type(42), top_type(24)));
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(selected)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_item item;
+
+        BOOST_CHECK(!item.selected());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_selected)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_item item;
+
+        item.set_selected(true);
+
+        BOOST_CHECK(item.selected());
+
+        item.set_selected(false);
+
+        BOOST_CHECK(!item.selected());
     }
 
 
