@@ -166,8 +166,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.draw_line(position_type(m_left, m_top), position_type(m_left, m_bottom));
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -476,8 +475,7 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }

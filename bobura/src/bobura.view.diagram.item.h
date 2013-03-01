@@ -71,10 +71,23 @@ namespace bobura { namespace view { namespace diagram
 
             \return A pointer to the item.
         */
+        item* p_item_by_position(const position_type& position)
+        {
+            return p_item_by_position_impl(position);
+        }
+
+        /*!
+            \brief Returns a ponter to the item by the position.
+
+            When position is in the region of this item or its child, this function returns a pointer to the item.
+            Otherwise, this function returns NULL;
+
+            \return A pointer to the item.
+        */
         const item* p_item_by_position(const position_type& position)
         const
         {
-            return p_item_by_position_impl(position);
+            return const_cast<item*>(this)->p_item_by_position_impl(position);
         }
 
 
@@ -84,8 +97,8 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const = 0;
 
-        virtual const item* p_item_by_position_impl(const position_type& position)
-        const = 0;
+        virtual item* p_item_by_position_impl(const position_type& position)
+        = 0;
 
 
     };

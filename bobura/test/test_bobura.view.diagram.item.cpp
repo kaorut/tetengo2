@@ -43,8 +43,7 @@ namespace
         const
         {}
 
-        virtual const item_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual item_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -84,9 +83,16 @@ BOOST_AUTO_TEST_SUITE(item)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_item item;
+        {
+            const concrete_item item;
 
-        item.p_item_by_position(position_type(left_type(42), top_type(24)));
+            item.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
+        {
+            concrete_item item;
+
+            item.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
     }
 
 

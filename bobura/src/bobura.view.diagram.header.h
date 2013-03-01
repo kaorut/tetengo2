@@ -153,8 +153,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.draw_text(m_company_line_name, m_position);
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -292,8 +291,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.draw_text(m_note, m_position);
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -577,8 +575,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_note_header->draw_on(canvas);
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }

@@ -239,8 +239,7 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -842,8 +841,7 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }
@@ -1155,8 +1153,7 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
-        virtual const base_type* p_item_by_position_impl(const position_type& position)
-        const
+        virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return NULL;
         }

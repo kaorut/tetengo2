@@ -285,6 +285,19 @@ namespace bobura
         const item_type* p_item_by_position(const position_type& position)
         const
         {
+            return const_cast<diagram_view*>(this)->p_item_by_position(position);
+        }
+
+        /*!
+            \brief Returns a ponter to the item by the position.
+
+            When position is in the region of an item, this function returns a pointer to the item.
+            Otherwise, this function returns NULL;
+
+            \return A pointer to the item.
+        */
+        item_type* p_item_by_position(const position_type& position)
+        {
             return NULL;
         }
 
