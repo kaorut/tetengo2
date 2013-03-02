@@ -23,8 +23,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a mouse pressed observer of the picture box.
 
         \tparam PictureBox A picture box type.
+        \tparam View       A view type.
     */
-    template <typename PictureBox>
+    template <typename PictureBox, typename View>
     class mouse_pressed
     {
     public:
@@ -39,6 +40,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The button kind type.
         typedef typename picture_box_type::mouse_observer_set_type::mouse_button_type mouse_button_type;
 
+        //! The view type.
+        typedef View view_type;
+
         //! The set-mouse-capture function type.
         typedef std::function<void ()> set_mouse_capture_type;
 
@@ -48,11 +52,19 @@ namespace bobura { namespace message { namespace diagram_picture_box
         /*!
             \brief Creates a mouse pressed observer of the picture box.
 
+            \param picture_box       A picture box.
             \param set_mouse_capture A set-mouse-capture function.
+            \param view              A view.
         */
-        explicit mouse_pressed(const set_mouse_capture_type& set_mouse_capture)
+        explicit mouse_pressed(
+            const picture_box_type&       picture_box,
+            const set_mouse_capture_type& set_mouse_capture,
+            view_type&                    view
+        )
         :
-        m_set_mouse_capture(set_mouse_capture)
+        m_picture_box(picture_box),
+        m_set_mouse_capture(set_mouse_capture),
+        m_view(view)
         {}
 
 
@@ -77,13 +89,26 @@ namespace bobura { namespace message { namespace diagram_picture_box
         const
         {
             m_set_mouse_capture();
+
+            typedef typename view_type::item_type item_type;
+            item_type* const p_item = m_view.p_item_by_position(position);
+            if (p_item)
+                p_item->set_selected(true);
+            else
+                m_view.unselect_all_items();
+
+            m_picture_box.repaint();
         }
 
 
     private:
         // variables
 
+        const picture_box_type& m_picture_box;
+
         set_mouse_capture_type m_set_mouse_capture;
+
+        view_type& m_view;
 
 
     };
@@ -154,12 +179,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             if (m_release_mouse_capture())
             {
-                typedef typename view_type::item_type item_type;
-                item_type* const p_item = m_view.p_item_by_position(position);
-                if (p_item)
-                    p_item->set_selected(true);
-                else
-                    m_view.unselect_all_items();
+
             }
         }
 
