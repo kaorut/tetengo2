@@ -77,7 +77,8 @@ namespace bobura { namespace view { namespace diagram
         m_departure(std::move(departure)),
         m_arrival(std::move(arrival)),
         m_train_name(train_name),
-        m_down(down)
+        m_down(down),
+        m_selected(false)
         {}
 
         /*!
@@ -90,7 +91,8 @@ namespace bobura { namespace view { namespace diagram
         m_departure(std::move(another.m_departure)),
         m_arrival(std::move(another.m_arrival)),
         m_train_name(std::move(another.m_train_name)),
-        m_down(another.m_down)
+        m_down(another.m_down),
+        m_selected(another.m_selected)
         {}
 
         /*!
@@ -282,13 +284,20 @@ namespace bobura { namespace view { namespace diagram
 
         bool m_down;
 
+        bool m_selected;
+
 
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
+            size_type original_line_width = canvas.line_width();
+            if (m_selected)
+                canvas.set_line_width(original_line_width * 4);
             canvas.draw_line(m_departure, m_arrival);
+            if (m_selected)
+                canvas.set_line_width(std::move(original_line_width));
 
             if (!m_train_name.empty())
             {
@@ -312,11 +321,13 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const
         {
-            return false;
+            return m_selected;
         }
 
         virtual void set_selected_impl(const bool selected)
-        {}
+        {
+            m_selected = selected;
+        }
 
 
     };
