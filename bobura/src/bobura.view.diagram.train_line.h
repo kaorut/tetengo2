@@ -312,10 +312,10 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            if (calculate_distance(position, m_departure, m_arrival) <= size_type(1))
-                return this;
-            else
-                return NULL;
+            return
+                calculate_distance(position, m_departure, m_arrival) <=
+                    size_type(typename size_type::value_type(1, 6)) ?
+                    this : NULL;
         }
 
         virtual bool selected_impl()
@@ -928,7 +928,7 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            BOOST_FOREACH (train_line_fragment_type& fragment, m_fragments)
+            BOOST_REVERSE_FOREACH (train_line_fragment_type& fragment, m_fragments)
             {
                 base_type* const p_item = fragment.p_item_by_position(position);
                 if (p_item)
@@ -1256,7 +1256,7 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            BOOST_FOREACH (train_line_type& train_line, m_train_lines)
+            BOOST_REVERSE_FOREACH (train_line_type& train_line, m_train_lines)
             {
                 base_type* const p_item = train_line.p_item_by_position(position);
                 if (p_item)
