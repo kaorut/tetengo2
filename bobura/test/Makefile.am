@@ -27,6 +27,7 @@ sources = \
     test_bobura.timetable_model.cpp \
     test_bobura.view.diagram.header.cpp \
     test_bobura.view.diagram.item.cpp \
+    test_bobura.view.diagram.selection.cpp \
     test_bobura.view.diagram.station_line.cpp \
     test_bobura.view.diagram.time_line.cpp \
     test_bobura.view.diagram.train_line.cpp \

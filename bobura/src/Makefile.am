@@ -53,6 +53,7 @@ extra_headers = \
     bobura.type_list.h \
     bobura.view.diagram.header.h \
     bobura.view.diagram.item.h \
+    bobura.view.diagram.selection.h \
     bobura.view.diagram.station_line.h \
     bobura.view.diagram.time_line.h \
     bobura.view.diagram.train_line.h \
