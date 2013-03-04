@@ -33,6 +33,7 @@ namespace bobura
         \tparam StationLineList A station line list type.
         \tparam TrainLineList   A train line list type.
         \tparam Model           A model type.
+        \tparam Selection       A selection type.
         \tparam Canvas          A canvas type.
         \tparam SolidBackground A solid background type.
         \tparam MessageCatalog  A message catalog type.
@@ -43,6 +44,7 @@ namespace bobura
         typename StationLineList,
         typename TrainLineList,
         typename Model,
+        typename Selection,
         typename Canvas,
         typename SolidBackground,
         typename MessageCatalog
@@ -69,6 +71,9 @@ namespace bobura
 
         //! The model type.
         typedef Model model_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;

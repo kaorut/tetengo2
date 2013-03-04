@@ -15,6 +15,7 @@
 #include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.diagram_view.h"
 
@@ -36,6 +37,10 @@ namespace
         boost::mpl::at<bobura::view_type_list, bobura::type::view::diagram_train_line_list>::type train_line_list_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -67,6 +72,7 @@ namespace
             station_line_list_type,
             train_line_list_type,
             model_type,
+            selection_type_type,
             canvas_type,
             solid_background_type,
             message_catalog_type
