@@ -36,13 +36,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a train line fragment in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
-    class train_line_fragment : public item<Canvas>
+    template <typename Selection, typename Canvas>
+    class train_line_fragment : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -54,7 +58,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename canvas_type::position_type position_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -337,11 +341,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a train line in the diagram view.
 
         \tparam Model          A model type.
+        \tparam Selection      A selection type.
         \tparam Canvas         A canvas type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas, typename MessageCatalog>
-    class train_line : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename MessageCatalog>
+    class train_line : public item<Selection, Canvas>
     {
     public:
         // types
@@ -363,6 +368,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The station intervals type.
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -392,7 +400,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename height_type::value_type vertical_scale_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -502,7 +510,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef train_line_fragment<canvas_type> train_line_fragment_type;
+        typedef train_line_fragment<selection_type, canvas_type> train_line_fragment_type;
 
         typedef typename canvas_type::size_type size_type;
 
@@ -955,11 +963,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a train line list in the diagram view.
 
         \tparam Model          A model type.
+        \tparam Selection      A selection type.
         \tparam Canvas         A canvas type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas, typename MessageCatalog>
-    class train_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename MessageCatalog>
+    class train_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -975,6 +984,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The station intervals type.
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -1004,7 +1016,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename height_type::value_type vertical_scale_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -1111,7 +1123,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef train_line<model_type, canvas_type, message_catalog_type> train_line_type;
+        typedef train_line<model_type, selection_type, canvas_type, message_catalog_type> train_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 

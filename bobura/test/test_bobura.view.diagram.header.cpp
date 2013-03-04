@@ -16,6 +16,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.header.h"
 
@@ -27,6 +28,10 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -50,11 +55,11 @@ namespace
 
     typedef canvas_type::color_type color_type;
 
-    typedef bobura::view::diagram::company_line_name_header<canvas_type> company_line_name_header_type;
+    typedef bobura::view::diagram::company_line_name_header<selection_type, canvas_type> company_line_name_header_type;
 
-    typedef bobura::view::diagram::note_header<canvas_type> note_header_type;
+    typedef bobura::view::diagram::note_header<selection_type, canvas_type> note_header_type;
 
-    typedef bobura::view::diagram::header<model_type, canvas_type> header_type;
+    typedef bobura::view::diagram::header<model_type, selection_type, canvas_type> header_type;
 
 
 }

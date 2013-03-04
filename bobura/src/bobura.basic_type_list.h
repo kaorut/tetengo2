@@ -1106,17 +1106,22 @@ namespace bobura
     namespace detail { namespace view
     {
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
+        typedef model_type::timetable_type::train_type train_type;
+        typedef bobura::view::diagram::selection<train_type> selection_type;
         typedef
-            bobura::view::diagram::header<model_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type>
+            bobura::view::diagram::header<
+                model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+            >
             diagram_header_type;
         typedef
             bobura::view::diagram::time_line_list<
-                model_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
             >
             diagram_time_line_list_type;
         typedef
             bobura::view::diagram::station_line_list<
                 model_type,
+                selection_type,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type
             >
@@ -1124,12 +1129,11 @@ namespace bobura
         typedef
             bobura::view::diagram::train_line_list<
                 model_type,
+                selection_type,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
             >
             diagram_train_line_list_type;
-        typedef model_type::timetable_type::train_type train_type;
-        typedef bobura::view::diagram::selection<train_type> selection_type;
     }}
 #endif
 

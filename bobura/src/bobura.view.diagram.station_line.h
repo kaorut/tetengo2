@@ -30,13 +30,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a station line in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
-    class station_line : public item<Canvas>
+    template <typename Selection, typename Canvas>
+    class station_line : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -63,7 +67,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename canvas_type::dimension_type dimension_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -200,11 +204,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a station line list in the diagram view.
 
         \tparam Model               A model type.
+        \tparam Selection           A selection type.
         \tparam Canvas              A canvas type.
         \tparam StationGradeTypeSet A station grade type set type.
     */
-    template <typename Model, typename Canvas, typename StationGradeTypeSet>
-    class station_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename StationGradeTypeSet>
+    class station_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -217,6 +222,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The time span type.
         typedef typename time_type::time_span_type time_span_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -246,7 +254,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename height_type::value_type vertical_scale_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
@@ -344,7 +352,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef station_line<canvas_type> station_line_type;
+        typedef station_line<selection_type, canvas_type> station_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 

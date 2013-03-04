@@ -31,14 +31,18 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a time line in the diagram view.
 
-        \tparam Canvas   A canvas type.
-        \tparam TimeTick A time tick type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
+        \tparam TimeTick  A time tick type.
     */
-    template <typename Canvas, typename TimeTick>
-    class time_line : public item<Canvas>
+    template <typename Selection, typename Canvas, typename TimeTick>
+    class time_line : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -56,7 +60,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
         //! The time tick type.
         typedef TimeTick time_tick_type;
@@ -187,11 +191,12 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a time line list in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model     A model type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Model, typename Canvas>
-    class time_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas>
+    class time_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -204,6 +209,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The time span type.
         typedef typename time_type::time_span_type time_span_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -239,7 +247,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename height_type::value_type vertical_scale_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -339,7 +347,7 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename time_type::tick_type time_tick_type;
 
-        typedef time_line<canvas_type, time_tick_type> time_line_type;
+        typedef time_line<selection_type, canvas_type, time_tick_type> time_line_type;
 
         typedef typename canvas_type::size_type size_type;
 

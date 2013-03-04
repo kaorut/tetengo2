@@ -19,13 +19,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for the diagram view item.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
+    template <typename Selection, typename Canvas>
     class item : private boost::noncopyable
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -41,6 +45,16 @@ namespace bobura { namespace view { namespace diagram
         */
         item()
         {}
+
+        ///*!
+        //    \brief Creates an item.
+
+        //    \param selection A selection.
+        //*/
+        //explicit item(selection_type& selection)
+        //:
+        //m_selection(selection)
+        //{}
 
         /*!
             \brief Destroys the item.
@@ -90,6 +104,27 @@ namespace bobura { namespace view { namespace diagram
             return const_cast<item*>(this)->p_item_by_position_impl(position);
         }
 
+        ///*!
+        //    \brief Returns the selection.
+
+        //    \return The selection.
+        //*/
+        //const selection_type& selection()
+        //const
+        //{
+        //    return m_selection;
+        //}
+
+        ///*!
+        //    \brief Returns the selection.
+
+        //    \return The selection.
+        //*/
+        //selection_type& selection()
+        //{
+        //    return m_selection;
+        //}
+
         /*!
             \brief Returns the selected status.
 
@@ -113,6 +148,11 @@ namespace bobura { namespace view { namespace diagram
 
 
     private:
+        //// variables
+
+        //selection_type& m_selection;
+
+
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)

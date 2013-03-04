@@ -27,13 +27,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a header of the company and line name in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
-    class company_line_name_header : public item<Canvas>
+    template <typename Selection, typename Canvas>
+    class company_line_name_header : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -54,7 +58,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename canvas_type::dimension_type dimension_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -174,13 +178,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a header of the note in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
-    class note_header : public item<Canvas>
+    template <typename Selection, typename Canvas>
+    class note_header : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -201,7 +209,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename canvas_type::dimension_type dimension_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -321,17 +329,21 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a header in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model     A model type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Model, typename Canvas>
-    class header : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas>
+    class header : public item<Selection, Canvas>
     {
     public:
         // types
 
         //! The model type.
         typedef Model model_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -343,7 +355,7 @@ namespace bobura { namespace view { namespace diagram
         typedef typename canvas_type::dimension_type dimension_type;
 
         //! The base type.
-        typedef item<canvas_type> base_type;
+        typedef item<selection_type, canvas_type> base_type;
 
 
         // constructors and destructor
@@ -461,9 +473,9 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef company_line_name_header<canvas_type> company_line_name_header_type;
+        typedef company_line_name_header<selection_type, canvas_type> company_line_name_header_type;
 
-        typedef note_header<canvas_type> note_header_type;
+        typedef note_header<selection_type, canvas_type> note_header_type;
 
         typedef typename canvas_type::string_type string_type;
 

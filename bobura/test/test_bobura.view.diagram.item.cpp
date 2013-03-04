@@ -14,6 +14,7 @@
 #include <tetengo2.gui.measure.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.item.h"
 
@@ -21,6 +22,12 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -34,7 +41,7 @@ namespace
 
     typedef tetengo2::gui::position<position_type>::top_type top_type;
 
-    typedef bobura::view::diagram::item<canvas_type> item_type;
+    typedef bobura::view::diagram::item<selection_type, canvas_type> item_type;
 
     class concrete_item : public item_type
     {
@@ -113,6 +120,22 @@ BOOST_AUTO_TEST_SUITE(item)
             item.p_item_by_position(position_type(left_type(42), top_type(24)));
         }
     }
+
+    //BOOST_AUTO_TEST_CASE(selection)
+    //{
+    //    BOOST_TEST_PASSPOINT();
+
+    //    {
+    //        const concrete_item item;
+
+    //        item.selection();
+    //    }
+    //    {
+    //        concrete_item item;
+
+    //        item.selection();
+    //    }
+    //}
 
     BOOST_AUTO_TEST_CASE(selected)
     {

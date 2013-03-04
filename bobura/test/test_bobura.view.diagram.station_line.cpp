@@ -17,6 +17,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.station_line.h"
 
@@ -28,6 +29,10 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
 
@@ -63,10 +68,10 @@ namespace
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
         station_grade_type_set_type;
     
-    typedef bobura::view::diagram::station_line<canvas_type> station_line_type;
+    typedef bobura::view::diagram::station_line<selection_type, canvas_type> station_line_type;
 
     typedef
-        bobura::view::diagram::station_line_list<model_type, canvas_type, station_grade_type_set_type>
+        bobura::view::diagram::station_line_list<model_type, selection_type, canvas_type, station_grade_type_set_type>
         station_line_list_type;
 
 
