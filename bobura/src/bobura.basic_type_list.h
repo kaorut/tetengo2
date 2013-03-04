@@ -1144,7 +1144,7 @@ namespace bobura
                     detail::view::diagram_station_line_list_type,
                     detail::view::diagram_train_line_list_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    detail::view::train_type,
+                    detail::view::selection_type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type

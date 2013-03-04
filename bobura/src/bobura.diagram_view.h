@@ -124,6 +124,7 @@ namespace bobura
         :
         m_model(model),
         m_message_catalog(message_catalog),
+        m_selection(),
         m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
@@ -382,6 +383,8 @@ namespace bobura
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
+
+        selection_type m_selection;
 
         horizontal_scale_type m_horizontal_scale;
 
