@@ -248,6 +248,7 @@ BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_REQUIRE_EQUAL                              boost/test/unit_test.hpp
+BOOST_REVERSE_FOREACH                            boost/foreach.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
@@ -574,6 +575,7 @@ boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
+std::abs                                         cmath
 std::accumulate                                  numeric
 std::advance                                     iterator
 std::any_of                                      algorithm
@@ -658,6 +660,7 @@ std::runtime_error::what                         stdexcept
 std::sin                                         cmath
 std::size_t                                      cstddef
 std::sort                                        algorithm
+std::sqrt                                        cmath
 std::stack                                       stack
 std::string                                      string
 std::string::const_iterator                      string
