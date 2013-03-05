@@ -66,18 +66,21 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a train line fragment.
 
+            \param selection  A selection.
             \param departure  A departure position.
             \param arrival    A arrival position.
             \param train_name A train name.
             \param down       Set true for a down train.
         */
         train_line_fragment(
+            selection_type&    selection,
             position_type      departure,
             position_type      arrival,
             const string_type& train_name,
             const bool         down
         )
         :
+        base_type(selection),
         m_departure(std::move(departure)),
         m_arrival(std::move(arrival)),
         m_train_name(train_name),
@@ -92,6 +95,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_fragment(train_line_fragment&& another)
         :
+        base_type(another.selection()),
         m_departure(std::move(another.m_departure)),
         m_arrival(std::move(another.m_arrival)),
         m_train_name(std::move(another.m_train_name)),
@@ -415,6 +419,7 @@ namespace bobura { namespace view { namespace diagram
             \param train_kind           A train kind.
             \param down                 Set true for a down train.
             \param time_offset          A time offet.
+            \param selection            A selection.
             \param canvas               A canva.
             \param canvas_dimension     A canvas dimension.
             \param scroll_bar_position  A scroll bar position.
@@ -432,6 +437,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kind_type&        train_kind,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
@@ -445,6 +451,7 @@ namespace bobura { namespace view { namespace diagram
             const message_catalog_type&   message_catalog
         )
         :
+        base_type(selection),
         m_p_train_kind(&train_kind),
         m_fragments(
             make_fragments(
@@ -452,6 +459,7 @@ namespace bobura { namespace view { namespace diagram
                 train_kind,
                 down,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 scroll_bar_position,
@@ -474,6 +482,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line(train_line&& another)
         :
+        base_type(another.selection()),
         m_p_train_kind(another.m_p_train_kind),
         m_fragments(std::move(another.m_fragments))
         {}
@@ -528,6 +537,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kind_type&        train_kind,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
@@ -575,6 +585,7 @@ namespace bobura { namespace view { namespace diagram
                                 !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
                                 time_offset,
+                                selection,
                                 canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
@@ -628,6 +639,7 @@ namespace bobura { namespace view { namespace diagram
                                 !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
                                 time_offset,
+                                selection,
                                 canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
@@ -719,6 +731,7 @@ namespace bobura { namespace view { namespace diagram
             const string_type&                     train_name,
             const bool                             down,
             const time_span_type&                  time_offset,
+            selection_type&                        selection,
             canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
@@ -743,6 +756,7 @@ namespace bobura { namespace view { namespace diagram
                     train_name,
                     down,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -767,6 +781,7 @@ namespace bobura { namespace view { namespace diagram
                     train_name,
                     down,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -788,6 +803,7 @@ namespace bobura { namespace view { namespace diagram
                     train_name,
                     down,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -812,6 +828,7 @@ namespace bobura { namespace view { namespace diagram
             const string_type&                     train_name,
             const bool                             down,
             const time_span_type&                  time_offset,
+            selection_type&                        selection,
             canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
@@ -885,7 +902,7 @@ namespace bobura { namespace view { namespace diagram
             if (lower_bound < header_bottom + time_header_bottom)
                 return;
 
-            fragments.emplace_back(std::move(departure), std::move(arrival), train_name, down);
+            fragments.emplace_back(selection, std::move(departure), std::move(arrival), train_name, down);
         }
 
         static typename canvas_type::line_style_type::enum_t translate_line_style(
@@ -1029,6 +1046,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param model                A model.
             \param time_offset          A time offset.
+            \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -1045,6 +1063,7 @@ namespace bobura { namespace view { namespace diagram
         train_line_list(
             const model_type&             model,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -1059,11 +1078,13 @@ namespace bobura { namespace view { namespace diagram
             const message_catalog_type&   message_catalog
         )
         :
+        base_type(selection),
         m_p_font(&model.timetable().font_color_set().train_name()),
         m_train_lines(
             make_train_lines(
                 model,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -1087,6 +1108,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_list(train_line_list&& another)
         :
+        base_type(another.selection()),
         m_p_font(another.m_p_font),
         m_train_lines(std::move(another.m_train_lines))
         {}
@@ -1143,6 +1165,7 @@ namespace bobura { namespace view { namespace diagram
         std::vector<train_line_type> make_train_lines(
             const model_type&             model,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -1164,6 +1187,7 @@ namespace bobura { namespace view { namespace diagram
                 model.timetable().train_kinds(),
                 true,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -1183,6 +1207,7 @@ namespace bobura { namespace view { namespace diagram
                 model.timetable().train_kinds(),
                 false,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -1206,6 +1231,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kinds_type&       train_kinds,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -1229,6 +1255,7 @@ namespace bobura { namespace view { namespace diagram
                         train_kinds[train.kind_index()],
                         down,
                         time_offset,
+                        selection,
                         canvas,
                         canvas_dimension,
                         scroll_bar_position,

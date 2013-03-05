@@ -37,6 +37,14 @@ namespace bobura { namespace view { namespace diagram
         selection()
         {}
 
+        /*!
+            \brief Moves a selection.
+
+            \param another Another selection.
+        */
+        selection(selection&& another)
+        {}
+
 
         // functions
 

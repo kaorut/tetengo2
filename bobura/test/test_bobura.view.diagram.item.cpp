@@ -46,8 +46,9 @@ namespace
     class concrete_item : public item_type
     {
     public:
-        concrete_item()
+        explicit concrete_item(selection_type& selection)
         :
+        item_type(selection),
         m_selected(false)
         {}
 
@@ -90,14 +91,16 @@ BOOST_AUTO_TEST_SUITE(item)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_item item;
+        selection_type selection;
+        const concrete_item item(selection);
     }
 
     BOOST_AUTO_TEST_CASE(draw_on)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_item item;
+        selection_type selection;
+        const concrete_item item(selection);
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
@@ -110,38 +113,43 @@ BOOST_AUTO_TEST_SUITE(item)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_item item;
+            selection_type selection;
+            const concrete_item item(selection);
 
             item.p_item_by_position(position_type(left_type(42), top_type(24)));
         }
         {
-            concrete_item item;
+            selection_type selection;
+            concrete_item item(selection);
 
             item.p_item_by_position(position_type(left_type(42), top_type(24)));
         }
     }
 
-    //BOOST_AUTO_TEST_CASE(selection)
-    //{
-    //    BOOST_TEST_PASSPOINT();
+    BOOST_AUTO_TEST_CASE(selection)
+    {
+        BOOST_TEST_PASSPOINT();
 
-    //    {
-    //        const concrete_item item;
+        {
+            selection_type selection;
+            const concrete_item item(selection);
 
-    //        item.selection();
-    //    }
-    //    {
-    //        concrete_item item;
+            BOOST_CHECK_EQUAL(&item.selection(), &selection);
+        }
+        {
+            selection_type selection;
+            concrete_item item(selection);
 
-    //        item.selection();
-    //    }
-    //}
+            BOOST_CHECK_EQUAL(&item.selection(), &selection);
+        }
+    }
 
     BOOST_AUTO_TEST_CASE(selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_item item;
+        selection_type selection;
+        const concrete_item item(selection);
 
         BOOST_CHECK(!item.selected());
     }
@@ -150,7 +158,8 @@ BOOST_AUTO_TEST_SUITE(item)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_item item;
+        selection_type selection;
+        concrete_item item(selection);
 
         item.set_selected(true);
 

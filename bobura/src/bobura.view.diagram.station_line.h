@@ -75,6 +75,7 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a station line.
 
+            \param selection      A selection.
             \param right          A right position.
             \param top            A top position.
             \param name           A name.
@@ -83,6 +84,7 @@ namespace bobura { namespace view { namespace diagram
             \param color          A color.
         */
         station_line(
+            selection_type&    selection,
             const left_type&   right,
             top_type           top,
             const string_type& name,
@@ -91,6 +93,7 @@ namespace bobura { namespace view { namespace diagram
             const color_type&  color
         )
         :
+        base_type(selection),
         m_right(right),
         m_top(std::move(top)),
         m_p_name(&name),
@@ -106,6 +109,7 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line(station_line&& another)
         :
+        base_type(another.selection()),
         m_right(std::move(another.m_right)),
         m_top(std::move(another.m_top)),
         m_p_name(another.m_p_name),
@@ -267,6 +271,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param model                A model.
             \param time_offset          A time offset.
+            \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -281,6 +286,7 @@ namespace bobura { namespace view { namespace diagram
         station_line_list(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -293,10 +299,12 @@ namespace bobura { namespace view { namespace diagram
             const std::vector<top_type>& station_positions
         )
         :
+        base_type(selection),
         m_station_lines(
             make_station_lines(
                 model,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -318,6 +326,7 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line_list(station_line_list&& another)
         :
+        base_type(another.selection()),
         m_station_lines(std::move(another.m_station_lines))
         {}
 
@@ -376,6 +385,7 @@ namespace bobura { namespace view { namespace diagram
         std::vector<station_line_type> make_station_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -426,6 +436,7 @@ namespace bobura { namespace view { namespace diagram
 
                 station_lines.push_back(
                     station_line_type(
+                        selection,
                         line_right,
                         std::move(line_position),
                         station_name,

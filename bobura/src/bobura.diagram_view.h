@@ -436,12 +436,13 @@ namespace bobura
                 return;
             }
 
-            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
+            m_p_header = tetengo2::make_unique<header_type>(m_model, m_selection, canvas, canvas_dimension);
             m_header_height = tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension());
             m_p_time_line_list =
                 tetengo2::make_unique<time_line_list_type>(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,
@@ -452,10 +453,11 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale
                 );
-            m_p_station_line_list =
-                tetengo2::make_unique<station_line_list_type>(
+            m_p_station_line_list.reset(
+                new station_line_list_type(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,
@@ -466,11 +468,13 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale,
                     m_station_positions
-                );
+                )
+            );
             m_p_train_line_list.reset(
                 new train_line_list_type(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,

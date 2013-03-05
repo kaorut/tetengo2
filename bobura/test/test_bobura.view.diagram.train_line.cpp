@@ -97,7 +97,9 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         train_line_fragment_type train_line_fragment1(
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
             string_type(TETENGO2_TEXT("train_name")),
@@ -110,13 +112,16 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         train_line_fragment_type train_line_fragment1(
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
             string_type(TETENGO2_TEXT("train_name")),
             false
         );
         train_line_fragment_type train_line_fragment2(
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
             string_type(TETENGO2_TEXT("train_name")),
@@ -134,6 +139,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -157,6 +163,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -176,6 +183,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -199,6 +207,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -222,6 +231,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -247,6 +257,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -255,6 +266,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -276,6 +288,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -284,6 +297,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -300,6 +314,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list2(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),

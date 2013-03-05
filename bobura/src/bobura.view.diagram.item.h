@@ -42,19 +42,13 @@ namespace bobura { namespace view { namespace diagram
 
         /*!
             \brief Creates an item.
+
+            \param selection A selection.
         */
-        item()
+        explicit item(selection_type& selection)
+        :
+        m_selection(selection)
         {}
-
-        ///*!
-        //    \brief Creates an item.
-
-        //    \param selection A selection.
-        //*/
-        //explicit item(selection_type& selection)
-        //:
-        //m_selection(selection)
-        //{}
 
         /*!
             \brief Destroys the item.
@@ -104,26 +98,26 @@ namespace bobura { namespace view { namespace diagram
             return const_cast<item*>(this)->p_item_by_position_impl(position);
         }
 
-        ///*!
-        //    \brief Returns the selection.
+        /*!
+            \brief Returns the selection.
 
-        //    \return The selection.
-        //*/
-        //const selection_type& selection()
-        //const
-        //{
-        //    return m_selection;
-        //}
+            \return The selection.
+        */
+        const selection_type& selection()
+        const
+        {
+            return m_selection;
+        }
 
-        ///*!
-        //    \brief Returns the selection.
+        /*!
+            \brief Returns the selection.
 
-        //    \return The selection.
-        //*/
-        //selection_type& selection()
-        //{
-        //    return m_selection;
-        //}
+            \return The selection.
+        */
+        selection_type& selection()
+        {
+            return m_selection;
+        }
 
         /*!
             \brief Returns the selected status.
@@ -148,9 +142,9 @@ namespace bobura { namespace view { namespace diagram
 
 
     private:
-        //// variables
+        // variables
 
-        //selection_type& m_selection;
+        selection_type& m_selection;
 
 
         // virtual functions
