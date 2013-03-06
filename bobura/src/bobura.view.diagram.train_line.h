@@ -343,10 +343,10 @@ namespace bobura { namespace view { namespace diagram
         const
         {
             size_type original_line_width = canvas.line_width();
-            if (selected())
+            if (this->selected())
                 canvas.set_line_width(original_line_width * 4);
             canvas.draw_line(m_departure, m_arrival);
-            if (selected())
+            if (this->selected())
                 canvas.set_line_width(std::move(original_line_width));
 
             if (m_draw_train_name)
