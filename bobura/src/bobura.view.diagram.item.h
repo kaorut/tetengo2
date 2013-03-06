@@ -133,13 +133,11 @@ namespace bobura { namespace view { namespace diagram
         }
 
         /*!
-            \brief Sets a selected status.
-
-            \param selected A selected status.
+            \brief Selects this item.
         */
-        void set_selected(const bool selected)
+        void select()
         {
-            set_selected_impl(selected);
+            select_impl();
         }
 
 
@@ -160,7 +158,7 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const = 0;
 
-        virtual void set_selected_impl(const bool selected)
+        virtual void select_impl()
         = 0;
 
 

@@ -198,7 +198,7 @@ namespace bobura { namespace view { namespace diagram
             return false;
         }
 
-        virtual void set_selected_impl(const bool selected)
+        virtual void select_impl()
         {}
 
 
@@ -501,7 +501,7 @@ namespace bobura { namespace view { namespace diagram
             return false;
         }
 
-        virtual void set_selected_impl(const bool selected)
+        virtual void select_impl()
         {}
 
 

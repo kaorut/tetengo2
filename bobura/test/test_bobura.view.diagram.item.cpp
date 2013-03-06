@@ -71,9 +71,9 @@ namespace
             return m_selected;
         }
 
-        virtual void set_selected_impl(const bool selected)
+        virtual void select_impl()
         {
-            m_selected = selected;
+            m_selected = true;
         }
 
     };
@@ -155,20 +155,16 @@ BOOST_AUTO_TEST_SUITE(item)
         BOOST_CHECK(!item.selected());
     }
 
-    BOOST_AUTO_TEST_CASE(set_selected)
+    BOOST_AUTO_TEST_CASE(select)
     {
         BOOST_TEST_PASSPOINT();
 
         selection_type selection;
         concrete_item item(selection);
 
-        item.set_selected(true);
+        item.select();
 
         BOOST_CHECK(item.selected());
-
-        item.set_selected(false);
-
-        BOOST_CHECK(!item.selected());
     }
 
 
