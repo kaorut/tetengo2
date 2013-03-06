@@ -334,7 +334,7 @@ namespace bobura
         */
         void unselect_all_items()
         {
-
+            m_selection.unselect_all();
         }
 
 

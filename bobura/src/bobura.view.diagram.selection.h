@@ -78,6 +78,8 @@ namespace bobura { namespace view { namespace diagram
         */
         void select(const train_type& train)
         {
+            unselect_all();
+
             m_p_selected_train = &train;
         }
 
