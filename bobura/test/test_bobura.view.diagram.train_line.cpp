@@ -70,7 +70,9 @@ namespace
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef bobura::view::diagram::train_line_fragment<selection_type, canvas_type> train_line_fragment_type;
+    typedef
+        bobura::view::diagram::train_line_fragment<model_type, selection_type, canvas_type, message_catalog_type>
+        train_line_fragment_type;
 
     typedef
         bobura::view::diagram::train_line<model_type, selection_type, canvas_type, message_catalog_type>
@@ -97,13 +99,23 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        const train_type train(
+            string_type(TETENGO2_TEXT("number")),
+            0,
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("name_number")),
+            string_type(TETENGO2_TEXT("note"))
+        );
         selection_type selection;
+        const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
+            train,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         const train_line_fragment_type train_line_fragment2(std::move(train_line_fragment1));
     }
@@ -112,20 +124,32 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        const train_type train(
+            string_type(TETENGO2_TEXT("number")),
+            0,
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("name_number")),
+            string_type(TETENGO2_TEXT("note"))
+        );
         selection_type selection;
+        const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
+            train,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         train_line_fragment_type train_line_fragment2(
+            train,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         train_line_fragment1 = std::move(train_line_fragment2);
     }
