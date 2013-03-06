@@ -138,6 +138,7 @@ namespace bobura { namespace view { namespace diagram
             m_bottom = std::move(another.m_bottom);
             m_width = std::move(another.m_width);
             m_hours = another.m_hours;
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -347,6 +348,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_font = another.m_p_font;
             m_p_color = another.m_p_color;
             m_time_lines = std::move(another.m_time_lines);
+            base_type::operator=(std::move(another));
 
             return *this;
         }

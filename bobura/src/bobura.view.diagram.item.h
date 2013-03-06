@@ -49,7 +49,7 @@ namespace bobura { namespace view { namespace diagram
         */
         explicit item(selection_type& selection)
         :
-        m_selection(selection)
+        m_p_selection(&selection)
         {}
 
         /*!
@@ -61,6 +61,23 @@ namespace bobura { namespace view { namespace diagram
 
 
         // functions
+
+        /*!
+            \brief Assigns an item.
+
+            \param another Another item.
+
+            \return This item.
+        */
+        item& operator=(item&& another)
+        {
+            if (&another == this)
+                return *this;
+
+            m_p_selection = another.m_p_selection;
+
+            return *this;
+        }
 
         /*!
             \brief Draws this item on the canvas.
@@ -108,7 +125,7 @@ namespace bobura { namespace view { namespace diagram
         const selection_type& selection()
         const
         {
-            return m_selection;
+            return *m_p_selection;
         }
 
         /*!
@@ -118,7 +135,7 @@ namespace bobura { namespace view { namespace diagram
         */
         selection_type& selection()
         {
-            return m_selection;
+            return *m_p_selection;
         }
 
         /*!
@@ -144,7 +161,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // variables
 
-        selection_type& m_selection;
+        selection_type* m_p_selection;
 
 
         // virtual functions

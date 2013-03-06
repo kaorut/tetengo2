@@ -147,6 +147,7 @@ namespace bobura { namespace view { namespace diagram
             m_down = another.m_down;
             m_draw_train_name = another.m_draw_train_name;
             m_p_message_catalog = another.m_p_message_catalog;
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -553,6 +554,7 @@ namespace bobura { namespace view { namespace diagram
 
             m_p_train_kind = another.m_p_train_kind;
             m_fragments = std::move(another.m_fragments);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -1178,6 +1180,7 @@ namespace bobura { namespace view { namespace diagram
 
             m_p_font = another.m_p_font;
             m_train_lines = std::move(another.m_train_lines);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
