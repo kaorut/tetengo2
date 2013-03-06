@@ -100,7 +100,6 @@ namespace bobura { namespace view { namespace diagram
         m_arrival(std::move(arrival)),
         m_down(down),
         m_draw_train_name(draw_train_name),
-        m_selected(false),
         m_p_message_catalog(&message_catalog)
         {}
 
@@ -117,7 +116,6 @@ namespace bobura { namespace view { namespace diagram
         m_arrival(std::move(another.m_arrival)),
         m_down(another.m_down),
         m_draw_train_name(another.m_draw_train_name),
-        m_selected(another.m_selected),
         m_p_message_catalog(another.m_p_message_catalog)
         {}
 
@@ -148,7 +146,6 @@ namespace bobura { namespace view { namespace diagram
             m_arrival = std::move(another.m_arrival);
             m_down = another.m_down;
             m_draw_train_name = another.m_draw_train_name;
-            m_selected = another.m_selected;
             m_p_message_catalog = another.m_p_message_catalog;
 
             return *this;
@@ -336,8 +333,6 @@ namespace bobura { namespace view { namespace diagram
 
         bool m_draw_train_name;
 
-        bool m_selected;
-
         const message_catalog_type* m_p_message_catalog;
 
 
@@ -347,10 +342,10 @@ namespace bobura { namespace view { namespace diagram
         const
         {
             size_type original_line_width = canvas.line_width();
-            if (m_selected)
+            if (selected())
                 canvas.set_line_width(original_line_width * 4);
             canvas.draw_line(m_departure, m_arrival);
-            if (m_selected)
+            if (selected())
                 canvas.set_line_width(std::move(original_line_width));
 
             if (m_draw_train_name)
@@ -376,12 +371,13 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const
         {
-            return m_selected;
+            return this->selection().selected(*m_p_train);
         }
 
         virtual void set_selected_impl(const bool selected)
         {
-            m_selected = selected;
+            if (selected)
+                this->selection().select(*m_p_train);
         }
 
 
