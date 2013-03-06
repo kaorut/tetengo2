@@ -388,18 +388,19 @@ namespace bobura { namespace view { namespace diagram
 
         virtual void select_impl(const bool switch_selection_style)
         {
-            const bool fragment_selected =
+            const bool whole_selected = this->selection().selected(*m_p_train, boost::none);
+            const bool this_fragment_selected =
                 this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
+            const bool any_fragment_selected =
+                this->selection().selected(
+                    *m_p_train, boost::make_optional(std::numeric_limits<stop_index_type>::max())
+                );
+
             bool select_fragment = false;
             if (switch_selection_style)
-            {
-                if (!fragment_selected)
-                    select_fragment = true;
-            }
+                select_fragment = whole_selected || (!this_fragment_selected && any_fragment_selected);
             else
-            {
-                select_fragment = fragment_selected;
-            }
+                select_fragment = this_fragment_selected;
             this->selection().select(*m_p_train, boost::make_optional(select_fragment, m_departure_stop_index));
         }
 

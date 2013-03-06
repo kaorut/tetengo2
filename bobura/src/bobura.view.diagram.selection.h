@@ -10,6 +10,7 @@
 #define BOBURA_VIEW_DIAGRAM_SELECTION_H
 
 #include <cstddef>
+#include <limits>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -62,7 +63,10 @@ namespace bobura { namespace view { namespace diagram
             \brief Checks whether the train is selected.
 
             \param train                A train.
-            \param departure_stop_index A departure stop index. Or specify boost::none when a whole train is selected.
+            \param departure_stop_index A departure stop index.
+                                        Specity std::numeric_limits<stop_index_type>::max() to test whether any
+                                        fragment is selected.
+                                        Or specify boost::none to test whether a whole train is selected.
 
             \retval true  When the train is selected.
             \retval false Otherwise.
@@ -72,14 +76,19 @@ namespace bobura { namespace view { namespace diagram
         {
             if (!m_p_selected_train)
                 return false;
-            if (departure_stop_index != m_departure_stop_index)
+            if (!departure_stop_index != !m_departure_stop_index)
                 return false;
             if (!departure_stop_index)
             {
                 assert(!m_departure_stop_index);
                 return &train == m_p_selected_train;
             }
-            return &train == m_p_selected_train && *departure_stop_index == *m_departure_stop_index;
+            return
+                &train == m_p_selected_train &&
+                (
+                    *departure_stop_index == std::numeric_limits<stop_index_type>::max() ||
+                    *departure_stop_index == *m_departure_stop_index
+                );
         }
 
         /*!
