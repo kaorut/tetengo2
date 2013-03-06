@@ -71,7 +71,7 @@ namespace
             return m_selected;
         }
 
-        virtual void select_impl()
+        virtual void select_impl(const bool switch_selection_style)
         {
             m_selected = true;
         }
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(item)
         selection_type selection;
         concrete_item item(selection);
 
-        item.select();
+        item.select(false);
 
         BOOST_CHECK(item.selected());
     }

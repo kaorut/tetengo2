@@ -151,10 +151,12 @@ namespace bobura { namespace view { namespace diagram
 
         /*!
             \brief Selects this item.
+
+            \param switch_selection_style Specify true to switch the selection style.
         */
-        void select()
+        void select(const bool switch_selection_style)
         {
-            select_impl();
+            select_impl(switch_selection_style);
         }
 
 
@@ -173,10 +175,13 @@ namespace bobura { namespace view { namespace diagram
         = 0;
 
         virtual bool selected_impl()
-        const = 0;
+        const
+        {
+            return false;
+        }
 
-        virtual void select_impl()
-        = 0;
+        virtual void select_impl(const bool switch_selection_style)
+        {}
 
 
     };

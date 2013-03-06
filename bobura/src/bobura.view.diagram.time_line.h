@@ -181,15 +181,6 @@ namespace bobura { namespace view { namespace diagram
             return NULL;
         }
 
-        virtual bool selected_impl()
-        const
-        {
-            return false;
-        }
-
-        virtual void select_impl()
-        {}
-
 
     };
 
@@ -521,15 +512,6 @@ namespace bobura { namespace view { namespace diagram
         {
             return NULL;
         }
-
-        virtual bool selected_impl()
-        const
-        {
-            return false;
-        }
-
-        virtual void select_impl()
-        {}
 
 
     };

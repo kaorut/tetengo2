@@ -93,7 +93,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             typedef typename view_type::item_type item_type;
             item_type* const p_item = m_view.p_item_by_position(position);
             if (p_item)
-                p_item->select();
+                p_item->select(button != mouse_button_type::right);
             else
                 m_view.unselect_all_items();
 

@@ -381,12 +381,26 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const
         {
-            return this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
+            return
+                this->selection().selected(*m_p_train, boost::none) ||
+                this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
         }
 
-        virtual void select_impl()
+        virtual void select_impl(const bool switch_selection_style)
         {
-            this->selection().select(*m_p_train, boost::make_optional(m_departure_stop_index));
+            const bool fragment_selected =
+                this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
+            bool select_fragment = false;
+            if (switch_selection_style)
+            {
+                if (!fragment_selected)
+                    select_fragment = true;
+            }
+            else
+            {
+                select_fragment = fragment_selected;
+            }
+            this->selection().select(*m_p_train, boost::make_optional(select_fragment, m_departure_stop_index));
         }
 
 
@@ -1022,15 +1036,6 @@ namespace bobura { namespace view { namespace diagram
             return NULL;
         }
 
-        virtual bool selected_impl()
-        const
-        {
-            return false;
-        }
-
-        virtual void select_impl()
-        {}
-
 
     };
 
@@ -1364,15 +1369,6 @@ namespace bobura { namespace view { namespace diagram
 
             return NULL;
         }
-
-        virtual bool selected_impl()
-        const
-        {
-            return false;
-        }
-
-        virtual void select_impl()
-        {}
 
 
     };
