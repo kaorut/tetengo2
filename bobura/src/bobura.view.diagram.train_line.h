@@ -54,6 +54,9 @@ namespace bobura { namespace view { namespace diagram
         //! The train type.
         typedef typename model_type::timetable_type::train_type train_type;
 
+        //! The stop index type.
+        typedef typename train_type::stops_type::size_type stop_index_type;
+
         //! The selection type.
         typedef Selection selection_type;
 
@@ -86,6 +89,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_fragment(
             const train_type&           train,
+            const stop_index_type       departure_stop_index,
             selection_type&             selection,
             position_type               departure,
             position_type               arrival,
@@ -96,6 +100,7 @@ namespace bobura { namespace view { namespace diagram
         :
         base_type(selection),
         m_p_train(&train),
+        m_departure_stop_index(departure_stop_index),
         m_departure(std::move(departure)),
         m_arrival(std::move(arrival)),
         m_down(down),
@@ -112,6 +117,7 @@ namespace bobura { namespace view { namespace diagram
         :
         base_type(another.selection()),
         m_p_train(another.m_p_train),
+        m_departure_stop_index(another.m_departure_stop_index),
         m_departure(std::move(another.m_departure)),
         m_arrival(std::move(another.m_arrival)),
         m_down(another.m_down),
@@ -142,6 +148,7 @@ namespace bobura { namespace view { namespace diagram
                 return *this;
 
             m_p_train = another.m_p_train;
+            m_departure_stop_index = another.m_departure_stop_index;
             m_departure = std::move(another.m_departure);
             m_arrival = std::move(another.m_arrival);
             m_down = another.m_down;
@@ -325,6 +332,8 @@ namespace bobura { namespace view { namespace diagram
         // variables
 
         const train_type* m_p_train;
+
+        stop_index_type m_departure_stop_index;
 
         position_type m_departure;
 
@@ -754,9 +763,9 @@ namespace bobura { namespace view { namespace diagram
 
         static void make_fragment(
             const train_type&                      train,
-            const stop_index_type                  departure_station_index,
+            const stop_index_type                  departure_stop_index,
             const time_type&                       departure_time,
-            const stop_index_type                  arrival_station_index,
+            const stop_index_type                  arrival_stop_index,
             const time_type&                       arrival_time,
             const bool                             down,
             const bool                             draw_train_name,
@@ -779,10 +788,10 @@ namespace bobura { namespace view { namespace diagram
             {
                 make_fragment_impl(
                     train,
-                    departure_station_index,
+                    departure_stop_index,
                     departure_time,
                     false,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     false,
                     down,
@@ -806,10 +815,10 @@ namespace bobura { namespace view { namespace diagram
             {
                 make_fragment_impl(
                     train,
-                    departure_station_index,
+                    departure_stop_index,
                     departure_time,
                     true,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     false,
                     down,
@@ -830,10 +839,10 @@ namespace bobura { namespace view { namespace diagram
                 );
                 make_fragment_impl(
                     train,
-                    departure_station_index,
+                    departure_stop_index,
                     departure_time,
                     false,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     true,
                     down,
@@ -857,10 +866,10 @@ namespace bobura { namespace view { namespace diagram
 
         static void make_fragment_impl(
             const train_type&                      train,
-            const stop_index_type                  departure_station_index,
+            const stop_index_type                  departure_stop_index,
             const time_type&                       departure_time,
             const bool                             previous_day_departure,
-            const stop_index_type                  arrival_station_index,
+            const stop_index_type                  arrival_stop_index,
             const time_type&                       arrival_time,
             const bool                             next_day_arrival,
             const bool                             down,
@@ -898,7 +907,7 @@ namespace bobura { namespace view { namespace diagram
                 ),
                 station_index_to_top(
                     station_positions,
-                    departure_station_index,
+                    departure_stop_index,
                     vertical_scroll_bar_position,
                     header_bottom,
                     time_header_bottom
@@ -915,7 +924,7 @@ namespace bobura { namespace view { namespace diagram
                 ),
                 station_index_to_top(
                     station_positions,
-                    arrival_station_index,
+                    arrival_stop_index,
                     vertical_scroll_bar_position,
                     header_bottom,
                     time_header_bottom
@@ -929,13 +938,13 @@ namespace bobura { namespace view { namespace diagram
             if (right_bound < station_header_right)
                 return;
             const top_type upper_bound =
-                departure_station_index < arrival_station_index ? 
+                departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(departure) :
                 tetengo2::gui::position<position_type>::top(arrival);
             if (upper_bound > top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension)))
                 return;
             const top_type lower_bound =
-                departure_station_index < arrival_station_index ? 
+                departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
             if (lower_bound < header_bottom + time_header_bottom)
@@ -943,7 +952,14 @@ namespace bobura { namespace view { namespace diagram
 
             fragments.push_back(
                 train_line_fragment_type(
-                    train, selection, std::move(departure), std::move(arrival), down, draw_train_name, message_catalog
+                    train,
+                    departure_stop_index,
+                    selection,
+                    std::move(departure),
+                    std::move(arrival),
+                    down,
+                    draw_train_name,
+                    message_catalog
                 )
             );
         }

@@ -110,6 +110,7 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
             train,
+            42,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
@@ -135,6 +136,7 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
             train,
+            42,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
@@ -144,6 +146,7 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         );
         train_line_fragment_type train_line_fragment2(
             train,
+            42,
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
