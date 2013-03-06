@@ -26,6 +26,8 @@ namespace
 
     typedef model_type::timetable_type::train_type train_type;
 
+    typedef train_type::stops_type::size_type stop_index_type;
+
     typedef bobura::view::diagram::selection<train_type> selection_type;
 
 
@@ -59,26 +61,45 @@ BOOST_AUTO_TEST_SUITE(selection)
             string_type(TETENGO2_TEXT("note"))
         );
 
-        BOOST_CHECK(!selection.selected(train));
+        BOOST_CHECK(!selection.selected(train, boost::none));
     }
 
     BOOST_AUTO_TEST_CASE(select_train)
     {
         BOOST_TEST_PASSPOINT();
 
-        selection_type selection;
+        {
+            selection_type selection;
 
-        const train_type train(
-            string_type(TETENGO2_TEXT("number")),
-            0,
-            string_type(TETENGO2_TEXT("name")),
-            string_type(TETENGO2_TEXT("name_number")),
-            string_type(TETENGO2_TEXT("note"))
-        );
+            const train_type train(
+                string_type(TETENGO2_TEXT("number")),
+                0,
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("name_number")),
+                string_type(TETENGO2_TEXT("note"))
+            );
         
-        selection.select(train);
+            selection.select(train, boost::none);
         
-        BOOST_CHECK(selection.selected(train));
+            BOOST_CHECK(selection.selected(train, boost::none));
+            BOOST_CHECK(!selection.selected(train, boost::make_optional<stop_index_type>(42)));
+        }
+        {
+            selection_type selection;
+
+            const train_type train(
+                string_type(TETENGO2_TEXT("number")),
+                0,
+                string_type(TETENGO2_TEXT("name")),
+                string_type(TETENGO2_TEXT("name_number")),
+                string_type(TETENGO2_TEXT("note"))
+            );
+        
+            selection.select(train, boost::make_optional<stop_index_type>(42));
+        
+            BOOST_CHECK(!selection.selected(train, boost::none));
+            BOOST_CHECK(selection.selected(train, boost::make_optional<stop_index_type>(42)));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(unselect_all)
@@ -94,11 +115,11 @@ BOOST_AUTO_TEST_SUITE(selection)
             string_type(TETENGO2_TEXT("name_number")),
             string_type(TETENGO2_TEXT("note"))
         );
-        selection.select(train);
+        selection.select(train, boost::none);
 
         selection.unselect_all();
 
-        BOOST_CHECK(!selection.selected(train));
+        BOOST_CHECK(!selection.selected(train, boost::none));
     }
 
 

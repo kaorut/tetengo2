@@ -12,6 +12,7 @@
 #include <cstddef>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 
 namespace bobura { namespace view { namespace diagram
@@ -29,6 +30,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The train type.
         typedef Train train_type;
+
+        //! The stop index type.
+        typedef typename train_type::stops_type::size_type stop_index_type;
 
 
         // constructors and destructor
@@ -57,30 +61,39 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Checks whether the train is selected.
 
-            \param train A train.
+            \param train                A train.
+            \param departure_stop_index A departure stop index. Or specify boost::none when a whole train is selected.
 
             \retval true  When the train is selected.
             \retval false Otherwise.
         */
-        bool selected(const train_type& train)
+        bool selected(const train_type& train, const boost::optional<stop_index_type>& departure_stop_index)
         const
         {
             if (!m_p_selected_train)
                 return false;
-
-            return &train == m_p_selected_train;
+            if (departure_stop_index != m_departure_stop_index)
+                return false;
+            if (!departure_stop_index)
+            {
+                assert(!m_departure_stop_index);
+                return &train == m_p_selected_train;
+            }
+            return &train == m_p_selected_train && *departure_stop_index == *m_departure_stop_index;
         }
 
         /*!
             \brief Selects a train.
 
-            \param train A train.
+            \param train                A train.
+            \param departure_stop_index A departure stop index. Or specify boost::none when a whole train is selected.
         */
-        void select(const train_type& train)
+        void select(const train_type& train, const boost::optional<stop_index_type>& departure_stop_index)
         {
             unselect_all();
 
             m_p_selected_train = &train;
+            m_departure_stop_index = departure_stop_index;
         }
 
         /*!
@@ -89,6 +102,7 @@ namespace bobura { namespace view { namespace diagram
         void unselect_all()
         {
             m_p_selected_train = NULL;
+            m_departure_stop_index = boost::none;
         }
 
 
@@ -96,6 +110,8 @@ namespace bobura { namespace view { namespace diagram
         // variables
 
         const train_type* m_p_selected_train;
+
+        boost::optional<stop_index_type> m_departure_stop_index;
 
 
     };

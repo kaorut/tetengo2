@@ -381,12 +381,12 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const
         {
-            return this->selection().selected(*m_p_train);
+            return this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
         }
 
         virtual void select_impl()
         {
-            this->selection().select(*m_p_train);
+            this->selection().select(*m_p_train, boost::make_optional(m_departure_stop_index));
         }
 
 
