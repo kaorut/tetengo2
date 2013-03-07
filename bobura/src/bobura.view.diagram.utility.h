@@ -76,6 +76,45 @@ namespace bobura { namespace view { namespace diagram
         return station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
     }
 
+    /*!
+        \brief Returns the normal line width.
+
+        \tparam Size A size type.
+
+        \return The normal line width.
+    */
+    template <typename Size>
+    Size normal_line_width()
+    {
+        return Size(typename Size::value_type(1, 12));
+    }
+
+    /*!
+        \brief Returns the bold line width.
+
+        \tparam Size A size type.
+
+        \return The bold line width.
+    */
+    template <typename Size>
+    Size bold_line_width()
+    {
+        return Size(typename Size::value_type(1, 6));
+    }
+
+    /*!
+        \brief Returns the selected line margin.
+
+        \tparam Size A size type.
+
+        \return The selected line margin.
+    */
+    template <typename Size>
+    Size selected_line_margin()
+    {
+        return Size(typename Size::value_type(1, 3));
+    }
+
 
 }}}
 

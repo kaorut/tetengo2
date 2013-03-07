@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.detail.stub.unit.h>
@@ -26,6 +27,9 @@ namespace
     typedef bobura::model::train_info::time_span<int> time_span_type;
 
     typedef bobura::model::train_info::time<int, time_span_type> time_type;
+
+    typedef tetengo2::gui::unit::em<boost::rational<int>, tetengo2::detail::stub::unit> size_type;
+
 
 }
 
@@ -58,6 +62,27 @@ BOOST_AUTO_TEST_SUITE(diagram)
             bobura::view::diagram::station_index_to_top(station_positions, 1, top_type(2), top_type(3), top_type(4));
 
         BOOST_CHECK_EQUAL(result.value(), 47);
+    }
+
+    BOOST_AUTO_TEST_CASE(normal_line_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        bobura::view::diagram::normal_line_width<size_type>();
+    }
+
+    BOOST_AUTO_TEST_CASE(bold_line_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        bobura::view::diagram::bold_line_width<size_type>();
+    }
+
+    BOOST_AUTO_TEST_CASE(selected_line_margin)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        bobura::view::diagram::selected_line_margin<size_type>();
     }
 
 

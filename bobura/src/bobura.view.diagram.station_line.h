@@ -474,7 +474,7 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+            canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
 
             BOOST_FOREACH (const station_line_type& station_line, m_station_lines)

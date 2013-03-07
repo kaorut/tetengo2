@@ -365,9 +365,8 @@ namespace bobura { namespace view { namespace diagram
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
             return
-                calculate_distance(position, m_departure, m_arrival) <=
-                    size_type(typename size_type::value_type(1, 6)) ?
-                    this : NULL;
+                calculate_distance(position, m_departure, m_arrival) <= selected_line_margin<size_type>() ?
+                this : NULL;
         }
 
         virtual bool selected_impl()
@@ -413,10 +412,10 @@ namespace bobura { namespace view { namespace diagram
                 );
                 canvas.set_line_style(line_style_type::solid);
 
-                canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(2, 3)));
+                canvas.set_line_width(original_line_width + selected_line_margin<size_type>() * 2);
                 canvas.draw_line(m_departure, m_arrival);
 
-                canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(1, 3)));
+                canvas.set_line_width(original_line_width + selected_line_margin<size_type>());
                 canvas.draw_line(m_departure, m_arrival);
 
                 canvas.set_color(std::move(original_color));
@@ -1050,7 +1049,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_color(m_p_train_kind->color());
             canvas.set_line_width(
                 m_p_train_kind->weight() == train_kind_type::weight_type::bold ?
-                size_type(typename size_type::value_type(1, 6)) : size_type(typename size_type::value_type(1, 12))
+                bold_line_width<size_type>() : normal_line_width<size_type>()
             );
             canvas.set_line_style(translate_line_style(m_p_train_kind->line_style()));
 
