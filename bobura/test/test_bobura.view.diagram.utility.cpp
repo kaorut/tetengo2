@@ -6,7 +6,10 @@
     $Id$
 */
 
-#include <boost/rational.hpp>
+//#include <memory>
+//#include <vector>
+
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.detail.stub.unit.h>
