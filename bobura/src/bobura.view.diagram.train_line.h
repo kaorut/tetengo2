@@ -177,10 +177,6 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename canvas_type::size_type size_type;
 
-        typedef typename canvas_type::color_type color_type;
-
-        typedef typename canvas_type::line_style_type line_style_type;
-
         typedef std::pair<double, double> geo_vector_type;
 
 
@@ -357,7 +353,7 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            draw_line(canvas);
+            draw_selectable_line(canvas, m_departure, m_arrival, this->selected());
             if (m_draw_train_name)
                 draw_train_name(canvas);
         }
@@ -397,34 +393,6 @@ namespace bobura { namespace view { namespace diagram
 
 
         // functions
-
-        void draw_line(canvas_type& canvas)
-        const
-        {
-            if (this->selected())
-            {
-                color_type original_color = canvas.color();
-                const typename line_style_type::enum_t original_line_style = canvas.line_style();
-                size_type original_line_width = canvas.line_width();
-
-                canvas.set_color(
-                    color_type(original_color.red(), original_color.green(), original_color.blue(), 0x20)
-                );
-                canvas.set_line_style(line_style_type::solid);
-
-                canvas.set_line_width(original_line_width + selected_line_margin<size_type>() * 2);
-                canvas.draw_line(m_departure, m_arrival);
-
-                canvas.set_line_width(original_line_width + selected_line_margin<size_type>());
-                canvas.draw_line(m_departure, m_arrival);
-
-                canvas.set_color(std::move(original_color));
-                canvas.set_line_style(original_line_style);
-                canvas.set_line_width(std::move(original_line_width));
-            }
-
-            canvas.draw_line(m_departure, m_arrival);
-        }
 
         void draw_train_name(canvas_type& canvas)
         const
