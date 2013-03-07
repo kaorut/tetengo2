@@ -22,6 +22,7 @@
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
 //#include <boost/rational.hpp>
+#include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -174,6 +175,8 @@ namespace bobura { namespace view { namespace diagram
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename canvas_type::size_type size_type;
+
+        typedef typename canvas_type::color_type color_type;
 
         typedef std::pair<double, double> geo_vector_type;
 
@@ -351,23 +354,9 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            size_type original_line_width = canvas.line_width();
-            if (this->selected())
-                canvas.set_line_width(original_line_width * 4);
-            canvas.draw_line(m_departure, m_arrival);
-            if (this->selected())
-                canvas.set_line_width(std::move(original_line_width));
-
+            draw_line(canvas);
             if (m_draw_train_name)
-            {
-                const string_type train_name = make_train_name(*m_p_train, *m_p_message_catalog);
-                const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
-                canvas.draw_text(
-                    train_name,
-                    calculate_train_name_position(m_departure, train_name, train_name_angle, m_down, canvas),
-                    train_name_angle
-                );
-            }
+                draw_train_name(canvas);
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
@@ -402,6 +391,48 @@ namespace bobura { namespace view { namespace diagram
             else
                 select_fragment = this_fragment_selected;
             this->selection().select(*m_p_train, boost::make_optional(select_fragment, m_departure_stop_index));
+        }
+
+
+        // functions
+
+        void draw_line(canvas_type& canvas)
+        const
+        {
+            if (this->selected())
+            {
+                color_type original_color = canvas.color();
+                size_type original_line_width = canvas.line_width();
+                BOOST_SCOPE_EXIT ((&canvas)(&original_color)(original_line_width))
+                {
+                    canvas.set_color(std::move(original_color));
+                    canvas.set_line_width(std::move(original_line_width));
+                } BOOST_SCOPE_EXIT_END;
+
+                canvas.set_color(
+                    color_type(original_color.red(), original_color.green(), original_color.blue(), 0x40)
+                );
+
+                canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(2, 3)));
+                canvas.draw_line(m_departure, m_arrival);
+
+                canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(1, 3)));
+                canvas.draw_line(m_departure, m_arrival);
+            }
+
+            canvas.draw_line(m_departure, m_arrival);
+        }
+
+        void draw_train_name(canvas_type& canvas)
+        const
+        {
+            const string_type train_name = make_train_name(*m_p_train, *m_p_message_catalog);
+            const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
+            canvas.draw_text(
+                train_name,
+                calculate_train_name_position(m_departure, train_name, train_name_angle, m_down, canvas),
+                train_name_angle
+            );
         }
 
 
