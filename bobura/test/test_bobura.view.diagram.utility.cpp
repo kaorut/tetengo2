@@ -21,6 +21,8 @@ namespace
 {
     typedef tetengo2::gui::unit::em<int, tetengo2::detail::stub::unit> left_type;
 
+    typedef tetengo2::gui::unit::em<int, tetengo2::detail::stub::unit> top_type;
+
     typedef bobura::model::train_info::time_span<int> time_span_type;
 
     typedef bobura::model::train_info::time<int, time_span_type> time_type;
@@ -38,15 +40,24 @@ BOOST_AUTO_TEST_SUITE(diagram)
 
         const left_type result =
             bobura::view::diagram::time_to_left(
-                time_type(1),
-                time_span_type(2),
-                0,
-                left_type(3),
-                left_type(4),
-                left_type(5)
+                time_type(1), time_span_type(2), 0, left_type(3), left_type(4), left_type(5)
             );
 
         BOOST_CHECK_EQUAL(result.value(), 2396);
+    }
+
+    BOOST_AUTO_TEST_CASE(station_index_to_top)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<int> station_positions;
+        station_positions.push_back(0);
+        station_positions.push_back(42);
+
+        const top_type result =
+            bobura::view::diagram::station_index_to_top(station_positions, 1, top_type(2), top_type(3), top_type(4));
+
+        BOOST_CHECK_EQUAL(result.value(), 47);
     }
 
 
