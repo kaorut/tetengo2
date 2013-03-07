@@ -22,7 +22,6 @@
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
 //#include <boost/rational.hpp>
-#include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -403,11 +402,6 @@ namespace bobura { namespace view { namespace diagram
             {
                 color_type original_color = canvas.color();
                 size_type original_line_width = canvas.line_width();
-                BOOST_SCOPE_EXIT ((&canvas)(&original_color)(original_line_width))
-                {
-                    canvas.set_color(std::move(original_color));
-                    canvas.set_line_width(std::move(original_line_width));
-                } BOOST_SCOPE_EXIT_END;
 
                 canvas.set_color(
                     color_type(original_color.red(), original_color.green(), original_color.blue(), 0x40)
@@ -418,6 +412,9 @@ namespace bobura { namespace view { namespace diagram
 
                 canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(1, 3)));
                 canvas.draw_line(m_departure, m_arrival);
+
+                canvas.set_color(std::move(original_color));
+                canvas.set_line_width(std::move(original_line_width));
             }
 
             canvas.draw_line(m_departure, m_arrival);
