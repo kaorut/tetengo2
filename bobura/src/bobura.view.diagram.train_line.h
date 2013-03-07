@@ -12,6 +12,7 @@
 #include <cassert>
 //#include <cmath>
 //#include <cstddef>
+#include <limits>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
@@ -21,6 +22,7 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
+#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 

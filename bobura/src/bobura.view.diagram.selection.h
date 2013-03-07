@@ -9,6 +9,7 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_SELECTION_H)
 #define BOBURA_VIEW_DIAGRAM_SELECTION_H
 
+#include <cassert>
 #include <cstddef>
 #include <limits>
 
