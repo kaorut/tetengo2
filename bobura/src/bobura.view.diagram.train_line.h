@@ -177,6 +177,8 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename canvas_type::color_type color_type;
 
+        typedef typename canvas_type::line_style_type line_style_type;
+
         typedef std::pair<double, double> geo_vector_type;
 
 
@@ -401,11 +403,13 @@ namespace bobura { namespace view { namespace diagram
             if (this->selected())
             {
                 color_type original_color = canvas.color();
+                const typename line_style_type::enum_t original_line_style = canvas.line_style();
                 size_type original_line_width = canvas.line_width();
 
                 canvas.set_color(
                     color_type(original_color.red(), original_color.green(), original_color.blue(), 0x40)
                 );
+                canvas.set_line_style(line_style_type::solid);
 
                 canvas.set_line_width(original_line_width + size_type(typename size_type::value_type(2, 3)));
                 canvas.draw_line(m_departure, m_arrival);
@@ -414,6 +418,7 @@ namespace bobura { namespace view { namespace diagram
                 canvas.draw_line(m_departure, m_arrival);
 
                 canvas.set_color(std::move(original_color));
+                canvas.set_line_style(original_line_style);
                 canvas.set_line_width(std::move(original_line_width));
             }
 
