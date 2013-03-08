@@ -32,7 +32,9 @@ if (scalar(@ARGV) < 3)
 		}
 		else
 		{
-			print 'WARNING: No test case for function: '.$function."\n";
+			print "WARNING: No test case for function:\n";
+			print '  '.$function."\n";
+			print '  -> '.$expected_test_case."\n";
 		}
 	}
 	
@@ -42,7 +44,8 @@ if (scalar(@ARGV) < 3)
 		
 		if ($test_cases{$test_case} eq 'x')
 		{
-			print 'WARNING: No function for test case: '.$test_case."\n";
+			print "WARNING: No function for test case:\n";
+			print '  '.$test_case."\n";
 		}
 	}
 	

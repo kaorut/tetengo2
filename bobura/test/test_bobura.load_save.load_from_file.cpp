@@ -149,6 +149,13 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(reloadable)
+    {
+        BOOST_TEST_PASSPOINT();
+    
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();

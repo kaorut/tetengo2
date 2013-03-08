@@ -65,6 +65,25 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
+BOOST_AUTO_TEST_SUITE(popup_menu_selected)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(menu_command_selected)
     // test cases
 
@@ -92,7 +111,26 @@ BOOST_AUTO_TEST_SUITE(menu_command_selected)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(window)
+BOOST_AUTO_TEST_SUITE(window_resized)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(window_closing)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -122,10 +160,10 @@ BOOST_AUTO_TEST_SUITE(window)
         const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
         settings_type settings(command_line_arguments);
         const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
-        window(parent, confirm_file_save, settings);
+        window_closing(parent, confirm_file_save, settings);
 
         bool cancel = false;
-        window(cancel);
+        window_closing(cancel);
 
         BOOST_CHECK(!cancel);
     }
