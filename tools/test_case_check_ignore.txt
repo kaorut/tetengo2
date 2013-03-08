@@ -20,3 +20,4 @@ tetengo2::gui::widget::picture_box::paint_background::
 tetengo2::gui::widget::widget::got_focus::
 tetengo2::gui::widget::widget::lost_focus::
 tetengo2::gui::widget::widget::paint_background::
+tetengo2::message::messages::matches_locale_type::

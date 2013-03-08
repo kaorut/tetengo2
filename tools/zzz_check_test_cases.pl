@@ -131,6 +131,10 @@ sub to_expected_test_case
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_divide_assign/;
 		}
+		elsif ($1 =~ /[a-zA-Z0-9_]+/)
+		{
+			$test_case =~ s/::operator ([^:]+)$/::operator_$1/;
+		}
 	}
 	
 	return $test_case;

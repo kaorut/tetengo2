@@ -117,6 +117,13 @@ BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(messages)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(remove_namespace)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();

@@ -14,19 +14,32 @@
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(text_value_holder)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(text_)
+    BOOST_AUTO_TEST_CASE(construction)
     {
-        {
-            const std::string string(TETENGO2_TEXT("hoge"));
-            BOOST_CHECK(string == "hoge");
-        }
-        {
-            const std::wstring string(TETENGO2_TEXT("hoge"));
-            BOOST_CHECK(string == L"hoge");
-        }
+        BOOST_TEST_PASSPOINT();
+
+        TETENGO2_TEXT("hoge");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_multibyte_type)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::string string(TETENGO2_TEXT("hoge"));
+        BOOST_CHECK(string == "hoge");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_wide_type)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::wstring string(TETENGO2_TEXT("hoge"));
+        BOOST_CHECK(string == L"hoge");
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

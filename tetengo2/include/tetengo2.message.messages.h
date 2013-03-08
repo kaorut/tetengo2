@@ -90,6 +90,7 @@ namespace tetengo2 { namespace message
             return offset == string_type::npos ? key : key.substr(offset + 1);
         }
 
+
         // constructors and destructor
 
         /*!
