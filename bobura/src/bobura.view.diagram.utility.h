@@ -142,7 +142,7 @@ namespace bobura { namespace view { namespace diagram
             size_type original_line_width = canvas.line_width();
 
             canvas.set_color(
-                color_type(original_color.red(), original_color.green(), original_color.blue(), 0x20)
+                color_type(original_color.red(), original_color.green(), original_color.blue(), 0x30)
             );
             canvas.set_line_style(line_style_type::solid);
 
