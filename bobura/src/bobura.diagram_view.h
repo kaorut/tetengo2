@@ -287,6 +287,8 @@ namespace bobura
             When position is in the region of an item, this function returns a pointer to the item.
             Otherwise, this function returns NULL;
 
+            \param position A position.
+
             \return A pointer to the item.
         */
         const item_type* p_item_by_position(const position_type& position)
@@ -300,6 +302,8 @@ namespace bobura
 
             When position is in the region of an item, this function returns a pointer to the item.
             Otherwise, this function returns NULL;
+
+            \param position A position.
 
             \return A pointer to the item.
         */

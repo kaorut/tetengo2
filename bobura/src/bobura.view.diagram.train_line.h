@@ -83,11 +83,14 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a train line fragment.
 
-            \param selection  A selection.
-            \param departure  A departure position.
-            \param arrival    A arrival position.
-            \param train_name A train name.
-            \param down       Set true for a down train.
+            \param train                A train.
+            \param departure_stop_index A departure stop index.
+            \param selection            A selection.
+            \param departure            A departure position.
+            \param arrival              A arrival position.
+            \param down                 Set true for a down train.
+            \param draw_train_name      Set true to draw the train name.
+            \param message_catalog      A message catalog.
         */
         train_line_fragment(
             const train_type&           train,

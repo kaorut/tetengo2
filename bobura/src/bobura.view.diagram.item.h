@@ -96,6 +96,8 @@ namespace bobura { namespace view { namespace diagram
             When position is in the region of this item or its child, this function returns a pointer to the item.
             Otherwise, this function returns NULL;
 
+            \param position A position.
+
             \return A pointer to the item.
         */
         item* p_item_by_position(const position_type& position)
@@ -108,6 +110,8 @@ namespace bobura { namespace view { namespace diagram
 
             When position is in the region of this item or its child, this function returns a pointer to the item.
             Otherwise, this function returns NULL;
+
+            \param position A position.
 
             \return A pointer to the item.
         */
