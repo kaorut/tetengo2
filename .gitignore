@@ -23,5 +23,7 @@ missing
 obj/
 obj.test/
 stamp-h1
+tools/functions.txt
+tools/test_cases.txt
 */test/*.test*
 */test/messages.test/
