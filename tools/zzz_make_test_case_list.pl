@@ -28,7 +28,10 @@ while (<$fh>)
 	}
 	elsif ($line =~ /BOOST_AUTO_TEST_CASE\(([a-zA-Z0-9_]+)\)/)
 	{
-		print join('::', @suit, $1)."\n";
+		my($name) = $1;
+		$name =~ s/_O_[a-zA-Z0-9_]+$//;
+		
+		print join('::', @suit, $name)."\n";
 	}
 }
 close($fh);

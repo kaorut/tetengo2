@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         const selection_type selection;
     }
 
-    BOOST_AUTO_TEST_CASE(selected_train)
+    BOOST_AUTO_TEST_CASE(selected_O_train)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         BOOST_CHECK(!selection.selected(train, boost::none));
     }
 
-    BOOST_AUTO_TEST_CASE(select_train)
+    BOOST_AUTO_TEST_CASE(select_O_train)
     {
         BOOST_TEST_PASSPOINT();
 
