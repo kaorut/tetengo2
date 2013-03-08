@@ -115,6 +115,14 @@ sub to_expected_test_case
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_assign/;
 		}
+		elsif ($1 eq '+=')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_plus_assign/;
+		}
+		elsif ($1 eq '-=')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_minus_assign/;
+		}
 	}
 	
 	return $test_case;
