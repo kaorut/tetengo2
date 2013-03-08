@@ -61,6 +61,7 @@
 #include <tetengo2.gui.message.scroll_bar_observer_set.h>
 #include <tetengo2.gui.message.text_box_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
+#include <tetengo2.gui.mouse_capture.h>
 #include <tetengo2.gui.scroll_bar.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.unit.point.h>
@@ -89,6 +90,7 @@
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
+#include <tetengo2.gui.widget.widget.h>
 #include <tetengo2.gui.widget.window.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
@@ -136,6 +138,7 @@
 #include "bobura.timetable_model.h"
 #include "bobura.train_kind_dialog.h"
 #include "bobura.view.diagram.header.h"
+#include "bobura.view.diagram.selection.h"
 #include "bobura.view.diagram.station_line.h"
 #include "bobura.view.diagram.time_line.h"
 #include "bobura.view.diagram.train_line.h"
@@ -322,6 +325,7 @@ namespace bobura
         struct menu_separator; //!< The menu separator type;
         struct message_loop;   //!< The message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct mouse_capture;  //!< The mouse capture type.
         struct picture_box;    //!< The picture box type.
         struct picture_reader; //!< The picture reader type.
         struct point_unit_size; //!< The point unit size type.
@@ -497,6 +501,13 @@ namespace bobura
                 >
             >
             widget_traits_type;
+        typedef
+            tetengo2::gui::widget::widget<
+                widget_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            widget_type;
         typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
         typedef
             tetengo2::gui::menu::traits<
@@ -723,6 +734,13 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::ui::mouse_capture,
+                tetengo2::gui::mouse_capture<
+                    detail::ui::widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+                >
+            >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
@@ -748,7 +766,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -1087,28 +1105,31 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace view
     {
+        typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
+        typedef model_type::timetable_type::train_type train_type;
+        typedef bobura::view::diagram::selection<train_type> selection_type;
         typedef
             bobura::view::diagram::header<
-                boost::mpl::at<model_type_list, type::model::model>::type,
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
             >
             diagram_header_type;
         typedef
             bobura::view::diagram::time_line_list<
-                boost::mpl::at<model_type_list, type::model::model>::type,
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
             >
             diagram_time_line_list_type;
         typedef
             bobura::view::diagram::station_line_list<
-                boost::mpl::at<model_type_list, type::model::model>::type,
+                model_type,
+                selection_type,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type
             >
             diagram_station_line_list_type;
         typedef
             bobura::view::diagram::train_line_list<
-                boost::mpl::at<model_type_list, type::model::model>::type,
+                model_type,
+                selection_type,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
             >
@@ -1127,6 +1148,7 @@ namespace bobura
                     detail::view::diagram_station_line_list_type,
                     detail::view::diagram_train_line_list_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
+                    detail::view::selection_type,
                     boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type

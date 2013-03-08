@@ -17,6 +17,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.station_line.h"
 
@@ -28,6 +29,10 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
 
@@ -63,16 +68,19 @@ namespace
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
         station_grade_type_set_type;
     
-    typedef bobura::view::diagram::station_line<canvas_type> station_line_type;
+    typedef bobura::view::diagram::station_line<selection_type, canvas_type> station_line_type;
 
     typedef
-        bobura::view::diagram::station_line_list<model_type, canvas_type, station_grade_type_set_type>
+        bobura::view::diagram::station_line_list<model_type, selection_type, canvas_type, station_grade_type_set_type>
         station_line_list_type;
 
 
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(view)
 BOOST_AUTO_TEST_SUITE(diagram)
@@ -83,7 +91,9 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         station_line_type station_line1(
+            selection,
             left_type(42),
             top_type(24),
             string_type(),
@@ -98,7 +108,9 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         station_line_type station_line1(
+            selection,
             left_type(42),
             top_type(24),
             string_type(),
@@ -107,6 +119,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
             color_type(12, 34, 56)
         );
         station_line_type station_line2(
+            selection,
             left_type(42),
             top_type(24),
             string_type(),
@@ -127,12 +140,14 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_list_type station_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -152,12 +167,14 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         station_line_list_type station_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -172,6 +189,7 @@ BOOST_AUTO_TEST_SUITE(station_line_list)
         station_line_list_type station_line_list2(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -192,3 +210,4 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

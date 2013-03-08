@@ -16,6 +16,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.header.h"
 
@@ -27,6 +28,10 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -50,11 +55,11 @@ namespace
 
     typedef canvas_type::color_type color_type;
 
-    typedef bobura::view::diagram::company_line_name_header<canvas_type> company_line_name_header_type;
+    typedef bobura::view::diagram::company_line_name_header<selection_type, canvas_type> company_line_name_header_type;
 
-    typedef bobura::view::diagram::note_header<canvas_type> note_header_type;
+    typedef bobura::view::diagram::note_header<selection_type, canvas_type> note_header_type;
 
-    typedef bobura::view::diagram::header<model_type, canvas_type> header_type;
+    typedef bobura::view::diagram::header<model_type, selection_type, canvas_type> header_type;
 
 
 }
@@ -70,7 +75,9 @@ BOOST_AUTO_TEST_SUITE(company_line_name_header)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         company_line_name_header_type header1(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -84,7 +91,9 @@ BOOST_AUTO_TEST_SUITE(company_line_name_header)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         company_line_name_header_type header1(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -92,6 +101,7 @@ BOOST_AUTO_TEST_SUITE(company_line_name_header)
             dimension_type(width_type(24), height_type(42))
         );
         company_line_name_header_type header2(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -111,7 +121,9 @@ BOOST_AUTO_TEST_SUITE(note_header)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         note_header_type header1(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -125,7 +137,9 @@ BOOST_AUTO_TEST_SUITE(note_header)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         note_header_type header1(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -133,6 +147,7 @@ BOOST_AUTO_TEST_SUITE(note_header)
             dimension_type(width_type(24), height_type(42))
         );
         note_header_type header2(
+            selection,
             string_type(TETENGO2_TEXT("hoge")),
             font_type::dialog_font(),
             color_type(12, 34, 56),
@@ -153,10 +168,11 @@ BOOST_AUTO_TEST_SUITE(header)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        header_type header1(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        header_type header1(model, selection, *p_canvas, dimension_type(width_type(42), height_type(24)));
         const header_type header2(std::move(header1));
     }
 
@@ -165,11 +181,12 @@ BOOST_AUTO_TEST_SUITE(header)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        header_type header1(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
-        header_type header2(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        header_type header1(model, selection, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        header_type header2(model, selection, *p_canvas, dimension_type(width_type(42), height_type(24)));
 
         header1 = std::move(header2);
     }
@@ -179,10 +196,11 @@ BOOST_AUTO_TEST_SUITE(header)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
-        const header_type header(model, *p_canvas, dimension_type(width_type(42), height_type(24)));
+        const header_type header(model, selection, *p_canvas, dimension_type(width_type(42), height_type(24)));
 
         header.dimension();
     }

@@ -17,6 +17,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.view.diagram.train_line.h"
 
@@ -30,6 +31,8 @@ namespace
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
     typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type;
 
     typedef train_type::stop_type::time_type time_type;
 
@@ -67,12 +70,17 @@ namespace
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef bobura::view::diagram::train_line_fragment<canvas_type> train_line_fragment_type;
-
-    typedef bobura::view::diagram::train_line<model_type, canvas_type, message_catalog_type> train_line_type;
+    typedef
+        bobura::view::diagram::train_line_fragment<model_type, selection_type, canvas_type, message_catalog_type>
+        train_line_fragment_type;
 
     typedef
-        bobura::view::diagram::train_line_list<model_type, canvas_type, message_catalog_type> train_line_list_type;
+        bobura::view::diagram::train_line<model_type, selection_type, canvas_type, message_catalog_type>
+        train_line_type;
+
+    typedef
+        bobura::view::diagram::train_line_list<model_type, selection_type, canvas_type, message_catalog_type>
+        train_line_list_type;
 
 
 }
@@ -91,11 +99,24 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        const train_type train(
+            string_type(TETENGO2_TEXT("number")),
+            0,
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("name_number")),
+            string_type(TETENGO2_TEXT("note"))
+        );
+        selection_type selection;
+        const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
+            train,
+            42,
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         const train_line_fragment_type train_line_fragment2(std::move(train_line_fragment1));
     }
@@ -104,17 +125,34 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
     {
         BOOST_TEST_PASSPOINT();
 
+        const train_type train(
+            string_type(TETENGO2_TEXT("number")),
+            0,
+            string_type(TETENGO2_TEXT("name")),
+            string_type(TETENGO2_TEXT("name_number")),
+            string_type(TETENGO2_TEXT("note"))
+        );
+        selection_type selection;
+        const message_catalog_type message_catalog;
         train_line_fragment_type train_line_fragment1(
+            train,
+            42,
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         train_line_fragment_type train_line_fragment2(
+            train,
+            42,
+            selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            string_type(TETENGO2_TEXT("train_name")),
-            false
+            false,
+            true,
+            message_catalog
         );
         train_line_fragment1 = std::move(train_line_fragment2);
     }
@@ -128,6 +166,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -151,6 +190,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -170,6 +210,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -193,6 +234,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -216,6 +258,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
             train_kind,
             false,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
@@ -241,6 +284,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -249,6 +293,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -270,6 +315,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        selection_type selection;
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
         const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
@@ -278,6 +324,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list1(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
@@ -294,6 +341,7 @@ BOOST_AUTO_TEST_SUITE(train_line_list)
         train_line_list_type train_line_list2(
             model,
             time_span_type(42 * 60),
+            selection,
             *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),

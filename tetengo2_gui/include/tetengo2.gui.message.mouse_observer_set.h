@@ -79,27 +79,6 @@ namespace tetengo2 { namespace gui { namespace message
         typedef boost::signals2::signal<pressed_type> pressed_signal_type;
 
         /*!
-            \brief The observer type of moved.
-
-            \param button   A button kind.
-            \param position A position.
-            \param shift    True when shift key is pressed.
-            \param control  True when control key is pressed.
-            \param meta     True when meta key is pressed.
-        */
-        typedef
-            void moved_type(
-                typename mouse_button_type::enum_t button,
-                const position_type&               position,
-                bool                               shift,
-                bool                               control,
-                bool                               meta
-            );
-
-        //! The signal type of pressed.
-        typedef boost::signals2::signal<moved_type> moved_signal_type;
-
-        /*!
             \brief The observer type of released.
 
             \param button   A button kind.
@@ -129,6 +108,19 @@ namespace tetengo2 { namespace gui { namespace message
             vertical,   //!< Vertical.
             horizontal, //!< Horizontal.
         };};
+
+        /*!
+            \brief The observer type of moved.
+
+            \param position A position.
+            \param shift    True when shift key is pressed.
+            \param control  True when control key is pressed.
+            \param meta     True when meta key is pressed.
+        */
+        typedef void moved_type(const position_type& position, bool shift, bool control, bool meta);
+
+        //! The signal type of pressed.
+        typedef boost::signals2::signal<moved_type> moved_signal_type;
 
         /*!
             \brief The observer type of wheeled.
@@ -218,27 +210,6 @@ namespace tetengo2 { namespace gui { namespace message
         }
 
         /*!
-            \brief Returns the observer called when a mouse is moved.
-
-            \return The observer called when a mouse is moved.
-        */
-        const moved_signal_type& moved()
-        const
-        {
-            return m_moved;
-        }
-
-        /*!
-            \brief Returns the observer called when a mouse is moved.
-
-            \return The observer called when a mouse is moved.
-        */
-        moved_signal_type& moved()
-        {
-            return m_moved;
-        }
-
-        /*!
             \brief Returns the observer called when a mouse button is released.
 
             \return The observer called when a mouse button is released.
@@ -257,6 +228,27 @@ namespace tetengo2 { namespace gui { namespace message
         released_signal_type& released()
         {
             return m_released;
+        }
+
+        /*!
+            \brief Returns the observer called when a mouse is moved.
+
+            \return The observer called when a mouse is moved.
+        */
+        const moved_signal_type& moved()
+        const
+        {
+            return m_moved;
+        }
+
+        /*!
+            \brief Returns the observer called when a mouse is moved.
+
+            \return The observer called when a mouse is moved.
+        */
+        moved_signal_type& moved()
+        {
+            return m_moved;
         }
 
         /*!

@@ -11,6 +11,8 @@
 
 #include <cassert>
 //#include <cmath>
+//#include <cstddef>
+#include <limits>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
@@ -20,6 +22,7 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
+#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -36,13 +39,28 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a train line fragment in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Model          A model type.
+        \tparam Selection      A selection type.
+        \tparam Canvas         A canvas type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename Canvas>
-    class train_line_fragment : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename MessageCatalog>
+    class train_line_fragment : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The model type.
+        typedef Model model_type;
+
+        //! The train type.
+        typedef typename model_type::timetable_type::train_type train_type;
+
+        //! The stop index type.
+        typedef typename train_type::stops_type::size_type stop_index_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -53,28 +71,46 @@ namespace bobura { namespace view { namespace diagram
         //! The position type.
         typedef typename canvas_type::position_type position_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a train line fragment.
 
-            \param departure  A departure position.
-            \param arrival    A arrival position.
-            \param train_name A train name.
-            \param down       Set true for a down train.
+            \param train                A train.
+            \param departure_stop_index A departure stop index.
+            \param selection            A selection.
+            \param departure            A departure position.
+            \param arrival              A arrival position.
+            \param down                 Set true for a down train.
+            \param draw_train_name      Set true to draw the train name.
+            \param message_catalog      A message catalog.
         */
         train_line_fragment(
-            position_type      departure,
-            position_type      arrival,
-            const string_type& train_name,
-            const bool         down
+            const train_type&           train,
+            const stop_index_type       departure_stop_index,
+            selection_type&             selection,
+            position_type               departure,
+            position_type               arrival,
+            const bool                  down,
+            const bool                  draw_train_name,
+            const message_catalog_type& message_catalog
         )
         :
+        base_type(selection),
+        m_p_train(&train),
+        m_departure_stop_index(departure_stop_index),
         m_departure(std::move(departure)),
         m_arrival(std::move(arrival)),
-        m_train_name(train_name),
-        m_down(down)
+        m_down(down),
+        m_draw_train_name(draw_train_name),
+        m_p_message_catalog(&message_catalog)
         {}
 
         /*!
@@ -84,10 +120,14 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_fragment(train_line_fragment&& another)
         :
+        base_type(another.selection()),
+        m_p_train(another.m_p_train),
+        m_departure_stop_index(another.m_departure_stop_index),
         m_departure(std::move(another.m_departure)),
         m_arrival(std::move(another.m_arrival)),
-        m_train_name(std::move(another.m_train_name)),
-        m_down(another.m_down)
+        m_down(another.m_down),
+        m_draw_train_name(another.m_draw_train_name),
+        m_p_message_catalog(another.m_p_message_catalog)
         {}
 
         /*!
@@ -112,10 +152,14 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
+            m_p_train = another.m_p_train;
+            m_departure_stop_index = another.m_departure_stop_index;
             m_departure = std::move(another.m_departure);
             m_arrival = std::move(another.m_arrival);
-            m_train_name = std::move(another.m_train_name);
             m_down = another.m_down;
+            m_draw_train_name = another.m_draw_train_name;
+            m_p_message_catalog = another.m_p_message_catalog;
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -134,8 +178,33 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
+        typedef typename canvas_type::size_type size_type;
+
+        typedef std::pair<double, double> geo_vector_type;
+
 
         // static functions
+
+        static string_type make_train_name(const train_type& train, const message_catalog_type& message_catalog)
+        {
+            std::basic_ostringstream<typename string_type::value_type> name;
+
+            name << train.number();
+            name << string_type(TETENGO2_TEXT(" "));
+            if (train.name_number().empty())
+            {
+                name << train.name();
+            }
+            else
+            {
+                name <<
+                    boost::basic_format<typename string_type::value_type>(
+                        message_catalog.get(TETENGO2_TEXT("Diagram:%1% No. %2%"))
+                    ) % train.name() % train.name_number();
+            }
+
+            return name.str();
+        }
 
         static double calculate_train_name_angle(const position_type& departure, const position_type& arrival)
         {
@@ -206,16 +275,80 @@ namespace bobura { namespace view { namespace diagram
             }
         }
 
+        static size_type calculate_distance(
+            const position_type& point,
+            const position_type& line_segment_begin,
+            const position_type& line_segment_end
+        )
+        {
+            const geo_vector_type p = to_geo_vector(point);
+            const geo_vector_type lsb = to_geo_vector(line_segment_begin);
+            const geo_vector_type lse = to_geo_vector(line_segment_end);
+
+            double d = 0.0;
+            if      (geo_dot(geo_minus(lse, lsb), geo_minus(p, lsb)) < 0.0)
+                d = geo_abs(geo_minus(p, lsb));
+            else if (geo_dot(geo_minus(lsb, lse), geo_minus(p, lse)) < 0.0)
+                d = geo_abs(geo_minus(p, lse));
+            else
+                d = std::abs(geo_cross(geo_minus(lse, lsb), geo_minus(p, lsb))) / geo_abs(geo_minus(lse, lsb));
+
+            return to_size(d);
+        }
+
+        static geo_vector_type to_geo_vector(const position_type& position)
+        {
+            return
+                geo_vector_type(
+                    boost::rational_cast<double>(tetengo2::gui::position<position_type>::left(position).value()),
+                    boost::rational_cast<double>(tetengo2::gui::position<position_type>::top(position).value())
+                );
+        }
+
+        static size_type to_size(const double value)
+        {
+            return
+                size_type(
+                    typename size_type::value_type(typename size_type::value_type::int_type(value * 256.0), 256)
+                );
+        }
+
+        static geo_vector_type geo_minus(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return geo_vector_type(v1.first - v2.first, v1.second - v2.second);
+        }
+
+        static double geo_abs(const geo_vector_type& v)
+        {
+            return std::sqrt(v.first * v.first + v.second * v.second);
+        }
+
+        static double geo_dot(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return v1.first * v2.first + v1.second * v2.second;
+        }
+
+        static double geo_cross(const geo_vector_type& v1, const geo_vector_type& v2)
+        {
+            return v1.first * v2.second - v1.second * v2.first;
+        }
+
 
         // variables
+
+        const train_type* m_p_train;
+
+        stop_index_type m_departure_stop_index;
 
         position_type m_departure;
 
         position_type m_arrival;
 
-        string_type m_train_name;
-
         bool m_down;
+
+        bool m_draw_train_name;
+
+        const message_catalog_type* m_p_message_catalog;
 
 
         // virtual functions
@@ -223,17 +356,57 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.draw_line(m_departure, m_arrival);
+            draw_selectable_line(canvas, m_departure, m_arrival, this->selected());
+            if (m_draw_train_name)
+                draw_train_name(canvas);
+        }
 
-            if (!m_train_name.empty())
-            {
-                const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
-                canvas.draw_text(
-                    m_train_name,
-                    calculate_train_name_position(m_departure, m_train_name, train_name_angle, m_down, canvas),
-                    train_name_angle
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            return
+                calculate_distance(position, m_departure, m_arrival) <= selected_line_margin<size_type>() ?
+                this : NULL;
+        }
+
+        virtual bool selected_impl()
+        const
+        {
+            return
+                this->selection().selected(*m_p_train, boost::none) ||
+                this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
+        }
+
+        virtual void select_impl(const bool switch_selection_style)
+        {
+            const bool whole_selected = this->selection().selected(*m_p_train, boost::none);
+            const bool this_fragment_selected =
+                this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
+            const bool any_fragment_selected =
+                this->selection().selected(
+                    *m_p_train, boost::make_optional(std::numeric_limits<stop_index_type>::max())
                 );
-            }
+
+            bool select_fragment = false;
+            if (switch_selection_style)
+                select_fragment = whole_selected || (!this_fragment_selected && any_fragment_selected);
+            else
+                select_fragment = this_fragment_selected;
+            this->selection().select(*m_p_train, boost::make_optional(select_fragment, m_departure_stop_index));
+        }
+
+
+        // functions
+
+        void draw_train_name(canvas_type& canvas)
+        const
+        {
+            const string_type train_name = make_train_name(*m_p_train, *m_p_message_catalog);
+            const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
+            canvas.draw_text(
+                train_name,
+                calculate_train_name_position(m_departure, train_name, train_name_angle, m_down, canvas),
+                train_name_angle
+            );
         }
 
 
@@ -244,11 +417,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a train line in the diagram view.
 
         \tparam Model          A model type.
+        \tparam Selection      A selection type.
         \tparam Canvas         A canvas type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas, typename MessageCatalog>
-    class train_line : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename MessageCatalog>
+    class train_line : public item<Selection, Canvas>
     {
     public:
         // types
@@ -270,6 +444,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The station intervals type.
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -298,6 +475,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -311,6 +491,7 @@ namespace bobura { namespace view { namespace diagram
             \param train_kind           A train kind.
             \param down                 Set true for a down train.
             \param time_offset          A time offet.
+            \param selection            A selection.
             \param canvas               A canva.
             \param canvas_dimension     A canvas dimension.
             \param scroll_bar_position  A scroll bar position.
@@ -328,6 +509,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kind_type&        train_kind,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
@@ -341,6 +523,7 @@ namespace bobura { namespace view { namespace diagram
             const message_catalog_type&   message_catalog
         )
         :
+        base_type(selection),
         m_p_train_kind(&train_kind),
         m_fragments(
             make_fragments(
@@ -348,6 +531,7 @@ namespace bobura { namespace view { namespace diagram
                 train_kind,
                 down,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 scroll_bar_position,
@@ -370,6 +554,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line(train_line&& another)
         :
+        base_type(another.selection()),
         m_p_train_kind(another.m_p_train_kind),
         m_fragments(std::move(another.m_fragments))
         {}
@@ -398,6 +583,7 @@ namespace bobura { namespace view { namespace diagram
 
             m_p_train_kind = another.m_p_train_kind;
             m_fragments = std::move(another.m_fragments);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -406,7 +592,9 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef train_line_fragment<canvas_type> train_line_fragment_type;
+        typedef
+            train_line_fragment<model_type, selection_type, canvas_type, message_catalog_type>
+            train_line_fragment_type;
 
         typedef typename canvas_type::size_type size_type;
 
@@ -424,6 +612,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kind_type&        train_kind,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
@@ -464,13 +653,15 @@ namespace bobura { namespace view { namespace diagram
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], from, to);
 
                             make_fragment(
+                                train,
                                 from,
                                 departure_time,
                                 to,
                                 arrival_time,
-                                !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
+                                !train_name_drawn,
                                 time_offset,
+                                selection,
                                 canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
@@ -480,6 +671,7 @@ namespace bobura { namespace view { namespace diagram
                                 horizontal_scale,
                                 vertical_scale,
                                 station_positions,
+                                message_catalog,
                                 fragments
                             );
 
@@ -517,13 +709,15 @@ namespace bobura { namespace view { namespace diagram
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], to, from);
 
                             make_fragment(
+                                train,
                                 from,
                                 departure_time,
                                 to,
                                 arrival_time,
-                                !train_name_drawn ? make_train_name(train, message_catalog) : string_type(),
                                 down,
+                                !train_name_drawn ,
                                 time_offset,
+                                selection,
                                 canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
@@ -533,6 +727,7 @@ namespace bobura { namespace view { namespace diagram
                                 horizontal_scale,
                                 vertical_scale,
                                 station_positions,
+                                message_catalog,
                                 fragments
                             );
 
@@ -586,35 +781,16 @@ namespace bobura { namespace view { namespace diagram
             return departure_interval < travel_time ? to_stop.departure() : from_departure + travel_time;
         }
 
-        static string_type make_train_name(const train_type& train, const message_catalog_type& message_catalog)
-        {
-            std::basic_ostringstream<typename string_type::value_type> name;
-
-            name << train.number();
-            name << string_type(TETENGO2_TEXT(" "));
-            if (train.name_number().empty())
-            {
-                name << train.name();
-            }
-            else
-            {
-                name <<
-                    boost::basic_format<typename string_type::value_type>(
-                        message_catalog.get(TETENGO2_TEXT("Diagram:%1% No. %2%"))
-                    ) % train.name() % train.name_number();
-            }
-
-            return name.str();
-        }
-
         static void make_fragment(
-            const stop_index_type                  departure_station_index,
+            const train_type&                      train,
+            const stop_index_type                  departure_stop_index,
             const time_type&                       departure_time,
-            const stop_index_type                  arrival_station_index,
+            const stop_index_type                  arrival_stop_index,
             const time_type&                       arrival_time,
-            const string_type&                     train_name,
             const bool                             down,
+            const bool                             draw_train_name,
             const time_span_type&                  time_offset,
+            selection_type&                        selection,
             canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
@@ -624,21 +800,24 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&           horizontal_scale,
             const vertical_scale_type&             vertical_scale,
             const std::vector<top_type>&           station_positions,
+            const message_catalog_type&            message_catalog,
             std::vector<train_line_fragment_type>& fragments
         )
         {
             if (departure_time - time_offset <= arrival_time - time_offset)
             {
                 make_fragment_impl(
-                    departure_station_index,
+                    train,
+                    departure_stop_index,
                     departure_time,
                     false,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     false,
-                    train_name,
                     down,
+                    draw_train_name,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -648,21 +827,24 @@ namespace bobura { namespace view { namespace diagram
                     horizontal_scale,
                     vertical_scale,
                     station_positions,
+                    message_catalog,
                     fragments
                 );
             }
             else
             {
                 make_fragment_impl(
-                    departure_station_index,
+                    train,
+                    departure_stop_index,
                     departure_time,
                     true,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     false,
-                    train_name,
                     down,
+                    draw_train_name,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -672,18 +854,21 @@ namespace bobura { namespace view { namespace diagram
                     horizontal_scale,
                     vertical_scale,
                     station_positions,
+                    message_catalog,
                     fragments
                 );
                 make_fragment_impl(
-                    departure_station_index,
+                    train,
+                    departure_stop_index,
                     departure_time,
                     false,
-                    arrival_station_index,
+                    arrival_stop_index,
                     arrival_time,
                     true,
-                    train_name,
                     down,
+                    draw_train_name,
                     time_offset,
+                    selection,
                     canvas,
                     canvas_dimension,
                     scroll_bar_position,
@@ -693,21 +878,24 @@ namespace bobura { namespace view { namespace diagram
                     horizontal_scale,
                     vertical_scale,
                     station_positions,
+                    message_catalog,
                     fragments
                 );
             }
         }
 
         static void make_fragment_impl(
-            const stop_index_type                  departure_station_index,
+            const train_type&                      train,
+            const stop_index_type                  departure_stop_index,
             const time_type&                       departure_time,
             const bool                             previous_day_departure,
-            const stop_index_type                  arrival_station_index,
+            const stop_index_type                  arrival_stop_index,
             const time_type&                       arrival_time,
             const bool                             next_day_arrival,
-            const string_type&                     train_name,
             const bool                             down,
+            const bool                             draw_train_name,
             const time_span_type&                  time_offset,
+            selection_type&                        selection,
             canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
@@ -717,6 +905,7 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type&           horizontal_scale,
             const vertical_scale_type&             vertical_scale,
             const std::vector<top_type>&           station_positions,
+            const message_catalog_type&            message_catalog,
             std::vector<train_line_fragment_type>& fragments
         )
         {
@@ -738,7 +927,7 @@ namespace bobura { namespace view { namespace diagram
                 ),
                 station_index_to_top(
                     station_positions,
-                    departure_station_index,
+                    departure_stop_index,
                     vertical_scroll_bar_position,
                     header_bottom,
                     time_header_bottom
@@ -755,7 +944,7 @@ namespace bobura { namespace view { namespace diagram
                 ),
                 station_index_to_top(
                     station_positions,
-                    arrival_station_index,
+                    arrival_stop_index,
                     vertical_scroll_bar_position,
                     header_bottom,
                     time_header_bottom
@@ -769,19 +958,30 @@ namespace bobura { namespace view { namespace diagram
             if (right_bound < station_header_right)
                 return;
             const top_type upper_bound =
-                departure_station_index < arrival_station_index ? 
+                departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(departure) :
                 tetengo2::gui::position<position_type>::top(arrival);
             if (upper_bound > top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension)))
                 return;
             const top_type lower_bound =
-                departure_station_index < arrival_station_index ? 
+                departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
             if (lower_bound < header_bottom + time_header_bottom)
                 return;
 
-            fragments.emplace_back(std::move(departure), std::move(arrival), train_name, down);
+            fragments.push_back(
+                train_line_fragment_type(
+                    train,
+                    departure_stop_index,
+                    selection,
+                    std::move(departure),
+                    std::move(arrival),
+                    down,
+                    draw_train_name,
+                    message_catalog
+                )
+            );
         }
 
         static typename canvas_type::line_style_type::enum_t translate_line_style(
@@ -820,7 +1020,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_color(m_p_train_kind->color());
             canvas.set_line_width(
                 m_p_train_kind->weight() == train_kind_type::weight_type::bold ?
-                size_type(typename size_type::value_type(1, 6)) : size_type(typename size_type::value_type(1, 12))
+                bold_line_width<size_type>() : normal_line_width<size_type>()
             );
             canvas.set_line_style(translate_line_style(m_p_train_kind->line_style()));
 
@@ -828,6 +1028,18 @@ namespace bobura { namespace view { namespace diagram
             {
                 fragment.draw_on(canvas);
             }
+        }
+
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            BOOST_REVERSE_FOREACH (train_line_fragment_type& fragment, m_fragments)
+            {
+                base_type* const p_item = fragment.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
+            return NULL;
         }
 
 
@@ -838,11 +1050,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a train line list in the diagram view.
 
         \tparam Model          A model type.
+        \tparam Selection      A selection type.
         \tparam Canvas         A canvas type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model, typename Canvas, typename MessageCatalog>
-    class train_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename MessageCatalog>
+    class train_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -858,6 +1071,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The station intervals type.
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -886,6 +1102,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -897,6 +1116,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param model                A model.
             \param time_offset          A time offset.
+            \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -913,6 +1133,7 @@ namespace bobura { namespace view { namespace diagram
         train_line_list(
             const model_type&             model,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -927,11 +1148,13 @@ namespace bobura { namespace view { namespace diagram
             const message_catalog_type&   message_catalog
         )
         :
+        base_type(selection),
         m_p_font(&model.timetable().font_color_set().train_name()),
         m_train_lines(
             make_train_lines(
                 model,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -955,6 +1178,7 @@ namespace bobura { namespace view { namespace diagram
         */
         train_line_list(train_line_list&& another)
         :
+        base_type(another.selection()),
         m_p_font(another.m_p_font),
         m_train_lines(std::move(another.m_train_lines))
         {}
@@ -983,6 +1207,7 @@ namespace bobura { namespace view { namespace diagram
 
             m_p_font = another.m_p_font;
             m_train_lines = std::move(another.m_train_lines);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -991,7 +1216,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef train_line<model_type, canvas_type, message_catalog_type> train_line_type;
+        typedef train_line<model_type, selection_type, canvas_type, message_catalog_type> train_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 
@@ -1011,6 +1236,7 @@ namespace bobura { namespace view { namespace diagram
         std::vector<train_line_type> make_train_lines(
             const model_type&             model,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -1032,6 +1258,7 @@ namespace bobura { namespace view { namespace diagram
                 model.timetable().train_kinds(),
                 true,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -1051,6 +1278,7 @@ namespace bobura { namespace view { namespace diagram
                 model.timetable().train_kinds(),
                 false,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -1074,6 +1302,7 @@ namespace bobura { namespace view { namespace diagram
             const train_kinds_type&       train_kinds,
             const bool                    down,
             const time_span_type&         time_offset,
+            selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const dimension_type&         timetable_dimension,
@@ -1097,6 +1326,7 @@ namespace bobura { namespace view { namespace diagram
                         train_kinds[train.kind_index()],
                         down,
                         time_offset,
+                        selection,
                         canvas,
                         canvas_dimension,
                         scroll_bar_position,
@@ -1132,6 +1362,18 @@ namespace bobura { namespace view { namespace diagram
             {
                 train_line.draw_on(canvas);
             }
+        }
+
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            BOOST_REVERSE_FOREACH (train_line_type& train_line, m_train_lines)
+            {
+                base_type* const p_item = train_line.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
+            return NULL;
         }
 
 

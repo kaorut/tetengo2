@@ -80,22 +80,6 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(moved)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            const mouse_observer_set_type observer_set;
-
-            observer_set.moved();
-        }
-        {
-            mouse_observer_set_type observer_set;
-
-            observer_set.moved();
-        }
-    }
-
     BOOST_AUTO_TEST_CASE(released)
     {
         BOOST_TEST_PASSPOINT();
@@ -109,6 +93,22 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
             mouse_observer_set_type observer_set;
 
             observer_set.released();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(moved)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const mouse_observer_set_type observer_set;
+
+            observer_set.moved();
+        }
+        {
+            mouse_observer_set_type observer_set;
+
+            observer_set.moved();
         }
     }
 

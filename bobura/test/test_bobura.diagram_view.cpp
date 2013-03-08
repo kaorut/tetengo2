@@ -15,6 +15,7 @@
 #include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
+#include "bobura.view.diagram.selection.h"
 
 #include "bobura.diagram_view.h"
 
@@ -36,6 +37,10 @@ namespace
         boost::mpl::at<bobura::view_type_list, bobura::type::view::diagram_train_line_list>::type train_line_list_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef model_type::timetable_type::train_type train_type;
+
+    typedef bobura::view::diagram::selection<train_type> selection_type_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -67,6 +72,7 @@ namespace
             station_line_list_type,
             train_line_list_type,
             model_type,
+            selection_type_type,
             canvas_type,
             solid_background_type,
             message_catalog_type
@@ -200,6 +206,37 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const view_type view(model, message_catalog);
 
         view.page_size(dimension_type(width_type(42), height_type(24)));
+    }
+
+    BOOST_AUTO_TEST_CASE(p_item_by_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            const view_type view(model, message_catalog);
+
+            view.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            view_type view(model, message_catalog);
+
+            view.p_item_by_position(position_type(left_type(42), top_type(24)));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(unselect_all_items)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+
+        view.unselect_all_items();
     }
 
 

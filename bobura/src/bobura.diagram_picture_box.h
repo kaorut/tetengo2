@@ -10,6 +10,7 @@
 #define BOBURA_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+//#include <memory>
 //#include <utility>
 
 #include <boost/mpl/at.hpp>
@@ -17,6 +18,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
 
@@ -26,30 +28,40 @@ namespace bobura
     /*!
         \brief The class template for the diagram picture box.
 
-        \tparam DiagramPictureBox A picture box type.
-        \tparam AbstractWindow    An abstract window type.
-        \tparam MessageTypeList   A message type list.
+        \tparam PictureBox      A picture box type.
+        \tparam AbstractWindow  An abstract window type.
+        \tparam MouseCapture    A mouse capture type.
+        \tparam MessageTypeList A message type list.
     */
-    template <typename DiagramPictureBox, typename AbstractWindow, typename MessageTypeList>
-    class diagram_picture_box : public DiagramPictureBox
+    template <typename PictureBox, typename AbstractWindow, typename MouseCapture, typename MessageTypeList>
+    class diagram_picture_box : public PictureBox
     {
     public:
         // types
 
         //! The base type.
-        typedef DiagramPictureBox base_type;
+        typedef PictureBox base_type;
 
         //! The control type.
         typedef typename base_type::base_type control_type;
 
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
+
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
 
         //! The scroll bar type.
         typedef typename base_type::scroll_bar_type scroll_bar_type;
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The mouse capture type.
+        typedef MouseCapture mouse_capture_type;
 
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
@@ -64,7 +76,8 @@ namespace bobura
         */
         explicit diagram_picture_box(abstract_window_type& parent)
         :
-        base_type(parent, base_type::scroll_bar_style_type::both)
+        base_type(parent, base_type::scroll_bar_style_type::both),
+        m_p_mouse_capture()
         {
             set_observers();
         }
@@ -78,6 +91,34 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Sets a mouse capture.
+        */
+        void set_mouse_capture()
+        {
+            assert(!m_p_mouse_capture);
+            m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
+        }
+
+        /*!
+            \brief Releases a mouse capture.
+
+            \retval true  When the mouse is actually captured.
+            \retval false Otherwise.
+        */
+        bool release_mouse_capture()
+        {
+            if (m_p_mouse_capture)
+            {
+                m_p_mouse_capture.reset();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         /*!
             \brief Updates the scroll bars.
@@ -115,6 +156,11 @@ namespace bobura
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename scroll_bar_type::size_type scroll_bar_size_type;
+
+
+        // variables
+
+        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
 
         // functions

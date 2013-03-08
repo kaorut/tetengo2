@@ -134,7 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 l_param_to_position<typename Widget::position_type>(l_param),
                 (w_param & MK_SHIFT) != 0,
                 (w_param & MK_CONTROL) != 0,
-                ::GetKeyState(VK_MENU) != 0
+                ::GetKeyState(VK_MENU) < 0
             );
 
             return boost::none;
@@ -165,6 +165,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
+        boost::optional< ::LRESULT> on_r_button_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            return
+                on_button_down_impl(
+                    widget, Widget::mouse_observer_set_type::mouse_button_type::right, w_param, l_param
+                );
+        }
+
+        template <typename Widget>
         boost::optional< ::LRESULT> on_button_up_impl(
             Widget&                                                                   widget,
             const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
@@ -180,7 +189,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 l_param_to_position<typename Widget::position_type>(l_param),
                 (w_param & MK_SHIFT) != 0,
                 (w_param & MK_CONTROL) != 0,
-                ::GetKeyState(VK_MENU) != 0
+                ::GetKeyState(VK_MENU) < 0
             );
 
             return boost::none;
@@ -191,6 +200,29 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
            return
                on_button_up_impl(widget, Widget::mouse_observer_set_type::mouse_button_type::left, w_param, l_param);
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_r_button_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+           return
+               on_button_up_impl(widget, Widget::mouse_observer_set_type::mouse_button_type::right, w_param, l_param);
+        }
+
+        template <typename Widget>
+        boost::optional< ::LRESULT> on_mouse_move(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+        {
+            if (widget.mouse_observer_set().moved().empty())
+                return boost::none;
+
+            widget.mouse_observer_set().moved()(
+                l_param_to_position<typename Widget::position_type>(l_param),
+                (w_param & MK_SHIFT) != 0,
+                (w_param & MK_CONTROL) != 0,
+                ::GetKeyState(VK_MENU) < 0
+            );
+
+            return boost::none;
         }
 
         template <typename Widget>
@@ -231,7 +263,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 Widget::mouse_observer_set_type::direction_type::vertical,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
-                ::GetKeyState(VK_MENU) != 0
+                ::GetKeyState(VK_MENU) < 0
             );
 
             return boost::make_optional< ::LRESULT>(0);
@@ -251,7 +283,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 Widget::mouse_observer_set_type::direction_type::horizontal,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
-                ::GetKeyState(VK_MENU) != 0
+                ::GetKeyState(VK_MENU) < 0
             );
 
             return boost::make_optional< ::LRESULT>(0);

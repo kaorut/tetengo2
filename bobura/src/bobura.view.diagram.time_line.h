@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+//#include <cstddef>
 //#include <utility>
 #include <vector>
 
@@ -31,14 +32,18 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a time line in the diagram view.
 
-        \tparam Canvas   A canvas type.
-        \tparam TimeTick A time tick type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
+        \tparam TimeTick  A time tick type.
     */
-    template <typename Canvas, typename TimeTick>
-    class time_line : public item<Canvas>
+    template <typename Selection, typename Canvas, typename TimeTick>
+    class time_line : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -55,6 +60,9 @@ namespace bobura { namespace view { namespace diagram
         //! The top type.
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
         //! The time tick type.
         typedef TimeTick time_tick_type;
 
@@ -64,13 +72,15 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a time line.
 
-            \param left   A left position.
-            \param top    A top position.
-            \param bottom A bottom position.
-            \param width  A width.
-            \param hours  Hours.
+            \param selection A selection.
+            \param left      A left position.
+            \param top       A top position.
+            \param bottom    A bottom position.
+            \param width     A width.
+            \param hours     Hours.
         */
         time_line(
+            selection_type&                 selection,
             left_type                       left,
             const top_type&                 top,
             const top_type&                 bottom,
@@ -78,6 +88,7 @@ namespace bobura { namespace view { namespace diagram
             boost::optional<time_tick_type> hours
         )
         :
+        base_type(selection),
         m_left(std::move(left)),
         m_top(top),
         m_bottom(bottom),
@@ -92,6 +103,7 @@ namespace bobura { namespace view { namespace diagram
         */
         time_line(time_line&& another)
         :
+        base_type(another.selection()),
         m_left(std::move(another.m_left)),
         m_top(std::move(another.m_top)),
         m_bottom(std::move(another.m_bottom)),
@@ -126,6 +138,7 @@ namespace bobura { namespace view { namespace diagram
             m_bottom = std::move(another.m_bottom);
             m_width = std::move(another.m_width);
             m_hours = another.m_hours;
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -163,6 +176,11 @@ namespace bobura { namespace view { namespace diagram
             canvas.draw_line(position_type(m_left, m_top), position_type(m_left, m_bottom));
         }
 
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            return NULL;
+        }
+
 
     };
 
@@ -170,11 +188,12 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a time line list in the diagram view.
 
-        \tparam Model  A model type.
-        \tparam Canvas A canvas type.
+        \tparam Model     A model type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Model, typename Canvas>
-    class time_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas>
+    class time_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -187,6 +206,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The time span type.
         typedef typename time_type::time_span_type time_span_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -221,6 +243,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
 
         // constructors and destructor
 
@@ -229,6 +254,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param model                A model.
             \param time_offset          A time offset.
+            \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -242,6 +268,7 @@ namespace bobura { namespace view { namespace diagram
         time_line_list(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -253,12 +280,14 @@ namespace bobura { namespace view { namespace diagram
             const vertical_scale_type&   vertical_scale
         )
         :
+        base_type(selection),
         m_p_font(&model.timetable().font_color_set().time_line().font()),
         m_p_color(&model.timetable().font_color_set().time_line().color()),
         m_time_lines(
             make_time_lines(
                 model,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -279,6 +308,7 @@ namespace bobura { namespace view { namespace diagram
         */
         time_line_list(time_line_list&& another)
         :
+        base_type(another.selection()),
         m_p_font(another.m_p_font),
         m_p_color(another.m_p_color),
         m_time_lines(std::move(another.m_time_lines))
@@ -309,6 +339,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_font = another.m_p_font;
             m_p_color = another.m_p_color;
             m_time_lines = std::move(another.m_time_lines);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -319,7 +350,7 @@ namespace bobura { namespace view { namespace diagram
 
         typedef typename time_type::tick_type time_tick_type;
 
-        typedef time_line<canvas_type, time_tick_type> time_line_type;
+        typedef time_line<selection_type, canvas_type, time_tick_type> time_line_type;
 
         typedef typename canvas_type::size_type size_type;
 
@@ -329,6 +360,7 @@ namespace bobura { namespace view { namespace diagram
         std::vector<time_line_type> make_time_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -387,24 +419,30 @@ namespace bobura { namespace view { namespace diagram
 
                 if (minutes == 0)
                 {
-                    time_lines.emplace_back(
-                        std::move(position),
-                        header_bottom,
-                        line_bottom,
-                        size_type(typename size_type::value_type(1, 12)),
-                        boost::make_optional(hours)
+                    time_lines.push_back(
+                        time_line_type(
+                            selection,
+                            std::move(position),
+                            header_bottom,
+                            line_bottom,
+                            normal_line_width<size_type>(),
+                            boost::make_optional(hours)
+                        )
                     );
                 }
                 else if (minutes % 10 == 0)
                 {
                     if (minute_interval >= typename left_type::value_type(4, 12 * 10))
                     {
-                        time_lines.emplace_back(
-                            std::move(position),
-                            canvas_top,
-                            line_bottom,
-                            size_type(typename size_type::value_type(1, 24)),
-                            boost::none
+                        time_lines.push_back(
+                            time_line_type(
+                                selection,
+                                std::move(position),
+                                canvas_top,
+                                line_bottom,
+                                normal_line_width<size_type>() / 2,
+                                boost::none
+                            )
                         );
                     }
                 }
@@ -412,12 +450,15 @@ namespace bobura { namespace view { namespace diagram
                 {
                     if (minute_interval >= typename left_type::value_type(4, 12 * 2))
                     {
-                        time_lines.emplace_back(
-                            std::move(position),
-                            canvas_top,
-                            line_bottom,
-                            size_type(typename size_type::value_type(1, 48)),
-                            boost::none
+                        time_lines.push_back(
+                            time_line_type(
+                                selection,
+                                std::move(position),
+                                canvas_top,
+                                line_bottom,
+                                normal_line_width<size_type>() / 4,
+                                boost::none
+                            )
                         );
                     }
                 }
@@ -425,12 +466,15 @@ namespace bobura { namespace view { namespace diagram
                 {
                     if (minute_interval >= typename left_type::value_type(4, 12))
                     {
-                        time_lines.emplace_back(
-                            std::move(position),
-                            canvas_top,
-                            line_bottom,
-                            size_type(typename size_type::value_type(1, 48)),
-                            boost::none
+                        time_lines.push_back(
+                            time_line_type(
+                                selection,
+                                std::move(position),
+                                canvas_top,
+                                line_bottom,
+                                normal_line_width<size_type>() / 4,
+                                boost::none
+                            )
                         );
                     }
                 }
@@ -462,6 +506,11 @@ namespace bobura { namespace view { namespace diagram
             {
                 time_line.draw_on(canvas);
             }
+        }
+
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            return NULL;
         }
 
 

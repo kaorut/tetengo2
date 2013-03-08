@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+//#include <cstddef>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
@@ -30,13 +31,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a station line in the diagram view.
 
-        \tparam Canvas A canvas type.
+        \tparam Selection A selection type.
+        \tparam Canvas    A canvas type.
     */
-    template <typename Canvas>
-    class station_line : public item<Canvas>
+    template <typename Selection, typename Canvas>
+    class station_line : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -62,12 +67,16 @@ namespace bobura { namespace view { namespace diagram
         //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a station line.
 
+            \param selection      A selection.
             \param right          A right position.
             \param top            A top position.
             \param name           A name.
@@ -76,6 +85,7 @@ namespace bobura { namespace view { namespace diagram
             \param color          A color.
         */
         station_line(
+            selection_type&    selection,
             const left_type&   right,
             top_type           top,
             const string_type& name,
@@ -84,6 +94,7 @@ namespace bobura { namespace view { namespace diagram
             const color_type&  color
         )
         :
+        base_type(selection),
         m_right(right),
         m_top(std::move(top)),
         m_p_name(&name),
@@ -99,6 +110,7 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line(station_line&& another)
         :
+        base_type(another.selection()),
         m_right(std::move(another.m_right)),
         m_top(std::move(another.m_top)),
         m_p_name(another.m_p_name),
@@ -135,6 +147,7 @@ namespace bobura { namespace view { namespace diagram
             m_name_dimension = std::move(another.m_name_dimension);
             m_p_font = another.m_p_font;
             m_p_color = another.m_p_color;
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -175,6 +188,11 @@ namespace bobura { namespace view { namespace diagram
             );
         }
 
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            return NULL;
+        }
+
 
     };
 
@@ -183,11 +201,12 @@ namespace bobura { namespace view { namespace diagram
         \brief The class template for a station line list in the diagram view.
 
         \tparam Model               A model type.
+        \tparam Selection           A selection type.
         \tparam Canvas              A canvas type.
         \tparam StationGradeTypeSet A station grade type set type.
     */
-    template <typename Model, typename Canvas, typename StationGradeTypeSet>
-    class station_line_list : public item<Canvas>
+    template <typename Model, typename Selection, typename Canvas, typename StationGradeTypeSet>
+    class station_line_list : public item<Selection, Canvas>
     {
     public:
         // types
@@ -200,6 +219,9 @@ namespace bobura { namespace view { namespace diagram
 
         //! The time span type.
         typedef typename time_type::time_span_type time_span_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -228,6 +250,9 @@ namespace bobura { namespace view { namespace diagram
         //! The vertical scale type.
         typedef typename height_type::value_type vertical_scale_type;
 
+        //! The base type.
+        typedef item<selection_type, canvas_type> base_type;
+
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
@@ -239,6 +264,7 @@ namespace bobura { namespace view { namespace diagram
 
             \param model                A model.
             \param time_offset          A time offset.
+            \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
@@ -253,6 +279,7 @@ namespace bobura { namespace view { namespace diagram
         station_line_list(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -265,10 +292,12 @@ namespace bobura { namespace view { namespace diagram
             const std::vector<top_type>& station_positions
         )
         :
+        base_type(selection),
         m_station_lines(
             make_station_lines(
                 model,
                 time_offset,
+                selection,
                 canvas,
                 canvas_dimension,
                 timetable_dimension,
@@ -290,6 +319,7 @@ namespace bobura { namespace view { namespace diagram
         */
         station_line_list(station_line_list&& another)
         :
+        base_type(another.selection()),
         m_station_lines(std::move(another.m_station_lines))
         {}
 
@@ -316,6 +346,7 @@ namespace bobura { namespace view { namespace diagram
                 return *this;
 
             m_station_lines = std::move(another.m_station_lines);
+            base_type::operator=(std::move(another));
 
             return *this;
         }
@@ -324,7 +355,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef station_line<canvas_type> station_line_type;
+        typedef station_line<selection_type, canvas_type> station_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 
@@ -348,6 +379,7 @@ namespace bobura { namespace view { namespace diagram
         std::vector<station_line_type> make_station_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
+            selection_type&              selection,
             canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
@@ -398,6 +430,7 @@ namespace bobura { namespace view { namespace diagram
 
                 station_lines.push_back(
                     station_line_type(
+                        selection,
                         line_right,
                         std::move(line_position),
                         station_name,
@@ -441,13 +474,18 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_line_width(size_type(typename size_type::value_type(1, 12)));
+            canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
 
             BOOST_FOREACH (const station_line_type& station_line, m_station_lines)
             {
                 station_line.draw_on(canvas);
             }
+        }
+
+        virtual base_type* p_item_by_position_impl(const position_type& position)
+        {
+            return NULL;
         }
 
 

@@ -34,6 +34,9 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(diagram_picture_box)
     // test cases
@@ -44,6 +47,40 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
 
         window_type window;
         const diagram_picture_box_type picture_box(window);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        diagram_picture_box_type picture_box(window);
+
+        picture_box.set_mouse_capture();
+        picture_box.release_mouse_capture();
+    }
+
+    BOOST_AUTO_TEST_CASE(release_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type window;
+            diagram_picture_box_type picture_box(window);
+
+            const bool captured = picture_box.release_mouse_capture();
+
+            BOOST_CHECK(!captured);
+        }
+        {
+            window_type window;
+            diagram_picture_box_type picture_box(window);
+
+            picture_box.set_mouse_capture();
+            const bool captured = picture_box.release_mouse_capture();
+
+            BOOST_CHECK(captured);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(update_scroll_bars)
@@ -61,3 +98,4 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

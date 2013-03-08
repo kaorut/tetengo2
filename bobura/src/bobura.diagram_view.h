@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+//#include <cstddef>
 //#include <iterator>
 //#include <memory>
 //#include <utility>
@@ -33,6 +34,7 @@ namespace bobura
         \tparam StationLineList A station line list type.
         \tparam TrainLineList   A train line list type.
         \tparam Model           A model type.
+        \tparam Selection       A selection type.
         \tparam Canvas          A canvas type.
         \tparam SolidBackground A solid background type.
         \tparam MessageCatalog  A message catalog type.
@@ -43,6 +45,7 @@ namespace bobura
         typename StationLineList,
         typename TrainLineList,
         typename Model,
+        typename Selection,
         typename Canvas,
         typename SolidBackground,
         typename MessageCatalog
@@ -55,6 +58,9 @@ namespace bobura
         //! The header type.
         typedef Header header_type;
 
+        //! The item type.
+        typedef typename header_type::base_type item_type;
+
         //! The time line list type.
         typedef TimeLineList time_line_list_type;
 
@@ -66,6 +72,9 @@ namespace bobura
 
         //! The model type.
         typedef Model model_type;
+
+        //! The selection type.
+        typedef Selection selection_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;
@@ -116,6 +125,7 @@ namespace bobura
         :
         m_model(model),
         m_message_catalog(message_catalog),
+        m_selection(),
         m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
@@ -271,6 +281,66 @@ namespace bobura
             return dimension_type(std::move(page_width), std::move(page_height));
         }
 
+        /*!
+            \brief Returns a ponter to the item by the position.
+
+            When position is in the region of an item, this function returns a pointer to the item.
+            Otherwise, this function returns NULL;
+
+            \param position A position.
+
+            \return A pointer to the item.
+        */
+        const item_type* p_item_by_position(const position_type& position)
+        const
+        {
+            return const_cast<diagram_view*>(this)->p_item_by_position(position);
+        }
+
+        /*!
+            \brief Returns a ponter to the item by the position.
+
+            When position is in the region of an item, this function returns a pointer to the item.
+            Otherwise, this function returns NULL;
+
+            \param position A position.
+
+            \return A pointer to the item.
+        */
+        item_type* p_item_by_position(const position_type& position)
+        {
+            if (m_p_header)
+            {
+                if (item_type* const p_item = m_p_header->p_item_by_position(position))
+                    return p_item;
+            }
+            if (m_p_time_line_list)
+            {
+                if (item_type* const p_item = m_p_time_line_list->p_item_by_position(position))
+                    return p_item;
+            }
+            if (m_p_station_line_list)
+            {
+                if (item_type* const p_item = m_p_station_line_list->p_item_by_position(position))
+                    return p_item;
+            }
+            if (m_p_train_line_list)
+            {
+                if (item_type* const p_item = m_p_train_line_list->p_item_by_position(position))
+                return p_item;
+            }
+
+            return NULL;
+        }
+
+        /*!
+            \brief Unselects all items.
+        */
+        void unselect_all_items()
+        {
+            m_selection.unselect_all();
+        }
+
 
     private:
         // types
@@ -318,6 +388,8 @@ namespace bobura
         const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
+
+        selection_type m_selection;
 
         horizontal_scale_type m_horizontal_scale;
 
@@ -369,12 +441,13 @@ namespace bobura
                 return;
             }
 
-            m_p_header = tetengo2::make_unique<header_type>(m_model, canvas, canvas_dimension);
+            m_p_header = tetengo2::make_unique<header_type>(m_model, m_selection, canvas, canvas_dimension);
             m_header_height = tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension());
             m_p_time_line_list =
                 tetengo2::make_unique<time_line_list_type>(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,
@@ -385,10 +458,11 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale
                 );
-            m_p_station_line_list =
-                tetengo2::make_unique<station_line_list_type>(
+            m_p_station_line_list.reset(
+                new station_line_list_type(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,
@@ -399,11 +473,13 @@ namespace bobura
                     m_horizontal_scale,
                     m_vertical_scale,
                     m_station_positions
-                );
+                )
+            );
             m_p_train_line_list.reset(
                 new train_line_list_type(
                     m_model,
                     m_time_offset,
+                    m_selection,
                     canvas,
                     canvas_dimension,
                     m_dimension,

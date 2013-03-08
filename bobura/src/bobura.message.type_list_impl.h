@@ -122,6 +122,8 @@ namespace bobura { namespace message
 
             //! The type list for the diagram picture box.
             typedef
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_pressed, mouse_pressed<PictureBox, View>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_released, mouse_released<PictureBox, View>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox, View, ViewZoom>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::keyboard_key_down, keyboard_key_down<PictureBox>>,
@@ -129,7 +131,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox, View>>,
                 tetengo2::meta::assoc_list_end
-                >>>>
+                >>>>>>
                 type;
         };
     }
