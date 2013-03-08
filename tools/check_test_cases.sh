@@ -14,4 +14,4 @@ test -e "$SOLUTIONDIR/tools/zzz_test_cases.txt" || \
 "$SOLUTIONDIR/tools/zzz_check_test_cases.pl" \
     "$SOLUTIONDIR/tools/zzz_functions.txt" \
     "$SOLUTIONDIR/tools/zzz_test_cases.txt" \
-    "$SOLUTIONDIR/tools/check_test_cases_ignore.txt"
+    "$SOLUTIONDIR/tools/test_case_check_ignore.txt"
