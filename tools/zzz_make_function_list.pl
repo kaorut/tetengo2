@@ -36,7 +36,7 @@ foreach my $output (`$ctags_command $file_name`)
 		next if $namespace =~ /::impl/;
 		next if $namespace =~ /::detail::/;
 		next if $namespace =~ /::detail$/;
-		next if $access ne 'access:public' && $access ne 'access:protected';
+		next if $access ne 'access:public' && $access ne 'access:protected' && $access ne 'access:friend';
 	}
 	
 	$namespace =~ s/^namespace://;

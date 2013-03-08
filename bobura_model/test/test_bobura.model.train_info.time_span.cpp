@@ -40,6 +40,13 @@ BOOST_AUTO_TEST_SUITE(hours_minutes_seconds_type)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(hours)
     {
         BOOST_TEST_PASSPOINT();

@@ -28,7 +28,7 @@ if (scalar(@ARGV) < 3)
 		
 		if ($test_cases{$expected_test_case} eq 'x')
 		{
-			$test_cases{$expected_test_case} eq 'y'
+			$test_cases{$expected_test_case} = 'y'
 		}
 		else
 		{
@@ -73,6 +73,8 @@ sub read_ignore_file
 	while (<$fh>)
 	{
 		s/\r?\n//g;
+		next if $_ eq '';
+		
 		push(@$r_result, $_);
 	}
 	close($fh);
@@ -111,9 +113,37 @@ sub to_expected_test_case
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_equal/;
 		}
+		elsif ($1 eq '!=')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_not_equal/;
+		}
+		elsif ($1 eq '<')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_less_than/;
+		}
+		elsif ($1 eq '>')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_greater_than/;
+		}
 		elsif ($1 eq '=')
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_assign/;
+		}
+		elsif ($1 eq '+')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_plus/;
+		}
+		elsif ($1 eq '-')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_minus/;
+		}
+		elsif ($1 eq '*')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_multiply/;
+		}
+		elsif ($1 eq '/')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_divide/;
 		}
 		elsif ($1 eq '+=')
 		{

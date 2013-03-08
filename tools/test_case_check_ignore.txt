@@ -22,3 +22,15 @@ tetengo2::gui::widget::widget::got_focus::
 tetengo2::gui::widget::widget::lost_focus::
 tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::matches_locale_type::
+
+test_bobura::model::serializer::reader_selector::selects
+test_bobura::model::serializer::reader_selector::read
+test_bobura::model::serializer::writer_selector::extension
+test_bobura::model::serializer::writer_selector::selects
+test_bobura::model::serializer::writer_selector::write
+test_bobura::model::serializer::[a-zA-Z0-9_]+_reader::selects
+test_bobura::model::serializer::[a-zA-Z0-9_]+_reader::read
+test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::extension
+test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::selects
+test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::write
+test_bobura::model::station_info::[a-zA-Z0-9_]+::name
