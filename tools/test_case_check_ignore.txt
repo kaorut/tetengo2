@@ -8,6 +8,7 @@ bobura::model::timetable::replace_train_kind_index::
 bobura::settings::value_impl::
 bobura::settings::is_splitter::
 bobura::timetable_model::timetable_changed::
+tetengo2::cpp11::
 tetengo2::gui::alert::root_ancestor_widget_handle
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::

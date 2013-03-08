@@ -21,13 +21,25 @@ foreach my $output (`$ctags_command $file_name`)
 	next if $output =~ /^!/;
 	
 	my($name, $file, $description, $type, $namespace, $access) = split(/\t/, $output);
-	next if $name =~ /~/;
-	next if $type ne 'function';
-	next if $namespace =~ /::__anon/;
-	next if $namespace =~ /::impl/;
-	next if $namespace =~ /::detail::/;
-	next if $access ne 'access:public' && $access ne 'access:protected';
+	if ($namespace =~ /^namespace:/)
+	{
+		next if $type ne 'function';
+		next if $namespace =~ /__anon/;
+		next if $namespace =~ /::detail::/;
+		next if $namespace =~ /::detail$/;
+	}
+	else
+	{
+		next if $name =~ /~/;
+		next if $type ne 'function';
+		next if $namespace =~ /__anon/;
+		next if $namespace =~ /::impl/;
+		next if $namespace =~ /::detail::/;
+		next if $namespace =~ /::detail$/;
+		next if $access ne 'access:public' && $access ne 'access:protected';
+	}
 	
+	$namespace =~ s/^namespace://;
 	$namespace =~ s/^class://;
 	$namespace =~ s/^struct://;
 	print $namespace.'::'.$name."\n";

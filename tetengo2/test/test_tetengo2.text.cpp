@@ -42,4 +42,14 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(make_text_value_holder)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()
