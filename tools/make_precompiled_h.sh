@@ -5,7 +5,7 @@
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/paths.sh
+. $SOLUTIONDIR/tools/zzz_paths.sh
 
 list()
 {
@@ -15,7 +15,7 @@ list()
     do
         grep -h "^\#\s*include <[a-z_\/]\+>" $f;
     done |
-    $SOLUTIONDIR/tools/format_include.pl | sort | uniq
+    $SOLUTIONDIR/tools/zzz_format_include.pl | sort | uniq
     echo ''
     echo ''
     echo '// Boost library headers'
@@ -25,7 +25,7 @@ list()
         grep -h "^\#\s*include <boost\/" $f;
     done |
     grep -v "^\#\s*include <boost\/test\/" |
-    $SOLUTIONDIR/tools/format_include.pl | sort | uniq
+    $SOLUTIONDIR/tools/zzz_format_include.pl | sort | uniq
 }
 
 SOURCES=`list_sources $SOLUTIONDIR && list_test_sources $SOLUTIONDIR`

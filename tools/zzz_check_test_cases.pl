@@ -7,7 +7,7 @@ use strict;
 
 if (scalar(@ARGV) < 3)
 {
-	print "Usage: check_test_cases.pl functions.txt test_cases.txt ignore.txt\n";
+	print "Usage: zzz_check_test_cases.pl functions.txt test_cases.txt ignore.txt\n";
 	exit(0);
 }
 

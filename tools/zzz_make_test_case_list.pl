@@ -7,7 +7,7 @@ use strict;
 
 if (scalar(@ARGV) < 1)
 {
-	print "Usage: make_test_case_list.pl input\n";
+	print "Usage: zzz_make_test_case_list.pl input\n";
 	exit(0);
 }
 

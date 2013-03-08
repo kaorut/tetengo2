@@ -5,13 +5,13 @@
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/paths.sh
+. $SOLUTIONDIR/tools/zzz_paths.sh
 
 for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
     echo '['$f']';
-    "$SOLUTIONDIR/tools/include_order.pl" < "$f";
-    "$SOLUTIONDIR/tools/check_includes.pl" \
+    "$SOLUTIONDIR/tools/zzz_include_order.pl" < "$f";
+    "$SOLUTIONDIR/tools/zzz_check_includes.pl" \
         "$SOLUTIONDIR" \
         "$f" \
         "$SOLUTIONDIR/tools/stdlib_headers.txt" \

@@ -16,12 +16,12 @@ function include(script)
 		);
 	try { return stream.ReadAll(); } finally { stream.Close(); }
 }
-eval(include("parse_bobura_config.js"));
+eval(include("zzz_parse_bobura_config.js"));
 
 
 if (WScript.Arguments.length < 1)
 {
-	WScript.Echo("Usage: cscript get_bobura_config.js SOLUTION_DIRECTORY MACRO_NAME");
+	WScript.Echo("Usage: cscript zzz_get_bobura_config.js SOLUTION_DIRECTORY MACRO_NAME");
 	WScript.Quit(1);
 }
 var solutionDirectory = WScript.Arguments(0);

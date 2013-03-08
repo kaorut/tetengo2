@@ -1,18 +1,18 @@
 #!/bin/sh
-# Makes a function definition list.
+# Makes a test case list.
 # Copyright (C) 2007-2013 kaoru
 # $Id$
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/paths.sh
+. $SOLUTIONDIR/tools/zzz_paths.sh
 
 rm -f "$SOLUTIONDIR/tools/tmp"
 
-for f in `list_sources $SOLUTIONDIR`;
+for f in `list_test_sources $SOLUTIONDIR`;
 do
     echo -ne "Parsing: $f        \r" >&2;
-    "$SOLUTIONDIR/tools/make_function_list.pl" "$f" >> "$SOLUTIONDIR/tools/tmp";
+    "$SOLUTIONDIR/tools/zzz_make_test_case_list.pl" "$f" >> "$SOLUTIONDIR/tools/tmp";
 done
 echo -ne "Done.                                                        \n" >&2
 

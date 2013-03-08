@@ -9,7 +9,7 @@ my($ctags_command) = 'ctags -f - --language-force="C++" --file-scope=no --fields
 
 if (scalar(@ARGV) < 1)
 {
-	print "Usage: make_function_list.pl input\n";
+	print "Usage: zzz_make_function_list.pl input\n";
 	exit(0);
 }
 
