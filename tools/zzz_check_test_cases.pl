@@ -123,6 +123,14 @@ sub to_expected_test_case
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_minus_assign/;
 		}
+		elsif ($1 eq '*=')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_multiply_assign/;
+		}
+		elsif ($1 eq '/=')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_divide_assign/;
+		}
 	}
 	
 	return $test_case;

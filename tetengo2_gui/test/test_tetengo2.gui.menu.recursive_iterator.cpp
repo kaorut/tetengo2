@@ -78,7 +78,21 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_preincrement)
+    BOOST_AUTO_TEST_CASE(dereference)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(increment)
     {
         BOOST_TEST_PASSPOINT();
 
