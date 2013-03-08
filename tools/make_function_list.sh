@@ -11,9 +11,10 @@ rm -f "$SOLUTIONDIR/tools/tmp"
 
 for f in `list_sources $SOLUTIONDIR`;
 do
-    echo "Parsing: $f" >&2;
+    echo -ne "Parsing: $f        \r" >&2;
     "$SOLUTIONDIR/tools/make_function_list.pl" "$f" >> "$SOLUTIONDIR/tools/tmp";
 done
+echo -ne "Done.                                                        \n" >&2
 
 sort < "$SOLUTIONDIR/tools/tmp" | uniq;
 
