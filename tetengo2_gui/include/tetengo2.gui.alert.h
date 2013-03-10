@@ -57,7 +57,6 @@ namespace tetengo2 { namespace gui
             \param widget_handle     A widget handle.
         */
         explicit alert(const widget_handle_type widget_handle = NULL)
-        TETENGO2_CPP11_NOEXCEPT
         :
         m_widget_handle(alert_details_type::root_ancestor_widget_handle(widget_handle))
         {}
@@ -72,7 +71,6 @@ namespace tetengo2 { namespace gui
         */
         void operator()(const boost::exception& exception)
         const
-        TETENGO2_CPP11_NOEXCEPT
         {
             try
             {
@@ -137,7 +135,6 @@ namespace tetengo2 { namespace gui
         */
         void operator()(const std::exception& exception = std::runtime_error("Unknown Error!"))
         const
-        TETENGO2_CPP11_NOEXCEPT
         {
             try
             {
