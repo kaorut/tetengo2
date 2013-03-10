@@ -17,12 +17,12 @@ if (scalar(@ARGV) < 3)
 	read_file($ARGV[0], \%functions);
 	my(%test_cases);
 	read_file($ARGV[1], \%test_cases);
-	my(@ignored);
-	read_ignore_file($ARGV[2], \@ignored);
+	my(%ignored);
+	read_ignore_file($ARGV[2], \%ignored);
 	
 	foreach my $function (sort(keys(%functions)))
 	{
-		next if check_ignored(\@ignored, $function);
+		next if check_ignored(\%ignored, $function);
 		
 		my($expected_test_case) = to_expected_test_case($function);
 		
@@ -40,12 +40,21 @@ if (scalar(@ARGV) < 3)
 	
 	foreach my $test_case (sort(keys(%test_cases)))
 	{
-		next if check_ignored(\@ignored, $test_case);
+		next if check_ignored(\%ignored, $test_case);
 		
 		if ($test_cases{$test_case} eq 'x')
 		{
 			print "WARNING: No function for test case:\n";
 			print '  '.$test_case."\n";
+		}
+	}
+	
+	foreach my $ig (sort(keys(%ignored)))
+	{
+		if ($ignored{$ig} eq 'x')
+		{
+			print "WARNING: Remove from the ignore file:\n";
+			print '  '.$ig."\n";
 		}
 	}
 	
@@ -75,7 +84,7 @@ sub read_ignore_file
 		s/\r?\n//g;
 		next if $_ eq '';
 		
-		push(@$r_result, $_);
+		$$r_result{$_} = 'x';
 	}
 	close($fh);
 }
@@ -84,11 +93,14 @@ sub check_ignored
 {
 	my($r_ignored, $name) = @_;
 	
-	foreach my $ignored (@$r_ignored)
+	for my $ig (keys(%$r_ignored))
 	{
-		return 1 if ($name =~ /$ignored/);
+		if ($name =~ /$ig/)
+		{
+			$$r_ignored{$ig} = 'y';
+			return 1;
+		}
 	}
-	
 	return 0;
 }
 
