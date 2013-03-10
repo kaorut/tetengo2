@@ -42,3 +42,5 @@ test_tetengo2::gui::menu::abstract_popup::erase
 test_tetengo2::gui::menu::[a-zA-Z0-9_]+::style
 test_tetengo2::gui::unit::unit::operator_multiply
 test_tetengo2::message::messages::do_[a-zA-Z0-9_]+
+test_tetengo2::meta::assoc_list::[a-zA-Z0-9_]+
+test_tetengo2::text::grammar::json::
