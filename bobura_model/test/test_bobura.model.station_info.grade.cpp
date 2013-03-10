@@ -43,6 +43,10 @@ namespace
         m_name(TETENGO2_TEXT("hoge"))
         {}
 
+        virtual ~concrete_grade()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
     private:
         string_type m_name;
 
