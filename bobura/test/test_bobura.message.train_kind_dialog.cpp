@@ -6,11 +6,11 @@
     $Id$
 */
 
-#include <memory>
-#include <vector>
+//#include <memory>
+//#include <vector>
 
 //#include <boost/mpl/at.hpp>
-#include <boost/optional.hpp>
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
