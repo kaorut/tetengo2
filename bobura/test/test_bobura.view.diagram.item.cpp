@@ -8,6 +8,7 @@
 
 //#include <cstddef>
 //#include <memory>
+#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -52,6 +53,13 @@ namespace
         item_type(selection),
         m_selected(false)
         {}
+
+        concrete_item& operator=(concrete_item&& item)
+        {
+            item_type::operator=(std::move(item));
+            return *this;
+        }
+
 
     private:
         bool m_selected;
@@ -100,7 +108,12 @@ BOOST_AUTO_TEST_SUITE(item)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        selection_type selection1;
+        concrete_item item1(selection1);
+        selection_type selection2;
+        concrete_item item2(selection2);
+
+        item1 = std::move(item2);
     }
 
     BOOST_AUTO_TEST_CASE(draw_on)
