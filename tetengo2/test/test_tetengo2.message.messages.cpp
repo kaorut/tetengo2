@@ -121,7 +121,23 @@ BOOST_AUTO_TEST_SUITE(messages)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const string_type namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge")));
+
+            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("hoge")));
+        }
+        {
+            const string_type namespace_removed =
+                messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga")));
+
+            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("fuga")));
+        }
+        {
+            const string_type namespace_removed =
+                messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga:piyo")));
+
+            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("piyo")));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(construction)
