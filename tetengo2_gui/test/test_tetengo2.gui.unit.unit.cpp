@@ -338,27 +338,33 @@ BOOST_AUTO_TEST_SUITE(unit)
             BOOST_CHECK(unit1 == unit2);
         }
         {
-            const unit_type unit1(456);
-            const unit_type unit2(123);
-
-            BOOST_CHECK(unit1 != unit2);
-        }
-        {
             const unit_type unit1(123);
             const another_unit_type unit2(123);
 
             BOOST_CHECK(unit1 == unit2);
         }
         {
+            const unit_type unit1(123);
+
+            BOOST_CHECK(unit1 == 123);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_not_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
             const unit_type unit1(456);
-            const another_unit_type unit2(123);
+            const unit_type unit2(123);
 
             BOOST_CHECK(unit1 != unit2);
         }
         {
-            const unit_type unit1(123);
+            const unit_type unit1(456);
+            const another_unit_type unit2(123);
 
-            BOOST_CHECK(unit1 == 123);
+            BOOST_CHECK(unit1 != unit2);
         }
         {
             const unit_type unit1(456);
@@ -367,7 +373,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_less)
+    BOOST_AUTO_TEST_CASE(operator_less_than)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -396,7 +402,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_greater)
+    BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 

@@ -72,6 +72,15 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(tracking_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+
+        scroll_bar.tracking_position();
+    }
+
     BOOST_AUTO_TEST_CASE(range)
     {
         BOOST_TEST_PASSPOINT();
@@ -141,6 +150,15 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         scroll_bar.set_enabled(false);
 
         BOOST_CHECK(!scroll_bar.enabled());
+    }
+
+    BOOST_AUTO_TEST_CASE(scroll_bar_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+
+        scroll_bar.scroll_bar_observer_set();
     }
 
 

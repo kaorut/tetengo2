@@ -8,7 +8,7 @@ use File::Basename;
 
 if (scalar(@ARGV) < 3)
 {
-	print "Usage: check_includes.pl ".
+	print "Usage: zzz_check_includes.pl ".
 		"solution_directory source_file stdlib_headers.txt [show_progress]\n";
 	exit(0);
 }

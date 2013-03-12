@@ -149,6 +149,19 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(reloadable)
+    {
+        BOOST_TEST_PASSPOINT();
+    
+        model_type model;
+        const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, message_catalog);
+        const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
+        const load_from_file_type load_from_file(false, confirm_file_save, message_catalog);
+
+        BOOST_CHECK(!load_from_file.reloadable(model));
+    }
+
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();

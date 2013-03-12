@@ -65,9 +65,8 @@ namespace bobura
             typedef Color color_type;
 
             typedef
-                typename train_kind_dialog<
-                    Dialog, MessageCatalog, IntSize, TrainKind, Font, Color
-                >::info_set_type info_set_type;
+                typename train_kind_dialog<Dialog, MessageCatalog, IntSize, TrainKind, Font, Color>::info_set_type
+                info_set_type;
 
 
             // constructors and destructor

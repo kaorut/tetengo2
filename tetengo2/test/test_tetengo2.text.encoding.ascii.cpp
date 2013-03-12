@@ -60,13 +60,6 @@ BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(ascii)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        encoding_type encoding;
-    }
-
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
