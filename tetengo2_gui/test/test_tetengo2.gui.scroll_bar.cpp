@@ -76,7 +76,9 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+
+        scroll_bar.tracking_position();
     }
 
     BOOST_AUTO_TEST_CASE(range)
@@ -154,7 +156,9 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+
+        scroll_bar.scroll_bar_observer_set();
     }
 
 
