@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(alert)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_paren_boost_exception)
+    BOOST_AUTO_TEST_CASE(operator_paren_O_boost_exception)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(alert)
         alert(exception);
     }
 
-    BOOST_AUTO_TEST_CASE(operator_paren_std_exception)
+    BOOST_AUTO_TEST_CASE(operator_paren_O_std_exception)
     {
         BOOST_TEST_PASSPOINT();
 

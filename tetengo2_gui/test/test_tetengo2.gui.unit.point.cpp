@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(point)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_less)
+    BOOST_AUTO_TEST_CASE(operator_less_than)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(point)
         BOOST_CHECK(unit1 < 34);
     }
 
-    BOOST_AUTO_TEST_CASE(operator_greater)
+    BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 

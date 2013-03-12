@@ -24,6 +24,8 @@ namespace
 
     typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time>::type time_type;
 
+    typedef time_type::hours_minutes_seconds_type hours_minutes_seconds_type_;
+
 
 }
 
@@ -32,6 +34,63 @@ BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
 BOOST_AUTO_TEST_SUITE(train_info)
 BOOST_AUTO_TEST_SUITE(time)
+BOOST_AUTO_TEST_SUITE(hours_minutes_seconds_type)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const hours_minutes_seconds_type_ hours_minutes_seconds(12, 34, 56);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const hours_minutes_seconds_type_ hours_minutes_seconds1(12, 34, 56);
+            const hours_minutes_seconds_type_ hours_minutes_seconds2(12, 34, 56);
+
+            BOOST_CHECK(hours_minutes_seconds1 == hours_minutes_seconds2);
+        }
+        {
+            const hours_minutes_seconds_type_ hours_minutes_seconds1(12, 34, 56);
+            const hours_minutes_seconds_type_ hours_minutes_seconds2(56, 34, 12);
+
+            BOOST_CHECK(hours_minutes_seconds1 != hours_minutes_seconds2);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(hours)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const hours_minutes_seconds_type_ hours_minutes_seconds(12, 34, 56);
+
+        BOOST_CHECK_EQUAL(hours_minutes_seconds.hours(), 12U);
+    }
+
+    BOOST_AUTO_TEST_CASE(minutes)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const hours_minutes_seconds_type_ hours_minutes_seconds(12, 34, 56);
+
+        BOOST_CHECK_EQUAL(hours_minutes_seconds.minutes(), 34U);
+    }
+
+    BOOST_AUTO_TEST_CASE(seconds)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const hours_minutes_seconds_type_ hours_minutes_seconds(12, 34, 56);
+
+        BOOST_CHECK_EQUAL(hours_minutes_seconds.seconds(), 56U);
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
     // test cases
 
     BOOST_AUTO_TEST_CASE(uninitialized)
@@ -373,27 +432,27 @@ BOOST_AUTO_TEST_SUITE(time)
         {
             const time_type time(0, 0, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 0U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == hours_minutes_seconds_type_(0U, 0U, 0U));
         }
         {
             const time_type time(0, 0, 1);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 0U, 1U));
+            BOOST_CHECK(time.hours_minutes_seconds() == hours_minutes_seconds_type_(0U, 0U, 1U));
         }
         {
             const time_type time(0, 1, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(0U, 1U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == hours_minutes_seconds_type_(0U, 1U, 0U));
         }
         {
             const time_type time(1, 0, 0);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(1U, 0U, 0U));
+            BOOST_CHECK(time.hours_minutes_seconds() == hours_minutes_seconds_type_(1U, 0U, 0U));
         }
         {
             const time_type time(1, 2, 3);
 
-            BOOST_CHECK(time.hours_minutes_seconds() == time_type::hours_minutes_seconds_type(1U, 2U, 3U));
+            BOOST_CHECK(time.hours_minutes_seconds() == hours_minutes_seconds_type_(1U, 2U, 3U));
         }
         {
             BOOST_CHECK_THROW(time_type::uninitialized().hours_minutes_seconds(), std::logic_error);

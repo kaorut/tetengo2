@@ -31,7 +31,21 @@ namespace tetengo2 { namespace gui { namespace message
         //! The canvas type.
         typedef Canvas canvas_type;
 
-#if !defined(DOCUMENTATION)
+        /*!
+            \brief The observer type of paint-background.
+
+            \param canvas A canvas.
+
+            \retval true  When the background is not painted by this observer
+                          and it shoud be painted by the system.
+            \retval false Otherwise.
+        */
+        typedef bool paint_background_type(canvas_type& canvas);
+
+#if defined(DOCUMENTATION)
+        //! The logical OR combiner type.
+        struct logical_or_combiner;
+#else
         struct logical_or_combiner
         {
             typedef bool result_type;
@@ -50,17 +64,6 @@ namespace tetengo2 { namespace gui { namespace message
 
         };
 #endif
-
-        /*!
-            \brief The observer type of paint-background.
-
-            \param canvas A canvas.
-
-            \retval true  When the background is not painted by this observer
-                          and it shoud be painted by the system.
-            \retval false Otherwise.
-        */
-        typedef bool paint_background_type(canvas_type& canvas);
 
         //! The signal type of paint-background.
         typedef boost::signals2::signal<paint_background_type, logical_or_combiner> paint_background_signal_type;

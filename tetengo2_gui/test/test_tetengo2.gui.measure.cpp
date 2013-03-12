@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_SUITE(position)
         BOOST_CHECK_EQUAL(tetengo2::gui::position<position_type>::top(position), 456);
     }
 
-    BOOST_AUTO_TEST_CASE(make_position)
+    BOOST_AUTO_TEST_CASE(make)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_CHECK_EQUAL(tetengo2::gui::dimension<dimension_type>::height(dimension), 456);
     }
 
-    BOOST_AUTO_TEST_CASE(make_dimension)
+    BOOST_AUTO_TEST_CASE(make)
     {
         BOOST_TEST_PASSPOINT();
 

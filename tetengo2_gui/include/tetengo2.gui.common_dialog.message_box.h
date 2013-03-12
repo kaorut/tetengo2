@@ -157,8 +157,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
                 \return The Yes button labels.
             */
-            const boost::optional<std::pair<string_type, string_type>>&
-            yes_no_button_labels()
+            const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels()
             const
             {
                 return m_yes_no_button_labels;

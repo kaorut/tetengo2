@@ -17,6 +17,7 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 #include "test_tetengo2.type_list.h"
@@ -25,6 +26,8 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
 
     typedef
         boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type
@@ -38,7 +41,6 @@ namespace
     typedef
         boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type pull_parser_type;
 
-
 }
 
 
@@ -48,6 +50,89 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(pull_parser)
+BOOST_AUTO_TEST_SUITE(structure)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(kind)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_CHECK_EQUAL(
+            pull_parser_type::structure_begin_type::kind(), pull_parser_type::structure_kind_type::begin
+        );
+        BOOST_CHECK_EQUAL(pull_parser_type::structure_end_type::kind(), pull_parser_type::structure_kind_type::end);
+    }
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+        }
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+
+            BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
+        }
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+
+            BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(attribute_map)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+
+            BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
+            const pull_parser_type::attribute_map_type::const_iterator found =
+                structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
+            BOOST_REQUIRE(found != structure.attribute_map().end());
+            BOOST_CHECK(
+                *found == pull_parser_type::attribute_map_type::value_type(string_type(TETENGO2_TEXT("key")), 42)
+            );
+        }
+        {
+            pull_parser_type::attribute_map_type map;
+            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+
+            BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
+            const pull_parser_type::attribute_map_type::const_iterator found =
+                structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
+            BOOST_REQUIRE(found != structure.attribute_map().end());
+            BOOST_CHECK(
+                *found == pull_parser_type::attribute_map_type::value_type(string_type(TETENGO2_TEXT("key")), 42)
+            );
+        }
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

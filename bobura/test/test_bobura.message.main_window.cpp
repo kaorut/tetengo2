@@ -6,6 +6,7 @@
     $Id$
 */
 
+//#include <utility>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
@@ -26,14 +27,36 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::popup_menu>::type popup_menu_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::abstract_window>::type abstract_window_type;
 
     struct command_type
     {
+    public:
+        struct state_type { enum enum_t //!< Scoped enum.
+        {
+            default_,
+            checked,
+            selected,
+        };};
+
         command_type()
         {}
 
-        void execute(model_type& model, abstract_window_type& parent)
+        virtual bool enabled(const model_type& model)
+        const
+        {
+            return true;
+        }
+
+        virtual state_type::enum_t state()
+        const
+        {
+            return state_type::default_;
+        }
+
+        virtual void execute(model_type& model, abstract_window_type& parent)
         const
         {}
 
@@ -51,9 +74,23 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
+    typedef boost::mpl::at<bobura::view_type_list, bobura::type::view::view>::type view_type;
+
+    typedef
+        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::diagram_picture_box>::type
+        diagram_picture_box_type;
+
+    typedef
+        bobura::message::main_window::popup_menu_selected<popup_menu_type, command_type, model_type>
+        popup_menu_selected_type;
+
     typedef
         bobura::message::main_window::menu_command_selected<command_type, model_type, abstract_window_type>
         menu_command_selected_type;
+
+    typedef
+        bobura::message::main_window::window_resized<view_type, abstract_window_type, diagram_picture_box_type>
+        window_resized_type;
 
 
 }
@@ -65,6 +102,33 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
+BOOST_AUTO_TEST_SUITE(popup_menu_selected)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        popup_menu_type popup_menu(string_type(TETENGO2_TEXT("popup")));
+        std::vector<const command_type*> commands;
+        const model_type model;
+        const popup_menu_selected_type observer(popup_menu, std::move(commands), model);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        popup_menu_type popup_menu(string_type(TETENGO2_TEXT("popup")));
+        std::vector<const command_type*> commands;
+        const model_type model;
+        const popup_menu_selected_type observer(popup_menu, std::move(commands), model);
+
+        observer();
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(menu_command_selected)
     // test cases
 
@@ -85,14 +149,45 @@ BOOST_AUTO_TEST_SUITE(menu_command_selected)
         const command_type command;
         model_type model;
         window_type window;
-        const menu_command_selected_type menu(command, model, window);
+        const menu_command_selected_type observer(command, model, window);
 
-        menu();
+        observer();
     }
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(window)
+BOOST_AUTO_TEST_SUITE(window_resized)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        window_type window;
+        diagram_picture_box_type diagram_picture_box(window);
+        const window_resized_type observer(view, window, diagram_picture_box);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const message_catalog_type message_catalog;
+        view_type view(model, message_catalog);
+        window_type window;
+        diagram_picture_box_type diagram_picture_box(window);
+        const window_resized_type observer(view, window, diagram_picture_box);
+
+        observer();
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(window_closing)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -107,7 +202,7 @@ BOOST_AUTO_TEST_SUITE(window)
         const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
         settings_type settings(command_line_arguments);
         const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
-        window(parent, confirm_file_save, settings);
+        observer(parent, confirm_file_save, settings);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -122,10 +217,10 @@ BOOST_AUTO_TEST_SUITE(window)
         const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
         settings_type settings(command_line_arguments);
         const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
-        window(parent, confirm_file_save, settings);
+        observer(parent, confirm_file_save, settings);
 
         bool cancel = false;
-        window(cancel);
+        observer(cancel);
 
         BOOST_CHECK(!cancel);
     }

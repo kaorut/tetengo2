@@ -23,5 +23,7 @@ missing
 obj/
 obj.test/
 stamp-h1
+tools/zzz_test_case_check_functions.txt
+tools/zzz_test_case_check_test_cases.txt
 */test/*.test*
 */test/messages.test/

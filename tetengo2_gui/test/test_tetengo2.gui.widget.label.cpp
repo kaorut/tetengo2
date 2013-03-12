@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(label)
         BOOST_CHECK(dimension == answer_dimension);
     }
 
-    BOOST_AUTO_TEST_CASE(fit_to_content_with_max_width)
+    BOOST_AUTO_TEST_CASE(fit_to_content_O_max_width)
     {
         BOOST_TEST_PASSPOINT();
 
