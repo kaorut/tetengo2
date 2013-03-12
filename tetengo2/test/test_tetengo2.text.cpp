@@ -28,16 +28,28 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::string string(TETENGO2_TEXT("hoge"));
-        BOOST_CHECK(string == "hoge");
+        {
+            const std::string string(TETENGO2_TEXT("hoge"));
+            BOOST_CHECK(string == "hoge");
+        }
+        {
+            const char character(TETENGO2_TEXT('H'));
+            BOOST_CHECK_EQUAL(character, 'H');
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_wide_type)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::wstring string(TETENGO2_TEXT("hoge"));
-        BOOST_CHECK(string == L"hoge");
+        {
+            const std::wstring string(TETENGO2_TEXT("hoge"));
+            BOOST_CHECK(string == L"hoge");
+        }
+        {
+            const wchar_t character(TETENGO2_TEXT('H'));
+            BOOST_CHECK_EQUAL(character, L'H');
+        }
     }
 
 
@@ -48,7 +60,12 @@ BOOST_AUTO_TEST_SUITE_END()
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            tetengo2::make_text_value_holder("hoge", L"fuga");
+        }
+        {
+            tetengo2::make_text_value_holder('H', L'F');
+        }
     }
 
 

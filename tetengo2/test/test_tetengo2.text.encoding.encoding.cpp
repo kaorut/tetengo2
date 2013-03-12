@@ -8,7 +8,24 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.encoding.h"
+
 #include "tetengo2.text.encoding.encoding.h"
+
+
+namespace
+{
+    // types
+
+    typedef tetengo2::text::encoding::encoding<tetengo2::detail::stub::encoding> encoding_type;
+
+    struct concrete_encoding : public encoding_type
+    {
+        concrete_encoding()
+        {}
+
+    };
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -21,8 +38,7 @@ BOOST_AUTO_TEST_SUITE(encoding)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-
+        const concrete_encoding encoding;
     } 
 
 
