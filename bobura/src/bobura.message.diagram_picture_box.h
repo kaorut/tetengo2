@@ -10,8 +10,9 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+//#include <cstddef>
 #include <functional>
-#include <memory>
+//#include <memory>
 
 #include <boost/optional.hpp>
 //#include <boost/rational.hpp>
