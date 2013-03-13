@@ -54,6 +54,9 @@ namespace bobura { namespace message
             //! The mouse released type.
             struct mouse_released;
 
+            //! The mouse moved type.
+            struct mouse_moved;
+
             //! The mouse observer type.
             struct mouse_wheeled;
 

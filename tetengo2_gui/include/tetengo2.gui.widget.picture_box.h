@@ -60,14 +60,20 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
 
-        //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        //! The system cursor type.
+        typedef typename base_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename base_type::cursor_type cursor_type;
 
         //! The scroll bar type.
         typedef typename base_type::scroll_bar_type scroll_bar_type;
 
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
 
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
