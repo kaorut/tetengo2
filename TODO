@@ -12,25 +12,10 @@ Added on    : 2012/11/13
 Depends on  : 00000222
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
-Number      : 00000215
-Added on    : 2013/02/08
-Depends on  : (none)
-Description : Enable train selection.
-------------------------------------------------------------------------------
-Number      : 00000216
-Added on    : 2013/02/08
-Depends on  : 00000215
-Description : Create bobura::train_dialog.
-------------------------------------------------------------------------------
 Number      : 00000217
 Added on    : 2013/02/08
 Depends on  : (none)
 Description : Enable station selection.
-------------------------------------------------------------------------------
-Number      : 00000218
-Added on    : 2013/02/08
-Depends on  : 00000217
-Description : Create bobura::station_dialog.
 ------------------------------------------------------------------------------
 Number      : 00000221
 Added on    : 2013/02/22
@@ -43,6 +28,16 @@ Depends on  : (none)
 Description : Upgrade gcc to 4.7.x.
 ------------------------------------------------------------------------------
 Number      : 00000223
+Added on    : 2013/03/13
+Depends on  : (none)
+Description : Create tetengo2::gui::widget::key_value_list_box.
+------------------------------------------------------------------------------
+Number      : 00000224
+Added on    : 2013/03/13
+Depends on  : 00000223
+Description : Create bobura::property_view.
+------------------------------------------------------------------------------
+Number      : 00000225
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
