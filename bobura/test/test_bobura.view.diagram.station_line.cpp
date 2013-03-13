@@ -95,6 +95,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
         station_line_type station_line1(
             selection,
             left_type(42),
+            left_type(12),
             top_type(24),
             string_type(),
             dimension_type(width_type(24), height_type(42)),
@@ -112,6 +113,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
         station_line_type station_line1(
             selection,
             left_type(42),
+            left_type(12),
             top_type(24),
             string_type(),
             dimension_type(width_type(24), height_type(42)),
@@ -121,6 +123,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
         station_line_type station_line2(
             selection,
             left_type(42),
+            left_type(12),
             top_type(24),
             string_type(),
             dimension_type(width_type(24), height_type(42)),

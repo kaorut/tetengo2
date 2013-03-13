@@ -76,17 +76,19 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a station line.
 
-            \param selection      A selection.
-            \param right          A right position.
-            \param top            A top position.
-            \param name           A name.
-            \param name_dimension A name dimension.
-            \param font           A font.
-            \param color          A color.
+            \param selection            A selection.
+            \param right                A right position.
+            \param station_header_right A station header right position.
+            \param top                  A top position.
+            \param name                 A name.
+            \param name_dimension       A name dimension.
+            \param font                 A font.
+            \param color                A color.
         */
         station_line(
             selection_type&    selection,
             const left_type&   right,
+            const left_type&   station_header_right,
             top_type           top,
             const string_type& name,
             dimension_type     name_dimension,
@@ -96,6 +98,7 @@ namespace bobura { namespace view { namespace diagram
         :
         base_type(selection),
         m_right(right),
+        m_station_header_right(station_header_right),
         m_top(std::move(top)),
         m_p_name(&name),
         m_name_dimension(std::move(name_dimension)),
@@ -112,6 +115,7 @@ namespace bobura { namespace view { namespace diagram
         :
         base_type(another.selection()),
         m_right(std::move(another.m_right)),
+        m_station_header_right(another.m_station_header_right),
         m_top(std::move(another.m_top)),
         m_p_name(another.m_p_name),
         m_name_dimension(std::move(another.m_name_dimension)),
@@ -142,6 +146,7 @@ namespace bobura { namespace view { namespace diagram
                 return *this;
 
             m_right = std::move(another.m_right);
+            m_station_header_right = std::move(another.m_station_header_right);
             m_top = std::move(another.m_top);
             m_p_name = another.m_p_name;
             m_name_dimension = std::move(another.m_name_dimension);
@@ -157,6 +162,8 @@ namespace bobura { namespace view { namespace diagram
         // variables
 
         left_type m_right;
+
+        left_type m_station_header_right;
 
         top_type m_top;
 
@@ -190,7 +197,19 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            return NULL;
+            const left_type& x = tetengo2::gui::position<position_type>::left(position);
+            const top_type& y = tetengo2::gui::position<position_type>::top(position);
+            if (
+                (left_type(0) <= x && x <= m_station_header_right) &&
+                (m_top - selected_line_margin<top_type>() <= y && y <= m_top + selected_line_margin<top_type>())
+            )
+            {
+                return this;
+            }
+            else
+            {
+                return NULL;
+            }
         }
 
 
@@ -376,7 +395,7 @@ namespace bobura { namespace view { namespace diagram
 
         // static functions
 
-        std::vector<station_line_type> make_station_lines(
+        static std::vector<station_line_type> make_station_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
@@ -432,6 +451,7 @@ namespace bobura { namespace view { namespace diagram
                     station_line_type(
                         selection,
                         line_right,
+                        station_header_right,
                         std::move(line_position),
                         station_name,
                         std::move(station_name_dimension),
@@ -485,6 +505,13 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
+            BOOST_REVERSE_FOREACH (station_line_type& station_line, m_station_lines)
+            {
+                base_type* const p_item = station_line.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
             return NULL;
         }
 
