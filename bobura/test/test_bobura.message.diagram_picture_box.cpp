@@ -49,6 +49,8 @@ namespace
 
     typedef bobura::message::diagram_picture_box::mouse_released<picture_box_type, view_type> mouse_released_type;
 
+    typedef bobura::message::diagram_picture_box::mouse_moved<picture_box_type, view_type> mouse_moved_type;
+
     struct dummy_view_zoom_type
     {
     public:
@@ -113,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(mouse_pressed)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
@@ -125,7 +127,7 @@ BOOST_AUTO_TEST_SUITE(mouse_pressed)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
@@ -159,6 +161,37 @@ BOOST_AUTO_TEST_SUITE(mouse_released)
         const mouse_released_type mouse_released(release_mouse_capture, view);
 
         mouse_released(mouse_button_type::left, position_type(left_type(24), top_type(42)), false, false, false);
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(mouse_moved)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
+        const mouse_moved_type mouse_moved(picture_box, view);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        const model_type model;
+        const message_catalog_type message_catalog;
+        const view_type view(model, message_catalog);
+        const mouse_moved_type mouse_moved(picture_box, view);
+
+        mouse_moved(position_type(left_type(24), top_type(42)), false, false, false);
     }
 
 

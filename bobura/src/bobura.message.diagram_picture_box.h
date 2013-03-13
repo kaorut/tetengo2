@@ -10,11 +10,15 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
+//#include <cstddef>
 #include <functional>
+//#include <memory>
 
+#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace message { namespace diagram_picture_box
@@ -90,7 +94,6 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             m_set_mouse_capture();
 
-            typedef typename view_type::item_type item_type;
             item_type* const p_item = m_view.p_item_by_position(position);
             if (p_item)
                 p_item->select(button != mouse_button_type::right);
@@ -102,6 +105,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
 
     private:
+        // types
+
+        typedef typename view_type::item_type item_type;
+
+
         // variables
 
         const picture_box_type& m_picture_box;
@@ -190,6 +198,102 @@ namespace bobura { namespace message { namespace diagram_picture_box
         release_mouse_capture_type m_release_mouse_capture;
 
         view_type& m_view;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a mouse moved observer of the picture box.
+
+        \tparam PictureBox A picture box type.
+        \tparam View       A view type.
+    */
+    template <typename PictureBox, typename View>
+    class mouse_moved
+    {
+    public:
+        // types
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
+
+        //! The position type.
+        typedef typename picture_box_type::position_type position_type;
+
+        //! The button kind type.
+        typedef typename picture_box_type::mouse_observer_set_type::mouse_button_type mouse_button_type;
+
+        //! The view type.
+        typedef View view_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse moved observer of the picture box.
+
+            \param picture_box A picture box.
+            \param view        A view.
+        */
+        explicit mouse_moved(picture_box_type& picture_box, const view_type& view)
+        :
+        m_picture_box(picture_box),
+        m_view(view)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the mouse is moved.
+
+            \param position A position.
+            \param shift    True when shift key is pressed.
+            \param control  True when control key is pressed.
+            \param meta     True when meta key is pressed.
+        */
+        void operator()(const position_type& position, const bool shift, const bool control, const bool meta)
+        const
+        {
+            const item_type* const p_item = m_view.p_item_by_position(position);
+            const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();
+            const system_cursor_type* const p_system_cursor =
+                cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : NULL;
+            if (p_item)
+            {
+                if (!p_system_cursor || p_system_cursor->style() != system_cursor_type::style_type::hand)
+                {
+                    m_picture_box.set_cursor(
+                        tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
+                    );
+                }
+            }
+            else
+            {
+                if (p_system_cursor)
+                {
+                    m_picture_box.set_cursor(std::unique_ptr<cursor_type>());
+                }
+            }
+        }
+
+
+    private:
+        // types
+
+        typedef typename picture_box_type::cursor_type cursor_type;
+
+        typedef typename picture_box_type::system_cursor_type system_cursor_type;
+
+        typedef typename view_type::item_type item_type;
+
+
+        // variables
+
+        picture_box_type& m_picture_box;
+
+        const view_type& m_view;
 
 
     };
