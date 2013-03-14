@@ -93,7 +93,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_list_box_observer_set()
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!

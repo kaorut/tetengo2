@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::template create_window<typename base_type::base_type>(boost::none, scroll_bar_style)
         )
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::template create_window<typename base_type::base_type>(parent, scroll_bar_style)
         )
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!

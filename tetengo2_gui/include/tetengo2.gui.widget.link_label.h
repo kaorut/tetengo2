@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent),
         m_target()
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!

@@ -81,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_text_box_observer_set()
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!

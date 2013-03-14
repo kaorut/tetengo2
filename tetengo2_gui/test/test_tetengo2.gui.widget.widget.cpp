@@ -89,7 +89,7 @@ namespace
             )
         )
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         virtual ~concrete_widget()

@@ -225,7 +225,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
         font_type font(string_type(TETENGO2_TEXT("AnotherFont")), 42, true, true, true, true);
         canvas.set_font(std::move(font));
 
-        BOOST_CHECK(canvas.font() == font);
+        BOOST_CHECK(
+            canvas.font() == font_type(string_type(TETENGO2_TEXT("AnotherFont")), 42, true, true, true, true)
+        );
     }
 
     BOOST_AUTO_TEST_CASE(draw_line)

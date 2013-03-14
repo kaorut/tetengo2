@@ -97,7 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!
@@ -117,7 +117,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             if (this->text().empty()) return;
 
-            set_client_dimension(calc_text_dimension());
+            this->set_client_dimension(calc_text_dimension());
         }
 
         /*!
@@ -133,13 +133,13 @@ namespace tetengo2 { namespace gui { namespace widget
             const width_type line_count(gui::dimension<dimension_type>::width(one_line_dimension) / max_width);
             if (line_count <= width_type(1))
             {
-                set_client_dimension(std::move(one_line_dimension));
+                this->set_client_dimension(std::move(one_line_dimension));
                 return;
             }
 
             const std::size_t int_line_count = ceil<std::size_t>(line_count);
             height_type height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
-            set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
+            this->set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
         }
 
 

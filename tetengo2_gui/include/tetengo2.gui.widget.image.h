@@ -152,7 +152,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content()
         {
-            set_client_dimension(m_p_picture->dimension());
+            this->set_client_dimension(m_p_picture->dimension());
         }
 
 
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_image(image* const p_image)
         {
-            initialize(p_image);
+            p_image->initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
                 TETENGO2_CPP11_BIND(&image::paint_picture, p_image, cpp11::placeholders_1())

@@ -933,7 +933,7 @@ namespace bobura { namespace model { namespace serializer
             typename error_type::enum_t& error
         )
         {
-            if (!selects(first, last))
+            if (!this->selects(first, last))
             {
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
