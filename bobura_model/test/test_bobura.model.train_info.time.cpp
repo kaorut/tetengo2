@@ -11,6 +11,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.utility.h>
+
 #include "test_bobura.model.type_list.h"
 
 
@@ -98,6 +100,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         const time_type time = time_type::uninitialized();
+        tetengo2::suppress_unused_variable_warning(time);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
