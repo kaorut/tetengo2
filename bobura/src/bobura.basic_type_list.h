@@ -1106,8 +1106,9 @@ namespace bobura
     namespace detail { namespace view
     {
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
+        typedef model_type::timetable_type::station_location_type::station_type station_type;
         typedef model_type::timetable_type::train_type train_type;
-        typedef bobura::view::diagram::selection<train_type> selection_type;
+        typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
         typedef
             bobura::view::diagram::header<
                 model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type

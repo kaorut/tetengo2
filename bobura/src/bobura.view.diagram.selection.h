@@ -22,13 +22,17 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for the diagram view selection.
 
-        \tparam Train A train type.
+        \tparam Station A station type.
+        \tparam Train   A train type.
     */
-    template <typename Train>
+    template <typename Station, typename Train>
     class selection : private boost::noncopyable
     {
     public:
         // types
+
+        //! The station type.
+        typedef Station station_type;
 
         //! The train type.
         typedef Train train_type;
@@ -44,6 +48,7 @@ namespace bobura { namespace view { namespace diagram
         */
         selection()
         :
+        m_p_selected_station(NULL),
         m_p_selected_train(NULL)
         {}
 
@@ -54,11 +59,29 @@ namespace bobura { namespace view { namespace diagram
         */
         selection(selection&& another)
         :
+        m_p_selected_station(another.m_p_selected_station),
         m_p_selected_train(another.m_p_selected_train)
         {}
 
 
         // functions
+
+        /*!
+            \brief Checks whether the station is selected.
+
+            \param station A station.
+
+            \retval true  When the station is selected.
+            \retval false Otherwise.
+        */
+        bool selected(const station_type& station)
+        const
+        {
+            if (!m_p_selected_station)
+                return false;
+
+            return &station == m_p_selected_station;
+        }
 
         /*!
             \brief Checks whether the train is selected.
@@ -93,6 +116,18 @@ namespace bobura { namespace view { namespace diagram
         }
 
         /*!
+            \brief Selects a station.
+
+            \param station A station.
+        */
+        void select(const station_type& station)
+        {
+            unselect_all();
+
+            m_p_selected_station = &station;
+        }
+
+        /*!
             \brief Selects a train.
 
             \param train                A train.
@@ -111,6 +146,7 @@ namespace bobura { namespace view { namespace diagram
         */
         void unselect_all()
         {
+            m_p_selected_station = NULL;
             m_p_selected_train = NULL;
             m_departure_stop_index = boost::none;
         }
@@ -118,6 +154,8 @@ namespace bobura { namespace view { namespace diagram
 
     private:
         // variables
+
+        const station_type* m_p_selected_station;
 
         const train_type* m_p_selected_train;
 

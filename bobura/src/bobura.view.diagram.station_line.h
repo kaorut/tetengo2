@@ -31,14 +31,24 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for a station line in the diagram view.
 
+        \tparam Model     A model type.
         \tparam Selection A selection type.
         \tparam Canvas    A canvas type.
     */
-    template <typename Selection, typename Canvas>
+    template <typename Model, typename Selection, typename Canvas>
     class station_line : public item<Selection, Canvas>
     {
     public:
         // types
+
+        //! The model type.
+        typedef Model model_type;
+
+        //! The station type.
+        typedef typename model_type::timetable_type::station_location_type::station_type station_type;
+
+        //! The font and color type.
+        typedef typename model_type::timetable_type::font_color_set_type::font_color_type font_color_type;
 
         //! The selection type.
         typedef Selection selection_type;
@@ -48,12 +58,6 @@ namespace bobura { namespace view { namespace diagram
 
         //! The string type.
         typedef typename canvas_type::string_type string_type;
-
-        //! The font type.
-        typedef typename canvas_type::font_type font_type;
-
-        //! The color type.
-        typedef typename canvas_type::color_type color_type;
 
         //! The position type.
         typedef typename canvas_type::position_type position_type;
@@ -76,31 +80,28 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a station line.
 
-            \param selection      A selection.
-            \param right          A right position.
-            \param top            A top position.
-            \param name           A name.
-            \param name_dimension A name dimension.
-            \param font           A font.
-            \param color          A color.
+            \param station              A station.
+            \param selection            A selection.
+            \param right                A right position.
+            \param station_header_right A station header right position.
+            \param top                  A top position.
+            \param font_color           A font and color.
         */
         station_line(
-            selection_type&    selection,
-            const left_type&   right,
-            top_type           top,
-            const string_type& name,
-            dimension_type     name_dimension,
-            const font_type&   font,
-            const color_type&  color
+            const station_type&    station,
+            selection_type&        selection,
+            const left_type&       right,
+            const left_type&       station_header_right,
+            top_type               top,
+            const font_color_type& font_color
         )
         :
         base_type(selection),
+        m_p_station(&station),
         m_right(right),
+        m_station_header_right(station_header_right),
         m_top(std::move(top)),
-        m_p_name(&name),
-        m_name_dimension(std::move(name_dimension)),
-        m_p_font(&font),
-        m_p_color(&color)
+        m_p_font_color(&font_color)
         {}
 
         /*!
@@ -111,12 +112,11 @@ namespace bobura { namespace view { namespace diagram
         station_line(station_line&& another)
         :
         base_type(another.selection()),
+        m_p_station(another.m_p_station),
         m_right(std::move(another.m_right)),
+        m_station_header_right(another.m_station_header_right),
         m_top(std::move(another.m_top)),
-        m_p_name(another.m_p_name),
-        m_name_dimension(std::move(another.m_name_dimension)),
-        m_p_font(another.m_p_font),
-        m_p_color(another.m_p_color)
+        m_p_font_color(another.m_p_font_color)
         {}
 
         /*!
@@ -141,12 +141,11 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
+            m_p_station = another.m_p_station;
             m_right = std::move(another.m_right);
+            m_station_header_right = std::move(another.m_station_header_right);
             m_top = std::move(another.m_top);
-            m_p_name = another.m_p_name;
-            m_name_dimension = std::move(another.m_name_dimension);
-            m_p_font = another.m_p_font;
-            m_p_color = another.m_p_color;
+            m_p_font_color = another.m_p_font_color;
             base_type::operator=(std::move(another));
 
             return *this;
@@ -156,17 +155,15 @@ namespace bobura { namespace view { namespace diagram
     private:
         // variables
 
+        const station_type* m_p_station;
+
         left_type m_right;
+
+        left_type m_station_header_right;
 
         top_type m_top;
 
-        const string_type* m_p_name;
-
-        dimension_type m_name_dimension;
-
-        const font_type* m_p_font;
-
-        const color_type* m_p_color;
+        const font_color_type* m_p_font_color;
 
 
         // virtual functions
@@ -174,23 +171,50 @@ namespace bobura { namespace view { namespace diagram
         virtual void draw_on_impl(canvas_type& canvas)
         const
         {
-            canvas.set_font(*m_p_font);
-            canvas.set_color(*m_p_color);
+            canvas.set_font(m_p_font_color->font());
+            canvas.set_color(m_p_font_color->color());
 
-            canvas.draw_line(position_type(left_type(0), m_top), position_type(m_right, m_top));
+            draw_selectable_line(
+                canvas, position_type(left_type(0), m_top), position_type(m_right, m_top), this->selected()
+            );
 
+            const string_type& name = m_p_station->name();
+            const dimension_type name_dimension = canvas.calc_text_dimension(name);
             canvas.draw_text(
-                *m_p_name,
+                name,
                 position_type(
                     left_type(0),
-                    m_top - top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_name_dimension))
+                    m_top - top_type::from(tetengo2::gui::dimension<dimension_type>::height(name_dimension))
                 )
             );
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            return NULL;
+            const left_type& x = tetengo2::gui::position<position_type>::left(position);
+            const top_type& y = tetengo2::gui::position<position_type>::top(position);
+            if (
+                (left_type(0) <= x && x <= m_station_header_right) &&
+                (m_top - selected_line_margin<top_type>() <= y && y <= m_top + selected_line_margin<top_type>())
+            )
+            {
+                return this;
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+
+        virtual bool selected_impl()
+        const
+        {
+            return this->selection().selected(*m_p_station);
+        }
+
+        virtual void select_impl(const bool switch_selection_style)
+        {
+            this->selection().select(*m_p_station);
         }
 
 
@@ -355,7 +379,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // types
 
-        typedef station_line<selection_type, canvas_type> station_line_type;
+        typedef station_line<model_type, selection_type, canvas_type> station_line_type;
 
         typedef typename model_type::timetable_type timetable_type;
 
@@ -376,7 +400,7 @@ namespace bobura { namespace view { namespace diagram
 
         // static functions
 
-        std::vector<station_line_type> make_station_lines(
+        static std::vector<station_line_type> make_station_lines(
             const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
@@ -422,21 +446,15 @@ namespace bobura { namespace view { namespace diagram
                 if (line_position > canvas_bottom)
                     break;
 
-                const font_color_type& font_color =
-                    select_station_font_color(model, model.timetable().station_locations()[i].station().grade());
-                const string_type& station_name = model.timetable().station_locations()[i].station().name();
-                canvas.set_font(font_color.font());
-                dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
-
+                const station_type& station = model.timetable().station_locations()[i].station();
                 station_lines.push_back(
                     station_line_type(
+                        station,
                         selection,
                         line_right,
+                        station_header_right,
                         std::move(line_position),
-                        station_name,
-                        std::move(station_name_dimension),
-                        font_color.font(),
-                        font_color.color()
+                        select_station_font_color(model.timetable().font_color_set(), station.grade())
                     )
                 );
             }
@@ -446,18 +464,18 @@ namespace bobura { namespace view { namespace diagram
         }
 
         static const font_color_type& select_station_font_color(
-            const model_type&         model,
-            const station_grade_type& grade
+            const font_color_set_type& font_color_set,
+            const station_grade_type&  grade
         )
         {
             if      (&grade == &station_grade_type_set_type::local_type::instance())
-                return model.timetable().font_color_set().local_station();
+                return font_color_set.local_station();
             else if (&grade == &station_grade_type_set_type::principal_type::instance())
-                return model.timetable().font_color_set().principal_station();
+                return font_color_set.principal_station();
             else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
-                return model.timetable().font_color_set().local_terminal_station();
+                return font_color_set.local_terminal_station();
             else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
-                return model.timetable().font_color_set().principal_terminal_station();
+                return font_color_set.principal_terminal_station();
 
             assert(false);
             BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
@@ -485,6 +503,13 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
+            BOOST_REVERSE_FOREACH (station_line_type& station_line, m_station_lines)
+            {
+                base_type* const p_item = station_line.p_item_by_position(position);
+                if (p_item)
+                    return p_item;
+            }
+
             return NULL;
         }
 
