@@ -36,7 +36,7 @@ namespace
 
     typedef model_type::timetable_type::train_type train_type;
 
-    typedef bobura::view::diagram::selection<train_type> selection_type;
+    typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
 
     typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
 
@@ -96,10 +96,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
         BOOST_TEST_PASSPOINT();
 
         const station_type station(
-            string_type(TETENGO2_TEXT("name")),
-            station_grade_type_set_type::local_type::instance(),
-            false,
-            false
+            string_type(TETENGO2_TEXT("name")), station_grade_type_set_type::local_type::instance(), false, false
         );
         selection_type selection;
         station_line_type station_line1(
@@ -118,10 +115,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
         BOOST_TEST_PASSPOINT();
 
         const station_type station1(
-            string_type(TETENGO2_TEXT("name1")),
-            station_grade_type_set_type::local_type::instance(),
-            false,
-            false
+            string_type(TETENGO2_TEXT("name1")), station_grade_type_set_type::local_type::instance(), false, false
         );
         selection_type selection;
         station_line_type station_line1(
@@ -133,10 +127,7 @@ BOOST_AUTO_TEST_SUITE(station_line)
             font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
         );
         const station_type station2(
-            string_type(TETENGO2_TEXT("name2")),
-            station_grade_type_set_type::principal_type::instance(),
-            true,
-            false
+            string_type(TETENGO2_TEXT("name2")), station_grade_type_set_type::principal_type::instance(), true, false
         );
         station_line_type station_line2(
             station2,

@@ -38,9 +38,11 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef model_type::timetable_type::station_location_type::station_type station_type;
+
     typedef model_type::timetable_type::train_type train_type;
 
-    typedef bobura::view::diagram::selection<train_type> selection_type_type;
+    typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -72,7 +74,7 @@ namespace
             station_line_list_type,
             train_line_list_type,
             model_type,
-            selection_type_type,
+            selection_type,
             canvas_type,
             solid_background_type,
             message_catalog_type
