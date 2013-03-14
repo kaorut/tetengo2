@@ -12,11 +12,6 @@ Added on    : 2012/11/13
 Depends on  : 00000222
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
-Number      : 00000217
-Added on    : 2013/02/08
-Depends on  : (none)
-Description : Enable station selection.
-------------------------------------------------------------------------------
 Number      : 00000221
 Added on    : 2013/02/22
 Depends on  : (none)
