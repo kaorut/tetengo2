@@ -77,7 +77,10 @@ namespace bobura { namespace view { namespace diagram
         bool selected(const station_type& station)
         const
         {
-            return m_p_selected_station;
+            if (!m_p_selected_station)
+                return false;
+
+            return &station == m_p_selected_station;
         }
 
         /*!

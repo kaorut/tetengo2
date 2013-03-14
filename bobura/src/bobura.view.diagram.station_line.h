@@ -174,7 +174,9 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_font(m_p_font_color->font());
             canvas.set_color(m_p_font_color->color());
 
-            canvas.draw_line(position_type(left_type(0), m_top), position_type(m_right, m_top));
+            draw_selectable_line(
+                canvas, position_type(left_type(0), m_top), position_type(m_right, m_top), this->selected()
+            );
 
             const string_type& name = m_p_station->name();
             const dimension_type name_dimension = canvas.calc_text_dimension(name);
@@ -202,6 +204,17 @@ namespace bobura { namespace view { namespace diagram
             {
                 return NULL;
             }
+        }
+
+        virtual bool selected_impl()
+        const
+        {
+            return this->selection().selected(*m_p_station);
+        }
+
+        virtual void select_impl(const bool switch_selection_style)
+        {
+            this->selection().select(*m_p_station);
         }
 
 
