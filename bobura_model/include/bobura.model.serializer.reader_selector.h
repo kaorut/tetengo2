@@ -85,6 +85,7 @@ namespace bobura { namespace model { namespace serializer
         virtual bool selects_impl(const iterator first, const iterator last)
         {
             BOOST_THROW_EXCEPTION(std::logic_error("This function cannot be called."));
+            return false; // Never passes here.
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
