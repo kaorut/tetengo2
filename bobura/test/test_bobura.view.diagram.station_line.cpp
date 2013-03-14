@@ -30,6 +30,10 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef model_type::timetable_type::station_location_type::station_type station_type;
+
+    typedef model_type::timetable_type::font_color_set_type::font_color_type font_color_type;
+
     typedef model_type::timetable_type::train_type train_type;
 
     typedef bobura::view::diagram::selection<train_type> selection_type;
@@ -68,7 +72,7 @@ namespace
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
         station_grade_type_set_type;
     
-    typedef bobura::view::diagram::station_line<selection_type, canvas_type> station_line_type;
+    typedef bobura::view::diagram::station_line<model_type, selection_type, canvas_type> station_line_type;
 
     typedef
         bobura::view::diagram::station_line_list<model_type, selection_type, canvas_type, station_grade_type_set_type>
@@ -91,16 +95,20 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        const station_type station(
+            string_type(TETENGO2_TEXT("name")),
+            station_grade_type_set_type::local_type::instance(),
+            false,
+            false
+        );
         selection_type selection;
         station_line_type station_line1(
+            station,
             selection,
             left_type(42),
             left_type(12),
             top_type(24),
-            string_type(),
-            dimension_type(width_type(24), height_type(42)),
-            font_type::dialog_font(),
-            color_type(12, 34, 56)
+            font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
         );
         const station_line_type station_line2(std::move(station_line1));
     }
@@ -109,26 +117,34 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
+        const station_type station1(
+            string_type(TETENGO2_TEXT("name1")),
+            station_grade_type_set_type::local_type::instance(),
+            false,
+            false
+        );
         selection_type selection;
         station_line_type station_line1(
+            station1,
             selection,
             left_type(42),
             left_type(12),
             top_type(24),
-            string_type(),
-            dimension_type(width_type(24), height_type(42)),
-            font_type::dialog_font(),
-            color_type(12, 34, 56)
+            font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
+        );
+        const station_type station2(
+            string_type(TETENGO2_TEXT("name2")),
+            station_grade_type_set_type::principal_type::instance(),
+            true,
+            false
         );
         station_line_type station_line2(
+            station2,
             selection,
             left_type(42),
             left_type(12),
             top_type(24),
-            string_type(),
-            dimension_type(width_type(24), height_type(42)),
-            font_type::dialog_font(),
-            color_type(12, 34, 56)
+            font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
         );
         station_line1 = std::move(station_line2);
     }
