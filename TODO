@@ -17,11 +17,6 @@ Added on    : 2013/02/22
 Depends on  : (none)
 Description : Support high DPI.
 ------------------------------------------------------------------------------
-Number      : 00000222
-Added on    : 2013/03/01
-Depends on  : (none)
-Description : Upgrade gcc to 4.7.x.
-------------------------------------------------------------------------------
 Number      : 00000223
 Added on    : 2013/03/13
 Depends on  : (none)
@@ -33,6 +28,31 @@ Depends on  : 00000223
 Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
 Number      : 00000225
+Added on    : 2013/03/15
+Depends on  : (none)
+Description : Replace local variable type declarations to auto.
+------------------------------------------------------------------------------
+Number      : 00000226
+Added on    : 2013/03/15
+Depends on  : (none)
+Description : Replace NULL to nullptr.
+------------------------------------------------------------------------------
+Number      : 00000227
+Added on    : 2013/03/15
+Depends on  : (none)
+Description : Replace BOOST_FOREACH to range-based for loops.
+------------------------------------------------------------------------------
+Number      : 00000228
+Added on    : 2013/03/15
+Depends on  : (none)
+Description : Introduce strongly typed enums.
+------------------------------------------------------------------------------
+Number      : 00000229
+Added on    : 2013/03/15
+Depends on  : (none)
+Description : Introduce override keywords.
+------------------------------------------------------------------------------
+Number      : 00000230
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
