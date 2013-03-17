@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.select_oudia_diagram.h"
 #include "bobura.type_list.h"
@@ -54,7 +55,9 @@ namespace
         oudia_diagram_dialog_type(abstract_window_type& parent, const message_catalog_type& message_catalog)
         :
         base_type(parent)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(message_catalog);
+        }
 
         virtual ~oudia_diagram_dialog_type()
         TETENGO2_CPP11_NOEXCEPT
@@ -68,7 +71,9 @@ namespace
         }
 
         void set_file_name(string_type file_name)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(file_name);
+        }
 
         const std::vector<string_type>& names()
         const
@@ -78,7 +83,9 @@ namespace
         }
 
         void set_names(std::vector<string_type> names)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(names);
+        }
 
         const boost::optional<int_size_type>& selected_index()
         const
@@ -88,7 +95,9 @@ namespace
         }
 
         void set_selected_index(const int_size_type index)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(index);
+        }
 
     };
 

@@ -801,7 +801,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void repaint(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Uses a widget canvas.
@@ -936,7 +938,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void close(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Opens a target.

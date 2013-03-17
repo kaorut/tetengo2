@@ -100,6 +100,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const HandleOrWidgetDetails& handle_or_widget_details
         )
         {
+            suppress_unused_variable_warning(handle_or_widget_details);
+
             return make_unique<canvas_details_type>();
         }
 
