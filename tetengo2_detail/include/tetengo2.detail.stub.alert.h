@@ -13,6 +13,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
@@ -39,6 +41,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
+            tetengo2::suppress_unused_variable_warning(widget_handle);
+
             return NULL;
         }
 

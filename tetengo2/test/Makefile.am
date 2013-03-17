@@ -52,7 +52,8 @@ tetengo2_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2_detail/include
 tetengo2_test_CXXFLAGS = \
     -Werror \
-    -Wall
+    -Wall \
+    -Wextra
 tetengo2_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)

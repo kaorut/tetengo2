@@ -27,6 +27,7 @@
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -285,6 +286,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            tetengo2::suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(&parent);
         }
 
@@ -327,6 +330,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            tetengo2::suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(parent ? &*parent : NULL);
         }
 

@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -165,7 +166,12 @@ namespace tetengo2 { namespace detail { namespace stub
             MenuBase&             menu,
             const Encoder&        encoder
         )
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(popup_menu);
+            tetengo2::suppress_unused_variable_warning(offset);
+            tetengo2::suppress_unused_variable_warning(menu);
+            tetengo2::suppress_unused_variable_warning(encoder);
+        }
 
         /*!
             \brief Erases a menu.
@@ -181,7 +187,11 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(popup_menu);
+            tetengo2::suppress_unused_variable_warning(first);
+            tetengo2::suppress_unused_variable_warning(last);
+        }
 
         /*!
             \brief Returns the menu bar style.

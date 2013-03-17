@@ -19,6 +19,7 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -246,7 +247,12 @@ namespace tetengo2 { namespace detail { namespace stub
             const Dimension&     dimension,
             const Background&    background
         )
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(canvas);
+            tetengo2::suppress_unused_variable_warning(position);
+            tetengo2::suppress_unused_variable_warning(dimension);
+            tetengo2::suppress_unused_variable_warning(background);
+        }
 
         /*!
             \brief Makes a dialog font.

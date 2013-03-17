@@ -13,6 +13,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.control.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -163,6 +164,8 @@ namespace tetengo2 { namespace gui { namespace widget
             bool operator()(typename base_type::canvas_type& canvas)
             const
             {
+                tetengo2::suppress_unused_variable_warning(canvas);
+
                 return true;
             }
 

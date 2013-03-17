@@ -13,6 +13,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
@@ -64,7 +66,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param exit_code An exit code.
         */
         static void break_loop(const int exit_code)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(exit_code);
+        }
 
 
     private:

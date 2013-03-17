@@ -18,6 +18,7 @@
 #include <boost/optional.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 #include "tetengo2.text.h"
 
 
@@ -138,6 +139,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
+            tetengo2::suppress_unused_variable_warning(message_box);
+
             return message_box_button_id_type::cancel;
         }
 

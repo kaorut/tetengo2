@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_UTILITY_H)
 #define TETENGO2_UTILITY_H
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2
 {
@@ -20,8 +22,10 @@ namespace tetengo2
         \param v A value.
     */
     template <typename T>
-    void suppress_unused_variable_warning(const T v)
-    {}
+    void suppress_unused_variable_warning(const T& v)
+    {
+        boost::ignore_unused_variable_warning(v);
+    }
 
 
 }
