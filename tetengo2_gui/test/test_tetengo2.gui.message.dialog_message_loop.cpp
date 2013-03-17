@@ -37,7 +37,7 @@ namespace
         abstract_window_type(abstract_window_type::scroll_bar_style_type::none, message_handler_map_type()),
         m_p_details(tetengo2::make_unique<details_type>())
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         virtual ~concrete_window()

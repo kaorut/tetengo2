@@ -20,6 +20,9 @@ libtetengo2_a_CPPFLAGS = \
     $(PRECOMPILE_CPPFLAGS) \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include
+libtetengo2_a_CXXFLAGS = \
+    -Werror \
+    -Wall
 libtetengo2_a_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h

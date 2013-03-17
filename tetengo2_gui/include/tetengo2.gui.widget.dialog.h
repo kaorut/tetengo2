@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_result(result_type::undecided),
         m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent))
         {
-            initialize(this);
+            this->initialize(this);
         }
 
         /*!

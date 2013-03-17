@@ -106,7 +106,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_fast_paint_observer_set()
         {
-            initialize(this);
+            this->initialize(this);
             this->paint_observer_set().paint_background().connect(paint_background());
         }
 

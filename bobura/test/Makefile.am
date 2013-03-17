@@ -53,6 +53,9 @@ bobura_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
+bobura_test_CXXFLAGS = \
+    -Werror \
+    -Wall
 bobura_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)

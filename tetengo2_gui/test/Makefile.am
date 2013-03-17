@@ -89,6 +89,9 @@ tetengo2_gui_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
+tetengo2_gui_test_CXXFLAGS = \
+    -Werror \
+    -Wall
 tetengo2_gui_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)
