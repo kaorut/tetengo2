@@ -20,9 +20,6 @@
 #include "tetengo2.text.grammar.json.h"
 
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
 namespace tetengo2 { namespace text { namespace grammar
 {
     template <typename ForwardIterator>
@@ -561,4 +558,3 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
 }}}
-#endif
