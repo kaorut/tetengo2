@@ -443,8 +443,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             return
                 Dimension(
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(metrics.width),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(metrics.height)
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(to_ddp_x(metrics.width)),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(to_ddp_y(metrics.height))
                 );
         }
 
@@ -594,27 +594,63 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return direct_write_factory_ptr_type(rp_factory);
         }
 
+        static const std::pair< ::FLOAT, ::FLOAT>& dpi()
+        {
+            static const std::pair< ::FLOAT, ::FLOAT> singleton = calculate_dpi();
+            return singleton;
+        }
+
+        static std::pair< ::FLOAT, ::FLOAT> calculate_dpi()
+        {
+            std::pair< ::FLOAT, ::FLOAT> dpi;
+
+            direct2d_factory().GetDesktopDpi(&dpi.first, &dpi.second);
+            assert(dpi.first != 0 && dpi.second != 0);
+            
+            return dpi;
+        }
+
+        static ::FLOAT to_ddp_x(const ::FLOAT dip)
+        {
+            return dip * dpi().first / 96.0f;
+        }
+
+        static ::FLOAT to_ddp_y(const ::FLOAT dip)
+        {
+            return dip * dpi().second / 96.0f;
+        }
+
+        static ::FLOAT to_dip_x(const ::FLOAT ddp)
+        {
+            return ddp * 96.0f / dpi().first;
+        }
+
+        static ::FLOAT to_dip_y(const ::FLOAT ddp)
+        {
+            return ddp * 96.0f / dpi().second;
+        }
+
         template <typename Size>
         static ::FLOAT size_to_float(const Size size)
         {
-            return gui::to_pixels< ::FLOAT>(size);
+            return to_dip_y(gui::to_pixels< ::FLOAT>(size));
         }
 
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
-            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
+            const ::FLOAT left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
+            const ::FLOAT top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
             return D2D1::Point2F(left - 0.5f, top - 0.5f);
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
-            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
-            const ::FLOAT width = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension));
-            const ::FLOAT height = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension));
+            const ::FLOAT left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
+            const ::FLOAT top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const ::FLOAT width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
+            const ::FLOAT height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
             return D2D1::RectF(left, top, left + width, top + height);
         }
 

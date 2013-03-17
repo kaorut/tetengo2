@@ -343,4 +343,9 @@
       <Filter>sources\bobura</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\high_dpi.manifest">
+      <Filter>resources\win32</Filter>
+    </Manifest>
+  </ItemGroup>
 </Project>

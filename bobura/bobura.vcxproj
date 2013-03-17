@@ -202,6 +202,9 @@
       <Project>{a5ebac50-5464-4e80-b47a-a28fa0d7a3cc}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\high_dpi.manifest" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
