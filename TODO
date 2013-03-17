@@ -12,11 +12,6 @@ Added on    : 2012/11/13
 Depends on  : 00000222
 Description : Replace std/boost::bind to C++ lambda.
 ------------------------------------------------------------------------------
-Number      : 00000221
-Added on    : 2013/02/22
-Depends on  : (none)
-Description : Support high DPI.
-------------------------------------------------------------------------------
 Number      : 00000223
 Added on    : 2013/03/13
 Depends on  : (none)
