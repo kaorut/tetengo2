@@ -125,16 +125,18 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                                       encoder
         )
         {
-            suppress_unused_variable_warning(parent);
-            suppress_unused_variable_warning(title);
-            suppress_unused_variable_warning(main_content);
-            suppress_unused_variable_warning(sub_content);
-            suppress_unused_variable_warning(cancellable);
-            suppress_unused_variable_warning(button_style);
-            suppress_unused_variable_warning(icon_style);
-            suppress_unused_variable_warning(custom_ok_button_label);
-            suppress_unused_variable_warning(custom_yes_no_button_labels);
-            suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(
+                parent,
+                title,
+                main_content,
+                sub_content,
+                cancellable,
+                button_style,
+                icon_style,
+                custom_ok_button_label,
+                custom_yes_no_button_labels,
+                encoder
+            );
 
             return make_unique<message_box_details_type>();
         }
@@ -150,7 +152,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
-            tetengo2::suppress_unused_variable_warning(message_box);
+            suppress_unused_variable_warning(message_box);
 
             return message_box_button_id_type::cancel;
         }
@@ -180,10 +182,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&  encoder
         )
         {
-            suppress_unused_variable_warning(parent);
-            suppress_unused_variable_warning(title);
-            suppress_unused_variable_warning(filters);
-            suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(parent, title, filters, encoder);
 
             return make_unique<file_open_dialog_details_type>();
         }
@@ -207,8 +206,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            suppress_unused_variable_warning(dialog);
-            suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(dialog, encoder);
 
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
@@ -241,11 +239,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
-            suppress_unused_variable_warning(parent);
-            suppress_unused_variable_warning(title);
-            suppress_unused_variable_warning(path);
-            suppress_unused_variable_warning(filters);
-            suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(parent, title, path, filters, encoder);
 
             return make_unique<file_save_dialog_details_type>();
         }
@@ -269,8 +263,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            suppress_unused_variable_warning(dialog);
-            suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(dialog, encoder);
 
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }

@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace widget
             bool operator()(typename base_type::canvas_type& canvas)
             const
             {
-                tetengo2::suppress_unused_variable_warning(canvas);
+                suppress_unused_variable_warning(canvas);
 
                 return true;
             }

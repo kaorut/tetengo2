@@ -34,7 +34,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         explicit mouse_capture(const Widget& widget)
         {
-            tetengo2::suppress_unused_variable_warning(widget);
+            suppress_unused_variable_warning(widget);
         }
 
 

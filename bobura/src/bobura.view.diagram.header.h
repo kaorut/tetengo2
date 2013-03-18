@@ -376,10 +376,8 @@ namespace bobura { namespace view { namespace diagram
         {
             string_type company_line_name = make_company_line_name(model);
             const font_type& company_line_name_font = model.timetable().font_color_set().company_line_name().font();
-            const color_type& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
             string_type note = make_note(model);
             const font_type& note_font = model.timetable().font_color_set().note().font();
-            const color_type& note_color = model.timetable().font_color_set().note().color();
             position_type company_line_name_position(left_type(0), top_type(0));
             dimension_type company_line_name_dimension(width_type(0), height_type(0));
             position_type note_position(left_type(0), top_type(0));
@@ -389,10 +387,8 @@ namespace bobura { namespace view { namespace diagram
                 canvas_dimension,
                 company_line_name,
                 company_line_name_font,
-                company_line_name_color,
                 note,
                 note_font,
-                note_color,
                 company_line_name_position,
                 company_line_name_dimension,
                 note_position,
@@ -401,6 +397,8 @@ namespace bobura { namespace view { namespace diagram
                 m_dimension
             );
 
+            const color_type& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
+            const color_type& note_color = model.timetable().font_color_set().note().color();
             m_p_company_line_name_header =
                 tetengo2::make_unique<company_line_name_header_type>(
                     selection,
@@ -520,10 +518,8 @@ namespace bobura { namespace view { namespace diagram
             const dimension_type& canvas_dimension,
             const string_type&    company_line_name,
             const font_type&      company_line_name_font,
-            const color_type&     company_line_name_color,
             const string_type&    note,
             const font_type&      note_font,
-            const color_type&     note_color,
             position_type&        company_line_name_position,
             dimension_type&       company_line_name_dimension,
             position_type&        note_position,

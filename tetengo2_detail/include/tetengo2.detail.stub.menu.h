@@ -167,10 +167,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&        encoder
         )
         {
-            tetengo2::suppress_unused_variable_warning(popup_menu);
-            tetengo2::suppress_unused_variable_warning(offset);
-            tetengo2::suppress_unused_variable_warning(menu);
-            tetengo2::suppress_unused_variable_warning(encoder);
+            suppress_unused_variable_warning(popup_menu, offset, menu, encoder);
         }
 
         /*!
@@ -188,9 +185,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
         {
-            tetengo2::suppress_unused_variable_warning(popup_menu);
-            tetengo2::suppress_unused_variable_warning(first);
-            tetengo2::suppress_unused_variable_warning(last);
+            suppress_unused_variable_warning(popup_menu, first, last);
         }
 
         /*!

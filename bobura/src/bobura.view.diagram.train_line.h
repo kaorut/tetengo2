@@ -1119,7 +1119,6 @@ namespace bobura { namespace view { namespace diagram
             \param selection            A selection.
             \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
-            \param timetable_dimension  A timetable dimension.
             \param scroll_bar_position  A scroll bar position.
             \param station_header_right A right position of the station header.
             \param header_bottom        A bottom position of the header.
@@ -1136,7 +1135,6 @@ namespace bobura { namespace view { namespace diagram
             selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
@@ -1157,7 +1155,6 @@ namespace bobura { namespace view { namespace diagram
                 selection,
                 canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
@@ -1239,7 +1236,6 @@ namespace bobura { namespace view { namespace diagram
             selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
@@ -1261,7 +1257,6 @@ namespace bobura { namespace view { namespace diagram
                 selection,
                 canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
@@ -1281,7 +1276,6 @@ namespace bobura { namespace view { namespace diagram
                 selection,
                 canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
@@ -1305,7 +1299,6 @@ namespace bobura { namespace view { namespace diagram
             selection_type&               selection,
             canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,

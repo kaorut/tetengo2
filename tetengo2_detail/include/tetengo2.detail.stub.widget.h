@@ -286,7 +286,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
-            tetengo2::suppress_unused_variable_warning(scroll_bar_style);
+            suppress_unused_variable_warning(scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }
@@ -330,7 +330,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
-            tetengo2::suppress_unused_variable_warning(scroll_bar_style);
+            suppress_unused_variable_warning(scroll_bar_style);
 
             return create_details<Widget>(parent ? &*parent : NULL);
         }

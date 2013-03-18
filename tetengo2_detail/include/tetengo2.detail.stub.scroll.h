@@ -92,8 +92,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename style_type::enum_t style
         )
         {
-            tetengo2::suppress_unused_variable_warning(widget_details);
-            tetengo2::suppress_unused_variable_warning(style);
+            suppress_unused_variable_warning(widget_details, style);
 
             return make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }

@@ -67,7 +67,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void break_loop(const int exit_code)
         {
-            tetengo2::suppress_unused_variable_warning(exit_code);
+            suppress_unused_variable_warning(exit_code);
         }
 
 

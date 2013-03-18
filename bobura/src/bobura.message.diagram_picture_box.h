@@ -93,9 +93,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            tetengo2::suppress_unused_variable_warning(shift);
-            tetengo2::suppress_unused_variable_warning(control);
-            tetengo2::suppress_unused_variable_warning(meta);
+            tetengo2::suppress_unused_variable_warning(shift, control, meta);
 
             m_set_mouse_capture();
 
@@ -190,11 +188,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            tetengo2::suppress_unused_variable_warning(button);
-            tetengo2::suppress_unused_variable_warning(position);
-            tetengo2::suppress_unused_variable_warning(shift);
-            tetengo2::suppress_unused_variable_warning(control);
-            tetengo2::suppress_unused_variable_warning(meta);
+            tetengo2::suppress_unused_variable_warning(button, position, shift, control, meta);
 
             if (m_release_mouse_capture())
             {
@@ -267,9 +261,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(const position_type& position, const bool shift, const bool control, const bool meta)
         const
         {
-            tetengo2::suppress_unused_variable_warning(shift);
-            tetengo2::suppress_unused_variable_warning(control);
-            tetengo2::suppress_unused_variable_warning(meta);
+            tetengo2::suppress_unused_variable_warning(shift, control, meta);
 
             const item_type* const p_item = m_view.p_item_by_position(position);
             const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();

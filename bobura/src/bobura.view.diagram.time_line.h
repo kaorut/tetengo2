@@ -240,9 +240,6 @@ namespace bobura { namespace view { namespace diagram
         //! The horizontal scale type.
         typedef typename width_type::value_type horizontal_scale_type;
 
-        //! The vertical scale type.
-        typedef typename height_type::value_type vertical_scale_type;
-
         //! The base type.
         typedef item<selection_type, canvas_type> base_type;
 
@@ -255,7 +252,6 @@ namespace bobura { namespace view { namespace diagram
             \param model                A model.
             \param time_offset          A time offset.
             \param selection            A selection.
-            \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
             \param timetable_dimension  A timetable dimension.
             \param scroll_bar_position  A scroll bar position.
@@ -263,21 +259,18 @@ namespace bobura { namespace view { namespace diagram
             \param header_bottom        A bottom position of the header.
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
-            \param vertical_scale       A vertical scale.
         */
         time_line_list(
             const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
-            canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
             const position_type&         scroll_bar_position,
             const left_type&             station_header_right,
             const top_type&              header_bottom,
             const height_type&           time_header_height,
-            const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale
+            const horizontal_scale_type& horizontal_scale
         )
         :
         base_type(selection),
@@ -285,18 +278,15 @@ namespace bobura { namespace view { namespace diagram
         m_p_color(&model.timetable().font_color_set().time_line().color()),
         m_time_lines(
             make_time_lines(
-                model,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
                 timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
-                horizontal_scale,
-                vertical_scale
+                horizontal_scale
             )
         )
         {}
@@ -358,18 +348,15 @@ namespace bobura { namespace view { namespace diagram
         // static functions
 
         std::vector<time_line_type> make_time_lines(
-            const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
-            canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
             const dimension_type&        timetable_dimension,
             const position_type&         scroll_bar_position,
             const left_type&             station_header_right,
             const top_type&              header_bottom,
             const height_type&           time_header_height,
-            const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale
+            const horizontal_scale_type& horizontal_scale
         )
         {
             const left_type canvas_left = station_header_right;

@@ -60,8 +60,6 @@ namespace
 
     typedef width_type::value_type horizontal_scale_type;
 
-    typedef height_type::value_type vertical_scale_type;
-
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
     typedef canvas_type::font_type font_type;
@@ -134,22 +132,17 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
 
         const model_type model;
         selection_type selection;
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         time_line_list_type time_line_list1(
             model,
             time_span_type(42 * 60),
             selection,
-            *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
             left_type(24),
             top_type(42),
             height_type(24),
-            horizontal_scale_type(42),
-            vertical_scale_type(24)
+            horizontal_scale_type(42)
         );
         const time_line_list_type time_line_list2(std::move(time_line_list1));
     }
@@ -160,36 +153,29 @@ BOOST_AUTO_TEST_SUITE(time_line_list)
 
         const model_type model;
         selection_type selection;
-        window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         time_line_list_type time_line_list1(
             model,
             time_span_type(42 * 60),
             selection,
-            *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
             left_type(24),
             top_type(42),
             height_type(24),
-            horizontal_scale_type(42),
-            vertical_scale_type(24)
+            horizontal_scale_type(42)
         );
         time_line_list_type time_line_list2(
             model,
             time_span_type(42 * 60),
             selection,
-            *p_canvas,
             dimension_type(width_type(42), height_type(24)),
             dimension_type(width_type(42), height_type(24)),
             position_type(left_type(24), top_type(42)),
             left_type(24),
             top_type(42),
             height_type(24),
-            horizontal_scale_type(42),
-            vertical_scale_type(24)
+            horizontal_scale_type(42)
         );
 
         time_line_list1 = std::move(time_line_list2);

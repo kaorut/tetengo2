@@ -57,8 +57,7 @@ namespace
     public:
         dummy_view_zoom_type(picture_box_type& picture_box, view_type& diagram_view)
         {
-            tetengo2::suppress_unused_variable_warning(picture_box);
-            tetengo2::suppress_unused_variable_warning(diagram_view);
+            tetengo2::suppress_unused_variable_warning(picture_box, diagram_view);
         }
 
         void horizontally_zoom_in(bool snap_to_scale_list)

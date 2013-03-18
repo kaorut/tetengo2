@@ -117,6 +117,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Color>
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
+            suppress_unused_variable_warning(color);
+
             return make_unique<background_details_type>();
         }
 
@@ -250,10 +252,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Background&    background
         )
         {
-            tetengo2::suppress_unused_variable_warning(canvas);
-            tetengo2::suppress_unused_variable_warning(position);
-            tetengo2::suppress_unused_variable_warning(dimension);
-            tetengo2::suppress_unused_variable_warning(background);
+            suppress_unused_variable_warning(canvas, position, dimension, background);
         }
 
         /*!
@@ -294,6 +293,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&             encoder
         )
         {
+            suppress_unused_variable_warning(canvas, font, text, encoder);
+
             typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef typename gui::dimension<Dimension>::height_type height_type;
             return Dimension(width_type(123), height_type(456));

@@ -477,16 +477,14 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
-            tetengo2::suppress_unused_variable_warning(offset);
-            tetengo2::suppress_unused_variable_warning(p_menu);
+            suppress_unused_variable_warning(offset, p_menu);
 
             BOOST_THROW_EXCEPTION(std::logic_error("Can't insert any menus."));
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
-            tetengo2::suppress_unused_variable_warning(first);
-            tetengo2::suppress_unused_variable_warning(last);
+            suppress_unused_variable_warning(first, last);
 
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
