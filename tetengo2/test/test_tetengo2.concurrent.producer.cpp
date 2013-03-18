@@ -14,6 +14,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.utility.h"
+
 #include "tetengo2.concurrent.producer.h"
 
 
@@ -98,6 +100,8 @@ namespace
 
     void throw_exception(channel_type& channel)
     {
+        tetengo2::suppress_unused_variable_warning(channel);
+
         BOOST_THROW_EXCEPTION(std::runtime_error("test exception"));
     }
 
