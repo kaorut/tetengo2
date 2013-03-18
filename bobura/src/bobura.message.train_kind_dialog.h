@@ -410,7 +410,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         const
         {
             assert(m_current_train_kind_index);
-            assert(0 <= *m_current_train_kind_index && *m_current_train_kind_index + 1 < m_info_sets.size());
+            assert(*m_current_train_kind_index + 1 < m_info_sets.size());
 
             std::swap(m_info_sets[*m_current_train_kind_index], m_info_sets[*m_current_train_kind_index + 1]);
             ++(*m_current_train_kind_index);

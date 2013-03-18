@@ -15,6 +15,7 @@
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 
@@ -63,7 +64,9 @@ namespace
             const bool                 referred,
             train_kind_type            train_kind
         )
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(original_index, referred, train_kind);
+        }
 
         const boost::optional<size_type>& original_index()
         const

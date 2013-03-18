@@ -14,6 +14,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.selection.h"
@@ -74,6 +75,8 @@ namespace
 
         virtual void select_impl(const bool switch_selection_style)
         {
+            tetengo2::suppress_unused_variable_warning(switch_selection_style);
+
             m_selected = true;
         }
 
