@@ -95,7 +95,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
-        {}
+        {
+            suppress_unused_variable_warning(menu, enabled);
+        }
 
         /*!
             \brief Sets a state.
@@ -107,7 +109,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
-        {}
+        {
+            suppress_unused_variable_warning(menu, state);
+        }
 
         /*!
             \brief Creates an empty shortcut key table.

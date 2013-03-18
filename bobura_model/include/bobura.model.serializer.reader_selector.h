@@ -18,6 +18,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -84,6 +85,8 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
+            tetengo2::suppress_unused_variable_warning(first, last);
+
             BOOST_THROW_EXCEPTION(std::logic_error("This function cannot be called."));
             return false; // Never passes here.
         }

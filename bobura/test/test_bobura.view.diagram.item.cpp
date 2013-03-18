@@ -66,10 +66,6 @@ namespace
     private:
         bool m_selected;
 
-        virtual void draw_on_impl(canvas_type& canvas)
-        const
-        {}
-
         virtual bool selected_impl()
         const
         {

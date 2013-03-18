@@ -57,6 +57,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int dialog_loop(AbstractWindow& dialog)
         {
+            suppress_unused_variable_warning(dialog);
+
             return 0;
         }
 

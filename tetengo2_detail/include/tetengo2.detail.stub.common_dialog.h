@@ -17,9 +17,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
-#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -290,6 +290,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
+            suppress_unused_variable_warning(parent, font, encoder);
             return make_unique<font_dialog_details_type>();
         }
 
@@ -309,6 +310,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Encoder>
         static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
+            suppress_unused_variable_warning(dialog, encoder);
+
             return
                 boost::make_optional(
                     Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
@@ -337,6 +340,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&       encoder
         )
         {
+            suppress_unused_variable_warning(parent, color, encoder);
+
             return make_unique<color_dialog_details_type>();
         }
 
@@ -356,6 +361,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Color, typename Encoder>
         static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
         {
+            suppress_unused_variable_warning(dialog, encoder);
+
             return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 

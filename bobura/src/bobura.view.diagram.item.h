@@ -174,10 +174,15 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const = 0;
+        const
+        {
+            tetengo2::suppress_unused_variable_warning(canvas);
+        }
 
         virtual item* p_item_by_position_impl(const position_type& position)
         {
+            tetengo2::suppress_unused_variable_warning(position);
+
             return NULL;
         }
 

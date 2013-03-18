@@ -265,6 +265,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(&parent);
         }
 
@@ -573,6 +575,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename ParentWidget>
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
+            suppress_unused_variable_warning(widget);
+
             return position<Position>(parent);
         }
 
@@ -833,7 +837,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void activate(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Assigns a menu bar on a widget.

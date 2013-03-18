@@ -15,6 +15,8 @@
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
+#include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
@@ -52,6 +54,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder& encoder
         )
         {
+            suppress_unused_variable_warning(group_name, key, encoder);
+
             return boost::none;
         }
 
@@ -74,7 +78,9 @@ namespace tetengo2 { namespace detail { namespace stub
             boost::variant<String, UInt> value,
             const Encoder&               encoder
         )
-        {}
+        {
+            suppress_unused_variable_warning(group_name, key, value, encoder);
+        }
 
 
     };
