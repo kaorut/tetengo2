@@ -21,6 +21,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.view.diagram.item.h"
 #include "bobura.view.diagram.utility.h"
@@ -214,6 +215,8 @@ namespace bobura { namespace view { namespace diagram
 
         virtual void select_impl(const bool switch_selection_style)
         {
+            tetengo2::suppress_unused_variable_warning(switch_selection_style);
+
             this->selection().select(*m_p_station);
         }
 

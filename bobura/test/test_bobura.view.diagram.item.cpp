@@ -70,11 +70,6 @@ namespace
         const
         {}
 
-        virtual item_type* p_item_by_position_impl(const position_type& position)
-        {
-            return NULL;
-        }
-
         virtual bool selected_impl()
         const
         {

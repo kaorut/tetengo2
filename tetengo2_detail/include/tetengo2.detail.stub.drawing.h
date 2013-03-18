@@ -208,7 +208,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const int            style,
             const Color&         color
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, from, to, width, style, color);
+        }
 
         /*!
             \brief Draws a focus indication.
@@ -329,7 +331,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Color&         color,
             const double         angle
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, font, text, encoder, position, color, angle);
+        }
 
         /*!
             \brief Paints a picture.

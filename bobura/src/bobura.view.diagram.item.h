@@ -177,7 +177,9 @@ namespace bobura { namespace view { namespace diagram
         const = 0;
 
         virtual item* p_item_by_position_impl(const position_type& position)
-        = 0;
+        {
+            return NULL;
+        }
 
         virtual bool selected_impl()
         const
