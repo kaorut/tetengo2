@@ -17,6 +17,7 @@
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -64,7 +65,9 @@ namespace
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(timetable, output_stream);
+        }
 
 
     };

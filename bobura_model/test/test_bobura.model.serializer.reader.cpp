@@ -17,6 +17,7 @@
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -55,6 +56,8 @@ namespace
     private:
         virtual bool selects_impl(const iterator first, const iterator last)
         {
+            tetengo2::suppress_unused_variable_warning(first, last);
+
             return string_type(first, last) == string_type(TETENGO2_TEXT("hoge"));
         }
 
@@ -64,6 +67,8 @@ namespace
             error_type::enum_t& error
         )
         {
+            tetengo2::suppress_unused_variable_warning(first, last, error);
+
             return tetengo2::make_unique<timetable_type>();
         }
 
