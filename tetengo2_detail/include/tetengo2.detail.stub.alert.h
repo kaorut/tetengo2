@@ -70,7 +70,11 @@ namespace tetengo2 { namespace detail { namespace stub
             const int                source_file_line,
             const Encoder&           encoder
         )
-        {}
+        {
+            suppress_unused_variable_warning(
+                widget_handle, caption, text1, text2, source_file_name, source_file_line, encoder
+            );
+        }
 
 
     private:

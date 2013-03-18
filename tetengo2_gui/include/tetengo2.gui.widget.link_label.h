@@ -17,6 +17,7 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -208,6 +209,8 @@ namespace tetengo2 { namespace gui { namespace widget
             )
             const
             {
+                suppress_unused_variable_warning(shift, control, meta);
+
                 if (virtual_key == virtual_key_type::space())
                     m_self.open_target();
             }

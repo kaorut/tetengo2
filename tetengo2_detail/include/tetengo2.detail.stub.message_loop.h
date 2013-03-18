@@ -40,6 +40,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int loop(AbstractWindow& window)
         {
+            suppress_unused_variable_warning(window);
+
             return 0;
         }
 

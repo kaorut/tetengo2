@@ -19,6 +19,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 #include "test_tetengo2.type_list.h"
 
@@ -44,7 +45,9 @@ namespace
     // functions
 
     void structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
-    {}
+    {
+        tetengo2::suppress_unused_variable_warning(structure, attribute_map);
+    }
 
     void structure_observer1(
         const std::string&                  structure,
@@ -52,11 +55,15 @@ namespace
         std::vector<parsed_structure_type>& parsed_structures
     )
     {
+        tetengo2::suppress_unused_variable_warning(attribute_map);
+
         parsed_structures.emplace_back(structure, boost::none);
     }
 
     void value_observer0(const push_parser_type::value_type& value)
-    {}
+    {
+        tetengo2::suppress_unused_variable_warning(value);
+    }
 
     void value_observer1(
         const push_parser_type::value_type& value,

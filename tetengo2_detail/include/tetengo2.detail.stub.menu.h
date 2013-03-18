@@ -145,6 +145,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const InputIterator last
         )
         {
+            suppress_unused_variable_warning(first, last);
             return shortcut_key_table_details_ptr_type();
         }
 

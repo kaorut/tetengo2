@@ -163,6 +163,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Path>
         static std::unique_ptr<picture_details_type> read_picture(const Path& path)
         {
+            suppress_unused_variable_warning(path);
+
             return make_unique<picture_details_type>(123, 456);
         }
 
@@ -230,7 +232,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      position,
             const Dimension&     dimension
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, position, dimension);
+        }
 
         /*!
             \brief Fills a rectangle region.
@@ -356,7 +360,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      position,
             const Dimension&     dimension
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, picture, position, dimension);
+        }
 
 
     private:
