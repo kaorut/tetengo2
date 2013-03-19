@@ -769,7 +769,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 boost::make_optional(
                     Font(
-                        choose_font.lpLogFont->lfFaceName,
+                        encoder.decode(choose_font.lpLogFont->lfFaceName),
                         choose_font.lpLogFont->lfHeight < 0 ?
                             -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight,
                         choose_font.lpLogFont->lfWeight >= FW_BOLD,
@@ -785,22 +785,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam AbstractWindow An abstract window type.
             \tparam OptionalColor  An optional color type.
-            \tparam Encoder        An encoder type.
 
-            \param parent  A parent window.
-            \param color   A color.
-            \param encoder An encoder.
+            \param parent A parent window.
+            \param color  A color.
 
             \return A unique pointer to a color dialog.
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
-        static color_dialog_details_ptr_type create_color_dialog(
-            AbstractWindow&      parent,
-            const OptionalColor& color,
-            const Encoder&       encoder
-        )
+        template <typename AbstractWindow, typename OptionalColor>
+        static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
             return make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
@@ -809,18 +803,16 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Shows a color dialog and return a font.
 
-            \tparam Color   A color type.
-            \tparam Encoder An encoder type.
+            \tparam Color A color type.
 
-            \param dialog  A color dialog.
-            \param encoder An encoder.
+            \param dialog A color dialog.
 
             \return The color.
 
             \throw std::system_error When the color dialog cannot be shown.
         */
-        template <typename Color, typename Encoder>
-        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        template <typename Color>
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
             static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
             ::CHOOSECOLORW choose_color = {};

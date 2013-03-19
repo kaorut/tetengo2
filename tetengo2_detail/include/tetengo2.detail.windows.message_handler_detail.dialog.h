@@ -25,6 +25,8 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
@@ -59,6 +61,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Dialog, typename WidgetDetails>
         boost::optional< ::LRESULT> on_syscommand(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
+            suppress_unused_variable_warning(l_param);
+
             if (w_param == SC_CLOSE)
             {
                 const ::HWND widget_handle = ::GetDlgItem(dialog.details()->handle.get(), IDCANCEL);
@@ -114,6 +118,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Dialog, typename WidgetDetails>
         boost::optional< ::LRESULT> on_set_focus(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
+            suppress_unused_variable_warning(w_param, l_param);
+
             if (dialog.details()->first_child_handle)
             {
                 ::SetFocus(dialog.details()->first_child_handle);

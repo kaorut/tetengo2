@@ -48,8 +48,6 @@ namespace bobura
 
             typedef Dialog base_type;
 
-            typedef typename base_type::base_type abstract_window_type;
-
             typedef typename base_type::string_type string_type;
 
             typedef typename base_type::background_type background_type;
@@ -73,7 +71,6 @@ namespace bobura
 
             impl(
                 base_type&                  base,
-                abstract_window_type&       parent,
                 const message_catalog_type& message_catalog,
                 const font_type&            font,
                 const color_type&           background_color
@@ -103,7 +100,7 @@ namespace bobura
             m_p_ok_button(),
             m_p_cancel_button()
             {
-                initialize_dialog(parent, font, background_color);
+                initialize_dialog(font, background_color);
             }
 
 
@@ -295,11 +292,7 @@ namespace bobura
 
             // functions
 
-            void initialize_dialog(
-                const abstract_window_type& parent,
-                const font_type&            font,
-                const color_type&           background_color
-            )
+            void initialize_dialog(const font_type& font, const color_type& background_color)
             {
                 m_base.set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Train Kinds")));
 
@@ -924,7 +917,7 @@ namespace bobura
     )
     :
     base_type(parent),
-    m_p_impl(tetengo2::make_unique<impl>(*this, parent, message_catalog, font, background_color))
+    m_p_impl(tetengo2::make_unique<impl>(*this, message_catalog, font, background_color))
     {}
 
     template <

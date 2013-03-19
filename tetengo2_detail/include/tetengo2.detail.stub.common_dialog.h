@@ -323,24 +323,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam AbstractWindow An abstract window type.
             \tparam OptionalColor  An optional color type.
-            \tparam Encoder        An encoder type.
 
-            \param parent  A parent window.
-            \param color   A color.
-            \param encoder An encoder.
+            \param parent A parent window.
+            \param color  A color.
 
             \return A unique pointer to a color dialog.
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
-        static color_dialog_details_ptr_type create_color_dialog(
-            AbstractWindow&      parent,
-            const OptionalColor& color,
-            const Encoder&       encoder
-        )
+        template <typename AbstractWindow, typename OptionalColor>
+        static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
-            suppress_unused_variable_warning(parent, color, encoder);
+            suppress_unused_variable_warning(parent, color);
 
             return make_unique<color_dialog_details_type>();
         }
@@ -348,20 +342,18 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Shows a color dialog and return a font.
 
-            \tparam Color   A color type.
-            \tparam Encoder An encoder type.
+            \tparam Color A color type.
 
-            \param dialog  A color dialog.
-            \param encoder An encoder.
+            \param dialog A color dialog.
 
             \return The color.
 
             \throw std::system_error When the color dialog cannot be shown.
         */
-        template <typename Color, typename Encoder>
-        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        template <typename Color>
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
-            suppress_unused_variable_warning(dialog, encoder);
+            suppress_unused_variable_warning(dialog);
 
             return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }

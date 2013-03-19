@@ -48,7 +48,7 @@
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
-
+#include "tetengo2.utility.h"
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
@@ -217,8 +217,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const ::RECT rect = {
-                0,
-                0,
+                gui::to_pixels< ::LONG>(gui::position<Position>::left(position)),
+                gui::to_pixels< ::LONG>(gui::position<Position>::top(position)),
                 gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension))
             };

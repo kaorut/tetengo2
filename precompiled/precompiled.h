@@ -9,6 +9,12 @@
 #if !defined(PRECOMPILED_H)
 #define PRECOMPILED_H
 
+#if defined(_MSC_VER)
+#   pragma warning (push)
+#   pragma warning (disable: 4100)
+#endif
+
+
 // The standard library headers
 
 #include <algorithm>
@@ -140,6 +146,11 @@
 #include <Unknwn.h>
 #include <wincodec.h>
 
+#endif
+
+
+#if defined(_MSC_VER)
+#   pragma warning (pop)
 #endif
 
 

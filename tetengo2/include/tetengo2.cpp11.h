@@ -330,6 +330,8 @@ namespace tetengo2 { namespace cpp11
         const typename Container::const_iterator iterator
     )
     {
+        suppress_unused_variable_warning(container);
+
         return iterator;
     }
 #else

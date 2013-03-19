@@ -374,7 +374,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return widget.details()->p_parent;
+            return widget.details()->p_parent != NULL;
         }
 
         /*!

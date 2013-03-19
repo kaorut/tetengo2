@@ -39,6 +39,7 @@
 #include "tetengo2.detail.windows.message_handler_detail.text_b.h"
 #include "tetengo2.detail.windows.message_handler_detail.widget.h"
 #include "tetengo2.detail.windows.widget.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -305,6 +306,8 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(image);
+
             return std::move(initial_map);
         }
 
@@ -324,6 +327,8 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(label);
+
             return std::move(initial_map);
         }
 
@@ -679,6 +684,8 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(window);
+
             return std::move(initial_map);
         }
 

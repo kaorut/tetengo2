@@ -825,7 +825,6 @@ namespace bobura
                 tetengo2::gui::common_dialog::color<
                     boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                     boost::mpl::at<ui_type_list, type::ui::color>::type,
-                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                     boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,

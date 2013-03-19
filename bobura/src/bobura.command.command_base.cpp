@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <tetengo2.utility.h>
+
 #include "bobura.command.command_base.h"
 
 
@@ -32,6 +34,8 @@ namespace bobura { namespace command
     bool command_base::enabled_impl(const model_type& model)
     const
     {
+        tetengo2::suppress_unused_variable_warning(model);
+
         return true;
     }
 

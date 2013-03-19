@@ -26,6 +26,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.application.h"
 #include "bobura.type_list.h"
@@ -99,6 +100,8 @@ int WINAPI wWinMain(
 )
 TETENGO2_CPP11_NOEXCEPT
 {
+    tetengo2::suppress_unused_variable_warning(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type alsert_type;
 
     try

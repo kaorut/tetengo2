@@ -24,7 +24,14 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
+#if defined(_MSC_VER)
+#   pragma warning (push)
+#   pragma warning (disable: 4100)
+#endif
 #include <boost/spirit/include/qi.hpp>
+#if defined(_MSC_VER)
+#   pragma warning (pop)
+#endif
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>

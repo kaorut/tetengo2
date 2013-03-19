@@ -37,8 +37,6 @@ namespace bobura
 
             typedef Dialog base_type;
 
-            typedef typename base_type::base_type abstract_window_type;
-
             typedef typename base_type::background_type background_type;
 
             typedef MessageCatalog message_catalog_type;
@@ -48,12 +46,7 @@ namespace bobura
 
             // constructors and destructor
 
-            impl(
-                base_type&                  base,
-                abstract_window_type&       parent,
-                const message_catalog_type& message_catalog,
-                const settings_type&        settings
-            )
+            impl(base_type& base, const message_catalog_type& message_catalog, const settings_type& settings)
             :
             m_base(base),
             m_message_catalog(message_catalog),
@@ -64,7 +57,7 @@ namespace bobura
             m_p_link_label(),
             m_p_ok_button()
             {
-                initialize_dialog(parent);
+                initialize_dialog();
             }
 
 
@@ -131,7 +124,7 @@ namespace bobura
 
             // functions
 
-            void initialize_dialog(const abstract_window_type& parent)
+            void initialize_dialog()
             {
                 m_base.set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:About:About")));
 
@@ -251,7 +244,7 @@ namespace bobura
     )
     :
     base_type(parent),
-    m_p_impl(tetengo2::make_unique<impl>(*this, parent, message_catalog, settings))
+    m_p_impl(tetengo2::make_unique<impl>(*this, message_catalog, settings))
     {}
 
     template <typename Dialog, typename MessageCatalog, typename Settings>

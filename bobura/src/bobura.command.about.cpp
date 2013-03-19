@@ -7,6 +7,7 @@
 */
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.command.about.h"
 
@@ -43,6 +44,8 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
+            tetengo2::suppress_unused_variable_warning(model);
+
             about_dialog_type(parent, m_message_catalog, m_settings).do_modal();
         }
 
