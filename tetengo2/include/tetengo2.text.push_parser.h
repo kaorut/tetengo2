@@ -24,20 +24,14 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
-#if defined(_MSC_VER)
-#   pragma warning (push)
-#   pragma warning (disable: 4100)
-#endif
 #include <boost/spirit/include/qi.hpp>
-#if defined(_MSC_VER)
-#   pragma warning (pop)
-#endif
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.text.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace text
@@ -322,6 +316,8 @@ namespace tetengo2 { namespace text
 
         static void* to_null(const string_type& string_value)
         {
+            suppress_unused_variable_warning(string_value);
+
             assert(string_value == string_type(TETENGO2_TEXT("null")));
 
             return NULL;

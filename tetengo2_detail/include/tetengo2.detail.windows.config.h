@@ -31,6 +31,7 @@
 #include <Windows.h>
 
 #include "tetengo2.text.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -278,6 +279,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     reinterpret_cast< ::LPBYTE>(value.data()),
                     &value_size
                 );
+            suppress_unused_variable_warning(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
             return encoder.decode(std::wstring(value.begin(), value.end()));
@@ -297,6 +299,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     reinterpret_cast< ::LPBYTE>(&value),
                     &value_size
                 );
+            suppress_unused_variable_warning(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
             return value;
