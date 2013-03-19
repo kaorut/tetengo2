@@ -53,7 +53,8 @@ tetengo2_test_CPPFLAGS = \
 tetengo2_test_CXXFLAGS = \
     -Werror \
     -Wall \
-    -Wextra
+    -Wextra \
+    -pedantic-errors
 tetengo2_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)

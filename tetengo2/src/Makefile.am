@@ -23,7 +23,8 @@ libtetengo2_a_CPPFLAGS = \
 libtetengo2_a_CXXFLAGS = \
     -Werror \
     -Wall \
-    -Wextra
+    -Wextra \
+    -pedantic-errors
 libtetengo2_a_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h

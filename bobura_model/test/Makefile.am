@@ -56,7 +56,8 @@ bobura_model_test_CPPFLAGS = \
 bobura_model_test_CXXFLAGS = \
     -Werror \
     -Wall \
-    -Wextra
+    -Wextra \
+    -pedantic-errors
 bobura_model_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)
