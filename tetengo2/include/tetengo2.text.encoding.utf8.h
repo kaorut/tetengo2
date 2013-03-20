@@ -15,6 +15,7 @@
 #include <boost/operators.hpp>
 
 #include "tetengo2.text.encoding.encoding.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace text { namespace encoding
@@ -56,6 +57,8 @@ namespace tetengo2 { namespace text { namespace encoding
         */
         friend bool operator==(const utf8& one, const utf8& another)
         {
+            suppress_unused_variable_warning(one, another);
+
             return true;
         }
 

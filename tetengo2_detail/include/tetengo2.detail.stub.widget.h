@@ -27,6 +27,7 @@
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -175,6 +176,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
+            suppress_unused_variable_warning(is_default, is_cancel);
+
             return create_details<Widget>(&parent);
         }
 
@@ -264,6 +267,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(&parent);
         }
 
@@ -285,6 +290,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(&parent);
         }
 
@@ -306,6 +313,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(&parent);
         }
 
@@ -327,6 +336,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
+            suppress_unused_variable_warning(scroll_bar_style);
+
             return create_details<Widget>(parent ? &*parent : NULL);
         }
 
@@ -363,7 +374,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return widget.details()->p_parent;
+            return widget.details()->p_parent != NULL;
         }
 
         /*!
@@ -568,6 +579,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename ParentWidget>
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
+            suppress_unused_variable_warning(widget);
+
             return position<Position>(parent);
         }
 
@@ -796,7 +809,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void repaint(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Uses a widget canvas.
@@ -826,7 +841,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void activate(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Assigns a menu bar on a widget.
@@ -841,7 +858,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget, typename MenuBase>
         static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
-        {}
+        {
+            suppress_unused_variable_warning(widget, menu);
+        }
 
         /*!
             \brief Checks whether a widget accepts a focus.
@@ -884,7 +903,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void set_focus(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Checks whether a widget is read-only.
@@ -931,7 +952,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void close(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Opens a target.
@@ -946,7 +969,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget, typename String>
         static void open_target(const Widget& widget, const String& target)
-        {}
+        {
+            suppress_unused_variable_warning(widget, target);
+        }
 
         /*!
             \brief Returns the dropdown box item count.

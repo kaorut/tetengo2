@@ -25,6 +25,7 @@
 #include <Windows.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
@@ -51,6 +52,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(l_param);
+
             const ::WORD id = LOWORD(w_param);
 
             if (!abstract_window.has_menu_bar())
@@ -79,6 +82,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(l_param);
+
             const ::HMENU handle = reinterpret_cast< ::HMENU>(w_param);
 
             if (!abstract_window.has_menu_bar())
@@ -107,6 +112,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(w_param, l_param);
+
             if (abstract_window.window_observer_set().resized().empty())
                 return boost::none;
 
@@ -122,6 +129,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(w_param, l_param);
+
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
 
@@ -137,6 +146,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(w_param, l_param);
+
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
 
@@ -152,6 +163,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
+            suppress_unused_variable_warning(w_param, l_param);
+
             if (abstract_window.window_observer_set().destroyed().empty())
                 return boost::none;
 

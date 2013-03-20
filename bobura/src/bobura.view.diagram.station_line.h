@@ -21,6 +21,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.view.diagram.item.h"
 #include "bobura.view.diagram.utility.h"
@@ -214,6 +215,8 @@ namespace bobura { namespace view { namespace diagram
 
         virtual void select_impl(const bool switch_selection_style)
         {
+            tetengo2::suppress_unused_variable_warning(switch_selection_style);
+
             this->selection().select(*m_p_station);
         }
 
@@ -289,30 +292,24 @@ namespace bobura { namespace view { namespace diagram
             \param model                A model.
             \param time_offset          A time offset.
             \param selection            A selection.
-            \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
-            \param timetable_dimension  A timetable dimension.
             \param scroll_bar_position  A scroll bar position.
             \param station_header_right A right position of the station header.
             \param header_bottom        A bottom position of the header.
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
-            \param vertical_scale       A vertical scale.
             \param station_positions    Station positions.
         */
         station_line_list(
             const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
-            canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
-            const dimension_type&        timetable_dimension,
             const position_type&         scroll_bar_position,
             const left_type&             station_header_right,
             const top_type&              header_bottom,
             const height_type&           time_header_height,
             const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale,
             const std::vector<top_type>& station_positions
         )
         :
@@ -322,15 +319,12 @@ namespace bobura { namespace view { namespace diagram
                 model,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale,
                 station_positions
             )
         )
@@ -404,15 +398,12 @@ namespace bobura { namespace view { namespace diagram
             const model_type&            model,
             const time_span_type&        time_offset,
             selection_type&              selection,
-            canvas_type&                 canvas,
             const dimension_type&        canvas_dimension,
-            const dimension_type&        timetable_dimension,
             const position_type&         scroll_bar_position,
             const left_type&             station_header_right,
             const top_type&              header_bottom,
             const height_type&           time_header_height,
             const horizontal_scale_type& horizontal_scale,
-            const vertical_scale_type&   vertical_scale,
             const std::vector<top_type>& station_positions
         )
         {

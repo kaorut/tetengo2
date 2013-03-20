@@ -20,10 +20,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         \tparam AbstractWindow      An abstract window type.
         \tparam Color               A color type.
-        \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <typename AbstractWindow, typename Color, typename Encoder, typename CommonDialogDetails>
+    template <typename AbstractWindow, typename Color, typename CommonDialogDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -34,9 +33,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The color type.
         typedef Color color_type;
-
-        //! The encoder type.
-        typedef Encoder encoder_type;
 
         //! The detail implementation type of common dialogs.
         typedef CommonDialogDetails common_dialog_details_type;
@@ -58,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         color(const boost::optional<color_type>& color, abstract_window_type& parent)
         :
-        m_p_details(common_dialog_details_type::create_color_dialog(parent, color, encoder())),
+        m_p_details(common_dialog_details_type::create_color_dialog(parent, color)),
         m_result(color ? *color : color_type(0, 0, 0))
         {}
 
@@ -85,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         bool do_modal()
         {
             const boost::optional<color_type> result =
-                common_dialog_details_type::template show_color_dialog<color_type>(*m_p_details, encoder());
+                common_dialog_details_type::template show_color_dialog<color_type>(*m_p_details);
             if (!result)
                 return false;
 
@@ -116,15 +112,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton;
-            return singleton;
-        }
-
-
         // variables
 
         details_ptr_type m_p_details;

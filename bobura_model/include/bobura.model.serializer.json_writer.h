@@ -171,7 +171,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << output_string_type(level * 4, output_char_type(TETENGO2_TEXT(' ')));
         }
 
-        static void write_object_key(const string_type& key, const size_type level, output_stream_type& output_stream)
+        static void write_object_key(const string_type& key, output_stream_type& output_stream)
         {
             output_stream << encoder().encode(quote(key)) << output_string_type(TETENGO2_TEXT(": "));
         }
@@ -179,11 +179,10 @@ namespace bobura { namespace model { namespace serializer
         static void write_object_entry(
             const string_type&  key,
             const string_type&  value,
-            const size_type     level,
             output_stream_type& output_stream
         )
         {
-            write_object_key(key, level, output_stream);
+            write_object_key(key, output_stream);
             output_stream << encoder().encode(quote(value));
         }
 
@@ -191,23 +190,21 @@ namespace bobura { namespace model { namespace serializer
         static void write_object_entry(
             const string_type&  key,
             const Integer       value,
-            const size_type     level,
             output_stream_type& output_stream,
             const typename std::enable_if<std::is_integral<Integer>::value>::type* const = NULL
         )
         {
-            write_object_key(key, level, output_stream);
+            write_object_key(key, output_stream);
             output_stream << value;
         }
 
         static void write_object_entry(
             const string_type&  key,
             const bool          value,
-            const size_type     level,
             output_stream_type& output_stream
         )
         {
-            write_object_key(key, level, output_stream);
+            write_object_key(key, output_stream);
             write_bool(value, output_stream);
         }
 
@@ -226,21 +223,15 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 1, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("company_name")), timetable.company_name(), level + 1, output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("company_name")), timetable.company_name(), output_stream);
             output_stream << comma();
 
             new_line(level + 1, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("line_name")), timetable.line_name(), level + 1, output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("line_name")), timetable.line_name(), output_stream);
             output_stream << comma();
 
             new_line(level + 1, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("note")), timetable.note(), level + 1, output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("note")), timetable.note(), output_stream);
 
             new_line(level, output_stream);
             output_stream << object_end();
@@ -350,7 +341,7 @@ namespace bobura { namespace model { namespace serializer
                 output_stream << comma();
 
             new_line(level, output_stream);
-            write_object_entry(key, to_string(color), level, output_stream);
+            write_object_entry(key, to_string(color), output_stream);
 
             return true;
         }
@@ -371,7 +362,7 @@ namespace bobura { namespace model { namespace serializer
                 output_stream << comma();
 
             new_line(level, output_stream);
-            write_object_key(key, level, output_stream);
+            write_object_key(key, output_stream);
             write_font(font, output_stream);
 
             return true;
@@ -393,7 +384,7 @@ namespace bobura { namespace model { namespace serializer
                 output_stream << comma();
 
             new_line(level, output_stream);
-            write_object_key(key, level, output_stream);
+            write_object_key(key, output_stream);
 
             output_stream << array_begin();
 
@@ -471,14 +462,12 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("name")), station_location.station().name(), level, output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("name")), station_location.station().name(),output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
             write_object_entry(
-                string_type(TETENGO2_TEXT("grade")), station_location.station().grade().name(), level, output_stream
+                string_type(TETENGO2_TEXT("grade")), station_location.station().grade().name(), output_stream
             );
             output_stream << comma();
 
@@ -486,7 +475,6 @@ namespace bobura { namespace model { namespace serializer
             write_object_entry(
                 string_type(TETENGO2_TEXT("show_down_arrival_times")),
                 station_location.station().shows_down_arrival_times(),
-                level,
                 output_stream
             );
             output_stream << comma();
@@ -495,15 +483,12 @@ namespace bobura { namespace model { namespace serializer
             write_object_entry(
                 string_type(TETENGO2_TEXT("show_up_arrival_times")),
                 station_location.station().shows_up_arrival_times(),
-                level,
                 output_stream
             );
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), level, output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), output_stream);
 
             new_line(level + 1, output_stream);
             output_stream << object_end();
@@ -551,33 +536,26 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("name")), train_kind.name(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train_kind.name(), output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("abbreviation")), train_kind.abbreviation(), output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("color")), to_string(train_kind.color()), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
             write_object_entry(
-                string_type(TETENGO2_TEXT("abbreviation")), train_kind.abbreviation(), level, output_stream
+                string_type(TETENGO2_TEXT("weight")), static_cast<int>(train_kind.weight()), output_stream
             );
             output_stream << comma();
 
             new_line(level + 2, output_stream);
             write_object_entry(
-                string_type(TETENGO2_TEXT("color")), to_string(train_kind.color()), level, output_stream
-            );
-            output_stream << comma();
-
-            new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("weight")), static_cast<int>(train_kind.weight()), level, output_stream
-            );
-            output_stream << comma();
-
-            new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("line_style")),
-                static_cast<int>(train_kind.line_style()),
-                level,
-                output_stream
+                string_type(TETENGO2_TEXT("line_style")), static_cast<int>(train_kind.line_style()), output_stream
             );
 
             new_line(level + 1, output_stream);
@@ -669,27 +647,27 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("number")), train.number(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("number")), train.number(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("kind_index")), train.kind_index(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("kind_index")), train.kind_index(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("name")), train.name(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), train.name(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("name_number")), train.name_number(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name_number")), train.name_number(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("note")), train.note(), level, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("note")), train.note(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_key(string_type(TETENGO2_TEXT("stops")), level, output_stream);
+            write_object_key(string_type(TETENGO2_TEXT("stops")), output_stream);
             write_stops(train.stops(), level + 2, output_stream);
 
             new_line(level + 1, output_stream);

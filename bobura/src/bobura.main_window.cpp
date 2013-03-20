@@ -18,6 +18,7 @@
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.message.type_list.h"
 #include "bobura.type_list.h"
@@ -146,6 +147,8 @@ namespace bobura
                 bool operator()(typename base_type::canvas_type& canvas)
                 const
                 {
+                    tetengo2::suppress_unused_variable_warning(canvas);
+
                     return true;
                 }
 

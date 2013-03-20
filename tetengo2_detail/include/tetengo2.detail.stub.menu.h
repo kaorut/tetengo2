@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -94,7 +95,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
-        {}
+        {
+            suppress_unused_variable_warning(menu, enabled);
+        }
 
         /*!
             \brief Sets a state.
@@ -106,7 +109,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
-        {}
+        {
+            suppress_unused_variable_warning(menu, state);
+        }
 
         /*!
             \brief Creates an empty shortcut key table.
@@ -140,6 +145,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const InputIterator last
         )
         {
+            suppress_unused_variable_warning(first, last);
             return shortcut_key_table_details_ptr_type();
         }
 
@@ -165,7 +171,9 @@ namespace tetengo2 { namespace detail { namespace stub
             MenuBase&             menu,
             const Encoder&        encoder
         )
-        {}
+        {
+            suppress_unused_variable_warning(popup_menu, offset, menu, encoder);
+        }
 
         /*!
             \brief Erases a menu.
@@ -181,7 +189,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
-        {}
+        {
+            suppress_unused_variable_warning(popup_menu, first, last);
+        }
 
         /*!
             \brief Returns the menu bar style.

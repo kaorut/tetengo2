@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -50,6 +51,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename SystemCursor>
         static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type::enum_t style)
         {
+            suppress_unused_variable_warning(style);
+
             return make_unique<cursor_details_type>();
         }
 

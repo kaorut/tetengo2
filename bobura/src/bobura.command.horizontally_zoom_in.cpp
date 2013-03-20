@@ -11,6 +11,7 @@
 //#include <boost/mpl/at.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.zoom.h"
@@ -45,6 +46,8 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
+            tetengo2::suppress_unused_variable_warning(model);
+
             main_window_type* const p_main_window = dynamic_cast<main_window_type*>(&parent);
             assert(p_main_window);
             zoom_type zoom(p_main_window->diagram_picture_box(), m_diagram_view);

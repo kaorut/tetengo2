@@ -10,6 +10,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
+#include <tetengo2.utility.h>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
@@ -57,14 +58,18 @@ namespace
         :
         base_type(),
         m_diagram_picture_box(*this)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(message_catalog, settings, confirm_file_save);
+        }
 
         virtual ~main_window_type()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
         void set_title(const boost::optional<string_type>& document_name, const bool changed)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(document_name, changed);
+        }
 
         const diagram_picture_box_type& diagram_picture_box()
         const

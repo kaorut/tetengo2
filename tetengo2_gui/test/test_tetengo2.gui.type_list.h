@@ -817,7 +817,6 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::common_dialog::color<
                     boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
                     boost::mpl::at<drawing_type_list, type::drawing::color>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::common_dialog::common_dialog_details_type
                 >
             >,

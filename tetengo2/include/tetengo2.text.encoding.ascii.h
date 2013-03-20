@@ -17,6 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.text.encoding.encoding.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace text { namespace encoding
@@ -55,6 +56,8 @@ namespace tetengo2 { namespace text { namespace encoding
         */
         friend bool operator==(const ascii& one, const ascii& another)
         {
+            suppress_unused_variable_warning(one, another);
+
             return true;
         }
 
@@ -102,14 +105,25 @@ namespace tetengo2 { namespace text { namespace encoding
 
         static string_char_type to_ascii(const typename base_type::pivot_char_type pivot_char)
         {
-            static const string_char_type question = 0x3F;
+            return to_ascii_impl(pivot_char);
+        }
 
-            return 0 <= pivot_char && pivot_char <= 0x7F ? static_cast<string_char_type>(pivot_char) : question;
+        static string_char_type to_ascii_impl(const char pivot_char)
+        {
+            return pivot_char;
+        }
+
+        static string_char_type to_ascii_impl(const wchar_t pivot_char)
+        {
+            if (pivot_char <= 0x7F)
+                return static_cast<string_char_type>(pivot_char);
+            else
+                return 0x3F;
         }
 
         static typename base_type::pivot_char_type from_ascii(const string_char_type ascii_char)
         {
-            if (ascii_char < 0 || 0x80 <= ascii_char)
+            if (ascii_char < 0)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Not ASCII code."));
 
             return ascii_char;

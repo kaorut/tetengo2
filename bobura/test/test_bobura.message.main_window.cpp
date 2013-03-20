@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.text.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 
@@ -47,6 +48,8 @@ namespace
         virtual bool enabled(const model_type& model)
         const
         {
+            tetengo2::suppress_unused_variable_warning(model);
+
             return true;
         }
 
@@ -58,7 +61,9 @@ namespace
 
         virtual void execute(model_type& model, abstract_window_type& parent)
         const
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(model, parent);
+        }
 
     };
 

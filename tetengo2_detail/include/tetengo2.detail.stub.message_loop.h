@@ -13,6 +13,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
@@ -38,6 +40,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int loop(AbstractWindow& window)
         {
+            suppress_unused_variable_warning(window);
+
             return 0;
         }
 
@@ -55,6 +59,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int dialog_loop(AbstractWindow& dialog)
         {
+            suppress_unused_variable_warning(dialog);
+
             return 0;
         }
 
@@ -64,7 +70,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param exit_code An exit code.
         */
         static void break_loop(const int exit_code)
-        {}
+        {
+            suppress_unused_variable_warning(exit_code);
+        }
 
 
     private:

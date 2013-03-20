@@ -36,6 +36,7 @@
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -431,6 +432,8 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
+                suppress_unused_variable_warning(details, menu_info, text, enabled, state);
+
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::logic_error("A menu bar cannot be inserted."));
             }
@@ -511,6 +514,8 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             const
             {
+                suppress_unused_variable_warning(details, text, enabled, state);
+
                 menu_info.fMask = MIIM_FTYPE;
                 menu_info.fType = MFT_SEPARATOR;
             }

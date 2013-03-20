@@ -43,6 +43,7 @@
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
@@ -429,6 +430,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Encoder&             encoder
         )
         {
+            suppress_unused_variable_warning(canvas);
+
             const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 

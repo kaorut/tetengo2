@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_CPP11_H)
 #define TETENGO2_CPP11_H
 
+#include "tetengo2.utility.h"
+
+
 /* noexcept *****************************************************************/
 
 //! The alternative to the C++11 keyword noexcept.
@@ -327,6 +330,8 @@ namespace tetengo2 { namespace cpp11
         const typename Container::const_iterator iterator
     )
     {
+        suppress_unused_variable_warning(container);
+
         return iterator;
     }
 #else
@@ -376,7 +381,9 @@ namespace tetengo2 { namespace cpp11
 #else
     template <typename Container>
     void shrink_to_fit(Container& container)
-    {}
+    {
+        suppress_unused_variable_warning(container);
+    }
 #endif
 }}
 

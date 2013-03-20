@@ -17,6 +17,7 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -91,6 +92,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename style_type::enum_t style
         )
         {
+            suppress_unused_variable_warning(widget_details, style);
+
             return make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }
 

@@ -17,8 +17,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.unique.h"
 #include "tetengo2.text.h"
+#include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -124,6 +125,19 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                                       encoder
         )
         {
+            suppress_unused_variable_warning(
+                parent,
+                title,
+                main_content,
+                sub_content,
+                cancellable,
+                button_style,
+                icon_style,
+                custom_ok_button_label,
+                custom_yes_no_button_labels,
+                encoder
+            );
+
             return make_unique<message_box_details_type>();
         }
 
@@ -138,6 +152,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
         {
+            suppress_unused_variable_warning(message_box);
+
             return message_box_button_id_type::cancel;
         }
 
@@ -166,6 +182,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&  encoder
         )
         {
+            suppress_unused_variable_warning(parent, title, filters, encoder);
+
             return make_unique<file_open_dialog_details_type>();
         }
 
@@ -188,6 +206,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
+            suppress_unused_variable_warning(dialog, encoder);
+
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
@@ -219,6 +239,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
+            suppress_unused_variable_warning(parent, title, path, filters, encoder);
+
             return make_unique<file_save_dialog_details_type>();
         }
 
@@ -241,6 +263,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
+            suppress_unused_variable_warning(dialog, encoder);
+
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
@@ -266,6 +290,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
+            suppress_unused_variable_warning(parent, font, encoder);
             return make_unique<font_dialog_details_type>();
         }
 
@@ -285,6 +310,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Encoder>
         static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
+            suppress_unused_variable_warning(dialog, encoder);
+
             return
                 boost::make_optional(
                     Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
@@ -296,42 +323,38 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam AbstractWindow An abstract window type.
             \tparam OptionalColor  An optional color type.
-            \tparam Encoder        An encoder type.
 
-            \param parent  A parent window.
-            \param color   A color.
-            \param encoder An encoder.
+            \param parent A parent window.
+            \param color  A color.
 
             \return A unique pointer to a color dialog.
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename OptionalColor, typename Encoder>
-        static color_dialog_details_ptr_type create_color_dialog(
-            AbstractWindow&      parent,
-            const OptionalColor& color,
-            const Encoder&       encoder
-        )
+        template <typename AbstractWindow, typename OptionalColor>
+        static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
+            suppress_unused_variable_warning(parent, color);
+
             return make_unique<color_dialog_details_type>();
         }
 
         /*!
             \brief Shows a color dialog and return a font.
 
-            \tparam Color   A color type.
-            \tparam Encoder An encoder type.
+            \tparam Color A color type.
 
-            \param dialog  A color dialog.
-            \param encoder An encoder.
+            \param dialog A color dialog.
 
             \return The color.
 
             \throw std::system_error When the color dialog cannot be shown.
         */
-        template <typename Color, typename Encoder>
-        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog, const Encoder& encoder)
+        template <typename Color>
+        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
+            suppress_unused_variable_warning(dialog);
+
             return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
         }
 

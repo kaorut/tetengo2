@@ -19,6 +19,7 @@
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 
 namespace bobura { namespace message { namespace diagram_picture_box
@@ -92,6 +93,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
+            tetengo2::suppress_unused_variable_warning(shift, control, meta);
+
             m_set_mouse_capture();
 
             item_type* const p_item = m_view.p_item_by_position(position);
@@ -185,6 +188,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
+            tetengo2::suppress_unused_variable_warning(button, position, shift, control, meta);
+
             if (m_release_mouse_capture())
             {
 
@@ -256,6 +261,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(const position_type& position, const bool shift, const bool control, const bool meta)
         const
         {
+            tetengo2::suppress_unused_variable_warning(shift, control, meta);
+
             const item_type* const p_item = m_view.p_item_by_position(position);
             const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();
             const system_cursor_type* const p_system_cursor =
@@ -781,6 +788,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(const size_type new_position)
         const
         {
+            tetengo2::suppress_unused_variable_warning(new_position);
+
             m_view.update_dimension();
             m_picture_box.repaint();
         }

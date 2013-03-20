@@ -32,6 +32,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.text.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace message
@@ -272,6 +273,8 @@ namespace tetengo2 { namespace message
         virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
         const
         {
+            suppress_unused_variable_warning(catalog_name, locale);
+
             if (m_open)
                 BOOST_THROW_EXCEPTION(std::runtime_error("A message catalog is already open."));
 
@@ -289,6 +292,8 @@ namespace tetengo2 { namespace message
         )
         const
         {
+            suppress_unused_variable_warning(set, message);
+
             if (catalog_id < 0)
                 return remove_namespace(default_message);
 

@@ -23,6 +23,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.recursive_iterator.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -476,13 +477,15 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
-            BOOST_THROW_EXCEPTION(
-                std::logic_error("Can't insert any menus.")
-            );
+            suppress_unused_variable_warning(offset, p_menu);
+
+            BOOST_THROW_EXCEPTION(std::logic_error("Can't insert any menus."));
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
+            suppress_unused_variable_warning(first, last);
+
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 

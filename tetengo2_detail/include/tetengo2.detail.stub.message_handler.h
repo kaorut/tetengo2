@@ -17,6 +17,7 @@
 //#include <boost/noncopyable.hpp>
 
 #include "tetengo2.detail.stub.widget.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -57,6 +58,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(abstract_window);
+
             return std::move(initial_map);
         }
 
@@ -76,6 +79,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(button);
+
             return std::move(initial_map);
         }
 
@@ -95,6 +100,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(control);
+
             return std::move(initial_map);
         }
 
@@ -114,6 +121,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(dialog);
+
             return std::move(initial_map);
         }
 
@@ -133,6 +142,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(dropdown_box);
+
             return std::move(initial_map);
         }
 
@@ -152,6 +163,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(image);
+
             return std::move(initial_map);
         }
 
@@ -171,6 +184,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(label);
+
             return std::move(initial_map);
         }
 
@@ -190,6 +205,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(list_box);
+
             return std::move(initial_map);
         }
 
@@ -209,6 +226,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(picture_box);
+
             return std::move(initial_map);
         }
 
@@ -228,6 +247,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(text_box);
+
             return std::move(initial_map);
         }
 
@@ -247,6 +268,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(widget);
+
             return std::move(initial_map);
         }
 
@@ -266,6 +289,8 @@ namespace tetengo2 { namespace detail { namespace stub
             message_handler_map_type&& initial_map
         )
         {
+            suppress_unused_variable_warning(window);
+
             return std::move(initial_map);
         }
 

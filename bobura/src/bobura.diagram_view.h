@@ -448,30 +448,25 @@ namespace bobura
                     m_model,
                     m_time_offset,
                     m_selection,
-                    canvas,
                     canvas_dimension,
                     m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
                     top_type::from(m_header_height),
                     m_time_header_height,
-                    m_horizontal_scale,
-                    m_vertical_scale
+                    m_horizontal_scale
                 );
             m_p_station_line_list.reset(
                 new station_line_list_type(
                     m_model,
                     m_time_offset,
                     m_selection,
-                    canvas,
                     canvas_dimension,
-                    m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
                     top_type::from(m_header_height),
                     m_time_header_height,
                     m_horizontal_scale,
-                    m_vertical_scale,
                     m_station_positions
                 )
             );
@@ -480,15 +475,12 @@ namespace bobura
                     m_model,
                     m_time_offset,
                     m_selection,
-                    canvas,
                     canvas_dimension,
-                    m_dimension,
                     scroll_bar_position,
                     left_type::from(m_station_header_width),
                     top_type::from(m_header_height),
                     m_time_header_height,
                     m_horizontal_scale,
-                    m_vertical_scale,
                     m_station_intervals,
                     m_station_positions,
                     m_message_catalog

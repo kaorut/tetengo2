@@ -12,7 +12,7 @@
     <ClCompile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_THREAD_VERSION=3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4100;4127;4146;4180;4251;4275;4373;4503;4510;4512;4610;4702;4706;4714;4800;4819;4913</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4146;4275;4373;4503;4512;4702;4706;4714;4819;4913</DisableSpecificWarnings>
       <AdditionalOptions>/Zm222 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>

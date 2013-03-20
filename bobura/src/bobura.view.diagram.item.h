@@ -14,6 +14,7 @@
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.utility.h>
 
 
 namespace bobura { namespace view { namespace diagram
@@ -173,10 +174,17 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const = 0;
+        const
+        {
+            tetengo2::suppress_unused_variable_warning(canvas);
+        }
 
         virtual item* p_item_by_position_impl(const position_type& position)
-        = 0;
+        {
+            tetengo2::suppress_unused_variable_warning(position);
+
+            return NULL;
+        }
 
         virtual bool selected_impl()
         const
@@ -185,7 +193,9 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual void select_impl(const bool switch_selection_style)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(switch_selection_style);
+        }
 
 
     };

@@ -30,6 +30,7 @@
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -194,6 +195,8 @@ namespace bobura { namespace model { namespace serializer
         private:
             virtual bool parse_impl(const string_type& key, string_type value)
             {
+                tetengo2::suppress_unused_variable_warning(key, value);
+
                 return true;
             }
 

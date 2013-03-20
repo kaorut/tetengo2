@@ -13,6 +13,7 @@
 
 #include "test_tetengo2.type_list.h"
 #include "tetengo2.text.h"
+#include "tetengo2.utility.h"
 
 #include "tetengo2.config.config_base.h"
 
@@ -48,7 +49,9 @@ namespace
         }
 
         virtual void set_impl(const string_type& key, value_type value)
-        {}
+        {
+            tetengo2::suppress_unused_variable_warning(key, value);
+        }
 
     };
 

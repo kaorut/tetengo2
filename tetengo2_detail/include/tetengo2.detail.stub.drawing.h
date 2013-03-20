@@ -19,6 +19,7 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -99,6 +100,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const HandleOrWidgetDetails& handle_or_widget_details
         )
         {
+            suppress_unused_variable_warning(handle_or_widget_details);
+
             return make_unique<canvas_details_type>();
         }
 
@@ -114,6 +117,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Color>
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
+            suppress_unused_variable_warning(color);
+
             return make_unique<background_details_type>();
         }
 
@@ -158,6 +163,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Path>
         static std::unique_ptr<picture_details_type> read_picture(const Path& path)
         {
+            suppress_unused_variable_warning(path);
+
             return make_unique<picture_details_type>(123, 456);
         }
 
@@ -203,7 +210,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const int            style,
             const Color&         color
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, from, to, width, style, color);
+        }
 
         /*!
             \brief Draws a focus indication.
@@ -223,7 +232,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      position,
             const Dimension&     dimension
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, position, dimension);
+        }
 
         /*!
             \brief Fills a rectangle region.
@@ -246,7 +257,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Dimension&     dimension,
             const Background&    background
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, position, dimension, background);
+        }
 
         /*!
             \brief Makes a dialog font.
@@ -286,6 +299,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&             encoder
         )
         {
+            suppress_unused_variable_warning(canvas, font, text, encoder);
+
             typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef typename gui::dimension<Dimension>::height_type height_type;
             return Dimension(width_type(123), height_type(456));
@@ -320,7 +335,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Color&         color,
             const double         angle
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, font, text, encoder, position, color, angle);
+        }
 
         /*!
             \brief Paints a picture.
@@ -343,7 +360,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      position,
             const Dimension&     dimension
         )
-        {}
+        {
+            suppress_unused_variable_warning(canvas, picture, position, dimension);
+        }
 
 
     private:

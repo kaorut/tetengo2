@@ -638,7 +638,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return ::GetParent(const_cast< ::HWND>(widget.details()->handle.get()));
+            return ::GetParent(const_cast< ::HWND>(widget.details()->handle.get())) != NULL;
         }
 
         /*!

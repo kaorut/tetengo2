@@ -472,9 +472,6 @@ namespace bobura { namespace view { namespace diagram
         //! The horizontal scale type.
         typedef typename width_type::value_type horizontal_scale_type;
 
-        //! The vertical scale type.
-        typedef typename height_type::value_type vertical_scale_type;
-
         //! The base type.
         typedef item<selection_type, canvas_type> base_type;
 
@@ -492,14 +489,12 @@ namespace bobura { namespace view { namespace diagram
             \param down                 Set true for a down train.
             \param time_offset          A time offet.
             \param selection            A selection.
-            \param canvas               A canva.
             \param canvas_dimension     A canvas dimension.
             \param scroll_bar_position  A scroll bar position.
             \param station_header_right A station header right position.
             \param header_bottom        A header bottom position.
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
-            \param vertical_scale       A vertical scale.
             \param station_intervals    Station intervals.
             \param station_positions    Station positions.
             \param message_catalog      A mesage catalog.
@@ -510,14 +505,12 @@ namespace bobura { namespace view { namespace diagram
             const bool                    down,
             const time_span_type&         time_offset,
             selection_type&               selection,
-            canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
-            const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
             const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
@@ -528,18 +521,15 @@ namespace bobura { namespace view { namespace diagram
         m_fragments(
             make_fragments(
                 train,
-                train_kind,
                 down,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale,
                 station_intervals,
                 station_positions,
                 message_catalog
@@ -609,18 +599,15 @@ namespace bobura { namespace view { namespace diagram
 
         static std::vector<train_line_fragment_type> make_fragments(
             const train_type&             train,
-            const train_kind_type&        train_kind,
             const bool                    down,
             const time_span_type&         time_offset,
             selection_type&               selection,
-            canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
-            const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
             const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
@@ -662,14 +649,12 @@ namespace bobura { namespace view { namespace diagram
                                 !train_name_drawn,
                                 time_offset,
                                 selection,
-                                canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
                                 station_header_right,
                                 header_bottom,
                                 time_header_height,
                                 horizontal_scale,
-                                vertical_scale,
                                 station_positions,
                                 message_catalog,
                                 fragments
@@ -718,14 +703,12 @@ namespace bobura { namespace view { namespace diagram
                                 !train_name_drawn ,
                                 time_offset,
                                 selection,
-                                canvas,
                                 canvas_dimension,
                                 scroll_bar_position,
                                 station_header_right,
                                 header_bottom,
                                 time_header_height,
                                 horizontal_scale,
-                                vertical_scale,
                                 station_positions,
                                 message_catalog,
                                 fragments
@@ -791,14 +774,12 @@ namespace bobura { namespace view { namespace diagram
             const bool                             draw_train_name,
             const time_span_type&                  time_offset,
             selection_type&                        selection,
-            canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
             const left_type&                       station_header_right,
             const top_type&                        header_bottom,
             const height_type&                     time_header_height,
             const horizontal_scale_type&           horizontal_scale,
-            const vertical_scale_type&             vertical_scale,
             const std::vector<top_type>&           station_positions,
             const message_catalog_type&            message_catalog,
             std::vector<train_line_fragment_type>& fragments
@@ -818,14 +799,12 @@ namespace bobura { namespace view { namespace diagram
                     draw_train_name,
                     time_offset,
                     selection,
-                    canvas,
                     canvas_dimension,
                     scroll_bar_position,
                     station_header_right,
                     header_bottom,
                     time_header_height,
                     horizontal_scale,
-                    vertical_scale,
                     station_positions,
                     message_catalog,
                     fragments
@@ -845,14 +824,12 @@ namespace bobura { namespace view { namespace diagram
                     draw_train_name,
                     time_offset,
                     selection,
-                    canvas,
                     canvas_dimension,
                     scroll_bar_position,
                     station_header_right,
                     header_bottom,
                     time_header_height,
                     horizontal_scale,
-                    vertical_scale,
                     station_positions,
                     message_catalog,
                     fragments
@@ -869,14 +846,12 @@ namespace bobura { namespace view { namespace diagram
                     draw_train_name,
                     time_offset,
                     selection,
-                    canvas,
                     canvas_dimension,
                     scroll_bar_position,
                     station_header_right,
                     header_bottom,
                     time_header_height,
                     horizontal_scale,
-                    vertical_scale,
                     station_positions,
                     message_catalog,
                     fragments
@@ -896,14 +871,12 @@ namespace bobura { namespace view { namespace diagram
             const bool                             draw_train_name,
             const time_span_type&                  time_offset,
             selection_type&                        selection,
-            canvas_type&                           canvas,
             const dimension_type&                  canvas_dimension,
             const position_type&                   scroll_bar_position,
             const left_type&                       station_header_right,
             const top_type&                        header_bottom,
             const height_type&                     time_header_height,
             const horizontal_scale_type&           horizontal_scale,
-            const vertical_scale_type&             vertical_scale,
             const std::vector<top_type>&           station_positions,
             const message_catalog_type&            message_catalog,
             std::vector<train_line_fragment_type>& fragments
@@ -1099,9 +1072,6 @@ namespace bobura { namespace view { namespace diagram
         //! The horizontal scale type.
         typedef typename width_type::value_type horizontal_scale_type;
 
-        //! The vertical scale type.
-        typedef typename height_type::value_type vertical_scale_type;
-
         //! The base type.
         typedef item<selection_type, canvas_type> base_type;
 
@@ -1117,15 +1087,12 @@ namespace bobura { namespace view { namespace diagram
             \param model                A model.
             \param time_offset          A time offset.
             \param selection            A selection.
-            \param canvas               A canvas.
             \param canvas_dimension     A canvas dimension.
-            \param timetable_dimension  A timetable dimension.
             \param scroll_bar_position  A scroll bar position.
             \param station_header_right A right position of the station header.
             \param header_bottom        A bottom position of the header.
             \param time_header_height   A time header height.
             \param horizontal_scale     A horizontal scale.
-            \param vertical_scale       A vertical scale.
             \param station_intervals    Station intervals.
             \param station_positions    Station positions.
             \param message_catalog      A message catalog.
@@ -1134,15 +1101,12 @@ namespace bobura { namespace view { namespace diagram
             const model_type&             model,
             const time_span_type&         time_offset,
             selection_type&               selection,
-            canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
-            const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
             const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
@@ -1155,15 +1119,12 @@ namespace bobura { namespace view { namespace diagram
                 model,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale,
                 station_intervals,
                 station_positions,
                 message_catalog
@@ -1237,15 +1198,12 @@ namespace bobura { namespace view { namespace diagram
             const model_type&             model,
             const time_span_type&         time_offset,
             selection_type&               selection,
-            canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
-            const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
             const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog
@@ -1259,15 +1217,12 @@ namespace bobura { namespace view { namespace diagram
                 true,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale,
                 station_intervals,
                 station_positions,
                 message_catalog,
@@ -1279,15 +1234,12 @@ namespace bobura { namespace view { namespace diagram
                 false,
                 time_offset,
                 selection,
-                canvas,
                 canvas_dimension,
-                timetable_dimension,
                 scroll_bar_position,
                 station_header_right,
                 header_bottom,
                 time_header_height,
                 horizontal_scale,
-                vertical_scale,
                 station_intervals,
                 station_positions,
                 message_catalog,
@@ -1303,15 +1255,12 @@ namespace bobura { namespace view { namespace diagram
             const bool                    down,
             const time_span_type&         time_offset,
             selection_type&               selection,
-            canvas_type&                  canvas,
             const dimension_type&         canvas_dimension,
-            const dimension_type&         timetable_dimension,
             const position_type&          scroll_bar_position,
             const left_type&              station_header_right,
             const top_type&               header_bottom,
             const height_type&            time_header_height,
             const horizontal_scale_type&  horizontal_scale,
-            const vertical_scale_type&    vertical_scale,
             const station_intervals_type& station_intervals,
             const std::vector<top_type>&  station_positions,
             const message_catalog_type&   message_catalog,
@@ -1327,14 +1276,12 @@ namespace bobura { namespace view { namespace diagram
                         down,
                         time_offset,
                         selection,
-                        canvas,
                         canvas_dimension,
                         scroll_bar_position,
                         station_header_right,
                         header_bottom,
                         time_header_height,
                         horizontal_scale,
-                        vertical_scale,
                         station_intervals,
                         station_positions,
                         message_catalog

@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <cstddef>
 //#include <memory>
 //#include <utility>
 
@@ -14,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.selection.h"
@@ -66,15 +66,6 @@ namespace
     private:
         bool m_selected;
 
-        virtual void draw_on_impl(canvas_type& canvas)
-        const
-        {}
-
-        virtual item_type* p_item_by_position_impl(const position_type& position)
-        {
-            return NULL;
-        }
-
         virtual bool selected_impl()
         const
         {
@@ -83,6 +74,8 @@ namespace
 
         virtual void select_impl(const bool switch_selection_style)
         {
+            tetengo2::suppress_unused_variable_warning(switch_selection_style);
+
             m_selected = true;
         }
 
