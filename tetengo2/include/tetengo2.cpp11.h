@@ -14,8 +14,20 @@
 
 /* noexcept *****************************************************************/
 
-//! The alternative to the C++11 keyword noexcept.
-#define TETENGO2_CPP11_NOEXCEPT throw ()
+#if !defined(DOCUMENTATION)
+#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
+#       define TETENGO2_CPP11_NOEXCEPT_SUPPORTED 1
+#   else
+#       define TETENGO2_CPP11_NOEXCEPT_SUPPORTED 0
+#   endif
+#endif
+
+#if TETENGO2_CPP11_NOEXCEPT_SUPPORTED || defined(DOCUMENTATION)
+    //! The alternative to the C++11 keyword noexcept.
+#   define TETENGO2_CPP11_NOEXCEPT noexcept
+#else
+#   define TETENGO2_CPP11_NOEXCEPT throw ()
+#endif
 
 
 /* bind *********************************************************************/
