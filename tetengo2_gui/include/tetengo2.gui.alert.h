@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui
 
             \param widget_handle     A widget handle.
         */
-        explicit alert(const widget_handle_type widget_handle = NULL)
+        explicit alert(const widget_handle_type widget_handle = nullptr)
         :
         m_widget_handle(alert_details_type::root_ancestor_widget_handle(widget_handle))
         {}

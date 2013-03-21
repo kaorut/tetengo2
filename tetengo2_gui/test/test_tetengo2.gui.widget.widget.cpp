@@ -65,7 +65,7 @@ namespace
         }
 
         explicit concrete_widget(
-            widget_type* const                               p_parent = NULL,
+            widget_type* const                               p_parent = nullptr,
             const widget_type::scroll_bar_style_type::enum_t scroll_bar_style =
                 widget_type::scroll_bar_style_type::none
         )
@@ -530,22 +530,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
@@ -556,22 +556,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }

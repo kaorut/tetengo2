@@ -68,14 +68,14 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param p_details A unique pointer to a detail implementation.
 
-            \throw std::invalid_argument When p_details is NULL.
+            \throw std::invalid_argument When p_details is nullptr.
         */
         explicit picture(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details))
         {
             if (!m_p_details)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is nullptr."));
         }
 
 

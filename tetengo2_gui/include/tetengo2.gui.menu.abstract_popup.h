@@ -162,7 +162,7 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu)
         {
             if (!p_menu)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The unique pointer to a menu is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The unique pointer to a menu is nullptr."));
 
             menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
 

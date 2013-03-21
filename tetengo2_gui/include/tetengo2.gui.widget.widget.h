@@ -403,7 +403,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a background.
 
-            When p_background points to NULL, the system default background is used.
+            When p_background is nullptr, the system default background is used.
 
             \param p_background A unique pointer to a background.
         */

@@ -45,10 +45,10 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         recursive_iterator()
         :
-        m_p_menu(NULL),
+        m_p_menu(nullptr),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
+            m_parents.emplace(static_cast<menu_base_type*>(nullptr), 0);
         }
 
         /*!
@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
+            m_parents.emplace(static_cast<menu_base_type*>(nullptr), 0);
         }
 
 
@@ -109,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             if (!m_parents.top().first)
             {
-                m_p_menu = NULL;
+                m_p_menu = nullptr;
                 return;
             }
 

@@ -171,7 +171,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             The shortcut key table of the menu bar is updated.
 
-            When p_menu_bar is NULL, the currently associated main menu is destroyed.
+            When p_menu_bar is nullptr, the currently associated main menu is destroyed.
 
             \param p_menu_bar A unique pointer to a menu bar.
         */
