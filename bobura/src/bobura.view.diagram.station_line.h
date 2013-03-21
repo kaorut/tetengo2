@@ -203,7 +203,7 @@ namespace bobura { namespace view { namespace diagram
             }
             else
             {
-                return NULL;
+                return nullptr;
             }
         }
 
@@ -501,7 +501,7 @@ namespace bobura { namespace view { namespace diagram
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 

@@ -43,7 +43,7 @@ namespace
 
     std::string locale_info(const ::LCID id, const ::LCTYPE type)
     {
-        const int length = ::GetLocaleInfoA(id, type, NULL, 0);
+        const int length = ::GetLocaleInfoA(id, type, nullptr, 0);
         if (length == 0)
             BOOST_THROW_EXCEPTION(std::runtime_error("Can't get locale info."));
 

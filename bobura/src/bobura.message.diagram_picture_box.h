@@ -266,7 +266,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             const item_type* const p_item = m_view.p_item_by_position(position);
             const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();
             const system_cursor_type* const p_system_cursor =
-                cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : NULL;
+                cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : nullptr;
             if (p_item)
             {
                 if (!p_system_cursor || p_system_cursor->style() != system_cursor_type::style_type::hand)

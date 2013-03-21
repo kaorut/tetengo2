@@ -348,7 +348,7 @@ namespace bobura
         const
         {
             popup_menu.insert(popup_menu.end(), std::move(p_child_popup_menu));
-            commands.push_back(NULL);
+            commands.push_back(nullptr);
         }
 
         void append_menu_command(
@@ -405,7 +405,7 @@ namespace bobura
         {
             std::unique_ptr<menu_separator_type> p_menu_separator(tetengo2::make_unique<menu_separator_type>());
             popup_menu.insert(popup_menu.end(), std::move(p_menu_separator));
-            commands.push_back(NULL);
+            commands.push_back(nullptr);
         }
 
         void connect_popup_menu_observer(popup_menu_type& popup_menu, commands_type commands)

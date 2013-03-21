@@ -285,7 +285,7 @@ namespace bobura
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of an item, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr;
 
             \param position A position.
 
@@ -301,7 +301,7 @@ namespace bobura
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of an item, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr.
 
             \param position A position.
 
@@ -330,7 +330,7 @@ namespace bobura
                 return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
         /*!

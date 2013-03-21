@@ -365,7 +365,7 @@ namespace bobura { namespace view { namespace diagram
         {
             return
                 calculate_distance(position, m_departure, m_arrival) <= selected_line_margin<size_type>() ?
-                this : NULL;
+                this : nullptr;
         }
 
         virtual bool selected_impl()
@@ -1012,7 +1012,7 @@ namespace bobura { namespace view { namespace diagram
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 
@@ -1320,7 +1320,7 @@ namespace bobura { namespace view { namespace diagram
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 
