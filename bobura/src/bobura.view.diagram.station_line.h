@@ -449,7 +449,7 @@ namespace bobura { namespace view { namespace diagram
                     )
                 );
             }
-            tetengo2::cpp11::shrink_to_fit(station_lines);
+            station_lines.shrink_to_fit();
 
             return std::move(station_lines);
         }

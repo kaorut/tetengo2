@@ -278,41 +278,4 @@ namespace tetengo2 { namespace cpp11
 }}
 
 
-/* shrink_to_fit ************************************************************/
-
-#if !defined(DOCUMENTATION)
-#   if \
-        (defined(_MSC_VER) && _MSC_VER >= 1600) || \
-        (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 5)
-#       define TETENGO2_CPP11_SHRINKTOFIT_SUPPORTED 1
-#   else
-#       define TETENGO2_CPP11_SHRINKTOFIT_SUPPORTED 0
-#   endif
-#endif
-
-namespace tetengo2 { namespace cpp11
-{
-#if TETENGO2_CPP11_SHRINKTOFIT_SUPPORTED || defined(DOCUMENTATION)
-    /*!
-        \brief Shrinks the container to fit.
-
-        \tparam Container A container type.
-
-        \param container A container.
-    */
-    template <typename Container>
-    void shrink_to_fit(Container& container)
-    {
-        container.shrink_to_fit();
-    }
-#else
-    template <typename Container>
-    void shrink_to_fit(Container& container)
-    {
-        suppress_unused_variable_warning(container);
-    }
-#endif
-}}
-
-
 #endif
