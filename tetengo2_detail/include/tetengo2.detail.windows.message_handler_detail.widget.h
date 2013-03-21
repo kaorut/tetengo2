@@ -558,7 +558,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(::SendMessageW(widget.details()->handle.get(), WM_GETFONT, 0, 0));
 
-            ::SendMessageW(widget.details()->handle.get(), WM_SETFONT, nullptr, MAKELPARAM(0, 0));
+            ::SendMessageW(widget.details()->handle.get(), WM_SETFONT, 0, MAKELPARAM(0, 0));
 
             if (font_handle && ::DeleteObject(font_handle) == 0)
             {
