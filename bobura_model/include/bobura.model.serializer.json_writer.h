@@ -192,7 +192,7 @@ namespace bobura { namespace model { namespace serializer
             const string_type&  key,
             const Integer       value,
             output_stream_type& output_stream,
-            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = NULL
+            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = nullptr
         )
         {
             write_object_key(key, output_stream);

@@ -87,7 +87,7 @@ namespace bobura { namespace model { namespace serializer
 
             \param p_select_diagram A unique pointer to a diagram selecting.
 
-            \throw std::invalid_argument When p_select_diagram is NULL.
+            \throw std::invalid_argument When p_select_diagram is nullptr.
         */
         explicit oudia_reader(std::unique_ptr<select_diagram_type> p_select_diagram)
         :
@@ -95,7 +95,7 @@ namespace bobura { namespace model { namespace serializer
         m_p_select_diagram(std::move(p_select_diagram))
         {
             if (!m_p_select_diagram)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Diagram selector is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Diagram selector is nullptr."));
         }
 
         /*!

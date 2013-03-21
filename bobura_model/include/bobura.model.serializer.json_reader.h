@@ -528,7 +528,7 @@ namespace bobura { namespace model { namespace serializer
                 name = std::move(member->second);
             }
 
-            const station_grade_type* p_grade = NULL;
+            const station_grade_type* p_grade = nullptr;
             {
                 boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
@@ -599,7 +599,7 @@ namespace bobura { namespace model { namespace serializer
             else if (name == station_grade_type_set_type::principal_terminal_type::instance().name())
                 return &station_grade_type_set_type::principal_terminal_type::instance();
             else
-                return NULL;
+                return nullptr;
         }
 
         static boost::optional<std::vector<train_kind_type>> read_train_kinds(pull_parser_type& pull_parser)

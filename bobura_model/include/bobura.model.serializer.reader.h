@@ -76,7 +76,7 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Reads a timetable.
 
-            When it cannot read a timetable, it returns NULL.
+            When it cannot read a timetable, it returns nullptr.
 
             \param first The first position of an input.
             \param last  The last position of an input.
