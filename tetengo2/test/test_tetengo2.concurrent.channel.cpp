@@ -7,7 +7,6 @@
 */
 
 #include <cstddef>
-#include <functional>
 //#include <stdexcept>
 #include <string>
 

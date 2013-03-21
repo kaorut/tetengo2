@@ -9,8 +9,7 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H
 
-#include <functional>
-//#include <iterator>
+#include <iterator>
 #include <utility>
 #include <vector>
 

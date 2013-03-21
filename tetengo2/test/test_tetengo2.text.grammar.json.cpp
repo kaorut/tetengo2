@@ -8,7 +8,7 @@
 
 #include <algorithm>
 #include <cassert>
-#include <functional>
+//#include <functional>
 #include <stdexcept>
 //#include <string>
 //#include <vector>

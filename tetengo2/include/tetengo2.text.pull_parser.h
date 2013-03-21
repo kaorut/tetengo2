@@ -10,7 +10,7 @@
 #define TETENGO2_JSON_PULLPARSER_H
 
 //#include <cassert>
-#include <functional>
+//#include <functional>
 //#include <memory>
 //#include <stdexcept>
 //#include <utility>

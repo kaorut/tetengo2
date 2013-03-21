@@ -9,8 +9,9 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONWRITER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
-#include <cstddef>
 #include <algorithm>
+#include <cstddef>
+//#include <functional>
 #include <iomanip>
 #include <locale>
 #include <sstream>
