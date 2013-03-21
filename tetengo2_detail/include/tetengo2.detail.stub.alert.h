@@ -43,7 +43,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(widget_handle);
 
-            return NULL;
+            return nullptr;
         }
 
         /*!

@@ -195,7 +195,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
         {
-            return create_details<Widget>(parent ? &*parent : NULL);
+            return create_details<Widget>(parent ? &*parent : nullptr);
         }
 
         /*!
@@ -338,7 +338,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(scroll_bar_style);
 
-            return create_details<Widget>(parent ? &*parent : NULL);
+            return create_details<Widget>(parent ? &*parent : nullptr);
         }
 
         /*!
@@ -374,7 +374,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return widget.details()->p_parent != NULL;
+            return widget.details()->p_parent != nullptr;
         }
 
         /*!

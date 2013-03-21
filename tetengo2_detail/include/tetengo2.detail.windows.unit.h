@@ -120,7 +120,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const PixelValue denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
-            >::type* = NULL
+            >::type* = nullptr
         )
         {
             return boost::rational<typename Value::int_type>(
@@ -132,7 +132,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Value to_value(
             const PixelValue numerator,
             const PixelValue denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = nullptr
         )
         {
             return numerator / denominator;
@@ -144,7 +144,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Value& denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
-            >::type* = NULL
+            >::type* = nullptr
         )
         {
             return boost::rational_cast<PixelValue>(numerator / denominator);
@@ -154,7 +154,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue to_pixel_value(
             const Value numerator,
             const Value denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = nullptr
         )
         {
             return static_cast<PixelValue>(numerator / denominator);
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static std::pair<int, int> get_dpi()
         {
-            const ::HDC device_context = ::GetDC(NULL);
+            const ::HDC device_context = ::GetDC(nullptr);
             if (!device_context)
             {
                 BOOST_THROW_EXCEPTION(
@@ -179,7 +179,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             BOOST_SCOPE_EXIT((device_context))
             {
-                ::ReleaseDC(NULL, device_context);
+                ::ReleaseDC(nullptr, device_context);
             } BOOST_SCOPE_EXIT_END;
 
             const int dpi_x = ::GetDeviceCaps(device_context, LOGPIXELSX);

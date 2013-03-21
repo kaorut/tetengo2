@@ -66,7 +66,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                         assert(false);
                     }
                     p_render_target->Release();
-                    p_render_target = NULL;
+                    p_render_target = nullptr;
                 }
             }
 
@@ -206,7 +206,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     );
             }
 
-            ::ID2D1HwndRenderTarget* rp_render_target = NULL;
+            ::ID2D1HwndRenderTarget* rp_render_target = nullptr;
             const ::HRESULT hr = direct2d_factory().CreateHwndRenderTarget(props, hwnd_props, &rp_render_target);
             if (FAILED(hr))
             {
@@ -527,7 +527,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             );
             if (!picture_details) return;
 
-            ::ID2D1Bitmap* rp_bitmap = NULL;
+            ::ID2D1Bitmap* rp_bitmap = nullptr;
             const ::HRESULT create_bitmap_hr =
                 canvas.CreateBitmapFromWicBitmap(&*picture_details, &rp_bitmap);
             if (FAILED(create_bitmap_hr))
@@ -560,7 +560,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static direct2d_factory_ptr_type create_direct2d_factory()
         {
-            ::ID2D1Factory* rp_factory = NULL;
+            ::ID2D1Factory* rp_factory = nullptr;
             const ::HRESULT hr = ::D2D1CreateFactory(::D2D1_FACTORY_TYPE_SINGLE_THREADED, &rp_factory);
             if (FAILED(hr))
             {
@@ -580,7 +580,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static direct_write_factory_ptr_type create_direct_write_factory()
         {
-            ::IDWriteFactory* rp_factory = NULL;
+            ::IDWriteFactory* rp_factory = nullptr;
             const ::HRESULT hr =
                 ::DWriteCreateFactory(
                     ::DWRITE_FACTORY_TYPE_SHARED,
@@ -686,7 +686,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 dynamic_cast<const detail::solid_background_details*>(&background_details);
             if (p_solid)
             {
-                ::ID2D1SolidColorBrush* rp_brush = NULL;
+                ::ID2D1SolidColorBrush* rp_brush = nullptr;
                 const ::HRESULT hr =
                     canvas.CreateSolidColorBrush(
                         rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
@@ -707,7 +707,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
         {
-            ::ID2D1StrokeStyle* rp_stroke_style = NULL;
+            ::ID2D1StrokeStyle* rp_stroke_style = nullptr;
             const ::HRESULT hr =
                 direct2d_factory().CreateStrokeStyle(
                     D2D1::StrokeStyleProperties(
@@ -718,7 +718,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                         1.0f,
                         to_stroke_dash_style(style)
                     ),
-                    NULL,
+                    nullptr,
                     0,
                     &rp_stroke_style
                 );
@@ -756,11 +756,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Encoder&      encoder
         )
         {
-            ::IDWriteTextFormat* rp_format = NULL;
+            ::IDWriteTextFormat* rp_format = nullptr;
             const ::HRESULT create_format_hr =
                 direct_write_factory().CreateTextFormat(
                     encoder.encode(font.family()).c_str(),
-                    NULL,
+                    nullptr,
                     font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
                     font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
                     ::DWRITE_FONT_STRETCH_NORMAL,
@@ -787,7 +787,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     )
                 );
             }
-            ::IDWriteTextLayout* rp_layout = NULL;
+            ::IDWriteTextLayout* rp_layout = nullptr;
             const ::HRESULT create_layout_hr =
                 direct_write_factory().CreateTextLayout(
                     encoded_text.c_str(),

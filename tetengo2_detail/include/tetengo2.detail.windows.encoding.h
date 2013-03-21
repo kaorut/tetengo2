@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const int string_length =
                 ::WideCharToMultiByte(
-                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), NULL, 0, NULL, NULL
+                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
                 );
             std::vector<char> string(string_length + 1, '\0');
 
@@ -75,8 +75,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     static_cast<int>(pivot.length()),
                     string.data(),
                     string_length,
-                    NULL,
-                    NULL
+                    nullptr,
+                    nullptr
                 );
             converted_length;
             assert(converted_length == string_length);
@@ -95,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const int pivot_length =
                 ::MultiByteToWideChar(
-                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), NULL, 0
+                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
                 );
             std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 
@@ -127,7 +127,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const int string_length =
                 ::WideCharToMultiByte(
-                    932, flags, pivot.c_str(), static_cast<int>(pivot.length()), NULL, 0, NULL, NULL
+                    932, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
                 );
             std::vector<char> string(string_length + 1, '\0');
 
@@ -139,8 +139,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     static_cast<int>(pivot.length()),
                     string.data(),
                     string_length,
-                    NULL,
-                    NULL
+                    nullptr,
+                    nullptr
                 );
             converted_length;
             assert(converted_length == string_length);
@@ -159,7 +159,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const int pivot_length =
                 ::MultiByteToWideChar(
-                    932, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), NULL, 0
+                    932, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
                 );
             std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 

@@ -471,7 +471,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& handle,
-            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
+            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
             std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(handle));
@@ -484,7 +484,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& widget_details,
-            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
+            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
             std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.handle.get()));

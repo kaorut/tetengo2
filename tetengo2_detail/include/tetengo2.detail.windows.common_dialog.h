@@ -328,12 +328,12 @@ namespace tetengo2 { namespace detail { namespace windows
             config.pszWindowTitle = title.c_str();
             config.pszMainIcon = to_task_dialog_icon(icon_style);
             config.pszMainInstruction = main_content.c_str();
-            config.pszContent = sub_content.empty() ? NULL : sub_content.c_str();
+            config.pszContent = sub_content.empty() ? nullptr : sub_content.c_str();
             config.cButtons = static_cast< ::UINT>(custom_buttons.size());
             config.pButtons = custom_buttons.data();
 
             int selected_button = 0;
-            const ::HRESULT result = ::TaskDialogIndirect(&config, &selected_button, NULL, NULL);
+            const ::HRESULT result = ::TaskDialogIndirect(&config, &selected_button, nullptr, nullptr);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
@@ -369,9 +369,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            ::IFileOpenDialog* p_raw_dialog = NULL;
+            ::IFileOpenDialog* p_raw_dialog = nullptr;
             const ::HRESULT creation_result =
-                ::CoCreateInstance(__uuidof(::FileOpenDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
+                ::CoCreateInstance(__uuidof(::FileOpenDialog), nullptr, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
             if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -449,7 +449,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(showing_result))
                 return boost::none;
 
-            ::IShellItem* p_raw_item = NULL;
+            ::IShellItem* p_raw_item = nullptr;
             const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
@@ -459,7 +459,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
-            wchar_t* file_name = NULL;
+            wchar_t* file_name = nullptr;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
             if (FAILED(file_title_result))
             {
@@ -503,9 +503,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&      encoder
         )
         {
-            ::IFileSaveDialog* p_raw_dialog = NULL;
+            ::IFileSaveDialog* p_raw_dialog = nullptr;
             const ::HRESULT creation_result =
-                ::CoCreateInstance(__uuidof(::FileSaveDialog), NULL, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
+                ::CoCreateInstance(__uuidof(::FileSaveDialog), nullptr, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
             if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -554,12 +554,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            ::IShellItem* p_raw_default_path = NULL;
+            ::IShellItem* p_raw_default_path = nullptr;
             if (!dialog.path.empty())
             {
                 const ::HRESULT default_path_result =
                     ::SHCreateItemFromParsingName(
-                        dialog.path.c_str(), NULL, IID_PPV_ARGS(&p_raw_default_path)
+                        dialog.path.c_str(), nullptr, IID_PPV_ARGS(&p_raw_default_path)
                     );
                 if (FAILED(default_path_result))
                 {
@@ -633,7 +633,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(showing_result))
                 return boost::none;
 
-            ::IShellItem* p_raw_item = NULL;
+            ::IShellItem* p_raw_item = nullptr;
             const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
@@ -643,7 +643,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
-            wchar_t* file_name = NULL;
+            wchar_t* file_name = nullptr;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
             if (FAILED(file_title_result))
             {
@@ -749,16 +749,16 @@ namespace tetengo2 { namespace detail { namespace windows
             ::CHOOSEFONTW choose_font = {};
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
             choose_font.hwndOwner = dialog.parent_handle;
-            choose_font.hDC = NULL;
+            choose_font.hDC = nullptr;
             choose_font.lpLogFont = dialog.p_log_font.get();
             choose_font.iPointSize = 0;
             choose_font.Flags = CF_EFFECTS | CF_FORCEFONTEXIST | CF_NOVERTFONTS | CF_INITTOLOGFONTSTRUCT;
             choose_font.rgbColors = 0;
             choose_font.lCustData = 0;
-            choose_font.lpfnHook = NULL;
-            choose_font.lpTemplateName = NULL;
-            choose_font.hInstance = NULL;
-            choose_font.lpszStyle = NULL;
+            choose_font.lpfnHook = nullptr;
+            choose_font.lpTemplateName = nullptr;
+            choose_font.hInstance = nullptr;
+            choose_font.lpszStyle = nullptr;
             choose_font.nFontType = 0;
             choose_font.nSizeMin = 0;
             choose_font.nSizeMax = 0;
@@ -819,13 +819,13 @@ namespace tetengo2 { namespace detail { namespace windows
             ::CHOOSECOLORW choose_color = {};
             choose_color.lStructSize = sizeof(::CHOOSECOLORW);
             choose_color.hwndOwner = dialog.parent_handle;
-            choose_color.hInstance = NULL;
+            choose_color.hInstance = nullptr;
             choose_color.rgbResult = dialog.native_color;
             choose_color.lpCustColors = custom_colors.data();
             choose_color.Flags = CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN;
             choose_color.lCustData = 0;
-            choose_color.lpfnHook = NULL;
-            choose_color.lpTemplateName = NULL;
+            choose_color.lpfnHook = nullptr;
+            choose_color.lpTemplateName = nullptr;
 
             const ::BOOL result = ::ChooseColorW(&choose_color);
             if (result == FALSE)

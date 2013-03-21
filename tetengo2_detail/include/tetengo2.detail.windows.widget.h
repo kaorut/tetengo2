@@ -134,7 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 is_default ?
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
-            ::HMENU id = NULL;
+            ::HMENU id = nullptr;
             if (is_default)
             {
                 if (::GetDlgItem(parent.root_ancestor().details()->handle.get(), IDOK))
@@ -160,8 +160,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
                     id,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -175,7 +175,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -193,7 +193,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -217,9 +217,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent ? parent->details()->handle.get() : HWND_DESKTOP,
-                    NULL,
+                    nullptr,
                     instance_handle,
-                    NULL
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -232,7 +232,9 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(nullptr)
+                );
         }
 
         /*!
@@ -263,9 +265,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -281,7 +283,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -310,9 +312,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -326,7 +328,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -355,9 +357,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -371,7 +373,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -408,9 +410,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -424,7 +426,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -446,7 +448,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -470,9 +472,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
+                    nullptr,
                     instance_handle,
-                    NULL
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -485,7 +487,9 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return 
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(nullptr)
+                );
         }
 
         /*!
@@ -521,9 +525,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent.details()->handle.get(),
-                    NULL,
-                    ::GetModuleHandle(NULL),
-                    NULL
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -537,7 +541,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return 
                 make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(nullptr)
                 );
         }
 
@@ -559,7 +563,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
         )
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -583,9 +587,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     parent ? parent->details()->handle.get() : HWND_DESKTOP,
-                    NULL,
+                    nullptr,
                     instance_handle,
-                    NULL
+                    nullptr
                 )
             );
             if (!p_widget)
@@ -596,7 +600,9 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(nullptr)
+                );
         }
 
         /*!
@@ -639,7 +645,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return ::GetParent(const_cast< ::HWND>(widget.details()->handle.get())) != NULL;
+            return ::GetParent(const_cast< ::HWND>(widget.details()->handle.get())) != nullptr;
         }
 
         /*!
@@ -1377,7 +1383,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void repaint(Widget& widget)
         {
-            if (::InvalidateRect(widget.details()->handle.get(), NULL, TRUE) == 0)
+            if (::InvalidateRect(widget.details()->handle.get(), nullptr, TRUE) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -1441,7 +1447,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {
             const ::BOOL result =
-                ::SetMenu(widget.details()->handle.get(), menu ? menu->details()->handle.get() : NULL);
+                ::SetMenu(widget.details()->handle.get(), menu ? menu->details()->handle.get() : nullptr);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1532,7 +1538,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_focus(Widget& widget)
         {
-            if (::SetFocus(widget.details()->handle.get()) == NULL)
+            if (::SetFocus(widget.details()->handle.get()) == nullptr)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set focus.")
@@ -1629,11 +1635,12 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const ::HINSTANCE result =
                 ::ShellExecuteW(
-                    widget.has_parent() ? const_cast< ::HWND>(widget.root_ancestor().details()->handle.get()) : NULL,
+                    widget.has_parent() ?
+                        const_cast< ::HWND>(widget.root_ancestor().details()->handle.get()) : nullptr,
                     L"open",
                     target.c_str(),
-                    NULL,
-                    NULL,
+                    nullptr,
+                    nullptr,
                     SW_SHOWNORMAL
                 );
             if (reinterpret_cast< ::UINT_PTR>(result) <= 32)
@@ -2187,7 +2194,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
-            window_class.lpszMenuName = NULL;
+            window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = window_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
@@ -2212,8 +2219,8 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = DLGWINDOWEXTRA;
             window_class.hInstance = instance_handle;
-            window_class.hIcon = NULL;
-            window_class.hIconSm = NULL;
+            window_class.hIcon = nullptr;
+            window_class.hIconSm = nullptr;
             window_class.hCursor =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
@@ -2221,7 +2228,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_3DFACE));
-            window_class.lpszMenuName = NULL;
+            window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = dialog_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
@@ -2246,8 +2253,8 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = 0;
             window_class.hInstance = instance_handle;
-            window_class.hIcon = NULL;
-            window_class.hIconSm = NULL;
+            window_class.hIcon = nullptr;
+            window_class.hIconSm = nullptr;
             window_class.hCursor =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
@@ -2255,7 +2262,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
-            window_class.lpszMenuName = NULL;
+            window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = picture_box_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);

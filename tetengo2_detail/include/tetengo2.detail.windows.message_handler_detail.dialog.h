@@ -107,7 +107,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         inline ::HWND first_child_window_handle(const ::HWND parent_handle)
         {
-            ::HWND child_handle = NULL;
+            ::HWND child_handle = nullptr;
             ::EnumChildWindows(
                 parent_handle, first_child_window_handle_iter, reinterpret_cast< ::LPARAM>(&child_handle)
             );

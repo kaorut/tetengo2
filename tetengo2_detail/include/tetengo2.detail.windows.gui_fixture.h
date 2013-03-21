@@ -94,7 +94,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void setup_com()
         {
-            const ::HRESULT result = ::CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+            const ::HRESULT result = ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(

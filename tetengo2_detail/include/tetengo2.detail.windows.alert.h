@@ -150,13 +150,13 @@ namespace tetengo2 { namespace detail { namespace windows
 
             p_task_dialog(
                 widget_handle,
-                ::GetModuleHandle(NULL),
+                ::GetModuleHandle(nullptr),
                 caption.c_str(),
                 text1.c_str(),
                 text2.c_str(),
                 TDCBF_OK_BUTTON,
                 TD_ERROR_ICON,
-                NULL
+                nullptr
             );
         }
 

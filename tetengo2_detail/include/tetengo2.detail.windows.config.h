@@ -175,21 +175,21 @@ namespace tetengo2 { namespace detail { namespace windows
         private:
             static ::HKEY create(const String&  key, const Encoder& encoder, const ::REGSAM mode)
             {
-                ::HKEY handle = NULL;
+                ::HKEY handle = nullptr;
                 const ::LONG create_key_result =
                     ::RegCreateKeyExW(
                         HKEY_CURRENT_USER,
                         encoder.encode(key).c_str(),
                         0,
-                        NULL,
+                        nullptr,
                         REG_OPTION_NON_VOLATILE,
                         mode,
-                        NULL,
+                        nullptr,
                         &handle,
-                        NULL
+                        nullptr
                     );
                 if (create_key_result != ERROR_SUCCESS)
-                    return NULL;
+                    return nullptr;
 
                 return handle;
             }
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::DWORD type = 0;
             ::DWORD value_size = 0;
             const ::LONG query_value_result =
-                ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, NULL, &value_size);
+                ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, nullptr, &value_size);
             if (query_value_result != ERROR_SUCCESS)
                 return std::make_pair(value_type::unknown, 0);
 
@@ -275,7 +275,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     handle,
                     encoder.encode(key).c_str(),
                     0,
-                    NULL,
+                    nullptr,
                     reinterpret_cast< ::LPBYTE>(value.data()),
                     &value_size
                 );
@@ -295,7 +295,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     handle,
                     encoder.encode(key).c_str(),
                     0,
-                    NULL,
+                    nullptr,
                     reinterpret_cast< ::LPBYTE>(&value),
                     &value_size
                 );

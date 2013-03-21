@@ -101,12 +101,12 @@ namespace tetengo2 { namespace detail { namespace windows
             ::DWORD message_length =
                 ::FormatMessageW(
                     FORMAT_MESSAGE_FROM_SYSTEM,
-                    NULL,
+                    nullptr,
                     error_value,
                     MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                     &message[0],
                     message_capacity,
-                    NULL
+                    nullptr
                 );
             if (message_length == 0)
                 return "Unknown Error";
