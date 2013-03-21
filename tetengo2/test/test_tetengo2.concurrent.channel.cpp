@@ -7,6 +7,7 @@
 */
 
 #include <cstddef>
+#include <functional>
 //#include <stdexcept>
 #include <string>
 
@@ -14,8 +15,6 @@
 //#include <boost/exception_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 //#include <boost/thread.hpp>
-
-#include "tetengo2.cpp11.h"
 
 #include "tetengo2.concurrent.channel.h"
 
@@ -34,17 +33,17 @@ namespace
 
     // functions
 
-    void produce(channel_type& channel)
+    void produce(channel_type* const p_channel)
     {
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-        channel.insert(12);
+        p_channel->insert(12);
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-        channel.insert(34);
+        p_channel->insert(34);
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-        channel.insert(56);
+        p_channel->insert(56);
 
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-        channel.close();
+        p_channel->close();
     }
 
 
@@ -208,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            boost::thread producing_thread(produce, tetengo2::cpp11::ref(channel));
+            boost::thread producing_thread(produce, &channel);
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();

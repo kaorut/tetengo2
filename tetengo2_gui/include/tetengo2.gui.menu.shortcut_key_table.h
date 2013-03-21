@@ -9,14 +9,13 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H
 
+#include <functional>
 //#include <iterator>
 #include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-
-#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -50,7 +49,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::shortcut_key_table_details_ptr_type details_ptr_type;
 
         //! The entry type.
-        typedef std::pair<shortcut_key_type, typename cpp11::reference_wrapper<const menu_base_type>::type> entry_type;
+        typedef std::pair<shortcut_key_type, const menu_base_type*> entry_type;
 
         //! The iterator type.
         typedef typename std::vector<entry_type>::const_iterator iterator;
@@ -142,7 +141,7 @@ namespace tetengo2 { namespace gui { namespace menu
             {
                 if (!i->has_shortcut_key()) continue;
 
-                entries.push_back(entry_type(i->shortcut_key(), cpp11::cref<menu_base_type>(*i)));
+                entries.push_back(entry_type(i->shortcut_key(), &*i));
             }
 
             return entries;

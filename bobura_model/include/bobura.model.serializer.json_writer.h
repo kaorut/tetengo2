@@ -439,7 +439,7 @@ namespace bobura { namespace model { namespace serializer
                         write_station_location,
                         tetengo2::cpp11::placeholders_1(),
                         level,
-                        tetengo2::cpp11::ref(output_stream),
+                        std::ref(output_stream),
                         false
                     )
                 );
@@ -513,7 +513,7 @@ namespace bobura { namespace model { namespace serializer
                         write_train_kind,
                         tetengo2::cpp11::placeholders_1(),
                         level,
-                        tetengo2::cpp11::ref(output_stream),
+                        std::ref(output_stream),
                         false
                     )
                 );
@@ -594,7 +594,7 @@ namespace bobura { namespace model { namespace serializer
                         write_train,
                         tetengo2::cpp11::placeholders_1(),
                         level,
-                        tetengo2::cpp11::ref(output_stream),
+                        std::ref(output_stream),
                         false
                     )
                 );
@@ -624,7 +624,7 @@ namespace bobura { namespace model { namespace serializer
                         write_train,
                         tetengo2::cpp11::placeholders_1(),
                         level,
-                        tetengo2::cpp11::ref(output_stream),
+                        std::ref(output_stream),
                         false
                     )
                 );
@@ -693,7 +693,7 @@ namespace bobura { namespace model { namespace serializer
                         write_stop, 
                         tetengo2::cpp11::placeholders_1(),
                         level,
-                        tetengo2::cpp11::ref(output_stream),
+                        std::ref(output_stream),
                         false
                     )
                 );

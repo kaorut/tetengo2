@@ -11,6 +11,7 @@
 
 #include <cassert>
 //#include <cstddef>
+#include <functional>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>
@@ -515,7 +516,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<const child_type>::type> children()
+        std::vector<std::reference_wrapper<const child_type>> children()
         const
         {
             return widget_details_type::template children<const child_type>(*this);
@@ -526,7 +527,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<child_type>::type> children()
+        std::vector<std::reference_wrapper<child_type>> children()
         {
             return widget_details_type::template children<child_type>(*this);
         }

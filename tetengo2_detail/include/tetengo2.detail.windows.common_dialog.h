@@ -12,6 +12,7 @@
 #include <algorithm>
 //#include <cassert>
 //#include <cstddef>
+#include <functional>
 //#include <iterator>
 //#include <memory>
 //#include <stdexcept>
@@ -1043,7 +1044,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 filters.begin(),
                 filters.end(),
                 std::back_inserter(native_filters),
-                TETENGO2_CPP11_BIND(to_native_filter<String, Encoder>, cpp11::placeholders_1(), cpp11::cref(encoder))
+                TETENGO2_CPP11_BIND(to_native_filter<String, Encoder>, cpp11::placeholders_1(), std::cref(encoder))
             );
 
             return native_filters;

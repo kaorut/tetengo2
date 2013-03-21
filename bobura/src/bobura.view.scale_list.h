@@ -131,7 +131,7 @@ namespace bobura { namespace view
                     scales().begin(),
                     scales().end(),
                     TETENGO2_CPP11_BIND(
-                        std::greater<scale_type>(), tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(scale)
+                        std::greater<scale_type>(), tetengo2::cpp11::placeholders_1(), std::cref(scale)
                     )
                 );
             return found != scales().end() ? *found : scales().back();
@@ -151,9 +151,7 @@ namespace bobura { namespace view
                 std::find_if(
                     scales().rbegin(),
                     scales().rend(),
-                    TETENGO2_CPP11_BIND(
-                        std::less<scale_type>(), tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(scale)
-                    )
+                    TETENGO2_CPP11_BIND(std::less<scale_type>(), tetengo2::cpp11::placeholders_1(), std::cref(scale))
                 );
             return found != scales().rend() ? *found : scales().front();
         }

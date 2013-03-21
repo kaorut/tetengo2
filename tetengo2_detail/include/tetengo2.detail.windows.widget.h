@@ -13,6 +13,7 @@
 //#include <cassert>
 //#include <cstddef>
 #include <exception>
+#include <functional>
 //#include <memory>
 //#include <stdexcept>
 //#include <string>
@@ -1351,9 +1352,9 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<typename cpp11::reference_wrapper<Child>::type> children(Widget& widget)
+        static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
-            std::vector<typename cpp11::reference_wrapper<Child>::type> children;
+            std::vector<std::reference_wrapper<Child>> children;
 
             ::EnumChildWindows(
                 widget.details()->handle.get(),
@@ -2398,10 +2399,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Child>
         static ::BOOL CALLBACK enum_child_procedure(const ::HWND window_handle, const ::LPARAM parameter)
         {
-            std::vector<typename cpp11::reference_wrapper<Child>::type>* const p_children =
-                reinterpret_cast<std::vector<typename cpp11::reference_wrapper<Child>::type>*>(parameter);
+            std::vector<std::reference_wrapper<Child>>* const p_children =
+                reinterpret_cast<std::vector<std::reference_wrapper<Child>>*>(parameter);
 
-            p_children->push_back(cpp11::ref(*p_widget_from<Child>(window_handle)));
+            p_children->push_back(std::ref(*p_widget_from<Child>(window_handle)));
 
             return TRUE;
         }

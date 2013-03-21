@@ -89,7 +89,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_command<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -97,7 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_INITMENUPOPUP].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_initmenupopup<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -105,7 +105,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SIZE].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_resized<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CLOSE].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_close<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -121,7 +121,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_QUERYENDSESSION].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_query_end_session<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -129,7 +129,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_DESTROY].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::abstract_window::on_destroy<AbstractWindow>,
-                    cpp11::ref(abstract_window),
+                    std::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -159,7 +159,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_TIMER].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::button::on_timer<Button>,
-                    cpp11::ref(button),
+                    std::ref(button),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::button::on_tetengo2_command<Button>,
-                    cpp11::ref(button),
+                    std::ref(button),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -197,7 +197,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[message_handler_detail::custom_message_type::control_color].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_control_color<Control>,
-                    cpp11::ref(control),
+                    std::ref(control),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -205,7 +205,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SETFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_set_focus<Control>,
-                    cpp11::ref(control),
+                    std::ref(control),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -235,7 +235,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::dialog::on_command<Dialog, widget_details_type>,
-                    cpp11::ref(dialog),
+                    std::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -243,7 +243,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SYSCOMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::dialog::on_syscommand<Dialog, widget_details_type>,
-                    cpp11::ref(dialog),
+                    std::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -251,7 +251,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SETFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::dialog::on_set_focus<Dialog, widget_details_type>,
-                    cpp11::ref(dialog),
+                    std::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -281,7 +281,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::dropdown_box::on_tetengo2_command<DropdownBox>,
-                    cpp11::ref(dropdown_box),
+                    std::ref(dropdown_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::list_box::on_tetengo2_command<ListBox>,
-                    cpp11::ref(list_box),
+                    std::ref(list_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -383,7 +383,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_ERASEBKGND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::picture_box::on_erase_background<PictureBox>,
-                    cpp11::ref(picture_box),
+                    std::ref(picture_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -391,7 +391,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_PAINT].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::picture_box::on_paint<PictureBox>,
-                    cpp11::ref(picture_box),
+                    std::ref(picture_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -421,7 +421,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[message_handler_detail::custom_message_type::command].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::text_box::on_tetengo2_command<TextBox>,
-                    cpp11::ref(text_box),
+                    std::ref(text_box),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -451,7 +451,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_command<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -459,7 +459,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KEYDOWN].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_key_down<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -467,7 +467,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KEYUP].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_key_up<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -475,7 +475,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CHAR].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_char<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -483,7 +483,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_LBUTTONDOWN].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_l_button_down<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -491,7 +491,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_RBUTTONDOWN].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_r_button_down<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -499,7 +499,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_LBUTTONUP].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_l_button_up<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -507,7 +507,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_RBUTTONUP].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_r_button_up<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -515,7 +515,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_MOUSEMOVE].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_mouse_move<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -523,7 +523,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_LBUTTONDBLCLK].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_l_doubleclick<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -531,7 +531,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_MOUSEWHEEL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_mouse_wheel<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -539,7 +539,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_MOUSEHWHEEL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_mouse_h_wheel<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -547,7 +547,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_TIMER].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_timer<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -555,7 +555,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORBTN].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_control_color<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -563,7 +563,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLOREDIT].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_control_color<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -571,7 +571,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORLISTBOX].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_control_color<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -579,7 +579,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORSCROLLBAR].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_control_color<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -587,7 +587,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORSTATIC].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_control_color<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -595,7 +595,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SETCURSOR].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_set_cursor<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -603,7 +603,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SETFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_set_focus<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -611,7 +611,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KILLFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_kill_focus<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -619,7 +619,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_VSCROLL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_vertical_scroll<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -627,7 +627,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_HSCROLL].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_horizontal_scroll<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -635,7 +635,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_ERASEBKGND].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_erase_background<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -643,7 +643,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_PAINT].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_paint<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -651,7 +651,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_DESTROY].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_destroy<Widget>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )
@@ -659,7 +659,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_NCDESTROY].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::widget::on_ncdestroy<Widget, widget_details_type>,
-                    cpp11::ref(widget),
+                    std::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
                 )

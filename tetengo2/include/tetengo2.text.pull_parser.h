@@ -10,6 +10,7 @@
 #define TETENGO2_JSON_PULLPARSER_H
 
 //#include <cassert>
+#include <functional>
 //#include <memory>
 //#include <stdexcept>
 //#include <utility>
@@ -153,7 +154,7 @@ namespace tetengo2 { namespace text
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(TETENGO2_CPP11_BIND(generate, cpp11::placeholders_1(), cpp11::ref(*m_p_push_parser)), m_channel),
+        m_producer(TETENGO2_CPP11_BIND(generate, cpp11::placeholders_1(), std::ref(*m_p_push_parser)), m_channel),
         m_consumer(m_channel)
         {}
 
@@ -256,14 +257,14 @@ namespace tetengo2 { namespace text
         {
             push_parser.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    on_structure_begin, cpp11::placeholders_1(), cpp11::placeholders_2(), cpp11::ref(channel)
+                    on_structure_begin, cpp11::placeholders_1(), cpp11::placeholders_2(), std::ref(channel)
                 )
             );
             push_parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(on_structure_end, cpp11::placeholders_1(), cpp11::ref(channel))
+                TETENGO2_CPP11_BIND(on_structure_end, cpp11::placeholders_1(), std::ref(channel))
             );
             push_parser.on_value().connect(
-                TETENGO2_CPP11_BIND(on_value, cpp11::placeholders_1(), cpp11::ref(channel))
+                TETENGO2_CPP11_BIND(on_value, cpp11::placeholders_1(), std::ref(channel))
             );
 
             push_parser.parse();

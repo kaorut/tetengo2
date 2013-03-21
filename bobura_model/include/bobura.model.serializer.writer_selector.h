@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_WRITERSELECTOR_H
 
 #include <algorithm>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 #include <utility>
@@ -106,7 +107,7 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(path))
+                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), std::cref(path))
                 ) != m_p_writers.end();
         }
 
@@ -124,9 +125,7 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(
-                        call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(m_path)
-                    )
+                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), std::cref(m_path))
                 );
             if (found == m_p_writers.end())
                 BOOST_THROW_EXCEPTION(std::logic_error("No writer selects this file type."));

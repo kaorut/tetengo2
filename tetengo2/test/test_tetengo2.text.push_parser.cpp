@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <functional>
 //#include <iterator>
 #include <sstream>
 //#include <string>
@@ -200,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_structure_end().connect(
@@ -208,11 +209,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), std::ref(parsed))
             );
 
             BOOST_CHECK(!parser.parse());
@@ -231,7 +232,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_structure_end().connect(
@@ -239,11 +240,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), std::ref(parsed))
             );
 
             BOOST_CHECK(parser.parse());
@@ -274,7 +275,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_structure_end().connect(
@@ -282,11 +283,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), std::ref(parsed))
             );
 
             BOOST_CHECK(parser.parse());
@@ -339,7 +340,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_structure_end().connect(
@@ -347,11 +348,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     structure_observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
+                    std::ref(parsed)
                 )
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), std::ref(parsed))
             );
 
             BOOST_CHECK(parser.parse());

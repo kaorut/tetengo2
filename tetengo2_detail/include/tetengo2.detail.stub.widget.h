@@ -11,6 +11,7 @@
 
 #include <algorithm>
 //#include <cstddef>
+#include <functional>
 //#include <iterator>
 //#include <memory>
 #include <stdexcept>
@@ -24,7 +25,6 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
@@ -785,10 +785,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<typename cpp11::reference_wrapper<Child>::type> children(Widget& widget)
+        static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
             const std::vector<void*>& children_as_void = widget.details()->children;
-            std::vector<typename cpp11::reference_wrapper<Child>::type> children;
+            std::vector<std::reference_wrapper<Child>> children;
             children.reserve(children_as_void.size());
 
             std::transform(
@@ -1318,9 +1318,9 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         template <typename Child>
-        static typename cpp11::reference_wrapper<Child>::type as_child(void* const pointer)
+        static std::reference_wrapper<Child> as_child(void* const pointer)
         {
-            return cpp11::ref(*reinterpret_cast<Child*>(pointer));
+            return std::ref(*reinterpret_cast<Child*>(pointer));
         }
 
 

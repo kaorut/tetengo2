@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <functional>
 #include <stdexcept>
 //#include <string>
 //#include <vector>
@@ -58,9 +59,7 @@ namespace
             std::for_each(
                 structure_attributes.begin(),
                 structure_attributes.end(),
-                TETENGO2_CPP11_BIND(
-                    structure_attribute_passed, tetengo2::cpp11::ref(output), tetengo2::cpp11::placeholders_1()
-                )
+                TETENGO2_CPP11_BIND(structure_attribute_passed, std::ref(output), tetengo2::cpp11::placeholders_1())
             );
         }
         else if (type == "array")
@@ -166,18 +165,18 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
                     structure_begun,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, tetengo2::cpp11::ref(output), tetengo2::cpp11::placeholders_1())
+                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
             );
             g.on_value().connect(
                 TETENGO2_CPP11_BIND(
                     value_passed,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
@@ -200,18 +199,18 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
                     structure_begun,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, tetengo2::cpp11::ref(output), tetengo2::cpp11::placeholders_1())
+                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
             );
             g.on_value().connect(
                 TETENGO2_CPP11_BIND(
                     value_passed,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
@@ -241,18 +240,18 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
                     structure_begun,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, tetengo2::cpp11::ref(output), tetengo2::cpp11::placeholders_1())
+                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
             );
             g.on_value().connect(
                 TETENGO2_CPP11_BIND(
                     value_passed,
-                    tetengo2::cpp11::ref(output),
+                    std::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
                 )
