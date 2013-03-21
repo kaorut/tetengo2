@@ -263,7 +263,7 @@ namespace tetengo2 { namespace message
                 return false;
 
             const element_type& element = m_p_pull_parser->peek();
-            if (!is_structure(element, static_cast<const Structure*>(NULL)))
+            if (!is_structure(element, static_cast<const Structure*>(nullptr)))
                 return false;
 
             const Structure structure = boost::get<Structure>(element);

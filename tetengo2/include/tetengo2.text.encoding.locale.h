@@ -147,7 +147,7 @@ namespace tetengo2 { namespace text { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             Pivot&& pivot,
-            const typename std::enable_if<std::is_convertible<Pivot, string_type>::value>::type* const = NULL
+            const typename std::enable_if<std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
         const
         {
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace text { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             Pivot&& pivot,
-            const typename std::enable_if<!std::is_convertible<Pivot, string_type>::value>::type* const = NULL
+            const typename std::enable_if<!std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
         const
         {
@@ -182,8 +182,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
             for (;;)
             {
-                const typename base_type::pivot_char_type* p_pivot_next = NULL;
-                string_char_type* p_string_next = NULL;
+                const typename base_type::pivot_char_type* p_pivot_next = nullptr;
+                string_char_type* p_string_next = nullptr;
 
                 const typename converter_type::result result =
                     converter.out(
@@ -243,7 +243,7 @@ namespace tetengo2 { namespace text { namespace encoding
             Str&& string,
             const typename std::enable_if<
                 std::is_convertible<Str, typename base_type::pivot_type>::value
-            >::type* const = NULL
+            >::type* const = nullptr
         )
         const
         {
@@ -255,7 +255,7 @@ namespace tetengo2 { namespace text { namespace encoding
             Str&& string,
             const typename std::enable_if<
                 !std::is_convertible<Str, typename base_type::pivot_type>::value
-            >::type* const = NULL
+            >::type* const = nullptr
         )
         const
         {
@@ -280,8 +280,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
             for (;;)
             {
-                const string_char_type* p_string_next = NULL;
-                typename base_type::pivot_char_type* p_pivot_next = NULL;
+                const string_char_type* p_string_next = nullptr;
+                typename base_type::pivot_char_type* p_pivot_next = nullptr;
 
                 const typename converter_type::result result =
                     converter.in(

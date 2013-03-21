@@ -97,7 +97,7 @@ namespace tetengo2 { namespace text
         m_on_value()
         {
             if (!m_p_grammar)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is nullptr."));
 
             m_p_grammar->on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
@@ -320,7 +320,7 @@ namespace tetengo2 { namespace text
 
             assert(string_value == string_type(TETENGO2_TEXT("null")));
 
-            return NULL;
+            return nullptr;
         }
 
 
