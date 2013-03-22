@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H)
 #define TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H
 
-//#include <cstddef>
+#include <cstddef>
 //#include <string>
 #include <system_error>
 //#include <vector>

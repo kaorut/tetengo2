@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_TEXT_ENCODER_H)
 #define TETENGO2_TEXT_ENCODER_H
 
-//#include <cstddef>
 //#include <type_traits>
 //#include <utility>
 

@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ALERT_H)
 #define TETENGO2_DETAIL_WINDOWS_ALERT_H
 
-#include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <string>

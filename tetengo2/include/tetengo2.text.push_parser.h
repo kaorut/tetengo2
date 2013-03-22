@@ -11,7 +11,6 @@
 
 #include <cassert>
 #include <cmath>
-#include <cstddef>
 #include <memory>
 #include <stdexcept>
 #include <string>

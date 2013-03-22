@@ -10,7 +10,6 @@
 #define BOBURA_VIEW_DIAGRAM_SELECTION_H
 
 #include <cassert>
-#include <cstddef>
 #include <limits>
 
 #include <boost/noncopyable.hpp>

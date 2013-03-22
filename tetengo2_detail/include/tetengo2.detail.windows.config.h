@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_CONFIG_H
 
 #include <cassert>
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_POINT_H)
 #define TETENGO2_GUI_UNIT_POINT_H
 
-#include <cstddef>
 #include <type_traits>
 
 #include <boost/rational.hpp>

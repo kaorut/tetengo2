@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <cstddef>
 //#include <stdexcept>
 
 //#include <boost/exception/all.hpp>

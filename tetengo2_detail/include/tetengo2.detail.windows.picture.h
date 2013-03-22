@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_PICTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_PICTURE_H
 
-//#include <cstddef>
 //#include <system_error>
 //#include <utility>
 

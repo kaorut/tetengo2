@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
-//#include <cstddef>
+#include <cstddef>
 //#include <memory>
 #include <system_error>
 //#include <utility>

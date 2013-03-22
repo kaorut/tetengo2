@@ -12,7 +12,6 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_DIALOG_H
 
 #include <cassert>
-#include <cstddef>
 
 #include <boost/optional.hpp>
 

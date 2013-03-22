@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_UNIT_H
 
 //#include <cassert>
-//#include <cstddef>
 //#include <system_error>
 //#include <type_traits>
 //#include <utility>

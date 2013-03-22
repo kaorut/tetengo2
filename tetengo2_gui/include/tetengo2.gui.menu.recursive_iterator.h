@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_MENU_RECURSIVEITERATOR_H
 
 #include <cassert>
-#include <cstddef>
 #include <iterator>
 #include <stack>
 #include <utility>

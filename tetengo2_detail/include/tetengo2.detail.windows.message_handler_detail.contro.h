@@ -11,7 +11,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H
 
-#include <cstddef>
 #include <system_error>
 
 #include <boost/optional.hpp>

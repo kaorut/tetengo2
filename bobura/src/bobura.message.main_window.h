@@ -10,7 +10,7 @@
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
 #include <cassert>
-//#include <cstddef>
+#include <cstddef>
 #include <iterator>
 #include <stdexcept>
 //#include <utility>

@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_ALERT_H)
 #define TETENGO2_GUI_ALERT_H
 
-#include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <string>

@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONREADER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONREADER_H
 
-//#include <cstddef>
+#include <cstddef>
 #include <ios>
 //#include <memory>
 #include <sstream>

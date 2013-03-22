@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
 //#include <cassert>
-//#include <cstddef>
 //#include <memory>
 //#include <stdexcept>
 //#include <string>

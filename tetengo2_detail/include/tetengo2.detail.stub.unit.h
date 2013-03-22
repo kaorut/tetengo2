@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_UNIT_H)
 #define TETENGO2_DETAIL_STUB_UNIT_H
 
-#include <cstddef>
 #include <type_traits>
 
 #include <boost/noncopyable.hpp>

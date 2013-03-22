@@ -10,7 +10,6 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
-//#include <cstddef>
 #include <functional>
 //#include <memory>
 

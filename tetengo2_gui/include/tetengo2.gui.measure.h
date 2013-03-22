@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_MEASURE_H
 
 #include <cmath>
-#include <cstddef>
 #include <type_traits>
 #include <utility>
 

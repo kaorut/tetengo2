@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_MESSAGE_MESSAGECATALOG_H)
 #define TETENGO2_MESSAGE_MESSAGECATALOG_H
 
-#include <cstddef>
 #include <locale>
 #include <utility>
 

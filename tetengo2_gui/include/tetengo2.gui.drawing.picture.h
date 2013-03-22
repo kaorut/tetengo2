@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTURE_H)
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
-#include <cstddef>
 #include <utility>
 #include <stdexcept>
 

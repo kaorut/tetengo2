@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_ENCODING_LOCALE_H
 
 #include <cassert>
-#include <cstddef>
 #include <cwchar>
 #include <iterator>
 #include <locale>

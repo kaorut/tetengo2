@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-//#include <cstddef>
+#include <cstddef>
 //#include <utility>
 
 #include "tetengo2.cpp11.h"

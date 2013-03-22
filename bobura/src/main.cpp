@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <cstddef>
 //#include <exception>
 //#include <locale>
 //#include <memory>

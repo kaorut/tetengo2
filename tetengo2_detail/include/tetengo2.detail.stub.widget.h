@@ -10,7 +10,7 @@
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
 #include <algorithm>
-//#include <cstddef>
+#include <cstddef>
 #include <functional>
 #include <iterator>
 //#include <memory>

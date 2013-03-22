@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
-//#include <cstddef>
 //#include <memory>
 //#include <stdexcept>
 //#include <utility>

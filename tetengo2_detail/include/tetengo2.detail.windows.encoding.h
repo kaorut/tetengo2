@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_ENCODING_H
 
 #include <cassert>
-#include <cstddef>
 #include <string>
 #include <vector>
 
