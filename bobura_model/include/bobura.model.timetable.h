@@ -17,7 +17,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
@@ -688,10 +687,8 @@ namespace bobura { namespace model
             train_type new_train(
                 train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
             );
-            BOOST_FOREACH (const stop_type& stop, train.stops())
-            {
+            for (const stop_type& stop: train.stops())
                 new_train.insert_stop(new_train.stops().end(), stop);
-            }
 
             train = new_train;
         }

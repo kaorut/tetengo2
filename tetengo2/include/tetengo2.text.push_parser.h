@@ -19,7 +19,6 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -203,10 +202,8 @@ namespace tetengo2 { namespace text
         {
             attribute_map_type attribute_map;
 
-            BOOST_FOREACH (const typename grammar_type::structure_attribute_type& sa, structure_attributes)
-            {
+            for (const typename grammar_type::structure_attribute_type& sa: structure_attributes)
                 attribute_map.insert(to_attribute(sa));
-            }
 
             return attribute_map;
         }

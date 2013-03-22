@@ -18,10 +18,10 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/optional.hpp>
+#include <boost/range/adaptors.hpp>
 //#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -996,10 +996,8 @@ namespace bobura { namespace view { namespace diagram
             );
             canvas.set_line_style(translate_line_style(m_p_train_kind->line_style()));
 
-            BOOST_FOREACH (const train_line_fragment_type& fragment, m_fragments)
-            {
+            for (const train_line_fragment_type& fragment: m_fragments)
                 fragment.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
@@ -1266,7 +1264,7 @@ namespace bobura { namespace view { namespace diagram
             std::vector<train_line_type>& train_lines
         )
         {
-            BOOST_FOREACH (const train_type& train, trains)
+            for (const train_type& train: trains)
             {
                 train_lines.push_back(
                     train_line_type(
@@ -1304,15 +1302,13 @@ namespace bobura { namespace view { namespace diagram
         {
             canvas.set_font(*m_p_font);
 
-            BOOST_FOREACH (const train_line_type& train_line, m_train_lines)
-            {
+            for (const train_line_type& train_line: m_train_lines)
                 train_line.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            BOOST_REVERSE_FOREACH (train_line_type& train_line, m_train_lines)
+            for (train_line_type& train_line: boost::adaptors::reverse(m_train_lines))
             {
                 base_type* const p_item = train_line.p_item_by_position(position);
                 if (p_item)

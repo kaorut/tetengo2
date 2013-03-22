@@ -11,7 +11,6 @@
 //#include <utility>
 //#include <vector>
 
-//#include <boost/foreach.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
@@ -95,7 +94,7 @@ namespace bobura
                 if (!m_p_diagram_list_box->destroyed())
                 {
                     m_p_diagram_list_box->clear();
-                    BOOST_FOREACH (const string_type& name, m_names)
+                    for (const string_type& name: m_names)
                     {
                         m_p_diagram_list_box->insert_item(m_p_diagram_list_box->item_count(), name);
                     }

@@ -16,7 +16,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -82,7 +81,7 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             std::size_t i = 0;
-            BOOST_FOREACH (menu_base_type& menu_item, std::make_pair(m_popup_menu.begin(), m_popup_menu.end()))
+            for (menu_base_type& menu_item: m_popup_menu)
             {
                 assert(i < m_commands.size());
                 const command_type* const p_command = m_commands[i];

@@ -15,7 +15,7 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
+#include <boost/range/adaptors.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -485,15 +485,13 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
 
-            BOOST_FOREACH (const station_line_type& station_line, m_station_lines)
-            {
+            for (const station_line_type& station_line: m_station_lines)
                 station_line.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            BOOST_REVERSE_FOREACH (station_line_type& station_line, m_station_lines)
+            for (station_line_type& station_line: boost::adaptors::reverse(m_station_lines))
             {
                 base_type* const p_item = station_line.p_item_by_position(position);
                 if (p_item)

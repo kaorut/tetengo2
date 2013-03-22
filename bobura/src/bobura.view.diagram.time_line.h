@@ -14,7 +14,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 
@@ -483,10 +482,8 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);
 
-            BOOST_FOREACH (const time_line_type& time_line, m_time_lines)
-            {
+            for (const time_line_type& time_line: m_time_lines)
                 time_line.draw_on(canvas);
-            }
         }
 
 

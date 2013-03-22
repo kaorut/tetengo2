@@ -14,7 +14,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
@@ -79,7 +78,7 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            BOOST_FOREACH (const std::unique_ptr<base_type>& p_config, m_p_configs)
+            for (const std::unique_ptr<base_type>& p_config: m_p_configs)
             {
                 const boost::optional<value_type> value = p_config->get(key);
                 if (value)

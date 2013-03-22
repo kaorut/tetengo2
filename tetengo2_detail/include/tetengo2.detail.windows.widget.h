@@ -22,7 +22,6 @@
 //#include <vector>
 
 #include <boost/exception/all.hpp>
-#include <boost/foreach.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
@@ -2335,7 +2334,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const map_iterator found = widget.message_handler_map().find(message);
             if (found != widget.message_handler_map().end())
             {
-                BOOST_FOREACH (const typename Widget::message_handler_type& handler, found->second)
+                for (const typename Widget::message_handler_type& handler: found->second)
                 {
                     const boost::optional< ::LRESULT> o_result = handler(w_param, l_param);
                     if (o_result) return *o_result;

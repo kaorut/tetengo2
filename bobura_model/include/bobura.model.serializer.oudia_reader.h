@@ -20,7 +20,6 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -567,7 +566,7 @@ namespace bobura { namespace model { namespace serializer
 
                 std::vector<stop_type> stops;
                 stops.reserve(stop_strings.size());
-                BOOST_FOREACH (const string_type& stop_string, stop_strings)
+                for (const string_type& stop_string: stop_strings)
                 {
                     boost::optional<stop_type> stop = parse_stop(stop_string);
                     if (!stop)
