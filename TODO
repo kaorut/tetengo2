@@ -27,11 +27,6 @@ Added on    : 2013/03/15
 Depends on  : (none)
 Description : Replace local variable type declarations to auto.
 ------------------------------------------------------------------------------
-Number      : 00000226
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Replace NULL to nullptr.
-------------------------------------------------------------------------------
 Number      : 00000227
 Added on    : 2013/03/15
 Depends on  : (none)
