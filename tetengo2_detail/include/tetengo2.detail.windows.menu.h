@@ -149,9 +149,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_menu_bar()
         {
             menu_details_ptr_type p_menu(
-                make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreateMenu()), static_cast< ::HMENU>(nullptr)
-                )
+                make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr)
             );
             if (!p_menu->handle)
             {
@@ -174,7 +172,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             menu_details_ptr_type p_menu(
                 make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), static_cast< ::HMENU>(nullptr)
+                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), nullptr
                 )
             );
             if (!p_menu->handle)
@@ -196,10 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return
-                make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(), static_cast< ::HMENU>(nullptr)
-                );
+            return make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
         }
         
         /*!

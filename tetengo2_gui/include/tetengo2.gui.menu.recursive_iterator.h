@@ -48,7 +48,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(nullptr),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(nullptr), 0);
+            m_parents.emplace(nullptr, 0);
         }
 
         /*!
@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(nullptr), 0);
+            m_parents.emplace(nullptr, 0);
         }
 
 
