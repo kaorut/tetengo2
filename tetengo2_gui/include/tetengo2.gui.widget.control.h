@@ -143,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param p_details           A unique pointer to a detail implementation.
         */
         control(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style,
+            const scroll_bar_style_type scroll_bar_style,
             message_handler_map_type&&                   message_handler_map,
             details_ptr_type                             p_details
         )

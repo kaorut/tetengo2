@@ -53,11 +53,11 @@ namespace tetengo2 { namespace gui
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t //!< Scoped enum.
+        enum class style_type
         {
             vertical,   //!< The vertical style.
             horizontal, //!< The horizontal style.
-        };};
+        };
 
 
         // constructors and destructor
@@ -69,7 +69,7 @@ namespace tetengo2 { namespace gui
             \param style          A style.
         */
         template <typename WidgetDetails>
-        scroll_bar(const WidgetDetails& widget_details, const typename style_type::enum_t style)
+        scroll_bar(const WidgetDetails& widget_details, const style_type style)
         :
         m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
         m_scroll_bar_observer_set(),
@@ -220,7 +220,7 @@ namespace tetengo2 { namespace gui
     private:
         // static functions
 
-        static typename details_type::style_type::enum_t to_details_style(const typename style_type::enum_t style)
+        static typename details_type::style_type to_details_style(const style_type style)
         {
             switch (style)
             {

@@ -54,10 +54,8 @@ BOOST_AUTO_TEST_SUITE(structure)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK_EQUAL(
-            pull_parser_type::structure_begin_type::kind(), pull_parser_type::structure_kind_type::begin
-        );
-        BOOST_CHECK_EQUAL(pull_parser_type::structure_end_type::kind(), pull_parser_type::structure_kind_type::end);
+        BOOST_CHECK(pull_parser_type::structure_begin_type::kind() == pull_parser_type::structure_kind_type::begin);
+        BOOST_CHECK(pull_parser_type::structure_end_type::kind() == pull_parser_type::structure_kind_type::end);
     }
 
     BOOST_AUTO_TEST_CASE(construction)

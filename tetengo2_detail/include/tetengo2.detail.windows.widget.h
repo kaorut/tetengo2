@@ -374,8 +374,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_list_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             typename widget_details_type::handle_type p_widget(
@@ -424,8 +424,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_picture_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
@@ -483,8 +483,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_text_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             typename widget_details_type::handle_type p_widget(
@@ -533,8 +533,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            const boost::optional<Widget&>&              parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
@@ -2250,7 +2250,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename Widget>
-        static ::DWORD window_style_for_scroll_bars(const typename Widget::scroll_bar_style_type::enum_t style)
+        static ::DWORD window_style_for_scroll_bars(const typename Widget::scroll_bar_style_type style)
         {
             switch (style)
             {

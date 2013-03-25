@@ -73,27 +73,27 @@ BOOST_AUTO_TEST_SUITE(button_style)
         {
             const button_style_type style = button_style_type::ok(false);
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::ok);
+            BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
             const button_style_type style = button_style_type::ok(false, string_type(TETENGO2_TEXT("hoge")));
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::ok);
+            BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
             const button_style_type style = button_style_type::ok(true);
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::ok);
+            BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
             const button_style_type style = button_style_type::ok(true, string_type(TETENGO2_TEXT("hoge")));
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::ok);
+            BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
             const button_style_type style = button_style_type::yes_no(false);
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::yes_no);
+            BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
         }
         {
             const button_style_type style =
@@ -101,12 +101,12 @@ BOOST_AUTO_TEST_SUITE(button_style)
                     false, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
                 );
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::yes_no);
+            BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
         }
         {
             const button_style_type style = button_style_type::yes_no(true);
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::yes_no);
+            BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
         }
         {
             const button_style_type style =
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
                     true, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
                 );
 
-            BOOST_CHECK_EQUAL(style.style(), button_style_type::style_type::yes_no);
+            BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
         }
     }
 

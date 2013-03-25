@@ -76,19 +76,19 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The message box button style type.
-        struct message_box_button_style_type { enum enum_t //!< Scoped enum.
+        enum class message_box_button_style_type
         {
             ok,     //!< With OK button.
             yes_no, //!< With Yes and No buttons.
-        };};
+        };
 
         //! The message box icon style type.
-        struct message_box_icon_style_type { enum enum_t //!< Scoped enum.
+        enum class message_box_icon_style_type
         {
             error,       //!< Error.
             warning,     //!< Warning.
             information, //!< Information.
-        };};
+        };
 
         //! The message box button ID type.
         struct message_box_button_id_type { enum enum_t //!< Scoped enum.
@@ -108,19 +108,19 @@ namespace tetengo2 { namespace detail { namespace windows
             std::wstring main_content;
             std::wstring sub_content;
             bool cancellable;
-            message_box_button_style_type::enum_t button_style;
-            message_box_icon_style_type::enum_t icon_style;
+            message_box_button_style_type button_style;
+            message_box_icon_style_type icon_style;
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                                parent_handle,
-                std::wstring                                title,
-                std::wstring                                main_content,
-                std::wstring                                sub_content,
-                const bool                                  cancellable,
-                const message_box_button_style_type::enum_t button_style,
-                const message_box_icon_style_type::enum_t   icon_style,
-                std::vector<boost::optional<std::wstring>>  custom_button_labels
+                const ::HWND                               parent_handle,
+                std::wstring                               title,
+                std::wstring                               main_content,
+                std::wstring                               sub_content,
+                const bool                                 cancellable,
+                const message_box_button_style_type        button_style,
+                const message_box_icon_style_type          icon_style,
+                std::vector<boost::optional<std::wstring>> custom_button_labels
             )
             :
             parent_handle(parent_handle),
@@ -271,16 +271,16 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                                      parent,
-            String                                               title,
-            String                                               main_content,
-            String                                               sub_content,
-            const bool                                           cancellable,
-            const typename message_box_button_style_type::enum_t button_style,
-            const typename message_box_icon_style_type::enum_t   icon_style,
-            boost::optional<String>                              custom_ok_button_label,
-            boost::optional<std::pair<String, String>>           custom_yes_no_button_labels,
-            const Encoder&                                       encoder
+            AbstractWindow&                            parent,
+            String                                     title,
+            String                                     main_content,
+            String                                     sub_content,
+            const bool                                 cancellable,
+            const message_box_button_style_type        button_style,
+            const message_box_icon_style_type          icon_style,
+            boost::optional<String>                    custom_ok_button_label,
+            boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
+            const Encoder&                             encoder
         )
         {
             return
@@ -314,8 +314,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring& main_content = message_box.main_content;
             const std::wstring& sub_content = message_box.sub_content;
             const bool cancellable = message_box.cancellable;
-            const message_box_button_style_type::enum_t button_style = message_box.button_style;
-            const message_box_icon_style_type::enum_t icon_style = message_box.icon_style;
+            const message_box_button_style_type button_style = message_box.button_style;
+            const message_box_icon_style_type icon_style = message_box.icon_style;
             const std::vector<boost::optional<std::wstring>>& custom_button_labels =
                 message_box.custom_button_labels;
 
@@ -913,7 +913,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
-            const message_box_button_style_type::enum_t       style,
+            const message_box_button_style_type               style,
             const bool                                        cancellable,
             const std::vector<boost::optional<std::wstring>>& custom_button_labels
         )
@@ -945,7 +945,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return flags;
         }
 
-        static ::PCWSTR to_task_dialog_icon(const message_box_icon_style_type::enum_t style)
+        static ::PCWSTR to_task_dialog_icon(const message_box_icon_style_type style)
         {
             switch (style)
             {

@@ -65,9 +65,8 @@ namespace
         }
 
         explicit concrete_widget(
-            widget_type* const                               p_parent = nullptr,
-            const widget_type::scroll_bar_style_type::enum_t scroll_bar_style =
-                widget_type::scroll_bar_style_type::none
+            widget_type* const                       p_parent = nullptr,
+            const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none
         )
         :
         widget_type(scroll_bar_style, message_handler_map_type()),

@@ -33,19 +33,19 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The message box button style type.
-        struct message_box_button_style_type { enum enum_t //!< Scoped enum.
+        enum class message_box_button_style_type
         {
             ok,     //!< With OK button.
             yes_no, //!< With Yes and No buttons.
-        };};
+        };
 
         //! The message box icon style type.
-        struct message_box_icon_style_type { enum enum_t //!< Scoped enum.
+        enum class message_box_icon_style_type
         {
             error,       //!< Error.
             warning,     //!< Warning.
             information, //!< Information.
-        };};
+        };
 
         //! The message box button ID type.
         struct message_box_button_id_type { enum enum_t //!< Scoped enum.
@@ -113,16 +113,16 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                                      parent,
-            String                                               title,
-            String                                               main_content,
-            String                                               sub_content,
-            const bool                                           cancellable,
-            const typename message_box_button_style_type::enum_t button_style,
-            const typename message_box_icon_style_type::enum_t   icon_style,
-            boost::optional<String>                              custom_ok_button_label,
-            boost::optional<std::pair<String, String>>           custom_yes_no_button_labels,
-            const Encoder&                                       encoder
+            AbstractWindow&                            parent,
+            String                                     title,
+            String                                     main_content,
+            String                                     sub_content,
+            const bool                                 cancellable,
+            const message_box_button_style_type        button_style,
+            const message_box_icon_style_type          icon_style,
+            boost::optional<String>                    custom_ok_button_label,
+            boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
+            const Encoder&                             encoder
         )
         {
             suppress_unused_variable_warning(

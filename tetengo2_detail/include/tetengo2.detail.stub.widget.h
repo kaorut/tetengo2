@@ -263,8 +263,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_list_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             suppress_unused_variable_warning(scroll_bar_style);
@@ -286,8 +286,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_picture_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             suppress_unused_variable_warning(scroll_bar_style);
@@ -309,8 +309,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_text_box(
-            Widget&                                              parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             suppress_unused_variable_warning(scroll_bar_style);
@@ -332,8 +332,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&                      parent,
-            const typename Widget::scroll_bar_style_type::enum_t scroll_bar_style
+            const boost::optional<Widget&>&              parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
             suppress_unused_variable_warning(scroll_bar_style);

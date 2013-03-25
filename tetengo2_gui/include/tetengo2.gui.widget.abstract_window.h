@@ -231,10 +231,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param scroll_bar_style    A scroll bar style type.
             \param message_handler_map A message handler map.
         */
-        abstract_window(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style,
-            message_handler_map_type&&                   message_handler_map
-        )
+        abstract_window(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
