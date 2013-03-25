@@ -70,12 +70,12 @@ namespace tetengo2 { namespace gui { namespace widget
             details_ptr_type;
 
         //! The result type.
-        struct result_type { enum enum_t //!< Scoped enum.
+        enum class result_type
         {
             undecided, //!< The result is not decided yet.
             accepted,  //!< The settings are accepted.
             canceled,  //!< The settings are canceled.
-        };};
+        };
 
 
         // constructors and destructor
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The result.
         */
-        typename result_type::enum_t result()
+        result_type result()
         const
         {
             return m_result;
@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param result A result.
         */
-        void set_result(const typename result_type::enum_t result)
+        void set_result(const result_type result)
         {
             if (result == result_type::accepted)
                 set_result_impl();
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        typename result_type::enum_t m_result;
+        result_type m_result;
 
         const details_ptr_type m_p_details;
 

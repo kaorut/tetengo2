@@ -46,19 +46,19 @@ namespace
             boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
             message_catalog_type;
 
-        struct result_type { enum enum_t
+        enum class result_type
         {
             undecided,
             accepted,
             canceled,
-        };};
+        };
 
         typedef std::size_t int_size_type;
 
         oudia_diagram_dialog(abstract_window_type&, const message_catalog_type&)
         {}
 
-        result_type::enum_t result()
+        result_type result()
         const
         {
             return result_type::undecided;
