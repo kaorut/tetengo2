@@ -93,8 +93,8 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
+#include <boost/range/adaptors.hpp>
 #include <boost/rational.hpp>
-#include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>

@@ -242,13 +242,11 @@ BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_ERROR                                      boost/test/unit_test.hpp
-BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_REQUIRE_EQUAL                              boost/test/unit_test.hpp
-BOOST_REVERSE_FOREACH                            boost/foreach.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
@@ -459,6 +457,7 @@ WM_SYSCOMMAND                                    Windows.h
 WM_TIMER                                         Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
+boost::adaptors::reverse                         boost/range/adaptors.hpp
 boost::additive                                  boost/operators.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp

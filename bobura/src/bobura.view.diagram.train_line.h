@@ -1002,7 +1002,7 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            BOOST_REVERSE_FOREACH (train_line_fragment_type& fragment, m_fragments)
+            for (train_line_fragment_type& fragment: boost::adaptors::reverse(m_fragments))
             {
                 base_type* const p_item = fragment.p_item_by_position(position);
                 if (p_item)
