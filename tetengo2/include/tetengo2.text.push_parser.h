@@ -220,8 +220,8 @@ namespace tetengo2 { namespace text
         }
 
         static value_type to_value(
-            const typename grammar_type::value_type_type::enum_t value_type,
-            const string_type&                                   string_value
+            const typename grammar_type::value_type_type value_type,
+            const string_type&                           string_value
         )
         {
             switch (value_type)
@@ -350,7 +350,7 @@ namespace tetengo2 { namespace text
             m_on_structure_end(structure_name, attribute_map_type());
         }
 
-        void observe_value(const typename grammar_type::value_type_type::enum_t value_type, const string_type& value)
+        void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
         {
             m_on_value(to_value(value_type, value));
         }

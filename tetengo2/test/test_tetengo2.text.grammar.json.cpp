@@ -94,10 +94,7 @@ namespace
         }
     }
 
-    void value_passed(
-        std::string&                                output,
-        const grammar_type::value_type_type::enum_t type,
-        const std::string&                          parsed)
+    void value_passed(std::string& output, const grammar_type::value_type_type type, const std::string& parsed)
     {
         switch (type)
         {

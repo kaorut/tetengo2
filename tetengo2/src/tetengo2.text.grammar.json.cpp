@@ -24,9 +24,9 @@ namespace tetengo2 { namespace text { namespace grammar
 {
     template <typename ForwardIterator>
     json<ForwardIterator>::structure_attribute_type::structure_attribute_type(
-        string_type                            name,
-        const typename value_type_type::enum_t value_type,
-        const string_type&                     attribute
+        string_type           name,
+        const value_type_type value_type,
+        const string_type&    attribute
     )
     :
     m_name(std::move(name)),
@@ -42,7 +42,7 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
     template <typename ForwardIterator>
-    typename json<ForwardIterator>::value_type_type::enum_t
+    typename json<ForwardIterator>::value_type_type
     json<ForwardIterator>::structure_attribute_type::value_type()
     const
     {

@@ -47,13 +47,13 @@ namespace tetengo2 { namespace text { namespace grammar
         typedef std::basic_string<char_type> string_type;
 
         //! The value type type.
-        struct value_type_type { enum enum_t //!< Scoped enum.
+        enum class value_type_type
         {
             string,  //!< A string.
             number,  //!< A number.
             boolean, //!< A boolean.
             null,    //!< A null.
-        };};
+        };
 
         //! The structure attribute type.
         class structure_attribute_type
@@ -66,11 +66,7 @@ namespace tetengo2 { namespace text { namespace grammar
                 \param value_type A value type.
                 \param attribute  An attribute.
             */
-            structure_attribute_type(
-                string_type                            name,
-                const typename value_type_type::enum_t value_type,
-                const string_type&                     attribute
-            );
+            structure_attribute_type(string_type name, const value_type_type value_type, const string_type& attribute);
 
             /*!
                 \brief Returns the name.
@@ -85,7 +81,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
                 \return The value type.
             */
-            typename value_type_type::enum_t value_type()
+            value_type_type value_type()
             const;
 
             /*!
@@ -99,7 +95,7 @@ namespace tetengo2 { namespace text { namespace grammar
         private:
             string_type m_name;
 
-            typename value_type_type::enum_t m_value_type;
+            value_type_type m_value_type;
 
             const string_type& m_attribute;
 
@@ -112,7 +108,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
         //! The value signal type.
         typedef
-            boost::signals2::signal<void (typename value_type_type::enum_t, const string_type&)> value_signal_type;
+            boost::signals2::signal<void (value_type_type, const string_type&)> value_signal_type;
 
         //! The rule type.
         typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
