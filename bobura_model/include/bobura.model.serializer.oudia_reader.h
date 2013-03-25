@@ -928,11 +928,7 @@ namespace bobura { namespace model { namespace serializer
                 (1 <= file_type_.m_minor_version && file_type_.m_minor_version <= 2);
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
             if (!this->selects(first, last))
             {
@@ -968,10 +964,10 @@ namespace bobura { namespace model { namespace serializer
         }
 
         std::unique_ptr<timetable_type> read_timetable(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error,
-            const string_type&           selected_diagram_name
+            const iterator     first,
+            const iterator     last,
+            error_type&        error,
+            const string_type& selected_diagram_name
         )
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();

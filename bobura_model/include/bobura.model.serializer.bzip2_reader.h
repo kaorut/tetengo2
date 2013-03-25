@@ -128,11 +128,7 @@ namespace bobura { namespace model { namespace serializer
             }
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
             std::istringstream input_stream(input_string_type(first, last));
             boost::iostreams::filtering_istream filtering_input_stream;

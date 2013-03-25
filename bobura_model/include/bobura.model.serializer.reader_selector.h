@@ -96,11 +96,7 @@ namespace bobura { namespace model { namespace serializer
 #   pragma GCC diagnostic warning "-Wreturn-type"
 #endif
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
             typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
 

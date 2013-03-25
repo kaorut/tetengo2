@@ -67,11 +67,7 @@ namespace
             return true;
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator      first,
-            const iterator      last,
-            error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
             tetengo2::suppress_unused_variable_warning(first, last, error);
 
@@ -137,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
         bzip2_reader_type bzip2_reader(std::move(p_reader));
 
         std::istringstream input_stream("BZ");
-        error_type::enum_t error = error_type::none;
+        error_type error = error_type::none;
         const std::unique_ptr<timetable_type> p_timetable =
             bzip2_reader.read(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -146,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
             );
 
         BOOST_REQUIRE(p_timetable);
-        BOOST_CHECK_EQUAL(error, error_type::none);
+        BOOST_CHECK(error == error_type::none);
     }
 
 

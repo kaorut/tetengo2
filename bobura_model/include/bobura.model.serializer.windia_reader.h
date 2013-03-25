@@ -999,11 +999,7 @@ namespace bobura { namespace model { namespace serializer
             return next_line(mutable_first, last) == windia_section_label();
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
             std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 

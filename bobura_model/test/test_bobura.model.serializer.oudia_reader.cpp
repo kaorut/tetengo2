@@ -413,7 +413,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_empty);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -422,7 +422,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::corrupted);
+            BOOST_CHECK(error == error_type::corrupted);
         }
         {
             std::unique_ptr<select_diagram_type> p_select_diagram =
@@ -430,7 +430,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_no_train);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::none);
+            BOOST_CHECK(error == error_type::none);
             BOOST_CHECK(p_timetable->line_name().empty());
             BOOST_CHECK(p_timetable->note().empty());
             BOOST_CHECK(p_timetable->station_locations().empty());
@@ -462,7 +462,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::none);
+            BOOST_CHECK(error == error_type::none);
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("abc")));
             BOOST_CHECK(p_timetable->note() == string_type(TETENGO2_TEXT("def")));
 
@@ -621,7 +621,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -630,7 +630,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::none);
+            BOOST_CHECK(error == error_type::none);
             BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 1U);
             BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
         }
@@ -640,7 +640,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -649,7 +649,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::canceled);
+            BOOST_CHECK(error == error_type::canceled);
         }
         {
             std::unique_ptr<select_diagram_type> p_select_diagram =
@@ -657,7 +657,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_old_version);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -666,7 +666,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::corrupted);
+            BOOST_CHECK(error == error_type::corrupted);
         }
         {
             std::unique_ptr<select_diagram_type> p_select_diagram =
@@ -674,7 +674,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_new_version);
-            error_type::enum_t error = error_type::none;
+            error_type error = error_type::none;
             const std::unique_ptr<timetable_type> p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -683,7 +683,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::corrupted);
+            BOOST_CHECK(error == error_type::corrupted);
         }
     }
 
