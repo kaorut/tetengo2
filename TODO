@@ -27,16 +27,6 @@ Added on    : 2013/03/15
 Depends on  : (none)
 Description : Replace local variable type declarations to auto.
 ------------------------------------------------------------------------------
-Number      : 00000227
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Replace BOOST_FOREACH to range-based for loops.
-------------------------------------------------------------------------------
-Number      : 00000228
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Introduce strongly typed enums.
-------------------------------------------------------------------------------
 Number      : 00000229
 Added on    : 2013/03/15
 Depends on  : (none)
