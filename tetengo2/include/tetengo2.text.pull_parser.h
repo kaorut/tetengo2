@@ -56,14 +56,14 @@ namespace tetengo2 { namespace text
         typedef Size size_type;
 
         //! The structure kind type.
-        struct structure_kind_type { enum enum_t //!< Scoped enum.
+        enum class structure_kind_type
         {
             begin, //!< The structure kind begin.
             end,   //!< The structure kind end.
-        };};
+        };
 
         //! The structure type.
-        template <typename structure_kind_type::enum_t Kind>
+        template <structure_kind_type Kind>
         class structure
         {
         public:
@@ -74,7 +74,7 @@ namespace tetengo2 { namespace text
 
                 \return The kind.
             */
-            static typename structure_kind_type::enum_t kind()
+            static structure_kind_type kind()
             {
                 return Kind;
             }
