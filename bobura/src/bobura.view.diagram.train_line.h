@@ -956,8 +956,8 @@ namespace bobura { namespace view { namespace diagram
             );
         }
 
-        static typename canvas_type::line_style_type::enum_t translate_line_style(
-            const typename train_kind_type::line_style_type::enum_t line_style
+        static typename canvas_type::line_style_type translate_line_style(
+            const typename train_kind_type::line_style_type line_style
         )
         {
             switch (line_style)

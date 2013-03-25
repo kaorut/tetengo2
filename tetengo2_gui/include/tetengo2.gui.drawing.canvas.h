@@ -65,13 +65,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The line style type.
-        struct line_style_type { enum enum_t //!< Scoped enum.
+        enum class line_style_type
         {
             solid,      //!< Solid.
             dashed,     //!< Dashed.
             dotted,     //!< Dotted.
             dot_dashed, //!< Dot-Dashed.
-        };};
+        };
 
         //! The font type.
         typedef typename traits_type::font_type font_type;
@@ -170,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        typename line_style_type::enum_t line_style()
+        line_style_type line_style()
         const
         {
             return m_line_style;
@@ -183,7 +183,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param line_style A line width.
         */
-        void set_line_style(const typename line_style_type::enum_t line_style)
+        void set_line_style(const line_style_type line_style)
         {
             m_line_style = line_style;
         }
@@ -390,7 +390,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         size_type m_line_width;
 
-        typename line_style_type::enum_t m_line_style;
+        line_style_type m_line_style;
 
         font_type m_font;
 

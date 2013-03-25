@@ -629,14 +629,14 @@ namespace bobura { namespace model { namespace serializer
         {
             input_string_type name;
             input_string_type abbreviation;
-            typename weight_type::enum_t weight;
-            typename line_style_type::enum_t line_style;
+            weight_type weight;
+            line_style_type line_style;
 
             preset_train_kind_type(
-                input_string_type                      name,
-                input_string_type                      abbreviation,
-                const typename weight_type::enum_t     weight,
-                const typename line_style_type::enum_t line_style
+                input_string_type     name,
+                input_string_type     abbreviation,
+                const weight_type     weight,
+                const line_style_type line_style
             )
             :
             name(std::move(name)),
@@ -915,7 +915,7 @@ namespace bobura { namespace model { namespace serializer
             const unsigned int                             prop
         )
         {
-            const typename line_style_type::enum_t line_style = to_line_style(prop & 0x03);
+            const line_style_type line_style = to_line_style(prop & 0x03);
             const bool custom_color = (prop & 0x40) != 0;
             const boost::optional<color_type> color =
                 custom_color ?
@@ -923,7 +923,7 @@ namespace bobura { namespace model { namespace serializer
                 (base ? boost::make_optional(base->color()) : boost::make_optional(color_type(0, 0, 0)));
             if (!color)
                 return boost::none;
-            const typename weight_type::enum_t weight = to_weight((prop & 0x80) != 0);
+            const weight_type weight = to_weight((prop & 0x80) != 0);
 
             return
                 base ?
@@ -942,12 +942,12 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(preset_palette()[index]);
         }
 
-        static typename weight_type::enum_t to_weight(const bool bold)
+        static weight_type to_weight(const bool bold)
         {
             return bold ? train_kind_type::weight_type::bold : train_kind_type::weight_type::normal;
         }
 
-        static typename line_style_type::enum_t to_line_style(const std::size_t index)
+        static line_style_type to_line_style(const std::size_t index)
         {
             switch (index)
             {

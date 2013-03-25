@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(train_kind)
             train_kind_type::line_style_type::solid
         );
 
-        BOOST_CHECK_EQUAL(kind.weight(), train_kind_type::weight_type::normal);
+        BOOST_CHECK(kind.weight() == train_kind_type::weight_type::normal);
     }
 
     BOOST_AUTO_TEST_CASE(line_style)
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(train_kind)
             train_kind_type::line_style_type::solid
         );
 
-        BOOST_CHECK_EQUAL(kind.line_style(), train_kind_type::line_style_type::solid);
+        BOOST_CHECK(kind.line_style() == train_kind_type::line_style_type::solid);
     }
 
 

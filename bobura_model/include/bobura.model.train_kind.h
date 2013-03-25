@@ -35,20 +35,20 @@ namespace bobura { namespace model
         typedef Color color_type;
 
         //! The weight type.
-        struct weight_type { enum enum_t //!< Scoped enum.
+        enum class weight_type
         {
             normal, //!< Normal.
             bold,   //!< Bold.
-        };};
+        };
 
         //! The line style type.
-        struct line_style_type { enum enum_t //!< Scoped enum.
+        enum class line_style_type
         {
             solid,      //!< Solid.
             dashed,     //!< Dashed.
             dotted,     //!< Dotted.
             dot_dashed, //!< Dot-Dashed.
-        };};
+        };
 
 
         // constructors and destructor
@@ -63,11 +63,11 @@ namespace bobura { namespace model
             \param line_style   A line style.
         */
         train_kind(
-            string_type                            name,
-            string_type                            abbreviation,
-            color_type                             color,
-            const typename weight_type::enum_t     weight,
-            const typename line_style_type::enum_t line_style
+            string_type           name,
+            string_type           abbreviation,
+            color_type            color,
+            const weight_type     weight,
+            const line_style_type line_style
         )
         :
         m_name(std::move(name)),
@@ -137,7 +137,7 @@ namespace bobura { namespace model
 
             \return The weight.
         */
-        typename weight_type::enum_t weight()
+        weight_type weight()
         const
         {
             return m_weight;
@@ -148,7 +148,7 @@ namespace bobura { namespace model
 
             \return The line style.
         */
-        typename line_style_type::enum_t line_style()
+        line_style_type line_style()
         const
         {
             return m_line_style;
@@ -164,9 +164,9 @@ namespace bobura { namespace model
 
         color_type m_color;
 
-        typename weight_type::enum_t m_weight;
+        weight_type m_weight;
 
-        typename line_style_type::enum_t m_line_style;
+        line_style_type m_line_style;
 
 
     };

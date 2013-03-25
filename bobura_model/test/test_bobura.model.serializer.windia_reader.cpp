@@ -238,14 +238,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
                 BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("\x95\x81\x92\xCA"))); // futsuu
                 BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
-                BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::normal);
+                BOOST_CHECK(train_kind.weight() == train_kind_type::weight_type::normal);
             }
             {
                 const train_kind_type& train_kind = p_timetable->train_kinds()[3];
 
                 BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("express")));
                 BOOST_CHECK(train_kind.color() == color_type(255, 0, 0));
-                BOOST_CHECK_EQUAL(train_kind.weight(), train_kind_type::weight_type::bold);
+                BOOST_CHECK(train_kind.weight() == train_kind_type::weight_type::bold);
             }
 
             BOOST_REQUIRE_EQUAL(p_timetable->down_trains().size(), 3U);

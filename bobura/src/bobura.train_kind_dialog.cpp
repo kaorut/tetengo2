@@ -174,7 +174,7 @@ namespace bobura
 
             // static functions
 
-            static int_size_type to_weight_dropdown_box_index(const typename weight_type::enum_t weight)
+            static int_size_type to_weight_dropdown_box_index(const weight_type weight)
             {
                 switch (weight)
                 {
@@ -188,7 +188,7 @@ namespace bobura
                 }
             }
 
-            static typename weight_type::enum_t to_weight(const int_size_type dropdown_box_index)
+            static weight_type to_weight(const int_size_type dropdown_box_index)
             {
                 switch (dropdown_box_index)
                 {
@@ -202,7 +202,7 @@ namespace bobura
                 }
             }
 
-            static int_size_type to_line_style_dropdown_box_index(const typename line_style_type::enum_t line_style)
+            static int_size_type to_line_style_dropdown_box_index(const line_style_type line_style)
             {
                 switch (line_style)
                 {
@@ -220,7 +220,7 @@ namespace bobura
                 }
             }
 
-            static typename line_style_type::enum_t to_line_style(const int_size_type dropdown_box_index)
+            static line_style_type to_line_style(const int_size_type dropdown_box_index)
             {
                 switch (dropdown_box_index)
                 {

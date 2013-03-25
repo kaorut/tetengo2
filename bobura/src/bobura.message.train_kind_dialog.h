@@ -833,8 +833,8 @@ namespace bobura { namespace message { namespace train_kind_dialog
                 );
         }
 
-        static typename canvas_type::line_style_type::enum_t to_canvas_line_style(
-            const typename train_kind_type::line_style_type::enum_t line_style
+        static typename canvas_type::line_style_type to_canvas_line_style(
+            const typename train_kind_type::line_style_type line_style
         )
         {
             switch (line_style)

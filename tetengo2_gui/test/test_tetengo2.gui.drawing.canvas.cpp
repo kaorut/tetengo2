@@ -189,9 +189,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const canvas_type::line_style_type::enum_t line_style = canvas.line_style();
+        const canvas_type::line_style_type line_style = canvas.line_style();
 
-        BOOST_CHECK_EQUAL(line_style, canvas_type::line_style_type::solid);
+        BOOST_CHECK(line_style == canvas_type::line_style_type::solid);
     }
 
     BOOST_AUTO_TEST_CASE(set_line_style)
@@ -202,7 +202,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_line_style(canvas_type::line_style_type::dashed);
 
-        BOOST_CHECK_EQUAL(canvas.line_style(), canvas_type::line_style_type::dashed);
+        BOOST_CHECK(canvas.line_style() == canvas_type::line_style_type::dashed);
     }
 
     BOOST_AUTO_TEST_CASE(font)

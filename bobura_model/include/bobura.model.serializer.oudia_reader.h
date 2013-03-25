@@ -378,7 +378,7 @@ namespace bobura { namespace model { namespace serializer
 
             typedef typename train_kind_type::line_style_type line_style_type;
 
-            static typename weight_type::enum_t to_weight(const string_type& weight_string)
+            static weight_type to_weight(const string_type& weight_string)
             {
                 if (weight_string == string_type(TETENGO2_TEXT("1")))
                     return weight_type::bold;
@@ -386,7 +386,7 @@ namespace bobura { namespace model { namespace serializer
                     return weight_type::normal;
             }
 
-            static typename line_style_type::enum_t to_line_style(const string_type& line_style_string)
+            static line_style_type to_line_style(const string_type& line_style_string)
             {
                 if      (line_style_string == string_type(TETENGO2_TEXT("SenStyle_Hasen")))
                     return line_style_type::dashed;
