@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             ::PostMessageW(
                 reinterpret_cast< ::HWND>(l_param),
-                custom_message_type::command,
+                static_cast< ::UINT>(custom_message_type::command),
                 w_param,
                 reinterpret_cast< ::LPARAM>(widget.details()->handle.get())
             );
@@ -126,10 +126,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         template <typename Widget>
         boost::optional< ::LRESULT> on_button_down_impl(
-            Widget&                                                                   widget,
-            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
-            const ::WPARAM                                                            w_param,
-            const ::LPARAM                                                            l_param
+            Widget&                                                           widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type button,
+            const ::WPARAM                                                    w_param,
+            const ::LPARAM                                                    l_param
         )
         {
             if (widget.mouse_observer_set().pressed().empty())
@@ -181,10 +181,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         template <typename Widget>
         boost::optional< ::LRESULT> on_button_up_impl(
-            Widget&                                                                   widget,
-            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
-            const ::WPARAM                                                            w_param,
-            const ::LPARAM                                                            l_param
+            Widget&                                                           widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type button,
+            const ::WPARAM                                                    w_param,
+            const ::LPARAM                                                    l_param
         )
         {
             if (widget.mouse_observer_set().released().empty())
@@ -345,7 +345,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (l_param == 0) return boost::none;
 
             const ::LRESULT result =
-                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), custom_message_type::control_color, w_param, 0);
+                ::SendMessageW(
+                    reinterpret_cast< ::HWND>(l_param),
+                    static_cast< ::UINT>(custom_message_type::control_color),
+                    w_param,
+                    0
+                );
 
             return boost::make_optional(result != 0, result);
         }

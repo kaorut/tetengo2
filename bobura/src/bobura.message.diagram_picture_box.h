@@ -84,11 +84,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta     True when meta key is pressed.
         */
         void operator()(
-            const typename mouse_button_type::enum_t button,
-            const position_type&                     position,
-            const bool                               shift,
-            const bool                               control,
-            const bool                               meta
+            const mouse_button_type button,
+            const position_type&    position,
+            const bool              shift,
+            const bool              control,
+            const bool              meta
         )
         const
         {
@@ -179,11 +179,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta     True when meta key is pressed.
         */
         void operator()(
-            const typename mouse_button_type::enum_t button,
-            const position_type&                     position,
-            const bool                               shift,
-            const bool                               control,
-            const bool                               meta
+            const mouse_button_type button,
+            const position_type&    position,
+            const bool              shift,
+            const bool              control,
+            const bool              meta
         )
         const
         {
@@ -361,11 +361,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta      True when meta key is pressed.
         */
         void operator()(
-            const delta_type&                     delta,
-            const typename direction_type::enum_t direction,
-            const bool                            shift,
-            const bool                            control,
-            const bool                            meta
+            const delta_type&    delta,
+            const direction_type direction,
+            const bool           shift,
+            const bool           control,
+            const bool           meta
         )
         const
         {
@@ -394,7 +394,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        bool is_vertical(const typename direction_type::enum_t direction, const bool shift)
+        bool is_vertical(const direction_type direction, const bool shift)
         const
         {
             return

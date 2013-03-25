@@ -484,9 +484,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a window state cannot be set.
         */
         template <typename WindowState, typename Widget>
-        static void set_window_state(Widget& widget, const typename WindowState::enum_t state)
+        static void set_window_state(Widget& widget, const WindowState state)
         {
-            widget.details()->window_state = state;
+            widget.details()->window_state = static_cast<int>(state);
         }
 
         /*!
@@ -500,9 +500,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The window state.
         */
         template <typename WindowState, typename Widget>
-        static typename WindowState::enum_t window_state(const Widget& widget)
+        static WindowState window_state(const Widget& widget)
         {
-            return static_cast<typename WindowState::enum_t>(widget.details()->window_state);
+            return static_cast<WindowState>(widget.details()->window_state);
         }
 
         /*!

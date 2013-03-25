@@ -51,11 +51,11 @@ namespace tetengo2 { namespace gui { namespace message
         typedef boost::signals2::signal<doubleclicked_type> doubleclicked_signal_type;
 
         //! The mouse button kind type.
-        struct mouse_button_type { enum enum_t //!< Scoped enum.
+        enum class mouse_button_type
         {
             left,  //!< Left button.
             right, //!< Right button.
-        };};
+        };
 
         /*!
             \brief The observer type of pressed.
@@ -68,11 +68,11 @@ namespace tetengo2 { namespace gui { namespace message
         */
         typedef
             void pressed_type(
-                typename mouse_button_type::enum_t button,
-                const position_type&               position,
-                bool                               shift,
-                bool                               control,
-                bool                               meta
+                mouse_button_type    button,
+                const position_type& position,
+                bool                 shift,
+                bool                 control,
+                bool                 meta
             );
 
         //! The signal type of pressed.
@@ -89,11 +89,11 @@ namespace tetengo2 { namespace gui { namespace message
         */
         typedef
             void released_type(
-                typename mouse_button_type::enum_t button,
-                const position_type&               position,
-                bool                               shift,
-                bool                               control,
-                bool                               meta
+                mouse_button_type    button,
+                const position_type& position,
+                bool                 shift,
+                bool                 control,
+                bool                 meta
             );
 
         //! The signal type of pressed.
@@ -103,11 +103,11 @@ namespace tetengo2 { namespace gui { namespace message
         typedef boost::rational<difference_type> delta_type;
 
         //! The mouse wheel direction type.
-        struct direction_type { enum enum_t //!< Scoped enum.
+        enum class direction_type
         {
             vertical,   //!< Vertical.
             horizontal, //!< Horizontal.
-        };};
+        };
 
         /*!
             \brief The observer type of moved.
@@ -132,13 +132,7 @@ namespace tetengo2 { namespace gui { namespace message
             \param meta      True when meta key is pressed.
         */
         typedef
-            void wheeled_type(
-                const delta_type&               delta,
-                typename direction_type::enum_t direction,
-                bool                            shift,
-                bool                            control,
-                bool                            meta
-            );
+            void wheeled_type(const delta_type& delta, direction_type direction, bool shift, bool control, bool meta);
 
         //! The signal type of wheeled.
         typedef boost::signals2::signal<wheeled_type> wheeled_signal_type;

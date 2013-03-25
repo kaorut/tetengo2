@@ -76,7 +76,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!handle.get())
                 return boost::none;
 
-            const std::pair<typename value_type::enum_t, typename String::size_type> type =
+            const std::pair<value_type, typename String::size_type> type =
                 query_value_type(handle.get(), registry_key_and_value_name.second, encoder);
 
             switch (type.first)
@@ -197,12 +197,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        struct value_type { enum enum_t
+        enum class value_type
         {
             unknown,
             string,
             dword,
-        };};
+        };
 
 
         // static functions
@@ -235,7 +235,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename String, typename Encoder>
-        static std::pair<typename value_type::enum_t, typename String::size_type> query_value_type(
+        static std::pair<value_type, typename String::size_type> query_value_type(
             const ::HKEY   handle,
             const String&  key,
             const Encoder& encoder

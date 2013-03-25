@@ -28,10 +28,10 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The system color index type.
-        struct system_color_index_type { enum enum_t //!< Scoped enum.
+        enum class system_color_index_type
         {
             dialog_background, //!< Dialog background.
-        };};
+        };
 
 
         // functions
@@ -46,7 +46,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The system color.
         */
         template <typename Color>
-        static Color get_system_color(const system_color_index_type::enum_t index)
+        static Color get_system_color(const system_color_index_type index)
         {
             switch (index)
             {

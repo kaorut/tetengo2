@@ -91,13 +91,13 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The message box button ID type.
-        struct message_box_button_id_type { enum enum_t //!< Scoped enum.
+        enum class message_box_button_id_type
         {
             ok,     //!< OK button.
             yes,    //!< Yes button.
             no,     //!< No button.
             cancel, //!< Cancel button.
-        };};
+        };
 
         //! The message box details type.
         struct message_box_details_type
@@ -307,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
+        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
         {
             const ::HWND parent_window_handle = message_box.parent_handle;
             const std::wstring& title = message_box.title;
@@ -961,7 +961,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
-        static message_box_button_id_type::enum_t to_message_box_button_id(const int win32_button_id)
+        static message_box_button_id_type to_message_box_button_id(const int win32_button_id)
         {
             switch (win32_button_id)
             {

@@ -164,7 +164,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
-            map[message_handler_detail::custom_message_type::command].push_back(
+            map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::button::on_tetengo2_command<Button>,
                     std::ref(button),
@@ -194,7 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
-            map[message_handler_detail::custom_message_type::control_color].push_back(
+            map[static_cast< ::UINT>(message_handler_detail::custom_message_type::control_color)].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::control::on_control_color<Control>,
                     std::ref(control),
@@ -278,7 +278,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
-            map[message_handler_detail::custom_message_type::command].push_back(
+            map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::dropdown_box::on_tetengo2_command<DropdownBox>,
                     std::ref(dropdown_box),
@@ -350,7 +350,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
-            map[message_handler_detail::custom_message_type::command].push_back(
+            map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::list_box::on_tetengo2_command<ListBox>,
                     std::ref(list_box),
@@ -418,7 +418,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
-            map[message_handler_detail::custom_message_type::command].push_back(
+            map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 TETENGO2_CPP11_BIND(
                     message_handler_detail::text_box::on_tetengo2_command<TextBox>,
                     std::ref(text_box),

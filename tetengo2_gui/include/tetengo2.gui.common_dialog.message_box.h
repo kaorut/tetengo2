@@ -249,13 +249,13 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         };
 
         //! The button ID type.
-        struct button_id_type { enum enum_t //!< Scoped enum.
+        enum class button_id_type
         {
             ok,     //!< OK button.
             yes,    //!< Yes button.
             no,     //!< No button.
             cancel, //!< Cancel button.
-        };};
+        };
 
 
         // constructors and destructor
@@ -303,7 +303,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The selected button id.
         */
-        typename button_id_type::enum_t do_modal()
+        button_id_type do_modal()
         {
             return to_button_id(common_dialog_details_type::show_message_box(*m_p_details));
         }
@@ -371,8 +371,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             }
         }
 
-        static typename button_id_type::enum_t to_button_id(
-            const typename common_dialog_details_type::message_box_button_id_type::enum_t details_button_id
+        static button_id_type to_button_id(
+            const typename common_dialog_details_type::message_box_button_id_type details_button_id
         )
         {
             switch (details_button_id)

@@ -94,8 +94,7 @@ namespace bobura { namespace load_save
             if (!m_model.changed())
                 return true;
 
-            const typename message_box_type::button_id_type::enum_t selected_button =
-                create_message_box(parent)->do_modal();
+            const typename message_box_type::button_id_type selected_button = create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_id_type::cancel)
                 return false;
             if (selected_button == message_box_type::button_id_type::yes)

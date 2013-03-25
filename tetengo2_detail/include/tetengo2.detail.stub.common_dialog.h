@@ -48,13 +48,13 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         //! The message box button ID type.
-        struct message_box_button_id_type { enum enum_t //!< Scoped enum.
+        enum class message_box_button_id_type
         {
             ok,     //!< OK button.
             yes,    //!< Yes button.
             no,     //!< No button.
             cancel, //!< Cancel button.
-        };};
+        };
 
         //! The message box details type.
         struct message_box_details_type {};
@@ -150,7 +150,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type::enum_t show_message_box(message_box_details_type& message_box)
+        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
         {
             suppress_unused_variable_warning(message_box);
 
