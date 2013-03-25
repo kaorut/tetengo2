@@ -106,9 +106,7 @@ namespace bobura { namespace message { namespace main_window
 
         // static functions
 
-        static typename menu_base_type::state_type::enum_t translate_state(
-            const typename command_type::state_type::enum_t state
-        )
+        static typename menu_base_type::state_type translate_state(const typename command_type::state_type state)
         {
             switch (state)
             {

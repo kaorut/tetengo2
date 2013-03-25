@@ -80,12 +80,12 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::template style_tag<menu_base> style_type;
 
         //! The state type.
-        struct state_type { enum enum_t //!< Scoped enum.
+        enum class state_type
         {
             default_,  //!< Default state.
             checked,   //!< Checked state.
             selected,  //!< Selected state.
-        };};
+        };
 
 
         // constructors and destructor
@@ -149,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The state.
         */
-        typename state_type::enum_t state()
+        state_type state()
         const
         {
             return m_state;
@@ -160,7 +160,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \param state A state.
         */
-        void set_state(const typename state_type::enum_t state)
+        void set_state(const state_type state)
         {
             menu_details_type::set_state(*this, state);
             m_state = state;
@@ -416,7 +416,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         bool m_enabled;
 
-        typename state_type::enum_t m_state;
+        state_type m_state;
 
         const boost::optional<shortcut_key_type> m_shortcut_key;
 

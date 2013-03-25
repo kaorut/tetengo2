@@ -123,11 +123,11 @@ namespace tetengo2 { namespace detail { namespace windows
         {
 #if !defined(DOCUMENTATION)
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const = 0;
 #endif
@@ -222,7 +222,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param state A status.
         */
         template <typename MenuBase>
-        static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
             if (!menu.details()->parent_handle)
                 return;
@@ -418,11 +418,11 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_bar_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -437,11 +437,11 @@ namespace tetengo2 { namespace detail { namespace windows
         struct popup_menu_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -469,11 +469,11 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_command_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -500,11 +500,11 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_separator_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const
             {
@@ -522,10 +522,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
         template <typename MenuBase>
         static void set_menu_info_style(
-            const ::HMENU                               menu_handle,
-            const ::UINT                                menu_id,
-            const bool                                  enabled,
-            const typename MenuBase::state_type::enum_t state
+            const ::HMENU                       menu_handle,
+            const ::UINT                        menu_id,
+            const bool                          enabled,
+            const typename MenuBase::state_type state
         )
         {
             ::MENUITEMINFOW menu_info = {};

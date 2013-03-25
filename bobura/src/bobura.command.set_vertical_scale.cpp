@@ -48,7 +48,7 @@ namespace bobura { namespace command
 
         // functions
 
-        state_type::enum_t state()
+        state_type state()
         const
         {
             return m_scale == m_diagram_view.vertical_scale() ? state_type::selected : state_type::default_;
@@ -94,7 +94,7 @@ namespace bobura { namespace command
     TETENGO2_CPP11_NOEXCEPT
     {}
     
-    set_vertical_scale::state_type::enum_t set_vertical_scale::state_impl()
+    set_vertical_scale::state_type set_vertical_scale::state_impl()
     const
     {
         return m_p_impl->state();

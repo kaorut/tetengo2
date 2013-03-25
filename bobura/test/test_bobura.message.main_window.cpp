@@ -35,12 +35,12 @@ namespace
     struct command_type
     {
     public:
-        struct state_type { enum enum_t //!< Scoped enum.
+        enum class state_type
         {
             default_,
             checked,
             selected,
-        };};
+        };
 
         command_type()
         {}
@@ -53,7 +53,7 @@ namespace
             return true;
         }
 
-        virtual state_type::enum_t state()
+        virtual state_type state()
         const
         {
             return state_type::default_;
