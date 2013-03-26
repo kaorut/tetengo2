@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
         std::ostringstream stream;
         bzip2_writer.write(timetable, stream);
 
-        const std::string result = stream.str();
+        const auto result = stream.str();
         BOOST_CHECK(result.substr(0, 2) == "BZ");
     }
 

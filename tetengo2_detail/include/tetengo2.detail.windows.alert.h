@@ -166,7 +166,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring&      text2
         )
         {
-            const std::wstring text = text1 + L"\n\n" + text2;
+            const auto text = text1 + L"\n\n" + text2;
             ::MessageBoxW(widget_handle, text.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
         }
 

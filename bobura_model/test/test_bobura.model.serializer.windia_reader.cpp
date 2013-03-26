@@ -53,7 +53,7 @@ namespace
 
     const std::string data0;
 
-    const std::string data1 =
+    const std::string data1(
         "[WinDIA]\n"
         "\n"
         "\n"
@@ -61,9 +61,10 @@ namespace
         "\n"
         "[\x89\xBA\x82\xE8]\n" // kudari
         "\n"
-        "[\x8F\xE3\x82\xE8]\n"; // nobori
+        "[\x8F\xE3\x82\xE8]\n" // nobori
+    );
 
-    const std::string data2 =
+    const std::string data2(
         "[WinDIA]\n"
         "abc\n"
         "\n"
@@ -93,10 +94,12 @@ namespace
         ",124D,,,1210/,1200/,1140?/1150,1120/1130,1110/,1100,\\\n"
         "\t%\n"
         "6(213),102D,bar,2,1230/,-,-,-,-,1200,\\\n"
-        "\t%\n";
+        "\t%\n"
+    );
 
-    const std::string data3 =
-        "[hoge]\n";
+    const std::string data3(
+        "[hoge]\n"
+    );
 
 
 }

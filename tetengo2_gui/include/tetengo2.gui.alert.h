@@ -79,8 +79,8 @@ namespace tetengo2 { namespace gui
                 const std::system_error* const p_system_error = dynamic_cast<const std::system_error*>(&exception);
                 if (p_system_error)
                 {
-                    const std::string what = p_system_error->std::runtime_error::what();
-                    std::string message = p_system_error->code().message();
+                    const std::string what(p_system_error->std::runtime_error::what());
+                    auto message = p_system_error->code().message();
                     if (!what.empty())
                         message += std::string(": ") + what;
                     alert_details_type::show_task_dialog(

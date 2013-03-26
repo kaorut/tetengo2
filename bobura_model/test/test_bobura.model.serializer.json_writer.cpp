@@ -76,7 +76,7 @@ namespace
 
     // variables
 
-    const std::string json0 =
+    const std::string json0(
         "[\n"
         "    {\n"
         "        \"company_name\": \"\",\n"
@@ -88,9 +88,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json1 =
+    const std::string json1(
         "[\n"
         "    {\n"
         "        \"company_name\": \"hoge\",\n"
@@ -171,7 +172,8 @@ namespace
         "            ]\n"
         "        }\n"
         "    ]\n"
-        "]\n";
+        "]\n"
+    );
 
 
     // functions
@@ -349,7 +351,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
             json_writer.write(timetable, stream);
 
-            const std::string result = stream.str();
+            const auto result = stream.str();
             BOOST_CHECK(result == json0);
         }
         {
@@ -360,7 +362,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
             json_writer.write(*p_timetable, stream);
 
-            const std::string result = stream.str();
+            const auto result = stream.str();
             BOOST_CHECK(result == json1);
         }
     }

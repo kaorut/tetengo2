@@ -2110,19 +2110,19 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static const std::wstring& window_class_name()
         {
-            static const std::wstring singleton = L"tetengo2_window";
+            static const std::wstring singleton(L"tetengo2_window");
             return singleton;
         }
 
         static const std::wstring& dialog_class_name()
         {
-            static const std::wstring singleton = L"tetengo2_dialog";
+            static const std::wstring singleton(L"tetengo2_dialog");
             return singleton;
         }
 
         static const std::wstring& picture_box_class_name()
         {
-            static const std::wstring singleton = L"tetengo2_picturebox";
+            static const std::wstring singleton(L"tetengo2_picturebox");
             return singleton;
         }
 
