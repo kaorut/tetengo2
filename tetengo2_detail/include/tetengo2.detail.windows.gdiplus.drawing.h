@@ -323,9 +323,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection, encoder)
-            );
+            const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
             const Gdiplus::RectF layout(
                 0, 0, std::numeric_limits<Gdiplus::REAL>::max(), std::numeric_limits<Gdiplus::REAL>::max()
@@ -474,7 +472,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(handle));
+            auto p_canvas = make_unique<Gdiplus::Graphics>(handle);
 
             initialize_canvas(*p_canvas);
 
@@ -487,7 +485,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.handle.get()));
+            auto p_canvas = make_unique<Gdiplus::Graphics>(widget_details.handle.get());
 
             initialize_canvas(*p_canvas);
 
@@ -529,9 +527,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 static_cast<Gdiplus::REAL>(font.size()) : static_cast<Gdiplus::REAL>(Font::dialog_font().size());
             const ::INT font_style =
                 fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
-            std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel)
-            );
+            auto p_gdiplus_font =
+                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
 

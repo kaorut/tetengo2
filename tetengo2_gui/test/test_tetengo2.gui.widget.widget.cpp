@@ -450,7 +450,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            auto p_background = tetengo2::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(widget.background());
@@ -470,7 +470,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            auto p_background = tetengo2::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
         }
     }
@@ -514,9 +514,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        std::unique_ptr<widget_type::cursor_type> p_cursor(
-            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
-        );
+        auto p_cursor = tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
         widget.set_cursor(std::move(p_cursor));
 
         const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();

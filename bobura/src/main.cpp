@@ -64,9 +64,8 @@ namespace
     {
         typedef
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::messages_facet>::type messages_facet_type;
-        std::unique_ptr<messages_facet_type> p_messages_facet(
-            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()))
-        );
+        auto p_messages_facet =
+            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()));
         const std::locale global_locale(std::locale(""), p_messages_facet.release());
 
         std::locale::global(global_locale);

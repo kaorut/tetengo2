@@ -84,7 +84,7 @@ namespace bobura
         std::unique_ptr<menu_bar_type> build()
         const
         {
-            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
+            auto p_menu_bar = tetengo2::make_unique<menu_bar_type>();
 
             p_menu_bar->insert(p_menu_bar->end(), build_file_menu());
             p_menu_bar->insert(p_menu_bar->end(), build_format_menu());
@@ -121,7 +121,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_file_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&File")));
             commands_type commands;
 
@@ -183,7 +183,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_format_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:D&iagram")));
             commands_type commands;
 
@@ -208,7 +208,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_view_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&View")));
             commands_type commands;
 
@@ -222,7 +222,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_horizontal_zoom_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(
                     m_message_catalog.get(TETENGO2_TEXT("Menu:View:&Horizontal Zoom"))
                 );
@@ -270,7 +270,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_vertical_zoom_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(
                     m_message_catalog.get(TETENGO2_TEXT("Menu:View:&Vertical Zoom"))
                 );
@@ -324,7 +324,7 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_help_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu =
+            auto p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&Help")));
             commands_type commands;
 
@@ -358,9 +358,7 @@ namespace bobura
         )
         const
         {
-            std::unique_ptr<menu_command_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(std::move(text))
-            );
+            auto p_menu_command = tetengo2::make_unique<menu_command_type>(std::move(text));
 
             append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
         }
@@ -374,9 +372,7 @@ namespace bobura
         )
         const
         {
-            std::unique_ptr<menu_command_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(std::move(text), std::move(shortcut_key))
-            );
+            auto p_menu_command = tetengo2::make_unique<menu_command_type>(std::move(text), std::move(shortcut_key));
 
             append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
         }
@@ -402,7 +398,7 @@ namespace bobura
         void append_menu_separator(popup_menu_type& popup_menu, commands_type& commands)
         const
         {
-            std::unique_ptr<menu_separator_type> p_menu_separator(tetengo2::make_unique<menu_separator_type>());
+            auto p_menu_separator = tetengo2::make_unique<menu_separator_type>();
             popup_menu.insert(popup_menu.end(), std::move(p_menu_separator));
             commands.push_back(nullptr);
         }

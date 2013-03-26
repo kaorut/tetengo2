@@ -159,10 +159,10 @@ namespace bobura
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:About:version")) %
                     string_type(TETENGO2_TEXT("0.0.0"));
 
-                std::unique_ptr<label_type> p_label(tetengo2::make_unique<label_type>(m_base));
+                auto p_label = tetengo2::make_unique<label_type>(m_base);
 
                 p_label->set_text(title.str());
-                std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+                auto p_background = tetengo2::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -170,10 +170,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_copyright_label()
             {
-                std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::make_unique<label_type>(m_base);
 
                 p_label->set_text(string_type(TETENGO2_TEXT("Copyright (C) 2007-2013 kaoru")));
-                std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+                auto p_background = tetengo2::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -181,7 +181,7 @@ namespace bobura
 
             std::unique_ptr<link_label_type> create_link_label()
             {
-                std::unique_ptr<link_label_type> p_label =tetengo2::make_unique<link_label_type>(m_base);
+                auto p_label =tetengo2::make_unique<link_label_type>(m_base);
 
                 p_label->set_text(string_type(TETENGO2_TEXT("http://www.tetengo.org/")));
                 p_label->set_target(p_label->text());
@@ -191,8 +191,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_ok_button()
             {
-                std::unique_ptr<button_type> p_button =
-                    tetengo2::make_unique<button_type>(m_base, button_type::style_type::default_);
+                auto p_button = tetengo2::make_unique<button_type>(m_base, button_type::style_type::default_);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
                 p_button->mouse_observer_set().clicked().connect(

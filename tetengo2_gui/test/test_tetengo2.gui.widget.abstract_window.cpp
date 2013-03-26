@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
+            auto p_menu_bar = tetengo2::make_unique<menu_bar_type>();
             window.set_menu_bar(std::move(p_menu_bar));
 
             BOOST_CHECK(window.has_menu_bar());
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
+            auto p_menu_bar = tetengo2::make_unique<menu_bar_type>();
             window.set_menu_bar(std::move(p_menu_bar));
 
             window.menu_bar();
@@ -170,10 +170,10 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
 
         concrete_window window;
 
-        std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
+        auto p_menu_bar = tetengo2::make_unique<menu_bar_type>();
         window.set_menu_bar(std::move(p_menu_bar));
 
-        std::unique_ptr<menu_bar_type> p_menu_bar2(tetengo2::make_unique<menu_bar_type>());
+        auto p_menu_bar2 = tetengo2::make_unique<menu_bar_type>();
         window.set_menu_bar(std::move(p_menu_bar2));
     }
 

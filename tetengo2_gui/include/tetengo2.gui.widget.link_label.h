@@ -268,9 +268,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             p_link_label->set_text_color(color_type(0, 0, 255));
 
-            std::unique_ptr<cursor_type> p_cursor(
-                make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
-            );
+            auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
             p_link_label->set_cursor(std::move(p_cursor));
 
             p_link_label->set_focusable(true);
