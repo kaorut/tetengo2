@@ -576,7 +576,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         {
             color_dialog_type color_dialog(m_color, m_dialog);
 
-            const bool ok = color_dialog.do_modal();
+            const auto ok = color_dialog.do_modal();
             if (!ok)
                 return;
 

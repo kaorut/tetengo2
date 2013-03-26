@@ -74,7 +74,7 @@ namespace bobura { namespace view { namespace diagram
         const Top&              time_header_bottom
     )
     {
-        const Top canvas_top = header_bottom + time_header_bottom;
+        const auto canvas_top = header_bottom + time_header_bottom;
         return station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
     }
 

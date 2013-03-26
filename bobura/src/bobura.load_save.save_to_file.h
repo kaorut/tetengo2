@@ -108,7 +108,7 @@ namespace bobura { namespace load_save
                     make_file_filters(),
                     parent
                 );
-                const bool ok = dialog.do_modal();
+                const auto ok = dialog.do_modal();
                 if (!ok)
                     return false;
 

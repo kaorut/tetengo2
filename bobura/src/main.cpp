@@ -42,7 +42,7 @@ namespace
 
     std::string locale_info(const ::LCID id, const ::LCTYPE type)
     {
-        const int length = ::GetLocaleInfoA(id, type, nullptr, 0);
+        const auto length = ::GetLocaleInfoA(id, type, nullptr, 0);
         if (length == 0)
             BOOST_THROW_EXCEPTION(std::runtime_error("Can't get locale info."));
 
@@ -54,7 +54,7 @@ namespace
 
     std::string ui_locale_name()
     {
-        const ::LANGID language_id = ::GetUserDefaultLangID();
+        const auto language_id = ::GetUserDefaultLangID();
         const ::LCID locale_id = MAKELCID(language_id, SORT_DEFAULT);
 
         return locale_info(locale_id, LOCALE_SENGLANGUAGE) + "_" + locale_info(locale_id, LOCALE_SENGCOUNTRY);

@@ -554,7 +554,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void scroll(const virtual_key_type& virtual_key, const bool shift)
         const
         {
-            const bool vertical = is_vertical(virtual_key, shift);
+            const auto vertical = is_vertical(virtual_key, shift);
             if (vertical)
             {
                 assert(m_picture_box.vertical_scroll_bar());

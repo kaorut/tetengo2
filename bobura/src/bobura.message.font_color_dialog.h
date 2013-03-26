@@ -338,7 +338,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             font_dialog_type font_dialog(m_font_color_list[*m_current_category_index].first, m_dialog);
 
-            const bool ok = font_dialog.do_modal();
+            const auto ok = font_dialog.do_modal();
             if (!ok)
                 return;
 
@@ -448,7 +448,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             color_dialog_type color_dialog(m_font_color_list[*m_current_category_index].second, m_dialog);
 
-            const bool ok = color_dialog.do_modal();
+            const auto ok = color_dialog.do_modal();
             if (!ok)
                 return;
 

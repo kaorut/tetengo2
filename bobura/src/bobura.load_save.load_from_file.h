@@ -136,7 +136,7 @@ namespace bobura { namespace load_save
                 file_open_dialog_type dialog(
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
                 );
-                const bool ok = dialog.do_modal();
+                const auto ok = dialog.do_modal();
                 if (!ok)
                     return;
 
