@@ -970,7 +970,7 @@ namespace bobura { namespace model { namespace serializer
             const string_type& selected_diagram_name
         )
         {
-            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::make_unique<timetable_type>();
             string_type current_diagram_name;
             bool down = true;
 

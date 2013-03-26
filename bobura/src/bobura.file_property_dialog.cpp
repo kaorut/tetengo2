@@ -216,7 +216,7 @@ namespace bobura
 
             std::unique_ptr<label_type> create_company_name_label()
             {
-                std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Company Name:")));
                 auto p_background = tetengo2::make_unique<transparent_background_type>();

@@ -1000,7 +1000,7 @@ namespace bobura { namespace model { namespace serializer
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
-            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::make_unique<timetable_type>();
 
             insert_preset_train_kinds(*p_timetable);
 

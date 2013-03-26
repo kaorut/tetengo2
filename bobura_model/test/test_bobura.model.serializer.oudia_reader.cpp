@@ -339,7 +339,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             const reader_type reader(std::move(p_select_diagram));
         }
@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
@@ -367,7 +367,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
@@ -380,7 +380,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
@@ -393,7 +393,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             );
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
@@ -412,13 +412,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_empty);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -429,13 +429,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(error == error_type::corrupted);
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_no_train);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -461,13 +461,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(p_timetable->up_trains().empty());
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -620,13 +620,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             }
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia2")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -639,13 +639,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia3")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_full);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -656,13 +656,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(error == error_type::canceled);
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_old_version);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -673,13 +673,13 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
             BOOST_CHECK(error == error_type::corrupted);
         }
         {
-            std::unique_ptr<select_diagram_type> p_select_diagram =
+            auto p_select_diagram =
                 tetengo2::make_unique<select_diagram_type>(string_type(TETENGO2_TEXT("Dia1")));
             reader_type reader(std::move(p_select_diagram));
 
             std::istringstream input_stream(data_too_new_version);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),

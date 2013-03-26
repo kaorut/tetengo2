@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
+        auto p_writer = tetengo2::make_unique<concrete_writer>();
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
     }
 
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
+        auto p_writer = tetengo2::make_unique<concrete_writer>();
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
         BOOST_CHECK(bzip2_writer.extension() == path_type(TETENGO2_TEXT("hoge.ext_bz2")));
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
+        auto p_writer = tetengo2::make_unique<concrete_writer>();
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
         BOOST_CHECK(bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge.ext_bz2"))));
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::unique_ptr<writer_type> p_writer = tetengo2::make_unique<concrete_writer>();
+        auto p_writer = tetengo2::make_unique<concrete_writer>();
         bzip2_writer_type bzip2_writer(std::move(p_writer));
         const timetable_type timetable;
         std::ostringstream stream;

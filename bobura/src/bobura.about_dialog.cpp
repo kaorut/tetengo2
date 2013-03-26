@@ -139,7 +139,7 @@ namespace bobura
 
             std::unique_ptr<image_type> create_application_image()
             {
-                std::unique_ptr<image_type> p_image = tetengo2::make_unique<image_type>(m_base);
+                auto p_image = tetengo2::make_unique<image_type>(m_base);
 
                 picture_reader_type picture_reader(
                     m_settings.image_directory_path() / string_type(TETENGO2_TEXT("kuma.png"))

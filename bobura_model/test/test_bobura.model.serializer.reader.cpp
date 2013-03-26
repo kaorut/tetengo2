@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(reader)
         concrete_reader reader;
         std::istringstream input_stream("hoge");
         error_type error = error_type::none;
-        const std::unique_ptr<timetable_type> p_timetable =
+        const auto p_timetable =
             reader.read(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),

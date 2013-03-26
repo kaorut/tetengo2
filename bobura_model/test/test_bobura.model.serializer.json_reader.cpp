@@ -547,7 +547,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_not_json);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -560,7 +560,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_empty1);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -573,7 +573,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_empty2);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -587,7 +587,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_line_name_only);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -601,7 +601,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_station_only);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -634,7 +634,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_invalid_station_grade);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -647,7 +647,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_full_content);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -747,7 +747,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_invalid_stop_time);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -760,7 +760,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_too_many_stops);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -773,7 +773,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_invalid_time_format);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -786,7 +786,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_train_with_no_stop);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -799,7 +799,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         {
             std::istringstream input_stream(json_invalid_kind_index);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),

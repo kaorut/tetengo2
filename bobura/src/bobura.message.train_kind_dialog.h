@@ -760,8 +760,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()(canvas_type& canvas)
         const
         {
-            std::unique_ptr<background_type> p_background =
-                tetengo2::make_unique<solid_background_type>(m_background_color);
+            auto p_background = tetengo2::make_unique<solid_background_type>(m_background_color);
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
 

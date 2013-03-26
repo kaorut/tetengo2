@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             std::istringstream input_stream(data0);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             std::istringstream input_stream(data1);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             std::istringstream input_stream(data2);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             std::istringstream input_stream(data3);
             error_type error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),

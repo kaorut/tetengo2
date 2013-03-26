@@ -163,8 +163,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         const
         {
             assert(m_font_color_list[0].second);
-            std::unique_ptr<background_type> p_background =
-                tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
+            auto p_background = tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
 

@@ -438,7 +438,7 @@ BOOST_AUTO_TEST_SUITE(sample_picture_box_paint)
         );
 
         window_type window;
-        const std::unique_ptr<canvas_type> p_canvas = window.create_canvas();
+        const auto p_canvas = window.create_canvas();
         observer(*p_canvas);
     }
 

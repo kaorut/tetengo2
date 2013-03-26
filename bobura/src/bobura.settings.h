@@ -388,7 +388,7 @@ namespace bobura
             const auto options = parse_command_line_arguments(command_line_arguments);
 
             assert(options.find("exe") != options.end());
-            m_base_path = boost::filesystem::path(options["exe"].as<string_type>()).parent_path();
+            m_base_path = boost::filesystem::path(options["exe"].template as<string_type>()).parent_path();
 
             m_p_config = create_config(options);
         }
