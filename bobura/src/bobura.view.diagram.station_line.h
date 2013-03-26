@@ -178,7 +178,7 @@ namespace bobura { namespace view { namespace diagram
                 canvas, position_type(left_type(0), m_top), position_type(m_right, m_top), this->selected()
             );
 
-            const string_type& name = m_p_station->name();
+            const auto& name = m_p_station->name();
             const auto name_dimension = canvas.calc_text_dimension(name);
             canvas.draw_text(
                 name,
@@ -191,8 +191,8 @@ namespace bobura { namespace view { namespace diagram
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            const left_type& x = tetengo2::gui::position<position_type>::left(position);
-            const top_type& y = tetengo2::gui::position<position_type>::top(position);
+            const auto& x = tetengo2::gui::position<position_type>::left(position);
+            const auto& y = tetengo2::gui::position<position_type>::top(position);
             if (
                 (left_type(0) <= x && x <= m_station_header_right) &&
                 (m_top - selected_line_margin<top_type>() <= y && y <= m_top + selected_line_margin<top_type>())
@@ -428,7 +428,7 @@ namespace bobura { namespace view { namespace diagram
             station_lines.reserve(station_positions.size());
             for (decltype(station_positions.size()) i = 0; i < station_positions.size(); ++i)
             {
-                const top_type& position = station_positions[i];
+                const auto& position = station_positions[i];
                 auto line_position =
                     position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
                 if (line_position < canvas_top)
@@ -436,7 +436,7 @@ namespace bobura { namespace view { namespace diagram
                 if (line_position > canvas_bottom)
                     break;
 
-                const station_type& station = model.timetable().station_locations()[i].station();
+                const auto& station = model.timetable().station_locations()[i].station();
                 station_lines.push_back(
                     station_line_type(
                         station,

@@ -269,12 +269,12 @@ namespace bobura
         dimension_type page_size(const dimension_type& canvas_dimension)
         const
         {
-            const width_type& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
-            const width_type& header_width = m_station_header_width;
+            const auto& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const auto& header_width = m_station_header_width;
             auto page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
-            const height_type& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            const height_type& header_height = m_header_height + m_time_header_height;
+            const auto& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
+            const auto header_height = m_header_height + m_time_header_height;
             auto page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));

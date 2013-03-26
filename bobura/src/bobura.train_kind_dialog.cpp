@@ -762,7 +762,7 @@ namespace bobura
                 if (selected_index)
                 {
                     assert(m_info_sets.size() == m_p_train_kind_list_box->item_count());
-                    const train_kind_type& train_kind = m_info_sets[*selected_index].train_kind();
+                    const auto& train_kind = m_info_sets[*selected_index].train_kind();
 
                     m_current_train_kind_color = train_kind.color();
                     m_p_name_text_box->set_text(train_kind.name());
@@ -789,7 +789,7 @@ namespace bobura
                 if (!m_current_train_kind_index)
                     return;
 
-                train_kind_type& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
+                auto& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
 
                 assert(m_p_weight_dropdown_box->selected_item_index());
                 assert(m_p_weight_dropdown_box->selected_item_index());

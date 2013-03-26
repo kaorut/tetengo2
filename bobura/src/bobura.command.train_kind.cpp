@@ -52,7 +52,7 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            const font_color_set_type& font_color_set = model.timetable().font_color_set();
+            const auto& font_color_set = model.timetable().font_color_set();
             train_kind_dialog_type dialog(
                 parent, m_message_catalog, font_color_set.train_name(), font_color_set.background()
             );

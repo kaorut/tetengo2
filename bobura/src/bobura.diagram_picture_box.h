@@ -215,7 +215,7 @@ namespace bobura
             {
                 if (view_size <= page_size)
                 {
-                    const auto new_position = 0;
+                    const scroll_bar_size_type new_position = 0;
                     if (new_position != scroll_bar.position())
                     {
                         scroll_bar.set_position(new_position);

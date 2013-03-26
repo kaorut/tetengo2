@@ -767,13 +767,12 @@ namespace bobura { namespace message { namespace train_kind_dialog
             if (!m_current_train_kind_index)
                 return;
 
-            const train_kind_type& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
+            const auto& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
 
             canvas.set_font(fixed_size_font(m_font));
             canvas.set_color(train_kind.color());
 
-            const string_type& text =
-                train_kind.abbreviation().empty() ? train_kind.name() : train_kind.abbreviation();
+            const auto& text = train_kind.abbreviation().empty() ? train_kind.name() : train_kind.abbreviation();
             const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
             canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
 
@@ -871,8 +870,8 @@ namespace bobura { namespace message { namespace train_kind_dialog
         std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
         const
         {
-            const auto canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
-            const auto text_height =
+            const auto& canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
+            const auto& text_height =
                 tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
 
             if (canvas_height > text_height)

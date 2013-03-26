@@ -227,7 +227,7 @@ namespace bobura { namespace view { namespace diagram
         )
         {
             const auto text_dimension = canvas.calc_text_dimension(train_name);
-            const auto text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
+            const auto& text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
 
             if (down)
             {
@@ -634,7 +634,7 @@ namespace bobura { namespace view { namespace diagram
 
                         if (has_time(train.stops()[to]))
                         {
-                            const time_type& departure_time = get_departure_time(train.stops()[from]);
+                            const auto& departure_time = get_departure_time(train.stops()[from]);
                             const auto arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], from, to);
 
@@ -688,7 +688,7 @@ namespace bobura { namespace view { namespace diagram
 
                         if (has_time(train.stops()[to]))
                         {
-                            const time_type& departure_time = get_departure_time(train.stops()[from]);
+                            const auto& departure_time = get_departure_time(train.stops()[from]);
                             const auto arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], to, from);
 
