@@ -175,7 +175,7 @@ namespace bobura { namespace model { namespace serializer
                     return false;
 
                 const string_ref_type props = string_ref_type(line).substr(0, comma_position);
-                string_type name = line.substr(comma_position + 1);
+                auto name = line.substr(comma_position + 1);
 
                 station_location_type station_location(
                     station_type(
@@ -274,7 +274,7 @@ namespace bobura { namespace model { namespace serializer
 
                 const string_ref_type key_and_index = string_ref_type(line).substr(0, equal_position);
                 const auto index_position = key_and_index.find_first_of(string_ref_type(TETENGO2_TEXT("0123456789")));
-                string_ref_type key = string_ref_type(key_and_index).substr(0, index_position);
+                auto key = string_ref_type(key_and_index).substr(0, index_position);
                 std::size_t index = 0;
                 if (index_position != string_type::npos)
                 {
@@ -994,7 +994,7 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            iterator mutable_first = first;
+            auto mutable_first = first;
             return next_line(mutable_first, last) == windia_section_label();
         }
 
@@ -1005,7 +1005,7 @@ namespace bobura { namespace model { namespace serializer
             insert_preset_train_kinds(*p_timetable);
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
-            iterator next_line_first = first;
+            auto next_line_first = first;
             for (;;)
             {
                 const string_type input_line = next_line(next_line_first, last);

@@ -428,7 +428,7 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool leaving_impl()
             {
-                string_type abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
+                auto abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
                 boost::optional<color_type> color = to_color(m_diagram_sen_color);
                 if (!color)
                     return false;
@@ -733,7 +733,7 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<string_type> names;
 
-            iterator next_line_first = first;
+            auto next_line_first = first;
             for (;;)
             {
                 const string_type input_line = next_line(next_line_first, last);
@@ -756,7 +756,7 @@ namespace bobura { namespace model { namespace serializer
         {
             skip_line_breaks(first, last);
             const iterator next_line_break = std::find_if(first, last, line_break);
-            string_type line = encoder().decode(input_string_type(first, next_line_break));
+            auto line = encoder().decode(input_string_type(first, next_line_break));
             first = next_line_break;
             return line;
         }
@@ -899,7 +899,7 @@ namespace bobura { namespace model { namespace serializer
         static file_type parse_file_type(const string_type& file_type_string)
         {
             std::vector<string_type> splitted = split(file_type_string, char_type(TETENGO2_TEXT('.')));
-            string_type name = splitted.size() >= 1 ? std::move(splitted[0]) : string_type();
+            auto name = splitted.size() >= 1 ? std::move(splitted[0]) : string_type();
             const boost::optional<int> major_version =
                 splitted.size() >= 2 ? to_number<int>(splitted[1]) : boost::none;
             const boost::optional<int> minor_version =
@@ -917,7 +917,7 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            iterator mutable_first = first;
+            auto mutable_first = first;
             const std::pair<string_type, string_type> key_value = parse_line(next_line(mutable_first, last));
             const file_type file_type_ = parse_file_type(key_value.second);
 
@@ -972,10 +972,10 @@ namespace bobura { namespace model { namespace serializer
         {
             auto p_timetable = tetengo2::make_unique<timetable_type>();
             string_type current_diagram_name;
-            bool down = true;
+            auto down = true;
 
             std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);
-            iterator next_line_first = first;
+            auto next_line_first = first;
             for (;;)
             {
                 const string_type input_line = next_line(next_line_first, last);

@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
 
         const model_type model;
 
-        const timetable_type& timetable = model.timetable();
+        const auto& timetable = model.timetable();
 
         BOOST_CHECK(timetable.line_name().empty());
     }
