@@ -122,7 +122,7 @@ namespace bobura { namespace load_save
                 path = model.path();
             }
 
-            const path_type temporary_path = path.parent_path() / boost::filesystem::unique_path();
+            const auto temporary_path = path.parent_path() / boost::filesystem::unique_path();
             {
                 writer_selector_type writer(writer_set_type::create_writers(), path);
                 if (!writer.selects(path))

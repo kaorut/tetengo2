@@ -271,11 +271,11 @@ namespace bobura
         {
             const width_type& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
             const width_type& header_width = m_station_header_width;
-            width_type page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
+            auto page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
             const height_type& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
             const height_type& header_height = m_header_height + m_time_header_height;
-            height_type page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
+            auto page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -367,7 +367,7 @@ namespace bobura
 
             top_type operator()(const time_span_type& interval)
             {
-                const time_span_type position = m_sum;
+                const auto position = m_sum;
                 m_sum += interval;
                 return
                     top_type(typename top_type::value_type(position.seconds(), 60)) *

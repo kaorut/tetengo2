@@ -182,9 +182,9 @@ namespace bobura
 
         )
         {
-            const scroll_bar_size_type size =
+            const auto size =
                 view_size.value() > 0 ? boost::rational_cast<scroll_bar_size_type>(view_size.value()) - 1 : 0;
-            const scroll_bar_size_type previous_size = scroll_bar.range().second;
+            const auto previous_size = scroll_bar.range().second;
 
             if (view_size > 0 && 0 < page_size && page_size <= size)
             {
@@ -194,13 +194,13 @@ namespace bobura
 
                 if (scroll_bar.position() + page_size > size)
                 {
-                    const scroll_bar_size_type new_position = size - page_size + 1;
+                    const auto new_position = size - page_size + 1;
                     scroll_bar.set_position(new_position);
                     scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
                 else if (previous_size > 0 && previous_size != view_size.value())
                 {
-                    const scroll_bar_size_type new_position =
+                    const auto new_position =
                         calculate_scroll_bar_position(
                             scroll_bar, view_size, previous_size, page_size, size - page_size + 1
                         );
@@ -215,7 +215,7 @@ namespace bobura
             {
                 if (view_size <= page_size)
                 {
-                    const scroll_bar_size_type new_position = 0;
+                    const auto new_position = 0;
                     if (new_position != scroll_bar.position())
                     {
                         scroll_bar.set_position(new_position);

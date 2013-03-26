@@ -233,20 +233,20 @@ namespace bobura { namespace message { namespace font_color_dialog
         std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
         const
         {
-            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
-            const height_type text_height =
+            const auto canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
+            const auto text_height =
                 tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
 
             if (canvas_height > text_height)
             {
-                const top_type text_top = top_type::from((canvas_height - text_height) / 2);
-                const top_type line_top = text_top + top_type::from(text_height);
+                const auto text_top = top_type::from((canvas_height - text_height) / 2);
+                const auto line_top = text_top + top_type::from(text_height);
                 return std::make_pair(text_top, line_top);
             }
             else
             {
-                const top_type line_top = top_type::from(canvas_height);
-                const top_type text_top = line_top - top_type::from(text_height);
+                const auto line_top = top_type::from(canvas_height);
+                const auto text_top = line_top - top_type::from(text_height);
                 return std::make_pair(text_top, line_top);
             }
         }

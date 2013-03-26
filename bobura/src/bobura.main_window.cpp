@@ -81,8 +81,7 @@ namespace bobura
 
             void set_title(const boost::optional<string_type>& document_name, const bool changed)
             {
-                string_type title =
-                    document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+                auto title = document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
                 if (changed)
                     title += string_type(TETENGO2_TEXT(" *"));
                 title += string_type(TETENGO2_TEXT(" - "));

@@ -277,7 +277,7 @@ namespace bobura
                 typedef
                     boost::program_options::basic_command_line_parser<typename string_type::value_type>
                     command_line_parser_type;
-                const parsed_options_type parsed_options =
+                const auto parsed_options =
                     command_line_parser_type(
                         command_line_arguments
                     ).options(std::move(options)).positional(std::move(positional_options)).run();

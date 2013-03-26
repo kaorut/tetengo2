@@ -369,7 +369,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            const delta_type adjusted_delta =
+            const auto adjusted_delta =
                 direction == picture_box_type::mouse_observer_set_type::direction_type::horizontal ? delta : -delta;
 
             if (!control && !meta)
@@ -411,8 +411,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
+                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
                 m_picture_box.vertical_scroll_bar()->set_position(new_position);
                 m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -422,8 +421,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
+                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
                 m_picture_box.horizontal_scroll_bar()->set_position(new_position);
                 m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -436,7 +434,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         const
         {
             typedef typename delta_type::int_type delta_int_type;
-            delta_int_type int_delta = boost::rational_cast<delta_int_type>(delta * 3);
+            auto int_delta = boost::rational_cast<delta_int_type>(delta * 3);
             if (int_delta == 0)
             {
                 if (delta > 0)
@@ -563,8 +561,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
+                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
                 m_picture_box.vertical_scroll_bar()->set_position(new_position);
                 m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -574,8 +571,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
+                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
                 m_picture_box.horizontal_scroll_bar()->set_position(new_position);
                 m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -611,8 +607,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            const scroll_bar_size_type min_position = scroll_bar.range().first;
-            const scroll_bar_size_type max_position = scroll_bar.range().second - scroll_bar.page_size() + 1;
+            const auto min_position = scroll_bar.range().first;
+            const auto max_position = scroll_bar.range().second - scroll_bar.page_size() + 1;
 
             if      (virtual_key == virtual_key_type::home())
             {

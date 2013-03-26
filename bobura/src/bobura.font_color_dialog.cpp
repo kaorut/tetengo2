@@ -559,7 +559,7 @@ namespace bobura
 
             void update()
             {
-                const string_type font_name_and_size_ = font_name_and_size();
+                const auto font_name_and_size_ = font_name_and_size();
                 m_p_font_text_box->set_text(font_name_and_size_);
                 m_p_font_text_box->set_enabled(!font_name_and_size_.empty());
                 m_p_font_button->set_enabled(!font_name_and_size_.empty());

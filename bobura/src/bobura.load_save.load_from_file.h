@@ -157,7 +157,7 @@ namespace bobura { namespace load_save
             reader_selector_type reader_selector(
                 reader_set_type::create_readers(parent, path.template string<string_type>(), m_message_catalog)
             );
-            reader_error_type error = reader_error_type::none;
+            auto error = reader_error_type::none;
             auto p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),

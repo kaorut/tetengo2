@@ -210,7 +210,7 @@ namespace bobura
                 m_p_application_image->fit_to_content();
                 m_p_application_image->set_position(position_type(left_type(2), top_type(1)));
             
-                const left_type label_left =
+                const auto label_left =
                     left_type(2) +
                     tetengo2::gui::dimension<dimension_type>::width(m_p_application_image->dimension()) +
                     left_type(1);

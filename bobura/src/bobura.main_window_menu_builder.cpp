@@ -256,7 +256,7 @@ namespace bobura
         {
             const view_scale_list_type scale_list;
 
-            for (view_scale_list_type::size_type i = 0; i < scale_list.size(); ++i)
+            for (decltype(scale_list.size()) i = 0; i < scale_list.size(); ++i)
             {
                 append_menu_command(
                     popup_menu,
@@ -304,7 +304,7 @@ namespace bobura
         {
             const view_scale_list_type scale_list;
 
-            for (view_scale_list_type::size_type i = 0; i < scale_list.size(); ++i)
+            for (decltype(scale_list.size()) i = 0; i < scale_list.size(); ++i)
             {
                 append_menu_command(
                     popup_menu,

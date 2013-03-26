@@ -179,7 +179,7 @@ namespace bobura { namespace view { namespace diagram
             );
 
             const string_type& name = m_p_station->name();
-            const dimension_type name_dimension = canvas.calc_text_dimension(name);
+            const auto name_dimension = canvas.calc_text_dimension(name);
             canvas.draw_text(
                 name,
                 position_type(
@@ -406,10 +406,10 @@ namespace bobura { namespace view { namespace diagram
             const std::vector<top_type>& station_positions
         )
         {
-            const left_type canvas_right =
+            const auto canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
-            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
-            const left_type last_time_position =
+            const auto horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const auto last_time_position =
                 time_to_left(
                     time_type(24 * 60 * 60 + time_offset.seconds()),
                     time_offset,
@@ -418,18 +418,18 @@ namespace bobura { namespace view { namespace diagram
                     station_header_right,
                     horizontal_scale_left
                 );
-            const left_type line_right = std::min(canvas_right, last_time_position);
+            const auto line_right = std::min(canvas_right, last_time_position);
 
-            const top_type canvas_top = header_bottom + top_type::from(time_header_height);
-            const top_type canvas_bottom =
+            const auto canvas_top = header_bottom + top_type::from(time_header_height);
+            const auto canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
             std::vector<station_line_type> station_lines;
             station_lines.reserve(station_positions.size());
-            for (typename std::vector<top_type>::size_type i = 0; i < station_positions.size(); ++i)
+            for (decltype(station_positions.size()) i = 0; i < station_positions.size(); ++i)
             {
                 const top_type& position = station_positions[i];
-                top_type line_position =
+                auto line_position =
                     position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
                 if (line_position < canvas_top)
                     continue;
