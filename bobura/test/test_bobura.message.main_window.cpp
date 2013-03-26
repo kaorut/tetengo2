@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_SUITE(window_closing)
         const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
         observer(parent, confirm_file_save, settings);
 
-        bool cancel = false;
+        auto cancel = false;
         observer(cancel);
 
         BOOST_CHECK(!cancel);
