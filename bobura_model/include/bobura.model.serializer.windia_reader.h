@@ -170,7 +170,7 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
-                const std::size_t comma_position = line.find(TETENGO2_TEXT(','));
+                const auto comma_position = line.find(TETENGO2_TEXT(','));
                 if (comma_position == string_type::npos)
                     return false;
 
@@ -268,13 +268,12 @@ namespace bobura { namespace model { namespace serializer
 
             static boost::optional<split_type> split_line(const string_type& line)
             {
-                const std::size_t equal_position = line.find(TETENGO2_TEXT('='));
+                const auto equal_position = line.find(TETENGO2_TEXT('='));
                 if (equal_position == string_type::npos)
                     return boost::none;
 
                 const string_ref_type key_and_index = string_ref_type(line).substr(0, equal_position);
-                const std::size_t index_position =
-                    key_and_index.find_first_of(string_ref_type(TETENGO2_TEXT("0123456789")));
+                const auto index_position = key_and_index.find_first_of(string_ref_type(TETENGO2_TEXT("0123456789")));
                 string_ref_type key = string_ref_type(key_and_index).substr(0, index_position);
                 std::size_t index = 0;
                 if (index_position != string_type::npos)
@@ -299,7 +298,7 @@ namespace bobura { namespace model { namespace serializer
 
             bool set_line_props(const std::vector<string_ref_type>& props)
             {
-                const std::size_t train_kind_count = m_timetable.train_kinds().size();
+                const auto train_kind_count = m_timetable.train_kinds().size();
                 if (props.size() < train_kind_count)
                     return false;
 
@@ -431,7 +430,7 @@ namespace bobura { namespace model { namespace serializer
 
             static std::pair<string_ref_type, string_ref_type> split_line(const string_ref_type& line)
             {
-                const std::size_t percent_position = line.find(TETENGO2_TEXT('%'));
+                const auto percent_position = line.find(TETENGO2_TEXT('%'));
                 if (percent_position == string_ref_type::npos)
                     return std::make_pair(line, string_ref_type());
 
@@ -451,7 +450,7 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<train_kind_index_type> to_train_kind_index(const string_ref_type& train_kind_string)
             {
-                const std::size_t opening_paren_position = train_kind_string.find(TETENGO2_TEXT('('));
+                const auto opening_paren_position = train_kind_string.find(TETENGO2_TEXT('('));
                 if (opening_paren_position == string_type::npos)
                 {
                     try
@@ -467,7 +466,7 @@ namespace bobura { namespace model { namespace serializer
                     }
                 }
 
-                const std::size_t closing_paren_position = train_kind_string.find(TETENGO2_TEXT(')'));
+                const auto closing_paren_position = train_kind_string.find(TETENGO2_TEXT(')'));
                 if (closing_paren_position == string_type::npos || closing_paren_position <= opening_paren_position)
                     return boost::none;
 
@@ -531,7 +530,7 @@ namespace bobura { namespace model { namespace serializer
 
             std::pair<string_ref_type, string_ref_type> split_time_string(string_ref_type time_string)
             {
-                const std::size_t slash_position = time_string.find(TETENGO2_TEXT('/'));
+                const auto slash_position = time_string.find(TETENGO2_TEXT('/'));
                 if (slash_position == string_ref_type::npos)
                     return std::make_pair(string_ref_type(), std::move(time_string));
 
@@ -543,7 +542,7 @@ namespace bobura { namespace model { namespace serializer
                 if (time_string.empty() || time_string == string_ref_type(TETENGO2_TEXT("-")))
                     return boost::make_optional(time_type::uninitialized());
 
-                const std::size_t time_string_length =
+                const auto time_string_length =
                     time_string[time_string.length() - 1] == char_type(TETENGO2_TEXT('?')) ?
                     time_string.length() - 1 : time_string.length();
                 if (time_string_length < 3 && 4 < time_string_length)
@@ -900,7 +899,7 @@ namespace bobura { namespace model { namespace serializer
             std::size_t offset = 0;
             for (;;)
             {
-                const std::size_t value_length = string_ref.substr(offset).find(TETENGO2_TEXT(','));
+                const auto value_length = string_ref.substr(offset).find(TETENGO2_TEXT(','));
                 values.push_back(string_ref.substr(offset, value_length));
                 if (value_length == string_ref_type::npos)
                     break;

@@ -598,7 +598,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
                 text += menu.shortcut_key().to_string();
             }
-            const std::wstring native_string = encoder.encode(text);
+            const auto native_string = encoder.encode(text);
 
             std::vector< ::WCHAR> duplicated;
             duplicated.reserve(native_string.length() + 1);

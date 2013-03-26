@@ -775,7 +775,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
             const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
 
-            const std::wstring encoded_text = encoder.encode(text);
+            const auto encoded_text = encoder.encode(text);
             ::RECT rect = {};
             if (::GetClientRect(::GetDesktopWindow(), &rect) == FALSE)
             {

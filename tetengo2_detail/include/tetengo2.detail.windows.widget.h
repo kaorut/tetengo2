@@ -1247,7 +1247,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 DEFAULT_PITCH | FF_DONTCARE,
                 L""
             };
-            const std::wstring font_family = encoder.encode(font.family());
+            const auto font_family = encoder.encode(font.family());
             assert(font_family.length() < LF_FACESIZE);
             std::copy(font_family.begin(), font_family.end(), log_font.lfFaceName);
             log_font.lfFaceName[font_family.length()] = L'\0';

@@ -87,7 +87,7 @@ namespace tetengo2 { namespace message
             if (key.length() <= 1)
                 return key;
 
-            const std::size_t offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
+            const auto offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
             return offset == string_type::npos ? key : key.substr(offset + 1);
         }
 
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace message
             bool operator()(const typename catalog_file_mappings_type::value_type& mapping)
             const
             {
-                const std::string locale_name = locale_name_encoder().encode(mapping.first);
+                const auto locale_name = locale_name_encoder().encode(mapping.first);
                 try
                 {
                     return std::locale(locale_name.c_str()) == m_locale;

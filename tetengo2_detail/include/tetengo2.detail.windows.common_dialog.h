@@ -690,9 +690,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 p_log_font->lfUnderline = font->underline() ? TRUE : FALSE;
                 p_log_font->lfStrikeOut = font->strikeout() ? TRUE : FALSE;
                 
-                const std::wstring native_face_name = encoder.encode(font->family());
-                const std::size_t native_face_name_length =
-                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                const auto native_face_name = encoder.encode(font->family());
+                const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
                     boost::next(native_face_name.begin(), native_face_name_length),
@@ -711,9 +710,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 p_log_font->lfUnderline = dialog_font.underline() ? TRUE : FALSE;
                 p_log_font->lfStrikeOut = dialog_font.strikeout() ? TRUE : FALSE;
                 
-                const std::wstring native_face_name = encoder.encode(dialog_font.family());
-                const std::size_t native_face_name_length =
-                    std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
+                const auto native_face_name = encoder.encode(dialog_font.family());
+                const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
                     boost::next(native_face_name.begin(), native_face_name_length),

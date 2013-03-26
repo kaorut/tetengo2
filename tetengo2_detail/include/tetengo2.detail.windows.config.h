@@ -307,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename Encoder>
         static void set_string(const ::HKEY handle, const String& key, const String& value, const Encoder& encoder)
         {
-            const std::wstring encoded_value = encoder.encode(value);
+            const auto encoded_value = encoder.encode(value);
             ::RegSetValueEx(
                 handle,
                 encoder.encode(key).c_str(),

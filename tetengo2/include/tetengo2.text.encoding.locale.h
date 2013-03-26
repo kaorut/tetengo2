@@ -170,7 +170,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 return string_type(pivot.begin(), pivot.end());
 
             const converter_type& converter = std::use_facet<converter_type>(m_locale);
-            std::mbstate_t state = std::mbstate_t();
+            auto state = std::mbstate_t();
 
             const typename base_type::pivot_char_type* p_pivot_first = pivot.c_str();
             const typename base_type::pivot_char_type* const p_pivot_last = p_pivot_first + pivot.length();
@@ -268,7 +268,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 return typename base_type::pivot_type(string.begin(), string.end());
 
             const converter_type& converter = std::use_facet<converter_type>(m_locale);
-            std::mbstate_t state = std::mbstate_t();
+            auto state = std::mbstate_t();
 
             const string_char_type* p_string_first = string.c_str();
             const string_char_type* const p_string_last = p_string_first + string.length();

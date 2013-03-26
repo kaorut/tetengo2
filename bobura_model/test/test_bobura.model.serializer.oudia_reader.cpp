@@ -59,7 +59,7 @@ namespace
 
     const std::string data_empty;
 
-    const std::string data_no_train =
+    const std::string data_no_train(
         "FileType=OuDia.1.02\n"
         "Rosen.\n"
         "Rosenmei=\n"
@@ -96,9 +96,10 @@ namespace
         "EkimeiLength=6\n"
         "JikokuhyouRessyaWidth=5\n"
         ".\n"
-        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n"
+    );
 
-    const std::string data_full =
+    const std::string data_full(
         "FileType=OuDia.1.02\n"
         "Rosen.\n"
         "Rosenmei=abc\n"
@@ -240,9 +241,10 @@ namespace
         "EkimeiLength=6\n"
         "JikokuhyouRessyaWidth=5\n"
         ".\n"
-        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n"
+    );
 
-    const std::string data_too_old_version =
+    const std::string data_too_old_version(
         "FileType=OuDia.1.00\n"
         "Rosen.\n"
         "Rosenmei=\n"
@@ -279,9 +281,10 @@ namespace
         "EkimeiLength=6\n"
         "JikokuhyouRessyaWidth=5\n"
         ".\n"
-        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n"
+    );
 
-    const std::string data_too_new_version =
+    const std::string data_too_new_version(
         "FileType=OuDia.1.03\n"
         "Rosen.\n"
         "Rosenmei=\n"
@@ -318,7 +321,8 @@ namespace
         "EkimeiLength=6\n"
         "JikokuhyouRessyaWidth=5\n"
         ".\n"
-        "FileTypeAppComment=OuDia Ver. 1.02.01\n";
+        "FileTypeAppComment=OuDia Ver. 1.02.01\n"
+    );
 
 
 }

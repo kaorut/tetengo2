@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
             }
 
-            const std::size_t int_line_count = ceil<std::size_t>(line_count);
+            const auto int_line_count = ceil<std::size_t>(line_count);
             height_type height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
             this->set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
         }

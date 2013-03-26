@@ -48,12 +48,12 @@ namespace
         {
             if (!m_exceptions.empty())
             {
-                const boost::exception_ptr p_exception = m_exceptions.front();
+                const auto p_exception = m_exceptions.front();
                 m_exceptions.pop();
                 boost::rethrow_exception(p_exception);
             }
 
-            const int result = m_values.front();
+            const auto result = m_values.front();
             m_values.pop();
             return result;
         }

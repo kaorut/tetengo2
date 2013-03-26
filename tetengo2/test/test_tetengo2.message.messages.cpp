@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_CHECK_LT(catalog_id, 0);
             }
         }
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                     string_type(TETENGO2_TEXT("Language"))
                 );
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                     string_type(TETENGO2_TEXT("Language"))
                 );
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
 
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
                 BOOST_CHECK_NO_THROW(messages.close(-1));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
                 BOOST_CHECK_NO_THROW(messages.close(-1));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                const std::messages_base::catalog catalog_id = messages.open("", std::locale());
+                const auto catalog_id = messages.open("", std::locale());
                 BOOST_CHECK_NO_THROW(messages.close(catalog_id));
             }
         }

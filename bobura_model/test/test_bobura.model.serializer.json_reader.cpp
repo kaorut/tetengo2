@@ -64,10 +64,11 @@ namespace
 
     const std::string json_empty0;
 
-    const std::string json_empty1 =
-        "[]";
+    const std::string json_empty1(
+        "[]"
+    );
 
-    const std::string json_empty2 =
+    const std::string json_empty2(
         "[\n"
         "    {\n"
         "    },\n"
@@ -76,9 +77,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_line_name_only =
+    const std::string json_line_name_only(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -88,9 +90,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_station_only =
+    const std::string json_station_only(
         "[\n"
         "    {\n"
         "        \"piyo\":      \"piyopiyo\",\n"
@@ -116,9 +119,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_invalid_station_grade =
+    const std::string json_invalid_station_grade(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -136,9 +140,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_full_content =
+    const std::string json_full_content(
         "[\n"
         "    {\n"
         "        \"company_name\": \"hoge\",\n"
@@ -221,9 +226,10 @@ namespace
         "            ]\n"
         "        }\n"
         "    ]\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_invalid_stop_time =
+    const std::string json_invalid_stop_time(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -268,9 +274,10 @@ namespace
         "        }\n"
         "    ],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_too_many_stops =
+    const std::string json_too_many_stops(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -316,15 +323,18 @@ namespace
         "        }\n"
         "    ],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_white_space_before_start_element =
-        "    \t    \n    []\n";
+    const std::string json_white_space_before_start_element(
+        "    \t    \n    []\n"
+    );
 
-    const std::string json_not_json =
-        "hoge\n";
+    const std::string json_not_json(
+        "hoge\n"
+    );
 
-    const std::string json_invalid_time_format =
+    const std::string json_invalid_time_format(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -369,9 +379,10 @@ namespace
         "        }\n"
         "    ],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_train_with_no_stop =
+    const std::string json_train_with_no_stop(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -413,9 +424,10 @@ namespace
         "        }\n"
         "    ],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json_invalid_kind_index =
+    const std::string json_invalid_kind_index(
         "[\n"
         "    {\n"
         "        \"line_name\": \"hoge\"\n"
@@ -457,7 +469,8 @@ namespace
         "        }\n"
         "    ],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
 }
 

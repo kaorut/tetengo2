@@ -385,7 +385,7 @@ namespace bobura
 
         void initialize(const std::vector<string_type>& command_line_arguments)
         {
-            const boost::program_options::variables_map options = parse_command_line_arguments(command_line_arguments);
+            const auto options = parse_command_line_arguments(command_line_arguments);
 
             assert(options.find("exe") != options.end());
             m_base_path = boost::filesystem::path(options["exe"].as<string_type>()).parent_path();

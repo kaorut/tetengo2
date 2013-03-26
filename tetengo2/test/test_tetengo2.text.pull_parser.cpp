@@ -285,7 +285,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
-                const std::string attribute_value = boost::get<std::string>(attribute->second);
+                const auto attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "hoge");
                 pull_parser.next();
             }
@@ -317,7 +317,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
-                const std::string attribute_value = boost::get<std::string>(attribute->second);
+                const auto attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "fuga");
                 pull_parser.next();
             }
