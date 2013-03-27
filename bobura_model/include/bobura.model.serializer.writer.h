@@ -109,8 +109,8 @@ namespace bobura { namespace model { namespace serializer
         {
             typedef typename path_type::string_type path_string_type;
 
-            const path_string_type path_string = path.native();
-            const path_string_type extension_string = extension_impl().native();
+            const auto path_string = path.native();
+            const auto extension_string = extension_impl().native();
             if (path_string.length() < extension_string.length())
                 return false;
             

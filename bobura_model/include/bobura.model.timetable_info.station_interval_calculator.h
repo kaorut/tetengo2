@@ -107,7 +107,7 @@ namespace bobura { namespace model { namespace timetable_info
 
             for (const train_type& train: m_down_trains)
             {
-                const station_intervals_type intervals_by_train = calculate_by_train(train, true);
+                const auto intervals_by_train = calculate_by_train(train, true);
                 assert(intervals.size() == intervals_by_train.size());
                 std::transform(
                     intervals.begin(), intervals.end(), intervals_by_train.begin(), intervals.begin(), select
@@ -115,7 +115,7 @@ namespace bobura { namespace model { namespace timetable_info
             }
             for (const train_type& train: m_up_trains)
             {
-                const station_intervals_type intervals_by_train = calculate_by_train(train, false);
+                const auto intervals_by_train = calculate_by_train(train, false);
                 assert(intervals.size() == intervals_by_train.size());
                 std::transform(
                     intervals.begin(), intervals.end(), intervals_by_train.begin(), intervals.begin(), select
@@ -191,10 +191,9 @@ namespace bobura { namespace model { namespace timetable_info
                 stop_index_type to = from + 1;
                 for (; to < train.stops().size(); ++to)
                 {
-                    const stop_index_type departure = down ? from : to;
-                    const stop_index_type arrival = down ? to : from;
-                    const boost::optional<time_span_type> travel_time =
-                        calculate_travel_time(train, departure, arrival);
+                    const auto departure = down ? from : to;
+                    const auto arrival = down ? to : from;
+                    const auto travel_time = calculate_travel_time(train, departure, arrival);
                     if (travel_time)
                     {
                         time_span_type interval(travel_time->seconds() / (to - from));
@@ -219,14 +218,14 @@ namespace bobura { namespace model { namespace timetable_info
         )
         const
         {
-            const stop_type& from_stop = train.stops()[from];
-            const time_type from_time =
+            const auto& from_stop = train.stops()[from];
+            const auto from_time =
                 from_stop.departure() != time_type::uninitialized() ? from_stop.departure() : from_stop.arrival();
             if (from_time == time_type::uninitialized())
                 return boost::none;
 
-            const stop_type& to_stop = train.stops()[to];
-            const time_type to_time =
+            const auto& to_stop = train.stops()[to];
+            const auto to_time =
                 to_stop.arrival() != time_type::uninitialized() ? to_stop.arrival() : to_stop.departure();
             if (to_time == time_type::uninitialized())
                 return boost::none;

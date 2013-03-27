@@ -119,9 +119,7 @@ namespace bobura { namespace model { namespace serializer
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         {
-            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
-
-            const iterator_type found =
+            const auto found =
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),

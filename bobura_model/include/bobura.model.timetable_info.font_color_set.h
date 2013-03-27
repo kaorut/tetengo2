@@ -130,7 +130,7 @@ namespace bobura { namespace model { namespace timetable_info
         */
         static const font_color_set& default_()
         {
-            static const font_color_set singleton = make_default();
+            static auto singleton = make_default();
             return singleton;
         }
 

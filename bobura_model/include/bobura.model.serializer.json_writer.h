@@ -245,8 +245,8 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << object_begin();
 
-            const font_color_set_type& font_color_set = timetable.font_color_set();
-            bool output = false;
+            const auto& font_color_set = timetable.font_color_set();
+            auto output = false;
             output |=
                 write_font_color_set_element(
                     string_type(TETENGO2_TEXT("background")),
@@ -738,7 +738,7 @@ namespace bobura { namespace model { namespace serializer
 
             typedef typename time_type::tick_type tick_type;
             typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
-            const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
+            const auto hours_minutes_seconds = time.hours_minutes_seconds();
             const tick_type representation =
                 hours_minutes_seconds.hours() * 10000 +
                 hours_minutes_seconds.minutes() * 100 +

@@ -98,9 +98,7 @@ namespace bobura { namespace model { namespace serializer
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         {
-            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
-
-            const iterator_type found =
+            const auto found =
                 std::find_if(
                     m_p_readers.begin(),
                     m_p_readers.end(),

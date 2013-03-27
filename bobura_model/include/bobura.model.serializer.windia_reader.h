@@ -174,7 +174,7 @@ namespace bobura { namespace model { namespace serializer
                 if (comma_position == string_type::npos)
                     return false;
 
-                const string_ref_type props = string_ref_type(line).substr(0, comma_position);
+                const auto props = string_ref_type(line).substr(0, comma_position);
                 auto name = line.substr(comma_position + 1);
 
                 station_location_type station_location(
@@ -238,7 +238,7 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
-                const boost::optional<split_type> split = split_line(line);
+                const auto split = split_line(line);
                 if (!split)
                     return false;
 
@@ -272,7 +272,7 @@ namespace bobura { namespace model { namespace serializer
                 if (equal_position == string_type::npos)
                     return boost::none;
 
-                const string_ref_type key_and_index = string_ref_type(line).substr(0, equal_position);
+                const auto key_and_index = string_ref_type(line).substr(0, equal_position);
                 const auto index_position = key_and_index.find_first_of(string_ref_type(TETENGO2_TEXT("0123456789")));
                 auto key = string_ref_type(key_and_index).substr(0, index_position);
                 std::size_t index = 0;
@@ -288,8 +288,7 @@ namespace bobura { namespace model { namespace serializer
                     }
                 }
 
-                std::vector<string_ref_type> values =
-                    split_by_comma(string_ref_type(line).substr(equal_position + 1));
+                auto values = split_by_comma(string_ref_type(line).substr(equal_position + 1));
 
                 return boost::make_optional(split_type(std::move(key), index, std::move(values)));
             }
@@ -315,7 +314,7 @@ namespace bobura { namespace model { namespace serializer
                         return false;
                     }
 
-                    boost::optional<train_kind_type> new_train_kind =
+                    auto new_train_kind =
                         make_train_kind(
                             boost::make_optional<const train_kind_type&>(m_timetable.train_kinds()[i]), prop
                         );
@@ -338,8 +337,7 @@ namespace bobura { namespace model { namespace serializer
                         return false;
                     }
 
-                    boost::optional<train_kind_type> new_train_kind =
-                        make_train_kind(boost::none, prop);
+                    auto new_train_kind = make_train_kind(boost::none, prop);
                     if (!new_train_kind)
                         return false;
                     m_timetable.insert_train_kind(m_timetable.train_kinds().end(), std::move(*new_train_kind));
@@ -385,12 +383,12 @@ namespace bobura { namespace model { namespace serializer
 
             virtual bool parse(const string_type& line)
             {
-                std::pair<string_ref_type, string_ref_type> others_and_note = split_line(line);
-                std::vector<string_ref_type> split = split_by_comma(others_and_note.first);
+                auto others_and_note = split_line(line);
+                auto split = split_by_comma(others_and_note.first);
                 if (split.size() < 4 + m_timetable.station_locations().size())
                     return false;
 
-                const boost::optional<train_kind_index_type> train_kind_index = to_train_kind_index(split[0]);
+                const auto train_kind_index = to_train_kind_index(split[0]);
                 if (!train_kind_index)
                     return false;
                 if (*train_kind_index >= m_timetable.train_kinds().size())
@@ -405,7 +403,7 @@ namespace bobura { namespace model { namespace serializer
                 );
                 for (std::size_t i = 0; i < m_timetable.station_locations().size(); ++i)
                 {
-                    boost::optional<stop_type> stop = to_stop(std::move(split[4 + i]));
+                    auto stop = to_stop(std::move(split[4 + i]));
                     if (!stop)
                         return false;
                     train.insert_stop(train.stops().end(), std::move(*stop));
@@ -473,7 +471,7 @@ namespace bobura { namespace model { namespace serializer
                 train_kind_index_type base_index = 0;
                 try
                 {
-                    const string_ref_type index_string = train_kind_string.substr(0, opening_paren_position);
+                    const auto index_string = train_kind_string.substr(0, opening_paren_position);
                     base_index = index_string.empty() ? 0 : boost::lexical_cast<train_kind_index_type>(index_string);
                 }
                 catch (const boost::bad_lexical_cast&)
@@ -498,7 +496,7 @@ namespace bobura { namespace model { namespace serializer
                     return boost::none;
                 }
 
-                boost::optional<train_kind_type> new_train_kind =
+                auto new_train_kind =
                     make_train_kind(
                         boost::make_optional<const train_kind_type&>(m_timetable.train_kinds()[base_index]), prop
                     );
@@ -511,17 +509,16 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<stop_type> to_stop(string_ref_type time_string)
             {
-                const std::pair<string_ref_type, string_ref_type> arrival_and_departure_string =
-                    split_time_string(std::move(time_string));
+                const auto arrival_and_departure_string = split_time_string(std::move(time_string));
 
-                boost::optional<time_type> arrival = to_time(arrival_and_departure_string.first);
+                auto arrival = to_time(arrival_and_departure_string.first);
                 if (!arrival)
                     return boost::none;
-                boost::optional<time_type> departure = to_time(arrival_and_departure_string.second);
+                auto departure = to_time(arrival_and_departure_string.second);
                 if (!departure)
                     return boost::none;
 
-                const bool operational =
+                const auto operational =
                     is_operational(arrival_and_departure_string.first) ||
                     is_operational(arrival_and_departure_string.second);
 
@@ -819,8 +816,7 @@ namespace bobura { namespace model { namespace serializer
 
         static const std::vector<color_type>& preset_palette()
         {
-            static const std::vector<color_type> singleton =
-                make_preset_palette();
+            static const auto singleton = make_preset_palette();
             return singleton;
         }
 
@@ -855,7 +851,7 @@ namespace bobura { namespace model { namespace serializer
             for (;;)
             {
                 skip_line_breaks(first, last);
-                const iterator next_line_break = std::find_if(first, last, line_break);
+                const auto next_line_break = std::find_if(first, last, line_break);
                 line += encoder().decode(input_string_type(first, next_line_break));
 
                 first = next_line_break;
@@ -914,15 +910,15 @@ namespace bobura { namespace model { namespace serializer
             const unsigned int                             prop
         )
         {
-            const line_style_type line_style = to_line_style(prop & 0x03);
-            const bool custom_color = (prop & 0x40) != 0;
-            const boost::optional<color_type> color =
+            const auto line_style = to_line_style(prop & 0x03);
+            const auto custom_color = (prop & 0x40) != 0;
+            const auto color = 
                 custom_color ?
                 to_color((prop & 0x3C) / 0x04) :
                 (base ? boost::make_optional(base->color()) : boost::make_optional(color_type(0, 0, 0)));
             if (!color)
                 return boost::none;
-            const weight_type weight = to_weight((prop & 0x80) != 0);
+            const auto weight = to_weight((prop & 0x80) != 0);
 
             return
                 base ?
@@ -968,12 +964,8 @@ namespace bobura { namespace model { namespace serializer
         {
             for (;;)
             {
-                typename timetable_type::train_kinds_type::const_iterator found = timetable.train_kinds().end();
-                for (
-                    typename timetable_type::train_kinds_type::const_iterator i = timetable.train_kinds().begin();
-                    i != timetable.train_kinds().end();
-                    ++i
-                )
+                auto found = timetable.train_kinds().end();
+                for (auto i = timetable.train_kinds().begin(); i != timetable.train_kinds().end(); ++i)
                 {
                     if (!timetable.train_kind_referred(i))
                     {
@@ -1008,7 +1000,7 @@ namespace bobura { namespace model { namespace serializer
             auto next_line_first = first;
             for (;;)
             {
-                const string_type input_line = next_line(next_line_first, last);
+                const auto input_line = next_line(next_line_first, last);
                 if (next_line_first == last)
                     break;
 

@@ -342,7 +342,7 @@ namespace bobura { namespace model
         bool train_kind_referred(const train_kind_index_type& train_kind_index)
         const
         {
-            const bool referred_by_down_trains =
+            const auto referred_by_down_trains =
                 std::find_if(
                     m_down_trains.begin(),
                     m_down_trains.end(),
@@ -352,7 +352,7 @@ namespace bobura { namespace model
                         train_kind_index
                     )
                 ) != m_down_trains.end();
-            const bool referred_by_up_trains =
+            const auto referred_by_up_trains =
                 std::find_if(
                     m_up_trains.begin(),
                     m_up_trains.end(),
@@ -409,7 +409,7 @@ namespace bobura { namespace model
             train_kind_type                                 train_kind
         )
         {
-            typename train_kinds_type::iterator mutable_position = m_train_kinds.begin();
+            auto mutable_position = m_train_kinds.begin();
             std::advance(
                 mutable_position,
                 std::distance(static_cast<typename train_kinds_type::const_iterator>(m_train_kinds.begin()), position)
@@ -641,7 +641,7 @@ namespace bobura { namespace model
             {
                 if (train.kind_index() >= m_train_kind_index_map.size())
                     BOOST_THROW_EXCEPTION(std::out_of_range("Invalid old index in the train kind index map."));
-                const train_kind_index_type new_index = m_train_kind_index_map[train.kind_index()];
+                const auto new_index = m_train_kind_index_map[train.kind_index()];
                 if (new_index >= m_train_kinds.size())
                     BOOST_THROW_EXCEPTION(std::out_of_range("Invalid new index in the train_kind index map."));
 

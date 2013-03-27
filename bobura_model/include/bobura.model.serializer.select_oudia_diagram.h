@@ -94,7 +94,7 @@ namespace bobura { namespace model { namespace serializer
             if (dialog.result() != oudia_diagram_dialog_type::result_type::accepted)
                 return last;
 
-            const boost::optional<selected_index_type> selected_index = dialog.selected_index();
+            const auto selected_index = dialog.selected_index();
             if (selected_index)
             {
                 assert(*selected_index < static_cast<selected_index_type>(std::distance(first, last)));

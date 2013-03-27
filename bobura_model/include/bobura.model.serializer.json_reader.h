@@ -161,32 +161,29 @@ namespace bobura { namespace model { namespace serializer
             }
             pull_parser.next();
 
-            boost::optional<header_type> header = read_header(pull_parser);
+            auto header = read_header(pull_parser);
             if (!header)
             {
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
             }
             {
-                const typename header_type::iterator found =
-                    header->find(string_type(TETENGO2_TEXT("company_name")));
+                const auto found = header->find(string_type(TETENGO2_TEXT("company_name")));
                 if (found != header->end())
                     p_timetable->set_company_name(std::move(found->second));
             }
             {
-                const typename header_type::iterator found =
-                    header->find(string_type(TETENGO2_TEXT("line_name")));
+                const auto found = header->find(string_type(TETENGO2_TEXT("line_name")));
                 if (found != header->end())
                     p_timetable->set_line_name(std::move(found->second));
             }
             {
-                const typename header_type::iterator found =
-                    header->find(string_type(TETENGO2_TEXT("note")));
+                const auto found = header->find(string_type(TETENGO2_TEXT("note")));
                 if (found != header->end())
                     p_timetable->set_note(std::move(found->second));
             }
 
-            boost::optional<font_color_set_type> font_color_set = read_font_color_set(pull_parser);
+            auto font_color_set = read_font_color_set(pull_parser);
             if (!font_color_set)
             {
                 error = error_type::corrupted;
@@ -194,7 +191,7 @@ namespace bobura { namespace model { namespace serializer
             }
             p_timetable->set_font_color_set(std::move(*font_color_set));
 
-            boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
+            auto stations = read_stations(pull_parser);
             if (!stations)
             {
                 error = error_type::corrupted;
@@ -203,7 +200,7 @@ namespace bobura { namespace model { namespace serializer
             for (station_location_type& station: *stations)
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), std::move(station));
 
-            boost::optional<std::vector<train_kind_type>> train_kinds = read_train_kinds(pull_parser);
+            auto train_kinds = read_train_kinds(pull_parser);
             if (!train_kinds)
             {
                 error = error_type::corrupted;
@@ -212,8 +209,7 @@ namespace bobura { namespace model { namespace serializer
             for (train_kind_type& train_kind: *train_kinds)
                 p_timetable->insert_train_kind(p_timetable->train_kinds().end(), std::move(train_kind));
 
-            boost::optional<std::vector<train_type>> down_trains =
-                read_trains(pull_parser, stations->size(), train_kinds->size());
+            auto down_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!down_trains)
             {
                 error = error_type::corrupted;
@@ -222,8 +218,7 @@ namespace bobura { namespace model { namespace serializer
             for (train_type& train: *down_trains)
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), std::move(train));
 
-            boost::optional<std::vector<train_type>> up_trains =
-                read_trains(pull_parser, stations->size(), train_kinds->size());
+            auto up_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
             if (!up_trains)
             {
                 error = error_type::corrupted;
@@ -252,7 +247,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     break;
 
@@ -283,8 +278,7 @@ namespace bobura { namespace model { namespace serializer
             auto train_name_font = font_color_set_type::default_().train_name();
             for (;;)
             {
-                boost::optional<std::pair<string_type, font_color_set_element_type>> element =
-                    read_font_color_set_element(pull_parser);
+                auto element = read_font_color_set_element(pull_parser);
                 if (!element)
                     break;
 
@@ -372,12 +366,12 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            const auto key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             pull_parser.next();
 
-            boost::optional<font_color_set_element_type> value = read_font_color(pull_parser);
+            auto value = read_font_color(pull_parser);
             if (!value)
                 return boost::none;
 
@@ -392,7 +386,7 @@ namespace bobura { namespace model { namespace serializer
         {
             if (next_is_string(pull_parser))
             {
-                boost::optional<color_type> color = read_color(pull_parser);
+                auto color = read_color(pull_parser);
                 if (!color)
                     return boost::none;
                 return boost::make_optional<font_color_set_element_type>(std::move(*color));
@@ -409,23 +403,22 @@ namespace bobura { namespace model { namespace serializer
 
             if (next_is_string(pull_parser))
             {
-                boost::optional<input_string_type> font_name = read_string(pull_parser);
+                auto font_name = read_string(pull_parser);
                 if (!font_name)
                     return boost::none;
-                boost::optional<typename font_type::size_type> font_size =
-                    read_integer<typename font_type::size_type>(pull_parser);
+                auto font_size = read_integer<typename font_type::size_type>(pull_parser);
                 if (!font_size)
                     return boost::none;
-                boost::optional<bool> font_bold = read_boolean(pull_parser);
+                auto font_bold = read_boolean(pull_parser);
                 if (!font_bold)
                     return boost::none;
-                boost::optional<bool> font_italic = read_boolean(pull_parser);
+                auto font_italic = read_boolean(pull_parser);
                 if (!font_italic)
                     return boost::none;
-                boost::optional<bool> font_underline = read_boolean(pull_parser);
+                auto font_underline = read_boolean(pull_parser);
                 if (!font_underline)
                     return boost::none;
-                boost::optional<bool> font_strikeout = read_boolean(pull_parser);
+                auto font_strikeout = read_boolean(pull_parser);
                 if (!font_strikeout)
                     return boost::none;
 
@@ -446,11 +439,11 @@ namespace bobura { namespace model { namespace serializer
                     );
             }
 
-            boost::optional<font_color_set_element_type> font = read_font_or_font_color(pull_parser);
+            auto font = read_font_or_font_color(pull_parser);
             if (!font || font->which() != 1)
                 return boost::none;
 
-            boost::optional<color_type> color = read_color(pull_parser);
+            auto color = read_color(pull_parser);
             if (!color)
                 return boost::none;
 
@@ -467,7 +460,7 @@ namespace bobura { namespace model { namespace serializer
 
         static boost::optional<color_type> read_color(pull_parser_type& pull_parser)
         {
-            boost::optional<input_string_type> color_string = read_string(pull_parser);
+            auto color_string = read_string(pull_parser);
             if (!color_string)
                 return boost::none;
             return to_color(encoder().decode(std::move(*color_string)));
@@ -483,7 +476,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                boost::optional<station_location_type> station = read_station(pull_parser);
+                auto station = read_station(pull_parser);
                 if (!station)
                     break;
 
@@ -505,7 +498,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type name;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("name")))
@@ -516,7 +509,7 @@ namespace bobura { namespace model { namespace serializer
 
             const station_grade_type* p_grade = nullptr;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("grade")))
@@ -529,7 +522,7 @@ namespace bobura { namespace model { namespace serializer
 
             auto show_down_arrival_times = false;
             {
-                boost::optional<std::pair<string_type, bool>> member = read_boolean_member(pull_parser);
+                auto member = read_boolean_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("show_down_arrival_times")))
@@ -540,7 +533,7 @@ namespace bobura { namespace model { namespace serializer
 
             auto show_up_arrival_times = false;
             {
-                boost::optional<std::pair<string_type, bool>> member = read_boolean_member(pull_parser);
+                auto member = read_boolean_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("show_up_arrival_times")))
@@ -551,8 +544,7 @@ namespace bobura { namespace model { namespace serializer
 
             meterage_type meterage = 0;
             {
-                boost::optional<std::pair<string_type, meterage_type>> member =
-                    read_integer_member<meterage_type>(pull_parser);
+                auto member = read_integer_member<meterage_type>(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("meterage")))
@@ -598,7 +590,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                boost::optional<train_kind_type> train_kind = read_train_kind(pull_parser);
+                auto train_kind = read_train_kind(pull_parser);
                 if (!train_kind)
                     break;
 
@@ -620,7 +612,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type name;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("name")))
@@ -631,7 +623,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type abbreviation;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("abbreviation")))
@@ -642,7 +634,7 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<color_type> color;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("color")))
@@ -655,7 +647,7 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<weight_type> weight;
             {
-                const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
+                const auto member = read_integer_member<int>(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("weight")))
@@ -668,7 +660,7 @@ namespace bobura { namespace model { namespace serializer
 
             boost::optional<line_style_type> line_style;
             {
-                const boost::optional<std::pair<string_type, int>> member = read_integer_member<int>(pull_parser);
+                const auto member = read_integer_member<int>(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("line_style")))
@@ -694,7 +686,7 @@ namespace bobura { namespace model { namespace serializer
             if (color_string.length() != 6)
                 return boost::none;
 
-            const unsigned int color_value = to_color_value(std::move(color_string));
+            const auto color_value = to_color_value(std::move(color_string));
 
             return
                 boost::make_optional(
@@ -760,7 +752,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                boost::optional<train_type> train = read_train(pull_parser, station_count, kind_count);
+                auto train = read_train(pull_parser, station_count, kind_count);
                 if (!train)
                     break;
 
@@ -786,7 +778,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type number;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("number")))
@@ -797,8 +789,7 @@ namespace bobura { namespace model { namespace serializer
 
             train_kind_index_type kind_index;
             {
-                boost::optional<std::pair<string_type, train_kind_index_type>> member =
-                    read_integer_member<train_kind_index_type>(pull_parser);
+                auto member = read_integer_member<train_kind_index_type>(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("kind_index")))
@@ -811,7 +802,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type name;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("name")))
@@ -822,7 +813,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type name_number;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("name_number")))
@@ -833,7 +824,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type note;
             {
-                boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
+                auto member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("note")))
@@ -844,7 +835,7 @@ namespace bobura { namespace model { namespace serializer
 
             train_type train(std::move(number), kind_index, std::move(name), std::move(name_number), std::move(note));
 
-            boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
+            auto stops = read_stops(pull_parser);
             if (!stops)
                 return boost::none;
             if (stops->size() > station_count)
@@ -872,7 +863,7 @@ namespace bobura { namespace model { namespace serializer
 
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            const auto key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             if (key != "stops")
@@ -885,7 +876,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                boost::optional<stop_type> stop = read_stop(pull_parser);
+                auto stop = read_stop(pull_parser);
                 if (!stop)
                     break;
 
@@ -909,25 +900,25 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            boost::optional<std::ptrdiff_t> arrival_input = read_integer<std::ptrdiff_t>(pull_parser);
+            auto arrival_input = read_integer<std::ptrdiff_t>(pull_parser);
             if (!arrival_input)
                 return boost::none;
-            const boost::optional<time_type> arrival_time = to_time(*arrival_input);
+            const auto arrival_time = to_time(*arrival_input);
             if (!arrival_time)
                 return boost::none;
 
-            const boost::optional<std::ptrdiff_t> departure_input = read_integer<std::ptrdiff_t>(pull_parser);
+            const auto departure_input = read_integer<std::ptrdiff_t>(pull_parser);
             if (!departure_input)
                 return boost::none;
-            const boost::optional<time_type> departure_time = to_time(*departure_input);
+            const auto departure_time = to_time(*departure_input);
             if (!departure_time)
                 return boost::none;
 
-            const boost::optional<bool> operational = read_boolean(pull_parser);
+            const auto operational = read_boolean(pull_parser);
             if (!operational)
                 return boost::none;
 
-            boost::optional<input_string_type> platform = read_string(pull_parser);
+            auto platform = read_string(pull_parser);
             if (!platform)
                 return boost::none;
 
@@ -975,7 +966,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             pull_parser.next();
 
-            boost::optional<input_string_type> value = read_string(pull_parser);
+            auto value = read_string(pull_parser);
             if (!value)
                 return boost::none;
 
@@ -993,10 +984,10 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return boost::none;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
-            const value_type& value = boost::get<value_type>(element);
+            const auto& value = boost::get<value_type>(element);
             if (value.which() != 4)
                 return boost::none;
             auto string = boost::get<input_string_type>(value);
@@ -1009,12 +1000,12 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            const auto key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             pull_parser.next();
 
-            const boost::optional<Integer> value = read_integer<Integer>(pull_parser);
+            const auto value = read_integer<Integer>(pull_parser);
             if (!value)
                 return boost::none;
 
@@ -1030,27 +1021,27 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return boost::none;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
-            const value_type& value = boost::get<value_type>(element);
+            const auto& value = boost::get<value_type>(element);
             if (value.which() != 2)
                 return boost::none;
-            const Integer integer = boost::get<integer_type>(value);
+            const auto integer = boost::get<integer_type>(value);
             pull_parser.next();
-            return boost::make_optional(integer);
+            return boost::make_optional<Integer>(integer);
         }
 
         static boost::optional<std::pair<string_type, bool>> read_boolean_member(pull_parser_type& pull_parser)
         {
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
+            const auto key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             pull_parser.next();
 
-            const boost::optional<bool> value = read_boolean(pull_parser);
+            const auto value = read_boolean(pull_parser);
             if (!value)
                 return boost::none;
 
@@ -1065,13 +1056,13 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return boost::none;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
-            const value_type& value = boost::get<value_type>(element);
+            const auto& value = boost::get<value_type>(element);
             if (value.which() != 0)
                 return boost::none;
-            const bool boolean = boost::get<bool>(value);
+            const auto boolean = boost::get<bool>(value);
             pull_parser.next();
             return boost::make_optional(boolean);
         }
@@ -1080,7 +1071,7 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return false;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 0)
                 return false;
             if (boost::get<structure_begin_type>(element).name() != name)
@@ -1093,7 +1084,7 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return false;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 1)
                 return false;
             if (boost::get<structure_end_type>(element).name() != name)
@@ -1111,10 +1102,10 @@ namespace bobura { namespace model { namespace serializer
         {
             if (!pull_parser.has_next())
                 return false;
-            const element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             if (element.which() != 2)
                 return false;
-            const value_type& value = boost::get<value_type>(element);
+            const auto& value = boost::get<value_type>(element);
             if (value.which() != which)
                 return false;
 
