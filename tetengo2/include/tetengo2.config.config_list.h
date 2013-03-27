@@ -80,7 +80,7 @@ namespace tetengo2 { namespace config
         {
             for (const std::unique_ptr<base_type>& p_config: m_p_configs)
             {
-                const boost::optional<value_type> value = p_config->get(key);
+                const auto value = p_config->get(key);
                 if (value)
                     return value;
             }

@@ -187,8 +187,8 @@ namespace tetengo2 { namespace text
         bool parse()
         const
         {
-            iterator first = m_first;
-            const bool result = boost::spirit::qi::parse(first, m_last, *m_p_grammar);
+            auto first = m_first;
+            const auto result = boost::spirit::qi::parse(first, m_last, *m_p_grammar);
             return result && first == m_last;
         }
 
@@ -259,11 +259,11 @@ namespace tetengo2 { namespace text
 
         static value_type to_number(const string_type& string_value)
         {
-            const typename string_type::size_type exp_index = string_value.find_first_of("eE");
+            const auto exp_index = string_value.find_first_of("eE");
             if (exp_index != string_type::npos)
                 return to_number_exp(string_value, exp_index);
 
-            const typename string_type::size_type fp_index = string_value.find('.');
+            const auto fp_index = string_value.find('.');
             if (fp_index != string_type::npos)
                 return to_number_impl<float_type>(string_value);
 
@@ -290,8 +290,8 @@ namespace tetengo2 { namespace text
         {
             try
             {
-                const float_type fraction = boost::lexical_cast<float_type>(string_value.substr(0, exp_index));
-                const float_type exp = boost::lexical_cast<float_type>(string_value.substr(exp_index + 1));
+                const auto fraction = boost::lexical_cast<float_type>(string_value.substr(0, exp_index));
+                const auto exp = boost::lexical_cast<float_type>(string_value.substr(exp_index + 1));
                 return fraction * std::pow(10.0, exp);
             }
             catch (const boost::bad_lexical_cast&)

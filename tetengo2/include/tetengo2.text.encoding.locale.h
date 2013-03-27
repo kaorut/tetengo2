@@ -169,22 +169,22 @@ namespace tetengo2 { namespace text { namespace encoding
             if (!std::has_facet<converter_type>(m_locale))
                 return string_type(pivot.begin(), pivot.end());
 
-            const converter_type& converter = std::use_facet<converter_type>(m_locale);
+            const auto& converter = std::use_facet<converter_type>(m_locale);
             auto state = std::mbstate_t();
 
-            const typename base_type::pivot_char_type* p_pivot_first = pivot.c_str();
-            const typename base_type::pivot_char_type* const p_pivot_last = p_pivot_first + pivot.length();
+            const auto* p_pivot_first = pivot.c_str();
+            const auto* const p_pivot_last = p_pivot_first + pivot.length();
 
             std::vector<string_char_type> string_chars(8, TETENGO2_TEXT('\0'));
-            string_char_type* p_string_first = string_chars.data();
-            string_char_type* p_string_last = p_string_first + string_chars.size() - 1;
+            auto* p_string_first = string_chars.data();
+            auto* p_string_last = p_string_first + string_chars.size() - 1;
 
             for (;;)
             {
                 const typename base_type::pivot_char_type* p_pivot_next = nullptr;
                 string_char_type* p_string_next = nullptr;
 
-                const typename converter_type::result result =
+                const auto result =
                     converter.out(
                         state, p_pivot_first, p_pivot_last, p_pivot_next, p_string_first, p_string_last, p_string_next
                     );
@@ -223,8 +223,7 @@ namespace tetengo2 { namespace text { namespace encoding
         {
             for (;;)
             {
-                const typename converter_type::result result =
-                    converter.unshift(state, p_string_first, p_string_last, p_string_next);
+                const auto result = converter.unshift(state, p_string_first, p_string_last, p_string_next);
                 if (result == converter_type::error)
                     BOOST_THROW_EXCEPTION(std::invalid_argument("Can't unshift the string."));
 

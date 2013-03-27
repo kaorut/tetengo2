@@ -176,7 +176,7 @@ namespace tetengo2 { namespace message
         static boost::optional<message_catalog_type>
         load_message_catalog(const path_type& path, const std::locale& locale)
         {
-            const boost::optional<path_type> catalog_file = select_catalog_file(path, locale);
+            const auto catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
                 return boost::none;
 
@@ -202,9 +202,9 @@ namespace tetengo2 { namespace message
             );
             std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
 
-            const catalog_file_mappings_type catalog_file_mappings = read_catalog_file_mappings(path);
+            const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
-            const typename catalog_file_mappings_type::const_iterator found =
+            const auto found =
                 std::find_if(catalog_file_mappings.begin(), catalog_file_mappings.end(), matches_locale_type(locale));
             if (found != catalog_file_mappings.end())
                 return path / found->second;
@@ -300,7 +300,7 @@ namespace tetengo2 { namespace message
             if (!m_open)
                 BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
 
-            const typename message_catalog_type::const_iterator found = m_message_catalog->find(default_message);
+            const auto found = m_message_catalog->find(default_message);
 
             return found != m_message_catalog->end() ? found->second : remove_namespace(default_message);
         }

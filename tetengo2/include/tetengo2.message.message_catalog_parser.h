@@ -215,11 +215,11 @@ namespace tetengo2 { namespace message
             {
                 if (!m_p_pull_parser->has_next())
                     return std::unique_ptr<entry_type>();
-                const element_type& element = m_p_pull_parser->peek();
+                const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 0)
                     return std::unique_ptr<entry_type>();
 
-                const structure_begin_type& structure = boost::get<structure_begin_type>(element);
+                const auto& structure = boost::get<structure_begin_type>(element);
                 key = get_attribute(structure);
                 if (key.empty())
                     return std::unique_ptr<entry_type>();
@@ -229,11 +229,11 @@ namespace tetengo2 { namespace message
             {
                 if (!m_p_pull_parser->has_next())
                     return std::unique_ptr<entry_type>();
-                const element_type& element = m_p_pull_parser->peek();
+                const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 2)
                     return std::unique_ptr<entry_type>();
 
-                const value_type& parsed_value = boost::get<value_type>(element);
+                const auto& parsed_value = boost::get<value_type>(element);
                 if (parsed_value.which() != 4)
                     return std::unique_ptr<entry_type>();
 
@@ -244,7 +244,7 @@ namespace tetengo2 { namespace message
             {
                 if (!m_p_pull_parser->has_next())
                     return std::unique_ptr<entry_type>();
-                const element_type& element = m_p_pull_parser->peek();
+                const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 1)
                     return std::unique_ptr<entry_type>();
 
@@ -261,11 +261,11 @@ namespace tetengo2 { namespace message
             if (!m_p_pull_parser->has_next())
                 return false;
 
-            const element_type& element = m_p_pull_parser->peek();
+            const auto& element = m_p_pull_parser->peek();
             if (!is_structure(element, static_cast<const Structure*>(nullptr)))
                 return false;
 
-            const Structure structure = boost::get<Structure>(element);
+            const auto structure = boost::get<Structure>(element);
             if (structure.name() != name)
                 return false;
             if (!attribute.empty())
