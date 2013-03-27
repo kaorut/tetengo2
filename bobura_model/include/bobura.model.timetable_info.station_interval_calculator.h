@@ -105,7 +105,7 @@ namespace bobura { namespace model { namespace timetable_info
 
             station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day2());
 
-            for (const train_type& train: m_down_trains)
+            for (const auto& train: m_down_trains)
             {
                 const auto intervals_by_train = calculate_by_train(train, true);
                 assert(intervals.size() == intervals_by_train.size());
@@ -113,7 +113,7 @@ namespace bobura { namespace model { namespace timetable_info
                     intervals.begin(), intervals.end(), intervals_by_train.begin(), intervals.begin(), select
                 );
             }
-            for (const train_type& train: m_up_trains)
+            for (const auto& train: m_up_trains)
             {
                 const auto intervals_by_train = calculate_by_train(train, false);
                 assert(intervals.size() == intervals_by_train.size());

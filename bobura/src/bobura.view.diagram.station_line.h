@@ -485,13 +485,13 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
 
-            for (const station_line_type& station_line: m_station_lines)
+            for (const auto& station_line: m_station_lines)
                 station_line.draw_on(canvas);
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            for (station_line_type& station_line: boost::adaptors::reverse(m_station_lines))
+            for (auto& station_line: boost::adaptors::reverse(m_station_lines))
             {
                 auto* const p_item = station_line.p_item_by_position(position);
                 if (p_item)

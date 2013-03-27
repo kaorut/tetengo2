@@ -996,13 +996,13 @@ namespace bobura { namespace view { namespace diagram
             );
             canvas.set_line_style(translate_line_style(m_p_train_kind->line_style()));
 
-            for (const train_line_fragment_type& fragment: m_fragments)
+            for (const auto& fragment: m_fragments)
                 fragment.draw_on(canvas);
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            for (train_line_fragment_type& fragment: boost::adaptors::reverse(m_fragments))
+            for (auto& fragment: boost::adaptors::reverse(m_fragments))
             {
                 auto* const p_item = fragment.p_item_by_position(position);
                 if (p_item)
@@ -1264,7 +1264,7 @@ namespace bobura { namespace view { namespace diagram
             std::vector<train_line_type>& train_lines
         )
         {
-            for (const train_type& train: trains)
+            for (const auto& train: trains)
             {
                 train_lines.push_back(
                     train_line_type(
@@ -1302,13 +1302,13 @@ namespace bobura { namespace view { namespace diagram
         {
             canvas.set_font(*m_p_font);
 
-            for (const train_line_type& train_line: m_train_lines)
+            for (const auto& train_line: m_train_lines)
                 train_line.draw_on(canvas);
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
         {
-            for (train_line_type& train_line: boost::adaptors::reverse(m_train_lines))
+            for (auto& train_line: boost::adaptors::reverse(m_train_lines))
             {
                 auto* const p_item = train_line.p_item_by_position(position);
                 if (p_item)

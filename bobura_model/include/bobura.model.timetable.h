@@ -687,7 +687,7 @@ namespace bobura { namespace model
             train_type new_train(
                 train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
             );
-            for (const stop_type& stop: train.stops())
+            for (const auto& stop: train.stops())
                 new_train.insert_stop(new_train.stops().end(), stop);
 
             train = new_train;

@@ -566,7 +566,7 @@ namespace bobura { namespace model { namespace serializer
 
                 std::vector<stop_type> stops;
                 stops.reserve(stop_strings.size());
-                for (const string_type& stop_string: stop_strings)
+                for (const auto& stop_string: stop_strings)
                 {
                     auto stop = parse_stop(stop_string);
                     if (!stop)

@@ -197,7 +197,7 @@ namespace bobura { namespace model { namespace serializer
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
             }
-            for (station_location_type& station: *stations)
+            for (auto& station: *stations)
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), std::move(station));
 
             auto train_kinds = read_train_kinds(pull_parser);
@@ -206,7 +206,7 @@ namespace bobura { namespace model { namespace serializer
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
             }
-            for (train_kind_type& train_kind: *train_kinds)
+            for (auto& train_kind: *train_kinds)
                 p_timetable->insert_train_kind(p_timetable->train_kinds().end(), std::move(train_kind));
 
             auto down_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
@@ -215,7 +215,7 @@ namespace bobura { namespace model { namespace serializer
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
             }
-            for (train_type& train: *down_trains)
+            for (auto& train: *down_trains)
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), std::move(train));
 
             auto up_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
@@ -224,7 +224,7 @@ namespace bobura { namespace model { namespace serializer
                 error = error_type::corrupted;
                 return std::unique_ptr<timetable_type>();
             }
-            for (train_type& train: *up_trains)
+            for (auto& train: *up_trains)
                 p_timetable->insert_up_train(p_timetable->up_trains().end(), std::move(train));
 
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
@@ -840,7 +840,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             if (stops->size() > station_count)
                 return boost::none;
-            for (stop_type& stop: *stops)
+            for (auto& stop: *stops)
                 train.insert_stop(train.stops().end(), std::move(stop));
             for (std::size_t i = stops->size(); i < station_count; ++i)
                 train.insert_stop(train.stops().end(), empty_stop());

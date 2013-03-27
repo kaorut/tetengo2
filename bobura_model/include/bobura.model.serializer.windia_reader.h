@@ -799,7 +799,7 @@ namespace bobura { namespace model { namespace serializer
                 train_kind_type::line_style_type::dashed
             );
 
-            for (const preset_train_kind_type& kind: kinds)
+            for (const auto& kind: kinds)
             {
                 timetable.insert_train_kind(
                     timetable.train_kinds().end(),

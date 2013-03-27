@@ -94,7 +94,7 @@ namespace bobura
                 if (!m_p_diagram_list_box->destroyed())
                 {
                     m_p_diagram_list_box->clear();
-                    for (const string_type& name: m_names)
+                    for (const auto& name: m_names)
                     {
                         m_p_diagram_list_box->insert_item(m_p_diagram_list_box->item_count(), name);
                     }

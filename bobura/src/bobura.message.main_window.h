@@ -80,7 +80,7 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             std::size_t i = 0;
-            for (menu_base_type& menu_item: m_popup_menu)
+            for (auto& menu_item: m_popup_menu)
             {
                 assert(i < m_commands.size());
                 const auto* const p_command = m_commands[i];

@@ -482,7 +482,7 @@ namespace bobura { namespace view { namespace diagram
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);
 
-            for (const time_line_type& time_line: m_time_lines)
+            for (const auto& time_line: m_time_lines)
                 time_line.draw_on(canvas);
         }
 
