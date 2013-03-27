@@ -39,5 +39,8 @@ foreach my $output (`$ctags_command $file_name`)
 		next if $access ne 'access:public' && $access ne 'access:protected' && $access ne 'access:friend';
 	}
 	
-	print $name."\n";
+	$namespace =~ s/^namespace://;
+	$namespace =~ s/^class://;
+	$namespace =~ s/^struct://;
+	print $namespace."\t".$name."\n";
 }
