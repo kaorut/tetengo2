@@ -83,7 +83,7 @@ namespace bobura { namespace message { namespace main_window
             for (menu_base_type& menu_item: m_popup_menu)
             {
                 assert(i < m_commands.size());
-                const command_type* const p_command = m_commands[i];
+                const auto* const p_command = m_commands[i];
                 if (!p_command)
                 {
                     ++i;

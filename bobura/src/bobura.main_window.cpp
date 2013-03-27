@@ -177,10 +177,10 @@ namespace bobura
 
                 set_title(boost::none, false);
                 
-                boost::optional<dimension_type> dimension = m_settings.main_window_dimension();
+                auto dimension = m_settings.main_window_dimension();
                 if (dimension)
                     m_base.set_dimension(std::move(*dimension));
-                const boost::optional<bool> maximized = m_settings.main_window_maximized();
+                const auto maximized = m_settings.main_window_maximized();
                 if (maximized && *maximized)
                     m_base.set_window_state(window_state_type::maximized);
                 else

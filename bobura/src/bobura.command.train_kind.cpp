@@ -57,7 +57,7 @@ namespace bobura { namespace command
                 parent, m_message_catalog, font_color_set.train_name(), font_color_set.background()
             );
 
-            std::vector<info_set_type> info_sets = to_info_sets(model.timetable());
+            auto info_sets = to_info_sets(model.timetable());
             dialog.set_info_sets(std::move(info_sets));
 
             dialog.do_modal();

@@ -575,7 +575,7 @@ namespace bobura
                 if (!m_current_category_index)
                     return string_type();
 
-                const boost::optional<font_type>& font = m_font_color_list[*m_current_category_index].first;
+                const auto& font = m_font_color_list[*m_current_category_index].first;
                 if (!font)
                     return string_type();
 

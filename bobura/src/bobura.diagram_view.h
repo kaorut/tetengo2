@@ -310,22 +310,22 @@ namespace bobura
         {
             if (m_p_header)
             {
-                if (item_type* const p_item = m_p_header->p_item_by_position(position))
+                if (auto* const p_item = m_p_header->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_time_line_list)
             {
-                if (item_type* const p_item = m_p_time_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_time_line_list->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_station_line_list)
             {
-                if (item_type* const p_item = m_p_station_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_station_line_list->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_train_line_list)
             {
-                if (item_type* const p_item = m_p_train_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_train_line_list->p_item_by_position(position))
                 return p_item;
             }
 

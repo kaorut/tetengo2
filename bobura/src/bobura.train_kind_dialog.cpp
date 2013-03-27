@@ -715,15 +715,10 @@ namespace bobura
             void sync()
             {
                 m_p_train_kind_list_box->clear();
-                for (
-                    typename std::vector<info_set_type>::const_iterator i = m_info_sets.begin();
-                    i != m_info_sets.end();
-                    ++i
-                )
+                for (auto i = m_info_sets.begin(); i != m_info_sets.end(); ++i)
                 {
                     m_p_train_kind_list_box->insert_item(
-                        m_p_train_kind_list_box->item_count(),
-                        i->train_kind().name()
+                        m_p_train_kind_list_box->item_count(), i->train_kind().name()
                     );
                 }
 
@@ -740,7 +735,7 @@ namespace bobura
             {
                 assert(m_p_train_kind_list_box->item_count() == m_info_sets.size());
 
-                const boost::optional<int_size_type>& selected_index = m_p_train_kind_list_box->selected_item_index();
+                const auto& selected_index = m_p_train_kind_list_box->selected_item_index();
                 assert(selected_index == m_current_train_kind_index);
 
                 m_p_delete_button->set_enabled(selected_index && !m_info_sets[*selected_index].referred());

@@ -1004,7 +1004,7 @@ namespace bobura { namespace view { namespace diagram
         {
             for (train_line_fragment_type& fragment: boost::adaptors::reverse(m_fragments))
             {
-                base_type* const p_item = fragment.p_item_by_position(position);
+                auto* const p_item = fragment.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }
@@ -1310,7 +1310,7 @@ namespace bobura { namespace view { namespace diagram
         {
             for (train_line_type& train_line: boost::adaptors::reverse(m_train_lines))
             {
-                base_type* const p_item = train_line.p_item_by_position(position);
+                auto* const p_item = train_line.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }

@@ -116,12 +116,10 @@ namespace bobura
         boost::optional<dimension_type> main_window_dimension()
         const
         {
-            const boost::optional<config_value_type> width =
-                m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Width")));
+            const auto width = m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Width")));
             if (!width || width->which() != 1)
                 return boost::none;
-            const boost::optional<config_value_type> height =
-                m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Height")));
+            const auto height = m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Height")));
             if (!height || height->which() != 1)
                 return boost::none;
 
@@ -162,8 +160,7 @@ namespace bobura
         boost::optional<bool> main_window_maximized()
         const
         {
-            const boost::optional<config_value_type> status =
-                m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Maximized")));
+            const auto status = m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/Maximized")));
             if (!status || status->which() != 1)
                 return boost::none;
 
@@ -311,8 +308,7 @@ namespace bobura
         {
             std::vector<std::pair<string_type, config_value_type>> values;
             {
-                const boost::optional<std::pair<uint_type, uint_type>> main_window_dimension_ =
-                    main_window_dimension_in_command_line(options);
+                const auto main_window_dimension_ = main_window_dimension_in_command_line(options);
                 if (main_window_dimension_)
                 {
                     values.emplace_back(
@@ -333,12 +329,11 @@ namespace bobura
             const boost::program_options::variables_map& options
         )
         {
-            const typename boost::program_options::variables_map::const_iterator found = options.find("dimension");
+            const auto found = options.find("dimension");
             if (found == options.end())
                 return boost::none;
 
-            const boost::optional<std::pair<uint_type, uint_type>> width_and_height =
-                parse_dimension(found->second.as<string_type>());
+            const auto width_and_height = parse_dimension(found->second.as<string_type>());
             if (!width_and_height)
                 return boost::none;
 

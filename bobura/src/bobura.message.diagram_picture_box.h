@@ -96,7 +96,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
             m_set_mouse_capture();
 
-            item_type* const p_item = m_view.p_item_by_position(position);
+            auto* const p_item = m_view.p_item_by_position(position);
             if (p_item)
                 p_item->select(button != mouse_button_type::right);
             else
@@ -262,9 +262,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             tetengo2::suppress_unused_variable_warning(shift, control, meta);
 
-            const item_type* const p_item = m_view.p_item_by_position(position);
-            const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();
-            const system_cursor_type* const p_system_cursor =
+            const auto* const p_item = m_view.p_item_by_position(position);
+            const auto cursor = m_picture_box.cursor();
+            const auto* const p_system_cursor =
                 cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : nullptr;
             if (p_item)
             {

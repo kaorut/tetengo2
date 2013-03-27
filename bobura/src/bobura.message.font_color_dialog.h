@@ -179,7 +179,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
 
-            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+            const auto text_and_line_tops = sample_text_and_line_tops(canvas, text);
 
             canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
 

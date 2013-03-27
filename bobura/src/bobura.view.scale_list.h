@@ -126,7 +126,7 @@ namespace bobura { namespace view
         const scale_type& larger(const scale_type& scale)
         const
         {
-            const typename std::vector<scale_type>::const_iterator found =
+            const auto found =
                 std::find_if(
                     scales().begin(),
                     scales().end(),
@@ -147,7 +147,7 @@ namespace bobura { namespace view
         const scale_type& smaller(const scale_type& scale)
         const
         {
-            const typename std::vector<scale_type>::const_reverse_iterator found =
+            const auto found =
                 std::find_if(
                     scales().rbegin(),
                     scales().rend(),

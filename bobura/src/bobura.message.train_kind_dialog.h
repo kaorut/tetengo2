@@ -155,7 +155,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()()
         const
         {
-            const typename std::vector<info_set_type>::const_iterator insertion_position =
+            const auto insertion_position =
                 m_current_train_kind_index ?
                 boost::next(m_info_sets.begin(), *m_current_train_kind_index) : m_info_sets.end();
 
@@ -255,8 +255,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         {
             assert(m_current_train_kind_index);
             assert(*m_current_train_kind_index < m_info_sets.size());
-            const typename std::vector<info_set_type>::const_iterator deletion_position =
-                boost::next(m_info_sets.begin(), *m_current_train_kind_index);
+            const auto deletion_position = boost::next(m_info_sets.begin(), *m_current_train_kind_index);
 
             m_info_sets.erase(tetengo2::cpp11::as_insertion_iterator(m_info_sets, deletion_position));
             if (*m_current_train_kind_index >= m_info_sets.size())
@@ -773,7 +772,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
             canvas.set_color(train_kind.color());
 
             const auto& text = train_kind.abbreviation().empty() ? train_kind.name() : train_kind.abbreviation();
-            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+            const auto text_and_line_tops = sample_text_and_line_tops(canvas, text);
             canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
 
             auto line_width =

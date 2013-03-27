@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(settings)
             arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
             const settings_type settings(arguments);
 
-            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+            const auto dimension = settings.main_window_dimension();
 
             BOOST_REQUIRE(!dimension);
         }
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(settings)
             arguments.push_back(string_type(TETENGO2_TEXT("--dimension=240x120")));
             const settings_type settings(arguments);
 
-            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+            const auto dimension = settings.main_window_dimension();
 
             BOOST_REQUIRE(dimension);
             BOOST_CHECK_EQUAL(
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(settings)
             arguments.push_back(string_type(TETENGO2_TEXT("240x120")));
             const settings_type settings(arguments);
 
-            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+            const auto dimension = settings.main_window_dimension();
 
             BOOST_REQUIRE(dimension);
             BOOST_CHECK_EQUAL(
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_SUITE(settings)
 
             settings.set_main_window_dimension(dimension_type(width_type(42), height_type(24)));
 
-            const boost::optional<dimension_type> dimension = settings.main_window_dimension();
+            const auto dimension = settings.main_window_dimension();
 
             BOOST_REQUIRE(dimension);
             BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::width(*dimension) == width_type(42));
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_SUITE(settings)
             arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
             const settings_type settings(arguments);
 
-            const boost::optional<bool> maximized = settings.main_window_maximized();
+            const auto maximized = settings.main_window_maximized();
 
             BOOST_REQUIRE(!maximized);
         }
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(settings)
 
             settings.set_main_window_maximized(false);
 
-            const boost::optional<bool> maximized = settings.main_window_maximized();
+            const auto maximized = settings.main_window_maximized();
 
             BOOST_REQUIRE(maximized);
             BOOST_CHECK(!*maximized);
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(settings)
 
             settings.set_main_window_maximized(true);
 
-            const boost::optional<bool> maximized = settings.main_window_maximized();
+            const auto maximized = settings.main_window_maximized();
 
             BOOST_REQUIRE(maximized);
             BOOST_CHECK(*maximized);

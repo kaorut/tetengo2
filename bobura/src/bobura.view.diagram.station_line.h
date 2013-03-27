@@ -493,7 +493,7 @@ namespace bobura { namespace view { namespace diagram
         {
             for (station_line_type& station_line: boost::adaptors::reverse(m_station_lines))
             {
-                base_type* const p_item = station_line.p_item_by_position(position);
+                auto* const p_item = station_line.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }
