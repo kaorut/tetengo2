@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui
         */
         void set_position(const size_type position)
         {
-            const range_type r = range();
+            const auto r = range();
             if (position < r.first || r.second < position)
                 BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 

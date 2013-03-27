@@ -104,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         bool do_modal()
         {
-            const boost::optional<path_type> result =
+            const auto result =
                 common_dialog_details_type::template show_file_open_dialog<path_type>(*m_p_details, encoder());
             if (!result)
                 return false;

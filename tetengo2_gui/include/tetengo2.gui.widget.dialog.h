@@ -145,7 +145,7 @@ namespace tetengo2 { namespace gui { namespace widget
             do_modal_impl();
 
             assert(this->has_parent());
-            base_type& parent_window = dynamic_cast<base_type&>(this->parent());
+            auto& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
 
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
