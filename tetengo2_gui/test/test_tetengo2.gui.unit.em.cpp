@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit = unit_type::from(another_unit_type(123));
+        const auto unit = unit_type::from(another_unit_type(123));
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit = unit_type::from_pixels(123 * 12);
+        const auto unit = unit_type::from_pixels(123 * 12);
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }

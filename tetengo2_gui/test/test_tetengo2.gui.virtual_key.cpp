@@ -39,14 +39,13 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
         BOOST_TEST_PASSPOINT();
 
         {
-            const boost::optional<const virtual_key_type&> virtual_key =
-                virtual_key_type::find_by_code(virtual_key_type::char_a().code());
+            const auto virtual_key = virtual_key_type::find_by_code(virtual_key_type::char_a().code());
 
             BOOST_REQUIRE(virtual_key);
             BOOST_CHECK(*virtual_key == virtual_key_type::char_a());
         }
         {
-            const boost::optional<const virtual_key_type&> virtual_key = virtual_key_type::find_by_code(0);
+            const auto virtual_key = virtual_key_type::find_by_code(0);
 
             BOOST_REQUIRE(!virtual_key);
         }

@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         window_type parent;
         image_type image(parent);
-        const image_type& const_image = image;
+        const auto& const_image = image;
 
         BOOST_CHECK_THROW(image.picture(), std::logic_error);
         BOOST_CHECK_THROW(const_image.picture(), std::logic_error);
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         image.fit_to_content();
 
-        const dimension_type dimension = image.client_dimension();
+        const auto dimension = image.client_dimension();
         const dimension_type answer_dimension(123, 456);
         BOOST_CHECK(dimension == answer_dimension);
     }

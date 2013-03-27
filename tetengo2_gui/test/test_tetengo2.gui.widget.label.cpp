@@ -60,9 +60,9 @@ BOOST_AUTO_TEST_SUITE(label)
 
         label.fit_to_content();
 
-        const dimension_type dimension = label.dimension();
+        const auto dimension = label.dimension();
 
-        const dimension_type answer_dimension =
+        const auto answer_dimension =
             label.create_canvas()->calc_text_dimension(string_type(TETENGO2_TEXT("Tetengo")));
         BOOST_CHECK(dimension == answer_dimension);
     }

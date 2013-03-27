@@ -117,13 +117,13 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
             const shortcut_key_table_type shortcut_key_table;
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus0();
+            const auto menus = make_menus0();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus1();
+            const auto menus = make_menus1();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus0();
+            const auto menus = make_menus0();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
@@ -143,12 +143,12 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
             shortcut_key_table.begin();
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus1();
+            const auto menus = make_menus1();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
 
-            const shortcut_key_table_type::iterator iterator = shortcut_key_table.begin();
+            const auto iterator = shortcut_key_table.begin();
 
             BOOST_CHECK(iterator->first == shortcut_key_type(virtual_key_type::char_a(), false, true, false));
         }
@@ -159,22 +159,22 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus0();
+            const auto menus = make_menus0();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
 
-            const shortcut_key_table_type::iterator iterator = shortcut_key_table.end();
+            const auto iterator = shortcut_key_table.end();
 
             BOOST_CHECK(std::distance(shortcut_key_table.begin(), iterator) == 0);
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus1();
+            const auto menus = make_menus1();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
 
-            const shortcut_key_table_type::iterator iterator = shortcut_key_table.end();
+            const auto iterator = shortcut_key_table.end();
 
             BOOST_CHECK(std::distance(shortcut_key_table.begin(), iterator) == 2);
         }
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus0();
+            const auto menus = make_menus0();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
             shortcut_key_table.details();
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus0();
+            const auto menus = make_menus0();
             shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
             shortcut_key_table.details();
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus1();
+            const auto menus = make_menus1();
             const shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
             shortcut_key_table.details();
         }
         {
-            const std::vector<std::unique_ptr<concrete_menu>> menus = make_menus1();
+            const auto menus = make_menus1();
             shortcut_key_table_type shortcut_key_table(
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
             );

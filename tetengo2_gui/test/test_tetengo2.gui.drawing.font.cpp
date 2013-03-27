@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(font)
     {
         BOOST_TEST_PASSPOINT();
 
-        const font_type& font = font_type::dialog_font();
+        const auto& font = font_type::dialog_font();
 
         BOOST_CHECK(font == font_type(string_type(TETENGO2_TEXT("TetengoFont")), 12, false, false, false, false));
     }

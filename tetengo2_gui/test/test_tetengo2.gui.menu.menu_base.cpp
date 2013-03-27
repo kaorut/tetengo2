@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
                 shortcut_key_type(virtual_key_type::char_a(), false, true, false)
             );
 
-            const shortcut_key_type& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.shortcut_key();
             BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
             BOOST_CHECK(!shortcut_key.shift());
             BOOST_CHECK(shortcut_key.control());

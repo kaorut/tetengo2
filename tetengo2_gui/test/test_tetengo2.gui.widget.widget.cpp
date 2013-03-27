@@ -323,7 +323,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position(make_position(123, 456));
 
-        const position_type position = widget.position();
+        const auto position = widget.position();
         BOOST_CHECK(position == make_position(123, 456));
     }
 
@@ -335,7 +335,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position(make_position(123, 456));
 
-        const position_type position = widget.position();
+        const auto position = widget.position();
         BOOST_CHECK(position == make_position(123, 456));
     }
 
@@ -347,7 +347,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_dimension(make_dimension(123, 456));
 
-        const dimension_type dimension = widget.dimension();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
@@ -359,7 +359,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_dimension(make_dimension(123, 456));
 
-        const dimension_type dimension = widget.dimension();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_client_dimension(make_dimension(123, 456));
 
-        const dimension_type client_dimension = widget.client_dimension();
+        const auto client_dimension = widget.client_dimension();
         BOOST_CHECK(client_dimension == make_dimension(123, 456));
     }
 
@@ -384,7 +384,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_client_dimension(make_dimension(123, 456));
 
-            const dimension_type client_dimension = widget.client_dimension();
+            const auto client_dimension = widget.client_dimension();
             BOOST_CHECK(client_dimension == make_dimension(123, 456));
         }
         {
@@ -407,8 +407,8 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position_and_dimension(make_position(123, 456), make_dimension(789, 012));
 
-        const position_type position = widget.position();
-        const dimension_type dimension = widget.dimension();
+        const auto position = widget.position();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(position == make_position(123, 456));
         BOOST_CHECK(dimension == make_dimension(789, 012));
     }
@@ -517,7 +517,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         auto p_cursor = tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
         widget.set_cursor(std::move(p_cursor));
 
-        const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
+        const auto cursor = widget.cursor();
         BOOST_REQUIRE(cursor);
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
