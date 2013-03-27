@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
 //#include <cassert>
-//#include <memory>
 //#include <utility>
 
 #include "tetengo2.cpp11.h"

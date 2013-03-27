@@ -13,7 +13,6 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include "tetengo2.text.h"
 

@@ -6,9 +6,6 @@
     $Id$
 */
 
-//#include <memory>
-//#include <vector>
-
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 

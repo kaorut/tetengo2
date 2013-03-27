@@ -10,7 +10,6 @@
 #define TETENGO2_MESSAGE_MESSAGES_H
 
 #include <algorithm>
-#include <cstddef>
 //#include <functional>
 #include <ios>
 #include <istream>

@@ -14,7 +14,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/optional.hpp>
 #include <boost/utility.hpp>
 
 
