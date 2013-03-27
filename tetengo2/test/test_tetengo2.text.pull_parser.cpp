@@ -104,8 +104,7 @@ BOOST_AUTO_TEST_SUITE(structure)
             const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
-            const pull_parser_type::attribute_map_type::const_iterator found =
-                structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
+            const auto found = structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
             BOOST_REQUIRE(found != structure.attribute_map().end());
             BOOST_CHECK(
                 *found == pull_parser_type::attribute_map_type::value_type(string_type(TETENGO2_TEXT("key")), 42)
@@ -117,8 +116,7 @@ BOOST_AUTO_TEST_SUITE(structure)
             const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
-            const pull_parser_type::attribute_map_type::const_iterator found =
-                structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
+            const auto found = structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
             BOOST_REQUIRE(found != structure.attribute_map().end());
             BOOST_CHECK(
                 *found == pull_parser_type::attribute_map_type::value_type(string_type(TETENGO2_TEXT("key")), 42)
@@ -224,19 +222,17 @@ BOOST_AUTO_TEST_SUITE_END()
 
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
@@ -260,22 +256,19 @@ BOOST_AUTO_TEST_SUITE_END()
 
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
-                const pull_parser_type::attribute_map_type::const_iterator
-                attribute = structure.attribute_map().find("name");
+                const auto attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
                 const auto attribute_value = boost::get<std::string>(attribute->second);
@@ -284,30 +277,27 @@ BOOST_AUTO_TEST_SUITE_END()
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
-                const pull_parser_type::attribute_map_type::const_iterator
-                attribute = structure.attribute_map().find("name");
+                const auto attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
                 const auto attribute_value = boost::get<std::string>(attribute->second);
@@ -316,61 +306,57 @@ BOOST_AUTO_TEST_SUITE_END()
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element = pull_parser.peek();
+                const auto& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(element);
+                const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
@@ -446,10 +432,9 @@ BOOST_AUTO_TEST_SUITE_END()
 
             pull_parser.next();
             pull_parser.skip_next();
-            const pull_parser_type::element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 1);
-            const pull_parser_type::structure_end_type structure =
-                boost::get<pull_parser_type::structure_end_type>(element);
+            const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
             BOOST_CHECK(structure.name() == "array");
         }
         {
@@ -502,9 +487,9 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.next();
             pull_parser.next();
             pull_parser.skip_next();
-            const pull_parser_type::element_type& element = pull_parser.peek();
+            const auto& element = pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 2);
-            const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+            const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
             BOOST_CHECK_EQUAL(value, 78);
         }
     }

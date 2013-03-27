@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             std::istringstream input_stream(catalog3);
             const auto p_parser = tetengo2::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            const entry_type& entry = p_parser->peek();
+            const auto& entry = p_parser->peek();
             BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
             BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
         }
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             std::istringstream input_stream(catalog4);
             const auto p_parser = tetengo2::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            const entry_type& entry = p_parser->peek();
+            const auto& entry = p_parser->peek();
             BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
             BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
         }
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             const auto p_parser = tetengo2::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             {
-                const entry_type& entry = p_parser->peek();
+                const auto& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
                 BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
                 p_parser->next();
@@ -243,13 +243,13 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             const auto p_parser = tetengo2::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             {
-                const entry_type& entry = p_parser->peek();
+                const auto& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
                 BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
                 p_parser->next();
             }
             {
-                const entry_type& entry = p_parser->peek();
+                const auto& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key2")));
                 BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value2")));
                 p_parser->next();

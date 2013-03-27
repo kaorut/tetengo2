@@ -262,7 +262,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             std::vector< ::ACCEL> accelerators;
-            for (ForwardIterator i = first; i != last; ++i)
+            for (auto i = first; i != last; ++i)
             {
                 if (!i->has_shortcut_key()) continue;
 
@@ -271,7 +271,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (accelerators.empty())
                 return shortcut_key_table_details_ptr_type();
 
-            const ::HACCEL accelerator_table_handle =
+            const auto accelerator_table_handle =
                 ::CreateAcceleratorTableW(accelerators.data(), static_cast<int>(accelerators.size()));
             if (!accelerator_table_handle)
             {
@@ -312,11 +312,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-            std::vector< ::WCHAR> duplicated_text = make_text(menu, encoder);
+            auto duplicated_text = make_text(menu, encoder);
             menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
             assert(popup_menu.details());
-            const ::BOOL result =
+            const auto result =
                 ::InsertMenuItem(
                     popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
@@ -350,7 +350,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
         {
-            for (ForwardIterator i = first; i != last; ++i)
+            for (auto i = first; i != last; ++i)
                 erase_menu(popup_menu, i);
         }
 
@@ -530,7 +530,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFOW);
-            const ::BOOL get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            const auto get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -551,7 +551,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 state == MenuBase::state_type::checked || state == MenuBase::state_type::selected ?
                 MFS_CHECKED : MFS_UNCHECKED;
 
-            const ::BOOL set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            const auto set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -565,7 +565,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static ::ACCEL to_accel(const MenuBase& menu)
         {
-            const typename MenuBase::shortcut_key_type& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.shortcut_key();
 
             ::ACCEL accel = {};
 
@@ -592,7 +592,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase, typename Encoder>
         static std::vector< ::WCHAR> make_text(const MenuBase& menu, const Encoder&  encoder)
         {
-            typename MenuBase::string_type text = menu.text();
+            auto text = menu.text();
             if (menu.has_shortcut_key())
             {
                 text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
@@ -614,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(popup_menu.details()->handle);
             assert(offset->details()->parent_handle);
 
-            const ::BOOL result =
+            const auto result =
                 ::RemoveMenu(
                     popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),

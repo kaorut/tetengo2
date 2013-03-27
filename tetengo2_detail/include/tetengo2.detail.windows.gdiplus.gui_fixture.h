@@ -74,7 +74,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::GdiplusStartupInput input;
             ::ULONG_PTR token = 0;
 
-            const Gdiplus::Status status = Gdiplus::GdiplusStartup(&token, &input, nullptr);
+            const auto status = Gdiplus::GdiplusStartup(&token, &input, nullptr);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(

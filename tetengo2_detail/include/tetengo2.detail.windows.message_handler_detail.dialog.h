@@ -38,7 +38,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::WORD lo_wparam = LOWORD(w_param);
             if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
             {
-                const ::HWND widget_handle = reinterpret_cast< ::HWND>(l_param);
+                const auto widget_handle = reinterpret_cast< ::HWND>(l_param);
                 assert(widget_handle == ::GetDlgItem(dialog.details()->handle.get(), lo_wparam));
                 if (widget_handle)
                 {
@@ -64,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (w_param == SC_CLOSE)
             {
-                const ::HWND widget_handle = ::GetDlgItem(dialog.details()->handle.get(), IDCANCEL);
+                const auto widget_handle = ::GetDlgItem(dialog.details()->handle.get(), IDCANCEL);
                 if (widget_handle)
                 {
                     WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();
@@ -84,17 +84,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         inline ::BOOL WINAPI first_child_window_handle_iter(const ::HWND child_handle, const ::LPARAM l_param)
         {
-            ::HWND* p_result = reinterpret_cast< ::HWND*>(l_param);
+            auto* p_result = reinterpret_cast< ::HWND*>(l_param);
             if (!p_result) return FALSE;
 
-            const ::LONG style = ::GetWindowLongW(child_handle, GWL_STYLE);
+            const auto style = ::GetWindowLongW(child_handle, GWL_STYLE);
             if ((static_cast< ::DWORD>(style) & WS_TABSTOP) != 0)
             {
                 *p_result = child_handle;
                 return FALSE;
             }
 
-            const ::HWND grandchild_handle = first_child_window_handle(child_handle);
+            const auto grandchild_handle = first_child_window_handle(child_handle);
             if (grandchild_handle)
             {
                 *p_result = grandchild_handle;
@@ -125,7 +125,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::make_optional< ::LRESULT>(0);
             }
 
-            const ::HWND child_handle = first_child_window_handle(dialog.details()->handle.get());
+            const auto child_handle = first_child_window_handle(dialog.details()->handle.get());
             if (child_handle)
             {
                 ::SetFocus(child_handle);

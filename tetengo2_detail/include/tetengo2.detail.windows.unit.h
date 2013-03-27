@@ -55,7 +55,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Value, typename PixelValue>
         static Value pixels_to_em(const PixelValue pixel_value)
         {
-            const ::LOGFONTW& message_font = get_message_font();
+            const auto& message_font = get_message_font();
             return to_value<Value, PixelValue>(pixel_value, static_cast<PixelValue>(-message_font.lfHeight));
         }
 
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PixelValue, typename Value>
         static PixelValue em_to_pixels(const Value& value)
         {
-            const ::LOGFONTW& message_font = get_message_font();
+            const auto& message_font = get_message_font();
             return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight, 1);
         }
 
@@ -161,13 +161,13 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static const std::pair<int, int>& dpi()
         {
-            static const std::pair<int, int> singleton = get_dpi();
+            static const auto singleton = get_dpi();
             return singleton;
         }
 
         static std::pair<int, int> get_dpi()
         {
-            const ::HDC device_context = ::GetDC(nullptr);
+            const auto device_context = ::GetDC(nullptr);
             if (!device_context)
             {
                 BOOST_THROW_EXCEPTION(
@@ -181,9 +181,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::ReleaseDC(nullptr, device_context);
             } BOOST_SCOPE_EXIT_END;
 
-            const int dpi_x = ::GetDeviceCaps(device_context, LOGPIXELSX);
+            const auto dpi_x = ::GetDeviceCaps(device_context, LOGPIXELSX);
             assert(dpi_x != 0);
-            const int dpi_y = ::GetDeviceCaps(device_context, LOGPIXELSY);
+            const auto dpi_y = ::GetDeviceCaps(device_context, LOGPIXELSY);
             assert(dpi_y != 0);
             return std::make_pair(dpi_x, dpi_y);
         }

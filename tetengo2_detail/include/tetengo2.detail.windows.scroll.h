@@ -97,7 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const style_type     style
         )
         {
-            scroll_bar_details_ptr_type p_scroll_bar_details =
+            auto p_scroll_bar_details =
                 make_unique<scroll_bar_details_type>(widget_details.handle.get(), to_native_style(style), true);
 
             set_enabled(*p_scroll_bar_details, true);

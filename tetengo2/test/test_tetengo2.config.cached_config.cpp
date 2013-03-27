@@ -69,17 +69,17 @@ BOOST_AUTO_TEST_SUITE(cached_config)
         const cached_config_type config(std::move(p_temporary_config));
 
         {
-            const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+            const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+            const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("baz")));
+            const auto value = config.get(string_type(TETENGO2_TEXT("baz")));
             BOOST_REQUIRE(!value);
         }
     }
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(cached_config)
 
         config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));
 
-        const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+        const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
         BOOST_REQUIRE(value);
         BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
     }

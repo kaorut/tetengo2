@@ -144,8 +144,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
         {
-            const std::size_t width = gui::dimension<Dimension>::width(dimension);
-            const std::size_t height = gui::dimension<Dimension>::height(dimension);
+            const auto width = gui::dimension<Dimension>::width(dimension);
+            const auto height = gui::dimension<Dimension>::height(dimension);
             return make_unique<picture_details_type>(width, height);
         }
 

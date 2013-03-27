@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
-            const widget_handle_type root_handle = ::GetAncestor(widget_handle, GA_ROOT);
+            const auto root_handle = ::GetAncestor(widget_handle, GA_ROOT);
 
             if (
                 !root_handle ||
@@ -126,7 +126,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring&      text2
         )
         {
-            const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
+            const auto handle = ::LoadLibraryW(L"COMCTL32.DLL");
             BOOST_SCOPE_EXIT((handle))
             {
                 if (handle)
@@ -139,8 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             typedef decltype(::TaskDialog)* task_dialog_ptr_type;
-            task_dialog_ptr_type p_task_dialog =
-                reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
+            auto p_task_dialog = reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
             if (!p_task_dialog)
             {
                 show_message_box(widget_handle, caption, text1, text2);

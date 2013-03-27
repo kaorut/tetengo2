@@ -59,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             {
                 if (p_render_target)
                 {
-                    const ::HRESULT hr = p_render_target->EndDraw();
+                    const auto hr = p_render_target->EndDraw();
                     if (hr == D2DERR_RECREATE_TARGET)
                     {
                         assert(false);
@@ -181,16 +181,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename WidgetDetails>
         static canvas_details_ptr_type create_canvas(const WidgetDetails& widget_details)
         {
-            const ::HWND window_handle = widget_details.handle.get();
+            const auto window_handle = widget_details.handle.get();
 
-            ::D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties();
+            auto props = D2D1::RenderTargetProperties();
             props.pixelFormat = D2D1::PixelFormat(::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED);
             props.usage = ::D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
 
             ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props = {};
             {
                 ::RECT rect = {};
-                const ::BOOL result = ::GetClientRect(window_handle, &rect);
+                const auto result = ::GetClientRect(window_handle, &rect);
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
@@ -206,7 +206,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
 
             ::ID2D1HwndRenderTarget* rp_render_target = nullptr;
-            const ::HRESULT hr = direct2d_factory().CreateHwndRenderTarget(props, hwnd_props, &rp_render_target);
+            const auto hr = direct2d_factory().CreateHwndRenderTarget(props, hwnd_props, &rp_render_target);
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -318,10 +318,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Color&         color
         )
         {
-            const background_details_ptr_type p_background_details = create_solid_background(color);
-            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
-            const typename unique_com_ptr< ::ID2D1StrokeStyle>::type p_stroke_style =
-                create_stroke_style(style);
+            const auto p_background_details = create_solid_background(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
+            const auto p_stroke_style = create_stroke_style(style);
             canvas.DrawLine(
                 position_to_point_2f(from),
                 position_to_point_2f(to),
@@ -372,10 +371,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Background&    background
         )
         {
-            const boost::optional<const typename Background::details_type&> background_details = background.details();
+            const auto background_details = background.details();
             if (!background_details) return;
 
-            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *background_details);
+            const auto p_brush = create_brush(canvas, *background_details);
 
             canvas.FillRectangle(position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }
@@ -390,7 +389,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Font>
         static Font make_dialog_font()
         {
-            const ::LOGFONTW log_font = get_message_font();
+            const auto log_font = get_message_font();
 
             assert(log_font.lfHeight < 0);
             return
@@ -431,11 +430,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             suppress_unused_variable_warning(canvas);
 
-            const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
-                create_text_layout(text, font, encoder);
+            const auto p_layout = create_text_layout(text, font, encoder);
 
             ::DWRITE_TEXT_METRICS metrics = {};
-            const ::HRESULT get_metrics_hr = p_layout->GetMetrics(&metrics);
+            const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
             if (FAILED(get_metrics_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -480,19 +478,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const double         angle
         )
         {
-            const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
-                create_text_layout(text, font, encoder);
+            const auto p_layout = create_text_layout(text, font, encoder);
 
-            const background_details_ptr_type p_background_details = create_solid_background(color);
-            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+            const auto p_background_details = create_solid_background(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
 
-            ::D2D1_MATRIX_3X2_F original_transform = D2D1::Matrix3x2F();
+            auto original_transform = D2D1::Matrix3x2F();
             canvas.GetTransform(&original_transform);
             BOOST_SCOPE_EXIT((&canvas)(&original_transform))
             {
                 canvas.SetTransform(original_transform);
             } BOOST_SCOPE_EXIT_END;
-            ::D2D1_MATRIX_3X2_F rotating_transform =
+            auto rotating_transform =
                 D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
             canvas.SetTransform(rotating_transform);
 
@@ -527,8 +524,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (!picture_details) return;
 
             ::ID2D1Bitmap* rp_bitmap = nullptr;
-            const ::HRESULT create_bitmap_hr =
-                canvas.CreateBitmapFromWicBitmap(&*picture_details, &rp_bitmap);
+            const auto create_bitmap_hr = canvas.CreateBitmapFromWicBitmap(&*picture_details, &rp_bitmap);
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -560,7 +556,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static direct2d_factory_ptr_type create_direct2d_factory()
         {
             ::ID2D1Factory* rp_factory = nullptr;
-            const ::HRESULT hr = ::D2D1CreateFactory(::D2D1_FACTORY_TYPE_SINGLE_THREADED, &rp_factory);
+            const auto hr = ::D2D1CreateFactory(::D2D1_FACTORY_TYPE_SINGLE_THREADED, &rp_factory);
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -580,7 +576,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static direct_write_factory_ptr_type create_direct_write_factory()
         {
             ::IDWriteFactory* rp_factory = nullptr;
-            const ::HRESULT hr =
+            const auto hr =
                 ::DWriteCreateFactory(
                     ::DWRITE_FACTORY_TYPE_SHARED,
                     __uuidof(::IDWriteFactory),
@@ -598,7 +594,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static const std::pair< ::FLOAT, ::FLOAT>& dpi()
         {
-            static const std::pair< ::FLOAT, ::FLOAT> singleton = calculate_dpi();
+            static const auto singleton = calculate_dpi();
             return singleton;
         }
 
@@ -641,18 +637,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const ::FLOAT left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const ::FLOAT top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
             return D2D1::Point2F(left - 0.5f, top - 0.5f);
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const ::FLOAT left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const ::FLOAT top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
-            const ::FLOAT width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
-            const ::FLOAT height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
+            const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
             return D2D1::RectF(left, top, left + width, top + height);
         }
 
@@ -681,12 +677,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const background_details_type& background_details
         )
         {
-            const detail::solid_background_details* const p_solid =
-                dynamic_cast<const detail::solid_background_details*>(&background_details);
+            const auto* const p_solid = dynamic_cast<const detail::solid_background_details*>(&background_details);
             if (p_solid)
             {
                 ::ID2D1SolidColorBrush* rp_brush = nullptr;
-                const ::HRESULT hr =
+                const auto hr =
                     canvas.CreateSolidColorBrush(
                         rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
                         D2D1::BrushProperties(),
@@ -707,7 +702,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
         {
             ::ID2D1StrokeStyle* rp_stroke_style = nullptr;
-            const ::HRESULT hr =
+            const auto hr =
                 direct2d_factory().CreateStrokeStyle(
                     D2D1::StrokeStyleProperties(
                         ::D2D1_CAP_STYLE_ROUND,
@@ -756,7 +751,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         )
         {
             ::IDWriteTextFormat* rp_format = nullptr;
-            const ::HRESULT create_format_hr =
+            const auto create_format_hr =
                 direct_write_factory().CreateTextFormat(
                     encoder.encode(font.family()).c_str(),
                     nullptr,
@@ -787,7 +782,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
             }
             ::IDWriteTextLayout* rp_layout = nullptr;
-            const ::HRESULT create_layout_hr =
+            const auto create_layout_hr =
                 direct_write_factory().CreateTextLayout(
                     encoded_text.c_str(),
                     static_cast< ::UINT32>(encoded_text.length()),

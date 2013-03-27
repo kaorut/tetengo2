@@ -53,7 +53,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::MSG message;
             for (;;)
             {
-                const ::BOOL result = ::GetMessageW(&message, nullptr, 0, 0);
+                const auto result = ::GetMessageW(&message, nullptr, 0, 0);
                 if      (result == 0)
                 {
                     return static_cast<int>(message.wParam);
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::MSG message;
             for (;;)
             {
-                const ::BOOL result = ::GetMessageW(&message, nullptr, 0, 0);
+                const auto result = ::GetMessageW(&message, nullptr, 0, 0);
                 if      (result == 0)
                 {
                     return static_cast<int>(message.wParam);

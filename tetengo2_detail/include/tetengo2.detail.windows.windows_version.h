@@ -68,7 +68,7 @@ namespace tetengo2 { namespace detail { namespace windows
     */
     inline bool on_windows_vista_or_later()
     {
-        static const bool result = verify_windows_version(6, 0, 0, 0);
+        static const auto result = verify_windows_version(6, 0, 0, 0);
         return result;
     }
 

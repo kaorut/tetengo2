@@ -769,7 +769,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Widget, typename Encoder>
         static Font font(const Widget& widget, const Encoder& encoder)
         {
-            const details_font_type& font = widget.details()->font;
+            const auto& font = widget.details()->font;
             return
                 Font(encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout);
         }
@@ -787,7 +787,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Child, typename Widget>
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
-            const std::vector<void*>& children_as_void = widget.details()->children;
+            const auto& children_as_void = widget.details()->children;
             std::vector<std::reference_wrapper<Child>> children;
             children.reserve(children_as_void.size());
 

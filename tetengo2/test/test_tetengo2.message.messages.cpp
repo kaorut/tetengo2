@@ -115,18 +115,17 @@ BOOST_AUTO_TEST_SUITE(messages)
         BOOST_TEST_PASSPOINT();
 
         {
-            const string_type namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge")));
+            const auto namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            const string_type namespace_removed =
-                messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga")));
+            const auto namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga")));
 
             BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("fuga")));
         }
         {
-            const string_type namespace_removed =
+            const auto namespace_removed =
                 messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga:piyo")));
 
             BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("piyo")));
@@ -162,7 +161,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -177,7 +176,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -192,7 +191,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -213,7 +212,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type(TETENGO2_TEXT("Language"))), std::runtime_error);
@@ -248,7 +247,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type(TETENGO2_TEXT("Language"))), std::runtime_error);
@@ -283,7 +282,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -320,7 +319,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
@@ -337,7 +336,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
@@ -354,7 +353,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std_messages_type& messages = std::use_facet<std_messages_type>(std::locale());
+                const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const auto catalog_id = messages.open("", std::locale());

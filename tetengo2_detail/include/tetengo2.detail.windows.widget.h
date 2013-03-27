@@ -169,7 +169,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -188,7 +188,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
+            const auto instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -271,7 +271,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -313,7 +313,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -355,7 +355,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -405,7 +405,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -428,7 +428,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
+            const auto instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -514,7 +514,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
@@ -537,7 +537,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(nullptr);
+            const auto instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -590,7 +590,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void associate_to_native_window_system(Widget& widget)
         {
             assert(!::GetPropW(widget.details()->handle.get(), property_key_for_cpp_instance().c_str()));
-            const ::BOOL result =
+            const auto result =
                 ::SetPropW(
                     widget.details()->handle.get(),
                     property_key_for_cpp_instance().c_str(),
@@ -634,7 +634,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static Widget& parent(Widget& widget)
         {
-            const ::HWND parent_handle = ::GetParent(widget.details()->handle.get());
+            const auto parent_handle = ::GetParent(widget.details()->handle.get());
             if (!parent_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -642,7 +642,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            Widget* const p_parent = p_widget_from<Widget>(parent_handle);
+            auto* const p_parent = p_widget_from<Widget>(parent_handle);
             assert(p_parent);
             return *p_parent;
         }
@@ -661,7 +661,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static Widget& root_ancestor(Widget& widget)
         {
-            const ::HWND root_ancestor_handle = ::GetAncestor(widget.details()->handle.get(), GA_ROOT);
+            const auto root_ancestor_handle = ::GetAncestor(widget.details()->handle.get(), GA_ROOT);
             if (!root_ancestor_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -671,7 +671,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            Widget* const p_root_ancestor = p_widget_from<Widget>(root_ancestor_handle);
+            auto* const p_root_ancestor = p_widget_from<Widget>(root_ancestor_handle);
             assert(p_root_ancestor);
             return *p_root_ancestor;
         }
@@ -798,8 +798,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             ::WINDOWPLACEMENT window_placement = {};
             window_placement.length = sizeof(::WINDOWPLACEMENT);
-            const ::BOOL get_result =
-                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            const auto get_result = ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -811,8 +810,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             window_placement.showCmd = widget.details()->window_state_when_hidden;
 
-            const ::BOOL set_result =
-                ::SetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            const auto set_result = ::SetWindowPlacement(widget.details()->handle.get(), &window_placement);
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -876,7 +874,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const ::BOOL result =
+            const auto result =
                 ::MoveWindow(
                     widget.details()->handle.get(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
@@ -944,8 +942,8 @@ namespace tetengo2 { namespace detail { namespace windows
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
             ::POINT point = {};
-            const ::LONG x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
-            const ::LONG y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
+            const auto x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
+            const auto y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
             if (::ClientToScreen(const_cast< ::HWND>(parent.details()->handle.get()), &point) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -958,7 +956,7 @@ namespace tetengo2 { namespace detail { namespace windows
             point.x += x_margin;
             point.y += y_margin;
 
-            const ::HMONITOR monitor_handle = ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
+            const auto monitor_handle = ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
             ::MONITORINFO monitor_info = {};
             monitor_info.cbSize = sizeof(::MONITORINFO);
             if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
@@ -970,9 +968,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const typename Widget::dimension_type widget_dimension = widget.dimension();
-            const ::LONG widget_width = gui::to_pixels< ::LONG>(widget_dimension.first);
-            const ::LONG widget_height = gui::to_pixels< ::LONG>(widget_dimension.second);
+            const auto widget_dimension = widget.dimension();
+            const auto widget_width = gui::to_pixels< ::LONG>(widget_dimension.first);
+            const auto widget_height = gui::to_pixels< ::LONG>(widget_dimension.second);
             if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
                 point.x = monitor_info.rcWork.right - widget_width - x_margin;
             if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)
@@ -1045,13 +1043,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 gui::dimension<Dimension>::height(client_dimension) > 0
             );
 
-            const Position pos = position<Position>(widget);
-            const ::LONG_PTR window_style = ::GetWindowLongPtrW(widget.details()->handle.get(), GWL_STYLE);
-            const ::LONG_PTR extended_window_style = ::GetWindowLongPtrW(widget.details()->handle.get(), GWL_EXSTYLE);
-            const ::LONG left = gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
-            const ::LONG top =  gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
-            const ::LONG width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(client_dimension));
-            const ::LONG height =gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(client_dimension));
+            const auto pos = position<Position>(widget);
+            const auto window_style = ::GetWindowLongPtrW(widget.details()->handle.get(), GWL_STYLE);
+            const auto extended_window_style = ::GetWindowLongPtrW(widget.details()->handle.get(), GWL_EXSTYLE);
+            const auto left = gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
+            const auto top =  gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
+            const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(client_dimension));
+            const auto height =gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(client_dimension));
             ::RECT rectangle = { left, top, left + width, top + height };
             if (
                 ::AdjustWindowRectEx(
@@ -1071,7 +1069,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            const ::BOOL result =
+            const auto result =
                 ::MoveWindow(
                     widget.details()->handle.get(),
                     rectangle.left,
@@ -1140,8 +1138,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::WINDOWPLACEMENT window_placement = {};
             window_placement.length = sizeof(::WINDOWPLACEMENT);
-            const ::BOOL get_result =
-                ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
+            const auto get_result = ::GetWindowPlacement(widget.details()->handle.get(), &window_placement);
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1151,7 +1148,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::RECT& rectangle = window_placement.rcNormalPosition;
+            const auto& rectangle = window_placement.rcNormalPosition;
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
@@ -1178,7 +1175,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename String, typename Encoder>
         static void set_text(Widget& widget, String text, const Encoder& encoder)
         {
-            const ::BOOL result =
+            const auto result =
                 ::SetWindowTextW(widget.details()->handle.get(), encoder.encode(std::move(text)).c_str());
             if (result == 0)
             {
@@ -1203,7 +1200,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename Widget, typename Encoder>
         static String text(const Widget& widget, const Encoder& encoder)
         {
-            const int length = ::GetWindowTextLengthW(const_cast< ::HWND>(widget.details()->handle.get()));
+            const auto length = ::GetWindowTextLengthW(const_cast< ::HWND>(widget.details()->handle.get()));
             if (length == 0) return String();
 
             std::vector<wchar_t> text(length + 1, L'\0');
@@ -1228,7 +1225,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename Font, typename Encoder>
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
-            const ::HFONT previous_font_handle =
+            const auto previous_font_handle =
                 reinterpret_cast< ::HFONT>(::SendMessageW(widget.details()->handle.get(), WM_GETFONT, 0, 0));
 
             ::LOGFONTW log_font = {
@@ -1251,7 +1248,7 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(font_family.length() < LF_FACESIZE);
             std::copy(font_family.begin(), font_family.end(), log_font.lfFaceName);
             log_font.lfFaceName[font_family.length()] = L'\0';
-            const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
+            const auto font_handle = ::CreateFontIndirectW(&log_font);
             if (!font_handle)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1292,7 +1289,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Font, typename Widget, typename Encoder>
         static Font font(const Widget& widget, const Encoder& encoder)
         {
-            ::HFONT font_handle =
+            auto font_handle =
                 reinterpret_cast< ::HFONT>(
                     ::SendMessageW(const_cast< ::HWND>(widget.details()->handle.get()), WM_GETFONT, 0, 0)
                 );
@@ -1300,7 +1297,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 font_handle = reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
 
             ::LOGFONTW log_font;
-            const int byte_count = ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
+            const auto byte_count = ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
             if (byte_count == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1380,8 +1377,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Result, typename Widget, typename Function>
         static Result use_canvas(const Widget&  widget, const Function function)
         {
-            const ::HWND window_handle = const_cast< ::HWND>(widget.details()->handle.get());
-            const ::HDC device_context_handle = ::GetDC(window_handle);
+            const auto window_handle = const_cast< ::HWND>(widget.details()->handle.get());
+            const auto device_context_handle = ::GetDC(window_handle);
             BOOST_SCOPE_EXIT((window_handle)(device_context_handle))
             {
                 ::ReleaseDC(window_handle, device_context_handle);
@@ -1418,7 +1415,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename MenuBase>
         static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {
-            const ::BOOL result =
+            const auto result =
                 ::SetMenu(widget.details()->handle.get(), menu ? menu->details()->handle.get() : nullptr);
             if (result == 0)
             {
@@ -1450,7 +1447,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool focusable(const Widget& widget)
         {
-            const ::LONG style = ::GetWindowLongW(const_cast< ::HWND>(widget.details()->handle.get()), GWL_STYLE);
+            const auto style = ::GetWindowLongW(const_cast< ::HWND>(widget.details()->handle.get()), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1475,7 +1472,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_focusable(Widget& widget, const bool focusable)
         {
-            ::LONG style = ::GetWindowLongW(widget.details()->handle.get(), GWL_STYLE);
+            auto style = ::GetWindowLongW(widget.details()->handle.get(), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1485,7 +1482,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            ::DWORD unsigned_style = style;
+            auto unsigned_style = style;
             if (focusable)
                 unsigned_style |= WS_TABSTOP;
             else
@@ -1533,7 +1530,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool read_only(const Widget& widget)
         {
-            const ::LONG style = ::GetWindowLongW(const_cast< ::HWND>(widget.details()->handle.get()), GWL_STYLE);
+            const auto style = ::GetWindowLongW(const_cast< ::HWND>(widget.details()->handle.get()), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1558,7 +1555,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_read_only(Widget& widget, const bool read_only)
         {
-            const ::LRESULT result =
+            const auto result =
                 ::SendMessageW(widget.details()->handle.get(), EM_SETREADONLY, read_only ? TRUE : FALSE, 0);
             if (result == 0)
             {
@@ -1582,7 +1579,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void close(Widget& widget)
         {
-            const ::BOOL result = ::PostMessageW(widget.details()->handle.get(), WM_CLOSE, 0, 0);
+            const auto result = ::PostMessageW(widget.details()->handle.get(), WM_CLOSE, 0, 0);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1605,7 +1602,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename String>
         static void open_target(const Widget& widget, const String& target)
         {
-            const ::HINSTANCE result =
+            const auto result =
                 ::ShellExecuteW(
                     widget.has_parent() ?
                         const_cast< ::HWND>(widget.root_ancestor().details()->handle.get()) : nullptr,
@@ -1641,7 +1638,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename DropdownBox>
         static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCOUNT, 0, 0);
+            const auto result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCOUNT, 0, 0);
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1674,7 +1671,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename DropdownBox, typename Size, typename Encoder>
         static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
         {
-            const ::LRESULT length = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETLBTEXTLEN, index, 0);
+            const auto length = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETLBTEXTLEN, index, 0);
             if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1686,7 +1683,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             std::vector<wchar_t> item(length + 1, 0);
-            const ::LRESULT result =
+            const auto result =
                 ::SendMessageW(
                     dropdown_box.details()->handle.get(),
                     CB_GETLBTEXT,
@@ -1755,7 +1752,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder& encoder
         )
         {
-            const ::LRESULT result =
+            const auto result =
                 ::SendMessageW(
                     dropdown_box.details()->handle.get(),
                     CB_INSERTSTRING,
@@ -1786,7 +1783,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename DropdownBox, typename Size>
         static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_DELETESTRING, index, 0);
+            const auto result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_DELETESTRING, index, 0);
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1827,7 +1824,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename DropdownBox>
         static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
         {
-            const ::LRESULT index = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCURSEL, 0, 0);
+            const auto index = ::SendMessageW(dropdown_box.details()->handle.get(), CB_GETCURSEL, 0, 0);
             return boost::make_optional<Size>(index != CB_ERR, index);
         }
 
@@ -1845,7 +1842,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename DropdownBox, typename Size>
         static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_SETCURSEL, index, 0);
+            const auto result = ::SendMessageW(dropdown_box.details()->handle.get(), CB_SETCURSEL, index, 0);
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1871,7 +1868,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename ListBox>
         static Size list_box_item_count(const ListBox& list_box)
         {
-            const ::LRESULT result = ::SendMessageW(list_box.details()->handle.get(), LB_GETCOUNT, 0, 0);
+            const auto result = ::SendMessageW(list_box.details()->handle.get(), LB_GETCOUNT, 0, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1903,7 +1900,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename ListBox, typename Size, typename Encoder>
         static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
-            const ::LRESULT length = ::SendMessageW(list_box.details()->handle.get(), LB_GETTEXTLEN, index, 0);
+            const auto length = ::SendMessageW(list_box.details()->handle.get(), LB_GETTEXTLEN, index, 0);
             if (length == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1914,7 +1911,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             std::vector<wchar_t> item(length + 1, 0);
-            const ::LRESULT result =
+            const auto result =
                 ::SendMessageW(
                     list_box.details()->handle.get(),
                     LB_GETTEXT,
@@ -1973,7 +1970,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
-            const ::LRESULT result =
+            const auto result =
                 ::SendMessageW(
                     list_box.details()->handle.get(),
                     LB_INSERTSTRING,
@@ -2004,7 +2001,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size>
         static void erase_list_box_item(ListBox& list_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(list_box.details()->handle.get(), LB_DELETESTRING, index, 0);
+            const auto result = ::SendMessageW(list_box.details()->handle.get(), LB_DELETESTRING, index, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2045,7 +2042,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
         {
-            const ::LRESULT index = ::SendMessageW(list_box.details()->handle.get(), LB_GETCURSEL, 0, 0);
+            const auto index = ::SendMessageW(list_box.details()->handle.get(), LB_GETCURSEL, 0, 0);
             return boost::make_optional<Size>(index != LB_ERR, index);
         }
 
@@ -2063,7 +2060,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename ListBox, typename Size>
         static void select_list_box_item(ListBox& list_box, const Size index)
         {
-            const ::LRESULT result = ::SendMessageW(list_box.details()->handle.get(), LB_SETCURSEL, index, 0);
+            const auto result = ::SendMessageW(list_box.details()->handle.get(), LB_SETCURSEL, index, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2132,7 +2129,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             ::WNDCLASSEXW window_class = {};
-            const ::BOOL result = ::GetClassInfoExW(instance_handle, window_class_name.c_str(), &window_class);
+            const auto result = ::GetClassInfoExW(instance_handle, window_class_name.c_str(), &window_class);
 
             return result != 0;
         }
@@ -2169,7 +2166,7 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = window_class_name().c_str();
 
-            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            const auto atom = ::RegisterClassExW(&window_class);
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2203,7 +2200,7 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = dialog_class_name().c_str();
 
-            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            const auto atom = ::RegisterClassExW(&window_class);
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2237,7 +2234,7 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.lpszMenuName = nullptr;
             window_class.lpszClassName = picture_box_class_name().c_str();
 
-            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            const auto atom = ::RegisterClassExW(&window_class);
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2270,7 +2267,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void delete_system_menus(const ::HWND widget_handle)
         {
-            const ::HMENU menu_handle = ::GetSystemMenu(widget_handle, FALSE);
+            const auto menu_handle = ::GetSystemMenu(widget_handle, FALSE);
             if (!menu_handle) return;
 
             if (
@@ -2299,7 +2296,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             try
             {
-                Widget* const p_widget = p_widget_from<Widget>(window_handle);
+                auto* const p_widget = p_widget_from<Widget>(window_handle);
                 if (p_widget)
                     return window_procedure_impl(*p_widget, message, w_param, l_param);
                 else
@@ -2330,14 +2327,14 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::LPARAM l_param
         )
         {
-            typedef typename Widget::message_handler_map_type::const_iterator map_iterator;
-            const map_iterator found = widget.message_handler_map().find(message);
+            const auto found = widget.message_handler_map().find(message);
             if (found != widget.message_handler_map().end())
             {
                 for (const typename Widget::message_handler_type& handler: found->second)
                 {
-                    const boost::optional< ::LRESULT> o_result = handler(w_param, l_param);
-                    if (o_result) return *o_result;
+                    const auto result = handler(w_param, l_param);
+                    if (result)
+                        return *result;
                 }
             }
 
@@ -2358,8 +2355,8 @@ namespace tetengo2 { namespace detail { namespace windows
 #    pragma warning(push)
 #    pragma warning(disable: 4244)
 #endif
-            const ::WNDPROC proc = window_procedure<Widget>;
-            const ::LONG_PTR result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast< ::LONG_PTR>(proc));
+            const auto proc = window_procedure<Widget>;
+            const auto result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast< ::LONG_PTR>(proc));
 #if defined(_WIN32) && !defined(_WIN64)
 #    pragma warning(pop)
 #endif
@@ -2378,8 +2375,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Child>
         static ::BOOL CALLBACK enum_child_procedure(const ::HWND window_handle, const ::LPARAM parameter)
         {
-            std::vector<std::reference_wrapper<Child>>* const p_children =
-                reinterpret_cast<std::vector<std::reference_wrapper<Child>>*>(parameter);
+            auto* const p_children = reinterpret_cast<std::vector<std::reference_wrapper<Child>>*>(parameter);
 
             p_children->push_back(std::ref(*p_widget_from<Child>(window_handle)));
 

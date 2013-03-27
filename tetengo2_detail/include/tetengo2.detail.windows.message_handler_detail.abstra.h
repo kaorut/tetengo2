@@ -84,13 +84,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             suppress_unused_variable_warning(l_param);
 
-            const ::HMENU handle = reinterpret_cast< ::HMENU>(w_param);
+            const auto handle = reinterpret_cast< ::HMENU>(w_param);
 
             if (!abstract_window.has_menu_bar())
                 return boost::none;
 
             typedef typename AbstractWindow::menu_bar_type menu_bar_type;
-            const typename menu_bar_type::recursive_iterator_type found =
+            const auto found =
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
@@ -134,7 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
 
-            bool cancel = false;
+            auto cancel = false;
             abstract_window.window_observer_set().closing()(cancel);
             return boost::make_optional< ::LRESULT>(cancel, 0);
         }
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
 
-            bool cancel = false;
+            auto cancel = false;
             abstract_window.window_observer_set().closing()(cancel);
             return boost::make_optional< ::LRESULT>(cancel, FALSE);
         }

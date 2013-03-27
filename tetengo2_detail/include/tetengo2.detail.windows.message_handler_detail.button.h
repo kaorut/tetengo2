@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     return boost::none;
                 }
 
-                const ::BOOL result = ::KillTimer(button.details()->handle.get(), WM_LBUTTONDOWN);
+                const auto result = ::KillTimer(button.details()->handle.get(), WM_LBUTTONDOWN);
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(

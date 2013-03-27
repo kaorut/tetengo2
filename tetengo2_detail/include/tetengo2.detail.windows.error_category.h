@@ -98,7 +98,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const std::size_t message_capacity = 64 * 1024;
             std::vector<wchar_t> message(message_capacity, 0);
-            ::DWORD message_length =
+            auto message_length =
                 ::FormatMessageW(
                     FORMAT_MESSAGE_FROM_SYSTEM,
                     nullptr,

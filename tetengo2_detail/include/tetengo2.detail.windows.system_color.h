@@ -60,7 +60,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
             case system_color_index_type::dialog_background:
                 {
-                    const ::COLORREF color_ref = ::GetSysColor(COLOR_3DFACE);
+                    const auto color_ref = ::GetSysColor(COLOR_3DFACE);
                     return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
                 }
             default:

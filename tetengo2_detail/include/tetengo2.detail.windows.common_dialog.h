@@ -309,17 +309,16 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static message_box_button_id_type show_message_box(message_box_details_type& message_box)
         {
-            const ::HWND parent_window_handle = message_box.parent_handle;
-            const std::wstring& title = message_box.title;
-            const std::wstring& main_content = message_box.main_content;
-            const std::wstring& sub_content = message_box.sub_content;
-            const bool cancellable = message_box.cancellable;
-            const message_box_button_style_type button_style = message_box.button_style;
-            const message_box_icon_style_type icon_style = message_box.icon_style;
-            const std::vector<boost::optional<std::wstring>>& custom_button_labels =
-                message_box.custom_button_labels;
+            const auto parent_window_handle = message_box.parent_handle;
+            const auto& title = message_box.title;
+            const auto& main_content = message_box.main_content;
+            const auto& sub_content = message_box.sub_content;
+            const auto cancellable = message_box.cancellable;
+            const auto button_style = message_box.button_style;
+            const auto icon_style = message_box.icon_style;
+            const auto& custom_button_labels = message_box.custom_button_labels;
 
-            const std::vector< ::TASKDIALOG_BUTTON> custom_buttons = make_custom_buttons(custom_button_labels);
+            const auto custom_buttons = make_custom_buttons(custom_button_labels);
 
             ::TASKDIALOGCONFIG config = {};
             config.cbSize = sizeof(::TASKDIALOGCONFIG);
@@ -333,7 +332,7 @@ namespace tetengo2 { namespace detail { namespace windows
             config.pButtons = custom_buttons.data();
 
             int selected_button = 0;
-            const ::HRESULT result = ::TaskDialogIndirect(&config, &selected_button, nullptr, nullptr);
+            const auto result = ::TaskDialogIndirect(&config, &selected_button, nullptr, nullptr);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
@@ -370,7 +369,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             ::IFileOpenDialog* p_raw_dialog = nullptr;
-            const ::HRESULT creation_result =
+            const auto creation_result =
                 ::CoCreateInstance(__uuidof(::FileOpenDialog), nullptr, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
             if (FAILED(creation_result))
             {
@@ -410,7 +409,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            const ::HRESULT title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
+            const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -420,7 +419,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             if (!dialog.native_filters.empty())
             {
-                const ::HRESULT default_extension_set_result =
+                const auto default_extension_set_result =
                     dialog.p_dialog->SetDefaultExtension(dialog.default_extension.c_str());
                 if (FAILED(default_extension_set_result))
                 {
@@ -433,8 +432,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(dialog.native_filters);
-            const ::HRESULT filter_set_result =
+            auto filterspecs = to_filterspecs(dialog.native_filters);
+            const auto filter_set_result =
                 dialog.p_dialog->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
             if (FAILED(filter_set_result))
             {
@@ -445,12 +444,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::HRESULT showing_result = dialog.p_dialog->Show(dialog.parent_handle);
+            const auto showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
                 return boost::none;
 
             ::IShellItem* p_raw_item = nullptr;
-            const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
+            const auto result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -460,7 +459,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
             wchar_t* file_name = nullptr;
-            const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
+            const auto file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
             if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -504,7 +503,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             ::IFileSaveDialog* p_raw_dialog = nullptr;
-            const ::HRESULT creation_result =
+            const auto creation_result =
                 ::CoCreateInstance(__uuidof(::FileSaveDialog), nullptr, CLSCTX_ALL, IID_PPV_ARGS(&p_raw_dialog));
             if (FAILED(creation_result))
             {
@@ -546,7 +545,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            const ::HRESULT title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
+            const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -557,10 +556,8 @@ namespace tetengo2 { namespace detail { namespace windows
             ::IShellItem* p_raw_default_path = nullptr;
             if (!dialog.path.empty())
             {
-                const ::HRESULT default_path_result =
-                    ::SHCreateItemFromParsingName(
-                        dialog.path.c_str(), nullptr, IID_PPV_ARGS(&p_raw_default_path)
-                    );
+                const auto default_path_result =
+                    ::SHCreateItemFromParsingName(dialog.path.c_str(), nullptr, IID_PPV_ARGS(&p_raw_default_path));
                 if (FAILED(default_path_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -577,7 +574,7 @@ namespace tetengo2 { namespace detail { namespace windows
             } BOOST_SCOPE_EXIT_END;
             if (!dialog.path.empty())
             {
-                const ::HRESULT default_path_set_result = dialog.p_dialog->SetSaveAsItem(p_raw_default_path);
+                const auto default_path_set_result = dialog.p_dialog->SetSaveAsItem(p_raw_default_path);
                 if (FAILED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
@@ -590,7 +587,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             if (!dialog.default_extension.empty())
             {
-                const ::HRESULT default_extension_set_result =
+                const auto default_extension_set_result =
                     dialog.p_dialog->SetDefaultExtension(dialog.default_extension.c_str());
                 if (FAILED(default_extension_set_result))
                 {
@@ -603,8 +600,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            const std::vector< ::COMDLG_FILTERSPEC> filterspecs = to_filterspecs(dialog.native_filters);
-            const ::HRESULT filter_set_result =
+            const auto filterspecs = to_filterspecs(dialog.native_filters);
+            const auto filter_set_result =
                 dialog.p_dialog->SetFileTypes(static_cast< ::UINT>(filterspecs.size()), filterspecs.data());
             if (FAILED(filter_set_result))
             {
@@ -617,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             if (dialog.filter_index > 0)
             {
-                const ::HRESULT filter_index_set_result =
+                const auto filter_index_set_result =
                     dialog.p_dialog->SetFileTypeIndex(static_cast< ::UINT>(dialog.filter_index));
                 if (FAILED(filter_index_set_result))
                 {
@@ -629,12 +626,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            const ::HRESULT showing_result = dialog.p_dialog->Show(dialog.parent_handle);
+            const auto showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
                 return boost::none;
 
             ::IShellItem* p_raw_item = nullptr;
-            const ::HRESULT result_result = dialog.p_dialog->GetResult(&p_raw_item);
+            const auto result_result = dialog.p_dialog->GetResult(&p_raw_item);
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -644,7 +641,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
             wchar_t* file_name = nullptr;
-            const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
+            const auto file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
             if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
@@ -681,7 +678,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&      encoder
         )
         {
-            std::unique_ptr< ::LOGFONTW> p_log_font = make_unique< ::LOGFONTW>();
+            auto p_log_font = make_unique< ::LOGFONTW>();
             if (font)
             {
                 p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
@@ -702,7 +699,7 @@ namespace tetengo2 { namespace detail { namespace windows
             else
             {
                 typedef typename std::decay<OptionalFont>::type::value_type font_type;
-                const font_type& dialog_font = font_type::dialog_font();
+                const auto& dialog_font = font_type::dialog_font();
 
                 p_log_font->lfHeight = -static_cast< ::LONG>(dialog_font.size());
                 p_log_font->lfWeight = dialog_font.bold() ? FW_BOLD : FW_NORMAL;
@@ -761,7 +758,7 @@ namespace tetengo2 { namespace detail { namespace windows
             choose_font.nSizeMin = 0;
             choose_font.nSizeMax = 0;
 
-            const ::BOOL result = ::ChooseFontW(&choose_font);
+            const auto result = ::ChooseFontW(&choose_font);
             if (result == FALSE)
                 return boost::none;
 
@@ -825,7 +822,7 @@ namespace tetengo2 { namespace detail { namespace windows
             choose_color.lpfnHook = nullptr;
             choose_color.lpTemplateName = nullptr;
 
-            const ::BOOL result = ::ChooseColorW(&choose_color);
+            const auto result = ::ChooseColorW(&choose_color);
             if (result == FALSE)
                 return boost::none;
 
@@ -982,8 +979,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Path, typename String>
         static bool match_extension(const Path& path, const String& extension)
         {
-            const String path_string = path.template string<String>();
-            const String dotted_extension = String(TETENGO2_TEXT(".")) + extension;
+            const auto path_string = path.template string<String>();
+            const auto dotted_extension = String(TETENGO2_TEXT(".")) + extension;
             if (path_string.length() < dotted_extension.length())
                 return false;
 
