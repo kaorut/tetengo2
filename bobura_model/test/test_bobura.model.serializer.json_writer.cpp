@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         {
             writer_type json_writer;
 
-            const std::unique_ptr<const timetable_type> p_timetable = create_timetable1();
+            const auto p_timetable = create_timetable1();
             std::ostringstream stream;
 
             json_writer.write(*p_timetable, stream);

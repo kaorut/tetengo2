@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
         bzip2_reader_type bzip2_reader(std::move(p_reader));
 
         std::istringstream input_stream("BZ");
-        error_type error = error_type::none;
+        auto error = error_type::none;
         const auto p_timetable =
             bzip2_reader.read(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),

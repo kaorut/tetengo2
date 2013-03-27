@@ -131,8 +131,7 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
         const select_oudia_diagram_type select_oudia_diagram(parent, std::move(file_name), message_catalog);
 
         std::vector<string_type> diagram_names;
-        const std::vector<string_type>::const_iterator selected =
-            select_oudia_diagram(diagram_names.begin(), diagram_names.end());
+        const auto selected = select_oudia_diagram(diagram_names.begin(), diagram_names.end());
 
         BOOST_CHECK(selected == diagram_names.end());
     }

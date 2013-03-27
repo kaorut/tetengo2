@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             BOOST_CHECK(intervals.empty());
         }
@@ -176,12 +176,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |    |CCC|    |
             // |    |DDD|    |
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             const std::vector<train_type> down_trains;
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |  v |CCC|    |
             // |  v |DDD|    |
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |    |CCC|  ^ |
             // |    |DDD|  ^ |
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             const std::vector<train_type> down_trains;
             std::vector<train_type> up_trains;
             {
@@ -237,7 +237,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             }
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
@@ -252,7 +252,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |1003|CCC|    |
             // |1006|DDD|    |
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |1003|1202|CCC|    |
             // |1006|1203|DDD|    |
             // +----+----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |1003|CCC|1102|
             // |1006|DDD|1100|
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -345,7 +345,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             }
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {
@@ -364,7 +364,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |  v |CCC|    |
             // |1012|DDD|    |
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -377,7 +377,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {
@@ -396,7 +396,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |1004|  v |CCC|    |
             // |1006|1209|DDD|    |
             // +----+----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -417,7 +417,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const std::vector<train_type> up_trains;
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {
@@ -436,7 +436,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             // |1010|CCC|  ^ |
             // |====|DDD|1100|
             // +----+---+----+
-            const std::vector<station_location_type> station_locations = make_station_locations();
+            const auto station_locations = make_station_locations();
             std::vector<train_type> down_trains;
             {
                 std::vector<stop_type> stops;
@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             }
             const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-            const station_intervals_type intervals = calculator.calculate();
+            const auto intervals = calculator.calculate();
 
             station_intervals_type expected;
             {

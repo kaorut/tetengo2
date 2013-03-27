@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data0);
-            error_type error = error_type::none;
+            auto error = error_type::none;
             const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data1);
-            error_type error = error_type::none;
+            auto error = error_type::none;
             const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data2);
-            error_type error = error_type::none;
+            auto error = error_type::none;
             const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
@@ -214,13 +214,13 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             BOOST_REQUIRE_EQUAL(p_timetable->station_locations().size(), 6U);
             {
-                const station_location_type& station_location = p_timetable->station_locations()[0];
+                const auto& station_location = p_timetable->station_locations()[0];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("hoge")));
                 BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
                 BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
             }
             {
-                const station_location_type& station_location = p_timetable->station_locations()[2];
+                const auto& station_location = p_timetable->station_locations()[2];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("piyo")));
                 BOOST_CHECK(
                     station_location.station().grade().name() == string_type(TETENGO2_TEXT("local terminal"))
@@ -228,7 +228,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
             }
             {
-                const station_location_type& station_location = p_timetable->station_locations()[4];
+                const auto& station_location = p_timetable->station_locations()[4];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("iroha")));
                 BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
                 BOOST_CHECK(station_location.station().shows_up_arrival_times());
@@ -237,14 +237,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             BOOST_REQUIRE_EQUAL(p_timetable->train_kinds().size(), 4U);
             {
-                const train_kind_type& train_kind = p_timetable->train_kinds()[0];
+                const auto& train_kind = p_timetable->train_kinds()[0];
 
                 BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("\x95\x81\x92\xCA"))); // futsuu
                 BOOST_CHECK(train_kind.color() == color_type(0, 0, 0));
                 BOOST_CHECK(train_kind.weight() == train_kind_type::weight_type::normal);
             }
             {
-                const train_kind_type& train_kind = p_timetable->train_kinds()[3];
+                const auto& train_kind = p_timetable->train_kinds()[3];
 
                 BOOST_CHECK(train_kind.name() == string_type(TETENGO2_TEXT("express")));
                 BOOST_CHECK(train_kind.color() == color_type(255, 0, 0));
@@ -253,14 +253,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             BOOST_REQUIRE_EQUAL(p_timetable->down_trains().size(), 3U);
             {
-                const train_type& train = p_timetable->down_trains()[0];
+                const auto& train = p_timetable->down_trains()[0];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("121D")));
                 BOOST_CHECK(train.name().empty());
                 BOOST_CHECK_EQUAL(train.kind_index(), 0U);
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
-                    const stop_type& stop = train.stops()[0];
+                    const auto& stop = train.stops()[0];
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(10, 0, 0));
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
-                    const stop_type& stop = train.stops()[2];
+                    const auto& stop = train.stops()[2];
 
                     BOOST_CHECK(stop.arrival() == time_type(10, 20, 0));
                     BOOST_CHECK(stop.departure() == time_type(10, 30, 0));
@@ -277,14 +277,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 }
             }
             {
-                const train_type& train = p_timetable->down_trains()[1];
+                const auto& train = p_timetable->down_trains()[1];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
                 BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("foo")));
                 BOOST_CHECK_EQUAL(train.kind_index(), 1U);
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
-                    const stop_type& stop = train.stops()[0];
+                    const auto& stop = train.stops()[0];
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(11, 0, 0));
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
-                    const stop_type& stop = train.stops()[2];
+                    const auto& stop = train.stops()[2];
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
-                    const stop_type& stop = train.stops()[3];
+                    const auto& stop = train.stops()[3];
 
                     BOOST_CHECK(stop.arrival() == time_type(11, 30, 0));
                     BOOST_CHECK(stop.departure() == time_type(11, 40, 0));
@@ -311,14 +311,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
 
             BOOST_REQUIRE_EQUAL(p_timetable->up_trains().size(), 3U);
             {
-                const train_type& train = p_timetable->up_trains()[1];
+                const auto& train = p_timetable->up_trains()[1];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("124D")));
                 BOOST_CHECK(train.name().empty());
                 BOOST_CHECK_EQUAL(train.kind_index(), 0U);
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
-                    const stop_type& stop = train.stops()[2];
+                    const auto& stop = train.stops()[2];
 
                     BOOST_CHECK(stop.arrival() == time_type(11, 40, 00));
                     BOOST_CHECK(stop.departure() == time_type(11, 50, 00));
@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
-                    const stop_type& stop = train.stops()[4];
+                    const auto& stop = train.stops()[4];
 
                     BOOST_CHECK(stop.arrival() == time_type(11, 10, 0));
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
@@ -335,14 +335,14 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
                 }
             }
             {
-                const train_type& train = p_timetable->up_trains()[2];
+                const auto& train = p_timetable->up_trains()[2];
 
                 BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("102D")));
                 BOOST_CHECK(train.name() == string_type(TETENGO2_TEXT("bar")));
                 BOOST_CHECK_EQUAL(train.kind_index(), 3U);
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 6U);
                 {
-                    const stop_type& stop = train.stops()[4];
+                    const auto& stop = train.stops()[4];
 
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type::uninitialized());
@@ -355,7 +355,7 @@ BOOST_AUTO_TEST_SUITE(windia_reader)
             reader_type reader;
 
             std::istringstream input_stream(data3);
-            error_type error = error_type::none;
+            auto error = error_type::none;
             const auto p_timetable =
                 reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
