@@ -30,9 +30,6 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
-        //! The detail implementation type of a widget.
-        typedef widget widget_details_type;
-
         //! The message handler type.
         typedef std::function<void ()> message_handler_type;
 

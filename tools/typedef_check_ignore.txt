@@ -24,3 +24,12 @@ bobura::model::station_info::grade_type_set::principal_type
 bobura::model::station_info::grade_type_set::principal_terminal_type
 bobura::model::station_info::grade_type_set::local_type
 bobura::view_type_list
+tetengo2::detail::stub::config::string_type
+tetengo2::detail::stub::drawing::picture_details_ptr_type
+tetengo2::detail::stub::drawing::background_details_ptr_type
+tetengo2::detail::stub::drawing::canvas_details_ptr_type
+tetengo2::detail::windows::config::string_type
+tetengo2::detail::windows::gdiplus::drawing::canvas_details_ptr_type
+tetengo2::detail::windows::gdiplus::drawing::background_details_ptr_type
+tetengo2::detail::windows::widget::string_type
+tetengo2::text::encoding::encoding::pivot_type

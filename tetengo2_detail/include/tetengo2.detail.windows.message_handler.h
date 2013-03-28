@@ -52,9 +52,6 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
-        //! The detail implementation type of a widget.
-        typedef widget widget_details_type;
-
         //! The message handler type.
         typedef
             std::function<boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)>
@@ -691,6 +688,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     private:
+        // types
+
+        typedef widget widget_details_type;
+
+
         // forbidden operations
 
         message_handler();
