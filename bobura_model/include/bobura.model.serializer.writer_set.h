@@ -34,7 +34,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam StationGradeTypeSet A station grade type set type.
         \tparam Encoder             An encoder type.
     */
-    template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
+    template <typename OutputStream, typename Timetable, typename Path, typename Encoder>
     class writer_set : private boost::noncopyable
     {
     public:
@@ -49,9 +49,6 @@ namespace bobura { namespace model { namespace serializer
         //! The path type.
         typedef Path path_type;
 
-        //! The station grade type set type.
-        typedef StationGradeTypeSet station_grade_type_set_type;
-
         //! The encoder type.
         typedef Encoder encoder_type;
 
@@ -62,9 +59,7 @@ namespace bobura { namespace model { namespace serializer
         typedef bzip2_writer<output_stream_type, timetable_type, path_type> bzip2_writer_type;
 
         //! The JSON writer type.
-        typedef
-            json_writer<output_stream_type, timetable_type, path_type, station_grade_type_set_type, encoder_type>
-            json_writer_type;
+        typedef json_writer<output_stream_type, timetable_type, path_type, encoder_type> json_writer_type;
 
 
         // static functions

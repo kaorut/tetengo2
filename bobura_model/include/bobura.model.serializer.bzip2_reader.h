@@ -83,8 +83,6 @@ namespace bobura { namespace model { namespace serializer
             boost::basic_string_ref<typename iterator::value_type, std::char_traits<typename iterator::value_type>>
             input_string_ref_type;
 
-        typedef std::basic_istringstream<typename iterator::value_type> input_stream_type;
-
 
         // variables
 

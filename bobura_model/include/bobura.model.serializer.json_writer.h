@@ -32,13 +32,12 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a JSON writer.
 
-        \tparam OutputStream        A output stream type.
-        \tparam Timetable           A timetable type.
-        \tparam Path                A path type.
-        \tparam StationGradeTypeSet A station grade type set type.
-        \tparam Encoder             An encoder type.
+        \tparam OutputStream A output stream type.
+        \tparam Timetable    A timetable type.
+        \tparam Path         A path type.
+        \tparam Encoder      An encoder type.
     */
-    template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
+    template <typename OutputStream, typename Timetable, typename Path, typename Encoder>
     class json_writer : public writer<OutputStream, Timetable, Path>
     {
     public:
@@ -55,9 +54,6 @@ namespace bobura { namespace model { namespace serializer
 
         //! The base type.
         typedef writer<output_stream_type, timetable_type, path_type> base_type;
-
-        //! The station grade type set type.
-        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;

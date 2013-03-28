@@ -127,8 +127,6 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename station_type::grade_type station_grade_type;
 
-        typedef typename station_location_type::meterage_type meterage_type;
-
         typedef typename timetable_type::train_kind_type train_kind_type;
 
         typedef typename train_kind_type::color_type color_type;

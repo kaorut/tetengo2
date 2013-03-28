@@ -18,4 +18,9 @@ bobura::command::vertically_zoom_out::base_type
 bobura::detail_type_list
 bobura::font_color_dialog::point_size_type
 bobura::load_save_type_list
+bobura::model::serializer::reader_set::base_type
+bobura::model::station_info::grade_type_set::local_terminal_type
+bobura::model::station_info::grade_type_set::principal_type
+bobura::model::station_info::grade_type_set::principal_terminal_type
+bobura::model::station_info::grade_type_set::local_type
 bobura::view_type_list
