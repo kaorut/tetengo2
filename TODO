@@ -22,20 +22,10 @@ Added on    : 2013/03/13
 Depends on  : 00000223
 Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
-Number      : 00000225
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Replace local variable type declarations to auto.
-------------------------------------------------------------------------------
 Number      : 00000229
 Added on    : 2013/03/15
 Depends on  : (none)
 Description : Introduce override keywords.
-------------------------------------------------------------------------------
-Number      : 00000230
-Added on    : 2013/03/27
-Depends on  : (none)
-Description : Create an unused typedef checker.
 ------------------------------------------------------------------------------
 Number      : 00000231
 Added on    : 2013/mm/dd
