@@ -194,8 +194,6 @@ namespace bobura { namespace load_save
 
         typedef typename file_open_dialog_type::path_type path_type;
 
-        typedef typename model_type::timetable_type timetable_type;
-
         typedef typename reader_selector_type::error_type reader_error_type;
 
 

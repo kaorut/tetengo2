@@ -273,9 +273,6 @@ namespace bobura { namespace view { namespace diagram
         //! The horizontal scale type.
         typedef typename width_type::value_type horizontal_scale_type;
 
-        //! The vertical scale type.
-        typedef typename height_type::value_type vertical_scale_type;
-
         //! The base type.
         typedef item<selection_type, canvas_type> base_type;
 

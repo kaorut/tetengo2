@@ -35,9 +35,6 @@ namespace bobura { namespace command
         //! The dialog base type.
         typedef train_kind_dialog_type::base_type dialog_base_type;
 
-        //! The string type.
-        typedef train_kind_dialog_type::string_type string_type;
-
         //! The message catalog type.
         typedef train_kind_dialog_type::message_catalog_type message_catalog_type;
 

@@ -42,17 +42,8 @@ namespace bobura
         //! The base type.
         typedef PictureBox base_type;
 
-        //! The control type.
-        typedef typename base_type::base_type control_type;
-
-        //! The position type.
-        typedef typename base_type::position_type position_type;
-
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
-
-        //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
 
         //! The scroll bar type.
         typedef typename base_type::scroll_bar_type scroll_bar_type;
@@ -150,10 +141,6 @@ namespace bobura
 
     private:
         // types
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename scroll_bar_type::size_type scroll_bar_size_type;
 

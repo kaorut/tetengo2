@@ -518,11 +518,6 @@ namespace bobura
             >
             menu_traits_type;
         typedef
-            tetengo2::gui::menu::abstract_popup<
-                menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
-            >
-            abstract_popup_menu_type;
-        typedef
             tetengo2::gui::menu::menu_base<
                 menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >

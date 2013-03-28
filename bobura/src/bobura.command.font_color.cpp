@@ -28,8 +28,6 @@ namespace bobura { namespace command
 
         typedef font_color::dialog_base_type dialog_base_type;
 
-        typedef font_color::string_type string_type;
-
         typedef font_color::message_catalog_type message_catalog_type;
 
 

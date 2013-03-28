@@ -210,8 +210,6 @@ namespace bobura
     private:
         // types
 
-        typedef typename timetable_type::string_type string_type;
-
         class timetable_changed
         {
         public:

@@ -30,7 +30,17 @@ while (<$fh>)
 	foreach my $defined_namespace_typedef (@defined_typedefs)
 	{
 		my($namespace, $defined_typedef) = split(/\s+/, $defined_namespace_typedef);
-		if ($line =~ /$defined_typedef/)
+		if ($line =~ /::$defined_typedef/)
+		{
+			if (
+				$line =~ / $defined_typedef/ ||
+				$typedef_count{$namespace.'::'.$defined_typedef} > 0
+			)
+			{
+				$typedef_count{$namespace.'::'.$defined_typedef}++;
+			}
+		}
+		elsif ($line =~ /$defined_typedef/)
 		{
 			$typedef_count{$namespace.'::'.$defined_typedef}++;
 		}
@@ -54,6 +64,7 @@ while (my($typedef, $count) = each(%typedef_count))
 	{
 		if (!$file_path_printed)
 		{
+			print "\n";
 			print 'In '.$file_path.': '."\n";
 			$file_path_printed = 1;
 		}

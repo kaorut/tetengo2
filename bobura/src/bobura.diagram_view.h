@@ -78,9 +78,6 @@ namespace bobura
         //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! The size type.
-        typedef typename canvas_type::size_type size_type;
-
         //! The position type.
         typedef typename canvas_type::position_type position_type;
 

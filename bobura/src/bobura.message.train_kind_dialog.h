@@ -805,8 +805,6 @@ namespace bobura { namespace message { namespace train_kind_dialog
 
         typedef typename width_type::value_type size_type;
 
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
         typedef typename canvas_type::background_type background_type;
 
         typedef typename canvas_type::solid_background_type solid_background_type;

@@ -45,9 +45,6 @@ namespace bobura
         //! The string type.
         typedef typename base_type::string_type string_type;
 
-        //! The window state type.
-        typedef typename base_type::window_state_type window_state_type;
-
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 

@@ -71,11 +71,7 @@ namespace bobura { namespace load_save
     private:
         // types
 
-        typedef typename model_type::path_type path_type;
-
         typedef typename model_type::timetable_type timetable_type;
-
-        typedef typename timetable_type::string_type string_type;
 
 
         // variables
