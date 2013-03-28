@@ -202,7 +202,7 @@ namespace tetengo2 { namespace text
         {
             attribute_map_type attribute_map;
 
-            for (const typename grammar_type::structure_attribute_type& sa: structure_attributes)
+            for (const auto& sa: structure_attributes)
                 attribute_map.insert(to_attribute(sa));
 
             return attribute_map;
