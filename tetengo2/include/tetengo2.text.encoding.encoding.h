@@ -29,9 +29,6 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The pivot type.
         typedef typename encoding_details_type::pivot_type pivot_type;
 
-        //! The pivot character type.
-        typedef typename pivot_type::value_type pivot_char_type;
-
 
     protected:
         // constructors and destructor

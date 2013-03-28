@@ -137,11 +137,6 @@ namespace tetengo2 { namespace text
 
 
     private:
-        // types
-
-        typedef typename std::is_same<internal_encoding_type, external_encoding_type>::type encodings_are_same_type;
-
-
         // static functions
 
         template <typename IE, typename EE>

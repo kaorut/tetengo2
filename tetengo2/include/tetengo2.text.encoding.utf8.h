@@ -37,9 +37,6 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The string type.
         typedef std::string string_type;
 
-        //! The string character type.
-        typedef string_type::value_type string_char_type;
-
         //! The detail implementation type of an encoding.
         typedef EncodingDetails encoding_details_type;
 

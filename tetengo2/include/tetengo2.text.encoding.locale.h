@@ -47,9 +47,6 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The string type.
         typedef String string_type;
 
-        //! The string character type.
-        typedef typename string_type::value_type string_char_type;
-
 
         // constructors and destructor
 
@@ -133,7 +130,11 @@ namespace tetengo2 { namespace text { namespace encoding
     private:
         // type
 
-        typedef std::codecvt<typename base_type::pivot_char_type, string_char_type, std::mbstate_t> converter_type;
+        typedef typename base_type::pivot_type::value_type pivot_char_type;
+
+        typedef typename string_type::value_type string_char_type;
+
+        typedef std::codecvt<pivot_char_type, string_char_type, std::mbstate_t> converter_type;
 
 
         // variables
@@ -181,7 +182,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             for (;;)
             {
-                const typename base_type::pivot_char_type* p_pivot_next = nullptr;
+                const pivot_char_type* p_pivot_next = nullptr;
                 string_char_type* p_string_next = nullptr;
 
                 const auto result =
@@ -269,17 +270,17 @@ namespace tetengo2 { namespace text { namespace encoding
             const converter_type& converter = std::use_facet<converter_type>(m_locale);
             auto state = std::mbstate_t();
 
-            const string_char_type* p_string_first = string.c_str();
+            const auto* p_string_first = string.c_str();
             const string_char_type* const p_string_last = p_string_first + string.length();
 
-            std::vector<typename base_type::pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
-            typename base_type::pivot_char_type* p_pivot_first = pivot_chars.data();
-            typename base_type::pivot_char_type* p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
+            std::vector<pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
+            auto* p_pivot_first = pivot_chars.data();
+            pivot_char_type* p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
 
             for (;;)
             {
                 const string_char_type* p_string_next = nullptr;
-                typename base_type::pivot_char_type* p_pivot_next = nullptr;
+                pivot_char_type* p_pivot_next = nullptr;
 
                 const typename converter_type::result result =
                     converter.in(
@@ -287,7 +288,7 @@ namespace tetengo2 { namespace text { namespace encoding
                     );
                 if (p_string_next == p_string_last)
                 {
-                    assert(*p_pivot_next == static_cast<typename base_type::pivot_char_type>(TETENGO2_TEXT('\0')));
+                    assert(*p_pivot_next == static_cast<pivot_char_type>(TETENGO2_TEXT('\0')));
                     return typename base_type::pivot_type(pivot_chars.data(), p_pivot_next);
                 }
 
