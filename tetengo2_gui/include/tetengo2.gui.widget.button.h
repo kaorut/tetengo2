@@ -48,9 +48,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
         //! The style type.
         enum class style_type
         {

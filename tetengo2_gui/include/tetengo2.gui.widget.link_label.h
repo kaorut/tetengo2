@@ -52,9 +52,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The position type.
         typedef typename base_type::position_type position_type;
 
-        //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
-
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
@@ -84,9 +81,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
-
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor

@@ -22,7 +22,8 @@ foreach my $output (`$ctags_command $file_name`)
 	
 	my($name, $file, $description, $type, $namespace, $access) = split(/\t/, $output);
 	next if $type ne 'typedef';
-	next if $namespace =~ /_traits$/;
+	next if $namespace =~ /[_:]traits$/;
+	next if $name eq 'base_type';
 	
 	$namespace =~ s/^namespace://;
 	$namespace =~ s/^class://;

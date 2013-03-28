@@ -46,9 +46,6 @@ namespace tetengo2 { namespace gui
         //! The detail implementation type of a scroll.
         typedef ScrollDetails details_type;
 
-        //! The detail implementation type of a scroll bar.
-        typedef typename details_type::scroll_bar_details_type scroll_bar_details_type;
-
         //! The detail implementation pointer type of a scroll bar.
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 

@@ -58,9 +58,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename traits_type::dimension_type dimension_type;
 
-        //! The difference type.
-        typedef typename traits_type::difference_type difference_type;
-
         //! The size type.
         typedef typename traits_type::size_type size_type;
 
@@ -103,14 +100,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
         //! The detail implementation type of a message handler.
         typedef MessageHandlerDetails message_handler_details_type;
-
-        //! The message handler type.
-        typedef typename message_handler_details_type::message_handler_type message_handler_type;
 
         //! The message handler map type.
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;

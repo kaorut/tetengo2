@@ -2330,7 +2330,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto found = widget.message_handler_map().find(message);
             if (found != widget.message_handler_map().end())
             {
-                for (const typename Widget::message_handler_type& handler: found->second)
+                for (const auto& handler: found->second)
                 {
                     const auto result = handler(w_param, l_param);
                     if (result)
