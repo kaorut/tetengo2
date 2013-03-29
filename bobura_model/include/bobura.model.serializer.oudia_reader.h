@@ -231,6 +231,7 @@ namespace bobura { namespace model { namespace serializer
             timetable_type& m_timetable;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if (key == string_type(TETENGO2_TEXT("Comment")))
                     m_timetable.set_note(std::move(value));
@@ -255,6 +256,7 @@ namespace bobura { namespace model { namespace serializer
             timetable_type& m_timetable;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if (key == string_type(TETENGO2_TEXT("Rosenmei")))
                     m_timetable.set_line_name(std::move(value));
@@ -323,6 +325,7 @@ namespace bobura { namespace model { namespace serializer
             string_type m_ekikibo;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if (key == string_type(TETENGO2_TEXT("Ekimei")))
                     m_ekimei = std::move(value);
@@ -335,6 +338,7 @@ namespace bobura { namespace model { namespace serializer
             }
 
             virtual bool leaving_impl()
+            override
             {
                 m_timetable.insert_station_location(
                     m_timetable.station_locations().end(),
@@ -409,6 +413,7 @@ namespace bobura { namespace model { namespace serializer
             string_type m_diagram_sen_is_bold;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if (key == string_type(TETENGO2_TEXT("Syubetsumei")))
                     m_syubetsumei = std::move(value);
@@ -425,6 +430,7 @@ namespace bobura { namespace model { namespace serializer
             }
 
             virtual bool leaving_impl()
+            override
             {
                 auto abbreviation = m_ryakusyou.empty() ? m_syubetsumei : std::move(m_ryakusyou);
                 auto color = to_color(m_diagram_sen_color);
@@ -461,6 +467,7 @@ namespace bobura { namespace model { namespace serializer
             string_type& m_current_diagram_name;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if (key == string_type(TETENGO2_TEXT("DiaName")))
                     m_current_diagram_name = std::move(value);
@@ -485,6 +492,7 @@ namespace bobura { namespace model { namespace serializer
             bool& m_down;
 
             virtual bool entered_impl()
+            override
             {
                 m_down = true;
                 return true;
@@ -507,6 +515,7 @@ namespace bobura { namespace model { namespace serializer
             bool& m_down;
 
             virtual bool entered_impl()
+            override
             {
                 m_down = false;
                 return true;
@@ -667,6 +676,7 @@ namespace bobura { namespace model { namespace serializer
             string_type m_bikou;
 
             virtual bool parse_impl(const string_type& key, string_type value)
+            override
             {
                 if      (key == string_type(TETENGO2_TEXT("Houkou")))
                     m_houkou = std::move(value);
@@ -687,6 +697,7 @@ namespace bobura { namespace model { namespace serializer
             }
 
             virtual bool leaving_impl()
+            override
             {
                 if (m_houkou.empty() || m_syubetsu.empty())
                     return true;
@@ -911,6 +922,7 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             auto mutable_first = first;
             const auto key_value = parse_line(next_line(mutable_first, last));
@@ -924,6 +936,7 @@ namespace bobura { namespace model { namespace serializer
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             if (!this->selects(first, last))
             {

@@ -1128,6 +1128,7 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             auto p_push_parser =
                 tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
@@ -1142,6 +1143,7 @@ namespace bobura { namespace model { namespace serializer
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             auto p_push_parser =
                 tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());

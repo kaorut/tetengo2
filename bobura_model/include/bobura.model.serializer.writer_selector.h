@@ -101,7 +101,7 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const path_type& path)
-        const
+        const override
         {
             return
                 std::find_if(
@@ -112,12 +112,13 @@ namespace bobura { namespace model { namespace serializer
         }
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             BOOST_THROW_EXCEPTION(std::logic_error("No extension."));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             const auto found =
                 std::find_if(

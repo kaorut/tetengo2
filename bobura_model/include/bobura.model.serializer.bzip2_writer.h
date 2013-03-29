@@ -79,13 +79,14 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             return
                 path_type(m_p_writer->extension().native() + typename path_type::string_type(TETENGO2_TEXT("_bz2")));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             boost::iostreams::filtering_ostream filtering_output_stream;
             filtering_output_stream.push(boost::iostreams::bzip2_compressor());

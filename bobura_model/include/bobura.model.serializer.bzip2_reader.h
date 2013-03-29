@@ -92,6 +92,7 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             const input_string_type input_string(first, last);
             if (input_string.length() < 2)
@@ -127,6 +128,7 @@ namespace bobura { namespace model { namespace serializer
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             std::istringstream input_stream(input_string_type(first, last));
             boost::iostreams::filtering_istream filtering_input_stream;

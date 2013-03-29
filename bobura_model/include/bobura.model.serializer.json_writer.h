@@ -754,12 +754,13 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             return path_type(TETENGO2_TEXT(".btt"));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             output_stream << array_begin();
 

@@ -126,6 +126,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
             virtual bool parse(const string_type& line)
+            override
             {
                 tetengo2::suppress_unused_variable_warning(line);
 
@@ -146,6 +147,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
             virtual bool parse(const string_type& line)
+            override
             {
                 m_timetable.set_line_name(line);
                 return true;
@@ -169,6 +171,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
             virtual bool parse(const string_type& line)
+            override
             {
                 const auto comma_position = line.find(TETENGO2_TEXT(','));
                 if (comma_position == string_type::npos)
@@ -237,6 +240,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
             virtual bool parse(const string_type& line)
+            override
             {
                 const auto split = split_line(line);
                 if (!split)
@@ -382,6 +386,7 @@ namespace bobura { namespace model { namespace serializer
             {}
 
             virtual bool parse(const string_type& line)
+            override
             {
                 auto others_and_note = split_line(line);
                 auto split = split_by_comma(others_and_note.first);
@@ -592,6 +597,7 @@ namespace bobura { namespace model { namespace serializer
 
         private:
             virtual void insert_train_impl(train_type train)
+            override
             {
                 train_state::m_timetable.insert_down_train(
                     train_state::m_timetable.down_trains().end(), std::move(train)
@@ -613,6 +619,7 @@ namespace bobura { namespace model { namespace serializer
 
         private:
             virtual void insert_train_impl(train_type train)
+            override
             {
                 train_state::m_timetable.insert_up_train(
                     train_state::m_timetable.up_trains().end(), std::move(train)
@@ -985,12 +992,14 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             auto mutable_first = first;
             return next_line(mutable_first, last) == windia_section_label();
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             auto p_timetable = tetengo2::make_unique<timetable_type>();
 
