@@ -349,7 +349,7 @@ namespace bobura
                     typename boost::mpl::at<
                         font_color_dialog_message_type_list_type,
                         message::font_color_dialog::type::category_list_box_selection_changed
-                    >::type(m_current_category_index, *p_list_box, TETENGO2_CPP11_BIND(&impl::update, this))
+                    >::type(m_current_category_index, *p_list_box, [this]() { this->update(); })
                 );
 
                 return std::move(p_list_box);
@@ -368,7 +368,7 @@ namespace bobura
                         m_base,
                         m_font_color_list,
                         m_current_category_index,
-                        TETENGO2_CPP11_BIND(&impl::update, this),
+                        [this]() { this->update(); },
                         m_message_catalog
                     )
                 );
@@ -399,7 +399,7 @@ namespace bobura
                         m_base,
                         m_font_color_list,
                         m_current_category_index,
-                        TETENGO2_CPP11_BIND(&impl::update, this),
+                        [this]() { this->update(); },
                         m_message_catalog
                     )
                 );

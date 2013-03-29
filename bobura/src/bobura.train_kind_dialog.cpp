@@ -339,7 +339,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::train_kind_list_box_selection_changed
-                    >::type(m_current_train_kind_index, *p_list_box, TETENGO2_CPP11_BIND(&impl::update, this))
+                    >::type(m_current_train_kind_index, *p_list_box, [this]() { this->update(); })
                 );
 
                 return std::move(p_list_box);
@@ -357,7 +357,7 @@ namespace bobura
                     >::type(
                         m_info_sets,
                         m_current_train_kind_index,
-                        TETENGO2_CPP11_BIND(&impl::sync, this),
+                        [this]() { this->sync(); },
                         m_message_catalog
                     )
                 );
@@ -374,7 +374,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::delete_button_mouse_clicked
-                    >::type(m_info_sets, m_current_train_kind_index, TETENGO2_CPP11_BIND(&impl::sync, this))
+                    >::type(m_info_sets, m_current_train_kind_index, [this]() { this->sync(); })
                 );
 
                 return std::move(p_button);
@@ -389,7 +389,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::up_button_mouse_clicked
-                    >::type(m_info_sets, m_current_train_kind_index, TETENGO2_CPP11_BIND(&impl::sync, this))
+                    >::type(m_info_sets, m_current_train_kind_index, [this]() { this->sync(); })
                 );
 
                 return std::move(p_button);
@@ -404,7 +404,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::down_button_mouse_clicked
-                    >::type(m_info_sets, m_current_train_kind_index, TETENGO2_CPP11_BIND(&impl::sync, this))
+                    >::type(m_info_sets, m_current_train_kind_index, [this]() { this->sync(); })
                 );
 
                 return std::move(p_button);
@@ -430,7 +430,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::name_text_box_changed
-                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                    >::type([this]() { this->apply(); })
                 );
 
                 return std::move(p_text_box);
@@ -456,7 +456,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::abbreviation_text_box_changed
-                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                    >::type([this]() { this->apply(); })
                 );
 
                 return std::move(p_text_box);
@@ -471,7 +471,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::color_button_mouse_clicked
-                    >::type(m_base, m_current_train_kind_color, TETENGO2_CPP11_BIND(&impl::apply, this))
+                    >::type(m_base, m_current_train_kind_color, [this]() { this->apply(); })
                 );
 
                 return std::move(p_button);
@@ -504,7 +504,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::weight_dropdown_box_selection_changed
-                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                    >::type([this]() { this->apply(); })
                 );
 
                 return std::move(p_dropdown_box);
@@ -543,7 +543,7 @@ namespace bobura
                     typename boost::mpl::at<
                         train_kind_dialog_message_type_list_type,
                         message::train_kind_dialog::type::line_style_dropdown_box_selection_changed
-                    >::type(TETENGO2_CPP11_BIND(&impl::apply, this))
+                    >::type([this]() { this->apply(); })
                 );
 
                 return std::move(p_dropdown_box);

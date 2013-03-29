@@ -201,7 +201,7 @@ namespace bobura
                         m_base, m_confirm_file_save, m_settings
                     )
                 );
-                m_base.window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+                m_base.window_observer_set().destroyed().connect([](){ return message_loop_break_type()(0); });
             }
 
 
