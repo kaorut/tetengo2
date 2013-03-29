@@ -62,7 +62,7 @@ namespace
         // virtual functions
 
         virtual const style_type& style_impl()
-        const
+        const override
         {
             return menu_details_type::menu_command_style<menu_base_type>();
         }

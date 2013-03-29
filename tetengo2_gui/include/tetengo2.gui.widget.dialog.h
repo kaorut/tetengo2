@@ -174,19 +174,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual void do_modal_impl()
-        {}
-
         virtual void set_result_impl()
         {}
 
+        virtual void do_modal_impl()
+        {}
+
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return boost::make_optional<const details_type&>(*m_p_details);
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return boost::make_optional<details_type&>(*m_p_details);
         }

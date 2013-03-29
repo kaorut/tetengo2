@@ -104,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // virtual functions
 
         virtual const style_type& style_impl()
-        const
+        const override
         {
             return menu_details_type::template menu_bar_style<typename base_type::base_type>();
         }

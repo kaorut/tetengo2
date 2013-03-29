@@ -48,7 +48,7 @@ namespace
         // virtual functions
 
         virtual const style_type& style_impl()
-        const
+        const override
         {
             return menu_details_type::popup_menu_style<menu_base_type>();
         }

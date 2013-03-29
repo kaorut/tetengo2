@@ -100,12 +100,13 @@ namespace
         std::unique_ptr<details_type> m_p_details;
 
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return *m_p_details;
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return *m_p_details;
         }

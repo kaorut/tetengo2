@@ -115,50 +115,55 @@ namespace tetengo2 { namespace gui { namespace menu
         // virtual functions
 
         virtual const_iterator begin_impl()
-        const
+        const override
         {
             return const_iterator(m_children.begin());
         }
 
         virtual iterator begin_impl()
+        override
         {
             return iterator(m_children.begin());
         }
 
         virtual const_iterator end_impl()
-        const
+        const override
         {
             return const_iterator(m_children.end());
         }
 
         virtual iterator end_impl()
+        override
         {
             return iterator(m_children.end());
         }
 
         virtual const_recursive_iterator_type recursive_begin_impl()
-        const
+        const override
         {
             return const_recursive_iterator_type(this);
         }
 
         virtual recursive_iterator_type recursive_begin_impl()
+        override
         {
             return recursive_iterator_type(this);
         }
 
         virtual const_recursive_iterator_type recursive_end_impl()
-        const
+        const override
         {
             return const_recursive_iterator_type();
         }
 
         virtual recursive_iterator_type recursive_end_impl()
+        override
         {
             return recursive_iterator_type();
         }
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu)
+        override
         {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The unique pointer to a menu is nullptr."));
@@ -169,6 +174,7 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
+        override
         {
             menu_details_type::erase_menus(*this, first, last);
 

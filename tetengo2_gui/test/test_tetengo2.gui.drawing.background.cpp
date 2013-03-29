@@ -35,18 +35,19 @@ namespace
 
     private:
         virtual std::unique_ptr<background_type> clone_impl()
-        const
+        const override
         {
             return tetengo2::make_unique<concrete_background>();
         }
 
         virtual boost::optional<const background_type::details_type&> details_impl()
-        const
+        const override
         {
             return boost::none;
         }
 
         virtual boost::optional<background_type::details_type&> details_impl()
+        override
         {
             return boost::none;
         }

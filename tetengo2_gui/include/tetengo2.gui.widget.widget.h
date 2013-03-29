@@ -878,8 +878,7 @@ namespace tetengo2 { namespace gui { namespace widget
         // virtual functions
 
         virtual boost::optional<const details_type&> details_impl()
-        const
-        = 0;
+        const = 0;
 
         virtual boost::optional<details_type&> details_impl()
         = 0;
