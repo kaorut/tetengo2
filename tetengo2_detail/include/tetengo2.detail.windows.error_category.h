@@ -81,7 +81,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "win32";
         }
@@ -94,7 +94,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             const std::size_t message_capacity = 64 * 1024;
             std::vector<wchar_t> message(message_capacity, 0);
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "Windows Imaging Component";
         }
@@ -180,7 +180,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             switch (error_value)
             {

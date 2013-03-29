@@ -69,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "gdiplus";
         }
@@ -82,7 +82,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             switch (error_value)
             {

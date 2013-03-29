@@ -423,7 +423,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 bool                          enabled,
                 typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 suppress_unused_variable_warning(details, menu_info, text, enabled, state);
 
@@ -442,7 +442,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 bool                          enabled,
                 typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
 
@@ -474,7 +474,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 bool                          enabled,
                 typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
 
@@ -505,7 +505,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 bool                          enabled,
                 typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 suppress_unused_variable_warning(details, text, enabled, state);
 

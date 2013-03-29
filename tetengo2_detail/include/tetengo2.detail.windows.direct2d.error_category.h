@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "direct2d";
         }
@@ -74,7 +74,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             if (error_value == D2DERR_INSUFFICIENT_BUFFER)
                 return "The supplied buffer is too small to accommodate the data.";
