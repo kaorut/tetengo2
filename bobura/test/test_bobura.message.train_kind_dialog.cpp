@@ -119,10 +119,6 @@ namespace
         dialog_type(parent)
         {}
 
-    private:
-        virtual void set_result_impl()
-        {}
-
     };
 
 

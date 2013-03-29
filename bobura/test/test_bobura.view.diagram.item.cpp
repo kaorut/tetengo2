@@ -66,12 +66,13 @@ namespace
         bool m_selected;
 
         virtual bool selected_impl()
-        const
+        const override
         {
             return m_selected;
         }
 
         virtual void select_impl(const bool switch_selection_style)
+        override
         {
             tetengo2::suppress_unused_variable_warning(switch_selection_style);
 

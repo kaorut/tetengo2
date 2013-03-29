@@ -40,10 +40,6 @@ namespace
         dialog_type(parent)
         {}
 
-    private:
-        virtual void set_result_impl()
-        {}
-
     };
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::list_box>::type list_box_type;
