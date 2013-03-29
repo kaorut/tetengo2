@@ -353,7 +353,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             draw_selectable_line(canvas, m_departure, m_arrival, this->selected());
             if (m_draw_train_name)
@@ -361,6 +361,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             return
                 calculate_distance(position, m_departure, m_arrival) <= selected_line_margin<size_type>() ?
@@ -368,7 +369,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual bool selected_impl()
-        const
+        const override
         {
             return
                 this->selection().selected(*m_p_train, boost::none) ||
@@ -376,6 +377,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual void select_impl(const bool switch_selection_style)
+        override
         {
             const auto whole_selected = this->selection().selected(*m_p_train, boost::none);
             const auto this_fragment_selected =
@@ -987,7 +989,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_color(m_p_train_kind->color());
             canvas.set_line_width(
@@ -1001,6 +1003,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             for (auto& fragment: boost::adaptors::reverse(m_fragments))
             {
@@ -1298,7 +1301,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
 
@@ -1307,6 +1310,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             for (auto& train_line: boost::adaptors::reverse(m_train_lines))
             {

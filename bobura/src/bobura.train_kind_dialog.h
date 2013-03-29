@@ -180,7 +180,8 @@ namespace bobura
 
         // virtual functions
 
-        virtual void do_modal_impl();
+        virtual void do_modal_impl()
+        override;
 
 
     };

@@ -116,12 +116,6 @@ namespace bobura
             std::unique_ptr<button_type> m_p_ok_button;
 
 
-            // virtual functions
-
-            virtual void set_result_impl()
-            {}
-
-
             // functions
 
             void initialize_dialog()

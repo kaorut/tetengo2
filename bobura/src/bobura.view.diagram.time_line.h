@@ -164,7 +164,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             if (m_hours)
                 canvas.draw_text(boost::lexical_cast<string_type>(*m_hours), position_type(m_left, m_top));
@@ -477,7 +477,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);

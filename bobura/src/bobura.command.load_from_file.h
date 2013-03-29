@@ -65,7 +65,7 @@ namespace bobura { namespace command
         // virtual functions
 
         virtual bool enabled_impl(const model_type& model)
-        const;
+        const override;
 
         /*!
             \brief Executes the command.

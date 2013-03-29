@@ -134,7 +134,8 @@ namespace bobura
 
         // virtual functions
 
-        virtual void set_result_impl();
+        virtual void set_result_impl()
+        override;
 
 
     };

@@ -169,7 +169,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(m_p_font_color->font());
             canvas.set_color(m_p_font_color->color());
@@ -190,6 +190,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             const auto& x = tetengo2::gui::position<position_type>::left(position);
             const auto& y = tetengo2::gui::position<position_type>::top(position);
@@ -207,12 +208,13 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual bool selected_impl()
-        const
+        const override
         {
             return this->selection().selected(*m_p_station);
         }
 
         virtual void select_impl(const bool switch_selection_style)
+        override
         {
             tetengo2::suppress_unused_variable_warning(switch_selection_style);
 
@@ -477,7 +479,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
@@ -487,6 +489,7 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             for (auto& station_line: boost::adaptors::reverse(m_station_lines))
             {
