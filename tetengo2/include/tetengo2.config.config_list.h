@@ -76,7 +76,7 @@ namespace tetengo2 { namespace config
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const
+        const override
         {
             for (const std::unique_ptr<base_type>& p_config: m_p_configs)
             {
@@ -89,6 +89,7 @@ namespace tetengo2 { namespace config
         }
 
         virtual void set_impl(const string_type& key, value_type value)
+        override
         {
             std::for_each(
                 m_p_configs.begin(),

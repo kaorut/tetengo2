@@ -40,7 +40,7 @@ namespace
 
     private:
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const
+        const override
         {
             return
                 key == string_type(TETENGO2_TEXT("foo")) ?
@@ -49,6 +49,7 @@ namespace
         }
 
         virtual void set_impl(const string_type& key, value_type value)
+        override
         {
             tetengo2::suppress_unused_variable_warning(key, value);
         }

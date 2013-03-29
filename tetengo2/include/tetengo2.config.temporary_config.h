@@ -91,13 +91,14 @@ namespace tetengo2 { namespace config
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const
+        const override
         {
             const typename key_value_type::const_iterator found = m_values.find(key);
             return found != m_values.end() ? boost::make_optional<value_type>(found->second) : boost::none;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
+        override
         {
             m_values[key] = std::move(value);
         }

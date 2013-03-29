@@ -270,7 +270,7 @@ namespace tetengo2 { namespace message
         // virtual functions
 
         virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
-        const
+        const override
         {
             suppress_unused_variable_warning(catalog_name, locale);
 
@@ -289,7 +289,7 @@ namespace tetengo2 { namespace message
             const int          message,
             const string_type& default_message
         )
-        const
+        const override
         {
             suppress_unused_variable_warning(set, message);
 
@@ -305,7 +305,7 @@ namespace tetengo2 { namespace message
         }
 
         virtual void do_close(const catalog catalog_id)
-        const
+        const override
         {
             if (catalog_id < 0) return;
 
