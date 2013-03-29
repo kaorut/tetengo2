@@ -55,6 +55,7 @@ namespace
 
     private:
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             tetengo2::suppress_unused_variable_warning(first, last);
 
@@ -62,6 +63,7 @@ namespace
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             tetengo2::suppress_unused_variable_warning(first, last, error);
 

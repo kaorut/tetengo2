@@ -66,12 +66,13 @@ namespace
         const path_type m_extension;
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             return m_extension;
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             tetengo2::suppress_unused_variable_warning(timetable);
 

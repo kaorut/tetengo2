@@ -57,12 +57,13 @@ namespace
 
     private:
         virtual path_type extension_impl()
-        const
+        const override
         {
             return path_type(TETENGO2_TEXT("hoge.ext"));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             tetengo2::suppress_unused_variable_warning(timetable, output_stream);
         }
