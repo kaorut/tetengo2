@@ -104,9 +104,10 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_readers.begin(),
                     m_p_readers.end(),
-                    TETENGO2_CPP11_BIND(
-                        &reader_selector::call_selects, this, tetengo2::cpp11::placeholders_1(), first, last
-                    )
+                    [first, last](const std::unique_ptr<base_type>& p_reader)
+                    {
+                        return p_reader->selects(first, last);
+                    }
                 );
             if (found == m_p_readers.end())
             {
@@ -115,15 +116,6 @@ namespace bobura { namespace model { namespace serializer
             }
 
             return (*found)->read(first, last, error);
-        }
-
-
-        // functions
-
-        bool call_selects(const std::unique_ptr<base_type>& p_reader, const iterator first, const iterator last)
-        const
-        {
-            return p_reader->selects(first, last);
         }
 
 

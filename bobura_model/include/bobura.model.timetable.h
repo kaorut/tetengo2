@@ -245,12 +245,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(insert_train_stop, tetengo2::cpp11::placeholders_1(), offset)
+                [this, offset](train_type& train) { insert_train_stop(train, offset); } 
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(insert_train_stop, tetengo2::cpp11::placeholders_1(), offset)
+                [this, offset](train_type& train) { insert_train_stop(train, offset); }
             );
 
             m_observer_set.changed()();
@@ -283,12 +283,18 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(erase_train_stops, tetengo2::cpp11::placeholders_1(), first_offset, last_offset)
+                [this, first_offset, last_offset](train_type& train)
+                {
+                    erase_train_stops(train, first_offset, last_offset);
+                }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(erase_train_stops, tetengo2::cpp11::placeholders_1(), first_offset, last_offset)
+                [this, first_offset, last_offset](train_type& train)
+                {
+                    erase_train_stops(train, first_offset, last_offset);
+                }
             );
 
             m_observer_set.changed()();
@@ -346,21 +352,13 @@ namespace bobura { namespace model
                 std::find_if(
                     m_down_trains.begin(),
                     m_down_trains.end(),
-                    TETENGO2_CPP11_BIND(
-                        std::equal_to<train_kind_index_type>(),
-                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
-                        train_kind_index
-                    )
+                    [train_kind_index](const train_type& train) { return train.kind_index() == train_kind_index; }
                 ) != m_down_trains.end();
             const auto referred_by_up_trains =
                 std::find_if(
                     m_up_trains.begin(),
                     m_up_trains.end(),
-                    TETENGO2_CPP11_BIND(
-                        std::equal_to<train_kind_index_type>(),
-                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
-                        train_kind_index
-                    )
+                    [train_kind_index](const train_type& train) { return train.kind_index() == train_kind_index; }
                 ) != m_up_trains.end();
 
             return referred_by_down_trains || referred_by_up_trains;
@@ -387,12 +385,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+                [this, inserted_index](train_type& train) { update_train_kind_index(train, inserted_index, 1); }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+                [this, inserted_index](train_type& train) { update_train_kind_index(train, inserted_index, 1); }
             );
 
             m_observer_set.changed();
@@ -442,12 +440,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+                [this, erased_index](train_type& train) { update_train_kind_index(train, erased_index, -1); }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+                [this, erased_index](train_type& train) { update_train_kind_index(train, erased_index, -1); }
             );
 
             m_observer_set.changed();

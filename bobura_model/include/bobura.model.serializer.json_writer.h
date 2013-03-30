@@ -431,13 +431,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.station_locations().begin(),
                     boost::prior(timetable.station_locations().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_station_location,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        std::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const station_location_type& station_location)
+                    {
+                        write_station_location(station_location, level, output_stream, false);
+                    }
                 );
                 write_station_location(*boost::prior(timetable.station_locations().end()), level, output_stream, true);
 
@@ -505,13 +502,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.train_kinds().begin(),
                     boost::prior(timetable.train_kinds().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train_kind,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        std::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_kind_type& train_kind)
+                    {
+                        write_train_kind(train_kind, level, output_stream, false);
+                    }
                 );
                 write_train_kind(*boost::prior(timetable.train_kinds().end()), level, output_stream, true);
 
@@ -586,13 +580,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.down_trains().begin(),
                     boost::prior(timetable.down_trains().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        std::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_type& train)
+                    {
+                        write_train(train, level, output_stream, false);
+                    }
                 );
                 write_train(*boost::prior(timetable.down_trains().end()), level, output_stream, true);
 
@@ -616,13 +607,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.up_trains().begin(),
                     boost::prior(timetable.up_trains().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        std::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_type& train)
+                    {
+                        write_train(train, level, output_stream, false);
+                    }
                 );
                 write_train(*boost::prior(timetable.up_trains().end()), level, output_stream, true);
 
@@ -685,13 +673,7 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     stops.begin(),
                     boost::prior(stops.end()),
-                    TETENGO2_CPP11_BIND(
-                        write_stop, 
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        std::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const stop_type& stop) { write_stop(stop, level, output_stream, false); }
                 );
                 write_stop(*boost::prior(stops.end()), level, output_stream, true);
 
