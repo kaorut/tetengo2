@@ -277,5 +277,22 @@ namespace tetengo2 { namespace cpp11
 #endif
 }}
 
+/* lambda this capture bug workaround ***************************************/
+
+#if !defined(DOCUMENTATION)
+#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ == 4 && __GNUC_MINOR__ <= 7)
+#       define TETENGO2_CPP11_HAS_LAMBDA_THIS_CAPTURE_BUG 1
+#   else
+#       define TETENGO2_CPP11_HAS_LAMBDA_THIS_CAPTURE_BUG 0
+#   endif
+#endif
+
+#if TETENGO2_CPP11_HAS_LAMBDA_THIS_CAPTURE_BUG || defined(DOCUMENTATION)
+    //! The lambda this capture bug workaround.
+#   define TETENGO2_CPP11_LAMBDA_THIS_BUG_WA this,
+#else
+#   define TETENGO2_CPP11_LAMBDA_THIS_BUG_WA
+#endif
+
 
 #endif
