@@ -17,7 +17,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
+#include "tetengo2.utility.h"
 
 #include "tetengo2.text.grammar.json.h"
 
@@ -59,7 +59,10 @@ namespace
             std::for_each(
                 structure_attributes.begin(),
                 structure_attributes.end(),
-                TETENGO2_CPP11_BIND(structure_attribute_passed, std::ref(output), tetengo2::cpp11::placeholders_1())
+                [&output](const structure_attribute_type& structure_attribute)
+                {
+                    structure_attribute_passed(output, structure_attribute);
+                }
             );
         }
         else if (type == "array")
@@ -160,23 +163,24 @@ BOOST_AUTO_TEST_SUITE(json)
             grammar_type g;
             std::string output;
             g.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_begun,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    structure_begun(output, type, structure_attributes);
+                }
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+
+                    structure_ended(output, type);
+                }
             );
             g.on_value().connect(
-                TETENGO2_CPP11_BIND(
-                    value_passed,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                {
+                    value_passed(output, type, parsed);
+                }
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
@@ -194,23 +198,24 @@ BOOST_AUTO_TEST_SUITE(json)
             grammar_type g;
             std::string output;
             g.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_begun,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    structure_begun(output, type, structure_attributes);
+                }
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+
+                    structure_ended(output, type);
+                }
             );
             g.on_value().connect(
-                TETENGO2_CPP11_BIND(
-                    value_passed,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                {
+                    value_passed(output, type, parsed);
+                }
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
@@ -235,23 +240,24 @@ BOOST_AUTO_TEST_SUITE(json)
             grammar_type g;
             std::string output;
             g.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_begun,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    structure_begun(output, type, structure_attributes);
+                }
             );
             g.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(structure_ended, std::ref(output), tetengo2::cpp11::placeholders_1())
+                [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
+                {
+                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+
+                    structure_ended(output, type);
+                }
             );
             g.on_value().connect(
-                TETENGO2_CPP11_BIND(
-                    value_passed,
-                    std::ref(output),
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2()
-                )
+                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                {
+                    value_passed(output, type, parsed);
+                }
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
