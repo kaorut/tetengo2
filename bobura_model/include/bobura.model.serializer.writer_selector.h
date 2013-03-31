@@ -107,7 +107,7 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), std::cref(path))
+                    [&path](const std::unique_ptr<base_type>& p_writer) { return p_writer->selects(path); }
                 ) != m_p_writers.end();
         }
 
@@ -124,7 +124,7 @@ namespace bobura { namespace model { namespace serializer
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), std::cref(m_path))
+                    [this](const std::unique_ptr<base_type>& p_writer) { return p_writer->selects(this->m_path); }
                 );
             if (found == m_p_writers.end())
                 BOOST_THROW_EXCEPTION(std::logic_error("No writer selects this file type."));
