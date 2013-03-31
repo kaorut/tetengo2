@@ -24,7 +24,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.utility.h"
 
 
@@ -32,19 +31,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 {
     namespace abstract_window
     {
-        template <typename MenuBase>
-        bool same_menu(const MenuBase& menu1, const ::UINT menu2_id)
-        {
-            return menu1.details()->id == menu2_id;
-        }
-
-        template <typename MenuBase>
-        bool same_popup_menu(const MenuBase& menu1, const ::HMENU menu2_handle)
-        {
-            if (!menu1.details() || !menu2_handle) return false;
-            return menu1.details()->handle.get() == menu2_handle;
-        }
-
         template <typename AbstractWindow>
         boost::optional< ::LRESULT> on_command(
             AbstractWindow& abstract_window,
@@ -64,9 +50,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
-                    TETENGO2_CPP11_BIND(
-                        same_menu<typename menu_bar_type::base_type::base_type>, cpp11::placeholders_1(), id
-                    )
+                    [id](const typename menu_bar_type::base_type::base_type& menu) { return menu.details()->id == id; }
                 );
             if (found == abstract_window.menu_bar().recursive_end())
                 return boost::none;
@@ -94,9 +78,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
-                    TETENGO2_CPP11_BIND(
-                        same_popup_menu<typename menu_bar_type::base_type::base_type>, cpp11::placeholders_1(), handle
-                    )
+                    [handle](const typename menu_bar_type::base_type::base_type& popup_menu)
+                    {
+                        if (!popup_menu.details() || !handle)
+                            return false;
+                        return popup_menu.details()->handle.get() == handle;
+                    }
                 );
             if (found == abstract_window.menu_bar().recursive_end())
                 return boost::none;

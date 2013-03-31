@@ -41,7 +41,6 @@
 #include <ShObjIdl.h>
 #include <ShTypes.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.unique.h"
@@ -1039,7 +1038,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 filters.begin(),
                 filters.end(),
                 std::back_inserter(native_filters),
-                TETENGO2_CPP11_BIND(to_native_filter<String, Encoder>, cpp11::placeholders_1(), std::cref(encoder))
+                [&encoder](const std::pair<String, String>& filter)
+                {
+                    return to_native_filter(filter, encoder);
+                }
             );
 
             return native_filters;
