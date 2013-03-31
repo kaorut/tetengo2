@@ -70,7 +70,7 @@ namespace tetengo2 { namespace config
     private:
         // variables
 
-        const std::vector<std::unique_ptr<base_type>> m_p_configs;
+        std::vector<std::unique_ptr<base_type>> m_p_configs;
 
 
         // virtual functions
@@ -94,7 +94,7 @@ namespace tetengo2 { namespace config
             std::for_each(
                 m_p_configs.begin(),
                 m_p_configs.end(),
-                TETENGO2_CPP11_BIND(&base_type::set, cpp11::placeholders_1(), key, value)
+                [&key, &value](std::unique_ptr<base_type>& p_config) { p_config->set(key, std::move(value)); }
             );
         }
 

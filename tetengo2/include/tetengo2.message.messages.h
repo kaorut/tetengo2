@@ -197,7 +197,7 @@ namespace tetengo2 { namespace message
                 directory_iterator_type(path),
                 directory_iterator_type(),
                 std::back_inserter(catalog_files),
-                TETENGO2_CPP11_BIND(&directory_entry_type::path, cpp11::placeholders_1())
+                [](const directory_entry_type& entry) { return entry.path(); }
             );
             std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
 

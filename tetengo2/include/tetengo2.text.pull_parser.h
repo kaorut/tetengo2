@@ -22,7 +22,7 @@
 #include "tetengo2.concurrent.channel.h"
 #include "tetengo2.concurrent.consumer.h"
 #include "tetengo2.concurrent.producer.h"
-#include "tetengo2.cpp11.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace text
@@ -154,7 +154,7 @@ namespace tetengo2 { namespace text
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(TETENGO2_CPP11_BIND(generate, cpp11::placeholders_1(), std::ref(*m_p_push_parser)), m_channel),
+        m_producer([this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel),
         m_consumer(m_channel)
         {}
 
@@ -256,15 +256,30 @@ namespace tetengo2 { namespace text
         static void generate(channel_type& channel, push_parser_type& push_parser)
         {
             push_parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    on_structure_begin, cpp11::placeholders_1(), cpp11::placeholders_2(), std::ref(channel)
+                [&channel](
+                    const string_type&        name,
+                    const attribute_map_type& attribute_map
                 )
+                {
+                    on_structure_begin(name, attribute_map, channel);
+                }
             );
             push_parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(on_structure_end, cpp11::placeholders_1(), std::ref(channel))
+                [&channel](
+                    const string_type&        name,
+                    const attribute_map_type& attribute_map
+                )
+                {
+                    tetengo2::suppress_unused_variable_warning(attribute_map);
+
+                    on_structure_end(name, channel);
+                }
             );
             push_parser.on_value().connect(
-                TETENGO2_CPP11_BIND(on_value, cpp11::placeholders_1(), std::ref(channel))
+                [&channel](const value_type& value)
+                {
+                    on_value(value, channel);
+                }
             );
 
             push_parser.parse();

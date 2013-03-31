@@ -27,7 +27,6 @@
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.text.h"
 #include "tetengo2.utility.h"
 
@@ -98,17 +97,30 @@ namespace tetengo2 { namespace text
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is nullptr."));
 
             m_p_grammar->on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    &push_parser::observe_structure_begin, this, cpp11::placeholders_1(), cpp11::placeholders_2()
+                [this](
+                    const string_type&                                                  structure_name,
+                    const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
                 )
+                {
+                    this->observe_structure_begin(structure_name, structure_attributes);
+                }
             );
             m_p_grammar->on_structure_end().connect(
-                TETENGO2_CPP11_BIND(&push_parser::observe_structure_end, this, cpp11::placeholders_1())
+                [this](
+                    const string_type&                                                  structure_name,
+                    const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
+                )
+                {
+                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+
+                    this->observe_structure_end(structure_name);
+                }
             );
             m_p_grammar->on_value().connect(
-                TETENGO2_CPP11_BIND(
-                    &push_parser::observe_value, this, cpp11::placeholders_1(), cpp11::placeholders_2()
-                )
+                [this](const typename grammar_type::value_type_type value_type, const string_type& value)
+                {
+                    this->observe_value(value_type, value);
+                }
             );
         }
 
