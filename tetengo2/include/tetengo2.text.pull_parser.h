@@ -154,7 +154,9 @@ namespace tetengo2 { namespace text
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
+#if !defined(DOCUMENTATION) // Doxygen warning suppression
         m_producer([this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel),
+#endif
         m_consumer(m_channel)
         {}
 
