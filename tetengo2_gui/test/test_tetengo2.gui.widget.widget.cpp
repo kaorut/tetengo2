@@ -65,9 +65,8 @@ namespace
         }
 
         explicit concrete_widget(
-            widget_type* const                               p_parent = NULL,
-            const widget_type::scroll_bar_style_type::enum_t scroll_bar_style =
-                widget_type::scroll_bar_style_type::none
+            widget_type* const                       p_parent = nullptr,
+            const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none
         )
         :
         widget_type(scroll_bar_style, message_handler_map_type()),
@@ -101,12 +100,13 @@ namespace
         std::unique_ptr<details_type> m_p_details;
 
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return *m_p_details;
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return *m_p_details;
         }
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position(make_position(123, 456));
 
-        const position_type position = widget.position();
+        const auto position = widget.position();
         BOOST_CHECK(position == make_position(123, 456));
     }
 
@@ -336,7 +336,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position(make_position(123, 456));
 
-        const position_type position = widget.position();
+        const auto position = widget.position();
         BOOST_CHECK(position == make_position(123, 456));
     }
 
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_dimension(make_dimension(123, 456));
 
-        const dimension_type dimension = widget.dimension();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
@@ -360,7 +360,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_dimension(make_dimension(123, 456));
 
-        const dimension_type dimension = widget.dimension();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
@@ -372,7 +372,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_client_dimension(make_dimension(123, 456));
 
-        const dimension_type client_dimension = widget.client_dimension();
+        const auto client_dimension = widget.client_dimension();
         BOOST_CHECK(client_dimension == make_dimension(123, 456));
     }
 
@@ -385,7 +385,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_client_dimension(make_dimension(123, 456));
 
-            const dimension_type client_dimension = widget.client_dimension();
+            const auto client_dimension = widget.client_dimension();
             BOOST_CHECK(client_dimension == make_dimension(123, 456));
         }
         {
@@ -408,8 +408,8 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         widget.set_position_and_dimension(make_position(123, 456), make_dimension(789, 012));
 
-        const position_type position = widget.position();
-        const dimension_type dimension = widget.dimension();
+        const auto position = widget.position();
+        const auto dimension = widget.dimension();
         BOOST_CHECK(position == make_position(123, 456));
         BOOST_CHECK(dimension == make_dimension(789, 012));
     }
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            auto p_background = tetengo2::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(widget.background());
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+            auto p_background = tetengo2::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
         }
     }
@@ -515,12 +515,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        std::unique_ptr<widget_type::cursor_type> p_cursor(
-            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
-        );
+        auto p_cursor = tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
         widget.set_cursor(std::move(p_cursor));
 
-        const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
+        const auto cursor = widget.cursor();
         BOOST_REQUIRE(cursor);
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
@@ -530,22 +528,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(!widget.vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.vertical_scroll_bar());
         }
@@ -556,22 +554,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
             BOOST_CHECK(!widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(NULL, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
             BOOST_CHECK(widget.horizontal_scroll_bar());
         }

@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_CONFIG_H
 
 #include <cassert>
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>
@@ -70,15 +69,13 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder& encoder
         )
         {
-            const std::pair<String, String> registry_key_and_value_name =
-                build_registry_key_and_value_name(group_name, key);
+            const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
             const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_READ);
             if (!handle.get())
                 return boost::none;
 
-            const std::pair<typename value_type::enum_t, typename String::size_type> type =
-                query_value_type(handle.get(), registry_key_and_value_name.second, encoder);
+            const auto type = query_value_type(handle.get(), registry_key_and_value_name.second, encoder);
 
             switch (type.first)
             {
@@ -122,8 +119,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&               encoder
         )
         {
-            const std::pair<String, String> registry_key_and_value_name =
-                build_registry_key_and_value_name(group_name, key);
+            const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
             const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_WRITE);
             if (!handle.get())
@@ -175,21 +171,21 @@ namespace tetengo2 { namespace detail { namespace windows
         private:
             static ::HKEY create(const String&  key, const Encoder& encoder, const ::REGSAM mode)
             {
-                ::HKEY handle = NULL;
-                const ::LONG create_key_result =
+                ::HKEY handle = nullptr;
+                const auto create_key_result =
                     ::RegCreateKeyExW(
                         HKEY_CURRENT_USER,
                         encoder.encode(key).c_str(),
                         0,
-                        NULL,
+                        nullptr,
                         REG_OPTION_NON_VOLATILE,
                         mode,
-                        NULL,
+                        nullptr,
                         &handle,
-                        NULL
+                        nullptr
                     );
                 if (create_key_result != ERROR_SUCCESS)
-                    return NULL;
+                    return nullptr;
 
                 return handle;
             }
@@ -198,12 +194,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        struct value_type { enum enum_t
+        enum class value_type
         {
             unknown,
             string,
             dword,
-        };};
+        };
 
 
         // static functions
@@ -236,7 +232,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename String, typename Encoder>
-        static std::pair<typename value_type::enum_t, typename String::size_type> query_value_type(
+        static std::pair<value_type, typename String::size_type> query_value_type(
             const ::HKEY   handle,
             const String&  key,
             const Encoder& encoder
@@ -244,8 +240,8 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::DWORD type = 0;
             ::DWORD value_size = 0;
-            const ::LONG query_value_result =
-                ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, NULL, &value_size);
+            const auto query_value_result =
+                ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, nullptr, &value_size);
             if (query_value_result != ERROR_SUCCESS)
                 return std::make_pair(value_type::unknown, 0);
 
@@ -269,13 +265,13 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             std::vector<typename String::value_type> value(result_length, 0);
-            ::DWORD value_size = static_cast< ::DWORD>(result_length * sizeof(typename String::value_type));
-            const ::LONG query_value_result =
+            auto value_size = static_cast< ::DWORD>(result_length * sizeof(typename String::value_type));
+            const auto query_value_result =
                 ::RegQueryValueExW(
                     handle,
                     encoder.encode(key).c_str(),
                     0,
-                    NULL,
+                    nullptr,
                     reinterpret_cast< ::LPBYTE>(value.data()),
                     &value_size
                 );
@@ -290,12 +286,12 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::DWORD value = 0;
             ::DWORD value_size = sizeof(::DWORD);
-            const ::LONG query_value_result =
+            const auto query_value_result =
                 ::RegQueryValueExW(
                     handle,
                     encoder.encode(key).c_str(),
                     0,
-                    NULL,
+                    nullptr,
                     reinterpret_cast< ::LPBYTE>(&value),
                     &value_size
                 );
@@ -308,7 +304,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename Encoder>
         static void set_string(const ::HKEY handle, const String& key, const String& value, const Encoder& encoder)
         {
-            const std::wstring encoded_value = encoder.encode(value);
+            const auto encoded_value = encoder.encode(value);
             ::RegSetValueEx(
                 handle,
                 encoder.encode(key).c_str(),

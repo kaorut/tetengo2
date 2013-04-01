@@ -13,8 +13,6 @@
 
 #include <boost/operators.hpp>
 
-#include <tetengo2.cpp11.h>
-
 
 namespace bobura { namespace model
 {
@@ -55,7 +53,7 @@ namespace bobura { namespace model
         )
         :
         m_name(std::move(name)),
-        m_grade(grade),
+        m_p_grade(&grade),
         m_shows_down_arrival_times(shows_down_arrival_times),
         m_shows_up_arrival_times(shows_up_arrival_times)
         {}
@@ -76,7 +74,7 @@ namespace bobura { namespace model
         {
             return
                 one.m_name == another.m_name &&
-                &one.m_grade.get() == &another.m_grade.get() &&
+                one.m_p_grade == another.m_p_grade &&
                 one.m_shows_down_arrival_times == another.m_shows_down_arrival_times &&
                 one.m_shows_up_arrival_times == another.m_shows_up_arrival_times;
         }
@@ -100,7 +98,7 @@ namespace bobura { namespace model
         const grade_type& grade()
         const
         {
-            return m_grade;
+            return *m_p_grade;
         }
 
         /*!
@@ -133,7 +131,7 @@ namespace bobura { namespace model
 
         string_type m_name;
 
-        typename tetengo2::cpp11::reference_wrapper<const grade_type>::type m_grade;
+        const grade_type* m_p_grade;
 
         bool m_shows_down_arrival_times;
 

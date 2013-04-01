@@ -23,11 +23,11 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
-    struct custom_message_type { enum enum_t //!< Scoped enum.
+    enum class custom_message_type : ::UINT
     {
         command = WM_APP + 1,
         control_color,
-    };};
+    };
 
 
 }}}}

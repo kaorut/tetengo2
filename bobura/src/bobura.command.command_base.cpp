@@ -19,7 +19,7 @@ namespace bobura { namespace command
         return enabled_impl(model);
     }
 
-    command_base::state_type::enum_t command_base::state()
+    command_base::state_type command_base::state()
     const
     {
         return state_impl();
@@ -39,7 +39,7 @@ namespace bobura { namespace command
         return true;
     }
 
-    command_base::state_type::enum_t command_base::state_impl()
+    command_base::state_type command_base::state_impl()
     const
     {
         return state_type::default_;

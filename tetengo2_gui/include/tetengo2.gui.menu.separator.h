@@ -38,9 +38,6 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
-        //! The shortcut key type.
-        typedef typename base_type::shortcut_key_type shortcut_key_type;
-
 
         // constructors and destructor
 
@@ -71,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // virtual functions
 
         virtual const style_type& style_impl()
-        const
+        const override
         {
             return menu_details_type::template menu_separator_style<base_type>();
         }

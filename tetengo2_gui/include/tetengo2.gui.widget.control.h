@@ -143,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param p_details           A unique pointer to a detail implementation.
         */
         control(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style,
+            const scroll_bar_style_type scroll_bar_style,
             message_handler_map_type&&                   message_handler_map,
             details_ptr_type                             p_details
         )
@@ -182,12 +182,13 @@ namespace tetengo2 { namespace gui { namespace widget
         // virtual functions
 
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return boost::make_optional<const details_type&>(*m_p_details);
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return boost::make_optional<details_type&>(*m_p_details);
         }

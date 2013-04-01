@@ -56,9 +56,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
 
         // constructors and destructor
 
@@ -177,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace widget
             p_image->initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
-                TETENGO2_CPP11_BIND(&image::paint_picture, p_image, cpp11::placeholders_1())
+                [p_image](canvas_type& canvas) { p_image->paint_picture(canvas); }
             );
         }
 

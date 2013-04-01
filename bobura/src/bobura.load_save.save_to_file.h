@@ -108,7 +108,7 @@ namespace bobura { namespace load_save
                     make_file_filters(),
                     parent
                 );
-                const bool ok = dialog.do_modal();
+                const auto ok = dialog.do_modal();
                 if (!ok)
                     return false;
 
@@ -122,7 +122,7 @@ namespace bobura { namespace load_save
                 path = model.path();
             }
 
-            const path_type temporary_path = path.parent_path() / boost::filesystem::unique_path();
+            const auto temporary_path = path.parent_path() / boost::filesystem::unique_path();
             {
                 writer_selector_type writer(writer_set_type::create_writers(), path);
                 if (!writer.selects(path))
@@ -165,8 +165,6 @@ namespace bobura { namespace load_save
         typedef typename abstract_window_type::string_type string_type;
 
         typedef typename file_save_dialog_type::path_type path_type;
-
-        typedef typename model_type::timetable_type timetable_type;
 
 
         // variables

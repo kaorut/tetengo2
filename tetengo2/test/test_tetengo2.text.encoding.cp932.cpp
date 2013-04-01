@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_SUITE(cp932)
             const std::string string(TETENGO2_TEXT("Tetengo2"));
 
             const encoding_type encoding;
-            const std::string result = encoding.from_pivot(pivot);
+            const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
         }
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_SUITE(cp932)
             const std::string string(TETENGO2_TEXT("Tetengo2"));
 
             const encoding_type encoding;
-            const std::wstring result = encoding.to_pivot(string);
+            const auto result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);
         }

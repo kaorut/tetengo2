@@ -6,10 +6,8 @@
     $Id$
 */
 
-//#include <cstddef>
 //#include <exception>
 //#include <locale>
-//#include <memory>
 //#include <stdexcept>
 //#include <string>
 //#include <vector>
@@ -43,7 +41,7 @@ namespace
 
     std::string locale_info(const ::LCID id, const ::LCTYPE type)
     {
-        const int length = ::GetLocaleInfoA(id, type, NULL, 0);
+        const auto length = ::GetLocaleInfoA(id, type, nullptr, 0);
         if (length == 0)
             BOOST_THROW_EXCEPTION(std::runtime_error("Can't get locale info."));
 
@@ -55,7 +53,7 @@ namespace
 
     std::string ui_locale_name()
     {
-        const ::LANGID language_id = ::GetUserDefaultLangID();
+        const auto language_id = ::GetUserDefaultLangID();
         const ::LCID locale_id = MAKELCID(language_id, SORT_DEFAULT);
 
         return locale_info(locale_id, LOCALE_SENGLANGUAGE) + "_" + locale_info(locale_id, LOCALE_SENGCOUNTRY);
@@ -65,9 +63,8 @@ namespace
     {
         typedef
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::messages_facet>::type messages_facet_type;
-        std::unique_ptr<messages_facet_type> p_messages_facet(
-            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()))
-        );
+        auto p_messages_facet =
+            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()));
         const std::locale global_locale(std::locale(""), p_messages_facet.release());
 
         std::locale::global(global_locale);

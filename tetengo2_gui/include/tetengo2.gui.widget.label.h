@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
-//#include <cstddef>
+#include <cstddef>
 //#include <utility>
 
 #include "tetengo2.cpp11.h"
@@ -56,9 +56,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The width type.
         typedef typename gui::dimension<dimension_type>::width_type width_type;
 
-        //! The height type.
-        typedef typename gui::dimension<dimension_type>::height_type height_type;
-
         //! The string type.
         typedef typename base_type::string_type string_type;
 
@@ -71,9 +68,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
         
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
 
         // constructors and destructor
 
@@ -129,7 +123,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             if (this->text().empty() || max_width == width_type(0)) return;
 
-            dimension_type one_line_dimension = calc_text_dimension();
+            auto one_line_dimension = calc_text_dimension();
             const width_type line_count(gui::dimension<dimension_type>::width(one_line_dimension) / max_width);
             if (line_count <= width_type(1))
             {
@@ -137,8 +131,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
             }
 
-            const std::size_t int_line_count = ceil<std::size_t>(line_count);
-            height_type height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
+            const auto int_line_count = ceil<std::size_t>(line_count);
+            auto height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
             this->set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
         }
 

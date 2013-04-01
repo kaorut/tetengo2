@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_WIDGET_H
 
 #include <cassert>
-//#include <cstddef>
+#include <functional>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>
@@ -58,9 +58,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename traits_type::dimension_type dimension_type;
 
-        //! The difference type.
-        typedef typename traits_type::difference_type difference_type;
-
         //! The size type.
         typedef typename traits_type::size_type size_type;
 
@@ -103,14 +100,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
         //! The detail implementation type of a message handler.
         typedef MessageHandlerDetails message_handler_details_type;
-
-        //! The message handler type.
-        typedef typename message_handler_details_type::message_handler_type message_handler_type;
 
         //! The message handler map type.
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
@@ -119,13 +110,13 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef widget child_type;
 
         //! The scroll bar style type.
-        struct scroll_bar_style_type { enum enum_t //!< Scoped enum.
+        enum class scroll_bar_style_type
         {
             none,       //!< The widget has no scroll bar.
             vertical,   //!< The widget has a vertical scroll bar.
             horizontal, //!< The widget has a horizontal scroll bar.
             both,       //!< The widget has both vertiacal and horizontal scroll bars.
-        };};
+        };
 
 
         // constructors and destructor
@@ -402,7 +393,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a background.
 
-            When p_background points to NULL, the system default background is used.
+            When p_background is nullptr, the system default background is used.
 
             \param p_background A unique pointer to a background.
         */
@@ -515,7 +506,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<const child_type>::type> children()
+        std::vector<std::reference_wrapper<const child_type>> children()
         const
         {
             return widget_details_type::template children<const child_type>(*this);
@@ -526,7 +517,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<child_type>::type> children()
+        std::vector<std::reference_wrapper<child_type>> children()
         {
             return widget_details_type::template children<child_type>(*this);
         }
@@ -757,10 +748,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param scroll_bar_style    A scroll bar style.
             \param message_handler_map A message handler map.
         */
-        widget(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style,
-            message_handler_map_type&&                   message_handler_map
-        )
+        widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -872,7 +860,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<cursor_type> m_p_cursor;
 
-        const typename scroll_bar_style_type::enum_t m_scroll_bar_style;
+        const scroll_bar_style_type m_scroll_bar_style;
 
         std::unique_ptr<scroll_bar_type> m_p_vertical_scroll_bar;
 
@@ -890,8 +878,7 @@ namespace tetengo2 { namespace gui { namespace widget
         // virtual functions
 
         virtual boost::optional<const details_type&> details_impl()
-        const
-        = 0;
+        const = 0;
 
         virtual boost::optional<details_type&> details_impl()
         = 0;

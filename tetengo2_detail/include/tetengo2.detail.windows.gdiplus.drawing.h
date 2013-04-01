@@ -264,7 +264,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const Gdiplus::Status status = canvas.FillRectangle(&*background_details, rectangle);
+            const auto status = canvas.FillRectangle(&*background_details, rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -283,7 +283,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Font>
         static Font make_dialog_font()
         {
-            const ::LOGFONTW log_font = get_message_font();
+            const auto log_font = get_message_font();
 
             assert(log_font.lfHeight < 0);
             return
@@ -323,15 +323,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection, encoder)
-            );
+            const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
             const Gdiplus::RectF layout(
                 0, 0, std::numeric_limits<Gdiplus::REAL>::max(), std::numeric_limits<Gdiplus::REAL>::max()
             );
             Gdiplus::RectF bounding;
-            const Gdiplus::Status status =
+            const auto status =
                 canvas.MeasureString(
                     encoder.encode(text).c_str(),
                     static_cast< ::INT>(text.length()),
@@ -412,7 +410,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (!picture_details) return;
 
             ::WICPixelFormatGUID pixel_format_guid = {};
-            const ::HRESULT get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
+            const auto get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
             if (FAILED(get_pixel_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -424,7 +422,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             ::UINT width = 0;
             ::UINT height = 0;
-            const ::HRESULT get_size_hr = picture_details->GetSize(&width, &height);
+            const auto get_size_hr = picture_details->GetSize(&width, &height);
             if (FAILED(get_size_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -436,7 +434,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::vector< ::BYTE> buffer(buffer_size, 0);
 
             const ::WICRect rectangle = { 0, 0, width, height };
-            const ::HRESULT copy_pixels_hr =
+            const auto copy_pixels_hr =
                 picture_details->CopyPixels(&rectangle, stride, buffer_size, buffer.data());
             if (FAILED(copy_pixels_hr))
             {
@@ -448,7 +446,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
 
             Gdiplus::Bitmap bitmap(width, height, stride, PixelFormat32bppRGB, buffer.data());
-            const Gdiplus::Status status =
+            const auto status =
                 canvas.DrawImage(
                     &bitmap,
                     gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
@@ -471,10 +469,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& handle,
-            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
+            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(handle));
+            auto p_canvas = make_unique<Gdiplus::Graphics>(handle);
 
             initialize_canvas(*p_canvas);
 
@@ -484,10 +482,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& widget_details,
-            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
+            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.handle.get()));
+            auto p_canvas = make_unique<Gdiplus::Graphics>(widget_details.handle.get());
 
             initialize_canvas(*p_canvas);
 
@@ -517,21 +515,19 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 );
             }
 
-            const String& font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
+            const auto& font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
             const Gdiplus::FontFamily gdiplus_font_family(encoder.encode(font_family).c_str(), &font_collection);
             if (!gdiplus_font_family.IsAvailable())
             {
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
             }
 
-            const Gdiplus::REAL font_size =
+            const auto font_size =
                 fallback_level < 2 ?
                 static_cast<Gdiplus::REAL>(font.size()) : static_cast<Gdiplus::REAL>(Font::dialog_font().size());
-            const ::INT font_style =
-                fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
-            std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel)
-            );
+            const auto font_style = fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
+            auto p_gdiplus_font =
+                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
 

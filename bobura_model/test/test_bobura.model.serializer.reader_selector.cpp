@@ -67,19 +67,17 @@ namespace
         const string_type m_line_name;
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             return string_type(first, last) == m_line_name;
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator      first,
-            const iterator      last,
-            error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             tetengo2::suppress_unused_variable_warning(first, last, error);
 
-            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::make_unique<timetable_type>();
 
             p_timetable->set_line_name(m_line_name);
 
@@ -117,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            auto concrete_readers = create_concrete_readers();
             const reader_selector_type reader_selector(std::move(concrete_readers));
         }
         {
@@ -130,7 +128,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+        auto concrete_readers = create_concrete_readers();
         reader_selector_type reader_selector(std::move(concrete_readers));
 
         std::istringstream input_stream("hoge");
@@ -148,12 +146,12 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            auto concrete_readers = create_concrete_readers();
             reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("hoge");
-            error_type::enum_t error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            auto error = error_type::none;
+            const auto p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -164,12 +162,12 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            auto concrete_readers = create_concrete_readers();
             reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("fuga");
-            error_type::enum_t error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            auto error = error_type::none;
+            const auto p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -180,12 +178,12 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
             BOOST_CHECK(p_timetable->line_name() == string_type(TETENGO2_TEXT("fuga")));
         }
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            auto concrete_readers = create_concrete_readers();
             reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("piyo");
-            error_type::enum_t error = error_type::none;
-            const std::unique_ptr<timetable_type> p_timetable =
+            auto error = error_type::none;
+            const auto p_timetable =
                 reader_selector.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -193,7 +191,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 );
 
             BOOST_REQUIRE(!p_timetable);
-            BOOST_CHECK_EQUAL(error, error_type::unsupported);
+            BOOST_CHECK(error == error_type::unsupported);
         }
     }
 

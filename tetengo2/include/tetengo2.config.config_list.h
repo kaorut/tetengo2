@@ -14,7 +14,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
@@ -71,17 +70,17 @@ namespace tetengo2 { namespace config
     private:
         // variables
 
-        const std::vector<std::unique_ptr<base_type>> m_p_configs;
+        std::vector<std::unique_ptr<base_type>> m_p_configs;
 
 
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const
+        const override
         {
-            BOOST_FOREACH (const std::unique_ptr<base_type>& p_config, m_p_configs)
+            for (const std::unique_ptr<base_type>& p_config: m_p_configs)
             {
-                const boost::optional<value_type> value = p_config->get(key);
+                const auto value = p_config->get(key);
                 if (value)
                     return value;
             }
@@ -90,11 +89,12 @@ namespace tetengo2 { namespace config
         }
 
         virtual void set_impl(const string_type& key, value_type value)
+        override
         {
             std::for_each(
                 m_p_configs.begin(),
                 m_p_configs.end(),
-                TETENGO2_CPP11_BIND(&base_type::set, cpp11::placeholders_1(), key, value)
+                [&key, &value](std::unique_ptr<base_type>& p_config) { p_config->set(key, std::move(value)); }
             );
         }
 

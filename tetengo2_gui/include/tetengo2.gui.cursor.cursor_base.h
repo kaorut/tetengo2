@@ -34,9 +34,6 @@ namespace tetengo2 { namespace gui { namespace cursor
         //! The detail implementation type.
         typedef typename cursor_details_type::cursor_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename cursor_details_type::cursor_details_ptr_type details_ptr_type;
-
 
         // constructors and destructor
 

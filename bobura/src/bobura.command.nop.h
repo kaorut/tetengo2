@@ -55,7 +55,7 @@ namespace bobura { namespace command
         // virtual functions
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const;
+        const override;
 
 
     };

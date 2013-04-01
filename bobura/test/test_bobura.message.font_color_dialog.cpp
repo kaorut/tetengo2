@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <memory>
 //#include <utility>
 //#include <vector>
 
@@ -39,10 +38,6 @@ namespace
         explicit concrete_dialog(window_type::base_type& parent)
         :
         dialog_type(parent)
-        {}
-
-    private:
-        virtual void set_result_impl()
         {}
 
     };
@@ -155,7 +150,7 @@ BOOST_AUTO_TEST_SUITE(sample_picture_box_paint)
         );
 
         window_type window;
-        const std::unique_ptr<canvas_type> p_canvas = window.create_canvas();
+        const auto p_canvas = window.create_canvas();
         observer(*p_canvas);
     }
 

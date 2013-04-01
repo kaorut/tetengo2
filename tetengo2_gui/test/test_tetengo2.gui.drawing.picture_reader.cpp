@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <memory>
 //#include <utility>
 
 //#include <boost/mpl/at.hpp>
@@ -54,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
         path_type path;
         picture_reader_type reader(std::move(path));
 
-        const std::unique_ptr<picture_type> p_picture(reader.read());
+        const auto p_picture = reader.read();
     }
 
 

@@ -100,33 +100,30 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const path_type& path)
-        const
+        const override
         {
             return
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(path))
+                    [&path](const std::unique_ptr<base_type>& p_writer) { return p_writer->selects(path); }
                 ) != m_p_writers.end();
         }
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             BOOST_THROW_EXCEPTION(std::logic_error("No extension."));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
-            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
-
-            const iterator_type found =
+            const auto found =
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(
-                        call_selects, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::cref(m_path)
-                    )
+                    [this](const std::unique_ptr<base_type>& p_writer) { return p_writer->selects(this->m_path); }
                 );
             if (found == m_p_writers.end())
                 BOOST_THROW_EXCEPTION(std::logic_error("No writer selects this file type."));

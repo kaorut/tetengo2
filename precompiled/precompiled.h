@@ -42,14 +42,12 @@
 // Boost library headers
 
 #include <boost/algorithm/string.hpp>
-#include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/exception_ptr.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -94,8 +92,8 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
+#include <boost/range/adaptors.hpp>
 #include <boost/rational.hpp>
-#include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>

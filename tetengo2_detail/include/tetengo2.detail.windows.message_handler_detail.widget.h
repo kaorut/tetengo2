@@ -13,7 +13,6 @@
 
 #include <algorithm>
 #include <cassert>
-//#include <cstddef>
 #include <stdexcept>
 #include <system_error>
 
@@ -46,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             ::PostMessageW(
                 reinterpret_cast< ::HWND>(l_param),
-                custom_message_type::command,
+                static_cast< ::UINT>(custom_message_type::command),
                 w_param,
                 reinterpret_cast< ::LPARAM>(widget.details()->handle.get())
             );
@@ -63,14 +62,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
-            const boost::optional<const virtual_key_type&> virtual_key =
+            const auto virtual_key =
                 virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
             if (!virtual_key)
                 return boost::none;
 
-            const bool shift = ::GetKeyState(VK_SHIFT) < 0;
-            const bool control = ::GetKeyState(VK_CONTROL) < 0;
-            const bool meta = ::GetKeyState(VK_MENU) < 0;
+            const auto shift = ::GetKeyState(VK_SHIFT) < 0;
+            const auto control = ::GetKeyState(VK_CONTROL) < 0;
+            const auto meta = ::GetKeyState(VK_MENU) < 0;
 
             widget.keyboard_observer_set().key_down()(*virtual_key, shift, control, meta);
 
@@ -87,14 +86,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
-            const boost::optional<const virtual_key_type&> virtual_key =
+            const auto virtual_key =
                 virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
             if (!virtual_key)
                 return boost::none;
 
-            const bool shift = ::GetKeyState(VK_SHIFT) < 0;
-            const bool control = ::GetKeyState(VK_CONTROL) < 0;
-            const bool meta = ::GetKeyState(VK_MENU) < 0;
+            const auto shift = ::GetKeyState(VK_SHIFT) < 0;
+            const auto control = ::GetKeyState(VK_CONTROL) < 0;
+            const auto meta = ::GetKeyState(VK_MENU) < 0;
 
             widget.keyboard_observer_set().key_up()(*virtual_key, shift, control, meta);
 
@@ -127,10 +126,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         template <typename Widget>
         boost::optional< ::LRESULT> on_button_down_impl(
-            Widget&                                                                   widget,
-            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
-            const ::WPARAM                                                            w_param,
-            const ::LPARAM                                                            l_param
+            Widget&                                                           widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type button,
+            const ::WPARAM                                                    w_param,
+            const ::LPARAM                                                    l_param
         )
         {
             if (widget.mouse_observer_set().pressed().empty())
@@ -152,8 +151,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             if (!widget.mouse_observer_set().clicked().empty() || !widget.mouse_observer_set().doubleclicked().empty())
             {
-                const ::UINT_PTR result =
-                    ::SetTimer(widget.details()->handle.get(), WM_LBUTTONDOWN, ::GetDoubleClickTime(), NULL);
+                const auto result =
+                    ::SetTimer(widget.details()->handle.get(), WM_LBUTTONDOWN, ::GetDoubleClickTime(), nullptr);
                 if (!result)
                 {
                     BOOST_THROW_EXCEPTION(
@@ -182,10 +181,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         template <typename Widget>
         boost::optional< ::LRESULT> on_button_up_impl(
-            Widget&                                                                   widget,
-            const typename Widget::mouse_observer_set_type::mouse_button_type::enum_t button,
-            const ::WPARAM                                                            w_param,
-            const ::LPARAM                                                            l_param
+            Widget&                                                           widget,
+            const typename Widget::mouse_observer_set_type::mouse_button_type button,
+            const ::WPARAM                                                    w_param,
+            const ::LPARAM                                                    l_param
         )
         {
             if (widget.mouse_observer_set().released().empty())
@@ -240,7 +239,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.mouse_observer_set().clicked().empty() && widget.mouse_observer_set().doubleclicked().empty())
                 return boost::none;
 
-            const ::BOOL result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
+            const auto result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -317,7 +316,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     return boost::none;
                 }
 
-                const ::BOOL result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
+                const auto result = ::KillTimer(widget.details()->handle.get(), WM_LBUTTONDOWN);
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
@@ -345,8 +344,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (l_param == 0) return boost::none;
 
-            const ::LRESULT result =
-                ::SendMessageW(reinterpret_cast< ::HWND>(l_param), custom_message_type::control_color, w_param, 0);
+            const auto result =
+                ::SendMessageW(
+                    reinterpret_cast< ::HWND>(l_param),
+                    static_cast< ::UINT>(custom_message_type::control_color),
+                    w_param,
+                    0
+                );
 
             return boost::make_optional(result != 0, result);
         }
@@ -445,13 +449,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             {
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
-                const size_type new_position =
+                const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_VERT);
                 widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
-                const size_type new_position =
+                const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_VERT);
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
@@ -487,13 +491,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             {
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
-                const size_type new_position =
+                const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_HORZ);
                 widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
-                const size_type new_position =
+                const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details()->handle.get(), scroll_code, SB_HORZ);
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
@@ -555,10 +559,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         void delete_current_font(Widget& widget)
         {
-            const ::HFONT font_handle =
+            const auto font_handle =
                 reinterpret_cast< ::HFONT>(::SendMessageW(widget.details()->handle.get(), WM_GETFONT, 0, 0));
 
-            ::SendMessageW(widget.details()->handle.get(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
+            ::SendMessageW(widget.details()->handle.get(), WM_SETFONT, 0, MAKELPARAM(0, 0));
 
             if (font_handle && ::DeleteObject(font_handle) == 0)
             {
@@ -579,12 +583,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return boost::make_optional< ::LRESULT>(0);
         }
 
-        template <typename Widget, typename WidgetDetails>
+        template <typename WidgetDetails, typename Widget>
         boost::optional< ::LRESULT> on_ncdestroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             suppress_unused_variable_warning(w_param, l_param);
 
-            const Widget* const p_widget =
+            const auto* const p_widget =
                 reinterpret_cast<const Widget*>(
                     ::RemovePropW(
                         widget.details()->handle.get(), WidgetDetails::property_key_for_cpp_instance().c_str()

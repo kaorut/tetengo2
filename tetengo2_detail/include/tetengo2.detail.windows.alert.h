@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ALERT_H)
 #define TETENGO2_DETAIL_WINDOWS_ALERT_H
 
-#include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -55,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
-            const widget_handle_type root_handle = ::GetAncestor(widget_handle, GA_ROOT);
+            const auto root_handle = ::GetAncestor(widget_handle, GA_ROOT);
 
             if (
                 !root_handle ||
@@ -127,7 +126,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring&      text2
         )
         {
-            const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
+            const auto handle = ::LoadLibraryW(L"COMCTL32.DLL");
             BOOST_SCOPE_EXIT((handle))
             {
                 if (handle)
@@ -140,8 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             typedef decltype(::TaskDialog)* task_dialog_ptr_type;
-            task_dialog_ptr_type p_task_dialog =
-                reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
+            auto p_task_dialog = reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
             if (!p_task_dialog)
             {
                 show_message_box(widget_handle, caption, text1, text2);
@@ -150,13 +148,13 @@ namespace tetengo2 { namespace detail { namespace windows
 
             p_task_dialog(
                 widget_handle,
-                ::GetModuleHandle(NULL),
+                ::GetModuleHandle(nullptr),
                 caption.c_str(),
                 text1.c_str(),
                 text2.c_str(),
                 TDCBF_OK_BUTTON,
                 TD_ERROR_ICON,
-                NULL
+                nullptr
             );
         }
 
@@ -167,7 +165,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring&      text2
         )
         {
-            const std::wstring text = text1 + L"\n\n" + text2;
+            const auto text = text1 + L"\n\n" + text2;
             ::MessageBoxW(widget_handle, text.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
         }
 

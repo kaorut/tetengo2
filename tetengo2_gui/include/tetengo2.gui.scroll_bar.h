@@ -15,7 +15,6 @@
 
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
 
 
@@ -46,18 +45,15 @@ namespace tetengo2 { namespace gui
         //! The detail implementation type of a scroll.
         typedef ScrollDetails details_type;
 
-        //! The detail implementation type of a scroll bar.
-        typedef typename details_type::scroll_bar_details_type scroll_bar_details_type;
-
         //! The detail implementation pointer type of a scroll bar.
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t //!< Scoped enum.
+        enum class style_type
         {
             vertical,   //!< The vertical style.
             horizontal, //!< The horizontal style.
-        };};
+        };
 
 
         // constructors and destructor
@@ -69,7 +65,7 @@ namespace tetengo2 { namespace gui
             \param style          A style.
         */
         template <typename WidgetDetails>
-        scroll_bar(const WidgetDetails& widget_details, const typename style_type::enum_t style)
+        scroll_bar(const WidgetDetails& widget_details, const style_type style)
         :
         m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
         m_scroll_bar_observer_set(),
@@ -103,7 +99,7 @@ namespace tetengo2 { namespace gui
         */
         void set_position(const size_type position)
         {
-            const range_type r = range();
+            const auto r = range();
             if (position < r.first || r.second < position)
                 BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
@@ -220,7 +216,7 @@ namespace tetengo2 { namespace gui
     private:
         // static functions
 
-        static typename details_type::style_type::enum_t to_details_style(const typename style_type::enum_t style)
+        static typename details_type::style_type to_details_style(const style_type style)
         {
             switch (style)
             {
@@ -249,10 +245,10 @@ namespace tetengo2 { namespace gui
         void set_observers()
         {
             m_scroll_bar_observer_set.scrolling().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
+                [this](const size_type new_position) { this->set_tracking_position(new_position); }
             );
             m_scroll_bar_observer_set.scrolled().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
+                [this](const size_type new_position) { this->set_tracking_position(new_position); }
             );
         }
 

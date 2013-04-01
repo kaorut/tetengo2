@@ -11,7 +11,6 @@
 
 #include <cassert>
 #include <functional>
-//#include <memory>
 //#include <utility>
 #include <vector>
 
@@ -163,8 +162,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         const
         {
             assert(m_font_color_list[0].second);
-            std::unique_ptr<background_type> p_background =
-                tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
+            auto p_background = tetengo2::make_unique<solid_background_type>(*m_font_color_list[0].second);
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
 
@@ -180,7 +178,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             const string_type text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:SAMPLE")));
 
-            const std::pair<top_type, top_type> text_and_line_tops = sample_text_and_line_tops(canvas, text);
+            const auto text_and_line_tops = sample_text_and_line_tops(canvas, text);
 
             canvas.draw_text(text, position_type(left_type(1), text_and_line_tops.first));
 
@@ -211,8 +209,6 @@ namespace bobura { namespace message { namespace font_color_dialog
 
         typedef typename width_type::value_type size_type;
 
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
         typedef typename canvas_type::background_type background_type;
 
         typedef typename canvas_type::solid_background_type solid_background_type;
@@ -234,20 +230,20 @@ namespace bobura { namespace message { namespace font_color_dialog
         std::pair<top_type, top_type> sample_text_and_line_tops(const canvas_type& canvas, const string_type& text)
         const
         {
-            const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
-            const height_type text_height =
+            const auto& canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
+            const auto& text_height =
                 tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
 
             if (canvas_height > text_height)
             {
-                const top_type text_top = top_type::from((canvas_height - text_height) / 2);
-                const top_type line_top = text_top + top_type::from(text_height);
+                const auto text_top = top_type::from((canvas_height - text_height) / 2);
+                const auto line_top = text_top + top_type::from(text_height);
                 return std::make_pair(text_top, line_top);
             }
             else
             {
-                const top_type line_top = top_type::from(canvas_height);
-                const top_type text_top = line_top - top_type::from(text_height);
+                const auto line_top = top_type::from(canvas_height);
+                const auto text_top = line_top - top_type::from(text_height);
                 return std::make_pair(text_top, line_top);
             }
         }
@@ -339,7 +335,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             font_dialog_type font_dialog(m_font_color_list[*m_current_category_index].first, m_dialog);
 
-            const bool ok = font_dialog.do_modal();
+            const auto ok = font_dialog.do_modal();
             if (!ok)
                 return;
 
@@ -449,7 +445,7 @@ namespace bobura { namespace message { namespace font_color_dialog
 
             color_dialog_type color_dialog(m_font_color_list[*m_current_category_index].second, m_dialog);
 
-            const bool ok = color_dialog.do_modal();
+            const auto ok = color_dialog.do_modal();
             if (!ok)
                 return;
 

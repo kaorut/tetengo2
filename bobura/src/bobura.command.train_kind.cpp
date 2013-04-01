@@ -34,8 +34,6 @@ namespace bobura { namespace command
 
         typedef train_kind::dialog_base_type dialog_base_type;
 
-        typedef train_kind::string_type string_type;
-
         typedef train_kind::message_catalog_type message_catalog_type;
 
 
@@ -52,12 +50,12 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            const font_color_set_type& font_color_set = model.timetable().font_color_set();
+            const auto& font_color_set = model.timetable().font_color_set();
             train_kind_dialog_type dialog(
                 parent, m_message_catalog, font_color_set.train_name(), font_color_set.background()
             );
 
-            std::vector<info_set_type> info_sets = to_info_sets(model.timetable());
+            auto info_sets = to_info_sets(model.timetable());
             dialog.set_info_sets(std::move(info_sets));
 
             dialog.do_modal();
@@ -96,11 +94,7 @@ namespace bobura { namespace command
             std::vector<info_set_type> info_sets;
             info_sets.reserve(timetable.train_kinds().size());
 
-            for (
-                train_kinds_type::const_iterator i = timetable.train_kinds().begin();
-                i != timetable.train_kinds().end();
-                ++i
-            )
+            for (auto i = timetable.train_kinds().begin(); i != timetable.train_kinds().end(); ++i)
             {
                 const int_size_type index = std::distance(timetable.train_kinds().begin(), i);
                 info_sets.emplace_back(boost::make_optional(index), timetable.train_kind_referred(i), *i);

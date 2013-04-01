@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const color_type& color = canvas.color();
+        const auto& color = canvas.color();
 
         BOOST_CHECK(color == color_type(0, 0, 0, 255));
     }
@@ -142,9 +142,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const background_type& background = canvas.background();
-        const solid_background_type* const p_solid_background =
-            dynamic_cast<const solid_background_type*>(&background);
+        const auto& background = canvas.background();
+        const auto* const p_solid_background = dynamic_cast<const solid_background_type*>(&background);
 
         BOOST_REQUIRE(p_solid_background);
         BOOST_CHECK(p_solid_background->color() == color_type(255, 255, 255, 255));
@@ -167,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const size_type line_width = canvas.line_width();
+        const auto line_width = canvas.line_width();
 
         BOOST_CHECK_EQUAL(line_width, 1U);
     }
@@ -189,9 +188,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const canvas_type::line_style_type::enum_t line_style = canvas.line_style();
+        const auto line_style = canvas.line_style();
 
-        BOOST_CHECK_EQUAL(line_style, canvas_type::line_style_type::solid);
+        BOOST_CHECK(line_style == canvas_type::line_style_type::solid);
     }
 
     BOOST_AUTO_TEST_CASE(set_line_style)
@@ -202,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_line_style(canvas_type::line_style_type::dashed);
 
-        BOOST_CHECK_EQUAL(canvas.line_style(), canvas_type::line_style_type::dashed);
+        BOOST_CHECK(canvas.line_style() == canvas_type::line_style_type::dashed);
     }
 
     BOOST_AUTO_TEST_CASE(font)
@@ -211,7 +210,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const font_type& font = canvas.font();
+        const auto& font = canvas.font();
 
         BOOST_CHECK(font == font_type::dialog_font());
     }
@@ -263,7 +262,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const dimension_type dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
+        const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
         BOOST_CHECK(dimension == dimension_type(123, 456));
     }

@@ -275,7 +275,6 @@ namespace test_bobura { namespace model
                 boost::mpl::at<type_list, type::output_stream>::type,
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 boost::mpl::at<type_list, type::path>::type,
-                boost::mpl::at<model_type_list, type::model::grade_type_set>::type,
                 timetable_file_encoder_type
             >
             writer_set_type;

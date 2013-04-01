@@ -67,9 +67,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param scroll_bar_style A scroll bar style.
         */
-        explicit window(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style = base_type::scroll_bar_style_type::none
-        )
+        explicit window(const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none)
         :
         base_type(scroll_bar_style, message_handler_map_type()),
         m_p_details(
@@ -85,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param parent           A parent window.
             \param scroll_bar_style A scroll bar style.
         */
-        window(base_type& parent, const typename scroll_bar_style_type::enum_t scroll_bar_style)
+        window(base_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -127,12 +125,13 @@ namespace tetengo2 { namespace gui { namespace widget
         // virtual functions
 
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return boost::make_optional<const details_type&>(*m_p_details);
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return boost::make_optional<details_type&>(*m_p_details);
         }

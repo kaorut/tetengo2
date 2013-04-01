@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_CONCURRENT_PRODUCER_H)
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
-//#include <functional>
+#include <functional>
 
 #include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
@@ -49,9 +49,11 @@ namespace tetengo2 { namespace concurrent
         */
         producer(const generator_type generator, channel_type& channel)
         :
-        m_thread_procedure_impl(TETENGO2_CPP11_BIND(generator, cpp11::ref(channel))),
+#if !defined(DOCUMENTATION) // Doxygen warning suppression
+        m_thread_procedure_impl([generator, &channel]() { generator(channel); }),
         m_channel(channel),
-        m_thread(TETENGO2_CPP11_BIND(&producer::thread_procedure, m_thread_procedure_impl, cpp11::ref(channel)))
+        m_thread([this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); })
+#endif
         {}
 
 

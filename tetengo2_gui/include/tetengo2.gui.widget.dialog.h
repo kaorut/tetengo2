@@ -70,12 +70,12 @@ namespace tetengo2 { namespace gui { namespace widget
             details_ptr_type;
 
         //! The result type.
-        struct result_type { enum enum_t //!< Scoped enum.
+        enum class result_type
         {
             undecided, //!< The result is not decided yet.
             accepted,  //!< The settings are accepted.
             canceled,  //!< The settings are canceled.
-        };};
+        };
 
 
         // constructors and destructor
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The result.
         */
-        typename result_type::enum_t result()
+        result_type result()
         const
         {
             return m_result;
@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param result A result.
         */
-        void set_result(const typename result_type::enum_t result)
+        void set_result(const result_type result)
         {
             if (result == result_type::accepted)
                 set_result_impl();
@@ -145,10 +145,10 @@ namespace tetengo2 { namespace gui { namespace widget
             do_modal_impl();
 
             assert(this->has_parent());
-            base_type& parent_window = dynamic_cast<base_type&>(this->parent());
+            auto& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
 
-            this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+            this->window_observer_set().destroyed().connect([]() { message_loop_break_type()(0); });
             this->set_position(widget_details_type::template dialog_position<position_type>(*this, parent_window));
             this->set_visible(true);
 
@@ -167,26 +167,27 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        typename result_type::enum_t m_result;
+        result_type m_result;
 
         const details_ptr_type m_p_details;
 
 
         // virtual functions
 
-        virtual void do_modal_impl()
-        {}
-
         virtual void set_result_impl()
         {}
 
+        virtual void do_modal_impl()
+        {}
+
         virtual boost::optional<const details_type&> details_impl()
-        const
+        const override
         {
             return boost::make_optional<const details_type&>(*m_p_details);
         }
 
         virtual boost::optional<details_type&> details_impl()
+        override
         {
             return boost::make_optional<details_type&>(*m_p_details);
         }

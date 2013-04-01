@@ -22,8 +22,6 @@ namespace bobura { namespace command
 
         typedef file_property::abstract_window_type abstract_window_type;
 
-        typedef file_property::timetable_type timetable_type;
-
         typedef file_property::file_property_dialog_type file_property_dialog_type;
 
         typedef file_property::dialog_base_type dialog_base_type;

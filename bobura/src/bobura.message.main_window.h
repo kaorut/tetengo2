@@ -10,13 +10,11 @@
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
 #include <cassert>
-//#include <cstddef>
+#include <cstddef>
 #include <iterator>
 #include <stdexcept>
-//#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -82,10 +80,10 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             std::size_t i = 0;
-            BOOST_FOREACH (menu_base_type& menu_item, std::make_pair(m_popup_menu.begin(), m_popup_menu.end()))
+            for (auto& menu_item: m_popup_menu)
             {
                 assert(i < m_commands.size());
-                const command_type* const p_command = m_commands[i];
+                const auto* const p_command = m_commands[i];
                 if (!p_command)
                 {
                     ++i;
@@ -108,9 +106,7 @@ namespace bobura { namespace message { namespace main_window
 
         // static functions
 
-        static typename menu_base_type::state_type::enum_t translate_state(
-            const typename command_type::state_type::enum_t state
-        )
+        static typename menu_base_type::state_type translate_state(const typename command_type::state_type state)
         {
             switch (state)
             {

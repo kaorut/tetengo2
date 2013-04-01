@@ -80,8 +80,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         bool do_modal()
         {
-            const boost::optional<color_type> result =
-                common_dialog_details_type::template show_color_dialog<color_type>(*m_p_details);
+            const auto result = common_dialog_details_type::template show_color_dialog<color_type>(*m_p_details);
             if (!result)
                 return false;
 

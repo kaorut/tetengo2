@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
-//#include <cstddef>
 //#include <memory>
 //#include <stdexcept>
 //#include <utility>
@@ -73,12 +72,12 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
         //! The window state type.
-        struct window_state_type { enum enum_t //!< Scoped enum.
+        enum class window_state_type
         {
             normal,    //!< Normal state.
             maximized, //!< Maximized state.
             minimized, //!< Minimized state.
-        };};
+        };
 
 
         // functions
@@ -96,7 +95,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The window state.
         */
-        typename window_state_type::enum_t window_state()
+        window_state_type window_state()
         const
         {
             return widget_details_type::template window_state<window_state_type>(*this);
@@ -107,7 +106,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param state A window state.
         */
-        void set_window_state(const typename window_state_type::enum_t state)
+        void set_window_state(const window_state_type state)
         {
             return widget_details_type::template set_window_state<window_state_type>(*this, state);
         }
@@ -171,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             The shortcut key table of the menu bar is updated.
 
-            When p_menu_bar is NULL, the currently associated main menu is destroyed.
+            When p_menu_bar is nullptr, the currently associated main menu is destroyed.
 
             \param p_menu_bar A unique pointer to a menu bar.
         */
@@ -232,10 +231,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param scroll_bar_style    A scroll bar style type.
             \param message_handler_map A message handler map.
         */
-        abstract_window(
-            const typename scroll_bar_style_type::enum_t scroll_bar_style,
-            message_handler_map_type&&                   message_handler_map
-        )
+        abstract_window(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)

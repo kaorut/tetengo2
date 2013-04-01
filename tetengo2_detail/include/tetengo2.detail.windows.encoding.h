@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_ENCODING_H
 
 #include <cassert>
-#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -61,13 +60,13 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
 
-            const int string_length =
+            const auto string_length =
                 ::WideCharToMultiByte(
-                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), NULL, 0, NULL, NULL
+                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
                 );
             std::vector<char> string(string_length + 1, '\0');
 
-            const int converted_length =
+            const auto converted_length =
                 ::WideCharToMultiByte(
                     CP_UTF8,
                     flags,
@@ -75,8 +74,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     static_cast<int>(pivot.length()),
                     string.data(),
                     string_length,
-                    NULL,
-                    NULL
+                    nullptr,
+                    nullptr
                 );
             converted_length;
             assert(converted_length == string_length);
@@ -93,13 +92,13 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static pivot_type utf8_to_pivot(const utf8_string_type& string)
         {
-            const int pivot_length =
+            const auto pivot_length =
                 ::MultiByteToWideChar(
-                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), NULL, 0
+                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
                 );
             std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 
-            const int converted_length =
+            const auto converted_length =
                 ::MultiByteToWideChar(
                     CP_UTF8,
                     MB_ERR_INVALID_CHARS,
@@ -125,13 +124,13 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
 
-            const int string_length =
+            const auto string_length =
                 ::WideCharToMultiByte(
-                    932, flags, pivot.c_str(), static_cast<int>(pivot.length()), NULL, 0, NULL, NULL
+                    932, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
                 );
             std::vector<char> string(string_length + 1, '\0');
 
-            const int converted_length =
+            const auto converted_length =
                 ::WideCharToMultiByte(
                     932,
                     flags,
@@ -139,8 +138,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     static_cast<int>(pivot.length()),
                     string.data(),
                     string_length,
-                    NULL,
-                    NULL
+                    nullptr,
+                    nullptr
                 );
             converted_length;
             assert(converted_length == string_length);
@@ -157,13 +156,13 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static pivot_type cp932_to_pivot(const cp932_string_type& string)
         {
-            const int pivot_length =
+            const auto pivot_length =
                 ::MultiByteToWideChar(
-                    932, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), NULL, 0
+                    932, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
                 );
             std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 
-            const int converted_length =
+            const auto converted_length =
                 ::MultiByteToWideChar(
                     932,
                     MB_ERR_INVALID_CHARS,

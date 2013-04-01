@@ -70,20 +70,19 @@ namespace tetengo2 { namespace gui { namespace drawing
         // virtual functions
 
         virtual std::unique_ptr<base_type> clone_impl()
-        const
+        const override
         {
             return make_unique<transparent_background>();
         }
 
-        virtual boost::optional<const details_type&>
-        details_impl()
-        const
+        virtual boost::optional<const details_type&> details_impl()
+        const override
         {
             return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
-        virtual boost::optional<details_type&>
-        details_impl()
+        virtual boost::optional<details_type&> details_impl()
+        override
         {
             return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }

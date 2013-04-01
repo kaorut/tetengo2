@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit = unit_type::from_pixels(123);
+        const auto unit = unit_type::from_pixels(123);
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }

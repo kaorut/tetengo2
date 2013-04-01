@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
 #include <cassert>
-//#include <cstddef>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>
@@ -66,13 +65,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The line style type.
-        struct line_style_type { enum enum_t //!< Scoped enum.
+        enum class line_style_type
         {
             solid,      //!< Solid.
             dashed,     //!< Dashed.
             dotted,     //!< Dotted.
             dot_dashed, //!< Dot-Dashed.
-        };};
+        };
 
         //! The font type.
         typedef typename traits_type::font_type font_type;
@@ -171,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        typename line_style_type::enum_t line_style()
+        line_style_type line_style()
         const
         {
             return m_line_style;
@@ -184,7 +183,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param line_style A line width.
         */
-        void set_line_style(const typename line_style_type::enum_t line_style)
+        void set_line_style(const line_style_type line_style)
         {
             m_line_style = line_style;
         }
@@ -329,7 +328,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         boost::optional<const details_type&> details()
         const
         {
-            return boost::make_optional<const details_type&>(m_p_details.get() != NULL, *m_p_details);
+            return boost::make_optional<const details_type&>(m_p_details.get() != nullptr, *m_p_details);
         }
 
         /*!
@@ -339,7 +338,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         boost::optional<details_type&> details()
         {
-            return boost::make_optional<details_type&>(m_p_details.get() != NULL, *m_p_details);
+            return boost::make_optional<details_type&>(m_p_details.get() != nullptr, *m_p_details);
         }
 
 
@@ -355,7 +354,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param p_details A detail implementation.
 
-            \throw std::invalid_argument When p_details is NULL.
+            \throw std::invalid_argument When p_details is nullptr.
         */
         explicit canvas(details_ptr_type p_details)
         :
@@ -367,7 +366,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is nullptr."));
         }
 
 
@@ -391,7 +390,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         size_type m_line_width;
 
-        typename line_style_type::enum_t m_line_style;
+        line_style_type m_line_style;
 
         font_type m_font;
 

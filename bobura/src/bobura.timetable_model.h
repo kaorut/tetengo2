@@ -10,7 +10,6 @@
 #define BOBURA_TIMETABLEMODEL_H
 
 #include <cassert>
-#include <cstddef>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>
@@ -101,7 +100,7 @@ namespace bobura
 
             \param p_timetable A unique pointer to a timetable.
 
-            \throw std::invalid_argument When p_timetable is NULL.
+            \throw std::invalid_argument When p_timetable is nullptr.
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
         {
@@ -114,7 +113,7 @@ namespace bobura
             \param p_timetable A unique pointer to a timetable.
             \param path        A path.
 
-            \throw std::invalid_argument When p_timetable is NULL.
+            \throw std::invalid_argument When p_timetable is nullptr.
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable, path_type path)
         {
@@ -211,8 +210,6 @@ namespace bobura
     private:
         // types
 
-        typedef typename timetable_type::string_type string_type;
-
         class timetable_changed
         {
         public:
@@ -248,7 +245,7 @@ namespace bobura
         void reset_timetable_impl(std::unique_ptr<timetable_type> p_timetable, boost::optional<path_type>&& path)
         {
             if (!p_timetable)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Timetable is NULL."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Timetable is nullptr."));
 
             m_p_timetable = std::move(p_timetable);
             m_path = std::forward<boost::optional<path_type>>(path);

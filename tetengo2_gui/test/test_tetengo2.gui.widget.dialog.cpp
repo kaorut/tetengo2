@@ -37,10 +37,6 @@ namespace
         dialog_type(parent)
         {}
 
-    private:
-        virtual void set_result_impl()
-        {}
-
     };
 
 
@@ -71,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
             window_type parent;
             const concrete_dialog dialog(parent);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::undecided);
+            BOOST_CHECK(dialog.result() == dialog_type::result_type::undecided);
         }
         {
             window_type parent;
@@ -79,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
             dialog.set_result(dialog_type::result_type::undecided);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::undecided);
+            BOOST_CHECK(dialog.result() == dialog_type::result_type::undecided);
         }
         {
             window_type parent;
@@ -87,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
             dialog.set_result(dialog_type::result_type::accepted);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::accepted);
+            BOOST_CHECK(dialog.result() == dialog_type::result_type::accepted);
         }
         {
             window_type parent;
@@ -95,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
             dialog.set_result(dialog_type::result_type::canceled);
 
-            BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_type::canceled);
+            BOOST_CHECK(dialog.result() == dialog_type::result_type::canceled);
         }
     }
 

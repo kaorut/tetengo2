@@ -46,19 +46,19 @@ namespace
             boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::message_catalog>::type
             message_catalog_type;
 
-        struct result_type { enum enum_t
+        enum class result_type
         {
             undecided,
             accepted,
             canceled,
-        };};
+        };
 
         typedef std::size_t int_size_type;
 
         oudia_diagram_dialog(abstract_window_type&, const message_catalog_type&)
         {}
 
-        result_type::enum_t result()
+        result_type result()
         const
         {
             return result_type::undecided;
@@ -131,8 +131,7 @@ BOOST_AUTO_TEST_SUITE(select_oudia_diagram)
         const select_oudia_diagram_type select_oudia_diagram(parent, std::move(file_name), message_catalog);
 
         std::vector<string_type> diagram_names;
-        const std::vector<string_type>::const_iterator selected =
-            select_oudia_diagram(diagram_names.begin(), diagram_names.end());
+        const auto selected = select_oudia_diagram(diagram_names.begin(), diagram_names.end());
 
         BOOST_CHECK(selected == diagram_names.end());
     }

@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         BOOST_TEST_PASSPOINT();
 
         const another_unit_type another_unit(123);
-        const unit_type unit = unit_type::from(another_unit);
+        const auto unit = unit_type::from(another_unit);
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit1(456);
             const unit_type unit2(123);
 
-            const unit_type unit3 = unit1 + unit2;
+            const auto unit3 = unit1 + unit2;
 
             BOOST_CHECK_EQUAL(unit3.value(), 579);
         }
@@ -196,14 +196,14 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit1(456);
             const another_unit_type unit2(123);
 
-            const unit_type unit3 = unit1 + unit2;
+            const auto unit3 = unit1 + unit2;
 
             BOOST_CHECK_EQUAL(unit3.value(), 579);
         }
         {
             const unit_type unit1(456);
 
-            const unit_type unit3 = unit1 + 123;
+            const auto unit3 = unit1 + 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 579);
         }
@@ -246,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit1(456);
             const unit_type unit2(123);
 
-            const unit_type unit3 = unit1 - unit2;
+            const auto unit3 = unit1 - unit2;
 
             BOOST_CHECK_EQUAL(unit3.value(), 333);
         }
@@ -254,14 +254,14 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit1(456);
             const another_unit_type unit2(123);
 
-            const unit_type unit3 = unit1 - unit2;
+            const auto unit3 = unit1 - unit2;
 
             BOOST_CHECK_EQUAL(unit3.value(), 333);
         }
         {
             const unit_type unit1(456);
 
-            const unit_type unit3 = unit1 - 123;
+            const auto unit3 = unit1 - 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 333);
         }
@@ -287,7 +287,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         {
             const unit_type unit1(456);
 
-            const unit_type unit3 = unit1 * 123;
+            const auto unit3 = unit1 * 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 56088);
         }
@@ -313,7 +313,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         {
             const unit_type unit1(456);
 
-            const unit_type unit3 = unit1 / 123;
+            const auto unit3 = unit1 / 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 3);
         }

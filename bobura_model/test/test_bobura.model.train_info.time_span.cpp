@@ -263,7 +263,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(1);
             const time_span_type time_span2(2);
 
-            const time_span_type time_span3 = time_span1 + time_span2;
+            const auto time_span3 = time_span1 + time_span2;
 
             BOOST_CHECK_EQUAL(time_span3.seconds(), 3);
         }
@@ -271,7 +271,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(0, 59, 59);
             const time_span_type time_span2(0, 0, 1);
 
-            const time_span_type time_span3 = time_span1 + time_span2;
+            const auto time_span3 = time_span1 + time_span2;
 
             BOOST_CHECK(time_span3.hours_minutes_seconds() == hours_minutes_seconds_type_(1, 0, 0));
         }
@@ -279,7 +279,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(1, 0, 0);
             const time_span_type time_span2(0, 0, -1);
 
-            const time_span_type time_span3 = time_span1 + time_span2;
+            const auto time_span3 = time_span1 + time_span2;
 
             BOOST_CHECK(time_span3.hours_minutes_seconds() == hours_minutes_seconds_type_(0, 59, 59));
         }
@@ -317,7 +317,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(1);
             const time_span_type time_span2(2);
 
-            const time_span_type time_span3 = time_span1 - time_span2;
+            const auto time_span3 = time_span1 - time_span2;
 
             BOOST_CHECK_EQUAL(time_span3.seconds(), -1);
         }
@@ -325,7 +325,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(0, 59, 59);
             const time_span_type time_span2(0, 0, -1);
 
-            const time_span_type time_span3 = time_span1 - time_span2;
+            const auto time_span3 = time_span1 - time_span2;
 
             BOOST_CHECK(time_span3.hours_minutes_seconds() == hours_minutes_seconds_type_(1, 0, 0));
         }
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_span_type time_span1(1, 0, 0);
             const time_span_type time_span2(0, 0, 1);
 
-            const time_span_type time_span3 = time_span1 - time_span2;
+            const auto time_span3 = time_span1 - time_span2;
 
             BOOST_CHECK(time_span3.hours_minutes_seconds() == hours_minutes_seconds_type_(0, 59, 59));
         }

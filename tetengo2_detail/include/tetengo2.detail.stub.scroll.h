@@ -65,11 +65,11 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
 
         //! The style type.
-        struct style_type { enum enum_t //!< Scoped enum.
+        enum class style_type
         {
             vertical,   //!< The vertical style.
             horizontal, //!< The horizontal style.
-        };};
+        };
 
 
         // static functions
@@ -88,8 +88,8 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename WidgetDetails>
         static scroll_bar_details_ptr_type create_scroll_bar(
-            const WidgetDetails&              widget_details,
-            const typename style_type::enum_t style
+            const WidgetDetails& widget_details,
+            const style_type     style
         )
         {
             suppress_unused_variable_warning(widget_details, style);

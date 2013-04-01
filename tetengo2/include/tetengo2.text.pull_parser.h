@@ -21,7 +21,7 @@
 #include "tetengo2.concurrent.channel.h"
 #include "tetengo2.concurrent.consumer.h"
 #include "tetengo2.concurrent.producer.h"
-#include "tetengo2.cpp11.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace text
@@ -55,14 +55,14 @@ namespace tetengo2 { namespace text
         typedef Size size_type;
 
         //! The structure kind type.
-        struct structure_kind_type { enum enum_t //!< Scoped enum.
+        enum class structure_kind_type
         {
             begin, //!< The structure kind begin.
             end,   //!< The structure kind end.
-        };};
+        };
 
         //! The structure type.
-        template <typename structure_kind_type::enum_t Kind>
+        template <structure_kind_type Kind>
         class structure
         {
         public:
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace text
 
                 \return The kind.
             */
-            static typename structure_kind_type::enum_t kind()
+            static structure_kind_type kind()
             {
                 return Kind;
             }
@@ -153,7 +153,9 @@ namespace tetengo2 { namespace text
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(TETENGO2_CPP11_BIND(generate, cpp11::placeholders_1(), cpp11::ref(*m_p_push_parser)), m_channel),
+#if !defined(DOCUMENTATION) // Doxygen warning suppression
+        m_producer([this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel),
+#endif
         m_consumer(m_channel)
         {}
 
@@ -210,7 +212,7 @@ namespace tetengo2 { namespace text
         */
         void skip_next()
         {
-            const element_type element = peek();
+            const auto element = peek();
 
             if (element.which() == 1 || element.which() == 2)
             {
@@ -218,16 +220,16 @@ namespace tetengo2 { namespace text
                 return;
             }
             assert(element.which() == 0);
-            const string_type& structure_begin_name = boost::get<structure_begin_type>(element).name();
+            const auto& structure_begin_name = boost::get<structure_begin_type>(element).name();
 
             next();
 
             while (has_next())
             {
-                const element_type& next_element = peek();
+                const auto& next_element = peek();
                 if (next_element.which() == 1)
                 {
-                    const string_type& structure_end_name = boost::get<structure_end_type>(next_element).name();
+                    const auto& structure_end_name = boost::get<structure_end_type>(next_element).name();
                     if (structure_end_name == structure_begin_name)
                     {
                         next();
@@ -255,15 +257,30 @@ namespace tetengo2 { namespace text
         static void generate(channel_type& channel, push_parser_type& push_parser)
         {
             push_parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    on_structure_begin, cpp11::placeholders_1(), cpp11::placeholders_2(), cpp11::ref(channel)
+                [&channel](
+                    const string_type&        name,
+                    const attribute_map_type& attribute_map
                 )
+                {
+                    on_structure_begin(name, attribute_map, channel);
+                }
             );
             push_parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(on_structure_end, cpp11::placeholders_1(), cpp11::ref(channel))
+                [&channel](
+                    const string_type&        name,
+                    const attribute_map_type& attribute_map
+                )
+                {
+                    tetengo2::suppress_unused_variable_warning(attribute_map);
+
+                    on_structure_end(name, channel);
+                }
             );
             push_parser.on_value().connect(
-                TETENGO2_CPP11_BIND(on_value, cpp11::placeholders_1(), cpp11::ref(channel))
+                [&channel](const value_type& value)
+                {
+                    on_value(value, channel);
+                }
             );
 
             push_parser.parse();

@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H)
 #define TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H
 
-//#include <cstddef>
+#include <cstddef>
 //#include <string>
 #include <system_error>
 //#include <vector>
@@ -81,7 +81,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "win32";
         }
@@ -94,19 +94,19 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             const std::size_t message_capacity = 64 * 1024;
             std::vector<wchar_t> message(message_capacity, 0);
-            ::DWORD message_length =
+            auto message_length =
                 ::FormatMessageW(
                     FORMAT_MESSAGE_FROM_SYSTEM,
-                    NULL,
+                    nullptr,
                     error_value,
                     MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                     &message[0],
                     message_capacity,
-                    NULL
+                    nullptr
                 );
             if (message_length == 0)
                 return "Unknown Error";
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const
+        const override
         {
             return "Windows Imaging Component";
         }
@@ -180,7 +180,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The message.
         */
         virtual std::string message(const int error_value)
-        const
+        const override
         {
             switch (error_value)
             {

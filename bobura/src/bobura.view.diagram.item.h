@@ -9,8 +9,6 @@
 #if !defined(BOBURA_VIEW_DIAGRAM_ITEM_H)
 #define BOBURA_VIEW_DIAGRAM_ITEM_H
 
-#include <cstddef>
-
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -95,7 +93,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of this item or its child, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr;
 
             \param position A position.
 
@@ -110,7 +108,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of this item or its child, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr;
 
             \param position A position.
 
@@ -183,7 +181,7 @@ namespace bobura { namespace view { namespace diagram
         {
             tetengo2::suppress_unused_variable_warning(position);
 
-            return NULL;
+            return nullptr;
         }
 
         virtual bool selected_impl()

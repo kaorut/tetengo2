@@ -51,7 +51,7 @@ namespace
         string_type m_name;
 
         virtual const string_type& name_impl()
-        const
+        const override
         {
             return m_name;
         }

@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_ALERT_H)
 #define TETENGO2_GUI_ALERT_H
 
-#include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <string>
@@ -56,7 +55,7 @@ namespace tetengo2 { namespace gui
 
             \param widget_handle     A widget handle.
         */
-        explicit alert(const widget_handle_type widget_handle = NULL)
+        explicit alert(const widget_handle_type widget_handle = nullptr)
         :
         m_widget_handle(alert_details_type::root_ancestor_widget_handle(widget_handle))
         {}
@@ -80,8 +79,8 @@ namespace tetengo2 { namespace gui
                 const std::system_error* const p_system_error = dynamic_cast<const std::system_error*>(&exception);
                 if (p_system_error)
                 {
-                    const std::string what = p_system_error->std::runtime_error::what();
-                    std::string message = p_system_error->code().message();
+                    const std::string what(p_system_error->std::runtime_error::what());
+                    auto message = p_system_error->code().message();
                     if (!what.empty())
                         message += std::string(": ") + what;
                     alert_details_type::show_task_dialog(

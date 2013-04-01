@@ -11,7 +11,6 @@
 //#include <utility>
 //#include <vector>
 
-//#include <boost/foreach.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
@@ -95,7 +94,7 @@ namespace bobura
                 if (!m_p_diagram_list_box->destroyed())
                 {
                     m_p_diagram_list_box->clear();
-                    BOOST_FOREACH (const string_type& name, m_names)
+                    for (const auto& name: m_names)
                     {
                         m_p_diagram_list_box->insert_item(m_p_diagram_list_box->item_count(), name);
                     }
@@ -196,10 +195,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_file_name_label()
             {
-                std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_file_name);
-                std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+                auto p_background = tetengo2::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -207,14 +206,12 @@ namespace bobura
 
             std::unique_ptr<label_type> create_prompt_label()
             {
-                std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::make_unique<label_type>(m_base);
 
                 p_label->set_text(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:OuDiaDiagram:&Select a diagram to load:")
-                    )
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:OuDiaDiagram:&Select a diagram to load:"))
                 );
-                std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
+                auto p_background = tetengo2::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -222,7 +219,7 @@ namespace bobura
 
             std::unique_ptr<list_box_type> create_diagram_list_box()
             {
-                std::unique_ptr<list_box_type> p_list_box =
+                auto p_list_box =
                     tetengo2::make_unique<list_box_type>(m_base, list_box_type::scroll_bar_style_type::vertical);
 
                 p_list_box->mouse_observer_set().doubleclicked().connect(
@@ -237,7 +234,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_ok_button()
             {
-                std::unique_ptr<button_type> p_button =
+                auto p_button =
                     tetengo2::make_unique<button_type>(m_base, button_type::style_type::default_);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
@@ -253,7 +250,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_cancel_button()
             {
-                std::unique_ptr<button_type> p_button =
+                auto p_button =
                     tetengo2::make_unique<button_type>(m_base, button_type::style_type::cancel);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));

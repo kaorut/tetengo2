@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_UNIT_H)
 #define TETENGO2_DETAIL_STUB_UNIT_H
 
-#include <cstddef>
 #include <type_traits>
 
 #include <boost/noncopyable.hpp>
@@ -100,7 +99,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const PixelValue denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
-            >::type* = NULL
+            >::type* = nullptr
         )
         {
             return boost::rational<typename Value::int_type>(numerator, denominator);
@@ -110,7 +109,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static Value to_value(
             const PixelValue numerator,
             const PixelValue denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = nullptr
         )
         {
             return numerator / denominator;
@@ -122,7 +121,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Value& denominator,
             typename std::enable_if<
                 std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
-            >::type* = NULL
+            >::type* = nullptr
         )
         {
             return boost::rational_cast<PixelValue>(numerator / denominator);
@@ -132,7 +131,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static PixelValue to_pixel_value(
             const Value numerator,
             const Value denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = nullptr
         )
         {
             return static_cast<PixelValue>(numerator / denominator);

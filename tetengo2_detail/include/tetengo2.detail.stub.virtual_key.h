@@ -645,7 +645,7 @@ namespace tetengo2 { namespace detail { namespace stub
             {
                 if (i != first)
                     string += String(TETENGO2_TEXT("+"));
-                string += i->get().to_string();
+                string += (*i)->to_string();
             }
             return string;
         }

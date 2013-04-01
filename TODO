@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000202
-Added on    : 2012/11/13
-Depends on  : 00000222
-Description : Replace std/boost::bind to C++ lambda.
-------------------------------------------------------------------------------
 Number      : 00000223
 Added on    : 2013/03/13
 Depends on  : (none)
@@ -22,32 +17,12 @@ Added on    : 2013/03/13
 Depends on  : 00000223
 Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
-Number      : 00000225
-Added on    : 2013/03/15
+Number      : 00000231
+Added on    : 2013/04/02
 Depends on  : (none)
-Description : Replace local variable type declarations to auto.
+Description : Replace boost::thread to std::thread.
 ------------------------------------------------------------------------------
-Number      : 00000226
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Replace NULL to nullptr.
-------------------------------------------------------------------------------
-Number      : 00000227
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Replace BOOST_FOREACH to range-based for loops.
-------------------------------------------------------------------------------
-Number      : 00000228
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Introduce strongly typed enums.
-------------------------------------------------------------------------------
-Number      : 00000229
-Added on    : 2013/03/15
-Depends on  : (none)
-Description : Introduce override keywords.
-------------------------------------------------------------------------------
-Number      : 00000230
+Number      : 00000232
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 

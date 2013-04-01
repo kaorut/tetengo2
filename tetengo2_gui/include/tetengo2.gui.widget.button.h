@@ -48,16 +48,13 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
         //! The style type.
-        struct style_type { enum enum_t //!< Scoped enum.
+        enum class style_type
         {
             normal,   //!< A normal button.
             default_, //!< A default button.
             cancel    //!< A cancel button.
-        };};
+        };
 
 
         // constructors and destructor
@@ -72,7 +69,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param parent A parent widget.
             \param style  A style.
         */
-        explicit button(widget_type& parent, const typename style_type::enum_t style = style_type::normal)
+        explicit button(widget_type& parent, const style_type style = style_type::normal)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -106,7 +103,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The style.
         */
-        typename style_type::enum_t style()
+        style_type style()
         const
         {
             return m_style;
@@ -121,7 +118,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        const typename style_type::enum_t m_style;
+        const style_type m_style;
 
 
     };

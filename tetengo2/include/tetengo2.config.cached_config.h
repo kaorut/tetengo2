@@ -83,13 +83,13 @@ namespace tetengo2 { namespace config
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const
+        const override
         {
-            boost::optional<value_type> cached_value = m_cache.get(key);
+            auto cached_value = m_cache.get(key);
             if (cached_value)
                 return cached_value;
 
-            boost::optional<value_type> value = m_p_config->get(key);
+            auto value = m_p_config->get(key);
             if (value)
                 m_cache.set(key, *value);
 
@@ -97,6 +97,7 @@ namespace tetengo2 { namespace config
         }
 
         virtual void set_impl(const string_type& key, value_type value)
+        override
         {
             m_cache.set(key, value);
             m_p_config->set(key, std::move(value));

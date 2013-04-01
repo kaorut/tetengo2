@@ -155,7 +155,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);
@@ -297,7 +297,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);
@@ -363,10 +363,10 @@ namespace bobura { namespace view { namespace diagram
         m_position(left_type(0), top_type(0)),
         m_dimension(width_type(0), height_type(0))
         {
-            string_type company_line_name = make_company_line_name(model);
-            const font_type& company_line_name_font = model.timetable().font_color_set().company_line_name().font();
-            string_type note = make_note(model);
-            const font_type& note_font = model.timetable().font_color_set().note().font();
+            auto company_line_name = make_company_line_name(model);
+            const auto& company_line_name_font = model.timetable().font_color_set().company_line_name().font();
+            auto note = make_note(model);
+            const auto& note_font = model.timetable().font_color_set().note().font();
             position_type company_line_name_position(left_type(0), top_type(0));
             dimension_type company_line_name_dimension(width_type(0), height_type(0));
             position_type note_position(left_type(0), top_type(0));
@@ -386,8 +386,8 @@ namespace bobura { namespace view { namespace diagram
                 m_dimension
             );
 
-            const color_type& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
-            const color_type& note_color = model.timetable().font_color_set().note().color();
+            const auto& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
+            const auto& note_color = model.timetable().font_color_set().note().color();
             m_p_company_line_name_header =
                 tetengo2::make_unique<company_line_name_header_type>(
                     selection,
@@ -517,20 +517,20 @@ namespace bobura { namespace view { namespace diagram
             dimension_type&       dimension
         )
         {
-            const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const auto& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
 
             canvas.set_font(company_line_name_font);
-            dimension_type company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
-            const width_type company_line_name_width =
+            auto company_line_name_dimension_ = canvas.calc_text_dimension(company_line_name);
+            const auto& company_line_name_width =
                 tetengo2::gui::dimension<dimension_type>::width(company_line_name_dimension_);
-            const height_type company_line_name_height =
+            const auto& company_line_name_height =
                 company_line_name.empty() ?
                 height_type(0) : tetengo2::gui::dimension<dimension_type>::height(company_line_name_dimension_);
 
             canvas.set_font(note_font);
-            const dimension_type note_dimension_ = canvas.calc_text_dimension(note);
-            const width_type note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension_);
-            const height_type note_height =
+            const auto note_dimension_ = canvas.calc_text_dimension(note);
+            const auto& note_width = tetengo2::gui::dimension<dimension_type>::width(note_dimension_);
+            const auto& note_height =
                 note.empty() ? height_type(0) : tetengo2::gui::dimension<dimension_type>::height(note_dimension_);
 
             position_type company_line_name_position_(left_type(0), top_type(0));
@@ -541,8 +541,7 @@ namespace bobura { namespace view { namespace diagram
             {
                 header_width = canvas_width;
 
-                const top_type height_diff =
-                    top_type::from(company_line_name_height) - top_type::from(note_height);
+                const auto height_diff = top_type::from(company_line_name_height) - top_type::from(note_height);
                 if (height_diff > 0)
                 {
                     const top_type note_top(height_diff / top_type(2));
@@ -589,7 +588,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             assert(m_p_company_line_name_header);
             m_p_company_line_name_header->draw_on(canvas);

@@ -10,7 +10,6 @@
 #define BOBURA_VIEW_DIAGRAM_SELECTION_H
 
 #include <cassert>
-#include <cstddef>
 #include <limits>
 
 #include <boost/noncopyable.hpp>
@@ -48,8 +47,8 @@ namespace bobura { namespace view { namespace diagram
         */
         selection()
         :
-        m_p_selected_station(NULL),
-        m_p_selected_train(NULL)
+        m_p_selected_station(nullptr),
+        m_p_selected_train(nullptr)
         {}
 
         /*!
@@ -146,8 +145,8 @@ namespace bobura { namespace view { namespace diagram
         */
         void unselect_all()
         {
-            m_p_selected_station = NULL;
-            m_p_selected_train = NULL;
+            m_p_selected_station = nullptr;
+            m_p_selected_train = nullptr;
             m_departure_stop_index = boost::none;
         }
 

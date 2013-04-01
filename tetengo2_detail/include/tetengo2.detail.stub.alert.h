@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_ALERT_H)
 #define TETENGO2_DETAIL_STUB_ALERT_H
 
-#include <cstddef>
-
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.utility.h"
@@ -43,7 +41,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(widget_handle);
 
-            return NULL;
+            return nullptr;
         }
 
         /*!

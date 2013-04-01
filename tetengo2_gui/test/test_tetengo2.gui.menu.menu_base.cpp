@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <memory>
 //#include <stdexcept>
 //#include <utility>
 
@@ -63,7 +62,7 @@ namespace
         // virtual functions
 
         virtual const style_type& style_impl()
-        const
+        const override
         {
             return menu_details_type::menu_command_style<menu_base_type>();
         }
@@ -141,7 +140,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::default_);
+        BOOST_CHECK(menu.state() == menu_base_type::state_type::default_);
     }
 
     BOOST_AUTO_TEST_CASE(set_state)
@@ -153,21 +152,21 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
             menu.set_state(menu_base_type::state_type::default_);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::default_);
+            BOOST_CHECK(menu.state() == menu_base_type::state_type::default_);
         }
         {
             concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
             menu.set_state(menu_base_type::state_type::checked);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::checked);
+            BOOST_CHECK(menu.state() == menu_base_type::state_type::checked);
         }
         {
             concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
             menu.set_state(menu_base_type::state_type::selected);
 
-            BOOST_CHECK_EQUAL(menu.state(), menu_base_type::state_type::selected);
+            BOOST_CHECK(menu.state() == menu_base_type::state_type::selected);
         }
     }
 
@@ -205,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
                 shortcut_key_type(virtual_key_type::char_a(), false, true, false)
             );
 
-            const shortcut_key_type& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.shortcut_key();
             BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
             BOOST_CHECK(!shortcut_key.shift());
             BOOST_CHECK(shortcut_key.control());
@@ -307,9 +306,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         BOOST_TEST_PASSPOINT();
 
         concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
-        std::unique_ptr<menu_base_type> p_child(
-            tetengo2::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("Hoge")))
-        );
+        auto p_child = tetengo2::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("Hoge")));
 
         BOOST_CHECK_THROW(menu.insert(menu.begin(), std::move(p_child)), std::logic_error);
     }

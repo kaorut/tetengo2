@@ -11,7 +11,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H
 
-#include <cstddef>
 #include <system_error>
 
 #include <boost/optional.hpp>
@@ -41,7 +40,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!control.background() && !control.text_color())
                 return boost::none;
 
-            const ::HDC device_context = reinterpret_cast< ::HDC>(w_param);
+            const auto device_context = reinterpret_cast< ::HDC>(w_param);
             if (!control.paint_observer_set().paint_background().empty())
             {
                 typename Control::base_type::widget_canvas_type canvas(device_context);
@@ -50,7 +49,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (control.text_color())
             {
-                const ::COLORREF previous_color =
+                const auto previous_color =
                     ::SetTextColor(
                         device_context,
                         RGB(control.text_color()->red(), control.text_color()->green(), control.text_color()->blue())
@@ -64,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     );
                 }
             }
-            const int previous_background_mode = ::SetBkMode(device_context, TRANSPARENT);
+            const auto previous_background_mode = ::SetBkMode(device_context, TRANSPARENT);
             if (previous_background_mode == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -84,7 +83,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (control.has_parent())
             {
-                typename Control::base_type& dialog = control.root_ancestor();
+                auto& dialog = control.root_ancestor();
 
                 dialog.details()->first_child_handle = control.details()->handle.get();
             }

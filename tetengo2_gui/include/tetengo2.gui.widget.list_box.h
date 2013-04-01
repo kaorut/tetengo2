@@ -62,9 +62,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
-        //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
-
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
@@ -77,7 +74,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        list_box(widget_type& parent, const typename scroll_bar_style_type::enum_t scroll_bar_style)
+        list_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)

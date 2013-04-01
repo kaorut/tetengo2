@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_MESSAGE_MESSAGECATALOG_H)
 #define TETENGO2_MESSAGE_MESSAGECATALOG_H
 
-#include <cstddef>
 #include <locale>
 #include <utility>
 
@@ -105,7 +104,7 @@ namespace tetengo2 { namespace message
 
         static const messages_type* get_messages(const std::locale& locale)
         {
-            return std::has_facet<messages_type>(locale) ? &std::use_facet<messages_type>(locale) : NULL;
+            return std::has_facet<messages_type>(locale) ? &std::use_facet<messages_type>(locale) : nullptr;
         }
 
         static catalog_id_type open_messages(const messages_type* const p_messages, const std::locale& locale)

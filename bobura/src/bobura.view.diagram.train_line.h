@@ -11,7 +11,6 @@
 
 #include <cassert>
 //#include <cmath>
-//#include <cstddef>
 #include <limits>
 #include <numeric>
 #include <sstream>
@@ -19,10 +18,10 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/optional.hpp>
+#include <boost/range/adaptors.hpp>
 //#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -208,10 +207,10 @@ namespace bobura { namespace view { namespace diagram
 
         static double calculate_train_name_angle(const position_type& departure, const position_type& arrival)
         {
-            const top_type height =
+            const auto height =
                 tetengo2::gui::position<position_type>::top(arrival) -
                 tetengo2::gui::position<position_type>::top(departure);
-            const left_type width =
+            const auto width =
                 tetengo2::gui::position<position_type>::left(arrival) -
                 tetengo2::gui::position<position_type>::left(departure);
 
@@ -227,8 +226,8 @@ namespace bobura { namespace view { namespace diagram
             const canvas_type&   canvas
         )
         {
-            const dimension_type text_dimension = canvas.calc_text_dimension(train_name);
-            const height_type text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
+            const auto text_dimension = canvas.calc_text_dimension(train_name);
+            const auto& text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
 
             if (down)
             {
@@ -245,8 +244,8 @@ namespace bobura { namespace view { namespace diagram
                 }
                 else
                 {
-                    const double left_diff = boost::rational_cast<double>(text_height.value()) / std::sin(angle);
-                    const left_type left =
+                    const auto left_diff = boost::rational_cast<double>(text_height.value()) / std::sin(angle);
+                    const auto left =
                         tetengo2::gui::position<position_type>::left(departure) +
                         typename left_type::value_type(
                             static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
@@ -257,15 +256,15 @@ namespace bobura { namespace view { namespace diagram
             }
             else
             {
-                const double left_diff = boost::rational_cast<double>(text_height.value()) * std::sin(angle);
-                const left_type left =
+                const auto left_diff = boost::rational_cast<double>(text_height.value()) * std::sin(angle);
+                const auto left =
                     tetengo2::gui::position<position_type>::left(departure) +
                     typename left_type::value_type(
                         static_cast<typename left_type::value_type::int_type>(left_diff * 0x10000), 0x10000
                     );
 
-                const double top_diff = boost::rational_cast<double>(text_height.value()) * std::cos(angle);
-                const top_type top =
+                const auto top_diff = boost::rational_cast<double>(text_height.value()) * std::cos(angle);
+                const auto top =
                     tetengo2::gui::position<position_type>::top(departure) -
                     typename top_type::value_type(
                         static_cast<typename top_type::value_type::int_type>(top_diff * 0x10000), 0x10000
@@ -281,11 +280,11 @@ namespace bobura { namespace view { namespace diagram
             const position_type& line_segment_end
         )
         {
-            const geo_vector_type p = to_geo_vector(point);
-            const geo_vector_type lsb = to_geo_vector(line_segment_begin);
-            const geo_vector_type lse = to_geo_vector(line_segment_end);
+            const auto p = to_geo_vector(point);
+            const auto lsb = to_geo_vector(line_segment_begin);
+            const auto lse = to_geo_vector(line_segment_end);
 
-            double d = 0.0;
+            auto d = 0.0;
             if      (geo_dot(geo_minus(lse, lsb), geo_minus(p, lsb)) < 0.0)
                 d = geo_abs(geo_minus(p, lsb));
             else if (geo_dot(geo_minus(lsb, lse), geo_minus(p, lse)) < 0.0)
@@ -354,7 +353,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             draw_selectable_line(canvas, m_departure, m_arrival, this->selected());
             if (m_draw_train_name)
@@ -362,14 +361,15 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
             return
                 calculate_distance(position, m_departure, m_arrival) <= selected_line_margin<size_type>() ?
-                this : NULL;
+                this : nullptr;
         }
 
         virtual bool selected_impl()
-        const
+        const override
         {
             return
                 this->selection().selected(*m_p_train, boost::none) ||
@@ -377,16 +377,17 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual void select_impl(const bool switch_selection_style)
+        override
         {
-            const bool whole_selected = this->selection().selected(*m_p_train, boost::none);
-            const bool this_fragment_selected =
+            const auto whole_selected = this->selection().selected(*m_p_train, boost::none);
+            const auto this_fragment_selected =
                 this->selection().selected(*m_p_train, boost::make_optional(m_departure_stop_index));
-            const bool any_fragment_selected =
+            const auto any_fragment_selected =
                 this->selection().selected(
                     *m_p_train, boost::make_optional(std::numeric_limits<stop_index_type>::max())
                 );
 
-            bool select_fragment = false;
+            auto select_fragment = false;
             if (switch_selection_style)
                 select_fragment = whole_selected || (!this_fragment_selected && any_fragment_selected);
             else
@@ -400,8 +401,8 @@ namespace bobura { namespace view { namespace diagram
         void draw_train_name(canvas_type& canvas)
         const
         {
-            const string_type train_name = make_train_name(*m_p_train, *m_p_message_catalog);
-            const double train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
+            const auto train_name = make_train_name(*m_p_train, *m_p_message_catalog);
+            const auto train_name_angle = calculate_train_name_angle(m_departure, m_arrival);
             canvas.draw_text(
                 train_name,
                 calculate_train_name_position(m_departure, train_name, train_name_angle, m_down, canvas),
@@ -615,12 +616,12 @@ namespace bobura { namespace view { namespace diagram
         {
             std::vector<train_line_fragment_type> fragments;
 
-            bool train_name_drawn = false;
+            auto train_name_drawn = false;
             if (down)
             {
                 for (stop_index_type i = 0; i < train.stops().size() - 1; )
                 {
-                    const stop_index_type from = i;
+                    const auto from = i;
 
                     if (!has_time(train.stops()[from]))
                     {
@@ -628,15 +629,15 @@ namespace bobura { namespace view { namespace diagram
                         continue;
                     }
 
-                    stop_index_type j = i + 1;
+                    auto j = i + 1;
                     for (; j < train.stops().size(); ++j)
                     {
-                        const stop_index_type to = j;
+                        const auto to = j;
 
                         if (has_time(train.stops()[to]))
                         {
-                            const time_type& departure_time = get_departure_time(train.stops()[from]);
-                            const time_type arrival_time =
+                            const auto& departure_time = get_departure_time(train.stops()[from]);
+                            const auto arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], from, to);
 
                             make_fragment(
@@ -674,7 +675,7 @@ namespace bobura { namespace view { namespace diagram
             {
                 for (stop_index_type i = train.stops().size(); i > 1; )
                 {
-                    const stop_index_type from = i - 1;
+                    const auto from = i - 1;
 
                     if (!has_time(train.stops()[from]))
                     {
@@ -682,15 +683,15 @@ namespace bobura { namespace view { namespace diagram
                         continue;
                     }
 
-                    stop_index_type j = i - 1;
+                    auto j = i - 1;
                     for (; j > 0; --j)
                     {
-                        const stop_index_type to = j - 1;
+                        const auto to = j - 1;
 
                         if (has_time(train.stops()[to]))
                         {
-                            const time_type& departure_time = get_departure_time(train.stops()[from]);
-                            const time_type arrival_time =
+                            const auto& departure_time = get_departure_time(train.stops()[from]);
+                            const auto arrival_time =
                                 estimate_arrival_time(station_intervals, departure_time, train.stops()[to], to, from);
 
                             make_fragment(
@@ -753,8 +754,8 @@ namespace bobura { namespace view { namespace diagram
             if (to_stop.arrival() != time_type::uninitialized())
                 return to_stop.arrival();
 
-            const time_span_type departure_interval = to_stop.departure() - from_departure;
-            const time_span_type travel_time =
+            const auto departure_interval = to_stop.departure() - from_departure;
+            const auto travel_time =
                 std::accumulate(
                     station_intervals.begin() + upper_stop_index,
                     station_intervals.begin() + lower_stop_index,
@@ -882,13 +883,13 @@ namespace bobura { namespace view { namespace diagram
             std::vector<train_line_fragment_type>& fragments
         )
         {
-            const left_type horizontal_scroll_bar_position =
+            const auto horizontal_scroll_bar_position =
                 tetengo2::gui::position<position_type>::left(scroll_bar_position);
-            const top_type vertical_scroll_bar_position =
+            const auto vertical_scroll_bar_position =
                 tetengo2::gui::position<position_type>::top(scroll_bar_position);
 
-            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
-            const top_type time_header_bottom = top_type::from(time_header_height);
+            const auto horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const auto time_header_bottom = top_type::from(time_header_height);
             position_type departure(
                 time_to_left(
                     departure_time,
@@ -924,19 +925,19 @@ namespace bobura { namespace view { namespace diagram
                 )
             );
             
-            const left_type left_bound = tetengo2::gui::position<position_type>::left(departure);
+            const auto left_bound = tetengo2::gui::position<position_type>::left(departure);
             if (left_bound > left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension)))
                 return;
-            const left_type right_bound = tetengo2::gui::position<position_type>::left(arrival);
+            const auto right_bound = tetengo2::gui::position<position_type>::left(arrival);
             if (right_bound < station_header_right)
                 return;
-            const top_type upper_bound =
+            const auto upper_bound =
                 departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(departure) :
                 tetengo2::gui::position<position_type>::top(arrival);
             if (upper_bound > top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension)))
                 return;
-            const top_type lower_bound =
+            const auto lower_bound =
                 departure_stop_index < arrival_stop_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
@@ -957,8 +958,8 @@ namespace bobura { namespace view { namespace diagram
             );
         }
 
-        static typename canvas_type::line_style_type::enum_t translate_line_style(
-            const typename train_kind_type::line_style_type::enum_t line_style
+        static typename canvas_type::line_style_type translate_line_style(
+            const typename train_kind_type::line_style_type line_style
         )
         {
             switch (line_style)
@@ -988,7 +989,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_color(m_p_train_kind->color());
             canvas.set_line_width(
@@ -997,22 +998,21 @@ namespace bobura { namespace view { namespace diagram
             );
             canvas.set_line_style(translate_line_style(m_p_train_kind->line_style()));
 
-            BOOST_FOREACH (const train_line_fragment_type& fragment, m_fragments)
-            {
+            for (const auto& fragment: m_fragments)
                 fragment.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
-            BOOST_REVERSE_FOREACH (train_line_fragment_type& fragment, m_fragments)
+            for (auto& fragment: boost::adaptors::reverse(m_fragments))
             {
-                base_type* const p_item = fragment.p_item_by_position(position);
+                auto* const p_item = fragment.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 
@@ -1267,7 +1267,7 @@ namespace bobura { namespace view { namespace diagram
             std::vector<train_line_type>& train_lines
         )
         {
-            BOOST_FOREACH (const train_type& train, trains)
+            for (const auto& train: trains)
             {
                 train_lines.push_back(
                     train_line_type(
@@ -1301,26 +1301,25 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
 
-            BOOST_FOREACH (const train_line_type& train_line, m_train_lines)
-            {
+            for (const auto& train_line: m_train_lines)
                 train_line.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
-            BOOST_REVERSE_FOREACH (train_line_type& train_line, m_train_lines)
+            for (auto& train_line: boost::adaptors::reverse(m_train_lines))
             {
-                base_type* const p_item = train_line.p_item_by_position(position);
+                auto* const p_item = train_line.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 

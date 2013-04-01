@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_TEXT_ENCODER_H)
 #define TETENGO2_TEXT_ENCODER_H
 
-//#include <cstddef>
 //#include <type_traits>
 //#include <utility>
 
@@ -138,11 +137,6 @@ namespace tetengo2 { namespace text
 
 
     private:
-        // types
-
-        typedef typename std::is_same<internal_encoding_type, external_encoding_type>::type encodings_are_same_type;
-
-
         // static functions
 
         template <typename IE, typename EE>
@@ -150,7 +144,7 @@ namespace tetengo2 { namespace text
             internal_string_type&& string,
             const IE&              internal_encoding,
             const EE&              external_encoding,
-            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = NULL
+            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
             suppress_unused_variable_warning(internal_encoding, external_encoding);
@@ -163,7 +157,7 @@ namespace tetengo2 { namespace text
             internal_string_type&& string,
             const IE&              internal_encoding,
             const EE&              external_encoding,
-            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = NULL
+            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
             return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
@@ -187,7 +181,7 @@ namespace tetengo2 { namespace text
             external_string_type&& string,
             const IE&              internal_encoding,
             const EE&              external_encoding,
-            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = NULL
+            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
             suppress_unused_variable_warning(internal_encoding, external_encoding);
@@ -200,7 +194,7 @@ namespace tetengo2 { namespace text
             external_string_type&& string,
             const IE&              internal_encoding,
             const EE&              external_encoding,
-            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = NULL
+            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
             return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));

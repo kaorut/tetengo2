@@ -11,12 +11,11 @@
 
 #include <algorithm>
 #include <cassert>
-//#include <cstddef>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
+#include <boost/range/adaptors.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -170,7 +169,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(m_p_font_color->font());
             canvas.set_color(m_p_font_color->color());
@@ -179,8 +178,8 @@ namespace bobura { namespace view { namespace diagram
                 canvas, position_type(left_type(0), m_top), position_type(m_right, m_top), this->selected()
             );
 
-            const string_type& name = m_p_station->name();
-            const dimension_type name_dimension = canvas.calc_text_dimension(name);
+            const auto& name = m_p_station->name();
+            const auto name_dimension = canvas.calc_text_dimension(name);
             canvas.draw_text(
                 name,
                 position_type(
@@ -191,9 +190,10 @@ namespace bobura { namespace view { namespace diagram
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
-            const left_type& x = tetengo2::gui::position<position_type>::left(position);
-            const top_type& y = tetengo2::gui::position<position_type>::top(position);
+            const auto& x = tetengo2::gui::position<position_type>::left(position);
+            const auto& y = tetengo2::gui::position<position_type>::top(position);
             if (
                 (left_type(0) <= x && x <= m_station_header_right) &&
                 (m_top - selected_line_margin<top_type>() <= y && y <= m_top + selected_line_margin<top_type>())
@@ -203,17 +203,18 @@ namespace bobura { namespace view { namespace diagram
             }
             else
             {
-                return NULL;
+                return nullptr;
             }
         }
 
         virtual bool selected_impl()
-        const
+        const override
         {
             return this->selection().selected(*m_p_station);
         }
 
         virtual void select_impl(const bool switch_selection_style)
+        override
         {
             tetengo2::suppress_unused_variable_warning(switch_selection_style);
 
@@ -273,9 +274,6 @@ namespace bobura { namespace view { namespace diagram
 
         //! The horizontal scale type.
         typedef typename width_type::value_type horizontal_scale_type;
-
-        //! The vertical scale type.
-        typedef typename height_type::value_type vertical_scale_type;
 
         //! The base type.
         typedef item<selection_type, canvas_type> base_type;
@@ -407,10 +405,10 @@ namespace bobura { namespace view { namespace diagram
             const std::vector<top_type>& station_positions
         )
         {
-            const left_type canvas_right =
+            const auto canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
-            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
-            const left_type last_time_position =
+            const auto horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const auto last_time_position =
                 time_to_left(
                     time_type(24 * 60 * 60 + time_offset.seconds()),
                     time_offset,
@@ -419,25 +417,25 @@ namespace bobura { namespace view { namespace diagram
                     station_header_right,
                     horizontal_scale_left
                 );
-            const left_type line_right = std::min(canvas_right, last_time_position);
+            const auto line_right = std::min(canvas_right, last_time_position);
 
-            const top_type canvas_top = header_bottom + top_type::from(time_header_height);
-            const top_type canvas_bottom =
+            const auto canvas_top = header_bottom + top_type::from(time_header_height);
+            const auto canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
 
             std::vector<station_line_type> station_lines;
             station_lines.reserve(station_positions.size());
-            for (typename std::vector<top_type>::size_type i = 0; i < station_positions.size(); ++i)
+            for (decltype(station_positions.size()) i = 0; i < station_positions.size(); ++i)
             {
-                const top_type& position = station_positions[i];
-                top_type line_position =
+                const auto& position = station_positions[i];
+                auto line_position =
                     position + canvas_top - tetengo2::gui::position<position_type>::top(scroll_bar_position);
                 if (line_position < canvas_top)
                     continue;
                 if (line_position > canvas_bottom)
                     break;
 
-                const station_type& station = model.timetable().station_locations()[i].station();
+                const auto& station = model.timetable().station_locations()[i].station();
                 station_lines.push_back(
                     station_line_type(
                         station,
@@ -449,7 +447,7 @@ namespace bobura { namespace view { namespace diagram
                     )
                 );
             }
-            tetengo2::cpp11::shrink_to_fit(station_lines);
+            station_lines.shrink_to_fit();
 
             return std::move(station_lines);
         }
@@ -481,27 +479,26 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_line_width(normal_line_width<size_type>());
             canvas.set_line_style(canvas_type::line_style_type::solid);
 
-            BOOST_FOREACH (const station_line_type& station_line, m_station_lines)
-            {
+            for (const auto& station_line: m_station_lines)
                 station_line.draw_on(canvas);
-            }
         }
 
         virtual base_type* p_item_by_position_impl(const position_type& position)
+        override
         {
-            BOOST_REVERSE_FOREACH (station_line_type& station_line, m_station_lines)
+            for (auto& station_line: boost::adaptors::reverse(m_station_lines))
             {
-                base_type* const p_item = station_line.p_item_by_position(position);
+                auto* const p_item = station_line.p_item_by_position(position);
                 if (p_item)
                     return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
 

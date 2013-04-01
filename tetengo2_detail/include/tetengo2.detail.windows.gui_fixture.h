@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H
 
-//#include <cstddef>
 //#include <system_error>
 
 //#include <boost/noncopyable.hpp>
@@ -94,7 +93,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void setup_com()
         {
-            const ::HRESULT result = ::CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+            const auto result = ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(

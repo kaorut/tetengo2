@@ -14,7 +14,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 
@@ -165,7 +164,7 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             if (m_hours)
                 canvas.draw_text(boost::lexical_cast<string_type>(*m_hours), position_type(m_left, m_top));
@@ -353,21 +352,21 @@ namespace bobura { namespace view { namespace diagram
             const horizontal_scale_type& horizontal_scale
         )
         {
-            const left_type canvas_left = station_header_right;
-            const left_type canvas_right =
+            const auto canvas_left = station_header_right;
+            const auto canvas_right =
                 left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
-            const top_type canvas_top = header_bottom + top_type::from(time_header_height);
-            const top_type canvas_bottom =
+            const auto canvas_top = header_bottom + top_type::from(time_header_height);
+            const auto canvas_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
-            const top_type station_position_bottom =
+            const auto station_position_bottom =
                 top_type::from(tetengo2::gui::dimension<dimension_type>::height(timetable_dimension)) +
                 canvas_top -
                 tetengo2::gui::position<position_type>::top(scroll_bar_position);
-            const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
+            const auto line_bottom = std::min(canvas_bottom, station_position_bottom);
 
-            const left_type horizontal_scale_left = left_type::from(width_type(horizontal_scale));
-            const left_type minute_interval =
+            const auto horizontal_scale_left = left_type::from(width_type(horizontal_scale));
+            const auto minute_interval =
                 time_to_left(
                     time_type(60), time_offset, 0, left_type(0), station_header_right, horizontal_scale_left
                 ) -
@@ -379,12 +378,12 @@ namespace bobura { namespace view { namespace diagram
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
             {
                 const time_type time(i * 60 + time_offset.seconds());
-                const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
-                const time_tick_type hours = hours_minutes_seconds.hours();
-                const time_tick_type minutes = hours_minutes_seconds.minutes();
+                const auto hours_minutes_seconds = time.hours_minutes_seconds();
+                const auto hours = hours_minutes_seconds.hours();
+                const auto minutes = hours_minutes_seconds.minutes();
                 assert(hours_minutes_seconds.seconds() == 0);
 
-                left_type position =
+                auto position =
                     time_to_left(
                         time,
                         time_offset,
@@ -460,7 +459,7 @@ namespace bobura { namespace view { namespace diagram
                     }
                 }
             }
-            tetengo2::cpp11::shrink_to_fit(time_lines);
+            time_lines.shrink_to_fit();
 
             return std::move(time_lines);
         }
@@ -478,15 +477,13 @@ namespace bobura { namespace view { namespace diagram
         // virtual functions
 
         virtual void draw_on_impl(canvas_type& canvas)
-        const
+        const override
         {
             canvas.set_font(*m_p_font);
             canvas.set_color(*m_p_color);
 
-            BOOST_FOREACH (const time_line_type& time_line, m_time_lines)
-            {
+            for (const auto& time_line: m_time_lines)
                 time_line.draw_on(canvas);
-            }
         }
 
 

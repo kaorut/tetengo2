@@ -146,7 +146,7 @@ namespace bobura { namespace model { namespace serializer
             const message_catalog_type& message_catalog
         )
         {
-            std::unique_ptr<select_oudia_diagram_type> p_select_oudia_diagram =
+            auto p_select_oudia_diagram =
                 tetengo2::make_unique<select_oudia_diagram_type>(parent, std::move(file_name), message_catalog);
             return tetengo2::make_unique<oudia_reader_type>(std::move(p_select_oudia_diagram));
         }

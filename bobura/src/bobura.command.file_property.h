@@ -31,9 +31,6 @@ namespace bobura { namespace command
         //! The base type.
         typedef command_base base_type;
 
-        //! The timetable type.
-        typedef model_type::timetable_type timetable_type;
-
         //! The file property dialog type.
         typedef boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type file_property_dialog_type;
 
@@ -77,7 +74,7 @@ namespace bobura { namespace command
         // virtual functions
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const;
+        const override;
 
 
     };

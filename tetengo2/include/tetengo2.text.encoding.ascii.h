@@ -39,9 +39,6 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The string type.
         typedef std::string string_type;
 
-        //! The string character type.
-        typedef string_type::value_type string_char_type;
-
 
         // functions
 
@@ -101,9 +98,16 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
     private:
+        // types
+
+        typedef typename base_type::pivot_type::value_type pivot_char_type;
+
+        typedef string_type::value_type string_char_type;
+
+
         // static functions
 
-        static string_char_type to_ascii(const typename base_type::pivot_char_type pivot_char)
+        static string_char_type to_ascii(const pivot_char_type pivot_char)
         {
             return to_ascii_impl(pivot_char);
         }
@@ -121,7 +125,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 return 0x3F;
         }
 
-        static typename base_type::pivot_char_type from_ascii(const string_char_type ascii_char)
+        static pivot_char_type from_ascii(const string_char_type ascii_char)
         {
             if (ascii_char < 0)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Not ASCII code."));

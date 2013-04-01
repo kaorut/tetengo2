@@ -9,7 +9,6 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONWRITER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
-#include <cstddef>
 #include <algorithm>
 #include <iomanip>
 #include <locale>
@@ -32,13 +31,12 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a JSON writer.
 
-        \tparam OutputStream        A output stream type.
-        \tparam Timetable           A timetable type.
-        \tparam Path                A path type.
-        \tparam StationGradeTypeSet A station grade type set type.
-        \tparam Encoder             An encoder type.
+        \tparam OutputStream A output stream type.
+        \tparam Timetable    A timetable type.
+        \tparam Path         A path type.
+        \tparam Encoder      An encoder type.
     */
-    template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
+    template <typename OutputStream, typename Timetable, typename Path, typename Encoder>
     class json_writer : public writer<OutputStream, Timetable, Path>
     {
     public:
@@ -55,9 +53,6 @@ namespace bobura { namespace model { namespace serializer
 
         //! The base type.
         typedef writer<output_stream_type, timetable_type, path_type> base_type;
-
-        //! The station grade type set type.
-        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -191,7 +186,7 @@ namespace bobura { namespace model { namespace serializer
             const string_type&  key,
             const Integer       value,
             output_stream_type& output_stream,
-            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = NULL
+            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = nullptr
         )
         {
             write_object_key(key, output_stream);
@@ -245,8 +240,8 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << object_begin();
 
-            const font_color_set_type& font_color_set = timetable.font_color_set();
-            bool output = false;
+            const auto& font_color_set = timetable.font_color_set();
+            auto output = false;
             output |=
                 write_font_color_set_element(
                     string_type(TETENGO2_TEXT("background")),
@@ -435,13 +430,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.station_locations().begin(),
                     boost::prior(timetable.station_locations().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_station_location,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        tetengo2::cpp11::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const station_location_type& station_location)
+                    {
+                        write_station_location(station_location, level, output_stream, false);
+                    }
                 );
                 write_station_location(*boost::prior(timetable.station_locations().end()), level, output_stream, true);
 
@@ -509,13 +501,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.train_kinds().begin(),
                     boost::prior(timetable.train_kinds().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train_kind,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        tetengo2::cpp11::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_kind_type& train_kind)
+                    {
+                        write_train_kind(train_kind, level, output_stream, false);
+                    }
                 );
                 write_train_kind(*boost::prior(timetable.train_kinds().end()), level, output_stream, true);
 
@@ -590,13 +579,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.down_trains().begin(),
                     boost::prior(timetable.down_trains().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        tetengo2::cpp11::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_type& train)
+                    {
+                        write_train(train, level, output_stream, false);
+                    }
                 );
                 write_train(*boost::prior(timetable.down_trains().end()), level, output_stream, true);
 
@@ -620,13 +606,10 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     timetable.up_trains().begin(),
                     boost::prior(timetable.up_trains().end()),
-                    TETENGO2_CPP11_BIND(
-                        write_train,
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        tetengo2::cpp11::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const train_type& train)
+                    {
+                        write_train(train, level, output_stream, false);
+                    }
                 );
                 write_train(*boost::prior(timetable.up_trains().end()), level, output_stream, true);
 
@@ -689,13 +672,7 @@ namespace bobura { namespace model { namespace serializer
                 std::for_each(
                     stops.begin(),
                     boost::prior(stops.end()),
-                    TETENGO2_CPP11_BIND(
-                        write_stop, 
-                        tetengo2::cpp11::placeholders_1(),
-                        level,
-                        tetengo2::cpp11::ref(output_stream),
-                        false
-                    )
+                    [level, &output_stream](const stop_type& stop) { write_stop(stop, level, output_stream, false); }
                 );
                 write_stop(*boost::prior(stops.end()), level, output_stream, true);
 
@@ -738,7 +715,7 @@ namespace bobura { namespace model { namespace serializer
 
             typedef typename time_type::tick_type tick_type;
             typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
-            const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
+            const auto hours_minutes_seconds = time.hours_minutes_seconds();
             const tick_type representation =
                 hours_minutes_seconds.hours() * 10000 +
                 hours_minutes_seconds.minutes() * 100 +
@@ -758,12 +735,13 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual path_type extension_impl()
-        const
+        const override
         {
             return path_type(TETENGO2_TEXT(".btt"));
         }
 
         virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
+        override
         {
             output_stream << array_begin();
 

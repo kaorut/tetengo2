@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_SUITE_END()
     {
         BOOST_TEST_PASSPOINT();
 
-        const time_type time = time_type::uninitialized();
+        const auto time = time_type::uninitialized();
         tetengo2::suppress_unused_variable_warning(time);
     }
 
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_SUITE_END()
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
         }
         {
-            time_type time = time_type::uninitialized();
+            auto time = time_type::uninitialized();
             const time_span_type time_span(1);
 
             time += time_span;
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_SUITE_END()
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
         }
         {
-            time_type time = time_type::uninitialized();
+            auto time = time_type::uninitialized();
             const time_span_type time_span(1);
 
             time -= time_span;
@@ -310,7 +310,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_type time1(0);
             const time_type time2(0);
 
-            const time_span_type time_span = time1 - time2;
+            const auto time_span = time1 - time2;
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
         }
@@ -318,7 +318,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_type time1(1);
             const time_type time2(0);
 
-            const time_span_type time_span = time1 - time2;
+            const auto time_span = time1 - time2;
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1);
         }
@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_type time1(0);
             const time_type time2(1);
 
-            const time_span_type time_span = time1 - time2;
+            const auto time_span = time1 - time2;
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 24 * 60 * 60 - 1);
         }
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const time_type time1(1);
             const time_type time2(24 * 60 * 60 - 1);
 
-            const time_span_type time_span = time1 - time2;
+            const auto time_span = time1 - time2;
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
         }

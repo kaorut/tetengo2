@@ -48,7 +48,7 @@ namespace bobura { namespace command
         {
             tetengo2::suppress_unused_variable_warning(model);
 
-            main_window_type* const p_main_window = dynamic_cast<main_window_type*>(&parent);
+            auto* const p_main_window = dynamic_cast<main_window_type*>(&parent);
             assert(p_main_window);
             zoom_type zoom(p_main_window->diagram_picture_box(), m_diagram_view);
 

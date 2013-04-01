@@ -10,11 +10,9 @@
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
 #include <cassert>
-//#include <cstddef>
 #include <functional>
 //#include <memory>
 
-#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -85,11 +83,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta     True when meta key is pressed.
         */
         void operator()(
-            const typename mouse_button_type::enum_t button,
-            const position_type&                     position,
-            const bool                               shift,
-            const bool                               control,
-            const bool                               meta
+            const mouse_button_type button,
+            const position_type&    position,
+            const bool              shift,
+            const bool              control,
+            const bool              meta
         )
         const
         {
@@ -97,7 +95,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
             m_set_mouse_capture();
 
-            item_type* const p_item = m_view.p_item_by_position(position);
+            auto* const p_item = m_view.p_item_by_position(position);
             if (p_item)
                 p_item->select(button != mouse_button_type::right);
             else
@@ -180,11 +178,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta     True when meta key is pressed.
         */
         void operator()(
-            const typename mouse_button_type::enum_t button,
-            const position_type&                     position,
-            const bool                               shift,
-            const bool                               control,
-            const bool                               meta
+            const mouse_button_type button,
+            const position_type&    position,
+            const bool              shift,
+            const bool              control,
+            const bool              meta
         )
         const
         {
@@ -263,10 +261,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             tetengo2::suppress_unused_variable_warning(shift, control, meta);
 
-            const item_type* const p_item = m_view.p_item_by_position(position);
-            const boost::optional<const cursor_type&> cursor = m_picture_box.cursor();
-            const system_cursor_type* const p_system_cursor =
-                cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : NULL;
+            const auto* const p_item = m_view.p_item_by_position(position);
+            const auto cursor = m_picture_box.cursor();
+            const auto* const p_system_cursor =
+                cursor ? dynamic_cast<const system_cursor_type*>(&*cursor) : nullptr;
             if (p_item)
             {
                 if (!p_system_cursor || p_system_cursor->style() != system_cursor_type::style_type::hand)
@@ -362,15 +360,15 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param meta      True when meta key is pressed.
         */
         void operator()(
-            const delta_type&                     delta,
-            const typename direction_type::enum_t direction,
-            const bool                            shift,
-            const bool                            control,
-            const bool                            meta
+            const delta_type&    delta,
+            const direction_type direction,
+            const bool           shift,
+            const bool           control,
+            const bool           meta
         )
         const
         {
-            const delta_type adjusted_delta =
+            const auto adjusted_delta =
                 direction == picture_box_type::mouse_observer_set_type::direction_type::horizontal ? delta : -delta;
 
             if (!control && !meta)
@@ -395,7 +393,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        bool is_vertical(const typename direction_type::enum_t direction, const bool shift)
+        bool is_vertical(const direction_type direction, const bool shift)
         const
         {
             return
@@ -412,8 +410,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
+                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
                 m_picture_box.vertical_scroll_bar()->set_position(new_position);
                 m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -423,8 +420,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
+                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
                 m_picture_box.horizontal_scroll_bar()->set_position(new_position);
                 m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -437,7 +433,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         const
         {
             typedef typename delta_type::int_type delta_int_type;
-            delta_int_type int_delta = boost::rational_cast<delta_int_type>(delta * 3);
+            auto int_delta = boost::rational_cast<delta_int_type>(delta * 3);
             if (int_delta == 0)
             {
                 if (delta > 0)
@@ -557,15 +553,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void scroll(const virtual_key_type& virtual_key, const bool shift)
         const
         {
-            const bool vertical = is_vertical(virtual_key, shift);
+            const auto vertical = is_vertical(virtual_key, shift);
             if (vertical)
             {
                 assert(m_picture_box.vertical_scroll_bar());
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
+                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
                 m_picture_box.vertical_scroll_bar()->set_position(new_position);
                 m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -575,8 +570,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
 
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
+                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
                 m_picture_box.horizontal_scroll_bar()->set_position(new_position);
                 m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
@@ -612,8 +606,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            const scroll_bar_size_type min_position = scroll_bar.range().first;
-            const scroll_bar_size_type max_position = scroll_bar.range().second - scroll_bar.page_size() + 1;
+            const auto min_position = scroll_bar.range().first;
+            const auto max_position = scroll_bar.range().second - scroll_bar.page_size() + 1;
 
             if      (virtual_key == virtual_key_type::home())
             {

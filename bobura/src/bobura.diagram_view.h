@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <cassert>
-//#include <cstddef>
 //#include <iterator>
 //#include <memory>
 //#include <utility>
@@ -78,9 +77,6 @@ namespace bobura
 
         //! The canvas type.
         typedef Canvas canvas_type;
-
-        //! The size type.
-        typedef typename canvas_type::size_type size_type;
 
         //! The position type.
         typedef typename canvas_type::position_type position_type;
@@ -270,13 +266,13 @@ namespace bobura
         dimension_type page_size(const dimension_type& canvas_dimension)
         const
         {
-            const width_type& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
-            const width_type& header_width = m_station_header_width;
-            width_type page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
+            const auto& canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
+            const auto& header_width = m_station_header_width;
+            auto page_width = canvas_width > header_width ? canvas_width - header_width : width_type(0);
 
-            const height_type& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            const height_type& header_height = m_header_height + m_time_header_height;
-            height_type page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
+            const auto& canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
+            const auto header_height = m_header_height + m_time_header_height;
+            auto page_height = canvas_height > header_height ? canvas_height - header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -285,7 +281,7 @@ namespace bobura
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of an item, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr;
 
             \param position A position.
 
@@ -301,7 +297,7 @@ namespace bobura
             \brief Returns a ponter to the item by the position.
 
             When position is in the region of an item, this function returns a pointer to the item.
-            Otherwise, this function returns NULL;
+            Otherwise, this function returns nullptr.
 
             \param position A position.
 
@@ -311,26 +307,26 @@ namespace bobura
         {
             if (m_p_header)
             {
-                if (item_type* const p_item = m_p_header->p_item_by_position(position))
+                if (auto* const p_item = m_p_header->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_time_line_list)
             {
-                if (item_type* const p_item = m_p_time_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_time_line_list->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_station_line_list)
             {
-                if (item_type* const p_item = m_p_station_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_station_line_list->p_item_by_position(position))
                     return p_item;
             }
             if (m_p_train_line_list)
             {
-                if (item_type* const p_item = m_p_train_line_list->p_item_by_position(position))
+                if (auto* const p_item = m_p_train_line_list->p_item_by_position(position))
                 return p_item;
             }
 
-            return NULL;
+            return nullptr;
         }
 
         /*!
@@ -368,7 +364,7 @@ namespace bobura
 
             top_type operator()(const time_span_type& interval)
             {
-                const time_span_type position = m_sum;
+                const auto position = m_sum;
                 m_sum += interval;
                 return
                     top_type(typename top_type::value_type(position.seconds(), 60)) *

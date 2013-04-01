@@ -6,8 +6,6 @@
     $Id$
 */
 
-//#include <memory>
-
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -286,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         view_type view(model, message_catalog);
         const paint_paint_type paint(picture_box, view);
 
-        std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        auto p_canvas = picture_box.create_canvas();
         paint(*p_canvas);
     }
 

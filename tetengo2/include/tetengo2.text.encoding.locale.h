@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_ENCODING_LOCALE_H
 
 #include <cassert>
-#include <cstddef>
 #include <cwchar>
 #include <iterator>
 #include <locale>
@@ -47,9 +46,6 @@ namespace tetengo2 { namespace text { namespace encoding
 
         //! The string type.
         typedef String string_type;
-
-        //! The string character type.
-        typedef typename string_type::value_type string_char_type;
 
 
         // constructors and destructor
@@ -134,7 +130,11 @@ namespace tetengo2 { namespace text { namespace encoding
     private:
         // type
 
-        typedef std::codecvt<typename base_type::pivot_char_type, string_char_type, std::mbstate_t> converter_type;
+        typedef typename base_type::pivot_type::value_type pivot_char_type;
+
+        typedef typename string_type::value_type string_char_type;
+
+        typedef std::codecvt<pivot_char_type, string_char_type, std::mbstate_t> converter_type;
 
 
         // variables
@@ -147,7 +147,7 @@ namespace tetengo2 { namespace text { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             Pivot&& pivot,
-            const typename std::enable_if<std::is_convertible<Pivot, string_type>::value>::type* const = NULL
+            const typename std::enable_if<std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
         const
         {
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace text { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             Pivot&& pivot,
-            const typename std::enable_if<!std::is_convertible<Pivot, string_type>::value>::type* const = NULL
+            const typename std::enable_if<!std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
         const
         {
@@ -170,22 +170,22 @@ namespace tetengo2 { namespace text { namespace encoding
             if (!std::has_facet<converter_type>(m_locale))
                 return string_type(pivot.begin(), pivot.end());
 
-            const converter_type& converter = std::use_facet<converter_type>(m_locale);
-            std::mbstate_t state = std::mbstate_t();
+            const auto& converter = std::use_facet<converter_type>(m_locale);
+            auto state = std::mbstate_t();
 
-            const typename base_type::pivot_char_type* p_pivot_first = pivot.c_str();
-            const typename base_type::pivot_char_type* const p_pivot_last = p_pivot_first + pivot.length();
+            const auto* p_pivot_first = pivot.c_str();
+            const auto* const p_pivot_last = p_pivot_first + pivot.length();
 
             std::vector<string_char_type> string_chars(8, TETENGO2_TEXT('\0'));
-            string_char_type* p_string_first = string_chars.data();
-            string_char_type* p_string_last = p_string_first + string_chars.size() - 1;
+            auto* p_string_first = string_chars.data();
+            auto* p_string_last = p_string_first + string_chars.size() - 1;
 
             for (;;)
             {
-                const typename base_type::pivot_char_type* p_pivot_next = NULL;
-                string_char_type* p_string_next = NULL;
+                const pivot_char_type* p_pivot_next = nullptr;
+                string_char_type* p_string_next = nullptr;
 
-                const typename converter_type::result result =
+                const auto result =
                     converter.out(
                         state, p_pivot_first, p_pivot_last, p_pivot_next, p_string_first, p_string_last, p_string_next
                     );
@@ -224,8 +224,7 @@ namespace tetengo2 { namespace text { namespace encoding
         {
             for (;;)
             {
-                const typename converter_type::result result =
-                    converter.unshift(state, p_string_first, p_string_last, p_string_next);
+                const auto result = converter.unshift(state, p_string_first, p_string_last, p_string_next);
                 if (result == converter_type::error)
                     BOOST_THROW_EXCEPTION(std::invalid_argument("Can't unshift the string."));
 
@@ -243,7 +242,7 @@ namespace tetengo2 { namespace text { namespace encoding
             Str&& string,
             const typename std::enable_if<
                 std::is_convertible<Str, typename base_type::pivot_type>::value
-            >::type* const = NULL
+            >::type* const = nullptr
         )
         const
         {
@@ -255,7 +254,7 @@ namespace tetengo2 { namespace text { namespace encoding
             Str&& string,
             const typename std::enable_if<
                 !std::is_convertible<Str, typename base_type::pivot_type>::value
-            >::type* const = NULL
+            >::type* const = nullptr
         )
         const
         {
@@ -269,19 +268,19 @@ namespace tetengo2 { namespace text { namespace encoding
                 return typename base_type::pivot_type(string.begin(), string.end());
 
             const converter_type& converter = std::use_facet<converter_type>(m_locale);
-            std::mbstate_t state = std::mbstate_t();
+            auto state = std::mbstate_t();
 
-            const string_char_type* p_string_first = string.c_str();
+            const auto* p_string_first = string.c_str();
             const string_char_type* const p_string_last = p_string_first + string.length();
 
-            std::vector<typename base_type::pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
-            typename base_type::pivot_char_type* p_pivot_first = pivot_chars.data();
-            typename base_type::pivot_char_type* p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
+            std::vector<pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
+            auto* p_pivot_first = pivot_chars.data();
+            pivot_char_type* p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
 
             for (;;)
             {
-                const string_char_type* p_string_next = NULL;
-                typename base_type::pivot_char_type* p_pivot_next = NULL;
+                const string_char_type* p_string_next = nullptr;
+                pivot_char_type* p_pivot_next = nullptr;
 
                 const typename converter_type::result result =
                     converter.in(
@@ -289,7 +288,7 @@ namespace tetengo2 { namespace text { namespace encoding
                     );
                 if (p_string_next == p_string_last)
                 {
-                    assert(*p_pivot_next == static_cast<typename base_type::pivot_char_type>(TETENGO2_TEXT('\0')));
+                    assert(*p_pivot_next == static_cast<pivot_char_type>(TETENGO2_TEXT('\0')));
                     return typename base_type::pivot_type(pivot_chars.data(), p_pivot_next);
                 }
 

@@ -87,6 +87,7 @@ namespace bobura { namespace model { namespace serializer
 #   pragma GCC diagnostic ignored "-Wreturn-type"
 #endif
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             tetengo2::suppress_unused_variable_warning(first, last);
 
@@ -96,21 +97,17 @@ namespace bobura { namespace model { namespace serializer
 #   pragma GCC diagnostic warning "-Wreturn-type"
 #endif
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
-            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
-
-            const iterator_type found =
+            const auto found =
                 std::find_if(
                     m_p_readers.begin(),
                     m_p_readers.end(),
-                    TETENGO2_CPP11_BIND(
-                        &reader_selector::call_selects, this, tetengo2::cpp11::placeholders_1(), first, last
-                    )
+                    [first, last](const std::unique_ptr<base_type>& p_reader)
+                    {
+                        return p_reader->selects(first, last);
+                    }
                 );
             if (found == m_p_readers.end())
             {
@@ -119,15 +116,6 @@ namespace bobura { namespace model { namespace serializer
             }
 
             return (*found)->read(first, last, error);
-        }
-
-
-        // functions
-
-        bool call_selects(const std::unique_ptr<base_type>& p_reader, const iterator first, const iterator last)
-        const
-        {
-            return p_reader->selects(first, last);
         }
 
 

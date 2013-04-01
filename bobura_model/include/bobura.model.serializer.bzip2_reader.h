@@ -83,8 +83,6 @@ namespace bobura { namespace model { namespace serializer
             boost::basic_string_ref<typename iterator::value_type, std::char_traits<typename iterator::value_type>>
             input_string_ref_type;
 
-        typedef std::basic_istringstream<typename iterator::value_type> input_stream_type;
-
 
         // variables
 
@@ -94,6 +92,7 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual bool selects_impl(const iterator first, const iterator last)
+        override
         {
             const input_string_type input_string(first, last);
             if (input_string.length() < 2)
@@ -128,11 +127,8 @@ namespace bobura { namespace model { namespace serializer
             }
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator               first,
-            const iterator               last,
-            typename error_type::enum_t& error
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
+        override
         {
             std::istringstream input_stream(input_string_type(first, last));
             boost::iostreams::filtering_istream filtering_input_stream;

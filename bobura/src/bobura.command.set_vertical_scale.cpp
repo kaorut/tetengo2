@@ -48,7 +48,7 @@ namespace bobura { namespace command
 
         // functions
 
-        state_type::enum_t state()
+        state_type state()
         const
         {
             return m_scale == m_diagram_view.vertical_scale() ? state_type::selected : state_type::default_;
@@ -59,7 +59,7 @@ namespace bobura { namespace command
         {
             tetengo2::suppress_unused_variable_warning(model);
 
-            main_window_type* const p_main_window = dynamic_cast<main_window_type*>(&parent);
+            auto* const p_main_window = dynamic_cast<main_window_type*>(&parent);
             assert(p_main_window);
             zoom_type zoom(p_main_window->diagram_picture_box(), m_diagram_view);
 
@@ -94,7 +94,7 @@ namespace bobura { namespace command
     TETENGO2_CPP11_NOEXCEPT
     {}
     
-    set_vertical_scale::state_type::enum_t set_vertical_scale::state_impl()
+    set_vertical_scale::state_type set_vertical_scale::state_impl()
     const
     {
         return m_p_impl->state();

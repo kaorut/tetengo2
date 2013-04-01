@@ -17,7 +17,6 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
@@ -196,23 +195,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 tetengo2::make_unique<grammar_type>()
             );
             parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(!parser.parse());
@@ -227,23 +222,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 tetengo2::make_unique<grammar_type>()
             );
             parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());
@@ -270,23 +261,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 tetengo2::make_unique<grammar_type>()
             );
             parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());
@@ -335,23 +322,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 tetengo2::make_unique<grammar_type>()
             );
             parser.on_structure_begin().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    structure_observer1,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed)
-                )
+                [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
+                {
+                    structure_observer1(structure, attribute_map, parsed);
+                }      
             );
             parser.on_value().connect(
-                TETENGO2_CPP11_BIND(value_observer1, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(parsed))
+                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());

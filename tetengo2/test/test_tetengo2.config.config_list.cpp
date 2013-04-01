@@ -11,7 +11,6 @@
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
@@ -88,17 +87,17 @@ BOOST_AUTO_TEST_SUITE(config_list)
             const config_list_type config(std::move(p_configs));
 
             {
-                const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+                const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
                 BOOST_REQUIRE(value);
                 BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("hoge")));
             }
             {
-                const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("bar")));
+                const auto value = config.get(string_type(TETENGO2_TEXT("bar")));
                 BOOST_REQUIRE(value);
                 BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 42U);
             }
             {
-                const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("baz")));
+                const auto value = config.get(string_type(TETENGO2_TEXT("baz")));
                 BOOST_REQUIRE(value);
                 BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
             }
@@ -120,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
             const config_list_type config(std::move(p_configs));
 
             {
-                const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+                const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
                 BOOST_REQUIRE(value);
                 BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("fuga")));
             }
@@ -149,7 +148,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
 
             config.set(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("piyo"))));
 
-            const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("foo")));
+            const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("piyo")));
         }
@@ -171,7 +170,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
 
             config.set(string_type(TETENGO2_TEXT("bazz")), value_type(string_type(TETENGO2_TEXT("piyo"))));
 
-            const boost::optional<value_type> value = config.get(string_type(TETENGO2_TEXT("bazz")));
+            const auto value = config.get(string_type(TETENGO2_TEXT("bazz")));
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("piyo")));
         }

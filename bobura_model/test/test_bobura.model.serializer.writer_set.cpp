@@ -6,9 +6,6 @@
     $Id$
 */
 
-//#include <memory>
-//#include <vector>
-
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -45,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(writer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::vector<std::unique_ptr<writer_type>> p_writers = writer_set_type::create_writers();
+        const auto p_writers = writer_set_type::create_writers();
 
         BOOST_CHECK(!p_writers.empty());
         BOOST_CHECK(p_writers[0]);

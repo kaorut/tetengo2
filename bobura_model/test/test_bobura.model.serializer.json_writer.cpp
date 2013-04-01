@@ -76,7 +76,7 @@ namespace
 
     // variables
 
-    const std::string json0 =
+    const std::string json0(
         "[\n"
         "    {\n"
         "        \"company_name\": \"\",\n"
@@ -88,9 +88,10 @@ namespace
         "    [],\n"
         "    [],\n"
         "    []\n"
-        "]\n";
+        "]\n"
+    );
 
-    const std::string json1 =
+    const std::string json1(
         "[\n"
         "    {\n"
         "        \"company_name\": \"hoge\",\n"
@@ -171,14 +172,15 @@ namespace
         "            ]\n"
         "        }\n"
         "    ]\n"
-        "]\n";
+        "]\n"
+    );
 
 
     // functions
 
     std::unique_ptr<const timetable_type> create_timetable1()
     {
-        std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
+        auto p_timetable = tetengo2::make_unique<timetable_type>();
 
         p_timetable->set_company_name(string_type(TETENGO2_TEXT("hoge")));
         p_timetable->set_line_name(string_type(TETENGO2_TEXT("fuga")));
@@ -349,18 +351,18 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
             json_writer.write(timetable, stream);
 
-            const std::string result = stream.str();
+            const auto result = stream.str();
             BOOST_CHECK(result == json0);
         }
         {
             writer_type json_writer;
 
-            const std::unique_ptr<const timetable_type> p_timetable = create_timetable1();
+            const auto p_timetable = create_timetable1();
             std::ostringstream stream;
 
             json_writer.write(*p_timetable, stream);
 
-            const std::string result = stream.str();
+            const auto result = stream.str();
             BOOST_CHECK(result == json1);
         }
     }

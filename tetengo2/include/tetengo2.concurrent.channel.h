@@ -21,8 +21,6 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace concurrent
 {
@@ -111,7 +109,7 @@ namespace tetengo2 { namespace concurrent
         const
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_take, this));
+            m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
 
@@ -136,7 +134,7 @@ namespace tetengo2 { namespace concurrent
         void take()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_take, this));
+            m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
 
@@ -153,7 +151,7 @@ namespace tetengo2 { namespace concurrent
         void close()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_insert, this));
+            m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {
                 m_condition_variable.notify_all();
@@ -175,7 +173,7 @@ namespace tetengo2 { namespace concurrent
         const
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_take, this));
+            m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             return closed_impl();
         }
 
@@ -214,7 +212,7 @@ namespace tetengo2 { namespace concurrent
         void insert_impl(queue_element_type value)
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(lock, TETENGO2_CPP11_BIND(&channel::can_insert, this));
+            m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {
                 m_condition_variable.notify_all();

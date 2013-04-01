@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_MENU_RECURSIVEITERATOR_H
 
 #include <cassert>
-#include <cstddef>
 #include <iterator>
 #include <stack>
 #include <utility>
@@ -45,10 +44,10 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         recursive_iterator()
         :
-        m_p_menu(NULL),
+        m_p_menu(nullptr),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
+            m_parents.emplace(nullptr, 0);
         }
 
         /*!
@@ -61,7 +60,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.emplace(static_cast<menu_base_type*>(NULL), 0);
+            m_parents.emplace(nullptr, 0);
         }
 
 
@@ -101,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             if (m_parents.top().second < std::distance(m_p_menu->begin(), m_p_menu->end()))
             {
-                const menu_difference_type index = m_parents.top().second;
+                const auto index = m_parents.top().second;
                 m_parents.emplace(m_p_menu, 0);
                 m_p_menu = &*boost::next(m_p_menu->begin(), index);
                 return;
@@ -109,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             if (!m_parents.top().first)
             {
-                m_p_menu = NULL;
+                m_p_menu = nullptr;
                 return;
             }
 

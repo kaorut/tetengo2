@@ -108,7 +108,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param state A status.
         */
         template <typename MenuBase>
-        static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
             suppress_unused_variable_warning(menu, state);
         }
@@ -203,7 +203,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static const style_tag<MenuBase>& menu_bar_style()
         {
-            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
+            static const auto singleton = style_tag<MenuBase>();
             return singleton;
         }
 
@@ -217,7 +217,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static const style_tag<MenuBase>& popup_menu_style()
         {
-            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
+            static const auto singleton = style_tag<MenuBase>();
             return singleton;
         }
 
@@ -231,7 +231,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static const style_tag<MenuBase>& menu_command_style()
         {
-            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
+            static const auto singleton = style_tag<MenuBase>();
             return singleton;
         }
 
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static const style_tag<MenuBase>& menu_separator_style()
         {
-            static const style_tag<MenuBase> singleton = style_tag<MenuBase>();
+            static const auto singleton = style_tag<MenuBase>();
             return singleton;
         }
 

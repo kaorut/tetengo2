@@ -28,8 +28,6 @@ namespace bobura { namespace command
 
         typedef font_color::dialog_base_type dialog_base_type;
 
-        typedef font_color::string_type string_type;
-
         typedef font_color::message_catalog_type message_catalog_type;
 
 
@@ -48,7 +46,7 @@ namespace bobura { namespace command
         {
             font_color_dialog_type dialog(parent, m_message_catalog);
 
-            const font_color_set_type& font_color_set = model.timetable().font_color_set();
+            const auto& font_color_set = model.timetable().font_color_set();
             dialog.set_background(font_color_set.background());
             dialog.set_company_line_name(
                 font_color_set.company_line_name().font(), font_color_set.company_line_name().color()

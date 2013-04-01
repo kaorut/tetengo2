@@ -81,8 +81,7 @@ namespace bobura
 
             void set_title(const boost::optional<string_type>& document_name, const bool changed)
             {
-                string_type title =
-                    document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+                auto title = document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
                 if (changed)
                     title += string_type(TETENGO2_TEXT(" *"));
                 title += string_type(TETENGO2_TEXT(" - "));
@@ -178,10 +177,10 @@ namespace bobura
 
                 set_title(boost::none, false);
                 
-                boost::optional<dimension_type> dimension = m_settings.main_window_dimension();
+                auto dimension = m_settings.main_window_dimension();
                 if (dimension)
                     m_base.set_dimension(std::move(*dimension));
-                const boost::optional<bool> maximized = m_settings.main_window_maximized();
+                const auto maximized = m_settings.main_window_maximized();
                 if (maximized && *maximized)
                     m_base.set_window_state(window_state_type::maximized);
                 else
@@ -202,7 +201,7 @@ namespace bobura
                         m_base, m_confirm_file_save, m_settings
                     )
                 );
-                m_base.window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+                m_base.window_observer_set().destroyed().connect([](){ return message_loop_break_type()(0); });
             }
 
 

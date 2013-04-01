@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <memory>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
@@ -55,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(diagram)
     {
         BOOST_TEST_PASSPOINT();
 
-        const left_type result =
+        const auto result =
             bobura::view::diagram::time_to_left(
                 time_type(1), time_span_type(2), 0, left_type(3), left_type(4), left_type(5)
             );
@@ -71,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(diagram)
         station_positions.push_back(0);
         station_positions.push_back(42);
 
-        const top_type result =
+        const auto result =
             bobura::view::diagram::station_index_to_top(station_positions, 1, top_type(2), top_type(3), top_type(4));
 
         BOOST_CHECK_EQUAL(result.value(), 47);
@@ -104,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(diagram)
 
         window_type window;
         const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::both);
-        const std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        const auto p_canvas = picture_box.create_canvas();
 
         bobura::view::diagram::draw_selectable_line(
             *p_canvas,

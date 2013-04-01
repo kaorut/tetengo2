@@ -94,8 +94,7 @@ namespace bobura { namespace load_save
             if (!m_model.changed())
                 return true;
 
-            const typename message_box_type::button_id_type::enum_t selected_button =
-                create_message_box(parent)->do_modal();
+            const auto selected_button = create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_id_type::cancel)
                 return false;
             if (selected_button == message_box_type::button_id_type::yes)
@@ -123,7 +122,7 @@ namespace bobura { namespace load_save
         std::unique_ptr<message_box_type> create_message_box(abstract_window_type& parent)
         const
         {
-            const string_type file_path =
+            const auto file_path =
                 m_model.has_path() ?
                 m_model.path().template string<string_type>() :
                 m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));

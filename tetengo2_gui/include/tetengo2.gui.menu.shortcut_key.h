@@ -13,8 +13,6 @@
 
 #include <boost/operators.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace gui { namespace menu
 {
@@ -48,7 +46,7 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta)
         :
-        m_key(cpp11::cref(key)),
+        m_p_key(&key),
         m_shift(shift),
         m_control(control),
         m_meta(meta)
@@ -69,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace menu
         friend bool operator==(const shortcut_key& one, const shortcut_key& another)
         {
             return
-                one.m_key.get() == another.m_key.get() &&
+                one.m_p_key == another.m_p_key &&
                 one.m_shift == another.m_shift &&
                 one.m_control == another.m_control &&
                 one.m_meta == another.m_meta;
@@ -83,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace menu
         const virtual_key_type& key()
         const
         {
-            return m_key.get();
+            return *m_p_key;
         }
 
         /*!
@@ -130,15 +128,15 @@ namespace tetengo2 { namespace gui { namespace menu
         string_type to_string()
         const
         {
-            std::vector<typename cpp11::reference_wrapper<const virtual_key_type>::type> keys;
+            std::vector<const virtual_key_type*> keys;
             
             if (m_shift)
-                keys.push_back(cpp11::cref(virtual_key_type::shift()));
+                keys.push_back(&virtual_key_type::shift());
             if (m_control)
-                keys.push_back(cpp11::cref(virtual_key_type::control()));
+                keys.push_back(&virtual_key_type::control());
             if (m_meta)
-                keys.push_back(cpp11::cref(virtual_key_type::meta()));
-            keys.push_back(m_key);
+                keys.push_back(&virtual_key_type::meta());
+            keys.push_back(m_p_key);
 
             return virtual_key_details_type::template to_combined_string<string_type>(keys.begin(), keys.end());
         }
@@ -152,7 +150,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // variables
 
-        typename cpp11::reference_wrapper<const virtual_key_type>::type m_key;
+        const virtual_key_type* m_p_key;
 
         bool m_shift;
 

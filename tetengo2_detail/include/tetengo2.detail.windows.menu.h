@@ -11,11 +11,9 @@
 
 #include <algorithm>
 //#include <cassert>
-//#include <cstddef>
 //#include <iterator>
 //#include <memory>
 //#include <stdexcept>
-//#include <string>
 //#include <system_error>
 //#include <type_traits>
 //#include <utility>
@@ -124,11 +122,11 @@ namespace tetengo2 { namespace detail { namespace windows
         {
 #if !defined(DOCUMENTATION)
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
             const = 0;
 #endif
@@ -149,9 +147,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_menu_bar()
         {
             menu_details_ptr_type p_menu(
-                make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreateMenu()), static_cast< ::HMENU>(NULL)
-                )
+                make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr)
             );
             if (!p_menu->handle)
             {
@@ -174,7 +170,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             menu_details_ptr_type p_menu(
                 make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), static_cast< ::HMENU>(NULL)
+                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), nullptr
                 )
             );
             if (!p_menu->handle)
@@ -196,10 +192,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return
-                make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(), static_cast< ::HMENU>(NULL)
-                );
+            return make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
         }
         
         /*!
@@ -228,7 +221,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param state A status.
         */
         template <typename MenuBase>
-        static void set_state(MenuBase& menu, const typename MenuBase::state_type::enum_t state)
+        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
             if (!menu.details()->parent_handle)
                 return;
@@ -268,7 +261,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             std::vector< ::ACCEL> accelerators;
-            for (ForwardIterator i = first; i != last; ++i)
+            for (auto i = first; i != last; ++i)
             {
                 if (!i->has_shortcut_key()) continue;
 
@@ -277,7 +270,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (accelerators.empty())
                 return shortcut_key_table_details_ptr_type();
 
-            const ::HACCEL accelerator_table_handle =
+            const auto accelerator_table_handle =
                 ::CreateAcceleratorTableW(accelerators.data(), static_cast<int>(accelerators.size()));
             if (!accelerator_table_handle)
             {
@@ -318,11 +311,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-            std::vector< ::WCHAR> duplicated_text = make_text(menu, encoder);
+            auto duplicated_text = make_text(menu, encoder);
             menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
             assert(popup_menu.details());
-            const ::BOOL result =
+            const auto result =
                 ::InsertMenuItem(
                     popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
@@ -356,7 +349,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
         {
-            for (ForwardIterator i = first; i != last; ++i)
+            for (auto i = first; i != last; ++i)
                 erase_menu(popup_menu, i);
         }
 
@@ -424,13 +417,13 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_bar_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 suppress_unused_variable_warning(details, menu_info, text, enabled, state);
 
@@ -443,13 +436,13 @@ namespace tetengo2 { namespace detail { namespace windows
         struct popup_menu_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
 
@@ -475,13 +468,13 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_command_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
 
@@ -506,13 +499,13 @@ namespace tetengo2 { namespace detail { namespace windows
         struct menu_separator_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&              details,
-                ::MENUITEMINFOW&                      menu_info,
-                std::vector< ::WCHAR>&                text,
-                bool                                  enabled,
-                typename MenuBase::state_type::enum_t state
+                const menu_details_type&      details,
+                ::MENUITEMINFOW&              menu_info,
+                std::vector< ::WCHAR>&        text,
+                bool                          enabled,
+                typename MenuBase::state_type state
             )
-            const
+            const override
             {
                 suppress_unused_variable_warning(details, text, enabled, state);
 
@@ -528,15 +521,15 @@ namespace tetengo2 { namespace detail { namespace windows
 
         template <typename MenuBase>
         static void set_menu_info_style(
-            const ::HMENU                               menu_handle,
-            const ::UINT                                menu_id,
-            const bool                                  enabled,
-            const typename MenuBase::state_type::enum_t state
+            const ::HMENU                       menu_handle,
+            const ::UINT                        menu_id,
+            const bool                          enabled,
+            const typename MenuBase::state_type state
         )
         {
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFOW);
-            const ::BOOL get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            const auto get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -557,7 +550,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 state == MenuBase::state_type::checked || state == MenuBase::state_type::selected ?
                 MFS_CHECKED : MFS_UNCHECKED;
 
-            const ::BOOL set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
+            const auto set_result = ::SetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -571,7 +564,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static ::ACCEL to_accel(const MenuBase& menu)
         {
-            const typename MenuBase::shortcut_key_type& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.shortcut_key();
 
             ::ACCEL accel = {};
 
@@ -598,13 +591,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase, typename Encoder>
         static std::vector< ::WCHAR> make_text(const MenuBase& menu, const Encoder&  encoder)
         {
-            typename MenuBase::string_type text = menu.text();
+            auto text = menu.text();
             if (menu.has_shortcut_key())
             {
                 text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
                 text += menu.shortcut_key().to_string();
             }
-            const std::wstring native_string = encoder.encode(text);
+            const auto native_string = encoder.encode(text);
 
             std::vector< ::WCHAR> duplicated;
             duplicated.reserve(native_string.length() + 1);
@@ -620,7 +613,7 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(popup_menu.details()->handle);
             assert(offset->details()->parent_handle);
 
-            const ::BOOL result =
+            const auto result =
                 ::RemoveMenu(
                     popup_menu.details()->handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
@@ -635,7 +628,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            offset->details()->parent_handle = NULL;
+            offset->details()->parent_handle = nullptr;
         }
 
 

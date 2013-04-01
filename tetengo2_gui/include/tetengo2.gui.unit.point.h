@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_POINT_H)
 #define TETENGO2_GUI_UNIT_POINT_H
 
-#include <cstddef>
 #include <type_traits>
 
 #include <boost/rational.hpp>
@@ -242,7 +241,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename To, typename From>
         static To cast(
             const From from,
-            typename std::enable_if<std::is_convertible<From, To>::value>::type* = NULL
+            typename std::enable_if<std::is_convertible<From, To>::value>::type* = nullptr
         )
         {
             return static_cast<To>(from);

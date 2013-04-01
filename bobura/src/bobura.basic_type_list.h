@@ -518,11 +518,6 @@ namespace bobura
             >
             menu_traits_type;
         typedef
-            tetengo2::gui::menu::abstract_popup<
-                menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
-            >
-            abstract_popup_menu_type;
-        typedef
             tetengo2::gui::menu::menu_base<
                 menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
@@ -1080,7 +1075,6 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::output_stream>::type,
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                    detail::model::station_grade_type_set_type,
                     boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
                 >
             >,

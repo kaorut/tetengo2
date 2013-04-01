@@ -11,13 +11,11 @@
 
 #include <algorithm>
 #include <cstddef>
-//#include <functional>
 //#include <iterator>
 #include <stdexcept>
 #include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
@@ -246,12 +244,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(insert_train_stop, tetengo2::cpp11::placeholders_1(), offset)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); } 
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(insert_train_stop, tetengo2::cpp11::placeholders_1(), offset)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); }
             );
 
             m_observer_set.changed()();
@@ -284,12 +282,18 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(erase_train_stops, tetengo2::cpp11::placeholders_1(), first_offset, last_offset)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
+                {
+                    erase_train_stops(train, first_offset, last_offset);
+                }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(erase_train_stops, tetengo2::cpp11::placeholders_1(), first_offset, last_offset)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
+                {
+                    erase_train_stops(train, first_offset, last_offset);
+                }
             );
 
             m_observer_set.changed()();
@@ -343,25 +347,17 @@ namespace bobura { namespace model
         bool train_kind_referred(const train_kind_index_type& train_kind_index)
         const
         {
-            const bool referred_by_down_trains =
+            const auto referred_by_down_trains =
                 std::find_if(
                     m_down_trains.begin(),
                     m_down_trains.end(),
-                    TETENGO2_CPP11_BIND(
-                        std::equal_to<train_kind_index_type>(),
-                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
-                        train_kind_index
-                    )
+                    [train_kind_index](const train_type& train) { return train.kind_index() == train_kind_index; }
                 ) != m_down_trains.end();
-            const bool referred_by_up_trains =
+            const auto referred_by_up_trains =
                 std::find_if(
                     m_up_trains.begin(),
                     m_up_trains.end(),
-                    TETENGO2_CPP11_BIND(
-                        std::equal_to<train_kind_index_type>(),
-                        TETENGO2_CPP11_BIND(&train_type::kind_index, tetengo2::cpp11::placeholders_1()),
-                        train_kind_index
-                    )
+                    [train_kind_index](const train_type& train) { return train.kind_index() == train_kind_index; }
                 ) != m_up_trains.end();
 
             return referred_by_down_trains || referred_by_up_trains;
@@ -388,12 +384,18 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
+                {
+                    update_train_kind_index(train, inserted_index, 1);
+                }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), inserted_index, 1)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
+                {
+                    update_train_kind_index(train, inserted_index, 1);
+                }
             );
 
             m_observer_set.changed();
@@ -410,7 +412,7 @@ namespace bobura { namespace model
             train_kind_type                                 train_kind
         )
         {
-            typename train_kinds_type::iterator mutable_position = m_train_kinds.begin();
+            auto mutable_position = m_train_kinds.begin();
             std::advance(
                 mutable_position,
                 std::distance(static_cast<typename train_kinds_type::const_iterator>(m_train_kinds.begin()), position)
@@ -443,12 +445,18 @@ namespace bobura { namespace model
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
+                {
+                    update_train_kind_index(train, erased_index, -1);
+                }
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                TETENGO2_CPP11_BIND(update_train_kind_index, tetengo2::cpp11::placeholders_1(), erased_index, -1)
+                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
+                {
+                    update_train_kind_index(train, erased_index, -1);
+                }
             );
 
             m_observer_set.changed();
@@ -642,7 +650,7 @@ namespace bobura { namespace model
             {
                 if (train.kind_index() >= m_train_kind_index_map.size())
                     BOOST_THROW_EXCEPTION(std::out_of_range("Invalid old index in the train kind index map."));
-                const train_kind_index_type new_index = m_train_kind_index_map[train.kind_index()];
+                const auto new_index = m_train_kind_index_map[train.kind_index()];
                 if (new_index >= m_train_kinds.size())
                     BOOST_THROW_EXCEPTION(std::out_of_range("Invalid new index in the train_kind index map."));
 
@@ -688,10 +696,8 @@ namespace bobura { namespace model
             train_type new_train(
                 train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
             );
-            BOOST_FOREACH (const stop_type& stop, train.stops())
-            {
+            for (const auto& stop: train.stops())
                 new_train.insert_stop(new_train.stops().end(), stop);
-            }
 
             train = new_train;
         }

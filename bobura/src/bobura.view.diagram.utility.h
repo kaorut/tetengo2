@@ -74,7 +74,7 @@ namespace bobura { namespace view { namespace diagram
         const Top&              time_header_bottom
     )
     {
-        const Top canvas_top = header_bottom + time_header_bottom;
+        const auto canvas_top = header_bottom + time_header_bottom;
         return station_positions[station_index] + canvas_top - vertical_scroll_bar_position;
     }
 
@@ -137,9 +137,9 @@ namespace bobura { namespace view { namespace diagram
             typedef typename Canvas::line_style_type line_style_type;
             typedef typename Canvas::size_type size_type;
 
-            color_type original_color = canvas.color();
-            const typename line_style_type::enum_t original_line_style = canvas.line_style();
-            size_type original_line_width = canvas.line_width();
+            auto original_color = canvas.color();
+            const auto original_line_style = canvas.line_style();
+            auto original_line_width = canvas.line_width();
 
             canvas.set_color(
                 color_type(original_color.red(), original_color.green(), original_color.blue(), 0x30)

@@ -10,8 +10,7 @@
 #define TETENGO2_MESSAGE_MESSAGES_H
 
 #include <algorithm>
-#include <cstddef>
-//#include <functional>
+#include <functional>
 #include <ios>
 #include <istream>
 //#include <iterator>
@@ -87,7 +86,7 @@ namespace tetengo2 { namespace message
             if (key.length() <= 1)
                 return key;
 
-            const std::size_t offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
+            const auto offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
             return offset == string_type::npos ? key : key.substr(offset + 1);
         }
 
@@ -139,7 +138,7 @@ namespace tetengo2 { namespace message
             bool operator()(const typename catalog_file_mappings_type::value_type& mapping)
             const
             {
-                const std::string locale_name = locale_name_encoder().encode(mapping.first);
+                const auto locale_name = locale_name_encoder().encode(mapping.first);
                 try
                 {
                     return std::locale(locale_name.c_str()) == m_locale;
@@ -176,7 +175,7 @@ namespace tetengo2 { namespace message
         static boost::optional<message_catalog_type>
         load_message_catalog(const path_type& path, const std::locale& locale)
         {
-            const boost::optional<path_type> catalog_file = select_catalog_file(path, locale);
+            const auto catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
                 return boost::none;
 
@@ -198,13 +197,13 @@ namespace tetengo2 { namespace message
                 directory_iterator_type(path),
                 directory_iterator_type(),
                 std::back_inserter(catalog_files),
-                TETENGO2_CPP11_BIND(&directory_entry_type::path, cpp11::placeholders_1())
+                [](const directory_entry_type& entry) { return entry.path(); }
             );
             std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
 
-            const catalog_file_mappings_type catalog_file_mappings = read_catalog_file_mappings(path);
+            const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
-            const typename catalog_file_mappings_type::const_iterator found =
+            const auto found =
                 std::find_if(catalog_file_mappings.begin(), catalog_file_mappings.end(), matches_locale_type(locale));
             if (found != catalog_file_mappings.end())
                 return path / found->second;
@@ -248,9 +247,9 @@ namespace tetengo2 { namespace message
 
         static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
-            std::unique_ptr<grammar_type> p_grammar = make_unique<grammar_type>();
+            auto p_grammar = make_unique<grammar_type>();
             
-            std::unique_ptr<push_parser_type> p_push_parser =
+            auto p_push_parser =
                 make_unique<push_parser_type>(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
@@ -271,7 +270,7 @@ namespace tetengo2 { namespace message
         // virtual functions
 
         virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
-        const
+        const override
         {
             suppress_unused_variable_warning(catalog_name, locale);
 
@@ -290,7 +289,7 @@ namespace tetengo2 { namespace message
             const int          message,
             const string_type& default_message
         )
-        const
+        const override
         {
             suppress_unused_variable_warning(set, message);
 
@@ -300,13 +299,13 @@ namespace tetengo2 { namespace message
             if (!m_open)
                 BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
 
-            const typename message_catalog_type::const_iterator found = m_message_catalog->find(default_message);
+            const auto found = m_message_catalog->find(default_message);
 
             return found != m_message_catalog->end() ? found->second : remove_namespace(default_message);
         }
 
         virtual void do_close(const catalog catalog_id)
-        const
+        const override
         {
             if (catalog_id < 0) return;
 
