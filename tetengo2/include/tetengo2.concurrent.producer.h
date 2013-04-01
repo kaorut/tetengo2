@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_CONCURRENT_PRODUCER_H)
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
-//#include <functional>
+#include <functional>
 
 #include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>

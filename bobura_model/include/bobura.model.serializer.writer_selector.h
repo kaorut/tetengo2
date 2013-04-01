@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_SERIALIZER_WRITERSELECTOR_H
 
 #include <algorithm>
-//#include <functional>
 #include <memory>
 #include <stdexcept>
 #include <utility>

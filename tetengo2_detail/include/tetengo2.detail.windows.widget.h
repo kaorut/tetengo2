@@ -12,7 +12,7 @@
 #include <algorithm>
 //#include <cassert>
 #include <exception>
-//#include <functional>
+#include <functional>
 //#include <memory>
 //#include <stdexcept>
 //#include <string>

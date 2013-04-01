@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_WIDGET_H
 
 #include <cassert>
-//#include <functional>
+#include <functional>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>

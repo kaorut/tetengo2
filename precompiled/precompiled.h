@@ -42,7 +42,6 @@
 // Boost library headers
 
 #include <boost/algorithm/string.hpp>
-#include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/exception/all.hpp>

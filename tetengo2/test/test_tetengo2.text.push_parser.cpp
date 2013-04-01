@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <functional>
 //#include <iterator>
 #include <sstream>
 //#include <string>

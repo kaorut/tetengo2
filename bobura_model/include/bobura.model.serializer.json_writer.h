@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
 #include <algorithm>
-//#include <functional>
 #include <iomanip>
 #include <locale>
 #include <sstream>
