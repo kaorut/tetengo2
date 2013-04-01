@@ -15,7 +15,6 @@
 
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
 
 
@@ -246,10 +245,10 @@ namespace tetengo2 { namespace gui
         void set_observers()
         {
             m_scroll_bar_observer_set.scrolling().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
+                [this](const size_type new_position) { this->set_tracking_position(new_position); }
             );
             m_scroll_bar_observer_set.scrolled().connect(
-                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, cpp11::placeholders_1())
+                [this](const size_type new_position) { this->set_tracking_position(new_position); }
             );
         }
 
