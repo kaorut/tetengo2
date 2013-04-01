@@ -583,7 +583,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return boost::make_optional< ::LRESULT>(0);
         }
 
-        template <typename Widget, typename WidgetDetails>
+        template <typename WidgetDetails, typename Widget>
         boost::optional< ::LRESULT> on_ncdestroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             suppress_unused_variable_warning(w_param, l_param);

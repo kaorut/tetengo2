@@ -31,7 +31,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 {
     namespace dialog
     {
-        template <typename Dialog, typename WidgetDetails>
+        template <typename WidgetDetails, typename Dialog>
         boost::optional< ::LRESULT> on_command(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             const ::WORD hi_wparam = HIWORD(w_param);
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return boost::none;
         }
 
-        template <typename Dialog, typename WidgetDetails>
+        template <typename WidgetDetails, typename Dialog>
         boost::optional< ::LRESULT> on_syscommand(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             suppress_unused_variable_warning(l_param);
@@ -114,7 +114,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return child_handle;
         }
 
-        template <typename Dialog, typename WidgetDetails>
+        template <typename WidgetDetails, typename Dialog>
         boost::optional< ::LRESULT> on_set_focus(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             suppress_unused_variable_warning(w_param, l_param);
