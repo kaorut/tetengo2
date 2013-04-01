@@ -18,6 +18,11 @@ Depends on  : 00000223
 Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
 Number      : 00000231
+Added on    : 2013/04/02
+Depends on  : (none)
+Description : Replace boost::thread to std::thread.
+------------------------------------------------------------------------------
+Number      : 00000232
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
