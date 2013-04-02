@@ -13,7 +13,6 @@
 #include <functional>
 
 #include <boost/noncopyable.hpp>
-#include <boost/thread.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
@@ -62,8 +61,7 @@ namespace tetengo2 { namespace concurrent
         ~producer()
         TETENGO2_CPP11_NOEXCEPT
         {
-            if (m_thread.joinable())
-                m_thread.join();
+            join();
         }
 
 
@@ -74,17 +72,9 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-            try
-            {
-                m_channel.close();
-                if (m_thread.joinable())
-                    m_thread.join();
-            }
-            catch (const boost::thread_interrupted& e)
-            {
-                m_channel.insert_exception(std::make_exception_ptr(e));
-                m_channel.close();
-            }
+            m_channel.close();
+            if (m_thread.joinable())
+                m_thread.join();
         }
 
 
@@ -112,7 +102,7 @@ namespace tetengo2 { namespace concurrent
 
         channel_type& m_channel;
 
-        boost::thread m_thread;
+        cpp11::thread m_thread;
 
 
     };

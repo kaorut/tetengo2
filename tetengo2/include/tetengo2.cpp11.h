@@ -79,6 +79,8 @@ namespace tetengo2 { namespace cpp11
         return mutable_iterator;
     }
 #endif
+
+
 }}
 
 
@@ -98,6 +100,95 @@ namespace tetengo2 { namespace cpp11
 #else
 #   define TETENGO2_CPP11_LAMBDA_THIS_BUG_WA
 #endif
+
+
+/* thread *******************************************************************/
+
+#if !defined(DOCUMENTATION)
+#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
+#       define TETENGO2_CPP11_STD_THREAD_SUPPORTED 1
+#   else
+#       define TETENGO2_CPP11_STD_THREAD_SUPPORTED 0
+#   endif
+#endif
+#if !defined(DOCUMENTATION)
+#   define TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
+#endif
+
+
+#if TETENGO2_CPP11_STD_THREAD_SUPPORTED
+#   include <condition_variable>
+#   include <mutex>
+#   include <thread>
+#else
+#   include <boost/thread.hpp>
+#endif
+#if TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
+#   include <chrono>
+#else
+#   include <boost/chrono.hpp>
+#endif
+
+namespace tetengo2 { namespace cpp11
+{
+#if TETENGO2_CPP11_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
+    //! The thread.
+    typedef std::thread thread;
+
+    //! The mutex.
+    typedef std::mutex mutex;
+
+    //! The condition variable.
+    typedef std::condition_variable condition_variable;
+
+    /*!
+        \brief The unique lock.
+
+        \tparam Mutex A mutex type.
+    */
+    template <typename Mutex>
+    struct unique_lock
+    {
+        //! The unique lock type.
+        typedef std::unique_lock<Mutex> type;
+    };
+#else
+    typedef boost::thread thread;
+
+    typedef boost::mutex mutex;
+
+    typedef boost::condition_variable condition_variable;
+
+    template <typename Mutex>
+    struct unique_lock
+    {
+        typedef boost::unique_lock<Mutex> type;
+    };
+#endif
+
+#if TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
+    /*!
+        \brief Sleep this thread.
+
+        \tparam Int An integer type.
+
+        \param ms Milliseconds.
+    */
+    template <typename Int>
+    void this_thread_sleep_for(const Int ms)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+    }
+#else
+    template <typename Int>
+    void this_thread_sleep_for(const Int ms)
+    {
+        boost::this_thread::sleep_for(boost::chrono::milliseconds(ms));
+    }
+#endif
+
+
+}}
 
 
 #endif
