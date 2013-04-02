@@ -8,11 +8,11 @@
 
 #include <cassert>
 #include <cstddef>
+#include <exception>
 //#include <stdexcept>
 #include <string>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
-//#include <boost/exception_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 //#include <boost/thread.hpp>
 
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         channel_type channel(3);
 
-        channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
+        channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
 
             try
             {
@@ -137,8 +137,8 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
-            channel.insert_exception(boost::copy_exception(test_exception()));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(test_exception()));
 
             channel.take();
             channel.take();

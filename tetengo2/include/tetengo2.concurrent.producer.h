@@ -9,9 +9,9 @@
 #if !defined(TETENGO2_CONCURRENT_PRODUCER_H)
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
+#include <exception>
 #include <functional>
 
-#include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 
@@ -82,7 +82,7 @@ namespace tetengo2 { namespace concurrent
             }
             catch (const boost::thread_interrupted& e)
             {
-                m_channel.insert_exception(boost::copy_exception(e));
+                m_channel.insert_exception(std::make_exception_ptr(e));
                 m_channel.close();
             }
         }
@@ -100,7 +100,7 @@ namespace tetengo2 { namespace concurrent
             }
             catch (...)
             {
-                channel.insert_exception(boost::current_exception());
+                channel.insert_exception(std::current_exception());
                 channel.close();
             }
         }

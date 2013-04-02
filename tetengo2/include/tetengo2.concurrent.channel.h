@@ -10,11 +10,11 @@
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
 #include <cassert>
+#include <exception>
 #include <queue>
 #include <stdexcept>
 #include <utility>
 
-#include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/thread.hpp>
@@ -89,7 +89,7 @@ namespace tetengo2 { namespace concurrent
 
             \throw boost::thread_interrupted When the thread is interrupted.
         */
-        void insert_exception(const boost::exception_ptr& p_exception)
+        void insert_exception(const std::exception_ptr& p_exception)
         {
             insert_impl(p_exception);
         }
@@ -121,7 +121,10 @@ namespace tetengo2 { namespace concurrent
             {
                 assert(m_queue.front()->which() == 1);
 
-                boost::rethrow_exception(boost::get<boost::exception_ptr>(*m_queue.front()));
+                std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
+                
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
             }
         }
 
@@ -185,7 +188,7 @@ namespace tetengo2 { namespace concurrent
 
         typedef boost::condition_variable condition_variable_type;
 
-        typedef boost::variant<value_type, boost::exception_ptr> queue_element_type;
+        typedef boost::variant<value_type, std::exception_ptr> queue_element_type;
 
         typedef std::queue<boost::optional<queue_element_type>> queue_type;
 
