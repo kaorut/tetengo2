@@ -456,12 +456,9 @@ boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::basic_string_ref                          boost/utility/string_ref.hpp
 boost::condition_variable                        boost/thread.hpp
-boost::copy_exception                            boost/exception_ptr.hpp
-boost::current_exception                         boost/exception_ptr.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::exception                                 boost/exception/all.hpp
-boost::exception_ptr                             boost/exception_ptr.hpp
 boost::filesystem::directory_entry               boost/filesystem.hpp
 boost::filesystem::directory_iterator            boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
@@ -542,7 +539,6 @@ boost::program_options::wvalue                   boost/program_options.hpp
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
 boost::replace_all                               boost/algorithm/string.hpp
-boost::rethrow_exception                         boost/exception_ptr.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::spirit::make_default_multi_pass           boost/spirit/include/support_multi_pass.hpp
 boost::spirit::multi_pass                        boost/spirit/include/support_multi_pass.hpp
@@ -577,6 +573,7 @@ std::char_traits                                 string
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::cos                                         cmath
+std::current_exception                           exception
 std::decay                                       type_traits
 std::distance                                    iterator
 std::enable_if                                   type_traits
@@ -584,6 +581,7 @@ std::endl                                        iomanip
 std::error_category                              system_error
 std::error_code                                  system_error
 std::exception                                   exception
+std::exception_ptr                               exception
 std::fill_n                                      algorithm
 std::find                                        algorithm
 std::find_if                                     algorithm
@@ -610,6 +608,7 @@ std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale
 std::logic_error                                 stdexcept
+std::make_exception_ptr                          exception
 std::make_pair                                   utility
 std::max                                         algorithm
 std::mbstate_t                                   cwchar
@@ -627,6 +626,7 @@ std::queue                                       queue
 std::ref                                         functional
 std::reference_wrapper                           functional
 std::remove_pointer                              type_traits
+std::rethrow_exception                           exception
 std::reverse                                     algorithm
 std::runtime_error                               stdexcept
 std::runtime_error::what                         stdexcept

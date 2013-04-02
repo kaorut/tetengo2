@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <exception>
+//#include <exception>
 #include <queue>
 #include <stdexcept>
 

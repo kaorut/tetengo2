@@ -6,9 +6,9 @@
     $Id$
 */
 
-#include <cassert>
+//#include <cassert>
 #include <cstddef>
-#include <exception>
+//#include <exception>
 //#include <stdexcept>
 #include <string>
 
