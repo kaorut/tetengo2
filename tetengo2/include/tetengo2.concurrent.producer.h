@@ -56,6 +56,16 @@ namespace tetengo2 { namespace concurrent
 #endif
         {}
 
+        /*!
+            \brief Destroys the producer.
+        */
+        ~producer()
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            if (m_thread.joinable())
+                m_thread.join();
+        }
+
 
         // functions
         
@@ -67,7 +77,8 @@ namespace tetengo2 { namespace concurrent
             try
             {
                 m_channel.close();
-                m_thread.join();
+                if (m_thread.joinable())
+                    m_thread.join();
             }
             catch (const boost::thread_interrupted& e)
             {

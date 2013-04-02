@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cassert>
 #include <cstddef>
 //#include <stdexcept>
 #include <string>
@@ -217,6 +218,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             BOOST_CHECK(channel.closed());
 
+            assert(producing_thread.joinable());
             producing_thread.join();
         }
     }
