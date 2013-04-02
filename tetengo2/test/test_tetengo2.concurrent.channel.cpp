@@ -6,15 +6,16 @@
     $Id$
 */
 
+//#include <cassert>
 #include <cstddef>
+//#include <exception>
 //#include <stdexcept>
 #include <string>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
-//#include <boost/exception_ptr.hpp>
 #include <boost/test/unit_test.hpp>
-//#include <boost/thread.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.concurrent.channel.h"
 
 
@@ -34,14 +35,14 @@ namespace
 
     void produce(channel_type* const p_channel)
     {
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        tetengo2::cpp11::this_thread_sleep_for(100);
         p_channel->insert(12);
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        tetengo2::cpp11::this_thread_sleep_for(100);
         p_channel->insert(34);
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        tetengo2::cpp11::this_thread_sleep_for(100);
         p_channel->insert(56);
 
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        tetengo2::cpp11::this_thread_sleep_for(100);
         p_channel->close();
     }
 
@@ -83,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         channel_type channel(3);
 
-        channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
+        channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -101,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
 
             try
             {
@@ -136,8 +137,8 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
-            channel.insert_exception(boost::copy_exception(test_exception()));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(test_exception()));
 
             channel.take();
             channel.take();
@@ -217,6 +218,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             BOOST_CHECK(channel.closed());
 
+            assert(producing_thread.joinable());
             producing_thread.join();
         }
     }

@@ -6,10 +6,10 @@
     $Id$
 */
 
+//#include <exception>
 #include <queue>
 #include <stdexcept>
 
-//#include <boost/exception_ptr.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
@@ -39,7 +39,7 @@ namespace
             m_values.push(value);
         }
 
-        void insert_exception(const boost::exception_ptr& p_exception)
+        void insert_exception(const std::exception_ptr& p_exception)
         {
             m_exceptions.push(p_exception);
         }
@@ -50,7 +50,7 @@ namespace
             {
                 const auto p_exception = m_exceptions.front();
                 m_exceptions.pop();
-                boost::rethrow_exception(p_exception);
+                std::rethrow_exception(p_exception);
             }
 
             const auto result = m_values.front();
@@ -84,7 +84,7 @@ namespace
 
         std::queue<int> m_values;
 
-        std::queue<boost::exception_ptr> m_exceptions;
+        std::queue<std::exception_ptr> m_exceptions;
 
     };
 

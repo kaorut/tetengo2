@@ -9,11 +9,10 @@
 #if !defined(TETENGO2_CONCURRENT_PRODUCER_H)
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
+#include <exception>
 #include <functional>
 
-#include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/thread.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
@@ -56,6 +55,15 @@ namespace tetengo2 { namespace concurrent
 #endif
         {}
 
+        /*!
+            \brief Destroys the producer.
+        */
+        ~producer()
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            join();
+        }
+
 
         // functions
         
@@ -64,16 +72,9 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-            try
-            {
-                m_channel.close();
+            m_channel.close();
+            if (m_thread.joinable())
                 m_thread.join();
-            }
-            catch (const boost::thread_interrupted& e)
-            {
-                m_channel.insert_exception(boost::copy_exception(e));
-                m_channel.close();
-            }
         }
 
 
@@ -89,7 +90,7 @@ namespace tetengo2 { namespace concurrent
             }
             catch (...)
             {
-                channel.insert_exception(boost::current_exception());
+                channel.insert_exception(std::current_exception());
                 channel.close();
             }
         }
@@ -101,7 +102,7 @@ namespace tetengo2 { namespace concurrent
 
         channel_type& m_channel;
 
-        boost::thread m_thread;
+        cpp11::thread m_thread;
 
 
     };

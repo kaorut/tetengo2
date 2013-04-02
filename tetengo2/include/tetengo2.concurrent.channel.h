@@ -10,16 +10,17 @@
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
 #include <cassert>
+#include <exception>
 #include <queue>
 #include <stdexcept>
 #include <utility>
 
-#include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
+
+#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace concurrent
@@ -72,8 +73,6 @@ namespace tetengo2 { namespace concurrent
             The values inserted after a close() call are just discarded.
 
             \param value A value.
-
-            \throw boost::thread_interrupted When the thread is interrupted.
         */
         void insert(value_type value)
         {
@@ -86,10 +85,8 @@ namespace tetengo2 { namespace concurrent
             The exceptions inserted after a close() call are just discarded.
 
             \param p_exception A pointer to an exceptoin.
-
-            \throw boost::thread_interrupted When the thread is interrupted.
         */
-        void insert_exception(const boost::exception_ptr& p_exception)
+        void insert_exception(const std::exception_ptr& p_exception)
         {
             insert_impl(p_exception);
         }
@@ -101,14 +98,13 @@ namespace tetengo2 { namespace concurrent
 
             \return A value.
 
-            \throw unspecified               An exception inserted with insert_exception().
-            \throw std::logic_error          When the channel is already closed.
-            \throw boost::thread_interrupted When the thread is interrupted.
+            \throw unspecified      An exception inserted with insert_exception().
+            \throw std::logic_error When the channel is already closed.
         */
         const value_type& peek()
         const
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
+            typename cpp11::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
@@ -121,19 +117,21 @@ namespace tetengo2 { namespace concurrent
             {
                 assert(m_queue.front()->which() == 1);
 
-                boost::rethrow_exception(boost::get<boost::exception_ptr>(*m_queue.front()));
+                std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
+                
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
             }
         }
 
         /*!
             \brief Takes a value.
 
-            \throw std::logic_error          When the channel is already closed.
-            \throw boost::thread_interrupted When the thread is interrupted.
+            \throw std::logic_error When the channel is already closed.
         */
         void take()
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
+            typename cpp11::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
@@ -145,12 +143,10 @@ namespace tetengo2 { namespace concurrent
 
         /*!
             \brief Closes the channel.
-
-            \throw boost::thread_interrupted When the thread is interrupted.
         */
         void close()
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
+            typename cpp11::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {
@@ -172,7 +168,7 @@ namespace tetengo2 { namespace concurrent
         bool closed()
         const
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
+            typename cpp11::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             return closed_impl();
         }
@@ -181,11 +177,11 @@ namespace tetengo2 { namespace concurrent
     private:
         // types
 
-        typedef boost::mutex mutex_type;
+        typedef cpp11::mutex mutex_type;
 
-        typedef boost::condition_variable condition_variable_type;
+        typedef cpp11::condition_variable condition_variable_type;
 
-        typedef boost::variant<value_type, boost::exception_ptr> queue_element_type;
+        typedef boost::variant<value_type, std::exception_ptr> queue_element_type;
 
         typedef std::queue<boost::optional<queue_element_type>> queue_type;
 
@@ -211,7 +207,7 @@ namespace tetengo2 { namespace concurrent
 
         void insert_impl(queue_element_type value)
         {
-            boost::unique_lock<mutex_type> lock(m_mutex);
+            typename cpp11::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {
