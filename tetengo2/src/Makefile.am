@@ -28,5 +28,6 @@ libtetengo2_a_CXXFLAGS = \
 libtetengo2_a_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
-	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
-
+	pushd $(top_builddir)/precompiled; \
+	$(MAKE) all; \
+	popd

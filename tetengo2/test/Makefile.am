@@ -75,8 +75,11 @@ clean-local:
 	-rm -rf messages.test
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
-	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
+	pushd $(top_builddir)/precompiled; \
+	$(MAKE) all; \
+	popd
 
 $(top_builddir)/tetengo2/src/libtetengo2.a:
-	pushd $(top_srcdir)/tetengo2/src; $(MAKE) all; popd
-
+	pushd $(top_builddir)/tetengo2/src; \
+	$(MAKE) all; \
+	popd
