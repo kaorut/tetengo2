@@ -23,6 +23,11 @@ Depends on  : (none)
 Description : Create tetengo2::gui::widget::custom_control.
 ------------------------------------------------------------------------------
 Number      : 00000233
+Added on    : 2013/04/04
+Depends on  : (none)
+Description : Replace functor classes to lambda.
+------------------------------------------------------------------------------
+Number      : 00000234
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
