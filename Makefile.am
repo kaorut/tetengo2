@@ -18,14 +18,14 @@ doc:
 	pushd $(top_srcdir); \
 	$(DOXYGEN) Doxyfile; \
 	popd; \
-	mv $(top_srcdir)/doc $(top_builddir)/doc
+	test "$(top_srcdir)" == "$(top_builddir)" || mv -f $(top_srcdir)/doc $(top_builddir)/doc
 
 .PHONY: doc-test
 doc-test:
 	pushd $(top_srcdir); \
 	$(DOXYGEN) Doxyfile.test; \
 	popd; \
-	mv $(top_srcdir)/doc.test $(top_builddir)/doc.test
+	test "$(top_srcdir)" == "$(top_builddir)" || mv -f $(top_srcdir)/doc.test $(top_builddir)/doc.test
 
 clean-doc-all: clean-doc clean-doc-test
 
