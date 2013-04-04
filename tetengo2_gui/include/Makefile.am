@@ -57,6 +57,7 @@ headers = \
     tetengo2.gui.widget.abstract_window.h \
     tetengo2.gui.widget.button.h \
     tetengo2.gui.widget.control.h \
+    tetengo2.gui.widget.custom_control.h \
     tetengo2.gui.widget.dialog.h \
     tetengo2.gui.widget.dropdown_box.h \
     tetengo2.gui.widget.image.h \
@@ -68,6 +69,7 @@ headers = \
     tetengo2.gui.widget.traits.abstract_window_traits.h \
     tetengo2.gui.widget.traits.button_traits.h \
     tetengo2.gui.widget.traits.control_traits.h \
+    tetengo2.gui.widget.traits.custom_control_traits.h \
     tetengo2.gui.widget.traits.dialog_traits.h \
     tetengo2.gui.widget.traits.dropdown_box_traits.h \
     tetengo2.gui.widget.traits.image_traits.h \

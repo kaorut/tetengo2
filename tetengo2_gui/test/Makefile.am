@@ -61,6 +61,7 @@ sources = \
     test_tetengo2.gui.widget.abstract_window.cpp \
     test_tetengo2.gui.widget.button.cpp \
     test_tetengo2.gui.widget.control.cpp \
+    test_tetengo2.gui.widget.custom_control.cpp \
     test_tetengo2.gui.widget.dialog.cpp \
     test_tetengo2.gui.widget.dropdown_box.cpp \
     test_tetengo2.gui.widget.image.cpp \

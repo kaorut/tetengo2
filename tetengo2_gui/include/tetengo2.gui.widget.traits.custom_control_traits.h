@@ -6,35 +6,24 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIDGET_TRAITS_PICTUREBOXTRAITS_H)
-#define TETENGO2_GUI_WIDGET_TRAITS_PICTUREBOXTRAITS_H
+#if !defined(TETENGO2_GUI_WIDGET_TRAITS_CUSTOMCONTROLTRAITS_H)
+#define TETENGO2_GUI_WIDGET_TRAITS_CUSTOMCONTROLTRAITS_H
 
 
 namespace tetengo2 { namespace gui { namespace widget { namespace traits
 {
     /*!
-        \brief The traits class template for a picture box.
+        \brief The traits class template for a custom control.
 
-        \tparam ControlTraits        A traits type for a control.
-        \tparam FastWidgetCanvas     A fast widget canvas type.
-        \tparam FastPaintObserverSet A fast paint observer set type.
+        \tparam ControlTraits A traits type for a control.
    */
-    template <typename ControlTraits, typename FastWidgetCanvas, typename FastPaintObserverSet>
-    struct picture_box_traits
+    template <typename ControlTraits>
+    struct custom_control_traits
     {
         //types
 
         //! The base type.
         typedef ControlTraits base_type;
-
-        //! The fast widget canvas type.
-        typedef FastWidgetCanvas fast_widget_canvas_type;
-
-        //! The fast canvas type.
-        typedef typename fast_widget_canvas_type::base_type fast_canvas_type;
-
-        //! The fast paint observer set type.
-        typedef FastPaintObserverSet fast_paint_observer_set_type;
 
 
     };

@@ -236,5 +236,8 @@
     <ClCompile Include="test\test_tetengo2.gui.mouse_capture.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.widget.custom_control.cpp">
+      <Filter>sources\test_tetengo2::gui\widget</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

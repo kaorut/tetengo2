@@ -30,6 +30,7 @@
 #include "tetengo2.detail.windows.message_handler_detail.abstra.h"
 #include "tetengo2.detail.windows.message_handler_detail.button.h"
 #include "tetengo2.detail.windows.message_handler_detail.contro.h"
+#include "tetengo2.detail.windows.message_handler_detail.custom.h"
 #include "tetengo2.detail.windows.message_handler_detail.dialog.h"
 #include "tetengo2.detail.windows.message_handler_detail.dropdo.h"
 #include "tetengo2.detail.windows.message_handler_detail.messag.h"
@@ -195,6 +196,41 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Make a message handler map for a custom control.
+
+            \tparam CustomControl A custom control type.
+
+            \param custom_control A custom control.
+            \param initial_map    An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename CustomControl>
+        static message_handler_map_type make_custom_control_message_handler_map(
+            CustomControl&             custom_control,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(std::move(initial_map));
+
+            map[WM_ERASEBKGND].push_back(
+                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
+                {
+                    return
+                        message_handler_detail::custom_control::on_erase_background(custom_control, w_param, l_param);
+                }
+            );
+            map[WM_PAINT].push_back(
+                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
+                {
+                    return message_handler_detail::custom_control::on_paint(custom_control, w_param, l_param);
+                }
+            );
+
+            return map;
+        }
+
+        /*!
             \brief Make a message handler map for a dialog.
 
             \tparam Dialog A dialog type.
@@ -336,7 +372,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Make a message handler map for a picture box.
 
-            \tparam TextBox A picture box type.
+            \tparam PictureBox A picture box type.
 
             \param picture_box    A picture box.
             \param initial_map An initial message handler map.
