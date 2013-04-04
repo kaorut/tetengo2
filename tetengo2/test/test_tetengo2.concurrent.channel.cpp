@@ -12,7 +12,6 @@
 //#include <stdexcept>
 #include <string>
 
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -207,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            boost::thread producing_thread(produce, &channel);
+            tetengo2::cpp11::thread producing_thread(produce, &channel);
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();
