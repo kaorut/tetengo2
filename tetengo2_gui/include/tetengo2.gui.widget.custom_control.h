@@ -92,6 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {}
 
 
+    private:
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
