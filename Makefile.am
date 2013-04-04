@@ -15,11 +15,17 @@ doc-all: doc doc-test
 
 .PHONY: doc
 doc:
-	$(DOXYGEN) Doxyfile
+	pushd $(top_srcdir); \
+	$(DOXYGEN) Doxyfile; \
+	popd; \
+	mv $(top_srcdir)/doc $(top_builddir)/doc
 
 .PHONY: doc-test
 doc-test:
-	$(DOXYGEN) Doxyfile.test
+	pushd $(top_srcdir); \
+	$(DOXYGEN) Doxyfile.test; \
+	popd; \
+	mv $(top_srcdir)/doc.test $(top_builddir)/doc.test
 
 clean-doc-all: clean-doc clean-doc-test
 
