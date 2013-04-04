@@ -24,6 +24,16 @@ namespace
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::custom_control>::type
         custom_control_type;
 
+    class concrete_custom_control : public custom_control_type
+    {
+    public:
+        explicit concrete_custom_control(window_type& parent)
+        :
+        custom_control_type(parent, custom_control_type::scroll_bar_style_type::none)
+        {}
+
+    };
+
 
 }
 
@@ -38,14 +48,8 @@ BOOST_AUTO_TEST_SUITE(custom_control)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent;
-            const custom_control_type custom_control(parent, custom_control_type::scroll_bar_style_type::none);
-        }
-        {
-            window_type parent;
-            const custom_control_type custom_control(parent, custom_control_type::scroll_bar_style_type::both);
-        }
+        window_type parent;
+        const concrete_custom_control custom_control(parent);
     }
 
 
