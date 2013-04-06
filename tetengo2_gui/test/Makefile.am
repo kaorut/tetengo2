@@ -91,6 +91,7 @@ tetengo2_gui_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
 tetengo2_gui_test_CXXFLAGS = \
+    -std=c++11 \
     -Werror \
     -Wall \
     -Wextra \
@@ -98,14 +99,15 @@ tetengo2_gui_test_CXXFLAGS = \
 tetengo2_gui_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
     $(BOOST_LDFLAGS)
-tetengo2_gui_test_LDADD = \
+tetengo2_gui_test_LDLIBS = \
     -ltetengo2 \
     $(BOOST_DATE_TIME_LIB) \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_THREAD_LIB) \
-    $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
+    $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
+    -lpthread
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h

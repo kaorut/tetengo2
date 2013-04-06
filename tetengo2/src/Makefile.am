@@ -21,6 +21,7 @@ libtetengo2_a_CPPFLAGS = \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include
 libtetengo2_a_CXXFLAGS = \
+    -std=c++11 \
     -Werror \
     -Wall \
     -Wextra \

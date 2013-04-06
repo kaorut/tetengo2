@@ -51,6 +51,7 @@ tetengo2_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include
 tetengo2_test_CXXFLAGS = \
+    -std=c++11 \
     -Werror \
     -Wall \
     -Wextra \
@@ -65,7 +66,8 @@ tetengo2_test_LDADD = \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_THREAD_LIB) \
-    $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
+    $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
+    -lpthread
 tetengo2_test_SOURCES = $(headers) $(sources)
 
 messages.test:
