@@ -115,13 +115,12 @@ namespace tetengo2 { namespace cpp11
 #   define TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
 #endif
 
-
+#   include <thread>
+#   include <boost/thread.hpp>
 #if TETENGO2_CPP11_STD_THREAD_SUPPORTED
 #   include <condition_variable>
 #   include <mutex>
-#   include <thread>
 #else
-#   include <boost/thread.hpp>
 #endif
 #if TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
 #   include <chrono>

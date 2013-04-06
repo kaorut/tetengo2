@@ -13,7 +13,9 @@
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <cmath>
+#include <condition_variable>
 #include <cstddef>
 #include <cwchar>
 #include <exception>
@@ -25,6 +27,7 @@
 #include <limits>
 #include <locale>
 #include <memory>
+#include <mutex>
 #include <numeric>
 #include <ostream>
 #include <queue>
@@ -33,6 +36,7 @@
 #include <stdexcept>
 #include <string>
 #include <system_error>
+#include <thread>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
@@ -42,6 +46,7 @@
 // Boost library headers
 
 #include <boost/algorithm/string.hpp>
+#include <boost/chrono.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/exception/all.hpp>

@@ -1,6 +1,5 @@
 /*! \file
-    \brief The definition of
-           tetengo2::detail::windows::message_handler_detail::abstract_window.
+    \brief The definition of tetengo2::detail::windows::message_handler_detail::abstract_window.
 
     Copyright (C) 2007-2013 kaoru
 

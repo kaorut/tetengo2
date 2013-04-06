@@ -46,34 +46,24 @@ TESTS = bobura.test
 bobura_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a
 bobura_test_CPPFLAGS = \
-    $(PRECOMPILE_CPPFLAGS) \
-    $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura/src \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
-bobura_test_CXXFLAGS = \
-    -Werror \
-    -Wall \
-    -Wextra \
-    -pedantic-errors
 bobura_test_LDFLAGS = \
-    -L$(top_builddir)/tetengo2/src \
-    $(BOOST_LDFLAGS)
+    -L$(top_builddir)/tetengo2/src
 bobura_test_LDADD = \
     -ltetengo2 \
-    $(BOOST_FILESYSTEM_LIB) \
-    $(BOOST_IOSTREAMS_LIB) \
-    $(BOOST_PROGRAM_OPTIONS_LIB) \
-    $(BOOST_SYSTEM_LIB) \
-    $(BOOST_THREAD_LIB) \
-    $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
+    $(UNITTEST_LIBS)
 bobura_test_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
-	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
+	pushd $(top_builddir)/precompiled; \
+	$(MAKE) all; \
+	popd
 
 $(top_builddir)/tetengo2/src/libtetengo2.a:
-	pushd $(top_srcdir)/tetengo2/src; $(MAKE) all; popd
-
+	pushd $(top_builddir)/tetengo2/src; \
+	$(MAKE) all; \
+	popd

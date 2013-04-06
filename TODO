@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------
 Number      : 00000223
 Added on    : 2013/03/13
-Depends on  : (none)
+Depends on  : 00000232
 Description : Create tetengo2::gui::widget::key_value_list_box.
 ------------------------------------------------------------------------------
 Number      : 00000224
@@ -18,6 +18,16 @@ Depends on  : 00000223
 Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
 Number      : 00000232
+Added on    : 2013/04/04
+Depends on  : (none)
+Description : Create tetengo2::gui::widget::custom_control.
+------------------------------------------------------------------------------
+Number      : 00000233
+Added on    : 2013/04/04
+Depends on  : (none)
+Description : Replace functor classes to lambda.
+------------------------------------------------------------------------------
+Number      : 00000234
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 

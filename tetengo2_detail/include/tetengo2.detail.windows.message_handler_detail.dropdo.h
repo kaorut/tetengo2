@@ -1,6 +1,5 @@
 /*! \file
-    \brief The definition of
-           tetengo2::detail::windows::message_handler_detail::dropdown_box.
+    \brief The definition of tetengo2::detail::windows::message_handler_detail::dropdown_box.
 
     Copyright (C) 2007-2013 kaoru
 

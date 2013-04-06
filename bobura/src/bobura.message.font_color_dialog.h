@@ -166,8 +166,14 @@ namespace bobura { namespace message { namespace font_color_dialog
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
 
-            if (!m_current_category_index || *m_current_category_index == 0)
+            if (
+                !m_current_category_index ||
+                *m_current_category_index == 0 ||
+                *m_current_category_index >= m_font_color_list.size()
+            )
+            {
                 return;
+            }
 
             assert(m_font_color_list[*m_current_category_index].first);
             canvas.set_font(*m_font_color_list[*m_current_category_index].first);

@@ -182,6 +182,29 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a custom control.
+
+            \tparam Widget A widget type.
+
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
+
+            \return A unique pointer to a custom control.
+
+            \throw std::system_error When a custom control cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_custom_control(
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
+        {
+            suppress_unused_variable_warning(scroll_bar_style);
+
+            return create_details<Widget>(&parent);
+        }
+
+        /*!
             \brief Creates a dialog.
 
             \tparam Widget A widget type.

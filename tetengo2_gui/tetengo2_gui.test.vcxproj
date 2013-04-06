@@ -151,6 +151,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.abstract_window.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.button.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.control.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.widget.custom_control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.dialog.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.dropdown_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.image.cpp" />

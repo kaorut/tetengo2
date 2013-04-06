@@ -1,6 +1,5 @@
 /*! \file
-    \brief The definition of
-           tetengo2::detail::windows::message_handler_detail::control.
+    \brief The definition of tetengo2::detail::windows::message_handler_detail::control.
 
     Copyright (C) 2007-2013 kaoru
 

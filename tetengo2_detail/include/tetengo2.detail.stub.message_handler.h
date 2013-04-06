@@ -103,6 +103,27 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Make a message handler map for a custom control.
+
+            \tparam CustomControl A custom control type.
+
+            \param custom_control A custom control.
+            \param initial_map    An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename CustomControl>
+        static message_handler_map_type make_custom_control_message_handler_map(
+            CustomControl&             custom_control,
+            message_handler_map_type&& initial_map
+        )
+        {
+            suppress_unused_variable_warning(custom_control);
+
+            return std::move(initial_map);
+        }
+
+        /*!
             \brief Make a message handler map for a dialog.
 
             \tparam Dialog A dialog type.

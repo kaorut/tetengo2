@@ -40,6 +40,7 @@ extra_headers = \
     tetengo2.detail.windows.message_handler_detail.abstra.h \
     tetengo2.detail.windows.message_handler_detail.button.h \
     tetengo2.detail.windows.message_handler_detail.contro.h \
+    tetengo2.detail.windows.message_handler_detail.custom.h \
     tetengo2.detail.windows.message_handler_detail.dialog.h \
     tetengo2.detail.windows.message_handler_detail.list_b.h \
     tetengo2.detail.windows.message_handler_detail.messag.h \

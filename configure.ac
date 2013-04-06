@@ -32,6 +32,9 @@ AC_CONFIG_FILES([
     tetengo2_gui/test/Makefile
 ])
 
+AC_LANG([C++])
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+
 AC_ARG_ENABLE(
     precompilation,
     AS_HELP_STRING(
@@ -41,8 +44,8 @@ AC_ARG_ENABLE(
     PRECOMPILE_CPPFLAGS=" -I\$(top_srcdir)/precompiled -include precompiled.h";
     PRECOMPILE_BUILT_SOURCES="\$(top_srcdir)/precompiled/precompiled.h.gch"
 )
-AC_SUBST(PRECOMPILE_CPPFLAGS)
-AC_SUBST(PRECOMPILE_BUILT_SOURCES)
+AC_SUBST([PRECOMPILE_CPPFLAGS])
+AC_SUBST([PRECOMPILE_BUILT_SOURCES])
 
 #### Checks for programs ####
 AC_PROG_CXX
@@ -75,14 +78,26 @@ AX_BOOST_SYSTEM
 AX_BOOST_THREAD
 AX_BOOST_UNIT_TEST_FRAMEWORK
 AC_CHECK_LIB(bz2, BZ2_bzCompressInit)
+AC_SUBST([LDFLAGS], "$LDFLAGS $BOOST_LDFLAGS")
+AC_SUBST([LIBS], "-lpthread $LIBS")
+AC_SUBST([LIBS], "$BOOST_CHRONO_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_DATE_TIME_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_FILESYSTEM_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_IOSTREAMS_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_PROGRAM_OPTIONS_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_SYSTEM_LIB $LIBS")
+AC_SUBST([LIBS], "$BOOST_THREAD_LIB $LIBS")
+AC_SUBST([UNITTEST_LIBS], "$BOOST_UNIT_TEST_FRAMEWORK_LIB")
 
 #### Checks for header files ####
 AC_CXX_HAVE_STD
 AC_CXX_HAVE_STL
 AC_HEADER_STDC
+AC_SUBST([CPPFLAGS], "$CPPFLAGS $PRECOMPILE_CPPFLAGS")
+AC_SUBST([CPPFLAGS], "$CPPFLAGS $BOOST_CPPFLAGS")
 
 #### Checks for typedefs, structures, and compiler characteristics ####
-AC_CXX_COMPILE_STDCXX_0X
+AC_SUBST([CXXFLAGS], "$CXXFLAGS -Werror -Wall -Wextra -pedantic-errors")
 
 #### Checks for library functions ####
 
