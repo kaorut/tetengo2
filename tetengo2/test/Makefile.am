@@ -46,28 +46,13 @@ tetengo2_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a \
     messages.test
 tetengo2_test_CPPFLAGS = \
-    $(PRECOMPILE_CPPFLAGS) \
-    $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include
-tetengo2_test_CXXFLAGS = \
-    -std=c++11 \
-    -Werror \
-    -Wall \
-    -Wextra \
-    -pedantic-errors
 tetengo2_test_LDFLAGS = \
-    -L$(top_builddir)/tetengo2/src \
-    $(BOOST_LDFLAGS)
+    -L$(top_builddir)/tetengo2/src
 tetengo2_test_LDADD = \
     -ltetengo2 \
-    $(BOOST_DATE_TIME_LIB) \
-    $(BOOST_FILESYSTEM_LIB) \
-    $(BOOST_PROGRAM_OPTIONS_LIB) \
-    $(BOOST_SYSTEM_LIB) \
-    $(BOOST_THREAD_LIB) \
-    $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
-    -lpthread
+    $(UNITTEST_LIBS)
 tetengo2_test_SOURCES = $(headers) $(sources)
 
 messages.test:

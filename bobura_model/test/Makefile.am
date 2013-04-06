@@ -47,30 +47,15 @@ TESTS = bobura_model.test
 bobura_model_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a
 bobura_model_test_CPPFLAGS = \
-    $(PRECOMPILE_CPPFLAGS) \
-    $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
-bobura_model_test_CXXFLAGS = \
-    -std=c++11 \
-    -Werror \
-    -Wall \
-    -Wextra \
-    -pedantic-errors
 bobura_model_test_LDFLAGS = \
-    -L$(top_builddir)/tetengo2/src \
-    $(BOOST_LDFLAGS)
-bobura_model_test_LDLIBS = \
+    -L$(top_builddir)/tetengo2/src
+bobura_model_test_LDADD = \
     -ltetengo2 \
-    $(BOOST_FILESYSTEM_LIB) \
-    $(BOOST_IOSTREAMS_LIB) \
-    $(BOOST_PROGRAM_OPTIONS_LIB) \
-    $(BOOST_SYSTEM_LIB) \
-    $(BOOST_THREAD_LIB) \
-    $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
-    -lpthread
+    $(UNITTEST_LIBS)
 bobura_model_test_SOURCES = $(headers) $(sources)
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
