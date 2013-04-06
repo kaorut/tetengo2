@@ -33,6 +33,7 @@ AC_CONFIG_FILES([
 ])
 
 AC_LANG([C++])
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 
 AC_ARG_ENABLE(
     precompilation,
@@ -96,7 +97,6 @@ AC_SUBST([CPPFLAGS], "$CPPFLAGS $PRECOMPILE_CPPFLAGS")
 AC_SUBST([CPPFLAGS], "$CPPFLAGS $BOOST_CPPFLAGS")
 
 #### Checks for typedefs, structures, and compiler characteristics ####
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_SUBST([CXXFLAGS], "$CXXFLAGS -Werror -Wall -Wextra -pedantic-errors")
 
 #### Checks for library functions ####
