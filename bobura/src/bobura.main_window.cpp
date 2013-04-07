@@ -121,38 +121,6 @@ namespace bobura
 
             typedef typename base_type::dimension_type dimension_type;
 
-            class call_focus_on_diagram_picture_box_type
-            {
-            public:
-                explicit call_focus_on_diagram_picture_box_type(impl& self)
-                :
-                m_self(self)
-                {}
-
-                void operator()()
-                const
-                {
-                    m_self.focus_on_diagram_picture_box();
-                }
-
-            private:
-                impl& m_self;
-
-            };
-
-            class paint_background_type
-            {
-            public:
-                bool operator()(typename base_type::canvas_type& canvas)
-                const
-                {
-                    tetengo2::suppress_unused_variable_warning(canvas);
-
-                    return true;
-                }
-
-            };
-
 
             // variables
 
@@ -194,8 +162,10 @@ namespace bobura
 
             void set_message_observers()
             {
-                m_base.focus_observer_set().got_focus().connect(call_focus_on_diagram_picture_box_type(*this));
-                m_base.paint_observer_set().paint_background().connect(paint_background_type());
+                m_base.focus_observer_set().got_focus().connect([this]() { this->focus_on_diagram_picture_box(); });
+                m_base.paint_observer_set().paint_background().connect(
+                    [](typename base_type::canvas_type&) { return true; }
+                );
                 m_base.window_observer_set().closing().connect(
                     typename boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
                         m_base, m_confirm_file_save, m_settings
