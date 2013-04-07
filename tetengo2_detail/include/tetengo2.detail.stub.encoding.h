@@ -53,7 +53,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 pivot.begin(),
                 pivot.end(),
                 std::back_inserter(string),
-                cast<utf8_string_type::value_type, pivot_type::value_type>
+                [](const pivot_type::value_type c) { return static_cast<utf8_string_type::value_type>(c); }
             );
             return string;
         }
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 string.begin(),
                 string.end(),
                 std::back_inserter(pivot),
-                cast<pivot_type::value_type, utf8_string_type::value_type>
+                [](const utf8_string_type::value_type c) { return static_cast<pivot_type::value_type>(c); }
             );
             return pivot;
         }
@@ -93,7 +93,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 pivot.begin(),
                 pivot.end(),
                 std::back_inserter(string),
-                cast<cp932_string_type::value_type, pivot_type::value_type>
+                [](const pivot_type::value_type c) { return static_cast<cp932_string_type::value_type>(c); }
             );
             return string;
         }
@@ -113,22 +113,13 @@ namespace tetengo2 { namespace detail { namespace stub
                 string.begin(),
                 string.end(),
                 std::back_inserter(pivot),
-                cast<pivot_type::value_type, cp932_string_type::value_type>
+                [](const cp932_string_type::value_type c) { return static_cast<pivot_type::value_type>(c); }
             );
             return pivot;
         }
 
 
     private:
-        // static functions
-
-        template <typename T, typename U>
-        static T cast(const U x)
-        {
-            return static_cast<T>(x);
-        }
-
-
         // forbidden operations
 
         encoding();
