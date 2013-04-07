@@ -108,14 +108,14 @@ namespace bobura { namespace command
             train_kinds_type train_kinds;
             train_kinds.reserve(info_sets.size());
 
-            std::transform(info_sets.begin(), info_sets.end(), std::back_inserter(train_kinds), call_train_kind);
+            std::transform(
+                info_sets.begin(),
+                info_sets.end(),
+                std::back_inserter(train_kinds),
+                [](const info_set_type& info_set) { return info_set.train_kind(); }
+            );
 
             return train_kinds;
-        }
-
-        static const train_kind_type& call_train_kind(const info_set_type& info_set)
-        {
-            return info_set.train_kind();
         }
 
         static std::vector<train_kind_index_type> to_train_kind_index_map(

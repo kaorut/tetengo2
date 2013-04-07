@@ -772,8 +772,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_keyboard_observer_set(),
         m_mouse_observer_set()
         {
-            m_focus_observer_set.got_focus().connect(got_focus(*this));
-            m_focus_observer_set.lost_focus().connect(lost_focus(*this));
+            m_focus_observer_set.got_focus().connect([this]() { this->m_focused = true; });
+            m_focus_observer_set.lost_focus().connect([this]() { this->m_focused = false; });
             m_paint_observer_set.paint_background().connect(paint_background(*this));
         }
 
@@ -784,44 +784,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename gui::position<position_type>::left_type left_type;
 
         typedef typename gui::position<position_type>::top_type top_type;
-
-        class got_focus
-        {
-        public:
-            got_focus(widget& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            const
-            {
-                m_self.m_focused = true;
-            }
-
-        private:
-            widget& m_self;
-
-        };
-
-        class lost_focus
-        {
-        public:
-            lost_focus(widget& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            const
-            {
-                m_self.m_focused = false;
-            }
-
-        private:
-            widget& m_self;
-
-        };
 
         class paint_background
         {

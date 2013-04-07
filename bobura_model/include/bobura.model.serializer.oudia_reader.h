@@ -131,23 +131,6 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename train_kind_type::color_type color_type;
 
-        struct is_splitter
-        {
-            char_type m_splitter;
-
-            explicit is_splitter(const char_type splitter)
-            :
-            m_splitter(splitter)
-            {}
-
-            bool operator()(const char_type character)
-            const
-            {
-                return character == m_splitter;
-            }
-
-        };
-
         struct file_type
         {
             string_type m_name;
@@ -889,7 +872,7 @@ namespace bobura { namespace model { namespace serializer
         static std::vector<string_type> split(const string_type& string, const char_type splitter)
         {
             std::vector<string_type> result;
-            boost::split(result, string, is_splitter(splitter));
+            boost::split(result, string, [splitter](const char_type character) { return character == splitter; });
             return result;
         }
 

@@ -82,14 +82,6 @@ namespace bobura { namespace model { namespace serializer
 
 
     private:
-        // static functions
-
-        static bool call_selects(const std::unique_ptr<base_type>& p_writer, const path_type& path)
-        {
-            return p_writer->selects(path);
-        }
-
-
         // variables
 
         const std::vector<std::unique_ptr<base_type>> m_p_writers;
