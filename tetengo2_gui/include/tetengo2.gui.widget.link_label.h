@@ -133,27 +133,6 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        class focus_changed
-        {
-        public:
-            focus_changed(link_label& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            const
-            {
-                m_self.repaint();
-            }
-
-
-        private:
-            link_label& m_self;
-
-
-        };
-
         typedef typename gui::position<position_type>::left_type left_type;
 
         typedef typename gui::position<position_type>::top_type top_type;
@@ -169,7 +148,8 @@ namespace tetengo2 { namespace gui { namespace widget
             bool operator()(canvas_type& canvas)
             const
             {
-                if (!m_self.background()) return false;
+                if (!m_self.background())
+                    return false;
 
                 canvas.set_background(m_self.background()->clone());
                 canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_self.client_dimension());
@@ -181,58 +161,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             link_label& m_self;
-
-        };
-
-        class selected
-        {
-        public:
-            typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
-
-            selected(link_label& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()(
-                const virtual_key_type& virtual_key,
-                const bool              shift,
-                const bool              control,
-                const bool              meta
-            )
-            const
-            {
-                suppress_unused_variable_warning(shift, control, meta);
-
-                if (virtual_key == virtual_key_type::space())
-                    m_self.open_target();
-            }
-
-
-        private:
-            const link_label& m_self;
-
-
-        };
-
-        class clicked
-        {
-        public:
-            clicked(link_label& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            const
-            {
-                m_self.open_target();
-            }
-
-
-        private:
-            const link_label& m_self;
-
 
         };
 
@@ -266,12 +194,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
             p_link_label->set_focusable(true);
 
-            p_link_label->focus_observer_set().got_focus().connect(focus_changed(*p_link_label));
-            p_link_label->focus_observer_set().lost_focus().connect(focus_changed(*p_link_label));
+            const auto focus_changed = [p_link_label]() { p_link_label->repaint(); };
+            p_link_label->focus_observer_set().got_focus().connect(focus_changed);
+            p_link_label->focus_observer_set().lost_focus().connect(focus_changed);
             p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_link_label->paint_observer_set().paint_background().connect(paint_background(*p_link_label));
-            p_link_label->keyboard_observer_set().key_up().connect(selected(*p_link_label));
-            p_link_label->mouse_observer_set().clicked().connect(clicked(*p_link_label));
+            typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
+            p_link_label->keyboard_observer_set().key_up().connect(
+                [p_link_label](const virtual_key_type& virtual_key, const bool, const bool, const bool)
+                {
+                    if (virtual_key == virtual_key_type::space())
+                        p_link_label->open_target();
+                }
+            );
+            p_link_label->mouse_observer_set().clicked().connect([p_link_label]() { p_link_label->open_target(); });
         }
 
 

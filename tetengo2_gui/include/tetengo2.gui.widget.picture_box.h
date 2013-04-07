@@ -105,7 +105,9 @@ namespace tetengo2 { namespace gui { namespace widget
         m_fast_paint_observer_set()
         {
             this->initialize(this);
-            this->paint_observer_set().paint_background().connect(paint_background());
+            this->paint_observer_set().paint_background().connect(
+                [](typename base_type::canvas_type&) { return true; }
+            );
         }
 
         /*!
@@ -155,18 +157,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
-
-        struct paint_background
-        {
-            bool operator()(typename base_type::canvas_type& canvas)
-            const
-            {
-                suppress_unused_variable_warning(canvas);
-
-                return true;
-            }
-
-        };
 
 
         // variables

@@ -226,23 +226,6 @@ namespace bobura
 
         };
 
-        struct is_splitter
-        {
-            typename string_type::value_type m_splitter;
-
-            explicit is_splitter(const typename string_type::value_type splitter)
-            :
-            m_splitter(splitter)
-            {}
-
-            bool operator()(const typename string_type::value_type character)
-            const
-            {
-                return character == m_splitter;
-            }
-
-        };
-
 
         // static functions
 
@@ -343,7 +326,12 @@ namespace bobura
         static boost::optional<std::pair<uint_type, uint_type>> parse_dimension(const string_type& dimension_string)
         {
             std::vector<string_type> result;
-            boost::split(result, dimension_string, is_splitter(typename string_type::value_type(TETENGO2_TEXT('x'))));
+            typedef typename string_type::value_type char_type;
+            boost::split(
+                result,
+                dimension_string,
+                [](const char_type character) { return character == char_type(TETENGO2_TEXT('x')); }
+            );
             if (result.size() < 2)
                 return boost::none;
 

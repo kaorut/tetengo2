@@ -142,23 +142,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
-        struct call_calc_text_dimension_type
-        {
-            const string_type& m_text;
-
-            explicit call_calc_text_dimension_type(const string_type& text)
-            :
-            m_text(text)
-            {}
-
-            dimension_type operator()(const canvas_type& canvas)
-            const
-            {
-                return canvas.calc_text_dimension(m_text);
-            }
-
-        };
-
 
         // functions
 
@@ -167,7 +150,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             return
                 widget_details_type::template use_canvas<dimension_type>(
-                    *this, call_calc_text_dimension_type(this->text())
+                    *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); }
                 );
         }
 

@@ -208,27 +208,6 @@ namespace bobura
 
 
     private:
-        // types
-
-        class timetable_changed
-        {
-        public:
-            timetable_changed(timetable_model& self)
-            :
-            m_self(self)
-            {}
-
-            void operator()()
-            {
-                m_self.set_changed(true);
-            }
-
-        private:
-            timetable_model& m_self;
-
-        };
-
-
         // variables
 
         std::unique_ptr<timetable_type> m_p_timetable;
@@ -258,7 +237,7 @@ namespace bobura
 
         void set_timetable_observer_set()
         {
-            m_p_timetable->observer_set().changed().connect(timetable_changed(*this));
+            m_p_timetable->observer_set().changed().connect([this]() { this->set_changed(true); });
         }
 
 
