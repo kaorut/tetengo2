@@ -658,7 +658,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::message::list_box_observer_set
             >
             list_box_traits_type;
-        typedef tetengo2::gui::widget::traits::map_box_traits<control_traits_type> map_box_traits_type;
+        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,

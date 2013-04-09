@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.widget.control.h"
+#include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.utility.h"
 
 
@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
     template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
-    class map_box : public control<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
+    class map_box : public custom_control<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -39,10 +39,12 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
-        typedef control<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
+        typedef
+            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>
+            base_type;
 
         //! The widget type.
-        typedef typename base_type::base_type widget_type;
+        typedef typename base_type::base_type::base_type widget_type;
 
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
@@ -61,20 +63,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         map_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
-#if defined(_MSC_VER)
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
-#endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_map_box_message_handler_map(
-                *this, message_handler_map_type()
-            ),
-            widget_details_type::create_map_box(parent, scroll_bar_style)
-        )
-#if defined(_MSC_VER)
-#   pragma warning(pop)
-#endif
+        base_type(parent, scroll_bar_style)
         {
             this->initialize(this);
         }
@@ -85,12 +74,6 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~map_box()
         TETENGO2_CPP11_NOEXCEPT
         {}
-
-
-    private:
-        // types
-
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
 
     };

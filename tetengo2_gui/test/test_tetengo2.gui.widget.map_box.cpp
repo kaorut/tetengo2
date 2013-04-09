@@ -24,16 +24,6 @@ namespace
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::map_box>::type
         map_box_type;
 
-    class concrete_map_box : public map_box_type
-    {
-    public:
-        explicit concrete_map_box(window_type& parent)
-        :
-        map_box_type(parent, map_box_type::scroll_bar_style_type::none)
-        {}
-
-    };
-
 
 }
 
@@ -48,8 +38,14 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        const concrete_map_box map_box(parent);
+        {
+            window_type parent;
+            const map_box_type map_box(parent, map_box_type::scroll_bar_style_type::none);
+        }
+        {
+            window_type parent;
+            const map_box_type map_box(parent, map_box_type::scroll_bar_style_type::both);
+        }
     }
 
 
