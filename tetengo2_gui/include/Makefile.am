@@ -66,6 +66,7 @@ headers = \
     tetengo2.gui.widget.list_box.h \
     tetengo2.gui.widget.map_box.h \
     tetengo2.gui.widget.picture_box.h \
+    tetengo2.gui.widget.side_bar.h \
     tetengo2.gui.widget.text_box.h \
     tetengo2.gui.widget.traits.abstract_window_traits.h \
     tetengo2.gui.widget.traits.button_traits.h \
@@ -79,6 +80,7 @@ headers = \
     tetengo2.gui.widget.traits.list_box_traits.h \
     tetengo2.gui.widget.traits.map_box_traits.h \
     tetengo2.gui.widget.traits.picture_box_traits.h \
+    tetengo2.gui.widget.traits.side_bar_traits.h \
     tetengo2.gui.widget.traits.text_box_traits.h \
     tetengo2.gui.widget.traits.widget_traits.h \
     tetengo2.gui.widget.traits.window_traits.h \

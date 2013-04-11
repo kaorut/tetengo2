@@ -242,5 +242,8 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.map_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.widget.side_bar.cpp">
+      <Filter>sources\test_tetengo2::gui\widget</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
