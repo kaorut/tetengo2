@@ -15,17 +15,35 @@ doc-all: doc doc-test
 
 .PHONY: doc
 doc:
-	pushd $(top_srcdir); \
+	if test "$(top_srcdir)" != "$(top_builddir)"; \
+	then \
+	    test ! -e $(top_srcdir)/doc || rm -rf $(top_srcdir)/doc; \
+	    test ! -e $(top_builddir)/doc || mv $(top_builddir)/doc $(top_srcdir)/doc; \
+	    pushd $(top_srcdir); \
+	fi; \
 	$(DOXYGEN) Doxyfile; \
-	popd; \
-	test "$(top_srcdir)" = "$(top_builddir)" || mv -f $(top_srcdir)/doc $(top_builddir)/doc
+	if test "$(top_srcdir)" != "$(top_builddir)"; \
+	then \
+	    popd; \
+	    test ! -e $(top_builddir)/doc || rm -rf $(top_builddir)/doc; \
+	    test ! -e $(top_srcdir)/doc || mv -f $(top_srcdir)/doc $(top_builddir)/doc; \
+	fi
 
 .PHONY: doc-test
 doc-test:
-	pushd $(top_srcdir); \
+	if test "$(top_srcdir)" != "$(top_builddir)"; \
+	then \
+	    test ! -e $(top_srcdir)/doc.test || rm -rf $(top_srcdir)/doc.test; \
+	    test ! -e $(top_builddir)/doc.test || mv $(top_builddir)/doc $(top_srcdir)/doc.test; \
+	    pushd $(top_srcdir); \
+	fi; \
 	$(DOXYGEN) Doxyfile.test; \
-	popd; \
-	test "$(top_srcdir)" = "$(top_builddir)" || mv -f $(top_srcdir)/doc.test $(top_builddir)/doc.test
+	if test "$(top_srcdir)" != "$(top_builddir)"; \
+	then \
+	    popd; \
+	    test ! -e $(top_builddir)/doc.test || rm -rf $(top_builddir)/doc.test; \
+	    test ! -e $(top_srcdir)/doc.test || mv -f $(top_srcdir)/doc $(top_builddir)/doc.test; \
+	fi
 
 clean-doc-all: clean-doc clean-doc-test
 
