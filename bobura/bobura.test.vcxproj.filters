@@ -110,5 +110,8 @@
     <ClCompile Include="test\test_bobura.view.diagram.selection.cpp">
       <Filter>sources\test_bobura\view\diagram</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.property_bar.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

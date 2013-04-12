@@ -47,6 +47,7 @@ extra_headers = \
     bobura.message.type_list.h \
     bobura.message.type_list_impl.h \
     bobura.oudia_diagram_dialog.h \
+    bobura.property_bar.h \
     bobura.settings.h \
     bobura.timetable_model.h \
     bobura.train_kind_dialog.h \

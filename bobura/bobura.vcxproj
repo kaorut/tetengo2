@@ -136,6 +136,7 @@
     <ClInclude Include="src\bobura.message.type_list.h" />
     <ClInclude Include="src\bobura.message.type_list_impl.h" />
     <ClInclude Include="src\bobura.oudia_diagram_dialog.h" />
+    <ClInclude Include="src\bobura.property_bar.h" />
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.timetable_model.h" />
     <ClInclude Include="src\bobura.train_kind_dialog.h" />

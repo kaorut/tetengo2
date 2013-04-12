@@ -23,6 +23,7 @@ sources = \
     test_bobura.message.timetable_model.cpp \
     test_bobura.message.timetable_model_observer_set.cpp \
     test_bobura.message.train_kind_dialog.cpp \
+    test_bobura.property_bar.cpp \
     test_bobura.settings.cpp \
     test_bobura.timetable_model.cpp \
     test_bobura.view.diagram.header.cpp \
