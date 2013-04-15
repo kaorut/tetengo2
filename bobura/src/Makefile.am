@@ -41,6 +41,7 @@ extra_headers = \
     bobura.message.font_color_dialog.h \
     bobura.message.main_window.h \
     bobura.message.oudia_diagram_dialog.h \
+    bobura.message.property_bar.h \
     bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \
     bobura.message.train_kind_dialog.h \

@@ -130,6 +130,7 @@
     <ClInclude Include="src\bobura.message.font_color_dialog.h" />
     <ClInclude Include="src\bobura.message.main_window.h" />
     <ClInclude Include="src\bobura.message.oudia_diagram_dialog.h" />
+    <ClInclude Include="src\bobura.message.property_bar.h" />
     <ClInclude Include="src\bobura.message.timetable_model.h" />
     <ClInclude Include="src\bobura.message.timetable_model_observer_set.h" />
     <ClInclude Include="src\bobura.message.train_kind_dialog.h" />
