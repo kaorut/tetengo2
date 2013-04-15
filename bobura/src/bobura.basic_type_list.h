@@ -76,10 +76,12 @@
 #include <tetengo2.gui.widget.link_label.h>
 #include <tetengo2.gui.widget.list_box.h>
 #include <tetengo2.gui.widget.picture_box.h>
+#include <tetengo2.gui.widget.side_bar.h>
 #include <tetengo2.gui.widget.text_box.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
 #include <tetengo2.gui.widget.traits.button_traits.h>
 #include <tetengo2.gui.widget.traits.control_traits.h>
+#include <tetengo2.gui.widget.traits.custom_control_traits.h>
 #include <tetengo2.gui.widget.traits.dialog_traits.h>
 #include <tetengo2.gui.widget.traits.dropdown_box_traits.h>
 #include <tetengo2.gui.widget.traits.image_traits.h>
@@ -87,6 +89,7 @@
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
 #include <tetengo2.gui.widget.traits.list_box_traits.h>
 #include <tetengo2.gui.widget.traits.picture_box_traits.h>
+#include <tetengo2.gui.widget.traits.side_bar_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
@@ -331,6 +334,7 @@ namespace bobura
         struct point_unit_size; //!< The point unit size type.
         struct popup_menu;     //!< The popup menu type.
         struct position;       //!< The position type.
+        struct side_bar;       //!< The side bar type.
         struct solid_background; //!< The solid background type.
         struct text_box;       //!< The text box type.
         struct transparent_background; //!< The transparent background type.
@@ -589,6 +593,7 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             control_type;
+        typedef tetengo2::gui::widget::traits::custom_control_traits<control_traits_type> custom_control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::button<
@@ -674,6 +679,16 @@ namespace bobura
             >
             picture_box_type;
         typedef
+            tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>
+            side_bar_traits_type;
+        typedef
+            tetengo2::gui::widget::side_bar<
+                side_bar_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            side_bar_type;
+        typedef
             tetengo2::gui::widget::traits::text_box_traits<
                 control_traits_type, tetengo2::gui::message::text_box_observer_set
             >
@@ -754,14 +769,14 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::side_bar, detail::ui::side_bar_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

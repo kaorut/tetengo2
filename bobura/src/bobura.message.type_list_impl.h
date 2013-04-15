@@ -107,7 +107,7 @@ namespace bobura { namespace message
     namespace diagram_picture_box
     {
         /*!
-            \brief The meta function for the type list of the dialog picture box messages.
+            \brief The meta function for the type list of the diagram picture box messages.
 
             \tparam PictureBox A picture box type.
             \tparam View       A view type.
@@ -133,6 +133,26 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox, View>>,
                 tetengo2::meta::assoc_list_end
                 >>>>>>>
+                type;
+        };
+    }
+
+    namespace property_bar
+    {
+        /*!
+            \brief The meta function for the type list of the property bar messages.
+
+            \tparam SideBar A side bar type.
+        */
+        template <typename SideBar>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the property bar.
+            typedef
+                tetengo2::meta::assoc_list_end
                 type;
         };
     }

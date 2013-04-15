@@ -87,7 +87,9 @@
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.gui.widget.link_label.h"
 #include "tetengo2.gui.widget.list_box.h"
+#include "tetengo2.gui.widget.map_box.h"
 #include "tetengo2.gui.widget.picture_box.h"
+#include "tetengo2.gui.widget.side_bar.h"
 #include "tetengo2.gui.widget.text_box.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.button_traits.h"
@@ -99,7 +101,9 @@
 #include "tetengo2.gui.widget.traits.label_traits.h"
 #include "tetengo2.gui.widget.traits.link_label_traits.h"
 #include "tetengo2.gui.widget.traits.list_box_traits.h"
+#include "tetengo2.gui.widget.traits.map_box_traits.h"
 #include "tetengo2.gui.widget.traits.picture_box_traits.h"
+#include "tetengo2.gui.widget.traits.side_bar_traits.h"
 #include "tetengo2.gui.widget.traits.text_box_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
@@ -567,7 +571,9 @@ namespace test_tetengo2 { namespace gui
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
         struct list_box;       //!< The list box type.
+        struct map_box;        //!< The map box type.
         struct picture_box;    //!< The picture box type.
+        struct side_bar;       //!< The side bar type.
         struct text_box;       //!< The text box type.
     }}
 
@@ -655,6 +661,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::message::list_box_observer_set
             >
             list_box_traits_type;
+        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -662,6 +669,7 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type
             >
             picture_box_traits_type;
+        typedef tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type> side_bar_traits_type;
         typedef
             tetengo2::gui::widget::traits::text_box_traits<
                 control_traits_type, tetengo2::gui::message::text_box_observer_set
@@ -781,9 +789,27 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::widget::map_box,
+                tetengo2::gui::widget::map_box<
+                    detail::widget::map_box_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::widget::picture_box,
                 tetengo2::gui::widget::picture_box<
                     detail::widget::picture_box_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::side_bar,
+                tetengo2::gui::widget::side_bar<
+                    detail::widget::side_bar_traits_type,
                     detail::widget::widget_details_type,
                     detail::widget::message_handler_details_type
                 >
@@ -798,7 +824,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>
         widget_type_list;
 
 

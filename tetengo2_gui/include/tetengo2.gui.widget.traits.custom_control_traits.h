@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget::traits::text_box_traits.
+    \brief The definition of tetengo2::gui::widget::traits::custom_control_traits.
 
     Copyright (C) 2007-2013 kaoru
 

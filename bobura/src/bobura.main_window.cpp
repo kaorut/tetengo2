@@ -155,14 +155,11 @@ namespace bobura
                     m_base.set_window_state(window_state_type::normal);
             }
 
-            void focus_on_diagram_picture_box()
-            {
-                m_p_diagram_picture_box->set_focus();
-            }
-
             void set_message_observers()
             {
-                m_base.focus_observer_set().got_focus().connect([this]() { this->focus_on_diagram_picture_box(); });
+                m_base.focus_observer_set().got_focus().connect(
+                    [this]() { this->m_p_diagram_picture_box->set_focus(); }
+                );
                 m_base.paint_observer_set().paint_background().connect(
                     [](typename base_type::canvas_type&) { return true; }
                 );

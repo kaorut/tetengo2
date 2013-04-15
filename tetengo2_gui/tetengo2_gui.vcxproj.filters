@@ -270,5 +270,17 @@
     <ClInclude Include="include\tetengo2.gui.widget.custom_control.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.map_box.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.map_box_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.side_bar.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.side_bar_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
