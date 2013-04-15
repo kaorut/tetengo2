@@ -72,6 +72,14 @@ namespace bobura { namespace message
         }
     }
 
+    namespace property_bar
+    {
+        namespace type
+        {
+
+        }
+    }
+
     namespace oudia_diagram_dialog
     {
         namespace type

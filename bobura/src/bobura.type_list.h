@@ -36,6 +36,7 @@ namespace bobura
         struct diagram_picture_box; //!< The diagram picture box type.
         struct diagram_picture_box_message_type_list; //!< The diagram picture box message type list type.
         struct property_bar;   //!< The property bar type.
+        struct property_bar_message_type_list; //!< The property bar message type list type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -58,10 +59,13 @@ namespace bobura
             >
             diagram_picture_box_type;
         typedef
+            message::property_bar::type_list<boost::mpl::at<ui_type_list, type::ui::side_bar>::type>::type
+            property_bar_message_type_list;
+        typedef
             property_bar<
                 boost::mpl::at<ui_type_list, type::ui::side_bar>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                int
+                property_bar_message_type_list
             >
             property_bar_type;
         typedef
@@ -105,8 +109,12 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::property_bar, detail::main_window::property_bar_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::main_window::property_bar_message_type_list, detail::main_window::property_bar_message_type_list
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         main_window_type_list;
 
 
