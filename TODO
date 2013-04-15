@@ -23,6 +23,11 @@ Depends on  : (none)
 Description : Create tetengo2::gui::widget::side_bar.
 ------------------------------------------------------------------------------
 Number      : 00000235
+Added on    : 2013/04/15
+Depends on  : (none)
+Description : Create speparated namespace header files for Doxygen.
+------------------------------------------------------------------------------
+Number      : 00000236
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
