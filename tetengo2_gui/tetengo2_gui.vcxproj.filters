@@ -282,5 +282,32 @@
     <ClInclude Include="include\tetengo2.gui.widget.traits.side_bar_traits.h">
       <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.0namespace.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.0namespace.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.cursor.0namespace.h">
+      <Filter>headers\tetengo2::gui\cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.0namespace.h">
+      <Filter>headers\tetengo2::gui\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.0namespace.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.0namespace.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.unit.0namespace.h">
+      <Filter>headers\tetengo2::gui\unit</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.0namespace.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.0namespace.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -86,7 +86,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
+    <ClInclude Include="include\bobura.model.0namespace.h" />
+    <ClInclude Include="include\bobura.model.message.0namespace.h" />
     <ClInclude Include="include\bobura.model.message.timetable_observer_set.h" />
+    <ClInclude Include="include\bobura.model.serializer.0namespace.h" />
     <ClInclude Include="include\bobura.model.serializer.bzip2_reader.h" />
     <ClInclude Include="include\bobura.model.serializer.bzip2_writer.h" />
     <ClInclude Include="include\bobura.model.serializer.json_reader.h" />
@@ -101,12 +104,15 @@
     <ClInclude Include="include\bobura.model.serializer.writer_selector.h" />
     <ClInclude Include="include\bobura.model.serializer.writer_set.h" />
     <ClInclude Include="include\bobura.model.station.h" />
+    <ClInclude Include="include\bobura.model.station_info.0namespace.h" />
     <ClInclude Include="include\bobura.model.station_info.grade.h" />
     <ClInclude Include="include\bobura.model.timetable.h" />
+    <ClInclude Include="include\bobura.model.timetable_info.0namespace.h" />
     <ClInclude Include="include\bobura.model.timetable_info.font_color_set.h" />
     <ClInclude Include="include\bobura.model.timetable_info.station_interval_calculator.h" />
     <ClInclude Include="include\bobura.model.timetable_info.station_location.h" />
     <ClInclude Include="include\bobura.model.train.h" />
+    <ClInclude Include="include\bobura.model.train_info.0namespace.h" />
     <ClInclude Include="include\bobura.model.train_info.stop.h" />
     <ClInclude Include="include\bobura.model.train_info.time.h" />
     <ClInclude Include="include\bobura.model.train_info.time_span.h" />
