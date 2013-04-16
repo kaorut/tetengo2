@@ -195,7 +195,7 @@
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.0namespace.h">
       <Filter>headers\tetengo2::detail\windows\gdiplus</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.detail.windows.message_handler.0namespace.h">
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.0namespace.h">
       <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
     </ClInclude>
   </ItemGroup>

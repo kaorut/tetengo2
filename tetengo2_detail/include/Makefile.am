@@ -41,7 +41,7 @@ extra_headers = \
     tetengo2.detail.windows.gui_fixture.h \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_handler.h \
-    tetengo2.detail.windows.message_handler.0namespace.h \
+    tetengo2.detail.windows.message_handler_detail.0namespace.h \
     tetengo2.detail.windows.message_handler_detail.abstra.h \
     tetengo2.detail.windows.message_handler_detail.button.h \
     tetengo2.detail.windows.message_handler_detail.contro.h \
