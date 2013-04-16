@@ -92,9 +92,11 @@
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="res\win32\resource.h" />
+    <ClInclude Include="src\bobura.0namespace.h" />
     <ClInclude Include="src\bobura.about_dialog.h" />
     <ClInclude Include="src\bobura.application.h" />
     <ClInclude Include="src\bobura.basic_type_list.h" />
+    <ClInclude Include="src\bobura.command.0namespace.h" />
     <ClInclude Include="src\bobura.command.about.h" />
     <ClInclude Include="src\bobura.command.command_base.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
@@ -118,12 +120,14 @@
     <ClInclude Include="src\bobura.diagram_view.h" />
     <ClInclude Include="src\bobura.file_property_dialog.h" />
     <ClInclude Include="src\bobura.font_color_dialog.h" />
+    <ClInclude Include="src\bobura.load_save.0namespace.h" />
     <ClInclude Include="src\bobura.load_save.confirm_file_save.h" />
     <ClInclude Include="src\bobura.load_save.load_from_file.h" />
     <ClInclude Include="src\bobura.load_save.new_file.h" />
     <ClInclude Include="src\bobura.load_save.save_to_file.h" />
     <ClInclude Include="src\bobura.main_window.h" />
     <ClInclude Include="src\bobura.main_window_menu_builder.h" />
+    <ClInclude Include="src\bobura.message.0namespace.h" />
     <ClInclude Include="src\bobura.message.about_dialog.h" />
     <ClInclude Include="src\bobura.message.diagram_picture_box.h" />
     <ClInclude Include="src\bobura.message.file_property_dialog.h" />
@@ -142,6 +146,8 @@
     <ClInclude Include="src\bobura.timetable_model.h" />
     <ClInclude Include="src\bobura.train_kind_dialog.h" />
     <ClInclude Include="src\bobura.type_list.h" />
+    <ClInclude Include="src\bobura.view.0namespace.h" />
+    <ClInclude Include="src\bobura.view.diagram.0namespace.h" />
     <ClInclude Include="src\bobura.view.diagram.header.h" />
     <ClInclude Include="src\bobura.view.diagram.item.h" />
     <ClInclude Include="src\bobura.view.diagram.selection.h" />

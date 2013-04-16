@@ -3,5 +3,4 @@
 # $Id$
 
 EXTRA_DIST = \
-    mainpage.page \
-    namespaces.page
+    mainpage.page

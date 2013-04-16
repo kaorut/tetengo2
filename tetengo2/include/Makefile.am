@@ -29,7 +29,15 @@ headers = \
     tetengo2.unique.h \
     tetengo2.utility.h
 
-extra_headers =
+extra_headers = \
+    tetengo2.0namespace.h \
+    tetengo2.concurrent.0namespace.h \
+    tetengo2.config.0namespace.h \
+    tetengo2.message.0namespace.h \
+    tetengo2.meta.0namespace.h \
+    tetengo2.text.0namespace.h \
+    tetengo2.text.encoding.0namespace.h \
+    tetengo2.text.grammar.0namespace.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)

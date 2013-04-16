@@ -95,25 +95,33 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
+    <ClInclude Include="include\tetengo2.0namespace.h" />
+    <ClInclude Include="include\tetengo2.concurrent.0namespace.h" />
     <ClInclude Include="include\tetengo2.concurrent.channel.h" />
     <ClInclude Include="include\tetengo2.concurrent.consumer.h" />
     <ClInclude Include="include\tetengo2.concurrent.producer.h" />
+    <ClInclude Include="include\tetengo2.config.0namespace.h" />
     <ClInclude Include="include\tetengo2.config.cached_config.h" />
     <ClInclude Include="include\tetengo2.config.config_base.h" />
     <ClInclude Include="include\tetengo2.config.config_list.h" />
     <ClInclude Include="include\tetengo2.config.persistent_config.h" />
     <ClInclude Include="include\tetengo2.config.temporary_config.h" />
     <ClInclude Include="include\tetengo2.cpp11.h" />
+    <ClInclude Include="include\tetengo2.message.0namespace.h" />
     <ClInclude Include="include\tetengo2.message.messages.h" />
     <ClInclude Include="include\tetengo2.message.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message.message_catalog_parser.h" />
+    <ClInclude Include="include\tetengo2.meta.0namespace.h" />
     <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
+    <ClInclude Include="include\tetengo2.text.0namespace.h" />
     <ClInclude Include="include\tetengo2.text.encoder.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.0namespace.h" />
     <ClInclude Include="include\tetengo2.text.encoding.ascii.h" />
     <ClInclude Include="include\tetengo2.text.encoding.cp932.h" />
     <ClInclude Include="include\tetengo2.text.encoding.encoding.h" />
     <ClInclude Include="include\tetengo2.text.encoding.locale.h" />
     <ClInclude Include="include\tetengo2.text.encoding.utf8.h" />
+    <ClInclude Include="include\tetengo2.text.grammar.0namespace.h" />
     <ClInclude Include="include\tetengo2.text.grammar.json.h" />
     <ClInclude Include="include\tetengo2.text.h" />
     <ClInclude Include="include\tetengo2.text.pull_parser.h" />
