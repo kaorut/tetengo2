@@ -180,5 +180,23 @@
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.custom.h">
       <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.0namespace.h">
+      <Filter>headers\tetengo2::detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.0namespace.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.0namespace.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.direct2d.0namespace.h">
+      <Filter>headers\tetengo2::detail\windows\direct2d</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.gdiplus.0namespace.h">
+      <Filter>headers\tetengo2::detail\windows\gdiplus</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler.0namespace.h">
+      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

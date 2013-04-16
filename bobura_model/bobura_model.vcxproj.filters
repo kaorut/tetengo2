@@ -99,5 +99,23 @@
     <ClInclude Include="include\bobura.model.serializer.select_oudia_diagram.h">
       <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
+    <ClInclude Include="include\bobura.model.0namespace.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.message.0namespace.h">
+      <Filter>headers\bobura::model\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.serializer.0namespace.h">
+      <Filter>headers\bobura::model\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.station_info.0namespace.h">
+      <Filter>headers\bobura::model\station_info</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.timetable_info.0namespace.h">
+      <Filter>headers\bobura::model\timetable_info</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.train_info.0namespace.h">
+      <Filter>headers\bobura::model\train_info</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

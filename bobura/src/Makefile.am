@@ -3,9 +3,11 @@
 # $Id$
 
 extra_headers = \
+    bobura.0namespace.h \
     bobura.about_dialog.h \
     bobura.application.h \
     bobura.basic_type_list.h \
+    bobura.command.0namespace.h \
     bobura.command.about.h \
     bobura.command.command_base.h \
     bobura.command.exit.h \
@@ -29,12 +31,14 @@ extra_headers = \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
     bobura.font_color_dialog.h \
+    bobura.load_save.0namespace.h \
     bobura.load_save.confirm_file_save.h \
     bobura.load_save.load_from_file.h \
     bobura.load_save.new_file.h \
     bobura.load_save.save_to_file.h \
     bobura.main_window.h \
     bobura.main_window_menu_builder.h \
+    bobura.message.0namespace.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
     bobura.message.file_property_dialog.h \
@@ -53,6 +57,8 @@ extra_headers = \
     bobura.timetable_model.h \
     bobura.train_kind_dialog.h \
     bobura.type_list.h \
+    bobura.view.0namespace.h \
+    bobura.view.diagram.0namespace.h \
     bobura.view.diagram.header.h \
     bobura.view.diagram.item.h \
     bobura.view.diagram.selection.h \

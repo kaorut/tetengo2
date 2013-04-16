@@ -21,22 +21,27 @@ headers = \
     tetengo2.detail.stub.widget.h
 
 extra_headers = \
+    tetengo2.detail.stub.0namespace.h \
+    tetengo2.detail.windows.0namespace.h \
     tetengo2.detail.windows.alert.h \
     tetengo2.detail.windows.com_ptr.h \
     tetengo2.detail.windows.common_dialog.h \
     tetengo2.detail.windows.config.h \
     tetengo2.detail.windows.cursor.h \
+    tetengo2.detail.windows.direct2d.0namespace.h \
     tetengo2.detail.windows.direct2d.drawing.h \
     tetengo2.detail.windows.direct2d.error_category.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.error_category.h \
     tetengo2.detail.windows.font.h \
+    tetengo2.detail.windows.gdiplus.0namespace.h \
     tetengo2.detail.windows.gdiplus.drawing.h \
     tetengo2.detail.windows.gdiplus.error_category.h \
     tetengo2.detail.windows.gdiplus.gui_fixture.h \
     tetengo2.detail.windows.gui_fixture.h \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_handler.h \
+    tetengo2.detail.windows.message_handler.0namespace.h \
     tetengo2.detail.windows.message_handler_detail.abstra.h \
     tetengo2.detail.windows.message_handler_detail.button.h \
     tetengo2.detail.windows.message_handler_detail.contro.h \

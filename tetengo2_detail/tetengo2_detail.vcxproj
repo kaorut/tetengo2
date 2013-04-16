@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\tetengo2.detail.0namespace.h" />
+    <ClInclude Include="include\tetengo2.detail.stub.0namespace.h" />
     <ClInclude Include="include\tetengo2.detail.stub.alert.h" />
     <ClInclude Include="include\tetengo2.detail.stub.common_dialog.h" />
     <ClInclude Include="include\tetengo2.detail.stub.config.h" />
@@ -35,21 +37,25 @@
     <ClInclude Include="include\tetengo2.detail.stub.unit.h" />
     <ClInclude Include="include\tetengo2.detail.stub.virtual_key.h" />
     <ClInclude Include="include\tetengo2.detail.stub.widget.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.0namespace.h" />
     <ClInclude Include="include\tetengo2.detail.windows.alert.h" />
     <ClInclude Include="include\tetengo2.detail.windows.common_dialog.h" />
     <ClInclude Include="include\tetengo2.detail.windows.com_ptr.h" />
     <ClInclude Include="include\tetengo2.detail.windows.config.h" />
     <ClInclude Include="include\tetengo2.detail.windows.cursor.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.direct2d.0namespace.h" />
     <ClInclude Include="include\tetengo2.detail.windows.direct2d.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.windows.direct2d.error_category.h" />
     <ClInclude Include="include\tetengo2.detail.windows.encoding.h" />
     <ClInclude Include="include\tetengo2.detail.windows.error_category.h" />
     <ClInclude Include="include\tetengo2.detail.windows.font.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.gdiplus.0namespace.h" />
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.error_category.h" />
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.gui_fixture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.gui_fixture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.menu.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler.0namespace.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.abstra.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.button.h" />

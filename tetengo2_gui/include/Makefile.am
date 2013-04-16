@@ -87,7 +87,16 @@ headers = \
     tetengo2.gui.widget.widget.h \
     tetengo2.gui.widget.window.h
 
-extra_headers =
+extra_headers = \
+    tetengo2.gui.0namespace.h \
+    tetengo2.gui.common_dialog.0namespace.h \
+    tetengo2.gui.cursor.0namespace.h \
+    tetengo2.gui.drawing.0namespace.h \
+    tetengo2.gui.menu.0namespace.h \
+    tetengo2.gui.message.0namespace.h \
+    tetengo2.gui.unit.0namespace.h \
+    tetengo2.gui.widget.0namespace.h \
+    tetengo2.gui.widget.traits.0namespace.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)

@@ -234,6 +234,24 @@
     <ClInclude Include="src\bobura.message.property_bar.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.0namespace.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.0namespace.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.load_save.0namespace.h">
+      <Filter>headers\bobura\load_save</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.message.0namespace.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.view.0namespace.h">
+      <Filter>headers\bobura\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.view.diagram.0namespace.h">
+      <Filter>headers\bobura\view\diagram</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

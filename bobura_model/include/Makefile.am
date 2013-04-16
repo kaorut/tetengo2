@@ -29,7 +29,12 @@ headers = \
     bobura.model.train_info.time_span.h \
     bobura.model.train_kind.h
 
-extra_headers =
+extra_headers = \
+    bobura.model.0namespace.h \
+    bobura.model.serializer.0namespace.h \
+    bobura.model.station_info.0namespace.h \
+    bobura.model.timetable_info.0namespace.h \
+    bobura.model.train_info.0namespace.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)
