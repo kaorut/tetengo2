@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace bobura::model::serializer
+    \brief The namespace for serializers.
 */

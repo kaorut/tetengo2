@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace tetengo2::gui::menu
+    \brief The namespace for menus.
 */

@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace bobura::load_save
+    \brief The namespace for loading and saving processings.
 */

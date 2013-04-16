@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace bobura::model::train_info
+    \brief The namespace for train information.
 */

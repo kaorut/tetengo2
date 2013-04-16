@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace bobura::view::diagram
+    \brief The namespace for the view of the diagram.
 */

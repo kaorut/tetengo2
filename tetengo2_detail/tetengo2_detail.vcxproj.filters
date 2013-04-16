@@ -19,7 +19,7 @@
     <Filter Include="headers\tetengo2::detail\windows\direct2d">
       <UniqueIdentifier>{735e1c8b-8009-4af7-ac68-7b44ab5f4555}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2::detail\windows\message_handler">
+    <Filter Include="headers\tetengo2::detail\windows\message_handler_detail">
       <UniqueIdentifier>{b61737cf-0997-4425-b9b3-428991d517c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -136,34 +136,34 @@
       <Filter>headers\tetengo2::detail\windows</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.dialog.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.widget.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.button.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.abstra.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.contro.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.list_b.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.messag.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.pictur.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.dropdo.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.text_b.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.stub.config.h">
       <Filter>headers\tetengo2::detail\stub</Filter>
@@ -178,7 +178,7 @@
       <Filter>headers\tetengo2::detail\windows</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.custom.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.0namespace.h">
       <Filter>headers\tetengo2::detail</Filter>
@@ -196,7 +196,7 @@
       <Filter>headers\tetengo2::detail\windows\gdiplus</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.0namespace.h">
-      <Filter>headers\tetengo2::detail\windows\message_handler</Filter>
+      <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

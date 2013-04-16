@@ -6,6 +6,10 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace tetengo2
+    \brief The root namespace for Tetengo2.
+*/
+
+/*! \namespace tetengo2::cpp11
+    \brief The namespace for the alternatives of C++11 features.
 */

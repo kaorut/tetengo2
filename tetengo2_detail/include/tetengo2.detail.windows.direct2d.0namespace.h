@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace tetengo2::detail::windows::direct2d
+    \brief The namespace for the detail implementations using Direct2D.
 */

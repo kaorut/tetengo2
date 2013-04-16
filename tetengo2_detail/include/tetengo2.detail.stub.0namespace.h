@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace bobura
-    \brief The root namespace for Bobura.
+/*! \namespace tetengo2::detail::stub
+    \brief The namespace for the stub of the detail implementations.
 */
