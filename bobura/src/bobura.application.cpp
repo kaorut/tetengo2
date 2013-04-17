@@ -190,7 +190,7 @@ namespace bobura
 
             main_window.window_observer_set().resized().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
-                    view, main_window, main_window.diagram_picture_box()
+                    view, main_window, main_window.diagram_picture_box(), main_window.property_bar()
                 )
             );
 

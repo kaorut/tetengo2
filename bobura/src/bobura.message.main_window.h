@@ -206,8 +206,9 @@ namespace bobura { namespace message { namespace main_window
         \tparam View              A view type.
         \tparam AbstractWindow    An abstract window type.
         \tparam DiagramPictureBox A diagram picture box type.
+        \tparam PropertyBar       A property bar type.
     */
-    template <typename View, typename AbstractWindow, typename DiagramPictureBox>
+    template <typename View, typename AbstractWindow, typename DiagramPictureBox, typename PropertyBar>
     class window_resized
     {
     public:
@@ -222,6 +223,9 @@ namespace bobura { namespace message { namespace main_window
         //! The diagram picture box type.
         typedef DiagramPictureBox diagram_picture_box_type;
 
+        //! The property bar type.
+        typedef PropertyBar property_bar_type;
+
 
         // constructors and destructor
 
@@ -231,12 +235,19 @@ namespace bobura { namespace message { namespace main_window
             \param view                A view.
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
+            \param property_bar        A property bar.
         */
-        window_resized(view_type& view, abstract_window_type& window, diagram_picture_box_type& diagram_picture_box)
+        window_resized(
+            view_type&                view,
+            abstract_window_type&     window,
+            diagram_picture_box_type& diagram_picture_box,
+            property_bar_type&        property_bar
+        )
         :
         m_view(view),
         m_window(window),
-        m_diagram_picture_box(diagram_picture_box)
+        m_diagram_picture_box(diagram_picture_box),
+        m_property_bar(property_bar)
         {}
 
 
@@ -278,6 +289,8 @@ namespace bobura { namespace message { namespace main_window
         abstract_window_type& m_window;
 
         diagram_picture_box_type& m_diagram_picture_box;
+
+        property_bar_type& m_property_bar;
 
 
     };

@@ -110,6 +110,21 @@ namespace bobura
         */
         diagram_picture_box_type& diagram_picture_box();
 
+        /*!
+            \brief Returns the property bar.
+
+            \return The property bar.
+        */
+        const property_bar_type& property_bar()
+        const;
+
+        /*!
+            \brief Returns the property bar.
+
+            \return The property bar.
+        */
+        property_bar_type& property_bar();
+
 
     private:
         // types

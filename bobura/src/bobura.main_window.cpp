@@ -107,6 +107,19 @@ namespace bobura
                 return *m_p_diagram_picture_box;
             }
 
+            const property_bar_type& property_bar()
+            const
+            {
+                assert(m_p_property_bar);
+                return *m_p_property_bar;
+            }
+
+            property_bar_type& property_bar()
+            {
+                assert(m_p_property_bar);
+                return *m_p_property_bar;
+            }
+
 
         private:
             // types
@@ -268,6 +281,40 @@ namespace bobura
         return m_p_impl->diagram_picture_box();
     }
 
+    template <
+        typename Window,
+        typename MessageCatalog,
+        typename DiagramPictureBox,
+        typename PropertyBar,
+        typename Settings,
+        typename ConfirmFileSave
+    >
+    const typename main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar_type& main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar()
+    const
+    {
+        return m_p_impl->property_bar();
+    }
+
+    template <
+        typename Window,
+        typename MessageCatalog,
+        typename DiagramPictureBox,
+        typename PropertyBar,
+        typename Settings,
+        typename ConfirmFileSave
+    >
+    typename main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar_type& main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar()
+    {
+        return m_p_impl->property_bar();
+    }
 
     template class main_window<
         typename boost::mpl::at<ui_type_list, type::ui::window>::type,

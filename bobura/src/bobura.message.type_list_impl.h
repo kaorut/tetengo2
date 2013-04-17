@@ -66,6 +66,7 @@ namespace bobura { namespace message
             \tparam View              A view type.
             \tparam AbstractWindow    An abstract window type.
             \tparam DiagramPictureBox A diagram picture box type.
+            \tparam PropertyBar       A property bar type.
             \tparam ConfirmFileSave   A file save confirmation type.
             \tparam Settings          A settings type.
         */
@@ -76,6 +77,7 @@ namespace bobura { namespace message
             typename View,
             typename AbstractWindow,
             typename DiagramPictureBox,
+            typename PropertyBar,
             typename ConfirmFileSave,
             typename Settings
         >
@@ -93,7 +95,9 @@ namespace bobura { namespace message
                         type::menu_command_selected, menu_command_selected<Command, Model, AbstractWindow>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::window_resized, window_resized<View, AbstractWindow, DiagramPictureBox>>,
+                    boost::mpl::pair<
+                        type::window_resized, window_resized<View, AbstractWindow, DiagramPictureBox, PropertyBar>
+                    >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave, Settings>>,
                 tetengo2::meta::assoc_list_end
