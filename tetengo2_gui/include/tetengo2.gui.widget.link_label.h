@@ -95,7 +95,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent),
         m_target()
         {
-            this->initialize(this);
+            initialize_link_label(this);
         }
 
         /*!
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // static functions
 
-        static void initialize(link_label* const p_link_label)
+        static void initialize_link_label(link_label* const p_link_label)
         {
             assert(p_link_label);
 

@@ -65,7 +65,7 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(parent, scroll_bar_style)
         {
-            this->initialize(this);
+            initialize_map_box(this);
         }
 
         /*!
@@ -74,6 +74,15 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~map_box()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+    private:
+        // static functions
+
+        static void initialize_map_box(map_box* const p_map_box)
+        {
+
+        }
 
 
     };

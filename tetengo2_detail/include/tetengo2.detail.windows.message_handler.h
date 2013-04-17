@@ -214,14 +214,14 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type map(std::move(initial_map));
 
             map[WM_ERASEBKGND].push_back(
-                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
+                [&custom_control](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
                     return
                         message_handler_detail::custom_control::on_erase_background(custom_control, w_param, l_param);
                 }
             );
             map[WM_PAINT].push_back(
-                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
+                [&custom_control](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
                     return message_handler_detail::custom_control::on_paint(custom_control, w_param, l_param);
                 }

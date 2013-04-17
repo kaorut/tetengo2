@@ -57,11 +57,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
         */
-        side_bar(widget_type& parent)
+        explicit side_bar(widget_type& parent)
         :
         base_type(parent, base_type::scroll_bar_style_type::none)
         {
-            this->initialize(this);
+            initialize_side_bar(this);
         }
 
         /*!
@@ -70,6 +70,15 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~side_bar()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+    private:
+        // static functions
+
+        static void initialize_side_bar(side_bar* const p_side_bar)
+        {
+
+        }
 
 
     };
