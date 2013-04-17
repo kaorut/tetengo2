@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // static functions
 
-        static void initialize_map_box(map_box* const p_map_box)
+        static void initialize_map_box(map_box* const /*p_map_box*/)
         {
 
         }

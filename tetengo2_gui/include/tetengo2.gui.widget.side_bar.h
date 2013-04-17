@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // static functions
 
-        static void initialize_side_bar(side_bar* const p_side_bar)
+        static void initialize_side_bar(side_bar* const /*p_side_bar*/)
         {
 
         }
