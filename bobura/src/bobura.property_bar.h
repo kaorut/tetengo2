@@ -9,12 +9,7 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
-#include <cassert>
-//#include <memory>
-//#include <utility>
-
 #include <boost/mpl/at.hpp>
-//#include <boost/rational.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
