@@ -9,8 +9,11 @@
 #if !defined(TETENGO2_GUI_WIDGET_SIDEBAR_H)
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
+#include <memory>
+
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.custom_control.h"
+#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -31,6 +34,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The solid background type.
+        typedef typename traits_type::solid_background_type solid_background_type;
+
+        //! The system color set type.
+        typedef typename traits_type::system_color_set_type system_color_set_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -75,9 +84,11 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // static functions
 
-        static void initialize_side_bar(side_bar* const /*p_side_bar*/)
+        static void initialize_side_bar(side_bar* const p_side_bar)
         {
-
+            auto p_background =
+                tetengo2::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+            p_side_bar->set_background(std::move(p_background));
         }
 
 

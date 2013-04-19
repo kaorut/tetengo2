@@ -679,7 +679,9 @@ namespace bobura
             >
             picture_box_type;
         typedef
-            tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>
+            tetengo2::gui::widget::traits::side_bar_traits<
+                custom_control_traits_type, solid_background_type, system_color_set_type
+            >
             side_bar_traits_type;
         typedef
             tetengo2::gui::widget::side_bar<
