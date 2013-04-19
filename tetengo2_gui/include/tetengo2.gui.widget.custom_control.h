@@ -44,6 +44,18 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type widget_type;
 
+        //! The canvas type.
+        typedef typename base_type::canvas_type canvas_type;
+
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename base_type::dimension_type dimension_type;
+
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 

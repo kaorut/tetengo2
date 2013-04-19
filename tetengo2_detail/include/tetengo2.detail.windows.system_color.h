@@ -61,11 +61,11 @@ namespace tetengo2 { namespace detail { namespace windows
             switch (index)
             {
             case system_color_index_type::title_bar_text:
-                return get_system_color_impl(COLOR_CAPTIONTEXT);
+                return get_system_color_impl<Color>(COLOR_CAPTIONTEXT);
             case system_color_index_type::title_bar_background:
-                return get_system_color_impl(COLOR_ACTIVECAPTION);
+                return get_system_color_impl<Color>(COLOR_ACTIVECAPTION);
             case system_color_index_type::dialog_background:
-                return get_system_color_impl(COLOR_3DFACE);
+                return get_system_color_impl<Color>(COLOR_3DFACE);
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));

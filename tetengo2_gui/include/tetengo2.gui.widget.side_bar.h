@@ -12,6 +12,7 @@
 #include <memory>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
@@ -55,6 +56,18 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
+        //! The canvas type.
+        typedef typename base_type::canvas_type canvas_type;
+
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename base_type::dimension_type dimension_type;
+
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -82,13 +95,42 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
+        // types
+
+        typedef typename gui::position<position_type>::left_type left_type;
+
+        typedef typename gui::position<position_type>::top_type top_type;
+
+
         // static functions
 
         static void initialize_side_bar(side_bar* const p_side_bar)
         {
-            auto p_background =
-                tetengo2::make_unique<solid_background_type>(system_color_set_type::dialog_background());
-            p_side_bar->set_background(std::move(p_background));
+            p_side_bar->set_background(
+                make_unique<solid_background_type>(system_color_set_type::dialog_background())
+            );
+
+            p_side_bar->paint_observer_set().paint_background().disconnect_all_slots();
+            p_side_bar->paint_observer_set().paint_background().connect(
+                [p_side_bar](canvas_type& canvas) { return paint_background(*p_side_bar, canvas); }
+            );
+            p_side_bar->paint_observer_set().paint().connect(draw_caption);
+        }
+
+        static bool paint_background(const side_bar& side_bar, canvas_type& canvas)
+        {
+            if (!side_bar.background())
+                return false;
+
+            canvas.set_background(side_bar.background()->clone());
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), side_bar.client_dimension());
+
+            return true;
+        }
+
+        static void draw_caption(canvas_type& canvas)
+        {
+            
         }
 
 
