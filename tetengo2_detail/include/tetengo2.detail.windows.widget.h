@@ -207,7 +207,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_CLIENTEDGE,
+                    0,
                     custom_control_class_name().c_str(),
                     L"",
                     WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),
