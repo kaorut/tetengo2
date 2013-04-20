@@ -211,23 +211,9 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            suppress_unused_variable_warning(custom_control);
 
-            map[WM_ERASEBKGND].push_back(
-                [&custom_control](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return
-                        message_handler_detail::custom_control::on_erase_background(custom_control, w_param, l_param);
-                }
-            );
-            map[WM_PAINT].push_back(
-                [&custom_control](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::custom_control::on_paint(custom_control, w_param, l_param);
-                }
-            );
-
-            return map;
+            return std::move(initial_map);
         }
 
         /*!

@@ -42,7 +42,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             suppress_unused_variable_warning(w_param, l_param);
 
-            if (picture_box.fast_paint_observer_set().paint().empty())
+            if (picture_box.fast_paint_observer_set().paint_background().empty())
+                return boost::none;
+
+            const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas = picture_box.create_fast_canvas();
+
+            if (!picture_box.fast_paint_observer_set().paint_background()(*p_canvas))
                 return boost::none;
 
             return boost::make_optional< ::LRESULT>(TRUE);
