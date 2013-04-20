@@ -97,9 +97,15 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
+        typedef typename canvas_type::font_type font_type;
+
         typedef typename gui::position<position_type>::left_type left_type;
 
         typedef typename gui::position<position_type>::top_type top_type;
+
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename gui::dimension<dimension_type>::height_type height_type;
 
 
         // static functions
@@ -114,7 +120,9 @@ namespace tetengo2 { namespace gui { namespace widget
             p_side_bar->paint_observer_set().paint_background().connect(
                 [p_side_bar](canvas_type& canvas) { return paint_background(*p_side_bar, canvas); }
             );
-            p_side_bar->paint_observer_set().paint().connect(draw_caption);
+            p_side_bar->paint_observer_set().paint().connect(
+                [p_side_bar](canvas_type& canvas) { draw_caption(*p_side_bar, canvas); }
+            );
         }
 
         static bool paint_background(const side_bar& side_bar, canvas_type& canvas)
@@ -128,9 +136,18 @@ namespace tetengo2 { namespace gui { namespace widget
             return true;
         }
 
-        static void draw_caption(canvas_type& canvas)
+        static void draw_caption(const side_bar& side_bar, canvas_type& canvas)
         {
-            
+            auto original_background = canvas.background().clone();
+            canvas.set_background(make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
+
+            const auto& client_dimension = side_bar.client_dimension();
+            canvas.fill_rectangle(
+                position_type(left_type(0), top_type(0)),
+                dimension_type(gui::dimension<dimension_type>::width(client_dimension), height_type(2))
+            );
+
+            canvas.set_background(std::move(original_background));
         }
 
 

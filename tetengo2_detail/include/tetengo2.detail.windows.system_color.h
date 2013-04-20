@@ -79,7 +79,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Color>
         static Color get_system_color_impl(const int index)
         {
-            const auto color_ref = ::GetSysColor(COLOR_3DFACE);
+            const auto color_ref = ::GetSysColor(index);
             return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
         }
 
