@@ -322,6 +322,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Encoder&             encoder
         )
         {
+            const auto encoded_text = encoder.encode(text);
+
             const Gdiplus::InstalledFontCollection font_collection;
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
@@ -331,8 +333,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             Gdiplus::RectF bounding;
             const auto status =
                 canvas.MeasureString(
-                    encoder.encode(text).c_str(),
-                    static_cast< ::INT>(text.length()),
+                    encoded_text.c_str(),
+                    static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(),
                     layout,
                     Gdiplus::StringFormat::GenericTypographic(),
@@ -380,7 +382,33 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Position&      position,
             const Color&         color,
             const double         angle
-        );
+        )
+        {
+            const auto encoded_text = encoder.encode(text);
+
+            const Gdiplus::InstalledFontCollection font_collection;
+            const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
+
+            const auto p_solid_brush = create_solid_background(color);
+
+            const Gdiplus::Status status =
+                canvas.DrawString(
+                    encoded_text.c_str(),
+                    static_cast< ::INT>(encoded_text.length()),
+                    p_gdiplus_font.get(), 
+                    Gdiplus::PointF(
+                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
+                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
+                    ),
+                    p_solid_brush.get()
+                );
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw text!")
+                );
+            }
+        }
 
         /*!
             \brief Paints a picture.

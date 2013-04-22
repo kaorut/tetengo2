@@ -13,6 +13,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
@@ -36,6 +37,9 @@ namespace bobura
         //! The base type.
         typedef SideBar base_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
@@ -54,7 +58,7 @@ namespace bobura
         :
         base_type(parent)
         {
-            set_observers();
+            initialize_property_bar();
         }
 
         /*!
@@ -71,8 +75,10 @@ namespace bobura
     private:
         // functions
 
-        void set_observers()
+        void initialize_property_bar()
         {
+            this->set_text(string_type(TETENGO2_TEXT("Properties")));
+
             //this->keyboard_observer_set().key_down().connect(
             //    typename boost::mpl::at<
             //        message_type_list_type, message::property_bar::type::keyboard_key_down

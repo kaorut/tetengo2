@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include <boost/scope_exit.hpp>
+
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
@@ -138,16 +140,32 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void draw_caption(const side_bar& side_bar, canvas_type& canvas)
         {
+            auto original_color = canvas.color();
             auto original_background = canvas.background().clone();
+            canvas.set_color(system_color_set_type::title_bar_text());
             canvas.set_background(make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
+            BOOST_SCOPE_EXIT((&canvas)(&original_color)(&original_background))
+            {
+                canvas.set_color(std::move(original_color));
+                canvas.set_background(std::move(original_background));
+            } BOOST_SCOPE_EXIT_END;
 
+            const auto text_dimension = canvas.calc_text_dimension(side_bar.text());
             const auto& client_dimension = side_bar.client_dimension();
             canvas.fill_rectangle(
                 position_type(left_type(0), top_type(0)),
-                dimension_type(gui::dimension<dimension_type>::width(client_dimension), height_type(2))
+                dimension_type(
+                    gui::dimension<dimension_type>::width(client_dimension),
+                    gui::dimension<dimension_type>::height(text_dimension) +
+                        height_type(typename height_type::value_type(1, 2))
+                )
             );
 
-            canvas.set_background(std::move(original_background));
+            canvas.draw_text(
+                side_bar.text(),
+                position_type(left_type(0), top_type(0))
+            );
+
         }
 
 
