@@ -150,22 +150,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(std::move(original_background));
             } BOOST_SCOPE_EXIT_END;
 
+            static const height_type padding(typename height_type::value_type(1, 4));
+
             const auto text_dimension = canvas.calc_text_dimension(side_bar.text());
             const auto& client_dimension = side_bar.client_dimension();
             canvas.fill_rectangle(
                 position_type(left_type(0), top_type(0)),
                 dimension_type(
                     gui::dimension<dimension_type>::width(client_dimension),
-                    gui::dimension<dimension_type>::height(text_dimension) +
-                        height_type(typename height_type::value_type(1, 2))
+                    gui::dimension<dimension_type>::height(text_dimension) + padding * 2
                 )
             );
 
-            canvas.draw_text(
-                side_bar.text(),
-                position_type(left_type(0), top_type(0))
-            );
-
+            canvas.draw_text(side_bar.text(), position_type(left_type::from(padding), top_type::from(padding)));
         }
 
 
