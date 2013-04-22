@@ -65,6 +65,7 @@ namespace bobura
             property_bar<
                 boost::mpl::at<ui_type_list, type::ui::side_bar>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                 property_bar_message_type_list
             >
             property_bar_type;

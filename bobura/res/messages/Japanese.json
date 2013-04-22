@@ -44,6 +44,9 @@
         "Menu:Help:&About": "バージョン情報(&A)",
         
         
+        "PropertyBar:Properties": "プロパティ",
+        
+        
         "Dialog:FileOpenSave:Open":                         "開く",
         "Dialog:FileOpenSave:SaveAs":                       "名前を付けて保存",
         "Dialog:FileOpenSave:All Timetable Files":          "すべての時刻表ファイル",

@@ -26,9 +26,10 @@ namespace bobura
 
         \tparam SideBar         A side bar type.
         \tparam AbstractWindow  An abstract window type.
+        \tparam MessageCatalog  A message catalog type.
         \tparam MessageTypeList A message type list.
     */
-    template <typename SideBar, typename AbstractWindow, typename MessageTypeList>
+    template <typename SideBar, typename AbstractWindow, typename MessageCatalog, typename MessageTypeList>
     class property_bar : public SideBar
     {
     public:
@@ -43,6 +44,9 @@ namespace bobura
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
 
@@ -52,11 +56,13 @@ namespace bobura
         /*!
             \brief Creates a property bar.
 
-            \param parent A parent.
+            \param parent          A parent.
+            \param message_catalog A message catalog.
         */
-        explicit property_bar(abstract_window_type& parent)
+        property_bar(abstract_window_type& parent, const message_catalog_type& message_catalog)
         :
-        base_type(parent)
+        base_type(parent),
+        m_message_catalog(message_catalog)
         {
             initialize_property_bar();
         }
@@ -73,11 +79,16 @@ namespace bobura
 
 
     private:
+        // variables
+
+        const message_catalog_type& m_message_catalog;
+
+
         // functions
 
         void initialize_property_bar()
         {
-            this->set_text(string_type(TETENGO2_TEXT("Properties")));
+            this->set_text(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Properties")));
 
             //this->keyboard_observer_set().key_down().connect(
             //    typename boost::mpl::at<

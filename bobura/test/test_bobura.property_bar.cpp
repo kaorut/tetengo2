@@ -18,6 +18,8 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
+    typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
+
     typedef
         boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::property_bar>::type
         property_bar_type;
@@ -35,7 +37,8 @@ BOOST_AUTO_TEST_SUITE(property_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const property_bar_type property_bar(window);
+        const message_catalog_type message_catalog;
+        const property_bar_type property_bar(window, message_catalog);
     }
 
 
