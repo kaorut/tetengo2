@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_SIDEBAR_H)
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
+#include <algorithm>
 #include <memory>
 
 #include "tetengo2.cpp11.h"
@@ -125,6 +126,12 @@ namespace tetengo2 { namespace gui { namespace widget
             );
         }
 
+        static const dimension_type& state_button_dimension()
+        {
+            static const dimension_type singleton(width_type(3), height_type(3));
+            return singleton;
+        }
+
         static bool paint_background(const side_bar& side_bar, canvas_type& canvas)
         {
             if (!side_bar.background())
@@ -148,17 +155,32 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto text_dimension = canvas.calc_text_dimension(side_bar.text());
             const auto& client_dimension = side_bar.client_dimension();
             canvas.fill_rectangle(
-                position_type(left_type(0), top_type(0)),
-                dimension_type(
-                    gui::dimension<dimension_type>::width(client_dimension),
-                    gui::dimension<dimension_type>::height(text_dimension) + padding * 2
-                )
+                position_type(left_type(0), top_type(0)), caption_dimension(client_dimension, text_dimension, padding)
             );
 
             canvas.draw_text(side_bar.text(), position_type(left_type::from(padding), top_type::from(padding)));
 
             canvas.set_background(std::move(original_background));
             canvas.set_color(std::move(original_color));
+        }
+
+        static dimension_type caption_dimension(
+            const dimension_type& client_dimension,
+            const dimension_type& text_dimension,
+            const height_type&    padding
+        )
+        {
+
+            const height_type& height =
+                std::max(
+                    gui::dimension<dimension_type>::height(text_dimension),
+                    gui::dimension<dimension_type>::height(state_button_dimension())
+                ); 
+            return
+                dimension_type(
+                    gui::dimension<dimension_type>::width(client_dimension),
+                    height + padding * 2
+                );
         }
 
 
