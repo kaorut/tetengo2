@@ -152,8 +152,20 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, detail::difference_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::position, std::pair<detail::difference_type, detail::difference_type>>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::dimension, std::pair<detail::size_type, detail::size_type>>,
+            boost::mpl::pair<
+                type::position,
+                std::pair<
+                    tetengo2::gui::unit::pixel<detail::difference_type>,
+                    tetengo2::gui::unit::pixel<detail::difference_type>
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dimension,
+                std::pair<
+                    tetengo2::gui::unit::pixel<detail::size_type>, tetengo2::gui::unit::pixel<detail::size_type>
+                >
+            >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_string, detail::exception_string_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::path, boost::filesystem::path>,

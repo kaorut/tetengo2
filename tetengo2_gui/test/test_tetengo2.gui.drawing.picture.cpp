@@ -19,11 +19,11 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
-
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type
         picture_type;
+
+    typedef picture_type::dimension_type dimension_type;
 
 
 }

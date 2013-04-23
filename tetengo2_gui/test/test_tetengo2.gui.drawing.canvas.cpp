@@ -12,6 +12,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
@@ -25,6 +26,10 @@ namespace
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type size_type;
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
@@ -264,7 +269,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
-        BOOST_CHECK(dimension == dimension_type(123, 456));
+        BOOST_CHECK(dimension == dimension_type(width_type(123), height_type(456)));
     }
 
     BOOST_AUTO_TEST_CASE(draw_text)
