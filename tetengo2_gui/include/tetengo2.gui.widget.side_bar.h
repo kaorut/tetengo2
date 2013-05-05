@@ -158,6 +158,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 position_type(left_type(0), top_type(0)), caption_dimension(client_dimension, text_dimension, padding)
             );
 
+            draw_state_button(canvas, padding);
+
             canvas.draw_text(side_bar.text(), text_position(text_dimension, padding));
 
             canvas.set_background(std::move(original_background));
@@ -181,6 +183,13 @@ namespace tetengo2 { namespace gui { namespace widget
             return dimension_type(width, height + padding * 2);
         }
 
+        static void draw_state_button(canvas_type& canvas, const height_type& padding)
+        {
+            canvas.fill_rectangle(
+                position_type(left_type::from(padding), top_type::from(padding)), state_button_dimension()
+            );
+        }
+
         static position_type text_position(const dimension_type& text_dimension, const height_type& padding)
         {
             left_type left =
@@ -190,7 +199,8 @@ namespace tetengo2 { namespace gui { namespace widget
             const height_type& status_button_height = gui::dimension<dimension_type>::height(state_button_dimension());
             top_type top =
                 text_height < status_button_height ?
-                top_type::from((status_button_height - text_height) / 2 + padding) : top_type::from(padding);
+                top_type::from((status_button_height - text_height) / 2) + top_type::from(padding) :
+                top_type::from(padding);
             
             return position_type(std::move(left), std::move(top));
         }
