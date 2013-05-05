@@ -158,7 +158,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 position_type(left_type(0), top_type(0)), caption_dimension(client_dimension, text_dimension, padding)
             );
 
-            canvas.draw_text(side_bar.text(), position_type(left_type::from(padding), top_type::from(padding)));
+            canvas.draw_text(side_bar.text(), text_position(text_dimension, padding));
 
             canvas.set_background(std::move(original_background));
             canvas.set_color(std::move(original_color));
@@ -170,17 +170,29 @@ namespace tetengo2 { namespace gui { namespace widget
             const height_type&    padding
         )
         {
-
+            const width_type& width = gui::dimension<dimension_type>::width(client_dimension);
+            
             const height_type& height =
                 std::max(
                     gui::dimension<dimension_type>::height(text_dimension),
                     gui::dimension<dimension_type>::height(state_button_dimension())
                 ); 
-            return
-                dimension_type(
-                    gui::dimension<dimension_type>::width(client_dimension),
-                    height + padding * 2
-                );
+            
+            return dimension_type(width, height + padding * 2);
+        }
+
+        static position_type text_position(const dimension_type& text_dimension, const height_type& padding)
+        {
+            left_type left =
+                left_type::from(gui::dimension<dimension_type>::width(state_button_dimension()) + padding * 2);
+
+            const height_type& text_height = gui::dimension<dimension_type>::height(text_dimension);
+            const height_type& status_button_height = gui::dimension<dimension_type>::height(state_button_dimension());
+            top_type top =
+                text_height < status_button_height ?
+                top_type::from((status_button_height - text_height) / 2 + padding) : top_type::from(padding);
+            
+            return position_type(std::move(left), std::move(top));
         }
 
 
