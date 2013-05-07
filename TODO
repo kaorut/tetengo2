@@ -19,10 +19,20 @@ Description : Create bobura::property_view.
 ------------------------------------------------------------------------------
 Number      : 00000234
 Added on    : 2013/04/10
-Depends on  : (none)
+Depends on  : 00000236
 Description : Create tetengo2::gui::widget::side_bar.
 ------------------------------------------------------------------------------
 Number      : 00000236
+Added on    : 2013/05/08
+Depends on  : (none)
+Description : Create tetengo2::gui::drawing::canvas::fill_polygon().
+------------------------------------------------------------------------------
+Number      : 00000237
+Added on    : 2013/05/08
+Depends on  : (none)
+Description : Create tetengo2::gui::drawing::canvas::draw_polygon().
+------------------------------------------------------------------------------
+Number      : 00000238
 Added on    : 2013/mm/dd
 Depends on  : (none)
 Description : 
