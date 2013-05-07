@@ -80,6 +80,21 @@ namespace tetengo2 { namespace gui { namespace drawing
             return singleton;
         }
 
+        /*!
+            \brief Returns the color of hyperlink texts.
+
+            \return The color.
+        */
+        static const color_type& hyperlink_text()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::hyperlink_text
+                )
+            );
+            return singleton;
+        }
+
 
     private:
         // forbidden operations

@@ -187,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 )
             );
 
-            p_link_label->set_text_color(color_type(0, 0, 255));
+            p_link_label->set_text_color(system_color_set_type::hyperlink_text());
 
             auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
             p_link_label->set_cursor(std::move(p_cursor));
