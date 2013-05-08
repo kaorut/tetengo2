@@ -254,8 +254,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&    background
         )
         {
-            const boost::optional<const typename Background::details_type&>
-            background_details = background.details();
+            const boost::optional<const typename Background::details_type&> background_details = background.details();
             if (!background_details) return;
 
             const Gdiplus::Rect rectangle(
@@ -294,7 +293,34 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&      background
         )
         {
-            suppress_unused_variable_warning(canvas, position_first, position_last, background);
+            const boost::optional<const typename Background::details_type&> background_details = background.details();
+            if (!background_details) return;
+
+            std::vector<Gdiplus::PointF> points;
+            points.reserve(std::distance(position_first, position_last));
+            typedef typename PositionIterator::value_type position_type;
+            std::transform(
+                position_first,
+                position_last,
+                std::back_inserter(points),
+                [] (const position_type& position)
+                {
+                    return
+                        Gdiplus::PointF(
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::left(position)),
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::top(position))
+                        );
+                }
+            );
+
+            const auto status =
+                canvas.FillPolygon(&*background_details, points.data(), static_cast< ::INT>(points.size()));
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a polygon.")
+                );
+            }
         }
 
         /*!
