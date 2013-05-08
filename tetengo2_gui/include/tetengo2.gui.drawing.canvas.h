@@ -214,14 +214,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a line.
 
-            \tparam P  A position type #1.
-            \tparam P2 A position type #2.
-
             \param from A beginning position.
             \param to   An ending position.
         */
-        template <typename P1, typename P2>
-        void draw_line(const P1& from, const P2& to)
+        void draw_line(const position_type& from, const position_type& to)
         {
             drawing_details_type::draw_line(
                 *m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color
@@ -231,14 +227,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a focus indication.
 
-            \tparam P A position type.
-            \tparam D A dimension type.
-
             \param position  A position of a region.
             \param dimension A dimension of a region.
         */
-        template <typename P, typename D>
-        void draw_focus_indication(const P& position, const D& dimension)
+        void draw_focus_indication(const position_type& position, const dimension_type& dimension)
         {
             drawing_details_type::draw_focus_indication(*m_p_details, position, dimension);
         }
@@ -246,14 +238,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Fills a rectangle region.
 
-            \tparam P A position type.
-            \tparam D A dimension type.
-
             \param position   A position of a region.
             \param dimension  A dimension of a region.
         */
-        template <typename P, typename D>
-        void fill_rectangle(const P& position, const D& dimension)
+        void fill_rectangle(const position_type& position, const dimension_type& dimension)
         {
             assert(m_p_background);
             drawing_details_type::fill_rectangle(*m_p_details, position, dimension, *m_p_background);
@@ -280,14 +268,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             The text is rotated around the argument position.
 
-            \tparam P A position type.
-
             \param text     A text to draw.
             \param position A position where the text is drawn.
             \param angle    A clockwise angle in radians.
         */
-        template <typename P>
-        void draw_text(const string_type& text, const P& position, const double angle = 0.0)
+        void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
             drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color, angle);
         }
@@ -295,30 +280,18 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Paints a picture.
 
-            \tparam P A position type.
-            \tparam D A dimension type.
-
             \param picture   A picture to paint.
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
         */
-        template <typename P, typename D /* = typename P::dimension_type */>
         void paint_picture(
-            const picture_type& picture,
-            const P&            position,
-            const D&            dimension /* = picture.dimension() */
+            const picture_type&   picture,
+            const position_type&  position,
+            const dimension_type& dimension = picture.dimension()
         )
         {
             drawing_details_type::paint_picture(*m_p_details, picture, position, dimension);
         }
-
-#if !defined(DOCUMENTATION)
-        template <typename P>
-        void paint_picture(const picture_type& picture, const P& position)
-        {
-            paint_picture(picture, position, picture.dimension());
-        }
-#endif
 
         /*!
             \brief Returns the detail implementation.
