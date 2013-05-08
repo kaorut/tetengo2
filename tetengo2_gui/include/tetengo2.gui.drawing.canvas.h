@@ -248,6 +248,21 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Fills a polygon region.
+
+            \tparam PositionIterator A position iterator type.
+
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+        */
+        template <typename PositionIterator>
+        void fill_polygon(const PositionIterator position_first, const PositionIterator position_last)
+        {
+            assert(m_p_background);
+            drawing_details_type::fill_polygon(*m_p_details, position_first, position_last, *m_p_background);
+        }
+
+        /*!
             \brief Calculates the dimension of a text.
 
             \param text A text.

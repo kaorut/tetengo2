@@ -379,6 +379,27 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
+            \brief Fills a polygon region.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Background A background type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param background     A background.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Background>
+        static void fill_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Background&      background
+        );
+
+        /*!
             \brief Makes a dialog font.
 
             \tparam Font A font type.
