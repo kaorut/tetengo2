@@ -262,10 +262,39 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Draws a polygon.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Size             A size type.
+            \tparam Color            A color type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param width          A width.
+            \param style          A style.
+            \param color          A color.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Size, typename Color>
+        static void draw_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Size             width,
+            const int              style,
+            const Color&           color
+        )
+        {
+            suppress_unused_variable_warning(canvas, position_first, position_last, width, style, color);
+        }
+
+        /*!
             \brief Fills a polygon region.
 
             \tparam PositionIterator A position iterator type.
-            \tparam Background A background type.
+            \tparam Background       A background type.
 
             \param canvas         A canvas.
             \param position_first A first position of a region.
