@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
+#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
+#include <iterator>
 #include <limits>
 //#include <memory>
 //#include <system_error>
@@ -298,7 +300,19 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Color&           color
         )
         {
-            suppress_unused_variable_warning(canvas, position_first, position_last, width, style, color);
+            const Gdiplus::Pen pen(
+                Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
+                gui::to_pixels<Gdiplus::REAL>(width)
+            );
+            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
+            const auto status =
+                canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a polygon.")
+                );
+            }
         }
 
         /*!
@@ -325,23 +339,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const boost::optional<const typename Background::details_type&> background_details = background.details();
             if (!background_details) return;
 
-            std::vector<Gdiplus::PointF> points;
-            points.reserve(std::distance(position_first, position_last));
-            typedef typename PositionIterator::value_type position_type;
-            std::transform(
-                position_first,
-                position_last,
-                std::back_inserter(points),
-                [] (const position_type& position)
-                {
-                    return
-                        Gdiplus::PointF(
-                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::left(position)),
-                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::top(position))
-                        );
-                }
-            );
-
+            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
             const auto status =
                 canvas.FillPolygon(&*background_details, points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
@@ -603,6 +601,30 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         {
             canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
             canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
+        }
+
+        template <typename Iterator>
+        static std::vector<Gdiplus::PointF> to_gdiplus_points(const Iterator first, const Iterator last)
+        {
+            std::vector<Gdiplus::PointF> points;
+            points.reserve(std::distance(first, last));
+
+            typedef typename Iterator::value_type position_type;
+            std::transform(
+                first,
+                last,
+                std::back_inserter(points),
+                [] (const position_type& position)
+                {
+                    return
+                        Gdiplus::PointF(
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::left(position)),
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::top(position))
+                        );
+                }
+            );
+
+            return points;
         }
 
         template <typename String, typename Font, typename Encoder>

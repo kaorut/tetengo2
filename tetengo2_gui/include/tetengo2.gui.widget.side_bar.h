@@ -194,7 +194,7 @@ namespace tetengo2 { namespace gui { namespace widget
             auto original_line_width = canvas.line_width();
             auto original_background = canvas.background().clone();
             canvas.set_color(color_type(0, 0, 0));
-            canvas.set_line_width(size_type(1) / 2);
+            canvas.set_line_width(size_type(1) / 16);
             canvas.set_background(make_unique<solid_background_type>(color_type(255, 255, 255)));
 
             static const auto& width = gui::dimension<dimension_type>::width(state_button_dimension());
