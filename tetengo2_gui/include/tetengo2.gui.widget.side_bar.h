@@ -99,6 +99,8 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
+        typedef typename canvas_type::size_type size_type;
+
         typedef typename canvas_type::color_type color_type;
 
         typedef typename canvas_type::font_type font_type;
@@ -188,7 +190,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void draw_state_button(canvas_type& canvas, const height_type& padding)
         {
+            auto original_color = canvas.color();
+            auto original_line_width = canvas.line_width();
             auto original_background = canvas.background().clone();
+            canvas.set_color(color_type(0, 0, 0));
+            canvas.set_line_width(size_type(1) / 2);
             canvas.set_background(make_unique<solid_background_type>(color_type(255, 255, 255)));
 
             static const auto& width = gui::dimension<dimension_type>::width(state_button_dimension());
@@ -200,8 +206,11 @@ namespace tetengo2 { namespace gui { namespace widget
             };
 
             canvas.fill_polygon(positions.begin(), positions.end());
+            canvas.draw_polygon(positions.begin(), positions.end());
 
             canvas.set_background(std::move(original_background));
+            canvas.set_line_width(std::move(original_line_width));
+            canvas.set_color(std::move(original_color));
         }
 
         static position_type text_position(const dimension_type& text_dimension, const height_type& padding)
