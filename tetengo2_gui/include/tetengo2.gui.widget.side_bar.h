@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static const dimension_type& state_button_dimension()
         {
-            static const dimension_type singleton(width_type(3), height_type(3));
+            static const dimension_type singleton(width_type(1), height_type(1));
             return singleton;
         }
 
