@@ -10,8 +10,8 @@
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
 #include <algorithm>
-#include <memory>
-#include <vector>
+//#include <utility>
+//#include <vector>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"

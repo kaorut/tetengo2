@@ -322,6 +322,8 @@ Gdiplus::NotTrueTypeFont                         GdiPlus.h,Windows.h
 Gdiplus::ObjectBusy                              GdiPlus.h,Windows.h
 Gdiplus::Ok                                      GdiPlus.h,Windows.h
 Gdiplus::OutOfMemory                             GdiPlus.h,Windows.h
+Gdiplus::Pen                                     GdiPlus.h,Windows.h
+Gdiplus::PointF                                  GdiPlus.h,Windows.h
 Gdiplus::ProfileNotFound                         GdiPlus.h,Windows.h
 Gdiplus::PropertyNotFound                        GdiPlus.h,Windows.h
 Gdiplus::PropertyNotSupported                    GdiPlus.h,Windows.h

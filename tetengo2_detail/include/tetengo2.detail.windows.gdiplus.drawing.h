@@ -12,7 +12,7 @@
 #include <algorithm>
 //#include <cassert>
 //#include <cstddef>
-#include <iterator>
+//#include <iterator>
 #include <limits>
 //#include <memory>
 //#include <system_error>
@@ -468,7 +468,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             const auto p_solid_brush = create_solid_background(color);
 
-            const Gdiplus::Status status =
+            const auto status =
                 canvas.DrawString(
                     encoded_text.c_str(),
                     static_cast< ::INT>(encoded_text.length()),
