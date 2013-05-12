@@ -12,6 +12,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.measure.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -24,6 +26,10 @@ namespace
         picture_type;
 
     typedef picture_type::dimension_type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
 
 }
@@ -40,11 +46,11 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture(dimension_type(123, 456));
+            const picture_type picture(dimension_type(width_type(123), height_type(456)));
         }
         {
             picture_type::details_ptr_type p_details(
-                tetengo2::detail::stub::drawing::create_picture(dimension_type(123, 456))
+                tetengo2::detail::stub::drawing::create_picture(dimension_type(width_type(123), height_type(456)))
             );
             const picture_type picture2(std::move(p_details));
         }
@@ -59,9 +65,9 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const picture_type picture(dimension_type(123, 456));
+        const picture_type picture(dimension_type(width_type(123), height_type(456)));
 
-        BOOST_CHECK(picture.dimension() == dimension_type(123, 456));
+        BOOST_CHECK(picture.dimension() == dimension_type(width_type(123), height_type(456)));
     }
 
     BOOST_AUTO_TEST_CASE(details)
@@ -69,12 +75,12 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture(dimension_type(123, 456));
+            const picture_type picture(dimension_type(width_type(123), height_type(456)));
 
             picture.details();
         }
         {
-            picture_type picture(dimension_type(123, 456));
+            picture_type picture(dimension_type(width_type(123), height_type(456)));
 
             picture.details();
         }

@@ -327,13 +327,12 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Paints a picture.
 
-            \param picture   A picture to paint.
-            \param position  A position where the picture is painted.
-            \param dimension A dimension in which the picture is painted.
+            \param picture  A picture to paint.
+            \param position A position where the picture is painted.
         */
         void paint_picture(const picture_type& picture, const position_type& position)
         {
-            drawing_details_type::paint_picture(*m_p_details, picture, position, picture.dimension());
+            paint_picture(picture, position, picture.dimension());
         }
 
         /*!

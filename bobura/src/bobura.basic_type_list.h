@@ -398,12 +398,12 @@ namespace bobura
             fast_font_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                unit_size_type, dimension_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+                unit_size_type, dimension_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
             >
             fast_picture_type;
         typedef

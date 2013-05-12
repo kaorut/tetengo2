@@ -317,7 +317,11 @@ namespace test_tetengo2 { namespace gui
             >
             font_type;
         typedef
-            tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::size>::type, drawing_details_type>
+            tetengo2::gui::drawing::picture<
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::dimension>::type,
+                drawing_details_type
+            >
             picture_type;
         typedef
             tetengo2::gui::drawing::canvas_traits<
