@@ -338,10 +338,18 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        {
+            concrete_canvas canvas;
 
-        const picture_type picture(std::make_pair(123, 456));
-        canvas.paint_picture(picture, make_position(12, 34), make_dimension(56, 78));
+            const picture_type picture(std::make_pair(123, 456));
+            canvas.paint_picture(picture, make_position(12, 34), make_dimension(56, 78));
+        }
+        {
+            concrete_canvas canvas;
+
+            const picture_type picture(std::make_pair(123, 456));
+            canvas.paint_picture(picture, make_position(12, 34));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(details)

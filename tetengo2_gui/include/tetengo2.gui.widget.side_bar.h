@@ -10,8 +10,8 @@
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
 #include <algorithm>
-#include <array>
 #include <memory>
+#include <vector>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
@@ -199,11 +199,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             static const auto& width = gui::dimension<dimension_type>::width(state_button_dimension());
             static const auto& height = gui::dimension<dimension_type>::height(state_button_dimension());
-            static const std::array<position_type, 3> positions = {
-                position_type(left_type::from(padding), top_type::from(padding)),
-                position_type(left_type::from(padding + width), top_type::from(padding + height / 2)),
-                position_type(left_type::from(padding), top_type::from(padding + height)),
-            };
+            std::vector<position_type> positions;
+            positions.emplace_back(left_type::from(padding), top_type::from(padding));
+            positions.emplace_back(left_type::from(padding + width), top_type::from(padding + height / 2));
+            positions.emplace_back(left_type::from(padding), top_type::from(padding + height));
 
             canvas.fill_polygon(positions.begin(), positions.end());
             canvas.draw_polygon(positions.begin(), positions.end());
