@@ -34,6 +34,11 @@ tetengo2::gui::widget::control::mouse_observer_set_type
 tetengo2::gui::widget::control::position_type
 tetengo2::gui::widget::control::scroll_bar_type
 tetengo2::gui::widget::control::string_type
+tetengo2::gui::widget::control::widget_canvas_type
+tetengo2::gui::widget::custom_control::position_type
+tetengo2::gui::widget::custom_control::widget_canvas_type
+tetengo2::gui::widget::custom_control::dimension_type
+tetengo2::gui::widget::custom_control::string_type
 tetengo2::gui::widget::dialog::dimension_type
 tetengo2::gui::widget::dialog::string_type
 tetengo2::gui::widget::label::keyboard_observer_set_type

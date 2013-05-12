@@ -22,18 +22,14 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a picture.
 
-        \tparam Size           A size type.
         \tparam Dimension      A dimension type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Size, typename Dimension, typename DrawingDetails>
+    template <typename Dimension, typename DrawingDetails>
     class picture : private boost::noncopyable
     {
     public:
         // types
-
-        //! The size type.
-        typedef Size size_type;
 
         //! The dimension type.
         typedef Dimension dimension_type;

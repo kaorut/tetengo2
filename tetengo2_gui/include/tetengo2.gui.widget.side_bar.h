@@ -67,9 +67,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
 
-        //! The string type.
-        typedef typename base_type::string_type string_type;
-
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -102,8 +99,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename canvas_type::size_type size_type;
 
         typedef typename canvas_type::color_type color_type;
-
-        typedef typename canvas_type::font_type font_type;
 
         typedef typename gui::position<position_type>::left_type left_type;
 

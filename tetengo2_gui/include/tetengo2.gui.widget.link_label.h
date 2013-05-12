@@ -67,9 +67,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename base_type::cursor_type cursor_type;
 
-        //! The color type.
-        typedef typename base_type::color_type color_type;
-
         //! The keyboard observer set type.
         typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 

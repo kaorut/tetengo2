@@ -38,9 +38,6 @@ namespace bobura
         //! The base type.
         typedef SideBar base_type;
 
-        //! The string type.
-        typedef typename base_type::string_type string_type;
-
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
