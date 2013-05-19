@@ -867,8 +867,8 @@ namespace bobura { namespace message { namespace train_kind_dialog
         const
         {
             const auto& canvas_height = tetengo2::gui::dimension<dimension_type>::height(m_canvas_dimension);
-            const auto& text_height =
-                tetengo2::gui::dimension<dimension_type>::height(canvas.calc_text_dimension(text));
+            const auto text_dimension = canvas.calc_text_dimension(text);
+            const auto& text_height = tetengo2::gui::dimension<dimension_type>::height(text_dimension);
 
             if (canvas_height > text_height)
             {
