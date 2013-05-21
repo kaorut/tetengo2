@@ -212,7 +212,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     make_unique<solid_background_type>(system_color_set_type::title_bar_background())
                 );
 
-                canvas.fill_rectangle(position(), dimension());
+                canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.set_background(std::move(original_background));
             }
