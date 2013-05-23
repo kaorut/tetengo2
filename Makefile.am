@@ -12,13 +12,16 @@ SUBDIRS = \
 EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test
 
 .PHONY: lint
-lint: lint-includes lint-test-cases
+lint: lint-includes lint-test-cases lint-typedefs
 
 lint-includes:
 	$(top_srcdir)/tools/check_includes.sh '' silent
 
 lint-test-cases:
 	$(top_srcdir)/tools/check_test_cases.sh '' silent
+
+lint-typedefs:
+	$(top_srcdir)/tools/check_typedefs.sh '' silent
 
 doc-all: doc doc-test
 
