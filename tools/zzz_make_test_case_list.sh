@@ -11,10 +11,10 @@ rm -f "$SOLUTIONDIR/tools/tmp"
 
 for f in `list_test_sources $SOLUTIONDIR`;
 do
-    echo -ne "Parsing: $f        \r" >&2;
+    test -z "$1" && echo -ne "Parsing: $f        \r" >&2;
     "$SOLUTIONDIR/tools/zzz_make_test_case_list.pl" "$f" >> "$SOLUTIONDIR/tools/tmp";
 done
-echo -ne "Done.                                                        \n" >&2
+test -z "$1" && echo -ne "Done.                                                        \n" >&2
 
 sort < "$SOLUTIONDIR/tools/tmp" | uniq;
 
