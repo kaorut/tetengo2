@@ -9,7 +9,7 @@ use File::Basename;
 if (scalar(@ARGV) < 3)
 {
 	print "Usage: zzz_check_includes.pl ".
-		"solution_directory source_file stdlib_headers.txt [show_progress]\n";
+		"solution_directory source_file stdlib_headers.txt [show_progress] [silent]\n";
 	exit(0);
 }
 
@@ -31,9 +31,17 @@ my(@special_header_directories) = (
 );
 
 my($show_progress) = $ARGV[3] ne '';
+my($silent) = $ARGV[4] ne '';
+
+my($exit_status) = 0;
 
 # main
 {
+	if (!$silent)
+	{
+		print "\n[".$ARGV[1]."]\n";
+	}
+	
 	my(%stdlib_headers);
 	read_stdlib_headers($ARGV[2], \%stdlib_headers);
 
@@ -55,12 +63,13 @@ my($show_progress) = $ARGV[3] ne '';
 			{
 				if ($subincludes{$include} eq '')
 				{
-					print 'WARNING: Include <'.$include.">.\n";
+					print_warning('Include <'.$include.'>');
 				}
 				else
 				{
-					print 'WARNING: Include <'.$include.
-						"> but comment it out.\n";
+					print_warning(
+						'Include <'.$include.'> but comment it out.'
+					);
 				}
 			}
 		}
@@ -72,7 +81,7 @@ my($show_progress) = $ARGV[3] ne '';
 		{
 			if (!contains_string(\@used_includes, $include))
 			{
-				print 'WARNING: UNUSED: <'.$include.">.\n";
+				print_warning('UNUSED: <'.$include.'>');
 			}
 		}
 	}
@@ -80,19 +89,30 @@ my($show_progress) = $ARGV[3] ne '';
 	foreach my $key (sort(keys(%includes)))
 	{
 		my($value) = $includes{$key};
-		print 'INC: '.$value.' #include <'.$key.">\n";
+		if (!$silent)
+		{
+			print 'INC: '.$value.' #include <'.$key.">\n";
+		}
 	}
 	foreach my $key (sort(keys(%subincludes)))
 	{
 		my($value) = $subincludes{$key};
 		my($print_line) = 'SUBINC: #include <'.$key.'> in '.$value;
 		$print_line = substr($print_line, 0, 116)."..." if length($print_line) > 119;
-		print $print_line."\n";
+		if (!$silent)
+		{
+			print $print_line."\n";
+		}
 	}
 	while (my($key, $value) = each(%stdlib_header_usage))
 	{
-		printf("%-48s %s\n", $key, $value);
+		if (!$silent)
+		{
+			printf("%-48s %s\n", $key, $value);
+		}
 	}
+	
+	exit($exit_status);
 }
 
 sub read_stdlib_headers
@@ -137,7 +157,7 @@ sub scan_source
 			{
 				if ($$r_includes{$subfile_name} ne '')
 				{
-					print "WARNING: #include duplicated: $3\n";
+					print_warning('#include duplicated: '.$3);
 				}
 				if (is_std_or_boost_header($subfile_name))
 				{
@@ -202,16 +222,16 @@ sub scan_source
 		{
 			if (!$subfound)
 			{
-				print "WARNING: should *NOT* comment out: ".
-					"#include <$include>\n";
+				print_warning(
+					"should *NOT* comment out: #include <$include>"
+				);
 			}
 		}
 		else
 		{
 			if ($subfound)
 			{
-				print "WARNING: *SHOULD* comment out: ".
-					"#include <$include>\n";
+				print_warning("*SHOULD* comment out: #include <$include>");
 			}
 		}
 	}
@@ -239,7 +259,7 @@ sub scan_subsource
 	}
 	if (!$opened)
 	{
-		print "WARNING: Can't open $file_name\n";
+		print_warning("Can't open $file_name");
 		return;
 	}
 	while (<$fh>)
@@ -279,6 +299,19 @@ sub scan_subsource
 		}
 	}
 	close($fh);
+}
+
+sub print_warning
+{
+	my($message) = @_;
+	
+	if ($silent && $exit_status == 0)
+	{
+		print "\n[".$ARGV[1]."]\n";
+	}
+	print 'WARNING: '.$message."\n";
+	
+	$exit_status = 1;
 }
 
 sub parse_include
