@@ -11,6 +11,8 @@ if (scalar(@ARGV) < 3)
 	exit(0);
 }
 
+my($exit_status) = 0;
+
 # main
 {
 	my(%functions);
@@ -35,6 +37,7 @@ if (scalar(@ARGV) < 3)
 			print "WARNING: No test case for function:\n";
 			print '  '.$function."\n";
 			print '  -> '.$expected_test_case."\n";
+			$exit_status = 1;
 		}
 	}
 	
@@ -46,6 +49,7 @@ if (scalar(@ARGV) < 3)
 		{
 			print "WARNING: No function for test case:\n";
 			print '  '.$test_case."\n";
+			$exit_status = 1;
 		}
 	}
 	
@@ -55,10 +59,11 @@ if (scalar(@ARGV) < 3)
 		{
 			print "WARNING: Remove from the ignore file:\n";
 			print '  '.$ig."\n";
+			$exit_status = 1;
 		}
 	}
 	
-	exit(0);
+	exit($exit_status);
 }
 
 sub read_file
