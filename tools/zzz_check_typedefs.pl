@@ -15,6 +15,8 @@ my($base_path) = $ARGV[0];
 my($file_path) = $ARGV[1];
 my($typedef_ignore_path) = $ARGV[2];
 
+my($exit_status) = 0;
+
 my(@defined_typedefs);
 foreach my $typedef (`$base_path/zzz_list_typedefs.pl $file_path`)
 {
@@ -69,5 +71,8 @@ while (my($typedef, $count) = each(%typedef_count))
 			$file_path_printed = 1;
 		}
 		print '    WARNING: not used: '.$typedef."\n";
+		$exit_status = 1;
 	}
 }
+
+exit($exit_status);
