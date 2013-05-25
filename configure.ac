@@ -5,7 +5,7 @@
 #### General ####
 AC_PREREQ([2.67])
 AC_INIT([bobura], [0.0.0], [kaorut@mc.pikara.ne.jp])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([gnu dist-bzip2 dist-zip])
 AC_CONFIG_SRCDIR([bobura_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
