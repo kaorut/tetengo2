@@ -59,6 +59,7 @@ messages.test:
 	cp -r $(top_srcdir)/tetengo2/res.test/messages.test $(top_builddir)/tetengo2/test
 
 clean-local:
+	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
 	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
