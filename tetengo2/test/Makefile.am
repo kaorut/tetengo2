@@ -56,10 +56,10 @@ tetengo2_test_LDADD = \
 tetengo2_test_SOURCES = $(headers) $(sources)
 
 messages.test:
-	cp -r $(top_srcdir)/tetengo2/res.test/messages.test .
+	cp -r $(top_srcdir)/tetengo2/res.test/messages.test $(top_builddir)/tetengo2/test
 
 clean-local:
-	-rm -rf messages.test
+	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
