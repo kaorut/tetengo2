@@ -9,6 +9,8 @@ tetengo2::cpp11::
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::link_label::paint_background::
+tetengo2::gui::widget::side_bar::caption::
+tetengo2::gui::widget::side_bar::item::
 tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::matches_locale_type::
 tetengo2::suppress_unused_variable_warning
