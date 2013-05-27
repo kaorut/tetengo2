@@ -1,26 +1,17 @@
 bobura::diagram_view::to_station_position::
-bobura::model::serializer::oudia_reader::is_splitter::
 bobura::model::serializer::oudia_reader::file_type::
 bobura::model::serializer::oudia_reader::[a-z_]*state::
 bobura::model::serializer::windia_reader::[a-z_]*state::
 bobura::model::serializer::windia_reader::preset_train_kind_type::
 bobura::model::timetable::replace_train_kind_index::
 bobura::settings::value_impl::
-bobura::settings::is_splitter::
-bobura::timetable_model::timetable_changed::
 tetengo2::cpp11::
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::
-tetengo2::gui::widget::label::call_calc_text_dimension_type::
-tetengo2::gui::widget::link_label::focus_changed::
 tetengo2::gui::widget::link_label::paint_background::
-tetengo2::gui::widget::link_label::selected::
-tetengo2::gui::widget::link_label::clicked::
-tetengo2::gui::widget::picture_box::paint_background::
-tetengo2::gui::widget::widget::got_focus::
-tetengo2::gui::widget::widget::lost_focus::
 tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::matches_locale_type::
+tetengo2::suppress_unused_variable_warning
 
 test_bobura::model::serializer::reader_selector::selects
 test_bobura::model::serializer::reader_selector::read
