@@ -8,25 +8,98 @@
 
 /*! \mainpage
 
-\section whatsbobura What is Bobura?
+What is Bobura?
+===============
 
 Bobura is some software about railways.
 
-\section whatstetengo2 What is Tetengo2?
+
+What is Tetengo2?
+=================
 
 Tetengo2 is a kind of GUI toolkit.
 
-\section requirements Requirements
 
-\arg Visual C++ 2012 Update 2 on Windows or GCC 4.7.2 on UNIX
-\arg Boost 1.53.0
-\arg bzip2 1.0.6
-\arg Doxygen 1.8.4
+Requirements
+============
 
+Bobura
+------
+
+- Windows 7 or later
+
+Tetengo2
+--------
+
+Tetengo2 is available on Windows and UNIX-like systems.
+
+It's tested on the following systems:
+
+- Windows 7 Service Pack 1
+- Debian GNU/Linux 7.0
+- Cygwin 1.7.17
+
+How to Build
+============
+
+Only the source code of Bobura and Tetengo2 are distributed for the time being.
+
+Downloading the Source Code Archive
+-----------------------------------
+
+The latest archives can be downloaded from
+[the web site](http://www.tetengo.org/).
+
+Cloning the Repository
+----------------------
+
+You can clone the Git repository like this:
+
+~~~~{.sh}
+$ git clone http://github.com/kaorut/bobura.git
+~~~~
+
+Building on Windows
+-------------------
+
+You need the following tools in order to build Bubura and Tetengo2:
+
+- [Visual C++ 2012 Update 2](http://www.microsoft.com/)
+- [Boost C++ Libraries 1.53.0](http://www.boost.org/)
+- [bzip2](http://www.bzip.org)
+- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
+- [Graphviz](http://www.graphviz.org) (to generate API document)
+
+
+Building on UNIX
+----------------
+
+You need the following tools in order to build Bubura and Tetengo2:
+
+- [GCC 4.7.2](http://www.gnu.org/)
+- [GNU Make](http://www.gnu.org/)
+- [Boost C++ Libraries 1.53.0](http://www.boost.org/)
+- [bzip2](http://www.bzip.org)
+- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
+- [Graphviz](http://www.graphviz.org) (to generate API document)
+
+When you clone the Git repository, you will not find the `configure` script in
+the working copy.
+Run `bootstrap.sh` to produce the `configure` script.
+`bootstrap.sh` requires the following tools:
+
+- [Autotools (Autoconf, Automake, etc.)](http://www.gnu.org/)
+- [Autoconf Archive](http://www.gnu.org/)
+
+~~~~{.sh}
+$ ./bootstrap.sh
+~~~~
+
+------------------------------------------------------------------------------
 
 Copyright (C) 2007-2013 kaoru
 
-<a href="http://www.tetengo.org/">http://www.tetengo.org/</a>
+<http://www.tetengo.org/>
 
 $Id$
 
