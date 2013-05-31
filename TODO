@@ -32,11 +32,6 @@ Added on    : 2013/05/08
 Depends on  : (none)
 Description : Create tetengo2::gui::drawing::canvas::draw_polygon().
 ------------------------------------------------------------------------------
-Number      : 00000238
-Added on    : 2013/05/30
-Depends on  : (none)
-Description : Upgrade Doxygen.
-------------------------------------------------------------------------------
 Number      : 00000239
 Added on    : 2013/mm/dd
 Depends on  : (none)
