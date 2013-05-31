@@ -8,19 +8,19 @@
 
 /*! \mainpage
 
-What is Bobura?
+What is Bobura? {#what_is_bobura}
 ===============
 
 Bobura is some software about railways.
 
 
-What is Tetengo2?
+What is Tetengo2? {#what_is_tetengo2}
 =================
 
 Tetengo2 is a kind of GUI toolkit.
 
 
-Requirements
+Requirements {#requirements}
 ============
 
 Bobura
@@ -39,7 +39,7 @@ It's tested on the following systems:
 - Debian GNU/Linux 7.0
 - Cygwin 1.7.17
 
-How to Build
+How to Build {#how_to_build}
 ============
 
 Only the source code of Bobura and Tetengo2 are distributed for the time being.
