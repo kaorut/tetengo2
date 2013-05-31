@@ -61,10 +61,10 @@ clean-doc-all: clean-doc clean-doc-test
 
 .PHONY: clean-doc
 clean-doc:
-	-rm -rf doc
+	-rm -rf $(top_builddir)/doc
 
 .PHONY: clean-doc-test
 clean-doc-test:
-	-rm -rf doc.test
+	-rm -rf $(top_builddir)/doc.test
 
 distclean-local: clean-doc-all
