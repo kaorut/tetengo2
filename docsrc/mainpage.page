@@ -43,12 +43,12 @@ How to Build {#how_to_build}
 ============
 
 Only the source code of Bobura and Tetengo2 are distributed for the time being.
+You can obtain the source code either by downloading an archive or by cloning the Git repository.
 
 Downloading the Source Code Archive
 -----------------------------------
 
-The latest archives can be downloaded from
-[the web site](http://www.tetengo.org/).
+The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
 
 Cloning the Repository
 ----------------------
@@ -64,12 +64,16 @@ Building on Windows
 
 You need the following tools in order to build Bubura and Tetengo2:
 
-- [Visual C++ 2012 Update 2](http://www.microsoft.com/)
+- [Visual Studio 2012 Update 2](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.53.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
 - [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
 - [Graphviz](http://www.graphviz.org) (to generate API document)
 
+First make a copy of `bobura_config.h-original` in the top source directory and name it `bobura_config.h`.
+Edit `bobura_config.h` according to your environment.
+
+Open `bobura.sln` with Visual Studio, and build the solution.
 
 Building on UNIX
 ----------------
@@ -83,10 +87,8 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
 - [Graphviz](http://www.graphviz.org) (to generate API document)
 
-When you clone the Git repository, you will not find the `configure` script in
-the working copy.
-Run `bootstrap.sh` to produce the `configure` script.
-`bootstrap.sh` requires the following tools:
+When you clone the Git repository, you will not find the `configure` script in the working copy.
+Run `bootstrap.sh` to produce the `configure` script. `bootstrap.sh` requires the following tools:
 
 - [Autotools (Autoconf, Automake, etc.)](http://www.gnu.org/)
 - [Autoconf Archive](http://www.gnu.org/)
