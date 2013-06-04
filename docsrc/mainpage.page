@@ -23,15 +23,15 @@ Tetengo2 is a kind of GUI toolkit.
 Requirements {#requirements}
 ============
 
-Bobura
-------
+Bobura application
+------------------
 
 - Windows 7 or later
 
-Tetengo2
---------
+Bobura and Tetengo2 libraries
+-----------------------------
 
-Tetengo2 is available on Windows and UNIX-like systems.
+The libraries is available on Windows and UNIX-like systems.
 
 It's tested on the following systems:
 
@@ -84,9 +84,10 @@ X:\path\to\bobura> doxygen
 Building on UNIX
 ----------------
 
-On UNIX, we cannot build Bobura yet. However, we can build the Bubura model and Tentengo2 libraries and use them.
+On UNIX, we cannot build a Bobura executable yet. However, we can build the Bubura and Tentengo2 libraries and use
+them.
 
-You need the following tools in order to build Bubura and Tetengo2:
+You need the following tools in order to build Bubura and Tetengo2 libraries:
 
 - [GCC 4.7.2](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
@@ -118,7 +119,7 @@ $ make
 $ sudo make install
 ~~~~
 
-The following instruction tests the Bobura model and Tetengo2 libraries:
+The following instruction tests the Bobura and Tetengo2 libraries:
 
 ~~~~{.sh}
 $ make check
