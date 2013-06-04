@@ -67,13 +67,19 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Visual Studio 2012 Update 2](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.53.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
-- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
-- [Graphviz](http://www.graphviz.org) (to generate API document)
+- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
+- [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 First make a copy of `bobura_config.h-original` in the top source directory and name it `bobura_config.h`.
 Edit `bobura_config.h` according to your environment.
 
-Open `bobura.sln` with Visual Studio, and build the solution.
+Open `bobura.sln` with Visual Studio and build the solution in order to build Bubura and run the unit tests.
+
+To generate API documents, open Command Prompt and run `doxygen` command in the top source directory.
+
+~~~~{.bat}
+X:\path\to\bobura> doxygen
+~~~~
 
 Building on UNIX
 ----------------
@@ -84,8 +90,8 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.53.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
-- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API document)
-- [Graphviz](http://www.graphviz.org) (to generate API document)
+- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
+- [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 When you clone the Git repository, you will not find the `configure` script in the working copy.
 Run `bootstrap.sh` to produce the `configure` script. `bootstrap.sh` requires the following tools:
