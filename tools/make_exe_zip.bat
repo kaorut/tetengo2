@@ -7,6 +7,6 @@ if not exist bin\Release.%1 exit /b 1
 pushd bin\Release.%1
 
 del /q ..\bobura.%1.zip
-zip -9 ..\bobura.%1.zip * -x *.bsc *.lib
+zip -9r ..\bobura.%1.zip * -x *.bsc *.lib
 
 popd
