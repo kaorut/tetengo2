@@ -52,6 +52,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
     <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_win32.props" />
     <Import Project="..\vsprops\compilation_debug.props" />
     <Import Project="..\vsprops\application.props" />
     <Import Project="..\vsprops\bobura.props" />
@@ -60,6 +61,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
     <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_x64.props" />
     <Import Project="..\vsprops\compilation_debug.props" />
     <Import Project="..\vsprops\application.props" />
     <Import Project="..\vsprops\bobura.props" />
@@ -68,6 +70,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
     <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_win32.props" />
     <Import Project="..\vsprops\compilation_release.props" />
     <Import Project="..\vsprops\application.props" />
     <Import Project="..\vsprops\bobura.props" />
@@ -76,6 +79,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
     <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_x64.props" />
     <Import Project="..\vsprops\compilation_release.props" />
     <Import Project="..\vsprops\application.props" />
     <Import Project="..\vsprops\bobura.props" />

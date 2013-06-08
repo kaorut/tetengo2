@@ -107,10 +107,10 @@ BOOST_AUTO_TEST_SUITE(settings)
 
             BOOST_REQUIRE(dimension);
             BOOST_CHECK_EQUAL(
-                tetengo2::gui::dimension<dimension_type>::width(*dimension).to_pixels<std::size_t>(), 240
+                tetengo2::gui::dimension<dimension_type>::width(*dimension).to_pixels<std::size_t>(), 240U
             );
             BOOST_CHECK_EQUAL(
-                tetengo2::gui::dimension<dimension_type>::height(*dimension).to_pixels<std::size_t>(), 120
+                tetengo2::gui::dimension<dimension_type>::height(*dimension).to_pixels<std::size_t>(), 120U
             );
         }
         {
