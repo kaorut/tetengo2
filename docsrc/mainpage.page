@@ -42,7 +42,6 @@ It's tested on the following systems:
 How to Build {#how_to_build}
 ============
 
-Only the source code of Bobura and Tetengo2 are distributed for the time being.
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
 
 Downloading the Source Code Archive
