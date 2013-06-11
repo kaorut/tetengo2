@@ -122,6 +122,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // functions
 
+            void resized()
+            {
+                resized_impl();
+            }
+
             void draw(canvas_type& canvas)
             {
                 draw_impl(canvas);
@@ -152,16 +157,25 @@ namespace tetengo2 { namespace gui { namespace widget
                 return m_dimension;
             }
 
+            void set_position_and_dimension(position_type&& position, dimension_type&& dimension)
+            {
+                m_position = std::move(position);
+                m_dimension = std::move(dimension);
+            }
+
 
         private:
             // variables
 
-            const position_type m_position;
+            position_type m_position;
 
-            const dimension_type m_dimension;
+            dimension_type m_dimension;
 
 
             // virtual functions
+
+            virtual void resized_impl()
+            = 0;
 
             virtual void draw_impl(canvas_type& canvas)
             = 0;
@@ -176,7 +190,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit caption(const side_bar& side_bar_)
             :
-            item(position_type(left_type(0), top_type(0)), calculate_dimension(side_bar_))
+            item(position_type(left_type(0), top_type(0)), calculate_dimension(side_bar_)),
+            m_side_bar(side_bar_)
             {}
 
         private:
@@ -202,7 +217,20 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
 
+            // variables
+
+            const side_bar& m_side_bar;
+
+
             // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+                this->set_position_and_dimension(
+                    position_type(left_type(0), top_type(0)), calculate_dimension(m_side_bar)
+                );
+            }
 
             virtual void draw_impl(canvas_type& canvas)
             override
@@ -243,6 +271,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         p_side_bar->m_p_items.end(),
                         [&canvas](const std::unique_ptr<item>& p_item)
                         {
+                            p_item->resized();
                             p_item->draw(canvas);
                         }
                     );
