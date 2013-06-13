@@ -198,6 +198,11 @@ namespace tetengo2 { namespace gui { namespace widget
             m_text_position()
             {}
 
+            virtual ~caption()
+            TETENGO2_CPP11_NOEXCEPT
+            {}
+
+
         private:
             // static functions
 
@@ -259,17 +264,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 static const auto padding = height_type(1) / 4;
                 const auto text_dimension = canvas.calc_text_dimension(m_side_bar.text());
 
-                m_dimension = boost::make_optional(calculate_dimension(canvas, padding, text_dimension));
+                m_dimension = boost::make_optional(calculate_dimension(padding, text_dimension));
                 this->set_position_and_dimension(position_type(left_type(0), top_type(0)), *m_dimension);
 
-                m_text_position = boost::make_optional(text_position(canvas, padding, text_dimension));
+                m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
 
-            dimension_type calculate_dimension(
-                const canvas_type&    canvas,
-                const height_type&    padding,
-                const dimension_type& text_dimension
-            )
+            dimension_type calculate_dimension(const height_type& padding, const dimension_type& text_dimension)
             const
             {
                 const dimension_type client_dimension = m_side_bar.client_dimension();
@@ -283,11 +284,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return dimension_type(width, height + padding * 2);
             }
 
-            position_type text_position(
-                const canvas_type&    canvas,
-                const height_type&    padding,
-                const dimension_type& text_dimension
-            )
+            position_type text_position(const height_type& padding, const dimension_type& text_dimension)
             {
                 auto left =
                     left_type::from(gui::dimension<dimension_type>::width(state_button_dimension()) + padding * 2);
