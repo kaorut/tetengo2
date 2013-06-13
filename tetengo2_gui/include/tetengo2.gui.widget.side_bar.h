@@ -14,6 +14,8 @@
 //#include <utility>
 //#include <vector>
 
+#include <boost/optional.hpp>
+
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
@@ -122,6 +124,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // functions
 
+            void resized()
+            {
+                resized_impl();
+            }
+
             void draw(canvas_type& canvas)
             {
                 draw_impl(canvas);
@@ -152,7 +159,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return m_dimension;
             }
 
-            void set_position_and_dimension(position_type&& position, dimension_type&& dimension)
+            void set_position_and_dimension(position_type position, dimension_type dimension)
             {
                 m_position = std::move(position);
                 m_dimension = std::move(dimension);
@@ -169,6 +176,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
+            virtual void resized_impl()
+            = 0;
+
             virtual void draw_impl(canvas_type& canvas)
             = 0;
 
@@ -183,7 +193,9 @@ namespace tetengo2 { namespace gui { namespace widget
             explicit caption(const side_bar& side_bar_)
             :
             item(position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
-            m_side_bar(side_bar_)
+            m_side_bar(side_bar_),
+            m_dimension(),
+            m_text_position()
             {}
 
         private:
@@ -195,27 +207,88 @@ namespace tetengo2 { namespace gui { namespace widget
                 return singleton;
             }
 
-            static dimension_type calculate_dimension(const side_bar& side_bar_, const canvas_type& canvas)
-            {
-                static const height_type padding = height_type(1) / 4;
-                const auto text_dimension = canvas.calc_text_dimension(side_bar_.text());
 
-                const dimension_type client_dimension = side_bar_.client_dimension();
+            // variables
+
+            const side_bar& m_side_bar;
+
+            boost::optional<dimension_type> m_dimension;
+
+            boost::optional<position_type> m_text_position;
+
+
+            // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+                m_dimension = boost::none;
+                m_text_position = boost::none;
+            }
+
+            virtual void draw_impl(canvas_type& canvas)
+            override
+            {
+                calculate_position_and_dimension(canvas);
+
+                auto original_color = canvas.color();
+                auto original_background = canvas.background().clone();
+                canvas.set_color(system_color_set_type::title_bar_text());
+                canvas.set_background(
+                    make_unique<solid_background_type>(system_color_set_type::title_bar_background())
+                );
+
+                canvas.fill_rectangle(this->position(), this->dimension());
+
+                //draw_state_button(canvas, padding);
+
+                canvas.draw_text(m_side_bar.text(), *m_text_position);
+
+                canvas.set_background(std::move(original_background));
+                canvas.set_color(std::move(original_color));
+            }
+
+
+            // functions
+
+            void calculate_position_and_dimension(const canvas_type& canvas)
+            {
+                if (m_dimension && m_text_position)
+                    return;
+
+                static const auto padding = height_type(1) / 4;
+                const auto text_dimension = canvas.calc_text_dimension(m_side_bar.text());
+
+                m_dimension = boost::make_optional(calculate_dimension(canvas, padding, text_dimension));
+                this->set_position_and_dimension(position_type(left_type(0), top_type(0)), *m_dimension);
+
+                m_text_position = boost::make_optional(text_position(canvas, padding, text_dimension));
+            }
+
+            dimension_type calculate_dimension(
+                const canvas_type&    canvas,
+                const height_type&    padding,
+                const dimension_type& text_dimension
+            )
+            const
+            {
+                const dimension_type client_dimension = m_side_bar.client_dimension();
+
                 const auto& width = gui::dimension<dimension_type>::width(client_dimension);
-                const auto& height =
-                    std::max(
-                        gui::dimension<dimension_type>::height(text_dimension),
-                        gui::dimension<dimension_type>::height(state_button_dimension())
-                    ); 
+
+                const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
+                const auto& status_button_height = gui::dimension<dimension_type>::height(state_button_dimension());
+                const auto& height = std::max(text_height, status_button_height); 
             
                 return dimension_type(width, height + padding * 2);
             }
 
-            static position_type text_position(const side_bar& side_bar_, const canvas_type& canvas)
+            position_type text_position(
+                const canvas_type&    canvas,
+                const height_type&    padding,
+                const dimension_type& text_dimension
+            )
             {
-                static const height_type padding = height_type(1) / 4;
-                const auto text_dimension = canvas.calc_text_dimension(side_bar_.text());
-
                 auto left =
                     left_type::from(gui::dimension<dimension_type>::width(state_button_dimension()) + padding * 2);
 
@@ -227,40 +300,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     top_type::from(padding);
             
                 return position_type(std::move(left), std::move(top));
-            }
-
-
-            // variables
-
-            const side_bar& m_side_bar;
-
-
-            // virtual functions
-
-            virtual void draw_impl(canvas_type& canvas)
-            override
-            {
-                auto original_color = canvas.color();
-                auto original_background = canvas.background().clone();
-                canvas.set_color(system_color_set_type::title_bar_text());
-                canvas.set_background(
-                    make_unique<solid_background_type>(system_color_set_type::title_bar_background())
-                );
-
-                this->set_position_and_dimension(
-                    position_type(left_type(0), top_type(0)), calculate_dimension(m_side_bar, canvas)
-                );
-
-                canvas.fill_rectangle(this->position(), this->dimension());
-
-                //draw_state_button(canvas, padding);
-
-                const auto text_dimension = canvas.calc_text_dimension(m_side_bar.text());
-                canvas.draw_text(m_side_bar.text(), text_position(m_side_bar, canvas));
-
-
-                canvas.set_background(std::move(original_background));
-                canvas.set_color(std::move(original_color));
             }
 
 
@@ -289,6 +328,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         p_side_bar->m_p_items.end(),
                         [&canvas](const std::unique_ptr<item>& p_item)
                         {
+                            p_item->resized();
                             p_item->draw(canvas);
                         }
                     );
