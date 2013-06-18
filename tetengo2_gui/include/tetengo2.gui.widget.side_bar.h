@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
 #include <algorithm>
-#include <cassert>
+//#include <cassert>
 //#include <memory>
 //#include <utility>
 //#include <vector>
