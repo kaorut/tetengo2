@@ -212,7 +212,28 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void draw_impl(canvas_type& canvas)
             override
             {
+                static const auto padding = height_type(1) / 4;
 
+                auto original_color = canvas.color();
+                auto original_line_width = canvas.line_width();
+                auto original_background = canvas.background().clone();
+                canvas.set_color(color_type(0, 0, 0));
+                canvas.set_line_width(size_type(1) / 16);
+                canvas.set_background(make_unique<solid_background_type>(color_type(255, 255, 255)));
+
+                static const auto& width = gui::dimension<dimension_type>::width(this->dimension());
+                static const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+                std::vector<position_type> positions;
+                positions.emplace_back(left_type::from(padding), top_type::from(padding));
+                positions.emplace_back(left_type::from(padding + width), top_type::from(padding + height / 2));
+                positions.emplace_back(left_type::from(padding), top_type::from(padding + height));
+
+                canvas.fill_polygon(positions.begin(), positions.end());
+                canvas.draw_polygon(positions.begin(), positions.end());
+
+                canvas.set_background(std::move(original_background));
+                canvas.set_line_width(std::move(original_line_width));
+                canvas.set_color(std::move(original_color));
             }
 
 
@@ -378,30 +399,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             return true;
         }
-
-        //static void draw_state_button(canvas_type& canvas, const height_type& padding)
-        //{
-        //    auto original_color = canvas.color();
-        //    auto original_line_width = canvas.line_width();
-        //    auto original_background = canvas.background().clone();
-        //    canvas.set_color(color_type(0, 0, 0));
-        //    canvas.set_line_width(size_type(1) / 16);
-        //    canvas.set_background(make_unique<solid_background_type>(color_type(255, 255, 255)));
-
-        //    static const auto& width = gui::dimension<dimension_type>::width(state_button_dimension());
-        //    static const auto& height = gui::dimension<dimension_type>::height(state_button_dimension());
-        //    std::vector<position_type> positions;
-        //    positions.emplace_back(left_type::from(padding), top_type::from(padding));
-        //    positions.emplace_back(left_type::from(padding + width), top_type::from(padding + height / 2));
-        //    positions.emplace_back(left_type::from(padding), top_type::from(padding + height));
-
-        //    canvas.fill_polygon(positions.begin(), positions.end());
-        //    canvas.draw_polygon(positions.begin(), positions.end());
-
-        //    canvas.set_background(std::move(original_background));
-        //    canvas.set_line_width(std::move(original_line_width));
-        //    canvas.set_color(std::move(original_color));
-        //}
 
 
         // variables
