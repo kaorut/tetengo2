@@ -150,14 +150,21 @@ namespace tetengo2 { namespace gui { namespace widget
         protected:
             // constructors
 
-            item(position_type&& position, dimension_type&& dimension)
+            item(const side_bar& side_bar_, position_type&& position, dimension_type&& dimension)
             :
+            m_side_bar(side_bar_),
             m_position(std::move(position)),
             m_dimension(std::move(dimension))
             {}
 
 
             // functions
+
+            const side_bar& side_bar_()
+            const
+            {
+                return m_side_bar;
+            }
 
             void set_position_and_dimension(position_type position, dimension_type dimension)
             {
@@ -168,6 +175,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             // variables
+
+            const side_bar& m_side_bar;
 
             position_type m_position;
 
@@ -192,17 +201,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit state_button(const side_bar& side_bar_)
             :
-            item(position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
-            m_side_bar(side_bar_)
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1)))
             {}
 
 
         private:
-            // variables
-
-            const side_bar& m_side_bar;
-
-
             // virtual functions
 
             virtual void resized_impl()
@@ -246,10 +249,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             caption(const side_bar& side_bar_, std::unique_ptr<item> p_state_button)
             :
-            item(position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
-            m_side_bar(side_bar_),
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
             m_p_state_button(std::move(p_state_button)),
-            m_dimension(),
             m_text_position()
             {}
 
@@ -261,11 +262,7 @@ namespace tetengo2 { namespace gui { namespace widget
         private:
             // variables
 
-            const side_bar& m_side_bar;
-
             const std::unique_ptr<item> m_p_state_button;
-
-            boost::optional<dimension_type> m_dimension;
 
             boost::optional<position_type> m_text_position;
 
@@ -275,7 +272,6 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                m_dimension = boost::none;
                 m_text_position = boost::none;
 
                 m_p_state_button->resized();
@@ -297,7 +293,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 m_p_state_button->draw(canvas);
 
-                canvas.draw_text(m_side_bar.text(), *m_text_position);
+                canvas.draw_text(this->side_bar_().text(), *m_text_position);
 
                 canvas.set_background(std::move(original_background));
                 canvas.set_color(std::move(original_color));
@@ -308,14 +304,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void calculate_position_and_dimension(const canvas_type& canvas)
             {
-                if (m_dimension && m_text_position)
+                if (m_text_position)
                     return;
 
                 static const auto padding = height_type(1) / 4;
-                const auto text_dimension = canvas.calc_text_dimension(m_side_bar.text());
+                const auto text_dimension = canvas.calc_text_dimension(this->side_bar_().text());
 
-                m_dimension = boost::make_optional(calculate_dimension(padding, text_dimension));
-                this->set_position_and_dimension(position_type(left_type(0), top_type(0)), *m_dimension);
+                this->set_position_and_dimension(
+                    position_type(left_type(0), top_type(0)), calculate_dimension(padding, text_dimension)
+                );
 
                 m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
@@ -323,7 +320,7 @@ namespace tetengo2 { namespace gui { namespace widget
             dimension_type calculate_dimension(const height_type& padding, const dimension_type& text_dimension)
             const
             {
-                const dimension_type client_dimension = m_side_bar.client_dimension();
+                const dimension_type client_dimension = this->side_bar_().client_dimension();
 
                 const auto& width = gui::dimension<dimension_type>::width(client_dimension);
 
