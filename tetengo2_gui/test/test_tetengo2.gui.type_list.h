@@ -70,6 +70,7 @@
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.scroll_bar_observer_set.h"
+#include "tetengo2.gui.message.size_observer_set.h"
 #include "tetengo2.gui.message.text_box_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
 #include "tetengo2.gui.scroll_bar.h"
@@ -392,6 +393,7 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace observer_set
     {
         struct window_observer_set; //!< The window observer set type.
+        struct size_observer_set;   //!< The size observer set type.
         struct list_box_observer_set; //!< The list box observer set type.
         struct dropdown_box_observer_set; //!< The dropdown box observer set type.
         struct focus_observer_set; //!< The focus observer set type.
@@ -407,6 +409,8 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::window_observer_set, tetengo2::gui::message::window_observer_set>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::observer_set::size_observer_set, tetengo2::gui::message::size_observer_set>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::list_box_observer_set, tetengo2::gui::message::list_box_observer_set
@@ -451,7 +455,7 @@ namespace test_tetengo2 { namespace gui
                 type::observer_set::text_box_observer_set, tetengo2::gui::message::text_box_observer_set
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>
         observer_set_type_list;
 
 
