@@ -27,6 +27,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam Font                A font type.
         \tparam SystemCursor        A system cursor type.
         \tparam ScrollBar           A scroll bar type.
+        \tparam SizeObserverSet     A size observer set type.
         \tparam FocusObserverSet    A focus observer set type.
         \tparam PaintObserverSet    A paint observer set type.
         \tparam KeyboardObserverSet A keyboard observer set type.
@@ -43,6 +44,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         typename Font,
         typename SystemCursor,
         typename ScrollBar,
+        typename SizeObserverSet,
         typename FocusObserverSet,
         typename PaintObserverSet,
         typename KeyboardObserverSet,
@@ -90,6 +92,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The scroll bar type.
         typedef ScrollBar scroll_bar_type;
+
+        //! The size observer set type.
+        typedef SizeObserverSet size_observer_set_type;
 
         //! The focus observer set type.
         typedef FocusObserverSet focus_observer_set_type;

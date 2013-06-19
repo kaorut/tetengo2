@@ -59,6 +59,7 @@
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.scroll_bar_observer_set.h>
+#include <tetengo2.gui.message.size_observer_set.h>
 #include <tetengo2.gui.message.text_box_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.mouse_capture.h>
@@ -495,6 +496,7 @@ namespace bobura
                 font_type,
                 system_cursor_type,
                 scroll_bar_type,
+                tetengo2::gui::message::size_observer_set,
                 tetengo2::gui::message::focus_observer_set,
                 tetengo2::gui::message::paint_observer_set<canvas_type>,
                 tetengo2::gui::message::keyboard_observer_set<

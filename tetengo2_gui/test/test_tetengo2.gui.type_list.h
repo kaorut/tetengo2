@@ -608,6 +608,7 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::font>::type,
                 boost::mpl::at<cursor_type_list, type::cursor::system>::type,
                 boost::mpl::at<scroll_type_list, type::scroll::scroll_bar>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::size_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,
