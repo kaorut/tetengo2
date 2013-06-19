@@ -96,12 +96,6 @@ namespace tetengo2 { namespace detail { namespace windows
                         message_handler_detail::abstract_window::on_initmenupopup(abstract_window, w_param, l_param);
                 }
             );
-            map[WM_SIZE].push_back(
-                [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::abstract_window::on_resized(abstract_window, w_param, l_param);
-                }
-            );
             map[WM_CLOSE].push_back(
                 [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
@@ -547,6 +541,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
                     return message_handler_detail::widget::on_set_cursor(widget, w_param, l_param);
+                }
+            );
+            map[WM_SIZE].push_back(
+                [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
+                {
+                    return message_handler_detail::widget::on_resized(widget, w_param, l_param);
                 }
             );
             map[WM_SETFOCUS].push_back(

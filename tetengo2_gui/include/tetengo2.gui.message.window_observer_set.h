@@ -24,14 +24,6 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         /*!
-            \brief The observer type of resized
-        */
-        typedef void resized_type();
-
-        //! The signal type of resized.
-        typedef boost::signals2::signal<resized_type> resized_signal_type;
-
-        /*!
             \brief The observer type of closing.
 
             \param cancel Set true to cancel the window closing.
@@ -51,27 +43,6 @@ namespace tetengo2 { namespace gui { namespace message
 
 
         // functions
-
-        /*!
-            \brief Returns the observer called when a window is resized.
-
-            \return The observer called when a window is resized.
-        */
-        const resized_signal_type& resized()
-        const
-        {
-            return m_resized;
-        }
-
-        /*!
-            \brief Returns the observer called when a window is resized.
-
-            \return The observer called when a window is resized.
-        */
-        resized_signal_type& resized()
-        {
-            return m_resized;
-        }
 
         /*!
             \brief Returns the observer called when a window is closing.
@@ -118,8 +89,6 @@ namespace tetengo2 { namespace gui { namespace message
 
     private:
         // variables
-
-        resized_signal_type m_resized;
 
         closing_signal_type m_closing;
 
