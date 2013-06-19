@@ -314,11 +314,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 static const auto padding = height_type(1) / 4;
                 const auto text_dimension = canvas.calc_text_dimension(this->side_bar_().text());
-
                 this->set_dimension(calculate_dimension(padding, text_dimension));
-                m_text_position = boost::make_optional(text_position(padding, text_dimension));
 
                 m_p_state_button->set_position(state_button_position(padding));
+
+                m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
 
             dimension_type calculate_dimension(const height_type& padding, const dimension_type& text_dimension)
