@@ -211,6 +211,38 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         private:
+            // static functions
+
+            static const color_type& background_color()
+            {
+                static const color_type singleton = make_background_color();
+                return singleton;
+            }
+
+            static const color_type& border_color()
+            {
+                static const color_type singleton = make_border_color();
+                return singleton;
+            }
+
+            static color_type make_background_color()
+            {
+                const color_type& base_color = system_color_set_type::title_bar_background();
+                return
+                    color_type(
+                        static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
+                        static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
+                        static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4)
+                    );
+            }
+
+            static color_type make_border_color()
+            {
+                const color_type& base_color = system_color_set_type::title_bar_background();
+                return color_type(base_color.red() / 2, base_color.green() / 2, base_color.blue() / 2);
+            }
+
+
             // virtual functions
 
             virtual void resized_impl()
@@ -223,9 +255,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_color = canvas.color();
                 auto original_line_width = canvas.line_width();
                 auto original_background = canvas.background().clone();
-                canvas.set_color(color_type(0, 0, 0));
+                canvas.set_color(border_color());
                 canvas.set_line_width(size_type(1) / 16);
-                canvas.set_background(make_unique<solid_background_type>(color_type(255, 255, 255)));
+                canvas.set_background(make_unique<solid_background_type>(background_color()));
 
                 const auto& left = gui::position<position_type>::left(this->position());
                 const auto& top = gui::position<position_type>::top(this->position());
