@@ -416,6 +416,19 @@ namespace tetengo2 { namespace gui { namespace widget
             std::unique_ptr<item> p_caption = make_unique<caption>(*p_side_bar, std::move(p_state_button));
             p_side_bar->m_p_items.push_back(std::move(p_caption));
 
+            p_side_bar->size_observer_set().resized().connect(
+                [p_side_bar]()
+                {
+                    std::for_each(
+                        p_side_bar->m_p_items.begin(),
+                        p_side_bar->m_p_items.end(),
+                        [](const std::unique_ptr<item>& p_item)
+                        {
+                            p_item->resized();
+                        }
+                    );
+                }
+            );
             p_side_bar->paint_observer_set().paint_background().disconnect_all_slots();
             p_side_bar->paint_observer_set().paint_background().connect(
                 [p_side_bar](canvas_type& canvas) { return paint_background(*p_side_bar, canvas); }
@@ -428,7 +441,6 @@ namespace tetengo2 { namespace gui { namespace widget
                         p_side_bar->m_p_items.end(),
                         [&canvas](const std::unique_ptr<item>& p_item)
                         {
-                            p_item->resized();
                             p_item->draw(canvas);
                         }
                     );
