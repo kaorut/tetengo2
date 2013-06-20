@@ -412,8 +412,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
-            std::unique_ptr<item> p_state_button = make_unique<state_button>(*p_side_bar);
-            std::unique_ptr<item> p_caption = make_unique<caption>(*p_side_bar, std::move(p_state_button));
+            auto p_state_button = make_unique<state_button>(*p_side_bar);
+            auto p_caption = make_unique<caption>(*p_side_bar, std::move(p_state_button));
             p_side_bar->m_p_items.push_back(std::move(p_caption));
 
             p_side_bar->size_observer_set().resized().connect(
