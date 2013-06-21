@@ -85,7 +85,8 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit side_bar(widget_type& parent)
         :
         base_type(parent, base_type::scroll_bar_style_type::none),
-        m_p_items()
+        m_p_caption(),
+        m_p_splitter()
         {
             initialize_side_bar(this);
         }
@@ -446,28 +447,12 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void draw_impl(canvas_type& canvas)
             override
             {
-                //auto original_color = canvas.color();
-                //auto original_line_width = canvas.line_width();
-                //auto original_background = canvas.background().clone();
-                //canvas.set_color(border_color());
-                //canvas.set_line_width(size_type(1) / 16);
-                //canvas.set_background(make_unique<solid_background_type>(background_color()));
+                auto original_background = canvas.background().clone();
+                canvas.set_background(make_unique<solid_background_type>(background_color()));
 
-                //const auto& left = gui::position<position_type>::left(this->position());
-                //const auto& top = gui::position<position_type>::top(this->position());
-                //const auto& width = gui::dimension<dimension_type>::width(this->dimension());
-                //const auto& height = gui::dimension<dimension_type>::height(this->dimension());
-                //std::vector<position_type> positions;
-                //positions.emplace_back(left, top);
-                //positions.emplace_back(left + left_type::from(width), top + top_type::from(height / 2));
-                //positions.emplace_back(left, top + top_type::from(height));
+                canvas.fill_rectangle(this->position(), this->dimension());
 
-                //canvas.fill_polygon(positions.begin(), positions.end());
-                //canvas.draw_polygon(positions.begin(), positions.end());
-
-                //canvas.set_background(std::move(original_background));
-                //canvas.set_line_width(std::move(original_line_width));
-                //canvas.set_color(std::move(original_color));
+                canvas.set_background(std::move(original_background));
             }
 
 
@@ -490,27 +475,21 @@ namespace tetengo2 { namespace gui { namespace widget
         static void create_items(side_bar& side_bar_)
         {
             auto p_state_button = make_unique<state_button>(side_bar_);
-            auto p_caption = make_unique<caption>(side_bar_, std::move(p_state_button));
-            side_bar_.m_p_items.push_back(std::move(p_caption));
+            side_bar_.m_p_caption = make_unique<caption>(side_bar_, std::move(p_state_button));
 
-            auto p_splitter = make_unique<splitter>(side_bar_);
-            side_bar_.m_p_items.push_back(std::move(p_splitter));
-
+            side_bar_.m_p_splitter = make_unique<splitter>(side_bar_);
         }
 
         static void set_observers(side_bar& side_bar_)
         {
+            assert(side_bar_.m_p_caption);
+            assert(side_bar_.m_p_splitter);
+
             side_bar_.size_observer_set().resized().connect(
                 [&side_bar_]()
                 {
-                    std::for_each(
-                        side_bar_.m_p_items.begin(),
-                        side_bar_.m_p_items.end(),
-                        [](const std::unique_ptr<item>& p_item)
-                        {
-                            p_item->resized();
-                        }
-                    );
+                    side_bar_.m_p_caption->resized();
+                    side_bar_.m_p_splitter->resized();
                 }
             );
 
@@ -521,14 +500,8 @@ namespace tetengo2 { namespace gui { namespace widget
             side_bar_.paint_observer_set().paint().connect(
                 [&side_bar_](canvas_type& canvas)
                 {
-                    std::for_each(
-                        side_bar_.m_p_items.begin(),
-                        side_bar_.m_p_items.end(),
-                        [&canvas](const std::unique_ptr<item>& p_item)
-                        {
-                            p_item->draw(canvas);
-                        }
-                    );
+                    side_bar_.m_p_caption->draw(canvas);
+                    side_bar_.m_p_splitter->draw(canvas);
                 }
             );
         }
@@ -547,7 +520,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        std::vector<std::unique_ptr<item>> m_p_items;
+        std::unique_ptr<item> m_p_caption;
+
+        std::unique_ptr<item> m_p_splitter;
 
 
     };
