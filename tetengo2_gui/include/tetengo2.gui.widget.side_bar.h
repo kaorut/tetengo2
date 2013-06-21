@@ -403,6 +403,76 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
+        class splitter : public item
+        {
+        public:
+            // constructors and destructor
+
+            explicit splitter(const side_bar& side_bar_)
+            :
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0)))
+            {}
+
+
+        private:
+            // static functions
+
+            static const color_type& background_color()
+            {
+                static const color_type singleton = make_background_color();
+                return singleton;
+            }
+
+            static color_type make_background_color()
+            {
+                const color_type& base_color = system_color_set_type::title_bar_background();
+                return
+                    color_type(
+                        static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
+                        static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
+                        static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4)
+                    );
+            }
+
+
+            // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+            
+            }
+
+            virtual void draw_impl(canvas_type& canvas)
+            override
+            {
+                //auto original_color = canvas.color();
+                //auto original_line_width = canvas.line_width();
+                //auto original_background = canvas.background().clone();
+                //canvas.set_color(border_color());
+                //canvas.set_line_width(size_type(1) / 16);
+                //canvas.set_background(make_unique<solid_background_type>(background_color()));
+
+                //const auto& left = gui::position<position_type>::left(this->position());
+                //const auto& top = gui::position<position_type>::top(this->position());
+                //const auto& width = gui::dimension<dimension_type>::width(this->dimension());
+                //const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+                //std::vector<position_type> positions;
+                //positions.emplace_back(left, top);
+                //positions.emplace_back(left + left_type::from(width), top + top_type::from(height / 2));
+                //positions.emplace_back(left, top + top_type::from(height));
+
+                //canvas.fill_polygon(positions.begin(), positions.end());
+                //canvas.draw_polygon(positions.begin(), positions.end());
+
+                //canvas.set_background(std::move(original_background));
+                //canvas.set_line_width(std::move(original_line_width));
+                //canvas.set_color(std::move(original_color));
+            }
+
+
+        };
+
 
         // static functions
 
@@ -412,16 +482,30 @@ namespace tetengo2 { namespace gui { namespace widget
                 make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
-            auto p_state_button = make_unique<state_button>(*p_side_bar);
-            auto p_caption = make_unique<caption>(*p_side_bar, std::move(p_state_button));
-            p_side_bar->m_p_items.push_back(std::move(p_caption));
+            create_items(*p_side_bar);
 
-            p_side_bar->size_observer_set().resized().connect(
-                [p_side_bar]()
+            set_observers(*p_side_bar);
+        }
+
+        static void create_items(side_bar& side_bar_)
+        {
+            auto p_state_button = make_unique<state_button>(side_bar_);
+            auto p_caption = make_unique<caption>(side_bar_, std::move(p_state_button));
+            side_bar_.m_p_items.push_back(std::move(p_caption));
+
+            auto p_splitter = make_unique<splitter>(side_bar_);
+            side_bar_.m_p_items.push_back(std::move(p_splitter));
+
+        }
+
+        static void set_observers(side_bar& side_bar_)
+        {
+            side_bar_.size_observer_set().resized().connect(
+                [&side_bar_]()
                 {
                     std::for_each(
-                        p_side_bar->m_p_items.begin(),
-                        p_side_bar->m_p_items.end(),
+                        side_bar_.m_p_items.begin(),
+                        side_bar_.m_p_items.end(),
                         [](const std::unique_ptr<item>& p_item)
                         {
                             p_item->resized();
@@ -429,16 +513,17 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
                 }
             );
-            p_side_bar->paint_observer_set().paint_background().disconnect_all_slots();
-            p_side_bar->paint_observer_set().paint_background().connect(
-                [p_side_bar](canvas_type& canvas) { return paint_background(*p_side_bar, canvas); }
+
+            side_bar_.paint_observer_set().paint_background().disconnect_all_slots();
+            side_bar_.paint_observer_set().paint_background().connect(
+                [&side_bar_](canvas_type& canvas) { return paint_background(side_bar_, canvas); }
             );
-            p_side_bar->paint_observer_set().paint().connect(
-                [p_side_bar](canvas_type& canvas)
+            side_bar_.paint_observer_set().paint().connect(
+                [&side_bar_](canvas_type& canvas)
                 {
                     std::for_each(
-                        p_side_bar->m_p_items.begin(),
-                        p_side_bar->m_p_items.end(),
+                        side_bar_.m_p_items.begin(),
+                        side_bar_.m_p_items.end(),
                         [&canvas](const std::unique_ptr<item>& p_item)
                         {
                             p_item->draw(canvas);
@@ -448,13 +533,13 @@ namespace tetengo2 { namespace gui { namespace widget
             );
         }
 
-        static bool paint_background(const side_bar& side_bar, canvas_type& canvas)
+        static bool paint_background(const side_bar& side_bar_, canvas_type& canvas)
         {
-            if (!side_bar.background())
+            if (!side_bar_.background())
                 return false;
 
-            canvas.set_background(side_bar.background()->clone());
-            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), side_bar.client_dimension());
+            canvas.set_background(side_bar_.background()->clone());
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), side_bar_.client_dimension());
 
             return true;
         }
