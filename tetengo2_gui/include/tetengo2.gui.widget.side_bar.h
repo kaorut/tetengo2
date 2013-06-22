@@ -476,7 +476,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 this->set_position(position_type(left_type(0), top_type::from(caption_height)));
 
-                this->set_dimension(dimension_type(width_type(1), std::min(client_height - caption_height, height_type(0))));
+                this->set_dimension(
+                    dimension_type(width_type(1), client_height > caption_height ? client_height - caption_height : height_type(0))
+                );
 
                 m_need_size_recalculation = false;
             }
