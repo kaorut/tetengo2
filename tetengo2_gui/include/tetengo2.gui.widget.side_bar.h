@@ -411,7 +411,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit splitter(const side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0)))
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0))),
+            m_need_size_recalculation(true)
             {}
 
 
@@ -429,11 +430,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 const color_type& base_color = system_color_set_type::title_bar_background();
                 return
                     color_type(
-                        static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
-                        static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
-                        static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4)
+                        static_cast<unsigned char>((0xFF * 1 + base_color.red() * 1) / 2),
+                        static_cast<unsigned char>((0xFF * 1 + base_color.green() * 1) / 2),
+                        static_cast<unsigned char>((0xFF * 1 + base_color.blue() * 1) / 2)
                     );
             }
+
+
+            // variables
+
+            bool m_need_size_recalculation;
 
 
             // virtual functions
@@ -441,18 +447,38 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-            
+                m_need_size_recalculation = true;
             }
 
             virtual void draw_impl(canvas_type& canvas)
             override
             {
+                calculate_position_and_dimension();
+
                 auto original_background = canvas.background().clone();
                 canvas.set_background(make_unique<solid_background_type>(background_color()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.set_background(std::move(original_background));
+            }
+
+
+            // functions
+
+            void calculate_position_and_dimension()
+            {
+                if (!m_need_size_recalculation)
+                    return;
+
+                const auto& client_height = gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
+                const auto& caption_height = gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
+
+                this->set_position(position_type(left_type(0), top_type::from(caption_height)));
+
+                this->set_dimension(dimension_type(width_type(1), std::min(client_height - caption_height, height_type(0))));
+
+                m_need_size_recalculation = false;
             }
 
 
