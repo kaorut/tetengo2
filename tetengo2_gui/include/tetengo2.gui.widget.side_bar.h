@@ -516,7 +516,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_entered_impl()
             override
             {
-                auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
+                auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
                 this->side_bar_().set_cursor(std::move(p_cursor));
             }
 
