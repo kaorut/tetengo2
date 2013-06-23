@@ -48,6 +48,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The system color set type.
         typedef typename traits_type::system_color_set_type system_color_set_type;
 
+        //! The system cursor type.
+        typedef typename traits_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename system_cursor_type::base_type cursor_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -158,15 +164,50 @@ namespace tetengo2 { namespace gui { namespace widget
                 draw_impl(canvas);
             }
 
+            void mouse_moved(const position_type& cursor_position)
+            {
+                const auto& left = gui::position<position_type>::left(m_position);
+                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
+                const auto& top = gui::position<position_type>::top(m_position);
+                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
+
+                const auto& cursor_left = gui::position<position_type>::left(cursor_position);
+                const auto& cursor_top = gui::position<position_type>::top(cursor_position);
+
+                if (
+                    (
+                        (left <= cursor_left && cursor_left < right) &&
+                        (top <= cursor_top && cursor_top < bottom)
+                    ) &&
+                    !m_mouse_inside
+                )
+                {
+                    mouse_entered_impl();
+                    m_mouse_inside = true;
+                }
+                else if (
+                    (
+                        (cursor_left < left || right <= cursor_left) ||
+                        (cursor_top < top || bottom <= cursor_top)
+                    ) &&
+                    m_mouse_inside
+                )
+                {
+                    mouse_left_impl();
+                    m_mouse_inside = false;
+                }
+            }
+
 
         protected:
             // constructors
 
-            item(const side_bar& side_bar_, position_type&& position, dimension_type&& dimension)
+            item(side_bar& side_bar_, position_type&& position, dimension_type&& dimension)
             :
             m_side_bar(side_bar_),
             m_position(std::move(position)),
-            m_dimension(std::move(dimension))
+            m_dimension(std::move(dimension)),
+            m_mouse_inside(false)
             {}
 
 
@@ -178,24 +219,37 @@ namespace tetengo2 { namespace gui { namespace widget
                 return m_side_bar;
             }
 
+            side_bar& side_bar_()
+            {
+                return m_side_bar;
+            }
+
 
         private:
             // variables
 
-            const side_bar& m_side_bar;
+            side_bar& m_side_bar;
 
             position_type m_position;
 
             dimension_type m_dimension;
 
+            bool m_mouse_inside;
+
 
             // virtual functions
 
             virtual void resized_impl()
-            = 0;
+            {}
 
             virtual void draw_impl(canvas_type& canvas)
             = 0;
+
+            virtual void mouse_entered_impl()
+            {}
+
+            virtual void mouse_left_impl()
+            {}
 
 
         };
@@ -205,7 +259,7 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            explicit state_button(const side_bar& side_bar_)
+            explicit state_button(side_bar& side_bar_)
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1)))
             {}
@@ -246,10 +300,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void resized_impl()
-            override
-            {}
-
             virtual void draw_impl(canvas_type& canvas)
             override
             {
@@ -285,7 +335,7 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            caption(const side_bar& side_bar_, std::unique_ptr<item> p_state_button)
+            caption(side_bar& side_bar_, std::unique_ptr<item> p_state_button)
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
             m_p_state_button(std::move(p_state_button)),
@@ -409,7 +459,7 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            explicit splitter(const side_bar& side_bar_)
+            explicit splitter(side_bar& side_bar_)
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0))),
             m_need_size_recalculation(true)
@@ -461,6 +511,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.set_background(std::move(original_background));
+            }
+
+            virtual void mouse_entered_impl()
+            override
+            {
+                auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
+                this->side_bar_().set_cursor(std::move(p_cursor));
+            }
+
+            virtual void mouse_left_impl()
+            override
+            {
+               this->side_bar_().set_cursor(std::unique_ptr<cursor_type>());
             }
 
 
@@ -530,6 +593,14 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     side_bar_.m_p_caption->draw(canvas);
                     side_bar_.m_p_splitter->draw(canvas);
+                }
+            );
+
+            side_bar_.mouse_observer_set().moved().connect(
+                [&side_bar_](const position_type& position, bool, bool, bool)
+                {
+                    side_bar_.m_p_caption->mouse_moved(position);
+                    side_bar_.m_p_splitter->mouse_moved(position);
                 }
             );
         }

@@ -33,6 +33,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The system color set type.
         typedef SystemColorSet system_color_set_type;
 
+        //! The system cursor type.
+        typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;
+
 
     };
 
