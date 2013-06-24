@@ -25,6 +25,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
+#include "tetengo2.detail.stub.mouse_capture.h"
 #include "tetengo2.detail.stub.scroll.h"
 #include "tetengo2.detail.stub.system_color.h"
 #include "tetengo2.detail.stub.unit.h"
@@ -73,6 +74,7 @@
 #include "tetengo2.gui.message.size_observer_set.h"
 #include "tetengo2.gui.message.text_box_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
+#include "tetengo2.gui.mouse_capture.h"
 #include "tetengo2.gui.scroll_bar.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -615,6 +617,11 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::mouse_observer_set>::type
             >
             widget_traits_type;
+        typedef tetengo2::detail::stub::widget widget_details_type;
+        typedef tetengo2::detail::stub::message_handler message_handler_details_type;
+        typedef
+            tetengo2::gui::widget::widget<widget_traits_type, widget_details_type, message_handler_details_type>
+            widget_type;
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
@@ -623,9 +630,7 @@ namespace test_tetengo2 { namespace gui
             >
             abstract_window_traits_type;
         typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;
-        typedef tetengo2::detail::stub::widget widget_details_type;
         typedef tetengo2::detail::stub::widget::details_font_type details_font_type;
-        typedef tetengo2::detail::stub::message_handler message_handler_details_type;
         typedef
             tetengo2::gui::widget::abstract_window<
                 abstract_window_traits_type, widget_details_type, message_handler_details_type
@@ -686,11 +691,13 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type
             >
             picture_box_traits_type;
+        typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
         typedef
             tetengo2::gui::widget::traits::side_bar_traits<
                 custom_control_traits_type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
+                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
+                mouse_capture_type
             >
             side_bar_traits_type;
         typedef
@@ -709,15 +716,7 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::widget::message_loop_break, detail::widget::message_loop_break_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget::details_font, detail::widget::details_font_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::widget::widget,
-                tetengo2::gui::widget::widget<
-                    detail::widget::widget_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
-                >
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget::widget, detail::widget::widget_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::widget::abstract_window, detail::widget::abstract_window_type>,
         tetengo2::meta::assoc_list<

@@ -681,8 +681,13 @@ namespace bobura
             >
             picture_box_type;
         typedef
+            tetengo2::gui::mouse_capture<
+                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+            >
+            mouse_capture_type;
+        typedef
             tetengo2::gui::widget::traits::side_bar_traits<
-                custom_control_traits_type, solid_background_type, system_color_set_type
+                custom_control_traits_type, solid_background_type, system_color_set_type, mouse_capture_type
             >
             side_bar_traits_type;
         typedef
@@ -748,13 +753,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::mouse_capture,
-                tetengo2::gui::mouse_capture<
-                    detail::ui::widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
-                >
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::mouse_capture, detail::ui::mouse_capture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<
