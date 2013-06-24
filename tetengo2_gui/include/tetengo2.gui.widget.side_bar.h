@@ -184,37 +184,23 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void mouse_moved(const position_type& cursor_position)
             {
-                mouse_moved_impl(cursor_position);
 
-                const auto& left = gui::position<position_type>::left(m_position);
-                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-                const auto& top = gui::position<position_type>::top(m_position);
-                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
-
-                const auto& cursor_left = gui::position<position_type>::left(cursor_position);
-                const auto& cursor_top = gui::position<position_type>::top(cursor_position);
-
-                if (
-                    (
-                        (left <= cursor_left && cursor_left < right) &&
-                        (top <= cursor_top && cursor_top < bottom)
-                    ) &&
-                    !m_mouse_inside
-                )
+                if (inside(cursor_position))
                 {
-                    mouse_entered_impl();
-                    m_mouse_inside = true;
+                    mouse_moved_impl(cursor_position);
+                    if (!m_mouse_inside)
+                    {
+                        mouse_entered_impl();
+                        m_mouse_inside = true;
+                    }
                 }
-                else if (
-                    (
-                        (cursor_left < left || right <= cursor_left) ||
-                        (cursor_top < top || bottom <= cursor_top)
-                    ) &&
-                    m_mouse_inside
-                )
+                else
                 {
-                    mouse_left_impl();
-                    m_mouse_inside = false;
+                    if (m_mouse_inside)
+                    {
+                        mouse_left_impl();
+                        m_mouse_inside = false;
+                    }
                 }
             }
 
@@ -285,6 +271,23 @@ namespace tetengo2 { namespace gui { namespace widget
 
             virtual void mouse_left_impl()
             {}
+
+
+            // functions
+
+            bool inside(const position_type& position)
+            const
+            {
+                const auto& left = gui::position<position_type>::left(m_position);
+                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
+                const auto& top = gui::position<position_type>::top(m_position);
+                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
+
+                const auto& cursor_left = gui::position<position_type>::left(position);
+                const auto& cursor_top = gui::position<position_type>::top(position);
+
+                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
+            }
 
 
         };
