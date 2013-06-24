@@ -48,6 +48,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The system color set type.
         typedef typename traits_type::system_color_set_type system_color_set_type;
 
+        //! The mouse capture type.
+        typedef typename traits_type::mouse_capture_type mouse_capture_type;
+
         //! The system cursor type.
         typedef typename traits_type::system_cursor_type system_cursor_type;
 
