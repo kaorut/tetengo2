@@ -266,13 +266,19 @@ namespace tetengo2 { namespace gui { namespace widget
             = 0;
 
             virtual void mouse_pressed_impl(const position_type& cursor_position)
-            {}
+            {
+                suppress_unused_variable_warning(cursor_position);
+            }
 
             virtual void mouse_released_impl(const position_type& cursor_position)
-            {}
+            {
+                suppress_unused_variable_warning(cursor_position);
+            }
 
             virtual void mouse_moved_impl(const position_type& cursor_position)
-            {}
+            {
+                suppress_unused_variable_warning(cursor_position);
+            }
 
             virtual void mouse_entered_impl()
             {}
@@ -542,19 +548,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(std::move(original_background));
             }
 
-            virtual void mouse_pressed_impl(const position_type& cursor_position)
+            virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
             override
             {
                 
             }
 
-            virtual void mouse_released_impl(const position_type& cursor_position)
+            virtual void mouse_released_impl(const position_type& /*cursor_position*/)
             override
             {
             
             }
 
-            virtual void mouse_moved_impl(const position_type& cursor_position)
+            virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
             override
             {
             
