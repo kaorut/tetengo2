@@ -95,7 +95,8 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(parent, base_type::scroll_bar_style_type::none),
         m_p_caption(),
-        m_p_splitter()
+        m_p_splitter(),
+        m_p_mouse_capture()
         {
             initialize_side_bar(this);
         }
@@ -110,6 +111,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // types
+
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+
+        typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
 
         typedef typename canvas_type::size_type size_type;
 
@@ -167,8 +172,20 @@ namespace tetengo2 { namespace gui { namespace widget
                 draw_impl(canvas);
             }
 
+            void mouse_pressed(const position_type& cursor_position)
+            {
+                mouse_pressed_impl(cursor_position);
+            }
+
+            void mouse_released(const position_type& cursor_position)
+            {
+                mouse_released_impl(cursor_position);
+            }
+
             void mouse_moved(const position_type& cursor_position)
             {
+                mouse_moved_impl(cursor_position);
+
                 const auto& left = gui::position<position_type>::left(m_position);
                 const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
                 const auto& top = gui::position<position_type>::top(m_position);
@@ -247,6 +264,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             virtual void draw_impl(canvas_type& canvas)
             = 0;
+
+            virtual void mouse_pressed_impl(const position_type& cursor_position)
+            {}
+
+            virtual void mouse_released_impl(const position_type& cursor_position)
+            {}
+
+            virtual void mouse_moved_impl(const position_type& cursor_position)
+            {}
 
             virtual void mouse_entered_impl()
             {}
@@ -516,6 +542,24 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(std::move(original_background));
             }
 
+            virtual void mouse_pressed_impl(const position_type& cursor_position)
+            override
+            {
+                
+            }
+
+            virtual void mouse_released_impl(const position_type& cursor_position)
+            override
+            {
+            
+            }
+
+            virtual void mouse_moved_impl(const position_type& cursor_position)
+            override
+            {
+            
+            }
+
             virtual void mouse_entered_impl()
             override
             {
@@ -599,10 +643,27 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
             );
 
+            side_bar_.mouse_observer_set().pressed().connect(
+                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool)
+                {
+                    if (button != mouse_button_type::left)
+                        return;
+
+                    side_bar_.m_p_splitter->mouse_pressed(position);
+                }
+            );
+            side_bar_.mouse_observer_set().released().connect(
+                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool)
+                {
+                    if (button != mouse_button_type::left)
+                        return;
+
+                    side_bar_.m_p_splitter->mouse_released(position);
+                }
+            );
             side_bar_.mouse_observer_set().moved().connect(
                 [&side_bar_](const position_type& position, bool, bool, bool)
                 {
-                    side_bar_.m_p_caption->mouse_moved(position);
                     side_bar_.m_p_splitter->mouse_moved(position);
                 }
             );
@@ -625,6 +686,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<item> m_p_caption;
 
         std::unique_ptr<item> m_p_splitter;
+
+        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
 
     };

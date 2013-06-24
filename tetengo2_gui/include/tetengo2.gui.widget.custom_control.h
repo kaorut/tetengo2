@@ -62,6 +62,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
