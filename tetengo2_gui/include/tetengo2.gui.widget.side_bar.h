@@ -500,7 +500,8 @@ namespace tetengo2 { namespace gui { namespace widget
             explicit splitter(side_bar& side_bar_)
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0))),
-            m_need_size_recalculation(true)
+            m_need_size_recalculation(true),
+            m_pressed_position(position_type(left_type(0), top_type(0)))
             {}
 
 
@@ -529,6 +530,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             bool m_need_size_recalculation;
 
+            position_type m_pressed_position;
+
 
             // virtual functions
 
@@ -551,22 +554,29 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(std::move(original_background));
             }
 
-            virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
+            virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
-                
+                this->side_bar_().set_mouse_capture();
+
+                m_pressed_position = cursor_position;
             }
 
-            virtual void mouse_released_impl(const position_type& /*cursor_position*/)
+            virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-            
+                this->side_bar_().release_mouse_capture();
+
+                resize_side_bar(cursor_position);
             }
 
-            virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
+            virtual void mouse_moved_impl(const position_type& cursor_position)
             override
             {
-            
+                if (!this->side_bar_().mouse_captured())
+                    return;
+
+                resize_side_bar(cursor_position);
             }
 
             virtual void mouse_entered_impl()
@@ -602,6 +612,20 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_need_size_recalculation = false;
             }
 
+            void resize_side_bar(const position_type& current_position)
+            {
+                const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
+                const auto& current_left = gui::position<position_type>::left(current_position);
+                auto new_width = 
+                    gui::dimension<dimension_type>::width(this->side_bar_().dimension()) +
+                    (pressed_left - current_left);
+                auto new_height = gui::dimension<dimension_type>::height(this->side_bar_().dimension());
+
+                this->side_bar_().set_dimension(dimension_type(std::move(new_width), std::move(new_height)));
+                if (this->side_bar_().has_parent())
+                    this->side_bar_().parent().size_observer_set().resized()();
+            }
+
 
         };
 
@@ -610,6 +634,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_side_bar(side_bar* const p_side_bar)
         {
+            p_side_bar->set_dimension(dimension_type(width_type(16), height_type(16)));
             p_side_bar->set_background(
                 make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
@@ -697,6 +722,25 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<item> m_p_splitter;
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
+
+
+        // functions
+
+        bool mouse_captured()
+        const
+        {
+            return static_cast<bool>(m_p_mouse_capture);
+        }
+
+        void set_mouse_capture()
+        {
+            m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
+        }
+
+        void release_mouse_capture()
+        {
+            m_p_mouse_capture.reset();
+        }
 
 
     };
