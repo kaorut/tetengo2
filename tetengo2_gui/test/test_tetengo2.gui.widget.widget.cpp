@@ -601,9 +601,16 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        {
+            const concrete_widget widget;
 
-        widget.repaint();
+            widget.repaint(true);
+        }
+        {
+            const concrete_widget widget;
+
+            widget.repaint(false);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(create_canvas)

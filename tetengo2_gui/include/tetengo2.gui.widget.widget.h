@@ -527,11 +527,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         /*!
             \brief Repaints the widget.
+
+            \param immediately Set true to request an immediate repaint.
         */
-        void repaint()
+        void repaint(const bool immediately = false)
         const
         {
-            widget_details_type::repaint(*this);
+            widget_details_type::repaint(*this, immediately);
         }
 
         /*!
