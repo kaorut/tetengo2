@@ -42,6 +42,13 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         const side_bar_type side_bar(parent);
     }
 
+    BOOST_AUTO_TEST_CASE(width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

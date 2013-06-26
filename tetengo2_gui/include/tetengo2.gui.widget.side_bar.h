@@ -637,10 +637,21 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& current_left = gui::position<position_type>::left(current_position);
                 auto new_width = width_type::from(left_type::from(previous_width) + (pressed_left - current_left));
 
+                if (this->side_bar_().has_parent())
+                {
+                    const auto parent_width =
+                        gui::dimension<dimension_type>::width(this->side_bar_().parent().dimension());
+                    auto max_width = parent_width - width_type(2);
+                    if (new_width > max_width)
+                        new_width = std::move(max_width);
+                }
+                if (new_width < width_type(4))
+                    new_width = width_type(4);
+
                 if (new_width == previous_width)
                     return;
 
-                this->side_bar_().m_width = new_width;
+                this->side_bar_().m_width = std::move(new_width);
                 if (this->side_bar_().has_parent())
                 {
                     this->side_bar_().parent().size_observer_set().resized()();
