@@ -174,11 +174,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void mouse_pressed(const position_type& cursor_position)
             {
+                if (!inside(cursor_position))
+                    return;
+
                 mouse_pressed_impl(cursor_position);
             }
 
             void mouse_released(const position_type& cursor_position)
             {
+                if (!this->side_bar_().mouse_captured() && !inside(cursor_position))
+                    return;
+
                 mouse_released_impl(cursor_position);
             }
 
@@ -623,10 +629,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 const dimension_type dimension(std::move(new_width), std::move(new_height));
                 this->side_bar_().set_dimension(dimension);
-                if (this->side_bar_().has_parent() && dimension != previous_dimension)
+                if (this->side_bar_().has_parent())
                 {
                     this->side_bar_().parent().size_observer_set().resized()();
-                    this->side_bar_().parent().repaint(true);
+                    if (dimension != previous_dimension)
+                        this->side_bar_().parent().repaint(true);
                 }
             }
 
