@@ -624,7 +624,10 @@ namespace tetengo2 { namespace gui { namespace widget
                 const dimension_type dimension(std::move(new_width), std::move(new_height));
                 this->side_bar_().set_dimension(dimension);
                 if (this->side_bar_().has_parent() && dimension != previous_dimension)
+                {
                     this->side_bar_().parent().size_observer_set().resized()();
+                    this->side_bar_().parent().repaint(true);
+                }
             }
 
 
