@@ -185,7 +185,7 @@ namespace tetengo2 { namespace gui { namespace widget
             void mouse_moved(const position_type& cursor_position)
             {
 
-                if (inside(cursor_position))
+                if (this->side_bar_().mouse_captured() || inside(cursor_position))
                 {
                     mouse_moved_impl(cursor_position);
                     if (!m_mouse_inside)
@@ -616,13 +616,14 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position<position_type>::left(current_position);
+                const auto previous_dimension = this->side_bar_().dimension();
                 auto new_width = 
-                    gui::dimension<dimension_type>::width(this->side_bar_().dimension()) +
-                    (pressed_left - current_left);
-                auto new_height = gui::dimension<dimension_type>::height(this->side_bar_().dimension());
+                    gui::dimension<dimension_type>::width(previous_dimension) + (pressed_left - current_left);
+                auto new_height = gui::dimension<dimension_type>::height(previous_dimension);
 
-                this->side_bar_().set_dimension(dimension_type(std::move(new_width), std::move(new_height)));
-                if (this->side_bar_().has_parent())
+                const dimension_type dimension(std::move(new_width), std::move(new_height));
+                this->side_bar_().set_dimension(dimension);
+                if (this->side_bar_().has_parent() && dimension != previous_dimension)
                     this->side_bar_().parent().size_observer_set().resized()();
             }
 
