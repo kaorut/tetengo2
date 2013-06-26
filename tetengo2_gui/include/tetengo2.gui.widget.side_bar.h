@@ -80,6 +80,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
 
+        //! The width type.
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -96,7 +99,8 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent, base_type::scroll_bar_style_type::none),
         m_p_caption(),
         m_p_splitter(),
-        m_p_mouse_capture()
+        m_p_mouse_capture(),
+        m_width(0)
         {
             initialize_side_bar(this);
         }
@@ -107,6 +111,15 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~side_bar()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+        // functions
+
+        const width_type& width()
+        const
+        {
+            return m_width;
+        }
 
 
     private:
@@ -123,8 +136,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename gui::position<position_type>::left_type left_type;
 
         typedef typename gui::position<position_type>::top_type top_type;
-
-        typedef typename gui::dimension<dimension_type>::width_type width_type;
 
         typedef typename gui::dimension<dimension_type>::height_type height_type;
 
@@ -620,20 +631,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void resize_side_bar(const position_type& current_position)
             {
+                const auto& previous_width = gui::dimension<dimension_type>::width(this->side_bar_().dimension());
+
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position<position_type>::left(current_position);
-                const auto previous_dimension = this->side_bar_().dimension();
-                auto new_width = 
-                    gui::dimension<dimension_type>::width(previous_dimension) + (pressed_left - current_left);
-                auto new_height = gui::dimension<dimension_type>::height(previous_dimension);
+                auto new_width = width_type::from(left_type::from(previous_width) + (pressed_left - current_left));
 
-                const dimension_type dimension(std::move(new_width), std::move(new_height));
-                this->side_bar_().set_dimension(dimension);
+                if (new_width == previous_width)
+                    return;
+
+                this->side_bar_().m_width = new_width;
                 if (this->side_bar_().has_parent())
                 {
                     this->side_bar_().parent().size_observer_set().resized()();
-                    if (dimension != previous_dimension)
-                        this->side_bar_().parent().repaint(true);
+                    this->side_bar_().parent().repaint(true);
                 }
             }
 
@@ -653,6 +664,8 @@ namespace tetengo2 { namespace gui { namespace widget
             create_items(*p_side_bar);
 
             set_observers(*p_side_bar);
+
+            p_side_bar->m_width= gui::dimension<dimension_type>::width(p_side_bar->dimension());
         }
 
         static void create_items(side_bar& side_bar_)
@@ -733,6 +746,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<item> m_p_splitter;
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
+
+        width_type m_width;
 
 
         // functions

@@ -262,8 +262,7 @@ namespace bobura { namespace message { namespace main_window
             const auto window_dimension = m_window.client_dimension();
             const auto& window_width = tetengo2::gui::dimension<dimension_type>::width(window_dimension);
             const auto& window_height = tetengo2::gui::dimension<dimension_type>::height(window_dimension);
-            const auto& property_bar_width =
-                tetengo2::gui::dimension<dimension_type>::width(m_property_bar.dimension());
+            const auto& property_bar_width = m_property_bar.width();
             {
                 const position_type position(
                     left_type::from(window_width) - left_type::from(property_bar_width), top_type(0)
