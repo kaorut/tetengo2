@@ -387,6 +387,14 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_color(std::move(original_color));
             }
 
+            virtual void mouse_released_impl(const position_type& cursor_position)
+            override
+            {
+                suppress_unused_variable_warning(cursor_position);
+
+
+            }
+
 
         };
 
