@@ -1412,14 +1412,6 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void repaint(Widget& widget, const bool immediately)
         {
-            if (::InvalidateRect(widget.details()->handle.get(), nullptr, TRUE) == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
-                    )
-                );
-            }
             if (immediately)
             {
                 if (::UpdateWindow(widget.details()->handle.get()) == 0)
@@ -1428,6 +1420,17 @@ namespace tetengo2 { namespace detail { namespace windows
                         std::system_error(
                             std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
                             "Can't repaint a widget immediately."
+                        )
+                    );
+                }
+            }
+            else
+            {
+                if (::InvalidateRect(widget.details()->handle.get(), nullptr, FALSE) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
                         )
                     );
                 }
