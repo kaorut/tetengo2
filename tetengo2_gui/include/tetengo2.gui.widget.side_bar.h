@@ -521,33 +521,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit splitter(side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(0))),
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
             m_need_size_recalculation(true),
             m_pressed_position(position_type(left_type(0), top_type(0)))
             {}
 
 
         private:
-            // static functions
-
-            static const color_type& background_color()
-            {
-                static const color_type singleton = make_background_color();
-                return singleton;
-            }
-
-            static color_type make_background_color()
-            {
-                const color_type& base_color = system_color_set_type::title_bar_background();
-                return
-                    color_type(
-                        static_cast<unsigned char>((0xFF * 1 + base_color.red() * 1) / 2),
-                        static_cast<unsigned char>((0xFF * 1 + base_color.green() * 1) / 2),
-                        static_cast<unsigned char>((0xFF * 1 + base_color.blue() * 1) / 2)
-                    );
-            }
-
-
             // variables
 
             bool m_need_size_recalculation;
@@ -569,7 +549,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 calculate_position_and_dimension();
 
                 auto original_background = canvas.background().clone();
-                canvas.set_background(make_unique<solid_background_type>(background_color()));
+                canvas.set_background(
+                    make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                );
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -622,13 +604,18 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_need_size_recalculation)
                     return;
 
-                const auto& client_height = gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
-                const auto& caption_height = gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
+                const auto& client_height =
+                    gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
+                const auto& caption_height =
+                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
 
                 this->set_position(position_type(left_type(0), top_type::from(caption_height)));
 
                 this->set_dimension(
-                    dimension_type(width_type(1), client_height > caption_height ? client_height - caption_height : height_type(0))
+                    dimension_type(
+                        width_type(1) / 2,
+                        client_height > caption_height ? client_height - caption_height : height_type(0)
+                    )
                 );
 
                 m_need_size_recalculation = false;
