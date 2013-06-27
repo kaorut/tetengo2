@@ -100,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_caption(),
         m_p_splitter(),
         m_p_mouse_capture(),
-        m_width(0)
+        m_preferred_width(0)
         {
             initialize_side_bar(this);
         }
@@ -115,10 +115,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
-        const width_type& width()
-        const
+        /*!
+            \brief Returns the preferred width.
+
+            \return The preferred width.
+        */
+        const width_type& preferred_width()
         {
-            return m_width;
+            adjust_preferred_width(m_preferred_width);
+            return m_preferred_width;
         }
 
 
@@ -635,23 +640,16 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position<position_type>::left(current_position);
-                auto new_width = width_type::from(left_type::from(previous_width) + (pressed_left - current_left));
-
-                if (this->side_bar_().has_parent())
-                {
-                    const auto parent_width =
-                        gui::dimension<dimension_type>::width(this->side_bar_().parent().dimension());
-                    auto max_width = parent_width - width_type(2);
-                    if (new_width > max_width)
-                        new_width = std::move(max_width);
-                }
-                if (new_width < width_type(4))
-                    new_width = width_type(4);
+                auto new_width =
+                    width_type::from(
+                        std::max(left_type::from(previous_width) + (pressed_left - current_left), left_type(0))
+                    );
+                this->side_bar_().adjust_preferred_width(new_width);
 
                 if (new_width == previous_width)
                     return;
 
-                this->side_bar_().m_width = std::move(new_width);
+                this->side_bar_().m_preferred_width = std::move(new_width);
                 if (this->side_bar_().has_parent())
                 {
                     this->side_bar_().parent().size_observer_set().resized()();
@@ -676,7 +674,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             set_observers(*p_side_bar);
 
-            p_side_bar->m_width= gui::dimension<dimension_type>::width(p_side_bar->dimension());
+            p_side_bar->m_preferred_width= gui::dimension<dimension_type>::width(p_side_bar->dimension());
         }
 
         static void create_items(side_bar& side_bar_)
@@ -758,10 +756,33 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
-        width_type m_width;
+        width_type m_preferred_width;
 
 
         // functions
+
+        void adjust_preferred_width(width_type& width)
+        {
+            if (this->has_parent())
+            {
+                const auto parent_width =
+                    gui::dimension<dimension_type>::width(this->parent().client_dimension());
+
+                auto max_width = parent_width > width_type(4) ? parent_width - width_type(4) : parent_width;
+                if (width > max_width)
+                    width = std::move(max_width);
+
+                auto min_width = std::min(parent_width, width_type(4));
+                if (width < min_width)
+                    width = std::move(min_width);
+            }
+            else
+            {
+                width_type min_width(4);
+                if (width < min_width)
+                    width = std::move(min_width);
+            }
+        }
 
         bool mouse_captured()
         const
