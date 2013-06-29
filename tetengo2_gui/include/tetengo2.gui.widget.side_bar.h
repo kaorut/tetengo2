@@ -733,9 +733,9 @@ namespace tetengo2 { namespace gui { namespace widget
             side_bar_.paint_observer_set().paint().connect(
                 [&side_bar_](canvas_type& canvas)
                 {
-                    side_bar_.m_p_splitter->draw(canvas);
                     side_bar_.m_p_caption->draw(canvas);
                     side_bar_.m_p_state_button->draw(canvas);
+                    side_bar_.m_p_splitter->draw(canvas);
                 }
             );
 
