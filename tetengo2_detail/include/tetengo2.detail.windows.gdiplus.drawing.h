@@ -21,7 +21,9 @@
 //#include <vector>
 
 //#include <boost/noncopyable.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <boost/optional.hpp>
+#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
@@ -468,21 +470,49 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             const auto p_solid_brush = create_solid_background(color);
 
-            const auto status =
+            const Gdiplus::PointF gdiplus_point(
+                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
+                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
+            );
+
+            Gdiplus::Matrix original_matrix;
+            const auto get_transform_status = canvas.GetTransform(&original_matrix);
+            if (get_transform_status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(get_transform_status, gdiplus_category()), "Can't get transform!"
+                    )
+                );
+            }
+            Gdiplus::Matrix rotating_matrix;
+            rotating_matrix.RotateAt(radian_to_degree(angle), gdiplus_point);
+            const auto set_transform_status = canvas.SetTransform(&rotating_matrix);
+            if (set_transform_status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(set_transform_status, gdiplus_category()), "Can't set transform!"
+                    )
+                );
+            }
+            BOOST_SCOPE_EXIT((&canvas)(&original_matrix))
+            {
+                canvas.SetTransform(&original_matrix);
+            } BOOST_SCOPE_EXIT_END;
+
+            const auto draw_string_status =
                 canvas.DrawString(
                     encoded_text.c_str(),
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(), 
-                    Gdiplus::PointF(
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
-                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
-                    ),
+                    gdiplus_point,
                     p_solid_brush.get()
                 );
-            if (status != Gdiplus::Ok)
+            if (draw_string_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw text!")
+                    std::system_error(std::error_code(draw_string_status, gdiplus_category()), "Can't draw text!")
                 );
             }
         }
@@ -678,6 +708,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 style |= Gdiplus::FontStyleStrikeout;
 
             return style;
+        }
+
+        static Gdiplus::REAL radian_to_degree(const double radian)
+        {
+            return static_cast<Gdiplus::REAL>(radian * 180.0 / boost::math::constants::pi<double>());
         }
 
 
