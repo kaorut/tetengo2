@@ -15,6 +15,7 @@
 //#include <utility>
 //#include <vector>
 
+#include <boost/math/constants/constants.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -410,7 +411,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 suppress_unused_variable_warning(cursor_position);
 
                 this->side_bar_().m_minimized = !this->side_bar_().m_minimized;
-                this->side_bar_().repaint();
+                if (this->side_bar_().has_parent())
+                {
+                    this->side_bar_().parent().size_observer_set().resized()();
+                    this->side_bar_().parent().repaint();
+                }
             }
 
             virtual void mouse_entered_impl()
@@ -503,7 +508,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
-                canvas.draw_text(this->side_bar_().text(), *m_text_position);
+                canvas.draw_text(
+                    this->side_bar_().text(),
+                    *m_text_position,
+                    this->side_bar_().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
+                );
 
                 canvas.set_background(std::move(original_background));
                 canvas.set_color(std::move(original_color));
