@@ -101,6 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_splitter(),
         m_p_mouse_capture(),
         m_p_mouse_captured_item(NULL),
+        m_minimized(false),
         m_preferred_width(0)
         {
             initialize_side_bar(this);
@@ -416,6 +417,8 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
+                this->side_bar_().m_minimized = !this->side_bar_().m_minimized;
+                this->side_bar_().repaint();
             }
 
             virtual void mouse_entered_impl()
@@ -791,6 +794,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
         const item* m_p_mouse_captured_item;
+
+        bool m_minimized;
 
         width_type m_preferred_width;
 
