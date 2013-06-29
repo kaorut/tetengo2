@@ -422,14 +422,14 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_p_current_background_color = &background_color_hovered();
-                this->side_bar_().repaint(false);
+                this->side_bar_().repaint();
             }
 
             virtual void mouse_left_impl()
             override
             {
                 m_p_current_background_color = &background_color();
-                this->side_bar_().repaint(false);
+                this->side_bar_().repaint();
             }
 
 
