@@ -395,17 +395,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_line_width(size_type(1) / 16);
                 canvas.set_background(make_unique<solid_background_type>(*m_p_current_background_color));
 
-                const auto& left = gui::position<position_type>::left(this->position());
-                const auto& top = gui::position<position_type>::top(this->position());
-                const auto& width = gui::dimension<dimension_type>::width(this->dimension());
-                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
-                std::vector<position_type> positions;
-                positions.emplace_back(left, top);
-                positions.emplace_back(left + left_type::from(width), top + top_type::from(height / 2));
-                positions.emplace_back(left, top + top_type::from(height));
-
-                canvas.fill_polygon(positions.begin(), positions.end());
-                canvas.draw_polygon(positions.begin(), positions.end());
+                const auto triangle = make_triangle();
+                canvas.fill_polygon(triangle.begin(), triangle.end());
+                canvas.draw_polygon(triangle.begin(), triangle.end());
 
                 canvas.set_background(std::move(original_background));
                 canvas.set_line_width(std::move(original_line_width));
@@ -433,6 +425,35 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 m_p_current_background_color = &background_color();
                 this->side_bar_().repaint();
+            }
+
+
+            // functions
+
+            std::vector<position_type> make_triangle()
+            const
+            {
+                const auto& left = gui::position<position_type>::left(this->position());
+                const auto& top = gui::position<position_type>::top(this->position());
+                const auto& width = gui::dimension<dimension_type>::width(this->dimension());
+                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+
+                std::vector<position_type> positions;
+                positions.reserve(3);
+                if (this->side_bar_().m_minimized)
+                {
+                    positions.emplace_back(left, top + top_type::from(height / 2));
+                    positions.emplace_back(left + left_type::from(width), top);
+                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height));
+                }
+                else
+                {
+                    positions.emplace_back(left, top);
+                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height / 2));
+                    positions.emplace_back(left, top + top_type::from(height));
+                }
+
+                return positions;
             }
 
 
