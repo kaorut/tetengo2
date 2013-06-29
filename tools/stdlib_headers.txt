@@ -317,6 +317,7 @@ Gdiplus::Graphics                                GdiPlus.h,Windows.h
 Gdiplus::InstalledFontCollection                 GdiPlus.h,Windows.h
 Gdiplus::InsufficientBuffer                      GdiPlus.h,Windows.h
 Gdiplus::InvalidParameter                        GdiPlus.h,Windows.h
+Gdiplus::Matrix                                  GdiPlus.h,Windows.h
 Gdiplus::NotImplemented                          GdiPlus.h,Windows.h
 Gdiplus::NotTrueTypeFont                         GdiPlus.h,Windows.h
 Gdiplus::ObjectBusy                              GdiPlus.h,Windows.h
