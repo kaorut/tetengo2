@@ -20,8 +20,8 @@
 //#include <utility>
 //#include <vector>
 
-//#include <boost/noncopyable.hpp>
 #include <boost/math/constants/constants.hpp>
+//#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
