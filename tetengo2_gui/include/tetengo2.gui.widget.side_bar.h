@@ -100,6 +100,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_caption(),
         m_p_splitter(),
         m_p_mouse_capture(),
+        m_p_mouse_captured_item(NULL),
         m_preferred_width(0)
         {
             initialize_side_bar(this);
@@ -198,7 +199,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void mouse_released(const position_type& cursor_position)
             {
-                if (!this->side_bar_().mouse_captured() && !inside(cursor_position))
+                if (!this->side_bar_().mouse_captured(this) && !inside(cursor_position))
                     return;
 
                 mouse_released_impl(cursor_position);
@@ -207,7 +208,7 @@ namespace tetengo2 { namespace gui { namespace widget
             void mouse_moved(const position_type& cursor_position)
             {
 
-                if (this->side_bar_().mouse_captured() || inside(cursor_position))
+                if (this->side_bar_().mouse_captured(this) || inside(cursor_position))
                 {
                     mouse_moved_impl(cursor_position);
                     if (!m_mouse_inside)
@@ -564,7 +565,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
-                this->side_bar_().set_mouse_capture();
+                this->side_bar_().set_mouse_capture(this);
 
                 m_pressed_position = cursor_position;
             }
@@ -580,7 +581,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_moved_impl(const position_type& cursor_position)
             override
             {
-                if (!this->side_bar_().mouse_captured())
+                if (!this->side_bar_().mouse_captured(this))
                     return;
 
                 resize_side_bar(cursor_position);
@@ -753,6 +754,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
+        const item* m_p_mouse_captured_item;
+
         width_type m_preferred_width;
 
 
@@ -781,19 +784,21 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
-        bool mouse_captured()
+        bool mouse_captured(const item* const p_item)
         const
         {
-            return static_cast<bool>(m_p_mouse_capture);
+            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_item;
         }
 
-        void set_mouse_capture()
+        void set_mouse_capture(const item* const p_item)
         {
             m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_captured_item = p_item;
         }
 
         void release_mouse_capture()
         {
+            m_p_mouse_captured_item = NULL;
             m_p_mouse_capture.reset();
         }
 
