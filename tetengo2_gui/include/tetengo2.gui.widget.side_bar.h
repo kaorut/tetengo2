@@ -322,7 +322,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit state_button(side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1)))
+            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
+            m_p_current_background_color(&background_color())
             {}
 
 
@@ -332,6 +333,12 @@ namespace tetengo2 { namespace gui { namespace widget
             static const color_type& background_color()
             {
                 static const color_type singleton = make_background_color();
+                return singleton;
+            }
+
+            static const color_type& background_color_hovered()
+            {
+                static const color_type singleton = make_background_color_hovered();
                 return singleton;
             }
 
@@ -352,11 +359,27 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
             }
 
+            static color_type make_background_color_hovered()
+            {
+                const color_type& base_color = system_color_set_type::title_bar_background();
+                return
+                    color_type(
+                        static_cast<unsigned char>((0xFF * 7 + base_color.red() * 1) / 8),
+                        static_cast<unsigned char>((0xFF * 7 + base_color.green() * 1) / 8),
+                        static_cast<unsigned char>((0xFF * 7 + base_color.blue() * 1) / 8)
+                    );
+            }
+
             static color_type make_border_color()
             {
                 const color_type& base_color = system_color_set_type::title_bar_background();
                 return color_type(base_color.red() / 2, base_color.green() / 2, base_color.blue() / 2);
             }
+
+
+            // variables
+
+            const color_type* m_p_current_background_color;
 
 
             // virtual functions
@@ -369,7 +392,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_background = canvas.background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(size_type(1) / 16);
-                canvas.set_background(make_unique<solid_background_type>(background_color()));
+                canvas.set_background(make_unique<solid_background_type>(*m_p_current_background_color));
 
                 const auto& left = gui::position<position_type>::left(this->position());
                 const auto& top = gui::position<position_type>::top(this->position());
@@ -393,7 +416,20 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
+            }
 
+            virtual void mouse_entered_impl()
+            override
+            {
+                m_p_current_background_color = &background_color_hovered();
+                this->side_bar_().repaint(false);
+            }
+
+            virtual void mouse_left_impl()
+            override
+            {
+                m_p_current_background_color = &background_color();
+                this->side_bar_().repaint(false);
             }
 
 
