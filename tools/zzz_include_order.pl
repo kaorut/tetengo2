@@ -8,7 +8,16 @@ use strict;
 my(@stdlibs);
 my(@boostlibs);
 
-while (<STDIN>)
+if (scalar(@ARGV) < 1)
+{
+	print "Usage: zzz_include_order.pl source_file\n";
+	exit(0);
+}
+
+my($file_name) = $ARGV[0];
+
+open(my $fh, $file_name) || die("Can't open $file_name");
+while (<$fh>)
 {
 	s/\r?\n$//;
 	my($line) = $_;
@@ -23,11 +32,13 @@ while (<STDIN>)
 		push(@boostlibs, $1);
 	}
 }
+close($fh);
 
 {
 	my(@sorted) = sort(@stdlibs);
 	if (!(\@sorted, \@stdlibs))
 	{
+		print "[".$file_name."]\n";
 		print "WARNING: The standard headers are not sorted.";
 	}
 }
@@ -36,6 +47,7 @@ while (<STDIN>)
 	my(@sorted) = sort(@boostlibs);
 	if (!equal(\@sorted, \@boostlibs))
 	{
+		print "[".$file_name."]\n";
 		print "WARNING: The Boost headers are not sorted.\n";
 	}
 }
