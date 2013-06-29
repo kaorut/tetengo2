@@ -411,6 +411,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 suppress_unused_variable_warning(cursor_position);
 
                 this->side_bar_().m_minimized = !this->side_bar_().m_minimized;
+                this->side_bar_().size_observer_set().resized()();
                 if (this->side_bar_().has_parent())
                 {
                     this->side_bar_().parent().size_observer_set().resized()();
