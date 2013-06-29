@@ -539,15 +539,26 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 const dimension_type client_dimension = this->side_bar_().client_dimension();
-
-                const auto& width = gui::dimension<dimension_type>::width(client_dimension);
+                const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
+                const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
 
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
-                const auto& status_button_height =
+
+                const auto& state_button_width =
+                    gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
+                const auto& state_button_height =
                     gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
-                const auto& height = std::max(text_height, status_button_height); 
-            
-                return dimension_type(width, height + padding * 2);
+
+                if (this->side_bar_().m_minimized)
+                {
+                    const auto& width = std::max(width_type::from(text_height), state_button_width); 
+                    return dimension_type(width + width_type::from(padding) * 2, client_height);
+                }
+                else
+                {
+                    const auto& height = std::max(text_height, state_button_height); 
+                    return dimension_type(client_width, height + padding * 2);
+                }
             }
 
             position_type text_position(const height_type& padding, const dimension_type& text_dimension)
@@ -555,33 +566,61 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const auto& state_button_left =
                     gui::position<position_type>::left(this->side_bar_().m_p_state_button->position());
+                const auto& state_button_top =
+                    gui::position<position_type>::left(this->side_bar_().m_p_state_button->position());
                 const auto& state_button_width =
                     gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
-                auto left = state_button_left + left_type::from(state_button_width + padding);
+                const auto& state_button_height =
+                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
 
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
-                const auto& status_button_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
-                auto top =
-                    text_height < status_button_height ?
-                    top_type::from((status_button_height - text_height) / 2) + top_type::from(padding) :
-                    top_type::from(padding);
-            
-                return position_type(std::move(left), std::move(top));
+
+                if (this->side_bar_().m_minimized)
+                {
+                    auto left =
+                        width_type::from(text_height) < state_button_width ?
+                        left_type::from((state_button_width - width_type::from(text_height)) / 2) +
+                            left_type::from(padding) +
+                            left_type::from(text_height) :
+                        left_type::from(padding) + left_type::from(text_height);
+                    auto top = state_button_top + top_type::from(state_button_width + padding);
+                    return position_type(std::move(left), std::move(top));
+                }
+                else
+                {
+                    auto left = state_button_left + left_type::from(state_button_width + padding);
+                    auto top =
+                        text_height < state_button_height ?
+                        top_type::from((state_button_height - text_height) / 2) + top_type::from(padding) :
+                        top_type::from(padding);
+                    return position_type(std::move(left), std::move(top));
+                }
             }
 
             position_type state_button_position(const height_type& padding)
             const
             {
-                auto left = left_type::from(padding);
-
-                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+                const auto& caption_width = gui::dimension<dimension_type>::width(this->dimension());
+                const auto& caption_height = gui::dimension<dimension_type>::height(this->dimension());
+                const auto& state_button_width =
+                    gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
                 const auto& state_button_height =
                     gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
-                assert(height >= state_button_height + padding * 2);
-                auto top = top_type::from((height - state_button_height) / 2);
+                assert(caption_width >= state_button_width + padding * 2);
+                assert(caption_height >= state_button_height + padding * 2);
 
-                return position_type(std::move(left), std::move(top));
+                if (this->side_bar_().m_minimized)
+                {
+                    auto left = left_type::from((caption_width - state_button_width) / 2);
+                    auto top = top_type::from(padding);
+                    return position_type(std::move(left), std::move(top));
+                }
+                else
+                {
+                    auto left = left_type::from(padding);
+                    auto top = top_type::from((caption_height - state_button_height) / 2);
+                    return position_type(std::move(left), std::move(top));
+                }
             }
 
 
