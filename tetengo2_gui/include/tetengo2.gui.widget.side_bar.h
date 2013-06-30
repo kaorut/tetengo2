@@ -632,19 +632,23 @@ namespace tetengo2 { namespace gui { namespace widget
                     gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
                 const auto& state_button_height =
                     gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
-                assert(caption_width >= state_button_width + padding * 2);
-                assert(caption_height >= state_button_height + padding * 2);
 
                 if (this->side_bar_().m_minimized)
                 {
-                    auto left = left_type::from((caption_width - state_button_width) / 2);
+                    auto left =
+                        std::max(
+                            (left_type::from(caption_width) - left_type::from(state_button_width)) / 2, left_type(0)
+                        );
                     auto top = top_type::from(padding);
                     return position_type(std::move(left), std::move(top));
                 }
                 else
                 {
                     auto left = left_type::from(padding);
-                    auto top = top_type::from((caption_height - state_button_height) / 2);
+                    auto top =
+                        std::max(
+                            (top_type::from(caption_height) - top_type::from(state_button_height)) / 2, top_type(0)
+                        );
                     return position_type(std::move(left), std::move(top));
                 }
             }
