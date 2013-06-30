@@ -102,8 +102,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_splitter(),
         m_p_mouse_capture(),
         m_p_mouse_captured_item(NULL),
-        m_minimized(false),
-        m_preferred_width(0)
+        m_preferred_width(0),
+        m_minimized(false)
         {
             initialize_side_bar(this);
         }
@@ -155,6 +155,33 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 this->parent().size_observer_set().resized()();
                 this->parent().repaint(true);
+            }
+        }
+
+        /*!
+            \brief Returns the minimized status.
+
+            \return The minimized status.
+        */
+        bool minimized()
+        const
+        {
+            return m_minimized;
+        }
+
+        /*!
+            \brief Sets a minimized status.
+
+            \param minimized A minimized status.
+        */
+        void set_minimized(const bool minimized)
+        {
+            m_minimized = minimized;
+            this->size_observer_set().resized()();
+            if (this->has_parent())
+            {
+                this->parent().size_observer_set().resized()();
+                this->parent().repaint();
             }
         }
 
@@ -439,13 +466,7 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
-                this->side_bar_().m_minimized = !this->side_bar_().m_minimized;
-                this->side_bar_().size_observer_set().resized()();
-                if (this->side_bar_().has_parent())
-                {
-                    this->side_bar_().parent().size_observer_set().resized()();
-                    this->side_bar_().parent().repaint();
-                }
+                this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
             }
 
             virtual void mouse_entered_impl()
@@ -934,9 +955,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         const item* m_p_mouse_captured_item;
 
-        bool m_minimized;
-
         width_type m_preferred_width;
+
+        bool m_minimized;
 
 
         // functions
