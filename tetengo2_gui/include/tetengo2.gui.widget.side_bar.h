@@ -125,8 +125,15 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         const width_type& preferred_width()
         {
-            adjust_preferred_width(m_preferred_width);
-            return m_preferred_width;
+            if (m_minimized)
+            {
+                return m_p_caption->width();
+            }
+            else
+            {
+                adjust_preferred_width(m_preferred_width);
+                return m_preferred_width;
+            }
         }
 
 
@@ -481,6 +488,15 @@ namespace tetengo2 { namespace gui { namespace widget
             {}
 
 
+            // functions
+
+            const width_type& width()
+            {
+                ensure_dimension_calculated();
+                return gui::dimension<dimension_type>::width(this->dimension());
+            }
+
+
         private:
             // variables
 
@@ -521,6 +537,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
             // functions
+
+            void ensure_dimension_calculated()
+            {
+                if (m_text_position)
+                    return;
+
+                const auto p_canvas = this->side_bar_().create_canvas();
+                calculate_position_and_dimension(*p_canvas);
+            }
 
             void calculate_position_and_dimension(const canvas_type& canvas)
             {
@@ -882,11 +907,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        std::unique_ptr<item> m_p_state_button;
+        std::unique_ptr<state_button> m_p_state_button;
 
-        std::unique_ptr<item> m_p_caption;
+        std::unique_ptr<caption> m_p_caption;
 
-        std::unique_ptr<item> m_p_splitter;
+        std::unique_ptr<splitter> m_p_splitter;
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
