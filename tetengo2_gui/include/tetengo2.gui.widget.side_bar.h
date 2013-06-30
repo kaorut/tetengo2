@@ -661,6 +661,9 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 calculate_position_and_dimension();
 
+                if (this->side_bar_().m_minimized)
+                    return;
+
                 auto original_background = canvas.background().clone();
                 canvas.set_background(
                     make_unique<solid_background_type>(system_color_set_type::dialog_background())
@@ -674,6 +677,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
+                if (this->side_bar_().m_minimized)
+                    return;
+
                 this->side_bar_().set_mouse_capture(this);
 
                 m_pressed_position = cursor_position;
@@ -682,6 +688,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
+                if (this->side_bar_().m_minimized)
+                    return;
+
                 this->side_bar_().release_mouse_capture();
 
                 resize_side_bar(cursor_position);
@@ -690,6 +699,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_moved_impl(const position_type& cursor_position)
             override
             {
+                if (this->side_bar_().m_minimized)
+                    return;
                 if (!this->side_bar_().mouse_captured(this))
                     return;
 
@@ -699,6 +710,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_entered_impl()
             override
             {
+                if (this->side_bar_().m_minimized)
+                    return;
+
                 auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
                 this->side_bar_().set_cursor(std::move(p_cursor));
             }
@@ -706,6 +720,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_left_impl()
             override
             {
+                if (this->side_bar_().m_minimized)
+                    return;
+
                this->side_bar_().set_cursor(std::unique_ptr<cursor_type>());
             }
 
@@ -717,25 +734,35 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_need_size_recalculation)
                     return;
 
-                const auto& client_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
-                const auto& caption_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
+                if (this->side_bar_().m_minimized)
+                {
+                    this->set_position(position_type(left_type(0), top_type(0)));
+                    this->set_dimension(dimension_type(width_type(0), height_type(0)));
+                }
+                else
+                {
+                    const auto& client_height =
+                        gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
+                    const auto& caption_height =
+                        gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
 
-                this->set_position(position_type(left_type(0), top_type::from(caption_height)));
-
-                this->set_dimension(
-                    dimension_type(
-                        width_type(1) / 2,
-                        client_height > caption_height ? client_height - caption_height : height_type(0)
-                    )
-                );
+                    this->set_position(position_type(left_type(0), top_type::from(caption_height)));
+                    this->set_dimension(
+                        dimension_type(
+                            width_type(1) / 2,
+                            client_height > caption_height ? client_height - caption_height : height_type(0)
+                        )
+                    );
+                }
 
                 m_need_size_recalculation = false;
             }
 
             void resize_side_bar(const position_type& current_position)
             {
+                if (this->side_bar_().m_minimized)
+                    return;
+
                 const auto& previous_width = gui::dimension<dimension_type>::width(this->side_bar_().dimension());
 
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
