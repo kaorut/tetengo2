@@ -136,6 +136,28 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
+        /*!
+            \brief Sets a width.
+
+            \param A width.
+        */
+        void set_width(width_type width)
+        {
+            const auto& previous_width = gui::dimension<dimension_type>::width(this->dimension());
+
+            adjust_preferred_width(width);
+
+            if (width == previous_width)
+                return;
+
+            m_preferred_width = std::move(width);
+            if (this->has_parent())
+            {
+                this->parent().size_observer_set().resized()();
+                this->parent().repaint(true);
+            }
+        }
+
 
     private:
         // types
@@ -792,25 +814,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->side_bar_().m_minimized)
                     return;
 
-                const auto& previous_width = gui::dimension<dimension_type>::width(this->side_bar_().dimension());
+                const auto& width = gui::dimension<dimension_type>::width(this->side_bar_().dimension());
 
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position<position_type>::left(current_position);
                 auto new_width =
                     width_type::from(
-                        std::max(left_type::from(previous_width) + (pressed_left - current_left), left_type(0))
+                        std::max(left_type::from(width) + (pressed_left - current_left), left_type(0))
                     );
-                this->side_bar_().adjust_preferred_width(new_width);
 
-                if (new_width == previous_width)
-                    return;
-
-                this->side_bar_().m_preferred_width = std::move(new_width);
-                if (this->side_bar_().has_parent())
-                {
-                    this->side_bar_().parent().size_observer_set().resized()();
-                    this->side_bar_().parent().repaint(true);
-                }
+                this->side_bar_().set_width(std::move(new_width));
             }
 
 
