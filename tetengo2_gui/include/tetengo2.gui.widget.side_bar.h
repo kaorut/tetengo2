@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_caption(),
         m_p_splitter(),
         m_p_mouse_capture(),
-        m_p_mouse_captured_item(NULL),
+        m_p_mouse_captured_item(nullptr),
         m_preferred_width(0),
         m_minimized(false)
         {
@@ -999,7 +999,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void release_mouse_capture()
         {
-            m_p_mouse_captured_item = NULL;
+            m_p_mouse_captured_item = nullptr;
             m_p_mouse_capture.reset();
         }
 
