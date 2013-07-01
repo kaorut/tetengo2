@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a width.
 
-            \param A width.
+            \param width A width.
         */
         void set_width(width_type width)
         {
