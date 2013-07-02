@@ -65,7 +65,7 @@ Building on Windows
 You need the following tools in order to build Bubura and Tetengo2:
 
 - [Visual Studio 2012 Update 3](http://www.microsoft.com/) (including Express for Desktop)
-- [Boost C++ Libraries 1.53.0](http://www.boost.org/)
+- [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
 - [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
@@ -91,7 +91,7 @@ You need the following tools in order to build Bubura and Tetengo2 libraries:
 
 - [GCC 4.7.2](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
-- [Boost C++ Libraries 1.53.0](http://www.boost.org/)
+- [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
 - [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
