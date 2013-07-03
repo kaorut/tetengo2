@@ -9,6 +9,10 @@
 #if !defined(TETENGO2_GUI_TIMER_H)
 #define TETENGO2_GUI_TIMER_H
 
+#include <chrono>
+#include <functional>
+#include <utility>
+
 #include <boost/noncopyable.hpp>
 
 
@@ -32,17 +36,25 @@ namespace tetengo2 { namespace gui
         //! The detail implementation type of a timer.
         typedef TimerDetails timer_details_type;
 
+        //! The procedure type.
+        typedef std::function<void ()> procedure_type;
+
+        //! The interval type.
+        typedef std::chrono::milliseconds inteval_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a timer.
 
-            \param widget A widget.
+            \param widget    A widget.
+            \param procecure A procedure called by this timer.
+            \param interval  An interval.
         */
-        explicit timer(const widget_type& widget)
+        timer(const widget_type& widget, procedure_type procedure, inteval_type interval)
         :
-        m_timer_details(widget)
+        m_timer_details(widget, std::move(procedure), std::move(interval))
         {}
 
 

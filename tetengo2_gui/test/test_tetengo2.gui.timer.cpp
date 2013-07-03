@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <chrono>
+
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -24,7 +26,17 @@ namespace
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
         widget_type;
 
+    typedef
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
+        window_type;
+
     typedef tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer> timer_type;
+
+
+    // functions
+
+    void timer_function()
+    {}
 
 
 }
@@ -39,8 +51,8 @@ BOOST_AUTO_TEST_SUITE(timer)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const window_type window;
-        //const timer_type timer(window);
+        const window_type window;
+        const timer_type timer(window, timer_function, std::chrono::milliseconds(42));
     }
 
 

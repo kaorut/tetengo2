@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_DETAIL_STUB_TIMER_H)
 #define TETENGO2_DETAIL_STUB_TIMER_H
 
+#include <chrono>
+#include <functional>
+
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.utility.h"
@@ -29,12 +32,14 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param widget A widget.
+            \param widget    A widget.
+            \param procecure A procedure called by this timer.
+            \param interval  An interval.
         */
         template <typename Widget>
-        explicit timer(const Widget& widget)
+        explicit timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
         {
-            suppress_unused_variable_warning(widget);
+            suppress_unused_variable_warning(widget, procedure, interval);
         }
 
 
