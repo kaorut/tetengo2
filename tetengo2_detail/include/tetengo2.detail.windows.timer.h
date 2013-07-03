@@ -9,11 +9,25 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_TIMER_H)
 #define TETENGO2_DETAIL_WINDOWS_TIMER_H
 
+#include <cassert>
 #include <chrono>
 #include <functional>
+#include <system_error>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.utility.h"
 
 
@@ -37,10 +51,49 @@ namespace tetengo2 { namespace detail { namespace windows
             \param interval  An interval.
         */
         template <typename Widget>
-        explicit timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
+        timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
+        :
+        m_procedure(std::move(procedure)),
+        m_id(
+            ::SetTimer(
+                widget.details()->handle.get(), reinterpret_cast< ::UINT_PTR>(&procedure), interval.count(), timer_proc
+            )
+        )
         {
-            suppress_unused_variable_warning(widget, procedure, interval);
+            if (m_id == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't start timer.")
+                );
+            }
         }
+
+
+
+    private:
+        // static functions
+
+        static void CALLBACK timer_proc(
+            const ::HWND     window_handle,
+            const ::UINT     message,
+            const ::UINT_PTR id,
+            const ::DWORD    elapsed_time
+        )
+        {
+            suppress_unused_variable_warning(window_handle, message, elapsed_time);
+
+            const std::function<void ()>* const p_procedure = reinterpret_cast<const std::function<void ()>*>(id);
+            assert(p_procedure);
+
+            (*p_procedure)();
+        }
+
+
+        // variables
+
+        const std::function<void ()> m_procedure;
+
+        const ::UINT_PTR m_id;
 
 
     };
