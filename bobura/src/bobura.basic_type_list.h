@@ -64,6 +64,7 @@
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.mouse_capture.h>
 #include <tetengo2.gui.scroll_bar.h>
+#include <tetengo2.gui.timer.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.unit.point.h>
 #include <tetengo2.gui.virtual_key.h>
@@ -686,8 +687,15 @@ namespace bobura
             >
             mouse_capture_type;
         typedef
+            tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type>
+            timer_type;
+        typedef
             tetengo2::gui::widget::traits::side_bar_traits<
-                custom_control_traits_type, solid_background_type, system_color_set_type, mouse_capture_type
+                custom_control_traits_type,
+                solid_background_type,
+                system_color_set_type,
+                mouse_capture_type,
+                timer_type
             >
             side_bar_traits_type;
         typedef

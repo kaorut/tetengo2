@@ -19,8 +19,15 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam SolidBackground     A solid background type.
         \tparam SystemColorSet      A system color set type.
         \tparam MouseCapture        A mouse capture type.
+        \tparam Timer               A timer type.
    */
-    template <typename CustomControlTraits, typename SolidBackground, typename SystemColorSet, typename MouseCapture>
+    template <
+        typename CustomControlTraits,
+        typename SolidBackground,
+        typename SystemColorSet,
+        typename MouseCapture,
+        typename Timer
+    >
     struct side_bar_traits
     {
         //types
@@ -39,6 +46,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The system cursor type.
         typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;
+
+        //! The timer type.
+        typedef Timer timer_type;
 
 
     };

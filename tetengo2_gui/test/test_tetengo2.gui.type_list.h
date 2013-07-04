@@ -28,6 +28,7 @@
 #include "tetengo2.detail.stub.mouse_capture.h"
 #include "tetengo2.detail.stub.scroll.h"
 #include "tetengo2.detail.stub.system_color.h"
+#include "tetengo2.detail.stub.timer.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
@@ -76,6 +77,7 @@
 #include "tetengo2.gui.message.window_observer_set.h"
 #include "tetengo2.gui.mouse_capture.h"
 #include "tetengo2.gui.scroll_bar.h"
+#include "tetengo2.gui.timer.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.unit.point.h"
@@ -692,12 +694,14 @@ namespace test_tetengo2 { namespace gui
             >
             picture_box_traits_type;
         typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
+        typedef tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer> timer_type;
         typedef
             tetengo2::gui::widget::traits::side_bar_traits<
                 custom_control_traits_type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                mouse_capture_type
+                mouse_capture_type,
+                timer_type
             >
             side_bar_traits_type;
         typedef
