@@ -33,7 +33,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam Widget A widget type.
 
             \param widget    A widget.
-            \param procecure A procedure called by this timer.
+            \param procedure A procedure called by this timer.
             \param interval  An interval.
         */
         template <typename Widget>

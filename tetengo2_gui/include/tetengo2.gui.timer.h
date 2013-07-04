@@ -49,7 +49,7 @@ namespace tetengo2 { namespace gui
             \brief Creates a timer.
 
             \param widget    A widget.
-            \param procecure A procedure called by this timer.
+            \param procedure A procedure called by this timer.
             \param interval  An interval.
         */
         timer(const widget_type& widget, procedure_type procedure, inteval_type interval)
