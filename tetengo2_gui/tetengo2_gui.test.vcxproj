@@ -147,6 +147,7 @@
     <ClCompile Include="test\test_tetengo2.gui.message.window_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.mouse_capture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.scroll_bar.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.timer.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.point.cpp" />

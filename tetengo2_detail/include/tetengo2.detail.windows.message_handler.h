@@ -145,12 +145,6 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             message_handler_map_type map(std::move(initial_map));
 
-            map[WM_TIMER].push_back(
-                [&button](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::button::on_timer(button, w_param, l_param);
-                }
-            );
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 [&button](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
@@ -519,12 +513,6 @@ namespace tetengo2 { namespace detail { namespace windows
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
                     return message_handler_detail::widget::on_mouse_h_wheel(widget, w_param, l_param);
-                }
-            );
-            map[WM_TIMER].push_back(
-                [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::widget::on_timer(widget, w_param, l_param);
                 }
             );
             map[WM_CTLCOLORBTN].push_back(
