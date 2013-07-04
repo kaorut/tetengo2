@@ -198,5 +198,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.message_handler_detail.0namespace.h">
       <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.timer.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.timer.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

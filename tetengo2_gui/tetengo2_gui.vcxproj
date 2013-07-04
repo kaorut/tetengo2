@@ -72,6 +72,7 @@
     <ClInclude Include="include\tetengo2.gui.message.window_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.mouse_capture.h" />
     <ClInclude Include="include\tetengo2.gui.scroll_bar.h" />
+    <ClInclude Include="include\tetengo2.gui.timer.h" />
     <ClInclude Include="include\tetengo2.gui.unit.0namespace.h" />
     <ClInclude Include="include\tetengo2.gui.unit.em.h" />
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />

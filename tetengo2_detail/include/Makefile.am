@@ -16,6 +16,7 @@ headers = \
     tetengo2.detail.stub.mouse_capture.h \
     tetengo2.detail.stub.scroll.h \
     tetengo2.detail.stub.system_color.h \
+    tetengo2.detail.stub.timer.h \
     tetengo2.detail.stub.unit.h \
     tetengo2.detail.stub.virtual_key.h \
     tetengo2.detail.stub.widget.h
@@ -56,6 +57,7 @@ extra_headers = \
     tetengo2.detail.windows.picture.h \
     tetengo2.detail.windows.scroll.h \
     tetengo2.detail.windows.system_color.h \
+    tetengo2.detail.windows.timer.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.virtual_key.h \
     tetengo2.detail.windows.widget.h \
