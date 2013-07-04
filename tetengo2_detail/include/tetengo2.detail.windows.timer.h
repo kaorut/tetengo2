@@ -27,6 +27,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.utility.h"
 
@@ -53,12 +54,9 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
         :
+        m_window_handle(widget.details()->handle.get())
         m_procedure(std::move(procedure)),
-        m_id(
-            ::SetTimer(
-                widget.details()->handle.get(), reinterpret_cast< ::UINT_PTR>(&procedure), interval.count(), timer_proc
-            )
-        )
+        m_id(::SetTimer(m_window_handle, reinterpret_cast< ::UINT_PTR>(&m_procedure), interval.count(), timer_proc))
         {
             if (m_id == 0)
             {
@@ -68,6 +66,14 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        /*!
+            \brief Destroys the detail implementation of a timer.
+        */
+        ~timer()
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            ::KillTimer(m_window_handle, m_id);
+        }
 
 
     private:
@@ -90,6 +96,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         // variables
+
+        const ::HWND m_window_handle;
 
         const std::function<void ()> m_procedure;
 
