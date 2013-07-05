@@ -106,7 +106,7 @@ my($exit_status) = 0;
 	}
 	while (my($key, $value) = each(%stdlib_header_usage))
 	{
-		if (!$silent)
+		if ($show_progress)
 		{
 			printf("%-48s %s\n", $key, $value);
 		}

@@ -13,6 +13,6 @@ do
          "$SOLUTIONDIR" \
          "$f" \
          "$SOLUTIONDIR/tools/stdlib_headers.txt" \
-         "show_progress silent" | \
+         "show_progress" "silent" | \
          grep -v '^[A-Z]\+\: ';
 done | sort | uniq
