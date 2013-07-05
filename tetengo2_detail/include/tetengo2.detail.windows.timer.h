@@ -54,9 +54,16 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
         :
-        m_window_handle(widget.details()->handle.get())
+        m_window_handle(widget.details()->handle.get()),
         m_procedure(std::move(procedure)),
-        m_id(::SetTimer(m_window_handle, reinterpret_cast< ::UINT_PTR>(&m_procedure), interval.count(), timer_proc))
+        m_id(
+            ::SetTimer(
+                m_window_handle,
+                reinterpret_cast< ::UINT_PTR>(&m_procedure),
+                static_cast< ::UINT>(interval.count()),
+                timer_proc
+            )
+        )
         {
             if (m_id == 0)
             {

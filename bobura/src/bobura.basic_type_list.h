@@ -687,7 +687,7 @@ namespace bobura
             >
             mouse_capture_type;
         typedef
-            tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type>
+            tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::timer>::type>
             timer_type;
         typedef
             tetengo2::gui::widget::traits::side_bar_traits<

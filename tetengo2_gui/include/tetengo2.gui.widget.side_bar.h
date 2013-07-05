@@ -11,6 +11,7 @@
 
 #include <algorithm>
 //#include <cassert>
+#include <chrono>
 //#include <memory>
 //#include <utility>
 //#include <vector>
@@ -57,6 +58,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The cursor type.
         typedef typename system_cursor_type::base_type cursor_type;
+
+        //! The timer type.
+        typedef typename traits_type::timer_type timer_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -381,12 +385,18 @@ namespace tetengo2 { namespace gui { namespace widget
             explicit state_button(side_bar& side_bar_)
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
-            m_p_current_background_color(&background_color())
+            m_p_current_background_color(&background_color()),
+            m_p_timer(tetengo2::make_unique<timer_type>(side_bar_, timer_proc, std::chrono::seconds(1)))
             {}
 
 
         private:
             // static functions
+
+            static void timer_proc()
+            {
+
+            }
 
             static const color_type& background_color()
             {
@@ -438,6 +448,8 @@ namespace tetengo2 { namespace gui { namespace widget
             // variables
 
             const color_type* m_p_current_background_color;
+
+            std::unique_ptr<timer_type> m_p_timer;
 
 
             // virtual functions
