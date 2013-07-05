@@ -75,7 +75,6 @@
 ::GetDesktopWindow                               Windows.h
 ::GetDeviceCaps                                  Windows.h
 ::GetDlgItem                                     Windows.h
-::GetDoubleClickTime                             Windows.h
 ::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
@@ -450,7 +449,6 @@ WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
-WM_TIMER                                         Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::adaptors::reverse                         boost/range/adaptors.hpp
@@ -573,6 +571,7 @@ std::basic_string                                string
 std::ceil                                        cmath
 std::char_traits                                 string
 std::chrono::milliseconds                        chrono
+std::chrono::seconds                             chrono
 std::codecvt                                     locale
 std::condition_variable                          condition_variable
 std::copy                                        algorithm
