@@ -393,7 +393,7 @@ namespace tetengo2 { namespace gui { namespace widget
         private:
             // static functions
 
-            static void timer_proc()
+            static void timer_proc(bool& /*stop*/)
             {
 
             }

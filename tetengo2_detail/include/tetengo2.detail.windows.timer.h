@@ -52,20 +52,20 @@ namespace tetengo2 { namespace detail { namespace windows
             \param interval  An interval.
         */
         template <typename Widget>
-        timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
+        timer(const Widget& widget, std::function<void (bool&)> procedure, std::chrono::milliseconds interval)
         :
         m_window_handle(widget.details()->handle.get()),
         m_procedure(std::move(procedure)),
         m_id(
             ::SetTimer(
                 m_window_handle,
-                reinterpret_cast< ::UINT_PTR>(&m_procedure),
+                reinterpret_cast< ::UINT_PTR>(this),
                 static_cast< ::UINT>(interval.count()),
                 timer_proc
             )
         )
         {
-            if (m_id == 0)
+            if (stopped())
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't start timer.")
@@ -79,7 +79,30 @@ namespace tetengo2 { namespace detail { namespace windows
         ~timer()
         TETENGO2_CPP11_NOEXCEPT
         {
+            stop();
+        }
+
+
+        // functions
+
+        /*!
+            \brief Returns the stopped status.
+
+            \return The stopped status.
+        */
+        bool stopped()
+        const
+        {
+            return m_id == 0;
+        }
+
+        /*!
+            \brief Stops the timer.
+        */
+        void stop()
+        {
             ::KillTimer(m_window_handle, m_id);
+            m_id = 0;
         }
 
 
@@ -95,10 +118,13 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             suppress_unused_variable_warning(window_handle, message, elapsed_time);
 
-            const std::function<void ()>* const p_procedure = reinterpret_cast<const std::function<void ()>*>(id);
-            assert(p_procedure);
+            timer* const p_timer = reinterpret_cast<timer*>(id);
+            assert(p_timer);
 
-            (*p_procedure)();
+            bool stop_ = false;
+            p_timer->m_procedure(stop_);
+            if (stop_)
+                p_timer->stop();
         }
 
 
@@ -106,9 +132,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
         const ::HWND m_window_handle;
 
-        const std::function<void ()> m_procedure;
+        const std::function<void (bool&)> m_procedure;
 
-        const ::UINT_PTR m_id;
+        ::UINT_PTR m_id;
 
 
     };
