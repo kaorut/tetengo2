@@ -386,17 +386,12 @@ namespace tetengo2 { namespace gui { namespace widget
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
             m_p_current_background_color(&background_color()),
-            m_p_timer(tetengo2::make_unique<timer_type>(side_bar_, timer_proc, std::chrono::seconds(1)))
+            m_p_timer()
             {}
 
 
         private:
             // static functions
-
-            static void timer_proc(bool& /*stop*/)
-            {
-
-            }
 
             static const color_type& background_color()
             {
@@ -478,7 +473,12 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
-                this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
+                m_p_timer =
+                    tetengo2::make_unique<timer_type>(
+                        this->side_bar_(),
+                        [this](bool& stop) { this->timer_proc(stop); },
+                        std::chrono::seconds(1)
+                    );
             }
 
             virtual void mouse_entered_impl()
@@ -497,6 +497,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
             // functions
+
+            void timer_proc(bool& stop)
+            {
+                this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
+                stop = true;
+            }
 
             std::vector<position_type> make_triangle()
             const
