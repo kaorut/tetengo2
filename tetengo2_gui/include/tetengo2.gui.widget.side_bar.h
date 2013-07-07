@@ -12,6 +12,7 @@
 #include <algorithm>
 //#include <cassert>
 //#include <chrono>
+#include <cstddef>
 //#include <memory>
 //#include <utility>
 //#include <vector>
@@ -386,7 +387,8 @@ namespace tetengo2 { namespace gui { namespace widget
             :
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
             m_p_current_background_color(&background_color()),
-            m_p_timer()
+            m_p_timer(),
+            m_triangle_angle(0)
             {}
 
 
@@ -446,6 +448,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             std::unique_ptr<timer_type> m_p_timer;
 
+            std::size_t m_triangle_angle;
+
 
             // virtual functions
 
@@ -473,12 +477,19 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
+                if (m_triangle_angle > 0)
+                    return;
+
                 m_p_timer =
                     tetengo2::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
                         std::chrono::seconds(1)
                     );
+                {
+                    bool dummy_stop = false;
+                    timer_proc(dummy_stop);
+                }
             }
 
             virtual void mouse_entered_impl()
@@ -500,7 +511,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void timer_proc(bool& stop)
             {
+                if (m_triangle_angle < 1)
+                {
+                    ++m_triangle_angle;
+                    this->side_bar_().repaint();
+                    return;
+                }
+
                 this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
+                m_triangle_angle = 0;
                 stop = true;
             }
 
@@ -514,7 +533,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 std::vector<position_type> positions;
                 positions.reserve(3);
-                if (this->side_bar_().m_minimized)
+                if (
+                    (!this->side_bar_().m_minimized && m_triangle_angle > 0) ||
+                    (this->side_bar_().m_minimized && m_triangle_angle == 0)
+                )
                 {
                     positions.emplace_back(left, top + top_type::from(height / 2));
                     positions.emplace_back(left + left_type::from(width), top);
