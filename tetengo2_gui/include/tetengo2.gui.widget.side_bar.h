@@ -388,7 +388,7 @@ namespace tetengo2 { namespace gui { namespace widget
             item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
             m_p_current_background_color(&background_color()),
             m_p_timer(),
-            m_triangle_angle(0)
+            m_animation_step(0)
             {}
 
 
@@ -441,6 +441,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 return color_type(base_color.red() / 2, base_color.green() / 2, base_color.blue() / 2);
             }
 
+            static std::size_t max_animation_step()
+            {
+                return 4;
+            }
+
 
             // variables
 
@@ -448,7 +453,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             std::unique_ptr<timer_type> m_p_timer;
 
-            std::size_t m_triangle_angle;
+            std::size_t m_animation_step;
 
 
             // virtual functions
@@ -477,14 +482,14 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 suppress_unused_variable_warning(cursor_position);
 
-                if (m_triangle_angle > 0)
+                if (m_animation_step > 0)
                     return;
 
                 m_p_timer =
                     tetengo2::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
-                        std::chrono::seconds(1)
+                        std::chrono::milliseconds(50)
                     );
                 {
                     bool dummy_stop = false;
@@ -511,15 +516,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void timer_proc(bool& stop)
             {
-                if (m_triangle_angle < 1)
+                if (m_animation_step < max_animation_step())
                 {
-                    ++m_triangle_angle;
+                    ++m_animation_step;
                     this->side_bar_().repaint();
                     return;
                 }
 
                 this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
-                m_triangle_angle = 0;
+                m_animation_step = 0;
                 stop = true;
             }
 
@@ -531,22 +536,49 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
 
+                const bool minimized = this->side_bar_().m_minimized;
+
                 std::vector<position_type> positions;
                 positions.reserve(3);
-                if (
-                    (!this->side_bar_().m_minimized && m_triangle_angle > 0) ||
-                    (this->side_bar_().m_minimized && m_triangle_angle == 0)
-                )
+                if ((!minimized && m_animation_step == 0) || (minimized && m_animation_step >= max_animation_step()))
                 {
-                    positions.emplace_back(left, top + top_type::from(height / 2));
-                    positions.emplace_back(left + left_type::from(width), top);
+                    // right
+                    positions.emplace_back(left, top);
+                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height) / 2);
+                    positions.emplace_back(left, top + top_type::from(height));
+                }
+                else if ((!minimized && m_animation_step == 1) || (minimized && m_animation_step == 3))
+                {
+                    // right down
+                    positions.emplace_back(left + left_type::from(width) / 2, top);
                     positions.emplace_back(left + left_type::from(width), top + top_type::from(height));
+                    positions.emplace_back(left, top + top_type::from(height) / 2);
+                }
+                else if ((!minimized && m_animation_step == 2) || (minimized && m_animation_step == 2))
+                {
+                    // down
+                    positions.emplace_back(left, top);
+                    positions.emplace_back(left + left_type::from(width), top);
+                    positions.emplace_back(left + left_type::from(width) / 2, top + top_type::from(height));
+                }
+                else if ((!minimized && m_animation_step == 3) || (minimized && m_animation_step == 1))
+                {
+                    // left down
+                    positions.emplace_back(left + left_type::from(width) / 2, top);
+                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height) / 2);
+                    positions.emplace_back(left, top + top_type::from(height));
                 }
                 else
                 {
-                    positions.emplace_back(left, top);
-                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height / 2));
-                    positions.emplace_back(left, top + top_type::from(height));
+                    assert(
+                        (!minimized && m_animation_step >= max_animation_step()) ||
+                        (minimized && m_animation_step == 0)
+                    );
+
+                    // left
+                    positions.emplace_back(left, top + top_type::from(height / 2));
+                    positions.emplace_back(left + left_type::from(width), top);
+                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height));
                 }
 
                 return positions;

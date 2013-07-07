@@ -571,7 +571,6 @@ std::basic_string                                string
 std::ceil                                        cmath
 std::char_traits                                 string
 std::chrono::milliseconds                        chrono
-std::chrono::seconds                             chrono
 std::codecvt                                     locale
 std::condition_variable                          condition_variable
 std::copy                                        algorithm
