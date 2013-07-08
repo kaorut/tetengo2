@@ -92,23 +92,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename AbstractWindow>
-        boost::optional< ::LRESULT> on_resized(
-            AbstractWindow& abstract_window,
-            const ::WPARAM  w_param,
-            const ::LPARAM  l_param
-        )
-        {
-            suppress_unused_variable_warning(w_param, l_param);
-
-            if (abstract_window.window_observer_set().resized().empty())
-                return boost::none;
-
-            abstract_window.window_observer_set().resized()();
-
-            return boost::none;
-        }
-
-        template <typename AbstractWindow>
         boost::optional< ::LRESULT> on_close(
             AbstractWindow& abstract_window,
             const ::WPARAM  w_param,

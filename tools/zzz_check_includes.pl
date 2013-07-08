@@ -37,7 +37,7 @@ my($exit_status) = 0;
 
 # main
 {
-	if (!$silent)
+	if (!$show_progress && !$silent)
 	{
 		print "\n[".$ARGV[1]."]\n";
 	}
@@ -106,7 +106,7 @@ my($exit_status) = 0;
 	}
 	while (my($key, $value) = each(%stdlib_header_usage))
 	{
-		if (!$silent)
+		if ($show_progress)
 		{
 			printf("%-48s %s\n", $key, $value);
 		}
@@ -305,7 +305,7 @@ sub print_warning
 {
 	my($message) = @_;
 	
-	if ($silent && $exit_status == 0)
+	if ($exit_status == 0)
 	{
 		print "\n[".$ARGV[1]."]\n";
 	}

@@ -82,6 +82,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The scroll bar type.
         typedef typename traits_type::scroll_bar_type scroll_bar_type;
 
+        //! The size observer set type.
+        typedef typename traits_type::size_observer_set_type size_observer_set_type;
+
         //! The focus observer set type.
         typedef typename traits_type::focus_observer_set_type focus_observer_set_type;
 
@@ -524,11 +527,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         /*!
             \brief Repaints the widget.
+
+            \param immediately Set true to request an immediate repaint.
         */
-        void repaint()
+        void repaint(const bool immediately = false)
         const
         {
-            widget_details_type::repaint(*this);
+            widget_details_type::repaint(*this, immediately);
         }
 
         /*!
@@ -557,6 +562,27 @@ namespace tetengo2 { namespace gui { namespace widget
         void click()
         {
             m_mouse_observer_set.clicked()();
+        }
+
+        /*!
+            \brief Returns the size observer set.
+
+            \return The size observer set.
+        */
+        const size_observer_set_type& size_observer_set()
+        const
+        {
+            return m_size_observer_set;
+        }
+
+        /*!
+            \brief Returns the size observer set.
+
+            \return The size observer set.
+        */
+        size_observer_set_type& size_observer_set()
+        {
+            return m_size_observer_set;
         }
 
         /*!
@@ -767,6 +793,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_scroll_bar_style(scroll_bar_style),
         m_p_vertical_scroll_bar(),
         m_p_horizontal_scroll_bar(),
+        m_size_observer_set(),
         m_focus_observer_set(),
         m_paint_observer_set(),
         m_keyboard_observer_set(),
@@ -827,6 +854,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<scroll_bar_type> m_p_vertical_scroll_bar;
 
         std::unique_ptr<scroll_bar_type> m_p_horizontal_scroll_bar;
+
+        size_observer_set_type m_size_observer_set;
 
         focus_observer_set_type m_focus_observer_set;
 

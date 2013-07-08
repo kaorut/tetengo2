@@ -340,6 +340,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
+        boost::optional< ::LRESULT> on_resized(
+            Widget&         widget,
+            const ::WPARAM  w_param,
+            const ::LPARAM  l_param
+        )
+        {
+            suppress_unused_variable_warning(w_param, l_param);
+
+            if (widget.size_observer_set().resized().empty())
+                return boost::none;
+
+            widget.size_observer_set().resized()();
+
+            return boost::none;
+        }
+
+        template <typename Widget>
         boost::optional< ::LRESULT> on_set_focus(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             suppress_unused_variable_warning(w_param, l_param);

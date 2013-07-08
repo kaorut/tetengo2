@@ -601,9 +601,16 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        {
+            const concrete_widget widget;
 
-        widget.repaint();
+            widget.repaint(true);
+        }
+        {
+            const concrete_widget widget;
+
+            widget.repaint(false);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(create_canvas)
@@ -628,6 +635,22 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget widget;
 
             widget.click();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(size_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.size_observer_set();
+        }
+        {
+            concrete_widget widget;
+
+            widget.size_observer_set();
         }
     }
 

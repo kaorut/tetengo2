@@ -8,10 +8,12 @@
 
 //#include <stdexcept>
 //#include <utility>
+//#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
@@ -24,7 +26,13 @@ namespace
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type size_type;
 
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type position_type;
+
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
@@ -90,6 +98,29 @@ namespace
 
 
     };
+
+
+    // functions
+
+    template <typename Int>
+    position_type make_position(const Int x, const Int y)
+    {
+        return
+            position_type(
+                tetengo2::gui::position<position_type>::left_type(x),
+                tetengo2::gui::position<position_type>::top_type(y)
+            );
+    }
+
+    template <typename Int>
+    dimension_type make_dimension(const Int w, const Int h)
+    {
+        return
+            dimension_type(
+                tetengo2::gui::dimension<dimension_type>::width_type(w),
+                tetengo2::gui::dimension<dimension_type>::height_type(h)
+            );
+    }
 
 
 }
@@ -235,7 +266,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78));
+        canvas.draw_line(make_position(12, 34), make_position(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(draw_focus_indication)
@@ -244,7 +275,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_focus_indication(std::make_pair(12, 34), std::make_pair(56, 78));
+        canvas.draw_focus_indication(make_position(12, 34), make_dimension(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(fill_rectangle)
@@ -253,7 +284,35 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78));
+        canvas.fill_rectangle(make_position(12, 34), make_dimension(56, 78));
+    }
+
+    BOOST_AUTO_TEST_CASE(draw_polygon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        std::vector<position_type> positions;
+        positions.push_back(make_position(12, 34));
+        positions.push_back(make_position(56, 78));
+        positions.push_back(make_position(90, 12));
+
+        canvas.draw_polygon(positions.begin(), positions.end());
+    }
+
+    BOOST_AUTO_TEST_CASE(fill_polygon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        std::vector<position_type> positions;
+        positions.push_back(make_position(12, 34));
+        positions.push_back(make_position(56, 78));
+        positions.push_back(make_position(90, 12));
+
+        canvas.fill_polygon(positions.begin(), positions.end());
     }
 
     BOOST_AUTO_TEST_CASE(calc_text_dimension)
@@ -264,7 +323,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
-        BOOST_CHECK(dimension == dimension_type(123, 456));
+        BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
     }
 
     BOOST_AUTO_TEST_CASE(draw_text)
@@ -273,17 +332,25 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34), 56.78);
+        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), 56.78);
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        {
+            concrete_canvas canvas;
 
-        const picture_type picture(std::make_pair(123, 456));
-        canvas.paint_picture(picture, std::make_pair(12, 34), std::make_pair(56, 78));
+            const picture_type picture(make_dimension(123, 456));
+            canvas.paint_picture(picture, make_position(12, 34), make_dimension(56, 78));
+        }
+        {
+            concrete_canvas canvas;
+
+            const picture_type picture(make_dimension(123, 456));
+            canvas.paint_picture(picture, make_position(12, 34));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(details)

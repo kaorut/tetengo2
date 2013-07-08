@@ -826,14 +826,15 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param widget A widget.
+            \param widget      A widget.
+            \param immediately Set true to request an immediate repaint.
 
             \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget>
-        static void repaint(Widget& widget)
+        static void repaint(Widget& widget, const bool immediately)
         {
-            suppress_unused_variable_warning(widget);
+            suppress_unused_variable_warning(widget, immediately);
         }
 
         /*!

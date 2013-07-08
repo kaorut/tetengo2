@@ -118,6 +118,10 @@ namespace tetengo2 { namespace detail { namespace windows
             {
             case SystemCursor::style_type::hand:
                 return OCR_HAND;
+            case SystemCursor::style_type::horizontal_resize:
+                return OCR_SIZEWE;
+            case SystemCursor::style_type::vertical_resize:
+                return OCR_SIZENS;
             default:
                 return OCR_NORMAL;
             }

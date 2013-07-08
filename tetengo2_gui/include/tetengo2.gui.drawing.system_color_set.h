@@ -36,6 +36,36 @@ namespace tetengo2 { namespace gui { namespace drawing
         // static functions
 
         /*!
+            \brief Returns the color of title bar backgrounds.
+
+            \return The color.
+        */
+        static const color_type& title_bar_background()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::title_bar_background
+                )
+            );
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the color of title bar texts.
+
+            \return The color.
+        */
+        static const color_type& title_bar_text()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::title_bar_text
+                )
+            );
+            return singleton;
+        }
+
+        /*!
             \brief Returns the color of dialog backgrounds.
 
             \return The color.
@@ -45,6 +75,21 @@ namespace tetengo2 { namespace gui { namespace drawing
             static const color_type singleton(
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::dialog_background
+                )
+            );
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the color of hyperlink texts.
+
+            \return The color.
+        */
+        static const color_type& hyperlink_text()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::hyperlink_text
                 )
             );
             return singleton;

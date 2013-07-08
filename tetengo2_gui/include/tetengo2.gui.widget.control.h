@@ -44,6 +44,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         typedef widget<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
 
+        //! The widget canvas type.
+        typedef typename base_type::widget_canvas_type widget_canvas_type;
+
         //! The canvas type.
         typedef typename base_type::canvas_type canvas_type;
 

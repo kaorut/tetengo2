@@ -65,6 +65,7 @@ namespace bobura
             property_bar<
                 boost::mpl::at<ui_type_list, type::ui::side_bar>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                 property_bar_message_type_list
             >
             property_bar_type;
@@ -76,6 +77,7 @@ namespace bobura
                 boost::mpl::at<view_type_list, type::view::view>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                 diagram_picture_box_type,
+                property_bar_type,
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                 boost::mpl::at<setting_type_list, type::setting::settings>::type
             >::type
@@ -94,6 +96,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::window>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     detail::main_window::diagram_picture_box_type,
+                    detail::main_window::property_bar_type,
                     boost::mpl::at<setting_type_list, type::setting::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
                 >

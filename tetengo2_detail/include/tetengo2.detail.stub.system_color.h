@@ -30,7 +30,10 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The system color index type.
         enum class system_color_index_type
         {
-            dialog_background, //!< Dialog background.
+            title_bar_text,       //!< Title bar text.
+            title_bar_background, //!< Title bar background.
+            dialog_background,    //!< Dialog background.
+            hyperlink_text,       //!< Hyperlink text.
         };
 
 
@@ -50,8 +53,14 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             switch (index)
             {
+            case system_color_index_type::title_bar_text:
+                return Color(255, 255, 255);
+            case system_color_index_type::title_bar_background:
+                return Color(0, 0, 128);
             case system_color_index_type::dialog_background:
                 return Color(192, 192, 192);
+            case system_color_index_type::hyperlink_text:
+                return Color(0, 0,255);
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));

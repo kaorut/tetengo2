@@ -59,10 +59,12 @@
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.scroll_bar_observer_set.h>
+#include <tetengo2.gui.message.size_observer_set.h>
 #include <tetengo2.gui.message.text_box_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.mouse_capture.h>
 #include <tetengo2.gui.scroll_bar.h>
+#include <tetengo2.gui.timer.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.unit.point.h>
 #include <tetengo2.gui.virtual_key.h>
@@ -398,12 +400,12 @@ namespace bobura
             fast_font_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                dimension_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+                dimension_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
             >
             fast_picture_type;
         typedef
@@ -495,6 +497,7 @@ namespace bobura
                 font_type,
                 system_cursor_type,
                 scroll_bar_type,
+                tetengo2::gui::message::size_observer_set,
                 tetengo2::gui::message::focus_observer_set,
                 tetengo2::gui::message::paint_observer_set<canvas_type>,
                 tetengo2::gui::message::keyboard_observer_set<
@@ -679,7 +682,21 @@ namespace bobura
             >
             picture_box_type;
         typedef
-            tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>
+            tetengo2::gui::mouse_capture<
+                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+            >
+            mouse_capture_type;
+        typedef
+            tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::timer>::type>
+            timer_type;
+        typedef
+            tetengo2::gui::widget::traits::side_bar_traits<
+                custom_control_traits_type,
+                solid_background_type,
+                system_color_set_type,
+                mouse_capture_type,
+                timer_type
+            >
             side_bar_traits_type;
         typedef
             tetengo2::gui::widget::side_bar<
@@ -744,13 +761,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::mouse_capture,
-                tetengo2::gui::mouse_capture<
-                    detail::ui::widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
-                >
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::mouse_capture, detail::ui::mouse_capture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
         tetengo2::meta::assoc_list<

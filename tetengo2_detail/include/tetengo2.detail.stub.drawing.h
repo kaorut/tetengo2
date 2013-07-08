@@ -144,9 +144,12 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
         {
-            const auto width = gui::dimension<Dimension>::width(dimension);
-            const auto height = gui::dimension<Dimension>::height(dimension);
-            return make_unique<picture_details_type>(width, height);
+            const auto& width = gui::dimension<Dimension>::width(dimension);
+            const auto& height = gui::dimension<Dimension>::height(dimension);
+            return
+                make_unique<picture_details_type>(
+                    gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height)
+                );
         }
 
         /*!
@@ -182,8 +185,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 Dimension(
-                    typename Dimension::first_type(picture.dimension().first),
-                    typename Dimension::second_type(picture.dimension().second)
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(picture.dimension().first),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(picture.dimension().second)
                 );
         }
 
@@ -259,6 +262,59 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             suppress_unused_variable_warning(canvas, position, dimension, background);
+        }
+
+        /*!
+            \brief Draws a polygon.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Size             A size type.
+            \tparam Color            A color type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param width          A width.
+            \param style          A style.
+            \param color          A color.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Size, typename Color>
+        static void draw_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Size             width,
+            const int              style,
+            const Color&           color
+        )
+        {
+            suppress_unused_variable_warning(canvas, position_first, position_last, width, style, color);
+        }
+
+        /*!
+            \brief Fills a polygon region.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Background       A background type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param background     A background.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Background>
+        static void fill_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Background&      background
+        )
+        {
+            suppress_unused_variable_warning(canvas, position_first, position_last, background);
         }
 
         /*!

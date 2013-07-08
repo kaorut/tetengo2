@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
+#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
+//#include <iterator>
 #include <limits>
 //#include <memory>
 //#include <system_error>
@@ -18,8 +20,10 @@
 //#include <utility>
 //#include <vector>
 
+#include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
@@ -254,8 +258,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&    background
         )
         {
-            const boost::optional<const typename Background::details_type&>
-            background_details = background.details();
+            const boost::optional<const typename Background::details_type&> background_details = background.details();
             if (!background_details) return;
 
             const Gdiplus::Rect rectangle(
@@ -269,6 +272,82 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a rectangle.")
+                );
+            }
+        }
+
+        /*!
+            \brief Draws a polygon.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Size             A size type.
+            \tparam Color            A color type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param width          A width.
+            \param style          A style.
+            \param color          A color.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Size, typename Color>
+        static void draw_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Size             width,
+            const int              style,
+            const Color&           color
+        )
+        {
+            const Gdiplus::Pen pen(
+                Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
+                gui::to_pixels<Gdiplus::REAL>(width)
+            );
+            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
+            const auto status =
+                canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a polygon.")
+                );
+            }
+        }
+
+        /*!
+            \brief Fills a polygon region.
+
+            \tparam PositionIterator A position iterator type.
+            \tparam Background       A background type.
+
+            \param canvas         A canvas.
+            \param position_first A first position of a region.
+            \param position_last  A last position of a region.
+            \param background     A background.
+
+            \throw std::system_error When the polygon cannot be filled.
+        */
+        template <typename PositionIterator, typename Background>
+        static void fill_polygon(
+            canvas_details_type&   canvas,
+            const PositionIterator position_first,
+            const PositionIterator position_last,
+            const Background&      background
+        )
+        {
+            const boost::optional<const typename Background::details_type&> background_details = background.details();
+            if (!background_details) return;
+
+            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
+            const auto status =
+                canvas.FillPolygon(&*background_details, points.data(), static_cast< ::INT>(points.size()));
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a polygon.")
                 );
             }
         }
@@ -322,6 +401,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Encoder&             encoder
         )
         {
+            const auto encoded_text = encoder.encode(text);
+
             const Gdiplus::InstalledFontCollection font_collection;
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
@@ -331,8 +412,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             Gdiplus::RectF bounding;
             const auto status =
                 canvas.MeasureString(
-                    encoder.encode(text).c_str(),
-                    static_cast< ::INT>(text.length()),
+                    encoded_text.c_str(),
+                    static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(),
                     layout,
                     Gdiplus::StringFormat::GenericTypographic(),
@@ -380,7 +461,61 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Position&      position,
             const Color&         color,
             const double         angle
-        );
+        )
+        {
+            const auto encoded_text = encoder.encode(text);
+
+            const Gdiplus::InstalledFontCollection font_collection;
+            const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
+
+            const auto p_solid_brush = create_solid_background(color);
+
+            const Gdiplus::PointF gdiplus_point(
+                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
+                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
+            );
+
+            Gdiplus::Matrix original_matrix;
+            const auto get_transform_status = canvas.GetTransform(&original_matrix);
+            if (get_transform_status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(get_transform_status, gdiplus_category()), "Can't get transform!"
+                    )
+                );
+            }
+            Gdiplus::Matrix rotating_matrix;
+            rotating_matrix.RotateAt(radian_to_degree(angle), gdiplus_point);
+            const auto set_transform_status = canvas.SetTransform(&rotating_matrix);
+            if (set_transform_status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(set_transform_status, gdiplus_category()), "Can't set transform!"
+                    )
+                );
+            }
+            BOOST_SCOPE_EXIT((&canvas)(&original_matrix))
+            {
+                canvas.SetTransform(&original_matrix);
+            } BOOST_SCOPE_EXIT_END;
+
+            const auto draw_string_status =
+                canvas.DrawString(
+                    encoded_text.c_str(),
+                    static_cast< ::INT>(encoded_text.length()),
+                    p_gdiplus_font.get(), 
+                    gdiplus_point,
+                    p_solid_brush.get()
+                );
+            if (draw_string_status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(draw_string_status, gdiplus_category()), "Can't draw text!")
+                );
+            }
+        }
 
         /*!
             \brief Paints a picture.
@@ -498,6 +633,30 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
         }
 
+        template <typename Iterator>
+        static std::vector<Gdiplus::PointF> to_gdiplus_points(const Iterator first, const Iterator last)
+        {
+            std::vector<Gdiplus::PointF> points;
+            points.reserve(std::distance(first, last));
+
+            typedef typename Iterator::value_type position_type;
+            std::transform(
+                first,
+                last,
+                std::back_inserter(points),
+                [] (const position_type& position)
+                {
+                    return
+                        Gdiplus::PointF(
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::left(position)),
+                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::top(position))
+                        );
+                }
+            );
+
+            return points;
+        }
+
         template <typename String, typename Font, typename Encoder>
         static std::unique_ptr<Gdiplus::Font> create_gdiplus_font(
             const Font&                    font,
@@ -549,6 +708,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 style |= Gdiplus::FontStyleStrikeout;
 
             return style;
+        }
+
+        static Gdiplus::REAL radian_to_degree(const double radian)
+        {
+            return static_cast<Gdiplus::REAL>(radian * 180.0 / boost::math::constants::pi<double>());
         }
 
 

@@ -207,7 +207,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_CLIENTEDGE,
+                    0,
                     custom_control_class_name().c_str(),
                     L"",
                     WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),
@@ -1404,20 +1404,36 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param widget A widget.
+            \param widget      A widget.
+            \param immediately Set true to request an immediate repaint.
 
             \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget>
-        static void repaint(Widget& widget)
+        static void repaint(Widget& widget, const bool immediately)
         {
-            if (::InvalidateRect(widget.details()->handle.get(), nullptr, TRUE) == 0)
+            if (immediately)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
-                    )
-                );
+                if (::UpdateWindow(widget.details()->handle.get()) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
+                            "Can't repaint a widget immediately."
+                        )
+                    );
+                }
+            }
+            else
+            {
+                if (::InvalidateRect(widget.details()->handle.get(), nullptr, FALSE) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
+                        )
+                    );
+                }
             }
         }
 

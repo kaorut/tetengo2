@@ -12,6 +12,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.measure.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -32,6 +34,10 @@ namespace
         picture_reader_type;
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::image>::type image_type;
@@ -116,7 +122,7 @@ BOOST_AUTO_TEST_SUITE(image)
         image.fit_to_content();
 
         const auto dimension = image.client_dimension();
-        const dimension_type answer_dimension(123, 456);
+        const dimension_type answer_dimension(width_type(123), height_type(456));
         BOOST_CHECK(dimension == answer_dimension);
     }
 

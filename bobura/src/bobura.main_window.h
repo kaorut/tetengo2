@@ -24,6 +24,7 @@ namespace bobura
         \tparam Window            A window type.
         \tparam MessageCatalog    A message catalog type.
         \tparam DiagramPictureBox A diagram picture box type.
+        \tparam PropertyBar       A property bar type.
         \tparam Settings          A settings type.
         \tparam ConfirmFileSave   A file save confirmation type.
     */
@@ -31,6 +32,7 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
@@ -51,6 +53,9 @@ namespace bobura
         //! The diagram picture box type.
         typedef DiagramPictureBox diagram_picture_box_type;
 
+        //! The property bar type.
+        typedef PropertyBar property_bar_type;
+        
         //! The settings type.
         typedef Settings settings_type;
 
@@ -104,6 +109,21 @@ namespace bobura
             \return The diagram picture box.
         */
         diagram_picture_box_type& diagram_picture_box();
+
+        /*!
+            \brief Returns the property bar.
+
+            \return The property bar.
+        */
+        const property_bar_type& property_bar()
+        const;
+
+        /*!
+            \brief Returns the property bar.
+
+            \return The property bar.
+        */
+        property_bar_type& property_bar();
 
 
     private:

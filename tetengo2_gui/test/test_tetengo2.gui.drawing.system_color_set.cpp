@@ -32,11 +32,32 @@ BOOST_AUTO_TEST_SUITE(drawing)
 BOOST_AUTO_TEST_SUITE(system_color_set)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(title_bar_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::title_bar_background();
+    }
+
+    BOOST_AUTO_TEST_CASE(title_bar_text)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::title_bar_text();
+    }
+
     BOOST_AUTO_TEST_CASE(dialog_background)
     {
         BOOST_TEST_PASSPOINT();
 
         system_color_set_type::dialog_background();
+    }
+
+    BOOST_AUTO_TEST_CASE(hyperlink_text)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::hyperlink_text();
     }
 
 

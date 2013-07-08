@@ -27,6 +27,7 @@
 #   include <tetengo2.detail.windows.mouse_capture.h>
 #   include <tetengo2.detail.windows.scroll.h>
 #   include <tetengo2.detail.windows.system_color.h>
+#   include <tetengo2.detail.windows.timer.h>
 #   include <tetengo2.detail.windows.unit.h>
 #   include <tetengo2.detail.windows.virtual_key.h>
 #   include <tetengo2.detail.windows.widget.h>
@@ -44,6 +45,7 @@
 #   include <tetengo2.detail.stub.mouse_capture.h>
 #   include <tetengo2.detail.stub.scroll.h>
 #   include <tetengo2.detail.stub.system_color.h>
+#   include <tetengo2.detail.stub.timer.h>
 #   include <tetengo2.detail.stub.unit.h>
 #   include <tetengo2.detail.stub.virtual_key.h>
 #   include <tetengo2.detail.stub.widget.h>
@@ -70,6 +72,7 @@ namespace bobura
         struct mouse_capture;  //!< The detail implementation type of the mouse capture.
         struct scroll;         //!< The detail implementation type of the scroll.
         struct system_color;   //!< The detail implementation type of the system color.
+        struct timer;          //!< The detail implementation type of the timer.
         struct unit;           //!< The detail implementation type of the unit.
         struct virtual_key;    //!< The detail implementation type of the virtual key.
         struct widget;         //!< The detail implementation type of the widget.
@@ -97,6 +100,7 @@ namespace bobura
         typedef tetengo2::detail::windows::mouse_capture mouse_capture_type;
         typedef tetengo2::detail::windows::scroll scroll_type;
         typedef tetengo2::detail::windows::system_color system_color_type;
+        typedef tetengo2::detail::windows::timer timer_type;
         typedef tetengo2::detail::windows::unit unit_type;
         typedef tetengo2::detail::windows::virtual_key virtual_key_type;
         typedef tetengo2::detail::windows::widget widget_type;
@@ -118,6 +122,7 @@ namespace bobura
         typedef tetengo2::detail::stub::mouse_capture mouse_capture_type;
         typedef tetengo2::detail::stub::scroll scroll_type;
         typedef tetengo2::detail::stub::system_color system_color_type;
+        typedef tetengo2::detail::stub::timer timer_type;
         typedef tetengo2::detail::stub::unit unit_type;
         typedef tetengo2::detail::stub::virtual_key virtual_key_type;
         typedef tetengo2::detail::stub::widget widget_type;
@@ -142,11 +147,12 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::mouse_capture, detail::detail::mouse_capture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::scroll_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::system_color, detail::detail::system_color_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::timer_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::unit_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>
         detail_type_list;
 
 

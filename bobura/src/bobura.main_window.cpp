@@ -34,10 +34,11 @@ namespace bobura
             typename Window,
             typename MessageCatalog,
             typename DiagramPictureBox,
+            typename PropertyBar,
             typename Settings,
             typename ConfirmFileSave
         >
-        class main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::impl :
+        class main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::impl :
             private boost::noncopyable
         {
         public:
@@ -52,6 +53,8 @@ namespace bobura
             typedef MessageCatalog message_catalog_type;
 
             typedef DiagramPictureBox diagram_picture_box_type;
+
+            typedef PropertyBar property_bar_type;
 
             typedef Settings settings_type;
 
@@ -70,6 +73,7 @@ namespace bobura
             m_base(base),
             m_message_catalog(message_catalog),
             m_p_diagram_picture_box(),
+            m_p_property_bar(),
             m_settings(settings),
             m_confirm_file_save(confirm_file_save)
             {
@@ -103,6 +107,19 @@ namespace bobura
                 return *m_p_diagram_picture_box;
             }
 
+            const property_bar_type& property_bar()
+            const
+            {
+                assert(m_p_property_bar);
+                return *m_p_property_bar;
+            }
+
+            property_bar_type& property_bar()
+            {
+                assert(m_p_property_bar);
+                return *m_p_property_bar;
+            }
+
 
         private:
             // types
@@ -130,6 +147,8 @@ namespace bobura
 
             std::unique_ptr<diagram_picture_box_type> m_p_diagram_picture_box;
 
+            std::unique_ptr<property_bar_type> m_p_property_bar;
+
             settings_type& m_settings;
 
             const confirm_file_save_type& m_confirm_file_save;
@@ -140,6 +159,7 @@ namespace bobura
             void initialize_window()
             {
                 m_p_diagram_picture_box = tetengo2::make_unique<diagram_picture_box_type>(m_base);
+                m_p_property_bar = tetengo2::make_unique<property_bar_type>(m_base, m_message_catalog);
 
                 set_message_observers();
 
@@ -182,10 +202,11 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
-    main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::main_window(
+    main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::main_window(
         const message_catalog_type&   message_catalog,
         settings_type&                settings,
         const confirm_file_save_type& confirm_file_save
@@ -199,10 +220,11 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
-    main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::~main_window()
+    main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::~main_window()
     TETENGO2_CPP11_NOEXCEPT
     {}
 
@@ -210,10 +232,11 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
-    void main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::set_title(
+    void main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::set_title(
         const boost::optional<string_type>& document_name,
         const bool                          changed
     )
@@ -225,13 +248,16 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
     const typename main_window<
-        Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
     >::diagram_picture_box_type&
-    main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::diagram_picture_box()
+    main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::diagram_picture_box()
     const
     {
         return m_p_impl->diagram_picture_box();
@@ -241,22 +267,60 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename DiagramPictureBox,
+        typename PropertyBar,
         typename Settings,
         typename ConfirmFileSave
     >
     typename main_window<
-        Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
     >::diagram_picture_box_type&
-    main_window<Window, MessageCatalog, DiagramPictureBox, Settings, ConfirmFileSave>::diagram_picture_box()
+    main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::diagram_picture_box()
     {
         return m_p_impl->diagram_picture_box();
     }
 
+    template <
+        typename Window,
+        typename MessageCatalog,
+        typename DiagramPictureBox,
+        typename PropertyBar,
+        typename Settings,
+        typename ConfirmFileSave
+    >
+    const typename main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar_type& main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar()
+    const
+    {
+        return m_p_impl->property_bar();
+    }
+
+    template <
+        typename Window,
+        typename MessageCatalog,
+        typename DiagramPictureBox,
+        typename PropertyBar,
+        typename Settings,
+        typename ConfirmFileSave
+    >
+    typename main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar_type& main_window<
+        Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave
+    >::property_bar()
+    {
+        return m_p_impl->property_bar();
+    }
 
     template class main_window<
         typename boost::mpl::at<ui_type_list, type::ui::window>::type,
         typename boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-        detail::main_window::diagram_picture_box_type,
+        typename boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type,
+        typename boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type,
         typename boost::mpl::at<setting_type_list, type::setting::settings>::type,
         typename boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
     >;

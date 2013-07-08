@@ -67,9 +67,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename base_type::cursor_type cursor_type;
 
-        //! The color type.
-        typedef typename base_type::color_type color_type;
-
         //! The keyboard observer set type.
         typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
@@ -95,7 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent),
         m_target()
         {
-            this->initialize(this);
+            initialize_link_label(this);
         }
 
         /*!
@@ -167,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // static functions
 
-        static void initialize(link_label* const p_link_label)
+        static void initialize_link_label(link_label* const p_link_label)
         {
             assert(p_link_label);
 
@@ -187,7 +184,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 )
             );
 
-            p_link_label->set_text_color(color_type(0, 0, 255));
+            p_link_label->set_text_color(system_color_set_type::hyperlink_text());
 
             auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
             p_link_label->set_cursor(std::move(p_cursor));

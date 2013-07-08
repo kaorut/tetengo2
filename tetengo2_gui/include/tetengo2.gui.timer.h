@@ -36,8 +36,12 @@ namespace tetengo2 { namespace gui
         //! The detail implementation type of a timer.
         typedef TimerDetails timer_details_type;
 
-        //! The procedure type.
-        typedef std::function<void ()> procedure_type;
+        /*!
+            \brief The procedure type.
+
+            \param stop Assign true to stop the timer.
+        */
+        typedef std::function<void (bool& stop)> procedure_type;
 
         //! The interval type.
         typedef std::chrono::milliseconds inteval_type;
@@ -58,10 +62,32 @@ namespace tetengo2 { namespace gui
         {}
 
 
+        // functions
+
+        /*!
+            \brief Returns the stopped status.
+
+            \return The stopped status.
+        */
+        bool stopped()
+        const
+        {
+            return m_timer_details.stopped();
+        }
+
+        /*!
+            \brief Stops the timer.
+        */
+        void stop()
+        {
+            m_timer_details.stop();
+        }
+
+
     private:
         // variables
 
-        const timer_details_type m_timer_details;
+        timer_details_type m_timer_details;
 
 
     };

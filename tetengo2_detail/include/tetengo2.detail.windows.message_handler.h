@@ -96,12 +96,6 @@ namespace tetengo2 { namespace detail { namespace windows
                         message_handler_detail::abstract_window::on_initmenupopup(abstract_window, w_param, l_param);
                 }
             );
-            map[WM_SIZE].push_back(
-                [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::abstract_window::on_resized(abstract_window, w_param, l_param);
-                }
-            );
             map[WM_CLOSE].push_back(
                 [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
@@ -205,23 +199,9 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            suppress_unused_variable_warning(custom_control);
 
-            map[WM_ERASEBKGND].push_back(
-                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return
-                        message_handler_detail::custom_control::on_erase_background(custom_control, w_param, l_param);
-                }
-            );
-            map[WM_PAINT].push_back(
-                [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
-                {
-                    return message_handler_detail::custom_control::on_paint(custom_control, w_param, l_param);
-                }
-            );
-
-            return map;
+            return std::move(initial_map);
         }
 
         /*!
@@ -549,6 +529,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
                     return message_handler_detail::widget::on_set_cursor(widget, w_param, l_param);
+                }
+            );
+            map[WM_SIZE].push_back(
+                [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
+                {
+                    return message_handler_detail::widget::on_resized(widget, w_param, l_param);
                 }
             );
             map[WM_SETFOCUS].push_back(

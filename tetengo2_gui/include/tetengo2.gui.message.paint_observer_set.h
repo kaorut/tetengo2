@@ -36,8 +36,8 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param canvas A canvas.
 
-            \retval true  When the background is not painted by this observer
-                          and it shoud be painted by the system.
+            \retval true  When the background is painted by this observer
+                          and it should not be painted by the system.
             \retval false Otherwise.
         */
         typedef bool paint_background_type(canvas_type& canvas);

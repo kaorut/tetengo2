@@ -37,10 +37,30 @@ namespace tetengo2 { namespace detail { namespace stub
             \param interval  An interval.
         */
         template <typename Widget>
-        timer(const Widget& widget, std::function<void ()> procedure, std::chrono::milliseconds interval)
+        timer(const Widget& widget, std::function<void (bool&)> procedure, std::chrono::milliseconds interval)
         {
             suppress_unused_variable_warning(widget, procedure, interval);
         }
+
+
+        // functions
+
+        /*!
+            \brief Returns the stopped status.
+
+            \return The stopped status.
+        */
+        bool stopped()
+        const
+        {
+            return true;
+        }
+
+        /*!
+            \brief Stops the timer.
+        */
+        void stop()
+        {}
 
 
     };

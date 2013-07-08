@@ -245,6 +245,9 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.side_bar.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message.size_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui\message</Filter>
+    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.timer.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>

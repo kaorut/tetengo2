@@ -75,7 +75,6 @@
 ::GetDesktopWindow                               Windows.h
 ::GetDeviceCaps                                  Windows.h
 ::GetDlgItem                                     Windows.h
-::GetDoubleClickTime                             Windows.h
 ::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
@@ -317,11 +316,14 @@ Gdiplus::Graphics                                GdiPlus.h,Windows.h
 Gdiplus::InstalledFontCollection                 GdiPlus.h,Windows.h
 Gdiplus::InsufficientBuffer                      GdiPlus.h,Windows.h
 Gdiplus::InvalidParameter                        GdiPlus.h,Windows.h
+Gdiplus::Matrix                                  GdiPlus.h,Windows.h
 Gdiplus::NotImplemented                          GdiPlus.h,Windows.h
 Gdiplus::NotTrueTypeFont                         GdiPlus.h,Windows.h
 Gdiplus::ObjectBusy                              GdiPlus.h,Windows.h
 Gdiplus::Ok                                      GdiPlus.h,Windows.h
 Gdiplus::OutOfMemory                             GdiPlus.h,Windows.h
+Gdiplus::Pen                                     GdiPlus.h,Windows.h
+Gdiplus::PointF                                  GdiPlus.h,Windows.h
 Gdiplus::ProfileNotFound                         GdiPlus.h,Windows.h
 Gdiplus::PropertyNotFound                        GdiPlus.h,Windows.h
 Gdiplus::PropertyNotSupported                    GdiPlus.h,Windows.h
@@ -447,7 +449,6 @@ WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
-WM_TIMER                                         Windows.h
 WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::adaptors::reverse                         boost/range/adaptors.hpp

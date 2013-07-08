@@ -206,8 +206,9 @@ namespace bobura { namespace message { namespace main_window
         \tparam View              A view type.
         \tparam AbstractWindow    An abstract window type.
         \tparam DiagramPictureBox A diagram picture box type.
+        \tparam PropertyBar       A property bar type.
     */
-    template <typename View, typename AbstractWindow, typename DiagramPictureBox>
+    template <typename View, typename AbstractWindow, typename DiagramPictureBox, typename PropertyBar>
     class window_resized
     {
     public:
@@ -222,6 +223,9 @@ namespace bobura { namespace message { namespace main_window
         //! The diagram picture box type.
         typedef DiagramPictureBox diagram_picture_box_type;
 
+        //! The property bar type.
+        typedef PropertyBar property_bar_type;
+
 
         // constructors and destructor
 
@@ -231,12 +235,19 @@ namespace bobura { namespace message { namespace main_window
             \param view                A view.
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
+            \param property_bar        A property bar.
         */
-        window_resized(view_type& view, abstract_window_type& window, diagram_picture_box_type& diagram_picture_box)
+        window_resized(
+            view_type&                view,
+            abstract_window_type&     window,
+            diagram_picture_box_type& diagram_picture_box,
+            property_bar_type&        property_bar
+        )
         :
         m_view(view),
         m_window(window),
-        m_diagram_picture_box(diagram_picture_box)
+        m_diagram_picture_box(diagram_picture_box),
+        m_property_bar(property_bar)
         {}
 
 
@@ -248,14 +259,31 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-            m_diagram_picture_box.set_position_and_dimension(
-                position_type(left_type(0), top_type(0)), m_window.client_dimension()
-            );
-            m_view.update_dimension();
-            m_diagram_picture_box.update_scroll_bars(
-                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension())
-            );
-            m_diagram_picture_box.repaint();
+            const auto window_dimension = m_window.client_dimension();
+            const auto& window_width = tetengo2::gui::dimension<dimension_type>::width(window_dimension);
+            const auto& window_height = tetengo2::gui::dimension<dimension_type>::height(window_dimension);
+            const auto& property_bar_width = m_property_bar.preferred_width();
+            {
+                const position_type position(
+                    left_type::from(window_width) - left_type::from(property_bar_width), top_type(0)
+                );
+                const dimension_type dimension(property_bar_width, window_height);
+                m_property_bar.set_position_and_dimension(position, dimension);
+                m_property_bar.repaint();
+            }
+            {
+                const position_type position(left_type(0), top_type(0));
+                const dimension_type dimension(
+                    window_width > property_bar_width ? window_width - property_bar_width : width_type(0),
+                    window_height
+                );
+                m_diagram_picture_box.set_position_and_dimension(position, dimension);
+                m_view.update_dimension();
+                m_diagram_picture_box.update_scroll_bars(
+                    m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension())
+                );
+                m_diagram_picture_box.repaint();
+            }
         }
 
 
@@ -270,6 +298,10 @@ namespace bobura { namespace message { namespace main_window
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        typedef typename control_type::dimension_type dimension_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
 
         // variables
 
@@ -278,6 +310,8 @@ namespace bobura { namespace message { namespace main_window
         abstract_window_type& m_window;
 
         diagram_picture_box_type& m_diagram_picture_box;
+
+        property_bar_type& m_property_bar;
 
 
     };

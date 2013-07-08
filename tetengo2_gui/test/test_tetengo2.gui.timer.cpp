@@ -35,7 +35,7 @@ namespace
 
     // functions
 
-    void timer_function()
+    void timer_function(bool&)
     {}
 
 
@@ -53,6 +53,28 @@ BOOST_AUTO_TEST_SUITE(timer)
 
         const window_type window;
         const timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+    }
+
+    BOOST_AUTO_TEST_CASE(stopped)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const window_type window;
+        const timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+
+        timer.stopped();
+    }
+
+    BOOST_AUTO_TEST_CASE(stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const window_type window;
+        timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+
+        timer.stop();
+
+        BOOST_CHECK(timer.stopped());
     }
 
 

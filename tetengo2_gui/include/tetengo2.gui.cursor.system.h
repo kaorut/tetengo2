@@ -43,8 +43,10 @@ namespace tetengo2 { namespace gui { namespace cursor
         //! The style type.
         enum class style_type
         {
-            default_, //!< A default style.
-            hand,     //!< A hand style.
+            default_,          //!< A default style.
+            hand,              //!< A hand style.
+            horizontal_resize, //!< A horizontal resize style.
+            vertical_resize,   //!< A vertical resize style.
         };
 
 

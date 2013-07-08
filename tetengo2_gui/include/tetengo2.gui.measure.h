@@ -63,7 +63,7 @@ namespace tetengo2 { namespace gui
     template <typename Integer, typename Unit>
     Integer ceil(const Unit& value, typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = nullptr)
     {
-        return static_cast<Integer>(std::ceil(boost::rational_cast<double>(value.value())));
+        return static_cast<Integer>(std::ceil(boost::rational_cast<double, Integer>(value.value())));
     }
 
     /*!

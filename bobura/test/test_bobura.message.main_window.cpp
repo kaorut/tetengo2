@@ -86,6 +86,9 @@ namespace
         diagram_picture_box_type;
 
     typedef
+        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::property_bar>::type property_bar_type;
+
+    typedef
         bobura::message::main_window::popup_menu_selected<popup_menu_type, command_type, model_type>
         popup_menu_selected_type;
 
@@ -94,7 +97,9 @@ namespace
         menu_command_selected_type;
 
     typedef
-        bobura::message::main_window::window_resized<view_type, abstract_window_type, diagram_picture_box_type>
+        bobura::message::main_window::window_resized<
+            view_type, abstract_window_type, diagram_picture_box_type, property_bar_type
+        >
         window_resized_type;
 
 
@@ -170,7 +175,8 @@ BOOST_AUTO_TEST_SUITE(window_resized)
         view_type view(model, message_catalog);
         window_type window;
         diagram_picture_box_type diagram_picture_box(window);
-        const window_resized_type observer(view, window, diagram_picture_box);
+        property_bar_type property_bar(window, message_catalog);
+        const window_resized_type observer(view, window, diagram_picture_box, property_bar);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -182,7 +188,8 @@ BOOST_AUTO_TEST_SUITE(window_resized)
         view_type view(model, message_catalog);
         window_type window;
         diagram_picture_box_type diagram_picture_box(window);
-        const window_resized_type observer(view, window, diagram_picture_box);
+        property_bar_type property_bar(window, message_catalog);
+        const window_resized_type observer(view, window, diagram_picture_box, property_bar);
 
         observer();
     }
