@@ -12,6 +12,7 @@
 #include <algorithm>
 //#include <cassert>
 //#include <chrono>
+#include <cmath>
 #include <cstddef>
 //#include <memory>
 //#include <utility>
@@ -441,9 +442,37 @@ namespace tetengo2 { namespace gui { namespace widget
                 return color_type(base_color.red() / 2, base_color.green() / 2, base_color.blue() / 2);
             }
 
+            static const std::chrono::milliseconds& animation_duration()
+            {
+                static const std::chrono::milliseconds singleton(250);
+                return singleton;
+            }
+
+            static const std::chrono::milliseconds& animation_finish_wait_duration()
+            {
+                static const std::chrono::milliseconds singleton(50);
+                return singleton;
+            }
+
             static std::size_t max_animation_step()
             {
-                return 4;
+                return 8;
+            }
+
+            static position_type triangle_vertex_position(const std::size_t animation_step, const std::size_t vertex)
+            {
+                const double angle =
+                    (
+                        static_cast<double>(animation_step) / max_animation_step() + (2.0 / 3.0) * vertex
+                    ) * boost::math::constants::pi<double>();
+
+                const double x = std::cos(angle);
+                const double y = std::sin(angle);
+                return
+                    position_type(
+                        left_type(static_cast<std::ptrdiff_t>(x * 256)) / 256,
+                        top_type(static_cast<std::ptrdiff_t>(y * 256)) / 256
+                    );
             }
 
 
@@ -489,7 +518,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     tetengo2::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
-                        std::chrono::milliseconds(50)
+                        animation_duration() / max_animation_step()
                     );
                 {
                     bool dummy_stop = false;
@@ -522,6 +551,14 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->side_bar_().repaint();
                     return;
                 }
+                if (
+                    m_animation_step <
+                    max_animation_step() + animation_finish_wait_duration().count() / max_animation_step()
+                )
+                {
+                    ++m_animation_step;
+                    return;
+                }
 
                 this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
                 m_animation_step = 0;
@@ -536,49 +573,26 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
 
-                const bool minimized = this->side_bar_().m_minimized;
-
                 std::vector<position_type> positions;
                 positions.reserve(3);
-                if ((!minimized && m_animation_step == 0) || (minimized && m_animation_step >= max_animation_step()))
+                for (std::size_t i = 0; i < 3; ++i)
                 {
-                    // right
-                    positions.emplace_back(left, top);
-                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height) / 2);
-                    positions.emplace_back(left, top + top_type::from(height));
-                }
-                else if ((!minimized && m_animation_step == 1) || (minimized && m_animation_step == 3))
-                {
-                    // right down
-                    positions.emplace_back(left + left_type::from(width) / 2, top);
-                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height));
-                    positions.emplace_back(left, top + top_type::from(height) / 2);
-                }
-                else if ((!minimized && m_animation_step == 2) || (minimized && m_animation_step == 2))
-                {
-                    // down
-                    positions.emplace_back(left, top);
-                    positions.emplace_back(left + left_type::from(width), top);
-                    positions.emplace_back(left + left_type::from(width) / 2, top + top_type::from(height));
-                }
-                else if ((!minimized && m_animation_step == 3) || (minimized && m_animation_step == 1))
-                {
-                    // left down
-                    positions.emplace_back(left + left_type::from(width) / 2, top);
-                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height) / 2);
-                    positions.emplace_back(left, top + top_type::from(height));
-                }
-                else
-                {
-                    assert(
-                        (!minimized && m_animation_step >= max_animation_step()) ||
-                        (minimized && m_animation_step == 0)
-                    );
-
-                    // left
-                    positions.emplace_back(left, top + top_type::from(height / 2));
-                    positions.emplace_back(left + left_type::from(width), top);
-                    positions.emplace_back(left + left_type::from(width), top + top_type::from(height));
+                    const std::size_t step_ =
+                        this->side_bar_().m_minimized ?
+                            (m_animation_step < max_animation_step() ? max_animation_step() - m_animation_step : 0) :
+                            (m_animation_step < max_animation_step() ? m_animation_step : max_animation_step());
+                    const position_type vertex_position = triangle_vertex_position(step_, i);
+                    left_type vertex_left =
+                        left +
+                        (gui::position<position_type>::left(vertex_position) + left_type(1)) *
+                            left_type::from(width).value() /
+                            2;
+                    top_type vertex_top =
+                        top +
+                        (gui::position<position_type>::top(vertex_position) + top_type(1)) *
+                            top_type::from(height).value() /
+                            2;
+                    positions.emplace_back(std::move(vertex_left), std::move(vertex_top));
                 }
 
                 return positions;
