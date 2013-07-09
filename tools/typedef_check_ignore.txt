@@ -43,6 +43,7 @@ tetengo2::gui::widget::custom_control::string_type
 tetengo2::gui::widget::dialog::dimension_type
 tetengo2::gui::widget::dialog::string_type
 tetengo2::gui::widget::label::keyboard_observer_set_type
+tetengo2::gui::widget::label::mouse_observer_set_type
 tetengo2::gui::widget::label::position_type
 tetengo2::gui::widget::label::string_type
 tetengo2::gui::widget::picture_box::dimension_type

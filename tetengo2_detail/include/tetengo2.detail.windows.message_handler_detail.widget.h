@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <cassert>
 #include <stdexcept>
-#include <string>
 #include <system_error>
 
 #include <boost/optional.hpp>
@@ -146,40 +145,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             return boost::none;
         }
 
-        inline const std::wstring& property_key_for_mouse_click()
-        {
-            static const std::wstring singleton(L"mouse click");
-            return singleton;
-        }
-
-        template <typename Widget>
-        void set_mouse_click(const Widget& widget, const bool clicked)
-        {
-            const auto result =
-                ::SetPropW(
-                    widget.details()->handle.get(),
-                    property_key_for_mouse_click().c_str(),
-                    clicked ? reinterpret_cast< ::HANDLE>(1) : nullptr
-                );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set mouse click.")
-                );
-            }
-        }
-
-        template <typename Widget>
-        bool mouse_clicked(const Widget& widget)
-        {
-            return ::GetPropW(widget.details()->handle.get(), property_key_for_mouse_click().c_str()) != nullptr;
-        }
-
         template <typename Widget>
         boost::optional< ::LRESULT> on_l_button_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            set_mouse_click(widget, true);
-
             return
                 on_button_down_impl(
                     widget, Widget::mouse_observer_set_type::mouse_button_type::left, w_param, l_param
@@ -220,10 +188,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_l_button_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            if (!widget.mouse_observer_set().clicked().empty() && mouse_clicked(widget))
-                widget.mouse_observer_set().clicked()();
-            set_mouse_click(widget, false);
-
             return
                 on_button_up_impl(widget, Widget::mouse_observer_set_type::mouse_button_type::left, w_param, l_param);
         }
