@@ -67,6 +67,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename base_type::cursor_type cursor_type;
 
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+
         //! The keyboard observer set type.
         typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
@@ -90,7 +93,8 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit link_label(widget_type& parent)
         :
         base_type(parent),
-        m_target()
+        m_target(),
+        m_mouse_button_pressing(false)
         {
             initialize_link_label(this);
         }
@@ -204,13 +208,46 @@ namespace tetengo2 { namespace gui { namespace widget
                         p_link_label->open_target();
                 }
             );
-            p_link_label->mouse_observer_set().clicked().connect([p_link_label]() { p_link_label->open_target(); });
+            p_link_label->mouse_observer_set().pressed().connect(
+                [p_link_label](
+                    const typename mouse_observer_set_type::mouse_button_type button,
+                    const position_type&,
+                    const bool,
+                    const bool,
+                    const bool
+                )
+                {
+                    if (button != mouse_observer_set_type::mouse_button_type::left)
+                        return;
+
+                    p_link_label->m_mouse_button_pressing = true;
+                }
+            );
+            p_link_label->mouse_observer_set().released().connect(
+                [p_link_label](
+                    const typename mouse_observer_set_type::mouse_button_type button,
+                    const position_type&,
+                    const bool,
+                    const bool,
+                    const bool
+                )
+                {
+                    if (button != mouse_observer_set_type::mouse_button_type::left)
+                        return;
+
+                    if (p_link_label->m_mouse_button_pressing)
+                        p_link_label->open_target();
+                    p_link_label->m_mouse_button_pressing = false;
+                }
+            );
         }
 
 
         // variables
 
         string_type m_target;
+
+        bool m_mouse_button_pressing;
 
 
         // functions

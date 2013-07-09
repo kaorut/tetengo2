@@ -62,6 +62,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type widget_type;
 
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+
         //! The keyboard observer set type.
         typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
