@@ -11,7 +11,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.main_window_menu_builder.h"

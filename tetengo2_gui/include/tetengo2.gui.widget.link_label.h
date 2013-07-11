@@ -12,9 +12,9 @@
 //#include <cassert>
 //#include <utility>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 

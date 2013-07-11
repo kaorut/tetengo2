@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIDGETCANVAS_H)
 #define TETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.drawing.canvas.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing

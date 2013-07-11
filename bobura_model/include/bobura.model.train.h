@@ -14,7 +14,7 @@
 
 #include <boost/operators.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace model

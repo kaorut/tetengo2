@@ -17,8 +17,8 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 #include "bobura.view.diagram.item.h"

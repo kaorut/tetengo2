@@ -13,7 +13,7 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.basic_type_list.h"
 #include "bobura.command.command_base.h"

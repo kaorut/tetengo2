@@ -12,7 +12,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/utility.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace model { namespace serializer

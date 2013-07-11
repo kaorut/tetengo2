@@ -20,7 +20,7 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/utility/string_ref.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 #include "bobura.model.serializer.reader.h"

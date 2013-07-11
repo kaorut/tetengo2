@@ -36,9 +36,9 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.unique.h"
 
 

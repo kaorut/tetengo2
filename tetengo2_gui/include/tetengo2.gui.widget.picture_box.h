@@ -11,8 +11,8 @@
 
 //#include <memory>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.control.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
 
