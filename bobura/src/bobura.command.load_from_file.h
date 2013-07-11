@@ -48,7 +48,7 @@ namespace bobura { namespace command
             \brief Destroys the load-from-file command.
         */
         ~load_from_file()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

@@ -626,7 +626,7 @@ namespace bobura
         typename Color
     >
     font_color_dialog<Dialog, MessageCatalog, IntSize, Font, PointSize, Color>::~font_color_dialog()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     template <

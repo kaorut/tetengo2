@@ -118,7 +118,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the side bar.
         */
         virtual ~side_bar()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -215,7 +215,7 @@ namespace tetengo2 { namespace gui { namespace widget
             // constructors and destructors
 
             virtual ~item()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
 
 
@@ -613,7 +613,7 @@ namespace tetengo2 { namespace gui { namespace widget
             {}
 
             virtual ~caption()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
 
 

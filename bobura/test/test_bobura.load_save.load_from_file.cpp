@@ -60,7 +60,7 @@ namespace
         }
 
         virtual ~oudia_diagram_dialog_type()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
         const string_type& file_name()

@@ -85,7 +85,7 @@ namespace bobura { namespace command
             \brief Destroys the command set.
         */
         ~set()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

@@ -48,7 +48,7 @@ namespace bobura { namespace command
             \brief Destroys the save-to-file command.
         */
         ~save_to_file()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

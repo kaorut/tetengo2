@@ -78,7 +78,7 @@ namespace bobura { namespace command
     {}
 
     horizontally_zoom_in::~horizontally_zoom_in()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void horizontally_zoom_in::execute_impl(model_type& model, abstract_window_type& parent)

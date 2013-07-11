@@ -146,7 +146,7 @@ namespace bobura
             \brief Destroys the train kind dialog.
         */
         virtual ~train_kind_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

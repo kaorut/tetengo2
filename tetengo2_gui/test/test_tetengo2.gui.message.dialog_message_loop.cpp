@@ -41,7 +41,7 @@ namespace
         }
 
         virtual ~concrete_window()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
         virtual boost::optional<const details_type&> details_impl()

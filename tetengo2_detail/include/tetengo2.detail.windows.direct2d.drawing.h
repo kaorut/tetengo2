@@ -74,7 +74,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
         public:
             virtual ~background_details()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
         
 
@@ -97,7 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             {}
 
             virtual ~solid_background_details()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
 
             unsigned char red()

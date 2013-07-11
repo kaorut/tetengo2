@@ -242,7 +242,7 @@ namespace bobura
 
     template <typename Dialog, typename MessageCatalog, typename Settings>
     about_dialog<Dialog, MessageCatalog, Settings>::~about_dialog()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
 

@@ -66,7 +66,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the bzip2 writer.
         */
         virtual ~bzip2_writer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

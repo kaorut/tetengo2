@@ -428,7 +428,7 @@ namespace bobura
     {}
 
     main_window_menu_builder::~main_window_menu_builder()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     std::unique_ptr<main_window_menu_builder::menu_bar_type> main_window_menu_builder::build()

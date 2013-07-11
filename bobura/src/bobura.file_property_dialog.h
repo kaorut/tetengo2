@@ -55,7 +55,7 @@ namespace bobura
             \brief Destroys the file property dialog.
         */
         virtual ~file_property_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

@@ -168,7 +168,7 @@ namespace bobura { namespace view { namespace diagram
     {}
 
     zoom::~zoom()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     void zoom::set_horizontal_scale(scale_type scale)

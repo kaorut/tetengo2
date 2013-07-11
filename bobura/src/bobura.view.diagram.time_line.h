@@ -113,7 +113,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the time line.
         */
         virtual ~time_line()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -301,7 +301,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the time line list.
         */
         virtual ~time_line_list()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

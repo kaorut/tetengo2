@@ -63,7 +63,7 @@ namespace bobura { namespace command
     {}
 
     load_from_file::~load_from_file()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     bool load_from_file::enabled_impl(const model_type& model)

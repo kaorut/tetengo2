@@ -81,7 +81,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the windia_reader.
         */
         virtual ~windia_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

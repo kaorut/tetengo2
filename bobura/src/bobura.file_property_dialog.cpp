@@ -410,7 +410,7 @@ namespace bobura
 
     template <typename Dialog, typename MessageCatalog>
     file_property_dialog<Dialog, MessageCatalog>::~file_property_dialog()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     template <typename Dialog, typename MessageCatalog>

@@ -314,7 +314,7 @@ namespace bobura
 
     template <typename Dialog, typename MessageCatalog, typename IntSize>
     oudia_diagram_dialog<Dialog, MessageCatalog, IntSize>::~oudia_diagram_dialog()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     template <typename Dialog, typename MessageCatalog, typename IntSize>

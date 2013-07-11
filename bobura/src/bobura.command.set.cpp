@@ -376,7 +376,7 @@ namespace bobura { namespace command
     {}
 
     set::~set()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     const set::command_type& set::about()

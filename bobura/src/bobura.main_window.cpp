@@ -225,7 +225,7 @@ namespace bobura
         typename ConfirmFileSave
     >
     main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::~main_window()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     template <

@@ -51,7 +51,7 @@ namespace
         {}
 
         virtual ~concrete_writer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

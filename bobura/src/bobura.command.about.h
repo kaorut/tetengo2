@@ -55,7 +55,7 @@ namespace bobura { namespace command
             \brief Destroys the about command.
         */
         ~about()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

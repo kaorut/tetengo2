@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu separator.
         */
         virtual ~separator()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

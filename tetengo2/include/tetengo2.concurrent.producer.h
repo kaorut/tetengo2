@@ -59,7 +59,7 @@ namespace tetengo2 { namespace concurrent
             \brief Destroys the producer.
         */
         ~producer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {
             join();
         }

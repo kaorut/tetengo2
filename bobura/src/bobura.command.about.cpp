@@ -67,7 +67,7 @@ namespace bobura { namespace command
     {}
 
     about::~about()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void about::execute_impl(model_type& model, abstract_window_type& parent)

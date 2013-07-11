@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu command.
         */
         virtual ~command()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

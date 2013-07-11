@@ -87,7 +87,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the image.
         */
         virtual ~image()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

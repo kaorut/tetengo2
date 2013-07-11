@@ -91,7 +91,7 @@ namespace bobura { namespace command
     {}
 
     set_vertical_scale::~set_vertical_scale()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     set_vertical_scale::state_type set_vertical_scale::state_impl()

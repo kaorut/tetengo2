@@ -44,7 +44,7 @@ namespace bobura { namespace command
     {}
 
     exit::~exit()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void exit::execute_impl(model_type& model, abstract_window_type& parent)

@@ -54,7 +54,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration base.
         */
         virtual ~config_base()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

@@ -94,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu base.
         */
         virtual ~menu_base()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

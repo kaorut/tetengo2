@@ -170,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the control.
         */
         virtual ~control()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

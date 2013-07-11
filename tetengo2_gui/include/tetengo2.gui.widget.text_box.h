@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the text box.
         */
         virtual ~text_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

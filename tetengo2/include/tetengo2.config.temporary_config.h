@@ -73,7 +73,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the temporary configuration.
         */
         virtual ~temporary_config()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

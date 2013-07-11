@@ -77,7 +77,7 @@ namespace bobura
             \brief Destroys the diagram picture box.
         */
         virtual ~diagram_picture_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

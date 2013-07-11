@@ -82,7 +82,7 @@ namespace bobura
             \brief Destroys the main window.
         */
         virtual ~main_window()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

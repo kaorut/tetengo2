@@ -63,7 +63,7 @@ namespace
         }
 
         virtual ~main_window_type()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
         void set_title(const boost::optional<string_type>& document_name, const bool changed)

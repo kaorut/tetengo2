@@ -95,7 +95,7 @@ int WINAPI wWinMain(
     const ::LPWSTR    lpCmdLine,
     const int         nCmdShow
 )
-TETENGO2_CPP11_NOEXCEPT
+TETENGO2_STDALT_NOEXCEPT
 {
     tetengo2::suppress_unused_variable_warning(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 

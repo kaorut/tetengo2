@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the label.
         */
         virtual ~label()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

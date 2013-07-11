@@ -256,7 +256,7 @@ namespace bobura
     {}
 
     application::~application()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     int application::run()

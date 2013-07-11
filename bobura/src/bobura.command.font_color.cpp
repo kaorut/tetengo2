@@ -109,7 +109,7 @@ namespace bobura { namespace command
     {}
 
     font_color::~font_color()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void font_color::execute_impl(model_type& model, abstract_window_type& parent)

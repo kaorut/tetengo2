@@ -63,7 +63,7 @@ namespace bobura
             \brief Destroys the OuDia diagram dialog.
         */
         virtual ~oudia_diagram_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

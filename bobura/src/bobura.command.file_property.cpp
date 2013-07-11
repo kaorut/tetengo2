@@ -77,7 +77,7 @@ namespace bobura { namespace command
     {}
 
     file_property::~file_property()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void file_property::execute_impl(model_type& model, abstract_window_type& parent)

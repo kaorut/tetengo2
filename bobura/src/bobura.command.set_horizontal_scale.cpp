@@ -91,7 +91,7 @@ namespace bobura { namespace command
     {}
 
     set_horizontal_scale::~set_horizontal_scale()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     set_horizontal_scale::state_type set_horizontal_scale::state_impl()
