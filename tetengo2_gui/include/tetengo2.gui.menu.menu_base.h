@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_MENU_MENUBASE_H
 
 //#include <cassert>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>

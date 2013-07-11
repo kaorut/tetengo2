@@ -9,7 +9,7 @@
 #if !defined(BOBURA_FILEPROPERTYDIALOG_H)
 #define BOBURA_FILEPROPERTYDIALOG_H
 
-#include <memory>
+//#include <memory>
 
 #include <tetengo2.stdalt.h>
 

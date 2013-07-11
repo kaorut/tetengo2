@@ -10,9 +10,9 @@
 #define BOBURA_MODEL_SERIALIZER_WRITERSELECTOR_H
 
 #include <algorithm>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/throw_exception.hpp>

@@ -612,6 +612,7 @@ std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_exception_ptr                          exception
 std::make_pair                                   utility
+std::make_unique                                 memory
 std::max                                         algorithm
 std::mbstate_t                                   cwchar
 std::messages                                    locale

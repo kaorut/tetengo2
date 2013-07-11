@@ -9,7 +9,7 @@
 #if !defined(BOBURA_OUDIADIAGRAMDIALOG_H)
 #define BOBURA_OUDIADIAGRAMDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 #include <vector>
 

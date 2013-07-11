@@ -9,7 +9,7 @@
 #if !defined(BOBURA_TRAINKINDDIALOG_H)
 #define BOBURA_TRAINKINDDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <vector>
 
 #include <boost/optional.hpp>

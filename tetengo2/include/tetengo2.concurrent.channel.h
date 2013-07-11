@@ -13,7 +13,7 @@
 #include <exception>
 #include <queue>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

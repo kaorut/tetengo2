@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_BACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_BACKGROUND_H
 
-#include <memory>
+//#include <memory>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

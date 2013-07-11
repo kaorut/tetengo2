@@ -10,7 +10,7 @@
 #define TETENGO2_CONFIG_CONFIGLIST_H
 
 #include <algorithm>
-#include <memory>
+//#include <memory>
 //#include <utility>
 #include <vector>
 

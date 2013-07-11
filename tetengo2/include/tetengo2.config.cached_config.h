@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_CONFIG_CACHEDCONFIG_H)
 #define TETENGO2_CONFIG_CACHEDCONFIG_H
 
-#include <memory>
+//#include <memory>
 //#include <utility>
 
 //#include <boost/optional.hpp>

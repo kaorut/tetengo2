@@ -115,8 +115,8 @@ namespace tetengo2 { namespace stdalt
 #   define TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
 #endif
 
-#   include <thread>
-#   include <boost/thread.hpp>
+#include <thread>
+#include <boost/thread.hpp>
 #if TETENGO2_STDALT_STD_THREAD_SUPPORTED
 #   include <condition_variable>
 #   include <mutex>
@@ -195,6 +195,9 @@ namespace tetengo2 { namespace stdalt
 #if !defined(DOCUMENTATION)
 #   define TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED 0
 #endif
+
+#include <utility>
+#include <memory>
 
 namespace tetengo2 { namespace stdalt
 {
