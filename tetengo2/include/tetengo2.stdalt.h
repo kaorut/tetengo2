@@ -106,31 +106,31 @@ namespace tetengo2 { namespace stdalt
 
 #if !defined(DOCUMENTATION)
 #   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
-#       define TETENGO2_CPP11_STD_THREAD_SUPPORTED 1
+#       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 1
 #   else
-#       define TETENGO2_CPP11_STD_THREAD_SUPPORTED 0
+#       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 0
 #   endif
 #endif
 #if !defined(DOCUMENTATION)
-#   define TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
+#   define TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
 #endif
 
 #   include <thread>
 #   include <boost/thread.hpp>
-#if TETENGO2_CPP11_STD_THREAD_SUPPORTED
+#if TETENGO2_STDALT_STD_THREAD_SUPPORTED
 #   include <condition_variable>
 #   include <mutex>
 #else
 #endif
-#if TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
+#if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
 #   include <chrono>
 #else
 #   include <boost/chrono.hpp>
 #endif
 
-namespace tetengo2 { namespace cpp11
+namespace tetengo2 { namespace stdalt
 {
-#if TETENGO2_CPP11_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_STDALT_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
     //! The thread.
     typedef std::thread thread;
 
@@ -165,7 +165,7 @@ namespace tetengo2 { namespace cpp11
     };
 #endif
 
-#if TETENGO2_CPP11_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief Sleep this thread.
 

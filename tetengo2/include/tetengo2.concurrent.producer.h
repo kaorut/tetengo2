@@ -102,7 +102,7 @@ namespace tetengo2 { namespace concurrent
 
         channel_type& m_channel;
 
-        cpp11::thread m_thread;
+        stdalt::thread m_thread;
 
 
     };
