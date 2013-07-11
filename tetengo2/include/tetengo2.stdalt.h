@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of C++11 alternatives for tetengo2.
+    \brief The definition of the standard C++ alternatives for tetengo2.
 
     Copyright (C) 2007-2013 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_CPP11_H)
-#define TETENGO2_CPP11_H
+#if !defined(TETENGO2_STDALT_H)
+#define TETENGO2_STDALT_H
 
 #include "tetengo2.utility.h"
 
