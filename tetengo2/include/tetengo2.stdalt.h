@@ -34,19 +34,19 @@
 
 #if !defined(DOCUMENTATION)
 #   if (defined(_MSC_VER) && _MSC_VER >= 1600)
-#       define TETENGO2_CPP11_INSERTION_ITERATOR_SUPPORTED 1
+#       define TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED 1
 #   else
-#       define TETENGO2_CPP11_INSERTION_ITERATOR_SUPPORTED 0
+#       define TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED 0
 #   endif
 #endif
 
-#if !TETENGO2_CPP11_INSERTION_ITERATOR_SUPPORTED
+#if !TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED
 #   include <iterator>
 #endif
 
-namespace tetengo2 { namespace cpp11
+namespace tetengo2 { namespace stdalt
 {
-#if TETENGO2_CPP11_INSERTION_ITERATOR_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief Returns an iterator for insert(), erase(), etc. of the containers.
 

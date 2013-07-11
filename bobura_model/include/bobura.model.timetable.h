@@ -238,7 +238,7 @@ namespace bobura { namespace model
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), position);
 
             m_station_locations.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, position), std::move(station_location)
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, position), std::move(station_location)
             );
 
             std::for_each(
@@ -275,8 +275,8 @@ namespace bobura { namespace model
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), last);
 
             m_station_locations.erase(
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, first),
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, last)
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, first),
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, last)
             );
 
             std::for_each(
@@ -378,7 +378,7 @@ namespace bobura { namespace model
                 std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
 
             m_train_kinds.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::move(train_kind)
+                tetengo2::stdalt::as_insertion_iterator(m_train_kinds, position), std::move(train_kind)
             );
 
             std::for_each(
@@ -440,7 +440,7 @@ namespace bobura { namespace model
             const train_kind_index_type erased_index =
                 std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
 
-            m_train_kinds.erase(tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position));
+            m_train_kinds.erase(tetengo2::stdalt::as_insertion_iterator(m_train_kinds, position));
 
             std::for_each(
                 m_down_trains.begin(),
@@ -762,7 +762,7 @@ namespace bobura { namespace model
                 );
             }
 
-            trains.insert(tetengo2::cpp11::as_insertion_iterator(trains, position), std::move(train));
+            trains.insert(tetengo2::stdalt::as_insertion_iterator(trains, position), std::move(train));
 
             m_observer_set.changed()();
         }
@@ -774,8 +774,8 @@ namespace bobura { namespace model
         )
         {
             trains.erase(
-                tetengo2::cpp11::as_insertion_iterator(trains, first),
-                tetengo2::cpp11::as_insertion_iterator(trains, last)
+                tetengo2::stdalt::as_insertion_iterator(trains, first),
+                tetengo2::stdalt::as_insertion_iterator(trains, last)
             );
 
             m_observer_set.changed()();
