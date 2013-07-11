@@ -73,7 +73,7 @@ namespace bobura { namespace command
 
     file_property::file_property(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     file_property::~file_property()

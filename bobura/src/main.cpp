@@ -23,7 +23,6 @@
 //#include <Windows.h>
 
 #include <tetengo2.stdalt.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.application.h"
@@ -64,7 +63,9 @@ namespace
         typedef
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::messages_facet>::type messages_facet_type;
         auto p_messages_facet =
-            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()));
+            tetengo2::stdalt::make_unique<messages_facet_type>(
+                message_directory_path, std::locale(ui_locale_name().c_str())
+            );
         const std::locale global_locale(std::locale(""), p_messages_facet.release());
 
         std::locale::global(global_locale);

@@ -23,9 +23,9 @@
 #include <boost/program_options.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
+#include <tetengo2.text.h>
 
 
 namespace bobura
@@ -282,7 +282,7 @@ namespace bobura
             p_configs.push_back(create_temporary_config(options));
             p_configs.push_back(create_persistent_config());
 
-            return tetengo2::make_unique<config_list_type>(std::move(p_configs));
+            return tetengo2::stdalt::make_unique<config_list_type>(std::move(p_configs));
         }
 
         static std::unique_ptr<config_base_type> create_temporary_config(
@@ -305,7 +305,7 @@ namespace bobura
                 }
             }
 
-            return tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+            return tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
         }
 
         static boost::optional<std::pair<uint_type, uint_type>> main_window_dimension_in_command_line(
@@ -351,8 +351,8 @@ namespace bobura
         static std::unique_ptr<config_base_type> create_persistent_config()
         {
             return
-                tetengo2::make_unique<cached_config_type>(
-                    tetengo2::make_unique<persistent_config_type>(string_type(TETENGO2_TEXT("bobura")))
+                tetengo2::stdalt::make_unique<cached_config_type>(
+                    tetengo2::stdalt::make_unique<persistent_config_type>(string_type(TETENGO2_TEXT("bobura")))
                 );
         }
 

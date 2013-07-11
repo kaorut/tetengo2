@@ -53,7 +53,7 @@ namespace bobura { namespace command
 
     save_to_file::save_to_file(const save_to_file_type& save_to_file)
     :
-    m_p_impl(tetengo2::make_unique<impl>(save_to_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(save_to_file))
     {}
 
     save_to_file::~save_to_file()

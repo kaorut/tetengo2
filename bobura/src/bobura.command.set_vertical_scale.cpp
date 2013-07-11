@@ -87,7 +87,7 @@ namespace bobura { namespace command
 
     set_vertical_scale::set_vertical_scale(diagram_view_type& diagram_view, const scale_type& scale)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view, scale))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(diagram_view, scale))
     {}
 
     set_vertical_scale::~set_vertical_scale()

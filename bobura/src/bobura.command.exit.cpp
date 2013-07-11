@@ -40,7 +40,7 @@ namespace bobura { namespace command
 
     exit::exit()
     :
-    m_p_impl(tetengo2::make_unique<impl>())
+    m_p_impl(tetengo2::stdalt::make_unique<impl>())
     {}
 
     exit::~exit()

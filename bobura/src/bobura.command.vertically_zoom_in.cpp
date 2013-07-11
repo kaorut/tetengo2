@@ -74,7 +74,7 @@ namespace bobura { namespace command
 
     vertically_zoom_in::vertically_zoom_in(diagram_view_type& diagram_view)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(diagram_view))
     {}
 
     vertically_zoom_in::~vertically_zoom_in()

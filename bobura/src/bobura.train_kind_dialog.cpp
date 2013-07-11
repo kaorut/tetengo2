@@ -20,7 +20,6 @@
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
 #include "bobura.type_list.h"
@@ -321,10 +320,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_train_kind_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Train &Kinds:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -333,7 +332,9 @@ namespace bobura
             std::unique_ptr<list_box_type> create_train_kind_list_box()
             {
                 auto p_list_box =
-                    tetengo2::make_unique<list_box_type>(m_base, list_box_type::scroll_bar_style_type::vertical);
+                    tetengo2::stdalt::make_unique<list_box_type>(
+                        m_base, list_box_type::scroll_bar_style_type::vertical
+                    );
 
                 p_list_box->list_box_observer_set().selection_changed().connect(
                     typename boost::mpl::at<
@@ -347,7 +348,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_add_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Add")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -367,7 +368,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_delete_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:D&elete")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -382,7 +383,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_up_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Up")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -397,7 +398,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_down_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Down")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -412,10 +413,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_name_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:&Name:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -424,7 +425,7 @@ namespace bobura
             std::unique_ptr<text_box_type> create_name_text_box()
             {
                 auto p_text_box =
-                    tetengo2::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
+                    tetengo2::stdalt::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
 
                 p_text_box->text_box_observer_set().changed().connect(
                     typename boost::mpl::at<
@@ -438,10 +439,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_abbreviation_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:A&bbreviation:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -450,7 +451,7 @@ namespace bobura
             std::unique_ptr<text_box_type> create_abbreviation_text_box()
             {
                 auto p_text_box =
-                    tetengo2::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
+                    tetengo2::stdalt::make_unique<text_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
 
                 p_text_box->text_box_observer_set().changed().connect(
                     typename boost::mpl::at<
@@ -464,7 +465,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_color_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Color...")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -479,10 +480,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_weight_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Weight:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -490,7 +491,7 @@ namespace bobura
 
             std::unique_ptr<dropdown_box_type> create_weight_dropdown_box()
             {
-                auto p_dropdown_box = tetengo2::make_unique<dropdown_box_type>(m_base);
+                auto p_dropdown_box = tetengo2::stdalt::make_unique<dropdown_box_type>(m_base);
 
                 p_dropdown_box->insert_item(
                     p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Normal"))
@@ -512,10 +513,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_line_style_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Line &Style:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -523,7 +524,7 @@ namespace bobura
 
             std::unique_ptr<dropdown_box_type> create_line_style_dropdown_box()
             {
-                auto p_dropdown_box = tetengo2::make_unique<dropdown_box_type>(m_base);
+                auto p_dropdown_box = tetengo2::stdalt::make_unique<dropdown_box_type>(m_base);
 
                 p_dropdown_box->insert_item(
                     p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Solid"))
@@ -551,10 +552,10 @@ namespace bobura
 
             std::unique_ptr<label_type> create_sample_label()
             {
-                auto p_label = tetengo2::make_unique<label_type>(m_base);
+                auto p_label = tetengo2::stdalt::make_unique<label_type>(m_base);
 
                 p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Sa&mple:")));
-                auto p_background = tetengo2::make_unique<transparent_background_type>();
+                auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
                 p_label->set_background(std::move(p_background));
 
                 return std::move(p_label);
@@ -566,7 +567,9 @@ namespace bobura
             )
             {
                 auto p_picture_box =
-                    tetengo2::make_unique<picture_box_type>(m_base, list_box_type::scroll_bar_style_type::none);
+                    tetengo2::stdalt::make_unique<picture_box_type>(
+                        m_base, list_box_type::scroll_bar_style_type::none
+                    );
 
                 p_picture_box->set_dimension(dimension_type(width_type(20), height_type(4)));
                 p_picture_box->fast_paint_observer_set().paint().connect(
@@ -587,7 +590,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_ok_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base, button_type::style_type::default_);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base, button_type::style_type::default_);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -602,7 +605,7 @@ namespace bobura
 
             std::unique_ptr<button_type> create_cancel_button()
             {
-                auto p_button = tetengo2::make_unique<button_type>(m_base, button_type::style_type::cancel);
+                auto p_button = tetengo2::stdalt::make_unique<button_type>(m_base, button_type::style_type::cancel);
 
                 p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
                 p_button->mouse_observer_set().clicked().connect(
@@ -910,7 +913,7 @@ namespace bobura
     )
     :
     base_type(parent),
-    m_p_impl(tetengo2::make_unique<impl>(*this, message_catalog, font, background_color))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(*this, message_catalog, font, background_color))
     {}
 
     template <

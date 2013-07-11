@@ -17,7 +17,6 @@
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.view.diagram.item.h"
 
@@ -389,7 +388,7 @@ namespace bobura { namespace view { namespace diagram
             const auto& company_line_name_color = model.timetable().font_color_set().company_line_name().color();
             const auto& note_color = model.timetable().font_color_set().note().color();
             m_p_company_line_name_header =
-                tetengo2::make_unique<company_line_name_header_type>(
+                tetengo2::stdalt::make_unique<company_line_name_header_type>(
                     selection,
                     std::move(company_line_name),
                     company_line_name_font,
@@ -398,7 +397,7 @@ namespace bobura { namespace view { namespace diagram
                     std::move(company_line_name_dimension)
                 );
             m_p_note_header =
-                tetengo2::make_unique<note_header_type>(
+                tetengo2::stdalt::make_unique<note_header_type>(
                     selection,
                     std::move(note),
                     note_font,

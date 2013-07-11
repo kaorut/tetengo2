@@ -148,7 +148,7 @@ namespace bobura { namespace command
 
     train_kind::train_kind(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     train_kind::~train_kind()

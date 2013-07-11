@@ -53,7 +53,7 @@ namespace bobura { namespace command
 
     new_file::new_file(const new_file_type& new_file)
     :
-    m_p_impl(tetengo2::make_unique<impl>(new_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(new_file))
     {}
 
     new_file::~new_file()

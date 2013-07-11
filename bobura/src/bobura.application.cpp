@@ -12,7 +12,6 @@
 //#include <boost/noncopyable.hpp>
 
 #include <tetengo2.stdalt.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
@@ -252,7 +251,7 @@ namespace bobura
 
     application::application(settings_type& settings)
     :
-    m_p_impl(tetengo2::make_unique<impl>(settings))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(settings))
     {}
 
     application::~application()

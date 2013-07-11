@@ -16,7 +16,6 @@
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.stdalt.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.view.diagram.zoom.h"
 
@@ -164,7 +163,7 @@ namespace bobura { namespace view { namespace diagram
 
     zoom::zoom(picture_box_type& picture_box, diagram_view_type& diagram_view)
     :
-    m_p_impl(tetengo2::make_unique<impl>(picture_box, diagram_view))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(picture_box, diagram_view))
     {}
 
     zoom::~zoom()

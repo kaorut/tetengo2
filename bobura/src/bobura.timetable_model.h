@@ -18,7 +18,8 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.unique.h>
+#include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -53,7 +54,7 @@ namespace bobura
         */
         timetable_model()
         :
-        m_p_timetable(tetengo2::make_unique<timetable_type>()),
+        m_p_timetable(tetengo2::stdalt::make_unique<timetable_type>()),
         m_path(),
         m_changed(false),
         m_observer_set()
@@ -92,7 +93,7 @@ namespace bobura
         */
         void reset_timetable()
         {
-            reset_timetable_impl(tetengo2::make_unique<timetable_type>(), boost::none);
+            reset_timetable_impl(tetengo2::stdalt::make_unique<timetable_type>(), boost::none);
         }
 
         /*!

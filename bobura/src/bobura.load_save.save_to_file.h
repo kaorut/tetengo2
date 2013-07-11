@@ -10,13 +10,14 @@
 #define BOBURA_LOADSAVE_SAVETOFILE_H
 
 #include <ios>
-#include <memory>
+//#include <memory>
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/optional.hpp>
 #include <boost/system/system_error.hpp>
 
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 
@@ -183,7 +184,7 @@ namespace bobura { namespace load_save
         const
         {
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't create a temporary file.")),
@@ -200,7 +201,7 @@ namespace bobura { namespace load_save
         const
         {
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't write to the file.")),

@@ -74,7 +74,7 @@ namespace bobura { namespace command
 
     horizontally_zoom_out::horizontally_zoom_out(diagram_view_type& diagram_view)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(diagram_view))
     {}
 
     horizontally_zoom_out::~horizontally_zoom_out()

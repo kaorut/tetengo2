@@ -38,7 +38,7 @@ namespace bobura { namespace command
 
     nop::nop()
     :
-    m_p_impl(tetengo2::make_unique<impl>())
+    m_p_impl(tetengo2::stdalt::make_unique<impl>())
     {}
 
     nop::~nop()

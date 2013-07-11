@@ -63,7 +63,7 @@ namespace bobura { namespace command
 
     about::about(const message_catalog_type& message_catalog, const settings_type& settings)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog, settings))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog, settings))
     {}
 
     about::~about()

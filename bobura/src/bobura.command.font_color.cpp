@@ -105,7 +105,7 @@ namespace bobura { namespace command
 
     font_color::font_color(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     font_color::~font_color()

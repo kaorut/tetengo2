@@ -59,7 +59,7 @@ namespace bobura { namespace command
 
     load_from_file::load_from_file(const load_from_file_type& load_from_file)
     :
-    m_p_impl(tetengo2::make_unique<impl>(load_from_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(load_from_file))
     {}
 
     load_from_file::~load_from_file()
