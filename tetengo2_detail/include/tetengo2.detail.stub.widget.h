@@ -13,7 +13,7 @@
 #include <cstddef>
 #include <functional>
 #include <iterator>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <system_error>
