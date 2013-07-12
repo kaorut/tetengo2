@@ -26,7 +26,6 @@ headers = \
     tetengo2.text.grammar.json.h \
     tetengo2.text.pull_parser.h \
     tetengo2.text.push_parser.h \
-    tetengo2.unique.h \
     tetengo2.utility.h
 
 extra_headers = \

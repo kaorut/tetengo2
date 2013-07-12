@@ -130,7 +130,6 @@
     <ClInclude Include="include\tetengo2.text.h" />
     <ClInclude Include="include\tetengo2.text.pull_parser.h" />
     <ClInclude Include="include\tetengo2.text.push_parser.h" />
-    <ClInclude Include="include\tetengo2.unique.h" />
     <ClInclude Include="include\tetengo2.utility.h" />
   </ItemGroup>
   <ItemGroup>

@@ -125,7 +125,6 @@
     <ClCompile Include="test\test_tetengo2.text.grammar.json.cpp" />
     <ClCompile Include="test\test_tetengo2.text.pull_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.text.push_parser.cpp" />
-    <ClCompile Include="test\test_tetengo2.unique.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\English.json" />
