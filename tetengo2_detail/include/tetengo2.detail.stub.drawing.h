@@ -17,8 +17,8 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(handle_or_widget_details);
 
-            return make_unique<canvas_details_type>();
+            return stdalt::make_unique<canvas_details_type>();
         }
 
         /*!
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(color);
 
-            return make_unique<background_details_type>();
+            return stdalt::make_unique<background_details_type>();
         }
 
         /*!
@@ -147,7 +147,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const auto& width = gui::dimension<Dimension>::width(dimension);
             const auto& height = gui::dimension<Dimension>::height(dimension);
             return
-                make_unique<picture_details_type>(
+                stdalt::make_unique<picture_details_type>(
                     gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height)
                 );
         }
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(path);
 
-            return make_unique<picture_details_type>(123, 456);
+            return stdalt::make_unique<picture_details_type>(123, 456);
         }
 
         /*!

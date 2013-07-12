@@ -14,7 +14,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
 
@@ -60,7 +60,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            return make_unique<menu_details_type>();
+            return stdalt::make_unique<menu_details_type>();
         }
 
         /*!
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            return make_unique<menu_details_type>();
+            return stdalt::make_unique<menu_details_type>();
         }
 
         /*!
@@ -82,7 +82,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu()
         {
-            return make_unique<menu_details_type>();
+            return stdalt::make_unique<menu_details_type>();
         }
 
         /*!

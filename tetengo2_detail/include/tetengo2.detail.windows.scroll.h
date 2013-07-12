@@ -29,7 +29,7 @@
 //#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -98,7 +98,9 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             auto p_scroll_bar_details =
-                make_unique<scroll_bar_details_type>(widget_details.handle.get(), to_native_style(style), true);
+                stdalt::make_unique<scroll_bar_details_type>(
+                    widget_details.handle.get(), to_native_style(style), true
+                );
 
             set_enabled(*p_scroll_bar_details, true);
 

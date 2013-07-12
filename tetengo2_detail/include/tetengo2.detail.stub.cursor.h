@@ -14,7 +14,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
 
@@ -53,7 +53,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(style);
 
-            return make_unique<cursor_details_type>();
+            return stdalt::make_unique<cursor_details_type>();
         }
 
 

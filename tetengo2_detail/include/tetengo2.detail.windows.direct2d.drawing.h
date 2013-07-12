@@ -40,7 +40,6 @@
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -233,7 +232,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static background_details_ptr_type create_solid_background(const Color& color)
         {
             return
-                make_unique<detail::solid_background_details>(color.red(), color.green(), color.blue(), color.alpha());
+                stdalt::make_unique<detail::solid_background_details>(
+                    color.red(), color.green(), color.blue(), color.alpha()
+                );
         }
 
         /*!
