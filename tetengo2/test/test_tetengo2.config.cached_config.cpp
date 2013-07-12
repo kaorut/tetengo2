@@ -15,8 +15,8 @@
 
 #include "test_tetengo2.type_list.h"
 #include "tetengo2.config.temporary_config.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 #include "tetengo2.config.cached_config.h"
 
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(cached_config)
         std::vector<std::pair<string_type, value_type>> values;
         values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
         values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
-        auto p_temporary_config = tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
         const cached_config_type config(std::move(p_temporary_config));
     }
 
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(cached_config)
         std::vector<std::pair<string_type, value_type>> values;
         values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
         values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
-        auto p_temporary_config = tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
         const cached_config_type config(std::move(p_temporary_config));
 
         {
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(cached_config)
         std::vector<std::pair<string_type, value_type>> values;
         values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
         values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
-        auto p_temporary_config = tetengo2::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
         cached_config_type config(std::move(p_temporary_config));
 
         config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));

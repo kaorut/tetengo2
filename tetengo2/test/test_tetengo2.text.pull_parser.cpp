@@ -16,8 +16,8 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 #include "test_tetengo2.type_list.h"
 
@@ -134,10 +134,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -145,10 +145,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             BOOST_CHECK_THROW(const pull_parser_type pull_parser(std::move(p_push_parser), 0), std::invalid_argument);
@@ -162,10 +162,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -177,10 +177,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "{}"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -196,10 +196,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -211,10 +211,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "{}"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -245,10 +245,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "}\n"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -370,10 +370,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -385,10 +385,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "{}"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -406,10 +406,10 @@ BOOST_AUTO_TEST_SUITE_END()
         {
             std::istringstream json_text;
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -421,10 +421,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "[42]"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -441,10 +441,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "[42]"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -459,10 +459,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "[42]"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
@@ -475,10 +475,10 @@ BOOST_AUTO_TEST_SUITE_END()
                 "[12, [34, 56], 78]"
             );
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
                     input_stream_iterator_type(std::istreambuf_iterator<char>()),
-                    tetengo2::make_unique<grammar_type>()
+                    tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);

@@ -14,7 +14,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 #include "test_tetengo2.type_list.h"
 
@@ -40,7 +40,9 @@ namespace
             std::locale::global(
                 std::locale(
                     locale,
-                    tetengo2::make_unique<messages_type>(boost::filesystem::path("messages.test"), locale).release()
+                    tetengo2::stdalt::make_unique<messages_type>(
+                        boost::filesystem::path("messages.test"), locale
+                    ).release()
                 )
             )
         )
