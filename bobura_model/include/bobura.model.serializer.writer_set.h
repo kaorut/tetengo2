@@ -15,7 +15,7 @@
 
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.model.serializer.bzip2_writer.h"
 #include "bobura.model.serializer.json_writer.h"
@@ -73,8 +73,10 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<std::unique_ptr<writer_type>> writers;
 
-            writers.push_back(tetengo2::make_unique<json_writer_type>());
-            writers.push_back(tetengo2::make_unique<bzip2_writer_type>(tetengo2::make_unique<json_writer_type>()));
+            writers.push_back(tetengo2::stdalt::make_unique<json_writer_type>());
+            writers.push_back(
+                tetengo2::stdalt::make_unique<bzip2_writer_type>(tetengo2::stdalt::make_unique<json_writer_type>())
+            );
 
             return std::move(writers);
         }

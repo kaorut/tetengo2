@@ -26,7 +26,6 @@
 
 #include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.reader.h"
@@ -1001,11 +1000,11 @@ namespace bobura { namespace model { namespace serializer
         virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last, error_type& error)
         override
         {
-            auto p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::stdalt::make_unique<timetable_type>();
 
             insert_preset_train_kinds(*p_timetable);
 
-            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>();
+            std::unique_ptr<state> p_state = tetengo2::stdalt::make_unique<initial_state>();
             auto next_line_first = first;
             for (;;)
             {
@@ -1014,15 +1013,15 @@ namespace bobura { namespace model { namespace serializer
                     break;
 
                 if      (input_line == windia_section_label())
-                    p_state = tetengo2::make_unique<windia_state>(*p_timetable);
+                    p_state = tetengo2::stdalt::make_unique<windia_state>(*p_timetable);
                 else if (input_line == station_section_label())
-                    p_state = tetengo2::make_unique<station_state>(*p_timetable);
+                    p_state = tetengo2::stdalt::make_unique<station_state>(*p_timetable);
                 else if (input_line == line_kind_section_label())
-                    p_state = tetengo2::make_unique<line_kind_state>(*p_timetable);
+                    p_state = tetengo2::stdalt::make_unique<line_kind_state>(*p_timetable);
                 else if (input_line == down_train_section_label())
-                    p_state = tetengo2::make_unique<down_train_state>(*p_timetable);
+                    p_state = tetengo2::stdalt::make_unique<down_train_state>(*p_timetable);
                 else if (input_line == up_train_section_label())
-                    p_state = tetengo2::make_unique<up_train_state>(*p_timetable);
+                    p_state = tetengo2::stdalt::make_unique<up_train_state>(*p_timetable);
                 else
                 {
                     if (!p_state->parse(input_line))
