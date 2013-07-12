@@ -10,7 +10,7 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.stdalt.h>
+#include "tetengo2.stdalt.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -35,7 +35,7 @@ namespace
         concrete_window()
         :
         abstract_window_type(abstract_window_type::scroll_bar_style_type::none, message_handler_map_type()),
-        m_p_details(tetengo2::make_unique<details_type>())
+        m_p_details(tetengo2::stdalt::make_unique<details_type>())
         {
             this->initialize(this);
         }

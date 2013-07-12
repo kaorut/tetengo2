@@ -15,8 +15,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -85,14 +85,14 @@ namespace
     {
         std::vector<std::unique_ptr<concrete_menu>> menus;
 
-        menus.push_back(tetengo2::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("hoge"))));
+        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("hoge"))));
         menus.push_back(
-            tetengo2::make_unique<concrete_menu>(
+            tetengo2::stdalt::make_unique<concrete_menu>(
                 string_type(TETENGO2_TEXT("fuga")), shortcut_key_type(virtual_key_type::char_a(), false, true, false)
             )
         );
         menus.push_back(
-            tetengo2::make_unique<concrete_menu>(
+            tetengo2::stdalt::make_unique<concrete_menu>(
                 string_type(TETENGO2_TEXT("piyo")), shortcut_key_type(virtual_key_type::del(), false, true, true)
             )
         );

@@ -12,8 +12,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 
 #include "test_tetengo2.gui.type_list.h"
@@ -42,13 +42,13 @@ namespace
 
     std::unique_ptr<menu_base_type> create_menu()
     {
-        auto p_menu = tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("0")));
+        auto p_menu = tetengo2::stdalt::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("0")));
 
-        p_menu->insert(p_menu->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("1"))));
+        p_menu->insert(p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("1"))));
         p_menu->begin()->insert(
-            p_menu->begin()->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("2")))
+            p_menu->begin()->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("2")))
         );
-        p_menu->insert(p_menu->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("3"))));
+        p_menu->insert(p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("3"))));
 
         return std::move(p_menu);
     }
