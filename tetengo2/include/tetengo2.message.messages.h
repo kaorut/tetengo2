@@ -247,16 +247,16 @@ namespace tetengo2 { namespace message
 
         static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
-            auto p_grammar = make_unique<grammar_type>();
+            auto p_grammar = stdalt::make_unique<grammar_type>();
             
             auto p_push_parser =
-                make_unique<push_parser_type>(
+                stdalt::make_unique<push_parser_type>(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
                     std::move(p_grammar)
                 );
 
-            return make_unique<pull_parser_type>(std::move(p_push_parser), 5);
+            return stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
         }
 
 

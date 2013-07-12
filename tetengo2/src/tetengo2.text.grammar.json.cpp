@@ -15,6 +15,7 @@
 //#include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
 
 #include "tetengo2.text.grammar.json.h"
@@ -453,7 +454,7 @@ namespace tetengo2 { namespace text { namespace grammar
     :
     json::base_type(m_json_text, "json"),
     m_json_text(),
-    m_p_impl(make_unique<impl>(m_json_text))
+    m_p_impl(stdalt::make_unique<impl>(m_json_text))
     {}
 
     template <typename ForwardIterator>
