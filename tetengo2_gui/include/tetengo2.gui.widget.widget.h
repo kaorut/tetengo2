@@ -20,9 +20,8 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -128,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the widget.
         */
         virtual ~widget()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -544,7 +543,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<canvas_type> create_canvas()
         const
         {
-            return make_unique<widget_canvas_type>(*details());
+            return stdalt::make_unique<widget_canvas_type>(*details());
         }
 
         /*!
@@ -887,7 +886,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
+            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -900,7 +899,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
+            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
         }
 
 

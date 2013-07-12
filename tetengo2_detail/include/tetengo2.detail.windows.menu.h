@@ -32,8 +32,8 @@
 //#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -147,7 +147,9 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_menu_bar()
         {
             menu_details_ptr_type p_menu(
-                make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr)
+                stdalt::make_unique<menu_details_type>(
+                    get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr
+                )
             );
             if (!p_menu->handle)
             {
@@ -169,7 +171,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_popup_menu()
         {
             menu_details_ptr_type p_menu(
-                make_unique<menu_details_type>(
+                stdalt::make_unique<menu_details_type>(
                     get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), nullptr
                 )
             );
@@ -192,7 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
+            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
         }
         
         /*!

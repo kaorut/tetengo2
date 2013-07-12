@@ -20,9 +20,8 @@
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -82,7 +81,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the json_reader.
         */
         virtual ~json_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -152,7 +151,7 @@ namespace bobura { namespace model { namespace serializer
 
         static std::unique_ptr<timetable_type> read_timetable(pull_parser_type& pull_parser, error_type& error)
         {
-            auto p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::stdalt::make_unique<timetable_type>();
 
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
             {
@@ -1131,7 +1130,9 @@ namespace bobura { namespace model { namespace serializer
         override
         {
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
+                tetengo2::stdalt::make_unique<push_parser_type>(
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
+                );
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
@@ -1146,7 +1147,9 @@ namespace bobura { namespace model { namespace serializer
         override
         {
             auto p_push_parser =
-                tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
+                tetengo2::stdalt::make_unique<push_parser_type>(
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
+                );
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
             return read_timetable(pull_parser, error);

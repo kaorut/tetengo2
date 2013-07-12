@@ -5,7 +5,7 @@ bobura::model::serializer::windia_reader::[a-z_]*state::
 bobura::model::serializer::windia_reader::preset_train_kind_type::
 bobura::model::timetable::replace_train_kind_index::
 bobura::settings::value_impl::
-tetengo2::cpp11::
+tetengo2::stdalt::
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::link_label::paint_background::

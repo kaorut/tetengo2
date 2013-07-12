@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_SEPARATOR_H)
 #define TETENGO2_GUI_MENU_SEPARATOR_H
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.menu_base.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu separator.
         */
         virtual ~separator()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

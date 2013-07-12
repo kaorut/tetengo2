@@ -23,8 +23,8 @@
 //#include <Windows.h>
 #include <d2d1.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
@@ -49,7 +49,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \brief Destroys the detail implementation of the error category.
         */
         virtual ~error_category()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

@@ -13,7 +13,7 @@
 #include <cstddef>
 #include <functional>
 #include <iterator>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <system_error>
@@ -26,7 +26,6 @@
 #include <boost/utility.hpp>
 
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 

@@ -10,7 +10,7 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
@@ -87,11 +87,11 @@ namespace bobura { namespace command
 
     set_horizontal_scale::set_horizontal_scale(diagram_view_type& diagram_view, const scale_type& scale)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view, scale))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(diagram_view, scale))
     {}
 
     set_horizontal_scale::~set_horizontal_scale()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     set_horizontal_scale::state_type set_horizontal_scale::state_impl()

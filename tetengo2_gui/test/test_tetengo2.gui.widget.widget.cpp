@@ -16,7 +16,7 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
+#include "tetengo2.stdalt.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -92,7 +92,7 @@ namespace
         }
 
         virtual ~concrete_widget()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            auto p_background = tetengo2::make_unique<transparent_background_type>();
+            auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(widget.background());
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            auto p_background = tetengo2::make_unique<transparent_background_type>();
+            auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
         }
     }
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        auto p_cursor = tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
+        auto p_cursor = tetengo2::stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
         widget.set_cursor(std::move(p_cursor));
 
         const auto cursor = widget.cursor();

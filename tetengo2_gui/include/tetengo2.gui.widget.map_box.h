@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_MAPBOX_H)
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.custom_control.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
 
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the map box.
         */
         virtual ~map_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

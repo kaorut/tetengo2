@@ -18,9 +18,8 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -420,7 +419,9 @@ namespace bobura
         const
         {
             canvas.set_background(
-                tetengo2::make_unique<const solid_background_type>(m_model.timetable().font_color_set().background())
+                tetengo2::stdalt::make_unique<const solid_background_type>(
+                    m_model.timetable().font_color_set().background()
+                )
             );
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
         }
@@ -437,10 +438,10 @@ namespace bobura
                 return;
             }
 
-            m_p_header = tetengo2::make_unique<header_type>(m_model, m_selection, canvas, canvas_dimension);
+            m_p_header = tetengo2::stdalt::make_unique<header_type>(m_model, m_selection, canvas, canvas_dimension);
             m_header_height = tetengo2::gui::dimension<dimension_type>::height(m_p_header->dimension());
             m_p_time_line_list =
-                tetengo2::make_unique<time_line_list_type>(
+                tetengo2::stdalt::make_unique<time_line_list_type>(
                     m_model,
                     m_time_offset,
                     m_selection,

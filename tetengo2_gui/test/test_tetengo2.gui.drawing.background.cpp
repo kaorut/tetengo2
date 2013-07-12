@@ -12,7 +12,7 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -37,7 +37,7 @@ namespace
         virtual std::unique_ptr<background_type> clone_impl()
         const override
         {
-            return tetengo2::make_unique<concrete_background>();
+            return tetengo2::stdalt::make_unique<concrete_background>();
         }
 
         virtual boost::optional<const background_type::details_type&> details_impl()

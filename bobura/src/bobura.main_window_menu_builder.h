@@ -14,7 +14,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.type_list.h"
 
@@ -66,7 +66,7 @@ namespace bobura
             \brief Destroys the main window menu builder.
         */
         ~main_window_menu_builder()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

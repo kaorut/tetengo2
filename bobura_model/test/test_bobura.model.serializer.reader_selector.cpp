@@ -17,9 +17,8 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "test_bobura.model.type_list.h"
@@ -59,7 +58,7 @@ namespace
         {}
 
         virtual ~concrete_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -77,7 +76,7 @@ namespace
         {
             tetengo2::suppress_unused_variable_warning(first, last, error);
 
-            auto p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::stdalt::make_unique<timetable_type>();
 
             p_timetable->set_line_name(m_line_name);
 
@@ -94,8 +93,8 @@ namespace
     {
         std::vector<std::unique_ptr<reader_type>> readers;
 
-        readers.push_back(tetengo2::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("hoge"))));
-        readers.push_back(tetengo2::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("fuga"))));
+        readers.push_back(tetengo2::stdalt::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("hoge"))));
+        readers.push_back(tetengo2::stdalt::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("fuga"))));
 
         return std::move(readers);
     }

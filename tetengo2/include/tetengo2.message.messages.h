@@ -15,11 +15,11 @@
 #include <istream>
 //#include <iterator>
 #include <locale>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/filesystem.hpp>
@@ -29,7 +29,7 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
 #include "tetengo2.utility.h"
 
@@ -111,7 +111,7 @@ namespace tetengo2 { namespace message
             \brief Destroys the messages facet.
         */
         virtual ~messages()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -247,16 +247,16 @@ namespace tetengo2 { namespace message
 
         static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
-            auto p_grammar = make_unique<grammar_type>();
+            auto p_grammar = stdalt::make_unique<grammar_type>();
             
             auto p_push_parser =
-                make_unique<push_parser_type>(
+                stdalt::make_unique<push_parser_type>(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
                     std::move(p_grammar)
                 );
 
-            return make_unique<pull_parser_type>(std::move(p_push_parser), 5);
+            return stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
         }
 
 

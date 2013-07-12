@@ -11,9 +11,8 @@
 
 //#include <memory>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.control.h"
-#include "tetengo2.utility.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -114,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the picture box.
         */
         virtual ~picture_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -128,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<fast_canvas_type> create_fast_canvas()
         const
         {
-            return make_unique<fast_widget_canvas_type>(*this->details());
+            return stdalt::make_unique<fast_widget_canvas_type>(*this->details());
         }
 
         /*!

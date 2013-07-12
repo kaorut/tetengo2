@@ -14,10 +14,9 @@
 //#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.message.type_list.h"
@@ -158,8 +157,8 @@ namespace bobura
 
             void initialize_window()
             {
-                m_p_diagram_picture_box = tetengo2::make_unique<diagram_picture_box_type>(m_base);
-                m_p_property_bar = tetengo2::make_unique<property_bar_type>(m_base, m_message_catalog);
+                m_p_diagram_picture_box = tetengo2::stdalt::make_unique<diagram_picture_box_type>(m_base);
+                m_p_property_bar = tetengo2::stdalt::make_unique<property_bar_type>(m_base, m_message_catalog);
 
                 set_message_observers();
 
@@ -213,7 +212,7 @@ namespace bobura
     )
     :
     base_type(),
-    m_p_impl(tetengo2::make_unique<impl>(*this, message_catalog, settings, confirm_file_save))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(*this, message_catalog, settings, confirm_file_save))
     {}
 
     template <
@@ -225,7 +224,7 @@ namespace bobura
         typename ConfirmFileSave
     >
     main_window<Window, MessageCatalog, DiagramPictureBox, PropertyBar, Settings, ConfirmFileSave>::~main_window()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     template <

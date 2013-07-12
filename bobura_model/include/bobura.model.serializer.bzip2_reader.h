@@ -13,14 +13,14 @@
 //#include <memory>
 #include <sstream>
 #include <string>
-#include <utility>
+//#include <utility>
 
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/utility/string_ref.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 #include "bobura.model.serializer.reader.h"
@@ -70,7 +70,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the bzip2_reader.
         */
         virtual ~bzip2_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

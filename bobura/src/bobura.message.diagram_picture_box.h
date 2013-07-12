@@ -16,7 +16,7 @@
 //#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 
@@ -270,7 +270,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 if (!p_system_cursor || p_system_cursor->style() != system_cursor_type::style_type::hand)
                 {
                     m_picture_box.set_cursor(
-                        tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
+                        tetengo2::stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand)
                     );
                 }
             }

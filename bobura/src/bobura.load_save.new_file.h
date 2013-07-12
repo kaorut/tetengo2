@@ -9,7 +9,7 @@
 #if !defined(BOBURA_LOADSAVE_NEWFILE_H)
 #define BOBURA_LOADSAVE_NEWFILE_H
 
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace load_save
@@ -64,7 +64,7 @@ namespace bobura { namespace load_save
             if (!m_confirm_file_save(parent))
                 return;
 
-            model.reset_timetable(tetengo2::make_unique<timetable_type>());
+            model.reset_timetable(tetengo2::stdalt::make_unique<timetable_type>());
         }
 
 

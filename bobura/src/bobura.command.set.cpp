@@ -11,8 +11,7 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.about.h"
 #include "bobura.command.command_base.h"
@@ -212,52 +211,52 @@ namespace bobura { namespace command
             const settings_type&        settings
         )
         {
-            return tetengo2::make_unique<command::about>(message_catalog, settings);
+            return tetengo2::stdalt::make_unique<command::about>(message_catalog, settings);
         }
 
         static command_ptr_type create_exit()
         {
-            return tetengo2::make_unique<command::exit>();
+            return tetengo2::stdalt::make_unique<command::exit>();
         }
 
         static command_ptr_type create_file_property(const message_catalog_type& message_catalog)
         {
-            return tetengo2::make_unique<command::file_property>(message_catalog);
+            return tetengo2::stdalt::make_unique<command::file_property>(message_catalog);
         }
 
         static command_ptr_type create_font_color(const message_catalog_type& message_catalog)
         {
-            return tetengo2::make_unique<command::font_color>(message_catalog);
+            return tetengo2::stdalt::make_unique<command::font_color>(message_catalog);
         }
 
         static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<command::horizontally_zoom_in>(diagram_view);
+            return tetengo2::stdalt::make_unique<command::horizontally_zoom_in>(diagram_view);
         }
 
         static command_ptr_type create_horizontally_zoom_out(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<command::horizontally_zoom_out>(diagram_view);
+            return tetengo2::stdalt::make_unique<command::horizontally_zoom_out>(diagram_view);
         }
 
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
-            return tetengo2::make_unique<command::load_from_file>(load_from_file);
+            return tetengo2::stdalt::make_unique<command::load_from_file>(load_from_file);
         }
 
         static command_ptr_type create_new_file(const new_file_type& new_file)
         {
-            return tetengo2::make_unique<command::new_file>(new_file);
+            return tetengo2::stdalt::make_unique<command::new_file>(new_file);
         }
 
         static command_ptr_type create_nop()
         {
-            return tetengo2::make_unique<command::nop>();
+            return tetengo2::stdalt::make_unique<command::nop>();
         }
 
         static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
         {
-            return tetengo2::make_unique<command::save_to_file>(save_to_file);
+            return tetengo2::stdalt::make_unique<command::save_to_file>(save_to_file);
         }
 
         static std::vector<command_ptr_type> create_set_horizontal_scale(diagram_view_type& diagram_view)
@@ -270,7 +269,7 @@ namespace bobura { namespace command
             for (size_type i = 0; i < scale_list.size(); ++i)
             {
                 commands.push_back(
-                    tetengo2::make_unique<command::set_horizontal_scale>(diagram_view, scale_list.at(i))
+                    tetengo2::stdalt::make_unique<command::set_horizontal_scale>(diagram_view, scale_list.at(i))
                 );
             }
 
@@ -287,7 +286,7 @@ namespace bobura { namespace command
             for (size_type i = 0; i < scale_list.size(); ++i)
             {
                 commands.push_back(
-                    tetengo2::make_unique<command::set_vertical_scale>(diagram_view, scale_list.at(i))
+                    tetengo2::stdalt::make_unique<command::set_vertical_scale>(diagram_view, scale_list.at(i))
                 );
             }
 
@@ -296,17 +295,17 @@ namespace bobura { namespace command
 
         static command_ptr_type create_train_kind(const message_catalog_type& message_catalog)
         {
-            return tetengo2::make_unique<command::train_kind>(message_catalog);
+            return tetengo2::stdalt::make_unique<command::train_kind>(message_catalog);
         }
 
         static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<command::vertically_zoom_in>(diagram_view);
+            return tetengo2::stdalt::make_unique<command::vertically_zoom_in>(diagram_view);
         }
 
         static command_ptr_type create_vertically_zoom_out(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<command::vertically_zoom_out>(diagram_view);
+            return tetengo2::stdalt::make_unique<command::vertically_zoom_out>(diagram_view);
         }
 
 
@@ -362,7 +361,7 @@ namespace bobura { namespace command
     )
     :
     m_p_impl(
-        tetengo2::make_unique<impl>(
+        tetengo2::stdalt::make_unique<impl>(
             new_file,
             load_from_file,
             reload,
@@ -376,7 +375,7 @@ namespace bobura { namespace command
     {}
 
     set::~set()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
 
     const set::command_type& set::about()

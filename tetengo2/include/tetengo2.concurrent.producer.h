@@ -14,8 +14,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.cpp11.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace concurrent
@@ -59,7 +58,7 @@ namespace tetengo2 { namespace concurrent
             \brief Destroys the producer.
         */
         ~producer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {
             join();
         }
@@ -102,7 +101,7 @@ namespace tetengo2 { namespace concurrent
 
         channel_type& m_channel;
 
-        cpp11::thread m_thread;
+        stdalt::thread m_thread;
 
 
     };

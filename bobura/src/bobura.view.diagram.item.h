@@ -11,7 +11,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 
@@ -55,7 +55,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the item.
         */
         virtual ~item()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_CURSOR_H)
 #define TETENGO2_DETAIL_WINDOWS_CURSOR_H
 
-#include <memory>
+//#include <memory>
 //#include <system_error>
 //#include <type_traits>
 //#include <utility>

@@ -15,9 +15,9 @@
 //#include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -97,7 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the list box.
         */
         virtual ~list_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

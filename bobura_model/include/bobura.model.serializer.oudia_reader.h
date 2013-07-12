@@ -25,9 +25,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility/string_ref.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.reader.h"
@@ -100,7 +99,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the oudia_reader.
         */
         virtual ~oudia_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -825,38 +824,38 @@ namespace bobura { namespace model { namespace serializer
             const auto name = string_ref_type(line).substr(0, line.length() - 1);
             if (name.empty())
             {
-                return tetengo2::make_unique<initial_state>(timetable);
+                return tetengo2::stdalt::make_unique<initial_state>(timetable);
             }
             else if (name == string_ref_type(TETENGO2_TEXT("Rosen")))
             {
-                return tetengo2::make_unique<rosen_state>(timetable);
+                return tetengo2::stdalt::make_unique<rosen_state>(timetable);
             }
             else if (name == string_ref_type(TETENGO2_TEXT("Eki")))
             {
-                return tetengo2::make_unique<eki_state>(timetable);
+                return tetengo2::stdalt::make_unique<eki_state>(timetable);
             }
             else if (name == string_ref_type(TETENGO2_TEXT("Ressyasyubetsu")))
             {
-                return tetengo2::make_unique<ressyasyubetsu_state>(timetable);
+                return tetengo2::stdalt::make_unique<ressyasyubetsu_state>(timetable);
             }
             else if (name == string_ref_type(TETENGO2_TEXT("Dia")))
             {
-                return tetengo2::make_unique<dia_state>(current_diagram_name);
+                return tetengo2::stdalt::make_unique<dia_state>(current_diagram_name);
             }
             else if (!current_diagram_name.empty() && current_diagram_name == selected_diagram_name)
             {
                 if      (name == string_ref_type(TETENGO2_TEXT("Kudari")))
-                    return tetengo2::make_unique<kudari_state>(down);
+                    return tetengo2::stdalt::make_unique<kudari_state>(down);
                 else if (name == string_ref_type(TETENGO2_TEXT("Nobori")))
-                    return tetengo2::make_unique<nobori_state>(down);
+                    return tetengo2::stdalt::make_unique<nobori_state>(down);
                 else if (name == string_ref_type(TETENGO2_TEXT("Ressya")))
-                    return tetengo2::make_unique<ressya_state>(timetable, down);
+                    return tetengo2::stdalt::make_unique<ressya_state>(timetable, down);
                 else
-                    return tetengo2::make_unique<unknown_state>();
+                    return tetengo2::stdalt::make_unique<unknown_state>();
             }
             else
             {
-                return tetengo2::make_unique<unknown_state>();
+                return tetengo2::stdalt::make_unique<unknown_state>();
             }
         }
 
@@ -960,11 +959,11 @@ namespace bobura { namespace model { namespace serializer
             const string_type& selected_diagram_name
         )
         {
-            auto p_timetable = tetengo2::make_unique<timetable_type>();
+            auto p_timetable = tetengo2::stdalt::make_unique<timetable_type>();
             string_type current_diagram_name;
             auto down = true;
 
-            std::unique_ptr<state> p_state = tetengo2::make_unique<initial_state>(*p_timetable);
+            std::unique_ptr<state> p_state = tetengo2::stdalt::make_unique<initial_state>(*p_timetable);
             auto next_line_first = first;
             for (;;)
             {

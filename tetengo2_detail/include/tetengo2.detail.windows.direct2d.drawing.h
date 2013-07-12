@@ -34,13 +34,12 @@
 #include <dxgiformat.h>
 //#include <Unknwn.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.direct2d.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
 
@@ -74,7 +73,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
         public:
             virtual ~background_details()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
         
 
@@ -97,7 +96,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             {}
 
             virtual ~solid_background_details()
-            TETENGO2_CPP11_NOEXCEPT
+            TETENGO2_STDALT_NOEXCEPT
             {}
 
             unsigned char red()
@@ -233,7 +232,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static background_details_ptr_type create_solid_background(const Color& color)
         {
             return
-                make_unique<detail::solid_background_details>(color.red(), color.green(), color.blue(), color.alpha());
+                stdalt::make_unique<detail::solid_background_details>(
+                    color.red(), color.green(), color.blue(), color.alpha()
+                );
         }
 
         /*!

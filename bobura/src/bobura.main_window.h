@@ -9,11 +9,11 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-#include <memory>
+//#include <memory>
 
 #include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -82,7 +82,7 @@ namespace bobura
             \brief Destroys the main window.
         */
         virtual ~main_window()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

@@ -12,7 +12,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace cursor
@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the cursor_base.
         */
         virtual ~cursor_base()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

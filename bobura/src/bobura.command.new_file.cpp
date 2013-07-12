@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.new_file.h"
 
@@ -53,11 +53,11 @@ namespace bobura { namespace command
 
     new_file::new_file(const new_file_type& new_file)
     :
-    m_p_impl(tetengo2::make_unique<impl>(new_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(new_file))
     {}
 
     new_file::~new_file()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void new_file::execute_impl(model_type& model, abstract_window_type& parent)

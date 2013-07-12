@@ -13,9 +13,10 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -47,7 +48,7 @@ namespace bobura { namespace command
             \brief Destroys the vertical zoom-out command.
         */
         ~vertically_zoom_out()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

@@ -36,10 +36,9 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -171,7 +170,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -230,7 +229,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -285,7 +284,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             delete_system_menus(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -332,7 +331,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -374,7 +373,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -416,7 +415,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -466,7 +465,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -525,7 +524,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -575,7 +574,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -633,7 +632,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+                stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -2407,7 +2406,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WPARAM w_param,
             const ::LPARAM l_param
         )
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {
             try
             {

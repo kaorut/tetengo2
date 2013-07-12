@@ -25,8 +25,8 @@
 //#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 #include "bobura.view.diagram.item.h"
@@ -133,7 +133,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the train line fragment.
         */
         virtual ~train_line_fragment()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -554,7 +554,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the train line.
         */
         virtual ~train_line()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -1148,7 +1148,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the train line list.
         */
         virtual ~train_line_list()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

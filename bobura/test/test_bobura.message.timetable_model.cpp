@@ -8,13 +8,13 @@
 
 //#include <vector>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.text.h>
-#include <tetengo2.utility.h>
-
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.stdalt.h>
+#include <tetengo2.text.h>
+#include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
 
@@ -63,7 +63,7 @@ namespace
         }
 
         virtual ~main_window_type()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
         void set_title(const boost::optional<string_type>& document_name, const bool changed)

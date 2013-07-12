@@ -14,7 +14,7 @@
 //#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace config
@@ -68,7 +68,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the persistent configuration.
         */
         virtual ~persistent_config()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

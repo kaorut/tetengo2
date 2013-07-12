@@ -9,12 +9,12 @@
 #if !defined(BOBURA_TRAINKINDDIALOG_H)
 #define BOBURA_TRAINKINDDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <vector>
 
 #include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -146,7 +146,7 @@ namespace bobura
             \brief Destroys the train kind dialog.
         */
         virtual ~train_kind_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

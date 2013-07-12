@@ -15,7 +15,7 @@
 
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.model.serializer.bzip2_reader.h"
 #include "bobura.model.serializer.json_reader.h"
@@ -128,10 +128,12 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<std::unique_ptr<reader_type>> readers;
 
-            readers.push_back(tetengo2::make_unique<json_reader_type>());
-            readers.push_back(tetengo2::make_unique<bzip2_reader_type>(tetengo2::make_unique<json_reader_type>()));
+            readers.push_back(tetengo2::stdalt::make_unique<json_reader_type>());
+            readers.push_back(
+                tetengo2::stdalt::make_unique<bzip2_reader_type>(tetengo2::stdalt::make_unique<json_reader_type>())
+            );
             readers.push_back(create_oudia_reader(parent, std::move(file_name), message_catalog));
-            readers.push_back(tetengo2::make_unique<windia_reader_type>());
+            readers.push_back(tetengo2::stdalt::make_unique<windia_reader_type>());
 
             return std::move(readers);
         }
@@ -147,8 +149,10 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             auto p_select_oudia_diagram =
-                tetengo2::make_unique<select_oudia_diagram_type>(parent, std::move(file_name), message_catalog);
-            return tetengo2::make_unique<oudia_reader_type>(std::move(p_select_oudia_diagram));
+                tetengo2::stdalt::make_unique<select_oudia_diagram_type>(
+                    parent, std::move(file_name), message_catalog
+                );
+            return tetengo2::stdalt::make_unique<oudia_reader_type>(std::move(p_select_oudia_diagram));
         }
 
 

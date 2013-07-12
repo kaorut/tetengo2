@@ -11,8 +11,8 @@
 
 //#include <boost/optional.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.abstract_window.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the window.
         */
         virtual ~window()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

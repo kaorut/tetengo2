@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.command.about.h"
@@ -63,11 +63,11 @@ namespace bobura { namespace command
 
     about::about(const message_catalog_type& message_catalog, const settings_type& settings)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog, settings))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog, settings))
     {}
 
     about::~about()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void about::execute_impl(model_type& model, abstract_window_type& parent)

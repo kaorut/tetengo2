@@ -21,7 +21,7 @@
 #include <boost/mpl/pair.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
+#include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>

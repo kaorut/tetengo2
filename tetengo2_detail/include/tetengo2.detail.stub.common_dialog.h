@@ -17,8 +17,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 encoder
             );
 
-            return make_unique<message_box_details_type>();
+            return stdalt::make_unique<message_box_details_type>();
         }
 
         /*!
@@ -184,7 +184,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(parent, title, filters, encoder);
 
-            return make_unique<file_open_dialog_details_type>();
+            return stdalt::make_unique<file_open_dialog_details_type>();
         }
 
         /*!
@@ -241,7 +241,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(parent, title, path, filters, encoder);
 
-            return make_unique<file_save_dialog_details_type>();
+            return stdalt::make_unique<file_save_dialog_details_type>();
         }
 
         /*!
@@ -291,7 +291,7 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             suppress_unused_variable_warning(parent, font, encoder);
-            return make_unique<font_dialog_details_type>();
+            return stdalt::make_unique<font_dialog_details_type>();
         }
 
         /*!
@@ -336,7 +336,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(parent, color);
 
-            return make_unique<color_dialog_details_type>();
+            return stdalt::make_unique<color_dialog_details_type>();
         }
 
         /*!

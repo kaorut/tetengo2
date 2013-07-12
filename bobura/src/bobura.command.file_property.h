@@ -13,7 +13,7 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.command_base.h"
 
@@ -57,7 +57,7 @@ namespace bobura { namespace command
             \brief Destroys the file property command.
         */
         ~file_property()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

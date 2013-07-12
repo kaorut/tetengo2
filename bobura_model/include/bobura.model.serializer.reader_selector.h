@@ -12,12 +12,12 @@
 #include <algorithm>
 //#include <memory>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.model.serializer.reader.h"
@@ -71,7 +71,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the reader_selector.
         */
         virtual ~reader_selector()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

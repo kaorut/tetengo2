@@ -11,7 +11,7 @@
 
 #include <cassert>
 #include <ios>
-#include <iterator>
+//#include <iterator>
 //#include <memory>
 #include <stdexcept>
 //#include <utility>
@@ -20,8 +20,8 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace load_save
@@ -215,7 +215,7 @@ namespace bobura { namespace load_save
         const
         {
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't open the file.")),
@@ -232,7 +232,7 @@ namespace bobura { namespace load_save
         const
         {
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is corrupted.")),
@@ -249,7 +249,7 @@ namespace bobura { namespace load_save
         const
         {
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(TETENGO2_TEXT("Message:File:Unsupported format file.")),

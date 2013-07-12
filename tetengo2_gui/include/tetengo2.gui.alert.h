@@ -16,7 +16,7 @@
 
 #include <boost/exception/all.hpp>
 
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
 
 

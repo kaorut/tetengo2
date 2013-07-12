@@ -14,7 +14,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.basic_type_list.h"
 
@@ -85,7 +85,7 @@ namespace bobura { namespace command
             \brief Destroys the command set.
         */
         ~set()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

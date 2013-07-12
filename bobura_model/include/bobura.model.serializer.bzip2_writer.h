@@ -9,13 +9,13 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_BZIP2WRITER_H)
 #define BOBURA_MODEL_SERIALIZER_BZIP2WRITER_H
 
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 #include "bobura.model.serializer.writer.h"
@@ -66,7 +66,7 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the bzip2 writer.
         */
         virtual ~bzip2_writer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

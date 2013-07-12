@@ -11,10 +11,10 @@
 
 #include <stdexcept>
 
-#include "tetengo2.cpp11.h"
-
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
+
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace concurrent
@@ -53,7 +53,7 @@ namespace tetengo2 { namespace concurrent
             \brief Destroys the consumer.
         */
         ~consumer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {
             try
             {

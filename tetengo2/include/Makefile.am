@@ -11,11 +11,11 @@ headers = \
     tetengo2.config.config_list.h \
     tetengo2.config.persistent_config.h \
     tetengo2.config.temporary_config.h \
-    tetengo2.cpp11.h \
     tetengo2.message.messages.h \
     tetengo2.message.message_catalog.h \
     tetengo2.message.message_catalog_parser.h \
     tetengo2.meta.assoc_list.h \
+    tetengo2.stdalt.h \
     tetengo2.text.h \
     tetengo2.text.encoder.h \
     tetengo2.text.encoding.encoding.h \
@@ -26,7 +26,6 @@ headers = \
     tetengo2.text.grammar.json.h \
     tetengo2.text.pull_parser.h \
     tetengo2.text.push_parser.h \
-    tetengo2.unique.h \
     tetengo2.utility.h
 
 extra_headers = \

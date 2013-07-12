@@ -14,7 +14,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -65,7 +65,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         std::unique_ptr<picture_type> read()
         {
             picture_details_ptr_type p_picture(drawing_details_type::read_picture(m_path));
-            return make_unique<picture_type>(std::move(p_picture));
+            return stdalt::make_unique<picture_type>(std::move(p_picture));
         }
 
 

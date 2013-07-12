@@ -9,13 +9,13 @@
 #if !defined(TETENGO2_CONFIG_CONFIGBASE_H)
 #define TETENGO2_CONFIG_CONFIGBASE_H
 
-#include <utility>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace config
@@ -54,7 +54,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration base.
         */
         virtual ~config_base()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

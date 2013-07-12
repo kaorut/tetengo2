@@ -16,9 +16,8 @@
 #include <boost/mpl/at.hpp>
 //#include <boost/rational.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.message.type_list.h"
 
@@ -77,7 +76,7 @@ namespace bobura
             \brief Destroys the diagram picture box.
         */
         virtual ~diagram_picture_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -89,7 +88,7 @@ namespace bobura
         void set_mouse_capture()
         {
             assert(!m_p_mouse_capture);
-            m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this);
         }
 
         /*!

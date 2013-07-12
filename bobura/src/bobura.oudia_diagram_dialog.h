@@ -9,13 +9,13 @@
 #if !defined(BOBURA_OUDIADIAGRAMDIALOG_H)
 #define BOBURA_OUDIADIAGRAMDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 #include <vector>
 
 #include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -63,7 +63,7 @@ namespace bobura
             \brief Destroys the OuDia diagram dialog.
         */
         virtual ~oudia_diagram_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

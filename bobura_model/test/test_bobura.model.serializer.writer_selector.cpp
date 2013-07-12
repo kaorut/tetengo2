@@ -16,9 +16,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 #include <tetengo2.utility.h>
 
 #include "test_bobura.model.type_list.h"
@@ -58,7 +57,7 @@ namespace
         {}
 
         virtual ~concrete_writer()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -89,8 +88,8 @@ namespace
     {
         std::vector<std::unique_ptr<writer_type>> writers;
 
-        writers.push_back(tetengo2::make_unique<concrete_writer>(path_type(TETENGO2_TEXT(".hoge"))));
-        writers.push_back(tetengo2::make_unique<concrete_writer>(path_type(TETENGO2_TEXT(".fuga"))));
+        writers.push_back(tetengo2::stdalt::make_unique<concrete_writer>(path_type(TETENGO2_TEXT(".hoge"))));
+        writers.push_back(tetengo2::stdalt::make_unique<concrete_writer>(path_type(TETENGO2_TEXT(".fuga"))));
 
         return std::move(writers);
     }

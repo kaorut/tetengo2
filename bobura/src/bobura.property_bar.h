@@ -11,10 +11,9 @@
 
 #include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
 
@@ -68,7 +67,7 @@ namespace bobura
             \brief Destroys the property bar.
         */
         virtual ~property_bar()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

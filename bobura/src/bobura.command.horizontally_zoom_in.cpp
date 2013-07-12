@@ -10,7 +10,7 @@
 
 //#include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.type_list.h"
@@ -74,11 +74,11 @@ namespace bobura { namespace command
 
     horizontally_zoom_in::horizontally_zoom_in(diagram_view_type& diagram_view)
     :
-    m_p_impl(tetengo2::make_unique<impl>(diagram_view))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(diagram_view))
     {}
 
     horizontally_zoom_in::~horizontally_zoom_in()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void horizontally_zoom_in::execute_impl(model_type& model, abstract_window_type& parent)

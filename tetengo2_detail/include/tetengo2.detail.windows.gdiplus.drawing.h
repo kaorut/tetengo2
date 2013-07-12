@@ -51,8 +51,9 @@
 #include "tetengo2.detail.windows.gdiplus.error_category.h"
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
@@ -115,7 +116,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return
-                make_unique<Gdiplus::SolidBrush>(
+                stdalt::make_unique<Gdiplus::SolidBrush>(
                     Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
                 );
         }
@@ -607,7 +608,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            auto p_canvas = make_unique<Gdiplus::Graphics>(handle);
+            auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(handle);
 
             initialize_canvas(*p_canvas);
 
@@ -620,7 +621,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
         )
         {
-            auto p_canvas = make_unique<Gdiplus::Graphics>(widget_details.handle.get());
+            auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(widget_details.handle.get());
 
             initialize_canvas(*p_canvas);
 
@@ -686,7 +687,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 static_cast<Gdiplus::REAL>(font.size()) : static_cast<Gdiplus::REAL>(Font::dialog_font().size());
             const auto font_style = fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
             auto p_gdiplus_font =
-                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
+                stdalt::make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
 

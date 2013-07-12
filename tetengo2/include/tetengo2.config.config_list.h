@@ -10,14 +10,14 @@
 #define TETENGO2_CONFIG_CONFIGLIST_H
 
 #include <algorithm>
-#include <memory>
+//#include <memory>
 //#include <utility>
 #include <vector>
 
 //#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
-#include "tetengo2.cpp11.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace config
@@ -63,7 +63,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration list.
         */
         virtual ~config_list()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

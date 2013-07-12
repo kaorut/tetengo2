@@ -11,8 +11,8 @@
 
 //#include <memory>
 
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
-#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace load_save
@@ -128,7 +128,7 @@ namespace bobura { namespace load_save
                 m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
 
             return
-                tetengo2::make_unique<message_box_type>(
+                tetengo2::stdalt::make_unique<message_box_type>(
                     parent,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(

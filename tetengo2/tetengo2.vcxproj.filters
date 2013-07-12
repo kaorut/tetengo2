@@ -48,12 +48,6 @@
     <ClInclude Include="include\tetengo2.meta.assoc_list.h">
       <Filter>headers\tetengo2\meta</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.unique.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.cpp11.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.concurrent.consumer.h">
       <Filter>headers\tetengo2\concurrent</Filter>
     </ClInclude>
@@ -143,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.grammar.0namespace.h">
       <Filter>headers\tetengo2\text\grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.stdalt.h">
+      <Filter>headers\tetengo2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

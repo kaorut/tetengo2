@@ -22,8 +22,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.application.h"
@@ -64,7 +63,9 @@ namespace
         typedef
             boost::mpl::at<bobura::locale_type_list, bobura::type::locale::messages_facet>::type messages_facet_type;
         auto p_messages_facet =
-            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()));
+            tetengo2::stdalt::make_unique<messages_facet_type>(
+                message_directory_path, std::locale(ui_locale_name().c_str())
+            );
         const std::locale global_locale(std::locale(""), p_messages_facet.release());
 
         std::locale::global(global_locale);
@@ -95,7 +96,7 @@ int WINAPI wWinMain(
     const ::LPWSTR    lpCmdLine,
     const int         nCmdShow
 )
-TETENGO2_CPP11_NOEXCEPT
+TETENGO2_STDALT_NOEXCEPT
 {
     tetengo2::suppress_unused_variable_warning(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 

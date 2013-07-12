@@ -19,8 +19,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace message
@@ -251,7 +251,7 @@ namespace tetengo2 { namespace message
                 m_p_pull_parser->next();
             }
 
-            return make_unique<entry_type>(encoder().decode(key), encoder().decode(value));
+            return stdalt::make_unique<entry_type>(encoder().decode(key), encoder().decode(value));
         }
 
         template <typename Structure>

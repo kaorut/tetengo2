@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.file_property.h"
 
@@ -73,11 +73,11 @@ namespace bobura { namespace command
 
     file_property::file_property(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     file_property::~file_property()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void file_property::execute_impl(model_type& model, abstract_window_type& parent)

@@ -8,7 +8,7 @@
 
 //#include <utility>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.font_color.h"
 
@@ -105,11 +105,11 @@ namespace bobura { namespace command
 
     font_color::font_color(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     font_color::~font_color()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void font_color::execute_impl(model_type& model, abstract_window_type& parent)

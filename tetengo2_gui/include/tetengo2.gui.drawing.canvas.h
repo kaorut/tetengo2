@@ -18,9 +18,8 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -95,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the canvas.
         */
         virtual ~canvas()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -375,7 +374,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         :
         m_p_details(std::move(p_details)),
         m_color(0, 0, 0, 255),
-        m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
+        m_p_background(stdalt::make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
         m_line_width(1),
         m_line_style(line_style_type::solid),
         m_font(font_type::dialog_font())

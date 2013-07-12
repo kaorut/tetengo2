@@ -12,9 +12,8 @@
 //#include <cassert>
 //#include <memory>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -53,14 +52,14 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_bar()
         :
         base_type(string_type(), menu_details_type::create_menu_bar()),
-        m_p_shortcut_key_table(make_unique<shortcut_key_table_type>())
+        m_p_shortcut_key_table(stdalt::make_unique<shortcut_key_table_type>())
         {}
 
         /*!
             \brief Destroys the menu bar.
         */
         virtual ~menu_bar()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -84,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace menu
         void update_shortcut_key_table()
         {
             m_p_shortcut_key_table =
-                make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
+                stdalt::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
         }
 
 

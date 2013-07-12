@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.load_from_file.h"
 
@@ -59,11 +59,11 @@ namespace bobura { namespace command
 
     load_from_file::load_from_file(const load_from_file_type& load_from_file)
     :
-    m_p_impl(tetengo2::make_unique<impl>(load_from_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(load_from_file))
     {}
 
     load_from_file::~load_from_file()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     bool load_from_file::enabled_impl(const model_type& model)

@@ -9,11 +9,11 @@
 #if !defined(BOBURA_FONTCOLORDIALOG_H)
 #define BOBURA_FONTCOLORDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura
@@ -80,7 +80,7 @@ namespace bobura
             \brief Destroys the font and color dialog.
         */
         virtual ~font_color_dialog()
-        TETENGO2_CPP11_NOEXCEPT;
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

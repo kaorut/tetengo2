@@ -15,8 +15,7 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "test_bobura.model.type_list.h"
@@ -55,7 +54,7 @@ namespace
         {}
 
         virtual ~concrete_reader()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -73,7 +72,7 @@ namespace
         {
             tetengo2::suppress_unused_variable_warning(first, last, error);
 
-            return tetengo2::make_unique<timetable_type>();
+            return tetengo2::stdalt::make_unique<timetable_type>();
         }
 
 
@@ -93,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        auto p_reader = tetengo2::make_unique<concrete_reader>();
+        auto p_reader = tetengo2::stdalt::make_unique<concrete_reader>();
         const bzip2_reader_type bzip2_reader(std::move(p_reader));
     }
 
@@ -102,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
         BOOST_TEST_PASSPOINT();
 
         {
-            auto p_reader = tetengo2::make_unique<concrete_reader>();
+            auto p_reader = tetengo2::stdalt::make_unique<concrete_reader>();
             bzip2_reader_type bzip2_reader(std::move(p_reader));
 
             std::istringstream input_stream("BZ");
@@ -114,7 +113,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
             );
         }
         {
-            auto p_reader = tetengo2::make_unique<concrete_reader>();
+            auto p_reader = tetengo2::stdalt::make_unique<concrete_reader>();
             bzip2_reader_type bzip2_reader(std::move(p_reader));
 
             std::istringstream input_stream("AZ");
@@ -131,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        auto p_reader = tetengo2::make_unique<concrete_reader>();
+        auto p_reader = tetengo2::stdalt::make_unique<concrete_reader>();
         bzip2_reader_type bzip2_reader(std::move(p_reader));
 
         std::istringstream input_stream("BZ");

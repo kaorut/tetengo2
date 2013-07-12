@@ -9,9 +9,9 @@
 #if !defined(TETENGO2_GUI_WIDGET_TEXTBOX_H)
 #define TETENGO2_GUI_WIDGET_TEXTBOX_H
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the text box.
         */
         virtual ~text_box()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

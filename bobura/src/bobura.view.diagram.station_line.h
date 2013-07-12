@@ -18,8 +18,8 @@
 #include <boost/range/adaptors.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.view.diagram.item.h"
@@ -123,7 +123,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the station line.
         */
         virtual ~station_line()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -343,7 +343,7 @@ namespace bobura { namespace view { namespace diagram
             \brief Destroys the station line list.
         */
         virtual ~station_line_list()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

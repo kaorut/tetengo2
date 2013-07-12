@@ -42,7 +42,7 @@
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.unique.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
 
 
@@ -282,7 +282,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             return
-                make_unique<message_box_details_type>(
+                stdalt::make_unique<message_box_details_type>(
                     parent.details()->handle.get(),
                     encoder.encode(std::move(title)),
                     encoder.encode(std::move(main_content)),
@@ -379,7 +379,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
             return
-                make_unique<file_open_dialog_details_type>(
+                stdalt::make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
                     parent.details()->handle.get(),
                     encoder.encode(std::move(title)),
@@ -513,7 +513,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             detail::file_save_dialog_ptr_type p_dialog(p_raw_dialog);
             return
-                make_unique<file_save_dialog_details_type>(
+                stdalt::make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
                     parent.details()->handle.get(),
                     encoder.encode(std::move(title)),
@@ -676,7 +676,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&      encoder
         )
         {
-            auto p_log_font = make_unique< ::LOGFONTW>();
+            auto p_log_font = stdalt::make_unique< ::LOGFONTW>();
             if (font)
             {
                 p_log_font->lfHeight = -static_cast< ::LONG>(font->size());
@@ -720,7 +720,8 @@ namespace tetengo2 { namespace detail { namespace windows
             p_log_font->lfQuality = DEFAULT_QUALITY;
             p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
-            return make_unique<font_dialog_details_type>(parent.details()->handle.get(), std::move(p_log_font));
+            return
+                stdalt::make_unique<font_dialog_details_type>(parent.details()->handle.get(), std::move(p_log_font));
         }
 
         /*!
@@ -791,7 +792,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
-            return make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
+            return stdalt::make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
         }
 
         /*!

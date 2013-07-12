@@ -19,9 +19,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
-#include <tetengo2.unique.h>
+#include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
 
@@ -159,7 +158,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
                 boost::next(m_info_sets.begin(), *m_current_train_kind_index) : m_info_sets.end();
 
             m_info_sets.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_info_sets, insertion_position),
+                tetengo2::stdalt::as_insertion_iterator(m_info_sets, insertion_position),
                 info_set_type(
                     boost::none,
                     false,
@@ -256,7 +255,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
             assert(*m_current_train_kind_index < m_info_sets.size());
             const auto deletion_position = boost::next(m_info_sets.begin(), *m_current_train_kind_index);
 
-            m_info_sets.erase(tetengo2::cpp11::as_insertion_iterator(m_info_sets, deletion_position));
+            m_info_sets.erase(tetengo2::stdalt::as_insertion_iterator(m_info_sets, deletion_position));
             if (*m_current_train_kind_index >= m_info_sets.size())
             {
                 if (m_info_sets.empty())
@@ -758,7 +757,7 @@ namespace bobura { namespace message { namespace train_kind_dialog
         void operator()(canvas_type& canvas)
         const
         {
-            auto p_background = tetengo2::make_unique<solid_background_type>(m_background_color);
+            auto p_background = tetengo2::stdalt::make_unique<solid_background_type>(m_background_color);
             canvas.set_background(std::move(p_background));
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_canvas_dimension);
 

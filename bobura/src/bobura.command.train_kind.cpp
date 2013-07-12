@@ -14,7 +14,7 @@
 
 //#include <boost/optional.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 #include "bobura.command.train_kind.h"
 
@@ -148,11 +148,11 @@ namespace bobura { namespace command
 
     train_kind::train_kind(const message_catalog_type& message_catalog)
     :
-    m_p_impl(tetengo2::make_unique<impl>(message_catalog))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(message_catalog))
     {}
 
     train_kind::~train_kind()
-    TETENGO2_CPP11_NOEXCEPT
+    TETENGO2_STDALT_NOEXCEPT
     {}
     
     void train_kind::execute_impl(model_type& model, abstract_window_type& parent)

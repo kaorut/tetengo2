@@ -13,14 +13,14 @@
 #include <cstddef>
 //#include <iterator>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace model
@@ -238,18 +238,18 @@ namespace bobura { namespace model
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), position);
 
             m_station_locations.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, position), std::move(station_location)
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, position), std::move(station_location)
             );
 
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); } 
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); } 
             );
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); }
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA offset](train_type& train) { insert_train_stop(train, offset); }
             );
 
             m_observer_set.changed()();
@@ -275,14 +275,14 @@ namespace bobura { namespace model
                 std::distance<typename station_locations_type::const_iterator>(m_station_locations.begin(), last);
 
             m_station_locations.erase(
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, first),
-                tetengo2::cpp11::as_insertion_iterator(m_station_locations, last)
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, first),
+                tetengo2::stdalt::as_insertion_iterator(m_station_locations, last)
             );
 
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
                 {
                     erase_train_stops(train, first_offset, last_offset);
                 }
@@ -290,7 +290,7 @@ namespace bobura { namespace model
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA first_offset, last_offset](train_type& train)
                 {
                     erase_train_stops(train, first_offset, last_offset);
                 }
@@ -378,13 +378,13 @@ namespace bobura { namespace model
                 std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
 
             m_train_kinds.insert(
-                tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position), std::move(train_kind)
+                tetengo2::stdalt::as_insertion_iterator(m_train_kinds, position), std::move(train_kind)
             );
 
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
                 {
                     update_train_kind_index(train, inserted_index, 1);
                 }
@@ -392,7 +392,7 @@ namespace bobura { namespace model
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA inserted_index](train_type& train)
                 {
                     update_train_kind_index(train, inserted_index, 1);
                 }
@@ -440,12 +440,12 @@ namespace bobura { namespace model
             const train_kind_index_type erased_index =
                 std::distance<typename train_kinds_type::const_iterator>(m_train_kinds.begin(), position);
 
-            m_train_kinds.erase(tetengo2::cpp11::as_insertion_iterator(m_train_kinds, position));
+            m_train_kinds.erase(tetengo2::stdalt::as_insertion_iterator(m_train_kinds, position));
 
             std::for_each(
                 m_down_trains.begin(),
                 m_down_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
                 {
                     update_train_kind_index(train, erased_index, -1);
                 }
@@ -453,7 +453,7 @@ namespace bobura { namespace model
             std::for_each(
                 m_up_trains.begin(),
                 m_up_trains.end(),
-                [TETENGO2_CPP11_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
+                [TETENGO2_STDALT_LAMBDA_THIS_BUG_WA erased_index](train_type& train)
                 {
                     update_train_kind_index(train, erased_index, -1);
                 }
@@ -762,7 +762,7 @@ namespace bobura { namespace model
                 );
             }
 
-            trains.insert(tetengo2::cpp11::as_insertion_iterator(trains, position), std::move(train));
+            trains.insert(tetengo2::stdalt::as_insertion_iterator(trains, position), std::move(train));
 
             m_observer_set.changed()();
         }
@@ -774,8 +774,8 @@ namespace bobura { namespace model
         )
         {
             trains.erase(
-                tetengo2::cpp11::as_insertion_iterator(trains, first),
-                tetengo2::cpp11::as_insertion_iterator(trains, last)
+                tetengo2::stdalt::as_insertion_iterator(trains, first),
+                tetengo2::stdalt::as_insertion_iterator(trains, last)
             );
 
             m_observer_set.changed()();

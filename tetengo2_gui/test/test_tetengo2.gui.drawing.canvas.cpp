@@ -14,8 +14,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"
-#include "tetengo2.unique.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -83,7 +83,7 @@ namespace
     {
         concrete_canvas()
         :
-        canvas_type(tetengo2::make_unique<canvas_details_type>())
+        canvas_type(tetengo2::stdalt::make_unique<canvas_details_type>())
         {}
 
 
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.set_background(tetengo2::make_unique<const transparent_background_type>());
+        canvas.set_background(tetengo2::stdalt::make_unique<const transparent_background_type>());
 
         BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
     }

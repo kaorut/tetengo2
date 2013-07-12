@@ -24,8 +24,8 @@
 //#include <Windows.h>
 #include <wincodec.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.encoding.h"
+#include "tetengo2.stdalt.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.text.encoding.utf8.h"
@@ -69,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of the error category.
         */
         virtual ~error_category()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of the error category of WIC.
         */
         virtual ~wic_error_category()
-        TETENGO2_CPP11_NOEXCEPT
+        TETENGO2_STDALT_NOEXCEPT
         {}
 
 

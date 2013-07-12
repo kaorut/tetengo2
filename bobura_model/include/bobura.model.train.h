@@ -9,12 +9,12 @@
 #if !defined(BOBURA_MODEL_TRAIN_H)
 #define BOBURA_MODEL_TRAIN_H
 
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
 
-#include <tetengo2.cpp11.h>
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace model
@@ -240,7 +240,7 @@ namespace bobura { namespace model
         */
         void insert_stop(const typename stops_type::const_iterator position, stop_type stop)
         {
-            m_stops.insert(tetengo2::cpp11::as_insertion_iterator(m_stops, position), std::move(stop));
+            m_stops.insert(tetengo2::stdalt::as_insertion_iterator(m_stops, position), std::move(stop));
         }
 
         /*!
@@ -255,8 +255,8 @@ namespace bobura { namespace model
         )
         {
             m_stops.erase(
-                tetengo2::cpp11::as_insertion_iterator(m_stops, first),
-                tetengo2::cpp11::as_insertion_iterator(m_stops, last)
+                tetengo2::stdalt::as_insertion_iterator(m_stops, first),
+                tetengo2::stdalt::as_insertion_iterator(m_stops, last)
             );
         }
 
