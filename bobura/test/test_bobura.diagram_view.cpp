@@ -10,7 +10,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
-#include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.selection.h"

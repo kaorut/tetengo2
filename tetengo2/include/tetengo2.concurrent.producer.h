@@ -15,7 +15,6 @@
 #include <boost/noncopyable.hpp>
 
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace concurrent
