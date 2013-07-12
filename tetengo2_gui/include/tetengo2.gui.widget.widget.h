@@ -22,7 +22,6 @@
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -544,7 +543,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<canvas_type> create_canvas()
         const
         {
-            return make_unique<widget_canvas_type>(*details());
+            return stdalt::make_unique<widget_canvas_type>(*details());
         }
 
         /*!
@@ -887,7 +886,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
+            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -900,7 +899,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
+            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
         }
 
 

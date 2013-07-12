@@ -15,7 +15,6 @@
 
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -72,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         virtual std::unique_ptr<base_type> clone_impl()
         const override
         {
-            return make_unique<transparent_background>();
+            return stdalt::make_unique<transparent_background>();
         }
 
         virtual boost::optional<const details_type&> details_impl()

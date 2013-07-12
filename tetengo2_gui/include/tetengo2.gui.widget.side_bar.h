@@ -24,7 +24,6 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -495,7 +494,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_background = canvas.background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(size_type(1) / 16);
-                canvas.set_background(make_unique<solid_background_type>(*m_p_current_background_color));
+                canvas.set_background(stdalt::make_unique<solid_background_type>(*m_p_current_background_color));
 
                 const auto triangle = make_triangle();
                 canvas.fill_polygon(triangle.begin(), triangle.end());
@@ -515,7 +514,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
 
                 m_p_timer =
-                    tetengo2::make_unique<timer_type>(
+                    tetengo2::stdalt::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
                         animation_duration() / max_animation_step()
@@ -649,7 +648,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_background = canvas.background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
                 canvas.set_background(
-                    make_unique<solid_background_type>(system_color_set_type::title_bar_background())
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
                 );
 
                 canvas.fill_rectangle(this->position(), this->dimension());
@@ -824,7 +823,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 auto original_background = canvas.background().clone();
                 canvas.set_background(
-                    make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
                 );
 
                 canvas.fill_rectangle(this->position(), this->dimension());
@@ -871,7 +870,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->side_bar_().m_minimized)
                     return;
 
-                auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
+                auto p_cursor =
+                    stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
                 this->side_bar_().set_cursor(std::move(p_cursor));
             }
 
@@ -943,7 +943,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             p_side_bar->set_dimension(dimension_type(width_type(16), height_type(16)));
             p_side_bar->set_background(
-                make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
             create_items(*p_side_bar);
@@ -955,10 +955,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void create_items(side_bar& side_bar_)
         {
-            side_bar_.m_p_state_button = make_unique<state_button>(side_bar_);
-            side_bar_.m_p_caption = make_unique<caption>(side_bar_);
+            side_bar_.m_p_state_button = stdalt::make_unique<state_button>(side_bar_);
+            side_bar_.m_p_caption = stdalt::make_unique<caption>(side_bar_);
 
-            side_bar_.m_p_splitter = make_unique<splitter>(side_bar_);
+            side_bar_.m_p_splitter = stdalt::make_unique<splitter>(side_bar_);
         }
 
         static void set_observers(side_bar& side_bar_)
@@ -1079,7 +1079,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_mouse_capture(const item* const p_item)
         {
-            m_p_mouse_capture = tetengo2::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this);
             m_p_mouse_captured_item = p_item;
         }
 

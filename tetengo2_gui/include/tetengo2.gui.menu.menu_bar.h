@@ -14,7 +14,6 @@
 
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -53,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_bar()
         :
         base_type(string_type(), menu_details_type::create_menu_bar()),
-        m_p_shortcut_key_table(make_unique<shortcut_key_table_type>())
+        m_p_shortcut_key_table(stdalt::make_unique<shortcut_key_table_type>())
         {}
 
         /*!
@@ -84,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace menu
         void update_shortcut_key_table()
         {
             m_p_shortcut_key_table =
-                make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
+                stdalt::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
         }
 
 

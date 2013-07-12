@@ -15,7 +15,6 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.unique.h"
 #include "tetengo2.utility.h"
 
 
@@ -173,7 +172,7 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(p_link_label);
 
             p_link_label->set_background(
-                make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
             const auto original_font = p_link_label->font();
@@ -190,7 +189,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             p_link_label->set_text_color(system_color_set_type::hyperlink_text());
 
-            auto p_cursor = make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
+            auto p_cursor = stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
             p_link_label->set_cursor(std::move(p_cursor));
 
             p_link_label->set_focusable(true);

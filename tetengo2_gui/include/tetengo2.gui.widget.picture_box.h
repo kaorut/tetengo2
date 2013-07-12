@@ -13,7 +13,6 @@
 
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -128,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<fast_canvas_type> create_fast_canvas()
         const
         {
-            return make_unique<fast_widget_canvas_type>(*this->details());
+            return stdalt::make_unique<fast_widget_canvas_type>(*this->details());
         }
 
         /*!
