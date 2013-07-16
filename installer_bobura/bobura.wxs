@@ -73,10 +73,17 @@
         </Directory>
       </Directory>
     </Directory>
-    <Feature Id="Complete" Level="1">
+    <Feature
+      Id="Complete"
+      Title="Bobura"
+      Description="Complete Package"
+      ConfigurableDirectory="INSTALLDIR"
+      Level="1"
+    >
       <ComponentRef Id="MainExecutable"/>
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
     <Icon Id="bobura.exe" SourceFile="bobura.exe"/>
+    <UIRef Id="WixUI_Mondo"/>
   </Product>
 </Wix>
