@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Product
     Id="*"
     Name="Bobura"
     Version="0.0.0"
     Language="1033"
-    Codepage="1252"
-    Manufacturer="kaorut"
+    Codepage="UTF-8"
+    Manufacturer="kaoru"
     UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e"
   >
-    <Package
-      Id="*"
-      Keywords="Bobura Keywords"
-      Description="Bobura Description"
-      Comments="Bobura Comments"
-      Manufacturer="kaorut"
-      InstallerVersion="100"
-      Languages="1033"
-      Compressed="yes"
-      SummaryCodepage="1252"
-    />
-    <Media Id="1" Cabinet="bobura.cab" EmbedCab="yes" DiskPrompt="The first disk"/>
-    <Property Id="DiskPrompt" Value="Bobura Installer"/>
+    <Package Compressed="yes" InstallerVersion="200"/>
+    <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes"/>
+    <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+    <UIRef Id="WixUI_InstallDir"/>
+    
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="PFiles">
-        <Directory Id="tetengo" Name="tetengo">
-          <Directory Id="INSTALLDIR" Name="bobura">
+        <Directory Id="Tetengo" Name="tetengo">
+          <Directory Id="INSTALLDIR" Name="bobura" FileSource="../bin/Release.Win32/">
             <Component Id="MainExecutable" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
-              <File
-                Id="BoburaEXE"
-                Name="bobura.exe"
-                Source="bobura.exe"
-                DiskId="1"
-                KeyPath="yes"
-              >
+              <File Id="BoburaExe" Name="bobura.exe" DiskId="1" KeyPath="yes">
                 <Shortcut
-                  Id="startmenuBobura"
+                  Id="StartMenuShortcutToBoburaExe"
                   Directory="ProgramMenuDir"
                   Name="Bobura"
                   WorkingDirectory="INSTALLDIR"
@@ -46,12 +33,12 @@
               </File>
               <ProgId
                 Id="Bobura.bttfile"
-                Description="Bubura Timetabe File"
-                Icon="BoburaEXE"
+                Description="Bubura Timetable File"
+                Icon="BoburaExe"
                 IconIndex="0"
               >
                 <Extension Id="btt" ContentType="application/btt">
-                  <Verb Id="open" Command="Open" TargetFile="BoburaEXE" Argument='"%1"'/>
+                  <Verb Id="open" Command="&amp;Open" TargetFile="BoburaExe" Argument='"%1"'/>
                 </Extension>
               </ProgId>
             </Component>
@@ -73,7 +60,7 @@
         </Directory>
       </Directory>
     </Directory>
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+    
     <Feature
       Id="Complete"
       Title="Bobura"
@@ -84,7 +71,6 @@
       <ComponentRef Id="MainExecutable"/>
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
-    <Icon Id="bobura.exe" SourceFile="bobura.exe"/>
-    <UIRef Id="WixUI_InstallDir"/>
+    
   </Product>
 </Wix>
