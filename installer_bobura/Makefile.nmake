@@ -1,0 +1,26 @@
+# Makes the Install Package.
+# This Makefile is for NMAKE.
+# Copyright (C) 2007-2013 kaoru
+# $Id$
+
+DEL=del /q
+CANDLE=candle
+LIGHT=light -ext WixUIExtension
+
+TARGET=bobura.msi
+
+
+all: $(TARGET)
+
+clean:
+	$(DEL) *.wixobj
+	$(DEL) *.wixpdb
+	$(DEL) $(TARGET)
+
+$(TARGET): bobura.wixobj
+	$(LIGHT) -out $@ $**
+
+.SUFFIXES: .wxs
+
+.wxs.wixobj:
+	$(CANDLE) -out $@ $<
