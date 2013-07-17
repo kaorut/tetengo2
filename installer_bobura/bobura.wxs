@@ -73,6 +73,7 @@
         </Directory>
       </Directory>
     </Directory>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
     <Feature
       Id="Complete"
       Title="Bobura"
@@ -84,6 +85,6 @@
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
     <Icon Id="bobura.exe" SourceFile="bobura.exe"/>
-    <UIRef Id="WixUI_Mondo"/>
+    <UIRef Id="WixUI_InstallDir"/>
   </Product>
 </Wix>
