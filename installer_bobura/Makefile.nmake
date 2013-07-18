@@ -18,7 +18,7 @@ clean:
 	$(DEL) $(MSI_OUTPUT_DIR)\*.wixpdb
 	$(DEL) $(TARGET)
 
-$(TARGET): main.wixobj layout.wixobj feature.wixobj
+$(TARGET): main.wixobj layout.wixobj
 	$(LIGHT) -out $@ $**
 
 .SUFFIXES: .wxs
