@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?define bin_win32="..\bin\Release.Win32"?>
 <?define vc_version="110"?>
 <?define boost_version="1_54"?>
 
+<?define product_name="bobura"?>
+<?define brand_name="tetengo"?>
+
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Fragment Id="Layout">
-        <DirectoryRef Id="INSTALLDIR" FileSource="..\bin\Release.Win32">
-            <Component Id="BoburaExeX86" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
-                <File Id="BoburaExeX86" Name="bobura.exe" DiskId="1" KeyPath="yes">
-                    <Shortcut Id="StartMenuShortcutToBoburaExeX86" Directory="ProgramMenuDir" Name="Bobura" WorkingDirectory="INSTALLDIR" Icon="bobura.exe" IconIndex="0" Advertise="yes" />
+        <DirectoryRef Id="INSTALLDIR" FileSource="$(var.bin_win32)">
+            <Component Id="BoburaExe_Win32" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
+                <File Id="BoburaExe_Win32" Name="bobura.exe" DiskId="1" KeyPath="yes">
+                    <Shortcut Id="StartMenuShortcutToBoburaExe_Win32" Directory="ProgramMenuDir" Name="!(loc.title)" WorkingDirectory="INSTALLDIR" Icon="bobura.exe" IconIndex="0" Advertise="yes" />
                 </File>
-                <ProgId Id="Bobura.bttfile" Description="Bubura Timetable File" Icon="BoburaExeX86" IconIndex="0">
+                <ProgId Id="Bobura.bttfile" Description="!(loc.btt_file_description)" Icon="BoburaExe_Win32" IconIndex="0">
                     <Extension Id="btt" ContentType="application/btt">
-                        <Verb Id="open" Command="&amp;Open" TargetFile="BoburaExeX86" Argument="&quot;%1&quot;" />
+                        <Verb Id="open" Command="!(loc.btt_file_open)" TargetFile="BoburaExe_Win32" Argument="&quot;%1&quot;" />
                     </Extension>
                 </ProgId>
             </Component>
-            <Component Id="BoostBzip2DllX86" Guid="1e79e77e-0b38-4fb7-9f05-ea2962a1c7ca">
-                <File Id="BoostBzip2DllX86" Name="boost_bzip2-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostBzip2Dll_Win32" Guid="1e79e77e-0b38-4fb7-9f05-ea2962a1c7ca">
+                <File Id="BoostBzip2Dll_Win32" Name="boost_bzip2-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostChronoDllX86" Guid="e6321e9b-7e87-4281-a5ab-03cbb1d2e119">
-                <File Id="BoostChronoDllX86" Name="boost_chrono-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostChronoDll_Win32" Guid="e6321e9b-7e87-4281-a5ab-03cbb1d2e119">
+                <File Id="BoostChronoDll_Win32" Name="boost_chrono-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostDateTimeDllX86" Guid="f7a77429-4c68-4b5c-aa28-3b907f25a8f4">
-                <File Id="BoostDateTimeDllX86" Name="boost_date_time-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostDateTimeDll_Win32" Guid="f7a77429-4c68-4b5c-aa28-3b907f25a8f4">
+                <File Id="BoostDateTimeDll_Win32" Name="boost_date_time-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostFilesystemDllX86" Guid="005ef3dc-e8bc-4706-a9a5-93f0c632bf88">
-                <File Id="BoostFilesystemDllX86" Name="boost_filesystem-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostFilesystemDll_Win32" Guid="005ef3dc-e8bc-4706-a9a5-93f0c632bf88">
+                <File Id="BoostFilesystemDll_Win32" Name="boost_filesystem-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostIostreamsDllX86" Guid="02a2103a-b00b-4911-8d6d-431250acf97c">
-                <File Id="BoostIostreamsDllX86" Name="boost_iostreams-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostIostreamsDll_Win32" Guid="02a2103a-b00b-4911-8d6d-431250acf97c">
+                <File Id="BoostIostreamsDll_Win32" Name="boost_iostreams-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostProgramOptionsDllX86" Guid="d0b9e2a2-7db3-40f9-b1a2-d30f81380559">
-                <File Id="BoostProgramOptionsDllX86" Name="boost_program_options-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostProgramOptionsDll_Win32" Guid="d0b9e2a2-7db3-40f9-b1a2-d30f81380559">
+                <File Id="BoostProgramOptionsDll_Win32" Name="boost_program_options-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostSystemDllX86" Guid="65fe4559-f1a7-4f4d-b0a9-ec44df6aa4f4">
-                <File Id="BoostSystemDllX86" Name="boost_system-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostSystemDll_Win32" Guid="65fe4559-f1a7-4f4d-b0a9-ec44df6aa4f4">
+                <File Id="BoostSystemDll_Win32" Name="boost_system-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
-            <Component Id="BoostThreadDllX86" Guid="24c9bdbf-3de9-4973-a959-4d051abbacab">
-                <File Id="BoostThreadDllX86" Name="boost_thread-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
+            <Component Id="BoostThreadDll_Win32" Guid="24c9bdbf-3de9-4973-a959-4d051abbacab">
+                <File Id="BoostThreadDll_Win32" Name="boost_thread-vc$(var.vc_version)-mt-$(var.boost_version).dll" DiskId="1" KeyPath="yes" />
             </Component>
             <Directory Id="Images" Name="images">
                 <Component Id="KumaPng" Guid="334b18db-c47d-43b2-9765-4993e5cec607">
@@ -58,20 +62,20 @@
         <DirectoryRef Id="ProgramMenuDir">
             <Component Id="StartMenuFolder" Guid="8ae33065-80d3-48ee-a2a5-4a4d67cc55f1">
                 <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
-                <RegistryValue Root="HKCU" Key="Software\tetengo\Bobura" Type="string" Value="" KeyPath="yes" />
+                <RegistryValue Root="HKCU" Key="Software\$(var.brand_name)\$(var.product_name)" Type="string" Value="" KeyPath="yes" />
             </Component>
         </DirectoryRef>
 
-        <ComponentGroup Id="x86">
-            <ComponentRef Id="BoburaExeX86" />
-            <ComponentRef Id="BoostBzip2DllX86" />
-            <ComponentRef Id="BoostChronoDllX86" />
-            <ComponentRef Id="BoostDateTimeDllX86" />
-            <ComponentRef Id="BoostFilesystemDllX86" />
-            <ComponentRef Id="BoostIostreamsDllX86" />
-            <ComponentRef Id="BoostProgramOptionsDllX86" />
-            <ComponentRef Id="BoostSystemDllX86" />
-            <ComponentRef Id="BoostThreadDllX86" />
+        <ComponentGroup Id="Win32">
+            <ComponentRef Id="BoburaExe_Win32" />
+            <ComponentRef Id="BoostBzip2Dll_Win32" />
+            <ComponentRef Id="BoostChronoDll_Win32" />
+            <ComponentRef Id="BoostDateTimeDll_Win32" />
+            <ComponentRef Id="BoostFilesystemDll_Win32" />
+            <ComponentRef Id="BoostIostreamsDll_Win32" />
+            <ComponentRef Id="BoostProgramOptionsDll_Win32" />
+            <ComponentRef Id="BoostSystemDll_Win32" />
+            <ComponentRef Id="BoostThreadDll_Win32" />
         </ComponentGroup>
         <ComponentGroup Id="NonArch">
             <ComponentRef Id="KumaPng" />

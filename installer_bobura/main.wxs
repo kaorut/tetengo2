@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?define title="Bobura"?>
-<?define brand_title="Tetengo"?>
-<?define version="0.0.0"?>
-<?define author="kaoru"?>
-<?define url="http://www.tetengo.org/"?>
-<?define installer_description="Bobura Installer"?>
-<?define description="Some Software about Railways"?>
-
-<?define icon_path="..\bin\Release.Win32\bobura.exe"?>
-
 <?define product_name="bobura"?>
 <?define brand_name="tetengo"?>
+<?define version="0.0.0"?>
+
+<?define installer_description="Bobura Installer"?>
+<?define icon_path="..\bin\Release.Win32\bobura.exe"?>
 
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Product Id="*" Name="$(var.title)" Version="$(var.version)" Language="$(var.language)" Codepage="$(var.codepage)" Manufacturer="$(var.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
-        <Package Compressed="yes" InstallerVersion="200" Languages="$(var.language)" SummaryCodepage="$(var.codepage)" Description="$(var.installer_description)" Comments="$(var.description)" />
+    <Product Id="*" Name="!(loc.title)" Version="$(var.version)" Language="1033" Codepage="1252" Manufacturer="!(loc.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+        <Package Compressed="yes" InstallerVersion="200" SummaryCodepage="1252" Description="$(var.installer_description)" />
         <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
         <Icon Id="bobura.exe" SourceFile="$(var.icon_path)" />
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
         <UIRef Id="WixUI_InstallDir" />
-        <Property Id="ARPCOMMENTS" Value="$(var.description)" />
+        <Property Id="ARPCOMMENTS" Value="!(loc.description)" />
         <Property Id="ARPPRODUCTICON" Value="bobura.exe" />
-        <Property Id="ARPURLINFOABOUT" Value="$(var.url)" />
+        <Property Id="ARPURLINFOABOUT" Value="!(loc.url)" />
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
@@ -31,13 +25,13 @@
                 </Directory>
             </Directory>
             <Directory Id="ProgramMenuFolder" Name="Programs">
-                <Directory Id="ProgramMenuDir" Name="$(var.brand_title)" />
+                <Directory Id="ProgramMenuDir" Name="!(loc.brand_title)" />
             </Directory>
         </Directory>
 
         <Feature Id="Complete" Title="Bobura" Description="Complete Package" ConfigurableDirectory="INSTALLDIR" Level="1">
-            <Feature Id="x86" Title="32-bit" Description="For 32 bit systems" ConfigurableDirectory="INSTALLDIR" Level="1">
-                <ComponentGroupRef Id="x86" />
+            <Feature Id="Win32" Title="32-bit" Description="For 32 bit systems" ConfigurableDirectory="INSTALLDIR" Level="1">
+                <ComponentGroupRef Id="Win32" />
             </Feature>
             <ComponentGroupRef Id="NonArch" />
         </Feature>

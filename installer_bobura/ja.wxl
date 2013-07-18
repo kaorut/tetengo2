@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WixLocalization Culture="ja-jp" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+    <String Id="title">鉄道系アプリケーション</String>
+    <String Id="brand_title">ててんご。</String>
+    <String Id="author">kaoru</String>
+    <String Id="url">http://www.tetengo.org/</String>
+    <String Id="installer_description">Bobura Installer</String>
+    <String Id="description">とある鉄道系アプリケーション</String>
+
+    <String Id="btt_file_description">鉄道系アプリケーション 時刻表ファイル</String>
+    <String Id="btt_file_open">開く(&amp;O)</String>
+</WixLocalization>

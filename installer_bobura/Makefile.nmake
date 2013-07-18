@@ -30,15 +30,15 @@ $(JAPANESE_MST): $(ENGLISH_MSI) $(JAPANESE_MSI)
 WIXOBJ_LIST=main.wixobj layout.wixobj
 
 $(ENGLISH_MSI): $(WIXOBJ_LIST)
-	$(LIGHT) -cultures:en-us -out $(ENGLISH_MSI) $**
+	$(LIGHT) -cultures:en-us -loc en.wxl -out $(ENGLISH_MSI) $**
 
 $(JAPANESE_MSI): $(WIXOBJ_LIST)
-	$(LIGHT) -cultures:ja-jp -out $(JAPANESE_MSI) $**
+	$(LIGHT) -cultures:ja-jp -loc ja.wxl -out $(JAPANESE_MSI) $**
 
 .SUFFIXES: .wxs
 
 .wxs.wixobj:
-	$(CANDLE)  -dlanguage=1033 -dcodepage=1252 -out $@ $<
+	$(CANDLE) -out $@ $<
 
 clean:
 	$(DEL) *.wixobj
