@@ -4,8 +4,15 @@
 # $Id$
 
 DEL=del /q
+COPY=copy /y
 CANDLE=candle
 LIGHT=light -ext WixUIExtension
+TORCH=torch -p -t language
+EMBEDTRANSFORM=EmbedTransform
+
+ENGLISH_MSI=bobura.en.msi
+JAPANESE_MSI=bobura.ja.msi
+JAPANESE_MST=ja.mst
 
 MSI_OUTPUT_DIR=..\bin
 TARGET=$(MSI_OUTPUT_DIR)\bobura.msi
@@ -13,15 +20,29 @@ TARGET=$(MSI_OUTPUT_DIR)\bobura.msi
 
 all: $(TARGET)
 
-clean:
-	$(DEL) *.wixobj
-	$(DEL) $(MSI_OUTPUT_DIR)\*.wixpdb
-	$(DEL) $(TARGET)
+$(TARGET): $(ENGLISH_MSI) $(JAPANESE_MST)
+	$(COPY) $(ENGLISH_MSI) $(TARGET)
+	$(EMBEDTRANSFORM) $(TARGET) $(JAPANESE_MST)
 
-$(TARGET): main.wixobj layout.wixobj
-	$(LIGHT) -out $@ $**
+$(JAPANESE_MST): $(ENGLISH_MSI) $(JAPANESE_MSI)
+	$(TORCH) -out $(JAPANESE_MST) $(ENGLISH_MSI) $(JAPANESE_MSI)
+
+WIXOBJ_LIST=main.wixobj layout.wixobj
+
+$(ENGLISH_MSI): $(WIXOBJ_LIST)
+	$(LIGHT) -cultures:en-us -out $(ENGLISH_MSI) $**
+
+$(JAPANESE_MSI): $(WIXOBJ_LIST)
+	$(LIGHT) -cultures:ja-jp -out $(JAPANESE_MSI) $**
 
 .SUFFIXES: .wxs
 
 .wxs.wixobj:
-	$(CANDLE) -out $@ $<
+	$(CANDLE)  -dlanguage=1033 -dcodepage=1252 -out $@ $<
+
+clean:
+	$(DEL) *.wixobj
+	$(DEL) *.wixpdb
+	$(DEL) *.msi
+	$(DEL) *.mst
+	$(DEL) $(TARGET)

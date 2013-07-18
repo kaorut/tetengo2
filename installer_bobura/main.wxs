@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Product Id="*" Name="Bobura" Version="0.0.0" Language="1033" Codepage="UTF-8" Manufacturer="kaoru" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
-        <Package Compressed="yes" InstallerVersion="200" />
+    <Product Id="*" Name="Bobura" Version="0.0.0" Language="$(var.language)" Codepage="$(var.codepage)" Manufacturer="kaoru" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+        <Package Compressed="yes" InstallerVersion="200" Languages="$(var.language)" SummaryCodepage="$(var.codepage)" Description="Bobura Installer" Comments="Some Software about Railways" />
         <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
         <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe" />
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
         <UIRef Id="WixUI_InstallDir" />
+
+        <Property Id="ARPCOMMENTS">Some Software about Railways</Property>
+        <Property Id="ARPCONTACT">http://www.tetengo.org/</Property>
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
