@@ -26,12 +26,13 @@
         </ProgId>
       </Component>
     </DirectoryRef>
+    
     <DirectoryRef Id="ProgramMenuDir">
       <Component Id="ProgramMenuDir" Guid="8ae33065-80d3-48ee-a2a5-4a4d67cc55f1">
         <RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
         <RegistryValue
           Root="HKCU"
-          Key="Software\[Manufacturer]\[ProductName]"
+          Key="Software\tetengo\Bobura"
           Type="string"
           Value=""
           KeyPath="yes"
