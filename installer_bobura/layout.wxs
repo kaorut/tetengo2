@@ -38,5 +38,9 @@
         />
       </Component>
     </DirectoryRef>
+    
+    <ComponentGroup Id="x86">
+      <ComponentRef Id="MainExecutableX86"/>
+    </ComponentGroup>
   </Fragment>
 </Wix>

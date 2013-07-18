@@ -40,7 +40,7 @@
         ConfigurableDirectory="INSTALLDIR"
         Level="1"
       >
-        <ComponentRef Id="MainExecutableX86"/>
+        <ComponentGroupRef Id="x86"/>
       </Feature>
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
