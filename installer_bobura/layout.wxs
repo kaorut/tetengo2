@@ -2,10 +2,10 @@
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment Id="Layout">
     <DirectoryRef Id="INSTALLDIR" FileSource="../bin/Release.Win32/">
-      <Component Id="MainExecutable" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
-        <File Id="BoburaExe" Name="bobura.exe" DiskId="1" KeyPath="yes">
+      <Component Id="MainExecutableX86" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
+        <File Id="BoburaExeX86" Name="bobura.exe" DiskId="1" KeyPath="yes">
           <Shortcut
-            Id="StartMenuShortcutToBoburaExe"
+            Id="StartMenuShortcutToBoburaExeX86"
             Directory="ProgramMenuDir"
             Name="Bobura"
             WorkingDirectory="INSTALLDIR"
@@ -17,11 +17,11 @@
         <ProgId
           Id="Bobura.bttfile"
           Description="Bubura Timetable File"
-          Icon="BoburaExe"
+          Icon="BoburaExeX86"
           IconIndex="0"
         >
           <Extension Id="btt" ContentType="application/btt">
-            <Verb Id="open" Command="&amp;Open" TargetFile="BoburaExe" Argument='"%1"'/>
+            <Verb Id="open" Command="&amp;Open" TargetFile="BoburaExeX86" Argument='"%1"'/>
           </Extension>
         </ProgId>
       </Component>

@@ -33,7 +33,15 @@
       ConfigurableDirectory="INSTALLDIR"
       Level="1"
     >
-      <ComponentRef Id="MainExecutable"/>
+      <Feature
+        Id="x86"
+        Title="32-bit"
+        Description="For 32 bit systems"
+        ConfigurableDirectory="INSTALLDIR"
+        Level="1"
+      >
+        <ComponentRef Id="MainExecutableX86"/>
+      </Feature>
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
     
