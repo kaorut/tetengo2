@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?define title="Bobura"?>
+<?define brand_title="Tetengo"?>
+<?define version="0.0.0"?>
+<?define author="kaoru"?>
+<?define url="http://www.tetengo.org/"?>
+<?define installer_description="Bobura Installer"?>
+<?define description="Some Software about Railways"?>
+
+<?define icon_path="..\bin\Release.Win32\bobura.exe"?>
+
+<?define product_name="bobura"?>
+<?define brand_name="tetengo"?>
+
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Product Id="*" Name="Bobura" Version="0.0.0" Language="$(var.language)" Codepage="$(var.codepage)" Manufacturer="kaoru" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
-        <Package Compressed="yes" InstallerVersion="200" Languages="$(var.language)" SummaryCodepage="$(var.codepage)" Description="Bobura Installer" Comments="Some Software about Railways" />
+    <Product Id="*" Name="$(var.title)" Version="$(var.version)" Language="$(var.language)" Codepage="$(var.codepage)" Manufacturer="$(var.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+        <Package Compressed="yes" InstallerVersion="200" Languages="$(var.language)" SummaryCodepage="$(var.codepage)" Description="$(var.installer_description)" Comments="$(var.description)" />
         <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
-        <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe" />
+        <Icon Id="bobura.exe" SourceFile="$(var.icon_path)" />
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
         <UIRef Id="WixUI_InstallDir" />
-        <Property Id="ARPCOMMENTS" Value="Some Software about Railways" />
+        <Property Id="ARPCOMMENTS" Value="$(var.description)" />
         <Property Id="ARPPRODUCTICON" Value="bobura.exe" />
-        <Property Id="ARPURLINFOABOUT" Value="http://www.tetengo.org/" />
+        <Property Id="ARPURLINFOABOUT" Value="$(var.url)" />
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
-                <Directory Id="Tetengo" Name="tetengo">
-                    <Directory Id="INSTALLDIR" Name="bobura" />
+                <Directory Id="Tetengo" Name="$(var.brand_name)">
+                    <Directory Id="INSTALLDIR" Name="$(var.product_name)" />
                 </Directory>
             </Directory>
             <Directory Id="ProgramMenuFolder" Name="Programs">
-                <Directory Id="ProgramMenuDir" Name="Bobura" />
+                <Directory Id="ProgramMenuDir" Name="$(var.brand_title)" />
             </Directory>
         </Directory>
 
