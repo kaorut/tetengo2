@@ -7,14 +7,15 @@ DEL=del /q
 CANDLE=candle
 LIGHT=light -ext WixUIExtension
 
-TARGET=bobura.msi
+MSI_OUTPUT_DIR=..\bin
+TARGET=$(MSI_OUTPUT_DIR)\bobura.msi
 
 
 all: $(TARGET)
 
 clean:
 	$(DEL) *.wixobj
-	$(DEL) *.wixpdb
+	$(DEL) $(MSI_OUTPUT_DIR)\*.wixpdb
 	$(DEL) $(TARGET)
 
 $(TARGET): bobura.wixobj
