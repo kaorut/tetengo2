@@ -1,49 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Product
-    Id="*"
-    Name="Bobura"
-    Version="0.0.0"
-    Language="1033"
-    Codepage="UTF-8"
-    Manufacturer="kaoru"
-    UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e"
-  >
-    <Package Compressed="yes" InstallerVersion="200"/>
-    <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes"/>
-    <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe"/>
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-    <UIRef Id="WixUI_InstallDir"/>
-    
-    <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder" Name="PFiles">
-        <Directory Id="Tetengo" Name="tetengo">
-          <Directory Id="INSTALLDIR" Name="bobura"/>
+    <Product Id="*" Name="Bobura" Version="0.0.0" Language="1033" Codepage="UTF-8" Manufacturer="kaoru" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+        <Package Compressed="yes" InstallerVersion="200" />
+        <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
+        <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe" />
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+        <UIRef Id="WixUI_InstallDir" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="Tetengo" Name="tetengo">
+                    <Directory Id="INSTALLDIR" Name="bobura" />
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="Programs">
+                <Directory Id="ProgramMenuDir" Name="Bobura" />
+            </Directory>
         </Directory>
-      </Directory>
-      <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Bobura"/>
-      </Directory>
-    </Directory>
-    
-    <Feature
-      Id="Complete"
-      Title="Bobura"
-      Description="Complete Package"
-      ConfigurableDirectory="INSTALLDIR"
-      Level="1"
-    >
-      <Feature
-        Id="x86"
-        Title="32-bit"
-        Description="For 32 bit systems"
-        ConfigurableDirectory="INSTALLDIR"
-        Level="1"
-      >
-        <ComponentGroupRef Id="x86"/>
-      </Feature>
-      <ComponentGroupRef Id="NonArch"/>
-    </Feature>
-    
-  </Product>
+
+        <Feature Id="Complete" Title="Bobura" Description="Complete Package" ConfigurableDirectory="INSTALLDIR" Level="1">
+            <Feature Id="x86" Title="32-bit" Description="For 32 bit systems" ConfigurableDirectory="INSTALLDIR" Level="1">
+                <ComponentGroupRef Id="x86" />
+            </Feature>
+            <ComponentGroupRef Id="NonArch" />
+        </Feature>
+
+    </Product>
 </Wix>
