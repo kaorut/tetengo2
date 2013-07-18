@@ -18,46 +18,11 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="PFiles">
         <Directory Id="Tetengo" Name="tetengo">
-          <Directory Id="INSTALLDIR" Name="bobura" FileSource="../bin/Release.Win32/">
-            <Component Id="MainExecutable" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
-              <File Id="BoburaExe" Name="bobura.exe" DiskId="1" KeyPath="yes">
-                <Shortcut
-                  Id="StartMenuShortcutToBoburaExe"
-                  Directory="ProgramMenuDir"
-                  Name="Bobura"
-                  WorkingDirectory="INSTALLDIR"
-                  Icon="bobura.exe"
-                  IconIndex="0"
-                  Advertise="yes"
-                />
-              </File>
-              <ProgId
-                Id="Bobura.bttfile"
-                Description="Bubura Timetable File"
-                Icon="BoburaExe"
-                IconIndex="0"
-              >
-                <Extension Id="btt" ContentType="application/btt">
-                  <Verb Id="open" Command="&amp;Open" TargetFile="BoburaExe" Argument='"%1"'/>
-                </Extension>
-              </ProgId>
-            </Component>
-          </Directory>
+          <Directory Id="INSTALLDIR" Name="bobura"/>
         </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Bobura">
-          <Component Id="ProgramMenuDir" Guid="8ae33065-80d3-48ee-a2a5-4a4d67cc55f1">
-            <RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
-            <RegistryValue
-              Root="HKCU"
-              Key="Software\[Manufacturer]\[ProductName]"
-              Type="string"
-              Value=""
-              KeyPath="yes"
-            />
-          </Component>
-        </Directory>
+        <Directory Id="ProgramMenuDir" Name="Bobura"/>
       </Directory>
     </Directory>
     
