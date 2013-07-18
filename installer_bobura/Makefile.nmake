@@ -18,7 +18,7 @@ clean:
 	$(DEL) $(MSI_OUTPUT_DIR)\*.wixpdb
 	$(DEL) $(TARGET)
 
-$(TARGET): bobura.wixobj
+$(TARGET): main.wixobj
 	$(LIGHT) -out $@ $**
 
 .SUFFIXES: .wxs
