@@ -6,9 +6,9 @@
         <Icon Id="bobura.exe" SourceFile="../bin/Release.Win32/bobura.exe" />
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
         <UIRef Id="WixUI_InstallDir" />
-
-        <Property Id="ARPCOMMENTS">Some Software about Railways</Property>
-        <Property Id="ARPCONTACT">http://www.tetengo.org/</Property>
+        <Property Id="ARPCOMMENTS" Value="Some Software about Railways" />
+        <Property Id="ARPPRODUCTICON" Value="bobura.exe" />
+        <Property Id="ARPURLINFOABOUT" Value="http://www.tetengo.org/" />
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
