@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment Id="Layout">
+    
+  </Fragment>
+</Wix>
