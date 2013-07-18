@@ -42,7 +42,7 @@
       >
         <ComponentGroupRef Id="x86"/>
       </Feature>
-      <ComponentRef Id="ProgramMenuDir"/>
+      <ComponentGroupRef Id="NonArch"/>
     </Feature>
     
   </Product>
