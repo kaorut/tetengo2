@@ -18,6 +18,8 @@
         <Property Id="ARPPRODUCTICON" Value="bobura.exe" />
         <Property Id="ARPURLINFOABOUT" Value="!(loc.url)" />
 
+        <WixVariable Id="WixUILicenseRtf" Value="gplv3.rtf" />
+
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
                 <Directory Id="Tetengo" Name="$(var.brand_name)">
