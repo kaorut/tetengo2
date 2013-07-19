@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Include xmlns="http://wixtoolset.org/schemas/v4/wxi">
+    <?define platform="$(env.PLATFORM)"?>
+    <?define arch="$(env.ARCH)"?>
+    
+    <?define vc_version="110"?>
+    <?define boost_version="1_54"?>
+
     <?define product_name="bobura"?>
     <?define brand_name="tetengo"?>
     <?define version="0.0.0"?>
 
     <?define installer_description="Bobura Installer"?>
-    <?define icon_path="..\bin\Release.Win32\bobura.exe"?>
-
-    <?define bin_win32="..\bin\Release.Win32"?>
-    <?define vc_version="110"?>
-    <?define boost_version="1_54"?>
-
+    <?define bin="..\bin\Release.$(var.platform)"?>
+    <?if $(var.platform) = "Win32"?>
+        <?define program_files_folder="ProgramFilesFolder"?>
+    <?elseif $(var.platform) = "x64"?>
+        <?define program_files_folder="ProgramFiles64Folder"?>
+    <?endif?>
+    <?define icon_path="..\bin\Release.$(var.platform)\bobura.exe"?>
 </Include>

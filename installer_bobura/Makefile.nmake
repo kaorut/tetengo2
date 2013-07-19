@@ -10,12 +10,12 @@ LIGHT=light -ext WixUIExtension
 TORCH=torch -p -t language
 EMBEDTRANSFORM=EmbedTransform
 
-ENGLISH_MSI=bobura.en.msi
-JAPANESE_MSI=bobura.ja.msi
-JAPANESE_MST=ja.mst
+ENGLISH_MSI=bobura.en.$(PLATFORM).msi
+JAPANESE_MSI=bobura.ja.$(PLATFORM).msi
+JAPANESE_MST=ja.$(PLATFORM).mst
 
 MSI_OUTPUT_DIR=..\bin
-TARGET=$(MSI_OUTPUT_DIR)\bobura.msi
+TARGET=$(MSI_OUTPUT_DIR)\bobura.$(PLATFORM).msi
 
 
 all: $(TARGET)
@@ -38,7 +38,7 @@ $(JAPANESE_MSI): $(WIXOBJ_LIST)
 .SUFFIXES: .wxs
 
 .wxs.wixobj:
-	$(CANDLE) -out $@ $<
+	$(CANDLE) -out $@ -arch $(ARCH) $<
 
 clean:
 	$(DEL) *.wixobj

@@ -14,7 +14,7 @@
         <WixVariable Id="WixUILicenseRtf" Value="gplv3.rtf" />
 
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramFilesFolder" Name="PFiles">
+            <Directory Id="$(var.program_files_folder)" Name="PFiles">
                 <Directory Id="Tetengo" Name="$(var.brand_name)">
                     <Directory Id="INSTALLDIR" Name="$(var.product_name)" />
                 </Directory>
@@ -25,10 +25,8 @@
         </Directory>
 
         <Feature Id="Complete" Title="Bobura" Description="Complete Package" ConfigurableDirectory="INSTALLDIR" Level="1">
-            <Feature Id="Win32" Title="32-bit" Description="For 32 bit systems" ConfigurableDirectory="INSTALLDIR" Level="1">
-                <ComponentGroupRef Id="Win32" />
-            </Feature>
-            <ComponentGroupRef Id="NonArch" />
+            <ComponentGroupRef Id="Executable" />
+            <ComponentGroupRef Id="Data" />
         </Feature>
 
     </Product>
