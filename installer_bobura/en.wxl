@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WixLocalization Culture="en-us" xmlns="http://wixtoolset.org/schemas/v4/wxl">
-    <String Id="title">Bobura</String>
-    <String Id="brand_title">tetengo.</String>
-    <String Id="author">kaoru</String>
-    <String Id="url">http://www.tetengo.org/</String>
-    <String Id="description">Some Software about Railways</String>
+  <String Id="title">Bobura</String>
+  <String Id="brand_title">tetengo.</String>
+  <String Id="author">kaoru</String>
+  <String Id="url">http://www.tetengo.org/</String>
+  <String Id="description">Some Software about Railways</String>
 
-    <String Id="btt_file_description">Bobura Timetable File</String>
-    <String Id="btt_file_open">&amp;Open</String>
+  <String Id="btt_file_description">Bobura Timetable File</String>
+  <String Id="btt_file_open">&amp;Open</String>
 </WixLocalization>
