@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns="http://wixtoolset.org/schemas/v4/wxi">
+    <?define product_name="bobura"?>
+    <?define brand_name="tetengo"?>
+    <?define version="0.0.0"?>
+
+    <?define installer_description="Bobura Installer"?>
+    <?define icon_path="..\bin\Release.Win32\bobura.exe"?>
+
+    <?define bin_win32="..\bin\Release.Win32"?>
+    <?define vc_version="110"?>
+    <?define boost_version="1_54"?>
+
+</Include>

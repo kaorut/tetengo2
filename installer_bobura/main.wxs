@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?define product_name="bobura"?>
-<?define brand_name="tetengo"?>
-<?define version="0.0.0"?>
-
-<?define installer_description="Bobura Installer"?>
-<?define icon_path="..\bin\Release.Win32\bobura.exe"?>
-
+<?include define.wxi ?>
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Product Id="*" Name="!(loc.title)" Version="$(var.version)" Language="1033" Codepage="1252" Manufacturer="!(loc.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
         <Package Compressed="yes" InstallerVersion="200" SummaryCodepage="1252" Description="$(var.installer_description)" />
