@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup>
+    <NMakeBuildCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean</NMakeCleanCommandLine>
+    <NMakeOutput>$(OutDir)bobura.$(Platform).msi</NMakeOutput>
+  </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemGroup />
 </Project>
