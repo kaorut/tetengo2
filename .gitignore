@@ -1,5 +1,6 @@
 *.a
 *.gch
+*.log
 *.msi
 *.mst
 *.o

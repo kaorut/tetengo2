@@ -4,18 +4,22 @@
 # $Id$
 
 DEL=del /q
+RD=rd /s /q
 COPY=copy /y
+MD=md
 CANDLE=candle
 LIGHT=light -ext WixUIExtension
 TORCH=torch -p -t language
 EMBEDTRANSFORM=EmbedTransform
 
-ENGLISH_MSI=bobura.en.$(PLATFORM).msi
-JAPANESE_MSI=bobura.ja.$(PLATFORM).msi
-JAPANESE_MST=ja.$(PLATFORM).mst
+INTDIR=obj\$(CONFIGURATION).$(PLATFORM)
+OUTDIR=..\bin\installer.$(CONFIGURATION)
 
-MSI_OUTPUT_DIR=..\bin
-TARGET=$(MSI_OUTPUT_DIR)\bobura.$(PLATFORM).msi
+ENGLISH_MSI=$(INTDIR)\bobura.en.msi
+JAPANESE_MSI=$(INTDIR)\bobura.ja.msi
+JAPANESE_MST=$(INTDIR)\ja.mst
+
+TARGET=$(OUTDIR)\bobura.$(PLATFORM).msi
 
 
 all: $(TARGET)
@@ -24,10 +28,13 @@ $(TARGET): $(ENGLISH_MSI) $(JAPANESE_MST)
 	$(COPY) $(ENGLISH_MSI) $(TARGET)
 	$(EMBEDTRANSFORM) $(TARGET) $(JAPANESE_MST)
 
+$(OUTDIR):
+	$(MD) $(OUTDIR)
+
 $(JAPANESE_MST): $(ENGLISH_MSI) $(JAPANESE_MSI)
 	$(TORCH) -out $(JAPANESE_MST) $(ENGLISH_MSI) $(JAPANESE_MSI)
 
-WIXOBJ_LIST=main.wixobj layout.wixobj
+WIXOBJ_LIST=$(INTDIR)\main.wixobj $(INTDIR)\layout.wixobj
 
 $(ENGLISH_MSI): $(WIXOBJ_LIST)
 	$(LIGHT) -cultures:en-us -loc en.wxl -out $(ENGLISH_MSI) $**
@@ -35,14 +42,15 @@ $(ENGLISH_MSI): $(WIXOBJ_LIST)
 $(JAPANESE_MSI): $(WIXOBJ_LIST)
 	$(LIGHT) -cultures:ja-jp -loc ja.wxl -out $(JAPANESE_MSI) $**
 
-.SUFFIXES: .wxs
+$(INTDIR)\main.wixobj: main.wxs
+	$(CANDLE) -out $@ -arch $(ARCH) $**
 
-.wxs.wixobj:
-	$(CANDLE) -out $@ -arch $(ARCH) $<
+$(INTDIR)\layout.wixobj: layout.wxs
+	$(CANDLE) -out $@ -arch $(ARCH) $**
+
+#$(INTDIR):
+#	$(MD) $(INTDIR)
 
 clean:
-	$(DEL) *.wixobj
-	$(DEL) *.wixpdb
-	$(DEL) *.msi
-	$(DEL) *.mst
+	$(RD) obj
 	$(DEL) $(TARGET)

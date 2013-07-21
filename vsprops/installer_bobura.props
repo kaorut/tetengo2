@@ -3,9 +3,9 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <NMakeBuildCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean all</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /f Makefile.nmake clean</NMakeCleanCommandLine>
     <NMakeOutput>$(OutDir)bobura.$(Platform).msi</NMakeOutput>
   </PropertyGroup>
   <ItemDefinitionGroup />
