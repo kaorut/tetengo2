@@ -16,8 +16,8 @@
   <?endif ?>
   <?define arch="$(env.ARCH)"?>
 
-  <?define vc_version="110"?>
-  <?define boost_version="1_54"?>
+  <?define vc_version="$(env.VC_VERSION)"?>
+  <?define boost_version="$(env.BOOST_VERSION)"?>
 
   <?define product_name="bobura"?>
   <?define brand_name="tetengo"?>

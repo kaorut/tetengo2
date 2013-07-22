@@ -3,9 +3,13 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <NMakeBuildCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /nologo /f Makefile.nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /nologo /f Makefile.nmake clean all</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) /nologo /f Makefile.nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake
+</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake clean all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake clean</NMakeCleanCommandLine>
     <NMakeOutput>$(OutDir)bobura.$(Platform).msi</NMakeOutput>
   </PropertyGroup>
   <ItemDefinitionGroup />
