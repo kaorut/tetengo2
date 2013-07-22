@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Include xmlns="http://wixtoolset.org/schemas/v4/wxi">
+  <?define configuration="$(env.CONFIGURATION)"?>
+  <?if $(var.configuration) = "Debug"?>
+  <?define boost_debug="-gd"?>
+  <?else?>
+  <?define boost_debug=""?>
+  <?endif ?>
   <?define platform="$(env.PLATFORM)"?>
-  <?define arch="$(env.ARCH)"?>
   <?if $(var.platform) = "Win32"?>
   <?define program_files_folder="ProgramFilesFolder"?>
   <?define common_files_path="$(env.CommonProgramFiles)"?>
@@ -9,6 +14,7 @@
   <?define program_files_folder="ProgramFiles64Folder"?>
   <?define common_files_path="$(env.CommonProgramFiles(x86))"?>
   <?endif ?>
+  <?define arch="$(env.ARCH)"?>
 
   <?define vc_version="110"?>
   <?define boost_version="1_54"?>
@@ -18,6 +24,6 @@
   <?define version="0.0.0"?>
 
   <?define installer_description="Bobura Installer"?>
-  <?define bin="..\bin\Release.$(var.platform)"?>
-  <?define icon_path="..\bin\Release.$(var.platform)\bobura.exe"?>
+  <?define bin="..\bin\$(var.configuration).$(var.platform)"?>
+  <?define icon_path="..\bin\$(var.configuration).$(var.platform)\bobura.exe"?>
 </Include>
