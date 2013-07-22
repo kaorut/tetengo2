@@ -3,8 +3,8 @@
 # Copyright (C) 2007-2013 kaoru
 # $Id$
 
-DEL=del /q
-RD=rd /s /q
+DEL=-del /q
+RD=-rd /s /q
 COPY=copy /y
 MD=md
 CANDLE=candle -nologo

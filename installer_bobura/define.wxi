@@ -23,7 +23,6 @@
   <?define brand_name="tetengo"?>
   <?define version="0.0.0"?>
 
-  <?define installer_description="Bobura Installer"?>
   <?define bin="..\bin\$(var.configuration).$(var.platform)"?>
-  <?define icon_path="..\bin\$(var.configuration).$(var.platform)\bobura.exe"?>
+  <?define icon_path="$(var.bin)\bobura.exe"?>
 </Include>
