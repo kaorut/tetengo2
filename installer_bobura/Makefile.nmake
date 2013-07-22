@@ -7,9 +7,9 @@ DEL=del /q
 RD=rd /s /q
 COPY=copy /y
 MD=md
-CANDLE=candle
-LIGHT=light -ext WixUIExtension
-TORCH=torch -p -t language
+CANDLE=candle -nologo
+LIGHT=light -nologo -ext WixUIExtension -sw1076
+TORCH=torch -nologo -p -t language
 EMBEDTRANSFORM=EmbedTransform
 
 INTDIR=obj\$(CONFIGURATION).$(PLATFORM)
