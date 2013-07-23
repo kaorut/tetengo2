@@ -7,8 +7,8 @@ DEL=-del /q
 RD=-rd /s /q
 COPY=copy /y
 MD=md
-CANDLE=candle -nologo
-LIGHT=light -nologo -ext WixUIExtension -sw1076
+CANDLE=candle -nologo -ext WiXUtilExtension 
+LIGHT=light -nologo -ext WixUIExtension -ext WiXUtilExtension -sw1076
 TORCH=torch -nologo -p -t language
 EMBEDTRANSFORM=EmbedTransform
 

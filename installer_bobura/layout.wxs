@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?include define.wxi ?>
-<Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
   <Fragment Id="Layout">
     <DirectoryRef Id="INSTALLDIR" FileSource="$(var.bin)">
       <Component Id="BoburaExe" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
@@ -54,6 +54,7 @@
 
     <DirectoryRef Id="ProgramMenuDir">
       <Component Id="StartMenuFolder" Guid="8ae33065-80d3-48ee-a2a5-4a4d67cc55f1">
+        <util:InternetShortcut Id="TetengoOrg" Name="www.tetengo.org" Target="http://www.tetengo.org/" Type="url" />
         <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.brand_name)\$(var.product_name)" Type="string" Value="" KeyPath="yes" />
       </Component>
