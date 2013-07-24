@@ -372,7 +372,6 @@ namespace bobura { namespace view { namespace diagram
                 ) -
                 time_to_left(time_type(0), time_offset, 0, left_type(0), station_header_right, horizontal_scale_left);
 
-            typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
             std::vector<time_line_type> time_lines;
             time_lines.reserve(24 * 60);
             for (time_tick_type i = 0; i <= 24 * 60; ++i)

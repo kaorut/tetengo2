@@ -184,6 +184,8 @@ BOOST_AUTO_TEST_SUITE(font_button_mouse_clicked)
         );
     }
 
+// This test case causes a segmentation fault on Cygwin.
+#if !(__CYGWIN__ == 1 && __GNUC__ == 4 && __GNUC_MINOR__ == 8)
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -210,6 +212,7 @@ BOOST_AUTO_TEST_SUITE(font_button_mouse_clicked)
 
         observer();
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
