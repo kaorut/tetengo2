@@ -1,9 +1,14 @@
 *.a
 *.gch
+*.log
+*.msi
+*.mst
 *.o
 *.opensdf
 *.sdf
 *.suo
+*.wixobj
+*.wixpdb
 *.vcxproj.user
 .deps
 aclocal.m4

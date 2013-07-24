@@ -19,6 +19,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2_gui.test", "teteng
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2_detail", "tetengo2_detail\tetengo2_detail.vcxproj", "{981F9626-081F-46B5-B64B-515CD5258F4A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "installer_bobura", "installer_bobura\installer_bobura.vcxproj", "{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4CCFA3F-DD28-409B-AD43-C5152F969946} = {A4CCFA3F-DD28-409B-AD43-C5152F969946}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -99,6 +104,14 @@ Global
 		{981F9626-081F-46B5-B64B-515CD5258F4A}.Release|Win32.Build.0 = Release|Win32
 		{981F9626-081F-46B5-B64B-515CD5258F4A}.Release|x64.ActiveCfg = Release|x64
 		{981F9626-081F-46B5-B64B-515CD5258F4A}.Release|x64.Build.0 = Release|x64
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Debug|Win32.Build.0 = Debug|Win32
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Debug|x64.ActiveCfg = Debug|x64
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Debug|x64.Build.0 = Debug|x64
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|Win32.ActiveCfg = Release|Win32
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|Win32.Build.0 = Release|Win32
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|x64.ActiveCfg = Release|x64
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

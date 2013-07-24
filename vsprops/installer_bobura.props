@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <NMakeBuildCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake
+</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake clean all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "BOOST_VERSION"
+nmake CONFIGURATION=$(Configuration) PLATFORM=$(Platform) ARCH=$(PlatformTarget) VC_VERSION=$(PlatformToolsetVersion) BOOST_VERSION="%BOBURA_CONFIG%" /nologo /f Makefile.nmake clean</NMakeCleanCommandLine>
+    <NMakeOutput>$(OutDir)bobura.$(Platform).msi</NMakeOutput>
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup />
+</Project>

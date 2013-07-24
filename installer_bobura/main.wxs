@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?include define.wxi ?>
+<Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Product Id="*" Name="!(loc.title)" Version="$(var.version)" Language="1033" Codepage="1252" Manufacturer="!(loc.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+    <Package Compressed="yes" InstallerVersion="405" SummaryCodepage="1252" Description="Bobura Installer" />
+    <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
+    <Icon Id="bobura.exe" SourceFile="$(var.icon_path)" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="ARPCOMMENTS" Value="!(loc.description)" />
+    <Property Id="ARPPRODUCTICON" Value="bobura.exe" />
+    <Property Id="ARPURLINFOABOUT" Value="!(loc.url)" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="gplv3.rtf" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Merge Id="VcRedist" SourceFile="$(var.common_files_path)\Merge Modules\Microsoft_VC$(var.vc_version)_CRT_$(var.arch).msm" DiskId="1" Language="0" />
+      <Directory Id="$(var.program_files_folder)" Name="PFiles">
+        <Directory Id="Tetengo" Name="$(var.brand_name)">
+          <Directory Id="INSTALLDIR" Name="$(var.product_name)" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="!(loc.brand_title)" />
+      </Directory>
+    </Directory>
+
+    <Feature Id="Complete" Title="Bobura" Description="Complete Package" ConfigurableDirectory="INSTALLDIR" Level="1">
+      <MergeRef Id="VcRedist" />
+      <ComponentGroupRef Id="Executable" />
+      <ComponentGroupRef Id="Data" />
+    </Feature>
+
+  </Product>
+</Wix>

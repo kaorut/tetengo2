@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="resources">
+      <UniqueIdentifier>{1609132b-200e-4288-b86d-36115c18bf0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="define.wxi">
+      <Filter>sources</Filter>
+    </None>
+    <None Include="en.wxl">
+      <Filter>sources</Filter>
+    </None>
+    <None Include="ja.wxl">
+      <Filter>sources</Filter>
+    </None>
+    <None Include="layout.wxs">
+      <Filter>sources</Filter>
+    </None>
+    <None Include="main.wxs">
+      <Filter>sources</Filter>
+    </None>
+    <None Include="gplv3.rtf">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="Makefile.nmake" />
+  </ItemGroup>
+</Project>
