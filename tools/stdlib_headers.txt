@@ -526,7 +526,6 @@ boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::basic_command_line_parser boost/program_options.hpp
-boost::program_options::basic_parsed_options     boost/program_options.hpp
 boost::program_options::error                    boost/program_options.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp

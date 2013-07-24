@@ -26,7 +26,6 @@ namespace bobura { namespace message { namespace timetable_model
         template <typename TimetableModel, typename MainWindow>
         void set_main_window_title(const TimetableModel& timetable_model, MainWindow& main_window)
         {
-            typedef typename TimetableModel::path_type path_type;
             typedef typename MainWindow::string_type string_type;
 
             const auto title =

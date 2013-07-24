@@ -714,7 +714,6 @@ namespace bobura { namespace model { namespace serializer
                 return output_string_type(TETENGO2_TEXT("    -1"));
 
             typedef typename time_type::tick_type tick_type;
-            typedef typename time_type::hours_minutes_seconds_type hours_minutes_seconds_type;
             const auto hours_minutes_seconds = time.hours_minutes_seconds();
             const tick_type representation =
                 hours_minutes_seconds.hours() * 10000 +

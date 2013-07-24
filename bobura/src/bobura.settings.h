@@ -253,8 +253,6 @@ namespace bobura
             try
             {
                 typedef
-                    boost::program_options::basic_parsed_options<typename string_type::value_type> parsed_options_type;
-                typedef
                     boost::program_options::basic_command_line_parser<typename string_type::value_type>
                     command_line_parser_type;
                 const auto parsed_options =
