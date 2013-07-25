@@ -24,6 +24,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "installer_bobura", "install
 		{A4CCFA3F-DD28-409B-AD43-C5152F969946} = {A4CCFA3F-DD28-409B-AD43-C5152F969946}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "setup", "setup\setup.vcxproj", "{D1684C33-BCFB-4513-9AC4-5DC69C709515}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3} = {78049EB3-FA60-4B66-AC0A-5859EC11C8B3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -112,6 +117,12 @@ Global
 		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|Win32.Build.0 = Release|Win32
 		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|x64.ActiveCfg = Release|x64
 		{78049EB3-FA60-4B66-AC0A-5859EC11C8B3}.Release|x64.Build.0 = Release|x64
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Debug|Win32.Build.0 = Debug|Win32
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Debug|x64.ActiveCfg = Debug|Win32
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Release|Win32.ActiveCfg = Release|Win32
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Release|Win32.Build.0 = Release|Win32
+		{D1684C33-BCFB-4513-9AC4-5DC69C709515}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
