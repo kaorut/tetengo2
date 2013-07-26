@@ -6,9 +6,12 @@
     $Id$
 */
 
+#include <cstdint>
 #include <exception>
 #include <locale>
 #include <string>
+
+#include <boost/filesystem.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -25,9 +28,33 @@
 
 namespace
 {
+    const std::wstring& application_name()
+    {
+        static const std::wstring singleton(L"Bobura");
+        return singleton;
+    }
+
+    const std::string& application_name_narrow()
+    {
+        static const std::string singleton("Bobura");
+        return singleton;
+    }
+
     const std::wstring& message_box_title()
     {
-        static const std::wstring singleton(L"Bobura Setup");
+        static const std::wstring singleton(application_name() + L" Setup");
+        return singleton;
+    }
+
+    const std::wstring& msi_prefix()
+    {
+        static const std::wstring singleton(L"bobura.");
+        return singleton;
+    }
+
+    const std::wstring& msi_suffix()
+    {
+        static const std::wstring singleton(L".msi");
         return singleton;
     }
 
@@ -51,29 +78,55 @@ namespace
             return std::wstring();
     }
 
-    std::wstring build_parameters(const std::wstring& language, const std::wstring& platform)
+    boost::filesystem::path msi_path(const boost::filesystem::path& base_path_, const std::wstring& platform)
+    {
+        return base_path_ / boost::filesystem::path(msi_prefix() + platform + msi_suffix());
+    }
+
+    std::wstring build_parameters(
+        const std::wstring&            language,
+        const std::wstring&            platform,
+        const boost::filesystem::path& base_path_
+    )
     {
         std::wstring parameters;
 
         parameters += L"/i ";
-        parameters += std::wstring(L"bobura.") + platform + L".msi ";
+        parameters += std::wstring(L"\"") + msi_path(base_path_, platform).c_str() + L"\" ";
         if (!language.empty())
-        {
             parameters += L"TRANSFORMS=\":" + language + L".mst\"";
-        }
 
         return parameters;
     }
 
-    void launch_msi(const std::wstring& language, const std::wstring& platform)
+    boost::filesystem::path base_path()
+    {
+        std::vector<wchar_t> path_buffer(MAX_PATH, 0);
+        const ::DWORD path_length = ::GetModuleFileNameW(NULL, path_buffer.data(), path_buffer.size());
+        if (path_length == 0)
+            throw std::runtime_error("Cannot get the path where the installer exists.");
+
+        boost::filesystem::path path(path_buffer.begin(), path_buffer.begin() + path_length);
+        
+        return path.parent_path();
+    }
+
+    void launch_msi(const std::wstring& language, const std::wstring& platform, const int window_state)
     {
         if (platform.empty())
-            throw std::runtime_error("Cannot install Bobura to this platform.");
+        {
+            throw
+                std::runtime_error(std::string("Cannot install ") + application_name_narrow() + " to this platform.");
+        }
 
-        const std::wstring msiexec_command = L"msiexec";
-        const std::wstring parameters = build_parameters(language, platform);
+        const boost::filesystem::path base_path_ = base_path();
 
-        ::ShellExecuteW(NULL, NULL, msiexec_command.c_str(), parameters.c_str(), NULL, SW_SHOWNORMAL);
+        const std::wstring parameters = build_parameters(language, platform, base_path_);
+
+        const ::HINSTANCE instance_handle =
+            ::ShellExecuteW(NULL, NULL, L"msiexec", parameters.c_str(), base_path_.c_str(), window_state);
+        if (reinterpret_cast<std::intptr_t>(instance_handle) <= 32)
+            throw std::runtime_error("Cannot launch the msi file.");
     }
 
     typedef tetengo2::detail::windows::encoding encoding_details_type;
@@ -140,7 +193,7 @@ TETENGO2_STDALT_NOEXCEPT
         const std::wstring language = detect_language();
         const std::wstring platform = detect_platform();
 
-        launch_msi(language, platform);
+        launch_msi(language, platform, nCmdShow);
 
         return 0;
     }
