@@ -73,6 +73,9 @@
   <ItemGroup>
     <ResourceCompile Include="res\win32\setup.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="res\win32\resource.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

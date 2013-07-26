@@ -30,4 +30,9 @@
       <Filter>resources\win32</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="res\win32\resource.h">
+      <Filter>resources\win32</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
