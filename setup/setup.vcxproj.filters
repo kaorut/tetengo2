@@ -35,4 +35,9 @@
       <Filter>resources\win32</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.Win32.manifest">
+      <Filter>resources\win32</Filter>
+    </Manifest>
+  </ItemGroup>
 </Project>

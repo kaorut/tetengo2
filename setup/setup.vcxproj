@@ -76,6 +76,9 @@
   <ItemGroup>
     <ClInclude Include="res\win32\resource.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.Win32.manifest" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
