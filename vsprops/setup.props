@@ -11,6 +11,9 @@
     <BuildLog>
       <Path>$(IntDir)\$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
