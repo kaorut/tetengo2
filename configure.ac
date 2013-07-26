@@ -18,6 +18,7 @@ AC_CONFIG_FILES([
     bobura_model/include/Makefile
     bobura_model/test/Makefile
     docsrc/Makefile
+    installer_bobura/Makefile
     precompiled/Makefile
     samples/Makefile
     setup/Makefile
