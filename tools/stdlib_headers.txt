@@ -80,8 +80,10 @@
 ::GetLocaleInfoA                                 Windows.h
 ::GetMenuItemInfoW                               Windows.h
 ::GetMessageW                                    Windows.h
+::GetModuleFileNameW                             Windows.h
 ::GetModuleHandle                                Windows.h
 ::GetMonitorInfoW                                Windows.h
+::GetNativeSystemInfo                            Windows.h
 ::GetObjectW                                     Windows.h
 ::GetParent                                      Windows.h
 ::GetProcAddress                                 Windows.h
@@ -182,6 +184,7 @@
 ::RemovePropW                                    Windows.h
 ::SCROLLINFO                                     Windows.h
 ::SHCreateItemFromParsingName                    Windows.h,ShObjIdl.h
+::SYSTEM_INFO                                    Windows.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
@@ -593,6 +596,7 @@ std::function                                    functional
 std::greater                                     functional
 std::has_facet                                   locale
 std::hex                                         ios
+std::intptr_t                                    cstdint
 std::invalid_argument                            stdexcept
 std::ios_base::binary                            ios
 std::ios_base::failure                           ios

@@ -74,6 +74,7 @@
     <ResourceCompile Include="res\win32\setup.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="res\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,14 +8,16 @@
 
 #include <cstdint>
 #include <exception>
-#include <locale>
-#include <string>
+//#include <locale>
+//#include <stdexcept>
+//#include <string>
+//#include <vector>
 
 #include <boost/filesystem.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 #include <CommCtrl.h>
 
 #include <tetengo2.detail.windows.encoding.h>
