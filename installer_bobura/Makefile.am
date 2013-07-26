@@ -4,7 +4,7 @@
 
 EXTRA_DIST = \
     define.wxi \
-    en.wxi ja.wxl \
+    en.wxl ja.wxl \
     gplv3.rtf \
     installer_bobura.vcxproj installer_bobura.vcxproj.filters \
     layout.wxs \
