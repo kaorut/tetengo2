@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?include define.wxi ?>
 <Wix RequiredVersion="4.0.0.0" xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Product Id="*" Name="!(loc.title)" Version="$(var.version)" Language="1033" Codepage="1252" Manufacturer="!(loc.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
+  <Product Id="*" Name="!(loc.title) for $(var.platform)" Version="$(var.version)" Language="1033" Codepage="1252" Manufacturer="!(loc.author)" UpgradeCode="558bc677-56e5-4cee-8919-0c75861f208e">
     <Package Compressed="yes" InstallerVersion="405" SummaryCodepage="1252" Description="Bobura Installer" />
     <Media Id="1" Cabinet="bobura.cab" CompressionLevel="high" EmbedCab="yes" />
     <Icon Id="bobura.exe" SourceFile="$(var.icon_path)" />
