@@ -51,6 +51,31 @@ namespace
             return std::wstring();
     }
 
+    std::wstring build_parameters(const std::wstring& language, const std::wstring& platform)
+    {
+        std::wstring parameters;
+
+        parameters += L"/i ";
+        parameters += std::wstring(L"bobura.") + platform + L".msi ";
+        if (!language.empty())
+        {
+            parameters += L"TRANSFORMS=\":" + language + L".mst\"";
+        }
+
+        return parameters;
+    }
+
+    void launch_msi(const std::wstring& language, const std::wstring& platform)
+    {
+        if (platform.empty())
+            throw std::runtime_error("Cannot install Bobura to this platform.");
+
+        const std::wstring msiexec_command = L"msiexec";
+        const std::wstring parameters = build_parameters(language, platform);
+
+        ::ShellExecuteW(NULL, NULL, msiexec_command.c_str(), parameters.c_str(), NULL, SW_SHOWNORMAL);
+    }
+
     typedef tetengo2::detail::windows::encoding encoding_details_type;
 
     typedef
@@ -115,7 +140,8 @@ TETENGO2_STDALT_NOEXCEPT
         const std::wstring language = detect_language();
         const std::wstring platform = detect_platform();
 
-        throw std::exception("hoge");
+        launch_msi(language, platform);
+
         return 0;
     }
     catch (const std::exception& e)
