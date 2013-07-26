@@ -20,6 +20,9 @@ AC_CONFIG_FILES([
     docsrc/Makefile
     precompiled/Makefile
     samples/Makefile
+    setup/Makefile
+    setup/res/Makefile
+    setup/src/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
     tetengo2/res.test/Makefile
