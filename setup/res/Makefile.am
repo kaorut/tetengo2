@@ -1,0 +1,6 @@
+# Automake Settings
+# Copyright (C) 2007-2013 kaoru
+# $Id$
+
+EXTRA_DIST = \
+    win32/setup.rc

@@ -5,8 +5,10 @@
 SUBDIRS = \
      bobura bobura_model \
      docsrc \
+     installer_bobura \
      precompiled \
      samples \
+     setup \
      tetengo2 tetengo2_detail tetengo2_gui
 
 EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test

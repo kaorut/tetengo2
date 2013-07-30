@@ -77,14 +77,14 @@ BEGIN
     BEGIN
         BLOCK "007f0000"
         BEGIN
-            VALUE "Comments", "Some software about railways"
+            VALUE "Comments", "Bobura Setup Bootstrapper"
             VALUE "CompanyName", "www.tetengo.org"
-            VALUE "FileDescription", "Some software about railways"
+            VALUE "FileDescription", "Bobura Setup Bootstrapper"
             VALUE "FileVersion", "0.0.0"
-            VALUE "InternalName", "bobura"
+            VALUE "InternalName", "setup"
             VALUE "LegalCopyright", "Copyright (C) 2007-2013 kaoru"
-            VALUE "OriginalFilename", "bobura.exe"
-            VALUE "ProductName", "bobura"
+            VALUE "OriginalFilename", "setup.exe"
+            VALUE "ProductName", "setup"
             VALUE "ProductVersion", "0.0.0"
         END
     END
@@ -94,15 +94,6 @@ BEGIN
     END
 END
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_KUMA                ICON                    "kuma.ico"
 #endif    // “ú–{Œê (“ú–{) resources
 /////////////////////////////////////////////////////////////////////////////
 

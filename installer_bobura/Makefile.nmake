@@ -12,6 +12,7 @@ LIGHT=light -nologo -ext WixUIExtension -ext WiXUtilExtension -sw1076
 TORCH=torch -nologo -p -t language
 EMBEDTRANSFORM=EmbedTransform
 
+SOLUTIONDIR="..\"
 INTDIR=obj\$(CONFIGURATION).$(PLATFORM)
 OUTDIR=..\bin\installer.$(CONFIGURATION)
 
@@ -27,6 +28,7 @@ all: $(TARGET)
 $(TARGET): $(ENGLISH_MSI) $(JAPANESE_MST)
 	$(COPY) $(ENGLISH_MSI) $(TARGET)
 	$(EMBEDTRANSFORM) $(TARGET) $(JAPANESE_MST)
+	"$(SOLUTIONDIR)tools\codesign.bat" "$(SOLUTIONDIR)" "$(TARGET)"
 
 $(OUTDIR):
 	$(MD) $(OUTDIR)
