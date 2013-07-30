@@ -24,6 +24,9 @@
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\encode.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\win32\setup.rc">
@@ -35,6 +38,9 @@
       <Filter>resources\win32</Filter>
     </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\encode.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
