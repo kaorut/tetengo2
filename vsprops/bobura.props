@@ -15,7 +15,7 @@
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
 xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
-</Command>
+call "$(SolutionDir)tools\codesign.bat" "$(SolutionDir)" "$(TargetPath)"</Command>
     </PostBuildEvent>
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
