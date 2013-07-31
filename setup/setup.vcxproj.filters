@@ -49,4 +49,9 @@
       <Filter>resources\win32</Filter>
     </Manifest>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\win32\application.ico">
+      <Filter>resources\win32</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

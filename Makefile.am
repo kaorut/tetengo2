@@ -5,6 +5,7 @@
 SUBDIRS = \
      bobura bobura_model \
      docsrc \
+     iconsrc \
      installer_bobura \
      precompiled \
      samples \

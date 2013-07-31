@@ -2,6 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by setup.rc
 //
+#define IDI_BOBURASETUP                 102
 
 // Next default values for new objects
 // 
