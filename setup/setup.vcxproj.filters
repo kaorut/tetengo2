@@ -24,7 +24,7 @@
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\encode.cpp">
+    <ClCompile Include="src\setup.encode.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,7 +40,10 @@
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="src\encode.h">
+    <ClInclude Include="src\setup.0namespace.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\setup.encode.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

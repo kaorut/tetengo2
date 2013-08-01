@@ -13,7 +13,7 @@
 #include <tetengo2.text.encoding.ascii.h>
 #include <tetengo2.text.encoding.locale.h>
 
-#include "encode.h"
+#include "setup.encode.h"
 
 
 namespace setup
