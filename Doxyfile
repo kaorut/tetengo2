@@ -657,6 +657,7 @@ WARN_LOGFILE           =
 INPUT                  = docsrc \
                          bobura/src \
                          bobura_model/include \
+                         setup/src \
                          tetengo2/include \
                          tetengo2_detail/include \
                          tetengo2_gui/include
