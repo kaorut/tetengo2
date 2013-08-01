@@ -18,6 +18,8 @@ namespace setup
         \brief Converts a string encoding.
 
         \param string A string.
+
+        \return An encoded string.
     */
     std::wstring encode(const std::string& string);
 
