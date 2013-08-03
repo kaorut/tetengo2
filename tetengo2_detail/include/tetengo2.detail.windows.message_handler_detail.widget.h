@@ -418,7 +418,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
 
-            return boost::make_optional< ::LRESULT>(0);
+            return boost::none;
         }
 
         template <typename Widget>
@@ -460,7 +460,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 widget.horizontal_scroll_bar()->set_position(new_position);
             }
 
-            return boost::make_optional< ::LRESULT>(0);
+            return boost::none;
         }
 
         template <typename Widget>
