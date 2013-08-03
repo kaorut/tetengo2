@@ -12,7 +12,7 @@ SUBDIRS = \
      setup \
      tetengo2 tetengo2_detail tetengo2_gui
 
-EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test
+EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile
 
 .PHONY: lint
 lint: lint-includes lint-test-cases lint-typedefs
