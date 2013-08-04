@@ -101,7 +101,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_BOBURASETUP         ICON                    "application.ico"
+IDI_SETUP_APP           ICON                    "setup_app.ico"
 #endif    // “ú–{Œê (“ú–{) resources
 /////////////////////////////////////////////////////////////////////////////
 
