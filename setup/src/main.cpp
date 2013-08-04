@@ -102,7 +102,7 @@ namespace
     boost::filesystem::path base_path()
     {
         std::vector<wchar_t> path_buffer(MAX_PATH, 0);
-        const ::DWORD path_length = ::GetModuleFileNameW(NULL, path_buffer.data(), path_buffer.size());
+        const ::DWORD path_length = ::GetModuleFileNameW(nullptr, path_buffer.data(), path_buffer.size());
         if (path_length == 0)
             throw std::runtime_error("Cannot get the path where the installer exists.");
 
@@ -124,7 +124,7 @@ namespace
         const std::wstring parameters = build_parameters(language, platform, base_path_);
 
         const ::HINSTANCE instance_handle =
-            ::ShellExecuteW(NULL, NULL, L"msiexec", parameters.c_str(), base_path_.c_str(), window_state);
+            ::ShellExecuteW(nullptr, nullptr, L"msiexec", parameters.c_str(), base_path_.c_str(), window_state);
         if (reinterpret_cast<std::intptr_t>(instance_handle) <= 32)
             throw std::runtime_error("Cannot launch the msi file.");
     }
@@ -135,14 +135,14 @@ namespace
         try
         {
             ::TaskDialog(
-                NULL,
+                nullptr,
                 instance_handle,
                 message_box_title().c_str(),
                 setup::encode(message).c_str(),
-                NULL,
+                nullptr,
                 TDCBF_CLOSE_BUTTON,
-                NULL,
-                NULL
+                nullptr,
+                nullptr
             );
         }
         catch (...){}
