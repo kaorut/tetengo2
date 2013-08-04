@@ -7,5 +7,6 @@
   <String Id="description">Some Software about Railways</String>
 
   <String Id="btt_file_description">Bobura Timetable File</String>
+  <String Id="bttbz2_file_description">Bobura Timetable File (Compressed)</String>
   <String Id="btt_file_open">&amp;Open</String>
 </WixLocalization>

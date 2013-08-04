@@ -7,8 +7,13 @@
         <File Id="BoburaExe" Name="bobura.exe" DiskId="1" KeyPath="yes">
           <Shortcut Id="StartMenuShortcutToBoburaExe" Directory="ProgramMenuDir" Name="!(loc.title)" WorkingDirectory="INSTALLDIR" Icon="bobura.exe" IconIndex="0" Advertise="yes" />
         </File>
-        <ProgId Id="Bobura.bttfile" Description="!(loc.btt_file_description)" Icon="BoburaExe" IconIndex="0">
+        <ProgId Id="Bobura.bttfile" Description="!(loc.btt_file_description)" Icon="BoburaExe" IconIndex="1">
           <Extension Id="btt" ContentType="application/btt">
+            <Verb Id="open" Command="!(loc.btt_file_open)" TargetFile="BoburaExe" Argument="&quot;%1&quot;" />
+          </Extension>
+        </ProgId>
+        <ProgId Id="Bobura.bttbz2file" Description="!(loc.bttbz2_file_description)" Icon="BoburaExe" IconIndex="2">
+          <Extension Id="btt_bz2" ContentType="application/btt_bz2">
             <Verb Id="open" Command="!(loc.btt_file_open)" TargetFile="BoburaExe" Argument="&quot;%1&quot;" />
           </Extension>
         </ProgId>

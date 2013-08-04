@@ -8,5 +8,6 @@
   <String Id="description">とある鉄道系アプリケーション</String>
 
   <String Id="btt_file_description">鉄道系アプリケーション 時刻表ファイル</String>
+  <String Id="bttbz2_file_description">鉄道系アプリケーション 時刻表ファイル（圧縮）</String>
   <String Id="btt_file_open">開く(&amp;O)</String>
 </WixLocalization>
