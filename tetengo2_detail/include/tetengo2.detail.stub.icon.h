@@ -9,7 +9,12 @@
 #if !defined(TETENGO2_DETAIL_STUB_ICON_H)
 #define TETENGO2_DETAIL_STUB_ICON_H
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
+
+#include "tetengo2.stdalt.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -20,13 +25,31 @@ namespace tetengo2 { namespace detail { namespace stub
     class icon : private boost::noncopyable
     {
     public:
-        // constructors and destructor
+        // types
+
+        //! The icon details type.
+        struct icon_details_type
+        {};
+
+        //! The icon details pointer type.
+        typedef std::unique_ptr<icon_details_type> icon_details_ptr_type;
+
+
+        // static functions
 
         /*!
-            \brief Creates a detail implementation of an icon.
+            \brief Creates an icon.
+
+            \tparam Path A path type.
+
+            \param path A path.
         */
-        icon()
-        {}
+        template <typename Path>
+        static icon_details_ptr_type create(const Path& path)
+        {
+            tetengo2::suppress_unused_variable_warning(path);
+            return tetengo2::stdalt::make_unique<icon_details_type>();
+        }
 
 
     };

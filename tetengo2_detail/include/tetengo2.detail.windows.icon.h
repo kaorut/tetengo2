@@ -20,13 +20,36 @@ namespace tetengo2 { namespace detail { namespace windows
     class icon : private boost::noncopyable
     {
     public:
-        // constructors and destructor
+        // types
+
+        //! The icon details type.
+        struct icon_details_type
+        {
+#if !defined(DOCUMENTATION)
+            icon_details_type()
+            {}
+#endif
+
+        };
+
+        //! The icon details pointer type.
+        typedef std::unique_ptr<icon_details_type> icon_details_ptr_type;
+
+
+        // static functions
 
         /*!
-            \brief Creates a detail implementation of an icon.
+            \brief Creates an icon.
+
+            \tparam Path A path type.
+
+            \param path A path.
         */
-        icon()
-        {}
+        template <typename Path>
+        static icon_details_ptr_type create(const Path& path)
+        {
+            return icon_details_ptr_type();
+        }
 
 
     };
