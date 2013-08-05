@@ -10,6 +10,7 @@ headers = \
     tetengo2.detail.stub.drawing.h \
     tetengo2.detail.stub.encoding.h \
     tetengo2.detail.stub.gui_fixture.h \
+    tetengo2.detail.stub.icon.h \
     tetengo2.detail.stub.menu.h \
     tetengo2.detail.stub.message_handler.h \
     tetengo2.detail.stub.message_loop.h \
@@ -40,6 +41,7 @@ extra_headers = \
     tetengo2.detail.windows.gdiplus.error_category.h \
     tetengo2.detail.windows.gdiplus.gui_fixture.h \
     tetengo2.detail.windows.gui_fixture.h \
+    tetengo2.detail.windows.icon.h \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_handler.h \
     tetengo2.detail.windows.message_handler_detail.0namespace.h \
