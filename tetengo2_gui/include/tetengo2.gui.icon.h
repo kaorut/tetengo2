@@ -32,6 +32,9 @@ namespace tetengo2 { namespace gui
         //! The detail implementation type.
         typedef Details details_type;
 
+        //! The icon details type.
+        typedef typename details_type::icon_details_type icon_details_type;
+
         //! The icon details pointer type.
         typedef typename details_type::icon_details_ptr_type icon_details_ptr_type;
 
@@ -47,6 +50,34 @@ namespace tetengo2 { namespace gui
         :
         m_p_icon_details(details_type::create(path))
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<const icon_details_type&> details()
+        const
+        {
+            if (!m_p_icon_details)
+                return boost::none;
+            return boost::make_optional<const icon_details_type&>(*m_p_icon_details);
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<icon_details_type&> details()
+        {
+            if (!m_p_icon_details)
+                return boost::none;
+            return boost::make_optional<icon_details_type&>(*m_p_icon_details);
+        }
 
 
     private:
