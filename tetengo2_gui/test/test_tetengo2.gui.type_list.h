@@ -195,6 +195,7 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace gui_common
     {
         struct alert;          //!< The alert type.
+        struct icon;           //!< The icon type.
         struct virtual_key;    //!< The virtual key type.
     }}
 
@@ -211,13 +212,18 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::gui_common::icon,
+                tetengo2::gui::icon<boost::mpl::at<type_list, type::path>::type, tetengo2::detail::stub::icon>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::gui_common::virtual_key,
                 tetengo2::gui::virtual_key<
                     boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         gui_common_type_list;
 
 
@@ -629,7 +635,7 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
-                tetengo2::gui::icon<boost::mpl::at<type_list, type::path>::type, tetengo2::detail::stub::icon>,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type,
                 boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
                 tetengo2::gui::message::window_observer_set
             >

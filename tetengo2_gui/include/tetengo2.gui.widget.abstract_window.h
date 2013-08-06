@@ -126,6 +126,43 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the icon.
+
+            \return The icon.
+        */
+        boost::optional<const icon_type&> icon()
+        const
+        {
+            if (!m_p_icon)
+                return boost::none;
+
+            return boost::make_optional<const icon_type&>(*m_p_icon);
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+        */
+        boost::optional<icon_type&> icon()
+        {
+            if (!m_p_icon)
+                return boost::none;
+
+            return boost::make_optional<icon_type&>(*m_p_icon);
+        }
+
+        /*!
+            \brief Sets an icon.
+
+            \param p_icon A unique pointer to an icon.
+        */
+        void set_icon(std::unique_ptr<icon_type> p_icon)
+        {
+            m_p_icon = std::move(p_icon);
+        }
+
+        /*!
             \brief Returns true when the abstract window has a menu bar.
 
             \retval true  When the abstract window has a menu bar.
@@ -249,6 +286,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_p_icon(),
         m_p_menu_bar(),
         m_window_observer_set()
         {}
@@ -263,6 +301,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // variables
+
+        std::unique_ptr<icon_type> m_p_icon;
 
         std::unique_ptr<menu_bar_type> m_p_menu_bar;
 

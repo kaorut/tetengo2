@@ -14,6 +14,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.stdalt.h"
+#include "tetengo2.text.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -21,6 +22,12 @@
 namespace
 {
     // types
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type
+        icon_type;
 
     typedef
         boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_bar>::type
@@ -115,6 +122,38 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         const concrete_window window;
 
         window.normal_dimension();
+    }
+
+    BOOST_AUTO_TEST_CASE(icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_window window;
+
+            BOOST_CHECK(!window.icon());
+        }
+        {
+            concrete_window window;
+
+            window.icon();
+
+            BOOST_CHECK(!window.icon());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_window window;
+
+        std::unique_ptr<icon_type> p_icon =
+            tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+        window.set_icon(std::move(p_icon));
+
+        const boost::optional<const icon_type&> set_icon_(window.icon());
+        BOOST_CHECK(set_icon_);
     }
 
     BOOST_AUTO_TEST_CASE(has_menu_bar)
