@@ -39,6 +39,15 @@ BOOST_AUTO_TEST_SUITE(icon)
         const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
     }
 
+    BOOST_AUTO_TEST_CASE(path)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+
+        BOOST_CHECK(icon.path() == path_type(TETENGO2_TEXT("hoge.ico")));
+    }
+
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_ICON_H)
 #define TETENGO2_GUI_ICON_H
 
+#include <utility>
+
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
@@ -47,13 +49,25 @@ namespace tetengo2 { namespace gui
 
             \param path A path.
         */
-        explicit icon(const path_type& path)
+        explicit icon(path_type path)
         :
-        m_p_icon_details(details_type::create(path))
+        m_path(std::move(path)),
+        m_p_icon_details(details_type::create(m_path))
         {}
 
 
         // functions
+
+        /*!
+            \brief Returns the path.
+
+            \return The path.
+        */
+        const path_type& path()
+        const
+        {
+            return m_path;
+        }
 
         /*!
             \brief Returns the detail implementation.
@@ -83,6 +97,8 @@ namespace tetengo2 { namespace gui
 
     private:
         // variables
+
+        const path_type m_path;
 
         const icon_details_ptr_type m_p_icon_details;
 

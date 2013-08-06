@@ -153,7 +153,8 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         window.set_icon(std::move(p_icon));
 
         const boost::optional<const icon_type&> set_icon_(window.icon());
-        BOOST_CHECK(set_icon_);
+        BOOST_REQUIRE(set_icon_);
+        BOOST_CHECK(set_icon_->path() == path_type(TETENGO2_TEXT("hoge.ico")));
     }
 
     BOOST_AUTO_TEST_CASE(has_menu_bar)
