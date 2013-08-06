@@ -46,6 +46,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam Path A path type.
 
             \param path A path.
+
+            \return A unique pointer to an icon.
         */
         template <typename Path>
         static icon_details_ptr_type create(const Path& path)
