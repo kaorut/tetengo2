@@ -22,6 +22,7 @@
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.icon.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
@@ -51,6 +52,7 @@
 #include "tetengo2.gui.drawing.system_color_set.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.gui.icon.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.gui.menu.command.h"
 #include "tetengo2.gui.menu.menu_bar.h"
@@ -627,6 +629,7 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
+                tetengo2::gui::icon<boost::mpl::at<type_list, type::path>::type, tetengo2::detail::stub::icon>,
                 boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
                 tetengo2::gui::message::window_observer_set
             >

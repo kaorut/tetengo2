@@ -56,6 +56,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         typedef typename base_type::string_type string_type;
 
+        //! The icon type.
+        typedef typename traits_type::icon_type icon_type;
+
         //! The menu bar type.
         typedef typename traits_type::menu_bar_type menu_bar_type;
 

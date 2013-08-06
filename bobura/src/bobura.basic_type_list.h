@@ -39,6 +39,7 @@
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
+#include <tetengo2.gui.icon.h>
 #include <tetengo2.gui.menu.abstract_popup.h>
 #include <tetengo2.gui.menu.command.h>
 #include <tetengo2.gui.menu.menu_bar.h>
@@ -535,13 +536,19 @@ namespace bobura
             >
             shortcut_key_table_type;
         typedef
+            tetengo2::gui::icon<
+                boost::mpl::at<common_type_list, type::path>::type,
+                boost::mpl::at<detail_type_list, type::detail::icon>::type
+            >
+            icon_type;
+        typedef
             tetengo2::gui::menu::menu_bar<
                 menu_traits_type, shortcut_key_table_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             menu_bar_type;
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
-                widget_traits_type, menu_bar_type, tetengo2::gui::message::window_observer_set
+                widget_traits_type, icon_type, menu_bar_type, tetengo2::gui::message::window_observer_set
             >
             abstract_window_traits_type;
         typedef
