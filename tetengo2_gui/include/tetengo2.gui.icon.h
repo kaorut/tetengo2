@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_ICON_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 
 namespace tetengo2 { namespace gui

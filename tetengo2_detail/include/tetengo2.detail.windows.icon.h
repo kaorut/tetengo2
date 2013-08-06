@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ICON_H)
 #define TETENGO2_DETAIL_WINDOWS_ICON_H
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
 
 
