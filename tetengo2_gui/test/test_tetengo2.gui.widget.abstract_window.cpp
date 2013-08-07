@@ -125,6 +125,15 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         window.normal_dimension();
     }
 
+    BOOST_AUTO_TEST_CASE(has_icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_window window;
+
+        BOOST_CHECK(!window.has_icon());
+    }
+
     BOOST_AUTO_TEST_CASE(icon)
     {
         BOOST_TEST_PASSPOINT();
@@ -132,14 +141,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             const concrete_window window;
 
-            BOOST_CHECK(!window.icon());
+            BOOST_CHECK_THROW(window.icon(), std::logic_error);
         }
         {
             concrete_window window;
 
-            window.icon();
-
-            BOOST_CHECK(!window.icon());
+            BOOST_CHECK_THROW(window.icon(), std::logic_error);
         }
     }
 
@@ -153,9 +160,9 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
             tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
         window.set_icon(std::move(p_icon));
 
-        const boost::optional<const icon_type&> set_icon_(window.icon());
-        BOOST_REQUIRE(set_icon_);
-        BOOST_CHECK(set_icon_->path() == path_type(TETENGO2_TEXT("hoge.ico")));
+        BOOST_REQUIRE(window.has_icon());
+        const icon_type& icon = window.icon();
+        BOOST_CHECK(icon.path() == path_type(TETENGO2_TEXT("hoge.ico")));
     }
 
     BOOST_AUTO_TEST_CASE(has_menu_bar)

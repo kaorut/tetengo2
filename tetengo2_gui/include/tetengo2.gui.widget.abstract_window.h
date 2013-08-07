@@ -126,17 +126,15 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Returns the icon.
+            \brief Checks whether the abstract window has an icon.
 
-            \return The icon.
+            \retval true  When the abstract window has an icon.
+            \retval false Otherwise.
         */
-        boost::optional<const icon_type&> icon()
+        bool has_icon()
         const
         {
-            if (!m_p_icon)
-                return boost::none;
-
-            return boost::make_optional<const icon_type&>(*m_p_icon);
+            return static_cast<bool>(m_p_icon);
         }
 
         /*!
@@ -144,12 +142,26 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The icon.
         */
-        boost::optional<icon_type&> icon()
+        const icon_type& icon()
+        const
         {
-            if (!m_p_icon)
-                return boost::none;
+            if (!has_icon())
+                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
 
-            return boost::make_optional<icon_type&>(*m_p_icon);
+            return *m_p_icon;
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+        */
+        icon_type& icon()
+        {
+            if (!has_icon())
+                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
+
+            return *m_p_icon;
         }
 
         /*!
