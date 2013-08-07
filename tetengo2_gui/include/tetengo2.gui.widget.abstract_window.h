@@ -308,7 +308,9 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         virtual ~abstract_window()
         TETENGO2_STDALT_NOEXCEPT
-        {}
+        {
+            set_icon(std::unique_ptr<icon_type>());
+        }
 
 
     private:

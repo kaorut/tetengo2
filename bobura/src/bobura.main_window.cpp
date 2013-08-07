@@ -47,6 +47,8 @@ namespace bobura
 
             typedef typename base_type::string_type string_type;
 
+            typedef typename base_type::icon_type icon_type;
+
             typedef typename base_type::window_state_type window_state_type;
 
             typedef MessageCatalog message_catalog_type;
@@ -162,6 +164,7 @@ namespace bobura
 
                 set_message_observers();
 
+                set_window_icon();
                 set_title(boost::none, false);
                 
                 auto dimension = m_settings.main_window_dimension();
@@ -188,6 +191,15 @@ namespace bobura
                     )
                 );
                 m_base.window_observer_set().destroyed().connect([](){ return message_loop_break_type()(0); });
+            }
+
+            void set_window_icon()
+            {
+                auto p_icon =
+                    tetengo2::stdalt::make_unique<icon_type>(
+                        m_settings.image_directory_path() / string_type(TETENGO2_TEXT("bobura_app.ico"))
+                    );
+                m_base.set_icon(std::move(p_icon));
             }
 
 
