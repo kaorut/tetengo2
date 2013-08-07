@@ -100,7 +100,7 @@ TETENGO2_STDALT_NOEXCEPT
 {
     tetengo2::suppress_unused_variable_warning(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 
-    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type alsert_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type alert_type;
 
     try
     {
@@ -112,17 +112,17 @@ TETENGO2_STDALT_NOEXCEPT
     }
     catch (const boost::exception& e)
     {
-        alsert_type()(e);
+        alert_type()(e);
         return 1;
     }
     catch (const std::exception& e)
     {
-        alsert_type()(e);
+        alert_type()(e);
         return 1;
     }
     catch (...)
     {
-        alsert_type()();
+        alert_type()();
         return 2;
     }
 }

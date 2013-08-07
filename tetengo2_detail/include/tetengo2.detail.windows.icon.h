@@ -9,9 +9,24 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ICON_H)
 #define TETENGO2_DETAIL_WINDOWS_ICON_H
 
+#include <cassert>
+#include <ios>
 #include <memory>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
+
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
+#include "tetengo2.stdalt.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -28,8 +43,24 @@ namespace tetengo2 { namespace detail { namespace windows
         struct icon_details_type
         {
 #if !defined(DOCUMENTATION)
-            icon_details_type()
-            {}
+            ::HICON m_icon_handle;
+            ::HICON m_small_icon_handle;
+
+            icon_details_type(const ::HICON icon_handle, const ::HICON small_icon_handle)
+            :
+            m_icon_handle(icon_handle),
+            m_small_icon_handle(small_icon_handle)
+            {
+                assert(icon_handle);
+                assert(small_icon_handle);
+            }
+
+            ~icon_details_type()
+            TETENGO2_STDALT_NOEXCEPT
+            {
+                ::DestroyIcon(m_icon_handle);
+                ::DestroyIcon(m_small_icon_handle);
+            }
 #endif
 
         };
@@ -52,7 +83,50 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Path>
         static icon_details_ptr_type create(const Path& path)
         {
-            return icon_details_ptr_type();
+            const std::pair<int, int> icon_dimension_ = icon_dimension();
+            const ::HANDLE icon_handle =
+                ::LoadImageW(
+                    nullptr,
+                    path.c_str(),
+                    IMAGE_ICON,
+                    icon_dimension_.first,
+                    icon_dimension_.second,
+                    LR_LOADFROMFILE | LR_VGACOLOR
+                );
+            if (!icon_handle)
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't load icon file."));
+
+            const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
+            const ::HANDLE small_icon_handle =
+                ::LoadImageW(
+                    nullptr,
+                    path.c_str(),
+                    IMAGE_ICON,
+                    small_icon_dimension_.first,
+                    small_icon_dimension_.second,
+                    LR_LOADFROMFILE | LR_VGACOLOR
+                );
+            if (!small_icon_handle)
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't load icon file."));
+
+            return
+                tetengo2::stdalt::make_unique<icon_details_type>(
+                    static_cast< ::HICON>(icon_handle), static_cast< ::HICON>(small_icon_handle)
+                );
+        }
+
+
+    private:
+        // static functions
+
+        static std::pair<int, int> icon_dimension()
+        {
+            return std::make_pair(::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON));
+        }
+
+        static std::pair<int, int> small_icon_dimension()
+        {
+            return std::make_pair(::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
         }
 
 
