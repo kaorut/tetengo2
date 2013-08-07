@@ -52,6 +52,7 @@
 ::DeleteMenu                                     Windows.h
 ::DeleteObject                                   Windows.h
 ::DestroyAcceleratorTable                        Windows.h
+::DestroyIcon                                    Windows.h
 ::DestroyMenu                                    Windows.h
 ::DestroyWindow                                  Windows.h
 ::DispatchMessageW                               Windows.h

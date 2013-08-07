@@ -11,8 +11,8 @@
 
 #include <cassert>
 #include <ios>
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
