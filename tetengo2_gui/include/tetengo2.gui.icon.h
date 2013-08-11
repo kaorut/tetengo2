@@ -20,10 +20,11 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for an icon.
 
-        \tparam Path    A path type.
-        \tparam Details A detail implementation type.
+        \tparam Path      A path type.
+        \tparam Dimension A dimension type.
+        \tparam Details   A detail implementation type.
     */
-    template <typename Path, typename Details>
+    template <typename Path, typename Dimension, typename Details>
     class icon : private boost::noncopyable
     {
     public:
@@ -31,6 +32,9 @@ namespace tetengo2 { namespace gui
 
         //! The path type.
         typedef Path path_type;
+
+        //! The dimension type.
+        typedef Dimension dimension_type;
 
         //! The detail implementation type.
         typedef Details details_type;

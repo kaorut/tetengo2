@@ -21,7 +21,9 @@ namespace
 {
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
 
-    typedef tetengo2::gui::icon<path_type, tetengo2::detail::stub::icon> icon_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+
+    typedef tetengo2::gui::icon<path_type, dimension_type, tetengo2::detail::stub::icon> icon_type;
 
 
 }

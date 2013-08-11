@@ -538,6 +538,7 @@ namespace bobura
         typedef
             tetengo2::gui::icon<
                 boost::mpl::at<common_type_list, type::path>::type,
+                dimension_type,
                 boost::mpl::at<detail_type_list, type::detail::icon>::type
             >
             icon_type;

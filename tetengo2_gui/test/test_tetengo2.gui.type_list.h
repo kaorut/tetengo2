@@ -213,7 +213,11 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::gui_common::icon,
-                tetengo2::gui::icon<boost::mpl::at<type_list, type::path>::type, tetengo2::detail::stub::icon>
+                tetengo2::gui::icon<
+                    boost::mpl::at<type_list, type::path>::type,
+                    boost::mpl::at<type_list, type::dimension>::type,
+                    tetengo2::detail::stub::icon
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
