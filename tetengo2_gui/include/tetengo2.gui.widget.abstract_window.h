@@ -171,6 +171,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_icon(std::unique_ptr<icon_type> p_icon)
         {
+            widget_details_type::set_icon(*this, p_icon.get());
             m_p_icon = std::move(p_icon);
         }
 
@@ -309,7 +310,8 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~abstract_window()
         TETENGO2_STDALT_NOEXCEPT
         {
-            set_icon(std::unique_ptr<icon_type>());
+            if (!destroyed())
+                set_icon(std::unique_ptr<icon_type>());
         }
 
 
