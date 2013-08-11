@@ -310,7 +310,7 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~abstract_window()
         TETENGO2_STDALT_NOEXCEPT
         {
-            if (!destroyed())
+            if (!this->destroyed())
                 set_icon(std::unique_ptr<icon_type>());
         }
 
