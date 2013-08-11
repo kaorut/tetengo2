@@ -12,6 +12,7 @@
 #include <cassert>
 #include <ios>
 //#include <memory>
+#include <type_traits>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -39,27 +40,35 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
+#if !defined(DOCUMENTATION)
+        struct icon_deleter_type
+        {
+            void operator()(const ::HICON handle)
+            const
+            {
+                if (handle)
+                    ::DestroyIcon(handle);
+            }
+
+        };
+
+        typedef std::unique_ptr<typename std::remove_pointer< ::HICON>::type, icon_deleter_type> icon_handle_type;
+#endif
+
         //! The icon details type.
         struct icon_details_type
         {
 #if !defined(DOCUMENTATION)
-            ::HICON m_icon_handle;
-            ::HICON m_small_icon_handle;
+            const icon_handle_type big_icon_handle;
+            const icon_handle_type small_icon_handle;
 
-            icon_details_type(const ::HICON icon_handle, const ::HICON small_icon_handle)
+            icon_details_type(icon_handle_type big_icon_handle_, icon_handle_type small_icon_handle_)
             :
-            m_icon_handle(icon_handle),
-            m_small_icon_handle(small_icon_handle)
+            big_icon_handle(std::move(big_icon_handle_)),
+            small_icon_handle(std::move(small_icon_handle_))
             {
-                assert(icon_handle);
+                assert(big_icon_handle);
                 assert(small_icon_handle);
-            }
-
-            ~icon_details_type()
-            TETENGO2_STDALT_NOEXCEPT
-            {
-                ::DestroyIcon(m_icon_handle);
-                ::DestroyIcon(m_small_icon_handle);
             }
 #endif
 
@@ -83,43 +92,28 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Path>
         static icon_details_ptr_type create(const Path& path)
         {
-            const std::pair<int, int> icon_dimension_ = icon_dimension();
-            const ::HANDLE icon_handle =
-                ::LoadImageW(
-                    nullptr,
-                    path.c_str(),
-                    IMAGE_ICON,
-                    icon_dimension_.first,
-                    icon_dimension_.second,
-                    LR_LOADFROMFILE | LR_VGACOLOR
-                );
-            if (!icon_handle)
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't load icon file."));
+            const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
+            icon_handle_type big_icon_handle(load_icon(path, big_icon_dimension_.first, big_icon_dimension_.second));
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
-            const ::HANDLE small_icon_handle =
-                ::LoadImageW(
-                    nullptr,
-                    path.c_str(),
-                    IMAGE_ICON,
-                    small_icon_dimension_.first,
-                    small_icon_dimension_.second,
-                    LR_LOADFROMFILE | LR_VGACOLOR
-                );
-            if (!small_icon_handle)
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't load icon file."));
+            icon_handle_type small_icon_handle(
+                load_icon(path, small_icon_dimension_.first, small_icon_dimension_.second)
+            );
 
             return
                 tetengo2::stdalt::make_unique<icon_details_type>(
-                    static_cast< ::HICON>(icon_handle), static_cast< ::HICON>(small_icon_handle)
+                    std::move(big_icon_handle), std::move(small_icon_handle)
                 );
         }
 
 
     private:
+        // types
+
+
         // static functions
 
-        static std::pair<int, int> icon_dimension()
+        static std::pair<int, int> big_icon_dimension()
         {
             return std::make_pair(::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON));
         }
@@ -127,6 +121,17 @@ namespace tetengo2 { namespace detail { namespace windows
         static std::pair<int, int> small_icon_dimension()
         {
             return std::make_pair(::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
+        }
+
+        template <typename Path>
+        static ::HICON load_icon(const Path& path, const int width, const int height)
+        {
+            const ::HANDLE handle =
+                ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);
+            if (!handle)
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't load icon file."));
+
+            return static_cast< ::HICON>(handle);
         }
 
 

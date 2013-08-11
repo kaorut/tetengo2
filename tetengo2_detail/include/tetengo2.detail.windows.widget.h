@@ -1493,8 +1493,8 @@ namespace tetengo2 { namespace detail { namespace windows
             ::HICON small_icon_handle = nullptr;
             if (p_icon && p_icon->details())
             {
-                icon_handle = p_icon->details()->m_icon_handle;
-                small_icon_handle = p_icon->details()->m_small_icon_handle;
+                icon_handle = p_icon->details()->big_icon_handle.get();
+                small_icon_handle = p_icon->details()->small_icon_handle.get();
             }
 
             ::SendMessageW(
