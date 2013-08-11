@@ -12,7 +12,7 @@
 #include <cassert>
 #include <ios>
 //#include <memory>
-#include <type_traits>
+//#include <type_traits>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -27,6 +27,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
 
 
@@ -83,6 +84,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates an icon.
 
+            The dimension is determined by the system.
             \tparam Path A path type.
 
             \param path A path.
@@ -94,6 +96,35 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
             icon_handle_type big_icon_handle(load_icon(path, big_icon_dimension_.first, big_icon_dimension_.second));
+
+            const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
+            icon_handle_type small_icon_handle(
+                load_icon(path, small_icon_dimension_.first, small_icon_dimension_.second)
+            );
+
+            return
+                tetengo2::stdalt::make_unique<icon_details_type>(
+                    std::move(big_icon_handle), std::move(small_icon_handle)
+                );
+        }
+
+        /*!
+            \brief Creates an icon.
+
+            \tparam Path      A path type.
+            \tparam Dimension A dimension type.
+
+            \param path      A path.
+            \param dimension A dimension.
+
+            \return A unique pointer to an icon.
+        */
+        template <typename Path, typename Dimension>
+        static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
+        {
+            const int width = gui::to_pixels<int>(gui::dimension_type<Dimension>::width(dimension));
+            const int height = gui::to_pixels<int>(gui::dimension_type<Dimension>::height(dimension));
+            icon_handle_type big_icon_handle(load_icon(path, width, height));
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
             icon_handle_type small_icon_handle(

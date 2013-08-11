@@ -40,6 +40,8 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates an icon.
 
+            The dimension is determined by the system.
+
             \tparam Path A path type.
 
             \param path A path.
@@ -50,6 +52,24 @@ namespace tetengo2 { namespace detail { namespace stub
         static icon_details_ptr_type create(const Path& path)
         {
             tetengo2::suppress_unused_variable_warning(path);
+            return tetengo2::stdalt::make_unique<icon_details_type>();
+        }
+
+        /*!
+            \brief Creates an icon.
+
+            \tparam Path      A path type.
+            \tparam Dimension A dimension type.
+
+            \param path      A path.
+            \param dimension A dimension.
+
+            \return A unique pointer to an icon.
+        */
+        template <typename Path, typename Dimension>
+        static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
+        {
+            tetengo2::suppress_unused_variable_warning(path, dimension);
             return tetengo2::stdalt::make_unique<icon_details_type>();
         }
 

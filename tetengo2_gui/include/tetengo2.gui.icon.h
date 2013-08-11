@@ -51,12 +51,26 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates an icon.
 
+            The dimension is determined by the system.
+
             \param path A path.
         */
         explicit icon(path_type path)
         :
         m_path(std::move(path)),
         m_p_icon_details(details_type::create(m_path))
+        {}
+
+        /*!
+            \brief Creates an icon.
+
+            \param path      A path.
+            \param dimension A dimension.
+        */
+        icon(path_type path, const dimension_type& dimension)
+        :
+        m_path(std::move(path)),
+        m_p_icon_details(details_type::create(m_path, dimension))
         {}
 
 
