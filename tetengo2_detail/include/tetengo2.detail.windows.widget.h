@@ -1497,10 +1497,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 small_icon_handle = p_icon->details()->m_small_icon_handle;
             }
 
-            ::SendMessage(
+            ::SendMessageW(
                 widget.details()->handle.get(), WM_SETICON, ICON_BIG, reinterpret_cast< ::LPARAM>(icon_handle)
             );
-            ::SendMessage(
+            ::SendMessageW(
                 widget.details()->handle.get(), WM_SETICON, ICON_SMALL, reinterpret_cast< ::LPARAM>(small_icon_handle)
             );
         }

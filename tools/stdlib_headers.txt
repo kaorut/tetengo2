@@ -451,6 +451,7 @@ WM_RBUTTONUP                                     Windows.h
 WM_SETCURSOR                                     Windows.h
 WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
+WM_SETICON                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
 WM_VSCROLL                                       Windows.h
