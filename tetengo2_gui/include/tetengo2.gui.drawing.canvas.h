@@ -78,6 +78,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The picture type.
         typedef typename traits_type::picture_type picture_type;
 
+        //! The icon type.
+        typedef typename traits_type::icon_type icon_type;
+
         //! The detail implementation type of a drawing.
         typedef DrawingDetails drawing_details_type;
 
@@ -332,6 +335,17 @@ namespace tetengo2 { namespace gui { namespace drawing
         void paint_picture(const picture_type& picture, const position_type& position)
         {
             paint_picture(picture, position, picture.dimension());
+        }
+
+        /*!
+            \brief Paints an icon.
+
+            \param icon     An icon to paint.
+            \param position A position where the picture is painted.
+        */
+        void paint_icon(const icon_type& icon, const position_type& position)
+        {
+            //drawing_details_type::paint_icon(*m_p_details, icon, position);
         }
 
         /*!

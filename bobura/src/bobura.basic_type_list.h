@@ -424,6 +424,13 @@ namespace bobura
             >
             fast_picture_reader_type;
         typedef
+            tetengo2::gui::icon<
+                boost::mpl::at<common_type_list, type::path>::type,
+                dimension_type,
+                boost::mpl::at<detail_type_list, type::detail::icon>::type
+            >
+            icon_type;
+        typedef
             tetengo2::gui::drawing::canvas_traits<
                 unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -434,7 +441,8 @@ namespace bobura
                 background_type,
                 solid_background_type,
                 font_type,
-                picture_type
+                picture_type,
+                icon_type
             >
             canvas_traits_type;
         typedef
@@ -454,7 +462,8 @@ namespace bobura
                 fast_background_type,
                 fast_solid_background_type,
                 fast_font_type,
-                fast_picture_type
+                fast_picture_type,
+                icon_type
             >
             fast_canvas_traits_type;
         typedef
@@ -535,13 +544,6 @@ namespace bobura
                 shortcut_key_type, menu_base_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             shortcut_key_table_type;
-        typedef
-            tetengo2::gui::icon<
-                boost::mpl::at<common_type_list, type::path>::type,
-                dimension_type,
-                boost::mpl::at<detail_type_list, type::detail::icon>::type
-            >
-            icon_type;
         typedef
             tetengo2::gui::menu::menu_bar<
                 menu_traits_type, shortcut_key_table_type, boost::mpl::at<detail_type_list, type::detail::menu>::type

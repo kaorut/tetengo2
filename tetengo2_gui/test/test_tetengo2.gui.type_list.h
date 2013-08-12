@@ -347,7 +347,8 @@ namespace test_tetengo2 { namespace gui
                 background_type,
                 solid_background_type,
                 font_type,
-                picture_type
+                picture_type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
             >
             canvas_traits_type;
         typedef drawing_details_type::canvas_details_type canvas_details_type;
