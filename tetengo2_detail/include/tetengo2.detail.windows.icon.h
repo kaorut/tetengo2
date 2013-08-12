@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::windows::icon.
+    \brief The definition of detail::windows::icon.
 
     Copyright (C) 2007-2013 kaoru
 
@@ -82,29 +82,20 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
-            \brief Creates an icon.
+            \brief Returns the default dimension.
 
-            The dimension is determined by the system.
-            \tparam Path A path type.
-
-            \param path A path.
-
-            \return A unique pointer to an icon.
+            \tparam Dimension A dimension type.
+            
+            \return The default dimension.
         */
-        template <typename Path>
-        static icon_details_ptr_type create(const Path& path)
+        template <typename Dimension>
+        static Dimension default_dimension()
         {
             const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
-            icon_handle_type big_icon_handle(load_icon(path, big_icon_dimension_.first, big_icon_dimension_.second));
-
-            const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
-            icon_handle_type small_icon_handle(
-                load_icon(path, small_icon_dimension_.first, small_icon_dimension_.second)
-            );
-
             return
-                tetengo2::stdalt::make_unique<icon_details_type>(
-                    std::move(big_icon_handle), std::move(small_icon_handle)
+                Dimension(
+                    typename gui::dimension<Dimension>::width_type::from_pixels(big_icon_dimension_.first),
+                    typename gui::dimension<Dimension>::height_type::from_pixels(big_icon_dimension_.second)
                 );
         }
 
@@ -122,8 +113,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Path, typename Dimension>
         static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
         {
-            const int width = gui::to_pixels<int>(gui::dimension_type<Dimension>::width(dimension));
-            const int height = gui::to_pixels<int>(gui::dimension_type<Dimension>::height(dimension));
+            const int width = gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension));
+            const int height = gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension));
             icon_handle_type big_icon_handle(load_icon(path, width, height));
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
@@ -131,17 +122,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 load_icon(path, small_icon_dimension_.first, small_icon_dimension_.second)
             );
 
-            return
-                tetengo2::stdalt::make_unique<icon_details_type>(
-                    std::move(big_icon_handle), std::move(small_icon_handle)
-                );
+            return stdalt::make_unique<icon_details_type>(std::move(big_icon_handle), std::move(small_icon_handle));
         }
 
 
     private:
-        // types
-
-
         // static functions
 
         static std::pair<int, int> big_icon_dimension()

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::stub::icon.
+    \brief The definition of detail::stub::icon.
 
     Copyright (C) 2007-2013 kaoru
 
@@ -13,6 +13,7 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 
@@ -38,21 +39,20 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Creates an icon.
+            \brief Returns the default dimension.
 
-            The dimension is determined by the system.
-
-            \tparam Path A path type.
-
-            \param path A path.
-
-            \return A unique pointer to an icon.
+            \tparam Dimension A dimension type.
+            
+            \return The default dimension.
         */
-        template <typename Path>
-        static icon_details_ptr_type create(const Path& path)
+        template <typename Dimension>
+        static Dimension default_dimension()
         {
-            tetengo2::suppress_unused_variable_warning(path);
-            return tetengo2::stdalt::make_unique<icon_details_type>();
+            return
+                Dimension(
+                    typename gui::dimension<Dimension>::width_type(42),
+                    typename gui::dimension<Dimension>::height_type(42)
+                );
         }
 
         /*!
@@ -69,8 +69,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Path, typename Dimension>
         static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
         {
-            tetengo2::suppress_unused_variable_warning(path, dimension);
-            return tetengo2::stdalt::make_unique<icon_details_type>();
+            suppress_unused_variable_warning(path, dimension);
+            return stdalt::make_unique<icon_details_type>();
         }
 
 

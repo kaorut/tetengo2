@@ -111,7 +111,7 @@ namespace tetengo2 { namespace text
                     const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
                 )
                 {
-                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+                    suppress_unused_variable_warning(structure_attributes);
 
                     this->observe_structure_end(structure_name);
                 }

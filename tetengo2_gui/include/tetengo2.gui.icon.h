@@ -58,7 +58,8 @@ namespace tetengo2 { namespace gui
         explicit icon(path_type path)
         :
         m_path(std::move(path)),
-        m_p_icon_details(details_type::create(m_path))
+        m_dimension(details_type::default_dimension<dimension_type>()),
+        m_p_icon_details(details_type::create(m_path, m_dimension))
         {}
 
         /*!
@@ -67,10 +68,11 @@ namespace tetengo2 { namespace gui
             \param path      A path.
             \param dimension A dimension.
         */
-        icon(path_type path, const dimension_type& dimension)
+        icon(path_type path, dimension_type dimension)
         :
         m_path(std::move(path)),
-        m_p_icon_details(details_type::create(m_path, dimension))
+        m_dimension(std::move(dimension)),
+        m_p_icon_details(details_type::create(m_path, m_dimension))
         {}
 
 
@@ -85,6 +87,17 @@ namespace tetengo2 { namespace gui
         const
         {
             return m_path;
+        }
+
+        /*!
+            \brief Returns the dimension.
+
+            \return The dimension.
+        */
+        const dimension_type& dimension()
+        const
+        {
+            return m_dimension;
         }
 
         /*!
@@ -117,6 +130,8 @@ namespace tetengo2 { namespace gui
         // variables
 
         const path_type m_path;
+
+        const dimension_type m_dimension;
 
         const icon_details_ptr_type m_p_icon_details;
 
