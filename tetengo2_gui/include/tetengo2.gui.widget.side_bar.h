@@ -1079,7 +1079,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_mouse_capture(const item* const p_item)
         {
-            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
             m_p_mouse_captured_item = p_item;
         }
 
