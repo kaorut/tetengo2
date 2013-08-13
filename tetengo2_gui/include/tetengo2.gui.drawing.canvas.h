@@ -345,7 +345,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void paint_icon(const icon_type& icon, const position_type& position)
         {
-            //drawing_details_type::paint_icon(*m_p_details, icon, position);
+            drawing_details_type::paint_icon(*m_p_details, icon, position);
         }
 
         /*!

@@ -52,7 +52,6 @@
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
@@ -597,6 +596,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 );
             }
         }
+
+        /*!
+            \brief Paints an icon.
+
+            \tparam Icon     A icon type.
+            \tparam Position A position type.
+
+            \param canvas   A canvas.
+            \param icon     An icon to paint.
+            \param position A position where the picture is painted.
+
+            \throw std::system_error When the icon cannot be painted.
+        */
+        template <typename Icon, typename Position>
+        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position);
 
 
     private:

@@ -583,6 +583,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_rect_f(position, dimension));
         }
 
+        /*!
+            \brief Paints an icon.
+
+            \tparam Icon     A icon type.
+            \tparam Position A position type.
+
+            \param canvas   A canvas.
+            \param icon     An icon to paint.
+            \param position A position where the picture is painted.
+
+            \throw std::system_error When the icon cannot be painted.
+        */
+        template <typename Icon, typename Position>
+        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position);
+
 
     private:
         // types
