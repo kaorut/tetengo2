@@ -58,7 +58,7 @@ namespace tetengo2 { namespace gui
         explicit icon(path_type path)
         :
         m_path(std::move(path)),
-        m_dimension(details_type::default_dimension<dimension_type>()),
+        m_dimension(details_type::template default_dimension<dimension_type>()),
         m_p_icon_details(details_type::create(m_path, m_dimension))
         {}
 
