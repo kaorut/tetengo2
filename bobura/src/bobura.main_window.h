@@ -15,52 +15,41 @@
 
 #include <tetengo2.stdalt.h>
 
+#include "bobura.type_list.h"
+
 
 namespace bobura
 {
     /*!
-        \brief The class template for the main window.
-
-        \tparam Window            A window type.
-        \tparam MessageCatalog    A message catalog type.
-        \tparam DiagramPictureBox A diagram picture box type.
-        \tparam PropertyBar       A property bar type.
-        \tparam Settings          A settings type.
-        \tparam ConfirmFileSave   A file save confirmation type.
+        \brief The class for the main window.
     */
-    template <
-        typename Window,
-        typename MessageCatalog,
-        typename DiagramPictureBox,
-        typename PropertyBar,
-        typename Settings,
-        typename ConfirmFileSave
-    >
-    class main_window : public Window
+    class main_window : public boost::mpl::at<ui_type_list, type::ui::window>::type
     {
     public:
         // types
 
         //! The base type.
-        typedef Window base_type;
+        typedef boost::mpl::at<ui_type_list, type::ui::window>::type base_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        typedef base_type::string_type string_type;
 
         //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
+        typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
         //! The diagram picture box type.
-        typedef DiagramPictureBox diagram_picture_box_type;
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
+            diagram_picture_box_type;
 
         //! The property bar type.
-        typedef PropertyBar property_bar_type;
+        typedef boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type property_bar_type;
         
         //! The settings type.
-        typedef Settings settings_type;
+        typedef boost::mpl::at<setting_type_list, type::setting::settings>::type settings_type;
 
         //! The file save confirmation type.
-        typedef ConfirmFileSave confirm_file_save_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type confirm_file_save_type;
 
 
         // constructors and destructor
