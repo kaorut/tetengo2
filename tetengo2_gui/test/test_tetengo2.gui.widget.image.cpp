@@ -8,11 +8,14 @@
 
 //#include <memory>
 //#include <stdexcept>
+//#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.stdalt.h"
+#include "tetengo2.text.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -32,6 +35,12 @@ namespace
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture_reader>::type
         picture_reader_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type
+        icon_type;
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
 
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
@@ -90,24 +99,102 @@ BOOST_AUTO_TEST_SUITE(image)
         image.set_picture(picture_reader.read());
         image.picture();
         const_image.picture();
-
     }
 
     BOOST_AUTO_TEST_CASE(set_picture)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            window_type parent;
+            image_type image(parent);
+
+            picture_reader_type picture_reader("image_file");
+            image.set_picture(picture_reader.read());
+
+            BOOST_CHECK(image.has_picture());
+
+            image.set_picture(std::unique_ptr<picture_type>());
+
+            BOOST_CHECK(!image.has_picture());
+        }
+        {
+            window_type parent;
+            image_type image(parent);
+
+            auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+            image.set_icon(std::move(p_icon));
+
+            picture_reader_type picture_reader("image_file");
+            image.set_picture(picture_reader.read());
+
+            BOOST_CHECK(image.has_picture());
+            BOOST_CHECK(!image.has_icon());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(has_icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
         window_type parent;
         image_type image(parent);
 
-        picture_reader_type picture_reader("image_file");
-        image.set_picture(picture_reader.read());
+        BOOST_CHECK(!image.has_icon());
 
-        BOOST_CHECK(image.has_picture());
+        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+        image.set_icon(std::move(p_icon));
 
-        image.set_picture(std::unique_ptr<picture_type>());
+        BOOST_CHECK(image.has_icon());
+    }
 
-        BOOST_CHECK(!image.has_picture());
+    BOOST_AUTO_TEST_CASE(icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        image_type image(parent);
+        const auto& const_image = image;
+
+        BOOST_CHECK_THROW(image.icon(), std::logic_error);
+        BOOST_CHECK_THROW(const_image.icon(), std::logic_error);
+
+        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+        image.set_icon(std::move(p_icon));
+        image.icon();
+        const_image.icon();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            image_type image(parent);
+
+            auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+            image.set_icon(std::move(p_icon));
+
+            BOOST_CHECK(image.has_icon());
+
+            image.set_icon(std::unique_ptr<icon_type>());
+
+            BOOST_CHECK(!image.has_icon());
+        }
+        {
+            window_type parent;
+            image_type image(parent);
+
+            picture_reader_type picture_reader("image_file");
+            image.set_picture(picture_reader.read());
+
+            auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+            image.set_icon(std::move(p_icon));
+
+            BOOST_CHECK(image.has_icon());
+            BOOST_CHECK(!image.has_picture());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(fit_to_content)
@@ -116,14 +203,27 @@ BOOST_AUTO_TEST_SUITE(image)
 
         window_type parent;
         image_type image(parent);
-        picture_reader_type picture_reader("image_file");
-        image.set_picture(picture_reader.read());
 
-        image.fit_to_content();
+        {
+            picture_reader_type picture_reader("image_file");
+            image.set_picture(picture_reader.read());
 
-        const auto dimension = image.client_dimension();
-        const dimension_type answer_dimension(width_type(123), height_type(456));
-        BOOST_CHECK(dimension == answer_dimension);
+            image.fit_to_content();
+
+            const auto dimension = image.client_dimension();
+            const dimension_type answer_dimension(width_type(123), height_type(456));
+            BOOST_CHECK(dimension == answer_dimension);
+        }
+        {
+            auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+            image.set_icon(std::move(p_icon));
+
+            image.fit_to_content();
+
+            const auto dimension = image.client_dimension();
+            const dimension_type answer_dimension(width_type(42), height_type(42));
+            BOOST_CHECK(dimension == answer_dimension);
+        }
     }
 
 
