@@ -681,7 +681,9 @@ namespace test_tetengo2 { namespace gui
             dropdown_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::image_traits<
-                control_traits_type, boost::mpl::at<drawing_type_list, type::drawing::picture>::type
+                control_traits_type,
+                boost::mpl::at<drawing_type_list, type::drawing::picture>::type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
             >
             image_traits_type;
         typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;

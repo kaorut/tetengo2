@@ -616,7 +616,8 @@ namespace bobura
             >
             button_type;
         typedef
-            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type> image_traits_type;
+            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type, icon_type>
+            image_traits_type;
         typedef
             tetengo2::gui::widget::image<
                 image_traits_type,

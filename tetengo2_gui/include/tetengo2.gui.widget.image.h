@@ -52,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The picture type.
         typedef typename traits_type::picture_type picture_type;
+        
+        //! The icon type.
+        typedef typename traits_type::icon_type icon_type;
 
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
@@ -78,7 +81,8 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_picture()
+        m_p_picture(),
+        m_p_icon()
         {
             initialize_image(this);
         }
@@ -182,6 +186,8 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         std::unique_ptr<picture_type> m_p_picture;
+
+        std::unique_ptr<icon_type> m_p_icon;
 
 
         // functions
