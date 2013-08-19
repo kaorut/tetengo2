@@ -610,7 +610,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \throw std::system_error When the icon cannot be painted.
         */
         template <typename Icon, typename Position>
-        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position);
+        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
+        {
+            canvas.GetHDC();
+            icon.path();
+            position.first;
+        }
 
 
     private:

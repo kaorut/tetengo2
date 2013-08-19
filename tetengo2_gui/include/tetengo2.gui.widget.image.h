@@ -255,9 +255,10 @@ namespace tetengo2 { namespace gui { namespace widget
         void paint_image(canvas_type& canvas)
         const
         {
-            if (!m_p_picture) return;
-
-            canvas.paint_picture(*m_p_picture, position_type(left_type(0), top_type(0)), this->client_dimension());
+            if (m_p_picture)
+                canvas.paint_picture(*m_p_picture, position_type(left_type(0), top_type(0)), this->client_dimension());
+            else if (m_p_icon)
+                canvas.paint_icon(*m_p_icon, position_type(left_type(0), top_type(0)));
         }
 
 
