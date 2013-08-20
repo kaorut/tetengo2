@@ -254,9 +254,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\win32\kuma.ico">
-      <Filter>resources\win32</Filter>
-    </None>
     <None Include="res\images\kumakuma.jpg">
       <Filter>resources\images</Filter>
     </None>
@@ -371,5 +368,16 @@
     <Manifest Include="res\win32\high_dpi.manifest">
       <Filter>resources\win32</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\win32\bobura_app.ico">
+      <Filter>resources\win32</Filter>
+    </Image>
+    <Image Include="res\win32\btt_file.ico">
+      <Filter>resources\win32</Filter>
+    </Image>
+    <Image Include="res\win32\bttbz2_file.ico">
+      <Filter>resources\win32</Filter>
+    </Image>
   </ItemGroup>
 </Project>

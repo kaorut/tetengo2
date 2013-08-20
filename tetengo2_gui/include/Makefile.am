@@ -23,6 +23,7 @@ headers = \
     tetengo2.gui.drawing.transparent_background.h \
     tetengo2.gui.drawing.widget_canvas.h \
     tetengo2.gui.fixture.h \
+    tetengo2.gui.icon.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu.abstract_popup.h \
     tetengo2.gui.menu.command.h \

@@ -251,5 +251,8 @@
     <ClCompile Include="test\test_tetengo2.gui.timer.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.icon.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -315,5 +315,8 @@
     <ClInclude Include="include\tetengo2.gui.timer.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.icon.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

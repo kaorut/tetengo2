@@ -13,8 +13,7 @@
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
-xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
+call "$(SolutionDir)tools\copy_bobura_resource.bat" "$(ProjectDir)" "$(OutDir)"
 call "$(SolutionDir)tools\codesign.bat" "$(SolutionDir)" "$(TargetPath)"</Command>
     </PostBuildEvent>
     <Manifest>

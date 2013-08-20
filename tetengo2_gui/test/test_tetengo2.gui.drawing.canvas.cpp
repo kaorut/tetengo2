@@ -63,6 +63,12 @@ namespace
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type
         picture_type;
 
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type
+        icon_type;
+
     typedef
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas_details>::type
         canvas_details_type;
@@ -351,6 +357,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
             const picture_type picture(make_dimension(123, 456));
             canvas.paint_picture(picture, make_position(12, 34));
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(paint_icon)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+        canvas.paint_icon(icon, make_position(12, 34));
     }
 
     BOOST_AUTO_TEST_CASE(details)

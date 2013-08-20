@@ -514,7 +514,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
 
                 m_p_timer =
-                    tetengo2::stdalt::make_unique<timer_type>(
+                    stdalt::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
                         animation_duration() / max_animation_step()
@@ -1079,7 +1079,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_mouse_capture(const item* const p_item)
         {
-            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
             m_p_mouse_captured_item = p_item;
         }
 

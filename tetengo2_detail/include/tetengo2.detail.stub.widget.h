@@ -869,6 +869,23 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Assigns an icon on a widget.
+
+            \tparam Widget A widget type.
+            \tparam Icon   An icon type.
+
+            \param widget A widget.
+            \param p_icon A pointer to an icon.
+
+            \throw std::system_error When an icon cannot be set.
+        */
+        template <typename Widget, typename Icon>
+        static void set_icon(Widget& widget, const Icon* const p_icon)
+        {
+            suppress_unused_variable_warning(widget, p_icon);
+        }
+
+        /*!
             \brief Assigns a menu bar on a widget.
 
             \tparam Widget   A widget type.

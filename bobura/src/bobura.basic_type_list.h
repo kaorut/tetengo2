@@ -39,6 +39,7 @@
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
+#include <tetengo2.gui.icon.h>
 #include <tetengo2.gui.menu.abstract_popup.h>
 #include <tetengo2.gui.menu.command.h>
 #include <tetengo2.gui.menu.menu_bar.h>
@@ -423,6 +424,13 @@ namespace bobura
             >
             fast_picture_reader_type;
         typedef
+            tetengo2::gui::icon<
+                boost::mpl::at<common_type_list, type::path>::type,
+                dimension_type,
+                boost::mpl::at<detail_type_list, type::detail::icon>::type
+            >
+            icon_type;
+        typedef
             tetengo2::gui::drawing::canvas_traits<
                 unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -433,7 +441,8 @@ namespace bobura
                 background_type,
                 solid_background_type,
                 font_type,
-                picture_type
+                picture_type,
+                icon_type
             >
             canvas_traits_type;
         typedef
@@ -453,7 +462,8 @@ namespace bobura
                 fast_background_type,
                 fast_solid_background_type,
                 fast_font_type,
-                fast_picture_type
+                fast_picture_type,
+                icon_type
             >
             fast_canvas_traits_type;
         typedef
@@ -541,7 +551,7 @@ namespace bobura
             menu_bar_type;
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
-                widget_traits_type, menu_bar_type, tetengo2::gui::message::window_observer_set
+                widget_traits_type, icon_type, menu_bar_type, tetengo2::gui::message::window_observer_set
             >
             abstract_window_traits_type;
         typedef
@@ -606,7 +616,8 @@ namespace bobura
             >
             button_type;
         typedef
-            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type> image_traits_type;
+            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type, icon_type>
+            image_traits_type;
         typedef
             tetengo2::gui::widget::image<
                 image_traits_type,

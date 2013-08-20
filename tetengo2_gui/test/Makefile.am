@@ -28,6 +28,7 @@ sources = \
     test_tetengo2.gui.drawing.transparent_background.cpp \
     test_tetengo2.gui.drawing.widget_canvas.cpp \
     test_tetengo2.gui.fixture.cpp \
+    test_tetengo2.gui.icon.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.menu.abstract_popup.cpp \
     test_tetengo2.gui.menu.command.cpp \

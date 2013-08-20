@@ -54,6 +54,7 @@ tetengo2::gui::widget::picture_box::system_cursor_type
 tetengo2::gui::widget::widget::alert_type
 tetengo2::gui::widget::widget::size_type
 tetengo2::gui::widget::window::string_type
+tetengo2::gui::widget::window::icon_type
 tetengo2::gui::widget::window::window_state_type
 tetengo2::text::encoding::encoding::pivot_type
 test_bobura::model::serialization_type_list
