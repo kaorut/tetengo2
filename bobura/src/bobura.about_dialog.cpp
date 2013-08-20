@@ -71,9 +71,9 @@ namespace bobura
 
             typedef typename boost::mpl::at<ui_type_list, type::ui::image>::type image_type;
 
-            typedef typename boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
+            typedef typename image_type::icon_type icon_type;
 
-            typedef typename boost::mpl::at<ui_type_list, type::ui::picture_reader>::type picture_reader_type;
+            typedef typename boost::mpl::at<ui_type_list, type::ui::button>::type button_type;
 
             typedef
                 typename boost::mpl::at<ui_type_list, type::ui::transparent_background>::type
@@ -134,10 +134,12 @@ namespace bobura
             {
                 auto p_image = tetengo2::stdalt::make_unique<image_type>(m_base);
 
-                picture_reader_type picture_reader(
-                    m_settings.image_directory_path() / string_type(TETENGO2_TEXT("kuma.png"))
-                );
-                p_image->set_picture(picture_reader.read());
+                auto p_icon =
+                    tetengo2::stdalt::make_unique<icon_type>(
+                        m_settings.image_directory_path() / string_type(TETENGO2_TEXT("bobura_app.ico")),
+                        dimension_type(width_type(4), height_type(4))
+                    );
+                p_image->set_icon(std::move(p_icon));
 
                 return std::move(p_image);
             }
