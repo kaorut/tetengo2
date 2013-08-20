@@ -57,6 +57,7 @@
 ::DestroyWindow                                  Windows.h
 ::DispatchMessageW                               Windows.h
 ::DrawFocusRect                                  Windows.h
+::DrawIconEx                                     Windows.h
 ::DrawMenuBar                                    Windows.h
 ::EnableScrollBar                                Windows.h
 ::EnableWindow                                   Windows.h
