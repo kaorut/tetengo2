@@ -4,5 +4,6 @@ rem Copyright (C) 2007-2013 kaoru
 rem $Id$
 
 xcopy /y /i "%1res\messages" "%2messages"
-xcopy /y /i "%1res\images" "%2images"
-copy /y "%1res\win32\bobura_app.ico" "%2images"
+rem xcopy /y /i "%1res\images" "%2images"
+mkdir "%2images"
+xcopy /y /i "%1res\win32\bobura_app.ico" "%2images"
