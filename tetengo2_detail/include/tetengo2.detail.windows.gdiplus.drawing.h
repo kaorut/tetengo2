@@ -612,9 +612,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Icon, typename Position>
         static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
         {
-            canvas.GetHDC();
-            icon.path();
-            position.first;
+            typedef typename Icon::dimension_type dimension_type;
+            const ::BOOL result =
+                ::DrawIconEx(
+                    canvas.GetHDC(),
+                    gui::to_pixels<int>(gui::position<Position>::left(position)),
+                    gui::to_pixels<int>(gui::position<Position>::top(position)),
+                    icon.details()->big_icon_handle.get(),
+                    gui::to_pixels<int>(gui::dimension<dimension_type>::width(icon.dimension())),
+                    gui::to_pixels<int>(gui::dimension<dimension_type>::height(icon.dimension())),
+                    0,
+                    nullptr,
+                    DI_NORMAL
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(Gdiplus::Win32Error, gdiplus_category()), "Can't paint icon!")
+                );
+            }
         }
 
 
