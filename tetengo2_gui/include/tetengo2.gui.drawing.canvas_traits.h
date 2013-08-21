@@ -25,6 +25,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam SolidBackground A solid background type.
         \tparam Font            A font type.
         \tparam Picture         A picture type.
+        \tparam Icon            An icon type.
     */
     template <
         typename Size,
@@ -36,7 +37,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Background,
         typename SolidBackground,
         typename Font,
-        typename Picture
+        typename Picture,
+        typename Icon
     >
     class canvas_traits
     {
@@ -72,6 +74,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The picture type.
         typedef Picture picture_type;
+
+        //! The icon type.
+        typedef Icon icon_type;
 
 
     };

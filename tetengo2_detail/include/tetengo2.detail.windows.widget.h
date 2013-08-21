@@ -1476,6 +1476,36 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Assigns an icon on a widget.
+
+            \tparam Widget A widget type.
+            \tparam Icon   An icon type.
+
+            \param widget A widget.
+            \param p_icon A pointer to an icon.
+
+            \throw std::system_error When an icon cannot be set.
+        */
+        template <typename Widget, typename Icon>
+        static void set_icon(Widget& widget, const Icon* const p_icon)
+        {
+            ::HICON icon_handle = nullptr;
+            ::HICON small_icon_handle = nullptr;
+            if (p_icon && p_icon->details())
+            {
+                icon_handle = p_icon->details()->big_icon_handle.get();
+                small_icon_handle = p_icon->details()->small_icon_handle.get();
+            }
+
+            ::SendMessageW(
+                widget.details()->handle.get(), WM_SETICON, ICON_BIG, reinterpret_cast< ::LPARAM>(icon_handle)
+            );
+            ::SendMessageW(
+                widget.details()->handle.get(), WM_SETICON, ICON_SMALL, reinterpret_cast< ::LPARAM>(small_icon_handle)
+            );
+        }
+
+        /*!
             \brief Assigns a menu bar on a widget.
 
             \tparam Widget   A widget type.

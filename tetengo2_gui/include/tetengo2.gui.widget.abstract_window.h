@@ -56,6 +56,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         typedef typename base_type::string_type string_type;
 
+        //! The icon type.
+        typedef typename traits_type::icon_type icon_type;
+
         //! The menu bar type.
         typedef typename traits_type::menu_bar_type menu_bar_type;
 
@@ -120,6 +123,56 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             return widget_details_type::template normal_dimension<dimension_type>(*this);
+        }
+
+        /*!
+            \brief Checks whether the abstract window has an icon.
+
+            \retval true  When the abstract window has an icon.
+            \retval false Otherwise.
+        */
+        bool has_icon()
+        const
+        {
+            return static_cast<bool>(m_p_icon);
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+        */
+        const icon_type& icon()
+        const
+        {
+            if (!has_icon())
+                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
+
+            return *m_p_icon;
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+        */
+        icon_type& icon()
+        {
+            if (!has_icon())
+                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
+
+            return *m_p_icon;
+        }
+
+        /*!
+            \brief Sets an icon.
+
+            \param p_icon A unique pointer to an icon.
+        */
+        void set_icon(std::unique_ptr<icon_type> p_icon)
+        {
+            widget_details_type::set_icon(*this, p_icon.get());
+            m_p_icon = std::move(p_icon);
         }
 
         /*!
@@ -246,6 +299,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_p_icon(),
         m_p_menu_bar(),
         m_window_observer_set()
         {}
@@ -255,11 +309,16 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         virtual ~abstract_window()
         TETENGO2_STDALT_NOEXCEPT
-        {}
+        {
+            if (!this->destroyed())
+                set_icon(std::unique_ptr<icon_type>());
+        }
 
 
     private:
         // variables
+
+        std::unique_ptr<icon_type> m_p_icon;
 
         std::unique_ptr<menu_bar_type> m_p_menu_bar;
 

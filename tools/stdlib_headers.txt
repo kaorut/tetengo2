@@ -52,10 +52,12 @@
 ::DeleteMenu                                     Windows.h
 ::DeleteObject                                   Windows.h
 ::DestroyAcceleratorTable                        Windows.h
+::DestroyIcon                                    Windows.h
 ::DestroyMenu                                    Windows.h
 ::DestroyWindow                                  Windows.h
 ::DispatchMessageW                               Windows.h
 ::DrawFocusRect                                  Windows.h
+::DrawIconEx                                     Windows.h
 ::DrawMenuBar                                    Windows.h
 ::EnableScrollBar                                Windows.h
 ::EnableWindow                                   Windows.h
@@ -450,6 +452,7 @@ WM_RBUTTONUP                                     Windows.h
 WM_SETCURSOR                                     Windows.h
 WM_SETFOCUS                                      Windows.h
 WM_SETFONT                                       Windows.h
+WM_SETICON                                       Windows.h
 WM_SIZE                                          Windows.h
 WM_SYSCOMMAND                                    Windows.h
 WM_VSCROLL                                       Windows.h

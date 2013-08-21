@@ -18,7 +18,6 @@
 #include "bobura.command.command_base.h"
 #include "bobura.command.set.h"
 #include "bobura.diagram_picture_box.h"
-#include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.property_bar.h"
 #include "bobura.view.diagram.zoom.h"
@@ -27,6 +26,8 @@
 namespace bobura
 {
     /**** Main Window *******************************************************/
+
+    class main_window;
 
     namespace type { namespace main_window
     {
@@ -89,18 +90,7 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::command_set, command::set>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::main_window::main_window,
-                main_window<
-                    boost::mpl::at<ui_type_list, type::ui::window>::type,
-                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    detail::main_window::diagram_picture_box_type,
-                    detail::main_window::property_bar_type,
-                    boost::mpl::at<setting_type_list, type::setting::settings>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
-                >
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::main_window::main_window, main_window>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
         tetengo2::meta::assoc_list<

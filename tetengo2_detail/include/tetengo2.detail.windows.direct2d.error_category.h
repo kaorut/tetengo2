@@ -1,6 +1,5 @@
 /*! \file
-    \brief The definition of
-           tetengo2::detail::windows::direct2d::error_category.
+    \brief The definition of tetengo2::detail::windows::direct2d::error_category.
 
     Copyright (C) 2007-2013 kaoru
 

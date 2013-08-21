@@ -52,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The picture type.
         typedef typename traits_type::picture_type picture_type;
+        
+        //! The icon type.
+        typedef typename traits_type::icon_type icon_type;
 
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
@@ -64,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
         */
-        image(widget_type& parent)
+        explicit image(widget_type& parent)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -78,7 +81,8 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_picture()
+        m_p_picture(),
+        m_p_icon()
         {
             initialize_image(this);
         }
@@ -125,6 +129,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Returns the picture.
 
             \return The picture.
+
+            \throw std::logic_error When no picture is set.
         */
         picture_type& picture()
         {
@@ -142,14 +148,72 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_picture(std::unique_ptr<picture_type> p_picture)
         {
             m_p_picture = std::move(p_picture);
+            m_p_icon.reset();
         }
 
         /*!
-            \brief Fit the dimension to the dimension of the picture.
+            \brief Checks whether an icon is set.
+
+            \retval true  When an icon is set.
+            \retval false Otherwise.
+        */
+        bool has_icon()
+        const
+        {
+            return static_cast<bool>(m_p_icon);
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+
+            \throw std::logic_error When no icon is set.
+        */
+        const icon_type& icon()
+        const
+        {
+            if (!m_p_icon)
+                BOOST_THROW_EXCEPTION(std::logic_error("No icon is set."));
+
+            return *m_p_icon;
+        }
+
+        /*!
+            \brief Returns the icon.
+
+            \return The icon.
+
+            \throw std::logic_error When no icon is set.
+        */
+        icon_type& icon()
+        {
+            if (!m_p_icon)
+                BOOST_THROW_EXCEPTION(std::logic_error("No icon is set."));
+
+            return *m_p_icon;
+        }
+
+        /*!
+            \brief Sets an icon.
+
+            \param p_icon A unique pointer to an icon.
+        */
+        void set_icon(std::unique_ptr<icon_type> p_icon)
+        {
+            m_p_icon = std::move(p_icon);
+            m_p_picture.reset();
+        }
+
+        /*!
+            \brief Fit the dimension to the dimension of the picture or the icon.
         */
         void fit_to_content()
         {
-            this->set_client_dimension(m_p_picture->dimension());
+            if (m_p_picture)
+                this->set_client_dimension(m_p_picture->dimension());
+            else if (m_p_icon)
+                this->set_client_dimension(m_p_icon->dimension());
         }
 
 
@@ -174,7 +238,7 @@ namespace tetengo2 { namespace gui { namespace widget
             p_image->initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
-                [p_image](canvas_type& canvas) { p_image->paint_picture(canvas); }
+                [p_image](canvas_type& canvas) { p_image->paint_image(canvas); }
             );
         }
 
@@ -183,15 +247,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<picture_type> m_p_picture;
 
+        std::unique_ptr<icon_type> m_p_icon;
+
 
         // functions
 
-        void paint_picture(canvas_type& canvas)
+        void paint_image(canvas_type& canvas)
         const
         {
-            if (!m_p_picture) return;
-
-            canvas.paint_picture(*m_p_picture, position_type(left_type(0), top_type(0)), this->client_dimension());
+            if (m_p_picture)
+                canvas.paint_picture(*m_p_picture, position_type(left_type(0), top_type(0)), this->client_dimension());
+            else if (m_p_icon)
+                canvas.paint_icon(*m_p_icon, position_type(left_type(0), top_type(0)));
         }
 
 

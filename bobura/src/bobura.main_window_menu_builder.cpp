@@ -15,6 +15,7 @@
 #include <tetengo2.stdalt.h>
 #include <tetengo2.text.h>
 
+#include "bobura.main_window.h"
 #include "bobura.type_list.h"
 
 #include "bobura.main_window_menu_builder.h"
@@ -57,7 +58,7 @@ namespace bobura
 
         typedef main_window_menu_builder::model_type model_type;
 
-        typedef main_window_menu_builder::main_window_type main_window_type;
+        typedef main_window main_window_type;
 
         typedef main_window_menu_builder::message_catalog_type message_catalog_type;
 

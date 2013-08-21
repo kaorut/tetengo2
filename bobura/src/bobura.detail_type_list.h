@@ -21,6 +21,7 @@
 #   include <tetengo2.detail.windows.gdiplus.drawing.h>
 #   include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
 #   include <tetengo2.detail.windows.gui_fixture.h>
+#   include <tetengo2.detail.windows.icon.h>
 #   include <tetengo2.detail.windows.menu.h>
 #   include <tetengo2.detail.windows.message_handler.h>
 #   include <tetengo2.detail.windows.message_loop.h>
@@ -39,6 +40,7 @@
 #   include <tetengo2.detail.stub.drawing.h>
 #   include <tetengo2.detail.stub.encoding.h>
 #   include <tetengo2.detail.stub.gui_fixture.h>
+#   include <tetengo2.detail.stub.icon.h>
 #   include <tetengo2.detail.stub.menu.h>
 #   include <tetengo2.detail.stub.message_handler.h>
 #   include <tetengo2.detail.stub.message_loop.h>
@@ -66,6 +68,7 @@ namespace bobura
         struct fast_drawing;   //!< The detail implementation type of the fast drawing.
         struct encoding;       //!< The detail implementation type of the encoding.
         struct gui_fixture;    //!< The detail implementation type of the GUI fixture.
+        struct icon;           //!< The detail implementation type of the icon.
         struct menu;           //!< The detail implementation type of the menu.
         struct message_handler; //!< The detail implementation type of the message handler.
         struct message_loop;   //!< The detail implementation type of the message loop.
@@ -94,6 +97,7 @@ namespace bobura
             tetengo2::detail::windows::gui_fixture m_windows_gui_fixture;
             tetengo2::detail::windows::gdiplus::gui_fixture m_gdiplus_gui_fixutre;
         };
+        typedef tetengo2::detail::windows::icon icon_type;
         typedef tetengo2::detail::windows::menu menu_type;
         typedef tetengo2::detail::windows::message_handler message_handler_type;
         typedef tetengo2::detail::windows::message_loop message_loop_type;
@@ -116,6 +120,7 @@ namespace bobura
         {
             tetengo2::detail::stub::gui_fixture m_stub_gui_fixture;
         };
+        typedef tetengo2::detail::stub::icon icon_type;
         typedef tetengo2::detail::stub::menu menu_type;
         typedef tetengo2::detail::stub::message_handler message_handler_type;
         typedef tetengo2::detail::stub::message_loop message_loop_type;
@@ -140,6 +145,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::fast_drawing, detail::detail::fast_drawing_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::icon_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::detail::message_handler, detail::detail::message_handler_type>,
@@ -152,7 +158,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>
         detail_type_list;
 
 

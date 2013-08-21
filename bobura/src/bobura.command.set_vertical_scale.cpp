@@ -13,6 +13,7 @@
 #include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
+#include "bobura.main_window.h"
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.zoom.h"
 

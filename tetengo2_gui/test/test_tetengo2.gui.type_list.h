@@ -22,6 +22,7 @@
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.icon.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
@@ -51,6 +52,7 @@
 #include "tetengo2.gui.drawing.system_color_set.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.gui.icon.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.gui.menu.command.h"
 #include "tetengo2.gui.menu.menu_bar.h"
@@ -193,6 +195,7 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace gui_common
     {
         struct alert;          //!< The alert type.
+        struct icon;           //!< The icon type.
         struct virtual_key;    //!< The virtual key type.
     }}
 
@@ -209,13 +212,22 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::gui_common::icon,
+                tetengo2::gui::icon<
+                    boost::mpl::at<type_list, type::path>::type,
+                    boost::mpl::at<type_list, type::dimension>::type,
+                    tetengo2::detail::stub::icon
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::gui_common::virtual_key,
                 tetengo2::gui::virtual_key<
                     boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         gui_common_type_list;
 
 
@@ -335,7 +347,8 @@ namespace test_tetengo2 { namespace gui
                 background_type,
                 solid_background_type,
                 font_type,
-                picture_type
+                picture_type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
             >
             canvas_traits_type;
         typedef drawing_details_type::canvas_details_type canvas_details_type;
@@ -627,6 +640,7 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type,
                 boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
                 tetengo2::gui::message::window_observer_set
             >
@@ -667,7 +681,9 @@ namespace test_tetengo2 { namespace gui
             dropdown_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::image_traits<
-                control_traits_type, boost::mpl::at<drawing_type_list, type::drawing::picture>::type
+                control_traits_type,
+                boost::mpl::at<drawing_type_list, type::drawing::picture>::type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
             >
             image_traits_type;
         typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;

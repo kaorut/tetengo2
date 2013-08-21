@@ -52,7 +52,6 @@
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
@@ -594,6 +593,42 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(status, gdiplus_category()), "Can't paint picture!")
+                );
+            }
+        }
+
+        /*!
+            \brief Paints an icon.
+
+            \tparam Icon     A icon type.
+            \tparam Position A position type.
+
+            \param canvas   A canvas.
+            \param icon     An icon to paint.
+            \param position A position where the picture is painted.
+
+            \throw std::system_error When the icon cannot be painted.
+        */
+        template <typename Icon, typename Position>
+        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
+        {
+            typedef typename Icon::dimension_type dimension_type;
+            const ::BOOL result =
+                ::DrawIconEx(
+                    canvas.GetHDC(),
+                    gui::to_pixels<int>(gui::position<Position>::left(position)),
+                    gui::to_pixels<int>(gui::position<Position>::top(position)),
+                    icon.details()->big_icon_handle.get(),
+                    gui::to_pixels<int>(gui::dimension<dimension_type>::width(icon.dimension())),
+                    gui::to_pixels<int>(gui::dimension<dimension_type>::height(icon.dimension())),
+                    0,
+                    nullptr,
+                    DI_NORMAL
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(Gdiplus::Win32Error, gdiplus_category()), "Can't paint icon!")
                 );
             }
         }

@@ -36,8 +36,8 @@ The libraries are available on Windows and UNIX-like systems.
 It's tested on the following systems:
 
 - [Windows 7 Service Pack 1](http://www.microsoft.com/)
-- [Debian GNU/Linux 7.1](http://www.debian.org/)
-- [Cygwin 1.7.22 (x64)](http://www.cygwin.com/)
+- [Debian GNU/Linux 7](http://www.debian.org/)
+- [Cygwin 1.7 (x64)](http://www.cygwin.com/)
 
 
 How to Build {#how_to_build}
@@ -67,6 +67,7 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Visual Studio 2012 Update 3](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
+- [WiX 4.0](http://wixtoolset.org/)
 - [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
