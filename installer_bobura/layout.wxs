@@ -46,9 +46,6 @@
         <Component Id="BoburAppIco" Guid="4ec77061-60af-4b2c-85ec-e7ae97d5ec6b">
           <File Id="BoburAppIco" Name="bobura_app.ico" DiskId="1" KeyPath="yes" />
         </Component>
-        <Component Id="KumaPng" Guid="334b18db-c47d-43b2-9765-4993e5cec607">
-          <File Id="KumaPng" Name="kuma.png" DiskId="1" KeyPath="yes" />
-        </Component>
       </Directory>
       <Directory Id="Messages" Name="messages">
         <Component Id="CatalogsJson" Guid="6a1476a2-2522-4f08-97d1-56e66c32cd2c">
@@ -81,7 +78,6 @@
     </ComponentGroup>
     <ComponentGroup Id="Data">
       <ComponentRef Id="BoburAppIco" />
-      <ComponentRef Id="KumaPng" />
       <ComponentRef Id="CatalogsJson" />
       <ComponentRef Id="JapaneseJson" />
       <ComponentRef Id="StartMenuFolder" />
