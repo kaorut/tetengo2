@@ -123,13 +123,14 @@ namespace bobura { namespace load_save
         /*!
             \brief Executes the load_save.
 
-            \param model  A model.
-            \param parent A parent window.
+            \param model      A model.
+            \param given_path A given path.
+            \param parent     A parent window.
         */
-        void operator()(model_type& model, abstract_window_type& parent)
+        void operator()(model_type& model, const boost::optional<path_type>& given_path, abstract_window_type& parent)
         const
         {
-            if (!m_ask_file_path && !model.has_path())
+            if (!m_ask_file_path && !model.has_path() && !given_path)
                 return;
 
             if (!m_confirm_file_save(parent))
@@ -147,8 +148,13 @@ namespace bobura { namespace load_save
 
                 path = dialog.result();
             }
+            else if (given_path)
+            {
+                path = *given_path;
+            }
             else
             {
+                assert(model.has_path());
                 path = model.path();
             }
 

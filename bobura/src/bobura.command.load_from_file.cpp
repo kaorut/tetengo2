@@ -46,7 +46,7 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            m_load_from_file(model, parent);
+            m_load_from_file(model, boost::none, parent);
         }
 
 
