@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <boost/optional.hpp>
+
 #include <tetengo2.stdalt.h>
 
 #include "bobura.command.load_from_file.h"
@@ -38,7 +40,7 @@ namespace bobura { namespace command
         bool enabled(const model_type& model)
         const
         {
-            return m_load_from_file.reloadable(model);
+            return m_load_from_file.reloadable(model, boost::none);
         }
 
         void execute(model_type& model, abstract_window_type& parent)

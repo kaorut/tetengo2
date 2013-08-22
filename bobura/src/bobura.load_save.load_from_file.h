@@ -17,6 +17,7 @@
 //#include <utility>
 
 #include <boost/filesystem/fstream.hpp>
+#include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -65,6 +66,9 @@ namespace bobura { namespace load_save
         //! The file open dialog type.
         typedef FileOpenDialog file_open_dialog_type;
 
+        //! The path type.
+        typedef typename file_open_dialog_type::path_type path_type;
+
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
@@ -104,15 +108,16 @@ namespace bobura { namespace load_save
         /*!
             \brief Return whether the model is reloadable.
 
-            \param model A model.
+            \param model      A model.
+            \param given_path A given path.
 
             \retval true  When the model is reloadable.
             \retval false Otherwise.
         */
-        bool reloadable(const model_type& model)
+        bool reloadable(const model_type& model, const boost::optional<path_type>& given_path)
         const
         {
-            return m_ask_file_path || model.has_path();
+            return m_ask_file_path || model.has_path() || given_path;
         }
 
         /*!
@@ -191,8 +196,6 @@ namespace bobura { namespace load_save
         // types
 
         typedef typename abstract_window_type::string_type string_type;
-
-        typedef typename file_open_dialog_type::path_type path_type;
 
         typedef typename reader_selector_type::error_type reader_error_type;
 
