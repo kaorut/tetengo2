@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <utility>
+
 //#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
@@ -29,9 +31,10 @@ namespace bobura { namespace command
 
         // constructors and destructor
 
-        explicit impl(const load_from_file_type& load_from_file)
+        explicit impl(const load_from_file_type& load_from_file, boost::optional<path_type> given_path)
         :
-        m_load_from_file(load_from_file)
+        m_load_from_file(load_from_file),
+        m_given_path(std::move(given_path))
         {}
 
 
@@ -40,13 +43,13 @@ namespace bobura { namespace command
         bool enabled(const model_type& model)
         const
         {
-            return m_load_from_file.reloadable(model, boost::none);
+            return m_load_from_file.reloadable(model, m_given_path);
         }
 
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            m_load_from_file(model, boost::none, parent);
+            m_load_from_file(model, m_given_path, parent);
         }
 
 
@@ -55,13 +58,15 @@ namespace bobura { namespace command
 
         const load_from_file_type& m_load_from_file;
 
+        const boost::optional<path_type> m_given_path;
+
 
     };
 
 
-    load_from_file::load_from_file(const load_from_file_type& load_from_file)
+    load_from_file::load_from_file(const load_from_file_type& load_from_file, boost::optional<path_type> given_path)
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>(load_from_file))
+    m_p_impl(tetengo2::stdalt::make_unique<impl>(load_from_file, std::move(given_path)))
     {}
 
     load_from_file::~load_from_file()

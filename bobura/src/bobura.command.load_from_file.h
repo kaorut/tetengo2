@@ -12,6 +12,7 @@
 //#include <memory>
 
 //#include <boost/mpl/at.hpp>
+//#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
 
@@ -34,6 +35,9 @@ namespace bobura { namespace command
         //! The file loading type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
+        //! The path type.
+        typedef load_from_file_type::path_type path_type;
+
 
         // constructors and destructor
 
@@ -41,8 +45,9 @@ namespace bobura { namespace command
             \brief Creates a load-from-file command.
 
             \param load_from_file A file loading.
+            \param given_path     A given path.
         */
-        explicit load_from_file(const load_from_file_type& load_from_file);
+        explicit load_from_file(const load_from_file_type& load_from_file, boost::optional<path_type> given_path);
 
         /*!
             \brief Destroys the load-from-file command.

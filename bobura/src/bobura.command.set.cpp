@@ -10,6 +10,7 @@
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
+//#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
 
@@ -241,7 +242,7 @@ namespace bobura { namespace command
 
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
-            return tetengo2::stdalt::make_unique<command::load_from_file>(load_from_file);
+            return tetengo2::stdalt::make_unique<command::load_from_file>(load_from_file, boost::none);
         }
 
         static command_ptr_type create_new_file(const new_file_type& new_file)
