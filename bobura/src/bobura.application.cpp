@@ -7,12 +7,11 @@
 */
 
 //#include <cassert>
-#include <chrono>
-#include <memory>
+//#include <chrono>
+//#include <memory>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
 
