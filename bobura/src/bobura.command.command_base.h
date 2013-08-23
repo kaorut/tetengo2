@@ -49,6 +49,33 @@ namespace bobura { namespace command
             virtual ~parameter_type()
             TETENGO2_STDALT_NOEXCEPT = 0;
 
+            /*!
+                \brief Returns the derived instance.
+
+                \tparam D A derived type.
+
+                \return The derived instance.
+            */
+            template <typename D>
+            const D& as()
+            const
+            {
+                return dynamic_cast<const D&>(*this);
+            }
+
+            /*!
+                \brief Returns the derived instance.
+
+                \tparam D A derived type.
+
+                \return The derived instance.
+            */
+            template <typename D>
+            D& as()
+            {
+                return dynamic_cast<D&>(*this);
+            }
+
         };
 
 

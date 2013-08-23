@@ -32,20 +32,28 @@ namespace bobura { namespace command
         //! The base type.
         typedef command_base base_type;
 
-        //! The parameter type.
-        class load_from_file_parameter_type : public base_type::parameter_type
-        {
-        public:
-            virtual ~load_from_file_parameter_type()
-            TETENGO2_STDALT_NOEXCEPT;
-
-        };
-
         //! The file loading type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
         //! The path type.
         typedef load_from_file_type::path_type path_type;
+
+        //! The parameter type.
+        class load_from_file_parameter_type : public base_type::parameter_type
+        {
+        public:
+            explicit load_from_file_parameter_type(path_type path);
+
+            virtual ~load_from_file_parameter_type()
+            TETENGO2_STDALT_NOEXCEPT;
+
+            const path_type& path()
+            const;
+
+        private:
+            path_type m_path;
+
+        };
 
 
         // constructors and destructor
@@ -56,7 +64,7 @@ namespace bobura { namespace command
             \param load_from_file A file loading.
             \param given_path     A given path.
         */
-        explicit load_from_file(const load_from_file_type& load_from_file, boost::optional<path_type> given_path);
+        explicit load_from_file(const load_from_file_type& load_from_file);
 
         /*!
             \brief Destroys the load-from-file command.

@@ -242,7 +242,7 @@ namespace bobura { namespace command
 
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
-            return tetengo2::stdalt::make_unique<command::load_from_file>(load_from_file, boost::none);
+            return tetengo2::stdalt::make_unique<command::load_from_file>(load_from_file);
         }
 
         static command_ptr_type create_new_file(const new_file_type& new_file)
