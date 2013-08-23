@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <tetengo2.stdalt.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.command.command_base.h"
@@ -13,6 +14,10 @@
 
 namespace bobura { namespace command
 {
+    command_base::~command_base()
+    TETENGO2_STDALT_NOEXCEPT
+    {}
+
     bool command_base::enabled(const model_type& model)
     const
     {

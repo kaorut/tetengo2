@@ -52,7 +52,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the load-from-file command.
         */
-        ~load_from_file()
+        virtual ~load_from_file()
         TETENGO2_STDALT_NOEXCEPT;
 
 

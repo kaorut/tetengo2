@@ -11,6 +11,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.stdalt.h>
+
 #include "bobura.basic_type_list.h"
 
 namespace bobura { namespace command
@@ -36,6 +38,15 @@ namespace bobura { namespace command
             checked,  //!< Checked state.
             selected, //!< Selected state.
         };
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the command base.
+        */
+        virtual ~command_base()
+        TETENGO2_STDALT_NOEXCEPT;
 
 
         // functions

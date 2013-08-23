@@ -56,7 +56,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the file property command.
         */
-        ~file_property()
+        virtual ~file_property()
         TETENGO2_STDALT_NOEXCEPT;
 
 
