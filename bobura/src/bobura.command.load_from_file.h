@@ -39,12 +39,12 @@ namespace bobura { namespace command
         typedef load_from_file_type::path_type path_type;
 
         //! The parameter type.
-        class load_from_file_parameter_type : public base_type::parameter_type
+        class parameter_type : public base_type::parameter_base_type
         {
         public:
-            explicit load_from_file_parameter_type(path_type path);
+            explicit parameter_type(path_type path);
 
-            virtual ~load_from_file_parameter_type()
+            virtual ~parameter_type()
             TETENGO2_STDALT_NOEXCEPT;
 
             const path_type& path()
@@ -92,7 +92,11 @@ namespace bobura { namespace command
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const;
 
-        virtual void execute_impl(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+        virtual void execute_impl(
+            model_type&                model,
+            abstract_window_type&      parent,
+            const parameter_base_type& parameter
+        )
         const;
 
 

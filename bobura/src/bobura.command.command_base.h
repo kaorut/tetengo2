@@ -39,14 +39,14 @@ namespace bobura { namespace command
             selected, //!< Selected state.
         };
 
-        //! The parameter type.
-        class parameter_type
+        //! The parameter base type.
+        class parameter_base_type
         {
         public:
             /*!
-                \brief Destroys the parameter.
+                \brief Destroys the parameter base.
             */
-            virtual ~parameter_type()
+            virtual ~parameter_base_type()
             TETENGO2_STDALT_NOEXCEPT = 0;
 
             /*!
@@ -125,7 +125,7 @@ namespace bobura { namespace command
             \param parent    A parent window.
             \param parameter A parameter.
         */
-        void execute(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+        void execute(model_type& model, abstract_window_type& parent, const parameter_base_type& parameter)
         const;
 
 
@@ -141,7 +141,11 @@ namespace bobura { namespace command
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const = 0;
 
-        virtual void execute_impl(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+        virtual void execute_impl(
+            model_type&                model,
+            abstract_window_type&      parent,
+            const parameter_base_type& parameter
+        )
         const;
 
 

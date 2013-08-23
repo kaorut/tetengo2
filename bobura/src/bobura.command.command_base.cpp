@@ -14,7 +14,7 @@
 
 namespace bobura { namespace command
 {
-    command_base::parameter_type::~parameter_type()
+    command_base::parameter_base_type::~parameter_base_type()
     TETENGO2_STDALT_NOEXCEPT
     {}
 
@@ -40,7 +40,7 @@ namespace bobura { namespace command
         execute_impl(model, parent);
     }
 
-    void command_base::execute(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+    void command_base::execute(model_type& model, abstract_window_type& parent, const parameter_base_type& parameter)
     const
     {
         execute_impl(model, parent, parameter);
@@ -60,7 +60,11 @@ namespace bobura { namespace command
         return state_type::default_;
     }
 
-    void command_base::execute_impl(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+    void command_base::execute_impl(
+        model_type&                model,
+        abstract_window_type&      parent,
+        const parameter_base_type& parameter
+    )
     const
     {
         tetengo2::suppress_unused_variable_warning(parameter);
