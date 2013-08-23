@@ -43,8 +43,11 @@ namespace bobura { namespace command
         class parameter_type
         {
         public:
+            /*!
+                \brief Destroys the parameter.
+            */
             virtual ~parameter_type()
-            TETENGO2_STDALT_NOEXCEPT;
+            TETENGO2_STDALT_NOEXCEPT = 0;
 
         };
 
