@@ -72,12 +72,6 @@ namespace bobura { namespace command
         virtual bool enabled_impl(const model_type& model)
         const override;
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const;
 
