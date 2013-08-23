@@ -26,6 +26,10 @@ namespace bobura { namespace command
 
         typedef load_from_file::abstract_window_type abstract_window_type;
 
+        typedef load_from_file::parameter_type parameter_type;
+
+        typedef load_from_file::load_from_file_parameter_type load_from_file_parameter_type;
+
         typedef load_from_file::load_from_file_type load_from_file_type;
 
 
@@ -52,6 +56,12 @@ namespace bobura { namespace command
             m_load_from_file(model, m_given_path, parent);
         }
 
+        void execute(model_type& model, abstract_window_type& parent, const parameter_type&)
+        const
+        {
+            m_load_from_file(model, m_given_path, parent);
+        }
+
 
     private:
         // variables
@@ -63,6 +73,10 @@ namespace bobura { namespace command
 
     };
 
+
+    load_from_file::load_from_file_parameter_type::~load_from_file_parameter_type()
+    TETENGO2_STDALT_NOEXCEPT
+    {}
 
     load_from_file::load_from_file(const load_from_file_type& load_from_file, boost::optional<path_type> given_path)
     :
@@ -83,6 +97,12 @@ namespace bobura { namespace command
     const
     {
         m_p_impl->execute(model, parent);
+    }
+
+    void load_from_file::execute_impl(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
+    const
+    {
+        m_p_impl->execute(model, parent, parameter);
     }
 
 

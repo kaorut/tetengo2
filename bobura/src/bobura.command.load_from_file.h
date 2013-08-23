@@ -32,6 +32,15 @@ namespace bobura { namespace command
         //! The base type.
         typedef command_base base_type;
 
+        //! The parameter type.
+        class load_from_file_parameter_type : public base_type::parameter_type
+        {
+        public:
+            virtual ~load_from_file_parameter_type()
+            TETENGO2_STDALT_NOEXCEPT;
+
+        };
+
         //! The file loading type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
@@ -73,6 +82,9 @@ namespace bobura { namespace command
         const override;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
+        const;
+
+        virtual void execute_impl(model_type& model, abstract_window_type& parent, const parameter_type& parameter)
         const;
 
 
