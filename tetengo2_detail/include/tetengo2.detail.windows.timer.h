@@ -50,12 +50,19 @@ namespace tetengo2 { namespace detail { namespace windows
             \param widget    A widget.
             \param procedure A procedure called by this timer.
             \param interval  An interval.
+            \param once_only Set true to execute the procedure once only.
         */
         template <typename Widget>
-        timer(const Widget& widget, std::function<void (bool&)> procedure, std::chrono::milliseconds interval)
+        timer(
+            const Widget&                    widget,
+            std::function<void (bool&)>      procedure,
+            const std::chrono::milliseconds& interval,
+            const bool                       once_only
+        )
         :
         m_window_handle(widget.details()->handle.get()),
         m_procedure(std::move(procedure)),
+        m_once_only(once_only),
         m_id(
             ::SetTimer(
                 m_window_handle,
@@ -121,9 +128,12 @@ namespace tetengo2 { namespace detail { namespace windows
             timer* const p_timer = reinterpret_cast<timer*>(id);
             assert(p_timer);
 
+            if (p_timer->m_once_only)
+                p_timer->stop();
+
             bool stop_ = false;
             p_timer->m_procedure(stop_);
-            if (stop_)
+            if (!p_timer->stopped() && stop_)
                 p_timer->stop();
         }
 
@@ -133,6 +143,8 @@ namespace tetengo2 { namespace detail { namespace windows
         const ::HWND m_window_handle;
 
         const std::function<void (bool&)> m_procedure;
+
+        const bool m_once_only;
 
         ::UINT_PTR m_id;
 

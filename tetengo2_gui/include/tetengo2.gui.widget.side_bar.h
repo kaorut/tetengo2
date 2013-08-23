@@ -517,7 +517,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     stdalt::make_unique<timer_type>(
                         this->side_bar_(),
                         [this](bool& stop) { this->timer_proc(stop); },
-                        animation_duration() / max_animation_step()
+                        animation_duration() / max_animation_step(),
+                        false
                     );
                 {
                     bool dummy_stop = false;

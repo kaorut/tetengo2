@@ -278,7 +278,8 @@ namespace bobura
 
                         stop = true;
                     },
-                    std::chrono::milliseconds(1000)
+                    std::chrono::milliseconds(100),
+                    true
                 );
         }
 

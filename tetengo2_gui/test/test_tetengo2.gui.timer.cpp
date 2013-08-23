@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(timer)
         BOOST_TEST_PASSPOINT();
 
         const window_type window;
-        const timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+        const timer_type timer(window, timer_function, std::chrono::milliseconds(42), false);
     }
 
     BOOST_AUTO_TEST_CASE(stopped)
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(timer)
         BOOST_TEST_PASSPOINT();
 
         const window_type window;
-        const timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+        const timer_type timer(window, timer_function, std::chrono::milliseconds(42), false);
 
         timer.stopped();
     }
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(timer)
         BOOST_TEST_PASSPOINT();
 
         const window_type window;
-        timer_type timer(window, timer_function, std::chrono::milliseconds(42));
+        timer_type timer(window, timer_function, std::chrono::milliseconds(42), false);
 
         timer.stop();
 
