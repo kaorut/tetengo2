@@ -6,6 +6,10 @@
     $Id$
 */
 
+//#include <utility>
+
+//#include <boost/optional.hpp>
+
 #include <tetengo2.stdalt.h>
 
 #include "bobura.command.load_from_file.h"
@@ -24,6 +28,12 @@ namespace bobura { namespace command
 
         typedef load_from_file::load_from_file_type load_from_file_type;
 
+        typedef load_from_file::path_type path_type;
+
+        typedef load_from_file::parameter_base_type parameter_base_type;
+
+        typedef load_from_file::parameter_type parameter_type;
+
 
         // constructors and destructor
 
@@ -38,13 +48,19 @@ namespace bobura { namespace command
         bool enabled(const model_type& model)
         const
         {
-            return m_load_from_file.reloadable(model);
+            return m_load_from_file.reloadable(model, boost::none);
         }
 
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            m_load_from_file(model, parent);
+            m_load_from_file(model, boost::none, parent);
+        }
+
+        void execute(model_type& model, abstract_window_type& parent, const parameter_base_type& parameter)
+        const
+        {
+            m_load_from_file(model, boost::make_optional(parameter.as<parameter_type>().path()), parent);
         }
 
 
@@ -56,6 +72,21 @@ namespace bobura { namespace command
 
     };
 
+
+    load_from_file::parameter_type::parameter_type(path_type path)
+    :
+    m_path(std::move(path))
+    {}
+
+    load_from_file::parameter_type::~parameter_type()
+    TETENGO2_STDALT_NOEXCEPT
+    {}
+
+    const load_from_file::path_type& load_from_file::parameter_type::path()
+    const
+    {
+        return m_path;
+    }
 
     load_from_file::load_from_file(const load_from_file_type& load_from_file)
     :
@@ -76,6 +107,16 @@ namespace bobura { namespace command
     const
     {
         m_p_impl->execute(model, parent);
+    }
+
+    void load_from_file::execute_impl(
+        model_type&                model,
+        abstract_window_type&      parent,
+        const parameter_base_type& parameter
+    )
+    const
+    {
+        m_p_impl->execute(model, parent, parameter);
     }
 
 

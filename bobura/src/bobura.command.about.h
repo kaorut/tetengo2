@@ -54,7 +54,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the about command.
         */
-        ~about()
+        virtual ~about()
         TETENGO2_STDALT_NOEXCEPT;
 
 

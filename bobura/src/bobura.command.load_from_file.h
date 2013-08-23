@@ -34,6 +34,39 @@ namespace bobura { namespace command
         //! The file loading type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
+        //! The path type.
+        typedef load_from_file_type::path_type path_type;
+
+        //! The parameter type.
+        class parameter_type : public base_type::parameter_base_type
+        {
+        public:
+            /*!
+                \brief Creates a parameter.
+
+                \param path A path.
+            */
+            explicit parameter_type(path_type path);
+
+            /*!
+                \brief Destroys the parameter.
+            */
+            virtual ~parameter_type()
+            TETENGO2_STDALT_NOEXCEPT;
+
+            /*!
+                \brief Returns the path.
+
+                \return The path.
+            */
+            const path_type& path()
+            const;
+
+        private:
+            path_type m_path;
+
+        };
+
 
         // constructors and destructor
 
@@ -47,7 +80,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the load-from-file command.
         */
-        ~load_from_file()
+        virtual ~load_from_file()
         TETENGO2_STDALT_NOEXCEPT;
 
 
@@ -67,13 +100,14 @@ namespace bobura { namespace command
         virtual bool enabled_impl(const model_type& model)
         const override;
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
+        const;
+
+        virtual void execute_impl(
+            model_type&                model,
+            abstract_window_type&      parent,
+            const parameter_base_type& parameter
+        )
         const;
 
 

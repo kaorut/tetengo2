@@ -62,6 +62,28 @@ BOOST_AUTO_TEST_SUITE(settings)
         BOOST_CHECK(settings.base_path() == path_type(string_type(TETENGO2_TEXT("path/to"))));
     }
 
+    BOOST_AUTO_TEST_CASE(input)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            const settings_type settings(arguments);
+
+            BOOST_CHECK(!settings.input());
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            arguments.push_back(string_type(TETENGO2_TEXT("input_file")));
+            const settings_type settings(arguments);
+
+            BOOST_REQUIRE(settings.input());
+            BOOST_CHECK(*settings.input() == path_type(string_type(TETENGO2_TEXT("input_file"))));
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(message_directory_path)
     {
         BOOST_TEST_PASSPOINT();

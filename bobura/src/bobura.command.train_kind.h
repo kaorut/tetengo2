@@ -13,6 +13,8 @@
 
 //#include <boost/mpl/at.hpp>
 
+#include <tetengo2.stdalt.h>
+
 #include "bobura.command.command_base.h"
 
 
@@ -51,7 +53,8 @@ namespace bobura { namespace command
         /*!
             \brief Destroys a train kind command.
         */
-        ~train_kind();
+        virtual ~train_kind()
+        TETENGO2_STDALT_NOEXCEPT;
 
 
     private:

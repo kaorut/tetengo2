@@ -340,6 +340,7 @@ namespace bobura
         struct side_bar;       //!< The side bar type.
         struct solid_background; //!< The solid background type.
         struct text_box;       //!< The text box type.
+        struct timer;          //!< The timer type.
         struct transparent_background; //!< The transparent background type.
         struct window;         //!< The window type.
     }}
@@ -794,11 +795,12 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::side_bar, detail::ui::side_bar_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::timer, detail::ui::timer_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

@@ -55,10 +55,11 @@ namespace tetengo2 { namespace gui
             \param widget    A widget.
             \param procedure A procedure called by this timer.
             \param interval  An interval.
+            \param once_only Set true to execute the procedure once only.
         */
-        timer(const widget_type& widget, procedure_type procedure, inteval_type interval)
+        timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, const bool once_only)
         :
-        m_timer_details(widget, std::move(procedure), std::move(interval))
+        m_timer_details(widget, std::move(procedure), interval, once_only)
         {}
 
 

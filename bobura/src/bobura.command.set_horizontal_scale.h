@@ -55,7 +55,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the set-horizontal-scale command.
         */
-        ~set_horizontal_scale()
+        virtual ~set_horizontal_scale()
         TETENGO2_STDALT_NOEXCEPT;
 
 

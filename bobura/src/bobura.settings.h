@@ -67,6 +67,7 @@ namespace bobura
         explicit settings(const std::vector<string_type>& command_line_arguments)
         :
         m_base_path(),
+        m_input(),
         m_p_config()
         {
             initialize(command_line_arguments);
@@ -84,6 +85,17 @@ namespace bobura
         const
         {
             return m_base_path;
+        }
+
+        /*!
+            \brief Returns the input.
+
+            \return The input.
+        */
+        const boost::optional<path_type>& input()
+        const
+        {
+            return m_input;
         }
 
         /*!
@@ -359,6 +371,8 @@ namespace bobura
 
         path_type m_base_path;
 
+        boost::optional<path_type> m_input;
+
         std::unique_ptr<config_base_type> m_p_config;
 
 
@@ -370,6 +384,13 @@ namespace bobura
 
             assert(options.find("exe") != options.end());
             m_base_path = boost::filesystem::path(options["exe"].template as<string_type>()).parent_path();
+
+            if (options.find("input") != options.end())
+            {
+                const auto& input_values = options["input"].template as<std::vector<string_type>>();
+                if (!input_values.empty())
+                    m_input = boost::make_optional<string_type>(input_values[0]);
+            }
 
             m_p_config = create_config(options);
         }

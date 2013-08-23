@@ -17,6 +17,7 @@
 //#include <utility>
 
 #include <boost/filesystem/fstream.hpp>
+#include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -65,6 +66,9 @@ namespace bobura { namespace load_save
         //! The file open dialog type.
         typedef FileOpenDialog file_open_dialog_type;
 
+        //! The path type.
+        typedef typename file_open_dialog_type::path_type path_type;
+
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
@@ -104,34 +108,40 @@ namespace bobura { namespace load_save
         /*!
             \brief Return whether the model is reloadable.
 
-            \param model A model.
+            \param model      A model.
+            \param given_path A given path.
 
             \retval true  When the model is reloadable.
             \retval false Otherwise.
         */
-        bool reloadable(const model_type& model)
+        bool reloadable(const model_type& model, const boost::optional<path_type>& given_path)
         const
         {
-            return m_ask_file_path || model.has_path();
+            return m_ask_file_path || model.has_path() || given_path;
         }
 
         /*!
             \brief Executes the load_save.
 
-            \param model  A model.
-            \param parent A parent window.
+            \param model      A model.
+            \param given_path A given path.
+            \param parent     A parent window.
         */
-        void operator()(model_type& model, abstract_window_type& parent)
+        void operator()(model_type& model, const boost::optional<path_type>& given_path, abstract_window_type& parent)
         const
         {
-            if (!m_ask_file_path && !model.has_path())
+            if (!m_ask_file_path && !model.has_path() && !given_path)
                 return;
 
             if (!m_confirm_file_save(parent))
                 return;
 
             path_type path;
-            if (m_ask_file_path)
+            if (given_path)
+            {
+                path = *given_path;
+            }
+            else if (m_ask_file_path)
             {
                 file_open_dialog_type dialog(
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
@@ -144,6 +154,7 @@ namespace bobura { namespace load_save
             }
             else
             {
+                assert(model.has_path());
                 path = model.path();
             }
 
@@ -191,8 +202,6 @@ namespace bobura { namespace load_save
         // types
 
         typedef typename abstract_window_type::string_type string_type;
-
-        typedef typename file_open_dialog_type::path_type path_type;
 
         typedef typename reader_selector_type::error_type reader_error_type;
 

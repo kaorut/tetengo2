@@ -1,3 +1,4 @@
+bobura::command::command_base::parameter_base_type::as
 bobura::diagram_view::to_station_position::
 bobura::model::serializer::oudia_reader::file_type::
 bobura::model::serializer::oudia_reader::[a-z_]*state::
