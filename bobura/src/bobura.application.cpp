@@ -7,12 +7,16 @@
 */
 
 //#include <cassert>
+#include <chrono>
+#include <memory>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
 
+#include "bobura.command.load_from_file.h"
 #include "bobura.main_window.h"
 #include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
@@ -46,6 +50,8 @@ namespace bobura
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
+        typedef command_set_type::command_type command_type;
+
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
         typedef
@@ -64,6 +70,10 @@ namespace bobura
 
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
+        typedef boost::mpl::at<ui_type_list, type::ui::timer>::type timer_type;
+
+        typedef command::load_from_file::parameter_type load_from_file_parameter_type;
+
 
     }
 
@@ -77,7 +87,8 @@ namespace bobura
         :
         m_gui_fixture(),
         m_settings(settings),
-        m_model()
+        m_model(),
+        m_p_input_file_load_timer()
         {}
 
 
@@ -98,6 +109,8 @@ namespace bobura
                 ).build()
             );
             main_window.set_visible(true);
+
+            load_input_file(main_window, command_set_holder.command_set().load_from_file());
 
             return message_loop_type(main_window)();
         }
@@ -171,6 +184,8 @@ namespace bobura
         settings_type& m_settings;
 
         model_type m_model;
+
+        std::unique_ptr<timer_type> m_p_input_file_load_timer;
 
 
         // functions
@@ -246,6 +261,27 @@ namespace bobura
                 >::type(main_window.diagram_picture_box(), view)
             );
         }
+
+        void load_input_file(main_window_type& main_window, const command_type& load_from_file_command)
+        {
+            if (!m_settings.input())
+                return;
+
+            m_p_input_file_load_timer =
+                tetengo2::stdalt::make_unique<timer_type>(
+                    main_window,
+                    [this, &main_window, &load_from_file_command](bool& stop)
+                    {
+                        load_from_file_command.execute(
+                            this->m_model, main_window, load_from_file_parameter_type(*this->m_settings.input())
+                        );
+
+                        stop = true;
+                    },
+                    std::chrono::milliseconds(1000)
+                );
+        }
+
 
     };
 

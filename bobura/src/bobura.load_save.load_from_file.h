@@ -137,7 +137,11 @@ namespace bobura { namespace load_save
                 return;
 
             path_type path;
-            if (m_ask_file_path)
+            if (given_path)
+            {
+                path = *given_path;
+            }
+            else if (m_ask_file_path)
             {
                 file_open_dialog_type dialog(
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
@@ -147,10 +151,6 @@ namespace bobura { namespace load_save
                     return;
 
                 path = dialog.result();
-            }
-            else if (given_path)
-            {
-                path = *given_path;
             }
             else
             {
