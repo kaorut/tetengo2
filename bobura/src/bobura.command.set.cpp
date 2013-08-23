@@ -10,7 +10,6 @@
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 
 #include <tetengo2.stdalt.h>
 
