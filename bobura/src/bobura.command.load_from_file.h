@@ -41,11 +41,24 @@ namespace bobura { namespace command
         class parameter_type : public base_type::parameter_base_type
         {
         public:
+            /*!
+                \brief Creates a parameter.
+
+                \param path A path.
+            */
             explicit parameter_type(path_type path);
 
+            /*!
+                \brief Destroys the parameter.
+            */
             virtual ~parameter_type()
             TETENGO2_STDALT_NOEXCEPT;
 
+            /*!
+                \brief Returns the path.
+
+                \return The path.
+            */
             const path_type& path()
             const;
 
@@ -61,7 +74,6 @@ namespace bobura { namespace command
             \brief Creates a load-from-file command.
 
             \param load_from_file A file loading.
-            \param given_path     A given path.
         */
         explicit load_from_file(const load_from_file_type& load_from_file);
 
