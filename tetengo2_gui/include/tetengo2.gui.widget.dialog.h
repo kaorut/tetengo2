@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         m_result(result_type::undecided),
-        m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent))
+        m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent, file_droppable))
         {
             initialize_dialog();
         }

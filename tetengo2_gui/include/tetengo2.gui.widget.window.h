@@ -78,7 +78,9 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(scroll_bar_style, file_droppable, message_handler_map_type()),
         m_p_details(
-            widget_details_type::template create_window<typename base_type::base_type>(boost::none, scroll_bar_style)
+            widget_details_type::template create_window<typename base_type::base_type>(
+                boost::none, scroll_bar_style, file_droppable
+            )
         )
         {
             initialize_window();
@@ -106,7 +108,9 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         m_p_details(
-            widget_details_type::template create_window<typename base_type::base_type>(parent, scroll_bar_style)
+            widget_details_type::template create_window<typename base_type::base_type>(
+                parent, scroll_bar_style, file_droppable
+            )
         )
         {
             initialize_window();
