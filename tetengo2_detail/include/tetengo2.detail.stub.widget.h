@@ -997,7 +997,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void set_file_droppable(Widget& widget)
-        {}
+        {
+            suppress_unused_variable_warning(widget);
+        }
 
         /*!
             \brief Closes a widget.
