@@ -81,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::template create_window<typename base_type::base_type>(boost::none, scroll_bar_style)
         )
         {
-            this->initialize(this);
+            initialize_window();
         }
 
         /*!
@@ -109,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::template create_window<typename base_type::base_type>(parent, scroll_bar_style)
         )
         {
-            this->initialize(this);
+            initialize_window();
         }
 
         /*!
@@ -143,6 +143,16 @@ namespace tetengo2 { namespace gui { namespace widget
         override
         {
             return boost::make_optional<details_type&>(*m_p_details);
+        }
+
+
+        // functions
+
+        void initialize_window()
+        {
+            this->initialize(this);
+
+            this->set_file_droppable();
         }
 
 

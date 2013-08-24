@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_result(result_type::undecided),
         m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent))
         {
-            this->initialize(this);
+            initialize_dialog();
         }
 
         /*!
@@ -192,6 +192,16 @@ namespace tetengo2 { namespace gui { namespace widget
         override
         {
             return boost::make_optional<details_type&>(*m_p_details);
+        }
+
+
+        // functions
+
+        void initialize_dialog()
+        {
+            this->initialize(this);
+
+            this->set_file_droppable();
         }
 
 
