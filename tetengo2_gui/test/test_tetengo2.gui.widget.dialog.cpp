@@ -32,9 +32,9 @@ namespace
     class concrete_dialog : public dialog_type
     {
     public:
-        explicit concrete_dialog(abstract_window_type& parent)
+        explicit concrete_dialog(abstract_window_type& parent, const bool file_droppable = false)
         :
-        dialog_type(parent)
+        dialog_type(parent, file_droppable)
         {}
 
     };
@@ -55,8 +55,14 @@ BOOST_AUTO_TEST_SUITE(dialog)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        const concrete_dialog dialog(parent);
+        {
+            window_type parent;
+            const concrete_dialog dialog(parent, false);
+        }
+        {
+            window_type parent;
+            const concrete_dialog dialog(parent, true);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(result)

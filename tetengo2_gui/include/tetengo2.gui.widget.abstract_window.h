@@ -240,6 +240,18 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the file droppable status.
+
+            \retval true  When a file drop is enabled.
+            \retval false Otherwise.
+        */
+        bool file_droppable()
+        const
+        {
+            return m_file_droppable;
+        }
+
+        /*!
             \brief Returns the window observer set.
 
             \return The window observer set.
@@ -282,9 +294,14 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates an abstract window.
 
             \param scroll_bar_style    A scroll bar style type.
+            \param file_droppable      Set true to enable file drop.
             \param message_handler_map A message handler map.
         */
-        abstract_window(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
+        abstract_window(
+            const scroll_bar_style_type scroll_bar_style,
+            const bool                  file_droppable,
+            message_handler_map_type&&  message_handler_map
+        )
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -299,6 +316,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_file_droppable(file_droppable),
         m_p_icon(),
         m_p_menu_bar(),
         m_window_observer_set()
@@ -317,6 +335,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // variables
+
+        const bool m_file_droppable;
 
         std::unique_ptr<icon_type> m_p_icon;
 

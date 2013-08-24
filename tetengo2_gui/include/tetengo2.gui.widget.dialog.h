@@ -83,9 +83,10 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a dialog.
 
-            \param parent A parent window.
+            \param parent         A parent window.
+            \param file_droppable Set true to enable file drop.
         */
-        explicit dialog(base_type& parent)
+        explicit dialog(base_type& parent, const bool file_droppable = false)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -93,6 +94,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             base_type::scroll_bar_style_type::none,
+            file_droppable,
             message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type())
         ),
 #if defined(_MSC_VER)

@@ -69,10 +69,14 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a top level window.
 
             \param scroll_bar_style A scroll bar style.
+            \param file_droppable   Set true to enable file drop.
         */
-        explicit window(const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none)
+        explicit window(
+            const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none,
+            const bool file_droppable = false
+        )
         :
-        base_type(scroll_bar_style, message_handler_map_type()),
+        base_type(scroll_bar_style, file_droppable, message_handler_map_type()),
         m_p_details(
             widget_details_type::template create_window<typename base_type::base_type>(boost::none, scroll_bar_style)
         )
@@ -85,8 +89,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent           A parent window.
             \param scroll_bar_style A scroll bar style.
+            \param file_droppable   Set true to enable file drop.
         */
-        window(base_type& parent, const scroll_bar_style_type scroll_bar_style)
+        window(base_type& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -94,6 +99,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             scroll_bar_style,
+            file_droppable,
             message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())
         ),
 #if defined(_MSC_VER)
