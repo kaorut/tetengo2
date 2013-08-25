@@ -987,21 +987,6 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Sets file-droppable.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \throw std::system_error When the widget cannot be closed.
-        */
-        template <typename Widget>
-        static void set_file_droppable(Widget& widget)
-        {
-            suppress_unused_variable_warning(widget);
-        }
-
-        /*!
             \brief Closes a widget.
 
             \tparam Widget A widget type.

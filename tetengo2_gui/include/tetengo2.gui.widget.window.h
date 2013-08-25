@@ -155,8 +155,6 @@ namespace tetengo2 { namespace gui { namespace widget
         void initialize_window()
         {
             this->initialize(this);
-
-            this->set_file_droppable();
         }
 
 

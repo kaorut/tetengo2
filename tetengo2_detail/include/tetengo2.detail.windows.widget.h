@@ -287,6 +287,8 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             delete_system_menus(p_widget.get());
+            if (file_droppable)
+                ::DragAcceptFiles(p_widget.get(), TRUE);
 
             return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
@@ -639,6 +641,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
                 );
             }
+
+            if (file_droppable)
+                ::DragAcceptFiles(p_widget.get(), TRUE);
 
             return
                 stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
@@ -1678,21 +1683,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             }
-        }
-
-        /*!
-            \brief Sets file-droppable.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \throw std::system_error When the widget cannot be closed.
-        */
-        template <typename Widget>
-        static void set_file_droppable(Widget& widget)
-        {
-            ::DragAcceptFiles(widget.details()->handle.get(), TRUE);
         }
 
         /*!

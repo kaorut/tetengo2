@@ -67,11 +67,6 @@ namespace
             return boost::make_optional<details_type&>(*m_p_details);
         }
 
-        void call_set_file_droppable()
-        {
-            set_file_droppable();
-        }
-
 
     private:
         details_ptr_type m_p_details;
@@ -275,22 +270,6 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         concrete_window window;
 
         window.close();
-    }
-
-    BOOST_AUTO_TEST_CASE(set_file_droppable)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            concrete_window window(false);
-
-            window.call_set_file_droppable();
-        }
-        {
-            concrete_window window(true);
-
-            window.call_set_file_droppable();
-        }
     }
 
 

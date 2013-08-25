@@ -333,20 +333,6 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
 
-        // functions
-
-        /*!
-            \brief Makes the window file-droppable if necessary.
-        */
-        void set_file_droppable()
-        {
-            if (!m_file_droppable)
-                return;
-
-            widget_details_type::set_file_droppable(*this);
-        }
-
-
     private:
         // variables
 
