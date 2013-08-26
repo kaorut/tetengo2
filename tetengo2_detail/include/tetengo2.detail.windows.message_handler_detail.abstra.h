@@ -11,6 +11,7 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_ABSTRACTWINDOW_H
 
 #include <algorithm>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -103,7 +104,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.file_drop_observer_set().file_dropped().empty())
                 return boost::none;
 
-            abstract_window.file_drop_observer_set().file_dropped();
+            typedef typename AbstractWindow::file_drop_observer_set_type::path_type path_type;
+            const std::vector<path_type> paths;
+            abstract_window.file_drop_observer_set().file_dropped()(paths);
             return boost::make_optional< ::LRESULT>(0);
         }
 

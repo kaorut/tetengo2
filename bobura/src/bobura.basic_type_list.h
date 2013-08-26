@@ -557,7 +557,7 @@ namespace bobura
                 icon_type,
                 menu_bar_type,
                 tetengo2::gui::message::window_observer_set,
-                tetengo2::gui::message::file_drop_observer_set
+                tetengo2::gui::message::file_drop_observer_set<boost::mpl::at<common_type_list, type::path>::type>
             >
             abstract_window_traits_type;
         typedef
