@@ -35,6 +35,9 @@ namespace bobura { namespace message
             //! The menu command selection observer type.
             struct menu_command_selected;
 
+            //! The file drop observer type.
+            struct file_dropped;
+
             //! The window resized observer type.
             struct window_resized;
 

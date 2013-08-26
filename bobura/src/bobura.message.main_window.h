@@ -201,6 +201,77 @@ namespace bobura { namespace message { namespace main_window
 
 
     /*!
+        \brief The class template for a file drop observer of the main window.
+
+        \tparam Command        A command type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
+    */
+    template <typename Command, typename Model, typename AbstractWindow>
+    class file_dropped
+    {
+    public:
+        // types
+
+        //! The command type.
+        typedef Command command_type;
+
+        //! The model type.
+        typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
+
+        //! The path type.
+        typedef typename abstract_window_type::file_drop_observer_set_type::path_type path_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a file drop observer of the main window.
+
+            \param command A command.
+            \param model   A model.
+            \param parent  A parent window.
+        */
+        file_dropped(const command_type& command, model_type& model, abstract_window_type& parent)
+        :
+        m_command(command),
+        m_model(model),
+        m_parent(parent)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the menu is selected.
+
+            \param paths Paths.
+        */
+        void operator()(const std::vector<path_type>& paths)
+        const
+        {
+            paths.size();
+            m_command.execute(m_model, m_parent);
+        }
+
+
+    private:
+        // variables
+
+        const command_type& m_command;
+
+        model_type& m_model;
+
+        abstract_window_type& m_parent;
+
+
+    };
+
+
+    /*!
         \brief The class template for a window resized observer of the main window.
 
         \tparam View              A view type.

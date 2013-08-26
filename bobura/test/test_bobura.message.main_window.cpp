@@ -163,6 +163,33 @@ BOOST_AUTO_TEST_SUITE(menu_command_selected)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(file_dropped)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const command_type command;
+        model_type model;
+        window_type window;
+        const menu_command_selected_type menu(command, model, window);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const command_type command;
+        model_type model;
+        window_type window;
+        const menu_command_selected_type observer(command, model, window);
+
+        observer();
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(window_resized)
     // test cases
 

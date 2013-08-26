@@ -95,13 +95,15 @@ namespace bobura { namespace message
                         type::menu_command_selected, menu_command_selected<Command, Model, AbstractWindow>
                     >,
                 tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::file_dropped, file_dropped<Command, Model, AbstractWindow>>,
+                tetengo2::meta::assoc_list<
                     boost::mpl::pair<
                         type::window_resized, window_resized<View, AbstractWindow, DiagramPictureBox, PropertyBar>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave, Settings>>,
                 tetengo2::meta::assoc_list_end
-                >>>>
+                >>>>>
                 type;
 
 

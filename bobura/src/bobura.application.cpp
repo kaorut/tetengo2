@@ -100,7 +100,7 @@ namespace bobura
             const command_set_holder_type command_set_holder(m_settings, m_model, view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(view, main_window);
+            set_message_observers(command_set_holder.command_set(), view, main_window);
             m_model.reset_timetable();
             main_window.set_menu_bar(
                 main_window_menu_builder(
@@ -189,7 +189,7 @@ namespace bobura
 
         // functions
 
-        void set_message_observers(view_type& view, main_window_type& main_window)
+        void set_message_observers(const command_set_type& command_set, view_type& view, main_window_type& main_window)
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
@@ -202,6 +202,11 @@ namespace bobura
                 )
             );
 
+            main_window.file_drop_observer_set().file_dropped().connect(
+                boost::mpl::at<main_window_message_type_list_type, message::main_window::type::file_dropped>::type(
+                    command_set.load_from_file(), m_model, main_window
+                )
+            );
             main_window.size_observer_set().resized().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
                     view, main_window, main_window.diagram_picture_box(), main_window.property_bar()
