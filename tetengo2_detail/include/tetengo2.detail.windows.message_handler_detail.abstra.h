@@ -92,6 +92,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename AbstractWindow>
+        boost::optional< ::LRESULT> on_drop_files(
+            AbstractWindow& abstract_window,
+            const ::WPARAM  w_param,
+            const ::LPARAM  l_param
+        )
+        {
+            suppress_unused_variable_warning(w_param, l_param);
+
+            if (abstract_window.file_drop_observer_set().file_dropped().empty())
+                return boost::none;
+
+            abstract_window.file_drop_observer_set().file_dropped();
+            return boost::make_optional< ::LRESULT>(0);
+        }
+
+        template <typename AbstractWindow>
         boost::optional< ::LRESULT> on_close(
             AbstractWindow& abstract_window,
             const ::WPARAM  w_param,
