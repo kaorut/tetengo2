@@ -98,17 +98,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Path>
         std::vector<Path> make_paths(const ::HDROP drop_handle)
         {
-            const ::UINT count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, NULL, 0);
+            const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, NULL, 0);
 
             std::vector<Path> paths;
             paths.reserve(count);
 
             for (::UINT i = 0; i < count; ++i)
             {
-                const ::UINT length = ::DragQueryFileW(drop_handle, i, NULL, 0);
+                const auto length = ::DragQueryFileW(drop_handle, i, NULL, 0);
                 std::vector<wchar_t> path_string(length + 1, 0);
 
-                const ::UINT result =
+                const auto result =
                     ::DragQueryFileW(drop_handle, i, path_string.data(), static_cast< ::UINT>(path_string.size()));
                 if (result == 0)
                 {
@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::none;
 
             typedef typename AbstractWindow::file_drop_observer_set_type::path_type path_type;
-            const std::vector<path_type> paths = make_paths<path_type>(reinterpret_cast< ::HDROP>(w_param));
+            const auto paths = make_paths<path_type>(reinterpret_cast< ::HDROP>(w_param));
             abstract_window.file_drop_observer_set().file_dropped()(paths);
             return boost::make_optional< ::LRESULT>(0);
         }
