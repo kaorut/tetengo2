@@ -648,7 +648,8 @@ namespace test_tetengo2 { namespace gui
                 widget_traits_type,
                 boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type,
                 boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
-                tetengo2::gui::message::window_observer_set
+                tetengo2::gui::message::window_observer_set,
+                tetengo2::gui::message::file_drop_observer_set
             >
             abstract_window_traits_type;
         typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;

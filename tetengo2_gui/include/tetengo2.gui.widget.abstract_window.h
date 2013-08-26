@@ -65,6 +65,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The window observer set type.
         typedef typename traits_type::window_observer_set_type window_observer_set_type;
 
+        //! The file drop observer set type.
+        typedef typename traits_type::file_drop_observer_set_type file_drop_observer_set_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -273,6 +276,27 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the file drop observer set.
+
+            \return The file drop observer set.
+        */
+        const file_drop_observer_set_type& file_drop_observer_set()
+        const
+        {
+            return m_file_drop_observer_set;
+        }
+
+        /*!
+            \brief Returns the file drop observer set.
+
+            \return The file drop observer set.
+        */
+        file_drop_observer_set_type& file_drop_observer_set()
+        {
+            return m_file_drop_observer_set;
+        }
+
+        /*!
             \brief Closes the abstract window.
         */
         void close()
@@ -319,7 +343,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_file_droppable(file_droppable),
         m_p_icon(),
         m_p_menu_bar(),
-        m_window_observer_set()
+        m_window_observer_set(),
+        m_file_drop_observer_set()
         {}
 
         /*!
@@ -343,6 +368,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<menu_bar_type> m_p_menu_bar;
 
         window_observer_set_type m_window_observer_set;
+
+        file_drop_observer_set_type m_file_drop_observer_set;
 
 
     };

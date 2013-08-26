@@ -263,6 +263,22 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(file_drop_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_window window;
+
+            window.file_drop_observer_set();
+        }
+        {
+            concrete_window window;
+
+            window.file_drop_observer_set();
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(close)
     {
         BOOST_TEST_PASSPOINT();
