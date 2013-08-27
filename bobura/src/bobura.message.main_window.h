@@ -203,18 +203,18 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a file drop observer of the main window.
 
-        \tparam Command        A command type.
+        \tparam CommandSet     A command set type.
         \tparam Model          A model type.
         \tparam AbstractWindow An abstract window type.
     */
-    template <typename Command, typename Model, typename AbstractWindow>
+    template <typename CommandSet, typename Model, typename AbstractWindow>
     class file_dropped
     {
     public:
         // types
 
-        //! The command type.
-        typedef Command command_type;
+        //! The command set type.
+        typedef CommandSet command_set_type;
 
         //! The model type.
         typedef Model model_type;
@@ -231,13 +231,13 @@ namespace bobura { namespace message { namespace main_window
         /*!
             \brief Creates a file drop observer of the main window.
 
-            \param command A command.
-            \param model   A model.
-            \param parent  A parent window.
+            \param command_set A command set.
+            \param model       A model.
+            \param parent      A parent window.
         */
-        file_dropped(const command_type& command, model_type& model, abstract_window_type& parent)
+        file_dropped(const command_set_type& command_set, model_type& model, abstract_window_type& parent)
         :
-        m_command(command),
+        m_command_set(command_set),
         m_model(model),
         m_parent(parent)
         {}
@@ -253,15 +253,18 @@ namespace bobura { namespace message { namespace main_window
         void operator()(const std::vector<path_type>& paths)
         const
         {
-            paths.size();
-            m_command.execute(m_model, m_parent);
+            if (paths.empty())
+                return;
+
+            const auto p_paramter = m_command_set.create_load_from_file_parameter(paths[0]);
+            m_command_set.load_from_file().execute(m_model, m_parent, *p_paramter);
         }
 
 
     private:
         // variables
 
-        const command_type& m_command;
+        const command_set_type& m_command_set;
 
         model_type& m_model;
 

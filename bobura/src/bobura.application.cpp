@@ -48,8 +48,6 @@ namespace bobura
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
-        typedef command_set_type::command_type command_type;
-
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
         typedef
@@ -201,7 +199,7 @@ namespace bobura
 
             main_window.file_drop_observer_set().file_dropped().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::file_dropped>::type(
-                    command_set.load_from_file(), m_model, main_window
+                    command_set, m_model, main_window
                 )
             );
             main_window.size_observer_set().resized().connect(

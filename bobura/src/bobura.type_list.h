@@ -43,6 +43,7 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace main_window
     {
+        typedef command::set command_set_type;
         typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
@@ -73,6 +74,7 @@ namespace bobura
         typedef
             message::main_window::type_list<
                 boost::mpl::at<ui_type_list, type::ui::popup_menu>::type,
+                command_set_type,
                 command::command_base,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
@@ -89,7 +91,7 @@ namespace bobura
     //! The type list for the main window.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::main_window::command_set, command::set>,
+            boost::mpl::pair<type::main_window::command_set, detail::main_window::command_set_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::main_window::main_window, main_window>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
