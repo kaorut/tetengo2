@@ -41,9 +41,11 @@ namespace
     class concrete_window : public abstract_window_type
     {
     public:
-        concrete_window()
+        concrete_window(const bool file_droppable = false)
         :
-        abstract_window_type(abstract_window_type::scroll_bar_style_type::none, message_handler_map_type()),
+        abstract_window_type(
+            abstract_window_type::scroll_bar_style_type::none, file_droppable, message_handler_map_type()
+        ),
         m_p_details(tetengo2::stdalt::make_unique<details_type>())
         {
             this->initialize(this);
@@ -86,7 +88,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_window window;
+        {
+            const concrete_window window(false);
+        }
+        {
+            const concrete_window window(true);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(activate)
@@ -224,6 +231,22 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         window.set_menu_bar(std::move(p_menu_bar2));
     }
 
+    BOOST_AUTO_TEST_CASE(file_droppable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_window window(false);
+
+            BOOST_CHECK(!window.file_droppable());
+        }
+        {
+            const concrete_window window(true);
+
+            BOOST_CHECK(window.file_droppable());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(window_observer_set)
     {
         BOOST_TEST_PASSPOINT();
@@ -237,6 +260,22 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
             concrete_window window;
 
             window.window_observer_set();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(file_drop_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_window window;
+
+            window.file_drop_observer_set();
+        }
+        {
+            concrete_window window;
+
+            window.file_drop_observer_set();
         }
     }
 

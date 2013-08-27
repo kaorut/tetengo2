@@ -237,14 +237,15 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget. When uninitialized, the dialog has no parent.
+            \param parent         A parent widget. When uninitialized, the dialog has no parent.
+            \param file_droppable Set true to enable file drop.
 
             \return A unique pointer to a dialog.
 
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent, const bool file_droppable)
         {
             const auto instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
@@ -259,9 +260,12 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(dialog_class_name(), instance_handle))
                 register_window_class_for_dialog<Widget>(instance_handle);
 
+            ::DWORD ex_style = WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
+            if (file_droppable)
+                ex_style |= WS_EX_ACCEPTFILES;
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
+                    ex_style,
                     dialog_class_name().c_str(),
                     dialog_class_name().c_str(),
                     WS_POPUPWINDOW | WS_CAPTION,
@@ -283,6 +287,8 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             delete_system_menus(p_widget.get());
+            if (file_droppable)
+                ::DragAcceptFiles(p_widget.get(), TRUE);
 
             return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
@@ -584,6 +590,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param parent           A parent widget. When uninitialized, the window has no parent.
             \param scroll_bar_style A scroll bar style.
+            \param file_droppable   Set true to enable file drop.
 
             \return A unique pointer to a window.
 
@@ -592,7 +599,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_window(
             const boost::optional<Widget&>&              parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
+            const typename Widget::scroll_bar_style_type scroll_bar_style,
+            const bool                                   file_droppable
         )
         {
             const auto instance_handle = ::GetModuleHandle(nullptr);
@@ -608,9 +616,12 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(window_class_name(), instance_handle))
                 register_window_class_for_window<Widget>(instance_handle);
 
+            ::DWORD ex_style = WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style);
+            if (file_droppable)
+                ex_style |= WS_EX_ACCEPTFILES;
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
+                    ex_style,
                     window_class_name().c_str(),
                     window_class_name().c_str(),
                     WS_OVERLAPPEDWINDOW,
@@ -630,6 +641,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
                 );
             }
+
+            if (file_droppable)
+                ::DragAcceptFiles(p_widget.get(), TRUE);
 
             return
                 stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);

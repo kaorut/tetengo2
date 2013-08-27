@@ -208,15 +208,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget. When uninitialized, the dialog has no parent.
+            \param parent         A parent widget. When uninitialized, the dialog has no parent.
+            \param file_droppable Set true to enable file drop.
 
             \return A unique pointer to a dialog.
 
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent, const bool file_droppable)
         {
+            suppress_unused_variable_warning(file_droppable);
+
             return create_details<Widget>(parent ? &*parent : nullptr);
         }
 
@@ -347,6 +350,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param parent           A parent widget. When uninitialized, the window has no parent.
             \param scroll_bar_style A scroll bar style.
+            \param file_droppable   Set true to enable file drop.
 
             \return A unique pointer to a window.
 
@@ -355,10 +359,11 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_window(
             const boost::optional<Widget&>&              parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
+            const typename Widget::scroll_bar_style_type scroll_bar_style,
+            const bool                                   file_droppable
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style);
+            suppress_unused_variable_warning(scroll_bar_style, file_droppable);
 
             return create_details<Widget>(parent ? &*parent : nullptr);
         }

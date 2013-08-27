@@ -15,7 +15,6 @@
 
 #include <tetengo2.stdalt.h>
 
-#include "bobura.command.load_from_file.h"
 #include "bobura.main_window.h"
 #include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
@@ -49,8 +48,6 @@ namespace bobura
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
-        typedef command_set_type::command_type command_type;
-
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
         typedef
@@ -70,8 +67,6 @@ namespace bobura
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
         typedef boost::mpl::at<ui_type_list, type::ui::timer>::type timer_type;
-
-        typedef command::load_from_file::parameter_type load_from_file_parameter_type;
 
 
     }
@@ -100,7 +95,7 @@ namespace bobura
             const command_set_holder_type command_set_holder(m_settings, m_model, view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(view, main_window);
+            set_message_observers(command_set_holder.command_set(), view, main_window);
             m_model.reset_timetable();
             main_window.set_menu_bar(
                 main_window_menu_builder(
@@ -109,7 +104,7 @@ namespace bobura
             );
             main_window.set_visible(true);
 
-            load_input_file(main_window, command_set_holder.command_set().load_from_file());
+            load_input_file(main_window, command_set_holder.command_set());
 
             return message_loop_type(main_window)();
         }
@@ -189,7 +184,7 @@ namespace bobura
 
         // functions
 
-        void set_message_observers(view_type& view, main_window_type& main_window)
+        void set_message_observers(const command_set_type& command_set, view_type& view, main_window_type& main_window)
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
@@ -202,6 +197,11 @@ namespace bobura
                 )
             );
 
+            main_window.file_drop_observer_set().file_dropped().connect(
+                boost::mpl::at<main_window_message_type_list_type, message::main_window::type::file_dropped>::type(
+                    command_set, m_model, main_window
+                )
+            );
             main_window.size_observer_set().resized().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
                     view, main_window, main_window.diagram_picture_box(), main_window.property_bar()
@@ -261,7 +261,7 @@ namespace bobura
             );
         }
 
-        void load_input_file(main_window_type& main_window, const command_type& load_from_file_command)
+        void load_input_file(main_window_type& main_window, const command_set_type& command_set)
         {
             if (!m_settings.input())
                 return;
@@ -269,11 +269,11 @@ namespace bobura
             m_p_input_file_load_timer =
                 tetengo2::stdalt::make_unique<timer_type>(
                     main_window,
-                    [this, &main_window, &load_from_file_command](bool& stop)
+                    [this, &main_window, &command_set](bool& stop)
                     {
-                        load_from_file_command.execute(
-                            this->m_model, main_window, load_from_file_parameter_type(*this->m_settings.input())
-                        );
+                        const auto p_parameter =
+                            command_set.create_load_from_file_parameter(*this->m_settings.input());
+                        command_set.load_from_file().execute(this->m_model, main_window, *p_parameter);
 
                         stop = true;
                     },

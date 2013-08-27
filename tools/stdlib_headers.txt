@@ -56,6 +56,8 @@
 ::DestroyMenu                                    Windows.h
 ::DestroyWindow                                  Windows.h
 ::DispatchMessageW                               Windows.h
+::DragAcceptFiles                                Windows.h
+::DragQueryFileW                                 Windows.h
 ::DrawFocusRect                                  Windows.h
 ::DrawIconEx                                     Windows.h
 ::DrawMenuBar                                    Windows.h
@@ -108,6 +110,7 @@
 ::HBRUSH                                         Windows.h
 ::HCURSOR                                        Windows.h
 ::HDC                                            Windows.h
+::HDROP                                          Windows.h
 ::HFONT                                          Windows.h
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
@@ -431,6 +434,7 @@ WM_CTLCOLORLISTBOX                               Windows.h
 WM_CTLCOLORSCROLLBAR                             Windows.h
 WM_CTLCOLORSTATIC                                Windows.h
 WM_DESTROY                                       Windows.h
+WM_DROPFILES                                     Windows.h
 WM_ERASEBKGND                                    Windows.h
 WM_GETFONT                                       Windows.h
 WM_HSCROLL                                       Windows.h

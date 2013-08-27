@@ -51,6 +51,7 @@
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.dropdown_box_observer_set.h>
+#include <tetengo2.gui.message.file_drop_observer_set.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
 #include <tetengo2.gui.message.list_box_observer_set.h>
@@ -552,7 +553,11 @@ namespace bobura
             menu_bar_type;
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
-                widget_traits_type, icon_type, menu_bar_type, tetengo2::gui::message::window_observer_set
+                widget_traits_type,
+                icon_type,
+                menu_bar_type,
+                tetengo2::gui::message::window_observer_set,
+                tetengo2::gui::message::file_drop_observer_set<boost::mpl::at<common_type_list, type::path>::type>
             >
             abstract_window_traits_type;
         typedef

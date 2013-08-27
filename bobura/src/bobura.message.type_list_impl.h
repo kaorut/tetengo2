@@ -61,6 +61,7 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the main window messages.
 
             \tparam PopupMenu         A popup menu type.
+            \tparam CommandSet        A command set type.
             \tparam Command           A command type.
             \tparam Model             A model type.
             \tparam View              A view type.
@@ -72,6 +73,7 @@ namespace bobura { namespace message
         */
         template <
             typename PopupMenu,
+            typename CommandSet,
             typename Command,
             typename Model,
             typename View,
@@ -95,13 +97,15 @@ namespace bobura { namespace message
                         type::menu_command_selected, menu_command_selected<Command, Model, AbstractWindow>
                     >,
                 tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::file_dropped, file_dropped<CommandSet, Model, AbstractWindow>>,
+                tetengo2::meta::assoc_list<
                     boost::mpl::pair<
                         type::window_resized, window_resized<View, AbstractWindow, DiagramPictureBox, PropertyBar>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave, Settings>>,
                 tetengo2::meta::assoc_list_end
-                >>>>
+                >>>>>
                 type;
 
 

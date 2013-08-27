@@ -96,6 +96,12 @@ namespace tetengo2 { namespace detail { namespace windows
                         message_handler_detail::abstract_window::on_initmenupopup(abstract_window, w_param, l_param);
                 }
             );
+            map[WM_DROPFILES].push_back(
+                [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
+                {
+                    return message_handler_detail::abstract_window::on_drop_files(abstract_window, w_param, l_param);
+                }
+            );
             map[WM_CLOSE].push_back(
                 [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
                 {

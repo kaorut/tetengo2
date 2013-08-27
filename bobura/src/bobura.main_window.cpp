@@ -200,7 +200,7 @@ namespace bobura
         const confirm_file_save_type& confirm_file_save
     )
     :
-    base_type(),
+    base_type(base_type::scroll_bar_style_type::none, true),
     m_p_impl(tetengo2::stdalt::make_unique<impl>(*this, message_catalog, settings, confirm_file_save))
     {}
 

@@ -65,6 +65,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The window observer set type.
         typedef typename traits_type::window_observer_set_type window_observer_set_type;
 
+        //! The file drop observer set type.
+        typedef typename traits_type::file_drop_observer_set_type file_drop_observer_set_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -240,6 +243,18 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the file droppable status.
+
+            \retval true  When a file drop is enabled.
+            \retval false Otherwise.
+        */
+        bool file_droppable()
+        const
+        {
+            return m_file_droppable;
+        }
+
+        /*!
             \brief Returns the window observer set.
 
             \return The window observer set.
@@ -258,6 +273,27 @@ namespace tetengo2 { namespace gui { namespace widget
         window_observer_set_type& window_observer_set()
         {
             return m_window_observer_set;
+        }
+
+        /*!
+            \brief Returns the file drop observer set.
+
+            \return The file drop observer set.
+        */
+        const file_drop_observer_set_type& file_drop_observer_set()
+        const
+        {
+            return m_file_drop_observer_set;
+        }
+
+        /*!
+            \brief Returns the file drop observer set.
+
+            \return The file drop observer set.
+        */
+        file_drop_observer_set_type& file_drop_observer_set()
+        {
+            return m_file_drop_observer_set;
         }
 
         /*!
@@ -282,9 +318,14 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates an abstract window.
 
             \param scroll_bar_style    A scroll bar style type.
+            \param file_droppable      Set true to enable file drop.
             \param message_handler_map A message handler map.
         */
-        abstract_window(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
+        abstract_window(
+            const scroll_bar_style_type scroll_bar_style,
+            const bool                  file_droppable,
+            message_handler_map_type&&  message_handler_map
+        )
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -299,9 +340,11 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_file_droppable(file_droppable),
         m_p_icon(),
         m_p_menu_bar(),
-        m_window_observer_set()
+        m_window_observer_set(),
+        m_file_drop_observer_set()
         {}
 
         /*!
@@ -318,11 +361,15 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // variables
 
+        const bool m_file_droppable;
+
         std::unique_ptr<icon_type> m_p_icon;
 
         std::unique_ptr<menu_bar_type> m_p_menu_bar;
 
         window_observer_set_type m_window_observer_set;
+
+        file_drop_observer_set_type m_file_drop_observer_set;
 
 
     };

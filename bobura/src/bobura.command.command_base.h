@@ -15,8 +15,65 @@
 
 #include "bobura.basic_type_list.h"
 
+
 namespace bobura { namespace command
 {
+    /*!
+        \brief The command parameter base type.
+    */
+    class parameter_base
+    {
+    public:
+        // constructor and destructors
+
+        /*!
+            \brief Destroys the command parameter base.
+        */
+        virtual ~parameter_base()
+        TETENGO2_STDALT_NOEXCEPT = 0;
+
+
+        // functions
+
+        /*!
+            \brief Returns the derived instance.
+
+            \tparam D A derived type.
+
+            \return The derived instance.
+        */
+        template <typename D>
+        const D& as()
+        const
+        {
+            return dynamic_cast<const D&>(*this);
+        }
+
+        /*!
+            \brief Returns the derived instance.
+
+            \tparam D A derived type.
+
+            \return The derived instance.
+        */
+        template <typename D>
+        D& as()
+        {
+            return dynamic_cast<D&>(*this);
+        }
+
+
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a command parameter base.
+        */
+        parameter_base();
+
+
+    };
+
     /*!
         \brief The class for a command base.
     */
@@ -37,45 +94,6 @@ namespace bobura { namespace command
             default_, //!< Default state.
             checked,  //!< Checked state.
             selected, //!< Selected state.
-        };
-
-        //! The parameter base type.
-        class parameter_base_type
-        {
-        public:
-            /*!
-                \brief Destroys the parameter base.
-            */
-            virtual ~parameter_base_type()
-            TETENGO2_STDALT_NOEXCEPT = 0;
-
-            /*!
-                \brief Returns the derived instance.
-
-                \tparam D A derived type.
-
-                \return The derived instance.
-            */
-            template <typename D>
-            const D& as()
-            const
-            {
-                return dynamic_cast<const D&>(*this);
-            }
-
-            /*!
-                \brief Returns the derived instance.
-
-                \tparam D A derived type.
-
-                \return The derived instance.
-            */
-            template <typename D>
-            D& as()
-            {
-                return dynamic_cast<D&>(*this);
-            }
-
         };
 
 
@@ -125,7 +143,7 @@ namespace bobura { namespace command
             \param parent    A parent window.
             \param parameter A parameter.
         */
-        void execute(model_type& model, abstract_window_type& parent, const parameter_base_type& parameter)
+        void execute(model_type& model, abstract_window_type& parent, const parameter_base& parameter)
         const;
 
 
@@ -141,11 +159,7 @@ namespace bobura { namespace command
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const = 0;
 
-        virtual void execute_impl(
-            model_type&                model,
-            abstract_window_type&      parent,
-            const parameter_base_type& parameter
-        )
+        virtual void execute_impl(model_type& model, abstract_window_type& parent, const parameter_base& parameter)
         const;
 
 

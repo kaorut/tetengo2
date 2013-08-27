@@ -65,6 +65,7 @@
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.dialog_message_loop.h"
 #include "tetengo2.gui.message.dropdown_box_observer_set.h"
+#include "tetengo2.gui.message.file_drop_observer_set.h"
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.list_box_observer_set.h"
@@ -413,6 +414,7 @@ namespace test_tetengo2 { namespace gui
         struct size_observer_set;   //!< The size observer set type.
         struct list_box_observer_set; //!< The list box observer set type.
         struct dropdown_box_observer_set; //!< The dropdown box observer set type.
+        struct file_drop_observer_set; //!< The file drop observer set type.
         struct focus_observer_set; //!< The focus observer set type.
         struct paint_observer_set; //!< The paint observer set type.
         struct keyboard_observer_set; //!< The keyboard observer set type.
@@ -435,6 +437,11 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::dropdown_box_observer_set, tetengo2::gui::message::dropdown_box_observer_set
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::file_drop_observer_set,
+                tetengo2::gui::message::file_drop_observer_set<boost::mpl::at<type_list, type::path>::type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::focus_observer_set, tetengo2::gui::message::focus_observer_set>,
@@ -472,7 +479,7 @@ namespace test_tetengo2 { namespace gui
                 type::observer_set::text_box_observer_set, tetengo2::gui::message::text_box_observer_set
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>
+        >>>>>>>>>>>>
         observer_set_type_list;
 
 
@@ -642,7 +649,8 @@ namespace test_tetengo2 { namespace gui
                 widget_traits_type,
                 boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type,
                 boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
-                tetengo2::gui::message::window_observer_set
+                boost::mpl::at<observer_set_type_list, type::observer_set::window_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::file_drop_observer_set>::type
             >
             abstract_window_traits_type;
         typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;
@@ -676,7 +684,7 @@ namespace test_tetengo2 { namespace gui
             tetengo2::gui::widget::traits::dropdown_box_traits<
                 control_traits_type,
                 boost::mpl::at<type_list, type::size>::type,
-                tetengo2::gui::message::dropdown_box_observer_set
+                boost::mpl::at<observer_set_type_list, type::observer_set::dropdown_box_observer_set>::type
             >
             dropdown_box_traits_type;
         typedef
@@ -698,7 +706,7 @@ namespace test_tetengo2 { namespace gui
             tetengo2::gui::widget::traits::list_box_traits<
                 control_traits_type,
                 boost::mpl::at<type_list, type::size>::type,
-                tetengo2::gui::message::list_box_observer_set
+                boost::mpl::at<observer_set_type_list, type::observer_set::list_box_observer_set>::type
             >
             list_box_traits_type;
         typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
@@ -722,7 +730,8 @@ namespace test_tetengo2 { namespace gui
             side_bar_traits_type;
         typedef
             tetengo2::gui::widget::traits::text_box_traits<
-                control_traits_type, tetengo2::gui::message::text_box_observer_set
+                control_traits_type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::text_box_observer_set>::type
             >
             text_box_traits_type;
     }}
