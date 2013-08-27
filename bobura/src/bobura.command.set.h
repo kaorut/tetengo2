@@ -23,6 +23,9 @@ namespace bobura { namespace command
 {
     class command_base;
 
+    class parameter_base;
+
+
     /*!
         \brief The class for a command set.
     */
@@ -40,6 +43,9 @@ namespace bobura { namespace command
         //! The file loading type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type load_from_file_type;
 
+        //! The path type.
+        typedef boost::mpl::at<common_type_list, type::path>::type path_type;
+
         //! The file saving type.
         typedef boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type save_to_file_type;
 
@@ -54,6 +60,9 @@ namespace bobura { namespace command
 
         //! The command type.
         typedef command_base command_type;
+
+        //! The parameter type.
+        typedef parameter_base parameter_type;
 
 
         // constructors
@@ -144,6 +153,14 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& load_from_file()
+        const;
+        
+        /*!
+            \brief Creates a parameter for the command load-from-file.
+
+            \param path A path.
+        */
+        std::unique_ptr<parameter_type> create_load_from_file_parameter(const path_type& path)
         const;
 
         /*!

@@ -15,7 +15,6 @@
 
 #include <tetengo2.stdalt.h>
 
-#include "bobura.command.load_from_file.h"
 #include "bobura.main_window.h"
 #include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
@@ -71,8 +70,6 @@ namespace bobura
 
         typedef boost::mpl::at<ui_type_list, type::ui::timer>::type timer_type;
 
-        typedef command::load_from_file::parameter_type load_from_file_parameter_type;
-
 
     }
 
@@ -109,7 +106,7 @@ namespace bobura
             );
             main_window.set_visible(true);
 
-            load_input_file(main_window, command_set_holder.command_set().load_from_file());
+            load_input_file(main_window, command_set_holder.command_set());
 
             return message_loop_type(main_window)();
         }
@@ -266,7 +263,7 @@ namespace bobura
             );
         }
 
-        void load_input_file(main_window_type& main_window, const command_type& load_from_file_command)
+        void load_input_file(main_window_type& main_window, const command_set_type& command_set)
         {
             if (!m_settings.input())
                 return;
@@ -274,11 +271,11 @@ namespace bobura
             m_p_input_file_load_timer =
                 tetengo2::stdalt::make_unique<timer_type>(
                     main_window,
-                    [this, &main_window, &load_from_file_command](bool& stop)
+                    [this, &main_window, &command_set](bool& stop)
                     {
-                        load_from_file_command.execute(
-                            this->m_model, main_window, load_from_file_parameter_type(*this->m_settings.input())
-                        );
+                        const auto p_parameter =
+                            command_set.create_load_from_file_parameter(*this->m_settings.input());
+                        command_set.load_from_file().execute(this->m_model, main_window, *p_parameter);
 
                         stop = true;
                     },

@@ -47,6 +47,8 @@ namespace bobura { namespace command
 
         typedef set::load_from_file_type load_from_file_type;
 
+        typedef set::path_type path_type;
+
         typedef set::save_to_file_type save_to_file_type;
 
         typedef set::diagram_view_type diagram_view_type;
@@ -56,6 +58,8 @@ namespace bobura { namespace command
         typedef set::message_catalog_type message_catalog_type;
 
         typedef set::command_type command_type;
+
+        typedef set::parameter_type parameter_type;
 
 
         // constructors and destructor
@@ -133,6 +137,12 @@ namespace bobura { namespace command
         const
         {
             return *m_p_load_from_file;
+        }
+
+        std::unique_ptr<parameter_type> create_load_from_file_parameter(const path_type& path)
+        const
+        {
+            return tetengo2::stdalt::make_unique<command::load_from_file::parameter_type>(path);
         }
 
         const command_type& new_file()
@@ -418,6 +428,12 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->load_from_file();
+    }
+
+    std::unique_ptr<set::parameter_type> set::create_load_from_file_parameter(const path_type& path)
+    const
+    {
+        return m_p_impl->create_load_from_file_parameter(path);
     }
 
     const set::command_type& set::new_file()
