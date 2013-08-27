@@ -38,7 +38,7 @@ namespace bobura { namespace command
         typedef load_from_file_type::path_type path_type;
 
         //! The parameter type.
-        class parameter_type : public base_type::parameter_base_type
+        class parameter_type : public parameter_base
         {
         public:
             /*!
@@ -103,11 +103,7 @@ namespace bobura { namespace command
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const;
 
-        virtual void execute_impl(
-            model_type&                model,
-            abstract_window_type&      parent,
-            const parameter_base_type& parameter
-        )
+        virtual void execute_impl(model_type& model, abstract_window_type& parent, const parameter_base& parameter)
         const;
 
 
