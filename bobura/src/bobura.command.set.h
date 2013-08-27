@@ -159,6 +159,8 @@ namespace bobura { namespace command
             \brief Creates a parameter for the command load-from-file.
 
             \param path A path.
+
+            \return A unique pointer to a parameter for the command load-from-file.
         */
         std::unique_ptr<parameter_type> create_load_from_file_parameter(const path_type& path)
         const;
