@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_CURSOR_CURSOR_H
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include "tetengo2.stdalt.h"
 
