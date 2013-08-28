@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H)
 #define TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H
 
+#include <cassert>
+
 //#include <boost/optional.hpp>
 
 #include "tetengo2.gui.cursor.cursor_base.h"
@@ -95,15 +97,17 @@ namespace tetengo2 { namespace gui { namespace cursor
 
         // virtual functions
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
+            assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
+            assert(m_p_details);
             return *m_p_details;
         }
 

@@ -298,7 +298,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!widget.cursor())
                 return boost::none;
 
-            ::SetCursor(const_cast< ::HCURSOR>(&*widget.cursor()->details()));
+            ::SetCursor(const_cast< ::HCURSOR>(&widget.cursor()->details()));
 
             return boost::make_optional< ::LRESULT>(FALSE);
         }
