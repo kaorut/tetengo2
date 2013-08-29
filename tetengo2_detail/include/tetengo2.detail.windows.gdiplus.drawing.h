@@ -56,24 +56,18 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
-    /*!
-        \brief The class for a detail implementation of a drawing.
-    */
-    class drawing : private boost::noncopyable
+#if !defined(DOCUMENTATION)
+    namespace detail
     {
-    public:
-        // types
-
-        //! The background details type.
-        class background_details_type : private boost::noncopyable
+        class background_details : private boost::noncopyable
         {
         public:
-            background_details_type()
+            background_details()
             :
             m_p_brush()
             {}
 
-            explicit background_details_type(std::unique_ptr<Gdiplus::Brush> p_brush)
+            explicit background_details(std::unique_ptr<Gdiplus::Brush> p_brush)
             :
             m_p_brush(std::move(p_brush))
             {}
@@ -88,6 +82,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const std::unique_ptr<Gdiplus::Brush> m_p_brush;
 
         };
+
+    }
+#endif
+
+
+    /*!
+        \brief The class for a detail implementation of a drawing.
+    */
+    class drawing : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The background details type.
+        typedef detail::background_details background_details_type;
 
         //! The background details pointer type.
         typedef std::unique_ptr<background_details_type> background_details_ptr_type;
