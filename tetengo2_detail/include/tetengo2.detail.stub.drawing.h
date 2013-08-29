@@ -129,7 +129,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static std::unique_ptr<background_details_type> create_transparent_background()
         {
-            return std::unique_ptr<background_details_type>();
+            return stdalt::make_unique<background_details_type>();
         }
 
         /*!
