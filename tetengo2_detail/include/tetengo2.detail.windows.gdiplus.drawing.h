@@ -282,8 +282,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&    background
         )
         {
-            const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details->get()) return;
+            const auto& background_details = background.details();
+            if (!background_details.get()) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
@@ -291,7 +291,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const auto status = canvas.FillRectangle(background_details->get(), rectangle);
+            const auto status = canvas.FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -330,9 +330,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
                 gui::to_pixels<Gdiplus::REAL>(width)
             );
-            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
-            const auto status =
-                canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
+            const auto points = to_gdiplus_points(position_first, position_last);
+            const auto status = canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -362,12 +361,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&      background
         )
         {
-            const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details->get()) return;
+            const auto& background_details = background.details();
+            if (!background_details.get()) return;
 
-            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
+            const auto points = to_gdiplus_points(position_first, position_last);
             const auto status =
-                canvas.FillPolygon(background_details->get(), points.data(), static_cast< ::INT>(points.size()));
+                canvas.FillPolygon(background_details.get(), points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(

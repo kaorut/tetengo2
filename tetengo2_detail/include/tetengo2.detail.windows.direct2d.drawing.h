@@ -395,10 +395,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Background&    background
         )
         {
-            const auto background_details = background.details();
-            if (background_details->is_transparent()) return;
+            const auto& background_details = background.details();
+            if (background_details.is_transparent()) return;
 
-            const auto p_brush = create_brush(canvas, *background_details);
+            const auto p_brush = create_brush(canvas, background_details);
 
             canvas.FillRectangle(position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }

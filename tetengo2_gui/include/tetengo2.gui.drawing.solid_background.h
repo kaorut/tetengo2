@@ -98,16 +98,18 @@ namespace tetengo2 { namespace gui { namespace drawing
             return stdalt::make_unique<solid_background>(m_color);
         }
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
-            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
-            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
 
