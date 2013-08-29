@@ -65,7 +65,29 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // types
 
         //! The background details type.
-        typedef Gdiplus::Brush background_details_type;
+        class background_details_type : private boost::noncopyable
+        {
+        public:
+            background_details_type()
+            :
+            m_p_brush()
+            {}
+
+            explicit background_details_type(std::unique_ptr<Gdiplus::Brush> p_brush)
+            :
+            m_p_brush(std::move(p_brush))
+            {}
+
+            const Gdiplus::Brush* get()
+            const
+            {
+                return m_p_brush.get();
+            }
+
+        private:
+            const std::unique_ptr<Gdiplus::Brush> m_p_brush;
+
+        };
 
         //! The background details pointer type.
         typedef std::unique_ptr<background_details_type> background_details_ptr_type;
@@ -115,8 +137,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return
-                stdalt::make_unique<Gdiplus::SolidBrush>(
-                    Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                stdalt::make_unique<background_details_type>(
+                    stdalt::make_unique<Gdiplus::SolidBrush>(
+                        Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                    )
                 );
         }
 
@@ -127,7 +151,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         */
         static std::unique_ptr<background_details_type> create_transparent_background()
         {
-            return std::unique_ptr<background_details_type>();
+            return stdalt::make_unique<background_details_type>();
         }
 
         /*!
@@ -259,7 +283,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details) return;
+            if (!background_details->get()) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
@@ -267,7 +291,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const auto status = canvas.FillRectangle(&*background_details, rectangle);
+            const auto status = canvas.FillRectangle(background_details->get(), rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -339,11 +363,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details) return;
+            if (!background_details->get()) return;
 
             const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
             const auto status =
-                canvas.FillPolygon(&*background_details, points.data(), static_cast< ::INT>(points.size()));
+                canvas.FillPolygon(background_details->get(), points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -507,7 +531,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(), 
                     gdiplus_point,
-                    p_solid_brush.get()
+                    p_solid_brush->get()
                 );
             if (draw_string_status != Gdiplus::Ok)
             {
