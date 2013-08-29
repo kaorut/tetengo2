@@ -76,6 +76,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             TETENGO2_STDALT_NOEXCEPT
             {}
         
+            virtual bool is_transparent()
+            const = 0;
 
         };
 
@@ -98,6 +100,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             virtual ~solid_background_details()
             TETENGO2_STDALT_NOEXCEPT
             {}
+
+            virtual bool is_transparent()
+            const override
+            {
+                return false;
+            }
 
             unsigned char red()
             const
@@ -134,6 +142,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const unsigned char m_alpha;
 
         };
+
+        class transparent_background_details : public background_details
+        {
+        public:
+            virtual ~transparent_background_details()
+            TETENGO2_STDALT_NOEXCEPT
+            {}
+        
+            virtual bool is_transparent()
+            const override
+            {
+                return true;
+            }
+
+        };
+
     }
 #endif
 
@@ -244,7 +268,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         static background_details_ptr_type create_transparent_background()
         {
-            return background_details_ptr_type();
+            return stdalt::make_unique<detail::transparent_background_details>();
         }
 
         /*!
@@ -372,7 +396,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         )
         {
             const auto background_details = background.details();
-            if (!background_details) return;
+            if (background_details->is_transparent()) return;
 
             const auto p_brush = create_brush(canvas, *background_details);
 
@@ -758,6 +782,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
+            assert(false);
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
         }
 
