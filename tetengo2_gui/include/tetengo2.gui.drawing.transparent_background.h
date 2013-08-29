@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
 
+#include <cassert>
 //#include <memory>
-
-//#include <boost/optional.hpp>
 
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.stdalt.h"

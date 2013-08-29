@@ -12,7 +12,6 @@
 //#include <memory>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include "tetengo2.stdalt.h"
 
