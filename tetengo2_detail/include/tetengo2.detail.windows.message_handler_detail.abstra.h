@@ -53,7 +53,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
-                    [id](const typename menu_bar_type::base_type::base_type& menu) { return menu.details()->id == id; }
+                    [id](const typename menu_bar_type::base_type::base_type& menu) { return menu.details().id == id; }
                 );
             if (found == abstract_window.menu_bar().recursive_end())
                 return boost::none;
@@ -83,9 +83,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     abstract_window.menu_bar().recursive_end(),
                     [handle](const typename menu_bar_type::base_type::base_type& popup_menu)
                     {
-                        if (!popup_menu.details() || !handle)
+                        if (!handle)
                             return false;
-                        return popup_menu.details()->handle.get() == handle;
+                        return popup_menu.details().handle.get() == handle;
                     }
                 );
             if (found == abstract_window.menu_bar().recursive_end())

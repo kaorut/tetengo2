@@ -208,10 +208,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
         {
-            if (!menu.details()->parent_handle)
+            if (!menu.details().parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, enabled, menu.state());
+            set_menu_info_style<MenuBase>(menu.details().parent_handle, menu.details().id, enabled, menu.state());
         }
 
         /*!
@@ -225,10 +225,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
-            if (!menu.details()->parent_handle)
+            if (!menu.details().parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, menu.enabled(), state);
+            set_menu_info_style<MenuBase>(menu.details().parent_handle, menu.details().id, menu.enabled(), state);
         }
 
         /*!
@@ -309,17 +309,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&        encoder
         )
         {
-            assert(!menu.details()->parent_handle);
+            assert(!menu.details().parent_handle);
 
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             auto duplicated_text = make_text(menu, encoder);
-            menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
+            menu.style().set_style(menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
-            assert(popup_menu.details());
             const auto result =
                 ::InsertMenuItem(
-                    popup_menu.details()->handle.get(),
+                    popup_menu.details().handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     TRUE,
                     &menu_info
@@ -333,7 +332,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            menu.details()->parent_handle = popup_menu.details()->handle.get();
+            menu.details().parent_handle = popup_menu.details().handle.get();
         }
 
         /*!
@@ -577,8 +576,7 @@ namespace tetengo2 { namespace detail { namespace windows
             
             accel.key = shortcut_key.key().code();
 
-            assert(menu.details());
-            accel.cmd = static_cast< ::WORD>(menu.details()->id);
+            accel.cmd = static_cast< ::WORD>(menu.details().id);
 
             return accel;
         }
@@ -612,12 +610,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menu(PopupMenu& popup_menu, const ForwardIterator offset)
         {
-            assert(popup_menu.details()->handle);
-            assert(offset->details()->parent_handle);
+            assert(popup_menu.details().handle);
+            assert(offset->details().parent_handle);
 
             const auto result =
                 ::RemoveMenu(
-                    popup_menu.details()->handle.get(),
+                    popup_menu.details().handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     MF_BYPOSITION
                 );
@@ -630,7 +628,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            offset->details()->parent_handle = nullptr;
+            offset->details().parent_handle = nullptr;
         }
 
 
