@@ -22,7 +22,6 @@
 
 #include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -571,13 +570,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&> picture_details(
-                const_cast<Picture&>(picture).details()
-            );
-            if (!picture_details) return;
+            auto& picture_details = const_cast<Picture&>(picture).details();
 
             ::WICPixelFormatGUID pixel_format_guid = {};
-            const auto get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
+            const auto get_pixel_format_hr = picture_details.GetPixelFormat(&pixel_format_guid);
             if (FAILED(get_pixel_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -589,7 +585,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             ::UINT width = 0;
             ::UINT height = 0;
-            const auto get_size_hr = picture_details->GetSize(&width, &height);
+            const auto get_size_hr = picture_details.GetSize(&width, &height);
             if (FAILED(get_size_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -601,8 +597,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::vector< ::BYTE> buffer(buffer_size, 0);
 
             const ::WICRect rectangle = { 0, 0, width, height };
-            const auto copy_pixels_hr =
-                picture_details->CopyPixels(&rectangle, stride, buffer_size, buffer.data());
+            const auto copy_pixels_hr = picture_details.CopyPixels(&rectangle, stride, buffer_size, buffer.data());
             if (FAILED(copy_pixels_hr))
             {
                 BOOST_THROW_EXCEPTION(

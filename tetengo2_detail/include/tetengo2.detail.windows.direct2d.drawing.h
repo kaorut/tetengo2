@@ -17,7 +17,6 @@
 
 #include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -589,13 +588,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&> picture_details(
-                const_cast<Picture&>(picture).details()
-            );
-            if (!picture_details) return;
+            auto& picture_details = const_cast<Picture&>(picture).details();
 
             ::ID2D1Bitmap* rp_bitmap = nullptr;
-            const auto create_bitmap_hr = canvas.CreateBitmapFromWicBitmap(&*picture_details, &rp_bitmap);
+            const auto create_bitmap_hr = canvas.CreateBitmapFromWicBitmap(&picture_details, &rp_bitmap);
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
