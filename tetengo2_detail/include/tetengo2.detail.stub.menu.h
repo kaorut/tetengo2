@@ -123,7 +123,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Entry>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table()
         {
-            return shortcut_key_table_details_ptr_type();
+            return stdalt::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!
@@ -146,7 +146,7 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             suppress_unused_variable_warning(first, last);
-            return shortcut_key_table_details_ptr_type();
+            return stdalt::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!

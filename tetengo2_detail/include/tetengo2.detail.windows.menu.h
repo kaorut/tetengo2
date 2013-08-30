@@ -73,7 +73,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        struct accelerator_table_deleter
+        struct accelerator_table_handle_deleter
         {
             void operator()(const ::HACCEL accelerator_table_handle)
             const
@@ -82,6 +82,34 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::DestroyAcceleratorTable(accelerator_table_handle);
             }
 
+
+        };
+
+        typedef
+            std::unique_ptr<std::remove_pointer< ::HACCEL>::type, detail::accelerator_table_handle_deleter>
+            accelerator_table_handle_ptr_type;
+
+        class shortcut_key_table_details : boost::noncopyable
+        {
+        public:
+            shortcut_key_table_details()
+            :
+            m_accelerator_table_handle()
+            {}
+
+            explicit shortcut_key_table_details(const ::HACCEL accelerator_table_handle)
+            :
+            m_accelerator_table_handle(accelerator_table_handle)
+            {}
+
+            ::HACCEL get()
+            const
+            {
+                return m_accelerator_table_handle.get();
+            }
+
+        private:
+            const accelerator_table_handle_ptr_type m_accelerator_table_handle;
 
         };
 
@@ -105,12 +133,10 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
 
         //! The shortcut key table details type.
-        typedef std::remove_pointer< ::HACCEL>::type shortcut_key_table_details_type;
+        typedef detail::shortcut_key_table_details shortcut_key_table_details_type;
 
         //! The shortcut key table details pointer type.
-        typedef
-            std::unique_ptr<shortcut_key_table_details_type, detail::accelerator_table_deleter>
-            shortcut_key_table_details_ptr_type;
+        typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
 
         /*!
             \brief The style tag type.
@@ -241,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Entry>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table()
         {
-            return shortcut_key_table_details_ptr_type();
+            return stdalt::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!
@@ -283,7 +309,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return shortcut_key_table_details_ptr_type(accelerator_table_handle);
+            return stdalt::make_unique<shortcut_key_table_details_type>(accelerator_table_handle);
         }
 
         /*!
