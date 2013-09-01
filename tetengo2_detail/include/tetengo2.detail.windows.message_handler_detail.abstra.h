@@ -98,14 +98,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Path>
         std::vector<Path> make_paths(const ::HDROP drop_handle)
         {
-            const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, NULL, 0);
+            const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, nullptr, 0);
 
             std::vector<Path> paths;
             paths.reserve(count);
 
             for (::UINT i = 0; i < count; ++i)
             {
-                const auto length = ::DragQueryFileW(drop_handle, i, NULL, 0);
+                const auto length = ::DragQueryFileW(drop_handle, i, nullptr, 0);
                 std::vector<wchar_t> path_string(length + 1, 0);
 
                 const auto result =
