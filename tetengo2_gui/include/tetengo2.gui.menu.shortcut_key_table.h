@@ -9,12 +9,12 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H
 
+#include <cassert>
 #include <iterator>
 #include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -110,10 +110,11 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        boost::optional<const details_type&> details()
+        const details_type& details()
         const
         {
-            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
         /*!
@@ -121,9 +122,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        boost::optional<details_type&> details()
+        details_type& details()
         {
-            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
 
