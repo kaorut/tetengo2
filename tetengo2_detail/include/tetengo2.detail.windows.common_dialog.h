@@ -283,7 +283,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return
                 stdalt::make_unique<message_box_details_type>(
-                    parent.details()->handle.get(),
+                    parent.details().handle.get(),
                     encoder.encode(std::move(title)),
                     encoder.encode(std::move(main_content)),
                     encoder.encode(std::move(sub_content)),
@@ -381,7 +381,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 stdalt::make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
-                    parent.details()->handle.get(),
+                    parent.details().handle.get(),
                     encoder.encode(std::move(title)),
                     encoder.encode(to_default_extension(filters)),
                     to_native_filters(filters, encoder)
@@ -515,7 +515,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 stdalt::make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
-                    parent.details()->handle.get(),
+                    parent.details().handle.get(),
                     encoder.encode(std::move(title)),
                     encoder.encode(to_native_path<String>(path)),
                     encoder.encode(to_default_extension(filters)),
@@ -721,7 +721,7 @@ namespace tetengo2 { namespace detail { namespace windows
             p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
             return
-                stdalt::make_unique<font_dialog_details_type>(parent.details()->handle.get(), std::move(p_log_font));
+                stdalt::make_unique<font_dialog_details_type>(parent.details().handle.get(), std::move(p_log_font));
         }
 
         /*!
@@ -792,7 +792,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
-            return stdalt::make_unique<color_dialog_details_type>(parent.details()->handle.get(), native_color);
+            return stdalt::make_unique<color_dialog_details_type>(parent.details().handle.get(), native_color);
         }
 
         /*!

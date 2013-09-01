@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_CONTROL_H)
 #define TETENGO2_GUI_WIDGET_CONTROL_H
 
+//#include <cassert>
 //#include <utility>
 
 //#include <boost/optional.hpp>
@@ -184,16 +185,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
-            return boost::make_optional<const details_type&>(*m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
-            return boost::make_optional<details_type&>(*m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
 

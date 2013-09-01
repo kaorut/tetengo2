@@ -84,7 +84,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             {
                 auto& dialog = control.root_ancestor();
 
-                dialog.details()->first_child_handle = control.details()->handle.get();
+                dialog.details().first_child_handle = control.details().handle.get();
             }
 
             return boost::none;

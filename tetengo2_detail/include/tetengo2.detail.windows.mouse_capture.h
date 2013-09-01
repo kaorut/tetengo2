@@ -43,7 +43,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         explicit mouse_capture(const Widget& widget)
         {
-            ::SetCapture(widget.details()->handle.get());
+            ::SetCapture(widget.details().handle.get());
         }
 
         /*!

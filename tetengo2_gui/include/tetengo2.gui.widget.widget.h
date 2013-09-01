@@ -543,7 +543,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<canvas_type> create_canvas()
         const
         {
-            return stdalt::make_unique<widget_canvas_type>(*details());
+            return stdalt::make_unique<widget_canvas_type>(details());
         }
 
         /*!
@@ -695,7 +695,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<const details_type&> details()
+        const details_type& details()
         const
         {
             if (m_destroyed)
@@ -711,7 +711,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<details_type&> details()
+        details_type& details()
         {
             if (m_destroyed)
                 BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
@@ -867,10 +867,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const = 0;
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         = 0;
 
 
@@ -886,7 +886,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
+            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -899,7 +899,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
+            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
         }
 
 
