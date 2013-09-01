@@ -388,7 +388,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             suppress_unused_variable_warning(l_param);
 
-            if (!widget.vertical_scroll_bar())
+            if (!widget.has_vertical_scroll_bar())
                 return boost::none;
 
             const int scroll_code = LOWORD(w_param);
@@ -399,23 +399,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             }
             else if (scroll_code == SB_THUMBTRACK)
             {
-                if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                if (widget.vertical_scroll_bar().scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_VERT);
-                widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
+                widget.vertical_scroll_bar().scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_VERT);
-                if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                if (widget.vertical_scroll_bar().scroll_bar_observer_set().scrolled().empty())
                 {
-                    widget.vertical_scroll_bar()->set_position(new_position);
+                    widget.vertical_scroll_bar().set_position(new_position);
                     return boost::none;
                 }
-                widget.vertical_scroll_bar()->set_position(new_position);
-                widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                widget.vertical_scroll_bar().set_position(new_position);
+                widget.vertical_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
             }
 
             return boost::none;
@@ -430,7 +430,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             suppress_unused_variable_warning(l_param);
 
-            if (!widget.horizontal_scroll_bar())
+            if (!widget.has_horizontal_scroll_bar())
                 return boost::none;
 
             const int scroll_code = LOWORD(w_param);
@@ -441,23 +441,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             }
             else if (scroll_code == SB_THUMBTRACK)
             {
-                if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                if (widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_HORZ);
-                widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
+                widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const auto new_position =
                     new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_HORZ);
-                if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                if (widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolled().empty())
                 {
-                    widget.horizontal_scroll_bar()->set_position(new_position);
+                    widget.horizontal_scroll_bar().set_position(new_position);
                     return boost::none;
                 }
-                widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-                widget.horizontal_scroll_bar()->set_position(new_position);
+                widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
+                widget.horizontal_scroll_bar().set_position(new_position);
             }
 
             return boost::none;

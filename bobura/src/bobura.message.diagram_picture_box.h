@@ -406,23 +406,23 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             if (vertical)
             {
-                assert(m_picture_box.vertical_scroll_bar());
-                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                assert(m_picture_box.has_vertical_scroll_bar());
+                if (!m_picture_box.vertical_scroll_bar().enabled())
                     return;
 
-                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
-                m_picture_box.vertical_scroll_bar()->set_position(new_position);
-                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                const auto new_position = calculate_new_position(m_picture_box.vertical_scroll_bar(), delta);
+                m_picture_box.vertical_scroll_bar().set_position(new_position);
+                m_picture_box.vertical_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
             }
             else
             {
-                assert(m_picture_box.horizontal_scroll_bar());
-                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                assert(m_picture_box.has_horizontal_scroll_bar());
+                if (!m_picture_box.horizontal_scroll_bar().enabled())
                     return;
 
-                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
-                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                const auto new_position = calculate_new_position(m_picture_box.horizontal_scroll_bar(), delta);
+                m_picture_box.horizontal_scroll_bar().set_position(new_position);
+                m_picture_box.horizontal_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
             }
         }
 
@@ -556,23 +556,23 @@ namespace bobura { namespace message { namespace diagram_picture_box
             const auto vertical = is_vertical(virtual_key, shift);
             if (vertical)
             {
-                assert(m_picture_box.vertical_scroll_bar());
-                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                assert(m_picture_box.has_vertical_scroll_bar());
+                if (!m_picture_box.vertical_scroll_bar().enabled())
                     return;
 
-                const auto new_position = calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
-                m_picture_box.vertical_scroll_bar()->set_position(new_position);
-                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                const auto new_position = calculate_new_position(m_picture_box.vertical_scroll_bar(), virtual_key);
+                m_picture_box.vertical_scroll_bar().set_position(new_position);
+                m_picture_box.vertical_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
             }
             else
             {
-                assert(m_picture_box.horizontal_scroll_bar());
-                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                assert(m_picture_box.has_horizontal_scroll_bar());
+                if (!m_picture_box.horizontal_scroll_bar().enabled())
                     return;
 
-                const auto new_position = calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
-                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                const auto new_position = calculate_new_position(m_picture_box.horizontal_scroll_bar(), virtual_key);
+                m_picture_box.horizontal_scroll_bar().set_position(new_position);
+                m_picture_box.horizontal_scroll_bar().scroll_bar_observer_set().scrolled()(new_position);
             }
         }
 
@@ -693,14 +693,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(canvas_type& canvas)
         const
         {
-            assert(m_picture_box.vertical_scroll_bar());
-            assert(m_picture_box.horizontal_scroll_bar());
+            assert(m_picture_box.has_vertical_scroll_bar());
+            assert(m_picture_box.has_horizontal_scroll_bar());
             m_view.draw_on(
                 canvas,
                 m_picture_box.client_dimension(),
                 to_position(
-                    m_picture_box.horizontal_scroll_bar()->tracking_position(),
-                    m_picture_box.vertical_scroll_bar()->tracking_position()
+                    m_picture_box.horizontal_scroll_bar().tracking_position(),
+                    m_picture_box.vertical_scroll_bar().tracking_position()
                 )
             );
         }

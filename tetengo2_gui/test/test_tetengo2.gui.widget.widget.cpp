@@ -523,6 +523,32 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
 
+    BOOST_AUTO_TEST_CASE(has_vertical_scroll_bar)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK(!widget.has_vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+
+            BOOST_CHECK(widget.has_vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+
+            BOOST_CHECK(!widget.has_vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+
+            BOOST_CHECK(widget.has_vertical_scroll_bar());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(vertical_scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
@@ -530,22 +556,68 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
-            BOOST_CHECK(!widget.vertical_scroll_bar());
+            BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
-            BOOST_CHECK(widget.vertical_scroll_bar());
+            widget.vertical_scroll_bar();
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+
+            widget.vertical_scroll_bar();
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
-            BOOST_CHECK(!widget.vertical_scroll_bar());
+            BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+
+            BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
-            BOOST_CHECK(widget.vertical_scroll_bar());
+            widget.vertical_scroll_bar();
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+
+            widget.vertical_scroll_bar();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(has_horizontal_scroll_bar)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK(!widget.has_horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+
+            BOOST_CHECK(!widget.has_horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+
+            BOOST_CHECK(widget.has_horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+
+            BOOST_CHECK(widget.has_horizontal_scroll_bar());
         }
     }
 
@@ -556,22 +628,42 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
 
-            BOOST_CHECK(!widget.horizontal_scroll_bar());
+            BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+
+            BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
 
-            BOOST_CHECK(!widget.horizontal_scroll_bar());
+            BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+
+            BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
 
-            BOOST_CHECK(widget.horizontal_scroll_bar());
+            widget.horizontal_scroll_bar();
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+
+            widget.horizontal_scroll_bar();
         }
         {
             const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
 
-            BOOST_CHECK(widget.horizontal_scroll_bar());
+            widget.horizontal_scroll_bar();
+        }
+        {
+            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+
+            widget.horizontal_scroll_bar();
         }
     }
 
