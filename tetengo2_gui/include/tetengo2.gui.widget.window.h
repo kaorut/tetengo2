@@ -11,8 +11,6 @@
 
 //#include <cassert>
 
-//#include <boost/optional.hpp>
-
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.stdalt.h"
 
@@ -81,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(scroll_bar_style, file_droppable, message_handler_map_type()),
         m_p_details(
             widget_details_type::template create_window<typename base_type::base_type>(
-                boost::none, scroll_bar_style, file_droppable
+                nullptr, scroll_bar_style, file_droppable
             )
         )
         {
@@ -111,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_p_details(
             widget_details_type::template create_window<typename base_type::base_type>(
-                parent, scroll_bar_style, file_droppable
+                &parent, scroll_bar_style, file_droppable
             )
         )
         {

@@ -237,7 +237,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent         A parent widget. When uninitialized, the dialog has no parent.
+            \param p_parent       A pointer to a parent widget. When nullptr, the dialog has no parent.
             \param file_droppable Set true to enable file drop.
 
             \return A unique pointer to a dialog.
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent, const bool file_droppable)
+        static widget_details_ptr_type create_dialog(Widget* const p_parent, const bool file_droppable)
         {
             const auto instance_handle = ::GetModuleHandle(nullptr);
             if (!instance_handle)
@@ -273,7 +273,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? parent->details().handle.get() : HWND_DESKTOP,
+                    p_parent ? p_parent->details().handle.get() : HWND_DESKTOP,
                     nullptr,
                     instance_handle,
                     nullptr
@@ -588,7 +588,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param p_parent         A pointer to a parent widget. When nullptr, the dialog has no parent.
             \param scroll_bar_style A scroll bar style.
             \param file_droppable   Set true to enable file drop.
 
@@ -598,7 +598,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&              parent,
+            Widget* const                                p_parent,
             const typename Widget::scroll_bar_style_type scroll_bar_style,
             const bool                                   file_droppable
         )
@@ -629,7 +629,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? parent->details().handle.get() : HWND_DESKTOP,
+                    p_parent ? p_parent->details().handle.get() : HWND_DESKTOP,
                     nullptr,
                     instance_handle,
                     nullptr
