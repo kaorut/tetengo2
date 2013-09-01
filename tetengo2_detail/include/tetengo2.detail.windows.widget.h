@@ -1505,10 +1505,10 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::HICON icon_handle = nullptr;
             ::HICON small_icon_handle = nullptr;
-            if (p_icon && p_icon->details())
+            if (p_icon)
             {
-                icon_handle = p_icon->details()->big_icon_handle.get();
-                small_icon_handle = p_icon->details()->small_icon_handle.get();
+                icon_handle = p_icon->details().big_icon_handle.get();
+                small_icon_handle = p_icon->details().small_icon_handle.get();
             }
 
             ::SendMessageW(

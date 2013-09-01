@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_GUI_ICON_H)
 #define TETENGO2_GUI_ICON_H
 
+#include <cassert>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -105,12 +105,11 @@ namespace tetengo2 { namespace gui
 
             \return The detail implementation.
         */
-        boost::optional<const icon_details_type&> details()
+        const icon_details_type& details()
         const
         {
-            if (!m_p_icon_details)
-                return boost::none;
-            return boost::make_optional<const icon_details_type&>(*m_p_icon_details);
+            assert(m_p_icon_details);
+            return *m_p_icon_details;
         }
 
         /*!
@@ -118,11 +117,10 @@ namespace tetengo2 { namespace gui
 
             \return The detail implementation.
         */
-        boost::optional<icon_details_type&> details()
+        icon_details_type& details()
         {
-            if (!m_p_icon_details)
-                return boost::none;
-            return boost::make_optional<icon_details_type&>(*m_p_icon_details);
+            assert(m_p_icon_details);
+            return *m_p_icon_details;
         }
 
 

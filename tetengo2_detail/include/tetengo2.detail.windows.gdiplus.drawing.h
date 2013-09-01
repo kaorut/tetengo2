@@ -645,7 +645,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     canvas.GetHDC(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
                     gui::to_pixels<int>(gui::position<Position>::top(position)),
-                    icon.details()->big_icon_handle.get(),
+                    icon.details().big_icon_handle.get(),
                     gui::to_pixels<int>(gui::dimension<dimension_type>::width(icon.dimension())),
                     gui::to_pixels<int>(gui::dimension<dimension_type>::height(icon.dimension())),
                     0,
