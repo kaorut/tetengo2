@@ -60,7 +60,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const bool                       once_only
         )
         :
-        m_window_handle(widget.details()->handle.get()),
+        m_window_handle(widget.details().handle.get()),
         m_procedure(std::move(procedure)),
         m_once_only(once_only),
         m_id(

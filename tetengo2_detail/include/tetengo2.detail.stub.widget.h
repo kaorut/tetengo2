@@ -208,7 +208,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent         A parent widget. When uninitialized, the dialog has no parent.
+            \param p_parent       A pointer to a parent widget. When nullptr, the dialog has no parent.
             \param file_droppable Set true to enable file drop.
 
             \return A unique pointer to a dialog.
@@ -216,11 +216,11 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent, const bool file_droppable)
+        static widget_details_ptr_type create_dialog(Widget* const p_parent, const bool file_droppable)
         {
             suppress_unused_variable_warning(file_droppable);
 
-            return create_details<Widget>(parent ? &*parent : nullptr);
+            return create_details<Widget>(p_parent);
         }
 
         /*!
@@ -348,7 +348,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param p_parent         A pointer to a parent widget. When nullptr, the dialog has no parent.
             \param scroll_bar_style A scroll bar style.
             \param file_droppable   Set true to enable file drop.
 
@@ -358,14 +358,14 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>&              parent,
+            Widget* const                                p_parent,
             const typename Widget::scroll_bar_style_type scroll_bar_style,
             const bool                                   file_droppable
         )
         {
             suppress_unused_variable_warning(scroll_bar_style, file_droppable);
 
-            return create_details<Widget>(parent ? &*parent : nullptr);
+            return create_details<Widget>(p_parent);
         }
 
         /*!
@@ -381,11 +381,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void associate_to_native_window_system(Widget& widget)
         {
             if (widget.has_parent())
-            {
-                widget.parent().details()->children.push_back(
-                    reinterpret_cast<void*>(&widget)
-                );
-            }
+                widget.parent().details().children.push_back(reinterpret_cast<void*>(&widget));
         }
 
         /*!
@@ -401,7 +397,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return widget.details()->p_parent != nullptr;
+            return widget.details().p_parent != nullptr;
         }
 
         /*!
@@ -421,7 +417,7 @@ namespace tetengo2 { namespace detail { namespace stub
             if (!has_parent(widget))
                 BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
 
-            return *reinterpret_cast<Widget*>(widget.details()->p_parent);
+            return *reinterpret_cast<Widget*>(widget.details().p_parent);
         }
 
         /*!
@@ -452,7 +448,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_enabled(Widget& widget, const bool enabled)
         {
-            widget.details()->enabled = enabled;
+            widget.details().enabled = enabled;
         }
 
         /*!
@@ -467,7 +463,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool enabled(const Widget& widget)
         {
-            return widget.details()->enabled;
+            return widget.details().enabled;
         }
 
         /*!
@@ -481,7 +477,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_visible(Widget& widget, const bool visible)
         {
-            widget.details()->visible = visible;
+            widget.details().visible = visible;
         }
 
         /*!
@@ -496,7 +492,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool visible(const Widget& widget)
         {
-            return widget.details()->visible;
+            return widget.details().visible;
         }
 
         /*!
@@ -513,7 +509,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename WindowState, typename Widget>
         static void set_window_state(Widget& widget, const WindowState state)
         {
-            widget.details()->window_state = static_cast<int>(state);
+            widget.details().window_state = static_cast<int>(state);
         }
 
         /*!
@@ -529,7 +525,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename WindowState, typename Widget>
         static WindowState window_state(const Widget& widget)
         {
-            return static_cast<WindowState>(widget.details()->window_state);
+            return static_cast<WindowState>(widget.details().window_state);
         }
 
         /*!
@@ -550,12 +546,12 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             typedef gui::position<Position> position_traits_type;
             typedef gui::dimension<Dimension> dimension_traits_type;
-            widget.details()->position =
+            widget.details().position =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(position_traits_type::left(position)),
                     gui::to_pixels<std::size_t>(position_traits_type::top(position))
                 );
-            widget.details()->dimension =
+            widget.details().dimension =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(dimension)),
                     gui::to_pixels<std::size_t>(dimension_traits_type::height(dimension))
@@ -580,12 +576,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::position<Position> position_traits_type;
             return
                 position_traits_type::make(
-                    gui::to_unit<typename position_traits_type::left_type>(
-                        widget.details()->position.first
-                    ),
-                    gui::to_unit<typename position_traits_type::top_type>(
-                        widget.details()->position.second
-                    )
+                    gui::to_unit<typename position_traits_type::left_type>(widget.details().position.first),
+                    gui::to_unit<typename position_traits_type::top_type>(widget.details().position.second)
                 );
         }
 
@@ -629,12 +621,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(
-                        widget.details()->dimension.first
-                    ),
-                    gui::to_unit<typename dimension_traits_type::height_type>(
-                        widget.details()->dimension.second
-                    )
+                    gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
+                    gui::to_unit<typename dimension_traits_type::height_type>(widget.details().dimension.second)
                 );
         }
 
@@ -654,7 +642,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            widget.details()->dimension =
+            widget.details().dimension =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(client_dimension)),
                     gui::to_pixels<std::size_t>(dimension_traits_type::height(client_dimension))
@@ -679,12 +667,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(
-                        widget.details()->dimension.first
-                    ),
-                    gui::to_unit<typename dimension_traits_type::height_type>(
-                        widget.details()->dimension.second
-                    )
+                    gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
+                    gui::to_unit<typename dimension_traits_type::height_type>(widget.details().dimension.second)
                 );
         }
 
@@ -706,12 +690,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(
-                        widget.details()->dimension.first
-                    ),
-                    gui::to_unit<typename dimension_traits_type::height_type>(
-                        widget.details()->dimension.second
-                    )
+                    gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
+                    gui::to_unit<typename dimension_traits_type::height_type>(widget.details().dimension.second)
                 );
         }
 
@@ -731,7 +711,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename String, typename Encoder>
         static void set_text(Widget& widget, String text, const Encoder& encoder)
         {
-            widget.details()->text = encoder.encode(std::move(text));
+            widget.details().text = encoder.encode(std::move(text));
         }
 
         /*!
@@ -749,7 +729,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String, typename Widget, typename Encoder>
         static String text(const Widget& widget, const Encoder& encoder)
         {
-            return encoder.decode(widget.details()->text);
+            return encoder.decode(widget.details().text);
         }
 
         /*!
@@ -768,7 +748,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Font, typename Encoder>
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
-            widget.details()->font =
+            widget.details().font =
                 details_font_type(
                     encoder.encode(font.family()),
                     font.size(),
@@ -796,7 +776,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Widget, typename Encoder>
         static Font font(const Widget& widget, const Encoder& encoder)
         {
-            const auto& font = widget.details()->font;
+            const auto& font = widget.details().font;
             return
                 Font(encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout);
         }
@@ -814,7 +794,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Child, typename Widget>
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
-            const auto& children_as_void = widget.details()->children;
+            const auto& children_as_void = widget.details().children;
             std::vector<std::reference_wrapper<Child>> children;
             children.reserve(children_as_void.size());
 
@@ -922,7 +902,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool focusable(const Widget& widget)
         {
-            return widget.details()->focusable;
+            return widget.details().focusable;
         }
 
         /*!
@@ -938,7 +918,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_focusable(Widget& widget, const bool focusable)
         {
-            widget.details()->focusable = focusable;
+            widget.details().focusable = focusable;
         }
 
         /*!
@@ -967,7 +947,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool read_only(const Widget& widget)
         {
-            return widget.details()->read_only;
+            return widget.details().read_only;
         }
 
         /*!
@@ -983,7 +963,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_read_only(Widget& widget, const bool read_only)
         {
-            widget.details()->read_only = read_only;
+            widget.details().read_only = read_only;
         }
 
         /*!
@@ -1033,7 +1013,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename DropdownBox>
         static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
         {
-            return dropdown_box.details()->list_box_items.size();
+            return dropdown_box.details().list_box_items.size();
         }
 
         /*!
@@ -1055,7 +1035,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String, typename DropdownBox, typename Size, typename Encoder>
         static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
         {
-            return encoder.decode(dropdown_box.details()->list_box_items[index]);
+            return encoder.decode(dropdown_box.details().list_box_items[index]);
         }
 
         /*!
@@ -1081,7 +1061,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder& encoder
         )
         {
-            dropdown_box.details()->list_box_items[index] = encoder.encode(std::move(item));
+            dropdown_box.details().list_box_items[index] = encoder.encode(std::move(item));
         }
 
         /*!
@@ -1107,8 +1087,8 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder& encoder
         )
         {
-            dropdown_box.details()->list_box_items.insert(
-                boost::next(dropdown_box.details()->list_box_items.begin(), index), encoder.encode(std::move(item))
+            dropdown_box.details().list_box_items.insert(
+                boost::next(dropdown_box.details().list_box_items.begin(), index), encoder.encode(std::move(item))
             );
         }
 
@@ -1126,8 +1106,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename DropdownBox, typename Size>
         static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            dropdown_box.details()->list_box_items.erase(
-                boost::next(dropdown_box.details()->list_box_items.begin(), index)
+            dropdown_box.details().list_box_items.erase(
+                boost::next(dropdown_box.details().list_box_items.begin(), index)
             );
         }
 
@@ -1143,7 +1123,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename DropdownBox>
         static void clear_dropdown_box(DropdownBox& dropdown_box)
         {
-            dropdown_box.details()->list_box_items.clear();
+            dropdown_box.details().list_box_items.clear();
         }
 
         /*!
@@ -1161,7 +1141,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename DropdownBox>
         static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
         {
-            return dropdown_box.details()->selected_list_box_item_index;
+            return dropdown_box.details().selected_list_box_item_index;
         }
 
         /*!
@@ -1178,7 +1158,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename DropdownBox, typename Size>
         static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
         {
-            dropdown_box.details()->selected_list_box_item_index = boost::make_optional<std::size_t>(index);
+            dropdown_box.details().selected_list_box_item_index = boost::make_optional<std::size_t>(index);
         }
 
         /*!
@@ -1196,7 +1176,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename ListBox>
         static Size list_box_item_count(const ListBox& list_box)
         {
-            return list_box.details()->list_box_items.size();
+            return list_box.details().list_box_items.size();
         }
 
         /*!
@@ -1218,7 +1198,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String, typename ListBox, typename Size, typename Encoder>
         static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
-            return encoder.decode(list_box.details()->list_box_items[index]);
+            return encoder.decode(list_box.details().list_box_items[index]);
         }
 
         /*!
@@ -1239,7 +1219,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void set_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
-            list_box.details()->list_box_items[index] = encoder.encode(std::move(item));
+            list_box.details().list_box_items[index] = encoder.encode(std::move(item));
         }
 
         /*!
@@ -1260,8 +1240,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size, typename String, typename Encoder>
         static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
         {
-            list_box.details()->list_box_items.insert(
-                boost::next(list_box.details()->list_box_items.begin(), index), encoder.encode(std::move(item))
+            list_box.details().list_box_items.insert(
+                boost::next(list_box.details().list_box_items.begin(), index), encoder.encode(std::move(item))
             );
         }
 
@@ -1279,9 +1259,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size>
         static void erase_list_box_item(ListBox& list_box, const Size index)
         {
-            list_box.details()->list_box_items.erase(
-                boost::next(list_box.details()->list_box_items.begin(), index)
-            );
+            list_box.details().list_box_items.erase(boost::next(list_box.details().list_box_items.begin(), index));
         }
 
         /*!
@@ -1296,7 +1274,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox>
         static void clear_list_box(ListBox& list_box)
         {
-            list_box.details()->list_box_items.clear();
+            list_box.details().list_box_items.clear();
         }
 
         /*!
@@ -1314,7 +1292,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
         {
-            return list_box.details()->selected_list_box_item_index;
+            return list_box.details().selected_list_box_item_index;
         }
 
         /*!
@@ -1331,7 +1309,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size>
         static void select_list_box_item(ListBox& list_box, const Size index)
         {
-            list_box.details()->selected_list_box_item_index = boost::make_optional<std::size_t>(index);
+            list_box.details().selected_list_box_item_index = boost::make_optional<std::size_t>(index);
         }
 
 

@@ -73,7 +73,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        struct accelerator_table_deleter
+        struct accelerator_table_handle_deleter
         {
             void operator()(const ::HACCEL accelerator_table_handle)
             const
@@ -82,6 +82,34 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::DestroyAcceleratorTable(accelerator_table_handle);
             }
 
+
+        };
+
+        typedef
+            std::unique_ptr<std::remove_pointer< ::HACCEL>::type, detail::accelerator_table_handle_deleter>
+            accelerator_table_handle_ptr_type;
+
+        class shortcut_key_table_details : boost::noncopyable
+        {
+        public:
+            shortcut_key_table_details()
+            :
+            m_accelerator_table_handle()
+            {}
+
+            explicit shortcut_key_table_details(const ::HACCEL accelerator_table_handle)
+            :
+            m_accelerator_table_handle(accelerator_table_handle)
+            {}
+
+            ::HACCEL get()
+            const
+            {
+                return m_accelerator_table_handle.get();
+            }
+
+        private:
+            const accelerator_table_handle_ptr_type m_accelerator_table_handle;
 
         };
 
@@ -105,12 +133,10 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
 
         //! The shortcut key table details type.
-        typedef std::remove_pointer< ::HACCEL>::type shortcut_key_table_details_type;
+        typedef detail::shortcut_key_table_details shortcut_key_table_details_type;
 
         //! The shortcut key table details pointer type.
-        typedef
-            std::unique_ptr<shortcut_key_table_details_type, detail::accelerator_table_deleter>
-            shortcut_key_table_details_ptr_type;
+        typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
 
         /*!
             \brief The style tag type.
@@ -208,10 +234,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
         {
-            if (!menu.details()->parent_handle)
+            if (!menu.details().parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, enabled, menu.state());
+            set_menu_info_style<MenuBase>(menu.details().parent_handle, menu.details().id, enabled, menu.state());
         }
 
         /*!
@@ -225,10 +251,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
-            if (!menu.details()->parent_handle)
+            if (!menu.details().parent_handle)
                 return;
 
-            set_menu_info_style<MenuBase>(menu.details()->parent_handle, menu.details()->id, menu.enabled(), state);
+            set_menu_info_style<MenuBase>(menu.details().parent_handle, menu.details().id, menu.enabled(), state);
         }
 
         /*!
@@ -241,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Entry>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table()
         {
-            return shortcut_key_table_details_ptr_type();
+            return stdalt::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!
@@ -283,7 +309,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return shortcut_key_table_details_ptr_type(accelerator_table_handle);
+            return stdalt::make_unique<shortcut_key_table_details_type>(accelerator_table_handle);
         }
 
         /*!
@@ -309,17 +335,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&        encoder
         )
         {
-            assert(!menu.details()->parent_handle);
+            assert(!menu.details().parent_handle);
 
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             auto duplicated_text = make_text(menu, encoder);
-            menu.style().set_style(*menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
+            menu.style().set_style(menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
-            assert(popup_menu.details());
             const auto result =
                 ::InsertMenuItem(
-                    popup_menu.details()->handle.get(),
+                    popup_menu.details().handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     TRUE,
                     &menu_info
@@ -333,7 +358,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            menu.details()->parent_handle = popup_menu.details()->handle.get();
+            menu.details().parent_handle = popup_menu.details().handle.get();
         }
 
         /*!
@@ -577,8 +602,7 @@ namespace tetengo2 { namespace detail { namespace windows
             
             accel.key = shortcut_key.key().code();
 
-            assert(menu.details());
-            accel.cmd = static_cast< ::WORD>(menu.details()->id);
+            accel.cmd = static_cast< ::WORD>(menu.details().id);
 
             return accel;
         }
@@ -612,12 +636,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menu(PopupMenu& popup_menu, const ForwardIterator offset)
         {
-            assert(popup_menu.details()->handle);
-            assert(offset->details()->parent_handle);
+            assert(popup_menu.details().handle);
+            assert(offset->details().parent_handle);
 
             const auto result =
                 ::RemoveMenu(
-                    popup_menu.details()->handle.get(),
+                    popup_menu.details().handle.get(),
                     static_cast< ::UINT>(std::distance(popup_menu.begin(), offset)),
                     MF_BYPOSITION
                 );
@@ -630,7 +654,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            offset->details()->parent_handle = nullptr;
+            offset->details().parent_handle = nullptr;
         }
 
 

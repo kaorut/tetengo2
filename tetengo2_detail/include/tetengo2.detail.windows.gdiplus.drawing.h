@@ -22,7 +22,6 @@
 
 #include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -56,6 +55,37 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
+#if !defined(DOCUMENTATION)
+    namespace detail
+    {
+        class background_details : private boost::noncopyable
+        {
+        public:
+            background_details()
+            :
+            m_p_brush()
+            {}
+
+            explicit background_details(std::unique_ptr<Gdiplus::Brush> p_brush)
+            :
+            m_p_brush(std::move(p_brush))
+            {}
+
+            const Gdiplus::Brush* get()
+            const
+            {
+                return m_p_brush.get();
+            }
+
+        private:
+            const std::unique_ptr<Gdiplus::Brush> m_p_brush;
+
+        };
+
+    }
+#endif
+
+
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -65,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // types
 
         //! The background details type.
-        typedef Gdiplus::Brush background_details_type;
+        typedef detail::background_details background_details_type;
 
         //! The background details pointer type.
         typedef std::unique_ptr<background_details_type> background_details_ptr_type;
@@ -115,8 +145,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return
-                stdalt::make_unique<Gdiplus::SolidBrush>(
-                    Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                stdalt::make_unique<background_details_type>(
+                    stdalt::make_unique<Gdiplus::SolidBrush>(
+                        Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                    )
                 );
         }
 
@@ -127,7 +159,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         */
         static std::unique_ptr<background_details_type> create_transparent_background()
         {
-            return std::unique_ptr<background_details_type>();
+            return stdalt::make_unique<background_details_type>();
         }
 
         /*!
@@ -258,8 +290,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&    background
         )
         {
-            const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details) return;
+            const auto& background_details = background.details();
+            if (!background_details.get()) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
@@ -267,7 +299,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const auto status = canvas.FillRectangle(&*background_details, rectangle);
+            const auto status = canvas.FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -306,9 +338,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
                 gui::to_pixels<Gdiplus::REAL>(width)
             );
-            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
-            const auto status =
-                canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
+            const auto points = to_gdiplus_points(position_first, position_last);
+            const auto status = canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -338,12 +369,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Background&      background
         )
         {
-            const boost::optional<const typename Background::details_type&> background_details = background.details();
-            if (!background_details) return;
+            const auto& background_details = background.details();
+            if (!background_details.get()) return;
 
-            const std::vector<Gdiplus::PointF> points = to_gdiplus_points(position_first, position_last);
+            const auto points = to_gdiplus_points(position_first, position_last);
             const auto status =
-                canvas.FillPolygon(&*background_details, points.data(), static_cast< ::INT>(points.size()));
+                canvas.FillPolygon(background_details.get(), points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -507,7 +538,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(), 
                     gdiplus_point,
-                    p_solid_brush.get()
+                    p_solid_brush->get()
                 );
             if (draw_string_status != Gdiplus::Ok)
             {
@@ -539,13 +570,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&> picture_details(
-                const_cast<Picture&>(picture).details()
-            );
-            if (!picture_details) return;
+            auto& picture_details = const_cast<Picture&>(picture).details();
 
             ::WICPixelFormatGUID pixel_format_guid = {};
-            const auto get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
+            const auto get_pixel_format_hr = picture_details.GetPixelFormat(&pixel_format_guid);
             if (FAILED(get_pixel_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -557,7 +585,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             ::UINT width = 0;
             ::UINT height = 0;
-            const auto get_size_hr = picture_details->GetSize(&width, &height);
+            const auto get_size_hr = picture_details.GetSize(&width, &height);
             if (FAILED(get_size_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -569,8 +597,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::vector< ::BYTE> buffer(buffer_size, 0);
 
             const ::WICRect rectangle = { 0, 0, width, height };
-            const auto copy_pixels_hr =
-                picture_details->CopyPixels(&rectangle, stride, buffer_size, buffer.data());
+            const auto copy_pixels_hr = picture_details.CopyPixels(&rectangle, stride, buffer_size, buffer.data());
             if (FAILED(copy_pixels_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -618,7 +645,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     canvas.GetHDC(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
                     gui::to_pixels<int>(gui::position<Position>::top(position)),
-                    icon.details()->big_icon_handle.get(),
+                    icon.details().big_icon_handle.get(),
                     gui::to_pixels<int>(gui::dimension<dimension_type>::width(icon.dimension())),
                     gui::to_pixels<int>(gui::dimension<dimension_type>::height(icon.dimension())),
                     0,

@@ -12,7 +12,6 @@
 //#include <memory>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include "tetengo2.stdalt.h"
 
@@ -68,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        boost::optional<const details_type&> details()
+        const details_type& details()
         const
         {
             return details_impl();
@@ -79,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        boost::optional<details_type&> details()
+        details_type& details()
         {
             return details_impl();
         }
@@ -101,11 +100,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         virtual std::unique_ptr<background> clone_impl()
         const = 0;
 
-        virtual boost::optional<details_type&> details_impl()
-        = 0;
-
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const = 0;
+
+        virtual details_type& details_impl()
+        = 0;
 
 
     };

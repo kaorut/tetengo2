@@ -118,18 +118,18 @@ namespace bobura
         */
         void update_scroll_bars(const dimension_type& view_dimension, const dimension_type& page_dimension)
         {
-            assert(this->vertical_scroll_bar());
-            assert(this->horizontal_scroll_bar());
+            assert(this->has_vertical_scroll_bar());
+            assert(this->has_horizontal_scroll_bar());
             
             update_scroll_bar(
-                *this->vertical_scroll_bar(),
+                this->vertical_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::height(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
                 )
             );
             update_scroll_bar(
-                *this->horizontal_scroll_bar(),
+                this->horizontal_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::width(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()

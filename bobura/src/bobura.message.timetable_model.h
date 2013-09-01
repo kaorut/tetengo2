@@ -115,17 +115,17 @@ namespace bobura { namespace message { namespace timetable_model
 
         static void reset_scroll_bars(diagram_picture_box_type& picture_box, const diagram_view_type& view)
         {
-            assert(picture_box.vertical_scroll_bar());
+            assert(picture_box.has_vertical_scroll_bar());
             reset_scroll_bar(
-                *picture_box.vertical_scroll_bar(),
+                picture_box.vertical_scroll_bar(),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::height(view.dimension()).value()
                 )
             );
 
-            assert(picture_box.horizontal_scroll_bar());
+            assert(picture_box.has_horizontal_scroll_bar());
             reset_scroll_bar(
-                *picture_box.horizontal_scroll_bar(),
+                picture_box.horizontal_scroll_bar(),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::width(view.dimension()).value()
                 )

@@ -7,7 +7,6 @@
 */
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_tetengo2.gui.type_list.h"
@@ -33,13 +32,13 @@ namespace
     private:
         details_type m_details;
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
             return m_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
             return m_details;

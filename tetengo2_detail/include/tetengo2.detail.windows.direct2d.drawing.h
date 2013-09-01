@@ -17,7 +17,6 @@
 
 #include <boost/math/constants/constants.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -76,6 +75,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             TETENGO2_STDALT_NOEXCEPT
             {}
         
+            virtual bool is_transparent()
+            const = 0;
 
         };
 
@@ -98,6 +99,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             virtual ~solid_background_details()
             TETENGO2_STDALT_NOEXCEPT
             {}
+
+            virtual bool is_transparent()
+            const override
+            {
+                return false;
+            }
 
             unsigned char red()
             const
@@ -134,6 +141,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const unsigned char m_alpha;
 
         };
+
+        class transparent_background_details : public background_details
+        {
+        public:
+            virtual ~transparent_background_details()
+            TETENGO2_STDALT_NOEXCEPT
+            {}
+        
+            virtual bool is_transparent()
+            const override
+            {
+                return true;
+            }
+
+        };
+
     }
 #endif
 
@@ -244,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         static background_details_ptr_type create_transparent_background()
         {
-            return background_details_ptr_type();
+            return stdalt::make_unique<detail::transparent_background_details>();
         }
 
         /*!
@@ -371,10 +394,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Background&    background
         )
         {
-            const auto background_details = background.details();
-            if (!background_details) return;
+            const auto& background_details = background.details();
+            if (background_details.is_transparent()) return;
 
-            const auto p_brush = create_brush(canvas, *background_details);
+            const auto p_brush = create_brush(canvas, background_details);
 
             canvas.FillRectangle(position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }
@@ -565,13 +588,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&> picture_details(
-                const_cast<Picture&>(picture).details()
-            );
-            if (!picture_details) return;
+            auto& picture_details = const_cast<Picture&>(picture).details();
 
             ::ID2D1Bitmap* rp_bitmap = nullptr;
-            const auto create_bitmap_hr = canvas.CreateBitmapFromWicBitmap(&*picture_details, &rp_bitmap);
+            const auto create_bitmap_hr = canvas.CreateBitmapFromWicBitmap(&picture_details, &rp_bitmap);
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
@@ -758,6 +778,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
+            assert(false);
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
         }
 

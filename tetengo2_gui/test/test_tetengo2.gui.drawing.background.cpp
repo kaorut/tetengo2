@@ -9,7 +9,6 @@
 //#include <memory>
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.stdalt.h"
@@ -29,27 +28,30 @@ namespace
     {
         concrete_background()
         :
-        background_type()
+        background_type(),
+        m_details()
         {}
 
 
     private:
+        background_type::details_type m_details;
+
         virtual std::unique_ptr<background_type> clone_impl()
         const override
         {
             return tetengo2::stdalt::make_unique<concrete_background>();
         }
 
-        virtual boost::optional<const background_type::details_type&> details_impl()
+        virtual const background_type::details_type& details_impl()
         const override
         {
-            return boost::none;
+            return m_details;
         }
 
-        virtual boost::optional<background_type::details_type&> details_impl()
+        virtual background_type::details_type& details_impl()
         override
         {
-            return boost::none;
+            return m_details;
         }
 
 

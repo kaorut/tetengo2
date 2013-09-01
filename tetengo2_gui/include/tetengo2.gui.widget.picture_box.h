@@ -127,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<fast_canvas_type> create_fast_canvas()
         const
         {
-            return stdalt::make_unique<fast_widget_canvas_type>(*this->details());
+            return stdalt::make_unique<fast_widget_canvas_type>(this->details());
         }
 
         /*!

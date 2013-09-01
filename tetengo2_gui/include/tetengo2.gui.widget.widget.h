@@ -450,15 +450,28 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Checks whether the widget has a vertical scroll bar.
+
+            \retval true  The widget has a vertical scroll bar.
+        */
+        bool has_vertical_scroll_bar()
+        const
+        {
+            return static_cast<bool>(m_p_vertical_scroll_bar);
+        }
+
+        /*!
             \brief Returns the vertical scroll bar.
 
             \return The vertical scroll bar.
+
+            \throw std::logic_error When the widget has no vertical scroll bar.
         */
-        boost::optional<const scroll_bar_type&> vertical_scroll_bar()
+        const scroll_bar_type& vertical_scroll_bar()
         const
         {
-            if (!m_p_vertical_scroll_bar)
-                return boost::none;
+            if (!has_vertical_scroll_bar())
+                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no vertical scroll bar."));
 
             return *m_p_vertical_scroll_bar;
         }
@@ -467,25 +480,40 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Returns the vertical scroll bar.
 
             \return The vertical scroll bar.
+
+            \throw std::logic_error When the widget has no vertical scroll bar.
         */
-        boost::optional<scroll_bar_type&> vertical_scroll_bar()
+        scroll_bar_type& vertical_scroll_bar()
         {
-            if (!m_p_vertical_scroll_bar)
-                return boost::none;
+            if (!has_vertical_scroll_bar())
+                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no vertical scroll bar."));
 
             return *m_p_vertical_scroll_bar;
+        }
+
+        /*!
+            \brief Checks whether the widget has a horizontal scroll bar.
+
+            \retval true  The widget has a horizontal scroll bar.
+        */
+        bool has_horizontal_scroll_bar()
+        const
+        {
+            return static_cast<bool>(m_p_horizontal_scroll_bar);
         }
 
         /*!
             \brief Returns the horizontal scroll bar.
 
             \return The horizontal scroll bar.
+
+            \throw std::logic_error When the widget has no horizontal scroll bar.
         */
-        boost::optional<const scroll_bar_type&> horizontal_scroll_bar()
+        const scroll_bar_type& horizontal_scroll_bar()
         const
         {
-            if (!m_p_horizontal_scroll_bar)
-                return boost::none;
+            if (!has_horizontal_scroll_bar())
+                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no horizontal scroll bar."));
 
             return *m_p_horizontal_scroll_bar;
         }
@@ -494,11 +522,13 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Returns the horizontal scroll bar.
 
             \return The horizontal scroll bar.
+
+            \throw std::logic_error When the widget has no horizontal scroll bar.
         */
-        boost::optional<scroll_bar_type&> horizontal_scroll_bar()
+        scroll_bar_type& horizontal_scroll_bar()
         {
-            if (!m_p_horizontal_scroll_bar)
-                return boost::none;
+            if (!has_horizontal_scroll_bar())
+                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no horizontal scroll bar."));
 
             return *m_p_horizontal_scroll_bar;
         }
@@ -543,7 +573,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<canvas_type> create_canvas()
         const
         {
-            return stdalt::make_unique<widget_canvas_type>(*details());
+            return stdalt::make_unique<widget_canvas_type>(details());
         }
 
         /*!
@@ -695,7 +725,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<const details_type&> details()
+        const details_type& details()
         const
         {
             if (m_destroyed)
@@ -711,7 +741,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<details_type&> details()
+        details_type& details()
         {
             if (m_destroyed)
                 BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
@@ -867,10 +897,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const = 0;
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         = 0;
 
 
@@ -886,7 +916,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::vertical);
+            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -899,7 +929,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return std::unique_ptr<scroll_bar_type>();
             }
 
-            return stdalt::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_type::horizontal);
+            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
         }
 
 

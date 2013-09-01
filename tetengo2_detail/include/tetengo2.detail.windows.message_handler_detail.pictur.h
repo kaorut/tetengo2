@@ -62,7 +62,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::none;
 
             ::PAINTSTRUCT paint_struct = {};
-            if (!::BeginPaint(picture_box.details()->handle.get(), &paint_struct))
+            if (!::BeginPaint(picture_box.details().handle.get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint.")
@@ -70,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             }
             BOOST_SCOPE_EXIT((&picture_box)(&paint_struct))
             {
-                ::EndPaint(picture_box.details()->handle.get(), &paint_struct);
+                ::EndPaint(picture_box.details().handle.get(), &paint_struct);
             } BOOST_SCOPE_EXIT_END;
 
             const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas = picture_box.create_fast_canvas();

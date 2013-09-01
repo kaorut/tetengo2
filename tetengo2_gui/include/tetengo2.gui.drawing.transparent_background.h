@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
 
+#include <cassert>
 //#include <memory>
-
-//#include <boost/optional.hpp>
 
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.stdalt.h"
@@ -74,16 +73,18 @@ namespace tetengo2 { namespace gui { namespace drawing
             return stdalt::make_unique<transparent_background>();
         }
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
-            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
-            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
 

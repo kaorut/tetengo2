@@ -11,7 +11,6 @@
 //#include <utility>
 
 //#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.stdalt.h"
@@ -55,21 +54,21 @@ namespace
         TETENGO2_STDALT_NOEXCEPT
         {}
 
-        virtual boost::optional<const details_type&> details_impl()
-        const override
-        {
-            return boost::make_optional<const details_type&>(*m_p_details);
-        }
-
-        virtual boost::optional<details_type&> details_impl()
-        override
-        {
-            return boost::make_optional<details_type&>(*m_p_details);
-        }
-
 
     private:
         details_ptr_type m_p_details;
+
+        virtual const details_type& details_impl()
+        const override
+        {
+            return *m_p_details;
+        }
+
+        virtual details_type& details_impl()
+        override
+        {
+            return *m_p_details;
+        }
 
 
     };

@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(widget_canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const canvas_type canvas(0);
+        const canvas_type canvas(42);
     }
 
 

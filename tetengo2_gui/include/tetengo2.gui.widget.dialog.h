@@ -11,8 +11,6 @@
 
 //#include <cassert>
 
-//#include <boost/optional.hpp>
-
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.stdalt.h"
 
@@ -101,7 +99,9 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         m_result(result_type::undecided),
-        m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent, file_droppable))
+        m_p_details(
+            widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable)
+        )
         {
             initialize_dialog();
         }
@@ -182,16 +182,18 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual void do_modal_impl()
         {}
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual const details_type& details_impl()
         const override
         {
-            return boost::make_optional<const details_type&>(*m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual details_type& details_impl()
         override
         {
-            return boost::make_optional<details_type&>(*m_p_details);
+            assert(m_p_details);
+            return *m_p_details;
         }
 
 

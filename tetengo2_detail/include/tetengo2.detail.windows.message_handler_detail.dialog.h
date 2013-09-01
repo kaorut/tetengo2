@@ -38,7 +38,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
             {
                 const auto widget_handle = reinterpret_cast< ::HWND>(l_param);
-                assert(widget_handle == ::GetDlgItem(dialog.details()->handle.get(), lo_wparam));
+                assert(widget_handle == ::GetDlgItem(dialog.details().handle.get(), lo_wparam));
                 if (widget_handle)
                 {
                     WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();
@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (w_param == SC_CLOSE)
             {
-                const auto widget_handle = ::GetDlgItem(dialog.details()->handle.get(), IDCANCEL);
+                const auto widget_handle = ::GetDlgItem(dialog.details().handle.get(), IDCANCEL);
                 if (widget_handle)
                 {
                     WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();
@@ -118,13 +118,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             suppress_unused_variable_warning(w_param, l_param);
 
-            if (dialog.details()->first_child_handle)
+            if (dialog.details().first_child_handle)
             {
-                ::SetFocus(dialog.details()->first_child_handle);
+                ::SetFocus(dialog.details().first_child_handle);
                 return boost::make_optional< ::LRESULT>(0);
             }
 
-            const auto child_handle = first_child_window_handle(dialog.details()->handle.get());
+            const auto child_handle = first_child_window_handle(dialog.details().handle.get());
             if (child_handle)
             {
                 ::SetFocus(child_handle);

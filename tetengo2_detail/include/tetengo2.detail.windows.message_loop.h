@@ -69,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 if (
                     shortcut_keys_defined(window) &&
-                    ::TranslateAcceleratorW(window.details()->handle.get(), accelerator_table_handle(window), &message)
+                    ::TranslateAcceleratorW(window.details().handle.get(), accelerator_table_handle(window), &message)
                 )
                 {
                     continue;
@@ -112,13 +112,13 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                if (!dialog.destroyed() && ::IsDialogMessageW(dialog.details()->handle.get(), &message) != 0)
+                if (!dialog.destroyed() && ::IsDialogMessageW(dialog.details().handle.get(), &message) != 0)
                     continue;
 
                 if (
                     !dialog.destroyed() &&
                     shortcut_keys_defined(dialog) &&
-                    ::TranslateAcceleratorW(dialog.details()->handle.get(), accelerator_table_handle(dialog), &message)
+                    ::TranslateAcceleratorW(dialog.details().handle.get(), accelerator_table_handle(dialog), &message)
                 )
                 {
                     continue;
@@ -148,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             if (!window.has_menu_bar())
                 return false;
-            if (!window.menu_bar().shortcut_key_table().details())
+            if (!window.menu_bar().shortcut_key_table().details().get())
                 return false;
 
             return true;
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename AbstractWindow>
         static ::HACCEL accelerator_table_handle(AbstractWindow& window)
         {
-            return const_cast< ::HACCEL>(&*window.menu_bar().shortcut_key_table().details());
+            return window.menu_bar().shortcut_key_table().details().get();
         }
 
 
