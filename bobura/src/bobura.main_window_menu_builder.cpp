@@ -330,6 +330,15 @@ namespace bobura
 
             append_menu_command(
                 *p_popup_menu,
+                m_message_catalog.get(TETENGO2_TEXT("Menu:Help:&Open www.tetengo.org")),
+                m_command_set.nop(),
+                commands
+            );
+
+            append_menu_separator(*p_popup_menu, commands);
+
+            append_menu_command(
+                *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:Help:&About")),
                 m_command_set.about(),
                 commands
