@@ -68,7 +68,7 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
 - [WiX 4.0](http://wixtoolset.org/)
-- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
+- [Doxygen 1.8.5](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 First make a copy of `bobura_config.h-original` in the top source directory and name it `bobura_config.h`.
@@ -94,7 +94,7 @@ You need the following tools in order to build Bubura and Tetengo2 libraries:
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
-- [Doxygen 1.8.4](http://www.doxygen.org) (to generate API documents)
+- [Doxygen 1.8.5](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 When you clone the Git repository, you will not find the `configure` script in the working copy.
