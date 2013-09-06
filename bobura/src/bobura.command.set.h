@@ -108,6 +108,15 @@ namespace bobura { namespace command
         const;
 
         /*!
+            \brief Returns the command save-to-file, in which a file selection
+                   dialog is shown.
+
+            \return The command.
+        */
+        const command_type& ask_file_path_and_save_to_file()
+        const;
+
+        /*!
             \brief Returns the command exit.
 
             \return The command.
@@ -182,6 +191,14 @@ namespace bobura { namespace command
         const;
 
         /*!
+            \brief Returns the command open-www.tetengo.org.
+
+            \return The command.
+        */
+        const command_type& open_www_tetengo_org()
+        const;
+
+        /*!
             \brief Returns the command reload.
 
             \return The command.
@@ -195,15 +212,6 @@ namespace bobura { namespace command
             \return The command.
         */
         const command_type& save_to_file()
-        const;
-
-        /*!
-            \brief Returns the command save-to-file, in which a file selection
-                   dialog is shown.
-
-            \return The command.
-        */
-        const command_type& ask_file_path_and_save_to_file()
         const;
 
         /*!

@@ -18,6 +18,7 @@ extra_headers = \
     bobura.command.load_from_file.h \
     bobura.command.new_file.h \
     bobura.command.nop.h \
+    bobura.command.open_www_tetengo_org.h \
     bobura.command.save_to_file.h \
     bobura.command.set.h \
     bobura.command.set_horizontal_scale.h \
@@ -82,6 +83,7 @@ extra_sources = \
     bobura.command.load_from_file.cpp \
     bobura.command.new_file.cpp \
     bobura.command.nop.cpp \
+    bobura.command.open_www_tetengo_org.cpp \
     bobura.command.save_to_file.cpp \
     bobura.command.set.cpp \
     bobura.command.set_horizontal_scale.cpp \

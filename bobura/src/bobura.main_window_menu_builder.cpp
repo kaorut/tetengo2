@@ -331,7 +331,7 @@ namespace bobura
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:Help:&Open www.tetengo.org")),
-                m_command_set.nop(),
+                m_command_set.open_www_tetengo_org(),
                 commands
             );
 
