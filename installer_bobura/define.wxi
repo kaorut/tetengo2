@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Include xmlns="http://wixtoolset.org/schemas/v4/wxi">
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define configuration="$(env.CONFIGURATION)"?>
   <?if $(var.configuration) = "Debug"?>
   <?define boost_debug="-gd"?>
-  <?else?>
+  <?else ?>
   <?define boost_debug=""?>
   <?endif ?>
   <?define platform="$(env.PLATFORM)"?>
