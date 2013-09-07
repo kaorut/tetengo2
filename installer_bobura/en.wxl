@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<WixLocalization Culture="en-us" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
   <String Id="title">Bobura</String>
   <String Id="brand_title">tetengo.</String>
   <String Id="author">kaoru</String>
