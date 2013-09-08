@@ -6,7 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
+
 #include <tetengo2.stdalt.h>
+#include <tetengo2.text.h>
 #include <tetengo2.utility.h>
 
 #include "bobura.command.open_www_tetengo_org.h"
@@ -23,6 +26,8 @@ namespace bobura { namespace command
 
         typedef open_www_tetengo_org::abstract_window_type abstract_window_type;
 
+        typedef boost::mpl::at<ui_type_list, type::ui::shell>::type shell_type;
+
 
         // functions
 
@@ -30,7 +35,15 @@ namespace bobura { namespace command
         const
         {
             tetengo2::suppress_unused_variable_warning(model, parent);
+
+            shell_type::instance().execute(string_type(TETENGO2_TEXT("http://www.tetengo.org/")));
         }
+
+
+    private:
+        // types
+
+        typedef shell_type::string_type string_type;
 
 
     };
