@@ -982,23 +982,6 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Opens a target.
-
-            \tparam Widget A widget type.
-            \tparam String A string type.
-
-            \param widget A widget.
-            \param target A target.
-
-            \throw std::system_error When the target cannot be opened.
-        */
-        template <typename Widget, typename String>
-        static void open_target(const Widget& widget, const String& target)
-        {
-            suppress_unused_variable_warning(widget, target);
-        }
-
-        /*!
             \brief Returns the dropdown box item count.
 
             \tparam Size        A size type.

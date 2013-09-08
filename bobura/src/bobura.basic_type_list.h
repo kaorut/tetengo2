@@ -669,7 +669,7 @@ namespace bobura
             shell_type;
         typedef
             tetengo2::gui::widget::traits::link_label_traits<
-                label_traits_type, solid_background_type, system_color_set_type
+                label_traits_type, solid_background_type, system_color_set_type, shell_type
             >
             link_label_traits_type;
         typedef
