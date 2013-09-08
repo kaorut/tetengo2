@@ -321,5 +321,8 @@
     <ClInclude Include="include\tetengo2.gui.message.file_drop_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.shell.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

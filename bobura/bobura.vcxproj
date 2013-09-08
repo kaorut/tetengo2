@@ -111,6 +111,7 @@
     <ClInclude Include="src\bobura.command.load_from_file.h" />
     <ClInclude Include="src\bobura.command.new_file.h" />
     <ClInclude Include="src\bobura.command.nop.h" />
+    <ClInclude Include="src\bobura.command.open_www_tetengo_org.h" />
     <ClInclude Include="src\bobura.command.save_to_file.h" />
     <ClInclude Include="src\bobura.command.set.h" />
     <ClInclude Include="src\bobura.command.set_horizontal_scale.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="src\bobura.command.load_from_file.cpp" />
     <ClCompile Include="src\bobura.command.new_file.cpp" />
     <ClCompile Include="src\bobura.command.nop.cpp" />
+    <ClCompile Include="src\bobura.command.open_www_tetengo_org.cpp" />
     <ClCompile Include="src\bobura.command.save_to_file.cpp" />
     <ClCompile Include="src\bobura.command.set.cpp" />
     <ClCompile Include="src\bobura.command.set_horizontal_scale.cpp" />

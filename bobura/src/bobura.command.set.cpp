@@ -23,6 +23,7 @@
 #include "bobura.command.load_from_file.h"
 #include "bobura.command.new_file.h"
 #include "bobura.command.nop.h"
+#include "bobura.command.open_www_tetengo_org.h"
 #include "bobura.command.save_to_file.h"
 #include "bobura.command.set_horizontal_scale.h"
 #include "bobura.command.set_vertical_scale.h"
@@ -84,6 +85,7 @@ namespace bobura { namespace command
         m_p_load_from_file(create_load_from_file(load_from_file)),
         m_p_new_file(create_new_file(new_file)),
         m_p_nop(create_nop()),
+        m_p_open_www_tetengo_org(create_open_www_tetengo_org()),
         m_p_reload(create_load_from_file(reload)),
         m_p_save_to_file(create_save_to_file(save_to_file)),
         m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_and_save_to_file)),
@@ -101,6 +103,12 @@ namespace bobura { namespace command
         const
         {
             return *m_p_about;
+        }
+
+        const command_type& ask_file_path_and_save_to_file()
+        const
+        {
+            return *m_p_ask_file_path_and_save_to_file;
         }
 
         const command_type& exit()
@@ -157,6 +165,12 @@ namespace bobura { namespace command
             return *m_p_nop;
         }
 
+        const command_type& open_www_tetengo_org()
+        const
+        {
+            return *m_p_open_www_tetengo_org;
+        }
+
         const command_type& reload()
         const
         {
@@ -167,12 +181,6 @@ namespace bobura { namespace command
         const
         {
             return *m_p_save_to_file;
-        }
-
-        const command_type& ask_file_path_and_save_to_file()
-        const
-        {
-            return *m_p_ask_file_path_and_save_to_file;
         }
 
         const command_type& set_horizontal_scale(const size_type index)
@@ -264,6 +272,11 @@ namespace bobura { namespace command
             return tetengo2::stdalt::make_unique<command::nop>();
         }
 
+        static command_ptr_type create_open_www_tetengo_org()
+        {
+            return tetengo2::stdalt::make_unique<command::open_www_tetengo_org>();
+        }
+
         static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
         {
             return tetengo2::stdalt::make_unique<command::save_to_file>(save_to_file);
@@ -323,6 +336,8 @@ namespace bobura { namespace command
 
         const command_ptr_type m_p_about;
 
+        const command_ptr_type m_p_ask_file_path_and_save_to_file;
+
         const command_ptr_type m_p_exit;
 
         const command_ptr_type m_p_file_property;
@@ -339,11 +354,11 @@ namespace bobura { namespace command
 
         const command_ptr_type m_p_nop;
 
+        const command_ptr_type m_p_open_www_tetengo_org;
+
         const command_ptr_type m_p_reload;
 
         const command_ptr_type m_p_save_to_file;
-
-        const command_ptr_type m_p_ask_file_path_and_save_to_file;
 
         const std::vector<command_ptr_type> m_p_set_horizontal_scale;
 
@@ -392,6 +407,12 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->about();
+    }
+
+    const set::command_type& set::ask_file_path_and_save_to_file()
+    const
+    {
+        return m_p_impl->ask_file_path_and_save_to_file();
     }
 
     const set::command_type& set::exit()
@@ -448,6 +469,12 @@ namespace bobura { namespace command
         return m_p_impl->nop();
     }
 
+    const set::command_type& set::open_www_tetengo_org()
+    const
+    {
+        return m_p_impl->open_www_tetengo_org();
+    }
+
     const set::command_type& set::reload()
     const
     {
@@ -458,12 +485,6 @@ namespace bobura { namespace command
     const
     {
         return m_p_impl->save_to_file();
-    }
-
-    const set::command_type& set::ask_file_path_and_save_to_file()
-    const
-    {
-        return m_p_impl->ask_file_path_and_save_to_file();
     }
 
     const set::command_type& set::set_horizontal_scale(const size_type index)

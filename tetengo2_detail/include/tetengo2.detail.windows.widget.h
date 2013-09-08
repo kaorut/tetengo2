@@ -1707,41 +1707,6 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Opens a target.
-
-            \tparam Widget A widget type.
-            \tparam String A string type.
-
-            \param widget A widget.
-            \param target A target.
-
-            \throw std::system_error When the target cannot be opened.
-        */
-        template <typename Widget, typename String>
-        static void open_target(const Widget& widget, const String& target)
-        {
-            const auto result =
-                ::ShellExecuteW(
-                    widget.has_parent() ?
-                        const_cast< ::HWND>(widget.root_ancestor().details().handle.get()) : nullptr,
-                    L"open",
-                    target.c_str(),
-                    nullptr,
-                    nullptr,
-                    SW_SHOWNORMAL
-                );
-            if (reinterpret_cast< ::UINT_PTR>(result) <= 32)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(static_cast<int>(reinterpret_cast< ::UINT_PTR>(result)), win32_category()),
-                        "Can't open target."
-                    )
-                );
-            }
-        }
-
-        /*!
             \brief Returns the dropdown box item count.
 
             \tparam Size        A size type.

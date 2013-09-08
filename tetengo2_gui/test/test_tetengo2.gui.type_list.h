@@ -28,6 +28,7 @@
 #include "tetengo2.detail.stub.message_loop.h"
 #include "tetengo2.detail.stub.mouse_capture.h"
 #include "tetengo2.detail.stub.scroll.h"
+#include "tetengo2.detail.stub.shell.h"
 #include "tetengo2.detail.stub.system_color.h"
 #include "tetengo2.detail.stub.timer.h"
 #include "tetengo2.detail.stub.unit.h"
@@ -80,6 +81,7 @@
 #include "tetengo2.gui.message.window_observer_set.h"
 #include "tetengo2.gui.mouse_capture.h"
 #include "tetengo2.gui.scroll_bar.h"
+#include "tetengo2.gui.shell.h"
 #include "tetengo2.gui.timer.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -696,10 +698,18 @@ namespace test_tetengo2 { namespace gui
             image_traits_type;
         typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;
         typedef
+            tetengo2::gui::shell<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
+                tetengo2::detail::stub::shell
+            >
+            shell_type;
+        typedef
             tetengo2::gui::widget::traits::link_label_traits<
                 label_traits_type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
+                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
+                shell_type
             >
             link_label_traits_type;
         typedef

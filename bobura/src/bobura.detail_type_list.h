@@ -27,6 +27,7 @@
 #   include <tetengo2.detail.windows.message_loop.h>
 #   include <tetengo2.detail.windows.mouse_capture.h>
 #   include <tetengo2.detail.windows.scroll.h>
+#   include <tetengo2.detail.windows.shell.h>
 #   include <tetengo2.detail.windows.system_color.h>
 #   include <tetengo2.detail.windows.timer.h>
 #   include <tetengo2.detail.windows.unit.h>
@@ -46,6 +47,7 @@
 #   include <tetengo2.detail.stub.message_loop.h>
 #   include <tetengo2.detail.stub.mouse_capture.h>
 #   include <tetengo2.detail.stub.scroll.h>
+#   include <tetengo2.detail.stub.shell.h>
 #   include <tetengo2.detail.stub.system_color.h>
 #   include <tetengo2.detail.stub.timer.h>
 #   include <tetengo2.detail.stub.unit.h>
@@ -74,6 +76,7 @@ namespace bobura
         struct message_loop;   //!< The detail implementation type of the message loop.
         struct mouse_capture;  //!< The detail implementation type of the mouse capture.
         struct scroll;         //!< The detail implementation type of the scroll.
+        struct shell;          //!< The detail implementation type of the shell.
         struct system_color;   //!< The detail implementation type of the system color.
         struct timer;          //!< The detail implementation type of the timer.
         struct unit;           //!< The detail implementation type of the unit.
@@ -103,6 +106,7 @@ namespace bobura
         typedef tetengo2::detail::windows::message_loop message_loop_type;
         typedef tetengo2::detail::windows::mouse_capture mouse_capture_type;
         typedef tetengo2::detail::windows::scroll scroll_type;
+        typedef tetengo2::detail::windows::shell shell_type;
         typedef tetengo2::detail::windows::system_color system_color_type;
         typedef tetengo2::detail::windows::timer timer_type;
         typedef tetengo2::detail::windows::unit unit_type;
@@ -126,6 +130,7 @@ namespace bobura
         typedef tetengo2::detail::stub::message_loop message_loop_type;
         typedef tetengo2::detail::stub::mouse_capture mouse_capture_type;
         typedef tetengo2::detail::stub::scroll scroll_type;
+        typedef tetengo2::detail::stub::shell shell_type;
         typedef tetengo2::detail::stub::system_color system_color_type;
         typedef tetengo2::detail::stub::timer timer_type;
         typedef tetengo2::detail::stub::unit unit_type;
@@ -152,13 +157,14 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::mouse_capture, detail::detail::mouse_capture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::scroll_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, detail::detail::shell_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::system_color, detail::detail::system_color_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::timer_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::unit_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>
         detail_type_list;
 
 

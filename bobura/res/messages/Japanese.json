@@ -40,8 +40,9 @@
         "Menu:View:Vertical Zoom:Zoom &In":    "拡大(&I)",
         "Menu:View:Vertical Zoom:Zoom &Out":   "縮小(&O)",
         
-        "Menu:&Help":       "ヘルプ(&H)",
-        "Menu:Help:&About": "バージョン情報(&A)",
+        "Menu:&Help":                      "ヘルプ(&H)",
+        "Menu:Help:&Open www.tetengo.org": "www.tetengo.org を開く(&O)",
+        "Menu:Help:&About":                "バージョン情報(&A)",
         
         
         "PropertyBar:Properties": "プロパティ",

@@ -81,6 +81,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
+        //! The shell type.
+        typedef typename traits_type::shell_type shell_type;
+
 
         // constructors and destructor
 
@@ -254,7 +257,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void open_target()
         const
         {
-            widget_details_type::open_target(*this, m_target);
+            shell_type::instance().execute(m_target);
         }
 
 

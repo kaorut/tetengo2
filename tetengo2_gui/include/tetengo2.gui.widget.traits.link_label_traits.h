@@ -18,8 +18,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam LabelTraits     A traits type for a label.
         \tparam SolidBackground A solid background type.
         \tparam SystemColorSet  A system color set type.
+        \tparam Shell           A shell type.
    */
-    template <typename LabelTraits, typename SolidBackground, typename SystemColorSet>
+    template <typename LabelTraits, typename SolidBackground, typename SystemColorSet, typename Shell>
     struct link_label_traits
     {
         //types
@@ -30,8 +31,11 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The solid background type.
         typedef SolidBackground solid_background_type;
 
-        //! The system color set.
+        //! The system color set type.
         typedef SystemColorSet system_color_set_type;
+
+        //! The shell type.
+        typedef Shell shell_type;
 
 
     };

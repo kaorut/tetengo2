@@ -66,6 +66,7 @@
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.mouse_capture.h>
 #include <tetengo2.gui.scroll_bar.h>
+#include <tetengo2.gui.shell.h>
 #include <tetengo2.gui.timer.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.unit.point.h>
@@ -338,6 +339,7 @@ namespace bobura
         struct point_unit_size; //!< The point unit size type.
         struct popup_menu;     //!< The popup menu type.
         struct position;       //!< The position type.
+        struct shell;          //!< The shell type.
         struct side_bar;       //!< The side bar type.
         struct solid_background; //!< The solid background type.
         struct text_box;       //!< The text box type.
@@ -659,8 +661,15 @@ namespace bobura
             >
             system_color_set_type;
         typedef
+            tetengo2::gui::shell<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                boost::mpl::at<detail_type_list, type::detail::shell>::type
+            >
+            shell_type;
+        typedef
             tetengo2::gui::widget::traits::link_label_traits<
-                label_traits_type, solid_background_type, system_color_set_type
+                label_traits_type, solid_background_type, system_color_set_type, shell_type
             >
             link_label_traits_type;
         typedef
@@ -797,6 +806,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::shell, detail::ui::shell_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::side_bar, detail::ui::side_bar_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
@@ -805,7 +815,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

@@ -210,5 +210,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.icon.h">
       <Filter>headers\tetengo2::detail\windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.shell.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.shell.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

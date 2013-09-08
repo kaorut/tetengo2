@@ -252,6 +252,9 @@
     <ClInclude Include="src\bobura.view.diagram.0namespace.h">
       <Filter>headers\bobura\view\diagram</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.open_www_tetengo_org.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\images\kumakuma.jpg">
@@ -362,6 +365,9 @@
     </ClCompile>
     <ClCompile Include="src\bobura.main_window.cpp">
       <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.open_www_tetengo_org.cpp">
+      <Filter>sources\bobura\command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
