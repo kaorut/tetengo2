@@ -9,8 +9,20 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_SHELL_H)
 #define TETENGO2_DETAIL_WINDOWS_SHELL_H
 
+#include <algorithm>
+
 #include <boost/noncopyable.hpp>
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
+#include "tetengo2.text.h"
 #include "tetengo2.utility.h"
 
 
@@ -57,9 +69,34 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         const
         {
-            suppress_unused_variable_warning(command, parameter_first, parameter_last, encoder);
+            const auto result =
+                ::ShellExecuteW(
+                    nullptr,
+                    L"open",
+                    encoder.encode(command).c_str(),
+                    encoder.encode(concatenate_parameters<String>(parameter_first, parameter_last)).c_str(),
+                    nullptr,
+                    SW_SHOWNORMAL
+                );
+            return reinterpret_cast< ::UINT_PTR>(result) > 32;
+        }
 
-            return true;
+
+    private:
+        // static functions
+
+        template <typename String, typename InputIterator>
+        static String concatenate_parameters(const InputIterator first, const InputIterator last)
+        {
+            String parameters;
+
+            std::for_each(
+                first,
+                last,
+                [&parameters](const String& parameter) { parameters += parameter + String(TETENGO2_TEXT(" ")); }
+            );
+
+            return parameters;
         }
 
 
