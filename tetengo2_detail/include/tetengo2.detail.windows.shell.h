@@ -22,6 +22,12 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // constructors and destructor
 
+        /*!
+            \brief Creates a shell.
+        */
+        shell()
+        {}
+
 
         // functions
 

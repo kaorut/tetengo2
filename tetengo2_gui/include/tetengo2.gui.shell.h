@@ -13,6 +13,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.stdalt.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -31,15 +33,18 @@ namespace tetengo2 { namespace gui
         typedef ShellDetails shell_details_type;
 
 
-        // constructors and destructor
+        // static functions
 
         /*!
-            \brief Creates a shell.
+            \brief Returns the instance.
+
+            \return The instance.
         */
-        shell()
-        :
-        m_p_shell_details()
-        {}
+        static const shell& instance()
+        {
+            static const shell singleton;
+            return singleton;
+        }
 
 
         // functions
@@ -49,6 +54,14 @@ namespace tetengo2 { namespace gui
         // variables
 
         std::unique_ptr<shell_details_type> m_p_shell_details;
+
+
+        // constructors
+
+        shell()
+        :
+        m_p_shell_details(stdalt::make_unique<shell_details_type>())
+        {}
 
 
     };
