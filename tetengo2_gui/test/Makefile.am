@@ -56,6 +56,7 @@ sources = \
     test_tetengo2.gui.message.window_observer_set.cpp \
     test_tetengo2.gui.mouse_capture.cpp \
     test_tetengo2.gui.scroll_bar.cpp \
+    test_tetengo2.gui.shell.cpp \
     test_tetengo2.gui.timer.cpp \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
