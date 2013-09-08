@@ -6,9 +6,15 @@
     $Id$
 */
 
+//#include <vector>
+
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.shell.h"
+#include "tetengo2.text.h"
+
+#include "test_tetengo2.gui.type_list.h"
 
 #include "tetengo2.gui.shell.h"
 
@@ -17,7 +23,11 @@ namespace
 {
     // types
 
-    typedef tetengo2::gui::shell<tetengo2::detail::stub::shell> shell_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type encoder_type;
+
+    typedef tetengo2::gui::shell<string_type, encoder_type, tetengo2::detail::stub::shell> shell_type;
 
 
 }
@@ -33,6 +43,48 @@ BOOST_AUTO_TEST_SUITE(shell)
         BOOST_TEST_PASSPOINT();
 
         shell_type::instance();
+    }
+
+    BOOST_AUTO_TEST_CASE(execute)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const string_type command(TETENGO2_TEXT("command"));
+
+            const bool result = shell_type::instance().execute(command);
+            BOOST_CHECK(result);
+        }
+        {
+            const string_type command(TETENGO2_TEXT("command_to_fail"));
+
+            const bool result = shell_type::instance().execute(command);
+            BOOST_CHECK(!result);
+        }
+        {
+            const string_type command(TETENGO2_TEXT("command"));
+            const std::vector<string_type> parameters;
+
+            const bool result = shell_type::instance().execute(command, parameters.begin(), parameters.end());
+            BOOST_CHECK(result);
+        }
+        {
+            const string_type command(TETENGO2_TEXT("command"));
+            std::vector<string_type> parameters;
+            parameters.emplace_back(TETENGO2_TEXT("param1"));
+
+            const bool result = shell_type::instance().execute(command, parameters.begin(), parameters.end());
+            BOOST_CHECK(result);
+        }
+        {
+            const string_type command(TETENGO2_TEXT("command"));
+            std::vector<string_type> parameters;
+            parameters.emplace_back(TETENGO2_TEXT("param1"));
+            parameters.emplace_back(TETENGO2_TEXT("param2"));
+
+            const bool result = shell_type::instance().execute(command, parameters.begin(), parameters.end());
+            BOOST_CHECK(result);
+        }
     }
 
 
