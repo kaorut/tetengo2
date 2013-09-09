@@ -88,6 +88,11 @@ namespace bobura
 
 
     private:
+        // types
+
+        typedef typename map_box_type::scroll_bar_style_type scroll_bar_style_type;
+
+
         // variables
 
         const message_catalog_type& m_message_catalog;
@@ -100,6 +105,8 @@ namespace bobura
         void initialize_property_bar()
         {
             this->set_text(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Properties")));
+
+            m_p_map_box = tetengo2::stdalt::make_unique<map_box_type>(*this, scroll_bar_style_type::vertical);
 
             //this->keyboard_observer_set().key_down().connect(
             //    typename boost::mpl::at<
