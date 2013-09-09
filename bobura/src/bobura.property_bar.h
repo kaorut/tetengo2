@@ -9,7 +9,7 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
-#include <memory>
+//#include <memory>
 
 #include <boost/mpl/at.hpp>
 
