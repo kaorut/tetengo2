@@ -80,6 +80,7 @@
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
 #include <tetengo2.gui.widget.list_box.h>
+#include <tetengo2.gui.widget.map_box.h>
 #include <tetengo2.gui.widget.picture_box.h>
 #include <tetengo2.gui.widget.side_bar.h>
 #include <tetengo2.gui.widget.text_box.h>
@@ -93,6 +94,7 @@
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
 #include <tetengo2.gui.widget.traits.list_box_traits.h>
+#include <tetengo2.gui.widget.traits.map_box_traits.h>
 #include <tetengo2.gui.widget.traits.picture_box_traits.h>
 #include <tetengo2.gui.widget.traits.side_bar_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
@@ -328,6 +330,7 @@ namespace bobura
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
         struct list_box;       //!< The list box type.
+        struct map_box;        //!< The map box type.
         struct menu_bar;       //!< The menu bar type.
         struct menu_command;   //!< The menu command type.
         struct menu_separator; //!< The menu separator type;
@@ -693,6 +696,14 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             list_box_type;
+        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
+        typedef
+            tetengo2::gui::widget::map_box<
+                map_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            map_box_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -769,6 +780,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::list_box, detail::ui::list_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::map_box, detail::ui::map_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::menu_bar, detail::ui::menu_bar_type >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -815,7 +827,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

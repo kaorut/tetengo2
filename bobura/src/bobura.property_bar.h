@@ -9,6 +9,8 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
+#include <memory>
+
 #include <boost/mpl/at.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -25,10 +27,17 @@ namespace bobura
 
         \tparam SideBar         A side bar type.
         \tparam AbstractWindow  An abstract window type.
+        \tparam MapBox          A map box type.
         \tparam MessageCatalog  A message catalog type.
         \tparam MessageTypeList A message type list.
     */
-    template <typename SideBar, typename AbstractWindow, typename MessageCatalog, typename MessageTypeList>
+    template <
+        typename SideBar,
+        typename AbstractWindow,
+        typename MapBox,
+        typename MessageCatalog,
+        typename MessageTypeList
+    >
     class property_bar : public SideBar
     {
     public:
@@ -39,6 +48,9 @@ namespace bobura
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The map box type.
+        typedef MapBox map_box_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -58,7 +70,8 @@ namespace bobura
         property_bar(abstract_window_type& parent, const message_catalog_type& message_catalog)
         :
         base_type(parent),
-        m_message_catalog(message_catalog)
+        m_message_catalog(message_catalog),
+        m_p_map_box()
         {
             initialize_property_bar();
         }
@@ -78,6 +91,8 @@ namespace bobura
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+        std::unique_ptr<map_box_type> m_p_map_box;
 
 
         // functions
