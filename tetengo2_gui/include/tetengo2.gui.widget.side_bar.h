@@ -190,6 +190,46 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
+        /*!
+            \brief Returns the child control area position.
+
+            \return The child control area position.
+        */
+        position_type child_control_area_position()
+        const
+        {
+            const auto& caption_dimension = m_p_caption->dimension();
+            const auto& splitter_dimension = m_p_splitter->dimension();
+
+            return
+                position_type(
+                    left_type::from(gui::dimension<dimension_type>::width(splitter_dimension)),
+                    top_type::from(gui::dimension<dimension_type>::height(caption_dimension))
+                );
+        }
+
+        /*!
+            \brief Returns the child control area dimension.
+
+            \return The child control area dimension.
+        */
+        dimension_type child_control_area_dimension()
+        const
+        {
+            const auto client_dimension = this->client_dimension();
+            const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
+            const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
+            const auto& caption_dimension = m_p_caption->dimension();
+            const auto& caption_height = gui::dimension<dimension_type>::height(caption_dimension);
+            const auto& splitter_dimension = m_p_splitter->dimension();
+            const auto& splitter_width = gui::dimension<dimension_type>::width(splitter_dimension);
+
+            auto width = client_width > splitter_width ? client_width - splitter_width : width_type(0);
+            auto height = client_height > caption_height ? client_height - caption_height : height_type(0);
+
+            return dimension_type(std::move(width), std::move(height));
+        }
+
 
     private:
         // types
