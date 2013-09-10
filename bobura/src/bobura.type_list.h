@@ -61,7 +61,10 @@ namespace bobura
             >
             diagram_picture_box_type;
         typedef
-            message::property_bar::type_list<boost::mpl::at<ui_type_list, type::ui::side_bar>::type>::type
+            message::property_bar::type_list<
+                boost::mpl::at<ui_type_list, type::ui::side_bar>::type,
+                boost::mpl::at<ui_type_list, type::ui::map_box>::type
+            >::type
             property_bar_message_type_list;
         typedef
             property_bar<

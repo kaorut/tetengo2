@@ -12,54 +12,61 @@
 
 namespace bobura { namespace message { namespace property_bar
 {
-    // /*!
-    //    \brief The class template for a mouse click observer of the OK button.
+    /*!
+        \brief The class template for a resized observer of the property bar.
 
-    //    \tparam Dialog A dialog type.
-    //*/
-    //template <typename Dialog>
-    //class ok_button_mouse_clicked
-    //{
-    //public:
-    //    // types
+        \tparam SideBar A side bar type.
+        \tparam MapBox  A map box type.
+    */
+    template <typename SideBar, typename MapBox>
+    class resized
+    {
+    public:
+        // types
 
-    //    //! The dialog type.
-    //    typedef Dialog dialog_type;
+        //! The side bar type.
+        typedef SideBar side_bar_type;
 
-
-    //    // constructors and destructor
-
-    //    /*!
-    //        \brief Creates a mouse click observer of the OK button.
-
-    //        \param dialog A dialog.
-    //    */
-    //    explicit ok_button_mouse_clicked(dialog_type& dialog)
-    //    :
-    //    m_dialog(dialog)
-    //    {}
+        //! The map box type.
+        typedef MapBox map_box_type;
 
 
-    //    // functions
+        // constructors and destructor
 
-    //    /*!
-    //        \brief Called when the OK button is clicked.
-    //    */
-    //    void operator()()
-    //    const
-    //    {
-    //        m_dialog.set_result(dialog_type::result_type::accepted);
-    //        m_dialog.close();
-    //    }
+        /*!
+            \brief Creates a resized observer of the property bar.
 
-
-    //private:
-    //    // variables
-
-    //    dialog_type& m_dialog;
+            \param property_bar A property_bar.
+            \param map_box      A map box.
+        */
+        resized(const side_bar_type& property_bar, map_box_type& map_box)
+        :
+        m_property_bar(property_bar),
+        m_map_box(map_box)
+        {}
 
 
-    //};
+        // functions
+
+        /*!
+            \brief Called when the main window is resized.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        const side_bar_type& m_property_bar;
+
+        map_box_type& m_map_box;
+
+
+    };
 
 
 }}}

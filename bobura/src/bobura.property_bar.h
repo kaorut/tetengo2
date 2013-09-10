@@ -108,11 +108,11 @@ namespace bobura
 
             m_p_map_box = tetengo2::stdalt::make_unique<map_box_type>(*this, scroll_bar_style_type::vertical);
 
-            //this->keyboard_observer_set().key_down().connect(
-            //    typename boost::mpl::at<
-            //        message_type_list_type, message::property_bar::type::keyboard_key_down
-            //    >::type(*this)
-            //);
+            this->size_observer_set().resized().connect(
+                typename boost::mpl::at<message_type_list_type, message::property_bar::type::resized>::type(
+                    *this, *m_p_map_box
+                )
+            );
         }
 
 

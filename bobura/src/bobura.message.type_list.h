@@ -79,6 +79,8 @@ namespace bobura { namespace message
     {
         namespace type
         {
+            //! The resized observer type.
+            struct resized;
 
         }
     }
