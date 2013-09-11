@@ -100,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace widget
         static void initialize_map_box(map_box* const p_map_box)
         {
             p_map_box->set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::hyperlink_text())
+                stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
             );
 
             p_map_box->paint_observer_set().paint_background().disconnect_all_slots();

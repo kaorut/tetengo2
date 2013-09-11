@@ -53,6 +53,13 @@ BOOST_AUTO_TEST_SUITE(system_color_set)
         system_color_set_type::dialog_background();
     }
 
+    BOOST_AUTO_TEST_CASE(control_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::dialog_background();
+    }
+
     BOOST_AUTO_TEST_CASE(hyperlink_text)
     {
         BOOST_TEST_PASSPOINT();

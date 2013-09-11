@@ -33,6 +33,7 @@ namespace tetengo2 { namespace detail { namespace stub
             title_bar_text,       //!< Title bar text.
             title_bar_background, //!< Title bar background.
             dialog_background,    //!< Dialog background.
+            control_background,   //!< Control background.
             hyperlink_text,       //!< Hyperlink text.
         };
 
@@ -59,6 +60,8 @@ namespace tetengo2 { namespace detail { namespace stub
                 return Color(0, 0, 128);
             case system_color_index_type::dialog_background:
                 return Color(192, 192, 192);
+            case system_color_index_type::control_background:
+                return Color(255, 255, 255);
             case system_color_index_type::hyperlink_text:
                 return Color(0, 0,255);
             default:

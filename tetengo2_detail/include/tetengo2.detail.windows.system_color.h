@@ -41,6 +41,7 @@ namespace tetengo2 { namespace detail { namespace windows
             title_bar_text,       //!< Title bar text.
             title_bar_background, //!< Title bar background.
             dialog_background,    //!< Dialog background.
+            control_background,   //!< Control background.
             hyperlink_text,       //!< Hyperlink text.
         };
 
@@ -67,6 +68,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 return get_system_color_impl<Color>(COLOR_ACTIVECAPTION);
             case system_color_index_type::dialog_background:
                 return get_system_color_impl<Color>(COLOR_3DFACE);
+            case system_color_index_type::control_background:
+                return get_system_color_impl<Color>(COLOR_WINDOW);
             case system_color_index_type::hyperlink_text:
                 return get_system_color_impl<Color>(COLOR_HOTLIGHT);
             default:
