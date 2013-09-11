@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_MAPBOX_H)
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
@@ -31,6 +32,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The solid background type.
+        typedef typename traits_type::solid_background_type solid_background_type;
+
+        //! The system color set type.
+        typedef typename traits_type::system_color_set_type system_color_set_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -77,11 +84,40 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
+        // types
+
+        typedef typename base_type::canvas_type canvas_type;
+
+        typedef typename base_type::position_type position_type;
+
+        typedef typename gui::position<position_type>::left_type left_type;
+
+        typedef typename gui::position<position_type>::top_type top_type;
+
+
         // static functions
 
-        static void initialize_map_box(map_box* const /*p_map_box*/)
+        static void initialize_map_box(map_box* const p_map_box)
         {
+            p_map_box->set_background(
+                stdalt::make_unique<solid_background_type>(system_color_set_type::hyperlink_text())
+            );
 
+            p_map_box->paint_observer_set().paint_background().disconnect_all_slots();
+            p_map_box->paint_observer_set().paint_background().connect(
+                [p_map_box](canvas_type& canvas) { return paint_background(*p_map_box, canvas); }
+            );
+        }
+
+        static bool paint_background(const map_box& map_box, canvas_type& canvas)
+        {
+            if (!map_box.background())
+                return false;
+
+            canvas.set_background(map_box.background()->clone());
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), map_box.client_dimension());
+
+            return true;
         }
 
 

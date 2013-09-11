@@ -696,7 +696,13 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             list_box_type;
-        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::map_box_traits<
+                custom_control_traits_type,
+                solid_background_type,
+                system_color_set_type
+            >
+            map_box_traits_type;
         typedef
             tetengo2::gui::widget::map_box<
                 map_box_traits_type,

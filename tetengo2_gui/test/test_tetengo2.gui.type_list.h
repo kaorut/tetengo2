@@ -719,7 +719,13 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::list_box_observer_set>::type
             >
             list_box_traits_type;
-        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::map_box_traits<
+                custom_control_traits_type,
+                boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
+            >
+            map_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
