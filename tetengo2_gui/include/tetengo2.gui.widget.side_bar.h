@@ -678,6 +678,8 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_text_position = boost::none;
+
+                ensure_dimension_calculated();
             }
 
             virtual void draw_impl(canvas_type& canvas)
@@ -852,6 +854,8 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_need_size_recalculation = true;
+
+                calculate_position_and_dimension();
             }
 
             virtual void draw_impl(canvas_type& canvas)

@@ -344,6 +344,7 @@ namespace bobura { namespace message { namespace main_window
                 const dimension_type dimension(property_bar_width, window_height);
                 m_property_bar.set_position_and_dimension(position, dimension);
                 m_property_bar.repaint();
+                m_property_bar.size_observer_set().resized()();
             }
             {
                 const position_type position(left_type(0), top_type(0));

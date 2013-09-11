@@ -54,7 +54,17 @@ namespace bobura { namespace message { namespace property_bar
         void operator()()
         const
         {
-
+            if (m_property_bar.minimized())
+            {
+                m_map_box.set_visible(false);
+            }
+            else
+            {
+                m_map_box.set_position_and_dimension(
+                    m_property_bar.child_control_area_position(), m_property_bar.child_control_area_dimension()
+                );
+                m_map_box.set_visible(true);
+            }
         }
 
 
