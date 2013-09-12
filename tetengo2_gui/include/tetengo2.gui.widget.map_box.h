@@ -70,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         map_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
-        base_type(parent, scroll_bar_style)
+        base_type(parent, true, scroll_bar_style)
         {
             initialize_map_box(this);
         }

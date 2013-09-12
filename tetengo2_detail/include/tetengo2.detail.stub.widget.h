@@ -186,6 +186,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam Widget A widget type.
 
             \param parent           A parent widget.
+            \param border           Set true to add border lines.
             \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a custom control.
@@ -195,10 +196,11 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_custom_control(
             Widget&                                      parent,
+            const bool                                   border,
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style);
+            suppress_unused_variable_warning(border, scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }

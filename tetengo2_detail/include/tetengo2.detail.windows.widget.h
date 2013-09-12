@@ -179,6 +179,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam Widget A widget type.
 
             \param parent           A parent widget.
+            \param border           Set true to add border lines.
             \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a custom control.
@@ -188,6 +189,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_custom_control(
             Widget&                                      parent,
+            const bool                                   border,
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
@@ -204,9 +206,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(custom_control_class_name(), instance_handle))
                 register_window_class_for_custom_control<Widget>(instance_handle);
 
+            const ::DWORD ex_style = border ? WS_EX_CLIENTEDGE : 0;
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    0,
+                    ex_style,
                     custom_control_class_name().c_str(),
                     L"",
                     WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),

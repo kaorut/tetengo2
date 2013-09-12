@@ -102,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit side_bar(widget_type& parent)
         :
-        base_type(parent, base_type::scroll_bar_style_type::none),
+        base_type(parent, false, base_type::scroll_bar_style_type::none),
         m_p_caption(),
         m_p_splitter(),
         m_p_mouse_capture(),

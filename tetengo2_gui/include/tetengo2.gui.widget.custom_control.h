@@ -75,9 +75,10 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a custom control.
 
             \param parent           A parent widget.
+            \param border           Set true to add border lines.
             \param scroll_bar_style A scroll bar style type.
         */
-        custom_control(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        custom_control(widget_type& parent, const bool border, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -88,7 +89,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_details_type::make_custom_control_message_handler_map(
                 *this, message_handler_map_type()
             ),
-            widget_details_type::create_custom_control(parent, scroll_bar_style)
+            widget_details_type::create_custom_control(parent, border, scroll_bar_style)
         )
 #if defined(_MSC_VER)
 #   pragma warning(pop)

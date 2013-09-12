@@ -29,7 +29,7 @@ namespace
     public:
         explicit concrete_custom_control(window_type& parent)
         :
-        custom_control_type(parent, custom_control_type::scroll_bar_style_type::none)
+        custom_control_type(parent, false, custom_control_type::scroll_bar_style_type::none)
         {}
 
     };
