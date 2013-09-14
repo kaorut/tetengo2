@@ -90,6 +90,10 @@ namespace bobura
     private:
         // types
 
+        typedef typename base_type::dimension_type dimension_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
         typedef typename map_box_type::scroll_bar_style_type scroll_bar_style_type;
 
 
@@ -113,6 +117,8 @@ namespace bobura
                     *this, *m_p_map_box
                 )
             );
+
+            this->set_width(width_type(32));
         }
 
 
