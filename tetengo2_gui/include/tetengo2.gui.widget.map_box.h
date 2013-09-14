@@ -9,10 +9,14 @@
 #if !defined(TETENGO2_GUI_WIDGET_MAPBOX_H)
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
+//#include <memory>
+//#include <utility>
+
+//#include <boost/noncopyable.hpp>
+
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -70,9 +74,10 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         map_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
-        base_type(parent, true, scroll_bar_style)
+        base_type(parent, true, scroll_bar_style),
+        m_p_splitter(stdalt::make_unique<splitter>())
         {
-            initialize_map_box(this);
+            initialize_map_box(*this);
         }
 
         /*!
@@ -94,30 +99,155 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename gui::position<position_type>::top_type top_type;
 
+        typedef typename base_type::dimension_type dimension_type;
+
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename gui::dimension<dimension_type>::height_type height_type;
+
+        class item : boost::noncopyable
+        {
+        public:
+            // functions
+
+            const position_type& position()
+            const
+            {
+                return m_position;
+            }
+
+            void set_position(position_type position)
+            {
+                m_position = std::move(position);
+            }
+
+            const dimension_type& dimension()
+            const
+            {
+                return m_dimension;
+            }
+
+            void set_dimension(dimension_type dimension)
+            {
+                m_dimension = std::move(dimension);
+            }
+
+            void repaint(canvas_type& canvas)
+            const
+            {
+                repaint_impl(canvas);
+            }
+
+            void resize()
+            {
+                resize_impl();
+            }
+
+
+        protected:
+            // constructors
+
+            item()
+            :
+            m_position(left_type(0), top_type(0)),
+            m_dimension(width_type(0), height_type(0))
+            {}
+
+
+        private:
+            // variables
+
+            position_type m_position;
+
+            dimension_type m_dimension;
+
+
+            // virtual functions
+
+            virtual void repaint_impl(canvas_type& canvas)
+            const = 0;
+
+            virtual void resize_impl()
+            = 0;
+
+
+        };
+
+        class splitter : public item
+        {
+        public:
+            // constructors and destructor
+
+            splitter()
+            {}
+
+
+        private:
+            // virtual functions
+
+            virtual void repaint_impl(canvas_type& /*canvas*/)
+            const override
+            {
+                
+            }
+
+            virtual void resize_impl()
+            override
+            {
+
+            }
+
+
+        };
+
 
         // static functions
 
-        static void initialize_map_box(map_box* const p_map_box)
+        static void initialize_map_box(map_box& map_box)
         {
-            p_map_box->set_background(
+            map_box.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
             );
 
-            p_map_box->paint_observer_set().paint_background().disconnect_all_slots();
-            p_map_box->paint_observer_set().paint_background().connect(
-                [p_map_box](canvas_type& canvas) { return paint_background(*p_map_box, canvas); }
+            map_box.paint_observer_set().paint_background().disconnect_all_slots();
+            map_box.paint_observer_set().paint_background().connect(
+                [&map_box](canvas_type& canvas) { return map_box.paint_background(canvas); }
             );
+
+            map_box.paint_observer_set().paint().connect([&map_box](canvas_type& canvas) { map_box.paint(canvas); });
+
+            map_box.size_observer_set().resized().connect([&map_box]() { map_box.resized(); });
         }
 
-        static bool paint_background(const map_box& map_box, canvas_type& canvas)
+
+        // variables
+
+        const std::unique_ptr<item> m_p_splitter;
+
+
+        // functions
+
+        bool paint_background(canvas_type& canvas)
+        const
         {
-            if (!map_box.background())
+            if (!this->background())
                 return false;
 
-            canvas.set_background(map_box.background()->clone());
-            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), map_box.client_dimension());
+            canvas.set_background(this->background()->clone());
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), this->client_dimension());
 
             return true;
+        }
+
+        void paint(canvas_type& canvas)
+        const
+        {
+            m_p_splitter->repaint(canvas);
+        }
+
+        void resized()
+        {
+            m_p_splitter->resize();
         }
 
 
