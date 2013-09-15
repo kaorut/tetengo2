@@ -75,7 +75,8 @@ namespace tetengo2 { namespace gui { namespace widget
         map_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
         base_type(parent, true, scroll_bar_style),
-        m_p_splitter(stdalt::make_unique<splitter>())
+        m_splitter_position(left_type(8)),
+        m_p_splitter()
         {
             initialize_map_box(*this);
         }
@@ -147,15 +148,32 @@ namespace tetengo2 { namespace gui { namespace widget
         protected:
             // constructors
 
-            item()
+            explicit item(map_box& map_box_)
             :
+            m_map_box(map_box_),
             m_position(left_type(0), top_type(0)),
             m_dimension(width_type(0), height_type(0))
             {}
 
 
+            // functions
+
+            const map_box& map_box_()
+            const
+            {
+                return m_map_box;
+            }
+
+            map_box& map_box_()
+            {
+                return m_map_box;
+            }
+
+
         private:
             // variables
+
+            map_box& m_map_box;
 
             position_type m_position;
 
@@ -178,23 +196,44 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            splitter()
+            explicit splitter(map_box& map_box_)
+            :
+            item(map_box_)
             {}
 
 
         private:
+            // static functions
+
+            static const width_type& width()
+            {
+                static const width_type singleton(width_type(1) / 2);
+                return singleton;
+            }
+
+
             // virtual functions
 
-            virtual void repaint_impl(canvas_type& /*canvas*/)
+            virtual void repaint_impl(canvas_type& canvas)
             const override
             {
-                
+                std::unique_ptr<solid_background_type> p_background =
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+                canvas.set_background(std::move(p_background));
+                canvas.fill_rectangle(this->position(), this->dimension());
             }
 
             virtual void resize_impl()
             override
             {
+                static const width_type splitter_width(width_type(1) / 2);
 
+                this->set_position(position_type(map_box_().m_splitter_position - width() / 2, top_type(0)));
+
+                const dimension_type map_box_client_dimension = map_box_().client_dimension();
+                this->set_dimension(
+                    dimension_type(width(), gui::dimension<dimension_type>::height(map_box_client_dimension))
+                );
             }
 
 
@@ -205,6 +244,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_map_box(map_box& map_box)
         {
+            map_box.m_p_splitter = stdalt::make_unique<splitter>(map_box);
+
             map_box.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
             );
@@ -222,7 +263,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        const std::unique_ptr<item> m_p_splitter;
+        left_type m_splitter_position;
+
+        std::unique_ptr<item> m_p_splitter;
 
 
         // functions
