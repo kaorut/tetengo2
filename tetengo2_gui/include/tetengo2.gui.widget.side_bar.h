@@ -287,9 +287,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 resized_impl();
             }
 
-            void draw(canvas_type& canvas)
+            void paint(canvas_type& canvas)
             {
-                draw_impl(canvas);
+                paint_impl(canvas);
             }
 
             void mouse_pressed(const position_type& cursor_position)
@@ -374,7 +374,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             {}
 
-            virtual void draw_impl(canvas_type& canvas)
+            virtual void paint_impl(canvas_type& canvas)
             = 0;
 
             virtual void mouse_pressed_impl(const position_type& cursor_position)
@@ -526,7 +526,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void draw_impl(canvas_type& canvas)
+            virtual void paint_impl(canvas_type& canvas)
             override
             {
                 auto original_color = canvas.color();
@@ -682,7 +682,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 ensure_dimension_calculated();
             }
 
-            virtual void draw_impl(canvas_type& canvas)
+            virtual void paint_impl(canvas_type& canvas)
             override
             {
                 calculate_position_and_dimension(canvas);
@@ -858,7 +858,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 calculate_position_and_dimension();
             }
 
-            virtual void draw_impl(canvas_type& canvas)
+            virtual void paint_impl(canvas_type& canvas)
             override
             {
                 calculate_position_and_dimension();
@@ -1027,9 +1027,9 @@ namespace tetengo2 { namespace gui { namespace widget
             side_bar_.paint_observer_set().paint().connect(
                 [&side_bar_](canvas_type& canvas)
                 {
-                    side_bar_.m_p_caption->draw(canvas);
-                    side_bar_.m_p_state_button->draw(canvas);
-                    side_bar_.m_p_splitter->draw(canvas);
+                    side_bar_.m_p_caption->paint(canvas);
+                    side_bar_.m_p_state_button->paint(canvas);
+                    side_bar_.m_p_splitter->paint(canvas);
                 }
             );
 

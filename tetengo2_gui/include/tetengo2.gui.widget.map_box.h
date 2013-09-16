@@ -133,15 +133,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_dimension = std::move(dimension);
             }
 
-            void repaint(canvas_type& canvas)
-            const
+            void resized()
             {
-                repaint_impl(canvas);
+                resized_impl();
             }
 
-            void resize()
+            void paint(canvas_type& canvas)
+            const
             {
-                resize_impl();
+                paint_impl(canvas);
             }
 
 
@@ -182,11 +182,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void repaint_impl(canvas_type& canvas)
-            const = 0;
-
-            virtual void resize_impl()
+            virtual void resized_impl()
             = 0;
+
+            virtual void paint_impl(canvas_type& canvas)
+            const = 0;
 
 
         };
@@ -214,16 +214,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void repaint_impl(canvas_type& canvas)
-            const override
-            {
-                std::unique_ptr<solid_background_type> p_background =
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
-                canvas.set_background(std::move(p_background));
-                canvas.fill_rectangle(this->position(), this->dimension());
-            }
-
-            virtual void resize_impl()
+            virtual void resized_impl()
             override
             {
                 static const width_type splitter_width(width_type(1) / 2);
@@ -236,6 +227,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
             }
 
+            virtual void paint_impl(canvas_type& canvas)
+            const override
+            {
+                std::unique_ptr<solid_background_type> p_background =
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+                canvas.set_background(std::move(p_background));
+                canvas.fill_rectangle(this->position(), this->dimension());
+            }
+
 
         };
 
@@ -245,6 +245,8 @@ namespace tetengo2 { namespace gui { namespace widget
         static void initialize_map_box(map_box& map_box)
         {
             map_box.m_p_splitter = stdalt::make_unique<splitter>(map_box);
+
+            map_box.size_observer_set().resized().connect([&map_box]() { map_box.resized(); });
 
             map_box.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
@@ -256,8 +258,6 @@ namespace tetengo2 { namespace gui { namespace widget
             );
 
             map_box.paint_observer_set().paint().connect([&map_box](canvas_type& canvas) { map_box.paint(canvas); });
-
-            map_box.size_observer_set().resized().connect([&map_box]() { map_box.resized(); });
         }
 
 
@@ -269,6 +269,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         // functions
+
+        void resized()
+        {
+            m_p_splitter->resized();
+        }
 
         bool paint_background(canvas_type& canvas)
         const
@@ -285,12 +290,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void paint(canvas_type& canvas)
         const
         {
-            m_p_splitter->repaint(canvas);
-        }
-
-        void resized()
-        {
-            m_p_splitter->resize();
+            m_p_splitter->paint(canvas);
         }
 
 
