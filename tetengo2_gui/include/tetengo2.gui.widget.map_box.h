@@ -219,9 +219,9 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 static const width_type splitter_width(width_type(1) / 2);
 
-                this->set_position(position_type(map_box_().m_splitter_position - width() / 2, top_type(0)));
+                this->set_position(position_type(this->map_box_().m_splitter_position - width() / 2, top_type(0)));
 
-                const dimension_type map_box_client_dimension = map_box_().client_dimension();
+                const dimension_type map_box_client_dimension = this->map_box_().client_dimension();
                 this->set_dimension(
                     dimension_type(width(), gui::dimension<dimension_type>::height(map_box_client_dimension))
                 );
