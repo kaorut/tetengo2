@@ -697,10 +697,13 @@ namespace bobura
             >
             list_box_type;
         typedef
+            tetengo2::gui::mouse_capture<
+                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+            >
+            mouse_capture_type;
+        typedef
             tetengo2::gui::widget::traits::map_box_traits<
-                custom_control_traits_type,
-                solid_background_type,
-                system_color_set_type
+                custom_control_traits_type, solid_background_type, system_color_set_type, mouse_capture_type
             >
             map_box_traits_type;
         typedef
@@ -724,11 +727,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             picture_box_type;
-        typedef
-            tetengo2::gui::mouse_capture<
-                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
-            >
-            mouse_capture_type;
         typedef
             tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::timer>::type>
             timer_type;

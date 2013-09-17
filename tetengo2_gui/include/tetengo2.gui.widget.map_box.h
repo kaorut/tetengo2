@@ -43,6 +43,15 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The system color set type.
         typedef typename traits_type::system_color_set_type system_color_set_type;
 
+        //! The mouse capture type.
+        typedef typename traits_type::mouse_capture_type mouse_capture_type;
+
+        //! The system cursor type.
+        typedef typename traits_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename system_cursor_type::base_type cursor_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -76,7 +85,9 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(parent, true, scroll_bar_style),
         m_splitter_position(left_type(8)),
-        m_p_splitter()
+        m_p_splitter(),
+        m_p_mouse_capture(),
+        m_p_mouse_captured_item(nullptr)
         {
             initialize_map_box(*this);
         }
@@ -267,6 +278,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<item> m_p_splitter;
 
+        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
+
+        const item* m_p_mouse_captured_item;
+
 
         // functions
 
@@ -291,6 +306,24 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             m_p_splitter->paint(canvas);
+        }
+
+        bool mouse_captured(const item* const p_item)
+        const
+        {
+            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_item;
+        }
+
+        void set_mouse_capture(const item* const p_item)
+        {
+            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_captured_item = p_item;
+        }
+
+        void release_mouse_capture()
+        {
+            m_p_mouse_captured_item = nullptr;
+            m_p_mouse_capture.reset();
         }
 
 
