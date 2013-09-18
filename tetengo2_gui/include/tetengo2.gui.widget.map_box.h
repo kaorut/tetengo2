@@ -349,7 +349,7 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 this->map_box_().release_mouse_capture();
 
-                //resize_side_bar(cursor_position);
+                move(cursor_position);
             }
 
             virtual void mouse_moved_impl(const position_type& cursor_position)
@@ -358,7 +358,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!this->map_box_().mouse_captured(this))
                     return;
 
-                //resize_side_bar(cursor_position);
+                move(cursor_position);
             }
 
             virtual void mouse_entered_impl()
@@ -373,6 +373,28 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                this->map_box_().set_cursor(std::unique_ptr<cursor_type>());
+            }
+
+
+            // functions
+
+            void move(const position_type& cursor_position)
+            {
+                const width_type map_box_width =
+                    gui::dimension<dimension_type>::width(this->map_box_().client_dimension());
+
+                left_type position = gui::position<position_type>::left(cursor_position);
+                position = std::max(left_type(8), position);
+                position = std::min(position, left_type::from(map_box_width) - left_type(8));
+                position = std::max(left_type(0), position);
+
+                if (this->map_box_().m_splitter_position == position)
+                    return;
+
+                this->map_box_().m_splitter_position = std::move(position);
+
+                this->map_box_().size_observer_set().resized()();
+                this->map_box_().repaint(true);
             }
 
 
