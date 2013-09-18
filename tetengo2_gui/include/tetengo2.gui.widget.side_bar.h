@@ -248,7 +248,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename gui::dimension<dimension_type>::height_type height_type;
 
-        class item
+        class item : boost::noncopyable
         {
         public:
             // constructors and destructors
