@@ -19,6 +19,7 @@
 //#include <vector>
 
 #include <boost/math/constants/constants.hpp>
+//#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.gui.measure.h"

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_MAPBOX_H)
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
+#include <algorithm>
 //#include <memory>
 //#include <utility>
 
