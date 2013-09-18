@@ -292,7 +292,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit splitter(map_box& map_box_)
             :
-            item(map_box_)
+            item(map_box_),
+            m_pressed_position(position_type(left_type(0), top_type(0)))
             {}
 
 
@@ -304,6 +305,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 static const width_type singleton(width_type(1) / 2);
                 return singleton;
             }
+
+
+            // variables
+
+            position_type m_pressed_position;
 
 
             // virtual functions
@@ -324,10 +330,49 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                std::unique_ptr<solid_background_type> p_background =
+                auto p_background =
                     stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
                 canvas.set_background(std::move(p_background));
                 canvas.fill_rectangle(this->position(), this->dimension());
+            }
+
+            virtual void mouse_pressed_impl(const position_type& cursor_position)
+            override
+            {
+                this->map_box_().set_mouse_capture(this);
+
+                m_pressed_position = cursor_position;
+            }
+
+            virtual void mouse_released_impl(const position_type& cursor_position)
+            override
+            {
+                this->map_box_().release_mouse_capture();
+
+                //resize_side_bar(cursor_position);
+            }
+
+            virtual void mouse_moved_impl(const position_type& cursor_position)
+            override
+            {
+                if (!this->map_box_().mouse_captured(this))
+                    return;
+
+                //resize_side_bar(cursor_position);
+            }
+
+            virtual void mouse_entered_impl()
+            override
+            {
+                auto p_cursor =
+                    stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
+                this->map_box_().set_cursor(std::move(p_cursor));
+            }
+
+            virtual void mouse_left_impl()
+            override
+            {
+               this->map_box_().set_cursor(std::unique_ptr<cursor_type>());
             }
 
 
