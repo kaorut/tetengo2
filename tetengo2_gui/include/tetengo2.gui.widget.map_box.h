@@ -307,6 +307,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 return singleton;
             }
 
+            static const left_type& min_left()
+            {
+                static const left_type singleton(8);
+                return singleton;
+            }
+
 
             // variables
 
@@ -320,6 +326,7 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 static const width_type splitter_width(width_type(1) / 2);
 
+                adjust_position(this->map_box_().m_splitter_position);
                 this->set_position(position_type(this->map_box_().m_splitter_position - width() / 2, top_type(0)));
 
                 const dimension_type map_box_client_dimension = this->map_box_().client_dimension();
@@ -381,13 +388,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void move(const position_type& cursor_position)
             {
-                const width_type map_box_width =
-                    gui::dimension<dimension_type>::width(this->map_box_().client_dimension());
-
                 left_type position = gui::position<position_type>::left(cursor_position);
-                position = std::max(left_type(8), position);
-                position = std::min(position, left_type::from(map_box_width) - left_type(8));
-                position = std::max(left_type(0), position);
+                adjust_position(position);
 
                 if (this->map_box_().m_splitter_position == position)
                     return;
@@ -395,7 +397,22 @@ namespace tetengo2 { namespace gui { namespace widget
                 this->map_box_().m_splitter_position = std::move(position);
 
                 this->map_box_().size_observer_set().resized()();
-                this->map_box_().repaint(true);
+                this->map_box_().repaint();
+            }
+
+            void adjust_position(left_type& position)
+            {
+                const left_type map_box_width =
+                    left_type::from(gui::dimension<dimension_type>::width(this->map_box_().client_dimension()));
+                if (map_box_width > min_left() * 2)
+                {
+                    position = std::max(min_left(), position);
+                    position = std::min(position, map_box_width - min_left());
+                }
+                else
+                {
+                    position = map_box_width / 2;
+                }
             }
 
 
@@ -428,6 +445,7 @@ namespace tetengo2 { namespace gui { namespace widget
             );
             map_box_.paint_observer_set().paint().connect(
                 [&map_box_](canvas_type& canvas) {
+                    map_box_.paint_background(canvas);
                     map_box_.m_p_splitter->paint(canvas);
                 }
             );
