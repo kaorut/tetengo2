@@ -10,8 +10,10 @@
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
 #include <algorithm>
+//#include <iterator>
 //#include <memory>
 //#include <utility>
+//#include <vector>
 
 //#include <boost/noncopyable.hpp>
 
@@ -87,6 +89,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent, true, scroll_bar_style),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
+        m_p_value_items(),
         m_p_mouse_capture(),
         m_p_mouse_captured_item(nullptr)
         {
@@ -240,10 +243,13 @@ namespace tetengo2 { namespace gui { namespace widget
             // virtual functions
 
             virtual void resized_impl()
-            = 0;
+            {}
 
             virtual void paint_impl(canvas_type& canvas)
-            const = 0;
+            const
+            {
+                suppress_unused_variable_warning(canvas);
+            }
 
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             {
@@ -329,19 +335,10 @@ namespace tetengo2 { namespace gui { namespace widget
                 adjust_position(this->map_box_().m_splitter_position);
                 this->set_position(position_type(this->map_box_().m_splitter_position - width() / 2, top_type(0)));
 
-                const dimension_type map_box_client_dimension = this->map_box_().client_dimension();
+                const auto map_box_client_dimension = this->map_box_().client_dimension();
                 this->set_dimension(
                     dimension_type(width(), gui::dimension<dimension_type>::height(map_box_client_dimension))
                 );
-            }
-
-            virtual void paint_impl(canvas_type& canvas)
-            const override
-            {
-                auto p_background =
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
-                canvas.set_background(std::move(p_background));
-                canvas.fill_rectangle(this->position(), this->dimension());
             }
 
             virtual void mouse_pressed_impl(const position_type& cursor_position)
@@ -388,7 +385,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void move(const position_type& cursor_position)
             {
-                left_type position = gui::position<position_type>::left(cursor_position);
+                auto position = gui::position<position_type>::left(cursor_position);
                 adjust_position(position);
 
                 if (this->map_box_().m_splitter_position == position)
@@ -402,7 +399,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void adjust_position(left_type& position)
             {
-                const left_type map_box_width =
+                const auto map_box_width =
                     left_type::from(gui::dimension<dimension_type>::width(this->map_box_().client_dimension()));
                 if (map_box_width > min_left() * 2)
                 {
@@ -418,6 +415,77 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
+        class value_item : public item
+        {
+        public:
+            // constructors and destructor
+
+            explicit value_item(map_box& map_box_)
+            :
+            item(map_box_)
+            {}
+
+
+        private:
+            // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+                static const height_type height(2);
+
+                const auto map_box_width = gui::dimension<dimension_type>::width(this->map_box_().client_dimension());
+
+                this->set_dimension(dimension_type(map_box_width, height));
+
+                item& self_ = *this;
+                const auto found =
+                    std::find_if(
+                        this->map_box_().m_p_value_items.begin(),
+                        this->map_box_().m_p_value_items.end(),
+                        [&self_](const std::unique_ptr<item>& p_item) { return p_item.get() == &self_; }
+                    );
+                top_type top(0);
+                if (found != this->map_box_().m_p_value_items.end())
+                    top = top_type::from(height) * std::distance(this->map_box_().m_p_value_items.begin(), found);
+                this->set_position(position_type(left_type(0), std::move(top)));
+
+            }
+
+            virtual void paint_impl(canvas_type& canvas)
+            const override
+            {
+                canvas.set_background(
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                );
+
+                static const height_type height(2);
+                {
+                    const position_type position(
+                        gui::position<position_type>::left(this->position()),
+                        gui::position<position_type>::top(this->position()) + top_type::from(height) / 2
+                    );
+                    const dimension_type dimension(
+                        width_type::from(this->map_box_().m_splitter_position), height / 2
+                    );
+                    canvas.fill_rectangle(position, dimension);
+                }
+                {
+                    const position_type position(
+                        this->map_box_().m_splitter_position,
+                        gui::position<position_type>::top(this->position()) + top_type::from(height) * 3 / 4
+                    );
+                    const dimension_type dimension(
+                        gui::dimension<dimension_type>::width(this->dimension()), height / 4
+                    );
+                    canvas.fill_rectangle(position, dimension);
+                }
+            }
+
+
+
+        };
+
 
         // static functions
 
@@ -425,10 +493,18 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
 
+            for (int i = 0; i < 5; ++i)
+                map_box_.m_p_value_items.push_back(stdalt::make_unique<value_item>(map_box_));
+
             map_box_.size_observer_set().resized().connect(
                 [&map_box_]()
                 {
                     map_box_.m_p_splitter->resized();
+                    std::for_each(
+                        map_box_.m_p_value_items.begin(),
+                        map_box_.m_p_value_items.end(),
+                        [](const std::unique_ptr<item>& p_item) { p_item->resized(); }
+                    );
                 }
             );
 
@@ -446,7 +522,11 @@ namespace tetengo2 { namespace gui { namespace widget
             map_box_.paint_observer_set().paint().connect(
                 [&map_box_](canvas_type& canvas) {
                     map_box_.paint_background(canvas);
-                    map_box_.m_p_splitter->paint(canvas);
+                    std::for_each(
+                        map_box_.m_p_value_items.begin(),
+                        map_box_.m_p_value_items.end(),
+                        [&canvas](const std::unique_ptr<item>& p_item) { p_item->paint(canvas); }
+                    );
                 }
             );
 
@@ -482,6 +562,8 @@ namespace tetengo2 { namespace gui { namespace widget
         left_type m_splitter_position;
 
         std::unique_ptr<item> m_p_splitter;
+
+        std::vector<std::unique_ptr<item>> m_p_value_items;
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 

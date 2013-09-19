@@ -13,6 +13,7 @@ tetengo2::gui::virtual_key::
 tetengo2::gui::widget::link_label::paint_background::
 tetengo2::gui::widget::map_box::item::
 tetengo2::gui::widget::map_box::splitter::
+tetengo2::gui::widget::map_box::value_item::
 tetengo2::gui::widget::side_bar::caption::
 tetengo2::gui::widget::side_bar::item::
 tetengo2::gui::widget::side_bar::splitter::
