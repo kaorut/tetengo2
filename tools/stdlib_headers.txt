@@ -76,7 +76,6 @@
 ::GetClientRect                                  Windows.h
 ::GetCommandLineW                                Windows.h
 ::GetDC                                          Windows.h
-::GetDesktopWindow                               Windows.h
 ::GetDeviceCaps                                  Windows.h
 ::GetDlgItem                                     Windows.h
 ::GetKeyState                                    Windows.h

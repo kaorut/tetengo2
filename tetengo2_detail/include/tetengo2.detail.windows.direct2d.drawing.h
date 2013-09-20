@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
 //#include <cassert>
+#include <limits>
 //#include <memory>
 //#include <stdexcept>
 //#include <system_error>
@@ -854,24 +855,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
 
             const auto encoded_text = encoder.encode(text);
-            ::RECT rect = {};
-            if (::GetClientRect(::GetDesktopWindow(), &rect) == FALSE)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
-                        "Can't get client rectangle of the desktop."
-                    )
-                );
-            }
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =
                 direct_write_factory().CreateTextLayout(
                     encoded_text.c_str(),
                     static_cast< ::UINT32>(encoded_text.length()),
                     p_format.get(),
-                    static_cast< ::FLOAT>(rect.right - rect.left),
-                    static_cast< ::FLOAT>(rect.bottom - rect.top),
+                    std::numeric_limits< ::FLOAT>::max(),
+                    std::numeric_limits< ::FLOAT>::max(),
                     &rp_layout
                 );
             if (FAILED(create_layout_hr))
