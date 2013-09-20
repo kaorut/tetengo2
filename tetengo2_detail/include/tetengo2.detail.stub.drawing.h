@@ -338,10 +338,11 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text.
+            \param encoder   An encoder.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
@@ -349,13 +350,14 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder
+            const canvas_details_type&                            canvas,
+            const Font&                                           font,
+            const String&                                         text,
+            const Encoder&                                        encoder,
+            const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder);
+            suppress_unused_variable_warning(canvas, font, text, encoder, max_width);
 
             typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef typename gui::dimension<Dimension>::height_type height_type;
@@ -369,30 +371,33 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Width    A width type.
             \tparam Color    A color type.
 
-            \param canvas   A canvas.
-            \param font     A font.
-            \param text     A text to draw.
-            \param encoder  An encoder.
-            \param position A position where the text is drawn.
-            \param color    A color.
-            \param angle    A clockwise angle in radians.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text to draw.
+            \param encoder   An encoder.
+            \param position  A position where the text is drawn.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
+            \param color     A color.
+            \param angle     A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
+            const Width&         max_width,
             const Color&         color,
             const double         angle
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder, position, color, angle);
+            suppress_unused_variable_warning(canvas, font, text, encoder, position, max_width, color, angle);
         }
 
         /*!

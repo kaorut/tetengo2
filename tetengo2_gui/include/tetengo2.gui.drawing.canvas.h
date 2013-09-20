@@ -291,7 +291,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             return
                 drawing_details_type::template calc_text_dimension<dimension_type>(
-                    *m_p_details, m_font, text, encoder()
+                    *m_p_details, m_font, text, encoder(), width_type(0)
                 );
         }
 
@@ -306,7 +306,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color, angle);
+            drawing_details_type::draw_text(
+                *m_p_details, m_font, text, encoder(), position, width_type(0), m_color, angle
+            );
         }
 
         /*!
@@ -400,6 +402,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
     private:
+        // types
+
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
+
         // static functions
 
         static const encoder_type& encoder()

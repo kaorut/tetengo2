@@ -415,10 +415,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text.
+            \param encoder   An encoder.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
@@ -426,10 +427,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder
+            const canvas_details_type&                            canvas,
+            const Font&                                           font,
+            const String&                                         text,
+            const Encoder&                                        encoder,
+            const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
             const auto encoded_text = encoder.encode(text);
@@ -437,8 +439,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::InstalledFontCollection font_collection;
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
+            const Gdiplus::REAL gdiplus_max_width =
+                max_width == typename gui::dimension<Dimension>::width_type(0) ?
+                std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout(
-                0, 0, std::numeric_limits<Gdiplus::REAL>::max(), std::numeric_limits<Gdiplus::REAL>::max()
+                0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
             );
             Gdiplus::RectF bounding;
             const auto status =
@@ -471,25 +476,28 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Width    A width type.
             \tparam Color    A color type.
 
-            \param canvas   A canvas.
-            \param font     A font.
-            \param text     A text to draw.
-            \param encoder  An encoder.
-            \param position A position where the text is drawn.
-            \param color    A color.
-            \param angle    A clockwise angle in radians.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text to draw.
+            \param encoder   An encoder.
+            \param position  A position where the text is drawn.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
+            \param color     A color.
+            \param angle     A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
+            const Width&         max_width,
             const Color&         color,
             const double         angle
         )
@@ -504,6 +512,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::PointF gdiplus_point(
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
+            );
+            const Gdiplus::REAL gdiplus_max_width =
+                max_width == Width(0) ?
+                std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
+            const Gdiplus::RectF layout(
+                gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
             );
 
             Gdiplus::Matrix original_matrix;
@@ -537,7 +551,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     encoded_text.c_str(),
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(), 
-                    gdiplus_point,
+                    layout,
+                    Gdiplus::StringFormat::GenericTypographic(),
                     p_solid_brush->get()
                 );
             if (draw_string_status != Gdiplus::Ok)
