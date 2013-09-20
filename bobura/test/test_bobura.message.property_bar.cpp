@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(resized)
 
         window_type window;
         side_bar_type side_bar(window);
-        map_box_type map_box(side_bar, map_box_type::scroll_bar_style_type::vertical);
+        map_box_type map_box(side_bar);
         resized_type observer(side_bar, map_box);
     }
 
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(resized)
 
         window_type window;
         side_bar_type side_bar(window);
-        map_box_type map_box(side_bar, map_box_type::scroll_bar_style_type::vertical);
+        map_box_type map_box(side_bar);
         resized_type observer(side_bar, map_box);
 
         observer();

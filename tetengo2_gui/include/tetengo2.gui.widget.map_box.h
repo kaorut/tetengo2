@@ -69,9 +69,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
-        //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
-
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -81,12 +78,11 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a map box.
 
-            \param parent           A parent widget.
-            \param scroll_bar_style A scroll bar style type.
+            \param parent A parent widget.
         */
-        map_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        map_box(widget_type& parent)
         :
-        base_type(parent, true, scroll_bar_style),
+        base_type(parent, true, scroll_bar_style_type::vertical),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
         m_p_value_items(),
@@ -124,6 +120,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename gui::dimension<dimension_type>::width_type width_type;
 
         typedef typename gui::dimension<dimension_type>::height_type height_type;
+
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
         class item : boost::noncopyable
         {

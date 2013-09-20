@@ -94,8 +94,6 @@ namespace bobura
 
         typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
-        typedef typename map_box_type::scroll_bar_style_type scroll_bar_style_type;
-
 
         // variables
 
@@ -110,7 +108,7 @@ namespace bobura
         {
             this->set_text(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Properties")));
 
-            m_p_map_box = tetengo2::stdalt::make_unique<map_box_type>(*this, scroll_bar_style_type::vertical);
+            m_p_map_box = tetengo2::stdalt::make_unique<map_box_type>(*this);
 
             this->size_observer_set().resized().connect(
                 typename boost::mpl::at<message_type_list_type, message::property_bar::type::resized>::type(
