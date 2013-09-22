@@ -361,7 +361,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
             typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef typename gui::dimension<Dimension>::height_type height_type;
-            return Dimension(width_type(123), height_type(456));
+            return
+                max_width == width_type(0) || max_width >= width_type(123) ?
+                Dimension(width_type(123), height_type(456)) : Dimension(width_type(46), height_type(890));
         }
 
         /*!
