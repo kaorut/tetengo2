@@ -20,6 +20,7 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -69,6 +70,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
+        //! The value type.
+        typedef std::pair<string_type, string_type> value_type;
+
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
@@ -83,6 +90,7 @@ namespace tetengo2 { namespace gui { namespace widget
         map_box(widget_type& parent)
         :
         base_type(parent, true, scroll_bar_style_type::vertical),
+        m_values(),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
         m_p_value_items(),
@@ -313,7 +321,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             static const left_type& min_left()
             {
-                static const left_type singleton(8);
+                static const left_type singleton(4);
                 return singleton;
             }
 
@@ -418,23 +426,36 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            explicit value_item(map_box& map_box_)
+            explicit value_item(map_box& map_box_, const value_type& value)
             :
-            item(map_box_)
+            item(map_box_),
+            m_value(value)
             {}
 
 
         private:
+            // static functions
+
+            static const height_type height()
+            {
+                static const height_type singleton(2);
+                return singleton;
+            }
+
+
+            // variables
+
+            const value_type& m_value;
+
+
             // virtual functions
 
             virtual void resized_impl()
             override
             {
-                static const height_type height(2);
-
                 const auto map_box_width = gui::dimension<dimension_type>::width(this->map_box_().client_dimension());
 
-                this->set_dimension(dimension_type(map_box_width, height));
+                this->set_dimension(dimension_type(map_box_width, height()));
 
                 item& self_ = *this;
                 const auto found =
@@ -445,7 +466,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
                 top_type top(0);
                 if (found != this->map_box_().m_p_value_items.end())
-                    top = top_type::from(height) * std::distance(this->map_box_().m_p_value_items.begin(), found);
+                    top = top_type::from(height()) * std::distance(this->map_box_().m_p_value_items.begin(), found);
                 this->set_position(position_type(left_type(0), std::move(top)));
 
             }
@@ -457,26 +478,45 @@ namespace tetengo2 { namespace gui { namespace widget
                     stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
                 );
 
-                static const height_type height(2);
                 {
                     const position_type position(
                         gui::position<position_type>::left(this->position()),
-                        gui::position<position_type>::top(this->position()) + top_type::from(height) / 2
+                        gui::position<position_type>::top(this->position()) + top_type::from(height()) / 2
                     );
                     const dimension_type dimension(
-                        width_type::from(this->map_box_().m_splitter_position), height / 2
+                        width_type::from(this->map_box_().m_splitter_position), height() / 2
                     );
                     canvas.fill_rectangle(position, dimension);
+
+                    auto text_left = gui::position<position_type>::left(this->position()) + left_type(1);
+                    auto text_top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+                    const auto text_max_width = width_type::from(this->map_box_().m_splitter_position) - width_type(2);
+                    canvas.draw_text(
+                        m_value.first, position_type(std::move(text_left), std::move(text_top)), text_max_width
+                    );
                 }
                 {
                     const position_type position(
                         this->map_box_().m_splitter_position,
-                        gui::position<position_type>::top(this->position()) + top_type::from(height) * 3 / 4
+                        gui::position<position_type>::top(this->position()) + top_type::from(height()) * 3 / 4
                     );
                     const dimension_type dimension(
-                        gui::dimension<dimension_type>::width(this->dimension()), height / 4
+                        gui::dimension<dimension_type>::width(this->dimension()), height() / 4
                     );
                     canvas.fill_rectangle(position, dimension);
+
+                    auto text_left =
+                        gui::position<position_type>::left(this->position()) +
+                        this->map_box_().m_splitter_position +
+                        left_type(1);
+                    auto text_top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+                    const auto text_max_width =
+                        gui::dimension<dimension_type>::width(this->dimension()) -
+                        width_type::from(this->map_box_().m_splitter_position) -
+                        width_type(2);
+                    canvas.draw_text(
+                        m_value.first, position_type(std::move(text_left), std::move(text_top)), text_max_width
+                    );
                 }
             }
 
@@ -489,10 +529,16 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_map_box(map_box& map_box_)
         {
+            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("AAAAA")), string_type(TETENGO2_TEXT("aaaaa")));
+            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("BBBBB")), string_type(TETENGO2_TEXT("bbbbb bbbbb")));
+            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("CCCCC")), string_type(TETENGO2_TEXT("ccccc ccccc ccccc")));
+            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("DDDDD DDDDD")), string_type(TETENGO2_TEXT("ddddd ddddd")));
+            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("EEEEE EEEEE EEEEE")), string_type(TETENGO2_TEXT("eeeee")));
+
             map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
 
-            for (int i = 0; i < 5; ++i)
-                map_box_.m_p_value_items.push_back(stdalt::make_unique<value_item>(map_box_));
+            for (typename std::vector<value_type>::size_type i = 0; i < map_box_.m_values.size(); ++i)
+                map_box_.m_p_value_items.push_back(stdalt::make_unique<value_item>(map_box_, map_box_.m_values[i]));
 
             map_box_.size_observer_set().resized().connect(
                 [&map_box_]()
@@ -556,6 +602,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         // variables
+
+        std::vector<value_type> m_values;
 
         left_type m_splitter_position;
 
