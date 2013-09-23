@@ -434,15 +434,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         private:
-            // static functions
-
-            static const height_type height()
-            {
-                static const height_type singleton(2);
-                return singleton;
-            }
-
-
             // variables
 
             const value_type& m_value;
@@ -453,22 +444,23 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
+                height_type key_text_height(0);
+                height_type mapped_text_height(0);
+                {
+                    const auto p_canvas = this->map_box_().create_canvas();
+                    key_text_height =
+                        gui::dimension<dimension_type>::height(
+                            p_canvas->calc_text_dimension(m_value.first, key_text_max_width())
+                        );
+                    mapped_text_height =
+                        gui::dimension<dimension_type>::height(
+                            p_canvas->calc_text_dimension(m_value.second, mapped_text_max_width())
+                        );
+                }
+
                 const auto map_box_width = gui::dimension<dimension_type>::width(this->map_box_().client_dimension());
-
-                this->set_dimension(dimension_type(map_box_width, height()));
-
-                item& self_ = *this;
-                const auto found =
-                    std::find_if(
-                        this->map_box_().m_p_value_items.begin(),
-                        this->map_box_().m_p_value_items.end(),
-                        [&self_](const std::unique_ptr<item>& p_item) { return p_item.get() == &self_; }
-                    );
-                top_type top(0);
-                if (found != this->map_box_().m_p_value_items.end())
-                    top = top_type::from(height()) * std::distance(this->map_box_().m_p_value_items.begin(), found);
-                this->set_position(position_type(left_type(0), std::move(top)));
-
+                const auto height = std::max(key_text_height, mapped_text_height) + height_type(1);
+                this->set_dimension(dimension_type(map_box_width, height));
             }
 
             virtual void paint_impl(canvas_type& canvas)
@@ -481,45 +473,84 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     const position_type position(
                         gui::position<position_type>::left(this->position()),
-                        gui::position<position_type>::top(this->position()) + top_type::from(height()) / 2
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
+                            top_type(1)
                     );
                     const dimension_type dimension(
-                        width_type::from(this->map_box_().m_splitter_position), height() / 2
+                        width_type::from(this->map_box_().m_splitter_position), height_type(1)
                     );
                     canvas.fill_rectangle(position, dimension);
 
-                    auto text_left = gui::position<position_type>::left(this->position()) + left_type(1);
-                    auto text_top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
-                    const auto text_max_width = width_type::from(this->map_box_().m_splitter_position) - width_type(2);
-                    canvas.draw_text(
-                        m_value.first, position_type(std::move(text_left), std::move(text_top)), text_max_width
-                    );
+                    canvas.draw_text(m_value.first, key_text_position(), key_text_max_width());
                 }
                 {
                     const position_type position(
                         this->map_box_().m_splitter_position,
-                        gui::position<position_type>::top(this->position()) + top_type::from(height()) * 3 / 4
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
+                            top_type(1) / 2
                     );
                     const dimension_type dimension(
-                        gui::dimension<dimension_type>::width(this->dimension()), height() / 4
+                        gui::dimension<dimension_type>::width(this->dimension()), height_type(1) / 2
                     );
                     canvas.fill_rectangle(position, dimension);
 
-                    auto text_left =
-                        gui::position<position_type>::left(this->position()) +
-                        this->map_box_().m_splitter_position +
-                        left_type(1);
-                    auto text_top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
-                    const auto text_max_width =
-                        gui::dimension<dimension_type>::width(this->dimension()) -
-                        width_type::from(this->map_box_().m_splitter_position) -
-                        width_type(2);
-                    canvas.draw_text(
-                        m_value.first, position_type(std::move(text_left), std::move(text_top)), text_max_width
-                    );
+                    canvas.draw_text(m_value.first, mapped_text_position(), mapped_text_max_width());
                 }
             }
 
+
+            // functions
+
+            position_type key_text_position()
+            const
+            {
+                auto left = gui::position<position_type>::left(this->position()) + left_type(1);
+                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+
+                return position_type(std::move(left), std::move(top));
+            }
+
+            position_type mapped_text_position()
+            const
+            {
+                auto left =
+                    gui::position<position_type>::left(this->position()) +
+                    this->map_box_().m_splitter_position +
+                    left_type(1);
+                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+
+                return position_type(std::move(left), std::move(top));
+            }
+
+            width_type key_text_max_width()
+            const
+            {
+                if (width_type::from(this->map_box_().m_splitter_position) > width_type(2))
+                    return width_type::from(this->map_box_().m_splitter_position) - width_type(2);
+                else
+                    return width_type(2);
+            }
+
+            width_type mapped_text_max_width()
+            const
+            {
+                if (
+                    gui::dimension<dimension_type>::width(this->dimension()) >
+                    (width_type::from(this->map_box_().m_splitter_position) + width_type(2))
+                )
+                {
+                    return
+                        gui::dimension<dimension_type>::width(this->dimension()) -
+                        width_type::from(this->map_box_().m_splitter_position) -
+                        width_type(2);
+                }
+                else
+                {
+                    return width_type(2);
+                }
+            }
 
 
         };
@@ -549,6 +580,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         map_box_.m_p_value_items.end(),
                         [](const std::unique_ptr<item>& p_item) { p_item->resized(); }
                     );
+                    map_box_.set_value_item_positions();
                 }
             );
 
@@ -628,6 +660,16 @@ namespace tetengo2 { namespace gui { namespace widget
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), this->client_dimension());
 
             return true;
+        }
+
+        void set_value_item_positions()
+        {
+            top_type top(0);
+            for (const auto& p_value_item: m_p_value_items)
+            {
+                p_value_item->set_position(position_type(left_type(0), top));
+                top += top_type::from(gui::dimension<dimension_type>::height(p_value_item->dimension()));
+            }
         }
 
         bool mouse_captured(const item* const p_item)
