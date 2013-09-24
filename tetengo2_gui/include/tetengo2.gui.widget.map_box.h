@@ -128,6 +128,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename gui::dimension<dimension_type>::height_type height_type;
 
+        typedef typename base_type::scroll_bar_type scroll_bar_type;
+
+        typedef typename scroll_bar_type::size_type scroll_bar_size_type;
+
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
         class item : boost::noncopyable
@@ -469,56 +473,64 @@ namespace tetengo2 { namespace gui { namespace widget
                     stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
                 );
 
+                const auto scroll_bar_position =
+                    this->map_box_().has_vertical_scroll_bar() ?
+                    top_type::from_pixels(this->map_box_().vertical_scroll_bar().tracking_position()) : top_type(0);
+
                 {
                     const position_type position(
                         gui::position<position_type>::left(this->position()),
                         gui::position<position_type>::top(this->position()) +
                             top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                            top_type(1)
+                            top_type(1) -
+                            scroll_bar_position
                     );
                     const dimension_type dimension(
                         width_type::from(this->map_box_().m_splitter_position), height_type(1)
                     );
                     canvas.fill_rectangle(position, dimension);
 
-                    canvas.draw_text(m_value.first, key_text_position(), key_text_max_width());
+                    canvas.draw_text(m_value.first, key_text_position(scroll_bar_position), key_text_max_width());
                 }
                 {
                     const position_type position(
                         this->map_box_().m_splitter_position,
                         gui::position<position_type>::top(this->position()) +
                             top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                            top_type(1) / 2
+                            top_type(1) / 2 -
+                            scroll_bar_position
                     );
                     const dimension_type dimension(
                         gui::dimension<dimension_type>::width(this->dimension()), height_type(1) / 2
                     );
                     canvas.fill_rectangle(position, dimension);
 
-                    canvas.draw_text(m_value.first, mapped_text_position(), mapped_text_max_width());
+                    canvas.draw_text(
+                        m_value.second, mapped_text_position(scroll_bar_position), mapped_text_max_width()
+                    );
                 }
             }
 
 
             // functions
 
-            position_type key_text_position()
+            position_type key_text_position(const top_type& scroll_bar_position)
             const
             {
                 auto left = gui::position<position_type>::left(this->position()) + left_type(1);
-                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2 - scroll_bar_position;
 
                 return position_type(std::move(left), std::move(top));
             }
 
-            position_type mapped_text_position()
+            position_type mapped_text_position(const top_type& scroll_bar_position)
             const
             {
                 auto left =
                     gui::position<position_type>::left(this->position()) +
                     this->map_box_().m_splitter_position +
                     left_type(1);
-                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2;
+                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2 - scroll_bar_position;
 
                 return position_type(std::move(left), std::move(top));
             }
@@ -580,6 +592,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         [](const std::unique_ptr<item>& p_item) { p_item->resized(); }
                     );
                     map_box_.set_value_item_positions();
+                    map_box_.update_scroll_bar();
                 }
             );
 
@@ -629,6 +642,16 @@ namespace tetengo2 { namespace gui { namespace widget
                     map_box_.m_p_splitter->mouse_moved(position);
                 }
             );
+
+            if (map_box_.has_vertical_scroll_bar())
+            {
+                map_box_.vertical_scroll_bar().scroll_bar_observer_set().scrolling().connect(
+                    [&map_box_](const scroll_bar_size_type new_position) { map_box_.scrolling(new_position); }
+                );
+                map_box_.vertical_scroll_bar().scroll_bar_observer_set().scrolled().connect(
+                    [&map_box_](const scroll_bar_size_type new_position) { map_box_.scrolling(new_position); }
+                );
+            }
         }
 
 
@@ -687,6 +710,43 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             m_p_mouse_captured_item = nullptr;
             m_p_mouse_capture.reset();
+        }
+
+        void update_scroll_bar()
+        {
+            const auto client_height = gui::dimension<dimension_type>::height(this->client_dimension());
+            const auto value_height =
+                m_p_value_items.empty() ?
+                height_type(0) :
+                height_type::from(gui::position<position_type>::top(m_p_value_items.back()->position())) +
+                    gui::dimension<dimension_type>::height(m_p_value_items.back()->dimension());
+
+            scroll_bar_type& scroll_bar = this->vertical_scroll_bar();
+            if (value_height <= client_height)
+            {
+                scroll_bar.set_enabled(false);
+                scroll_bar.scroll_bar_observer_set().scrolled()(0);
+            }
+            else
+            {
+                const scroll_bar_size_type upper_bound = gui::to_pixels<scroll_bar_size_type>(value_height);
+                const scroll_bar_size_type page_size = scroll_bar.page_size();
+                if (scroll_bar.tracking_position() + page_size > upper_bound)
+                {
+                    scroll_bar.scroll_bar_observer_set().scrolled()(
+                        upper_bound > page_size ? upper_bound - page_size : 0
+                    );
+                }
+                scroll_bar.set_range(std::make_pair(scroll_bar_size_type(0), upper_bound));
+                scroll_bar.set_page_size(gui::to_pixels<scroll_bar_size_type>(client_height));
+                scroll_bar.set_enabled(true);
+            }
+        }
+
+        void scrolling(const scroll_bar_size_type new_position)
+        {
+            this->vertical_scroll_bar().set_position(new_position);
+            this->repaint();
         }
 
 

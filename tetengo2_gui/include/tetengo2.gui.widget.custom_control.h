@@ -59,6 +59,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         typedef typename base_type::string_type string_type;
 
+        //! The scroll bar type.
+        typedef typename base_type::scroll_bar_type scroll_bar_type;
+
         //! The scroll bar style type.
         typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
