@@ -770,6 +770,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void wheeled(const delta_type& delta)
         {
+            if (!this->vertical_scroll_bar().enabled())
+                return;
+
             scrolling(calculate_new_position(delta));
         }
 
@@ -779,7 +782,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto& scroll_bar = this->vertical_scroll_bar();
 
             typedef typename delta_type::int_type delta_int_type;
-            auto int_delta = boost::rational_cast<delta_int_type>(delta * 3);
+            auto int_delta = boost::rational_cast<delta_int_type>(delta * gui::to_pixels<delta_int_type>(top_type(3)));
             if (int_delta == 0)
             {
                 if (delta > 0)
@@ -787,7 +790,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     --int_delta;
             }
-            const delta_int_type new_position = scroll_bar.position() + int_delta;
+            const delta_int_type new_position = scroll_bar.position() - int_delta;
 
             if (new_position < static_cast<delta_int_type>(scroll_bar.range().first))
                 return scroll_bar.range().first;
