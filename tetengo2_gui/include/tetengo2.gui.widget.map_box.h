@@ -15,6 +15,7 @@
 //#include <vector>
 
 //#include <boost/noncopyable.hpp>
+//#include <boost/rational.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"

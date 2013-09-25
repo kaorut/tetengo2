@@ -231,6 +231,7 @@
 ::WORD                                           Windows.h
 ::WPARAM                                         Windows.h
 ::WideCharToMultiByte                            Windows.h
+::WindowFromPoint                                Windows.h
 BOOST_AUTO_TEST_CASE                             boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE                            boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp

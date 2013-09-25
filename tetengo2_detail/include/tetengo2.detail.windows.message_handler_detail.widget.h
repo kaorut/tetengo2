@@ -231,7 +231,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::HWND pointing_window_handle = ::WindowFromPoint(point);
+            if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
+            {
+                ::PostMessageW(pointing_window_handle, WM_MOUSEWHEEL, w_param, l_param);
+                return boost::make_optional< ::LRESULT>(0);
+            }
 
             if (widget.mouse_observer_set().wheeled().empty())
                 return boost::none;
@@ -253,7 +259,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_h_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::HWND pointing_window_handle = ::WindowFromPoint(point);
+            if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
+            {
+                ::PostMessageW(pointing_window_handle, WM_MOUSEHWHEEL, w_param, l_param);
+                return boost::make_optional< ::LRESULT>(0);
+            }
 
             if (widget.mouse_observer_set().wheeled().empty())
                 return boost::none;
