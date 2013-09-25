@@ -114,6 +114,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
 
+        typedef typename mouse_observer_set_type::delta_type delta_type;
+
+        typedef typename mouse_observer_set_type::direction_type direction_type;
+
         typedef typename base_type::canvas_type canvas_type;
 
         typedef typename base_type::position_type position_type;
@@ -642,6 +646,20 @@ namespace tetengo2 { namespace gui { namespace widget
                     map_box_.m_p_splitter->mouse_moved(position);
                 }
             );
+            map_box_.mouse_observer_set().wheeled().connect(
+                [&map_box_](
+                    const delta_type&    delta,
+                    const direction_type direction,
+                    const bool           shift,
+                    const bool           control,
+                    const bool           meta
+                )
+                {
+                    if (direction != direction_type::vertical || shift || control || meta)
+                        return;
+                    map_box_.wheeled(delta);
+                }
+            );
 
             if (map_box_.has_vertical_scroll_bar())
             {
@@ -731,10 +749,10 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const scroll_bar_size_type upper_bound = gui::to_pixels<scroll_bar_size_type>(value_height);
                 const scroll_bar_size_type page_size = scroll_bar.page_size();
-                if (scroll_bar.tracking_position() + page_size > upper_bound)
+                if (scroll_bar.tracking_position() + page_size > upper_bound + 1)
                 {
                     scroll_bar.scroll_bar_observer_set().scrolled()(
-                        upper_bound > page_size ? upper_bound - page_size : 0
+                        upper_bound > page_size ? upper_bound - page_size + 1 : 0
                     );
                 }
                 scroll_bar.set_range(std::make_pair(scroll_bar_size_type(0), upper_bound));
@@ -747,6 +765,35 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             this->vertical_scroll_bar().set_position(new_position);
             this->repaint();
+        }
+
+        void wheeled(const delta_type& delta)
+        {
+            scrolling(calculate_new_position(delta));
+        }
+
+        scroll_bar_size_type calculate_new_position(const delta_type& delta)
+        const
+        {
+            const auto& scroll_bar = this->vertical_scroll_bar();
+
+            typedef typename delta_type::int_type delta_int_type;
+            auto int_delta = boost::rational_cast<delta_int_type>(delta * 3);
+            if (int_delta == 0)
+            {
+                if (delta > 0)
+                    ++int_delta;
+                else
+                    --int_delta;
+            }
+            const delta_int_type new_position = scroll_bar.position() + int_delta;
+
+            if (new_position < static_cast<delta_int_type>(scroll_bar.range().first))
+                return scroll_bar.range().first;
+            if (new_position > static_cast<delta_int_type>(scroll_bar.range().second - scroll_bar.page_size() + 1))
+                return scroll_bar.range().second - scroll_bar.page_size() + 1;
+
+            return new_position;
         }
 
 
