@@ -773,7 +773,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!this->vertical_scroll_bar().enabled())
                 return;
 
-            scrolling(calculate_new_position(delta));
+            this->vertical_scroll_bar().scroll_bar_observer_set().scrolled()(calculate_new_position(delta));
         }
 
         scroll_bar_size_type calculate_new_position(const delta_type& delta)
