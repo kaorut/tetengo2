@@ -743,13 +743,13 @@ namespace tetengo2 { namespace gui { namespace widget
             scroll_bar_type& scroll_bar = this->vertical_scroll_bar();
             if (value_height <= client_height)
             {
-                scroll_bar.set_enabled(false);
                 scroll_bar.scroll_bar_observer_set().scrolled()(0);
+                scroll_bar.set_enabled(false);
             }
             else
             {
                 const scroll_bar_size_type upper_bound = gui::to_pixels<scroll_bar_size_type>(value_height);
-                const scroll_bar_size_type page_size = scroll_bar.page_size();
+                const scroll_bar_size_type page_size = gui::to_pixels<scroll_bar_size_type>(client_height);
                 if (scroll_bar.tracking_position() + page_size > upper_bound + 1)
                 {
                     scroll_bar.scroll_bar_observer_set().scrolled()(
@@ -757,7 +757,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
                 }
                 scroll_bar.set_range(std::make_pair(scroll_bar_size_type(0), upper_bound));
-                scroll_bar.set_page_size(gui::to_pixels<scroll_bar_size_type>(client_height));
+                scroll_bar.set_page_size(page_size);
                 scroll_bar.set_enabled(true);
             }
         }
