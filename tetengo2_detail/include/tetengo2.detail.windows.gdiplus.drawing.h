@@ -15,6 +15,7 @@
 //#include <iterator>
 #include <limits>
 //#include <memory>
+//#include <stdexcept>
 //#include <system_error>
 //#include <type_traits>
 //#include <utility>
@@ -88,17 +89,51 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             template <typename HandleOrWidgetDetails>
             canvas_details(const HandleOrWidgetDetails& handle_or_widget_details)
             :
-            m_p_widget(create_canvas_impl(handle_or_widget_details)),
-            m_p_memory()
+            m_p_widget_graphics(create_canvas_impl(handle_or_widget_details)),
+            m_p_memory_image(),
+            m_p_memory_graphics()
             {}
 
             Gdiplus::Graphics& get()
             const
             {
-                if (m_p_memory)
-                    return *m_p_memory;
+                if (m_p_memory_graphics)
+                    return *m_p_memory_graphics;
                 else
-                    return *m_p_widget;
+                    return *m_p_widget_graphics;
+            }
+
+            void begin_transaction(const ::INT width, const ::INT height)
+            {
+                if (m_p_memory_graphics)
+                {
+                    BOOST_THROW_EXCEPTION(std::logic_error("Another transaction has already begun."));
+                }
+
+                m_p_memory_image = stdalt::make_unique<Gdiplus::Bitmap>(width, height, m_p_widget_graphics.get());
+                m_p_memory_graphics = stdalt::make_unique<Gdiplus::Graphics>(m_p_memory_image.get());
+            }
+
+            void end_transaction()
+            {
+                if (!m_p_memory_graphics)
+                {
+                    BOOST_THROW_EXCEPTION(std::logic_error("No transaction has begun yet."));
+                }
+
+                const auto status = m_p_widget_graphics->DrawImage(m_p_memory_image.get(), 0, 0);
+                if (status != Gdiplus::Ok)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(status, gdiplus_category()),
+                            "Can't paint the memory image to the widget surface."
+                        )
+                    );
+                }
+
+                m_p_memory_graphics.reset();
+                m_p_memory_image.reset();
             }
 
         private:
@@ -134,9 +169,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
             }
 
-            const std::unique_ptr<Gdiplus::Graphics> m_p_widget;
+            const std::unique_ptr<Gdiplus::Graphics> m_p_widget_graphics;
 
-            std::unique_ptr<Gdiplus::Graphics> m_p_memory;
+            std::unique_ptr<Gdiplus::Image> m_p_memory_image;
+
+            std::unique_ptr<Gdiplus::Graphics> m_p_memory_graphics;
 
         };
 
@@ -188,6 +225,41 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             return stdalt::make_unique<canvas_details_type>(handle_or_widget_details);
+        }
+
+        /*!
+            \brief Begins a transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param dimension A dimension.
+
+            \throw std::logic_error When another transaction has not ended yet.
+        */
+        template <typename Dimension>
+        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        {
+            canvas.begin_transaction(
+                gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
+                gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
+            );
+        }
+
+        /*!
+            \brief Ends the transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \param canvas A canvas.
+
+            \throw std::logic_error When no transaction has begun.
+        */
+        static void end_transaction(canvas_details_type& canvas)
+        {
+            canvas.end_transaction();
         }
 
         /*!

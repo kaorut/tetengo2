@@ -321,6 +321,7 @@ Gdiplus::GdiplusStartup                          GdiPlus.h,Windows.h
 Gdiplus::GdiplusStartupInput                     GdiPlus.h,Windows.h
 Gdiplus::GenericError                            GdiPlus.h,Windows.h
 Gdiplus::Graphics                                GdiPlus.h,Windows.h
+Gdiplus::Image                                   GdiPlus.h,Windows.h
 Gdiplus::InstalledFontCollection                 GdiPlus.h,Windows.h
 Gdiplus::InsufficientBuffer                      GdiPlus.h,Windows.h
 Gdiplus::InvalidParameter                        GdiPlus.h,Windows.h

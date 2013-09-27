@@ -244,6 +244,38 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
+            \brief Begins a transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param dimension A dimension.
+
+            \throw std::logic_error When another transaction has not ended yet.
+        */
+        template <typename Dimension>
+        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        {
+            suppress_unused_variable_warning(canvas, dimension);
+        }
+
+        /*!
+            \brief Ends the transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \param canvas A canvas.
+
+            \throw std::logic_error When no transaction has begun.
+        */
+        static void end_transaction(canvas_details_type& canvas)
+        {
+            suppress_unused_variable_warning(canvas);
+        }
+
+        /*!
             \brief Creates a solid background.
 
             \tparam Color A color type.

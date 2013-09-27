@@ -104,7 +104,25 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
         // functions
+        
+        /*!
+            \brief Begins a transaction.
 
+            \param dimension A dimension.
+        */
+        void begin_transaction(const dimension_type& dimension)
+        {
+            drawing_details_type::begin_transaction(*m_p_details, dimension);
+        }
+            
+        /*!
+            \brief Ends a transaction.
+        */
+        void end_transaction()
+        {
+            drawing_details_type::end_transaction(*m_p_details);
+        }
+            
         /*!
             \brief Returns the color.
 

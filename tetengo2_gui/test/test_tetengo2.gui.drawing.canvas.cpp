@@ -150,6 +150,26 @@ BOOST_AUTO_TEST_SUITE(canvas)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(begin_transaction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.end_transaction();
+    }
+
+    BOOST_AUTO_TEST_CASE(end_transaction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.end_transaction();
+    }
+
     BOOST_AUTO_TEST_CASE(color)
     {
         BOOST_TEST_PASSPOINT();

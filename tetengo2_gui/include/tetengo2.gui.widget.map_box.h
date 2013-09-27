@@ -613,13 +613,18 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
             );
             map_box_.paint_observer_set().paint().connect(
-                [&map_box_](canvas_type& canvas) {
+                [&map_box_](canvas_type& canvas)
+                {
+                    canvas.begin_transaction(map_box_.client_dimension());
+
                     map_box_.paint_background(canvas);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
                         [&canvas](const std::unique_ptr<item>& p_item) { p_item->paint(canvas); }
                     );
+
+                    canvas.end_transaction();
                 }
             );
 

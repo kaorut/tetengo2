@@ -11,6 +11,7 @@
 
 #include <cstddef>
 //#include <memory>
+#include <stdexcept>
 #include <system_error>
 //#include <utility>
 
@@ -103,6 +104,38 @@ namespace tetengo2 { namespace detail { namespace stub
             suppress_unused_variable_warning(handle_or_widget_details);
 
             return stdalt::make_unique<canvas_details_type>();
+        }
+        
+        /*!
+            \brief Begins a transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param dimension A dimension.
+
+            \throw std::logic_error When another transaction has not ended yet.
+        */
+        template <typename Dimension>
+        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        {
+            suppress_unused_variable_warning(canvas, dimension);
+        }
+
+        /*!
+            \brief Ends the transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \param canvas A canvas.
+
+            \throw std::logic_error When no transaction has begun.
+        */
+        static void end_transaction(canvas_details_type& canvas)
+        {
+            suppress_unused_variable_warning(canvas);
         }
 
         /*!
