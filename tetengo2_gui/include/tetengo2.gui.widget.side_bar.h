@@ -183,6 +183,14 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_minimized(const bool minimized)
         {
             m_minimized = minimized;
+
+            if (!m_minimized)
+            {
+                this->set_dimension(
+                    dimension_type(m_preferred_width, gui::dimension<dimension_type>::height(this->dimension()))
+                );
+            }
+
             this->size_observer_set().resized()();
             if (this->has_parent())
             {
