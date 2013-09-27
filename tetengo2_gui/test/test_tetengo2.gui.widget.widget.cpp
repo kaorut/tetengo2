@@ -705,6 +705,15 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(repaint_partially)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        widget.repaint_partially(make_position(12, 34), make_dimension(56, 78));
+    }
+
     BOOST_AUTO_TEST_CASE(create_canvas)
     {
         BOOST_TEST_PASSPOINT();

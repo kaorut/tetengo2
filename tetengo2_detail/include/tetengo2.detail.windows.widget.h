@@ -1454,6 +1454,37 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Repaints a widget partially.
+
+            \tparam Widget    A widget type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param widget    A widget.
+            \param position  The position of a region to repaint.
+            \param dimension The dimension of a region to repaint.
+
+            \throw std::system_error When the widget cannot be repainted.
+        */
+        template <typename Widget, typename Position, typename Dimension>
+        static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
+        {
+            const auto left = gui::to_pixels< ::LONG>(gui::position<Position>::left(position));
+            const auto top = gui::to_pixels< ::LONG>(gui::position<Position>::top(position));
+            const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension));
+            const auto height = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension));
+            const ::RECT rectangle = { left, top, left + width, top + height };
+            if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
+                    )
+                );
+            }
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Result   A result type.

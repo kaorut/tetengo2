@@ -824,6 +824,25 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Repaints a widget partially.
+
+            \tparam Widget    A widget type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param widget    A widget.
+            \param position  The position of a region to repaint.
+            \param dimension The dimension of a region to repaint.
+
+            \throw std::system_error When the widget cannot be repainted.
+        */
+        template <typename Widget, typename Position, typename Dimension>
+        static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
+        {
+            suppress_unused_variable_warning(widget, position, dimension);
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Result   A result type.
