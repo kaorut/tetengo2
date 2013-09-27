@@ -581,14 +581,14 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_p_current_background_color = &background_color_hovered();
-                this->side_bar_().repaint();
+                this->side_bar_().repaint_partially(this->position(), this->dimension());
             }
 
             virtual void mouse_left_impl()
             override
             {
                 m_p_current_background_color = &background_color();
-                this->side_bar_().repaint();
+                this->side_bar_().repaint_partially(this->position(), this->dimension());
             }
 
 
@@ -599,7 +599,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (m_animation_step < max_animation_step())
                 {
                     ++m_animation_step;
-                    this->side_bar_().repaint();
+                    this->side_bar_().repaint_partially(this->position(), this->dimension());
                     return;
                 }
                 if (
