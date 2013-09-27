@@ -82,6 +82,64 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         };
 
+        class canvas_details : private boost::noncopyable
+        {
+        public:
+            template <typename HandleOrWidgetDetails>
+            canvas_details(const HandleOrWidgetDetails& handle_or_widget_details)
+            :
+            m_p_widget(create_canvas_impl(handle_or_widget_details)),
+            m_p_memory()
+            {}
+
+            Gdiplus::Graphics& get()
+            const
+            {
+                if (m_p_memory)
+                    return *m_p_memory;
+                else
+                    return *m_p_widget;
+            }
+
+        private:
+            template <typename HandleOrWidgetDetails>
+            static std::unique_ptr<Gdiplus::Graphics> create_canvas_impl(
+                const HandleOrWidgetDetails& handle,
+                typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
+            )
+            {
+                auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(handle);
+
+                initialize_canvas(*p_canvas);
+
+                return std::move(p_canvas);
+            }
+
+            template <typename HandleOrWidgetDetails>
+            static std::unique_ptr<Gdiplus::Graphics> create_canvas_impl(
+                const HandleOrWidgetDetails& widget_details,
+                typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
+            )
+            {
+                auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(widget_details.handle.get());
+
+                initialize_canvas(*p_canvas);
+
+                return std::move(p_canvas);
+            }
+
+            static void initialize_canvas(Gdiplus::Graphics& canvas)
+            {
+                canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+                canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
+            }
+
+            const std::unique_ptr<Gdiplus::Graphics> m_p_widget;
+
+            std::unique_ptr<Gdiplus::Graphics> m_p_memory;
+
+        };
+
     }
 #endif
 
@@ -107,7 +165,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef picture::details_ptr_type picture_details_ptr_type;
 
         //! The canvas details type.
-        typedef Gdiplus::Graphics canvas_details_type;
+        typedef detail::canvas_details canvas_details_type;
 
         //! The canvas details pointer type.
         typedef std::unique_ptr<canvas_details_type> canvas_details_ptr_type;
@@ -129,7 +187,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const HandleOrWidgetDetails& handle_or_widget_details
         )
         {
-            return create_canvas_impl(handle_or_widget_details);
+            return stdalt::make_unique<canvas_details_type>(handle_or_widget_details);
         }
 
         /*!
@@ -258,7 +316,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension))
             };
-            if (::DrawFocusRect(canvas.GetHDC(), &rect) == 0)
+            if (::DrawFocusRect(canvas.get().GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -299,7 +357,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const auto status = canvas.FillRectangle(background_details.get(), rectangle);
+            const auto status = canvas.get().FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -339,7 +397,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels<Gdiplus::REAL>(width)
             );
             const auto points = to_gdiplus_points(position_first, position_last);
-            const auto status = canvas.DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
+            const auto status = canvas.get().DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -374,7 +432,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             const auto points = to_gdiplus_points(position_first, position_last);
             const auto status =
-                canvas.FillPolygon(background_details.get(), points.data(), static_cast< ::INT>(points.size()));
+                canvas.get().FillPolygon(background_details.get(), points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -447,7 +505,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             );
             Gdiplus::RectF bounding;
             const auto status =
-                canvas.MeasureString(
+                canvas.get().MeasureString(
                     encoded_text.c_str(),
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(),
@@ -521,7 +579,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             );
 
             Gdiplus::Matrix original_matrix;
-            const auto get_transform_status = canvas.GetTransform(&original_matrix);
+            const auto get_transform_status = canvas.get().GetTransform(&original_matrix);
             if (get_transform_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -532,7 +590,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
             Gdiplus::Matrix rotating_matrix;
             rotating_matrix.RotateAt(radian_to_degree(angle), gdiplus_point);
-            const auto set_transform_status = canvas.SetTransform(&rotating_matrix);
+            const auto set_transform_status = canvas.get().SetTransform(&rotating_matrix);
             if (set_transform_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -543,11 +601,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
             BOOST_SCOPE_EXIT((&canvas)(&original_matrix))
             {
-                canvas.SetTransform(&original_matrix);
+                canvas.get().SetTransform(&original_matrix);
             } BOOST_SCOPE_EXIT_END;
 
             const auto draw_string_status =
-                canvas.DrawString(
+                canvas.get().DrawString(
                     encoded_text.c_str(),
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(), 
@@ -624,7 +682,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             Gdiplus::Bitmap bitmap(width, height, stride, PixelFormat32bppRGB, buffer.data());
             const auto status =
-                canvas.DrawImage(
+                canvas.get().DrawImage(
                     &bitmap,
                     gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
                     gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
@@ -657,7 +715,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             typedef typename Icon::dimension_type dimension_type;
             const ::BOOL result =
                 ::DrawIconEx(
-                    canvas.GetHDC(),
+                    canvas.get().GetHDC(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
                     gui::to_pixels<int>(gui::position<Position>::top(position)),
                     icon.details().big_icon_handle.get(),
@@ -678,38 +736,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
     private:
         // static functions
-
-        template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas_impl(
-            const HandleOrWidgetDetails& handle,
-            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
-        )
-        {
-            auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(handle);
-
-            initialize_canvas(*p_canvas);
-
-            return std::move(p_canvas);
-        }
-
-        template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas_impl(
-            const HandleOrWidgetDetails& widget_details,
-            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr
-        )
-        {
-            auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(widget_details.handle.get());
-
-            initialize_canvas(*p_canvas);
-
-            return std::move(p_canvas);
-        }
-
-        static void initialize_canvas(canvas_details_type& canvas)
-        {
-            canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
-        }
 
         template <typename Iterator>
         static std::vector<Gdiplus::PointF> to_gdiplus_points(const Iterator first, const Iterator last)
