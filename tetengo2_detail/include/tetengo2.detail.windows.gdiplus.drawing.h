@@ -112,6 +112,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
                 m_p_memory_image = stdalt::make_unique<Gdiplus::Bitmap>(width, height, m_p_widget_graphics.get());
                 m_p_memory_graphics = stdalt::make_unique<Gdiplus::Graphics>(m_p_memory_image.get());
+                initialize_canvas(*m_p_memory_graphics);
             }
 
             void end_transaction()
