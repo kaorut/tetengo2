@@ -11,11 +11,14 @@
 
 #include <algorithm>
 //#include <memory>
+//#include <stdexcept>
 //#include <utility>
 //#include <vector>
 
 //#include <boost/noncopyable.hpp>
+//#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
+//#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
@@ -40,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The integer size type.
+        typedef typename traits_type::int_size_type int_size_type;
 
         //! The solid background type.
         typedef typename traits_type::solid_background_type solid_background_type;
@@ -106,6 +112,122 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual ~map_box()
         TETENGO2_STDALT_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the value count.
+
+            \return The value count.
+        */
+        int_size_type value_count()
+        const
+        {
+            // TODO Implement it.
+            return 0;
+        }
+
+        /*!
+            \brief Returns the value.
+
+            \param index An index.
+
+            \return The value.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        string_type value(const int_size_type index)
+        const
+        {
+            if (index >= value_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            // TODO Implement it.
+            return string_type();
+        }
+
+        /*!
+            \brief Sets an value.
+
+            \param index An index.
+            \param value An value.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void set_value(const int_size_type index, string_type value)
+        {
+            if (index >= value_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            // TODO Implement it.
+        }
+
+        /*!
+            \brief Inserts an value.
+
+            \param index An index.
+            \param value An value.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void insert_value(const int_size_type index, string_type value)
+        {
+            if (index > value_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            // TODO Implement it.
+        }
+
+        /*!
+            \brief Erases an value.
+
+            \param index An index.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void erase_value(const int_size_type index)
+        {
+            if (index >= value_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            // TODO Implement it.
+        }
+
+        /*!
+            \brief Clears the list box.
+        */
+        void clear()
+        {
+            // TODO Implement it.
+        }
+
+        /*!
+            \brief Returns the selected value index.
+
+            \return The selected value index. Or boost::none when no value is selected.
+        */
+        boost::optional<int_size_type> selected_value_index()
+        const
+        {
+            // TODO Implement it.
+            return boost::none;
+        }
+
+        /*!
+            \brief Selects an value.
+
+            \param index An index.
+
+            \throw std::out_of_range When index is out of the range.
+        */
+        void select_value(const int_size_type index)
+        {
+            if (index >= value_count())
+                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+
+            // TODO Implement it.
+        }
 
 
     private:

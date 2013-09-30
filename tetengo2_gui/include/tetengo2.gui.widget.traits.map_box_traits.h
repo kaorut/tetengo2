@@ -16,17 +16,27 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a map box.
 
         \tparam CustomControlTraits A traits type for a custom control.
+        \tparam IntSize             A integer size type.
         \tparam SolidBackground     A solid background type.
         \tparam SystemColorSet      A system color set type.
         \tparam MouseCapture        A mouse capture type.
    */
-    template <typename CustomControlTraits, typename SolidBackground, typename SystemColorSet, typename MouseCapture>
+    template <
+        typename CustomControlTraits,
+        typename IntSize,
+        typename SolidBackground,
+        typename SystemColorSet,
+        typename MouseCapture
+    >
     struct map_box_traits
     {
         //types
 
         //! The base type.
         typedef CustomControlTraits base_type;
+
+        //! The integer size type.
+        typedef IntSize int_size_type;
 
         //! The solid background type.
         typedef SolidBackground solid_background_type;

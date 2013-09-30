@@ -703,7 +703,11 @@ namespace bobura
             mouse_capture_type;
         typedef
             tetengo2::gui::widget::traits::map_box_traits<
-                custom_control_traits_type, solid_background_type, system_color_set_type, mouse_capture_type
+                custom_control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                solid_background_type,
+                system_color_set_type,
+                mouse_capture_type
             >
             map_box_traits_type;
         typedef

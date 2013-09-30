@@ -206,7 +206,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            return widget_details_type::select_dropdown_box_value(*this, index);
+            widget_details_type::select_dropdown_box_value(*this, index);
         }
 
         /*!

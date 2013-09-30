@@ -723,6 +723,7 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::gui::widget::traits::map_box_traits<
                 custom_control_traits_type,
+                boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
                 mouse_capture_type

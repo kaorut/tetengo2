@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <stdexcept>
+
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -40,6 +42,167 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         window_type parent;
         const map_box_type map_box(parent);
+    }
+
+    BOOST_AUTO_TEST_CASE(value_count)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+        //}
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+
+        //    BOOST_CHECK_EQUAL(list_box.value_count(), 1U);
+        //}
+    }
+
+    BOOST_AUTO_TEST_CASE(value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+
+        //    BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("hoge")));
+        //}
+        //{
+        //    window_type parent;
+        //    const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_THROW(list_box.value(0), std::out_of_range);
+        //}
+    }
+
+    BOOST_AUTO_TEST_CASE(set_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+
+        //    list_box.set_value(0, string_type(TETENGO2_TEXT("fuga")));
+
+        //    BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("fuga")));
+        //}
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_THROW(list_box.set_value(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+        //}
+    }
+
+    BOOST_AUTO_TEST_CASE(insert_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+        //    list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("piyo")));
+        //    list_box.insert_value(2, string_type(TETENGO2_TEXT("piyoyo")));
+
+        //    BOOST_CHECK_EQUAL(list_box.value_count(), 4U);
+        //    BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("piyo")));
+        //    BOOST_CHECK(list_box.value(1) == string_type(TETENGO2_TEXT("hoge")));
+        //    BOOST_CHECK(list_box.value(2) == string_type(TETENGO2_TEXT("piyoyo")));
+        //    BOOST_CHECK(list_box.value(3) == string_type(TETENGO2_TEXT("fuga")));
+        //}
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_THROW(list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+        //}
+    }
+
+    BOOST_AUTO_TEST_CASE(erase_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+
+        //    list_box.erase_value(0);
+
+        //    BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+        //}
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_THROW(list_box.erase_value(0), std::out_of_range);
+        //}
+    }
+
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //window_type parent;
+        //list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+        //list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
+
+        //list_box.clear();
+
+        //BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+    }
+
+    BOOST_AUTO_TEST_CASE(selected_value_index)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //window_type parent;
+        //const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //BOOST_CHECK(!list_box.selected_value_index());
+    }
+
+    BOOST_AUTO_TEST_CASE(select_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        //    list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+
+        //    list_box.select_value(0);
+
+        //    BOOST_CHECK(list_box.selected_value_index());
+        //    BOOST_CHECK_EQUAL(*list_box.selected_value_index(), 0U);
+        //}
+        //{
+        //    window_type parent;
+        //    list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+
+        //    BOOST_CHECK_THROW(list_box.select_value(0), std::out_of_range);
+        //}
     }
 
 
