@@ -97,8 +97,8 @@ namespace tetengo2 { namespace detail { namespace stub
             std::vector<void*> children;
             bool focusable;
             bool read_only;
-            std::vector<string_type> list_box_items;
-            boost::optional<std::size_t> selected_list_box_item_index;
+            std::vector<string_type> list_box_values;
+            boost::optional<std::size_t> selected_list_box_value_index;
 
             widget_details_type()
             :
@@ -113,8 +113,8 @@ namespace tetengo2 { namespace detail { namespace stub
             children(),
             focusable(),
             read_only(),
-            list_box_items(),
-            selected_list_box_item_index()
+            list_box_values(),
+            selected_list_box_value_index()
             {}
 
             widget_details_type(
@@ -129,8 +129,8 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::vector<void*>                          children,
                 const bool                                  focusable,
                 const bool                                  read_only,
-                std::vector<string_type>                    list_box_items,
-                boost::optional<std::size_t>                selected_list_box_item_index
+                std::vector<string_type>                    list_box_values,
+                boost::optional<std::size_t>                selected_list_box_value_index
             )
             :
             p_parent(p_parent),
@@ -144,8 +144,8 @@ namespace tetengo2 { namespace detail { namespace stub
             children(std::move(children)),
             focusable(focusable),
             read_only(read_only),
-            list_box_items(std::move(list_box_items)),
-            selected_list_box_item_index(std::move(selected_list_box_item_index))
+            list_box_values(std::move(list_box_values)),
+            selected_list_box_value_index(std::move(selected_list_box_value_index))
             {}
 #endif
 
@@ -1003,25 +1003,25 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Returns the dropdown box item count.
+            \brief Returns the dropdown box value count.
 
             \tparam Size        A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
 
-            \return The dropdown box item count.
+            \return The dropdown box value count.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
+        static Size dropdown_box_value_count(const DropdownBox& dropdown_box)
         {
-            return dropdown_box.details().list_box_items.size();
+            return dropdown_box.details().list_box_values.size();
         }
 
         /*!
-            \brief Returns the dropdown box item.
+            \brief Returns the dropdown box value.
 
             \tparam String      A string type.
             \tparam DropdownBox A dropdown box type.
@@ -1032,18 +1032,18 @@ namespace tetengo2 { namespace detail { namespace stub
             \param index        An index.
             \param encoder      An encoder.
 
-            \return The dropdown box item.
+            \return The dropdown box value.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename String, typename DropdownBox, typename Size, typename Encoder>
-        static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        static String dropdown_box_value(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
         {
-            return encoder.decode(dropdown_box.details().list_box_items[index]);
+            return encoder.decode(dropdown_box.details().list_box_values[index]);
         }
 
         /*!
-            \brief Sets a dropdown box item.
+            \brief Sets a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size        A size type.
@@ -1052,24 +1052,24 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param dropdown_box A dropdown box.
             \param index        An index.
-            \param item         An item.
+            \param value         An value.
             \param encoder      An encoder.
 
-            \throw std::system_error When the item cannot be set.
+            \throw std::system_error When the value cannot be set.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void set_dropdown_box_item(
+        static void set_dropdown_box_value(
             DropdownBox&   dropdown_box,
             const Size     index,
-            String         item,
+            String         value,
             const Encoder& encoder
         )
         {
-            dropdown_box.details().list_box_items[index] = encoder.encode(std::move(item));
+            dropdown_box.details().list_box_values[index] = encoder.encode(std::move(value));
         }
 
         /*!
-            \brief Inserts a dropdown box item.
+            \brief Inserts a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size        A size type.
@@ -1078,26 +1078,26 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param dropdown_box A dropdown box.
             \param index        An index.
-            \param item         An item.
+            \param value         An value.
             \param encoder      An encoder.
 
-            \throw std::system_error When the item cannot be inserted.
+            \throw std::system_error When the value cannot be inserted.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void insert_dropdown_box_item(
+        static void insert_dropdown_box_value(
             DropdownBox&   dropdown_box,
             const Size     index,
-            String         item,
+            String         value,
             const Encoder& encoder
         )
         {
-            dropdown_box.details().list_box_items.insert(
-                boost::next(dropdown_box.details().list_box_items.begin(), index), encoder.encode(std::move(item))
+            dropdown_box.details().list_box_values.insert(
+                boost::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
             );
         }
 
         /*!
-            \brief Erases a dropdown box item.
+            \brief Erases a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size    A size type.
@@ -1105,13 +1105,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \param dropdown_box A dropdown box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be erased.
+            \throw std::system_error When the value cannot be erased.
         */
         template <typename DropdownBox, typename Size>
-        static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        static void erase_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
-            dropdown_box.details().list_box_items.erase(
-                boost::next(dropdown_box.details().list_box_items.begin(), index)
+            dropdown_box.details().list_box_values.erase(
+                boost::next(dropdown_box.details().list_box_values.begin(), index)
             );
         }
 
@@ -1127,29 +1127,29 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename DropdownBox>
         static void clear_dropdown_box(DropdownBox& dropdown_box)
         {
-            dropdown_box.details().list_box_items.clear();
+            dropdown_box.details().list_box_values.clear();
         }
 
         /*!
-            \brief Returns the selected dropdown box item index.
+            \brief Returns the selected dropdown box value index.
 
             \tparam Size    A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
 
-            \return The selected dropdown box item index.
+            \return The selected dropdown box value index.
 
-            \throw std::system_error When the selected item index cannot be obtained.
+            \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
+        static boost::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
-            return dropdown_box.details().selected_list_box_item_index;
+            return dropdown_box.details().selected_list_box_value_index;
         }
 
         /*!
-            \brief Selects a dropdown box item.
+            \brief Selects a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size    A size type.
@@ -1157,34 +1157,34 @@ namespace tetengo2 { namespace detail { namespace stub
             \param dropdown_box A dropdown box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be selected.
+            \throw std::system_error When the value cannot be selected.
         */
         template <typename DropdownBox, typename Size>
-        static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        static void select_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
-            dropdown_box.details().selected_list_box_item_index = boost::make_optional<std::size_t>(index);
+            dropdown_box.details().selected_list_box_value_index = boost::make_optional<std::size_t>(index);
         }
 
         /*!
-            \brief Returns the list box item count.
+            \brief Returns the list box value count.
 
             \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
 
-            \return The list box item count.
+            \return The list box value count.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static Size list_box_item_count(const ListBox& list_box)
+        static Size list_box_value_count(const ListBox& list_box)
         {
-            return list_box.details().list_box_items.size();
+            return list_box.details().list_box_values.size();
         }
 
         /*!
-            \brief Returns the list box item.
+            \brief Returns the list box value.
 
             \tparam String  A string type.
             \tparam ListBox A list box type.
@@ -1195,18 +1195,18 @@ namespace tetengo2 { namespace detail { namespace stub
             \param index    An index.
             \param encoder  An encoder.
 
-            \return The list box item.
+            \return The list box value.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename String, typename ListBox, typename Size, typename Encoder>
-        static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
+        static String list_box_value(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
-            return encoder.decode(list_box.details().list_box_items[index]);
+            return encoder.decode(list_box.details().list_box_values[index]);
         }
 
         /*!
-            \brief Sets a list box item.
+            \brief Sets a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -1215,19 +1215,19 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param list_box A list box.
             \param index    An index.
-            \param item     An item.
+            \param value    An value.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be set.
+            \throw std::system_error When the value cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void set_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
+        static void set_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
-            list_box.details().list_box_items[index] = encoder.encode(std::move(item));
+            list_box.details().list_box_values[index] = encoder.encode(std::move(value));
         }
 
         /*!
-            \brief Inserts a list box item.
+            \brief Inserts a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -1236,21 +1236,21 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param list_box A list box.
             \param index    An index.
-            \param item     An item.
+            \param value    An value.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be inserted.
+            \throw std::system_error When the value cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
+        static void insert_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
-            list_box.details().list_box_items.insert(
-                boost::next(list_box.details().list_box_items.begin(), index), encoder.encode(std::move(item))
+            list_box.details().list_box_values.insert(
+                boost::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
             );
         }
 
         /*!
-            \brief Erases a list box item.
+            \brief Erases a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -1258,12 +1258,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be erased.
+            \throw std::system_error When the value cannot be erased.
         */
         template <typename ListBox, typename Size>
-        static void erase_list_box_item(ListBox& list_box, const Size index)
+        static void erase_list_box_value(ListBox& list_box, const Size index)
         {
-            list_box.details().list_box_items.erase(boost::next(list_box.details().list_box_items.begin(), index));
+            list_box.details().list_box_values.erase(boost::next(list_box.details().list_box_values.begin(), index));
         }
 
         /*!
@@ -1278,29 +1278,29 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox>
         static void clear_list_box(ListBox& list_box)
         {
-            list_box.details().list_box_items.clear();
+            list_box.details().list_box_values.clear();
         }
 
         /*!
-            \brief Returns the selected list box item index.
+            \brief Returns the selected list box value index.
 
             \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
 
-            \return The selected list box item index.
+            \return The selected list box value index.
 
-            \throw std::system_error When the selected item index cannot be obtained.
+            \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
+        static boost::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
-            return list_box.details().selected_list_box_item_index;
+            return list_box.details().selected_list_box_value_index;
         }
 
         /*!
-            \brief Selects a list box item.
+            \brief Selects a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -1308,12 +1308,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be selected.
+            \throw std::system_error When the value cannot be selected.
         */
         template <typename ListBox, typename Size>
-        static void select_list_box_item(ListBox& list_box, const Size index)
+        static void select_list_box_value(ListBox& list_box, const Size index)
         {
-            list_box.details().selected_list_box_item_index = boost::make_optional<std::size_t>(index);
+            list_box.details().selected_list_box_value_index = boost::make_optional<std::size_t>(index);
         }
 
 

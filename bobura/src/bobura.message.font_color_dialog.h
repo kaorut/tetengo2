@@ -74,7 +74,7 @@ namespace bobura { namespace message { namespace font_color_dialog
         void operator()()
         const
         {
-            m_current_category_index = m_list_box.selected_item_index();
+            m_current_category_index = m_list_box.selected_value_index();
             m_update();
         }
 

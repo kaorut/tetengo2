@@ -200,7 +200,7 @@ namespace bobura
 
             void do_modal_impl()
             {
-                m_p_category_list_box->select_item(0);
+                m_p_category_list_box->select_value(0);
                 m_current_category_index = boost::make_optional<int_size_type>(0);
                 update();
             }
@@ -325,7 +325,7 @@ namespace bobura
 
                 locate_controls();
 
-                insert_category_list_box_items();
+                insert_category_list_box_values();
             }
 
             std::unique_ptr<label_type> create_category_label()
@@ -523,42 +523,42 @@ namespace bobura
                 m_p_cancel_button->set_position(position_type(left_type(36), top_type(19)));
             }
 
-            void insert_category_list_box_items()
+            void insert_category_list_box_values()
             {
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Background"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Company and Line Names"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Note"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Time Lines"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Stations"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Stations"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Local Terminal Stations"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Principal Terminal Stations"))
                 );
-                m_p_category_list_box->insert_item(
-                    m_p_category_list_box->item_count(),
+                m_p_category_list_box->insert_value(
+                    m_p_category_list_box->value_count(),
                     m_message_catalog.get(TETENGO2_TEXT("Dialog:FontAndColor:Train Names"))
                 );
             }
