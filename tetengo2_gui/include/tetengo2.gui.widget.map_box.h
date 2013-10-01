@@ -137,14 +137,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        value_type value(const int_size_type index)
+        const value_type& value(const int_size_type index)
         const
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            // TODO Implement it.
-            return string_type();
+            return m_values[index];
         }
 
         /*!
