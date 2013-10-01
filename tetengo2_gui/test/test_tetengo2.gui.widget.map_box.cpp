@@ -176,15 +176,14 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-        //window_type parent;
-        //map_box_type map_box(parent);
-        //map_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-        //map_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
+        window_type parent;
+        map_box_type map_box(parent);
+        map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
+        map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
 
-        //map_box.clear();
+        map_box.clear();
 
-        //BOOST_CHECK_EQUAL(map_box.value_count(), 0U);
+        BOOST_CHECK_EQUAL(map_box.value_count(), 0U);
     }
 
     BOOST_AUTO_TEST_CASE(selected_value_index)

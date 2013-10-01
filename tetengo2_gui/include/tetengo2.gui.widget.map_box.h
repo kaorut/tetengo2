@@ -198,7 +198,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void clear()
         {
-            // TODO Implement it.
+            m_values.clear();
         }
 
         /*!
