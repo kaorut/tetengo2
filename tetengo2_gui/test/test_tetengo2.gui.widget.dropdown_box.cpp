@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
             dropdown_box.select_value(0);
 
-            BOOST_CHECK(dropdown_box.selected_value_index());
+            BOOST_REQUIRE(dropdown_box.selected_value_index());
             BOOST_CHECK_EQUAL(*dropdown_box.selected_value_index(), 0U);
         }
         {

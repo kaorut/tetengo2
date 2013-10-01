@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
             list_box.select_value(0);
 
-            BOOST_CHECK(list_box.selected_value_index());
+            BOOST_REQUIRE(list_box.selected_value_index());
             BOOST_CHECK_EQUAL(*list_box.selected_value_index(), 0U);
         }
         {

@@ -98,6 +98,7 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(parent, true, scroll_bar_style_type::vertical),
         m_values(),
+        m_selected_value_index(),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
         m_p_value_items(),
@@ -176,6 +177,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
             m_values.insert(boost::next(m_values.begin(), index), std::move(value));
+            if (m_selected_value_index && index <= *m_selected_value_index)
+                ++(*m_selected_value_index);
         }
 
         /*!
@@ -191,6 +194,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
             m_values.erase(boost::next(m_values.begin(), index));
+            if (m_selected_value_index)
+            {
+                if      (index == *m_selected_value_index)
+                    m_selected_value_index = boost::none;
+                else if (index < *m_selected_value_index)
+                    --(*m_selected_value_index);
+            }
         }
 
         /*!
@@ -199,6 +209,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void clear()
         {
             m_values.clear();
+            m_selected_value_index = boost::none;
         }
 
         /*!
@@ -209,8 +220,7 @@ namespace tetengo2 { namespace gui { namespace widget
         boost::optional<int_size_type> selected_value_index()
         const
         {
-            // TODO Implement it.
-            return boost::none;
+            return m_selected_value_index;
         }
 
         /*!
@@ -225,7 +235,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            // TODO Implement it.
+            m_selected_value_index = boost::make_optional(index);
         }
 
 
@@ -797,6 +807,8 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         std::vector<value_type> m_values;
+
+        boost::optional<int_size_type> m_selected_value_index;
 
         left_type m_splitter_position;
 
