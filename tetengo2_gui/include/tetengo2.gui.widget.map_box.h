@@ -698,12 +698,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_map_box(map_box& map_box_)
         {
-            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("AAAAA")), string_type(TETENGO2_TEXT("aaaaa")));
-            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("BBBBB")), string_type(TETENGO2_TEXT("bbbbb bbbbb")));
-            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("CCCCC")), string_type(TETENGO2_TEXT("ccccc ccccc ccccc")));
-            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("DDDDD DDDDD")), string_type(TETENGO2_TEXT("ddddd ddddd")));
-            map_box_.m_values.emplace_back(string_type(TETENGO2_TEXT("EEEEE EEEEE EEEEE")), string_type(TETENGO2_TEXT("eeeee")));
-
             map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
 
             for (typename std::vector<value_type>::size_type i = 0; i < map_box_.m_values.size(); ++i)
