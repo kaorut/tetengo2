@@ -126,28 +126,29 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-        //{
-        //    window_type parent;
-        //    map_box_type map_box(parent);
+        {
+            window_type parent;
+            map_box_type map_box(parent);
 
-        //    map_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-        //    map_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
-        //    map_box.insert_value(0, string_type(TETENGO2_TEXT("piyo")));
-        //    map_box.insert_value(2, string_type(TETENGO2_TEXT("piyoyo")));
+            map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
+            map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
+            map_box.insert_value(0, make_value(TETENGO2_TEXT("piyo"), TETENGO2_TEXT("baz")));
+            map_box.insert_value(2, make_value(TETENGO2_TEXT("piyoyo"), TETENGO2_TEXT("bazz")));
 
-        //    BOOST_CHECK_EQUAL(map_box.value_count(), 4U);
-        //    BOOST_CHECK(map_box.value(0) == string_type(TETENGO2_TEXT("piyo")));
-        //    BOOST_CHECK(map_box.value(1) == string_type(TETENGO2_TEXT("hoge")));
-        //    BOOST_CHECK(map_box.value(2) == string_type(TETENGO2_TEXT("piyoyo")));
-        //    BOOST_CHECK(map_box.value(3) == string_type(TETENGO2_TEXT("fuga")));
-        //}
-        //{
-        //    window_type parent;
-        //    map_box_type map_box(parent);
+            BOOST_CHECK_EQUAL(map_box.value_count(), 4U);
+            BOOST_CHECK(map_box.value(0) == make_value(TETENGO2_TEXT("piyo"), TETENGO2_TEXT("baz")));
+            BOOST_CHECK(map_box.value(1) == make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
+            BOOST_CHECK(map_box.value(2) == make_value(TETENGO2_TEXT("piyoyo"), TETENGO2_TEXT("bazz")));
+            BOOST_CHECK(map_box.value(3) == make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
+        }
+        {
+            window_type parent;
+            map_box_type map_box(parent);
 
-        //    BOOST_CHECK_THROW(map_box.insert_value(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
-        //}
+            BOOST_CHECK_THROW(
+                map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar"))), std::out_of_range
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(erase_value)
