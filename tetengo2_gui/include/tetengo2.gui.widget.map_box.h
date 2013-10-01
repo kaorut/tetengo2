@@ -19,6 +19,7 @@
 //#include <boost/optional.hpp>
 //#include <boost/rational.hpp>
 //#include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
@@ -124,8 +125,7 @@ namespace tetengo2 { namespace gui { namespace widget
         int_size_type value_count()
         const
         {
-            // TODO Implement it.
-            return 0;
+            return m_values.size();
         }
 
         /*!
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type value(const int_size_type index)
+        value_type value(const int_size_type index)
         const
         {
             if (index >= value_count())
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_value(const int_size_type index, string_type value)
+        void set_value(const int_size_type index, value_type value)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
@@ -171,12 +171,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_value(const int_size_type index, string_type value)
+        void insert_value(const int_size_type index, value_type value)
         {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            // TODO Implement it.
+            m_values.insert(boost::next(m_values.begin(), index), std::move(value));
         }
 
         /*!
