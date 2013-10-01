@@ -103,22 +103,23 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-        //{
-        //    window_type parent;
-        //    map_box_type map_box(parent);
-        //    map_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+        {
+            window_type parent;
+            map_box_type map_box(parent);
+            map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
-        //    map_box.set_value(0, string_type(TETENGO2_TEXT("fuga")));
+            map_box.set_value(0, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("baz")));
 
-        //    BOOST_CHECK(map_box.value(0) == string_type(TETENGO2_TEXT("fuga")));
-        //}
-        //{
-        //    window_type parent;
-        //    map_box_type map_box(parent);
+            BOOST_CHECK(map_box.value(0) == make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("baz")));
+        }
+        {
+            window_type parent;
+            map_box_type map_box(parent);
 
-        //    BOOST_CHECK_THROW(map_box.set_value(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
-        //}
+            BOOST_CHECK_THROW(
+                map_box.set_value(0, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("baz"))), std::out_of_range
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(insert_value)

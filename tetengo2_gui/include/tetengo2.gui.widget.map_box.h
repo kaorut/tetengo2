@@ -159,7 +159,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            // TODO Implement it.
+            m_values[index] = std::move(value);
         }
 
         /*!
