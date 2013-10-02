@@ -621,6 +621,21 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         private:
+            // static functions
+
+            static const height_type& key_line_height()
+            {
+                static const height_type singleton(1);
+                return singleton;
+            }
+
+            static const height_type& mapped_line_height()
+            {
+                static const height_type singleton = height_type(1) / 2;
+                return singleton;
+            }
+
+
             // variables
 
             value_type m_value;
@@ -653,68 +668,112 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
+                const auto position_to_paint_ = position_to_paint();
+                if (outside_client_area(position_to_paint_))
+                    return;
+
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
                 );
 
-                const auto scroll_bar_position =
-                    this->map_box_().has_vertical_scroll_bar() ?
-                    top_type::from_pixels(this->map_box_().vertical_scroll_bar().tracking_position()) : top_type(0);
+                canvas.fill_rectangle(key_line_position(position_to_paint_), key_line_dimension());
+                canvas.draw_text(m_value.first, key_text_position(position_to_paint_), key_text_max_width());
 
-                {
-                    const position_type position(
-                        gui::position<position_type>::left(this->position()),
-                        gui::position<position_type>::top(this->position()) +
-                            top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                            top_type(1) -
-                            scroll_bar_position
-                    );
-                    const dimension_type dimension(
-                        width_type::from(this->map_box_().m_splitter_position), height_type(1)
-                    );
-                    canvas.fill_rectangle(position, dimension);
-
-                    canvas.draw_text(m_value.first, key_text_position(scroll_bar_position), key_text_max_width());
-                }
-                {
-                    const position_type position(
-                        this->map_box_().m_splitter_position,
-                        gui::position<position_type>::top(this->position()) +
-                            top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                            top_type(1) / 2 -
-                            scroll_bar_position
-                    );
-                    const dimension_type dimension(
-                        gui::dimension<dimension_type>::width(this->dimension()), height_type(1) / 2
-                    );
-                    canvas.fill_rectangle(position, dimension);
-
-                    canvas.draw_text(
-                        m_value.second, mapped_text_position(scroll_bar_position), mapped_text_max_width()
-                    );
-                }
+                canvas.fill_rectangle(mapped_line_position(position_to_paint_), mapped_line_dimension());
+                canvas.draw_text(
+                    m_value.second, mapped_text_position(position_to_paint_), mapped_text_max_width()
+                );
             }
 
 
             // functions
 
-            position_type key_text_position(const top_type& scroll_bar_position)
+            position_type position_to_paint()
             const
             {
-                auto left = gui::position<position_type>::left(this->position()) + left_type(1);
-                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2 - scroll_bar_position;
+                const auto scroll_bar_position =
+                    this->map_box_().has_vertical_scroll_bar() ?
+                    top_type::from_pixels(this->map_box_().vertical_scroll_bar().tracking_position()) : top_type(0);
+
+                auto left = gui::position<position_type>::left(this->position());
+                auto top = gui::position<position_type>::top(this->position()) - scroll_bar_position;
 
                 return position_type(std::move(left), std::move(top));
             }
 
-            position_type mapped_text_position(const top_type& scroll_bar_position)
+            bool outside_client_area(const position_type& position_to_paint_)
+            const
+            {
+                const auto top = gui::position<position_type>::top(position_to_paint_);
+                if (top > top_type::from(gui::dimension<dimension_type>::height(this->map_box_().client_dimension())))
+                    return true;
+
+                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(this->dimension()));
+                if (bottom < top_type(0))
+                    return true;
+
+                return false;
+            }
+
+            position_type key_line_position(const position_type& position_to_paint_)
+            const
+            {
+                auto left = gui::position<position_type>::left(position_to_paint_);
+                auto top = 
+                    gui::position<position_type>::top(position_to_paint_) +
+                    top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
+                    top_type::from(key_line_height());
+
+                return position_type(std::move(left), std::move(top));
+            }
+
+            position_type mapped_line_position(const position_type& position_to_paint_)
+            const
+            {
+                auto left = this->map_box_().m_splitter_position;
+                auto top = 
+                    gui::position<position_type>::top(position_to_paint_) +
+                    top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
+                    top_type::from(mapped_line_height());
+
+                return position_type(std::move(left), std::move(top));
+            }
+
+            dimension_type key_line_dimension()
+            const
+            {
+                auto width = width_type::from(this->map_box_().m_splitter_position);
+
+                return dimension_type(std::move(width), key_line_height());
+            }
+
+            dimension_type mapped_line_dimension()
+            const
+            {
+                auto width =
+                    gui::dimension<dimension_type>::width(this->dimension()) -
+                    width_type::from(this->map_box_().m_splitter_position);
+
+                return dimension_type(std::move(width), mapped_line_height());
+            }
+
+            position_type key_text_position(const position_type& position_to_paint_)
+            const
+            {
+                auto left = gui::position<position_type>::left(position_to_paint_) + left_type(1);
+                auto top = gui::position<position_type>::top(position_to_paint_) + top_type(1) / 2;
+
+                return position_type(std::move(left), std::move(top));
+            }
+
+            position_type mapped_text_position(const position_type& position_to_paint_)
             const
             {
                 auto left =
-                    gui::position<position_type>::left(this->position()) +
+                    gui::position<position_type>::left(position_to_paint_) +
                     this->map_box_().m_splitter_position +
                     left_type(1);
-                auto top = gui::position<position_type>::top(this->position()) + top_type(1) / 2 - scroll_bar_position;
+                auto top = gui::position<position_type>::top(position_to_paint_) + top_type(1) / 2;
 
                 return position_type(std::move(left), std::move(top));
             }
