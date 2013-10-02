@@ -24,7 +24,6 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -100,11 +99,10 @@ namespace tetengo2 { namespace gui { namespace widget
         map_box(widget_type& parent)
         :
         base_type(parent, true, scroll_bar_style_type::vertical),
-        m_values(),
-        m_selected_value_index(),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
         m_p_value_items(),
+        m_selected_value_index(),
         m_p_mouse_capture(),
         m_p_mouse_captured_item(nullptr),
         m_list_selection_observer_set()
@@ -130,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace widget
         int_size_type value_count()
         const
         {
-            return m_values.size();
+            return m_p_value_items.size();
         }
 
         /*!
@@ -148,7 +146,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            return m_values[index];
+            return m_p_value_items[index]->value();
         }
 
         /*!
@@ -164,7 +162,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            m_values[index] = std::move(value);
+            m_p_value_items[index]->value() = std::move(value);
         }
 
         /*!
@@ -180,7 +178,9 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index > value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            m_values.insert(boost::next(m_values.begin(), index), std::move(value));
+            m_p_value_items.insert(
+                boost::next(m_p_value_items.begin(), index), stdalt::make_unique<value_item>(*this, std::move(value))
+            );
             if (m_selected_value_index && index <= *m_selected_value_index)
             {
                 ++(*m_selected_value_index);
@@ -200,7 +200,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            m_values.erase(boost::next(m_values.begin(), index));
+            m_p_value_items.erase(boost::next(m_p_value_items.begin(), index));
             if (m_selected_value_index)
             {
                 if      (index == *m_selected_value_index)
@@ -216,7 +216,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void clear()
         {
-            m_values.clear();
+            m_p_value_items.clear();
             if (m_selected_value_index)
             {
                 m_selected_value_index = boost::none;
@@ -599,17 +599,31 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            explicit value_item(map_box& map_box_, const value_type& value)
+            explicit value_item(map_box& map_box_, value_type value)
             :
             item(map_box_),
-            m_value(value)
+            m_value(std::move(value))
             {}
+
+
+            // functions
+
+            const value_type& value()
+            const
+            {
+                return m_value;
+            }
+
+            value_type& value()
+            {
+                return m_value;
+            }
 
 
         private:
             // variables
 
-            const value_type& m_value;
+            value_type m_value;
 
 
             // virtual functions
@@ -743,9 +757,6 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
 
-            for (typename std::vector<value_type>::size_type i = 0; i < map_box_.m_values.size(); ++i)
-                map_box_.m_p_value_items.push_back(stdalt::make_unique<value_item>(map_box_, map_box_.m_values[i]));
-
             map_box_.size_observer_set().resized().connect(
                 [&map_box_]()
                 {
@@ -753,7 +764,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [](const std::unique_ptr<item>& p_item) { p_item->resized(); }
+                        [](const std::unique_ptr<value_item>& p_item) { p_item->resized(); }
                     );
                     map_box_.set_value_item_positions();
                     map_box_.update_scroll_bar();
@@ -780,7 +791,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&canvas](const std::unique_ptr<item>& p_item) { p_item->paint(canvas); }
+                        [&canvas](const std::unique_ptr<value_item>& p_item) { p_item->paint(canvas); }
                     );
 
                     canvas.end_transaction();
@@ -840,15 +851,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        std::vector<value_type> m_values;
-
-        boost::optional<int_size_type> m_selected_value_index;
-
         left_type m_splitter_position;
 
         std::unique_ptr<item> m_p_splitter;
 
-        std::vector<std::unique_ptr<item>> m_p_value_items;
+        std::vector<std::unique_ptr<value_item>> m_p_value_items;
+
+        boost::optional<int_size_type> m_selected_value_index;
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
