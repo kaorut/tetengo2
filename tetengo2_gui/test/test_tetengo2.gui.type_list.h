@@ -720,7 +720,8 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                mouse_capture_type
+                mouse_capture_type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >
             map_box_traits_type;
         typedef

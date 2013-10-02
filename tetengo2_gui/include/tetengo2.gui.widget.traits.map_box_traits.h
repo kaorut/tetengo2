@@ -15,18 +15,20 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a map box.
 
-        \tparam CustomControlTraits A traits type for a custom control.
-        \tparam IntSize             A integer size type.
-        \tparam SolidBackground     A solid background type.
-        \tparam SystemColorSet      A system color set type.
-        \tparam MouseCapture        A mouse capture type.
+        \tparam CustomControlTraits      A traits type for a custom control.
+        \tparam IntSize                  A integer size type.
+        \tparam SolidBackground          A solid background type.
+        \tparam SystemColorSet           A system color set type.
+        \tparam MouseCapture             A mouse capture type.
+        \tparam ListSelectionObserverSet A list selection observer set type.
    */
     template <
         typename CustomControlTraits,
         typename IntSize,
         typename SolidBackground,
         typename SystemColorSet,
-        typename MouseCapture
+        typename MouseCapture,
+        typename ListSelectionObserverSet
     >
     struct map_box_traits
     {
@@ -49,6 +51,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The system cursor type.
         typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;
+
+        //! The list selection observer set type.
+        typedef ListSelectionObserverSet list_selection_observer_set_type;
 
 
     };

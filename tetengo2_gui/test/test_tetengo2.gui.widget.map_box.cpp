@@ -233,6 +233,24 @@ BOOST_AUTO_TEST_SUITE(map_box)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(list_selection_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            const map_box_type map_box(parent);
+
+            map_box.list_selection_observer_set();
+        }
+        {
+            window_type parent;
+            map_box_type map_box(parent);
+
+            map_box.list_selection_observer_set();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

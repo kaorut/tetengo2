@@ -706,7 +706,8 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type,
                 solid_background_type,
                 system_color_set_type,
-                mouse_capture_type
+                mouse_capture_type,
+                tetengo2::gui::message::list_selection_observer_set
             >
             map_box_traits_type;
         typedef

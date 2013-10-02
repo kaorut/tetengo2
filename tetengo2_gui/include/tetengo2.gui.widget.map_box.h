@@ -63,6 +63,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename system_cursor_type::base_type cursor_type;
 
+        //! The list selection observer set type.
+        typedef typename traits_type::list_selection_observer_set_type list_selection_observer_set_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -103,7 +106,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_splitter(),
         m_p_value_items(),
         m_p_mouse_capture(),
-        m_p_mouse_captured_item(nullptr)
+        m_p_mouse_captured_item(nullptr),
+        m_list_selection_observer_set()
         {
             initialize_map_box(*this);
         }
@@ -178,7 +182,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_values.insert(boost::next(m_values.begin(), index), std::move(value));
             if (m_selected_value_index && index <= *m_selected_value_index)
+            {
                 ++(*m_selected_value_index);
+                m_list_selection_observer_set.selection_changed()();
+            }
         }
 
         /*!
@@ -200,6 +207,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_selected_value_index = boost::none;
                 else if (index < *m_selected_value_index)
                     --(*m_selected_value_index);
+                m_list_selection_observer_set.selection_changed()();
             }
         }
 
@@ -209,7 +217,11 @@ namespace tetengo2 { namespace gui { namespace widget
         void clear()
         {
             m_values.clear();
-            m_selected_value_index = boost::none;
+            if (m_selected_value_index)
+            {
+                m_selected_value_index = boost::none;
+                m_list_selection_observer_set.selection_changed()();
+            }
         }
 
         /*!
@@ -236,6 +248,28 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
             m_selected_value_index = boost::make_optional(index);
+            m_list_selection_observer_set.selection_changed()();
+        }
+
+        /*!
+            \brief Returns the list selection observer set.
+
+            \return The list selection observer set.
+        */
+        const list_selection_observer_set_type& list_selection_observer_set()
+        const
+        {
+            return m_list_selection_observer_set;
+        }
+
+        /*!
+            \brief Returns the list selection observer set.
+
+            \return The list selection observer set.
+        */
+        list_selection_observer_set_type& list_selection_observer_set()
+        {
+            return m_list_selection_observer_set;
         }
 
 
@@ -819,6 +853,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
         const item* m_p_mouse_captured_item;
+
+        list_selection_observer_set_type m_list_selection_observer_set;
 
 
         // functions
