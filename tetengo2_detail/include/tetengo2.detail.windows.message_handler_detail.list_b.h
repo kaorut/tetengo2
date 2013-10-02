@@ -41,7 +41,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             {
             case LBN_SELCANCEL:
             case LBN_SELCHANGE:
-                list_box.list_box_observer_set().selection_changed()();
+                list_box.list_selection_observer_set().selection_changed()();
                 break;
             default:
                 break;

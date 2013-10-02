@@ -346,7 +346,7 @@ namespace bobura
                         m_base, list_box_type::scroll_bar_style_type::vertical
                     );
 
-                p_list_box->list_box_observer_set().selection_changed().connect(
+                p_list_box->list_selection_observer_set().selection_changed().connect(
                     typename boost::mpl::at<
                         font_color_dialog_message_type_list_type,
                         message::font_color_dialog::type::category_list_box_selection_changed

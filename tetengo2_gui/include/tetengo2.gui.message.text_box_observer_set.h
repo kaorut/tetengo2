@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class for a list box observer set.
+        \brief The class for a text box observer set.
     */
     class text_box_observer_set : private boost::noncopyable
     {

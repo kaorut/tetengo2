@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(list_box_observer_set)
+    BOOST_AUTO_TEST_CASE(list_selection_observer_set)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -215,13 +215,13 @@ BOOST_AUTO_TEST_SUITE(list_box)
             window_type parent;
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
-            list_box.list_box_observer_set();
+            list_box.list_selection_observer_set();
         }
         {
             window_type parent;
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
-            list_box.list_box_observer_set();
+            list_box.list_selection_observer_set();
         }
     }
 

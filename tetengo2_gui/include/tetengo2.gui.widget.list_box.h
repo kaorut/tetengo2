@@ -41,8 +41,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The integer size type.
         typedef typename traits_type::int_size_type int_size_type;
 
-        //! The list box observer set type.
-        typedef typename traits_type::list_box_observer_set_type list_box_observer_set_type;
+        //! The list selection observer set type.
+        typedef typename traits_type::list_selection_observer_set_type list_selection_observer_set_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_list_box_observer_set()
+        m_list_selection_observer_set()
         {
             this->initialize(this);
         }
@@ -214,24 +214,24 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Returns the list box observer set.
+            \brief Returns the list selection observer set.
 
-            \return The list box observer set.
+            \return The list selection observer set.
         */
-        const list_box_observer_set_type& list_box_observer_set()
+        const list_selection_observer_set_type& list_selection_observer_set()
         const
         {
-            return m_list_box_observer_set;
+            return m_list_selection_observer_set;
         }
 
         /*!
-            \brief Returns the list box observer set.
+            \brief Returns the list selection observer set.
 
-            \return The list box observer set.
+            \return The list selection observer set.
         */
-        list_box_observer_set_type& list_box_observer_set()
+        list_selection_observer_set_type& list_selection_observer_set()
         {
-            return m_list_box_observer_set;
+            return m_list_selection_observer_set;
         }
 
 
@@ -243,7 +243,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        list_box_observer_set_type m_list_box_observer_set;
+        list_selection_observer_set_type m_list_selection_observer_set;
 
 
     };

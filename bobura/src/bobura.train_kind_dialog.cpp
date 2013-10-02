@@ -332,7 +332,7 @@ namespace bobura
             auto p_list_box =
                 tetengo2::stdalt::make_unique<list_box_type>(m_base, list_box_type::scroll_bar_style_type::vertical);
 
-            p_list_box->list_box_observer_set().selection_changed().connect(
+            p_list_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::train_kind_list_box_selection_changed
@@ -491,7 +491,7 @@ namespace bobura
             );
             p_dropdown_box->select_value(0);
 
-            p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+            p_dropdown_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::weight_dropdown_box_selection_changed
@@ -530,7 +530,7 @@ namespace bobura
             );
             p_dropdown_box->select_value(0);
 
-            p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+            p_dropdown_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::line_style_dropdown_box_selection_changed

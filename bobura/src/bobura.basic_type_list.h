@@ -50,11 +50,10 @@
 #include <tetengo2.gui.menu.shortcut_key_table.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
-#include <tetengo2.gui.message.dropdown_box_observer_set.h>
 #include <tetengo2.gui.message.file_drop_observer_set.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
-#include <tetengo2.gui.message.list_box_observer_set.h>
+#include <tetengo2.gui.message.list_selection_observer_set.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
 #include <tetengo2.gui.message.message_loop.h>
 #include <tetengo2.gui.message.message_loop_break.h>
@@ -640,7 +639,7 @@ namespace bobura
             tetengo2::gui::widget::traits::dropdown_box_traits<
                 control_traits_type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::dropdown_box_observer_set
+                tetengo2::gui::message::list_selection_observer_set
             >
             dropdown_box_traits_type;
         typedef
@@ -686,7 +685,7 @@ namespace bobura
             tetengo2::gui::widget::traits::list_box_traits<
                 control_traits_type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::list_box_observer_set
+                tetengo2::gui::message::list_selection_observer_set
             >
             list_box_traits_type;
         typedef

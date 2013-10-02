@@ -40,11 +40,10 @@ sources = \
     test_tetengo2.gui.menu.shortcut_key.cpp \
     test_tetengo2.gui.menu.shortcut_key_table.cpp \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
-    test_tetengo2.gui.message.dropdown_box_observer_set.cpp \
     test_tetengo2.gui.message.file_drop_observer_set.cpp \
     test_tetengo2.gui.message.focus_observer_set.cpp \
     test_tetengo2.gui.message.keyboard_observer_set.cpp \
-    test_tetengo2.gui.message.list_box_observer_set.cpp \
+    test_tetengo2.gui.message.list_selection_observer_set.cpp \
     test_tetengo2.gui.message.menu_observer_set.cpp \
     test_tetengo2.gui.message.message_loop.cpp \
     test_tetengo2.gui.message.message_loop_break.cpp \

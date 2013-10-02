@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(dropdown_box_observer_set)
+    BOOST_AUTO_TEST_CASE(list_selection_observer_set)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -209,13 +209,13 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
             window_type parent;
             const dropdown_box_type dropdown_box(parent);
 
-            dropdown_box.dropdown_box_observer_set();
+            dropdown_box.list_selection_observer_set();
         }
         {
             window_type parent;
             dropdown_box_type dropdown_box(parent);
 
-            dropdown_box.dropdown_box_observer_set();
+            dropdown_box.list_selection_observer_set();
         }
     }
 
