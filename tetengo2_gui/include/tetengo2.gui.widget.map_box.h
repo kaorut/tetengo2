@@ -347,14 +347,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!inside(cursor_position))
                     return;
 
-                this->map_box_().set_mouse_capture(this);
+                if (!this->map_box_().set_mouse_capture(this))
+                    return;
 
                 mouse_pressed_impl(cursor_position);
             }
 
             void mouse_released(const position_type& cursor_position)
             {
-                if (!this->map_box_().mouse_captured(this) && !inside(cursor_position))
+                if (!this->map_box_().mouse_captured(this))
                     return;
 
                 this->map_box_().release_mouse_capture();
@@ -384,20 +385,6 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
             }
 
-            bool inside(const position_type& position)
-            const
-            {
-                const auto& left = gui::position<position_type>::left(m_position);
-                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-                const auto& top = gui::position<position_type>::top(m_position);
-                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
-
-                const auto& cursor_left = gui::position<position_type>::left(position);
-                const auto& cursor_top = gui::position<position_type>::top(position);
-
-                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
-            }
-
 
         protected:
             // constructors
@@ -422,6 +409,20 @@ namespace tetengo2 { namespace gui { namespace widget
             map_box& map_box_()
             {
                 return m_map_box;
+            }
+
+            bool inside(const position_type& position)
+            const
+            {
+                const auto& left = gui::position<position_type>::left(m_position);
+                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
+                const auto& top = gui::position<position_type>::top(m_position);
+                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
+
+                const auto& cursor_left = gui::position<position_type>::left(position);
+                const auto& cursor_top = gui::position<position_type>::top(position);
+
+                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
             }
 
 
@@ -657,9 +658,18 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (outside_client_area(position_to_paint_))
                     return;
 
-                canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-                );
+                if (this->map_box_().selected_value_index() == index())
+                {
+                    canvas.set_background(
+                        stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
+                    );
+                }
+                else
+                {
+                    canvas.set_background(
+                        stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                    );
+                }
 
                 canvas.fill_rectangle(key_line_position(position_to_paint_), key_line_dimension());
                 canvas.draw_text(m_value.first, key_text_position(position_to_paint_), key_text_max_width());
@@ -670,10 +680,14 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
             }
 
-            virtual void mouse_released_impl(const position_type&)
+            virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
+                if (!this->inside(cursor_position))
+                    return;
 
+                this->map_box_().select_value(index());
+                this->map_box_().repaint();
             }
 
 
@@ -795,6 +809,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     return width_type(2);
                 }
+            }
+
+            int_size_type index()
+            const
+            {
+                const auto my_position =
+                    std::find_if(
+                        this->map_box_().m_p_value_items.begin(),
+                        this->map_box_().m_p_value_items.end(),
+                        [this](const std::unique_ptr<value_item>& p_item) { return p_item.get() == this; }
+                    );
+                assert(my_position != this->map_box_().m_p_value_items.end());
+                return std::distance(this->map_box_().m_p_value_items.begin(), my_position);
             }
 
 
@@ -961,10 +988,15 @@ namespace tetengo2 { namespace gui { namespace widget
             return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_item;
         }
 
-        void set_mouse_capture(const item* const p_item)
+        bool set_mouse_capture(const item* const p_item)
         {
+            if (m_p_mouse_capture)
+                return false;
+
             m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
             m_p_mouse_captured_item = p_item;
+
+            return true;
         }
 
         void release_mouse_capture()
