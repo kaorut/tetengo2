@@ -10,6 +10,8 @@
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
 #include <algorithm>
+//#include <cassert>
+//#include <iterator>
 //#include <memory>
 //#include <stdexcept>
 //#include <utility>
