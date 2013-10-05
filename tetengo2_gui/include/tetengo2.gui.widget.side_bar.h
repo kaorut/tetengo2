@@ -308,13 +308,18 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!inside(cursor_position))
                     return;
 
+                if (!this->side_bar_().set_mouse_capture(this))
+                    return;
+
                 mouse_pressed_impl(cursor_position);
             }
 
             void mouse_released(const position_type& cursor_position)
             {
-                if (!this->side_bar_().mouse_captured(this) && !inside(cursor_position))
+                if (!this->side_bar_().mouse_captured(this))
                     return;
+
+                this->side_bar_().release_mouse_capture();
 
                 mouse_released_impl(cursor_position);
             }
@@ -367,6 +372,20 @@ namespace tetengo2 { namespace gui { namespace widget
                 return m_side_bar;
             }
 
+            bool inside(const position_type& position)
+            const
+            {
+                const auto& left = gui::position<position_type>::left(m_position);
+                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
+                const auto& top = gui::position<position_type>::top(m_position);
+                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
+
+                const auto& cursor_left = gui::position<position_type>::left(position);
+                const auto& cursor_top = gui::position<position_type>::top(position);
+
+                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
+            }
+
 
         private:
             // variables
@@ -408,23 +427,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             virtual void mouse_left_impl()
             {}
-
-
-            // functions
-
-            bool inside(const position_type& position)
-            const
-            {
-                const auto& left = gui::position<position_type>::left(m_position);
-                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-                const auto& top = gui::position<position_type>::top(m_position);
-                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
-
-                const auto& cursor_left = gui::position<position_type>::left(position);
-                const auto& cursor_top = gui::position<position_type>::top(position);
-
-                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
-            }
 
 
         };
@@ -559,7 +561,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                suppress_unused_variable_warning(cursor_position);
+                if (!this->inside(cursor_position))
+                    return;
 
                 if (m_animation_step > 0)
                     return;
@@ -893,8 +896,6 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->side_bar_().m_minimized)
                     return;
 
-                this->side_bar_().set_mouse_capture(this);
-
                 m_pressed_position = cursor_position;
             }
 
@@ -903,8 +904,6 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 if (this->side_bar_().m_minimized)
                     return;
-
-                this->side_bar_().release_mouse_capture();
 
                 resize_side_bar(cursor_position);
             }
@@ -1137,10 +1136,15 @@ namespace tetengo2 { namespace gui { namespace widget
             return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_item;
         }
 
-        void set_mouse_capture(const item* const p_item)
+        bool set_mouse_capture(const item* const p_item)
         {
+            if (m_p_mouse_capture)
+                return false;
+
             m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
             m_p_mouse_captured_item = p_item;
+
+            return true;
         }
 
         void release_mouse_capture()
