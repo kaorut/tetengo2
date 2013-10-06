@@ -309,6 +309,13 @@ namespace tetengo2 { namespace gui { namespace widget
         class item : boost::noncopyable
         {
         public:
+            // constructors and destructors
+
+            virtual ~item()
+            TETENGO2_STDALT_NOEXCEPT
+            {}
+
+
             // functions
 
             const position_type& position()
@@ -391,11 +398,11 @@ namespace tetengo2 { namespace gui { namespace widget
         protected:
             // constructors
 
-            explicit item(map_box& map_box_)
+            item(map_box& map_box_, position_type&& position, dimension_type&& dimension)
             :
             m_map_box(map_box_),
-            m_position(left_type(0), top_type(0)),
-            m_dimension(width_type(0), height_type(0)),
+            m_position(std::move(position)),
+            m_dimension(std::move(dimension)),
             m_mouse_inside(false)
             {}
 
@@ -482,7 +489,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit splitter(map_box& map_box_)
             :
-            item(map_box_)
+            item(map_box_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0)))
             {}
 
 
@@ -589,7 +596,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit value_item(map_box& map_box_, value_type value)
             :
-            item(map_box_),
+            item(map_box_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
             m_value(std::move(value))
             {}
 

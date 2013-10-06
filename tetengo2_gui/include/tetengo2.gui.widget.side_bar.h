@@ -299,6 +299,7 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
             void paint(canvas_type& canvas)
+            const
             {
                 paint_impl(canvas);
             }
@@ -405,7 +406,10 @@ namespace tetengo2 { namespace gui { namespace widget
             {}
 
             virtual void paint_impl(canvas_type& canvas)
-            = 0;
+            const
+            {
+                suppress_unused_variable_warning(canvas);
+            }
 
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             {
@@ -540,7 +544,7 @@ namespace tetengo2 { namespace gui { namespace widget
             // virtual functions
 
             virtual void paint_impl(canvas_type& canvas)
-            override
+            const override
             {
                 auto original_color = canvas.color();
                 auto original_line_width = canvas.line_width();
@@ -697,10 +701,8 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
             virtual void paint_impl(canvas_type& canvas)
-            override
+            const override
             {
-                calculate_position_and_dimension(canvas);
-
                 auto original_color = canvas.color();
                 auto original_background = canvas.background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
@@ -873,10 +875,8 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
             virtual void paint_impl(canvas_type& canvas)
-            override
+            const override
             {
-                calculate_position_and_dimension();
-
                 if (this->side_bar_().m_minimized)
                     return;
 
