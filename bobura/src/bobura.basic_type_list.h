@@ -616,7 +616,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             control_type;
-        typedef tetengo2::gui::widget::traits::custom_control_traits<control_traits_type> custom_control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::button<
@@ -701,12 +700,14 @@ namespace bobura
             >
             mouse_capture_type;
         typedef
+            tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>
+            custom_control_traits_type;
+        typedef
             tetengo2::gui::widget::traits::map_box_traits<
                 custom_control_traits_type,
                 boost::mpl::at<common_type_list, type::size>::type,
                 solid_background_type,
                 system_color_set_type,
-                mouse_capture_type,
                 tetengo2::gui::message::list_selection_observer_set
             >
             map_box_traits_type;
@@ -739,7 +740,6 @@ namespace bobura
                 custom_control_traits_type,
                 solid_background_type,
                 system_color_set_type,
-                mouse_capture_type,
                 timer_type
             >
             side_bar_traits_type;

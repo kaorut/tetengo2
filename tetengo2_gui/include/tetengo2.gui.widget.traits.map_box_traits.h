@@ -19,7 +19,6 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam IntSize                  A integer size type.
         \tparam SolidBackground          A solid background type.
         \tparam SystemColorSet           A system color set type.
-        \tparam MouseCapture             A mouse capture type.
         \tparam ListSelectionObserverSet A list selection observer set type.
    */
     template <
@@ -27,7 +26,6 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         typename IntSize,
         typename SolidBackground,
         typename SystemColorSet,
-        typename MouseCapture,
         typename ListSelectionObserverSet
     >
     struct map_box_traits
@@ -45,9 +43,6 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The system color set type.
         typedef SystemColorSet system_color_set_type;
-
-        //! The mouse capture type.
-        typedef MouseCapture mouse_capture_type;
 
         //! The system cursor type.
         typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;

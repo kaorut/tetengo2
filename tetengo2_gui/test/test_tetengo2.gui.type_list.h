@@ -674,7 +674,6 @@ namespace test_tetengo2 { namespace gui
                 widget_traits_type, boost::mpl::at<drawing_type_list, type::drawing::color>::type
             >
             control_traits_type;
-        typedef tetengo2::gui::widget::traits::custom_control_traits<control_traits_type> custom_control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::traits::dropdown_box_traits<
@@ -715,12 +714,14 @@ namespace test_tetengo2 { namespace gui
             list_box_traits_type;
         typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
         typedef
+            tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>
+            custom_control_traits_type;
+        typedef
             tetengo2::gui::widget::traits::map_box_traits<
                 custom_control_traits_type,
                 boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                mouse_capture_type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >
             map_box_traits_type;
@@ -737,7 +738,6 @@ namespace test_tetengo2 { namespace gui
                 custom_control_traits_type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                mouse_capture_type,
                 timer_type
             >
             side_bar_traits_type;

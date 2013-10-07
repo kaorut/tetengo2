@@ -13,6 +13,7 @@
 
 //#include <boost/noncopyable.hpp>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
@@ -39,6 +40,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The mouse capture type.
+        typedef typename traits_type::mouse_capture_type mouse_capture_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -79,6 +83,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         typedef typename widget_details_type::widget_details_type details_type;
 
+        //! The inner item type.
+        typedef inner_item<custom_control> inner_item_type;
+
 
         // constructors and destructor
 
@@ -101,10 +108,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 *this, message_handler_map_type()
             ),
             widget_details_type::create_custom_control(parent, border, scroll_bar_style)
-        )
+        ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_p_mouse_capture(),
+        m_p_mouse_captured_item(nullptr)
         {
             this->initialize(this);
         }
@@ -117,10 +126,62 @@ namespace tetengo2 { namespace gui { namespace widget
         {}
 
 
+        // functions
+
+        /*!
+            \brief Checks whether the mouse is captured.
+
+            \param p_inner_item A pointer to an inner item.
+
+            \retval true  When the mouse is captured by the inner item.
+            \retval false Otherwise.
+        */
+        bool mouse_captured(const inner_item_type* const p_inner_item)
+        const
+        {
+            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_inner_item;
+        }
+
+        /*!
+            \brief Sets a mouse capture to the specified inner item.
+            
+            \param p_inner_item A pointer to an inner item.
+
+            \retval true  When a mouse capture is set to the specified inner item.
+            \retval false Otherwise.
+        */
+        bool set_mouse_capture(const inner_item_type* const p_inner_item)
+        {
+            if (m_p_mouse_capture)
+                return false;
+
+            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_captured_item = p_inner_item;
+
+            return true;
+        }
+
+        /*!
+            \brief Releases the mouse capture.
+        */
+        void release_mouse_capture()
+        {
+            m_p_mouse_captured_item = nullptr;
+            m_p_mouse_capture.reset();
+        }
+
+
     private:
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+
+
+        // variables
+
+        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
+
+        const inner_item_type* m_p_mouse_captured_item;
 
 
     };
@@ -143,8 +204,20 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The postion type.
         typedef typename custom_control_type::position_type position_type;
 
+        //! The left type.
+        typedef typename gui::position<position_type>::left_type left_type;
+
+        //! The top type.
+        typedef typename gui::position<position_type>::top_type top_type;
+
         //! The postion type.
         typedef typename custom_control_type::dimension_type dimension_type;
+
+        //! The width type.
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
+        //! The height type.
+        typedef typename gui::dimension<dimension_type>::height_type height_type;
 
         //! The canvas type.
         typedef typename custom_control_type::canvas_type canvas_type;
@@ -322,6 +395,35 @@ namespace tetengo2 { namespace gui { namespace widget
         custom_control_type& parent()
         {
             return m_parent;
+        }
+
+        /*!
+            \brief Casts the parent to the specified type.
+
+            \param T A type.
+
+            \return The parent as the specified type.
+        */
+        template <typename T>
+        const T& parent_to()
+        const
+        {
+            assert(dynamic_cast<const T*>(&m_parent));
+            return dynamic_cast<const T&>(m_parent);
+        }
+
+        /*!
+            \brief Casts the parent to the specified type.
+
+            \param T A type.
+
+            \return The parent as the specified type.
+        */
+        template <typename T>
+        T& parent_to()
+        {
+            assert(dynamic_cast<T*>(&m_parent));
+            return dynamic_cast<T&>(m_parent);
         }
 
         /*!
