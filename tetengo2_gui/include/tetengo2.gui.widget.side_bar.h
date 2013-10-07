@@ -19,13 +19,11 @@
 //#include <vector>
 
 #include <boost/math/constants/constants.hpp>
-//#include <boost/noncopyable.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget

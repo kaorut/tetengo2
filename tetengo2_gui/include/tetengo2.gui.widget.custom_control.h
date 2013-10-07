@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H)
 #define TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H
 
+//#include <cassert>
+//#include <memory>
 //#include <utility>
 
 //#include <boost/noncopyable.hpp>
@@ -213,12 +215,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The postion type.
         typedef typename custom_control_type::dimension_type dimension_type;
 
-        //! The width type.
-        typedef typename gui::dimension<dimension_type>::width_type width_type;
-
-        //! The height type.
-        typedef typename gui::dimension<dimension_type>::height_type height_type;
-
         //! The canvas type.
         typedef typename custom_control_type::canvas_type canvas_type;
 
@@ -400,7 +396,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Casts the parent to the specified type.
 
-            \param T A type.
+            \tparam T A type.
 
             \return The parent as the specified type.
         */
@@ -415,7 +411,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Casts the parent to the specified type.
 
-            \param T A type.
+            \tparam T A type.
 
             \return The parent as the specified type.
         */

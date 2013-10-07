@@ -52,6 +52,27 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         const concrete_custom_control custom_control(parent);
     }
 
+    BOOST_AUTO_TEST_CASE(mouse_captured)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(release_mouse_capture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(inner_item)
@@ -128,6 +149,13 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     }
 
     BOOST_AUTO_TEST_CASE(parent)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(parent_to)
     {
         BOOST_TEST_PASSPOINT();
 
