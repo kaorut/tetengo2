@@ -667,8 +667,22 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_map_box(map_box& map_box_)
         {
-            map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
+            map_box_.set_background(
+                stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
+            );
 
+            create_items(map_box_);
+
+            set_observers(map_box_);
+        }
+
+        static void create_items(map_box& map_box_)
+        {
+            map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
+        }
+
+        static void set_observers(map_box& map_box_)
+        {
             map_box_.size_observer_set().resized().connect(
                 [&map_box_]()
                 {
@@ -681,10 +695,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     map_box_.set_value_item_positions();
                     map_box_.update_scroll_bar();
                 }
-            );
-
-            map_box_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
             );
 
             map_box_.paint_observer_set().paint_background().disconnect_all_slots();

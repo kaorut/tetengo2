@@ -104,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_preferred_width(0),
         m_minimized(false)
         {
-            initialize_side_bar(this);
+            initialize_side_bar(*this);
         }
 
         /*!
@@ -819,18 +819,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // static functions
 
-        static void initialize_side_bar(side_bar* const p_side_bar)
+        static void initialize_side_bar(side_bar& side_bar_)
         {
-            p_side_bar->set_dimension(dimension_type(width_type(16), height_type(16)));
-            p_side_bar->set_background(
+            side_bar_.set_dimension(dimension_type(width_type(16), height_type(16)));
+            side_bar_.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
-            create_items(*p_side_bar);
+            create_items(side_bar_);
 
-            set_observers(*p_side_bar);
+            set_observers(side_bar_);
 
-            p_side_bar->m_preferred_width= gui::dimension<dimension_type>::width(p_side_bar->dimension());
+            side_bar_.m_preferred_width= gui::dimension<dimension_type>::width(side_bar_.dimension());
         }
 
         static void create_items(side_bar& side_bar_)
