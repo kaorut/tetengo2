@@ -439,7 +439,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
                 }
 
-                this->parent_to<side_bar>().set_minimized(!this->parent_to<side_bar>().m_minimized);
+                this->template parent_to<side_bar>().set_minimized(!this->template parent_to<side_bar>().m_minimized);
                 m_animation_step = 0;
                 stop = true;
             }
@@ -457,7 +457,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 for (std::size_t i = 0; i < 3; ++i)
                 {
                     const std::size_t step_ =
-                        this->parent_to<side_bar>().m_minimized ?
+                        this->template parent_to<side_bar>().m_minimized ?
                             (m_animation_step < max_animation_step() ? max_animation_step() - m_animation_step : 0) :
                             (m_animation_step < max_animation_step() ? m_animation_step : max_animation_step());
                     const position_type vertex_position = triangle_vertex_position(step_, i);
@@ -538,7 +538,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.draw_text(
                     this->parent().text(),
                     *m_text_position,
-                    this->parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
+                    this->template parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
                 );
 
                 canvas.set_background(std::move(original_background));
@@ -566,7 +566,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto text_dimension = canvas.calc_text_dimension(this->parent().text());
                 this->set_dimension(calculate_dimension(padding, text_dimension));
 
-                this->parent_to<side_bar>().m_p_state_button->set_position(state_button_position(padding));
+                this->template parent_to<side_bar>().m_p_state_button->set_position(state_button_position(padding));
 
                 m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
@@ -581,11 +581,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
 
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                        this->template parent_to<side_bar>().m_p_state_button->dimension()
+                    );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                        this->template parent_to<side_bar>().m_p_state_button->dimension()
+                    );
 
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     const auto& width = std::max(width_type::from(text_height), state_button_width); 
                     return dimension_type(width + width_type::from(padding) * 2, client_height);
@@ -601,17 +605,25 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 const auto& state_button_left =
-                    gui::position<position_type>::left(this->parent_to<side_bar>().m_p_state_button->position());
+                    gui::position<position_type>::left(
+                    this->template parent_to<side_bar>().m_p_state_button->position()
+                );
                 const auto& state_button_top =
-                    gui::position<position_type>::left(this->parent_to<side_bar>().m_p_state_button->position());
+                    gui::position<position_type>::left(
+                    this->template parent_to<side_bar>().m_p_state_button->position()
+                );
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
 
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
 
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     auto left =
                         width_type::from(text_height) < state_button_width ?
@@ -639,11 +651,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& caption_width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& caption_height = gui::dimension<dimension_type>::height(this->dimension());
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->parent_to<side_bar>().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
 
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     auto left =
                         std::max(
@@ -702,7 +718,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 auto original_background = canvas.background().clone();
@@ -718,7 +734,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 m_pressed_position = cursor_position;
@@ -727,7 +743,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 resize_side_bar(cursor_position);
@@ -736,7 +752,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_moved_impl(const position_type& cursor_position)
             override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
                 if (!this->parent().mouse_captured(this))
                     return;
@@ -747,21 +763,21 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_entered_impl()
             override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 auto p_cursor =
                     stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
-                this->parent_to<side_bar>().set_cursor(std::move(p_cursor));
+                this->template parent_to<side_bar>().set_cursor(std::move(p_cursor));
             }
 
             virtual void mouse_left_impl()
             override
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-               this->parent_to<side_bar>().set_cursor(std::unique_ptr<cursor_type>());
+               this->template parent_to<side_bar>().set_cursor(std::unique_ptr<cursor_type>());
             }
 
 
@@ -772,7 +788,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_need_size_recalculation)
                     return;
 
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     this->set_position(position_type(left_type(0), top_type(0)));
                     this->set_dimension(dimension_type(width_type(0), height_type(0)));
@@ -782,7 +798,9 @@ namespace tetengo2 { namespace gui { namespace widget
                     const auto& client_height =
                         gui::dimension<dimension_type>::height(this->parent().client_dimension());
                     const auto& caption_height =
-                        gui::dimension<dimension_type>::height(this->parent_to<side_bar>().m_p_caption->dimension());
+                        gui::dimension<dimension_type>::height(
+                            this->template parent_to<side_bar>().m_p_caption->dimension()
+                        );
 
                     this->set_position(position_type(left_type(0), top_type::from(caption_height)));
                     this->set_dimension(
@@ -798,7 +816,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void resize_side_bar(const position_type& current_position)
             {
-                if (this->parent_to<side_bar>().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 const auto& width = gui::dimension<dimension_type>::width(this->parent().dimension());
@@ -810,7 +828,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         std::max(left_type::from(width) + (pressed_left - current_left), left_type(0))
                     );
 
-                this->parent_to<side_bar>().set_width(std::move(new_width));
+                this->template parent_to<side_bar>().set_width(std::move(new_width));
             }
 
 
