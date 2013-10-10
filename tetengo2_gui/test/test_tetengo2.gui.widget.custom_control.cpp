@@ -95,14 +95,30 @@ BOOST_AUTO_TEST_SUITE(custom_control)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        const concrete_inner_item inner_item1(custom_control);
+        const concrete_inner_item inner_item2(custom_control);
+
+        BOOST_CHECK(custom_control.set_mouse_capture(&inner_item1));
+
+        BOOST_CHECK(custom_control.mouse_captured(&inner_item1));
+
+        BOOST_CHECK(!custom_control.set_mouse_capture(&inner_item2));
     }
 
     BOOST_AUTO_TEST_CASE(release_mouse_capture)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        const concrete_inner_item inner_item(custom_control);
+
+        custom_control.set_mouse_capture(&inner_item);
+        custom_control.release_mouse_capture();
+
+        BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
     }
 
 
