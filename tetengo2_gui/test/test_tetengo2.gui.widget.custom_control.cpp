@@ -10,6 +10,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.utility.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -59,6 +60,36 @@ namespace
             parent, position_type(left_type(42), top_type(24)), dimension_type(width_type(12), height_type(34))
         )
         {}
+
+        const custom_control_type& call_parent()
+        const
+        {
+            return parent();
+        }
+
+        custom_control_type& call_parent()
+        {
+            return parent();
+        }
+
+        template <typename T>
+        const T& call_parent_to()
+        const
+        {
+            return parent_to<T>();
+        }
+
+        template <typename T>
+        T& call_parent_to()
+        {
+            return parent_to<T>();
+        }
+
+        bool call_inside(const position_type& position)
+        const
+        {
+            return inside(position);
+        }
 
     };
 
@@ -187,56 +218,110 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        concrete_inner_item inner_item(custom_control);
+
+        inner_item.resized();
     }
 
     BOOST_AUTO_TEST_CASE(paint)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        const concrete_inner_item inner_item(custom_control);
+
+        const auto p_canvas = custom_control.create_canvas();
+        inner_item.paint(*p_canvas);
     }
 
     BOOST_AUTO_TEST_CASE(mouse_pressed)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        concrete_inner_item inner_item(custom_control);
+
+        inner_item.mouse_pressed(position_type(left_type(11), top_type(22)));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_released)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        concrete_inner_item inner_item(custom_control);
+
+        inner_item.mouse_released(position_type(left_type(11), top_type(22)));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_moved)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        concrete_inner_item inner_item(custom_control);
+
+        inner_item.mouse_moved(position_type(left_type(11), top_type(22)));
     }
 
     BOOST_AUTO_TEST_CASE(parent)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent;
+            concrete_custom_control custom_control(parent);
+            const concrete_inner_item inner_item(custom_control);
+
+            BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
+        }
+        {
+            window_type parent;
+            concrete_custom_control custom_control(parent);
+            concrete_inner_item inner_item(custom_control);
+
+            BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(parent_to)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent;
+            concrete_custom_control custom_control(parent);
+            const concrete_inner_item inner_item(custom_control);
+
+            BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
+        }
+        {
+            window_type parent;
+            concrete_custom_control custom_control(parent);
+            concrete_inner_item inner_item(custom_control);
+
+            BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(inside)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent;
+        concrete_custom_control custom_control(parent);
+        const concrete_inner_item inner_item(custom_control);
+
+        BOOST_CHECK(!inner_item.call_inside(position_type(left_type(0), top_type(0))));
+        BOOST_CHECK(inner_item.call_inside(position_type(left_type(42), top_type(24))));
+        BOOST_CHECK(inner_item.call_inside(position_type(left_type(50), top_type(50))));
+        BOOST_CHECK(!inner_item.call_inside(position_type(left_type(100), top_type(100))));
     }
 
 
