@@ -244,6 +244,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
             m_selected_value_index = boost::make_optional(index);
+            ensure_selected_value_shown();
             m_list_selection_observer_set.selection_changed()();
         }
 
@@ -440,6 +441,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 return m_value;
             }
 
+            position_type position_to_paint()
+            const
+            {
+                const auto scroll_bar_position =
+                    this->parent().has_vertical_scroll_bar() ?
+                    top_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) : top_type(0);
+
+                auto left = gui::position<position_type>::left(this->position());
+                auto top = gui::position<position_type>::top(this->position()) - scroll_bar_position;
+
+                return position_type(std::move(left), std::move(top));
+            }
+
 
         private:
             // static functions
@@ -527,19 +541,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
             // functions
-
-            position_type position_to_paint()
-            const
-            {
-                const auto scroll_bar_position =
-                    this->parent().has_vertical_scroll_bar() ?
-                    top_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) : top_type(0);
-
-                auto left = gui::position<position_type>::left(this->position());
-                auto top = gui::position<position_type>::top(this->position()) - scroll_bar_position;
-
-                return position_type(std::move(left), std::move(top));
-            }
 
             bool outside_client_area(const position_type& position_to_paint_)
             const
@@ -726,11 +727,15 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    map_box_.m_p_splitter->mouse_pressed(position);
+                    const auto adjusted_position = map_box_.adjust_position(position);
+                    map_box_.m_p_splitter->mouse_pressed(adjusted_position);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&position](const std::unique_ptr<value_item>& p_item) { p_item->mouse_pressed(position); }
+                        [&adjusted_position](const std::unique_ptr<value_item>& p_item)
+                        {
+                            p_item->mouse_pressed(adjusted_position);
+                        }
                     );
                 }
             );
@@ -740,22 +745,30 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    map_box_.m_p_splitter->mouse_released(position);
+                    const auto adjusted_position = map_box_.adjust_position(position);
+                    map_box_.m_p_splitter->mouse_released(adjusted_position);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&position](const std::unique_ptr<value_item>& p_item) { p_item->mouse_released(position); }
+                        [&adjusted_position](const std::unique_ptr<value_item>& p_item)
+                        {
+                            p_item->mouse_released(adjusted_position);
+                        }
                     );
                 }
             );
             map_box_.mouse_observer_set().moved().connect(
                 [&map_box_](const position_type& position, bool, bool, bool)
                 {
-                    map_box_.m_p_splitter->mouse_moved(position);
+                    const auto adjusted_position = map_box_.adjust_position(position);
+                    map_box_.m_p_splitter->mouse_moved(adjusted_position);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&position](const std::unique_ptr<value_item>& p_item) { p_item->mouse_moved(position); }
+                        [&adjusted_position](const std::unique_ptr<value_item>& p_item)
+                        {
+                            p_item->mouse_moved(adjusted_position);
+                        }
                     );
                 }
             );
@@ -823,6 +836,17 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
+        position_type adjust_position(const position_type& position)
+        const
+        {
+            const auto& left = gui::position<position_type>::left(position);
+            auto adjusted_top = gui::position<position_type>::top(position);
+            if (this->has_vertical_scroll_bar() && this->vertical_scroll_bar().enabled())
+                adjusted_top += top_type::from_pixels(this->vertical_scroll_bar().tracking_position());
+
+            return position_type(left, adjusted_top);
+        }
+
         void update_scroll_bar()
         {
             const auto client_height = gui::dimension<dimension_type>::height(this->client_dimension());
@@ -832,7 +856,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 height_type::from(gui::position<position_type>::top(m_p_value_items.back()->position())) +
                     gui::dimension<dimension_type>::height(m_p_value_items.back()->dimension());
 
-            scroll_bar_type& scroll_bar = this->vertical_scroll_bar();
+            auto& scroll_bar = this->vertical_scroll_bar();
             if (value_height <= client_height)
             {
                 scroll_bar.scroll_bar_observer_set().scrolled()(0);
@@ -890,6 +914,42 @@ namespace tetengo2 { namespace gui { namespace widget
                 return scroll_bar.range().second - scroll_bar.page_size() + 1;
 
             return new_position;
+        }
+
+        void ensure_selected_value_shown()
+        {
+            if (!this->has_vertical_scroll_bar())
+                return;
+            
+            auto& scroll_bar = this->vertical_scroll_bar();
+            if (!scroll_bar.enabled())
+                return;
+
+            const auto client_height = gui::dimension<dimension_type>::height(this->dimension());
+
+            assert(m_selected_value_index);
+            const auto& p_selected = m_p_value_items[*m_selected_value_index];
+            const auto& top = gui::position<position_type>::top(p_selected->position());
+            const auto& height = gui::dimension<dimension_type>::height(p_selected->dimension());
+            const auto position_to_paint = p_selected->position_to_paint();
+            const auto& top_to_paint = gui::position<position_type>::top(position_to_paint);
+            const auto bottom_to_paint = top_to_paint + top_type::from(height);
+            
+            scroll_bar_size_type scroll_bar_position = scroll_bar.tracking_position();
+            if (bottom_to_paint > top_type::from(client_height))
+            {
+                scroll_bar_position =
+                    gui::to_pixels<scroll_bar_size_type>(top) +
+                    gui::to_pixels<scroll_bar_size_type>(height) -
+                    gui::to_pixels<scroll_bar_size_type>(client_height);
+            }
+            if (top_to_paint < top_type(0))
+            {
+                scroll_bar_position = gui::to_pixels<scroll_bar_size_type>(top);
+            }
+
+            if (scroll_bar_position != scroll_bar.tracking_position())
+                scroll_bar.scroll_bar_observer_set().scrolled()(scroll_bar_position);
         }
 
 
