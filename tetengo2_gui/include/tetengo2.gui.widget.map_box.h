@@ -446,10 +446,12 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const auto scroll_bar_position =
                     this->parent().has_vertical_scroll_bar() ?
-                    top_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) : top_type(0);
+                    top_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) :
+                    top_type(0);
 
                 auto left = gui::position<position_type>::left(this->position());
-                auto top = gui::position<position_type>::top(this->position()) - scroll_bar_position;
+                auto top =
+                    gui::position<position_type>::top(this->position()) - scroll_bar_position * scroll_bar_size_unit();
 
                 return position_type(std::move(left), std::move(top));
             }
@@ -798,6 +800,12 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
+        static scroll_bar_size_type scroll_bar_size_unit()
+        {
+            static const scroll_bar_size_type singleton = gui::to_pixels<scroll_bar_size_type>(top_type(1));
+            return singleton;
+        }
+
 
         // variables
 
@@ -842,7 +850,10 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto& left = gui::position<position_type>::left(position);
             auto adjusted_top = gui::position<position_type>::top(position);
             if (this->has_vertical_scroll_bar() && this->vertical_scroll_bar().enabled())
-                adjusted_top += top_type::from_pixels(this->vertical_scroll_bar().tracking_position());
+            {
+                adjusted_top +=
+                    top_type::from_pixels(this->vertical_scroll_bar().tracking_position()) * scroll_bar_size_unit();
+            }
 
             return position_type(left, adjusted_top);
         }
@@ -864,8 +875,8 @@ namespace tetengo2 { namespace gui { namespace widget
             }
             else
             {
-                const scroll_bar_size_type upper_bound = gui::to_pixels<scroll_bar_size_type>(value_height);
-                const scroll_bar_size_type page_size = gui::to_pixels<scroll_bar_size_type>(client_height);
+                const auto upper_bound = gui::to_pixels<scroll_bar_size_type>(value_height) / scroll_bar_size_unit();
+                const auto page_size = gui::to_pixels<scroll_bar_size_type>(client_height) / scroll_bar_size_unit();
                 if (scroll_bar.tracking_position() + page_size > upper_bound + 1)
                 {
                     scroll_bar.scroll_bar_observer_set().scrolled()(
@@ -898,7 +909,10 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto& scroll_bar = this->vertical_scroll_bar();
 
             typedef typename delta_type::int_type delta_int_type;
-            auto int_delta = boost::rational_cast<delta_int_type>(delta * gui::to_pixels<delta_int_type>(top_type(3)));
+            auto int_delta =
+                boost::rational_cast<delta_int_type>(
+                    delta * gui::to_pixels<delta_int_type>(top_type(3)) / scroll_bar_size_unit()
+                );
             if (int_delta == 0)
             {
                 if (delta > 0)
@@ -938,14 +952,15 @@ namespace tetengo2 { namespace gui { namespace widget
             scroll_bar_size_type scroll_bar_position = scroll_bar.tracking_position();
             if (bottom_to_paint > top_type::from(client_height))
             {
-                scroll_bar_position =
-                    gui::to_pixels<scroll_bar_size_type>(top) +
-                    gui::to_pixels<scroll_bar_size_type>(height) -
-                    gui::to_pixels<scroll_bar_size_type>(client_height);
+                const scroll_bar_size_type scroll_bar_position_in_pixels =
+                    gui::to_pixels<scroll_bar_size_type>(top + top_type::from(height) - top_type::from(client_height));
+                scroll_bar_position = scroll_bar_position_in_pixels / scroll_bar_size_unit();
+                if (scroll_bar_position_in_pixels % scroll_bar_size_unit() > 0)
+                    scroll_bar_position += 1;
             }
             if (top_to_paint < top_type(0))
             {
-                scroll_bar_position = gui::to_pixels<scroll_bar_size_type>(top);
+                scroll_bar_position = gui::to_pixels<scroll_bar_size_type>(top) / scroll_bar_size_unit();
             }
 
             if (scroll_bar_position != scroll_bar.tracking_position())
