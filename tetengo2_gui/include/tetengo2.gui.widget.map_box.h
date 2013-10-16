@@ -80,6 +80,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         typedef typename base_type::string_type string_type;
 
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
+        //! The mouse observer set type.
+        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+
         //! The value type.
         typedef std::pair<string_type, string_type> value_type;
 
@@ -273,8 +279,6 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
-
         typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
 
         typedef typename mouse_observer_set_type::delta_type delta_type;
@@ -282,8 +286,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename mouse_observer_set_type::direction_type direction_type;
 
         typedef typename base_type::canvas_type canvas_type;
-
-        typedef typename base_type::position_type position_type;
 
         typedef typename gui::position<position_type>::left_type left_type;
 

@@ -82,6 +82,9 @@ namespace bobura { namespace message
             //! The resized observer type.
             struct resized;
 
+            //! The mouse-pressed observer type.
+            struct mouse_pressed;
+
         }
     }
 

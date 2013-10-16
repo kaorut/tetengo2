@@ -59,8 +59,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param set_mouse_capture A set-mouse-capture function.
             \param view              A view.
         */
-        explicit mouse_pressed(
-            const picture_box_type&       picture_box,
+        mouse_pressed(
+            picture_box_type&             picture_box,
             const set_mouse_capture_type& set_mouse_capture,
             view_type&                    view
         )
@@ -93,6 +93,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             tetengo2::suppress_unused_variable_warning(shift, control, meta);
 
+            m_picture_box.set_focus();
+
             m_set_mouse_capture();
 
             auto* const p_item = m_view.p_item_by_position(position);
@@ -113,7 +115,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // variables
 
-        const picture_box_type& m_picture_box;
+        picture_box_type& m_picture_box;
 
         set_mouse_capture_type m_set_mouse_capture;
 

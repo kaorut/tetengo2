@@ -120,6 +120,12 @@ namespace bobura
                 )
             );
 
+            m_p_map_box->mouse_observer_set().pressed().connect(
+                typename boost::mpl::at<message_type_list_type, message::property_bar::type::mouse_pressed>::type(
+                    *m_p_map_box
+                )
+            );
+
             this->set_width(width_type(24));
 
             m_p_map_box->insert_value(

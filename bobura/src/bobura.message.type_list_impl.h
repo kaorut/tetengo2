@@ -163,8 +163,9 @@ namespace bobura { namespace message
             //! The type list for the property bar.
             typedef
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::resized, resized<SideBar, MapBox>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_pressed, mouse_pressed<MapBox>>,
                 tetengo2::meta::assoc_list_end
-                >
+                >>
                 type;
         };
     }
