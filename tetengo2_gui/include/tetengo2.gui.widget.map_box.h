@@ -11,6 +11,7 @@
 
 #include <algorithm>
 //#include <cassert>
+#include <cstddef>
 //#include <iterator>
 //#include <memory>
 //#include <stdexcept>
@@ -278,6 +279,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // types
+
+        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
+
+        typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
         typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
 
@@ -725,6 +730,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
             );
 
+            map_box_.keyboard_observer_set().key_down().connect(
+                [&map_box_](const virtual_key_type& virtual_key, bool, bool, bool)
+                {
+                    map_box_.key_down(virtual_key);
+                }   
+            );
+
             map_box_.mouse_observer_set().pressed().connect(
                 [&map_box_](const mouse_button_type button, const position_type& position, bool, bool, bool)
                 {
@@ -834,6 +846,56 @@ namespace tetengo2 { namespace gui { namespace widget
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), this->client_dimension());
 
             return true;
+        }
+
+        void key_down(const virtual_key_type& virtual_key)
+        {
+            if (value_count() == 0)
+                return;
+
+            if (virtual_key == virtual_key_type::up())
+            {
+                select_value(index_to_select(-1));
+                this->repaint();
+            }
+            else if (virtual_key == virtual_key_type::down())
+            {
+                select_value(index_to_select(1));
+                this->repaint();
+            }
+            else if (virtual_key == virtual_key_type::page_up())
+            {
+                select_value(index_to_select(-3));
+                this->repaint();
+            }
+            else if (virtual_key == virtual_key_type::page_down())
+            {
+                select_value(index_to_select(3));
+                this->repaint();
+            }
+        }
+
+        int_size_type index_to_select(std::ptrdiff_t delta)
+        {
+            assert(value_count() > 0);
+
+            if (!m_selected_value_index)
+                return 0;
+
+            if (delta < 0)
+            {
+                if (*m_selected_value_index > static_cast<int_size_type>(-delta))
+                    return *m_selected_value_index + delta;
+                else
+                    return 0;
+            }
+            else
+            {
+                if (*m_selected_value_index + delta < value_count())
+                    return *m_selected_value_index + delta;
+                else
+                    return value_count() - 1;
+            }
         }
 
         void set_value_item_positions()
