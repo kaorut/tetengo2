@@ -865,17 +865,18 @@ namespace tetengo2 { namespace gui { namespace widget
             }
             else if (virtual_key == virtual_key_type::page_up())
             {
-                select_value(index_to_select(-3));
+                select_value(index_to_select(value_count_per_page(-1)));
                 this->repaint();
             }
             else if (virtual_key == virtual_key_type::page_down())
             {
-                select_value(index_to_select(3));
+                select_value(index_to_select(value_count_per_page(1)));
                 this->repaint();
             }
         }
 
         int_size_type index_to_select(std::ptrdiff_t delta)
+        const
         {
             assert(value_count() > 0);
 
@@ -896,6 +897,31 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     return value_count() - 1;
             }
+        }
+
+        std::ptrdiff_t value_count_per_page(const std::ptrdiff_t direction)
+        const
+        {
+            if (!m_selected_value_index)
+                return 0;
+
+            const auto client_height = gui::dimension<dimension_type>::height(this->client_dimension());
+            height_type height(0);
+            std::ptrdiff_t count = 0;
+            for (
+                std::ptrdiff_t i = *m_selected_value_index;
+                0 <= i && i < static_cast<std::ptrdiff_t>(value_count());
+                i += direction, count += direction
+            )
+            {
+                const auto& value_height = gui::dimension<dimension_type>::height(m_p_value_items[i]->dimension());
+                if (height + value_height > client_height)
+                    break;
+
+                height += value_height;
+            }
+
+            return count;
         }
 
         void set_value_item_positions()
