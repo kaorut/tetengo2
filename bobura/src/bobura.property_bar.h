@@ -9,9 +9,12 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
+#include <cstddef>
 //#include <memory>
+//#include <utility>
 
 #include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.stdalt.h>
@@ -147,6 +150,24 @@ namespace bobura
                     value_type(string_type(TETENGO2_TEXT("piyoyo")), string_type(TETENGO2_TEXT("bazz")))
                 );
             }
+
+            m_p_map_box->list_selection_observer_set().selection_changed().connect(
+                [this]()
+                {
+                    const boost::optional<typename map_box_type::int_size_type> selected_index =
+                        this->m_p_map_box->selected_value_index();
+                    if (!selected_index)
+                        return;
+
+                    const value_type previous = this->m_p_map_box->value(*selected_index);
+                    value_type new_(
+                        previous.first + string_type(TETENGO2_TEXT(" ")) + previous.first,
+                        previous.second + string_type(TETENGO2_TEXT(" ")) + previous.second
+                    );
+                    this->m_p_map_box->set_value(*selected_index, std::move(new_));
+                }
+            );
+
         }
 
 
