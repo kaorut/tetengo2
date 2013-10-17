@@ -80,6 +80,7 @@ namespace bobura { namespace message { namespace property_bar
 
     };
 
+
     /*!
         \brief The class template for a mouse-pressed observer of the map box.
 

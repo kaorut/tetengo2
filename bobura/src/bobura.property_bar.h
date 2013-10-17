@@ -11,7 +11,6 @@
 
 #include <cstddef>
 //#include <memory>
-//#include <utility>
 
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
@@ -131,7 +130,7 @@ namespace bobura
 
             this->set_width(width_type(24));
 
-            for (std::size_t i = 0; i < 25; ++i)
+            for (std::size_t i = 0; i < 1; ++i)
             {
                 m_p_map_box->insert_value(
                     m_p_map_box->value_count(),
@@ -159,12 +158,7 @@ namespace bobura
                     if (!selected_index)
                         return;
 
-                    const value_type previous = this->m_p_map_box->value(*selected_index);
-                    value_type new_(
-                        previous.first + string_type(TETENGO2_TEXT(" ")) + previous.first,
-                        previous.second + string_type(TETENGO2_TEXT(" ")) + previous.second
-                    );
-                    this->m_p_map_box->set_value(*selected_index, std::move(new_));
+                    this->m_p_map_box->erase_value(*selected_index);
                 }
             );
 

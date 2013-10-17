@@ -166,6 +166,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
             m_p_value_items[index]->value() = std::move(value);
+
+            this->size_observer_set().resized()();
         }
 
         /*!
@@ -189,6 +191,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 ++(*m_selected_value_index);
                 m_list_selection_observer_set.selection_changed()();
             }
+
+            this->size_observer_set().resized()();
         }
 
         /*!
@@ -212,6 +216,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     --(*m_selected_value_index);
                 m_list_selection_observer_set.selection_changed()();
             }
+
+            this->size_observer_set().resized()();
         }
 
         /*!
@@ -225,6 +231,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_selected_value_index = boost::none;
                 m_list_selection_observer_set.selection_changed()();
             }
+
+            this->size_observer_set().resized()();
         }
 
         /*!
@@ -704,6 +712,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
                     map_box_.set_value_item_positions();
                     map_box_.update_scroll_bar();
+                    map_box_.ensure_selected_value_shown();
                 }
             );
 
@@ -1022,6 +1031,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void ensure_selected_value_shown()
         {
+            if (!m_selected_value_index)
+                return;
             if (!this->has_vertical_scroll_bar())
                 return;
             
@@ -1031,7 +1042,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             const auto client_height = gui::dimension<dimension_type>::height(this->dimension());
 
-            assert(m_selected_value_index);
             const auto& p_selected = m_p_value_items[*m_selected_value_index];
             const auto& top = gui::position<position_type>::top(p_selected->position());
             const auto& height = gui::dimension<dimension_type>::height(p_selected->dimension());
