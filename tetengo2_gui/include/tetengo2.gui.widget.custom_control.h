@@ -133,6 +133,8 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Checks whether the mouse is captured.
 
+            When p_inner_item is nullptr, it returns true if any item is captured.
+
             \param p_inner_item A pointer to an inner item.
 
             \retval true  When the mouse is captured by the inner item.
@@ -141,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace widget
         bool mouse_captured(const inner_item_type* const p_inner_item)
         const
         {
-            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_inner_item;
+            return static_cast<bool>(m_p_mouse_capture) && (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
         }
 
         /*!
@@ -318,9 +320,9 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!this->parent().mouse_captured(this))
                 return;
 
-            this->parent().release_mouse_capture();
-
             mouse_released_impl(cursor_position);
+
+            this->parent().release_mouse_capture();
         }
 
         /*!

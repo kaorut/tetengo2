@@ -101,13 +101,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
         */
-        map_box(widget_type& parent)
+        explicit map_box(widget_type& parent)
         :
         base_type(parent, true, scroll_bar_style_type::vertical),
         m_splitter_position(left_type(8)),
         m_p_splitter(),
         m_p_value_items(),
         m_selected_value_index(),
+        m_list_selection_observer_call_requested(false),
         m_list_selection_observer_set()
         {
             initialize_map_box(*this);
@@ -189,7 +190,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (m_selected_value_index && index <= *m_selected_value_index)
             {
                 ++(*m_selected_value_index);
-                m_list_selection_observer_set.selection_changed()();
+                request_list_selection_observer_call();
             }
 
             this->size_observer_set().resized()();
@@ -214,7 +215,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_selected_value_index = boost::none;
                 else if (index < *m_selected_value_index)
                     --(*m_selected_value_index);
-                m_list_selection_observer_set.selection_changed()();
+                request_list_selection_observer_call();
             }
 
             this->size_observer_set().resized()();
@@ -229,7 +230,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (m_selected_value_index)
             {
                 m_selected_value_index = boost::none;
-                m_list_selection_observer_set.selection_changed()();
+                request_list_selection_observer_call();
             }
 
             this->size_observer_set().resized()();
@@ -260,7 +261,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_selected_value_index = boost::make_optional(index);
             ensure_selected_value_shown();
-            m_list_selection_observer_set.selection_changed()();
+            request_list_selection_observer_call();
         }
 
         /*!
@@ -780,6 +781,9 @@ namespace tetengo2 { namespace gui { namespace widget
                             p_item->mouse_released(adjusted_position);
                         }
                     );
+
+                    if (map_box_.m_list_selection_observer_call_requested)
+                        map_box_.call_list_selection_observer();
                 }
             );
             map_box_.mouse_observer_set().moved().connect(
@@ -839,6 +843,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::vector<std::unique_ptr<value_item>> m_p_value_items;
 
         boost::optional<int_size_type> m_selected_value_index;
+
+        bool m_list_selection_observer_call_requested;
 
         list_selection_observer_set_type m_list_selection_observer_set;
 
@@ -1065,6 +1071,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
             if (scroll_bar_position != scroll_bar.tracking_position())
                 scroll_bar.scroll_bar_observer_set().scrolled()(scroll_bar_position);
+        }
+
+        void request_list_selection_observer_call()
+        {
+            if (this->mouse_captured(nullptr))
+                m_list_selection_observer_call_requested = true;
+            else
+                call_list_selection_observer();
+        }
+
+        void call_list_selection_observer()
+        {
+            m_list_selection_observer_set.selection_changed()();
+            m_list_selection_observer_call_requested = false;
         }
 
 

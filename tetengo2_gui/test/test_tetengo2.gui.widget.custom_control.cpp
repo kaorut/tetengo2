@@ -119,6 +119,7 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         concrete_custom_control custom_control(parent);
         const concrete_inner_item inner_item(custom_control);
 
+        BOOST_CHECK(!custom_control.mouse_captured(nullptr));
         BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
     }
 
@@ -134,8 +135,8 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         BOOST_CHECK(custom_control.set_mouse_capture(&inner_item1));
 
         BOOST_CHECK(custom_control.mouse_captured(&inner_item1));
-
         BOOST_CHECK(!custom_control.set_mouse_capture(&inner_item2));
+        BOOST_CHECK(custom_control.mouse_captured(nullptr));
     }
 
     BOOST_AUTO_TEST_CASE(release_mouse_capture)
@@ -150,6 +151,7 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         custom_control.release_mouse_capture();
 
         BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
+        BOOST_CHECK(!custom_control.mouse_captured(nullptr));
     }
 
 
