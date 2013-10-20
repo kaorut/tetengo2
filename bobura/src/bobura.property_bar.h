@@ -13,7 +13,6 @@
 //#include <memory>
 
 #include <boost/mpl/at.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.stdalt.h>
@@ -130,7 +129,7 @@ namespace bobura
 
             this->set_width(width_type(24));
 
-            for (std::size_t i = 0; i < 1; ++i)
+            for (std::size_t i = 0; i < 10; ++i)
             {
                 m_p_map_box->insert_value(
                     m_p_map_box->value_count(),
@@ -149,19 +148,6 @@ namespace bobura
                     value_type(string_type(TETENGO2_TEXT("piyoyo")), string_type(TETENGO2_TEXT("bazz")))
                 );
             }
-
-            m_p_map_box->list_selection_observer_set().selection_changed().connect(
-                [this]()
-                {
-                    const boost::optional<typename map_box_type::int_size_type> selected_index =
-                        this->m_p_map_box->selected_value_index();
-                    if (!selected_index)
-                        return;
-
-                    this->m_p_map_box->erase_value(*selected_index);
-                }
-            );
-
         }
 
 

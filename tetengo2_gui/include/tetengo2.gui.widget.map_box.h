@@ -168,7 +168,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_p_value_items[index]->value() = std::move(value);
 
-            this->size_observer_set().resized()();
+            if (this->visible())
+                this->size_observer_set().resized()();
         }
 
         /*!
@@ -193,7 +194,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 request_list_selection_observer_call();
             }
 
-            this->size_observer_set().resized()();
+            if (this->visible())
+                this->size_observer_set().resized()();
         }
 
         /*!
@@ -218,7 +220,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 request_list_selection_observer_call();
             }
 
-            this->size_observer_set().resized()();
+            if (this->visible())
+                this->size_observer_set().resized()();
         }
 
         /*!
@@ -233,7 +236,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 request_list_selection_observer_call();
             }
 
-            this->size_observer_set().resized()();
+            if (this->visible())
+                this->size_observer_set().resized()();
         }
 
         /*!
