@@ -531,24 +531,32 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 if (this->template parent_to<map_box>().selected_value_index() == index())
                 {
+                    canvas.set_color(system_color_set_type::selected_text());
                     canvas.set_background(
-                        stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
+                        stdalt::make_unique<solid_background_type>(system_color_set_type::selected_background())
                     );
+                    canvas.fill_rectangle(position_to_paint_, this->dimension());
                 }
                 else
                 {
-                    canvas.set_background(
-                        stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-                    );
+                    canvas.set_color(system_color_set_type::control_text());
                 }
 
-                canvas.fill_rectangle(key_line_position(position_to_paint_), key_line_dimension());
                 canvas.draw_text(m_value.first, key_text_position(position_to_paint_), key_text_max_width());
-
-                canvas.fill_rectangle(mapped_line_position(position_to_paint_), mapped_line_dimension());
                 canvas.draw_text(
                     m_value.second, mapped_text_position(position_to_paint_), mapped_text_max_width()
                 );
+
+                canvas.set_color(system_color_set_type::dialog_background());
+                canvas.set_line_width(typename canvas_type::size_type(1) / 12);
+                {
+                    auto positions = border_line_positions(position_to_paint_);
+                    canvas.draw_line(positions.first, positions.second);
+                }
+                {
+                    auto positions = splitter_line_positions(position_to_paint_);
+                    canvas.draw_line(positions.first, positions.second);
+                }
             }
 
             virtual void mouse_released_impl(const position_type& cursor_position)
@@ -576,48 +584,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     return true;
 
                 return false;
-            }
-
-            position_type key_line_position(const position_type& position_to_paint_)
-            const
-            {
-                auto left = gui::position<position_type>::left(position_to_paint_);
-                auto top = 
-                    gui::position<position_type>::top(position_to_paint_) +
-                    top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                    top_type::from(key_line_height());
-
-                return position_type(std::move(left), std::move(top));
-            }
-
-            position_type mapped_line_position(const position_type& position_to_paint_)
-            const
-            {
-                auto left = this->template parent_to<map_box>().m_splitter_position;
-                auto top = 
-                    gui::position<position_type>::top(position_to_paint_) +
-                    top_type::from(gui::dimension<dimension_type>::height(this->dimension())) -
-                    top_type::from(mapped_line_height());
-
-                return position_type(std::move(left), std::move(top));
-            }
-
-            dimension_type key_line_dimension()
-            const
-            {
-                auto width = width_type::from(this->template parent_to<map_box>().m_splitter_position);
-
-                return dimension_type(std::move(width), key_line_height());
-            }
-
-            dimension_type mapped_line_dimension()
-            const
-            {
-                auto width =
-                    gui::dimension<dimension_type>::width(this->dimension()) -
-                    width_type::from(this->template parent_to<map_box>().m_splitter_position);
-
-                return dimension_type(std::move(width), mapped_line_height());
             }
 
             position_type key_text_position(const position_type& position_to_paint_)
@@ -667,6 +633,36 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     return width_type(2);
                 }
+            }
+
+            std::pair<position_type, position_type> border_line_positions(const position_type& position_to_paint_)
+            const
+            {
+                const auto& left = gui::position<position_type>::left(position_to_paint_);
+                const auto& top = gui::position<position_type>::top(position_to_paint_);
+                const auto& width = gui::dimension<dimension_type>::width(this->dimension());
+                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+
+                return
+                    std::make_pair(
+                        position_type(left, top + top_type::from(height)),
+                        position_type(left + left_type::from(width), top + top_type::from(height))
+                    );
+            }
+
+            std::pair<position_type, position_type> splitter_line_positions(const position_type& position_to_paint_)
+            const
+            {
+                const auto& left = gui::position<position_type>::left(position_to_paint_);
+                const auto& top = gui::position<position_type>::top(position_to_paint_);
+                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+                const auto& splitter_position = this->template parent_to<map_box>().m_splitter_position;
+
+                return
+                    std::make_pair(
+                        position_type(left + splitter_position, top),
+                        position_type(left + splitter_position, top + top_type::from(height))
+                    );
             }
 
             int_size_type index()
