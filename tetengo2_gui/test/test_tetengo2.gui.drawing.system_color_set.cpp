@@ -57,7 +57,28 @@ BOOST_AUTO_TEST_SUITE(system_color_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        system_color_set_type::dialog_background();
+        system_color_set_type::control_background();
+    }
+
+    BOOST_AUTO_TEST_CASE(control_text)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::control_text();
+    }
+
+    BOOST_AUTO_TEST_CASE(selected_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::selected_background();
+    }
+
+    BOOST_AUTO_TEST_CASE(selected_text)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        system_color_set_type::selected_text();
     }
 
     BOOST_AUTO_TEST_CASE(hyperlink_text)
