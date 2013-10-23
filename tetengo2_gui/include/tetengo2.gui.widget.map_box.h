@@ -559,7 +559,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
             }
 
-            virtual void mouse_released_impl(const position_type& cursor_position)
+            virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
                 if (!this->inside(cursor_position))
@@ -756,9 +756,6 @@ namespace tetengo2 { namespace gui { namespace widget
             map_box_.mouse_observer_set().pressed().connect(
                 [&map_box_](const mouse_button_type button, const position_type& position, bool, bool, bool)
                 {
-                    if (button != mouse_button_type::left)
-                        return;
-
                     const auto adjusted_position = map_box_.adjust_position(position);
                     map_box_.m_p_splitter->mouse_pressed(button, adjusted_position);
                     std::for_each(
@@ -774,9 +771,6 @@ namespace tetengo2 { namespace gui { namespace widget
             map_box_.mouse_observer_set().released().connect(
                 [&map_box_](const mouse_button_type button, const position_type& position, bool, bool, bool)
                 {
-                    if (button != mouse_button_type::left)
-                        return;
-
                     const auto adjusted_position = map_box_.adjust_position(position);
                     map_box_.m_p_splitter->mouse_released(button, adjusted_position);
                     std::for_each(
