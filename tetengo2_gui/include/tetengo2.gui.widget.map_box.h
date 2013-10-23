@@ -480,13 +480,13 @@ namespace tetengo2 { namespace gui { namespace widget
         private:
             // static functions
 
-            static const height_type& key_line_height()
+            static const height_type& padding_height()
             {
-                static const height_type singleton(1);
+                static const height_type singleton = height_type(1) / 8;
                 return singleton;
             }
 
-            static const height_type& mapped_line_height()
+            static const height_type& padding_width()
             {
                 static const height_type singleton = height_type(1) / 2;
                 return singleton;
@@ -518,7 +518,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
 
                 const auto map_box_width = gui::dimension<dimension_type>::width(this->parent().client_dimension());
-                const auto height = std::max(key_text_height, mapped_text_height) + height_type(1);
+                const auto height = std::max(key_text_height, mapped_text_height) + padding_height() * 2;
                 this->set_dimension(dimension_type(map_box_width, height));
             }
 
@@ -589,8 +589,8 @@ namespace tetengo2 { namespace gui { namespace widget
             position_type key_text_position(const position_type& position_to_paint_)
             const
             {
-                auto left = gui::position<position_type>::left(position_to_paint_) + left_type(1);
-                auto top = gui::position<position_type>::top(position_to_paint_) + top_type(1) / 2;
+                auto left = gui::position<position_type>::left(position_to_paint_) + left_type::from(padding_width());
+                auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
                 return position_type(std::move(left), std::move(top));
             }
@@ -601,8 +601,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto left =
                     gui::position<position_type>::left(position_to_paint_) +
                     this->template parent_to<map_box>().m_splitter_position +
-                    left_type(1);
-                auto top = gui::position<position_type>::top(position_to_paint_) + top_type(1) / 2;
+                    left_type::from(padding_width());
+                auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
                 return position_type(std::move(left), std::move(top));
             }
@@ -610,10 +610,16 @@ namespace tetengo2 { namespace gui { namespace widget
             width_type key_text_max_width()
             const
             {
-                if (width_type::from(this->template parent_to<map_box>().m_splitter_position) > width_type(2))
-                    return width_type::from(this->template parent_to<map_box>().m_splitter_position) - width_type(2);
+                if (width_type::from(this->template parent_to<map_box>().m_splitter_position) > padding_width() * 2)
+                {
+                    return
+                        width_type::from(this->template parent_to<map_box>().m_splitter_position) -
+                        padding_width() * 2;
+                }
                 else
-                    return width_type(2);
+                {
+                    return padding_width() * 2;
+                }
             }
 
             width_type mapped_text_max_width()
@@ -621,17 +627,17 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 if (
                     gui::dimension<dimension_type>::width(this->dimension()) >
-                    (width_type::from(this->template parent_to<map_box>().m_splitter_position) + width_type(2))
+                    (width_type::from(this->template parent_to<map_box>().m_splitter_position) + padding_width() * 2)
                 )
                 {
                     return
                         gui::dimension<dimension_type>::width(this->dimension()) -
                         width_type::from(this->template parent_to<map_box>().m_splitter_position) -
-                        width_type(2);
+                        padding_width() * 2;
                 }
                 else
                 {
-                    return width_type(2);
+                    return padding_width() * 2;
                 }
             }
 
