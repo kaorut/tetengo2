@@ -27,6 +27,8 @@ namespace
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::custom_control>::type
         custom_control_type;
 
+    typedef custom_control_type::mouse_button_type mouse_button_type;
+
     typedef custom_control_type::position_type position_type;
 
     typedef tetengo2::gui::position<position_type>::left_type left_type;
@@ -120,6 +122,8 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         const concrete_inner_item inner_item(custom_control);
 
         BOOST_CHECK(!custom_control.mouse_captured(nullptr));
+        BOOST_CHECK(!custom_control.mouse_captured(mouse_button_type::left, &inner_item));
+        BOOST_CHECK(!custom_control.mouse_captured(mouse_button_type::right, &inner_item));
         BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
     }
 
@@ -132,10 +136,11 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         const concrete_inner_item inner_item1(custom_control);
         const concrete_inner_item inner_item2(custom_control);
 
-        BOOST_CHECK(custom_control.set_mouse_capture(&inner_item1));
+        BOOST_CHECK(custom_control.set_mouse_capture(mouse_button_type::left, &inner_item1));
 
         BOOST_CHECK(custom_control.mouse_captured(&inner_item1));
-        BOOST_CHECK(!custom_control.set_mouse_capture(&inner_item2));
+        BOOST_CHECK(custom_control.mouse_captured(mouse_button_type::left, &inner_item1));
+        BOOST_CHECK(!custom_control.set_mouse_capture(mouse_button_type::left, &inner_item2));
         BOOST_CHECK(custom_control.mouse_captured(nullptr));
     }
 
@@ -147,7 +152,7 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         concrete_custom_control custom_control(parent);
         const concrete_inner_item inner_item(custom_control);
 
-        custom_control.set_mouse_capture(&inner_item);
+        custom_control.set_mouse_capture(mouse_button_type::left, &inner_item);
         custom_control.release_mouse_capture();
 
         BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
@@ -247,7 +252,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control(parent);
         concrete_inner_item inner_item(custom_control);
 
-        inner_item.mouse_pressed(position_type(left_type(11), top_type(22)));
+        inner_item.mouse_pressed(mouse_button_type::left, position_type(left_type(11), top_type(22)));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_released)
@@ -258,7 +263,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control(parent);
         concrete_inner_item inner_item(custom_control);
 
-        inner_item.mouse_released(position_type(left_type(11), top_type(22)));
+        inner_item.mouse_released(mouse_button_type::left, position_type(left_type(11), top_type(22)));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_moved)

@@ -760,13 +760,13 @@ namespace tetengo2 { namespace gui { namespace widget
                         return;
 
                     const auto adjusted_position = map_box_.adjust_position(position);
-                    map_box_.m_p_splitter->mouse_pressed(adjusted_position);
+                    map_box_.m_p_splitter->mouse_pressed(button, adjusted_position);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&adjusted_position](const std::unique_ptr<value_item>& p_item)
+                        [button, &adjusted_position](const std::unique_ptr<value_item>& p_item)
                         {
-                            p_item->mouse_pressed(adjusted_position);
+                            p_item->mouse_pressed(button, adjusted_position);
                         }
                     );
                 }
@@ -778,13 +778,13 @@ namespace tetengo2 { namespace gui { namespace widget
                         return;
 
                     const auto adjusted_position = map_box_.adjust_position(position);
-                    map_box_.m_p_splitter->mouse_released(adjusted_position);
+                    map_box_.m_p_splitter->mouse_released(button, adjusted_position);
                     std::for_each(
                         map_box_.m_p_value_items.begin(),
                         map_box_.m_p_value_items.end(),
-                        [&adjusted_position](const std::unique_ptr<value_item>& p_item)
+                        [button, &adjusted_position](const std::unique_ptr<value_item>& p_item)
                         {
-                            p_item->mouse_released(adjusted_position);
+                            p_item->mouse_released(button, adjusted_position);
                         }
                     );
 

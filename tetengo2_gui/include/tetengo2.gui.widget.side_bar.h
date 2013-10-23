@@ -896,8 +896,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    side_bar_.m_p_state_button->mouse_pressed(position);
-                    side_bar_.m_p_splitter->mouse_pressed(position);
+                    side_bar_.m_p_state_button->mouse_pressed(button, position);
+                    side_bar_.m_p_splitter->mouse_pressed(button, position);
                 }
             );
             side_bar_.mouse_observer_set().released().connect(
@@ -906,8 +906,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    side_bar_.m_p_state_button->mouse_released(position);
-                    side_bar_.m_p_splitter->mouse_released(position);
+                    side_bar_.m_p_state_button->mouse_released(button, position);
+                    side_bar_.m_p_splitter->mouse_released(button, position);
                 }
             );
             side_bar_.mouse_observer_set().moved().connect(

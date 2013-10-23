@@ -712,7 +712,15 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >
             list_box_traits_type;
-        typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
+        typedef
+            tetengo2::gui::mouse_capture<
+                widget_type,
+                boost::mpl::at<
+                    observer_set_type_list, type::observer_set::mouse_observer_set
+                >::type::mouse_button_type,
+                tetengo2::detail::stub::mouse_capture
+            >
+            mouse_capture_type;
         typedef
             tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>
             custom_control_traits_type;

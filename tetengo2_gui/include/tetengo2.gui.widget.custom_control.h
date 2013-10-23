@@ -46,6 +46,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The mouse capture type.
         typedef typename traits_type::mouse_capture_type mouse_capture_type;
 
+        //! The mouse button type.
+        typedef typename mouse_capture_type::mouse_button_type mouse_button_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -147,19 +150,40 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Checks whether the mouse is captured with the specified button.
+
+            When p_inner_item is nullptr, it returns true if any item is captured.
+
+            \param mouse_button A mouse button.
+            \param p_inner_item A pointer to an inner item.
+
+            \retval true  When the mouse is captured by the inner item.
+            \retval false Otherwise.
+        */
+        bool mouse_captured(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item)
+        const
+        {
+            return
+                static_cast<bool>(m_p_mouse_capture) &&
+                m_p_mouse_capture->button() == mouse_button &&
+                (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
+        }
+
+        /*!
             \brief Sets a mouse capture to the specified inner item.
             
+            \param mouse_button A mouse button.
             \param p_inner_item A pointer to an inner item.
 
             \retval true  When a mouse capture is set to the specified inner item.
             \retval false Otherwise.
         */
-        bool set_mouse_capture(const inner_item_type* const p_inner_item)
+        bool set_mouse_capture(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item)
         {
             if (m_p_mouse_capture)
                 return false;
 
-            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this, mouse_button);
             m_p_mouse_captured_item = p_inner_item;
 
             return true;
@@ -204,6 +228,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The custom control type.
         typedef CustomControl custom_control_type;
+
+        //! The mouse button type.
+        typedef typename custom_control_type::mouse_button_type mouse_button_type;
 
         //! The postion type.
         typedef typename custom_control_type::position_type position_type;
@@ -297,14 +324,15 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Called when the mouse button is pressed.
 
+            \param mouse_button    A mouse_button_type.
             \param cursor_position A mouse cursor position.
         */
-        void mouse_pressed(const position_type& cursor_position)
+        void mouse_pressed(const mouse_button_type mouse_button, const position_type& cursor_position)
         {
             if (!inside(cursor_position))
                 return;
 
-            if (!this->parent().set_mouse_capture(this))
+            if (!this->parent().set_mouse_capture(mouse_button, this))
                 return;
 
             mouse_pressed_impl(cursor_position);
@@ -313,11 +341,12 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Called when the mouse button is released.
 
+            \param mouse_button    A mouse_button_type.
             \param cursor_position A mouse cursor position.
         */
-        void mouse_released(const position_type& cursor_position)
+        void mouse_released(const mouse_button_type mouse_button, const position_type& cursor_position)
         {
-            if (!this->parent().mouse_captured(this))
+            if (!this->parent().mouse_captured(mouse_button, this))
                 return;
 
             mouse_released_impl(cursor_position);

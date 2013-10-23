@@ -502,6 +502,11 @@ namespace bobura
             >
             virtual_key_type;
         typedef
+            tetengo2::gui::message::mouse_observer_set<
+                position_type, boost::mpl::at<common_type_list, type::difference>::type
+            >
+            mouse_observer_set_type;
+        typedef
             tetengo2::gui::widget::traits::widget_traits<
                 widget_canvas_type,
                 alert_type,
@@ -519,9 +524,7 @@ namespace bobura
                 tetengo2::gui::message::keyboard_observer_set<
                     virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
-                tetengo2::gui::message::mouse_observer_set<
-                    position_type, boost::mpl::at<common_type_list, type::difference>::type
-                >
+                mouse_observer_set_type
             >
             widget_traits_type;
         typedef
@@ -696,7 +699,9 @@ namespace bobura
             list_box_type;
         typedef
             tetengo2::gui::mouse_capture<
-                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+                widget_type,
+                mouse_observer_set_type::mouse_button_type,
+                boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
             >
             mouse_capture_type;
         typedef

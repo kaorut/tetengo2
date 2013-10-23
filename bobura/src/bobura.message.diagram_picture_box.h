@@ -47,7 +47,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         typedef View view_type;
 
         //! The set-mouse-capture function type.
-        typedef std::function<void ()> set_mouse_capture_type;
+        typedef std::function<void (const mouse_button_type)> set_mouse_capture_type;
 
 
         // constructors and destructor
@@ -95,7 +95,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
             m_picture_box.set_focus();
 
-            m_set_mouse_capture();
+            m_set_mouse_capture(button);
 
             auto* const p_item = m_view.p_item_by_position(position);
             if (p_item)
@@ -150,7 +150,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         typedef View view_type;
 
         //! The release-mouse-capture function type.
-        typedef std::function<bool ()> release_mouse_capture_type;
+        typedef std::function<bool (const mouse_button_type)> release_mouse_capture_type;
 
 
         // constructors and destructor
@@ -190,10 +190,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
             tetengo2::suppress_unused_variable_warning(button, position, shift, control, meta);
 
-            if (m_release_mouse_capture())
-            {
-
-            }
+            m_release_mouse_capture(button);
         }
 
 

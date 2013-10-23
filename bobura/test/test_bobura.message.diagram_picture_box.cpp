@@ -98,10 +98,10 @@ namespace
 
     // functions
 
-    void set_mouse_capture()
+    void set_mouse_capture(const mouse_button_type)
     {}
 
-    bool release_mouse_capture()
+    bool release_mouse_capture(const mouse_button_type)
     {
         return false;
     }

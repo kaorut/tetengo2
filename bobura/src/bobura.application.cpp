@@ -66,6 +66,10 @@ namespace bobura
 
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
+        typedef boost::mpl::at<ui_type_list, type::ui::mouse_capture>::type mouse_capture_type;
+
+        typedef mouse_capture_type::mouse_button_type mouse_button_type;
+
         typedef boost::mpl::at<ui_type_list, type::ui::timer>::type timer_type;
 
 
@@ -213,14 +217,23 @@ namespace bobura
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_pressed
                 >::type(
                     main_window.diagram_picture_box(),
-                    [&main_window]() { main_window.diagram_picture_box().set_mouse_capture(); },
+                    [&main_window](const mouse_button_type mouse_button)
+                    {
+                        main_window.diagram_picture_box().set_mouse_capture(mouse_button);
+                    },
                     view
                 )
             );
             main_window.diagram_picture_box().mouse_observer_set().released().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_released
-                >::type([&main_window]() { return main_window.diagram_picture_box().release_mouse_capture(); }, view)
+                >::type(
+                    [&main_window](const mouse_button_type mouse_button)
+                    {
+                        return main_window.diagram_picture_box().release_mouse_capture(mouse_button);
+                    },
+                    view
+                )
             );
             main_window.diagram_picture_box().mouse_observer_set().moved().connect(
                 boost::mpl::at<
