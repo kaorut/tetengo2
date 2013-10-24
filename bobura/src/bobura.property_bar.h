@@ -9,7 +9,6 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
-#include <cstddef>
 //#include <memory>
 
 #include <boost/mpl/at.hpp>
@@ -95,10 +94,6 @@ namespace bobura
 
         typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
-        typedef typename map_box_type::string_type string_type;
-
-        typedef typename map_box_type::value_type value_type;
-
 
         // variables
 
@@ -128,26 +123,6 @@ namespace bobura
             );
 
             this->set_width(width_type(24));
-
-            for (std::size_t i = 0; i < 10; ++i)
-            {
-                m_p_map_box->insert_value(
-                    m_p_map_box->value_count(),
-                    value_type(string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("foo")))
-                );
-                m_p_map_box->insert_value(
-                    m_p_map_box->value_count(),
-                    value_type(string_type(TETENGO2_TEXT("fuga")), string_type(TETENGO2_TEXT("bar")))
-                );
-                m_p_map_box->insert_value(
-                    m_p_map_box->value_count(),
-                    value_type(string_type(TETENGO2_TEXT("piyo")), string_type(TETENGO2_TEXT("baz")))
-                );
-                m_p_map_box->insert_value(
-                    m_p_map_box->value_count(),
-                    value_type(string_type(TETENGO2_TEXT("piyoyo")), string_type(TETENGO2_TEXT("bazz")))
-                );
-            }
         }
 
 
