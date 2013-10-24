@@ -888,6 +888,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 select_value(index_to_select(value_count_per_page(1)));
                 this->repaint();
             }
+            else if (virtual_key == virtual_key_type::home())
+            {
+                select_value(0);
+                this->repaint();
+            }
+            else if (virtual_key == virtual_key_type::end())
+            {
+                select_value(value_count() - 1);
+                this->repaint();
+            }
         }
 
         int_size_type index_to_select(std::ptrdiff_t delta)
