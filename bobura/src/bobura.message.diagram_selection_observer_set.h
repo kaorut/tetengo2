@@ -16,20 +16,50 @@
 namespace bobura { namespace message
 {
     /*!
-        \brief The class for a diagram selection observer set.
+        \brief The class template for a diagram selection observer set.
+
+        \tparam Station A station type.
+        \tparam Train   A train type.
     */
+    template <typename Station, typename Train>
     class diagram_selection_observer_set : private boost::noncopyable
     {
     public:
         // types
 
-        /*!
-            \brief The observer type of reset.
-        */
-        typedef void station_selected_type();
+        //! The station type.
+        typedef Station station_type;
 
-        //! The signal type of reset.
+        //! The train type.
+        typedef Train train_type;
+
+        /*!
+            \brief The observer type of station selection.
+
+            \param station A station.
+        */
+        typedef void station_selected_type(const station_type& station);
+
+        //! The signal type of station selection.
         typedef boost::signals2::signal<station_selected_type> station_selected_signal_type;
+
+        /*!
+            \brief The observer type of train selection.
+
+            \param train A train.
+        */
+        typedef void train_selected_type(const train_type& train);
+
+        //! The signal type of train selection.
+        typedef boost::signals2::signal<train_selected_type> train_selected_signal_type;
+
+        /*!
+            \brief The observer type of unselection.
+        */
+        typedef void unselected_all_type();
+
+        //! The signal type of unselection.
+        typedef boost::signals2::signal<unselected_all_type> unselected_all_signal_type;
 
 
         // functions
@@ -55,11 +85,57 @@ namespace bobura { namespace message
             return m_station_selected;
         }
 
+        /*!
+            \brief Returns the observer called when a train is selected.
+
+            \return The observer called when a train is selected.
+        */
+        const train_selected_signal_type& train_selected()
+        const
+        {
+            return m_train_selected;
+        }
+
+        /*!
+            \brief Returns the observer called when a train is selected.
+
+            \return The observer called when a train is selected.
+        */
+        train_selected_signal_type& train_selected()
+        {
+            return m_train_selected;
+        }
+
+        /*!
+            \brief Returns the observer called when all the items are unselected.
+
+            \return The observer called when all the items are unselected.
+        */
+        const unselected_all_signal_type& unselected_all()
+        const
+        {
+            return m_unselected_all;
+        }
+
+        /*!
+            \brief Returns the observer called when all the items are unselected.
+
+            \return The observer called when all the items are unselected.
+        */
+        unselected_all_signal_type& unselected_all()
+        {
+            return m_unselected_all;
+        }
+
 
     private:
         // variables
 
         station_selected_signal_type m_station_selected;
+
+        train_selected_signal_type m_train_selected;
+
+        unselected_all_signal_type m_unselected_all;
 
 
     };
