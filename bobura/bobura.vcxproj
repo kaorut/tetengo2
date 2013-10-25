@@ -135,6 +135,7 @@
     <ClInclude Include="src\bobura.message.0namespace.h" />
     <ClInclude Include="src\bobura.message.about_dialog.h" />
     <ClInclude Include="src\bobura.message.diagram_picture_box.h" />
+    <ClInclude Include="src\bobura.message.diagram_selection_observer_set.h" />
     <ClInclude Include="src\bobura.message.file_property_dialog.h" />
     <ClInclude Include="src\bobura.message.font_color_dialog.h" />
     <ClInclude Include="src\bobura.message.main_window.h" />

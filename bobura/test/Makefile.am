@@ -16,6 +16,7 @@ sources = \
     test_bobura.load_save.save_to_file.cpp \
     test_bobura.message.about_dialog.cpp \
     test_bobura.message.diagram_picture_box.cpp \
+    test_bobura.message.diagram_selection_observer_set.cpp \
     test_bobura.message.file_property_dialog.cpp \
     test_bobura.message.font_color_dialog.cpp \
     test_bobura.message.main_window.cpp \
