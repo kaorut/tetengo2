@@ -240,6 +240,26 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.unselect_all_items();
     }
 
+    BOOST_AUTO_TEST_CASE(selection_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            const view_type view(model, message_catalog);
+
+            view.selection_observer_set();
+        }
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            view_type view(model, message_catalog);
+
+            view.selection_observer_set();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
