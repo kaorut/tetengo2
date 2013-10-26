@@ -10,6 +10,7 @@
 #define TETENGO2_MESSAGE_DIAGRAMSELECTIONOBSERVERSET_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/signals2.hpp>
 
 
@@ -33,6 +34,9 @@ namespace bobura { namespace message
         //! The train type.
         typedef Train train_type;
 
+        //! The stop index type.
+        typedef typename train_type::stops_type::size_type stop_index_type;
+
         /*!
             \brief The observer type of station selection.
 
@@ -46,9 +50,13 @@ namespace bobura { namespace message
         /*!
             \brief The observer type of train selection.
 
-            \param train A train.
+            \param train                A train.
+            \param departure_stop_index A departure stop index. Or boost::none when a whole train is selected.
         */
-        typedef void train_selected_type(const train_type& train);
+        typedef void train_selected_type(
+            const train_type&                       train,
+            const boost::optional<stop_index_type>& departure_stop_index
+        );
 
         //! The signal type of train selection.
         typedef boost::signals2::signal<train_selected_type> train_selected_signal_type;

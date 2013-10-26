@@ -11,9 +11,13 @@
 
 #include <cassert>
 #include <limits>
+#include <memory>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+
+#include <tetengo2.stdalt.h>
 
 
 namespace bobura { namespace view { namespace diagram
@@ -21,10 +25,11 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for the diagram view selection.
 
-        \tparam Station A station type.
-        \tparam Train   A train type.
+        \tparam Station              A station type.
+        \tparam Train                A train type.
+        \tparam SelectionObserverSet A selection observer set type.
     */
-    template <typename Station, typename Train>
+    template <typename Station, typename Train, typename SelectionObserverSet>
     class selection : private boost::noncopyable
     {
     public:
@@ -39,6 +44,9 @@ namespace bobura { namespace view { namespace diagram
         //! The stop index type.
         typedef typename train_type::stops_type::size_type stop_index_type;
 
+        //! The selection observer set type.
+        typedef SelectionObserverSet selection_observer_set_type;
+
 
         // constructors and destructor
 
@@ -48,7 +56,8 @@ namespace bobura { namespace view { namespace diagram
         selection()
         :
         m_p_selected_station(nullptr),
-        m_p_selected_train(nullptr)
+        m_p_selected_train(nullptr),
+        m_p_selection_observer_set(tetengo2::stdalt::make_unique<selection_observer_set_type>())
         {}
 
         /*!
@@ -59,7 +68,8 @@ namespace bobura { namespace view { namespace diagram
         selection(selection&& another)
         :
         m_p_selected_station(another.m_p_selected_station),
-        m_p_selected_train(another.m_p_selected_train)
+        m_p_selected_train(another.m_p_selected_train),
+        m_p_selection_observer_set(std::move(another.m_p_selection_observer_set))
         {}
 
 
@@ -124,6 +134,8 @@ namespace bobura { namespace view { namespace diagram
             unselect_all();
 
             m_p_selected_station = &station;
+
+            m_p_selection_observer_set->station_selected()(station);
         }
 
         /*!
@@ -138,6 +150,8 @@ namespace bobura { namespace view { namespace diagram
 
             m_p_selected_train = &train;
             m_departure_stop_index = departure_stop_index;
+
+            m_p_selection_observer_set->train_selected()(train, departure_stop_index);
         }
 
         /*!
@@ -148,6 +162,29 @@ namespace bobura { namespace view { namespace diagram
             m_p_selected_station = nullptr;
             m_p_selected_train = nullptr;
             m_departure_stop_index = boost::none;
+
+            m_p_selection_observer_set->unselected_all()();
+        }
+
+        /*!
+            \brief Returns the selection observer set.
+
+            \return The selection observer set.
+        */
+        const selection_observer_set_type& selection_observer_set()
+        const
+        {
+            return *m_p_selection_observer_set;
+        }
+
+        /*!
+            \brief Returns the selection observer set.
+
+            \return The selection observer set.
+        */
+        selection_observer_set_type& selection_observer_set()
+        {
+            return *m_p_selection_observer_set;
         }
 
 
@@ -159,6 +196,8 @@ namespace bobura { namespace view { namespace diagram
         const train_type* m_p_selected_train;
 
         boost::optional<stop_index_type> m_departure_stop_index;
+
+        std::unique_ptr<selection_observer_set_type> m_p_selection_observer_set;
 
 
     };

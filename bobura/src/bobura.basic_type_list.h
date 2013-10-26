@@ -123,6 +123,7 @@
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
 #include "bobura.load_save.save_to_file.h"
+#include "bobura.message.diagram_selection_observer_set.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
@@ -1180,7 +1181,12 @@ namespace bobura
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
         typedef model_type::timetable_type::station_location_type::station_type station_type;
         typedef model_type::timetable_type::train_type train_type;
-        typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
+        typedef
+            bobura::message::diagram_selection_observer_set<station_type, train_type>
+            diagram_selection_observer_set_type;
+        typedef
+            bobura::view::diagram::selection<station_type, train_type, diagram_selection_observer_set_type>
+            selection_type;
         typedef
             bobura::view::diagram::header<
                 model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
