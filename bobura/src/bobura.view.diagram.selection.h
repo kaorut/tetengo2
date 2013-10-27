@@ -11,8 +11,8 @@
 
 #include <cassert>
 #include <limits>
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

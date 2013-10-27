@@ -22,8 +22,6 @@ namespace bobura { namespace message { namespace diagram_view
 
         /*!
             \brief Called when a station is selected.
-
-            \param station
         */
         void operator()()
         const
