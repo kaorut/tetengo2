@@ -220,11 +220,11 @@ BOOST_AUTO_TEST_SUITE(selection)
         {
             selection_type selection;
 
-            bool unselected_all_called = false;
-            selection.selection_observer_set().unselected_all().connect(
-                [&unselected_all_called]()
+            bool all_unselected_called = false;
+            selection.selection_observer_set().all_unselected().connect(
+                [&all_unselected_called]()
                 {
-                    unselected_all_called = true;
+                    all_unselected_called = true;
                 }
             );
 
@@ -236,16 +236,16 @@ BOOST_AUTO_TEST_SUITE(selection)
             selection.unselect_all();
 
             BOOST_CHECK(!selection.selected(station));
-            BOOST_CHECK(unselected_all_called);
+            BOOST_CHECK(all_unselected_called);
         }
         {
             selection_type selection;
 
-            bool unselected_all_called = false;
-            selection.selection_observer_set().unselected_all().connect(
-                [&unselected_all_called]()
+            bool all_unselected_called = false;
+            selection.selection_observer_set().all_unselected().connect(
+                [&all_unselected_called]()
                 {
-                    unselected_all_called = true;
+                    all_unselected_called = true;
                 }
             );
 
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_SUITE(selection)
             selection.unselect_all();
 
             BOOST_CHECK(!selection.selected(train, boost::none));
-            BOOST_CHECK(unselected_all_called);
+            BOOST_CHECK(all_unselected_called);
         }
     }
 

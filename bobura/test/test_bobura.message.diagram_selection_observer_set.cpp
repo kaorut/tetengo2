@@ -69,19 +69,19 @@ BOOST_AUTO_TEST_SUITE(diagram_selection_observer_set)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(unselected_all)
+    BOOST_AUTO_TEST_CASE(all_unselected)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             const observer_set_type observer_set;
 
-            observer_set.unselected_all();
+            observer_set.all_unselected();
         }
         {
             observer_set_type observer_set;
 
-            observer_set.unselected_all();
+            observer_set.all_unselected();
         }
     }
 

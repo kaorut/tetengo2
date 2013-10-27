@@ -18,7 +18,7 @@ namespace bobura { namespace message { namespace diagram_view
         \tparam PropertyBar A property bar type.
     */
     template <typename PropertyBar>
-    class unselected_all
+    class all_unselected
     {
     public:
         // types
@@ -34,7 +34,7 @@ namespace bobura { namespace message { namespace diagram_view
 
             \param property_bar A property bar.
         */
-        explicit unselected_all(property_bar_type& property_bar)
+        explicit all_unselected(property_bar_type& property_bar)
         :
         m_property_bar(property_bar)
         {}

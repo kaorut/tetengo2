@@ -64,10 +64,10 @@ namespace bobura { namespace message
         /*!
             \brief The observer type of unselection.
         */
-        typedef void unselected_all_type();
+        typedef void all_unselected_type();
 
         //! The signal type of unselection.
-        typedef boost::signals2::signal<unselected_all_type> unselected_all_signal_type;
+        typedef boost::signals2::signal<all_unselected_type> all_unselected_signal_type;
 
 
         // functions
@@ -119,10 +119,10 @@ namespace bobura { namespace message
 
             \return The observer called when all the items are unselected.
         */
-        const unselected_all_signal_type& unselected_all()
+        const all_unselected_signal_type& all_unselected()
         const
         {
-            return m_unselected_all;
+            return m_all_unselected;
         }
 
         /*!
@@ -130,9 +130,9 @@ namespace bobura { namespace message
 
             \return The observer called when all the items are unselected.
         */
-        unselected_all_signal_type& unselected_all()
+        all_unselected_signal_type& all_unselected()
         {
-            return m_unselected_all;
+            return m_all_unselected;
         }
 
 
@@ -143,7 +143,7 @@ namespace bobura { namespace message
 
         train_selected_signal_type m_train_selected;
 
-        unselected_all_signal_type m_unselected_all;
+        all_unselected_signal_type m_all_unselected;
 
 
     };

@@ -163,7 +163,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_selected_train = nullptr;
             m_departure_stop_index = boost::none;
 
-            m_p_selection_observer_set->unselected_all()();
+            m_p_selection_observer_set->all_unselected()();
         }
 
         /*!
