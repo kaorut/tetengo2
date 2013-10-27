@@ -36,6 +36,10 @@ namespace bobura
 
         typedef boost::mpl::at<view_type_list, type::view::view>::type view_type;
 
+        typedef
+            boost::mpl::at<application_type_list, type::application::diagram_view_message_type_list>::type
+            diagram_view_message_type_list_type;
+
         typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
         typedef boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type confirm_file_save_type;
@@ -201,6 +205,12 @@ namespace bobura
                 )
             );
 
+            view.selection_observer_set().all_unselected().connect(
+                boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::all_unselected>::type(
+                    main_window.property_bar()
+                )
+            );
+            
             main_window.file_drop_observer_set().file_dropped().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::file_dropped>::type(
                     command_set, m_model, main_window

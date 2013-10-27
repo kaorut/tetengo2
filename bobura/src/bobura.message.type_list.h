@@ -25,6 +25,16 @@ namespace bobura { namespace message
         }
     }
 
+    namespace diagram_view
+    {
+        namespace type
+        {
+            //! The unselection observer type.
+            struct all_unselected;
+
+        }
+    }
+
     namespace main_window
     {
         namespace type

@@ -15,6 +15,7 @@
 
 #include "bobura.message.about_dialog.h"
 #include "bobura.message.diagram_picture_box.h"
+#include "bobura.message.diagram_view.h"
 #include "bobura.message.file_property_dialog.h"
 #include "bobura.message.font_color_dialog.h"
 #include "bobura.message.main_window.h"
@@ -50,6 +51,30 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::changed, changed<TimetableModel, DiagramView, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
+                type;
+
+
+        };
+    }
+
+    namespace diagram_view
+    {
+        /*!
+            \brief The meta function for the type list of the diagram view messages.
+
+            \tparam PropertyBar A property bar type.
+        */
+        template <typename PropertyBar>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the timetable model.
+            typedef
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::all_unselected, all_unselected<PropertyBar>>,
+                tetengo2::meta::assoc_list_end
+                >
                 type;
 
 

@@ -122,6 +122,7 @@ namespace bobura
     namespace type { namespace application
     {
         struct model_message_type_list; //!< The model message type list type.
+        struct diagram_view_message_type_list;  //!< The diagram view messge type list type.
     }}
 
     //! The type list for the application.
@@ -135,8 +136,15 @@ namespace bobura
                     boost::mpl::at<main_window_type_list, type::main_window::main_window>::type
                 >::type
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::application::diagram_view_message_type_list,
+                message::diagram_view::type_list<
+                    boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type
+                >::type
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         application_type_list;
 
 
