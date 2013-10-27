@@ -258,6 +258,9 @@
     <ClInclude Include="src\bobura.message.diagram_selection_observer_set.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.message.diagram_view.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\images\kumakuma.jpg">

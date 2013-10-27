@@ -111,6 +111,7 @@
     <ClCompile Include="test\test_bobura.message.about_dialog.cpp" />
     <ClCompile Include="test\test_bobura.message.diagram_picture_box.cpp" />
     <ClCompile Include="test\test_bobura.message.diagram_selection_observer_set.cpp" />
+    <ClCompile Include="test\test_bobura.message.diagram_view.cpp" />
     <ClCompile Include="test\test_bobura.message.file_property_dialog.cpp" />
     <ClCompile Include="test\test_bobura.message.font_color_dialog.cpp" />
     <ClCompile Include="test\test_bobura.message.main_window.cpp" />

@@ -119,5 +119,8 @@
     <ClCompile Include="test\test_bobura.message.diagram_selection_observer_set.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.message.diagram_view.cpp">
+      <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
