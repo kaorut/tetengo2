@@ -13,11 +13,33 @@
 namespace bobura { namespace message { namespace diagram_view
 {
      /*!
-        \brief The class for a unselection observer of the diagram view.
+        \brief The class template for a unselection observer of the diagram view.
+
+        \tparam PropertyBar A property bar type.
     */
+    template <typename PropertyBar>
     class unselected_all
     {
     public:
+        // types
+
+        //! The property bar type.
+        typedef PropertyBar property_bar_type;
+
+
+        // constructors and destructor
+
+        /*!
+            brief Creates an unselection observer.
+
+            \param property_bar A property bar.
+        */
+        explicit unselected_all(property_bar_type& property_bar)
+        :
+        m_property_bar(property_bar)
+        {}
+
+
         // functions
 
         /*!
@@ -28,6 +50,12 @@ namespace bobura { namespace message { namespace diagram_view
         {
 
         }
+
+
+    private:
+        // variables
+
+        property_bar_type& m_property_bar;
 
 
     };

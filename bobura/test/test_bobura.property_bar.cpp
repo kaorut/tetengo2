@@ -21,8 +21,7 @@ namespace
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
     typedef
-        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::property_bar>::type
-        property_bar_type;
+        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::property_bar>::type property_bar_type;
 
 
 }
