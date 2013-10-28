@@ -140,7 +140,11 @@ namespace bobura
             boost::mpl::pair<
                 type::application::diagram_view_message_type_list,
                 message::diagram_view::type_list<
-                    boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type
+                    boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type,
+                    boost::mpl::at<
+                        model_type_list, type::model::model
+                    >::type::timetable_type::station_location_type::station_type,
+                    boost::mpl::at<model_type_list, type::model::model>::type::timetable_type::train_type
                 >::type
             >,
         tetengo2::meta::assoc_list_end

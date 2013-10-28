@@ -205,6 +205,16 @@ namespace bobura
                 )
             );
 
+            view.selection_observer_set().station_selected().connect(
+                boost::mpl::at<
+                    diagram_view_message_type_list_type, message::diagram_view::type::station_selected
+                >::type(main_window.property_bar())
+            );
+            view.selection_observer_set().train_selected().connect(
+                boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::train_selected>::type(
+                    main_window.property_bar()
+                )
+            );
             view.selection_observer_set().all_unselected().connect(
                 boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::all_unselected>::type(
                     main_window.property_bar()
