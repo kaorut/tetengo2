@@ -40,6 +40,26 @@ BOOST_AUTO_TEST_SUITE(property_bar)
         const property_bar_type property_bar(window, message_catalog);
     }
 
+    BOOST_AUTO_TEST_CASE(map_box)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type window;
+            const message_catalog_type message_catalog;
+            const property_bar_type property_bar(window, message_catalog);
+
+            property_bar.map_box();
+        }
+        {
+            window_type window;
+            const message_catalog_type message_catalog;
+            property_bar_type property_bar(window, message_catalog);
+
+            property_bar.map_box();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

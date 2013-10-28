@@ -9,6 +9,7 @@
 #if !defined(BOBURA_PROPERTYBAR_H)
 #define BOBURA_PROPERTYBAR_H
 
+#include <cassert>
 //#include <memory>
 
 #include <boost/mpl/at.hpp>
@@ -85,6 +86,29 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Returns the map box.
+
+            \return The map box.
+        */
+        const map_box_type& map_box()
+        const
+        {
+            assert(m_p_map_box);
+            return *m_p_map_box;
+        }
+
+        /*!
+            \brief Returns the map box.
+
+            \return The map box.
+        */
+        map_box_type& map_box()
+        {
+            assert(m_p_map_box);
+            return *m_p_map_box;
+        }
 
 
     private:
