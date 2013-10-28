@@ -13,7 +13,7 @@
 namespace bobura { namespace message { namespace diagram_view
 {
      /*!
-        \brief The class template for a unselection observer of the diagram view.
+        \brief The class template for an unselection observer of the diagram view.
 
         \tparam PropertyBar A property bar type.
     */
