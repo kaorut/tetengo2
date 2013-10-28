@@ -9,8 +9,11 @@
 #if !defined(BOBURA_MESSAGE_DIAGRAMVIEW_H)
 #define BOBURA_MESSAGE_DIAGRAMVIEW_H
 
+#include <utility>
+
 #include <boost/optional.hpp>
 
+#include <tetengo2.text.h>
 #include <tetengo2.utility.h>
 
 
@@ -56,16 +59,32 @@ namespace bobura { namespace message { namespace diagram_view
             \param station A station.
         */
         void operator()(const station_type& station)
-        const
         {
-            tetengo2::suppress_unused_variable_warning(station);
+            insert_value(string_type(TETENGO2_TEXT("Name")), station.name());
         }
 
 
     private:
+        // types
+
+        typedef typename property_bar_type::map_box_type::string_type string_type;
+
+        typedef typename property_bar_type::map_box_type::value_type value_type;
+
+
         // variables
 
         property_bar_type& m_property_bar;
+
+
+        // functions
+
+        void insert_value(string_type key, string_type mapped)
+        {
+            m_property_bar.map_box().insert_value(
+                m_property_bar.map_box().value_count(), value_type(std::move(key), std::move(mapped))
+            );
+        }
 
 
     };
@@ -115,16 +134,35 @@ namespace bobura { namespace message { namespace diagram_view
             \param departure_stop_index A departure stop index. Or boost::none when a whole train is selected.
         */
         void operator()(const train_type& train, const boost::optional<stop_index_type>& departure_stop_index)
-        const
         {
-            tetengo2::suppress_unused_variable_warning(train, departure_stop_index);
+            tetengo2::suppress_unused_variable_warning(departure_stop_index);
+
+            insert_value(string_type(TETENGO2_TEXT("Number")), train.number());
+            insert_value(string_type(TETENGO2_TEXT("Name")), train.name());
         }
 
 
     private:
+        // types
+
+        typedef typename property_bar_type::map_box_type::string_type string_type;
+
+        typedef typename property_bar_type::map_box_type::value_type value_type;
+
+
         // variables
 
         property_bar_type& m_property_bar;
+
+
+        // functions
+
+        void insert_value(string_type key, string_type mapped)
+        {
+            m_property_bar.map_box().insert_value(
+                m_property_bar.map_box().value_count(), value_type(std::move(key), std::move(mapped))
+            );
+        }
 
 
     };
@@ -164,13 +202,19 @@ namespace bobura { namespace message { namespace diagram_view
             \brief Called when all the items are unselected.
         */
         void operator()()
-        const
         {
-
+            m_property_bar.map_box().clear();
         }
 
 
     private:
+        // types
+
+        typedef typename property_bar_type::map_box_type::string_type string_type;
+
+        typedef typename property_bar_type::map_box_type::value_type value_type;
+
+
         // variables
 
         property_bar_type& m_property_bar;
