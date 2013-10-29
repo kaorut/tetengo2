@@ -103,7 +103,7 @@ namespace bobura
             const command_set_holder_type command_set_holder(m_settings, m_model, view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(command_set_holder.command_set(), view, main_window);
+            set_message_observers(command_set_holder.command_set(), view, main_window, message_catalog);
             m_model.reset_timetable();
             main_window.set_menu_bar(
                 main_window_menu_builder(
@@ -192,7 +192,12 @@ namespace bobura
 
         // functions
 
-        void set_message_observers(const command_set_type& command_set, view_type& view, main_window_type& main_window)
+        void set_message_observers(
+            const command_set_type&     command_set,
+            view_type&                  view,
+            main_window_type&           main_window,
+            const message_catalog_type& message_catalog
+        )
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
@@ -208,11 +213,11 @@ namespace bobura
             view.selection_observer_set().station_selected().connect(
                 boost::mpl::at<
                     diagram_view_message_type_list_type, message::diagram_view::type::station_selected
-                >::type(main_window.property_bar())
+                >::type(main_window.property_bar(), message_catalog)
             );
             view.selection_observer_set().train_selected().connect(
                 boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::train_selected>::type(
-                    main_window.property_bar()
+                    main_window.property_bar(), message_catalog
                 )
             );
             view.selection_observer_set().all_unselected().connect(

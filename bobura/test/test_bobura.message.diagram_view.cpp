@@ -38,11 +38,15 @@ namespace
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
         station_grade_type_set_type;
     
-    typedef bobura::message::diagram_view::station_selected<property_bar_type, station_type> station_selected_type;
+    typedef
+        bobura::message::diagram_view::station_selected<property_bar_type, station_type, message_catalog_type>
+        station_selected_type;
 
     typedef model_type::timetable_type::train_type train_type;
 
-    typedef bobura::message::diagram_view::train_selected<property_bar_type, train_type> train_selected_type;
+    typedef
+        bobura::message::diagram_view::train_selected<property_bar_type, train_type, message_catalog_type>
+        train_selected_type;
 
     typedef bobura::message::diagram_view::all_unselected<property_bar_type> all_unselected_type;
 
@@ -63,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(station_selected)
         window_type window;
         const message_catalog_type message_catalog;
         property_bar_type property_bar(window, message_catalog);
-        const station_selected_type station_selected(property_bar);
+        const station_selected_type station_selected(property_bar, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -73,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(station_selected)
         window_type window;
         const message_catalog_type message_catalog;
         property_bar_type property_bar(window, message_catalog);
-        station_selected_type station_selected(property_bar);
+        station_selected_type station_selected(property_bar, message_catalog);
 
         const station_type station(
             string_type(TETENGO2_TEXT("name")), station_grade_type_set_type::local_type::instance(), false, false
@@ -93,7 +97,7 @@ BOOST_AUTO_TEST_SUITE(train_selected)
         window_type window;
         const message_catalog_type message_catalog;
         property_bar_type property_bar(window, message_catalog);
-        const train_selected_type train_selected(property_bar);
+        const train_selected_type train_selected(property_bar, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -103,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(train_selected)
         window_type window;
         const message_catalog_type message_catalog;
         property_bar_type property_bar(window, message_catalog);
-        train_selected_type train_selected(property_bar);
+        train_selected_type train_selected(property_bar, message_catalog);
 
         const train_type train(
             string_type(TETENGO2_TEXT("number")),

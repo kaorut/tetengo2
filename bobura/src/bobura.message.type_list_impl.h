@@ -62,11 +62,12 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the diagram view messages.
 
-            \tparam PropertyBar A property bar type.
-            \tparam Station     A station type.
-            \tparam Train       A train type.
+            \tparam PropertyBar    A property bar type.
+            \tparam Station        A station type.
+            \tparam Train          A train type.
+            \tparam MessageCatalog A message catalog type.
         */
-        template <typename PropertyBar, typename Station, typename Train>
+        template <typename PropertyBar, typename Station, typename Train, typename MessageCatalog>
         class type_list
         {
         public:
@@ -75,8 +76,9 @@ namespace bobura { namespace message
             //! The type list for the timetable model.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::station_selected, station_selected<PropertyBar, Station>>,
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::train_selected, train_selected<PropertyBar, Train>>,
+                    boost::mpl::pair<type::station_selected, station_selected<PropertyBar, Station, MessageCatalog>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::train_selected, train_selected<PropertyBar, Train, MessageCatalog>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::all_unselected, all_unselected<PropertyBar>>,
                 tetengo2::meta::assoc_list_end
                 >>>

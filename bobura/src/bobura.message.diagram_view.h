@@ -22,10 +22,11 @@ namespace bobura { namespace message { namespace diagram_view
     /*!
         \brief The class template for a station selection observer of the diagram view.
 
-        \tparam PropertyBar A property bar type.
-        \tparam Station     A station type.
+        \tparam PropertyBar    A property bar type.
+        \tparam Station        A station type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename PropertyBar, typename Station>
+    template <typename PropertyBar, typename Station, typename MessageCatalog>
     class station_selected
     {
     public:
@@ -37,17 +38,22 @@ namespace bobura { namespace message { namespace diagram_view
         //! The station type.
         typedef Station station_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             brief Creates a station selection observer.
 
-            \param property_bar A property bar.
+            \param property_bar    A property bar.
+            \param message_catalog A message catalog.
         */
-        explicit station_selected(property_bar_type& property_bar)
+        station_selected(property_bar_type& property_bar, const message_catalog_type& message_catalog)
         :
-        m_property_bar(property_bar)
+        m_property_bar(property_bar),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -76,6 +82,8 @@ namespace bobura { namespace message { namespace diagram_view
 
         property_bar_type& m_property_bar;
 
+        const message_catalog_type& m_message_catalog;
+
 
         // functions
 
@@ -93,10 +101,11 @@ namespace bobura { namespace message { namespace diagram_view
     /*!
         \brief The class template for a train selection observer of the diagram view.
 
-        \tparam PropertyBar A property bar type.
-        \tparam Train       A train type.
+        \tparam PropertyBar    A property bar type.
+        \tparam Train          A train type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename PropertyBar, typename Train>
+    template <typename PropertyBar, typename Train, typename MessageCatalog>
     class train_selected
     {
     public:
@@ -111,17 +120,22 @@ namespace bobura { namespace message { namespace diagram_view
         //! The stop index type.
         typedef typename train_type::stops_type::size_type stop_index_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
         /*!
             brief Creates a train selection observer.
 
-            \param property_bar A property bar.
+            \param property_bar    A property bar.
+            \param message_catalog A message catalog.
         */
-        explicit train_selected(property_bar_type& property_bar)
+        train_selected(property_bar_type& property_bar, const message_catalog_type& message_catalog)
         :
-        m_property_bar(property_bar)
+        m_property_bar(property_bar),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -153,6 +167,8 @@ namespace bobura { namespace message { namespace diagram_view
         // variables
 
         property_bar_type& m_property_bar;
+
+        const message_catalog_type& m_message_catalog;
 
 
         // functions

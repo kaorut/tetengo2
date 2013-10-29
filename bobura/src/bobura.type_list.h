@@ -144,7 +144,8 @@ namespace bobura
                     boost::mpl::at<
                         model_type_list, type::model::model
                     >::type::timetable_type::station_location_type::station_type,
-                    boost::mpl::at<model_type_list, type::model::model>::type::timetable_type::train_type
+                    boost::mpl::at<model_type_list, type::model::model>::type::timetable_type::train_type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >::type
             >,
         tetengo2::meta::assoc_list_end
