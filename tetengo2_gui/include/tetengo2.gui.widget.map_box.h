@@ -625,13 +625,15 @@ namespace tetengo2 { namespace gui { namespace widget
             width_type mapped_text_max_width()
             const
             {
+                const width_type map_box_client_width =
+                    gui::dimension<dimension_type>::width(this->parent().client_dimension());
                 if (
-                    gui::dimension<dimension_type>::width(this->dimension()) >
-                    (width_type::from(this->template parent_to<map_box>().m_splitter_position) + padding_width() * 2)
+                    map_box_client_width >
+                    width_type::from(this->template parent_to<map_box>().m_splitter_position) + padding_width() * 2
                 )
                 {
                     return
-                        gui::dimension<dimension_type>::width(this->dimension()) -
+                        map_box_client_width -
                         width_type::from(this->template parent_to<map_box>().m_splitter_position) -
                         padding_width() * 2;
                 }
