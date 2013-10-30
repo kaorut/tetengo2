@@ -11,6 +11,7 @@
 
 #include <utility>
 
+#include <boost/format.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2.text.h>
@@ -66,7 +67,7 @@ namespace bobura { namespace message { namespace diagram_view
         */
         void operator()(const station_type& station)
         {
-            insert_value(string_type(TETENGO2_TEXT("Name")), station.name());
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), station.name());
         }
 
 
@@ -151,9 +152,9 @@ namespace bobura { namespace message { namespace diagram_view
         {
             tetengo2::suppress_unused_variable_warning(departure_stop_index);
 
-            insert_value(string_type(TETENGO2_TEXT("Number")), train.number());
-            insert_value(string_type(TETENGO2_TEXT("Name")), train.name());
-        }
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
+       }
 
 
     private:
@@ -178,6 +179,23 @@ namespace bobura { namespace message { namespace diagram_view
             m_property_bar.map_box().insert_value(
                 m_property_bar.map_box().value_count(), value_type(std::move(key), std::move(mapped))
             );
+        }
+
+        string_type build_name(const train_type& train)
+        {
+            if (train.name_number().empty())
+            {
+                return train.name();
+            }
+            else
+            {
+                return
+                    (
+                        boost::basic_format<typename string_type::value_type>(
+                            m_message_catalog.get(TETENGO2_TEXT("Diagram:%1% No. %2%"))
+                        ) % train.name() % train.name_number()
+                    ).str();
+            }
         }
 
 

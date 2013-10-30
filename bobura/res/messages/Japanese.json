@@ -16,9 +16,6 @@
         "App:Bobura": "鉄道系アプリケーション建設予定地",
         
         
-        "Diagram:%1% No. %2%": "%1%%2%号",
-        
-        
         "Menu:&File":             "ファイル(&F)",
         "Menu:File:&New":         "新規作成(&N)",
         "Menu:File:&Open...":     "開く(&O)...",
@@ -45,7 +42,12 @@
         "Menu:Help:&About":                "バージョン情報(&A)",
         
         
-        "PropertyBar:Properties": "プロパティ",
+        "Diagram:%1% No. %2%": "%1%%2%号",
+        
+        
+        "PropertyBar:Properties":   "プロパティ",
+        "PropertyBar:Name":         "名称",
+        "PropertyBar:Train Number": "列車番号",
         
         
         "Dialog:FileOpenSave:Open":                         "開く",
