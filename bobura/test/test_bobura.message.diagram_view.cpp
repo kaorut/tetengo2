@@ -39,7 +39,9 @@ namespace
         station_grade_type_set_type;
     
     typedef
-        bobura::message::diagram_view::station_selected<property_bar_type, station_type, message_catalog_type>
+        bobura::message::diagram_view::station_selected<
+            property_bar_type, station_type, station_grade_type_set_type, message_catalog_type
+        >
         station_selected_type;
 
     typedef model_type::timetable_type::train_type train_type;

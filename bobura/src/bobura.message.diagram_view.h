@@ -9,10 +9,13 @@
 #if !defined(BOBURA_MESSAGE_DIAGRAMVIEW_H)
 #define BOBURA_MESSAGE_DIAGRAMVIEW_H
 
+#include <cassert>
+#include <stdexcept>
 #include <utility>
 
 #include <boost/format.hpp>
 #include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.utility.h>
@@ -23,11 +26,12 @@ namespace bobura { namespace message { namespace diagram_view
     /*!
         \brief The class template for a station selection observer of the diagram view.
 
-        \tparam PropertyBar    A property bar type.
-        \tparam Station        A station type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam PropertyBar         A property bar type.
+        \tparam Station             A station type.
+        \tparam StationGradeTypeSet A station grade type set type.
+        \tparam MessageCatalog      A message catalog type.
     */
-    template <typename PropertyBar, typename Station, typename MessageCatalog>
+    template <typename PropertyBar, typename Station, typename StationGradeTypeSet, typename MessageCatalog>
     class station_selected
     {
     public:
@@ -38,6 +42,9 @@ namespace bobura { namespace message { namespace diagram_view
 
         //! The station type.
         typedef Station station_type;
+
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -68,6 +75,7 @@ namespace bobura { namespace message { namespace diagram_view
         void operator()(const station_type& station)
         {
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), station.name());
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Grade")), grade_string(station.grade()));
         }
 
 
@@ -77,6 +85,8 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename property_bar_type::map_box_type::string_type string_type;
 
         typedef typename property_bar_type::map_box_type::value_type value_type;
+
+        typedef typename station_type::grade_type grade_type;
 
 
         // variables
@@ -93,6 +103,21 @@ namespace bobura { namespace message { namespace diagram_view
             m_property_bar.map_box().insert_value(
                 m_property_bar.map_box().value_count(), value_type(std::move(key), std::move(mapped))
             );
+        }
+
+        string_type grade_string(const grade_type& grade)
+        {
+            if      (&grade == &station_grade_type_set_type::local_type::instance())
+                return m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Local Station"));
+            else if (&grade == &station_grade_type_set_type::principal_type::instance())
+                return m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Principal Station"));
+            else if (&grade == &station_grade_type_set_type::local_terminal_type::instance())
+                return m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Local Terminal Station"));
+            else if (&grade == &station_grade_type_set_type::principal_terminal_type::instance())
+                return m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Principal Terminal Station"));
+
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
         }
 
 
