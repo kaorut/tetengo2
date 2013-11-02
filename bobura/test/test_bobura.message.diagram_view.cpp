@@ -48,6 +48,10 @@ namespace
 
     typedef model_type::timetable_type::train_type train_type;
 
+    typedef model_type::timetable_type::train_kind_type train_kind_type;
+
+    typedef train_kind_type::color_type color_type;
+
     typedef
         bobura::message::diagram_view::train_selected<property_bar_type, model_type, message_catalog_type>
         train_selected_type;
@@ -114,7 +118,17 @@ BOOST_AUTO_TEST_SUITE(train_selected)
         window_type window;
         const message_catalog_type message_catalog;
         property_bar_type property_bar(window, message_catalog);
-        const model_type model;
+        model_type model;
+        model.timetable().insert_train_kind(
+            model.timetable().train_kinds().end(),
+            train_kind_type(
+                string_type(TETENGO2_TEXT("Express")),
+                string_type(TETENGO2_TEXT("Exp.")),
+                color_type(255, 0, 0),
+                train_kind_type::weight_type::bold,
+                train_kind_type::line_style_type::solid
+            )
+        );
         train_selected_type train_selected(property_bar, model, message_catalog);
 
         const train_type train(
@@ -124,7 +138,7 @@ BOOST_AUTO_TEST_SUITE(train_selected)
             string_type(TETENGO2_TEXT("name_number")),
             string_type(TETENGO2_TEXT("note"))
         );
-        train_selected(train, boost::none);
+        train_selected(train, true, boost::none);
     }
 
 

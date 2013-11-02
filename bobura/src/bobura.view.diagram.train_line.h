@@ -392,7 +392,9 @@ namespace bobura { namespace view { namespace diagram
                 select_fragment = whole_selected || (!this_fragment_selected && any_fragment_selected);
             else
                 select_fragment = this_fragment_selected;
-            this->selection().select(*m_p_train, boost::make_optional(select_fragment, m_departure_stop_index));
+            this->selection().select(
+                *m_p_train, m_down, boost::make_optional(select_fragment, m_departure_stop_index)
+            );
         }
 
 

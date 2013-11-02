@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_DIAGRAMVIEW_H
 
 #include <cassert>
+#include <sstream>
 #include <stdexcept>
 #include <utility>
 
@@ -201,15 +202,30 @@ namespace bobura { namespace message { namespace diagram_view
             \brief Called when a train is selected.
 
             \param train                A train.
+            \param down                 Set true when the train is downward. Otherwise the train is upward.
             \param departure_stop_index A departure stop index. Or boost::none when a whole train is selected.
         */
-        void operator()(const train_type& train, const boost::optional<stop_index_type>& departure_stop_index)
+        void operator()(
+            const train_type&                       train,
+            const bool                              down,
+            const boost::optional<stop_index_type>& departure_stop_index
+        )
         {
             tetengo2::suppress_unused_variable_warning(departure_stop_index);
 
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
+            if (departure_stop_index)
+            {
+                insert_value(
+                    m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Departure and Arrival")),
+                    build_departure_and_arrival(train, *departure_stop_index)
+                );
+            }
+            else
+            {
+            }
        }
 
 
@@ -221,6 +237,10 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename property_bar_type::map_box_type::value_type value_type;
 
         typedef typename train_type::kind_index_type kind_index_type;
+
+        typedef typename train_type::stop_type stop_type;
+
+        typedef typename stop_type::time_type time_type;
 
 
         // variables
@@ -267,6 +287,78 @@ namespace bobura { namespace message { namespace diagram_view
                         ) % train.name() % train.name_number()
                     ).str();
             }
+        }
+
+        string_type build_departure_and_arrival(const train_type& train, const stop_index_type stop_index)
+        const
+        {
+            if (stop_index >= train.stops().size() || stop_index >= m_model.timetable().station_locations().size())
+                BOOST_THROW_EXCEPTION(std::out_of_range("Too large train stop index."));
+
+            string_type text;
+
+            const stop_type& departure = train.stops()[stop_index];
+            text += build_stop_text(departure, stop_index, true);
+
+            return text;
+        }
+
+        string_type build_stop_text(const stop_type& stop, const stop_index_type stop_index, const bool departure)
+        const
+        {
+            assert(stop_index < m_model.timetable().station_locations().size());
+
+            string_type time;
+            if (
+                stop.arrival() != time_type::uninitialized() &&
+                (stop.departure() == time_type::uninitialized() || !departure)
+            )
+            {
+                time = time_text(stop.arrival(), false);
+            }
+            else if (stop.departure() != time_type::uninitialized())
+            {
+                time = time_text(stop.departure(), true);
+            }
+            else
+            {
+                time = string_type(TETENGO2_TEXT("PropertyBar:Pass"));
+            }
+
+            std::basic_ostringstream<typename string_type::value_type> stream;
+            stream <<
+                boost::basic_format<typename string_type::value_type>(
+                    m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%"))
+                ) %
+                m_model.timetable().station_locations()[stop_index].station().name() %
+                std::move(time);
+
+            return stream.str();
+        }
+
+        string_type time_text(const time_type& time, const bool departure)
+        const
+        {
+            assert(time != time_type::uninitialized());
+
+            const typename time_type::hours_minutes_seconds_type hms = time.hours_minutes_seconds();
+            std::basic_ostringstream<typename string_type::value_type> stream;
+            if (departure)
+            {
+                stream <<
+                    boost::basic_format<typename string_type::value_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%d"))
+                    ) % hms.hours() % hms.minutes();
+            }
+            else
+            {
+                stream <<
+                    boost::basic_format<typename string_type::value_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%a"))
+                    ) % hms.hours() % hms.minutes();
+            }
+
+            return stream.str();
         }
 
 
