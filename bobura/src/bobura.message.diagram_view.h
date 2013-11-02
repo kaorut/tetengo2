@@ -123,6 +123,7 @@ namespace bobura { namespace message { namespace diagram_view
         }
 
         string_type grade_string(const grade_type& grade)
+        const
         {
             if      (&grade == &station_grade_type_set_type::local_type::instance())
                 return m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Local Station"));
@@ -207,6 +208,7 @@ namespace bobura { namespace message { namespace diagram_view
             tetengo2::suppress_unused_variable_warning(departure_stop_index);
 
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
        }
 
@@ -217,6 +219,8 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename property_bar_type::map_box_type::string_type string_type;
 
         typedef typename property_bar_type::map_box_type::value_type value_type;
+
+        typedef typename train_type::kind_index_type kind_index_type;
 
 
         // variables
@@ -237,7 +241,18 @@ namespace bobura { namespace message { namespace diagram_view
             );
         }
 
+        string_type build_kind_name(const train_type& train)
+        const
+        {
+            const kind_index_type kind_index = train.kind_index();
+            if (kind_index >= m_model.timetable().train_kinds().size())
+                BOOST_THROW_EXCEPTION(std::out_of_range("Too large train kind index."));
+
+            return m_model.timetable().train_kinds()[kind_index].name();
+        }
+
         string_type build_name(const train_type& train)
+        const
         {
             if (train.name_number().empty())
             {
