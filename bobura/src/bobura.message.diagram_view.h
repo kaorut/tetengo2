@@ -211,7 +211,7 @@ namespace bobura { namespace message { namespace diagram_view
             const boost::optional<stop_index_type>& departure_stop_index
         )
         {
-            tetengo2::suppress_unused_variable_warning(departure_stop_index);
+            tetengo2::suppress_unused_variable_warning(down);
 
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
