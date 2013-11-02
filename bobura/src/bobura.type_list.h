@@ -141,11 +141,8 @@ namespace bobura
                 type::application::diagram_view_message_type_list,
                 message::diagram_view::type_list<
                     boost::mpl::at<main_window_type_list, type::main_window::property_bar>::type,
-                    boost::mpl::at<
-                        model_type_list, type::model::model
-                    >::type::timetable_type::station_location_type::station_type,
+                    boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<model_type_list, type::model::station_grade_type_set>::type,
-                    boost::mpl::at<model_type_list, type::model::model>::type::timetable_type::train_type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >::type
             >,

@@ -27,11 +27,11 @@ namespace bobura { namespace message { namespace diagram_view
         \brief The class template for a station selection observer of the diagram view.
 
         \tparam PropertyBar         A property bar type.
-        \tparam Station             A station type.
+        \tparam Model               A model type.
         \tparam StationGradeTypeSet A station grade type set type.
         \tparam MessageCatalog      A message catalog type.
     */
-    template <typename PropertyBar, typename Station, typename StationGradeTypeSet, typename MessageCatalog>
+    template <typename PropertyBar, typename Model, typename StationGradeTypeSet, typename MessageCatalog>
     class station_selected
     {
     public:
@@ -40,8 +40,17 @@ namespace bobura { namespace message { namespace diagram_view
         //! The property bar type.
         typedef PropertyBar property_bar_type;
 
+        //! The model type.
+        typedef Model model_type;
+
+        //! The timetable type.
+        typedef typename model_type::timetable_type timetable_type;
+
+        //! The station location type.
+        typedef typename timetable_type::station_location_type station_location_type;
+
         //! The station type.
-        typedef Station station_type;
+        typedef typename station_location_type::station_type station_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
@@ -56,11 +65,17 @@ namespace bobura { namespace message { namespace diagram_view
             brief Creates a station selection observer.
 
             \param property_bar    A property bar.
+            \param model           A model.
             \param message_catalog A message catalog.
         */
-        station_selected(property_bar_type& property_bar, const message_catalog_type& message_catalog)
+        station_selected(
+            property_bar_type&          property_bar,
+            const model_type&           model,
+            const message_catalog_type& message_catalog
+        )
         :
         m_property_bar(property_bar),
+        m_model(model),
         m_message_catalog(message_catalog)
         {}
 
@@ -92,6 +107,8 @@ namespace bobura { namespace message { namespace diagram_view
         // variables
 
         property_bar_type& m_property_bar;
+
+        const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
 
@@ -128,10 +145,10 @@ namespace bobura { namespace message { namespace diagram_view
         \brief The class template for a train selection observer of the diagram view.
 
         \tparam PropertyBar    A property bar type.
-        \tparam Train          A train type.
+        \tparam Model          A model type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename PropertyBar, typename Train, typename MessageCatalog>
+    template <typename PropertyBar, typename Model, typename MessageCatalog>
     class train_selected
     {
     public:
@@ -140,8 +157,14 @@ namespace bobura { namespace message { namespace diagram_view
         //! The property bar type.
         typedef PropertyBar property_bar_type;
 
+        //! The model type.
+        typedef Model model_type;
+
+        //! The timetable type.
+        typedef typename model_type::timetable_type timetable_type;
+
         //! The train type.
-        typedef Train train_type;
+        typedef typename timetable_type::train_type train_type;
 
         //! The stop index type.
         typedef typename train_type::stops_type::size_type stop_index_type;
@@ -156,11 +179,17 @@ namespace bobura { namespace message { namespace diagram_view
             brief Creates a train selection observer.
 
             \param property_bar    A property bar.
+            \param model           A model.
             \param message_catalog A message catalog.
         */
-        train_selected(property_bar_type& property_bar, const message_catalog_type& message_catalog)
+        train_selected(
+            property_bar_type&          property_bar,
+            const model_type&           model,
+            const message_catalog_type& message_catalog
+        )
         :
         m_property_bar(property_bar),
+        m_model(model),
         m_message_catalog(message_catalog)
         {}
 
@@ -193,6 +222,8 @@ namespace bobura { namespace message { namespace diagram_view
         // variables
 
         property_bar_type& m_property_bar;
+
+        const model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
 
