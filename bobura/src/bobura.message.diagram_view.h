@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_DIAGRAMVIEW_H
 
 #include <cassert>
+#include <cstddef>
 #include <sstream>
 #include <stdexcept>
 #include <utility>
@@ -19,7 +20,6 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.text.h>
-#include <tetengo2.utility.h>
 
 
 namespace bobura { namespace message { namespace diagram_view
@@ -211,8 +211,6 @@ namespace bobura { namespace message { namespace diagram_view
             const boost::optional<stop_index_type>& departure_stop_index
         )
         {
-            tetengo2::suppress_unused_variable_warning(down);
-
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
@@ -220,7 +218,7 @@ namespace bobura { namespace message { namespace diagram_view
             {
                 insert_value(
                     m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Departure and Arrival")),
-                    build_departure_and_arrival(train, *departure_stop_index)
+                    build_departure_and_arrival(train, *departure_stop_index, down)
                 );
             }
             else
@@ -289,7 +287,11 @@ namespace bobura { namespace message { namespace diagram_view
             }
         }
 
-        string_type build_departure_and_arrival(const train_type& train, const stop_index_type stop_index)
+        string_type build_departure_and_arrival(
+            const train_type&     train,
+            const stop_index_type stop_index,
+            const bool            down
+        )
         const
         {
             if (stop_index >= train.stops().size() || stop_index >= m_model.timetable().station_locations().size())
@@ -299,6 +301,12 @@ namespace bobura { namespace message { namespace diagram_view
 
             const stop_type& departure = train.stops()[stop_index];
             text += build_stop_text(departure, stop_index, true);
+
+            text += string_type(TETENGO2_TEXT("\n"));
+            
+            const stop_index_type arrival_stop_index = next_stop(train, stop_index, down);
+            const stop_type& arrival = train.stops()[arrival_stop_index];
+            text += build_stop_text(arrival, arrival_stop_index, false);
 
             return text;
         }
@@ -347,18 +355,38 @@ namespace bobura { namespace message { namespace diagram_view
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%d"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$ 2d %2$02dd"))
                     ) % hms.hours() % hms.minutes();
             }
             else
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%a"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$ 2d %2$02da"))
                     ) % hms.hours() % hms.minutes();
             }
 
             return stream.str();
+        }
+
+        stop_index_type next_stop(const train_type& train, const stop_index_type stop_index, const bool down)
+        const
+        {
+            const std::ptrdiff_t step = down ? 1 : -1;
+            for (stop_index_type i = stop_index; ; i += step)
+            {
+                if (down && stop_index == train.stops().size() - 1)
+                    return i;
+                if (!down && stop_index == 0)
+                    return i;
+
+                if (i == stop_index)
+                    continue;
+
+                const stop_type& stop = train.stops()[i];
+                if (stop.departure() != time_type::uninitialized() || stop.arrival() != time_type::uninitialized())
+                    return i;
+            }
         }
 
 
