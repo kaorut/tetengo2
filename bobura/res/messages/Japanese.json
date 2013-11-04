@@ -58,7 +58,7 @@
         "PropertyBar:Principal Arrivals and Departures": "主要駅着発時刻",
         "PropertyBar:Pass":                              "通過",
         "PropertyBar:%1$2d %2$02da":                     "%1$2d %2$02d着",
-        "PropertyBar:%1$2d %2$02dd":                     "%1$2d %2$02d発"
+        "PropertyBar:%1$2d %2$02dd":                     "%1$2d %2$02d発",
         
         "Dialog:FileOpenSave:Open":                         "開く",
         "Dialog:FileOpenSave:SaveAs":                       "名前を付けて保存",
