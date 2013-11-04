@@ -53,7 +53,9 @@ namespace
     typedef train_kind_type::color_type color_type;
 
     typedef
-        bobura::message::diagram_view::train_selected<property_bar_type, model_type, message_catalog_type>
+        bobura::message::diagram_view::train_selected<
+            property_bar_type, model_type, station_grade_type_set_type, message_catalog_type
+        >
         train_selected_type;
 
     typedef bobura::message::diagram_view::all_unselected<property_bar_type> all_unselected_type;

@@ -45,16 +45,20 @@
         "Diagram:%1% No. %2%": "%1%%2%号",
         
         
-        "PropertyBar:Properties":                 "プロパティ",
-        "PropertyBar:Train Number":               "列車番号",
-        "PropertyBar:Kind":                       "種別",
-        "PropertyBar:Name":                       "名称",
-        "PropertyBar:Grade":                      "規模",
-        "PropertyBar:Local Station":              "一般駅",
-        "PropertyBar:Principal Station":          "主要駅",
-        "PropertyBar:Local Terminal Station":     "ターミナル駅",
-        "PropertyBar:Principal Terminal Station": "主要ターミナル駅",
-        
+        "PropertyBar:Properties":                        "プロパティ",
+        "PropertyBar:Train Number":                      "列車番号",
+        "PropertyBar:Kind":                              "種別",
+        "PropertyBar:Name":                              "名称",
+        "PropertyBar:Grade":                             "規模",
+        "PropertyBar:Local Station":                     "一般駅",
+        "PropertyBar:Principal Station":                 "主要駅",
+        "PropertyBar:Local Terminal Station":            "ターミナル駅",
+        "PropertyBar:Principal Terminal Station":        "主要ターミナル駅",
+        "PropertyBar:Departure and Arrival":             "発着駅",
+        "PropertyBar:Principal Arrivals and Departures": "主要駅着発時刻",
+        "PropertyBar:Pass":                              "通過",
+        "PropertyBar:%1$2d %2$02da":                     "%1$2d %2$02d着",
+        "PropertyBar:%1$2d %2$02dd":                     "%1$2d %2$02d発"
         
         "Dialog:FileOpenSave:Open":                         "開く",
         "Dialog:FileOpenSave:SaveAs":                       "名前を付けて保存",

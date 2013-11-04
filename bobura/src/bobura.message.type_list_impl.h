@@ -81,7 +81,9 @@ namespace bobura { namespace message
                         station_selected<PropertyBar, Model, StationGradeTypeSet, MessageCatalog>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::train_selected, train_selected<PropertyBar, Model, MessageCatalog>>,
+                    boost::mpl::pair<
+                        type::train_selected, train_selected<PropertyBar, Model, StationGradeTypeSet, MessageCatalog>
+                    >,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::all_unselected, all_unselected<PropertyBar>>,
                 tetengo2::meta::assoc_list_end
                 >>>

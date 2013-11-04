@@ -146,11 +146,12 @@ namespace bobura { namespace message { namespace diagram_view
     /*!
         \brief The class template for a train selection observer of the diagram view.
 
-        \tparam PropertyBar    A property bar type.
-        \tparam Model          A model type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam PropertyBar         A property bar type.
+        \tparam Model               A model type.
+        \tparam StationGradeTypeSet A station grade type set type.
+        \tparam MessageCatalog      A message catalog type.
     */
-    template <typename PropertyBar, typename Model, typename MessageCatalog>
+    template <typename PropertyBar, typename Model, typename StationGradeTypeSet, typename MessageCatalog>
     class train_selected
     {
     public:
@@ -170,6 +171,9 @@ namespace bobura { namespace message { namespace diagram_view
 
         //! The stop index type.
         typedef typename train_type::stops_type::size_type stop_index_type;
+
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -223,6 +227,10 @@ namespace bobura { namespace message { namespace diagram_view
             }
             else
             {
+                insert_value(
+                    m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Principal Arrivals and Departures")),
+                    build_departures_and_arrivals(train, down)
+                );
             }
        }
 
@@ -299,48 +307,114 @@ namespace bobura { namespace message { namespace diagram_view
 
             string_type text;
 
-            const stop_type& departure = train.stops()[stop_index];
-            text += build_stop_text(departure, stop_index, true);
-
+            {
+                const stop_type& departure = train.stops()[stop_index];
+                string_type stop_text = build_stop_text(departure, stop_index, false, true);
+                if (stop_text.empty())
+                    text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
+                else
+                    text += std::move(stop_text);
+            }
             text += string_type(TETENGO2_TEXT("\n"));
-            
-            const stop_index_type arrival_stop_index = next_stop(train, stop_index, down);
-            const stop_type& arrival = train.stops()[arrival_stop_index];
-            text += build_stop_text(arrival, arrival_stop_index, false);
+            {
+                const stop_index_type arrival_stop_index = next_stop(train, stop_index, down);
+                const stop_type& arrival = train.stops()[arrival_stop_index];
+                string_type stop_text = build_stop_text(arrival, arrival_stop_index, true, false);
+                if (stop_text.empty())
+                    text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
+                else
+                    text += std::move(stop_text);
+            }
 
             return text;
         }
 
-        string_type build_stop_text(const stop_type& stop, const stop_index_type stop_index, const bool departure)
+        string_type build_departures_and_arrivals(const train_type& train, const bool down)
         const
         {
+            string_type text;
+
+            const std::ptrdiff_t first = down ? 0 : train.stops().size() - 1;
+            const std::ptrdiff_t last = down ? train.stops().size(): -1;
+            const std::ptrdiff_t step = down ? 1 : -1;
+            for (std::ptrdiff_t i = first; i != last; i += step)
+            {
+                if (i != first && i + step != last && !is_principal_station(i))
+                    continue;
+
+                const stop_type& stop = train.stops()[i];
+                string_type stop_text = build_stop_text(stop, i, true, true);
+                if (!stop_text.empty())
+                {
+                    if (!text.empty())
+                        text += string_type(TETENGO2_TEXT("\n"));
+                    text += std::move(stop_text);
+                }
+            }
+
+            return text;
+        }
+
+        bool is_principal_station(const stop_index_type stop_index)
+        const
+        {
+            return
+                &m_model.timetable().station_locations()[stop_index].station().grade() !=
+                &station_grade_type_set_type::local_type::instance();
+        }
+
+        string_type build_stop_text(
+            const stop_type&      stop,
+            const stop_index_type stop_index,
+            const bool            arrival,
+            const bool            departure
+        )
+        const
+        {
+            if (stop.arrival() == time_type::uninitialized() && stop.departure() == time_type::uninitialized())
+                return string_type();
+
             assert(stop_index < m_model.timetable().station_locations().size());
 
-            string_type time;
+            string_type arrival_time;
             if (
                 stop.arrival() != time_type::uninitialized() &&
-                (stop.departure() == time_type::uninitialized() || !departure)
+                (arrival || (departure && stop.departure() == time_type::uninitialized()))
             )
             {
-                time = time_text(stop.arrival(), false);
+                arrival_time = time_text(stop.arrival(), false);
             }
-            else if (stop.departure() != time_type::uninitialized())
+
+            string_type departure_time;
+            if (
+                stop.departure() != time_type::uninitialized() &&
+                (departure || (arrival && stop.arrival() == time_type::uninitialized()))
+            )
             {
-                time = time_text(stop.departure(), true);
-            }
-            else
-            {
-                time = string_type(TETENGO2_TEXT("PropertyBar:Pass"));
+                departure_time = time_text(stop.departure(), true);
             }
 
             std::basic_ostringstream<typename string_type::value_type> stream;
             stream <<
-                boost::basic_format<typename string_type::value_type>(
-                    m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1% %2%"))
-                ) %
-                m_model.timetable().station_locations()[stop_index].station().name() %
-                std::move(time);
-
+                m_model.timetable().station_locations()[stop_index].station().name() <<
+                string_type(TETENGO2_TEXT(" "));
+            if (!arrival_time.empty() && !departure_time.empty())
+            {
+                stream << std::move(arrival_time) << string_type(TETENGO2_TEXT("/")) << std::move(departure_time);
+            }
+            else if (!arrival_time.empty())
+            {
+                stream << std::move(arrival_time);
+            }
+            else if (!departure_time.empty())
+            {
+                stream << std::move(departure_time);
+            }
+            else
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
+            }
             return stream.str();
         }
 
@@ -355,14 +429,14 @@ namespace bobura { namespace message { namespace diagram_view
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$ 2d %2$02dd"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d %2$02dd"))
                     ) % hms.hours() % hms.minutes();
             }
             else
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$ 2d %2$02da"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d %2$02da"))
                     ) % hms.hours() % hms.minutes();
             }
 
