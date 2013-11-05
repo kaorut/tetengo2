@@ -218,6 +218,7 @@ namespace bobura { namespace message { namespace diagram_view
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Note")), train.note());
             if (departure_stop_index)
             {
                 insert_value(
@@ -395,9 +396,11 @@ namespace bobura { namespace message { namespace diagram_view
             }
 
             std::basic_ostringstream<typename string_type::value_type> stream;
+
             stream <<
                 m_model.timetable().station_locations()[stop_index].station().name() <<
                 string_type(TETENGO2_TEXT(" "));
+
             if (!arrival_time.empty() && !departure_time.empty())
             {
                 stream << std::move(arrival_time) << string_type(TETENGO2_TEXT("/")) << std::move(departure_time);
@@ -415,6 +418,18 @@ namespace bobura { namespace message { namespace diagram_view
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
             }
+
+            if (stop.operational())
+            {
+                stream <<
+                    string_type(TETENGO2_TEXT(" (")) <<
+                    m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Operational")) <<
+                    string_type(TETENGO2_TEXT(")"));
+            }
+
+            if (!stop.platform().empty())
+                stream << string_type(TETENGO2_TEXT(" [")) << stop.platform() << string_type(TETENGO2_TEXT("]"));
+
             return stream.str();
         }
 
