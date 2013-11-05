@@ -90,7 +90,7 @@ them.
 
 You need the following tools in order to build Bubura and Tetengo2 libraries:
 
-- [GCC 4.7.2 or 4.8.1](http://www.gnu.org/)
+- [GCC 4.7.2 or 4.8.2](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.54.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
