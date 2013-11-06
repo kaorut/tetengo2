@@ -9,6 +9,7 @@
     {
         "Language": "English",
         "Name:Space:Hello": "Hi",
-        "Name:Space:Colon:": "Colon:"
+        "Name:Space:Colon:": "Colon:",
+        "Name:Space:Esc\\:ape": "Esc:ape"
     }
 }

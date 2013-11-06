@@ -151,6 +151,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hi");
                 BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
                 BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
+                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
             }
             {
                 const set_global_locale global_locale(locale_ja);
@@ -161,6 +162,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Konnichiwa");
                 BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
                 BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
+                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
             }
             {
                 const set_global_locale global_locale(locale_zh);
@@ -171,6 +173,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hello");
                 BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
                 BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
+                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
             }
         }
         else
