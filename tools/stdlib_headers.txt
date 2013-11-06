@@ -463,7 +463,6 @@ WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::adaptors::reverse                         boost/range/adaptors.hpp
 boost::additive                                  boost/operators.hpp
-boost::algorithm::replace_all                    boost/algorithm/string.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::basic_string_ref                          boost/utility/string_ref.hpp

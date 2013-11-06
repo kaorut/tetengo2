@@ -96,9 +96,7 @@ namespace tetengo2 { namespace message
                 if (offset == 0 || key[offset - 1] != typename string_type::value_type(TETENGO2_TEXT('\\')))
                 {
                     string_type ns_removed = key.substr(offset + 1);
-                    boost::algorithm::replace_all(
-                        ns_removed, string_type(TETENGO2_TEXT("\\:")), string_type(TETENGO2_TEXT(":"))
-                    );
+                    boost::replace_all(ns_removed, string_type(TETENGO2_TEXT("\\:")), string_type(TETENGO2_TEXT(":")));
                     return ns_removed;
                 }
                 if (offset == 1)
