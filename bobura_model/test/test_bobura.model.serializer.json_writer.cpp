@@ -245,6 +245,7 @@ namespace
         {
             {
                 train_type train(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("101D")),
                     0,
                     string_type(TETENGO2_TEXT("foo")),
@@ -263,6 +264,7 @@ namespace
             }
             {
                 train_type train(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("123D")),
                     1,
                     string_type(TETENGO2_TEXT("baz")),
@@ -283,6 +285,7 @@ namespace
         {
             {
                 train_type train(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("9324M")),
                     0,
                     string_type(TETENGO2_TEXT("abc")),

@@ -96,6 +96,7 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         BOOST_TEST_PASSPOINT();
 
         const train_type train(
+            train_type::direction_type::down,
             string_type(TETENGO2_TEXT("number")),
             0,
             string_type(TETENGO2_TEXT("name")),
@@ -122,6 +123,7 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
         BOOST_TEST_PASSPOINT();
 
         const train_type train(
+            train_type::direction_type::down,
             string_type(TETENGO2_TEXT("number")),
             0,
             string_type(TETENGO2_TEXT("name")),
@@ -174,6 +176,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
         const message_catalog_type message_catalog;
         train_line_type train_line1(
             train_type(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),
@@ -213,6 +216,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
         const message_catalog_type message_catalog;
         train_line_type train_line1(
             train_type(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),
@@ -235,6 +239,7 @@ BOOST_AUTO_TEST_SUITE(train_line)
         );
         train_line_type train_line2(
             train_type(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),

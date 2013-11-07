@@ -442,6 +442,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -468,6 +469,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -493,6 +495,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -531,6 +534,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -557,6 +561,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -582,6 +587,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -753,6 +759,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -801,6 +808,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -849,6 +857,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -897,6 +906,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -972,6 +982,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -983,6 +994,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -993,6 +1005,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("3")),
                     1,
                     string_type(TETENGO2_TEXT("a")),
@@ -1041,6 +1054,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1052,6 +1066,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1062,6 +1077,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("3")),
                     1,
                     string_type(TETENGO2_TEXT("a")),
@@ -1107,6 +1123,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         timetable.insert_down_train(
             timetable.down_trains().end(),
             train_type(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("1")),
                 0,
                 string_type(TETENGO2_TEXT("a")),
@@ -1117,6 +1134,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         timetable.insert_down_train(
             timetable.down_trains().end(),
             train_type(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("2")),
                 1,
                 string_type(TETENGO2_TEXT("a")),
@@ -1266,6 +1284,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1276,6 +1295,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     2,
                     string_type(TETENGO2_TEXT("a")),
@@ -1315,6 +1335,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1374,6 +1395,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1424,6 +1446,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1470,6 +1493,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1530,6 +1554,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1560,6 +1585,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1570,6 +1596,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1615,6 +1642,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1645,6 +1673,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1655,6 +1684,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1693,6 +1723,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1723,6 +1754,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1733,6 +1765,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1765,6 +1798,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1775,6 +1809,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("4")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1785,6 +1820,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().begin(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1795,6 +1831,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().begin() + 2,
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1831,6 +1868,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
                     train_type(
+                        train_type::direction_type::down,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -1866,6 +1904,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
                     train_type(
+                        train_type::direction_type::down,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -1896,6 +1935,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
                     train_type(
+                        train_type::direction_type::down,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -1930,6 +1970,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1960,6 +2001,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -1970,6 +2012,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2002,6 +2045,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2012,6 +2056,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("4")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2022,6 +2067,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().begin(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2032,6 +2078,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().begin() + 2,
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2068,6 +2115,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_up_train(
                     timetable.up_trains().end(),
                     train_type(
+                        train_type::direction_type::up,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -2103,6 +2151,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_up_train(
                     timetable.up_trains().end(),
                     train_type(
+                        train_type::direction_type::up,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -2133,6 +2182,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.insert_up_train(
                     timetable.up_trains().end(),
                     train_type(
+                        train_type::direction_type::up,
                         string_type(TETENGO2_TEXT("1")),
                         0,
                         string_type(TETENGO2_TEXT("a")),
@@ -2167,6 +2217,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2177,6 +2228,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2207,6 +2259,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2217,6 +2270,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2249,6 +2303,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2259,6 +2314,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2293,6 +2349,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2303,6 +2360,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2313,6 +2371,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_down_train(
                 timetable.down_trains().end(),
                 train_type(
+                    train_type::direction_type::down,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2353,6 +2412,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2363,6 +2423,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2393,6 +2454,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2403,6 +2465,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2435,7 +2498,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
-                    string_type(TETENGO2_TEXT("1")),
+                    train_type::direction_type::up,
+                   string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
                     string_type(TETENGO2_TEXT("42")),
@@ -2445,6 +2509,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2479,6 +2544,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("1")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2489,6 +2555,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("2")),
                     0,
                     string_type(TETENGO2_TEXT("a")),
@@ -2499,6 +2566,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_up_train(
                 timetable.up_trains().end(),
                 train_type(
+                    train_type::direction_type::up,
                     string_type(TETENGO2_TEXT("3")),
                     0,
                     string_type(TETENGO2_TEXT("a")),

@@ -44,12 +44,20 @@ namespace bobura { namespace model
         //! The stops type.
         typedef std::vector<stop_type> stops_type;
 
+        //! The direction type.
+        enum class direction_type
+        {
+            down, //!< Down.
+            up,   //!< Up.
+        };
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a train.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -57,6 +65,7 @@ namespace bobura { namespace model
             \param note        A note.
         */
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -64,6 +73,7 @@ namespace bobura { namespace model
             string_type           note
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -77,6 +87,7 @@ namespace bobura { namespace model
 
             kind_index must be less than the train kind count in the timetable.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -85,6 +96,7 @@ namespace bobura { namespace model
             \param stops       Stops.
         */
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -93,6 +105,7 @@ namespace bobura { namespace model
             stops_type            stops
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -106,6 +119,7 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator type.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -116,6 +130,7 @@ namespace bobura { namespace model
         */
         template <typename InputIterator>
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -125,6 +140,7 @@ namespace bobura { namespace model
             const InputIterator   stop_last
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -148,12 +164,24 @@ namespace bobura { namespace model
         friend bool operator==(const train& one, const train& another)
         {
             return
+                one.m_direction == another.m_direction &&
                 one.m_number == another.m_number &&
                 one.m_kind_index == another.m_kind_index &&
                 one.m_name == another.m_name &&
                 one.m_name_number == another.m_name_number &&
                 one.m_note == another.m_note &&
                 one.m_stops == another.m_stops;
+        }
+
+        /*!
+            \brief Returns the direction.
+
+            \return The direction.
+        */
+        direction_type direction()
+        const
+        {
+            return m_direction;
         }
 
         /*!
@@ -263,6 +291,8 @@ namespace bobura { namespace model
 
     private:
         // variables
+
+        direction_type m_direction;
 
         string_type m_number;
 

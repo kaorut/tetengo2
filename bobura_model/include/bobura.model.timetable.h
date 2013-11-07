@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 //#include <iterator>
 #include <stdexcept>
@@ -530,6 +531,7 @@ namespace bobura { namespace model
         */
         void insert_down_train(const typename trains_type::const_iterator position, train_type train)
         {
+            assert(train.direction() == direction_type::down);
             insert_train_impl(m_down_trains, position, std::move(train));
         }
 
@@ -547,6 +549,7 @@ namespace bobura { namespace model
         */
         void insert_up_train(const typename trains_type::const_iterator position, train_type train)
         {
+            assert(train.direction() == direction_type::up);
             insert_train_impl(m_up_trains, position, std::move(train));
         }
 
@@ -626,6 +629,8 @@ namespace bobura { namespace model
     private:
         // types
 
+        typedef typename train_type::direction_type direction_type;
+
         typedef typename train_type::stops_type::difference_type difference_type;
 
         typedef typename train_type::stop_type stop_type;
@@ -694,7 +699,12 @@ namespace bobura { namespace model
                 return;
 
             train_type new_train(
-                train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
+                train.direction(),
+                train.number(),
+                train.kind_index() + index_delta,
+                train.name(),
+                train.name_number(),
+                train.note()
             );
             for (const auto& stop: train.stops())
                 new_train.insert_stop(new_train.stops().end(), stop);
