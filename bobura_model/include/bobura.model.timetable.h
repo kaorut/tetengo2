@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
-#include <cassert>
 #include <cstddef>
 //#include <iterator>
 #include <stdexcept>
@@ -525,13 +524,16 @@ namespace bobura { namespace model
             \param position A position where a down train is inserted.
             \param train    A down train.
 
+            \throw std::invalid_argument When the train is not downward.
             \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
         void insert_down_train(const typename trains_type::const_iterator position, train_type train)
         {
-            assert(train.direction() == direction_type::down);
+            if (train.direction() != direction_type::down)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train is not downward."));
+
             insert_train_impl(m_down_trains, position, std::move(train));
         }
 
@@ -543,13 +545,16 @@ namespace bobura { namespace model
             \param position A position where a up train is inserted.
             \param train    A up train.
 
+            \throw std::invalid_argument When the train is not upward.
             \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
         void insert_up_train(const typename trains_type::const_iterator position, train_type train)
         {
-            assert(train.direction() == direction_type::up);
+            if (train.direction() != direction_type::up)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train is not upward."));
+
             insert_train_impl(m_up_trains, position, std::move(train));
         }
 

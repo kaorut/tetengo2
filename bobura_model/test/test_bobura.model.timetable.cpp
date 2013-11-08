@@ -1854,6 +1854,34 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
+                )
+            );
+            
+            BOOST_CHECK_THROW(
+                timetable.insert_down_train(
+                    timetable.down_trains().end(),
+                    train_type(
+                        train_type::direction_type::up,
+                        string_type(TETENGO2_TEXT("1")),
+                        0,
+                        string_type(TETENGO2_TEXT("a")),
+                        string_type(TETENGO2_TEXT("42")),
+                        string_type(TETENGO2_TEXT("x"))
+                    )
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -2098,6 +2126,34 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains[2].note() == string_type(TETENGO2_TEXT("z")));
             BOOST_CHECK(trains[3].number() == string_type(TETENGO2_TEXT("4")));
             BOOST_CHECK(trains[3].note() == string_type(TETENGO2_TEXT("w")));
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train_kind(
+                timetable.train_kinds().end(),
+                train_kind_type(
+                    string_type(TETENGO2_TEXT("Express")),
+                    string_type(TETENGO2_TEXT("Exp.")),
+                    color_type(255, 0, 0),
+                    train_kind_type::weight_type::bold,
+                    train_kind_type::line_style_type::solid
+                )
+            );
+            
+            BOOST_CHECK_THROW(
+                timetable.insert_up_train(
+                    timetable.down_trains().end(),
+                    train_type(
+                        train_type::direction_type::down,
+                        string_type(TETENGO2_TEXT("1")),
+                        0,
+                        string_type(TETENGO2_TEXT("a")),
+                        string_type(TETENGO2_TEXT("42")),
+                        string_type(TETENGO2_TEXT("x"))
+                    )
+                ),
+                std::invalid_argument
+            );
         }
         {
             timetable_type timetable;
