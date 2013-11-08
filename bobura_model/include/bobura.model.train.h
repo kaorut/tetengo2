@@ -15,7 +15,6 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2.stdalt.h>
@@ -293,45 +292,29 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Checks the stop is the origin.
+            \brief Returns the origin stop.
 
-            \param i_stop An iterator to a stop.
+            When this train has no stop with arrival or departure, it returns stops().end().
 
-            \retval true  When the stop is origin.
-            \retval false Otherwise.
+            \return The iterator to the origin stop.
         */
-        bool is_origin_stop(const typename stops_type::const_iterator i_stop)
+        typename stops_type::const_iterator origin_stop()
         const
         {
-            if (!belongs_to_stops(i_stop))
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
-
-            const auto i_origin = m_direction == direction_type::down ? front_stop() : back_stop();
-            if (i_origin == m_stops.end())
-                return false;
-
-            return i_stop == i_origin;
+            return m_direction == direction_type::down ? front_stop() : back_stop();
         }
 
         /*!
-            \brief Checks the stop is the destination.
+            \brief Returns the destination stop.
 
-            \param i_stop An iterator to a stop.
+            When this train has no stop with arrival or departure, it returns stops().end().
 
-            \retval true  When the stop is destination.
-            \retval false Otherwise.
+            \return The iterator to the destination stop.
         */
-        bool is_destination_stop(const typename stops_type::const_iterator i_stop)
+        typename stops_type::const_iterator destination_stop()
         const
         {
-            if (!belongs_to_stops(i_stop))
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
-
-            const auto i_origin = m_direction == direction_type::down ? back_stop() : front_stop();
-            if (i_origin == m_stops.end())
-                return false;
-
-            return i_stop == i_origin;
+            return m_direction == direction_type::down ? back_stop() : front_stop();
         }
 
         /*!

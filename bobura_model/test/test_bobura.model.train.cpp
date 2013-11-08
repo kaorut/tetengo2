@@ -680,7 +680,7 @@ BOOST_AUTO_TEST_SUITE(train)
     }
 
 
-    BOOST_AUTO_TEST_CASE(is_origin_stop)
+    BOOST_AUTO_TEST_CASE(origin_stop)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -702,10 +702,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.origin_stop() == boost::next(train.stops().begin(), 0));
         }
         {
             train_type::stops_type stops;
@@ -729,10 +726,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.origin_stop() == boost::next(train.stops().begin(), 1));
         }
         {
             train_type::stops_type stops;
@@ -752,10 +746,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.origin_stop() == boost::next(train.stops().begin(), 3));
         }
         {
             train_type::stops_type stops;
@@ -779,10 +770,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.origin_stop() == boost::next(train.stops().begin(), 2));
         }
         {
             train_type::stops_type stops;
@@ -804,13 +792,12 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(train.origin_stop() == train.stops().end());
         }
     }
 
 
-    BOOST_AUTO_TEST_CASE(is_destination_stop)
+    BOOST_AUTO_TEST_CASE(destination_stop)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -832,10 +819,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.destination_stop() == boost::next(train.stops().begin(), 3));
         }
         {
             train_type::stops_type stops;
@@ -859,10 +843,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.destination_stop() == boost::next(train.stops().begin(), 2));
         }
         {
             train_type::stops_type stops;
@@ -882,10 +863,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.destination_stop() == boost::next(train.stops().begin(), 0));
         }
         {
             train_type::stops_type stops;
@@ -909,10 +887,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 1)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
+            BOOST_CHECK(train.destination_stop() == boost::next(train.stops().begin(), 1));
         }
         {
             train_type::stops_type stops;
@@ -934,8 +909,7 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
-            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(train.destination_stop() == train.stops().end());
         }
     }
 
