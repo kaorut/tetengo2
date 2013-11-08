@@ -295,57 +295,43 @@ namespace bobura { namespace model
         /*!
             \brief Checks the stop is the origin.
 
-            \param stop A stop.
+            \param i_stop An iterator to a stop.
 
             \retval true  When the stop is origin.
             \retval false Otherwise.
-
-            \throw std::invalid_argument When the stop does not belong to this train.
         */
-        bool is_origin_stop(const stop_type& stop)
+        bool is_origin_stop(const typename stops_type::const_iterator i_stop)
         const
         {
-            if (
-                std::find_if(m_stops.begin(), m_stops.end(), [&stop](const stop_type& s) { return &s == &stop; }) ==
-                m_stops.end()
-            )
-            {
+            if (!belongs_to_stops(i_stop))
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
-            }
 
-            const auto origin_position = m_direction == direction_type::down ? front_stop() : back_stop();
-            if (origin_position == m_stops.end())
+            const auto i_origin = m_direction == direction_type::down ? front_stop() : back_stop();
+            if (i_origin == m_stops.end())
                 return false;
 
-            return &stop == &*origin_position;
+            return i_stop == i_origin;
         }
 
         /*!
             \brief Checks the stop is the destination.
 
-            \param stop A stop.
+            \param i_stop An iterator to a stop.
 
             \retval true  When the stop is destination.
             \retval false Otherwise.
-
-            \throw std::invalid_argument When the stop does not belong to this train.
         */
-        bool is_destination_stop(const stop_type& stop)
+        bool is_destination_stop(const typename stops_type::const_iterator i_stop)
         const
         {
-            if (
-                std::find_if(m_stops.begin(), m_stops.end(), [&stop](const stop_type& s) { return &s == &stop; }) ==
-                m_stops.end()
-            )
-            {
+            if (!belongs_to_stops(i_stop))
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
-            }
 
-            const auto origin_position = m_direction == direction_type::down ? back_stop() : front_stop();
-            if (origin_position == m_stops.end())
+            const auto i_origin = m_direction == direction_type::down ? back_stop() : front_stop();
+            if (i_origin == m_stops.end())
                 return false;
 
-            return &stop == &*origin_position;
+            return i_stop == i_origin;
         }
 
         /*!
@@ -400,6 +386,17 @@ namespace bobura { namespace model
 
 
         // functions
+
+        bool belongs_to_stops(const typename stops_type::const_iterator i_stop)
+        const
+        {
+            for (auto i = m_stops.begin(); i != m_stops.end(); ++i)
+            {
+                if (i == i_stop)
+                    return true;
+            }
+            return false;
+        }
 
         const typename stops_type::const_iterator front_stop()
         const

@@ -11,6 +11,7 @@
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.text.h>
 
@@ -702,10 +703,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(train.is_origin_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[3]));
+            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -729,10 +730,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[0]));
-            BOOST_CHECK(train.is_origin_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -752,10 +753,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[2]));
-            BOOST_CHECK(train.is_origin_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -779,10 +780,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[1]));
-            BOOST_CHECK(train.is_origin_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(train.is_origin_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -804,42 +805,8 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_origin_stop(train.stops()[1]));
-        }
-        {
-            const train_type train(
-                train_type::direction_type::down,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x"))
-            );
-
-            const stop_type another_stop(time_type(11), time_type(12), false, string_type(TETENGO2_TEXT("x")));
-            BOOST_CHECK_THROW(train.is_origin_stop(another_stop), std::invalid_argument);
-        }
-        {
-            train_type::stops_type stops;
-            stops.emplace_back(time_type::uninitialized(), time_type(0), false, string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("b")));
-            stops.emplace_back(time_type(3), time_type(4), false, string_type(TETENGO2_TEXT("c")));
-            stops.emplace_back(time_type(5), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d")));
-
-            const train_type train(
-                train_type::direction_type::down,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x")),
-                stops.begin(),
-                stops.end()
-            );
-
-            const stop_type another_stop(time_type(11), time_type(12), false, string_type(TETENGO2_TEXT("x")));
-            BOOST_CHECK_THROW(train.is_origin_stop(another_stop), std::invalid_argument);
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_origin_stop(boost::next(train.stops().begin(), 1)));
         }
     }
 
@@ -866,10 +833,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[2]));
-            BOOST_CHECK(train.is_destination_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -893,10 +860,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[1]));
-            BOOST_CHECK(train.is_destination_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -916,10 +883,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(train.is_destination_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[3]));
+            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -943,10 +910,10 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[0]));
-            BOOST_CHECK(train.is_destination_stop(train.stops()[1]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[2]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[3]));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(train.is_destination_stop(boost::next(train.stops().begin(), 1)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 2)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 3)));
         }
         {
             train_type::stops_type stops;
@@ -968,42 +935,8 @@ BOOST_AUTO_TEST_SUITE(train)
                 stops.end()
             );
 
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[0]));
-            BOOST_CHECK(!train.is_destination_stop(train.stops()[1]));
-        }
-        {
-            const train_type train(
-                train_type::direction_type::down,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x"))
-            );
-
-            const stop_type another_stop(time_type(11), time_type(12), false, string_type(TETENGO2_TEXT("x")));
-            BOOST_CHECK_THROW(train.is_destination_stop(another_stop), std::invalid_argument);
-        }
-        {
-            train_type::stops_type stops;
-            stops.emplace_back(time_type::uninitialized(), time_type(0), false, string_type(TETENGO2_TEXT("a")));
-            stops.emplace_back(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("b")));
-            stops.emplace_back(time_type(3), time_type(4), false, string_type(TETENGO2_TEXT("c")));
-            stops.emplace_back(time_type(5), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d")));
-
-            const train_type train(
-                train_type::direction_type::down,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x")),
-                stops.begin(),
-                stops.end()
-            );
-
-            const stop_type another_stop(time_type(11), time_type(12), false, string_type(TETENGO2_TEXT("x")));
-            BOOST_CHECK_THROW(train.is_destination_stop(another_stop), std::invalid_argument);
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 0)));
+            BOOST_CHECK(!train.is_destination_stop(boost::next(train.stops().begin(), 1)));
         }
     }
 
