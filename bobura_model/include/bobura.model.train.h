@@ -333,7 +333,19 @@ namespace bobura { namespace model
         bool is_destination_stop(const stop_type& stop)
         const
         {
-            return false;
+            if (
+                std::find_if(m_stops.begin(), m_stops.end(), [&stop](const stop_type& s) { return &s == &stop; }) ==
+                m_stops.end()
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
+            }
+
+            const auto origin_position = m_direction == direction_type::down ? back_stop() : front_stop();
+            if (origin_position == m_stops.end())
+                return false;
+
+            return &stop == &*origin_position;
         }
 
         /*!
