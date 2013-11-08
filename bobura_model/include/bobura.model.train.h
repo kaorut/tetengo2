@@ -9,10 +9,14 @@
 #if !defined(BOBURA_MODEL_TRAIN_H)
 #define BOBURA_MODEL_TRAIN_H
 
+#include <algorithm>
+#include <stdexcept>
 //#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.stdalt.h>
 
@@ -289,7 +293,7 @@ namespace bobura { namespace model
         }
 
         /*!
-            \biref Checks the stop is the origin.
+            \brief Checks the stop is the origin.
 
             \param stop A stop.
 
@@ -301,11 +305,23 @@ namespace bobura { namespace model
         bool is_origin_stop(const stop_type& stop)
         const
         {
-            return false;
+            if (
+                std::find_if(m_stops.begin(), m_stops.end(), [&stop](const stop_type& s) { return &s == &stop; }) ==
+                m_stops.end()
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stop."));
+            }
+
+            const auto origin_position = m_direction == direction_type::down ? front_stop() : back_stop();
+            if (origin_position == m_stops.end())
+                return false;
+
+            return &stop == &*origin_position;
         }
 
         /*!
-            \biref Checks the stop is the destination.
+            \brief Checks the stop is the destination.
 
             \param stop A stop.
 
@@ -369,6 +385,42 @@ namespace bobura { namespace model
         string_type m_note;
 
         stops_type m_stops;
+
+
+        // functions
+
+        const typename stops_type::const_iterator front_stop()
+        const
+        {
+            return
+                std::find_if(
+                    m_stops.begin(),
+                    m_stops.end(),
+                    [](const stop_type& stop)
+                    {
+                        return
+                            stop.arrival() != time_type::uninitialized() ||
+                            stop.departure() != time_type::uninitialized();
+                    }
+                );
+        }
+
+        const typename stops_type::const_iterator back_stop()
+        const
+        {
+            const auto found =
+                std::find_if(
+                    m_stops.rbegin(),
+                    m_stops.rend(),
+                    [](const stop_type& stop)
+                    {
+                        return
+                            stop.arrival() != time_type::uninitialized() ||
+                            stop.departure() != time_type::uninitialized();
+                    }
+                );
+            return found != m_stops.rend() ? boost::prior(found.base()) : m_stops.end();
+        }
 
 
     };
