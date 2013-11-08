@@ -337,33 +337,31 @@ namespace bobura { namespace model
         /*!
             \brief Returns the stop previous to the specified stop.
 
-            \param stop A stop.
+            \param i_stop An iterator to a stop.
 
-            \return The stop previous to the specified stop.
+            \return The iterator to the stop previous to the specified stop.
 
-            \throw std::invalid_argument When the specified stop does not belong to this train.
-            \throw std::invalid_argument When the specified stop is the origin.
+            \throw std::invalid_argument When the specified stop is the origin or earlier.
         */
-        const stop_type& previous_stop(const stop_type& stop)
+        typename stops_type::const_iterator previous_stop(const typename stops_type::const_iterator i_stop)
         const
         {
-            return m_stops.front();
+            return i_stop;
         }
 
         /*!
             \brief Returns the stop next to the specified stop.
 
-            \param stop A stop.
+            \param i_stop An iterator to a stop.
 
-            \return The stop next to the specified stop.
+            \return The iterator to the stop next to the specified stop.
 
-            \throw std::invalid_argument When the specified stop does not belong to this train.
-            \throw std::invalid_argument When the specified stop is the destination.
+            \throw std::invalid_argument When the specified stop is the destination or later.
         */
-        const stop_type& next_stop(const stop_type& stop)
+        typename stops_type::const_iterator next_stop(const typename stops_type::const_iterator i_stop)
         const
         {
-            return m_stops.back();
+            return i_stop;
         }
 
 
