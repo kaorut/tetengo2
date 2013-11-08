@@ -288,6 +288,70 @@ namespace bobura { namespace model
             );
         }
 
+        /*!
+            \biref Checks the stop is the origin.
+
+            \param stop A stop.
+
+            \retval true  When the stop is origin.
+            \retval false Otherwise.
+
+            \throw std::invalid_argument When the stop does not belong to this train.
+        */
+        bool is_origin_stop(const stop_type& stop)
+        const
+        {
+            return false;
+        }
+
+        /*!
+            \biref Checks the stop is the destination.
+
+            \param stop A stop.
+
+            \retval true  When the stop is destination.
+            \retval false Otherwise.
+
+            \throw std::invalid_argument When the stop does not belong to this train.
+        */
+        bool is_destination_stop(const stop_type& stop)
+        const
+        {
+            return false;
+        }
+
+        /*!
+            \brief Returns the stop previous to the specified stop.
+
+            \param stop A stop.
+
+            \return The stop previous to the specified stop.
+
+            \throw std::invalid_argument When the specified stop does not belong to this train.
+            \throw std::invalid_argument When the specified stop is the origin.
+        */
+        const stop_type& previous_stop(const stop_type& stop)
+        const
+        {
+            return m_stops.front();
+        }
+
+        /*!
+            \brief Returns the stop next to the specified stop.
+
+            \param stop A stop.
+
+            \return The stop next to the specified stop.
+
+            \throw std::invalid_argument When the specified stop does not belong to this train.
+            \throw std::invalid_argument When the specified stop is the destination.
+        */
+        const stop_type& next_stop(const stop_type& stop)
+        const
+        {
+            return m_stops.back();
+        }
+
 
     private:
         // variables

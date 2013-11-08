@@ -679,6 +679,37 @@ BOOST_AUTO_TEST_SUITE(train)
     }
 
 
+    BOOST_AUTO_TEST_CASE(is_origin_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented.");
+    }
+
+
+    BOOST_AUTO_TEST_CASE(is_destination_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented.");
+    }
+
+    BOOST_AUTO_TEST_CASE(previous_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented.");
+    }
+
+
+    BOOST_AUTO_TEST_CASE(next_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented.");
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
