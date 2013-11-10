@@ -373,17 +373,6 @@ namespace bobura { namespace model
 
         // functions
 
-        bool belongs_to_stops(const typename stops_type::const_iterator i_stop)
-        const
-        {
-            for (auto i = m_stops.begin(); i != m_stops.end(); ++i)
-            {
-                if (i == i_stop)
-                    return true;
-            }
-            return false;
-        }
-
         const typename stops_type::const_iterator front_stop()
         const
         {
