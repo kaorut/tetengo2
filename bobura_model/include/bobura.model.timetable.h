@@ -524,12 +524,16 @@ namespace bobura { namespace model
             \param position A position where a down train is inserted.
             \param train    A down train.
 
+            \throw std::invalid_argument When the train is not downward.
             \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
         void insert_down_train(const typename trains_type::const_iterator position, train_type train)
         {
+            if (train.direction() != direction_type::down)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train is not downward."));
+
             insert_train_impl(m_down_trains, position, std::move(train));
         }
 
@@ -541,12 +545,16 @@ namespace bobura { namespace model
             \param position A position where a up train is inserted.
             \param train    A up train.
 
+            \throw std::invalid_argument When the train is not upward.
             \throw std::invalid_argument When the kind index of a train is greater than the train kind count.
             \throw std::invalid_argument When the count of the stops of a train does not coincide with the one of the
                                          station locations.
         */
         void insert_up_train(const typename trains_type::const_iterator position, train_type train)
         {
+            if (train.direction() != direction_type::up)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The train is not upward."));
+
             insert_train_impl(m_up_trains, position, std::move(train));
         }
 
@@ -626,6 +634,8 @@ namespace bobura { namespace model
     private:
         // types
 
+        typedef typename train_type::direction_type direction_type;
+
         typedef typename train_type::stops_type::difference_type difference_type;
 
         typedef typename train_type::stop_type stop_type;
@@ -694,7 +704,12 @@ namespace bobura { namespace model
                 return;
 
             train_type new_train(
-                train.number(), train.kind_index() + index_delta, train.name(), train.name_number(), train.note()
+                train.direction(),
+                train.number(),
+                train.kind_index() + index_delta,
+                train.name(),
+                train.name_number(),
+                train.note()
             );
             for (const auto& stop: train.stops())
                 new_train.insert_stop(new_train.stops().end(), stop);

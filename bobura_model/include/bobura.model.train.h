@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MODEL_TRAIN_H)
 #define BOBURA_MODEL_TRAIN_H
 
+//#include <iterator>
 //#include <utility>
 #include <vector>
 
@@ -44,12 +45,20 @@ namespace bobura { namespace model
         //! The stops type.
         typedef std::vector<stop_type> stops_type;
 
+        //! The direction type.
+        enum class direction_type
+        {
+            down, //!< Down.
+            up,   //!< Up.
+        };
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a train.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -57,6 +66,7 @@ namespace bobura { namespace model
             \param note        A note.
         */
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -64,6 +74,7 @@ namespace bobura { namespace model
             string_type           note
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -77,6 +88,7 @@ namespace bobura { namespace model
 
             kind_index must be less than the train kind count in the timetable.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -85,6 +97,7 @@ namespace bobura { namespace model
             \param stops       Stops.
         */
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -93,6 +106,7 @@ namespace bobura { namespace model
             stops_type            stops
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -106,6 +120,7 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator type.
 
+            \param direction   A direction.
             \param number      A number.
             \param kind_index  A kind index.
             \param name        A name.
@@ -116,6 +131,7 @@ namespace bobura { namespace model
         */
         template <typename InputIterator>
         train(
+            const direction_type  direction,
             string_type           number,
             const kind_index_type kind_index,
             string_type           name,
@@ -125,6 +141,7 @@ namespace bobura { namespace model
             const InputIterator   stop_last
         )
         :
+        m_direction(direction),
         m_number(std::move(number)),
         m_kind_index(kind_index),
         m_name(std::move(name)),
@@ -148,12 +165,24 @@ namespace bobura { namespace model
         friend bool operator==(const train& one, const train& another)
         {
             return
+                one.m_direction == another.m_direction &&
                 one.m_number == another.m_number &&
                 one.m_kind_index == another.m_kind_index &&
                 one.m_name == another.m_name &&
                 one.m_name_number == another.m_name_number &&
                 one.m_note == another.m_note &&
                 one.m_stops == another.m_stops;
+        }
+
+        /*!
+            \brief Returns the direction.
+
+            \return The direction.
+        */
+        direction_type direction()
+        const
+        {
+            return m_direction;
         }
 
         /*!
@@ -260,9 +289,76 @@ namespace bobura { namespace model
             );
         }
 
+        /*!
+            \brief Returns the stop previous to the specified stop.
+
+            It returns stops().end() when the specified stop is the origin or earlier.
+
+            \param i_stop An iterator to a stop.
+
+            \return The iterator to the stop previous to the specified stop.
+        */
+        typename stops_type::const_iterator previous_stop(const typename stops_type::const_iterator i_stop)
+        const
+        {
+            return m_direction == direction_type::down ? rfind_real_stop(i_stop, true) : find_real_stop(i_stop, true);
+        }
+
+        /*!
+            \brief Returns the stop next to the specified stop.
+
+            It returns stops().end() when the specified stop is the destination or later.
+
+            \param i_stop An iterator to a stop.
+
+            \return The iterator to the stop next to the specified stop.
+        */
+        typename stops_type::const_iterator next_stop(const typename stops_type::const_iterator i_stop)
+        const
+        {
+            return m_direction == direction_type::down ? find_real_stop(i_stop, true) : rfind_real_stop(i_stop, true);
+        }
+
+        /*!
+            \brief Returns the origin stop.
+
+            When this train has no stop with arrival or departure, it returns stops().end().
+
+            \return The iterator to the origin stop.
+        */
+        typename stops_type::const_iterator origin_stop()
+        const
+        {
+            return
+                m_direction == direction_type::down ?
+                find_real_stop(m_stops.begin(), false) : rfind_real_stop(m_stops.end(), false);
+        }
+
+        /*!
+            \brief Returns the destination stop.
+
+            When this train has no stop with arrival or departure, it returns stops().end().
+
+            \return The iterator to the destination stop.
+        */
+        typename stops_type::const_iterator destination_stop()
+        const
+        {
+            return
+                m_direction == direction_type::down ?
+                rfind_real_stop(m_stops.end(), false) : find_real_stop(m_stops.begin(), false);
+        }
+
 
     private:
+        // types
+
+        typedef typename stop_type::time_type time_type;
+
+
         // variables
+
+        direction_type m_direction;
 
         string_type m_number;
 
@@ -275,6 +371,49 @@ namespace bobura { namespace model
         string_type m_note;
 
         stops_type m_stops;
+
+
+        // functions
+
+        typename stops_type::const_iterator find_real_stop(
+            typename stops_type::const_iterator i_stop,
+            const bool                          skip_start
+        )
+        const
+        {
+            if (skip_start && i_stop != m_stops.end())
+                std::advance(i_stop, 1);
+
+            for (auto i = i_stop; i != m_stops.end(); ++i)
+            {
+                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                    return i;
+            }
+
+            return m_stops.end();
+        }
+
+        typename stops_type::const_iterator rfind_real_stop(
+            typename stops_type::const_iterator i_stop,
+            const bool                          skip_start
+        )
+        const
+        {
+            if (skip_start && i_stop != m_stops.begin())
+                std::advance(i_stop, -1);
+
+            for (auto i = i_stop; ; --i)
+            {
+                if (i == m_stops.end())
+                    continue;
+                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                    return i;
+                if (i == m_stops.begin())
+                    break;
+            }
+
+            return m_stops.end();
+        }
 
 
     };

@@ -74,6 +74,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         const selection_type selection;
 
         const train_type train(
+            train_type::direction_type::down,
             string_type(TETENGO2_TEXT("number")),
             0,
             string_type(TETENGO2_TEXT("name")),
@@ -91,6 +92,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         selection_type selection;
 
         const train_type train(
+            train_type::direction_type::down,
             string_type(TETENGO2_TEXT("number")),
             0,
             string_type(TETENGO2_TEXT("name")),
@@ -124,6 +126,7 @@ BOOST_AUTO_TEST_SUITE(selection)
             selection.select(station);
 
             const train_type train(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),
@@ -146,6 +149,7 @@ BOOST_AUTO_TEST_SUITE(selection)
             selection.select(station);
 
             const train_type train(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),
@@ -172,6 +176,7 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("name")), station_grade_type_set_type::local_type::instance(), false, false
             );
             const train_type train(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),
@@ -190,6 +195,7 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("name")), station_grade_type_set_type::local_type::instance(), false, false
             );
             const train_type train(
+                train_type::direction_type::down,
                 string_type(TETENGO2_TEXT("number")),
                 0,
                 string_type(TETENGO2_TEXT("name")),

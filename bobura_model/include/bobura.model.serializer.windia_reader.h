@@ -107,6 +107,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_type train_type;
 
+        typedef typename train_type::direction_type direction_type;
+
         class state
         {
         public:
@@ -399,6 +401,7 @@ namespace bobura { namespace model { namespace serializer
                     return false;
 
                 train_type train(
+                    direction(),
                     string_type(split[1].begin(), split[1].end()),
                     *train_kind_index,
                     string_type(split[2].begin(), split[2].end()),
@@ -438,6 +441,15 @@ namespace bobura { namespace model { namespace serializer
 
                 return std::make_pair(line.substr(0, percent_position), line.substr(percent_position + 1));
             }
+
+            direction_type direction()
+            const
+            {
+                return direction_impl();
+            }
+
+            virtual direction_type direction_impl()
+            const = 0;
 
             void insert_train(train_type train)
             {
@@ -595,6 +607,12 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
+            virtual direction_type direction_impl()
+            const override
+            {
+                return direction_type::down;
+            }
+
             virtual void insert_train_impl(train_type train)
             override
             {
@@ -617,6 +635,12 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
+            virtual direction_type direction_impl()
+            const override
+            {
+                return direction_type::up;
+            }
+
             virtual void insert_train_impl(train_type train)
             override
             {
