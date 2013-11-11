@@ -680,6 +680,144 @@ BOOST_AUTO_TEST_SUITE(train)
     }
 
 
+    BOOST_AUTO_TEST_CASE(previous_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            train_type::stops_type stops;
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
+            );
+            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
+            );
+
+            const train_type train(
+                train_type::direction_type::down,
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x")),
+                stops.begin(),
+                stops.end()
+            );
+
+            BOOST_CHECK(train.previous_stop(boost::next(train.stops().begin(), 0)) == train.stops().end());
+            BOOST_CHECK(train.previous_stop(boost::next(train.stops().begin(), 1)) == train.stops().end());
+            BOOST_CHECK(
+                train.previous_stop(boost::next(train.stops().begin(), 2)) == boost::next(train.stops().begin(), 1)
+            );
+            BOOST_CHECK(
+                train.previous_stop(boost::next(train.stops().begin(), 3)) == boost::next(train.stops().begin(), 2)
+            );
+        }
+        {
+            train_type::stops_type stops;
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
+            );
+            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
+            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
+            );
+
+            const train_type train(
+                train_type::direction_type::up,
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x")),
+                stops.begin(),
+                stops.end()
+            );
+
+            BOOST_CHECK(
+                train.previous_stop(boost::next(train.stops().begin(), 0)) == boost::next(train.stops().begin(), 1)
+            );
+            BOOST_CHECK(
+                train.previous_stop(boost::next(train.stops().begin(), 1)) == boost::next(train.stops().begin(), 2)
+            );
+            BOOST_CHECK(train.previous_stop(boost::next(train.stops().begin(), 2)) == train.stops().end());
+            BOOST_CHECK(train.previous_stop(boost::next(train.stops().begin(), 3)) == train.stops().end());
+        }
+    }
+
+
+    BOOST_AUTO_TEST_CASE(next_stop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            train_type::stops_type stops;
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
+            );
+            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
+            );
+
+            const train_type train(
+                train_type::direction_type::down,
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x")),
+                stops.begin(),
+                stops.end()
+            );
+
+            BOOST_CHECK(
+                train.next_stop(boost::next(train.stops().begin(), 0)) == boost::next(train.stops().begin(), 1)
+            );
+            BOOST_CHECK(
+                train.next_stop(boost::next(train.stops().begin(), 1)) == boost::next(train.stops().begin(), 2)
+            );
+            BOOST_CHECK(train.next_stop(boost::next(train.stops().begin(), 2)) == train.stops().end());
+            BOOST_CHECK(train.next_stop(boost::next(train.stops().begin(), 3)) == train.stops().end());
+        }
+        {
+            train_type::stops_type stops;
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
+            );
+            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
+            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
+            stops.emplace_back(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
+            );
+
+            const train_type train(
+                train_type::direction_type::up,
+                string_type(TETENGO2_TEXT("1")),
+                0,
+                string_type(TETENGO2_TEXT("a")),
+                string_type(TETENGO2_TEXT("42")),
+                string_type(TETENGO2_TEXT("x")),
+                stops.begin(),
+                stops.end()
+            );
+
+            BOOST_CHECK(train.next_stop(boost::next(train.stops().begin(), 0)) == train.stops().end());
+            BOOST_CHECK(train.next_stop(boost::next(train.stops().begin(), 1)) == train.stops().end());
+            BOOST_CHECK(
+                train.next_stop(boost::next(train.stops().begin(), 2)) == boost::next(train.stops().begin(), 1)
+            );
+            BOOST_CHECK(
+                train.next_stop(boost::next(train.stops().begin(), 3)) == boost::next(train.stops().begin(), 2)
+            );
+        }
+    }
+
+
     BOOST_AUTO_TEST_CASE(origin_stop)
     {
         BOOST_TEST_PASSPOINT();
@@ -912,88 +1050,6 @@ BOOST_AUTO_TEST_SUITE(train)
             BOOST_CHECK(train.destination_stop() == train.stops().end());
         }
     }
-
-    BOOST_AUTO_TEST_CASE(previous_stop)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        /*
-        {
-            train_type::stops_type stops;
-            stops.emplace_back(
-                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
-            );
-            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
-            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
-            stops.emplace_back(
-                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
-            );
-
-            const train_type train(
-                train_type::direction_type::down,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x")),
-                stops.begin(),
-                stops.end()
-            );
-
-            BOOST_CHECK(
-                train.previous_stop(boost::next(train.stops().begin(), 2)) == boost::next(train.stops().begin(), 1)
-            );
-            BOOST_CHECK(
-                train.previous_stop(boost::next(train.stops().begin(), 3)) == boost::next(train.stops().begin(), 2)
-            );
-
-            BOOST_CHECK_THROW(train.previous_stop(boost::next(train.stops().begin(), 0)), std::invalid_argument);
-            BOOST_CHECK_THROW(train.previous_stop(boost::next(train.stops().begin(), 1)), std::invalid_argument);
-        }
-        {
-            train_type::stops_type stops;
-            stops.emplace_back(
-                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("d"))
-            );
-            stops.emplace_back(time_type(3), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("c")));
-            stops.emplace_back(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("b")));
-            stops.emplace_back(
-                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("a"))
-            );
-
-            const train_type train(
-                train_type::direction_type::up,
-                string_type(TETENGO2_TEXT("1")),
-                0,
-                string_type(TETENGO2_TEXT("a")),
-                string_type(TETENGO2_TEXT("42")),
-                string_type(TETENGO2_TEXT("x")),
-                stops.begin(),
-                stops.end()
-            );
-
-            BOOST_CHECK(
-                train.previous_stop(boost::next(train.stops().begin(), 0)) == boost::next(train.stops().begin(), 1)
-            );
-            BOOST_CHECK(
-                train.previous_stop(boost::next(train.stops().begin(), 1)) == boost::next(train.stops().begin(), 2)
-            );
-
-            BOOST_CHECK_THROW(train.previous_stop(boost::next(train.stops().begin(), 2)), std::invalid_argument);
-            BOOST_CHECK_THROW(train.previous_stop(boost::next(train.stops().begin(), 3)), std::invalid_argument);
-        }
-        */
-        BOOST_WARN_MESSAGE(false, "Not implemented.");
-    }
-
-
-    BOOST_AUTO_TEST_CASE(next_stop)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Not implemented.");
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

@@ -9,13 +9,11 @@
 #if !defined(BOBURA_MODEL_TRAIN_H)
 #define BOBURA_MODEL_TRAIN_H
 
-#include <algorithm>
-#include <stdexcept>
+//#include <iterator>
 //#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2.stdalt.h>
 
@@ -292,6 +290,36 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Returns the stop previous to the specified stop.
+
+            It returns stops().end() when the specified stop is the origin or earlier.
+
+            \param i_stop An iterator to a stop.
+
+            \return The iterator to the stop previous to the specified stop.
+        */
+        typename stops_type::const_iterator previous_stop(const typename stops_type::const_iterator i_stop)
+        const
+        {
+            return m_direction == direction_type::down ? rfind_real_stop(i_stop, true) : find_real_stop(i_stop, true);
+        }
+
+        /*!
+            \brief Returns the stop next to the specified stop.
+
+            It returns stops().end() when the specified stop is the destination or later.
+
+            \param i_stop An iterator to a stop.
+
+            \return The iterator to the stop next to the specified stop.
+        */
+        typename stops_type::const_iterator next_stop(const typename stops_type::const_iterator i_stop)
+        const
+        {
+            return m_direction == direction_type::down ? find_real_stop(i_stop, true) : rfind_real_stop(i_stop, true);
+        }
+
+        /*!
             \brief Returns the origin stop.
 
             When this train has no stop with arrival or departure, it returns stops().end().
@@ -301,7 +329,9 @@ namespace bobura { namespace model
         typename stops_type::const_iterator origin_stop()
         const
         {
-            return m_direction == direction_type::down ? front_stop() : back_stop();
+            return
+                m_direction == direction_type::down ?
+                find_real_stop(m_stops.begin(), false) : rfind_real_stop(m_stops.end(), false);
         }
 
         /*!
@@ -314,37 +344,9 @@ namespace bobura { namespace model
         typename stops_type::const_iterator destination_stop()
         const
         {
-            return m_direction == direction_type::down ? back_stop() : front_stop();
-        }
-
-        /*!
-            \brief Returns the stop previous to the specified stop.
-
-            \param i_stop An iterator to a stop.
-
-            \return The iterator to the stop previous to the specified stop.
-
-            \throw std::invalid_argument When the specified stop is the origin or earlier.
-        */
-        typename stops_type::const_iterator previous_stop(const typename stops_type::const_iterator i_stop)
-        const
-        {
-            return i_stop;
-        }
-
-        /*!
-            \brief Returns the stop next to the specified stop.
-
-            \param i_stop An iterator to a stop.
-
-            \return The iterator to the stop next to the specified stop.
-
-            \throw std::invalid_argument When the specified stop is the destination or later.
-        */
-        typename stops_type::const_iterator next_stop(const typename stops_type::const_iterator i_stop)
-        const
-        {
-            return i_stop;
+            return
+                m_direction == direction_type::down ?
+                rfind_real_stop(m_stops.end(), false) : find_real_stop(m_stops.begin(), false);
         }
 
 
@@ -373,37 +375,44 @@ namespace bobura { namespace model
 
         // functions
 
-        const typename stops_type::const_iterator front_stop()
+        typename stops_type::const_iterator find_real_stop(
+            typename stops_type::const_iterator i_stop,
+            const bool                          skip_start
+        )
         const
         {
-            return
-                std::find_if(
-                    m_stops.begin(),
-                    m_stops.end(),
-                    [](const stop_type& stop)
-                    {
-                        return
-                            stop.arrival() != time_type::uninitialized() ||
-                            stop.departure() != time_type::uninitialized();
-                    }
-                );
+            if (skip_start && i_stop != m_stops.end())
+                std::advance(i_stop, 1);
+
+            for (auto i = i_stop; i != m_stops.end(); ++i)
+            {
+                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                    return i;
+            }
+
+            return m_stops.end();
         }
 
-        const typename stops_type::const_iterator back_stop()
+        typename stops_type::const_iterator rfind_real_stop(
+            typename stops_type::const_iterator i_stop,
+            const bool                          skip_start
+        )
         const
         {
-            const auto found =
-                std::find_if(
-                    m_stops.rbegin(),
-                    m_stops.rend(),
-                    [](const stop_type& stop)
-                    {
-                        return
-                            stop.arrival() != time_type::uninitialized() ||
-                            stop.departure() != time_type::uninitialized();
-                    }
-                );
-            return found != m_stops.rend() ? boost::prior(found.base()) : m_stops.end();
+            if (skip_start && i_stop != m_stops.begin())
+                std::advance(i_stop, -1);
+
+            for (auto i = i_stop; ; --i)
+            {
+                if (i == m_stops.end())
+                    continue;
+                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                    return i;
+                if (i == m_stops.begin())
+                    break;
+            }
+
+            return m_stops.end();
         }
 
 
