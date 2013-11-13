@@ -109,6 +109,7 @@ namespace
         "            \"grade\": \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\": true,\n"
+        "            \"note\": \"noteA\",\n"
         "            \"meterage\": 42\n"
         "        },\n"
         "        {\n"
@@ -116,6 +117,7 @@ namespace
         "            \"grade\": \"principal\",\n"
         "            \"show_down_arrival_times\": true,\n"
         "            \"show_up_arrival_times\": false,\n"
+        "            \"note\": \"noteB\",\n"
         "            \"meterage\": 4242\n"
         "        }\n"
         "    ],\n"
@@ -208,14 +210,26 @@ namespace
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance(), false, true),
+                    station_type(
+                        string_type(TETENGO2_TEXT("stationA")),
+                        local_type::instance(),
+                        false,
+                        true,
+                        string_type(TETENGO2_TEXT("noteA"))
+                    ),
                     42
                 )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance(), true, false),
+                    station_type(
+                        string_type(TETENGO2_TEXT("stationB")),
+                        principal_type::instance(),
+                        true,
+                        false,
+                        string_type(TETENGO2_TEXT("noteB"))
+                    ),
                     4242
                 )
             );

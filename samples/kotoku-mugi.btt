@@ -21,6 +21,7 @@
             "grade":                   "principal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                580
         },
         {
@@ -28,6 +29,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                598
         },
         {
@@ -35,6 +37,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                621
         },
         {
@@ -42,6 +45,7 @@
             "grade":                   "local terminal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                642
         },
         {
@@ -56,6 +60,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                682
         },
         {
@@ -63,6 +68,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                731
         },
         {
@@ -70,6 +76,7 @@
             "grade":                   "local terminal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                745
         },
         {
@@ -77,6 +84,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                759
         },
         {
@@ -84,6 +92,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                773
         },
         {
@@ -91,6 +100,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                784
         },
         {
@@ -98,6 +108,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                805
         },
         {
@@ -105,6 +116,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                837
         },
         {
@@ -112,6 +124,7 @@
             "grade":                   "principal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                854
         },
         {
@@ -119,6 +132,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                887
         },
         {
@@ -126,6 +140,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                901
         },
         {
@@ -133,6 +148,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                922
         },
         {
@@ -140,6 +156,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                943
         },
         {
@@ -147,6 +164,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                963
         },
         {
@@ -154,6 +172,7 @@
             "grade":                   "local terminal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                990
         }
     ],

@@ -333,7 +333,8 @@ namespace bobura { namespace model { namespace serializer
                             std::move(m_ekimei),
                             to_station_grade(m_ekijikokukeisiki, m_ekikibo),
                             shows_down_arrival_times(m_ekijikokukeisiki),
-                            shows_up_arrival_times(m_ekijikokukeisiki)
+                            shows_up_arrival_times(m_ekijikokukeisiki),
+                            string_type()
                         ),
                         m_timetable.station_locations().empty() ?
                             0 : m_timetable.station_locations().back().meterage() + 1

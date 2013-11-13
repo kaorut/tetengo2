@@ -543,6 +543,17 @@ namespace bobura { namespace model { namespace serializer
                 show_up_arrival_times = std::move(member->second);
             }
 
+            string_type note;
+            {
+                auto member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("note")))
+                    return boost::none;
+
+                note = std::move(member->second);
+            }
+
             meterage_type meterage = 0;
             {
                 auto member = read_integer_member<meterage_type>(pull_parser);
@@ -561,7 +572,13 @@ namespace bobura { namespace model { namespace serializer
             return
                 boost::make_optional(
                     station_location_type(
-                        station_type(std::move(name), *p_grade, show_down_arrival_times, show_up_arrival_times),
+                        station_type(
+                            std::move(name),
+                            *p_grade,
+                            show_down_arrival_times,
+                            show_up_arrival_times,
+                            std::move(note)
+                        ),
                         std::move(meterage)
                     )
                 );

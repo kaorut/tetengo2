@@ -454,7 +454,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("name")), station_location.station().name(),output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("name")), station_location.station().name(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
@@ -477,6 +477,10 @@ namespace bobura { namespace model { namespace serializer
                 station_location.station().shows_up_arrival_times(),
                 output_stream
             );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(string_type(TETENGO2_TEXT("note")), station_location.station().note(), output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
