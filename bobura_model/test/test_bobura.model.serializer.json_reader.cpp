@@ -105,6 +105,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   true,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -112,6 +113,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": true,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -133,6 +135,7 @@ namespace
         "            \"grade\":                   \"hoge\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        }\n"
         "    ],\n"
@@ -166,6 +169,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -173,6 +177,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -240,6 +245,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -247,6 +253,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -288,6 +295,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -295,6 +303,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -345,6 +354,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -352,6 +362,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -393,6 +404,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -400,6 +412,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -438,6 +451,7 @@ namespace
         "            \"grade\":                   \"local\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteA\",\n"
         "            \"meterage\":                42\n"
         "        },\n"
         "        {\n"
@@ -445,6 +459,7 @@ namespace
         "            \"grade\":                   \"principal\",\n"
         "            \"show_down_arrival_times\": false,\n"
         "            \"show_up_arrival_times\":   false,\n"
+        "            \"note\":                    \"noteB\",\n"
         "            \"meterage\":                4242\n"
         "        }\n"
         "    ],\n"
@@ -618,6 +633,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_CHECK(station.grade().name() == string_type(TETENGO2_TEXT("local")));
                 BOOST_CHECK(!station.shows_down_arrival_times());
                 BOOST_CHECK(station.shows_up_arrival_times());
+                BOOST_CHECK(station.note() == string_type(TETENGO2_TEXT("noteA")));
                 BOOST_CHECK_EQUAL(station_location.meterage(), 42U);
             }
             {
@@ -627,6 +643,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_CHECK(station.grade().name() == string_type(TETENGO2_TEXT("principal")));
                 BOOST_CHECK(station.shows_down_arrival_times());
                 BOOST_CHECK(!station.shows_up_arrival_times());
+                BOOST_CHECK(station.note() == string_type(TETENGO2_TEXT("noteB")));
                 BOOST_CHECK_EQUAL(station_location.meterage(), 4242U);
             }
         }

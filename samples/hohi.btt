@@ -21,6 +21,7 @@
             "grade":                   "local terminal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "みどりの窓口、駅弁",
             "meterage":                0
         },
         {
@@ -28,6 +29,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                27
         },
         {
@@ -35,6 +37,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                36
         },
         {
@@ -42,6 +45,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "みどりの窓口",
             "meterage":                52
         },
         {
@@ -49,6 +53,7 @@
             "grade":                   "principal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "みどりの窓口",
             "meterage":                58
         },
         {
@@ -56,6 +61,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                78
         },
         {
@@ -63,6 +69,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                89
         },
         {
@@ -70,6 +77,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                129
         },
         {
@@ -77,6 +85,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "みどりの窓口",
             "meterage":                148
         },
         {
@@ -84,6 +93,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                158
         },
         {
@@ -91,6 +101,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "meterage":                189
         },
         {
@@ -98,6 +109,7 @@
             "grade":                   "principal",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "みどりの窓口",
             "meterage":                226
         }
     ],
