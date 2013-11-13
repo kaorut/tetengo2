@@ -124,6 +124,8 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename timetable_type::train_type train_type;
 
+        typedef typename train_type::direction_type direction_type;
+
         typedef typename train_type::stop_type stop_type;
 
         typedef typename stop_type::time_type time_type;
@@ -208,7 +210,7 @@ namespace bobura { namespace model { namespace serializer
             for (auto& train_kind: *train_kinds)
                 p_timetable->insert_train_kind(p_timetable->train_kinds().end(), std::move(train_kind));
 
-            auto down_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
+            auto down_trains = read_trains(pull_parser, direction_type::down, stations->size(), train_kinds->size());
             if (!down_trains)
             {
                 error = error_type::corrupted;
@@ -217,7 +219,7 @@ namespace bobura { namespace model { namespace serializer
             for (auto& train: *down_trains)
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), std::move(train));
 
-            auto up_trains = read_trains(pull_parser, stations->size(), train_kinds->size());
+            auto up_trains = read_trains(pull_parser, direction_type::up, stations->size(), train_kinds->size());
             if (!up_trains)
             {
                 error = error_type::corrupted;
@@ -541,6 +543,17 @@ namespace bobura { namespace model { namespace serializer
                 show_up_arrival_times = std::move(member->second);
             }
 
+            string_type note;
+            {
+                auto member = read_string_member(pull_parser);
+                if (!member)
+                    return boost::none;
+                if (member->first != string_type(TETENGO2_TEXT("note")))
+                    return boost::none;
+
+                note = std::move(member->second);
+            }
+
             meterage_type meterage = 0;
             {
                 auto member = read_integer_member<meterage_type>(pull_parser);
@@ -559,7 +572,13 @@ namespace bobura { namespace model { namespace serializer
             return
                 boost::make_optional(
                     station_location_type(
-                        station_type(std::move(name), *p_grade, show_down_arrival_times, show_up_arrival_times),
+                        station_type(
+                            std::move(name),
+                            *p_grade,
+                            show_down_arrival_times,
+                            show_up_arrival_times,
+                            std::move(note)
+                        ),
                         std::move(meterage)
                     )
                 );
@@ -738,9 +757,10 @@ namespace bobura { namespace model { namespace serializer
         }
 
         static boost::optional<std::vector<train_type>> read_trains(
-            pull_parser_type& pull_parser,
-            const std::size_t station_count,
-            const std::size_t kind_count
+            pull_parser_type&    pull_parser,
+            const direction_type direction,
+            const std::size_t    station_count,
+            const std::size_t    kind_count
         )
         {
             std::vector<train_type> trains;
@@ -751,7 +771,7 @@ namespace bobura { namespace model { namespace serializer
 
             for (;;)
             {
-                auto train = read_train(pull_parser, station_count, kind_count);
+                auto train = read_train(pull_parser, direction, station_count, kind_count);
                 if (!train)
                     break;
 
@@ -766,9 +786,10 @@ namespace bobura { namespace model { namespace serializer
         }
 
         static boost::optional<train_type> read_train(
-            pull_parser_type& pull_parser,
-            const std::size_t station_count,
-            const std::size_t kind_count
+            pull_parser_type&    pull_parser,
+            const direction_type direction,
+            const std::size_t    station_count,
+            const std::size_t    kind_count
         )
         {
             if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
@@ -832,7 +853,9 @@ namespace bobura { namespace model { namespace serializer
                 note = std::move(member->second);
             }
 
-            train_type train(std::move(number), kind_index, std::move(name), std::move(name_number), std::move(note));
+            train_type train(
+                direction, std::move(number), kind_index, std::move(name), std::move(name_number), std::move(note)
+            );
 
             auto stops = read_stops(pull_parser);
             if (!stops)

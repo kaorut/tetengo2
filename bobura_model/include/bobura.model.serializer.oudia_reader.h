@@ -130,6 +130,10 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename train_kind_type::color_type color_type;
 
+        typedef typename timetable_type::train_type train_type;
+
+        typedef typename train_type::direction_type direction_type;
+
         struct file_type
         {
             string_type m_name;
@@ -329,7 +333,8 @@ namespace bobura { namespace model { namespace serializer
                             std::move(m_ekimei),
                             to_station_grade(m_ekijikokukeisiki, m_ekikibo),
                             shows_down_arrival_times(m_ekijikokukeisiki),
-                            shows_up_arrival_times(m_ekijikokukeisiki)
+                            shows_up_arrival_times(m_ekijikokukeisiki),
+                            string_type()
                         ),
                         m_timetable.station_locations().empty() ?
                             0 : m_timetable.station_locations().back().meterage() + 1
@@ -462,21 +467,21 @@ namespace bobura { namespace model { namespace serializer
         class kudari_state : public state
         {
         public:
-            explicit kudari_state(bool& down)
+            explicit kudari_state(direction_type& direction)
             :
-            m_down(down)
+            m_direction(direction)
             {}
 
             virtual ~kudari_state()
             {}
 
         private:
-            bool& m_down;
+            direction_type& m_direction;
 
             virtual bool entered_impl()
             override
             {
-                m_down = true;
+                m_direction = direction_type::down;
                 return true;
             }
 
@@ -485,21 +490,21 @@ namespace bobura { namespace model { namespace serializer
         class nobori_state : public state
         {
         public:
-            explicit nobori_state(bool& down)
+            explicit nobori_state(direction_type& direction)
             :
-            m_down(down)
+            m_direction(direction)
             {}
 
             virtual ~nobori_state()
             {}
 
         private:
-            bool& m_down;
+            direction_type& m_direction;
 
             virtual bool entered_impl()
             override
             {
-                m_down = false;
+                m_direction = direction_type::up;
                 return true;
             }
 
@@ -508,10 +513,10 @@ namespace bobura { namespace model { namespace serializer
         class ressya_state : public state
         {
         public:
-            explicit ressya_state(timetable_type& timetable, const bool down)
+            explicit ressya_state(timetable_type& timetable, const direction_type direction)
             :
             m_timetable(timetable),
-            m_down(down),
+            m_direction(direction),
             m_syubetsu(),
             m_ressyabangou(),
             m_ressyamei(),
@@ -523,8 +528,6 @@ namespace bobura { namespace model { namespace serializer
             {}
 
         private:
-            typedef typename timetable_type::train_type train_type;
-
             typedef typename train_type::stop_type stop_type;
 
             typedef typename stop_type::time_type time_type;
@@ -641,7 +644,7 @@ namespace bobura { namespace model { namespace serializer
 
             timetable_type& m_timetable;
 
-            const bool m_down;
+            const direction_type m_direction;
 
             string_type m_houkou;
 
@@ -688,7 +691,7 @@ namespace bobura { namespace model { namespace serializer
                 if (!train_kind_index || *train_kind_index >= m_timetable.train_kinds().size())
                     return false;
 
-                train_type train(m_ressyabangou, *train_kind_index, m_ressyamei, m_gousuu, m_bikou);
+                train_type train(m_direction, m_ressyabangou, *train_kind_index, m_ressyamei, m_gousuu, m_bikou);
 
                 auto stops =
                     parse_stops(
@@ -700,7 +703,7 @@ namespace bobura { namespace model { namespace serializer
                     return false;
                 std::for_each(stops->begin(), stops->end(), insert_stop(train));
 
-                if (m_down)
+                if (m_direction == direction_type::down)
                     m_timetable.insert_down_train(m_timetable.down_trains().end(), std::move(train));
                 else
                     m_timetable.insert_up_train(m_timetable.up_trains().end(), std::move(train));
@@ -815,7 +818,7 @@ namespace bobura { namespace model { namespace serializer
             timetable_type&    timetable,
             const string_type& selected_diagram_name,
             string_type&       current_diagram_name,
-            bool&              down
+            direction_type&    direction
         )
         {
             if (line.empty() || line[line.length() - 1] != char_type(TETENGO2_TEXT('.')))
@@ -845,11 +848,11 @@ namespace bobura { namespace model { namespace serializer
             else if (!current_diagram_name.empty() && current_diagram_name == selected_diagram_name)
             {
                 if      (name == string_ref_type(TETENGO2_TEXT("Kudari")))
-                    return tetengo2::stdalt::make_unique<kudari_state>(down);
+                    return tetengo2::stdalt::make_unique<kudari_state>(direction);
                 else if (name == string_ref_type(TETENGO2_TEXT("Nobori")))
-                    return tetengo2::stdalt::make_unique<nobori_state>(down);
+                    return tetengo2::stdalt::make_unique<nobori_state>(direction);
                 else if (name == string_ref_type(TETENGO2_TEXT("Ressya")))
-                    return tetengo2::stdalt::make_unique<ressya_state>(timetable, down);
+                    return tetengo2::stdalt::make_unique<ressya_state>(timetable, direction);
                 else
                     return tetengo2::stdalt::make_unique<unknown_state>();
             }
@@ -961,7 +964,7 @@ namespace bobura { namespace model { namespace serializer
         {
             auto p_timetable = tetengo2::stdalt::make_unique<timetable_type>();
             string_type current_diagram_name;
-            auto down = true;
+            auto direction = direction_type::down;
 
             std::unique_ptr<state> p_state = tetengo2::stdalt::make_unique<initial_state>(*p_timetable);
             auto next_line_first = first;
@@ -972,7 +975,7 @@ namespace bobura { namespace model { namespace serializer
                     break;
 
                 auto p_new_state =
-                    dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name, down);
+                    dispatch(input_line, *p_timetable, selected_diagram_name, current_diagram_name, direction);
                 if (p_new_state)
                 {
                     if (!p_state->leaving())

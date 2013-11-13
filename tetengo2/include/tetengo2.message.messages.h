@@ -22,6 +22,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>
@@ -86,8 +87,23 @@ namespace tetengo2 { namespace message
             if (key.length() <= 1)
                 return key;
 
-            const auto offset = key.rfind(TETENGO2_TEXT(':'), key.length() - 2);
-            return offset == string_type::npos ? key : key.substr(offset + 1);
+            auto start = key.length() - 2;
+            for(;;)
+            {
+                const auto offset = key.rfind(TETENGO2_TEXT(':'), start);
+                if (offset == string_type::npos)
+                    return key;
+                if (offset == 0 || key[offset - 1] != typename string_type::value_type(TETENGO2_TEXT('\\')))
+                {
+                    string_type ns_removed = key.substr(offset + 1);
+                    boost::replace_all(ns_removed, string_type(TETENGO2_TEXT("\\:")), string_type(TETENGO2_TEXT(":")));
+                    return ns_removed;
+                }
+                if (offset == 1)
+                    return key;
+
+                start = offset - 2;
+            }
         }
 
 

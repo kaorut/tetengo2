@@ -63,7 +63,9 @@ namespace
     {
         return
             station_location_type(
-                station_type(std::move(name), grade_type_set_type::local_type::instance(), false, false),
+                station_type(
+                    std::move(name), grade_type_set_type::local_type::instance(), false, false, string_type()
+                ),
                 std::move(meterage)
             );
     }
@@ -84,6 +86,7 @@ namespace
     train_type make_train(const InputIterator stop_first, const InputIterator stop_last)
     {
         return train_type(
+            train_type::direction_type::down,
             train_type::string_type(),
             0,
             train_type::string_type(),
