@@ -189,7 +189,8 @@ namespace bobura { namespace model { namespace serializer
                             props.find(TETENGO2_TEXT('b')) != string_ref_type::npos
                         ),
                         props.find(TETENGO2_TEXT('d')) != string_ref_type::npos,
-                        props.find(TETENGO2_TEXT('u')) != string_ref_type::npos
+                        props.find(TETENGO2_TEXT('u')) != string_ref_type::npos,
+                        string_type()
                     ),
                     m_meterage
                 );

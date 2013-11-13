@@ -44,18 +44,21 @@ namespace bobura { namespace model
             \param grade                    A grade.
             \param shows_down_arrival_times True when the arrival times of down trains are shown.
             \param shows_up_arrival_times   True when the arrival times of up trains are shown.
+            \param note                     A note.
         */
         station(
             string_type       name,
             const grade_type& grade,
             const bool        shows_down_arrival_times,
-            const bool        shows_up_arrival_times
+            const bool        shows_up_arrival_times,
+            string_type       note
         )
         :
         m_name(std::move(name)),
         m_p_grade(&grade),
         m_shows_down_arrival_times(shows_down_arrival_times),
-        m_shows_up_arrival_times(shows_up_arrival_times)
+        m_shows_up_arrival_times(shows_up_arrival_times),
+        m_note(std::move(note))
         {}
 
 
@@ -76,7 +79,8 @@ namespace bobura { namespace model
                 one.m_name == another.m_name &&
                 one.m_p_grade == another.m_p_grade &&
                 one.m_shows_down_arrival_times == another.m_shows_down_arrival_times &&
-                one.m_shows_up_arrival_times == another.m_shows_up_arrival_times;
+                one.m_shows_up_arrival_times == another.m_shows_up_arrival_times &&
+                one.m_note == another.m_note;
         }
 
         /*!
@@ -125,6 +129,17 @@ namespace bobura { namespace model
             return m_shows_up_arrival_times;
         }
 
+        /*!
+            \brief Returns the note.
+
+            \return The note.
+        */
+        const string_type& note()
+        const
+        {
+            return m_note;
+        }
+
 
     private:
         // variables
@@ -136,6 +151,8 @@ namespace bobura { namespace model
         bool m_shows_down_arrival_times;
 
         bool m_shows_up_arrival_times;
+
+        string_type m_note;
 
 
     };

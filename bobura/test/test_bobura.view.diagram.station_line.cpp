@@ -90,7 +90,11 @@ BOOST_AUTO_TEST_SUITE(station_line)
         BOOST_TEST_PASSPOINT();
 
         const station_type station(
-            string_type(TETENGO2_TEXT("name")), station_grade_type_set_type::local_type::instance(), false, false
+            string_type(TETENGO2_TEXT("name")),
+            station_grade_type_set_type::local_type::instance(),
+            false,
+            false,
+            string_type(TETENGO2_TEXT("note"))
         );
         selection_type selection;
         station_line_type station_line1(
@@ -109,7 +113,11 @@ BOOST_AUTO_TEST_SUITE(station_line)
         BOOST_TEST_PASSPOINT();
 
         const station_type station1(
-            string_type(TETENGO2_TEXT("name1")), station_grade_type_set_type::local_type::instance(), false, false
+            string_type(TETENGO2_TEXT("name1")),
+            station_grade_type_set_type::local_type::instance(),
+            false,
+            false,
+            string_type(TETENGO2_TEXT("note1"))
         );
         selection_type selection;
         station_line_type station_line1(
@@ -121,7 +129,11 @@ BOOST_AUTO_TEST_SUITE(station_line)
             font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
         );
         const station_type station2(
-            string_type(TETENGO2_TEXT("name2")), station_grade_type_set_type::principal_type::instance(), true, false
+            string_type(TETENGO2_TEXT("name2")),
+            station_grade_type_set_type::local_type::instance(),
+            false,
+            false,
+            string_type(TETENGO2_TEXT("note2"))
         );
         station_line_type station_line2(
             station2,

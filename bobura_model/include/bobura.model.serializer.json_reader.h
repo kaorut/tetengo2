@@ -561,7 +561,13 @@ namespace bobura { namespace model { namespace serializer
             return
                 boost::make_optional(
                     station_location_type(
-                        station_type(std::move(name), *p_grade, show_down_arrival_times, show_up_arrival_times),
+                        station_type(
+                            std::move(name),
+                            *p_grade,
+                            show_down_arrival_times,
+                            show_up_arrival_times,
+                            string_type() // TODO Fill station note.
+                        ),
                         std::move(meterage)
                     )
                 );
