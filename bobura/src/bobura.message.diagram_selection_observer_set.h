@@ -51,12 +51,10 @@ namespace bobura { namespace message
             \brief The observer type of train selection.
 
             \param train                A train.
-            \param down                 Set true when the train is downward. Otherwise the train is upward.
             \param departure_stop_index A departure stop index. Or boost::none when a whole train is selected.
         */
         typedef void train_selected_type(
             const train_type&                       train,
-            bool                                    down,
             const boost::optional<stop_index_type>& departure_stop_index
         );
 

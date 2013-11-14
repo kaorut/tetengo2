@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_SUITE(train_selected)
             string_type(TETENGO2_TEXT("name_number")),
             string_type(TETENGO2_TEXT("note"))
         );
-        train_selected(train, true, boost::none);
+        train_selected(train, boost::none);
     }
 
 

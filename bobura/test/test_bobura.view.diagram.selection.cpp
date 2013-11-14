@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_SUITE(selection)
             string_type(TETENGO2_TEXT("note"))
         );
         
-        selection.select(train, false, boost::none);
+        selection.select(train, boost::none);
         
         const station_type station(
             string_type(TETENGO2_TEXT("name")),
@@ -151,17 +151,14 @@ BOOST_AUTO_TEST_SUITE(selection)
             selection_type selection;
 
             const train_type* p_selected_train = nullptr;
-            bool selected_down = false;
             boost::optional<stop_index_type> selected_departure_stop_index;
             selection.selection_observer_set().train_selected().connect(
-                [&p_selected_train, &selected_down, &selected_departure_stop_index](
+                [&p_selected_train, &selected_departure_stop_index](
                     const train_type&                       train,
-                    const bool                              down,
                     const boost::optional<stop_index_type>& departure_stop_index
                 )
                 {
                     p_selected_train = &train;
-                    selected_down = down;
                     selected_departure_stop_index = departure_stop_index;
                 }
             );
@@ -184,30 +181,26 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("note"))
             );
         
-            selection.select(train, false, boost::none);
+            selection.select(train, boost::none);
         
             BOOST_CHECK(!selection.selected(station));
             BOOST_CHECK(selection.selected(train, boost::none));
             BOOST_CHECK(!selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
-            BOOST_CHECK(!selected_down);
             BOOST_CHECK(selected_departure_stop_index == boost::none);
         }
         {
             selection_type selection;
 
             const train_type* p_selected_train = nullptr;
-            bool selected_down = false;
             boost::optional<stop_index_type> selected_departure_stop_index;
             selection.selection_observer_set().train_selected().connect(
-                [&p_selected_train, &selected_down, &selected_departure_stop_index](
+                [&p_selected_train, &selected_departure_stop_index](
                     const train_type&                       train,
-                    const bool                              down,
                     const boost::optional<stop_index_type>& departure_stop_index
                 )
                 {
                     p_selected_train = &train;
-                    selected_down = down;
                     selected_departure_stop_index = departure_stop_index;
                 }
             );
@@ -230,30 +223,26 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("note"))
             );
         
-            selection.select(train, false, boost::make_optional<stop_index_type>(42));
+            selection.select(train, boost::make_optional<stop_index_type>(42));
         
             BOOST_CHECK(!selection.selected(station));
             BOOST_CHECK(!selection.selected(train, boost::none));
             BOOST_CHECK(selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
-            BOOST_CHECK(!selected_down);
             BOOST_CHECK(selected_departure_stop_index == boost::make_optional<stop_index_type>(42));
         }
         {
             selection_type selection;
 
             const train_type* p_selected_train = nullptr;
-            bool selected_down = false;
             boost::optional<stop_index_type> selected_departure_stop_index;
             selection.selection_observer_set().train_selected().connect(
-                [&p_selected_train, &selected_down, &selected_departure_stop_index](
+                [&p_selected_train, &selected_departure_stop_index](
                     const train_type&                       train,
-                    const bool                              down,
                     const boost::optional<stop_index_type>& departure_stop_index
                 )
                 {
                     p_selected_train = &train;
-                    selected_down = down;
                     selected_departure_stop_index = departure_stop_index;
                 }
             );
@@ -276,13 +265,12 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("note"))
             );
         
-            selection.select(train, true, boost::make_optional<stop_index_type>(42));
+            selection.select(train, boost::make_optional<stop_index_type>(42));
         
             BOOST_CHECK(!selection.selected(station));
             BOOST_CHECK(!selection.selected(train, boost::none));
             BOOST_CHECK(selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
-            BOOST_CHECK(selected_down);
             BOOST_CHECK(selected_departure_stop_index == boost::make_optional<stop_index_type>(42));
         }
     }
@@ -335,7 +323,7 @@ BOOST_AUTO_TEST_SUITE(selection)
                 string_type(TETENGO2_TEXT("name_number")),
                 string_type(TETENGO2_TEXT("note"))
             );
-            selection.select(train, false, boost::none);
+            selection.select(train, boost::none);
 
             selection.unselect_all();
 

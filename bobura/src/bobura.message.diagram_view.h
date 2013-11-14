@@ -208,12 +208,10 @@ namespace bobura { namespace message { namespace diagram_view
             \brief Called when a train is selected.
 
             \param train                A train.
-            \param down                 Set true when the train is downward. Otherwise the train is upward.
             \param departure_stop_index A departure stop index. Or boost::none when a whole train is selected.
         */
         void operator()(
             const train_type&                       train,
-            const bool                              down,
             const boost::optional<stop_index_type>& departure_stop_index
         )
         {
@@ -334,7 +332,7 @@ namespace bobura { namespace message { namespace diagram_view
         {
             string_type text;
 
-            for (auto i = train.origin_stop(); ; i = train.next_stop(i))
+            for (auto i = train.origin_stop(); i != train.stops().end(); i = train.next_stop(i))
             {
                 if (
                     i == train.origin_stop() ||

@@ -142,12 +142,10 @@ namespace bobura { namespace view { namespace diagram
             \brief Selects a train.
 
             \param train                A train.
-            \param down                 Set true when the train is downward. Otherwise the train is upward.
             \param departure_stop_index A departure stop index. Or specify boost::none when a whole train is selected.
         */
         void select(
             const train_type&                       train,
-            const bool                              down,
             const boost::optional<stop_index_type>& departure_stop_index
         )
         {
@@ -156,7 +154,7 @@ namespace bobura { namespace view { namespace diagram
             m_p_selected_train = &train;
             m_departure_stop_index = departure_stop_index;
 
-            m_p_selection_observer_set->train_selected()(train, down, departure_stop_index);
+            m_p_selection_observer_set->train_selected()(train, departure_stop_index);
         }
 
         /*!

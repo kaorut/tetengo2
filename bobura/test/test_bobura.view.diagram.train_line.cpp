@@ -116,7 +116,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            false,
             true,
             message_catalog
         );
@@ -144,7 +143,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
             false,
-            true,
             message_catalog
         );
         train_line_fragment_type train_line_fragment2(
@@ -153,7 +151,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            false,
             true,
             message_catalog
         );
@@ -189,7 +186,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),
@@ -229,7 +225,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),
@@ -252,7 +247,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),
