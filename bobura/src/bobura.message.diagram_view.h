@@ -92,6 +92,7 @@ namespace bobura { namespace message { namespace diagram_view
         {
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), station.name());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Grade")), grade_string(station.grade()));
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Note")), station.note());
         }
 
 
