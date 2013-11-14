@@ -10,7 +10,7 @@
 #define BOBURA_MESSAGE_DIAGRAMVIEW_H
 
 #include <cassert>
-#include <cstddef>
+#include <iterator>
 #include <sstream>
 #include <stdexcept>
 #include <utility>
@@ -18,6 +18,7 @@
 #include <boost/format.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.text.h>
 
@@ -224,14 +225,14 @@ namespace bobura { namespace message { namespace diagram_view
             {
                 insert_value(
                     m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Departure and Arrival")),
-                    build_departure_and_arrival(train, *departure_stop_index, down)
+                    build_departure_and_arrival(train, *departure_stop_index)
                 );
             }
             else
             {
                 insert_value(
                     m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Principal Arrivals and Departures")),
-                    build_departures_and_arrivals(train, down)
+                    build_departures_and_arrivals(train)
                 );
             }
        }
@@ -247,6 +248,8 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename train_type::kind_index_type kind_index_type;
 
         typedef typename train_type::stop_type stop_type;
+
+        typedef typename train_type::stops_type::const_iterator stop_iterator;
 
         typedef typename stop_type::time_type time_type;
 
@@ -297,11 +300,7 @@ namespace bobura { namespace message { namespace diagram_view
             }
         }
 
-        string_type build_departure_and_arrival(
-            const train_type&     train,
-            const stop_index_type stop_index,
-            const bool            down
-        )
+        string_type build_departure_and_arrival(const train_type& train, const stop_index_type stop_index)
         const
         {
             if (stop_index >= train.stops().size() || stop_index >= m_model.timetable().station_locations().size())
@@ -309,9 +308,9 @@ namespace bobura { namespace message { namespace diagram_view
 
             string_type text;
 
+            const stop_iterator i_departure = boost::next(train.stops().begin(), stop_index);
             {
-                const stop_type& departure = train.stops()[stop_index];
-                string_type stop_text = build_stop_text(departure, stop_index, false, true);
+                string_type stop_text = build_stop_text(train.stops().begin(), i_departure, false, true);
                 if (stop_text.empty())
                     text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
                 else
@@ -319,9 +318,8 @@ namespace bobura { namespace message { namespace diagram_view
             }
             text += string_type(TETENGO2_TEXT("\n"));
             {
-                const stop_index_type arrival_stop_index = next_stop(train, stop_index, down);
-                const stop_type& arrival = train.stops()[arrival_stop_index];
-                string_type stop_text = build_stop_text(arrival, arrival_stop_index, true, false);
+                const stop_iterator i_arrival = train.next_stop(i_departure);
+                string_type stop_text = build_stop_text(train.stops().begin(), i_arrival, true, false);
                 if (stop_text.empty())
                     text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
                 else
@@ -331,69 +329,76 @@ namespace bobura { namespace message { namespace diagram_view
             return text;
         }
 
-        string_type build_departures_and_arrivals(const train_type& train, const bool down)
+        string_type build_departures_and_arrivals(const train_type& train)
         const
         {
             string_type text;
 
-            const std::ptrdiff_t first = down ? 0 : train.stops().size() - 1;
-            const std::ptrdiff_t last = down ? train.stops().size(): -1;
-            const std::ptrdiff_t step = down ? 1 : -1;
-            for (std::ptrdiff_t i = first; i != last; i += step)
+            for (auto i = train.origin_stop(); ; i = train.next_stop(i))
             {
-                if (i != first && i + step != last && !is_principal_station(i))
-                    continue;
-
-                const stop_type& stop = train.stops()[i];
-                string_type stop_text = build_stop_text(stop, i, true, true);
-                if (!stop_text.empty())
+                if (
+                    i == train.origin_stop() ||
+                    i == train.destination_stop() ||
+                    is_principal_station(train.stops().begin(), i)
+                )
                 {
-                    if (!text.empty())
-                        text += string_type(TETENGO2_TEXT("\n"));
-                    text += std::move(stop_text);
+                    string_type stop_text = build_stop_text(train.stops().begin(), i, true, true);
+                    if (!stop_text.empty())
+                    {
+                        if (!text.empty())
+                            text += string_type(TETENGO2_TEXT("\n"));
+                        text += std::move(stop_text);
+                    }
                 }
+
+                if (i == train.destination_stop())
+                    break;
             }
 
             return text;
         }
 
-        bool is_principal_station(const stop_index_type stop_index)
+        bool is_principal_station(const stop_iterator i_front_stop, const stop_iterator i_stop)
         const
         {
+            const stop_index_type stop_index = std::distance(i_front_stop, i_stop);
+            assert(stop_index < m_model.timetable().station_locations().size());
+
             return
                 &m_model.timetable().station_locations()[stop_index].station().grade() !=
                 &station_grade_type_set_type::local_type::instance();
         }
 
         string_type build_stop_text(
-            const stop_type&      stop,
-            const stop_index_type stop_index,
-            const bool            arrival,
-            const bool            departure
+            const stop_iterator i_front_stop,
+            const stop_iterator i_stop,
+            const bool          arrival,
+            const bool          departure
         )
         const
         {
-            if (stop.arrival() == time_type::uninitialized() && stop.departure() == time_type::uninitialized())
+            if (i_stop->arrival() == time_type::uninitialized() && i_stop->departure() == time_type::uninitialized())
                 return string_type();
 
+            const stop_index_type stop_index = std::distance(i_front_stop, i_stop);
             assert(stop_index < m_model.timetable().station_locations().size());
 
             string_type arrival_time;
             if (
-                stop.arrival() != time_type::uninitialized() &&
-                (arrival || (departure && stop.departure() == time_type::uninitialized()))
+                i_stop->arrival() != time_type::uninitialized() &&
+                (arrival || (departure && i_stop->departure() == time_type::uninitialized()))
             )
             {
-                arrival_time = time_text(stop.arrival(), false);
+                arrival_time = time_text(i_stop->arrival(), false);
             }
 
             string_type departure_time;
             if (
-                stop.departure() != time_type::uninitialized() &&
-                (departure || (arrival && stop.arrival() == time_type::uninitialized()))
+                i_stop->departure() != time_type::uninitialized() &&
+                (departure || (arrival && i_stop->arrival() == time_type::uninitialized()))
             )
             {
-                departure_time = time_text(stop.departure(), true);
+                departure_time = time_text(i_stop->departure(), true);
             }
 
             std::basic_ostringstream<typename string_type::value_type> stream;
@@ -420,7 +425,7 @@ namespace bobura { namespace message { namespace diagram_view
                 BOOST_THROW_EXCEPTION(std::logic_error("We must not come here."));
             }
 
-            if (stop.operational())
+            if (i_stop->operational())
             {
                 stream <<
                     string_type(TETENGO2_TEXT(" (")) <<
@@ -428,8 +433,8 @@ namespace bobura { namespace message { namespace diagram_view
                     string_type(TETENGO2_TEXT(")"));
             }
 
-            if (!stop.platform().empty())
-                stream << string_type(TETENGO2_TEXT(" [")) << stop.platform() << string_type(TETENGO2_TEXT("]"));
+            if (!i_stop->platform().empty())
+                stream << string_type(TETENGO2_TEXT(" [")) << i_stop->platform() << string_type(TETENGO2_TEXT("]"));
 
             return stream.str();
         }
@@ -445,38 +450,18 @@ namespace bobura { namespace message { namespace diagram_view
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d %2$02dd"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d\\:%2$02dd"))
                     ) % hms.hours() % hms.minutes();
             }
             else
             {
                 stream <<
                     boost::basic_format<typename string_type::value_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d %2$02da"))
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1$2d\\:%2$02da"))
                     ) % hms.hours() % hms.minutes();
             }
 
             return stream.str();
-        }
-
-        stop_index_type next_stop(const train_type& train, const stop_index_type stop_index, const bool down)
-        const
-        {
-            const std::ptrdiff_t step = down ? 1 : -1;
-            for (stop_index_type i = stop_index; ; i += step)
-            {
-                if (down && stop_index == train.stops().size() - 1)
-                    return i;
-                if (!down && stop_index == 0)
-                    return i;
-
-                if (i == stop_index)
-                    continue;
-
-                const stop_type& stop = train.stops()[i];
-                if (stop.departure() != time_type::uninitialized() || stop.arrival() != time_type::uninitialized())
-                    return i;
-            }
         }
 
 

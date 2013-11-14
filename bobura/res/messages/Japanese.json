@@ -58,8 +58,8 @@
         "PropertyBar:Principal Arrivals and Departures": "主要駅着発時刻",
         "PropertyBar:Note":                              "記事",
         "PropertyBar:Pass":                              "通過",
-        "PropertyBar:%1$2d %2$02da":                     "%1$2d %2$02d着",
-        "PropertyBar:%1$2d %2$02dd":                     "%1$2d %2$02d発",
+        "PropertyBar:%1$2d\\:%2$02da":                   "%1$2d:%2$02d着",
+        "PropertyBar:%1$2d\\:%2$02dd":                   "%1$2d:%2$02d発",
         "PropertyBar:Operational":                       "運転停車",
         
         
