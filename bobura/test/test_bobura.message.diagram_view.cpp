@@ -6,6 +6,8 @@
     $Id$
 */
 
+//#include <utility>
+
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
@@ -34,7 +36,9 @@ namespace
 
     typedef model_type::timetable_type timetable_type;
 
-    typedef timetable_type::station_location_type::station_type station_type;
+    typedef timetable_type::station_location_type station_location_type;
+
+    typedef station_location_type::station_type station_type;
 
     typedef
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
@@ -91,14 +95,15 @@ BOOST_AUTO_TEST_SUITE(station_selected)
         const model_type model;
         station_selected_type station_selected(property_bar, model, message_catalog);
 
-        const station_type station(
+        station_type station(
             string_type(TETENGO2_TEXT("name")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note"))
         );
-        station_selected(station);
+        station_location_type station_location(std::move(station), 42);
+        station_selected(station_location);
     }
 
 

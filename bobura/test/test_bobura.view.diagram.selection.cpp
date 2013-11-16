@@ -28,7 +28,9 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef model_type::timetable_type::station_location_type::station_type station_type;
+    typedef model_type::timetable_type::station_location_type station_location_type;
+
+    typedef station_location_type::station_type station_type;
 
     typedef
         boost::mpl::at<bobura::model_type_list, bobura::type::model::station_grade_type_set>::type
@@ -39,10 +41,12 @@ namespace
     typedef train_type::stops_type::size_type stop_index_type;
 
     typedef
-        bobura::message::diagram_selection_observer_set<station_type, train_type> diagram_selection_observer_set_type;
+        bobura::message::diagram_selection_observer_set<station_location_type, train_type>
+        diagram_selection_observer_set_type;
 
     typedef
-        bobura::view::diagram::selection<station_type, train_type, diagram_selection_observer_set_type> selection_type;
+        bobura::view::diagram::selection<station_location_type, train_type, diagram_selection_observer_set_type>
+        selection_type;
 
 
 }
@@ -73,15 +77,16 @@ BOOST_AUTO_TEST_SUITE(selection)
 
         const selection_type selection;
 
-        const station_type station(
+        station_type station(
             string_type(TETENGO2_TEXT("name")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note"))
         );
+        const station_location_type station_location(std::move(station), 42);
 
-        BOOST_CHECK(!selection.selected(station));
+        BOOST_CHECK(!selection.selected(station_location));
     }
 
     BOOST_AUTO_TEST_CASE(selected_O_train)
@@ -108,11 +113,11 @@ BOOST_AUTO_TEST_SUITE(selection)
 
         selection_type selection;
 
-        const station_type* p_selected_station = nullptr;
+        const station_location_type* p_selected_station_location = nullptr;
         selection.selection_observer_set().station_selected().connect(
-            [&p_selected_station](const station_type& station)
+            [&p_selected_station_location](const station_location_type& station_location)
             {
-                p_selected_station = &station;
+                p_selected_station_location = &station_location;
             }
         );
 
@@ -127,20 +132,21 @@ BOOST_AUTO_TEST_SUITE(selection)
         
         selection.select(train, boost::none);
         
-        const station_type station(
+        station_type station(
             string_type(TETENGO2_TEXT("name")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note"))
         );
+        const station_location_type station_location(std::move(station), 42);
 
-        selection.select(station);
+        selection.select(station_location);
 
-        BOOST_CHECK(selection.selected(station));
+        BOOST_CHECK(selection.selected(station_location));
         BOOST_CHECK(!selection.selected(train, boost::none));
         BOOST_CHECK(!selection.selected(train, boost::make_optional<stop_index_type>(42)));
-        BOOST_CHECK_EQUAL(p_selected_station, &station);
+        BOOST_CHECK_EQUAL(p_selected_station_location, &station_location);
     }
 
     BOOST_AUTO_TEST_CASE(select_O_train)
@@ -163,14 +169,15 @@ BOOST_AUTO_TEST_SUITE(selection)
                 }
             );
 
-            const station_type station(
+            station_type station(
                 string_type(TETENGO2_TEXT("name")),
                 station_grade_type_set_type::local_type::instance(),
                 false,
                 false,
                 string_type(TETENGO2_TEXT("note"))
             );
-            selection.select(station);
+            const station_location_type station_location(std::move(station), 42);
+            selection.select(station_location);
 
             const train_type train(
                 train_type::direction_type::down,
@@ -183,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         
             selection.select(train, boost::none);
         
-            BOOST_CHECK(!selection.selected(station));
+            BOOST_CHECK(!selection.selected(station_location));
             BOOST_CHECK(selection.selected(train, boost::none));
             BOOST_CHECK(!selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
@@ -205,14 +212,15 @@ BOOST_AUTO_TEST_SUITE(selection)
                 }
             );
 
-            const station_type station(
+            station_type station(
                 string_type(TETENGO2_TEXT("name")),
                 station_grade_type_set_type::local_type::instance(),
                 false,
                 false,
                 string_type(TETENGO2_TEXT("note"))
             );
-            selection.select(station);
+            const station_location_type station_location(std::move(station), 42);
+            selection.select(station_location);
 
             const train_type train(
                 train_type::direction_type::down,
@@ -225,7 +233,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         
             selection.select(train, boost::make_optional<stop_index_type>(42));
         
-            BOOST_CHECK(!selection.selected(station));
+            BOOST_CHECK(!selection.selected(station_location));
             BOOST_CHECK(!selection.selected(train, boost::none));
             BOOST_CHECK(selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
@@ -247,14 +255,15 @@ BOOST_AUTO_TEST_SUITE(selection)
                 }
             );
 
-            const station_type station(
+            station_type station(
                 string_type(TETENGO2_TEXT("name")),
                 station_grade_type_set_type::local_type::instance(),
                 false,
                 false,
                 string_type(TETENGO2_TEXT("note"))
             );
-            selection.select(station);
+            const station_location_type station_location(std::move(station), 42);
+            selection.select(station_location);
 
             const train_type train(
                 train_type::direction_type::down,
@@ -267,7 +276,7 @@ BOOST_AUTO_TEST_SUITE(selection)
         
             selection.select(train, boost::make_optional<stop_index_type>(42));
         
-            BOOST_CHECK(!selection.selected(station));
+            BOOST_CHECK(!selection.selected(station_location));
             BOOST_CHECK(!selection.selected(train, boost::none));
             BOOST_CHECK(selection.selected(train, boost::make_optional<stop_index_type>(42)));
             BOOST_CHECK_EQUAL(p_selected_train, &train);
@@ -290,18 +299,19 @@ BOOST_AUTO_TEST_SUITE(selection)
                 }
             );
 
-            const station_type station(
+            station_type station(
                 string_type(TETENGO2_TEXT("name")),
                 station_grade_type_set_type::local_type::instance(),
                 false,
                 false,
                 string_type(TETENGO2_TEXT("note"))
             );
-            selection.select(station);
+            const station_location_type station_location(std::move(station), 42);
+            selection.select(station_location);
 
             selection.unselect_all();
 
-            BOOST_CHECK(!selection.selected(station));
+            BOOST_CHECK(!selection.selected(station_location));
             BOOST_CHECK(all_unselected_called);
         }
         {

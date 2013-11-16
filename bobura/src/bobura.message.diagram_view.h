@@ -51,9 +51,6 @@ namespace bobura { namespace message { namespace diagram_view
         //! The station location type.
         typedef typename timetable_type::station_location_type station_location_type;
 
-        //! The station type.
-        typedef typename station_location_type::station_type station_type;
-
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
 
@@ -85,12 +82,13 @@ namespace bobura { namespace message { namespace diagram_view
         // functions
 
         /*!
-            \brief Called when a station is selected.
+            \brief Called when a station location is selected.
 
-            \param station A station.
+            \param station_location A station location.
         */
-        void operator()(const station_type& station)
+        void operator()(const station_location_type& station_location)
         {
+            const station_type& station = station_location.station();
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), station.name());
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Grade")), grade_string(station.grade()));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Note")), station.note());
@@ -103,6 +101,8 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename property_bar_type::map_box_type::string_type string_type;
 
         typedef typename property_bar_type::map_box_type::value_type value_type;
+
+        typedef typename station_location_type::station_type station_type;
 
         typedef typename station_type::grade_type grade_type;
 

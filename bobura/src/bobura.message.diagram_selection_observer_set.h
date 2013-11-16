@@ -19,17 +19,17 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a diagram selection observer set.
 
-        \tparam Station A station type.
-        \tparam Train   A train type.
+        \tparam StationLocation A station location type.
+        \tparam Train           A train type.
     */
-    template <typename Station, typename Train>
+    template <typename StationLocation, typename Train>
     class diagram_selection_observer_set : private boost::noncopyable
     {
     public:
         // types
 
-        //! The station type.
-        typedef Station station_type;
+        //! The station location type.
+        typedef StationLocation station_location_type;
 
         //! The train type.
         typedef Train train_type;
@@ -40,9 +40,9 @@ namespace bobura { namespace message
         /*!
             \brief The observer type of station selection.
 
-            \param station A station.
+            \param station_location A station location.
         */
-        typedef void station_selected_type(const station_type& station);
+        typedef void station_selected_type(const station_location_type& station_location);
 
         //! The signal type of station selection.
         typedef boost::signals2::signal<station_selected_type> station_selected_signal_type;

@@ -39,10 +39,12 @@ namespace
     typedef model_type::timetable_type::train_type train_type;
 
     typedef
-        bobura::message::diagram_selection_observer_set<station_type, train_type> diagram_selection_observer_set_type;
+        bobura::message::diagram_selection_observer_set<station_location_type, train_type>
+        diagram_selection_observer_set_type;
 
     typedef
-        bobura::view::diagram::selection<station_type, train_type, diagram_selection_observer_set_type> selection_type;
+        bobura::view::diagram::selection<station_location_type, train_type, diagram_selection_observer_set_type>
+        selection_type;
 
     typedef model_type::timetable_type::train_type::stop_type::time_type time_type;
 

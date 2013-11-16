@@ -210,7 +210,7 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const override
         {
-            return this->selection().selected(m_p_station_location->station());
+            return this->selection().selected(*m_p_station_location);
         }
 
         virtual void select_impl(const bool switch_selection_style)
@@ -218,7 +218,7 @@ namespace bobura { namespace view { namespace diagram
         {
             tetengo2::suppress_unused_variable_warning(switch_selection_style);
 
-            this->selection().select(m_p_station_location->station());
+            this->selection().select(*m_p_station_location);
         }
 
 

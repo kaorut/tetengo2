@@ -25,18 +25,18 @@ namespace bobura { namespace view { namespace diagram
      /*!
         \brief The class template for the diagram view selection.
 
-        \tparam Station              A station type.
+        \tparam StationLocation      A station location type.
         \tparam Train                A train type.
         \tparam SelectionObserverSet A selection observer set type.
     */
-    template <typename Station, typename Train, typename SelectionObserverSet>
+    template <typename StationLocation, typename Train, typename SelectionObserverSet>
     class selection : private boost::noncopyable
     {
     public:
         // types
 
-        //! The station type.
-        typedef Station station_type;
+        //! The station location type.
+        typedef StationLocation station_location_type;
 
         //! The train type.
         typedef Train train_type;
@@ -55,7 +55,7 @@ namespace bobura { namespace view { namespace diagram
         */
         selection()
         :
-        m_p_selected_station(nullptr),
+        m_p_selected_station_location(nullptr),
         m_p_selected_train(nullptr),
         m_p_selection_observer_set(tetengo2::stdalt::make_unique<selection_observer_set_type>())
         {}
@@ -67,7 +67,7 @@ namespace bobura { namespace view { namespace diagram
         */
         selection(selection&& another)
         :
-        m_p_selected_station(another.m_p_selected_station),
+        m_p_selected_station_location(another.m_p_selected_station_location),
         m_p_selected_train(another.m_p_selected_train),
         m_p_selection_observer_set(std::move(another.m_p_selection_observer_set))
         {}
@@ -76,20 +76,20 @@ namespace bobura { namespace view { namespace diagram
         // functions
 
         /*!
-            \brief Checks whether the station is selected.
+            \brief Checks whether the station location is selected.
 
-            \param station A station.
+            \param station_location A station location.
 
-            \retval true  When the station is selected.
+            \retval true  When the station location is selected.
             \retval false Otherwise.
         */
-        bool selected(const station_type& station)
+        bool selected(const station_location_type& station_location)
         const
         {
-            if (!m_p_selected_station)
+            if (!m_p_selected_station_location)
                 return false;
 
-            return &station == m_p_selected_station;
+            return &station_location == m_p_selected_station_location;
         }
 
         /*!
@@ -125,17 +125,17 @@ namespace bobura { namespace view { namespace diagram
         }
 
         /*!
-            \brief Selects a station.
+            \brief Selects a station location.
 
-            \param station A station.
+            \param station_location A station location.
         */
-        void select(const station_type& station)
+        void select(const station_location_type& station_location)
         {
             unselect_all();
 
-            m_p_selected_station = &station;
+            m_p_selected_station_location = &station_location;
 
-            m_p_selection_observer_set->station_selected()(station);
+            m_p_selection_observer_set->station_selected()(station_location);
         }
 
         /*!
@@ -162,7 +162,7 @@ namespace bobura { namespace view { namespace diagram
         */
         void unselect_all()
         {
-            m_p_selected_station = nullptr;
+            m_p_selected_station_location = nullptr;
             m_p_selected_train = nullptr;
             m_departure_stop_index = boost::none;
 
@@ -194,7 +194,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // variables
 
-        const station_type* m_p_selected_station;
+        const station_location_type* m_p_selected_station_location;
 
         const train_type* m_p_selected_train;
 
