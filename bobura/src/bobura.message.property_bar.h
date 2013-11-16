@@ -65,6 +65,7 @@ namespace bobura { namespace message { namespace property_bar
                 m_map_box.set_position_and_dimension(
                     m_property_bar.child_control_area_position(), m_property_bar.child_control_area_dimension()
                 );
+                m_map_box.size_observer_set().resized()();
                 m_map_box.set_visible(true);
             }
         }
