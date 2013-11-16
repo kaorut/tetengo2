@@ -30,7 +30,9 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef model_type::timetable_type::station_location_type::station_type station_type;
+    typedef model_type::timetable_type::station_location_type station_location_type;
+
+    typedef station_location_type::station_type station_type;
 
     typedef model_type::timetable_type::font_color_set_type::font_color_type font_color_type;
 
@@ -94,16 +96,17 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
-        const station_type station(
+        station_type station(
             string_type(TETENGO2_TEXT("name")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note"))
         );
+        const station_location_type station_location(std::move(station), 42);
         selection_type selection;
         station_line_type station_line1(
-            station,
+            station_location,
             selection,
             left_type(42),
             left_type(12),
@@ -117,31 +120,33 @@ BOOST_AUTO_TEST_SUITE(station_line)
     {
         BOOST_TEST_PASSPOINT();
 
-        const station_type station1(
+        station_type station1(
             string_type(TETENGO2_TEXT("name1")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note1"))
         );
+        const station_location_type station_location1(std::move(station1), 42);
         selection_type selection;
         station_line_type station_line1(
-            station1,
+            station_location1,
             selection,
             left_type(42),
             left_type(12),
             top_type(24),
             font_color_type(font_type::dialog_font(), color_type(12, 34, 56))
         );
-        const station_type station2(
+        station_type station2(
             string_type(TETENGO2_TEXT("name2")),
             station_grade_type_set_type::local_type::instance(),
             false,
             false,
             string_type(TETENGO2_TEXT("note2"))
         );
+        const station_location_type station_location2(std::move(station2), 4242);
         station_line_type station_line2(
-            station2,
+            station_location2,
             selection,
             left_type(42),
             left_type(12),
