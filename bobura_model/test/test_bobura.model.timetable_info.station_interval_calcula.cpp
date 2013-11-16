@@ -31,7 +31,7 @@ namespace
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::station_location>::type
         station_location_type;
 
-    typedef station_location_type::meterage_type meterage_type;
+    typedef station_location_type::operating_distance_type operating_distance_type;
 
     typedef
         boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
@@ -59,14 +59,14 @@ namespace
 
     // functions
 
-    station_location_type make_station_location(string_type name, meterage_type meterage)
+    station_location_type make_station_location(string_type name, operating_distance_type operating_distance)
     {
         return
             station_location_type(
                 station_type(
                     std::move(name), grade_type_set_type::local_type::instance(), false, false, string_type()
                 ),
-                std::move(meterage)
+                std::move(operating_distance)
             );
     }
 

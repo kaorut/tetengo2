@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
         BOOST_CHECK(station_location.station() == station_type(string_type(), local_type::instance(), false, false, string_type()));
     }
 
-    BOOST_AUTO_TEST_CASE(meterage)
+    BOOST_AUTO_TEST_CASE(operating_distance)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -125,21 +125,21 @@ BOOST_AUTO_TEST_SUITE(station_location)
                 station_type(string_type(), local_type::instance(), false, false, string_type()), 0
             );
 
-            BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
+            BOOST_CHECK_EQUAL(station_location.operating_distance(), 0U);
         }
         {
             const station_location_type station_location(
                 station_type(string_type(), local_type::instance(), false, false, string_type()), 1
             );
 
-            BOOST_CHECK_EQUAL(station_location.meterage(), 1U);
+            BOOST_CHECK_EQUAL(station_location.operating_distance(), 1U);
         }
         {
             const station_location_type station_location(
                 station_type(string_type(), local_type::instance(), false, false, string_type()), 2
             );
 
-            BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
+            BOOST_CHECK_EQUAL(station_location.operating_distance(), 2U);
         }
     }
 

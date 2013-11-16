@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(station_locations[0].station().name() == string_type(TETENGO2_TEXT("A")));
-            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].operating_distance(), 1U);
         }
         {
             timetable_type timetable;
@@ -492,9 +492,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(station_locations.size(), 2U);
             BOOST_CHECK(station_locations[0].station().name() == string_type(TETENGO2_TEXT("A")));
-            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].operating_distance(), 1U);
             BOOST_CHECK(station_locations[1].station().name() == string_type(TETENGO2_TEXT("B")));
-            BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[1].operating_distance(), 2U);
         }
         {
             timetable_type timetable;
@@ -532,7 +532,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(station_locations[0].station().name() == string_type(TETENGO2_TEXT("B")));
-            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[0].operating_distance(), 2U);
         }
         {
             timetable_type timetable;
@@ -593,13 +593,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(station_locations.size(), 4U);
             BOOST_CHECK(station_locations[0].station().name() == string_type(TETENGO2_TEXT("A")));
-            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].operating_distance(), 1U);
             BOOST_CHECK(station_locations[1].station().name() == string_type(TETENGO2_TEXT("B")));
-            BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[1].operating_distance(), 2U);
             BOOST_CHECK(station_locations[2].station().name() == string_type(TETENGO2_TEXT("C")));
-            BOOST_CHECK_EQUAL(station_locations[2].meterage(), 3U);
+            BOOST_CHECK_EQUAL(station_locations[2].operating_distance(), 3U);
             BOOST_CHECK(station_locations[3].station().name() == string_type(TETENGO2_TEXT("D")));
-            BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
+            BOOST_CHECK_EQUAL(station_locations[3].operating_distance(), 4U);
         }
         {
             timetable_type timetable;
@@ -903,7 +903,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(timetable.station_locations().size(), 1U);
             BOOST_CHECK(timetable.station_locations()[0].station().name() == string_type(TETENGO2_TEXT("B")));
-            BOOST_CHECK_EQUAL(timetable.station_locations()[0].meterage(), 2U);
+            BOOST_CHECK_EQUAL(timetable.station_locations()[0].operating_distance(), 2U);
         }
         {
             timetable_type timetable;
@@ -940,9 +940,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(timetable.station_locations()[0].station().name() == string_type(TETENGO2_TEXT("A")));
-            BOOST_CHECK_EQUAL(timetable.station_locations()[0].meterage(), 1U);
+            BOOST_CHECK_EQUAL(timetable.station_locations()[0].operating_distance(), 1U);
             BOOST_CHECK(timetable.station_locations()[1].station().name() == string_type(TETENGO2_TEXT("B")));
-            BOOST_CHECK_EQUAL(timetable.station_locations()[1].meterage(), 2U);
+            BOOST_CHECK_EQUAL(timetable.station_locations()[1].operating_distance(), 2U);
         }
         {
             timetable_type::station_locations_type station_locations;
@@ -1024,9 +1024,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_REQUIRE_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(timetable.station_locations()[0].station().name() == string_type(TETENGO2_TEXT("A")));
-            BOOST_CHECK_EQUAL(timetable.station_locations()[0].meterage(), 1U);
+            BOOST_CHECK_EQUAL(timetable.station_locations()[0].operating_distance(), 1U);
             BOOST_CHECK(timetable.station_locations()[1].station().name() == string_type(TETENGO2_TEXT("C")));
-            BOOST_CHECK_EQUAL(timetable.station_locations()[1].meterage(), 3U);
+            BOOST_CHECK_EQUAL(timetable.station_locations()[1].operating_distance(), 3U);
         }
         {
             timetable_type timetable;
