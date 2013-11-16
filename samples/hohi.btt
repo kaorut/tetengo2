@@ -22,7 +22,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "みどりの窓口、駅弁",
-            "meterage":                0
+            "operating_distance":      0
         },
         {
             "name":                    "平成",
@@ -30,7 +30,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                27
+            "operating_distance":      27
         },
         {
             "name":                    "南熊本",
@@ -38,7 +38,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                36
+            "operating_distance":      36
         },
         {
             "name":                    "新水前寺",
@@ -46,7 +46,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "みどりの窓口",
-            "meterage":                52
+            "operating_distance":      52
         },
         {
             "name":                    "水前寺",
@@ -54,7 +54,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "みどりの窓口",
-            "meterage":                58
+            "operating_distance":      58
         },
         {
             "name":                    "東海学園前",
@@ -62,7 +62,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                78
+            "operating_distance":      78
         },
         {
             "name":                    "竜田口",
@@ -70,15 +70,14 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                89
-        },
-        {
+            "operating_distance":      89
+        },{
             "name":                    "武蔵塚",
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                129
+            "operating_distance":      129
         },
         {
             "name":                    "光の森",
@@ -86,7 +85,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "みどりの窓口",
-            "meterage":                148
+            "operating_distance":      148
         },
         {
             "name":                    "三里木",
@@ -94,7 +93,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                158
+            "operating_distance":      158
         },
         {
             "name":                    "原水",
@@ -102,7 +101,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                189
+            "operating_distance":      189
         },
         {
             "name":                    "肥後大津",
@@ -110,7 +109,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "みどりの窓口",
-            "meterage":                226
+            "operating_distance":      226
         }
     ],
     [

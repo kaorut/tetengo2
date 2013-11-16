@@ -165,7 +165,7 @@ namespace bobura { namespace model { namespace serializer
             explicit station_state(timetable_type& timetable)
             :
             m_timetable(timetable),
-            m_meterage(0)
+            m_operating_distance(0)
             {}
 
             virtual ~station_state()
@@ -192,13 +192,13 @@ namespace bobura { namespace model { namespace serializer
                         props.find(TETENGO2_TEXT('u')) != string_ref_type::npos,
                         string_type()
                     ),
-                    m_meterage
+                    m_operating_distance
                 );
                 m_timetable.insert_station_location(
                     m_timetable.station_locations().end(), std::move(station_location)
                 );
 
-                ++m_meterage;
+                ++m_operating_distance;
 
                 return true;
             }
@@ -210,7 +210,7 @@ namespace bobura { namespace model { namespace serializer
 
             typedef typename station_type::grade_type grade_type;
 
-            typedef typename station_location_type::meterage_type meterage_type;
+            typedef typename station_location_type::operating_distance_type operating_distance_type;
 
             static const grade_type& to_grade(const bool principal, const bool show_arrival_and_departure_time)
             {
@@ -226,7 +226,7 @@ namespace bobura { namespace model { namespace serializer
 
             timetable_type& m_timetable;
 
-            meterage_type m_meterage;
+            operating_distance_type m_operating_distance;
 
         };
 

@@ -484,7 +484,9 @@ namespace bobura { namespace model { namespace serializer
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("operating_distance")), station_location.operating_distance(), output_stream
+            );
 
             new_line(level + 1, output_stream);
             output_stream << object_end();
