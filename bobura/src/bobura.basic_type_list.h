@@ -1063,6 +1063,7 @@ namespace bobura
         typedef
             bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
             station_interval_calculator_type;
+        typedef boost::rational<boost::mpl::at<common_type_list, type::size>::type> speed_type;
         typedef
             bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -1070,6 +1071,7 @@ namespace bobura
                 station_interval_calculator_type,
                 train_kind_type,
                 train_type,
+                speed_type,
                 font_color_set_type,
                 bobura::model::message::timetable_observer_set
             >

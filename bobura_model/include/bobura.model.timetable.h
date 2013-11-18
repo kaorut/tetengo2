@@ -33,6 +33,7 @@ namespace bobura { namespace model
         \tparam StationIntervalCalculator A station interval calculatortype.
         \tparam TrainKind                 A train kind type.
         \tparam Train                     A train type.
+        \tparam Speed                     A speed type.
         \tparam FontColorSet              A font and color set type.
         \tparam ObserverSet               An observer set type.
     */
@@ -42,12 +43,15 @@ namespace bobura { namespace model
         typename StationIntervalCalculator,
         typename TrainKind,
         typename Train,
+        typename Speed,
         typename FontColorSet, 
         typename ObserverSet
     >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, FontColorSet, ObserverSet>
+            timetable<
+                String, StationLocation, StationIntervalCalculator, TrainKind, Train, Speed, FontColorSet, ObserverSet
+            >
         >
     {
     public:
@@ -82,6 +86,9 @@ namespace bobura { namespace model
 
         //! The trains type.
         typedef std::vector<train_type> trains_type;
+
+        //! The speed type.
+        typedef Speed speed_type;
 
         //! The font color set type.
         typedef FontColorSet font_color_set_type;
@@ -584,6 +591,17 @@ namespace bobura { namespace model
         )
         {
             erase_trains_impl(m_up_trains, first, last);
+        }
+        
+        /*!
+            \brief Returns the scheduled speed.
+
+            \return The scheduled speed.
+        */
+        speed_type scheduled_speed()
+        const
+        {
+            return speed_type();
         }
 
         /*!
