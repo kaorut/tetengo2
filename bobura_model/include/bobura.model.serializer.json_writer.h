@@ -17,6 +17,7 @@
 #include <type_traits>
 
 #include <boost/format.hpp>
+#include <boost/rational.hpp>
 //#include <boost/utility.hpp>
 
 #include <tetengo2.stdalt.h>
@@ -191,6 +192,17 @@ namespace bobura { namespace model { namespace serializer
         {
             write_object_key(key, output_stream);
             output_stream << value;
+        }
+
+        template <typename Integer>
+        static void write_object_entry(
+            const string_type&              key,
+            const boost::rational<Integer>& value,
+            output_stream_type&             output_stream
+        )
+        {
+            write_object_key(key, output_stream);
+            output_stream << boost::rational_cast<Integer>(value);
         }
 
         static void write_object_entry(
@@ -485,7 +497,9 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level + 2, output_stream);
             write_object_entry(
-                string_type(TETENGO2_TEXT("operating_distance")), station_location.operating_distance(), output_stream
+                string_type(TETENGO2_TEXT("operating_distance")),
+                station_location.operating_distance() * 10,
+                output_stream
             );
 
             new_line(level + 1, output_stream);

@@ -82,7 +82,7 @@ namespace bobura { namespace model { namespace timetable_info
 
             \return The operating distance.
         */
-        operating_distance_type operating_distance()
+        const operating_distance_type& operating_distance()
         const
         {
             return m_operating_distance;

@@ -554,7 +554,7 @@ namespace bobura { namespace model { namespace serializer
                 note = std::move(member->second);
             }
 
-            operating_distance_type operating_distance = 0;
+            operating_distance_type operating_distance = operating_distance_type();
             {
                 auto member = read_integer_member<operating_distance_type>(pull_parser);
                 if (!member)
@@ -562,7 +562,7 @@ namespace bobura { namespace model { namespace serializer
                 if (member->first != string_type(TETENGO2_TEXT("operating_distance")))
                     return boost::none;
 
-                operating_distance = std::move(member->second);
+                operating_distance = operating_distance_type(member->second) / 10;
             }
             
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
