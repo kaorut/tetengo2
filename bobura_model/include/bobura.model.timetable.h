@@ -613,9 +613,9 @@ namespace bobura { namespace model
         )
         const
         {
-            if (i_departure == trains.stops().end())
+            if (i_departure == train.stops().end())
                 BOOST_THROW_EXCEPTION(std::invalid_argument("i_departure is invalid."));
-            if (i_arrival == trains.stops().end())
+            if (i_arrival == train.stops().end())
                 BOOST_THROW_EXCEPTION(std::invalid_argument("i_departure is invalid."));
             if (
                 std::find_if(
