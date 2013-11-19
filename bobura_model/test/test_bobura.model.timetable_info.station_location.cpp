@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
                 station_type(string_type(), local_type::instance(), false, false, string_type()), 1
             );
 
-            BOOST_CHECK(station_location1.before(station_location2));
+            BOOST_CHECK(!station_location1.before(station_location2));
         }
         {
             const station_location_type station_location1(

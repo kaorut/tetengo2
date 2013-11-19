@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 //#include <iterator>
 #include <stdexcept>
@@ -33,6 +34,7 @@ namespace bobura { namespace model
         \tparam StationIntervalCalculator A station interval calculatortype.
         \tparam TrainKind                 A train kind type.
         \tparam Train                     A train type.
+        \tparam Speed                     A speed type.
         \tparam FontColorSet              A font and color set type.
         \tparam ObserverSet               An observer set type.
     */
@@ -42,12 +44,15 @@ namespace bobura { namespace model
         typename StationIntervalCalculator,
         typename TrainKind,
         typename Train,
+        typename Speed,
         typename FontColorSet, 
         typename ObserverSet
     >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, StationIntervalCalculator, TrainKind, Train, FontColorSet, ObserverSet>
+            timetable<
+                String, StationLocation, StationIntervalCalculator, TrainKind, Train, Speed, FontColorSet, ObserverSet
+            >
         >
     {
     public:
@@ -82,6 +87,9 @@ namespace bobura { namespace model
 
         //! The trains type.
         typedef std::vector<train_type> trains_type;
+
+        //! The speed type.
+        typedef Speed speed_type;
 
         //! The font color set type.
         typedef FontColorSet font_color_set_type;
@@ -585,6 +593,58 @@ namespace bobura { namespace model
         {
             erase_trains_impl(m_up_trains, first, last);
         }
+        
+        /*!
+            \brief Returns the scheduled speed.
+
+            \param train       A train.
+            \param i_departure An iterator to a departure stop.
+            \param i_arrival   An iterator to an arrival stop.
+
+            \return The scheduled speed.
+
+            \throw std::invalid_argument When the specified train does not belong to this timetable.
+            \throw std::invalid_argument When i_departure or i_arrival equals to train.stops().end().
+            \throw std::invalid_argument When the departure is not before the arrival.
+            \throw std::invalid_argument When the departure or the arrival is passing.
+        */
+        speed_type scheduled_speed(
+            const train_type&                                      train,
+            const typename train_type::stops_type::const_iterator& i_departure,
+            const typename train_type::stops_type::const_iterator& i_arrival
+        )
+        const
+        {
+            if (i_departure == train.stops().end())
+                BOOST_THROW_EXCEPTION(std::invalid_argument("i_departure is invalid."));
+            if (i_arrival == train.stops().end())
+                BOOST_THROW_EXCEPTION(std::invalid_argument("i_departure is invalid."));
+            if (
+                std::find_if(
+                    m_down_trains.begin(), m_down_trains.end(), [&train](const train_type& t) { return &t == &train; }
+                ) == m_down_trains.end() &&
+                std::find_if(
+                    m_up_trains.begin(), m_up_trains.end(), [&train](const train_type& t) { return &t == &train; }
+                ) == m_up_trains.end()
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown train."));
+            }
+            if (
+                (train.direction() == direction_type::down && std::distance(i_departure, i_arrival) <= 0) ||
+                (train.direction() == direction_type::up && std::distance(i_departure, i_arrival) >= 0)
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The departure is not before the arrival."));
+            }
+
+            const auto distance = distance_between(m_station_locations, train, i_departure, i_arrival);
+            assert(distance > operating_distance_type(0));
+
+            const auto time_span = time_span_between(i_departure, i_arrival);
+
+            return (distance * 60 * 60) / time_span.seconds();
+        }
 
         /*!
             \brief Returns the font and color set.
@@ -634,11 +694,17 @@ namespace bobura { namespace model
     private:
         // types
 
+        typedef typename station_location_type::operating_distance_type operating_distance_type;
+
         typedef typename train_type::direction_type direction_type;
 
-        typedef typename train_type::stops_type::difference_type difference_type;
-
         typedef typename train_type::stop_type stop_type;
+
+        typedef typename stop_type::time_type time_type;
+
+        typedef typename time_type::time_span_type time_span_type;
+
+        typedef typename train_type::stops_type::difference_type difference_type;
 
         struct replace_train_kind_index
         {
@@ -676,12 +742,7 @@ namespace bobura { namespace model
         {
             train.insert_stop(
                 train.stops().begin() + offset,
-                stop_type(
-                    train_type::stop_type::time_type::uninitialized(),
-                    train_type::stop_type::time_type::uninitialized(),
-                    false,
-                    string_type()
-                )
+                stop_type(time_type::uninitialized(), time_type::uninitialized(), false, string_type())
             );
         }
 
@@ -715,6 +776,58 @@ namespace bobura { namespace model
                 new_train.insert_stop(new_train.stops().end(), stop);
 
             train = new_train;
+        }
+
+        static operating_distance_type distance_between(
+            const station_locations_type&                          station_locations,
+            const train_type&                                      train,
+            const typename train_type::stops_type::const_iterator& i_departure,
+            const typename train_type::stops_type::const_iterator& i_arrival
+        )
+        {
+            const auto departure_index = std::distance(train.stops().begin(), i_departure);
+            assert(
+                static_cast<typename station_locations_type::size_type>(departure_index) < station_locations.size()
+            );
+            const auto& departure_distance = station_locations[departure_index].operating_distance();
+
+            const auto arrival_index = std::distance(train.stops().begin(), i_arrival);
+            assert(static_cast<typename station_locations_type::size_type>(arrival_index) < station_locations.size());
+            const auto& arrival_distance = station_locations[arrival_index].operating_distance();
+
+            return
+                train.direction() == direction_type::down ?
+                arrival_distance - departure_distance : departure_distance - arrival_distance;
+        }
+
+        static time_span_type time_span_between(
+            const typename train_type::stops_type::const_iterator& i_departure,
+            const typename train_type::stops_type::const_iterator& i_arrival
+        )
+        {
+            if (
+                i_departure->departure() == time_type::uninitialized() &&
+                i_departure->arrival() == time_type::uninitialized()
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The departure is passing."));
+            }
+            if (
+                i_arrival->departure() == time_type::uninitialized() &&
+                i_arrival->arrival() == time_type::uninitialized()
+            )
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The departure is passing."));
+            }
+
+            const auto departure_time =
+                i_departure->departure() != time_type::uninitialized() ?
+                i_departure->departure() : i_departure->arrival();
+            const auto arrival_time =
+                i_arrival->arrival() != time_type::uninitialized() ? i_arrival->arrival() : i_arrival->departure();
+            assert(departure_time != time_type::uninitialized() && arrival_time != time_type::uninitialized());
+
+            return arrival_time - departure_time;
         }
 
 

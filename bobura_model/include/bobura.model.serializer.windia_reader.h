@@ -165,7 +165,7 @@ namespace bobura { namespace model { namespace serializer
             explicit station_state(timetable_type& timetable)
             :
             m_timetable(timetable),
-            m_operating_distance(0)
+            m_operating_distance()
             {}
 
             virtual ~station_state()
@@ -198,7 +198,7 @@ namespace bobura { namespace model { namespace serializer
                     m_timetable.station_locations().end(), std::move(station_location)
                 );
 
-                ++m_operating_distance;
+                m_operating_distance += operating_distance_type(1);
 
                 return true;
             }
