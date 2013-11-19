@@ -93,13 +93,13 @@ namespace bobura { namespace model { namespace timetable_info
 
             \param another Another sation_location.
 
-            \retval true  When operating_distance() <= another.operating_distance().
+            \retval true  When operating_distance() < another.operating_distance().
             \retval false Otherwise.
         */
         bool before(const station_location& another)
         const
         {
-            return m_operating_distance <= another.m_operating_distance;
+            return m_operating_distance < another.m_operating_distance;
         }
 
 

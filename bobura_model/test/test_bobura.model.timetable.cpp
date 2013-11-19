@@ -217,7 +217,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                         false,
                         string_type(TETENGO2_TEXT("N"))
                     ),
-                    1
+                    2
                 )
             );
 
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                         false,
                         string_type(TETENGO2_TEXT("N"))
                     ),
-                    1
+                    2
                 )
             );
 
@@ -276,7 +276,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                         false,
                         string_type(TETENGO2_TEXT("N"))
                     ),
-                    1
+                    2
                 )
             );
 
@@ -818,7 +818,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
                         false,
                         string_type(TETENGO2_TEXT("N"))
                     ),
-                    3
+                    2
                 )
             );
 
