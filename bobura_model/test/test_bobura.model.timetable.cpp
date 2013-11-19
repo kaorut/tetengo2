@@ -3032,7 +3032,167 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        timetable_type timetable;
+
+        timetable_type::station_locations_type station_locations;
+        station_locations.emplace_back(
+            station_type(
+                string_type(TETENGO2_TEXT("A")),
+                local_type::instance(),
+                false,
+                false,
+                string_type(TETENGO2_TEXT("N"))
+            ),
+            0
+        );
+        station_locations.emplace_back(
+            station_type(
+                string_type(TETENGO2_TEXT("B")),
+                local_type::instance(),
+                false,
+                false,
+                string_type(TETENGO2_TEXT("N"))
+            ),
+            12
+        );
+        timetable.insert_station_location(timetable.station_locations().end(), station_locations[0]);
+        timetable.insert_station_location(timetable.station_locations().end(), station_locations[1]);
+
+        timetable.insert_train_kind(
+            timetable.train_kinds().end(),
+            train_kind_type(
+                string_type(TETENGO2_TEXT("Express")),
+                string_type(TETENGO2_TEXT("Exp.")),
+                color_type(255, 0, 0),
+                train_kind_type::weight_type::bold,
+                train_kind_type::line_style_type::solid
+            )
+        );
+            
+        {
+            train_type train(
+                train_type(
+                    train_type::direction_type::down,
+                    string_type(TETENGO2_TEXT("1")),
+                    0,
+                    string_type(TETENGO2_TEXT("a")),
+                    string_type(TETENGO2_TEXT("42")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
+            );
+            train.insert_stop(
+                train.stops().end(),
+                stop_type(time_type(0 * 60 * 60), time_type(1 * 60 * 60), true, string_type(TETENGO2_TEXT("1")))
+            );
+            train.insert_stop(
+                train.stops().end(),
+                stop_type(time_type(5 * 60 * 60), time_type(6 * 60 * 60), true, string_type(TETENGO2_TEXT("2")))
+            );
+
+            timetable.insert_down_train(timetable.down_trains().end(), std::move(train));
+        }
+        {
+            train_type train(
+                train_type(
+                    train_type::direction_type::up,
+                    string_type(TETENGO2_TEXT("2")),
+                    0,
+                    string_type(TETENGO2_TEXT("b")),
+                    string_type(TETENGO2_TEXT("24")),
+                    string_type(TETENGO2_TEXT("y"))
+                )
+            );
+            train.insert_stop(
+                train.stops().end(),
+                stop_type(time_type(4 * 60 * 60), time_type(5 * 60 * 60), true, string_type(TETENGO2_TEXT("1")))
+            );
+            train.insert_stop(
+                train.stops().end(),
+                stop_type(time_type(0 * 60 * 60), time_type(1 * 60 * 60), true, string_type(TETENGO2_TEXT("2")))
+            );
+
+            timetable.insert_up_train(timetable.up_trains().end(), std::move(train));
+        }
+
+        {
+            const auto speed =
+                timetable.scheduled_speed(
+                    timetable.down_trains()[0],
+                    boost::next(timetable.down_trains()[0].stops().begin(), 0),
+                    boost::next(timetable.down_trains()[0].stops().begin(), 1)
+                );
+            BOOST_CHECK_EQUAL(speed, 3U);
+        }
+        {
+            const auto speed =
+                timetable.scheduled_speed(
+                    timetable.up_trains()[0],
+                    boost::next(timetable.up_trains()[0].stops().begin(), 1),
+                    boost::next(timetable.up_trains()[0].stops().begin(), 0)
+                );
+            BOOST_CHECK_EQUAL(speed, 4U);
+        }
+        {
+            const train_type unknown_train = timetable.down_trains()[0];
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    unknown_train,
+                    boost::next(unknown_train.stops().begin(), 0),
+                    boost::next(unknown_train.stops().begin(), 1)
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    timetable.down_trains()[0],
+                    timetable.down_trains()[0].stops().end(),
+                    boost::next(timetable.down_trains()[0].stops().begin(), 1)
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    timetable.down_trains()[0],
+                    boost::next(timetable.down_trains()[0].stops().begin(), 0),
+                    timetable.down_trains()[0].stops().end()
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    timetable.down_trains()[0],
+                    boost::next(timetable.down_trains()[0].stops().begin(), 0),
+                    boost::next(timetable.down_trains()[0].stops().begin(), 0)
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    timetable.down_trains()[0],
+                    boost::next(timetable.down_trains()[0].stops().begin(), 1),
+                    boost::next(timetable.down_trains()[0].stops().begin(), 0)
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                timetable.scheduled_speed(
+                    timetable.up_trains()[0],
+                    boost::next(timetable.up_trains()[0].stops().begin(), 0),
+                    boost::next(timetable.up_trains()[0].stops().begin(), 1)
+                ),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(font_color_set)
