@@ -1062,11 +1062,8 @@ namespace bobura
             select_oudia_diagram_type;
         typedef station_grade_type_set_type::grade_type grade_type;
         typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, boost::mpl::at<common_type_list, type::size>::type
-            >
-            station_location_type;
+        typedef boost::rational<boost::mpl::at<common_type_list, type::size>::type> distance_type;
+        typedef bobura::model::timetable_info::station_location<station_type, distance_type> station_location_type;
         typedef
             bobura::model::train_kind<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -1092,6 +1089,7 @@ namespace bobura
         typedef
             bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
             station_interval_calculator_type;
+        typedef boost::rational<boost::mpl::at<common_type_list, type::size>::type> speed_type;
         typedef
             bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -1099,6 +1097,7 @@ namespace bobura
                 station_interval_calculator_type,
                 train_kind_type,
                 train_type,
+                speed_type,
                 font_color_set_type,
                 bobura::model::message::timetable_observer_set
             >

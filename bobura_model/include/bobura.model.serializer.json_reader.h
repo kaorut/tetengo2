@@ -114,7 +114,7 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename station_type::grade_type station_grade_type;
 
-        typedef typename station_location_type::meterage_type meterage_type;
+        typedef typename station_location_type::operating_distance_type operating_distance_type;
 
         typedef typename timetable_type::train_kind_type train_kind_type;
 
@@ -554,15 +554,15 @@ namespace bobura { namespace model { namespace serializer
                 note = std::move(member->second);
             }
 
-            meterage_type meterage = 0;
+            operating_distance_type operating_distance = operating_distance_type();
             {
-                auto member = read_integer_member<meterage_type>(pull_parser);
+                auto member = read_integer_member<operating_distance_type>(pull_parser);
                 if (!member)
                     return boost::none;
-                if (member->first != string_type(TETENGO2_TEXT("meterage")))
+                if (member->first != string_type(TETENGO2_TEXT("operating_distance")))
                     return boost::none;
 
-                meterage = std::move(member->second);
+                operating_distance = operating_distance_type(member->second) / 10;
             }
             
             if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
@@ -579,7 +579,7 @@ namespace bobura { namespace model { namespace serializer
                             show_up_arrival_times,
                             std::move(note)
                         ),
-                        std::move(meterage)
+                        std::move(operating_distance)
                     )
                 );
         }

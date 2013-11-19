@@ -484,7 +484,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 const auto& station_location = p_timetable->station_locations()[0];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("hoge")));
                 BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
-                BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
+                BOOST_CHECK_EQUAL(station_location.operating_distance(), 0U);
             }
             {
                 const auto& station_location = p_timetable->station_locations()[2];
@@ -492,14 +492,14 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 BOOST_CHECK(
                     station_location.station().grade().name() == string_type(TETENGO2_TEXT("local terminal"))
                 );
-                BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
+                BOOST_CHECK_EQUAL(station_location.operating_distance(), 2U);
             }
             {
                 const auto& station_location = p_timetable->station_locations()[4];
                 BOOST_CHECK(station_location.station().name() == string_type(TETENGO2_TEXT("iroha")));
                 BOOST_CHECK(station_location.station().grade().name() == string_type(TETENGO2_TEXT("local")));
                 BOOST_CHECK(station_location.station().shows_up_arrival_times());
-                BOOST_CHECK_EQUAL(station_location.meterage(), 4U);
+                BOOST_CHECK_EQUAL(station_location.operating_distance(), 4U);
             }
 
             BOOST_REQUIRE_EQUAL(p_timetable->train_kinds().size(), 2U);

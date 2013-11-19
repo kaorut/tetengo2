@@ -22,7 +22,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                580
+            "operating_distance":      580
         },
         {
             "name":                    "阿波川端",
@@ -30,7 +30,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                598
+            "operating_distance":      598
         },
         {
             "name":                    "板東",
@@ -38,7 +38,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                621
+            "operating_distance":      621
         },
         {
             "name":                    "池谷",
@@ -46,7 +46,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                642
+            "operating_distance":      642
         },
         {
             "name":                    "勝瑞",
@@ -54,7 +54,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                669
+            "operating_distance":      669
         },
         {
             "name":                    "吉成",
@@ -62,7 +62,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                682
+            "operating_distance":      682
         },
         {
             "name":                    "佐古",
@@ -70,7 +70,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                731
+            "operating_distance":      731
         },
         {
             "name":                    "徳島",
@@ -78,7 +78,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                745
+            "operating_distance":      745
         },
         {
             "name":                    "阿波富田",
@@ -86,7 +86,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                759
+            "operating_distance":      759
         },
         {
             "name":                    "二軒屋",
@@ -94,7 +94,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                773
+            "operating_distance":      773
         },
         {
             "name":                    "文化の森",
@@ -102,7 +102,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                784
+            "operating_distance":      784
         },
         {
             "name":                    "地蔵橋",
@@ -110,7 +110,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                805
+            "operating_distance":      805
         },
         {
             "name":                    "中田",
@@ -118,7 +118,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                837
+            "operating_distance":      837
         },
         {
             "name":                    "南小松島",
@@ -126,7 +126,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                854
+            "operating_distance":      854
         },
         {
             "name":                    "阿波赤石",
@@ -134,7 +134,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                887
+            "operating_distance":      887
         },
         {
             "name":                    "立江",
@@ -142,7 +142,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                901
+            "operating_distance":      901
         },
         {
             "name":                    "羽ノ浦",
@@ -150,7 +150,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                922
+            "operating_distance":      922
         },
         {
             "name":                    "西原",
@@ -158,7 +158,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                943
+            "operating_distance":      943
         },
         {
             "name":                    "阿波中島",
@@ -166,7 +166,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                963
+            "operating_distance":      963
         },
         {
             "name":                    "阿南",
@@ -174,7 +174,7 @@
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
             "note":                    "",
-            "meterage":                990
+            "operating_distance":      990
         }
     ],
     [
