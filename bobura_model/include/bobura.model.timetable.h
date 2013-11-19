@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 //#include <iterator>
 #include <stdexcept>
@@ -596,6 +597,7 @@ namespace bobura { namespace model
         /*!
             \brief Returns the scheduled speed.
 
+            \param train       A train.
             \param i_departure An iterator to a departure stop.
             \param i_arrival   An iterator to an arrival stop.
 
