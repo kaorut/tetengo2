@@ -386,7 +386,7 @@ namespace bobura { namespace model
 
             for (auto i = i_stop; i != m_stops.end(); ++i)
             {
-                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                if (!i->passing())
                     return i;
             }
 
@@ -406,7 +406,7 @@ namespace bobura { namespace model
             {
                 if (i == m_stops.end())
                     continue;
-                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                if (!i->passing())
                     return i;
                 if (i == m_stops.begin())
                     break;

@@ -375,7 +375,7 @@ namespace bobura { namespace message { namespace diagram_view
         )
         const
         {
-            if (i_stop->arrival() == time_type::uninitialized() && i_stop->departure() == time_type::uninitialized())
+            if (i_stop->passing())
                 return string_type();
 
             const stop_index_type stop_index = std::distance(i_front_stop, i_stop);

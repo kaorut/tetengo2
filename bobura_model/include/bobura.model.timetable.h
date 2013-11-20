@@ -805,20 +805,10 @@ namespace bobura { namespace model
             const typename train_type::stops_type::const_iterator& i_arrival
         )
         {
-            if (
-                i_departure->departure() == time_type::uninitialized() &&
-                i_departure->arrival() == time_type::uninitialized()
-            )
-            {
+            if (i_departure->passing())
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The departure is passing."));
-            }
-            if (
-                i_arrival->departure() == time_type::uninitialized() &&
-                i_arrival->arrival() == time_type::uninitialized()
-            )
-            {
+            if (i_arrival->passing())
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The departure is passing."));
-            }
 
             const auto departure_time =
                 i_departure->departure() != time_type::uninitialized() ?
