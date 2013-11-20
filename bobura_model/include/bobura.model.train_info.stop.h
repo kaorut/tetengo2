@@ -105,7 +105,7 @@ namespace bobura { namespace model { namespace train_info
         bool passing()
         const
         {
-            return m_arrival == time_type::uninitialized() && m_departure == time_type::uninitialized();
+            return !m_arrival.initialized() && !m_departure.initialized();
         }
 
         /*!

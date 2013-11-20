@@ -382,22 +382,12 @@ namespace bobura { namespace message { namespace diagram_view
             assert(stop_index < m_model.timetable().station_locations().size());
 
             string_type arrival_time;
-            if (
-                i_stop->arrival() != time_type::uninitialized() &&
-                (arrival || (departure && i_stop->departure() == time_type::uninitialized()))
-            )
-            {
+            if (i_stop->arrival().initialized() && (arrival || (departure && !i_stop->departure().initialized())))
                 arrival_time = time_text(i_stop->arrival(), false);
-            }
 
             string_type departure_time;
-            if (
-                i_stop->departure() != time_type::uninitialized() &&
-                (departure || (arrival && i_stop->arrival() == time_type::uninitialized()))
-            )
-            {
+            if (i_stop->departure().initialized() && (departure || (arrival && !i_stop->arrival().initialized())))
                 departure_time = time_text(i_stop->departure(), true);
-            }
 
             std::basic_ostringstream<typename string_type::value_type> stream;
 
@@ -440,7 +430,7 @@ namespace bobura { namespace message { namespace diagram_view
         string_type time_text(const time_type& time, const bool departure)
         const
         {
-            assert(time != time_type::uninitialized());
+            assert(time.initialized());
 
             const typename time_type::hours_minutes_seconds_type hms = time.hours_minutes_seconds();
             std::basic_ostringstream<typename string_type::value_type> stream;

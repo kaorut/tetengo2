@@ -529,7 +529,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 {
                     const auto& stop = train.stops()[0];
 
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
                     BOOST_CHECK(stop.departure() == time_type(10, 0, 0));
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
@@ -554,7 +554,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 {
                     const auto& stop = train.stops()[0];
 
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
                     BOOST_CHECK(stop.departure() == time_type(11, 0, 0));
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
@@ -562,8 +562,8 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 {
                     const auto& stop = train.stops()[2];
 
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
@@ -597,7 +597,7 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                     const auto& stop = train.stops()[4];
 
                     BOOST_CHECK(stop.arrival() == time_type(11, 10, 0));
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
@@ -612,8 +612,8 @@ BOOST_AUTO_TEST_SUITE(oudia_reader)
                 {
                     const auto& stop = train.stops()[4];
 
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }

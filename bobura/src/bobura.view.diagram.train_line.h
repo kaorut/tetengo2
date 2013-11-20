@@ -726,13 +726,13 @@ namespace bobura { namespace view { namespace diagram
 
         static bool has_time(const stop_type& stop)
         {
-            return stop.arrival() != time_type::uninitialized() || stop.departure() != time_type::uninitialized();
+            return stop.arrival().initialized() || stop.departure().initialized();
         }
 
         static const time_type& get_departure_time(const stop_type& stop)
         {
             assert(has_time(stop));
-            if (stop.departure() != time_type::uninitialized())
+            if (stop.departure().initialized())
                 return stop.departure();
             else
                 return stop.arrival();
@@ -746,7 +746,7 @@ namespace bobura { namespace view { namespace diagram
             const stop_index_type         lower_stop_index
         )
         {
-            if (to_stop.arrival() != time_type::uninitialized())
+            if (to_stop.arrival().initialized())
                 return to_stop.arrival();
 
             const auto departure_interval = to_stop.departure() - from_departure;
