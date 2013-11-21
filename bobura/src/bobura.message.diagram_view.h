@@ -13,10 +13,13 @@
 #include <iterator>
 #include <sstream>
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 
 #include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
+#include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -90,8 +93,12 @@ namespace bobura { namespace message { namespace diagram_view
         {
             const station_type& station = station_location.station();
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), station.name());
-            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Grade")), grade_string(station.grade()));
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Grade")), grade_text(station.grade()));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Note")), station.note());
+            insert_value(
+                m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Operating Distance")),
+                operating_distance_text(station_location.operating_distance())
+            );
         }
 
 
@@ -105,6 +112,30 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename station_location_type::station_type station_type;
 
         typedef typename station_type::grade_type grade_type;
+
+        typedef typename station_location_type::operating_distance_type operating_distance_type;
+
+
+        // static functions
+
+        template <typename Integer>
+        static string_type number_to_string(
+            const Integer number,
+            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = nullptr
+        )
+        {
+            return boost::lexical_cast<string_type>(number);
+        }
+
+        template <typename Integer>
+        static string_type number_to_string(const boost::rational<Integer>& number)
+        {
+            return
+                (
+                    boost::basic_format<typename string_type::value_type>(string_type(TETENGO2_TEXT("%1.1f"))) %
+                    boost::rational_cast<double>(number)
+                ).str();
+        }
 
 
         // variables
@@ -125,7 +156,7 @@ namespace bobura { namespace message { namespace diagram_view
             );
         }
 
-        string_type grade_string(const grade_type& grade)
+        string_type grade_text(const grade_type& grade)
         const
         {
             if      (&grade == &station_grade_type_set_type::local_type::instance())
@@ -139,6 +170,17 @@ namespace bobura { namespace message { namespace diagram_view
 
             assert(false);
             BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown station grade."));
+        }
+
+        string_type operating_distance_text(const operating_distance_type& operating_distance)
+        const
+        {
+            return
+                (
+                    boost::basic_format<typename string_type::value_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1%km"))
+                    ) % number_to_string(operating_distance)
+                ).str();
         }
 
 
@@ -216,21 +258,21 @@ namespace bobura { namespace message { namespace diagram_view
         )
         {
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Train Number")), train.number());
-            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), build_kind_name(train));
-            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), build_name(train));
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Kind")), kind_name_text(train));
+            insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Name")), name_text(train));
             insert_value(m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Note")), train.note());
             if (departure_stop_index)
             {
                 insert_value(
                     m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Departure and Arrival")),
-                    build_departure_and_arrival(train, *departure_stop_index)
+                    departure_and_arrival(train, *departure_stop_index)
                 );
             }
             else
             {
                 insert_value(
                     m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Principal Arrivals and Departures")),
-                    build_departures_and_arrivals(train)
+                    departures_and_arrivals(train)
                 );
             }
        }
@@ -270,7 +312,7 @@ namespace bobura { namespace message { namespace diagram_view
             );
         }
 
-        string_type build_kind_name(const train_type& train)
+        string_type kind_name_text(const train_type& train)
         const
         {
             const kind_index_type kind_index = train.kind_index();
@@ -280,7 +322,7 @@ namespace bobura { namespace message { namespace diagram_view
             return m_model.timetable().train_kinds()[kind_index].name();
         }
 
-        string_type build_name(const train_type& train)
+        string_type name_text(const train_type& train)
         const
         {
             if (train.name_number().empty())
@@ -298,7 +340,7 @@ namespace bobura { namespace message { namespace diagram_view
             }
         }
 
-        string_type build_departure_and_arrival(const train_type& train, const stop_index_type stop_index)
+        string_type departure_and_arrival(const train_type& train, const stop_index_type stop_index)
         const
         {
             if (stop_index >= train.stops().size() || stop_index >= m_model.timetable().station_locations().size())
@@ -308,26 +350,26 @@ namespace bobura { namespace message { namespace diagram_view
 
             const stop_iterator i_departure = boost::next(train.stops().begin(), stop_index);
             {
-                string_type stop_text = build_stop_text(train.stops().begin(), i_departure, false, true);
-                if (stop_text.empty())
+                string_type stop_text_ = stop_text(train.stops().begin(), i_departure, false, true);
+                if (stop_text_.empty())
                     text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
                 else
-                    text += std::move(stop_text);
+                    text += std::move(stop_text_);
             }
             text += string_type(TETENGO2_TEXT("\n"));
             {
                 const stop_iterator i_arrival = train.next_stop(i_departure);
-                string_type stop_text = build_stop_text(train.stops().begin(), i_arrival, true, false);
-                if (stop_text.empty())
+                string_type stop_text_ = stop_text(train.stops().begin(), i_arrival, true, false);
+                if (stop_text_.empty())
                     text += m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Pass"));
                 else
-                    text += std::move(stop_text);
+                    text += std::move(stop_text_);
             }
 
             return text;
         }
 
-        string_type build_departures_and_arrivals(const train_type& train)
+        string_type departures_and_arrivals(const train_type& train)
         const
         {
             string_type text;
@@ -340,12 +382,12 @@ namespace bobura { namespace message { namespace diagram_view
                     is_principal_station(train.stops().begin(), i)
                 )
                 {
-                    string_type stop_text = build_stop_text(train.stops().begin(), i, true, true);
-                    if (!stop_text.empty())
+                    string_type stop_text_ = stop_text(train.stops().begin(), i, true, true);
+                    if (!stop_text_.empty())
                     {
                         if (!text.empty())
                             text += string_type(TETENGO2_TEXT("\n"));
-                        text += std::move(stop_text);
+                        text += std::move(stop_text_);
                     }
                 }
 
@@ -367,7 +409,7 @@ namespace bobura { namespace message { namespace diagram_view
                 &station_grade_type_set_type::local_type::instance();
         }
 
-        string_type build_stop_text(
+        string_type stop_text(
             const stop_iterator i_front_stop,
             const stop_iterator i_stop,
             const bool          arrival,

@@ -351,11 +351,6 @@ namespace bobura { namespace model
 
 
     private:
-        // types
-
-        typedef typename stop_type::time_type time_type;
-
-
         // variables
 
         direction_type m_direction;
