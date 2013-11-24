@@ -28,6 +28,34 @@
 
 namespace bobura { namespace message { namespace diagram_view
 {
+#if !defined(DOCUMENTATION)
+    namespace detail
+    {
+        template <typename String, typename Integer>
+        static String number_to_string(
+            const Integer number,
+            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = nullptr
+        )
+        {
+            return boost::lexical_cast<String>(number);
+        }
+
+        template <typename String, typename Integer>
+        static String number_to_string(const boost::rational<Integer>& number)
+        {
+            return
+                (
+                    boost::basic_format<typename String::value_type>(String(TETENGO2_TEXT("%1.1f"))) %
+                    boost::rational_cast<double>(number)
+                ).str();
+        }
+
+
+
+    }
+#endif
+
+
     /*!
         \brief The class template for a station selection observer of the diagram view.
 
@@ -116,28 +144,6 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename station_location_type::operating_distance_type operating_distance_type;
 
 
-        // static functions
-
-        template <typename Integer>
-        static string_type number_to_string(
-            const Integer number,
-            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = nullptr
-        )
-        {
-            return boost::lexical_cast<string_type>(number);
-        }
-
-        template <typename Integer>
-        static string_type number_to_string(const boost::rational<Integer>& number)
-        {
-            return
-                (
-                    boost::basic_format<typename string_type::value_type>(string_type(TETENGO2_TEXT("%1.1f"))) %
-                    boost::rational_cast<double>(number)
-                ).str();
-        }
-
-
         // variables
 
         property_bar_type& m_property_bar;
@@ -179,7 +185,7 @@ namespace bobura { namespace message { namespace diagram_view
                 (
                     boost::basic_format<typename string_type::value_type>(
                         m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1%km"))
-                    ) % number_to_string(operating_distance)
+                    ) % detail::number_to_string<string_type>(operating_distance)
                 ).str();
         }
 
@@ -275,6 +281,10 @@ namespace bobura { namespace message { namespace diagram_view
                     departures_and_arrivals(train)
                 );
             }
+            insert_value(
+                m_message_catalog.get(TETENGO2_TEXT("PropertyBar:Scheduled Speed")),
+                scheduled_speed_text(train, departure_stop_index)
+            );
        }
 
 
@@ -284,6 +294,8 @@ namespace bobura { namespace message { namespace diagram_view
         typedef typename property_bar_type::map_box_type::string_type string_type;
 
         typedef typename property_bar_type::map_box_type::value_type value_type;
+
+        typedef typename timetable_type::speed_type speed_type;
 
         typedef typename train_type::kind_index_type kind_index_type;
 
@@ -494,6 +506,40 @@ namespace bobura { namespace message { namespace diagram_view
             return stream.str();
         }
 
+        string_type scheduled_speed_text(
+            const train_type&                       train,
+            const boost::optional<stop_index_type>& departure_stop_index
+        )
+        const
+        {
+            const auto departure_and_arrival = schedule_speed_departure_and_arrival(train, departure_stop_index);
+            const auto scheduled_speed =
+                m_model.timetable().scheduled_speed(train, departure_and_arrival.first, departure_and_arrival.second);
+
+            return
+                (
+                    boost::basic_format<typename string_type::value_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("PropertyBar:%1%km/h"))
+                    ) % detail::number_to_string<string_type>(scheduled_speed)
+                ).str();
+        }
+
+        std::pair<stop_iterator, stop_iterator> schedule_speed_departure_and_arrival(
+            const train_type&                       train,
+            const boost::optional<stop_index_type>& departure_stop_index
+        )
+        const
+        {
+            if (departure_stop_index)
+            {
+                const auto departure = boost::next(train.stops().begin(), *departure_stop_index);
+                return std::make_pair(departure, train.next_stop(departure));
+            }
+            else
+            {
+                return std::make_pair(train.origin_stop(), train.destination_stop());
+            }
+        }
 
     };
 

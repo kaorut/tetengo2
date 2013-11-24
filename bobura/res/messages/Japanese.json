@@ -63,6 +63,8 @@
         "PropertyBar:Operational":                       "運転停車",
         "PropertyBar:Operating Distance":                "営業キロ",
         "PropertyBar:%1%km":                             "%1%km",
+        "PropertyBar:Scheduled Speed":                   "表定速度",
+        "PropertyBar:%1%km/h":                           "%1%km/h",
         
         
         "Dialog:FileOpenSave:Open":                         "開く",
