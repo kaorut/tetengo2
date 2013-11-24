@@ -11,6 +11,7 @@
 
 #include <tetengo2.gui.measure.h>
 
+#include "bobura.message.diagram_selection_observer_set.h"
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.selection.h"
 
@@ -35,11 +36,17 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef model_type::timetable_type::station_location_type::station_type station_type;
+    typedef model_type::timetable_type::station_location_type station_location_type;
 
     typedef model_type::timetable_type::train_type train_type;
 
-    typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
+    typedef
+        bobura::message::diagram_selection_observer_set<station_location_type, train_type>
+        diagram_selection_observer_set_type;
+
+    typedef
+        bobura::view::diagram::selection<station_location_type, train_type, diagram_selection_observer_set_type>
+        selection_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
@@ -233,6 +240,26 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view_type view(model, message_catalog);
 
         view.unselect_all_items();
+    }
+
+    BOOST_AUTO_TEST_CASE(selection_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            const view_type view(model, message_catalog);
+
+            view.selection_observer_set();
+        }
+        {
+            const model_type model;
+            const message_catalog_type message_catalog;
+            view_type view(model, message_catalog);
+
+            view.selection_observer_set();
+        }
     }
 
 

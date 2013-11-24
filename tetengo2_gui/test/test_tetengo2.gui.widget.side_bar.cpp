@@ -92,6 +92,26 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_CHECK(!side_bar.minimized());
     }
 
+    BOOST_AUTO_TEST_CASE(child_control_area_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        const side_bar_type side_bar(parent);
+
+        side_bar.child_control_area_position();
+    }
+
+    BOOST_AUTO_TEST_CASE(child_control_area_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        const side_bar_type side_bar(parent);
+
+        side_bar.child_control_area_dimension();
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

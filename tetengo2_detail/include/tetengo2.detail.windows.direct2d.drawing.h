@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
 //#include <cassert>
+#include <limits>
 //#include <memory>
 //#include <stdexcept>
 //#include <system_error>
@@ -240,6 +241,38 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
 
             return canvas_details_ptr_type(std::move(p_render_target));
+        }
+
+        /*!
+            \brief Begins a transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param dimension A dimension.
+
+            \throw std::logic_error When another transaction has not ended yet.
+        */
+        template <typename Dimension>
+        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        {
+            suppress_unused_variable_warning(canvas, dimension);
+        }
+
+        /*!
+            \brief Ends the transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \param canvas A canvas.
+
+            \throw std::logic_error When no transaction has begun.
+        */
+        static void end_transaction(canvas_details_type& canvas)
+        {
+            suppress_unused_variable_warning(canvas);
         }
 
         /*!
@@ -481,10 +514,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text.
+            \param encoder   An encoder.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
@@ -492,15 +526,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder
+            const canvas_details_type&                            canvas,
+            const Font&                                           font,
+            const String&                                         text,
+            const Encoder&                                        encoder,
+            const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
             suppress_unused_variable_warning(canvas);
 
-            const auto p_layout = create_text_layout(text, font, encoder);
+            const auto p_layout = create_text_layout(text, font, encoder, max_width);
 
             ::DWRITE_TEXT_METRICS metrics = {};
             const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
@@ -525,30 +560,33 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Width    A width type.
             \tparam Color    A color type.
 
-            \param canvas   A canvas.
-            \param font     A font.
-            \param text     A text to draw.
-            \param encoder  An encoder.
-            \param position A position where the text is drawn.
-            \param color    A color.
-            \param angle    A clockwise angle in radians.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text to draw.
+            \param encoder   An encoder.
+            \param position  A position where the text is drawn.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
+            \param color     A color.
+            \param angle     A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
+            const Width&         max_width,
             const Color&         color,
             const double         angle
         )
         {
-            const auto p_layout = create_text_layout(text, font, encoder);
+            const auto p_layout = create_text_layout(text, font, encoder, max_width);
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -826,11 +864,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
         }
 
-        template <typename String, typename Font, typename Encoder>
+        template <typename String, typename Font, typename Encoder, typename Width>
         static unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
             const String&       text,
             const Font&         font,
-            const Encoder&      encoder
+            const Encoder&      encoder,
+            const Width&        max_width
         )
         {
             ::IDWriteTextFormat* rp_format = nullptr;
@@ -854,24 +893,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
 
             const auto encoded_text = encoder.encode(text);
-            ::RECT rect = {};
-            if (::GetClientRect(::GetDesktopWindow(), &rect) == FALSE)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
-                        "Can't get client rectangle of the desktop."
-                    )
-                );
-            }
+            const ::FLOAT max_width_in_dip =
+                max_width == Width(0) ?
+                std::numeric_limits< ::FLOAT>::max() : to_dip_x(gui::to_pixels< ::FLOAT>(max_width));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =
                 direct_write_factory().CreateTextLayout(
                     encoded_text.c_str(),
                     static_cast< ::UINT32>(encoded_text.length()),
                     p_format.get(),
-                    static_cast< ::FLOAT>(rect.right - rect.left),
-                    static_cast< ::FLOAT>(rect.bottom - rect.top),
+                    max_width_in_dip,
+                    std::numeric_limits< ::FLOAT>::max(),
                     &rp_layout
                 );
             if (FAILED(create_layout_hr))

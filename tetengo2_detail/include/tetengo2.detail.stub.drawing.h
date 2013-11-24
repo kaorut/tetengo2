@@ -11,6 +11,7 @@
 
 #include <cstddef>
 //#include <memory>
+#include <stdexcept>
 #include <system_error>
 //#include <utility>
 
@@ -103,6 +104,38 @@ namespace tetengo2 { namespace detail { namespace stub
             suppress_unused_variable_warning(handle_or_widget_details);
 
             return stdalt::make_unique<canvas_details_type>();
+        }
+        
+        /*!
+            \brief Begins a transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param dimension A dimension.
+
+            \throw std::logic_error When another transaction has not ended yet.
+        */
+        template <typename Dimension>
+        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        {
+            suppress_unused_variable_warning(canvas, dimension);
+        }
+
+        /*!
+            \brief Ends the transaction.
+
+            Some platform may not support a transuction. On such platforms, this function do nothing.
+
+            \param canvas A canvas.
+
+            \throw std::logic_error When no transaction has begun.
+        */
+        static void end_transaction(canvas_details_type& canvas)
+        {
+            suppress_unused_variable_warning(canvas);
         }
 
         /*!
@@ -338,10 +371,11 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text.
+            \param encoder   An encoder.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
@@ -349,17 +383,20 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder
+            const canvas_details_type&                            canvas,
+            const Font&                                           font,
+            const String&                                         text,
+            const Encoder&                                        encoder,
+            const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder);
+            suppress_unused_variable_warning(canvas, font, text, encoder, max_width);
 
             typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef typename gui::dimension<Dimension>::height_type height_type;
-            return Dimension(width_type(123), height_type(456));
+            return
+                max_width == width_type(0) || max_width >= width_type(123) ?
+                Dimension(width_type(123), height_type(456)) : Dimension(width_type(46), height_type(890));
         }
 
         /*!
@@ -369,30 +406,33 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Width    A width type.
             \tparam Color    A color type.
 
-            \param canvas   A canvas.
-            \param font     A font.
-            \param text     A text to draw.
-            \param encoder  An encoder.
-            \param position A position where the text is drawn.
-            \param color    A color.
-            \param angle    A clockwise angle in radians.
+            \param canvas    A canvas.
+            \param font      A font.
+            \param text      A text to draw.
+            \param encoder   An encoder.
+            \param position  A position where the text is drawn.
+            \param max_width A maximum width. When 0 is specified, the width is infinite.
+            \param color     A color.
+            \param angle     A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
+            const Width&         max_width,
             const Color&         color,
             const double         angle
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder, position, color, angle);
+            suppress_unused_variable_warning(canvas, font, text, encoder, position, max_width, color, angle);
         }
 
         /*!

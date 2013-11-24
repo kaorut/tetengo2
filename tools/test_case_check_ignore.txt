@@ -11,8 +11,9 @@ tetengo2::stdalt::
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::link_label::paint_background::
+tetengo2::gui::widget::map_box::splitter::
+tetengo2::gui::widget::map_box::value_item::
 tetengo2::gui::widget::side_bar::caption::
-tetengo2::gui::widget::side_bar::item::
 tetengo2::gui::widget::side_bar::splitter::
 tetengo2::gui::widget::side_bar::state_button::
 tetengo2::gui::widget::widget::paint_background::

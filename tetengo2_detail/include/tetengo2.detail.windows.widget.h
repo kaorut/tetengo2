@@ -179,6 +179,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam Widget A widget type.
 
             \param parent           A parent widget.
+            \param border           Set true to add border lines.
             \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a custom control.
@@ -188,6 +189,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_custom_control(
             Widget&                                      parent,
+            const bool                                   border,
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
@@ -204,9 +206,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(custom_control_class_name(), instance_handle))
                 register_window_class_for_custom_control<Widget>(instance_handle);
 
+            const ::DWORD ex_style = border ? WS_EX_CLIENTEDGE : 0;
             typename widget_details_type::handle_type p_widget(
                 ::CreateWindowExW(
-                    0,
+                    ex_style,
                     custom_control_class_name().c_str(),
                     L"",
                     WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),
@@ -1451,6 +1454,37 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Repaints a widget partially.
+
+            \tparam Widget    A widget type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param widget    A widget.
+            \param position  The position of a region to repaint.
+            \param dimension The dimension of a region to repaint.
+
+            \throw std::system_error When the widget cannot be repainted.
+        */
+        template <typename Widget, typename Position, typename Dimension>
+        static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
+        {
+            const auto left = gui::to_pixels< ::LONG>(gui::position<Position>::left(position));
+            const auto top = gui::to_pixels< ::LONG>(gui::position<Position>::top(position));
+            const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension));
+            const auto height = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension));
+            const ::RECT rectangle = { left, top, left + width, top + height };
+            if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
+                    )
+                );
+            }
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Result   A result type.
@@ -1707,19 +1741,19 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the dropdown box item count.
+            \brief Returns the dropdown box value count.
 
             \tparam Size        A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
 
-            \return The dropdown box item count.
+            \return The dropdown box value count.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static Size dropdown_box_item_count(const DropdownBox& dropdown_box)
+        static Size dropdown_box_value_count(const DropdownBox& dropdown_box)
         {
             const auto result = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCOUNT, 0, 0);
             if (result == CB_ERR)
@@ -1727,7 +1761,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
                         std::error_code(::GetLastError(), win32_category()),
-                        "Can't obtain the dropdown box item count."
+                        "Can't obtain the dropdown box value count."
                     )
                 );
             }
@@ -1736,7 +1770,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the dropdown box item.
+            \brief Returns the dropdown box value.
 
             \tparam String      A string type.
             \tparam DropdownBox A dropdown box type.
@@ -1747,12 +1781,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \param index        An index.
             \param encoder      An encoder.
 
-            \return The dropdown box item.
+            \return The dropdown box value.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename String, typename DropdownBox, typename Size, typename Encoder>
-        static String dropdown_box_item(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        static String dropdown_box_value(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
         {
             const auto length = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETLBTEXTLEN, index, 0);
             if (length == CB_ERR)
@@ -1760,33 +1794,33 @@ namespace tetengo2 { namespace detail { namespace windows
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
                         std::error_code(::GetLastError(), win32_category()),
-                        "Can't obtain the dropdown box item length."
+                        "Can't obtain the dropdown box value length."
                     )
                 );
             }
 
-            std::vector<wchar_t> item(length + 1, 0);
+            std::vector<wchar_t> value(length + 1, 0);
             const auto result =
                 ::SendMessageW(
                     dropdown_box.details().handle.get(),
                     CB_GETLBTEXT,
                     index,
-                    reinterpret_cast< ::LPARAM>(item.data())
+                    reinterpret_cast< ::LPARAM>(value.data())
                 );
             if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropdown box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropdown box value."
                     )
                 );
             }
 
-            return encoder.decode(std::wstring(item.data()));
+            return encoder.decode(std::wstring(value.data()));
         }
 
         /*!
-            \brief Sets a dropdown box item.
+            \brief Sets a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size        A size type.
@@ -1795,25 +1829,25 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param dropdown_box A dropdown box.
             \param index        An index.
-            \param item         An item.
+            \param value         An value.
             \param encoder      An encoder.
 
-            \throw std::system_error When the item cannot be set.
+            \throw std::system_error When the value cannot be set.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void set_dropdown_box_item(
+        static void set_dropdown_box_value(
             DropdownBox&   dropdown_box,
             const Size     index,
-            String         item,
+            String         value,
             const Encoder& encoder
         )
         {
-            erase_dropdown_box_item(dropdown_box, index);
-            insert_dropdown_box_item(dropdown_box, index, std::move(item), encoder);
+            erase_dropdown_box_value(dropdown_box, index);
+            insert_dropdown_box_value(dropdown_box, index, std::move(value), encoder);
         }
 
         /*!
-            \brief Inserts a dropdown box item.
+            \brief Inserts a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size        A size type.
@@ -1822,16 +1856,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param dropdown_box A dropdown box.
             \param index        An index.
-            \param item         An item.
+            \param value         An value.
             \param encoder      An encoder.
 
-            \throw std::system_error When the item cannot be inserted.
+            \throw std::system_error When the value cannot be inserted.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void insert_dropdown_box_item(
+        static void insert_dropdown_box_value(
             DropdownBox&   dropdown_box,
             const Size     index,
-            String         item,
+            String         value,
             const Encoder& encoder
         )
         {
@@ -1840,20 +1874,20 @@ namespace tetengo2 { namespace detail { namespace windows
                     dropdown_box.details().handle.get(),
                     CB_INSERTSTRING,
                     index,
-                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
+                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(value)).c_str())
                 );
             if (result == CB_ERR || result == CB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't append a dropdown box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a dropdown box value."
                     )
                 );
             }
         }
 
         /*!
-            \brief Erases a dropdown box item.
+            \brief Erases a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size    A size type.
@@ -1861,17 +1895,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \param dropdown_box A dropdown box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be erased.
+            \throw std::system_error When the value cannot be erased.
         */
         template <typename DropdownBox, typename Size>
-        static void erase_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        static void erase_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
             const auto result = ::SendMessageW(dropdown_box.details().handle.get(), CB_DELETESTRING, index, 0);
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old value."
                     )
                 );
             }
@@ -1893,26 +1927,26 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the selected dropdown box item index.
+            \brief Returns the selected dropdown box value index.
 
             \tparam Size    A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
 
-            \return The selected dropdown box item index.
+            \return The selected dropdown box value index.
 
-            \throw std::system_error When the selected item index cannot be obtained.
+            \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static boost::optional<Size> selected_dropdown_box_item_index(const DropdownBox& dropdown_box)
+        static boost::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
             const auto index = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCURSEL, 0, 0);
             return boost::make_optional<Size>(index != CB_ERR, index);
         }
 
         /*!
-            \brief Selects a dropdown box item.
+            \brief Selects a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
             \tparam Size    A size type.
@@ -1920,43 +1954,43 @@ namespace tetengo2 { namespace detail { namespace windows
             \param dropdown_box A dropdown box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be selected.
+            \throw std::system_error When the value cannot be selected.
         */
         template <typename DropdownBox, typename Size>
-        static void select_dropdown_box_item(DropdownBox& dropdown_box, const Size index)
+        static void select_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
             const auto result = ::SendMessageW(dropdown_box.details().handle.get(), CB_SETCURSEL, index, 0);
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't select a dropdown box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a dropdown box value."
                     )
                 );
             }
         }
 
         /*!
-            \brief Returns the list box item count.
+            \brief Returns the list box value count.
 
             \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
 
-            \return The list box item count.
+            \return The list box value count.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static Size list_box_item_count(const ListBox& list_box)
+        static Size list_box_value_count(const ListBox& list_box)
         {
             const auto result = ::SendMessageW(list_box.details().handle.get(), LB_GETCOUNT, 0, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item count."
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value count."
                     )
                 );
             }
@@ -1965,7 +1999,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the list box item.
+            \brief Returns the list box value.
 
             \tparam String  A string type.
             \tparam ListBox A list box type.
@@ -1976,45 +2010,45 @@ namespace tetengo2 { namespace detail { namespace windows
             \param index    An index.
             \param encoder  An encoder.
 
-            \return The list box item.
+            \return The list box value.
 
-            \throw std::system_error When the item cannot be obtained.
+            \throw std::system_error When the value cannot be obtained.
         */
         template <typename String, typename ListBox, typename Size, typename Encoder>
-        static String list_box_item(const ListBox& list_box, const Size index, const Encoder& encoder)
+        static String list_box_value(const ListBox& list_box, const Size index, const Encoder& encoder)
         {
             const auto length = ::SendMessageW(list_box.details().handle.get(), LB_GETTEXTLEN, index, 0);
             if (length == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item length."
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value length."
                     )
                 );
             }
 
-            std::vector<wchar_t> item(length + 1, 0);
+            std::vector<wchar_t> value(length + 1, 0);
             const auto result =
                 ::SendMessageW(
                     list_box.details().handle.get(),
                     LB_GETTEXT,
                     index,
-                    reinterpret_cast< ::LPARAM>(item.data())
+                    reinterpret_cast< ::LPARAM>(value.data())
                 );
             if (length == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value."
                     )
                 );
             }
 
-            return encoder.decode(std::wstring(item.data()));
+            return encoder.decode(std::wstring(value.data()));
         }
 
         /*!
-            \brief Sets a list box item.
+            \brief Sets a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -2023,20 +2057,20 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param list_box A list box.
             \param index    An index.
-            \param item     An item.
+            \param value    An value.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be set.
+            \throw std::system_error When the value cannot be set.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void set_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
+        static void set_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
-            erase_list_box_item(list_box, index);
-            insert_list_box_item(list_box, index, std::move(item), encoder);
+            erase_list_box_value(list_box, index);
+            insert_list_box_value(list_box, index, std::move(value), encoder);
         }
 
         /*!
-            \brief Inserts a list box item.
+            \brief Inserts a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -2045,33 +2079,33 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param list_box A list box.
             \param index    An index.
-            \param item     An item.
+            \param value    An value.
             \param encoder  An encoder.
 
-            \throw std::system_error When the item cannot be inserted.
+            \throw std::system_error When the value cannot be inserted.
         */
         template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void insert_list_box_item(ListBox& list_box, const Size index, String item, const Encoder& encoder)
+        static void insert_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
             const auto result =
                 ::SendMessageW(
                     list_box.details().handle.get(),
                     LB_INSERTSTRING,
                     index,
-                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(item)).c_str())
+                    reinterpret_cast< ::LPARAM>(encoder.encode(std::move(value)).c_str())
                 );
             if (result == LB_ERR || result == LB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box value."
                     )
                 );
             }
         }
 
         /*!
-            \brief Erases a list box item.
+            \brief Erases a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -2079,17 +2113,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be erased.
+            \throw std::system_error When the value cannot be erased.
         */
         template <typename ListBox, typename Size>
-        static void erase_list_box_item(ListBox& list_box, const Size index)
+        static void erase_list_box_value(ListBox& list_box, const Size index)
         {
             const auto result = ::SendMessageW(list_box.details().handle.get(), LB_DELETESTRING, index, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old value."
                     )
                 );
             }
@@ -2111,26 +2145,26 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the selected list box item index.
+            \brief Returns the selected list box value index.
 
             \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
             
-            \return The selected list box item index.
+            \return The selected list box value index.
 
-            \throw std::system_error When the selected item index cannot be obtained.
+            \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static boost::optional<Size> selected_list_box_item_index(const ListBox& list_box)
+        static boost::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
             const auto index = ::SendMessageW(list_box.details().handle.get(), LB_GETCURSEL, 0, 0);
             return boost::make_optional<Size>(index != LB_ERR, index);
         }
 
         /*!
-            \brief Selects a list box item.
+            \brief Selects a list box value.
 
             \tparam ListBox A list box type.
             \tparam Size    A size type.
@@ -2138,17 +2172,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \param list_box A list box.
             \param index    An index.
 
-            \throw std::system_error When the item cannot be selected.
+            \throw std::system_error When the value cannot be selected.
         */
         template <typename ListBox, typename Size>
-        static void select_list_box_item(ListBox& list_box, const Size index)
+        static void select_list_box_value(ListBox& list_box, const Size index)
         {
             const auto result = ::SendMessageW(list_box.details().handle.get(), LB_SETCURSEL, index, 0);
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box value."
                     )
                 );
             }
@@ -2402,7 +2436,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete system menu item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete system menu value."
                     )
                 );
             }

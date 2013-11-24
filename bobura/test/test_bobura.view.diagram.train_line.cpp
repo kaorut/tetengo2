@@ -15,6 +15,7 @@
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
+#include "bobura.message.diagram_selection_observer_set.h"
 #include "bobura.type_list.h"
 #include "bobura.view.diagram.selection.h"
 
@@ -29,11 +30,17 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef model_type::timetable_type::station_location_type::station_type station_type;
+    typedef model_type::timetable_type::station_location_type station_location_type;
 
     typedef model_type::timetable_type::train_type train_type;
 
-    typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
+    typedef
+        bobura::message::diagram_selection_observer_set<station_location_type, train_type>
+        diagram_selection_observer_set_type;
+
+    typedef
+        bobura::view::diagram::selection<station_location_type, train_type, diagram_selection_observer_set_type>
+        selection_type;
 
     typedef train_type::stop_type::time_type time_type;
 
@@ -111,7 +118,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            false,
             true,
             message_catalog
         );
@@ -139,7 +145,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
             false,
-            true,
             message_catalog
         );
         train_line_fragment_type train_line_fragment2(
@@ -148,7 +153,6 @@ BOOST_AUTO_TEST_SUITE(train_line_fragment)
             selection,
             position_type(left_type(24), top_type(42)),
             position_type(left_type(42), top_type(24)),
-            false,
             true,
             message_catalog
         );
@@ -184,7 +188,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),
@@ -224,7 +227,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),
@@ -247,7 +249,6 @@ BOOST_AUTO_TEST_SUITE(train_line)
                 string_type(TETENGO2_TEXT("note"))
             ),
             train_kind,
-            false,
             time_span_type(42 * 60),
             selection,
             dimension_type(width_type(42), height_type(24)),

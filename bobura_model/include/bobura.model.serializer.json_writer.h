@@ -730,7 +730,7 @@ namespace bobura { namespace model { namespace serializer
 
         static output_string_type time_representation(const time_type& time)
         {
-            if (time == time_type::uninitialized())
+            if (!time.initialized())
                 return output_string_type(TETENGO2_TEXT("    -1"));
 
             typedef typename time_type::tick_type tick_type;

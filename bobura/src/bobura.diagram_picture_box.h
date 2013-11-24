@@ -52,6 +52,9 @@ namespace bobura
 
         //! The mouse capture type.
         typedef MouseCapture mouse_capture_type;
+        
+        //! The mouse button type.
+        typedef typename mouse_capture_type::mouse_button_type mouse_button_type;
 
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
@@ -84,22 +87,26 @@ namespace bobura
 
         /*!
             \brief Sets a mouse capture.
+
+            \param mouse_button A mouse button.
         */
-        void set_mouse_capture()
+        void set_mouse_capture(const mouse_button_type mouse_button)
         {
             assert(!m_p_mouse_capture);
-            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this);
+            m_p_mouse_capture = tetengo2::stdalt::make_unique<mouse_capture_type>(*this, mouse_button);
         }
 
         /*!
             \brief Releases a mouse capture.
 
+            \param mouse_button A mouse_button.
+
             \retval true  When the mouse is actually captured.
             \retval false Otherwise.
         */
-        bool release_mouse_capture()
+        bool release_mouse_capture(const mouse_button_type mouse_button)
         {
-            if (m_p_mouse_capture)
+            if (m_p_mouse_capture && m_p_mouse_capture->button() == mouse_button)
             {
                 m_p_mouse_capture.reset();
                 return true;

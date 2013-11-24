@@ -150,6 +150,26 @@ BOOST_AUTO_TEST_SUITE(canvas)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(begin_transaction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.end_transaction();
+    }
+
+    BOOST_AUTO_TEST_CASE(end_transaction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.end_transaction();
+    }
+
     BOOST_AUTO_TEST_CASE(color)
     {
         BOOST_TEST_PASSPOINT();
@@ -325,20 +345,48 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        {
+            const concrete_canvas canvas;
 
-        const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
+            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
-        BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
+            BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
+        }
+        {
+            const concrete_canvas canvas;
+
+            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")), width_type(256));
+
+            BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
+        }
+        {
+            const concrete_canvas canvas;
+
+            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")), width_type(64));
+
+            BOOST_CHECK(dimension == make_dimension(width_type(46), height_type(890)));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(draw_text)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        {
+            concrete_canvas canvas;
 
-        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), 56.78);
+            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), 56.78);
+        }
+        {
+            concrete_canvas canvas;
+
+            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), width_type(256), 56.78);
+        }
+        {
+            concrete_canvas canvas;
+
+            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), width_type(64), 56.78);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)

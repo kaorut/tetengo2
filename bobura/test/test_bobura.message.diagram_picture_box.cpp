@@ -98,10 +98,10 @@ namespace
 
     // functions
 
-    void set_mouse_capture()
+    void set_mouse_capture(const mouse_button_type)
     {}
 
-    bool release_mouse_capture()
+    bool release_mouse_capture(const mouse_button_type)
     {
         return false;
     }
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(mouse_pressed)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(mouse_pressed)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_type::vertical);
         const model_type model;
         const message_catalog_type message_catalog;
         view_type view(model, message_catalog);

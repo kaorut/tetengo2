@@ -97,6 +97,18 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
+            \brief Checks whether the stop is passing.
+
+            \retval true  When the stop is passing.
+            \retval false Otherwise.
+        */
+        bool passing()
+        const
+        {
+            return !m_arrival.initialized() && !m_departure.initialized();
+        }
+
+        /*!
             \brief Checks whether the stop is operational.
 
             \retval true  When the stop is operational.

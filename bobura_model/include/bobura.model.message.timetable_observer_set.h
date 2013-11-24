@@ -37,7 +37,7 @@ namespace bobura { namespace model { namespace message
         /*!
             \brief Returns the observer called when a timetable is changed.
 
-            \return The observer called when a a timetable is changed.
+            \return The observer called when a timetable is changed.
         */
         const changed_signal_type& changed()
         const
@@ -48,7 +48,7 @@ namespace bobura { namespace model { namespace message
         /*!
             \brief Returns the observer called when a timetable is changed.
 
-            \return The observer called when a a timetable is changed.
+            \return The observer called when a timetable is changed.
         */
         changed_signal_type& changed()
         {

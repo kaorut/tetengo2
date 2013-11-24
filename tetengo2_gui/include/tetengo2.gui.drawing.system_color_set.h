@@ -81,6 +81,66 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Returns the color of control backgrounds.
+
+            \return The color.
+        */
+        static const color_type& control_background()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::control_background
+                )
+            );
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the color of control texts.
+
+            \return The color.
+        */
+        static const color_type& control_text()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::control_text
+                )
+            );
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the color of selected backgrounds.
+
+            \return The color.
+        */
+        static const color_type& selected_background()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::selected_background
+                )
+            );
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the color of selected texts.
+
+            \return The color.
+        */
+        static const color_type& selected_text()
+        {
+            static const color_type singleton(
+                system_color_details_type::template get_system_color<color_type>(
+                    system_color_details_type::system_color_index_type::selected_text
+                )
+            );
+            return singleton;
+        }
+
+        /*!
             \brief Returns the color of hyperlink texts.
 
             \return The color.

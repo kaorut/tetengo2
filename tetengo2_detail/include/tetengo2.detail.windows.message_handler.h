@@ -462,7 +462,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_RBUTTONDOWN].push_back(
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param)
                 {
-                    return message_handler_detail::widget::on_l_button_down(widget, w_param, l_param);
+                    return message_handler_detail::widget::on_r_button_down(widget, w_param, l_param);
                 }
             );
             map[WM_LBUTTONUP].push_back(

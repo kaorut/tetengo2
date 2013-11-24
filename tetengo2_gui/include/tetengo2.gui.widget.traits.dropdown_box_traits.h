@@ -15,11 +15,11 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a dropdown box.
 
-        \tparam ControlTraits      A traits type for a control.
-        \tparam IntSize            A integer size type.
-        \tparam DropdownBoxObserverSet A dropdown box observer set type.
+        \tparam ControlTraits            A traits type for a control.
+        \tparam IntSize                  A integer size type.
+        \tparam ListSelectionObserverSet A list selection observer set type.
    */
-    template <typename ControlTraits, typename IntSize, typename DropdownBoxObserverSet>
+    template <typename ControlTraits, typename IntSize, typename ListSelectionObserverSet>
     struct dropdown_box_traits
     {
         //types
@@ -30,8 +30,8 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The integer size type.
         typedef IntSize int_size_type;
 
-        //! The dropdown box observer set type.
-        typedef DropdownBoxObserverSet dropdown_box_observer_set_type;
+        //! The list selection observer set type.
+        typedef ListSelectionObserverSet list_selection_observer_set_type;
 
 
     };

@@ -351,11 +351,6 @@ namespace bobura { namespace model
 
 
     private:
-        // types
-
-        typedef typename stop_type::time_type time_type;
-
-
         // variables
 
         direction_type m_direction;
@@ -386,7 +381,7 @@ namespace bobura { namespace model
 
             for (auto i = i_stop; i != m_stops.end(); ++i)
             {
-                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                if (!i->passing())
                     return i;
             }
 
@@ -405,8 +400,13 @@ namespace bobura { namespace model
             for (auto i = i_stop; ; --i)
             {
                 if (i == m_stops.end())
-                    continue;
-                if (i->arrival() != time_type::uninitialized() || i->departure() != time_type::uninitialized())
+                {
+                    if (i == m_stops.begin())
+                        break;
+                    else
+                        continue;
+                }
+                if (!i->passing())
                     return i;
                 if (i == m_stops.begin())
                     break;

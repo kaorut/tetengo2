@@ -24,7 +24,6 @@
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"
 #include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -50,9 +49,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The system color set type.
         typedef typename traits_type::system_color_set_type system_color_set_type;
-
-        //! The mouse capture type.
-        typedef typename traits_type::mouse_capture_type mouse_capture_type;
 
         //! The system cursor type.
         typedef typename traits_type::system_cursor_type system_cursor_type;
@@ -102,15 +98,13 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit side_bar(widget_type& parent)
         :
-        base_type(parent, base_type::scroll_bar_style_type::none),
+        base_type(parent, false, scroll_bar_style_type::none),
         m_p_caption(),
         m_p_splitter(),
-        m_p_mouse_capture(),
-        m_p_mouse_captured_item(nullptr),
         m_preferred_width(0),
         m_minimized(false)
         {
-            initialize_side_bar(this);
+            initialize_side_bar(*this);
         }
 
         /*!
@@ -182,12 +176,60 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_minimized(const bool minimized)
         {
             m_minimized = minimized;
+
+            if (!m_minimized)
+            {
+                this->set_dimension(
+                    dimension_type(m_preferred_width, gui::dimension<dimension_type>::height(this->dimension()))
+                );
+            }
+
             this->size_observer_set().resized()();
             if (this->has_parent())
             {
                 this->parent().size_observer_set().resized()();
                 this->parent().repaint();
             }
+        }
+
+        /*!
+            \brief Returns the child control area position.
+
+            \return The child control area position.
+        */
+        position_type child_control_area_position()
+        const
+        {
+            const auto& caption_dimension = m_p_caption->dimension();
+            const auto& splitter_dimension = m_p_splitter->dimension();
+
+            return
+                position_type(
+                    left_type::from(gui::dimension<dimension_type>::width(splitter_dimension)),
+                    top_type::from(gui::dimension<dimension_type>::height(caption_dimension))
+                );
+        }
+
+        /*!
+            \brief Returns the child control area dimension.
+
+            \return The child control area dimension.
+        */
+        dimension_type child_control_area_dimension()
+        const
+        {
+            const auto client_dimension = this->client_dimension();
+            const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
+            const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
+            const auto& caption_dimension = m_p_caption->dimension();
+            const auto& caption_height = gui::dimension<dimension_type>::height(caption_dimension);
+            const auto& splitter_dimension = m_p_splitter->dimension();
+            const auto& splitter_width = gui::dimension<dimension_type>::width(splitter_dimension);
+
+            auto width = client_width > splitter_width ? client_width - splitter_width : width_type(0);
+            auto height = client_height > caption_height ? client_height - caption_height : height_type(0);
+
+            return dimension_type(std::move(width), std::move(height));
         }
 
 
@@ -208,184 +250,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename gui::dimension<dimension_type>::height_type height_type;
 
-        class item
-        {
-        public:
-            // constructors and destructors
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
 
-            virtual ~item()
-            TETENGO2_STDALT_NOEXCEPT
-            {}
+        typedef typename base_type::inner_item_type inner_item_type;
 
-
-            // functions
-
-            const position_type& position()
-            const
-            {
-                return m_position;
-            }
-
-            void set_position(position_type position)
-            {
-                m_position = std::move(position);
-            }
-
-            const dimension_type& dimension()
-            const
-            {
-                return m_dimension;
-            }
-
-            void set_dimension(dimension_type dimension)
-            {
-                m_dimension = std::move(dimension);
-            }
-
-            void resized()
-            {
-                resized_impl();
-            }
-
-            void draw(canvas_type& canvas)
-            {
-                draw_impl(canvas);
-            }
-
-            void mouse_pressed(const position_type& cursor_position)
-            {
-                if (!inside(cursor_position))
-                    return;
-
-                mouse_pressed_impl(cursor_position);
-            }
-
-            void mouse_released(const position_type& cursor_position)
-            {
-                if (!this->side_bar_().mouse_captured(this) && !inside(cursor_position))
-                    return;
-
-                mouse_released_impl(cursor_position);
-            }
-
-            void mouse_moved(const position_type& cursor_position)
-            {
-
-                if (this->side_bar_().mouse_captured(this) || inside(cursor_position))
-                {
-                    mouse_moved_impl(cursor_position);
-                    if (!m_mouse_inside)
-                    {
-                        mouse_entered_impl();
-                        m_mouse_inside = true;
-                    }
-                }
-                else
-                {
-                    if (m_mouse_inside)
-                    {
-                        mouse_left_impl();
-                        m_mouse_inside = false;
-                    }
-                }
-            }
-
-
-        protected:
-            // constructors
-
-            item(side_bar& side_bar_, position_type&& position, dimension_type&& dimension)
-            :
-            m_side_bar(side_bar_),
-            m_position(std::move(position)),
-            m_dimension(std::move(dimension)),
-            m_mouse_inside(false)
-            {}
-
-
-            // functions
-
-            const side_bar& side_bar_()
-            const
-            {
-                return m_side_bar;
-            }
-
-            side_bar& side_bar_()
-            {
-                return m_side_bar;
-            }
-
-
-        private:
-            // variables
-
-            side_bar& m_side_bar;
-
-            position_type m_position;
-
-            dimension_type m_dimension;
-
-            bool m_mouse_inside;
-
-
-            // virtual functions
-
-            virtual void resized_impl()
-            {}
-
-            virtual void draw_impl(canvas_type& canvas)
-            = 0;
-
-            virtual void mouse_pressed_impl(const position_type& cursor_position)
-            {
-                suppress_unused_variable_warning(cursor_position);
-            }
-
-            virtual void mouse_released_impl(const position_type& cursor_position)
-            {
-                suppress_unused_variable_warning(cursor_position);
-            }
-
-            virtual void mouse_moved_impl(const position_type& cursor_position)
-            {
-                suppress_unused_variable_warning(cursor_position);
-            }
-
-            virtual void mouse_entered_impl()
-            {}
-
-            virtual void mouse_left_impl()
-            {}
-
-
-            // functions
-
-            bool inside(const position_type& position)
-            const
-            {
-                const auto& left = gui::position<position_type>::left(m_position);
-                const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-                const auto& top = gui::position<position_type>::top(m_position);
-                const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
-
-                const auto& cursor_left = gui::position<position_type>::left(position);
-                const auto& cursor_top = gui::position<position_type>::top(position);
-
-                return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
-            }
-
-
-        };
-
-        class state_button : public item
+        class state_button : public inner_item_type
         {
         public:
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))),
+            inner_item_type(
+                side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(1), height_type(1))
+            ),
             m_p_current_background_color(&background_color()),
             m_p_timer(),
             m_animation_step(0)
@@ -486,8 +364,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void draw_impl(canvas_type& canvas)
-            override
+            virtual void paint_impl(canvas_type& canvas)
+            const override
             {
                 auto original_color = canvas.color();
                 auto original_line_width = canvas.line_width();
@@ -508,14 +386,15 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                suppress_unused_variable_warning(cursor_position);
+                if (!this->inside(cursor_position))
+                    return;
 
                 if (m_animation_step > 0)
                     return;
 
                 m_p_timer =
                     stdalt::make_unique<timer_type>(
-                        this->side_bar_(),
+                        this->parent(),
                         [this](bool& stop) { this->timer_proc(stop); },
                         animation_duration() / max_animation_step(),
                         false
@@ -530,14 +409,14 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_p_current_background_color = &background_color_hovered();
-                this->side_bar_().repaint();
+                this->parent().repaint_partially(this->position(), this->dimension());
             }
 
             virtual void mouse_left_impl()
             override
             {
                 m_p_current_background_color = &background_color();
-                this->side_bar_().repaint();
+                this->parent().repaint_partially(this->position(), this->dimension());
             }
 
 
@@ -548,7 +427,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (m_animation_step < max_animation_step())
                 {
                     ++m_animation_step;
-                    this->side_bar_().repaint();
+                    this->parent().repaint_partially(this->position(), this->dimension());
                     return;
                 }
                 if (
@@ -560,7 +439,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
                 }
 
-                this->side_bar_().set_minimized(!this->side_bar_().m_minimized);
+                this->template parent_to<side_bar>().set_minimized(!this->template parent_to<side_bar>().m_minimized);
                 m_animation_step = 0;
                 stop = true;
             }
@@ -578,7 +457,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 for (std::size_t i = 0; i < 3; ++i)
                 {
                     const std::size_t step_ =
-                        this->side_bar_().m_minimized ?
+                        this->template parent_to<side_bar>().m_minimized ?
                             (m_animation_step < max_animation_step() ? max_animation_step() - m_animation_step : 0) :
                             (m_animation_step < max_animation_step() ? m_animation_step : max_animation_step());
                     const position_type vertex_position = triangle_vertex_position(step_, i);
@@ -601,14 +480,16 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
-        class caption : public item
+        class caption : public inner_item_type
         {
         public:
             // constructors and destructor
 
             caption(side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
+            inner_item_type(
+                side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))
+            ),
             m_text_position()
             {}
 
@@ -638,13 +519,13 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_text_position = boost::none;
+
+                ensure_dimension_calculated();
             }
 
-            virtual void draw_impl(canvas_type& canvas)
-            override
+            virtual void paint_impl(canvas_type& canvas)
+            const override
             {
-                calculate_position_and_dimension(canvas);
-
                 auto original_color = canvas.color();
                 auto original_background = canvas.background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
@@ -655,9 +536,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.draw_text(
-                    this->side_bar_().text(),
+                    this->parent().text(),
                     *m_text_position,
-                    this->side_bar_().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
+                    this->template parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
                 );
 
                 canvas.set_background(std::move(original_background));
@@ -672,7 +553,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (m_text_position)
                     return;
 
-                const auto p_canvas = this->side_bar_().create_canvas();
+                const auto p_canvas = this->parent().create_canvas();
                 calculate_position_and_dimension(*p_canvas);
             }
 
@@ -682,10 +563,10 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
 
                 static const auto padding = height_type(1) / 4;
-                const auto text_dimension = canvas.calc_text_dimension(this->side_bar_().text());
+                const auto text_dimension = canvas.calc_text_dimension(this->parent().text());
                 this->set_dimension(calculate_dimension(padding, text_dimension));
 
-                this->side_bar_().m_p_state_button->set_position(state_button_position(padding));
+                this->template parent_to<side_bar>().m_p_state_button->set_position(state_button_position(padding));
 
                 m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
@@ -693,18 +574,22 @@ namespace tetengo2 { namespace gui { namespace widget
             dimension_type calculate_dimension(const height_type& padding, const dimension_type& text_dimension)
             const
             {
-                const dimension_type client_dimension = this->side_bar_().client_dimension();
+                const dimension_type client_dimension = this->parent().client_dimension();
                 const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
                 const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
 
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
 
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                        this->template parent_to<side_bar>().m_p_state_button->dimension()
+                    );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                        this->template parent_to<side_bar>().m_p_state_button->dimension()
+                    );
 
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     const auto& width = std::max(width_type::from(text_height), state_button_width); 
                     return dimension_type(width + width_type::from(padding) * 2, client_height);
@@ -720,17 +605,25 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 const auto& state_button_left =
-                    gui::position<position_type>::left(this->side_bar_().m_p_state_button->position());
+                    gui::position<position_type>::left(
+                    this->template parent_to<side_bar>().m_p_state_button->position()
+                );
                 const auto& state_button_top =
-                    gui::position<position_type>::left(this->side_bar_().m_p_state_button->position());
+                    gui::position<position_type>::left(
+                    this->template parent_to<side_bar>().m_p_state_button->position()
+                );
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
 
                 const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
 
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     auto left =
                         width_type::from(text_height) < state_button_width ?
@@ -758,11 +651,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& caption_width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& caption_height = gui::dimension<dimension_type>::height(this->dimension());
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::width(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(this->side_bar_().m_p_state_button->dimension());
+                    gui::dimension<dimension_type>::height(
+                    this->template parent_to<side_bar>().m_p_state_button->dimension()
+                );
 
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     auto left =
                         std::max(
@@ -785,14 +682,16 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
-        class splitter : public item
+        class splitter : public inner_item_type
         {
         public:
             // constructors and destructor
 
             explicit splitter(side_bar& side_bar_)
             :
-            item(side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))),
+            inner_item_type(
+                side_bar_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))
+            ),
             m_need_size_recalculation(true),
             m_pressed_position(position_type(left_type(0), top_type(0)))
             {}
@@ -812,14 +711,14 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
                 m_need_size_recalculation = true;
+
+                calculate_position_and_dimension();
             }
 
-            virtual void draw_impl(canvas_type& canvas)
-            override
+            virtual void paint_impl(canvas_type& canvas)
+            const override
             {
-                calculate_position_and_dimension();
-
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 auto original_background = canvas.background().clone();
@@ -835,10 +734,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_pressed_impl(const position_type& cursor_position)
             override
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
-
-                this->side_bar_().set_mouse_capture(this);
 
                 m_pressed_position = cursor_position;
             }
@@ -846,10 +743,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
-
-                this->side_bar_().release_mouse_capture();
 
                 resize_side_bar(cursor_position);
             }
@@ -857,9 +752,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_moved_impl(const position_type& cursor_position)
             override
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
-                if (!this->side_bar_().mouse_captured(this))
+                if (!this->parent().mouse_captured(this))
                     return;
 
                 resize_side_bar(cursor_position);
@@ -868,21 +763,21 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_entered_impl()
             override
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 auto p_cursor =
                     stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
-                this->side_bar_().set_cursor(std::move(p_cursor));
+                this->template parent_to<side_bar>().set_cursor(std::move(p_cursor));
             }
 
             virtual void mouse_left_impl()
             override
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-               this->side_bar_().set_cursor(std::unique_ptr<cursor_type>());
+               this->template parent_to<side_bar>().set_cursor(std::unique_ptr<cursor_type>());
             }
 
 
@@ -893,7 +788,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_need_size_recalculation)
                     return;
 
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                 {
                     this->set_position(position_type(left_type(0), top_type(0)));
                     this->set_dimension(dimension_type(width_type(0), height_type(0)));
@@ -901,9 +796,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                 {
                     const auto& client_height =
-                        gui::dimension<dimension_type>::height(this->side_bar_().client_dimension());
+                        gui::dimension<dimension_type>::height(this->parent().client_dimension());
                     const auto& caption_height =
-                        gui::dimension<dimension_type>::height(this->side_bar_().m_p_caption->dimension());
+                        gui::dimension<dimension_type>::height(
+                            this->template parent_to<side_bar>().m_p_caption->dimension()
+                        );
 
                     this->set_position(position_type(left_type(0), top_type::from(caption_height)));
                     this->set_dimension(
@@ -919,10 +816,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void resize_side_bar(const position_type& current_position)
             {
-                if (this->side_bar_().m_minimized)
+                if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-                const auto& width = gui::dimension<dimension_type>::width(this->side_bar_().dimension());
+                const auto& width = gui::dimension<dimension_type>::width(this->parent().dimension());
 
                 const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position<position_type>::left(current_position);
@@ -931,7 +828,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         std::max(left_type::from(width) + (pressed_left - current_left), left_type(0))
                     );
 
-                this->side_bar_().set_width(std::move(new_width));
+                this->template parent_to<side_bar>().set_width(std::move(new_width));
             }
 
 
@@ -940,18 +837,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // static functions
 
-        static void initialize_side_bar(side_bar* const p_side_bar)
+        static void initialize_side_bar(side_bar& side_bar_)
         {
-            p_side_bar->set_dimension(dimension_type(width_type(16), height_type(16)));
-            p_side_bar->set_background(
+            side_bar_.set_dimension(dimension_type(width_type(16), height_type(16)));
+            side_bar_.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
-            create_items(*p_side_bar);
+            create_items(side_bar_);
 
-            set_observers(*p_side_bar);
+            set_observers(side_bar_);
 
-            p_side_bar->m_preferred_width= gui::dimension<dimension_type>::width(p_side_bar->dimension());
+            side_bar_.m_preferred_width= gui::dimension<dimension_type>::width(side_bar_.dimension());
         }
 
         static void create_items(side_bar& side_bar_)
@@ -983,9 +880,13 @@ namespace tetengo2 { namespace gui { namespace widget
             side_bar_.paint_observer_set().paint().connect(
                 [&side_bar_](canvas_type& canvas)
                 {
-                    side_bar_.m_p_caption->draw(canvas);
-                    side_bar_.m_p_state_button->draw(canvas);
-                    side_bar_.m_p_splitter->draw(canvas);
+                    canvas.begin_transaction(side_bar_.client_dimension());
+
+                    side_bar_.m_p_caption->paint(canvas);
+                    side_bar_.m_p_state_button->paint(canvas);
+                    side_bar_.m_p_splitter->paint(canvas);
+
+                    canvas.end_transaction();
                 }
             );
 
@@ -995,8 +896,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    side_bar_.m_p_state_button->mouse_pressed(position);
-                    side_bar_.m_p_splitter->mouse_pressed(position);
+                    side_bar_.m_p_state_button->mouse_pressed(button, position);
+                    side_bar_.m_p_splitter->mouse_pressed(button, position);
                 }
             );
             side_bar_.mouse_observer_set().released().connect(
@@ -1005,8 +906,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     if (button != mouse_button_type::left)
                         return;
 
-                    side_bar_.m_p_state_button->mouse_released(position);
-                    side_bar_.m_p_splitter->mouse_released(position);
+                    side_bar_.m_p_state_button->mouse_released(button, position);
+                    side_bar_.m_p_splitter->mouse_released(button, position);
                 }
             );
             side_bar_.mouse_observer_set().moved().connect(
@@ -1038,10 +939,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<splitter> m_p_splitter;
 
-        std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
-
-        const item* m_p_mouse_captured_item;
-
         width_type m_preferred_width;
 
         bool m_minimized;
@@ -1070,24 +967,6 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (width < min_width)
                     width = std::move(min_width);
             }
-        }
-
-        bool mouse_captured(const item* const p_item)
-        const
-        {
-            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_captured_item == p_item;
-        }
-
-        void set_mouse_capture(const item* const p_item)
-        {
-            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this);
-            m_p_mouse_captured_item = p_item;
-        }
-
-        void release_mouse_capture()
-        {
-            m_p_mouse_captured_item = nullptr;
-            m_p_mouse_capture.reset();
         }
 
 

@@ -44,8 +44,8 @@ namespace bobura { namespace view { namespace diagram
         //! The model type.
         typedef Model model_type;
 
-        //! The station type.
-        typedef typename model_type::timetable_type::station_location_type::station_type station_type;
+        //! The station location type.
+        typedef typename model_type::timetable_type::station_location_type station_location_type;
 
         //! The font and color type.
         typedef typename model_type::timetable_type::font_color_set_type::font_color_type font_color_type;
@@ -80,7 +80,7 @@ namespace bobura { namespace view { namespace diagram
         /*!
             \brief Creates a station line.
 
-            \param station              A station.
+            \param station_location     A station location.
             \param selection            A selection.
             \param right                A right position.
             \param station_header_right A station header right position.
@@ -88,16 +88,16 @@ namespace bobura { namespace view { namespace diagram
             \param font_color           A font and color.
         */
         station_line(
-            const station_type&    station,
-            selection_type&        selection,
-            const left_type&       right,
-            const left_type&       station_header_right,
-            top_type               top,
-            const font_color_type& font_color
+            const station_location_type& station_location,
+            selection_type&              selection,
+            const left_type&             right,
+            const left_type&             station_header_right,
+            top_type                     top,
+            const font_color_type&       font_color
         )
         :
         base_type(selection),
-        m_p_station(&station),
+        m_p_station_location(&station_location),
         m_right(right),
         m_station_header_right(station_header_right),
         m_top(std::move(top)),
@@ -112,7 +112,7 @@ namespace bobura { namespace view { namespace diagram
         station_line(station_line&& another)
         :
         base_type(another.selection()),
-        m_p_station(another.m_p_station),
+        m_p_station_location(another.m_p_station_location),
         m_right(std::move(another.m_right)),
         m_station_header_right(another.m_station_header_right),
         m_top(std::move(another.m_top)),
@@ -141,7 +141,7 @@ namespace bobura { namespace view { namespace diagram
             if (&another == this)
                 return *this;
 
-            m_p_station = another.m_p_station;
+            m_p_station_location = another.m_p_station_location;
             m_right = std::move(another.m_right);
             m_station_header_right = std::move(another.m_station_header_right);
             m_top = std::move(another.m_top);
@@ -155,7 +155,7 @@ namespace bobura { namespace view { namespace diagram
     private:
         // variables
 
-        const station_type* m_p_station;
+        const station_location_type* m_p_station_location;
 
         left_type m_right;
 
@@ -178,7 +178,7 @@ namespace bobura { namespace view { namespace diagram
                 canvas, position_type(left_type(0), m_top), position_type(m_right, m_top), this->selected()
             );
 
-            const auto& name = m_p_station->name();
+            const auto& name = m_p_station_location->station().name();
             const auto name_dimension = canvas.calc_text_dimension(name);
             canvas.draw_text(
                 name,
@@ -210,7 +210,7 @@ namespace bobura { namespace view { namespace diagram
         virtual bool selected_impl()
         const override
         {
-            return this->selection().selected(*m_p_station);
+            return this->selection().selected(*m_p_station_location);
         }
 
         virtual void select_impl(const bool switch_selection_style)
@@ -218,7 +218,7 @@ namespace bobura { namespace view { namespace diagram
         {
             tetengo2::suppress_unused_variable_warning(switch_selection_style);
 
-            this->selection().select(*m_p_station);
+            this->selection().select(*m_p_station_location);
         }
 
 
@@ -435,15 +435,17 @@ namespace bobura { namespace view { namespace diagram
                 if (line_position > canvas_bottom)
                     break;
 
-                const auto& station = model.timetable().station_locations()[i].station();
+                const auto& station_location = model.timetable().station_locations()[i];
                 station_lines.push_back(
                     station_line_type(
-                        station,
+                        station_location,
                         selection,
                         line_right,
                         station_header_right,
                         std::move(line_position),
-                        select_station_font_color(model.timetable().font_color_set(), station.grade())
+                        select_station_font_color(
+                            model.timetable().font_color_set(), station_location.station().grade()
+                        )
                     )
                 );
             }

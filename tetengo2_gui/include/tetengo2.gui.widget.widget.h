@@ -566,6 +566,18 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Repaints the widget partially.
+
+            \param position  The position of a region to repaint.
+            \param dimension The dimension of a region to repaint.
+        */
+        void repaint_partially(const position_type& position, const dimension_type& dimension)
+        const
+        {
+            widget_details_type::repaint_partially(*this, position, dimension);
+        }
+
+        /*!
             \brief Creates a canvas.
 
             \return The unique pointer to a canvas.

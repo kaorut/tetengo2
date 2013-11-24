@@ -65,11 +65,10 @@
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.dialog_message_loop.h"
-#include "tetengo2.gui.message.dropdown_box_observer_set.h"
 #include "tetengo2.gui.message.file_drop_observer_set.h"
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
-#include "tetengo2.gui.message.list_box_observer_set.h"
+#include "tetengo2.gui.message.list_selection_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.message_loop.h"
 #include "tetengo2.gui.message.message_loop_break.h"
@@ -414,8 +413,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct window_observer_set; //!< The window observer set type.
         struct size_observer_set;   //!< The size observer set type.
-        struct list_box_observer_set; //!< The list box observer set type.
-        struct dropdown_box_observer_set; //!< The dropdown box observer set type.
+        struct list_selection_observer_set; //!< The list selection observer set type.
         struct file_drop_observer_set; //!< The file drop observer set type.
         struct focus_observer_set; //!< The focus observer set type.
         struct paint_observer_set; //!< The paint observer set type.
@@ -434,11 +432,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::observer_set::size_observer_set, tetengo2::gui::message::size_observer_set>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::observer_set::list_box_observer_set, tetengo2::gui::message::list_box_observer_set
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::dropdown_box_observer_set, tetengo2::gui::message::dropdown_box_observer_set
+                type::observer_set::list_selection_observer_set, tetengo2::gui::message::list_selection_observer_set
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -481,7 +475,7 @@ namespace test_tetengo2 { namespace gui
                 type::observer_set::text_box_observer_set, tetengo2::gui::message::text_box_observer_set
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>
+        >>>>>>>>>>>
         observer_set_type_list;
 
 
@@ -680,13 +674,12 @@ namespace test_tetengo2 { namespace gui
                 widget_traits_type, boost::mpl::at<drawing_type_list, type::drawing::color>::type
             >
             control_traits_type;
-        typedef tetengo2::gui::widget::traits::custom_control_traits<control_traits_type> custom_control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::traits::dropdown_box_traits<
                 control_traits_type,
                 boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::dropdown_box_observer_set>::type
+                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >
             dropdown_box_traits_type;
         typedef
@@ -716,10 +709,30 @@ namespace test_tetengo2 { namespace gui
             tetengo2::gui::widget::traits::list_box_traits<
                 control_traits_type,
                 boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::list_box_observer_set>::type
+                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >
             list_box_traits_type;
-        typedef tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type> map_box_traits_type;
+        typedef
+            tetengo2::gui::mouse_capture<
+                widget_type,
+                boost::mpl::at<
+                    observer_set_type_list, type::observer_set::mouse_observer_set
+                >::type::mouse_button_type,
+                tetengo2::detail::stub::mouse_capture
+            >
+            mouse_capture_type;
+        typedef
+            tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>
+            custom_control_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::map_box_traits<
+                custom_control_traits_type,
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
+            >
+            map_box_traits_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -727,14 +740,12 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type
             >
             picture_box_traits_type;
-        typedef tetengo2::gui::mouse_capture<widget_type, tetengo2::detail::stub::mouse_capture> mouse_capture_type;
         typedef tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer> timer_type;
         typedef
             tetengo2::gui::widget::traits::side_bar_traits<
                 custom_control_traits_type,
                 boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                mouse_capture_type,
                 timer_type
             >
             side_bar_traits_type;

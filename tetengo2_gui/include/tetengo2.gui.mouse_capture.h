@@ -18,9 +18,10 @@ namespace tetengo2 { namespace gui
         \brief The class template for a mouse capture.
 
         \tparam Widget              A widget type.
+        \tparam MouseButton         A mouse button type.
         \tparam MouseCaptureDetails A detail implementation type of a mouse_capture.
     */
-    template <typename Widget, typename MouseCaptureDetails>
+    template <typename Widget, typename MouseButton, typename MouseCaptureDetails>
     class mouse_capture : private boost::noncopyable
     {
     public:
@@ -28,6 +29,9 @@ namespace tetengo2 { namespace gui
 
         //! The widget type.
         typedef Widget widget_type;
+
+        //! The mouse button type.
+        typedef MouseButton mouse_button_type;
 
         //! The detail implementation type of a mouse capture.
         typedef MouseCaptureDetails mouse_capture_details_type;
@@ -39,17 +43,35 @@ namespace tetengo2 { namespace gui
             \brief Creates a mouse capture.
 
             \param widget A widget.
+            \param button A button.
         */
-        explicit mouse_capture(const widget_type& widget)
+        mouse_capture(const widget_type& widget, const mouse_button_type button)
         :
-        m_mouse_capture_details(widget)
+        m_mouse_capture_details(widget),
+        m_button(button)
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the button.
+
+            \return The button.
+        */
+        mouse_button_type button()
+        const
+        {
+            return m_button;
+        }
 
 
     private:
         // variables
 
         const mouse_capture_details_type m_mouse_capture_details;
+
+        const mouse_button_type m_button;
 
 
     };

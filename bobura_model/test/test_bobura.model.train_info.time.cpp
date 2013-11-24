@@ -236,7 +236,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
             time += time_span;
 
-            BOOST_CHECK(time == time_type::uninitialized());
+            BOOST_CHECK(!time.initialized());
         }
     }
 
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
             time -= time_span;
 
-            BOOST_CHECK(time == time_type::uninitialized());
+            BOOST_CHECK(!time.initialized());
         }
     }
 
@@ -459,6 +459,22 @@ BOOST_AUTO_TEST_SUITE_END()
         }
         {
             BOOST_CHECK_THROW(time_type::uninitialized().hours_minutes_seconds(), std::logic_error);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(initialized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const time_type time(0, 0, 0);
+
+            BOOST_CHECK(time.initialized());
+        }
+        {
+            const time_type time(time_type::uninitialized());
+
+            BOOST_CHECK(!time.initialized());
         }
     }
 

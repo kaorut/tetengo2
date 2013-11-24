@@ -45,7 +45,7 @@ namespace bobura { namespace message
         /*!
             \brief Returns the observer called when a timetable model is reset.
 
-            \return The observer called when a a timetable model is reset.
+            \return The observer called when a timetable model is reset.
         */
         const reset_signal_type& reset()
         const
@@ -56,7 +56,7 @@ namespace bobura { namespace message
         /*!
             \brief Returns the observer called when a timetable model is reset.
 
-            \return The observer called when a a timetable model is reset.
+            \return The observer called when a timetable model is reset.
         */
         reset_signal_type& reset()
         {
@@ -67,7 +67,7 @@ namespace bobura { namespace message
             \brief Returns the observer called when a timetable model is
                    changed.
 
-            \return The observer called when a a timetable model is changed.
+            \return The observer called when a timetable model is changed.
         */
         const changed_signal_type& changed()
         const
@@ -78,7 +78,7 @@ namespace bobura { namespace message
         /*!
             \brief Returns the observer called when a timetable model is changed.
 
-            \return The observer called when a a timetable model is changed.
+            \return The observer called when a timetable model is changed.
         */
         changed_signal_type& changed()
         {

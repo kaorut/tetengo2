@@ -640,8 +640,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.down_trains()[0].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.down_trains()[0].stops()[0].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.down_trains()[0].stops()[0].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.down_trains()[0].stops()[0].arrival().initialized());
+            BOOST_CHECK(!timetable.down_trains()[0].stops()[0].departure().initialized());
             BOOST_CHECK(timetable.down_trains()[0].stops()[0].platform().empty());
 
             train_type::stops_type stops;
@@ -677,8 +677,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.down_trains()[1].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.down_trains()[1].stops()[1].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.down_trains()[1].stops()[1].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.down_trains()[1].stops()[1].arrival().initialized());
+            BOOST_CHECK(!timetable.down_trains()[1].stops()[1].departure().initialized());
             BOOST_CHECK(timetable.down_trains()[1].stops()[1].platform().empty());
 
             timetable.insert_down_train(
@@ -710,8 +710,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.down_trains()[2].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.down_trains()[2].stops()[1].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.down_trains()[2].stops()[1].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.down_trains()[2].stops()[1].arrival().initialized());
+            BOOST_CHECK(!timetable.down_trains()[2].stops()[1].departure().initialized());
             BOOST_CHECK(timetable.down_trains()[2].stops()[1].platform().empty());
         }
         {
@@ -753,8 +753,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.up_trains()[0].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.up_trains()[0].stops()[0].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.up_trains()[0].stops()[0].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.up_trains()[0].stops()[0].arrival().initialized());
+            BOOST_CHECK(!timetable.up_trains()[0].stops()[0].departure().initialized());
             BOOST_CHECK(timetable.up_trains()[0].stops()[0].platform().empty());
 
             train_type::stops_type stops;
@@ -790,8 +790,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.up_trains()[1].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.up_trains()[1].stops()[1].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.up_trains()[1].stops()[1].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.up_trains()[1].stops()[1].arrival().initialized());
+            BOOST_CHECK(!timetable.up_trains()[1].stops()[1].departure().initialized());
             BOOST_CHECK(timetable.up_trains()[1].stops()[1].platform().empty());
 
             timetable.insert_up_train(
@@ -823,8 +823,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_REQUIRE_EQUAL(timetable.up_trains()[2].stops().size(), timetable.station_locations().size());
-            BOOST_CHECK(timetable.up_trains()[2].stops()[1].arrival() == time_type::uninitialized());
-            BOOST_CHECK(timetable.up_trains()[2].stops()[1].departure() == time_type::uninitialized());
+            BOOST_CHECK(!timetable.up_trains()[2].stops()[1].arrival().initialized());
+            BOOST_CHECK(!timetable.up_trains()[2].stops()[1].departure().initialized());
             BOOST_CHECK(timetable.up_trains()[2].stops()[1].platform().empty());
         }
     }

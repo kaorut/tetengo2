@@ -333,6 +333,9 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
+            if (m_window.window_state() == window_state_type::minimized)
+                return;
+
             const auto window_dimension = m_window.client_dimension();
             const auto& window_width = tetengo2::gui::dimension<dimension_type>::width(window_dimension);
             const auto& window_height = tetengo2::gui::dimension<dimension_type>::height(window_dimension);
@@ -344,6 +347,7 @@ namespace bobura { namespace message { namespace main_window
                 const dimension_type dimension(property_bar_width, window_height);
                 m_property_bar.set_position_and_dimension(position, dimension);
                 m_property_bar.repaint();
+                m_property_bar.size_observer_set().resized()();
             }
             {
                 const position_type position(left_type(0), top_type(0));
@@ -363,6 +367,8 @@ namespace bobura { namespace message { namespace main_window
 
     private:
         // types
+
+        typedef typename abstract_window_type::window_state_type window_state_type;
 
         typedef typename diagram_picture_box_type::base_type::base_type control_type;
 

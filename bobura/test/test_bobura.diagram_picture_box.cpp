@@ -30,6 +30,8 @@ namespace
 
     typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
+    typedef diagram_picture_box_type::mouse_button_type mouse_button_type;
+
 
 }
 
@@ -53,8 +55,8 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
         window_type window;
         diagram_picture_box_type picture_box(window);
 
-        picture_box.set_mouse_capture();
-        picture_box.release_mouse_capture();
+        picture_box.set_mouse_capture(mouse_button_type::left);
+        picture_box.release_mouse_capture(mouse_button_type::left);
     }
 
     BOOST_AUTO_TEST_CASE(release_mouse_capture)
@@ -65,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
             window_type window;
             diagram_picture_box_type picture_box(window);
 
-            const auto captured = picture_box.release_mouse_capture();
+            const auto captured = picture_box.release_mouse_capture(mouse_button_type::left);
 
             BOOST_CHECK(!captured);
         }
@@ -73,8 +75,8 @@ BOOST_AUTO_TEST_SUITE(diagram_picture_box)
             window_type window;
             diagram_picture_box_type picture_box(window);
 
-            picture_box.set_mouse_capture();
-            const auto captured = picture_box.release_mouse_capture();
+            picture_box.set_mouse_capture(mouse_button_type::left);
+            const auto captured = picture_box.release_mouse_capture(mouse_button_type::left);
 
             BOOST_CHECK(captured);
         }

@@ -74,6 +74,9 @@ namespace bobura
         //! The selection type.
         typedef Selection selection_type;
 
+        //! The selection observer set type.
+        typedef typename selection_type::selection_observer_set_type selection_observer_set_type;
+
         //! The canvas type.
         typedef Canvas canvas_type;
 
@@ -334,6 +337,27 @@ namespace bobura
         void unselect_all_items()
         {
             m_selection.unselect_all();
+        }
+
+        /*!
+            \brief Returns the selection observer set.
+
+            \return The selection observer set.
+        */
+        const selection_observer_set_type& selection_observer_set()
+        const
+        {
+            return m_selection.selection_observer_set();
+        }
+
+        /*!
+            \brief Returns the selection observer set.
+
+            \return The selection observer set.
+        */
+        selection_observer_set_type& selection_observer_set()
+        {
+            return m_selection.selection_observer_set();
         }
 
 

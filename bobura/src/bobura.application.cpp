@@ -36,6 +36,10 @@ namespace bobura
 
         typedef boost::mpl::at<view_type_list, type::view::view>::type view_type;
 
+        typedef
+            boost::mpl::at<application_type_list, type::application::diagram_view_message_type_list>::type
+            diagram_view_message_type_list_type;
+
         typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
         typedef boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type confirm_file_save_type;
@@ -66,6 +70,10 @@ namespace bobura
 
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
+        typedef boost::mpl::at<ui_type_list, type::ui::mouse_capture>::type mouse_capture_type;
+
+        typedef mouse_capture_type::mouse_button_type mouse_button_type;
+
         typedef boost::mpl::at<ui_type_list, type::ui::timer>::type timer_type;
 
 
@@ -95,7 +103,7 @@ namespace bobura
             const command_set_holder_type command_set_holder(m_settings, m_model, view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(command_set_holder.command_set(), view, main_window);
+            set_message_observers(command_set_holder.command_set(), view, main_window, message_catalog);
             m_model.reset_timetable();
             main_window.set_menu_bar(
                 main_window_menu_builder(
@@ -184,7 +192,12 @@ namespace bobura
 
         // functions
 
-        void set_message_observers(const command_set_type& command_set, view_type& view, main_window_type& main_window)
+        void set_message_observers(
+            const command_set_type&     command_set,
+            view_type&                  view,
+            main_window_type&           main_window,
+            const message_catalog_type& message_catalog
+        )
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
@@ -197,6 +210,22 @@ namespace bobura
                 )
             );
 
+            view.selection_observer_set().station_selected().connect(
+                boost::mpl::at<
+                    diagram_view_message_type_list_type, message::diagram_view::type::station_selected
+                >::type(main_window.property_bar(), m_model, message_catalog)
+            );
+            view.selection_observer_set().train_selected().connect(
+                boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::train_selected>::type(
+                    main_window.property_bar(), m_model, message_catalog
+                )
+            );
+            view.selection_observer_set().all_unselected().connect(
+                boost::mpl::at<diagram_view_message_type_list_type, message::diagram_view::type::all_unselected>::type(
+                    main_window.property_bar()
+                )
+            );
+            
             main_window.file_drop_observer_set().file_dropped().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::file_dropped>::type(
                     command_set, m_model, main_window
@@ -213,14 +242,23 @@ namespace bobura
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_pressed
                 >::type(
                     main_window.diagram_picture_box(),
-                    [&main_window]() { main_window.diagram_picture_box().set_mouse_capture(); },
+                    [&main_window](const mouse_button_type mouse_button)
+                    {
+                        main_window.diagram_picture_box().set_mouse_capture(mouse_button);
+                    },
                     view
                 )
             );
             main_window.diagram_picture_box().mouse_observer_set().released().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::mouse_released
-                >::type([&main_window]() { return main_window.diagram_picture_box().release_mouse_capture(); }, view)
+                >::type(
+                    [&main_window](const mouse_button_type mouse_button)
+                    {
+                        return main_window.diagram_picture_box().release_mouse_capture(mouse_button);
+                    },
+                    view
+                )
             );
             main_window.diagram_picture_box().mouse_observer_set().moved().connect(
                 boost::mpl::at<

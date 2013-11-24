@@ -138,6 +138,34 @@ BOOST_AUTO_TEST_SUITE(stop)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(passing)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const stop_type stop(time_type(1), time_type(2), false, string_type(TETENGO2_TEXT("1")));
+
+            BOOST_CHECK(!stop.passing());
+        }
+        {
+            const stop_type stop(time_type::uninitialized(), time_type(2), false, string_type(TETENGO2_TEXT("1")));
+
+            BOOST_CHECK(!stop.passing());
+        }
+        {
+            const stop_type stop(time_type(1), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("1")));
+
+            BOOST_CHECK(!stop.passing());
+        }
+        {
+            const stop_type stop(
+                time_type::uninitialized(), time_type::uninitialized(), false, string_type(TETENGO2_TEXT("1"))
+            );
+
+            BOOST_CHECK(stop.passing());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(operational)
     {
         BOOST_TEST_PASSPOINT();

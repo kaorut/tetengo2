@@ -15,10 +15,12 @@
 
 #include "bobura.message.about_dialog.h"
 #include "bobura.message.diagram_picture_box.h"
+#include "bobura.message.diagram_view.h"
 #include "bobura.message.file_property_dialog.h"
 #include "bobura.message.font_color_dialog.h"
 #include "bobura.message.main_window.h"
 #include "bobura.message.oudia_diagram_dialog.h"
+#include "bobura.message.property_bar.h"
 #include "bobura.message.timetable_model.h"
 #include "bobura.message.train_kind_dialog.h"
 #include "bobura.message.type_list.h"
@@ -49,6 +51,42 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::changed, changed<TimetableModel, DiagramView, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
+                type;
+
+
+        };
+    }
+
+    namespace diagram_view
+    {
+        /*!
+            \brief The meta function for the type list of the diagram view messages.
+
+            \tparam PropertyBar         A property bar type.
+            \tparam Model               A model type.
+            \tparam StationGradeTypeSet A station grade type set type.
+            \tparam MessageCatalog      A message catalog type.
+        */
+        template <typename PropertyBar, typename Model, typename StationGradeTypeSet, typename MessageCatalog>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the timetable model.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::station_selected,
+                        station_selected<PropertyBar, Model, StationGradeTypeSet, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::train_selected, train_selected<PropertyBar, Model, StationGradeTypeSet, MessageCatalog>
+                    >,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::all_unselected, all_unselected<PropertyBar>>,
+                tetengo2::meta::assoc_list_end
+                >>>
                 type;
 
 
@@ -150,9 +188,10 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the property bar messages.
 
-            \tparam SideBar A side bar type.
+            \tparam SideBar A side bar bar type.
+            \tparam MapBox  A map box type.
         */
-        template <typename SideBar>
+        template <typename SideBar, typename MapBox>
         class type_list
         {
         public:
@@ -160,7 +199,10 @@ namespace bobura { namespace message
 
             //! The type list for the property bar.
             typedef
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::resized, resized<SideBar, MapBox>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_pressed, mouse_pressed<MapBox>>,
                 tetengo2::meta::assoc_list_end
+                >>
                 type;
         };
     }

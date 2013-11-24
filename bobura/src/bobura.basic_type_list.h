@@ -50,11 +50,10 @@
 #include <tetengo2.gui.menu.shortcut_key_table.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
-#include <tetengo2.gui.message.dropdown_box_observer_set.h>
 #include <tetengo2.gui.message.file_drop_observer_set.h>
 #include <tetengo2.gui.message.focus_observer_set.h>
 #include <tetengo2.gui.message.keyboard_observer_set.h>
-#include <tetengo2.gui.message.list_box_observer_set.h>
+#include <tetengo2.gui.message.list_selection_observer_set.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
 #include <tetengo2.gui.message.message_loop.h>
 #include <tetengo2.gui.message.message_loop_break.h>
@@ -80,6 +79,7 @@
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
 #include <tetengo2.gui.widget.list_box.h>
+#include <tetengo2.gui.widget.map_box.h>
 #include <tetengo2.gui.widget.picture_box.h>
 #include <tetengo2.gui.widget.side_bar.h>
 #include <tetengo2.gui.widget.text_box.h>
@@ -93,6 +93,7 @@
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
 #include <tetengo2.gui.widget.traits.list_box_traits.h>
+#include <tetengo2.gui.widget.traits.map_box_traits.h>
 #include <tetengo2.gui.widget.traits.picture_box_traits.h>
 #include <tetengo2.gui.widget.traits.side_bar_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
@@ -122,6 +123,7 @@
 #include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.new_file.h"
 #include "bobura.load_save.save_to_file.h"
+#include "bobura.message.diagram_selection_observer_set.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
@@ -328,6 +330,7 @@ namespace bobura
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
         struct list_box;       //!< The list box type.
+        struct map_box;        //!< The map box type.
         struct menu_bar;       //!< The menu bar type.
         struct menu_command;   //!< The menu command type.
         struct menu_separator; //!< The menu separator type;
@@ -500,6 +503,11 @@ namespace bobura
             >
             virtual_key_type;
         typedef
+            tetengo2::gui::message::mouse_observer_set<
+                position_type, boost::mpl::at<common_type_list, type::difference>::type
+            >
+            mouse_observer_set_type;
+        typedef
             tetengo2::gui::widget::traits::widget_traits<
                 widget_canvas_type,
                 alert_type,
@@ -517,9 +525,7 @@ namespace bobura
                 tetengo2::gui::message::keyboard_observer_set<
                     virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
-                tetengo2::gui::message::mouse_observer_set<
-                    position_type, boost::mpl::at<common_type_list, type::difference>::type
-                >
+                mouse_observer_set_type
             >
             widget_traits_type;
         typedef
@@ -614,7 +620,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             control_type;
-        typedef tetengo2::gui::widget::traits::custom_control_traits<control_traits_type> custom_control_traits_type;
         typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::button<
@@ -637,7 +642,7 @@ namespace bobura
             tetengo2::gui::widget::traits::dropdown_box_traits<
                 control_traits_type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::dropdown_box_observer_set
+                tetengo2::gui::message::list_selection_observer_set
             >
             dropdown_box_traits_type;
         typedef
@@ -683,7 +688,7 @@ namespace bobura
             tetengo2::gui::widget::traits::list_box_traits<
                 control_traits_type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                tetengo2::gui::message::list_box_observer_set
+                tetengo2::gui::message::list_selection_observer_set
             >
             list_box_traits_type;
         typedef
@@ -693,6 +698,32 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             list_box_type;
+        typedef
+            tetengo2::gui::mouse_capture<
+                widget_type,
+                mouse_observer_set_type::mouse_button_type,
+                boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
+            >
+            mouse_capture_type;
+        typedef
+            tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>
+            custom_control_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::map_box_traits<
+                custom_control_traits_type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                solid_background_type,
+                system_color_set_type,
+                tetengo2::gui::message::list_selection_observer_set
+            >
+            map_box_traits_type;
+        typedef
+            tetengo2::gui::widget::map_box<
+                map_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            map_box_type;
         typedef
             tetengo2::gui::widget::traits::picture_box_traits<
                 control_traits_type,
@@ -708,11 +739,6 @@ namespace bobura
             >
             picture_box_type;
         typedef
-            tetengo2::gui::mouse_capture<
-                widget_type, boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type
-            >
-            mouse_capture_type;
-        typedef
             tetengo2::gui::timer<widget_type, boost::mpl::at<detail_type_list, type::detail::timer>::type>
             timer_type;
         typedef
@@ -720,7 +746,6 @@ namespace bobura
                 custom_control_traits_type,
                 solid_background_type,
                 system_color_set_type,
-                mouse_capture_type,
                 timer_type
             >
             side_bar_traits_type;
@@ -769,6 +794,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::list_box, detail::ui::list_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::map_box, detail::ui::map_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::menu_bar, detail::ui::menu_bar_type >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -815,7 +841,7 @@ namespace bobura
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -1152,9 +1178,14 @@ namespace bobura
     namespace detail { namespace view
     {
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
-        typedef model_type::timetable_type::station_location_type::station_type station_type;
+        typedef model_type::timetable_type::station_location_type station_location_type;
         typedef model_type::timetable_type::train_type train_type;
-        typedef bobura::view::diagram::selection<station_type, train_type> selection_type;
+        typedef
+            bobura::message::diagram_selection_observer_set<station_location_type, train_type>
+            diagram_selection_observer_set_type;
+        typedef
+            bobura::view::diagram::selection<station_location_type, train_type, diagram_selection_observer_set_type>
+            selection_type;
         typedef
             bobura::view::diagram::header<
                 model_type, selection_type, boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type

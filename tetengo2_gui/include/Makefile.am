@@ -36,11 +36,10 @@ headers = \
     tetengo2.gui.menu.shortcut_key_table.h \
     tetengo2.gui.menu.traits.h \
     tetengo2.gui.message.dialog_message_loop.h \
-    tetengo2.gui.message.dropdown_box_observer_set.h \
     tetengo2.gui.message.file_drop_observer_set.h \
     tetengo2.gui.message.focus_observer_set.h \
     tetengo2.gui.message.keyboard_observer_set.h \
-    tetengo2.gui.message.list_box_observer_set.h \
+    tetengo2.gui.message.list_selection_observer_set.h \
     tetengo2.gui.message.menu_observer_set.h \
     tetengo2.gui.message.message_loop.h \
     tetengo2.gui.message.message_loop_break.h \

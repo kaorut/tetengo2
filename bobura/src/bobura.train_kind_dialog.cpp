@@ -332,7 +332,7 @@ namespace bobura
             auto p_list_box =
                 tetengo2::stdalt::make_unique<list_box_type>(m_base, list_box_type::scroll_bar_style_type::vertical);
 
-            p_list_box->list_box_observer_set().selection_changed().connect(
+            p_list_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::train_kind_list_box_selection_changed
@@ -483,15 +483,15 @@ namespace bobura
         {
             auto p_dropdown_box = tetengo2::stdalt::make_unique<dropdown_box_type>(m_base);
 
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Normal"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Normal"))
             );
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Bold"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Bold"))
             );
-            p_dropdown_box->select_item(0);
+            p_dropdown_box->select_value(0);
 
-            p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+            p_dropdown_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::weight_dropdown_box_selection_changed
@@ -516,21 +516,21 @@ namespace bobura
         {
             auto p_dropdown_box = tetengo2::stdalt::make_unique<dropdown_box_type>(m_base);
 
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Solid"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Solid"))
             );
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dashed"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dashed"))
             );
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dotted"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dotted"))
             );
-            p_dropdown_box->insert_item(
-                p_dropdown_box->item_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dot-Dashed"))
+            p_dropdown_box->insert_value(
+                p_dropdown_box->value_count(), m_message_catalog.get(TETENGO2_TEXT("Dialog:TrainKind:Dot-Dashed"))
             );
-            p_dropdown_box->select_item(0);
+            p_dropdown_box->select_value(0);
 
-            p_dropdown_box->dropdown_box_observer_set().selection_changed().connect(
+            p_dropdown_box->list_selection_observer_set().selection_changed().connect(
                 typename boost::mpl::at<
                     train_kind_dialog_message_type_list_type,
                     message::train_kind_dialog::type::line_style_dropdown_box_selection_changed
@@ -708,31 +708,31 @@ namespace bobura
             m_p_train_kind_list_box->clear();
             for (auto i = m_info_sets.begin(); i != m_info_sets.end(); ++i)
             {
-                m_p_train_kind_list_box->insert_item(
-                    m_p_train_kind_list_box->item_count(), i->train_kind().name()
+                m_p_train_kind_list_box->insert_value(
+                    m_p_train_kind_list_box->value_count(), i->train_kind().name()
                 );
             }
 
-            if (m_p_train_kind_list_box->item_count() > 0)
+            if (m_p_train_kind_list_box->value_count() > 0)
             {
                 if (!m_current_train_kind_index)
                     m_current_train_kind_index = boost::make_optional<int_size_type>(0);
-                m_p_train_kind_list_box->select_item(*m_current_train_kind_index);
+                m_p_train_kind_list_box->select_value(*m_current_train_kind_index);
             }
             update();
         }
 
         void update()
         {
-            assert(m_p_train_kind_list_box->item_count() == m_info_sets.size());
+            assert(m_p_train_kind_list_box->value_count() == m_info_sets.size());
 
-            const auto& selected_index = m_p_train_kind_list_box->selected_item_index();
+            const auto& selected_index = m_p_train_kind_list_box->selected_value_index();
             assert(selected_index == m_current_train_kind_index);
 
             m_p_delete_button->set_enabled(selected_index && !m_info_sets[*selected_index].referred());
             m_p_up_button->set_enabled(selected_index && *selected_index > 0);
             m_p_down_button->set_enabled(
-                selected_index && *selected_index + 1 < m_p_train_kind_list_box->item_count()
+                selected_index && *selected_index + 1 < m_p_train_kind_list_box->value_count()
             );
 
             m_p_name_label->set_enabled(selected_index);
@@ -747,14 +747,14 @@ namespace bobura
 
             if (selected_index)
             {
-                assert(m_info_sets.size() == m_p_train_kind_list_box->item_count());
+                assert(m_info_sets.size() == m_p_train_kind_list_box->value_count());
                 const auto& train_kind = m_info_sets[*selected_index].train_kind();
 
                 m_current_train_kind_color = train_kind.color();
                 m_p_name_text_box->set_text(train_kind.name());
                 m_p_abbreviation_text_box->set_text(train_kind.abbreviation());
-                m_p_weight_dropdown_box->select_item(to_weight_dropdown_box_index(train_kind.weight()));
-                m_p_line_style_dropdown_box->select_item(
+                m_p_weight_dropdown_box->select_value(to_weight_dropdown_box_index(train_kind.weight()));
+                m_p_line_style_dropdown_box->select_value(
                     to_line_style_dropdown_box_index(train_kind.line_style())
                 );
             }
@@ -763,8 +763,8 @@ namespace bobura
                 m_current_train_kind_color = color_type(0, 0, 0);
                 m_p_name_text_box->set_text(string_type());
                 m_p_abbreviation_text_box->set_text(string_type());
-                m_p_weight_dropdown_box->select_item(0);
-                m_p_line_style_dropdown_box->select_item(0);
+                m_p_weight_dropdown_box->select_value(0);
+                m_p_line_style_dropdown_box->select_value(0);
             }
 
             m_p_sample_picture_box->repaint();
@@ -777,19 +777,19 @@ namespace bobura
 
             auto& train_kind = m_info_sets[*m_current_train_kind_index].train_kind();
 
-            assert(m_p_weight_dropdown_box->selected_item_index());
-            assert(m_p_weight_dropdown_box->selected_item_index());
+            assert(m_p_weight_dropdown_box->selected_value_index());
+            assert(m_p_weight_dropdown_box->selected_value_index());
             train_kind =
                 train_kind_type(
                     m_p_name_text_box->text(),
                     m_p_abbreviation_text_box->text(),
                     m_current_train_kind_color,
-                    to_weight(*m_p_weight_dropdown_box->selected_item_index()),
-                    to_line_style(*m_p_line_style_dropdown_box->selected_item_index())
+                    to_weight(*m_p_weight_dropdown_box->selected_value_index()),
+                    to_line_style(*m_p_line_style_dropdown_box->selected_value_index())
                 );
 
-            m_p_train_kind_list_box->set_item(*m_current_train_kind_index, train_kind.name());
-            m_p_train_kind_list_box->select_item(*m_current_train_kind_index);
+            m_p_train_kind_list_box->set_value(*m_current_train_kind_index, train_kind.name());
+            m_p_train_kind_list_box->select_value(*m_current_train_kind_index);
 
             m_p_sample_picture_box->repaint();
         }

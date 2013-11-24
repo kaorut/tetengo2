@@ -219,15 +219,13 @@ namespace bobura { namespace model { namespace timetable_info
         const
         {
             const auto& from_stop = train.stops()[from];
-            const auto from_time =
-                from_stop.departure() != time_type::uninitialized() ? from_stop.departure() : from_stop.arrival();
-            if (from_time == time_type::uninitialized())
+            const auto from_time = from_stop.departure().initialized() ? from_stop.departure() : from_stop.arrival();
+            if (!from_time.initialized())
                 return boost::none;
 
             const auto& to_stop = train.stops()[to];
-            const auto to_time =
-                to_stop.arrival() != time_type::uninitialized() ? to_stop.arrival() : to_stop.departure();
-            if (to_time == time_type::uninitialized())
+            const auto to_time = to_stop.arrival().initialized() ? to_stop.arrival() : to_stop.departure();
+            if (!to_time.initialized())
                 return boost::none;
 
             return boost::make_optional(to_time - from_time);

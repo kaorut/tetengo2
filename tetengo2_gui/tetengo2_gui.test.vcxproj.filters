@@ -212,17 +212,11 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.list_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.message.list_box_observer_set.cpp">
-      <Filter>sources\test_tetengo2::gui\message</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.font.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.color.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.message.dropdown_box_observer_set.cpp">
-      <Filter>sources\test_tetengo2::gui\message</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.widget.dropdown_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
@@ -259,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.shell.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message.list_selection_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui\message</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

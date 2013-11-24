@@ -50,6 +50,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The dimension type.
         typedef typename traits_type::dimension_type dimension_type;
 
+        //! The width type.
+        typedef typename gui::dimension<dimension_type>::width_type width_type;
+
         //! The encoder type.
         typedef typename traits_type::encoder_type encoder_type;
 
@@ -101,7 +104,25 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
         // functions
+        
+        /*!
+            \brief Begins a transaction.
 
+            \param dimension A dimension.
+        */
+        void begin_transaction(const dimension_type& dimension)
+        {
+            drawing_details_type::begin_transaction(*m_p_details, dimension);
+        }
+            
+        /*!
+            \brief Ends a transaction.
+        */
+        void end_transaction()
+        {
+            drawing_details_type::end_transaction(*m_p_details);
+        }
+            
         /*!
             \brief Returns the color.
 
@@ -282,6 +303,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Calculates the dimension of a text.
 
+            The maximum width is unlimited.
+
             \param text A text.
 
             \return The dimension of the text.
@@ -289,14 +312,30 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
+            return calc_text_dimension(text, width_type(0));
+        }
+
+        /*!
+            \brief Calculates the dimension of a text.
+
+            \param text      A text.
+            \param max_width A maximum width.
+
+            \return The dimension of the text.
+        */
+        dimension_type calc_text_dimension(const string_type& text, const width_type& max_width)
+        const
+        {
             return
                 drawing_details_type::template calc_text_dimension<dimension_type>(
-                    *m_p_details, m_font, text, encoder()
+                    *m_p_details, m_font, text, encoder(), max_width
                 );
         }
 
         /*!
             \brief Draws a text.
+
+            The maximum width is unlimited.
 
             The text is rotated around the argument position.
 
@@ -306,7 +345,29 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color, angle);
+            draw_text(text, position, width_type(0), angle);
+        }
+
+        /*!
+            \brief Draws a text.
+
+            The text is rotated around the argument position.
+
+            \param text      A text to draw.
+            \param position  A position where the text is drawn.
+            \param max_width A maximum width.
+            \param angle     A clockwise angle in radians.
+        */
+        void draw_text(
+            const string_type&   text,
+            const position_type& position,
+            const width_type&    max_width,
+            const double         angle = 0.0
+        )
+        {
+            drawing_details_type::draw_text(
+                *m_p_details, m_font, text, encoder(), position, max_width, m_color, angle
+            );
         }
 
         /*!

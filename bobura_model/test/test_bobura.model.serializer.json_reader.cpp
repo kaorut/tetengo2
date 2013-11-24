@@ -703,15 +703,15 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const auto& stop = stops[0];
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
                     const auto& stop = stops[1];
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
@@ -724,7 +724,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const auto& stop = stops[0];
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 0, 30));
                     BOOST_CHECK(stop.operational());
                     BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("1")));
@@ -732,7 +732,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 {
                     const auto& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type(6, 5, 45));
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }
@@ -746,15 +746,15 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_REQUIRE_EQUAL(train.stops().size(), 2U);
                 {
                     const auto& stop = stops[0];
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 20, 0));
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("0A")));
                 }
                 {
                     const auto& stop = stops[1];
-                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
+                    BOOST_CHECK(!stop.arrival().initialized());
+                    BOOST_CHECK(!stop.departure().initialized());
                     BOOST_CHECK(!stop.operational());
                     BOOST_CHECK(stop.platform().empty());
                 }

@@ -53,6 +53,7 @@
             "grade":                   "local",
             "show_down_arrival_times": false,
             "show_up_arrival_times":   false,
+            "note":                    "",
             "operating_distance":      669
         },
         {

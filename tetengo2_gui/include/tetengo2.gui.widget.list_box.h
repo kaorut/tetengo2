@@ -41,8 +41,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The integer size type.
         typedef typename traits_type::int_size_type int_size_type;
 
-        //! The list box observer set type.
-        typedef typename traits_type::list_box_observer_set_type list_box_observer_set_type;
+        //! The list selection observer set type.
+        typedef typename traits_type::list_selection_observer_set_type list_selection_observer_set_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_list_box_observer_set()
+        m_list_selection_observer_set()
         {
             this->initialize(this);
         }
@@ -104,79 +104,79 @@ namespace tetengo2 { namespace gui { namespace widget
         // functions
 
         /*!
-            \brief Returns the item count.
+            \brief Returns the value count.
 
-            \return The item count.
+            \return The value count.
         */
-        int_size_type item_count()
+        int_size_type value_count()
         const
         {
-            return widget_details_type::template list_box_item_count<int_size_type>(*this);
+            return widget_details_type::template list_box_value_count<int_size_type>(*this);
         }
 
         /*!
-            \brief Returns the item.
+            \brief Returns the value.
 
             \param index An index.
 
-            \return The item.
+            \return The value.
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type item(const int_size_type index)
+        string_type value(const int_size_type index)
         const
         {
-            if (index >= item_count())
+            if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            return widget_details_type::template list_box_item<string_type>(*this, index, widget_type::encoder());
+            return widget_details_type::template list_box_value<string_type>(*this, index, widget_type::encoder());
         }
 
         /*!
-            \brief Sets an item.
+            \brief Sets an value.
 
             \param index An index.
-            \param item  An item.
+            \param value An value.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_item(const int_size_type index, string_type item)
+        void set_value(const int_size_type index, string_type value)
         {
-            if (index >= item_count())
+            if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::set_list_box_item(*this, index, std::move(item), widget_type::encoder());
+            widget_details_type::set_list_box_value(*this, index, std::move(value), widget_type::encoder());
         }
 
         /*!
-            \brief Inserts an item.
+            \brief Inserts an value.
 
             \param index An index.
-            \param item  An item.
+            \param value An value.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_item(const int_size_type index, string_type item)
+        void insert_value(const int_size_type index, string_type value)
         {
-            if (index > item_count())
+            if (index > value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::insert_list_box_item(*this, index, std::move(item), widget_type::encoder());
+            widget_details_type::insert_list_box_value(*this, index, std::move(value), widget_type::encoder());
         }
 
         /*!
-            \brief Erases an item.
+            \brief Erases an value.
 
             \param index An index.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void erase_item(const int_size_type index)
+        void erase_value(const int_size_type index)
         {
-            if (index >= item_count())
+            if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            widget_details_type::erase_list_box_item(*this, index);
+            widget_details_type::erase_list_box_value(*this, index);
         }
 
         /*!
@@ -188,50 +188,50 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Returns the selected item index.
+            \brief Returns the selected value index.
 
-            \return The selected item index. Or boost::none when no item is selected.
+            \return The selected value index. Or boost::none when no value is selected.
         */
-        boost::optional<int_size_type> selected_item_index()
+        boost::optional<int_size_type> selected_value_index()
         const
         {
-            return widget_details_type::template selected_list_box_item_index<int_size_type>(*this);
+            return widget_details_type::template selected_list_box_value_index<int_size_type>(*this);
         }
 
         /*!
-            \brief Selects an item.
+            \brief Selects an value.
 
             \param index An index.
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_item(const int_size_type index)
+        void select_value(const int_size_type index)
         {
-            if (index >= item_count())
+            if (index >= value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
 
-            return widget_details_type::select_list_box_item(*this, index);
+            widget_details_type::select_list_box_value(*this, index);
         }
 
         /*!
-            \brief Returns the list box observer set.
+            \brief Returns the list selection observer set.
 
-            \return The list box observer set.
+            \return The list selection observer set.
         */
-        const list_box_observer_set_type& list_box_observer_set()
+        const list_selection_observer_set_type& list_selection_observer_set()
         const
         {
-            return m_list_box_observer_set;
+            return m_list_selection_observer_set;
         }
 
         /*!
-            \brief Returns the list box observer set.
+            \brief Returns the list selection observer set.
 
-            \return The list box observer set.
+            \return The list selection observer set.
         */
-        list_box_observer_set_type& list_box_observer_set()
+        list_selection_observer_set_type& list_selection_observer_set()
         {
-            return m_list_box_observer_set;
+            return m_list_selection_observer_set;
         }
 
 
@@ -243,7 +243,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        list_box_observer_set_type m_list_box_observer_set;
+        list_selection_observer_set_type m_list_selection_observer_set;
 
 
     };

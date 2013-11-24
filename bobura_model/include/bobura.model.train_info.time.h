@@ -317,6 +317,18 @@ namespace bobura { namespace model { namespace train_info
             return hours_minutes_seconds_type(hours, minutes, seconds);
         }
 
+        /*!
+            \brief Checks whether this time is initialized.
+
+            \retval true  When this time is initialized.
+            \retval false Otherwise.
+        */
+        bool initialized()
+        const
+        {
+            return *this != uninitialized();
+        }
+
 
     private:
         // static functions

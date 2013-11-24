@@ -42,6 +42,8 @@ extra_headers = \
     bobura.message.0namespace.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
+    bobura.message.diagram_selection_observer_set.h \
+    bobura.message.diagram_view.h \
     bobura.message.file_property_dialog.h \
     bobura.message.font_color_dialog.h \
     bobura.message.main_window.h \

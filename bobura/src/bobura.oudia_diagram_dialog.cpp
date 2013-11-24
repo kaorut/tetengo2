@@ -93,11 +93,11 @@ namespace bobura
                 m_p_diagram_list_box->clear();
                 for (const auto& name: m_names)
                 {
-                    m_p_diagram_list_box->insert_item(m_p_diagram_list_box->item_count(), name);
+                    m_p_diagram_list_box->insert_value(m_p_diagram_list_box->value_count(), name);
                 }
             }
 
-            m_selected_index = m_p_diagram_list_box->selected_item_index();
+            m_selected_index = m_p_diagram_list_box->selected_value_index();
         }
 
         const boost::optional<int_size_type>& selected_index()
@@ -108,17 +108,17 @@ namespace bobura
 
         void set_selected_index(const int_size_type index)
         {
-            if (index >= m_p_diagram_list_box->item_count())
+            if (index >= m_p_diagram_list_box->value_count())
                 BOOST_THROW_EXCEPTION(std::out_of_range("index is greater than the diagram count."));
 
             m_selected_index = boost::make_optional(index);
             if (!m_p_diagram_list_box->destroyed())
-                m_p_diagram_list_box->select_item(*m_selected_index);
+                m_p_diagram_list_box->select_value(*m_selected_index);
         }
 
         void set_result_impl()
         {
-            m_selected_index = m_p_diagram_list_box->selected_item_index();
+            m_selected_index = m_p_diagram_list_box->selected_value_index();
         }
 
 
