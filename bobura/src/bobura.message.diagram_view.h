@@ -295,8 +295,6 @@ namespace bobura { namespace message { namespace diagram_view
 
         typedef typename property_bar_type::map_box_type::value_type value_type;
 
-        typedef typename timetable_type::speed_type speed_type;
-
         typedef typename train_type::kind_index_type kind_index_type;
 
         typedef typename train_type::stop_type stop_type;
