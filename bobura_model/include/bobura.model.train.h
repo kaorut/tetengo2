@@ -400,7 +400,12 @@ namespace bobura { namespace model
             for (auto i = i_stop; ; --i)
             {
                 if (i == m_stops.end())
-                    continue;
+                {
+                    if (i == m_stops.begin())
+                        break;
+                    else
+                        continue;
+                }
                 if (!i->passing())
                     return i;
                 if (i == m_stops.begin())

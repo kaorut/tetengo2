@@ -510,6 +510,12 @@ namespace bobura { namespace message { namespace diagram_view
         )
         const
         {
+            if (train.stops().empty())
+            {
+                assert(!departure_stop_index);
+                return string_type();
+            }
+
             const auto departure_and_arrival = schedule_speed_departure_and_arrival(train, departure_stop_index);
             const auto scheduled_speed =
                 m_model.timetable().scheduled_speed(train, departure_and_arrival.first, departure_and_arrival.second);
