@@ -14,6 +14,7 @@
 //#include <utility>
 
 //#include <boost/optional.hpp>
+//#include <boost/predef.h>
 //#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.widget.widget.h"
@@ -327,7 +328,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_map_type&&  message_handler_map
         )
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -337,7 +338,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 *this, std::move(message_handler_map)
             )
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_file_droppable(file_droppable),

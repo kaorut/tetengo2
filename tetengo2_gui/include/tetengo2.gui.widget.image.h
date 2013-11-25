@@ -13,6 +13,7 @@
 //#include <stdexcept>
 //#include <utility>
 
+//#include <boost/predef.h>
 //#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
@@ -69,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit image(widget_type& parent)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -78,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_image(parent)
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_p_picture(),

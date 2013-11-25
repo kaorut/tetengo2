@@ -14,6 +14,7 @@
 //#include <utility>
 
 //#include <boost/noncopyable.hpp>
+//#include <boost/predef.h>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
@@ -103,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         custom_control(widget_type& parent, const bool border, const scroll_bar_style_type scroll_bar_style)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -114,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace widget
             ),
             widget_details_type::create_custom_control(parent, border, scroll_bar_style)
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_p_mouse_capture(),

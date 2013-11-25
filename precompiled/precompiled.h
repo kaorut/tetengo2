@@ -95,6 +95,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
+#include <boost/predef.h>
 #include <boost/program_options.hpp>
 #include <boost/range/adaptors.hpp>
 #include <boost/rational.hpp>
@@ -111,7 +112,7 @@
 #include <boost/variant.hpp>
 
 
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 
 // Windows headers
 

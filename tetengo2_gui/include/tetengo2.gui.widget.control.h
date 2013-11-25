@@ -13,6 +13,7 @@
 //#include <utility>
 
 //#include <boost/optional.hpp>
+//#include <boost/predef.h>
 
 #include "tetengo2.gui.widget.widget.h"
 #include "tetengo2.stdalt.h"
@@ -152,7 +153,7 @@ namespace tetengo2 { namespace gui { namespace widget
             details_ptr_type                             p_details
         )
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -160,7 +161,7 @@ namespace tetengo2 { namespace gui { namespace widget
             scroll_bar_style,
             message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_p_details(std::move(p_details)),

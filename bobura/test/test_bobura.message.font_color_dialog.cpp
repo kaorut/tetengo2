@@ -11,6 +11,7 @@
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
+//#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -185,7 +186,10 @@ BOOST_AUTO_TEST_SUITE(font_button_mouse_clicked)
     }
 
 // This test case causes a segmentation fault on Cygwin.
-#if !(__CYGWIN__ == 1 && __GNUC__ == 4 && __GNUC_MINOR__ == 8)
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 8, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 9, 0)) \
+)
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();

@@ -9,13 +9,15 @@
 #if !defined(TETENGO2_STDALT_H)
 #define TETENGO2_STDALT_H
 
+#include <boost/predef.h>
+
 #include "tetengo2.utility.h"
 
 
 /* noexcept *******************************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
+#   if BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
 #       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 1
 #   else
 #       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 0
@@ -33,7 +35,7 @@
 /* insertion iterator *********************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if (defined(_MSC_VER) && _MSC_VER >= 1600)
+#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(11, 0, 0)
 #       define TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED 1
 #   else
 #       define TETENGO2_STDALT_INSERTION_ITERATOR_SUPPORTED 0
@@ -87,7 +89,7 @@ namespace tetengo2 { namespace stdalt
 /* lambda this capture bug workaround *****************************************/
 
 #if !defined(DOCUMENTATION)
-#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ == 4 && __GNUC_MINOR__ <= 7)
+#   if BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)
 #       define TETENGO2_STDALT_HAS_LAMBDA_THIS_CAPTURE_BUG 1
 #   else
 #       define TETENGO2_STDALT_HAS_LAMBDA_THIS_CAPTURE_BUG 0
@@ -105,7 +107,7 @@ namespace tetengo2 { namespace stdalt
 /* thread *********************************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
+#   if BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
 #       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 1
 #   else
 #       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 0

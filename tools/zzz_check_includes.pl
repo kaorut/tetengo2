@@ -348,6 +348,7 @@ sub is_std_or_boost_header
 	
 	return 1 if $header_name =~ /^[a-z0-9_\/]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
+	return 1 if $header_name =~ /^boost\/.+\.h$/;
 	return 1 if $header_name =~ /^Windows\.h$/;
 	return 1 if $header_name =~ /^windowsx\.h$/;
 	return 1 if $header_name =~ /^atlbase\.h$/;

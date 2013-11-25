@@ -12,6 +12,8 @@
 #include <cstddef>
 //#include <utility>
 
+//#include <boost/predef.h>
+
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.stdalt.h"
@@ -81,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit label(widget_type& parent)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -90,7 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_label(parent)
         )
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         {

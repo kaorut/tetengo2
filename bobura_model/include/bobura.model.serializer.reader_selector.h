@@ -15,6 +15,7 @@
 //#include <utility>
 #include <vector>
 
+//#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2.stdalt.h>
@@ -83,7 +84,7 @@ namespace bobura { namespace model { namespace serializer
 
         // virtual functions
 
-#if defined(__GNUC__)
+#if BOOST_COMP_GNUC
 #   pragma GCC diagnostic ignored "-Wreturn-type"
 #endif
         virtual bool selects_impl(const iterator first, const iterator last)

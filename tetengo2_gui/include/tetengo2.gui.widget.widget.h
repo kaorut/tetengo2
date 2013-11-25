@@ -18,6 +18,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+//#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
@@ -817,14 +818,14 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         m_message_handler_map(
             message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_focused(false),
