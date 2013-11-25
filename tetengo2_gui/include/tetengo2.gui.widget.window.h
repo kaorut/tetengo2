@@ -11,6 +11,8 @@
 
 //#include <cassert>
 
+//#include <boost/predef.h>
+
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.stdalt.h"
 
@@ -95,7 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         window(base_type& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -104,7 +106,7 @@ namespace tetengo2 { namespace gui { namespace widget
             file_droppable,
             message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_p_details(

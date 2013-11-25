@@ -11,6 +11,8 @@
 
 //#include <stdexcept>
 
+//#include <boost/predef.h>
+
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.stdalt.h"
 
@@ -71,7 +73,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit button(widget_type& parent, const style_type style = style_type::normal)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -80,7 +82,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_style(style)

@@ -11,6 +11,8 @@
 
 //#include <memory>
 
+//#include <boost/predef.h>
+
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.stdalt.h"
 
@@ -89,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         picture_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
@@ -98,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace widget
             message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_picture_box(parent, scroll_bar_style)
         ),
-#if defined(_MSC_VER)
+#if BOOST_COMP_MSVC
 #   pragma warning(pop)
 #endif
         m_fast_paint_observer_set()
