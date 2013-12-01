@@ -202,7 +202,10 @@ BOOST_AUTO_TEST_SUITE(window_resized)
         view_type view(model, message_catalog);
         window_type window;
         diagram_picture_box_type diagram_picture_box(window);
-        property_bar_type property_bar(window, message_catalog);
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
+        property_bar_type property_bar(window, settings, message_catalog);
         const window_resized_type observer(view, window, diagram_picture_box, property_bar);
     }
 
@@ -215,7 +218,10 @@ BOOST_AUTO_TEST_SUITE(window_resized)
         view_type view(model, message_catalog);
         window_type window;
         diagram_picture_box_type diagram_picture_box(window);
-        property_bar_type property_bar(window, message_catalog);
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
+        property_bar_type property_bar(window, settings, message_catalog);
         const window_resized_type observer(view, window, diagram_picture_box, property_bar);
 
         observer();
