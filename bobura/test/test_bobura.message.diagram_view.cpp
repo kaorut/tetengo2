@@ -7,6 +7,7 @@
 */
 
 //#include <utility>
+//#include <vector>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
@@ -26,6 +27,8 @@ namespace
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
+
+    typedef boost::mpl::at<bobura::setting_type_list, bobura::type::setting::settings>::type settings_type;
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
@@ -80,7 +83,10 @@ BOOST_AUTO_TEST_SUITE(station_selected)
 
         window_type window;
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
+        property_bar_type property_bar(window, settings, message_catalog);
         const model_type model;
         const station_selected_type station_selected(property_bar, model, message_catalog);
     }
@@ -90,8 +96,11 @@ BOOST_AUTO_TEST_SUITE(station_selected)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        property_bar_type property_bar(window, settings, message_catalog);
         const model_type model;
         station_selected_type station_selected(property_bar, model, message_catalog);
 
@@ -116,8 +125,11 @@ BOOST_AUTO_TEST_SUITE(train_selected)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        property_bar_type property_bar(window, settings, message_catalog);
         const model_type model;
         const train_selected_type train_selected(property_bar, model, message_catalog);
     }
@@ -127,8 +139,11 @@ BOOST_AUTO_TEST_SUITE(train_selected)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        property_bar_type property_bar(window, settings, message_catalog);
         model_type model;
         model.timetable().insert_train_kind(
             model.timetable().train_kinds().end(),
@@ -163,8 +178,11 @@ BOOST_AUTO_TEST_SUITE(all_unselected)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        property_bar_type property_bar(window, settings, message_catalog);
         const all_unselected_type all_unselected(property_bar);
     }
 
@@ -173,8 +191,11 @@ BOOST_AUTO_TEST_SUITE(all_unselected)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
+        std::vector<string_type> settings_arguments;
+        settings_arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(settings_arguments);
         const message_catalog_type message_catalog;
-        property_bar_type property_bar(window, message_catalog);
+        property_bar_type property_bar(window, settings, message_catalog);
         all_unselected_type all_unselected(property_bar);
 
         all_unselected();

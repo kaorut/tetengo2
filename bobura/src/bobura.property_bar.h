@@ -29,6 +29,7 @@ namespace bobura
         \tparam SideBar         A side bar type.
         \tparam AbstractWindow  An abstract window type.
         \tparam MapBox          A map box type.
+        \tparam Settings        A settings type.
         \tparam MessageCatalog  A message catalog type.
         \tparam MessageTypeList A message type list.
     */
@@ -36,6 +37,7 @@ namespace bobura
         typename SideBar,
         typename AbstractWindow,
         typename MapBox,
+        typename Settings,
         typename MessageCatalog,
         typename MessageTypeList
     >
@@ -53,6 +55,9 @@ namespace bobura
         //! The map box type.
         typedef MapBox map_box_type;
 
+        //! The settings type.
+        typedef Settings settings_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -66,11 +71,17 @@ namespace bobura
             \brief Creates a property bar.
 
             \param parent          A parent.
+            \param settings        Settings.
             \param message_catalog A message catalog.
         */
-        property_bar(abstract_window_type& parent, const message_catalog_type& message_catalog)
+        property_bar(
+            abstract_window_type&       parent,
+            settings_type&              settings,
+            const message_catalog_type& message_catalog
+        )
         :
         base_type(parent),
+        m_settings(settings),
         m_message_catalog(message_catalog),
         m_p_map_box()
         {
@@ -120,6 +131,8 @@ namespace bobura
 
 
         // variables
+
+        settings_type& m_settings;
 
         const message_catalog_type& m_message_catalog;
 

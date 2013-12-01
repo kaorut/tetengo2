@@ -148,7 +148,7 @@ namespace bobura
         void initialize_window()
         {
             m_p_diagram_picture_box = tetengo2::stdalt::make_unique<diagram_picture_box_type>(m_base);
-            m_p_property_bar = tetengo2::stdalt::make_unique<property_bar_type>(m_base, m_message_catalog);
+            m_p_property_bar = tetengo2::stdalt::make_unique<property_bar_type>(m_base, m_settings, m_message_catalog);
 
             set_message_observers();
 
