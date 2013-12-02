@@ -121,9 +121,22 @@ namespace bobura
             return *m_p_map_box;
         }
 
+        /*!
+            \brief Saves the settings.
+        */
+        void save_settings()
+        {
+            m_settings.set_property_bar_width(this->preferred_width());
+            m_settings.set_property_bar_splitter_position(m_p_map_box->splitter_position());
+        }
+
 
     private:
         // types
+
+        typedef typename base_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename base_type::dimension_type dimension_type;
 
@@ -159,7 +172,17 @@ namespace bobura
                 )
             );
 
-            this->set_width(width_type(24));
+            const auto width = m_settings.property_bar_width();
+            if (width)
+                this->set_width(*width);
+            else
+                this->set_width(width_type(32));
+            this->size_observer_set().resized()();
+            const auto splitter_position = m_settings.property_bar_splitter_position();
+            if (splitter_position)
+                m_p_map_box->set_splitter_position(*splitter_position);
+            else
+                m_p_map_box->set_splitter_position(left_type(16));
         }
 
 

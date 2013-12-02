@@ -194,6 +194,8 @@ namespace bobura
         {
             m_settings.set_main_window_dimension(m_base.normal_dimension());
             m_settings.set_main_window_maximized(m_base.window_state() == window_state_type::maximized);
+
+            m_p_property_bar->save_settings();
         }
 
 
