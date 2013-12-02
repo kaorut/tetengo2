@@ -35,10 +35,11 @@ namespace bobura
 
         \tparam String       A string type.
         \tparam Path         A path type.
+        \tparam Position     A position type.
         \tparam Dimension    A dimension type.
         \tparam ConfigTraits A configuration traits type.
     */
-    template <typename String, typename Path, typename Dimension, typename ConfigTraits>
+    template <typename String, typename Path, typename Position, typename Dimension, typename ConfigTraits>
     class settings : private boost::noncopyable
     {
     public:
@@ -50,8 +51,17 @@ namespace bobura
         //! The path type.
         typedef Path path_type;
 
+        //! The position type.
+        typedef Position position_type;
+
+        //! The left type.
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
         //! The dimension type.
         typedef Dimension dimension_type;
+
+        //! The width type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
         //! The configuration traits type.
         typedef ConfigTraits config_traits_type;
@@ -189,13 +199,68 @@ namespace bobura
             m_p_config->set(string_type(TETENGO2_TEXT("MainWindow/Maximized")), config_value_type(status ? 1 : 0));
         }
 
+        /*!
+            \brief Returns the property bar width.
+
+            \return The property bar width.
+        */
+        boost::optional<width_type> property_bar_width()
+        const
+        {
+            const auto width = m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/PropertyBarWidth")));
+            if (!width || width->which() != 1)
+                return boost::none;
+
+            return boost::make_optional(width_type::from_pixels(boost::get<uint_type>(*width)));
+        }
+        
+        /*!
+            \brief Sets a property bar width.
+
+            \param width A width.
+        */
+        void set_property_bar_width(const width_type& width)
+        {
+            m_p_config->set(
+                string_type(TETENGO2_TEXT("MainWindow/PropertyBarWidth")),
+                config_value_type(width.template to_pixels<uint_type>())
+            );
+        }
+
+        /*!
+            \brief Returns the splitter bar position in the property bar.
+
+            \return The splitter bar position.
+        */
+        boost::optional<left_type> property_bar_splitter_position()
+        const
+        {
+            const auto position =
+                m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/PropertyBarSplitterPosition")));
+            if (!position || position->which() != 1)
+                return boost::none;
+
+            return boost::make_optional(left_type::from_pixels(boost::get<uint_type>(*position)));
+        }
+        
+        /*!
+            \brief Sets a splitter bar position in the property bar.
+
+            \param position A position.
+        */
+        void set_property_bar_splitter_position(const left_type& position)
+        {
+            m_p_config->set(
+                string_type(TETENGO2_TEXT("MainWindow/PropertyBarSplitterPosition")),
+                config_value_type(position.template to_pixels<uint_type>())
+            );
+        }
+
 
     private:
         // types
 
         typedef typename path_type::string_type path_string_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
