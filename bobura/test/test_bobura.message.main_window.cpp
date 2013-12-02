@@ -242,9 +242,9 @@ BOOST_AUTO_TEST_SUITE(window_closing)
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
-        settings_type settings(command_line_arguments);
-        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
-        observer(parent, confirm_file_save, settings);
+        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type> observer(
+            parent, confirm_file_save, []() {}
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -256,10 +256,9 @@ BOOST_AUTO_TEST_SUITE(window_closing)
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
-        const std::vector<string_type> command_line_arguments(1, string_type(TETENGO2_TEXT("path/to/exe")));
-        settings_type settings(command_line_arguments);
-        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type, settings_type>
-        observer(parent, confirm_file_save, settings);
+        const bobura::message::main_window::window_closing<abstract_window_type, confirm_file_save_type> observer(
+            parent, confirm_file_save, []() {}
+        );
 
         auto cancel = false;
         observer(cancel);

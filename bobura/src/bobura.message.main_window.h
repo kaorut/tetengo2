@@ -11,8 +11,10 @@
 
 #include <cassert>
 #include <cstddef>
+#include <functional>
 #include <iterator>
 #include <stdexcept>
+//#include <utility>
 #include <vector>
 
 #include <boost/throw_exception.hpp>
@@ -402,9 +404,8 @@ namespace bobura { namespace message { namespace main_window
 
         \tparam AbstractWindow  An abstract window type.
         \tparam ConfirmFileSave A file save confirmation type.
-        \tparam Settings        A settings type.
     */
-    template <typename AbstractWindow, typename ConfirmFileSave, typename Settings>
+    template <typename AbstractWindow, typename ConfirmFileSave>
     class window_closing
     {
     public:
@@ -416,8 +417,8 @@ namespace bobura { namespace message { namespace main_window
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
-        //! The settings type.
-        typedef Settings settings_type;
+        //! The setting saver type.
+        typedef std::function<void ()> save_settings_type;
 
 
         // constructors and destructor
@@ -427,17 +428,17 @@ namespace bobura { namespace message { namespace main_window
 
             \param window            A window.
             \param confirm_file_save A file save confirmation.
-            \param settings          Settings.
+            \param save_settings     A setting saver.
         */
         window_closing(
             abstract_window_type&         window,
             const confirm_file_save_type& confirm_file_save,
-            settings_type&                settings
+            save_settings_type            save_settings
         )
         :
         m_window(window),
         m_confirm_file_save(confirm_file_save),
-        m_settings(settings)
+        m_save_settings(std::move(save_settings))
         {}
 
 
@@ -452,28 +453,21 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             cancel = !m_confirm_file_save(m_window);
+            if (cancel)
+                return;
 
-            if (!cancel)
-            {
-                m_settings.set_main_window_dimension(m_window.normal_dimension());
-                m_settings.set_main_window_maximized(m_window.window_state() == window_state_type::maximized);
-            }
+            m_save_settings();
         }
 
 
     private:
-        // types
-
-        typedef typename abstract_window_type::window_state_type window_state_type;
-
-
         // variables
 
         abstract_window_type& m_window;
 
         const confirm_file_save_type& m_confirm_file_save;
 
-        settings_type& m_settings;
+        const save_settings_type m_save_settings;
 
 
     };

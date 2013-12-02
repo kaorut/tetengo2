@@ -86,8 +86,7 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                 diagram_picture_box_type,
                 property_bar_type,
-                boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
-                boost::mpl::at<setting_type_list, type::setting::settings>::type
+                boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
             main_window_message_type_list;
     }}
