@@ -148,7 +148,7 @@ namespace bobura
         void initialize_window()
         {
             m_p_diagram_picture_box = tetengo2::stdalt::make_unique<diagram_picture_box_type>(m_base);
-            m_p_property_bar = tetengo2::stdalt::make_unique<property_bar_type>(m_base, m_message_catalog);
+            m_p_property_bar = tetengo2::stdalt::make_unique<property_bar_type>(m_base, m_settings, m_message_catalog);
 
             set_message_observers();
 
@@ -175,7 +175,7 @@ namespace bobura
             );
             m_base.window_observer_set().closing().connect(
                 boost::mpl::at<message_type_list_type, message::main_window::type::window_closing>::type(
-                    m_base, m_confirm_file_save, m_settings
+                    m_base, m_confirm_file_save, [this]() { this->save_settings(); }
                 )
             );
             m_base.window_observer_set().destroyed().connect([](){ return message_loop_break_type()(0); });
@@ -188,6 +188,14 @@ namespace bobura
                     m_settings.image_directory_path() / string_type(TETENGO2_TEXT("bobura_app.ico"))
                 );
             m_base.set_icon(std::move(p_icon));
+        }
+
+        void save_settings()
+        {
+            m_settings.set_main_window_dimension(m_base.normal_dimension());
+            m_settings.set_main_window_maximized(m_base.window_state() == window_state_type::maximized);
+
+            m_p_property_bar->save_settings();
         }
 
 

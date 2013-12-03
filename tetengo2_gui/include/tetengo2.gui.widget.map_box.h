@@ -84,6 +84,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The position type.
         typedef typename base_type::position_type position_type;
 
+        //! The left type.
+        typedef typename gui::position<position_type>::left_type left_type;
+
         //! The mouse observer set type.
         typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
 
@@ -269,6 +272,27 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the splitter position.
+
+            \return The splitter position.
+        */
+        const left_type& splitter_position()
+        const
+        {
+            return m_splitter_position;
+        }
+
+        /*!
+            \brief Sets a splitter position.
+
+            \param position A position.
+        */
+        void set_splitter_position(left_type position)
+        {
+            m_p_splitter->move(std::move(position));
+        }
+
+        /*!
             \brief Returns the list selection observer set.
 
             \return The list selection observer set.
@@ -305,8 +329,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename base_type::canvas_type canvas_type;
 
-        typedef typename gui::position<position_type>::left_type left_type;
-
         typedef typename gui::position<position_type>::top_type top_type;
 
         typedef typename base_type::dimension_type dimension_type;
@@ -334,6 +356,22 @@ namespace tetengo2 { namespace gui { namespace widget
                 map_box_, position_type(left_type(0), top_type(0)), dimension_type(width_type(0), height_type(0))
             )
             {}
+
+
+            // functions
+
+            void move(left_type position)
+            {
+                auto adjusted_position = adjust_position(std::move(position));
+
+                if (this->template parent_to<map_box>().m_splitter_position == adjusted_position)
+                    return;
+
+                this->template parent_to<map_box>().m_splitter_position = std::move(adjusted_position);
+
+                this->parent().size_observer_set().resized()();
+                this->parent().repaint();
+            }
 
 
         private:
@@ -373,7 +411,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                move(cursor_position);
+                move(gui::position<position_type>::left(cursor_position));
             }
 
             virtual void mouse_moved_impl(const position_type& cursor_position)
@@ -382,7 +420,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!this->parent().mouse_captured(this))
                     return;
 
-                move(cursor_position);
+                move(gui::position<position_type>::left(cursor_position));
             }
 
             virtual void mouse_entered_impl()
@@ -402,21 +440,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // functions
 
-            void move(const position_type& cursor_position)
-            {
-                auto position = gui::position<position_type>::left(cursor_position);
-                adjust_position(position);
-
-                if (this->template parent_to<map_box>().m_splitter_position == position)
-                    return;
-
-                this->template parent_to<map_box>().m_splitter_position = std::move(position);
-
-                this->parent().size_observer_set().resized()();
-                this->parent().repaint();
-            }
-
-            void adjust_position(left_type& position)
+            left_type adjust_position(left_type position)
             {
                 const auto map_box_width =
                     left_type::from(gui::dimension<dimension_type>::width(this->parent().client_dimension()));
@@ -429,6 +453,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     position = map_box_width / 2;
                 }
+
+                return position;
             }
 
 
@@ -840,7 +866,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         left_type m_splitter_position;
 
-        std::unique_ptr<inner_item_type> m_p_splitter;
+        std::unique_ptr<splitter> m_p_splitter;
 
         std::vector<std::unique_ptr<value_item>> m_p_value_items;
 

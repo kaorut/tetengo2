@@ -11,6 +11,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 
 #include "test_tetengo2.gui.type_list.h"
@@ -33,6 +34,20 @@ namespace
     typedef value_type::first_type key_type;
 
     typedef value_type::second_type mapped_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type
+        position_type;
+
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+    typedef
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type
+        dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
 
     // functions
@@ -231,6 +246,29 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
             BOOST_CHECK_THROW(map_box.select_value(0), std::out_of_range);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(splitter_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        map_box_type map_box(parent);
+
+        map_box.splitter_position();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_splitter_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        map_box_type map_box(parent);
+        map_box.set_dimension(dimension_type(width_type(42), height_type(24)));
+
+        map_box.set_splitter_position(left_type(24));
+
+        BOOST_CHECK(map_box.splitter_position() == left_type(24));
     }
 
     BOOST_AUTO_TEST_CASE(list_selection_observer_set)

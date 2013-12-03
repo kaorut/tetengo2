@@ -866,6 +866,7 @@ namespace bobura
             settings<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::path>::type,
+                boost::mpl::at<ui_type_list, type::ui::position>::type,
                 boost::mpl::at<ui_type_list, type::ui::dimension>::type,
                 config_traits_type
             >

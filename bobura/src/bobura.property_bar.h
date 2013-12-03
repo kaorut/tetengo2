@@ -29,6 +29,7 @@ namespace bobura
         \tparam SideBar         A side bar type.
         \tparam AbstractWindow  An abstract window type.
         \tparam MapBox          A map box type.
+        \tparam Settings        A settings type.
         \tparam MessageCatalog  A message catalog type.
         \tparam MessageTypeList A message type list.
     */
@@ -36,6 +37,7 @@ namespace bobura
         typename SideBar,
         typename AbstractWindow,
         typename MapBox,
+        typename Settings,
         typename MessageCatalog,
         typename MessageTypeList
     >
@@ -53,6 +55,9 @@ namespace bobura
         //! The map box type.
         typedef MapBox map_box_type;
 
+        //! The settings type.
+        typedef Settings settings_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -66,11 +71,17 @@ namespace bobura
             \brief Creates a property bar.
 
             \param parent          A parent.
+            \param settings        Settings.
             \param message_catalog A message catalog.
         */
-        property_bar(abstract_window_type& parent, const message_catalog_type& message_catalog)
+        property_bar(
+            abstract_window_type&       parent,
+            settings_type&              settings,
+            const message_catalog_type& message_catalog
+        )
         :
         base_type(parent),
+        m_settings(settings),
         m_message_catalog(message_catalog),
         m_p_map_box()
         {
@@ -110,9 +121,23 @@ namespace bobura
             return *m_p_map_box;
         }
 
+        /*!
+            \brief Saves the settings.
+        */
+        void save_settings()
+        {
+            m_settings.set_property_bar_width(this->normal_preferred_width());
+            m_settings.set_property_bar_minimized(this->minimized());
+            m_settings.set_property_bar_splitter_position(m_p_map_box->splitter_position());
+        }
+
 
     private:
         // types
+
+        typedef typename base_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename base_type::dimension_type dimension_type;
 
@@ -120,6 +145,8 @@ namespace bobura
 
 
         // variables
+
+        settings_type& m_settings;
 
         const message_catalog_type& m_message_catalog;
 
@@ -146,7 +173,30 @@ namespace bobura
                 )
             );
 
-            this->set_width(width_type(24));
+            load_settings();
+        }
+
+        void load_settings()
+        {
+            const auto width = m_settings.property_bar_width();
+            if (width)
+                this->set_width(*width);
+            else
+                this->set_width(width_type(32));
+
+            this->size_observer_set().resized()();
+
+            const auto minimized = m_settings.property_bar_minimized();
+            if (minimized)
+                this->set_minimized(*minimized);
+            else
+                this->set_minimized(false);
+
+            const auto splitter_position = m_settings.property_bar_splitter_position();
+            if (splitter_position)
+                m_p_map_box->set_splitter_position(*splitter_position);
+            else
+                m_p_map_box->set_splitter_position(left_type(16));
         }
 
 

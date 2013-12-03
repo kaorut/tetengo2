@@ -26,6 +26,10 @@ namespace
 
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
+
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dimension>::type dimension_type;
 
     typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
@@ -158,34 +162,30 @@ BOOST_AUTO_TEST_SUITE(settings)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            std::vector<string_type> arguments;
-            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
-            settings_type settings(arguments);
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(arguments);
 
-            settings.set_main_window_dimension(dimension_type(width_type(42), height_type(24)));
+        settings.set_main_window_dimension(dimension_type(width_type(42), height_type(24)));
 
-            const auto dimension = settings.main_window_dimension();
+        const auto dimension = settings.main_window_dimension();
 
-            BOOST_REQUIRE(dimension);
-            BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::width(*dimension) == width_type(42));
-            BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::height(*dimension) == height_type(24));
-        }
+        BOOST_REQUIRE(dimension);
+        BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::width(*dimension) == width_type(42));
+        BOOST_CHECK(tetengo2::gui::dimension<dimension_type>::height(*dimension) == height_type(24));
     }
 
     BOOST_AUTO_TEST_CASE(main_window_maximized)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            std::vector<string_type> arguments;
-            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
-            const settings_type settings(arguments);
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
 
-            const auto maximized = settings.main_window_maximized();
+        const auto maximized = settings.main_window_maximized();
 
-            BOOST_REQUIRE(!maximized);
-        }
+        BOOST_REQUIRE(!maximized);
     }
 
     BOOST_AUTO_TEST_CASE(set_main_window_maximized)
@@ -216,6 +216,107 @@ BOOST_AUTO_TEST_SUITE(settings)
             BOOST_REQUIRE(maximized);
             BOOST_CHECK(*maximized);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(property_bar_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
+
+        const auto width = settings.property_bar_width();
+
+        BOOST_REQUIRE(!width);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_property_bar_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(arguments);
+
+        settings.set_property_bar_width(width_type(42));
+
+        const auto width = settings.property_bar_width();
+
+        BOOST_REQUIRE(width);
+        BOOST_CHECK(*width == width_type(42));
+    }
+
+    BOOST_AUTO_TEST_CASE(property_bar_minimized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
+
+        const auto minimized = settings.property_bar_minimized();
+
+        BOOST_REQUIRE(!minimized);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_property_bar_minimized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_property_bar_minimized(false);
+
+            const auto minimized = settings.property_bar_minimized();
+
+            BOOST_REQUIRE(minimized);
+            BOOST_CHECK(!*minimized);
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_property_bar_minimized(true);
+
+            const auto minimized = settings.property_bar_minimized();
+
+            BOOST_REQUIRE(minimized);
+            BOOST_CHECK(*minimized);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(property_bar_splitter_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
+
+        const auto position = settings.property_bar_splitter_position();
+
+        BOOST_REQUIRE(!position);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_property_bar_splitter_position)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        settings_type settings(arguments);
+
+        settings.set_property_bar_splitter_position(left_type(42));
+
+        const auto position = settings.property_bar_splitter_position();
+
+        BOOST_REQUIRE(position);
+        BOOST_CHECK(*position == left_type(42));
     }
 
 
