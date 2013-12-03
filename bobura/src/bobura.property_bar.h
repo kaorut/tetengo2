@@ -184,13 +184,13 @@ namespace bobura
             else
                 this->set_width(width_type(32));
 
+            this->size_observer_set().resized()();
+
             const auto minimized = m_settings.property_bar_minimized();
             if (minimized)
                 this->set_minimized(*minimized);
             else
                 this->set_minimized(false);
-
-            this->size_observer_set().resized()();
 
             const auto splitter_position = m_settings.property_bar_splitter_position();
             if (splitter_position)
