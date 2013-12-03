@@ -54,6 +54,16 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         side_bar.preferred_width();
     }
 
+    BOOST_AUTO_TEST_CASE(normal_preferred_width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        side_bar_type side_bar(parent);
+
+        side_bar.normal_preferred_width();
+    }
+
     BOOST_AUTO_TEST_CASE(set_width)
     {
         BOOST_TEST_PASSPOINT();

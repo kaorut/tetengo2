@@ -136,6 +136,19 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the normal preferred width.
+
+            The normal preferred width is the width when the side bar is not minimized.
+
+            \return The normal preferred width.
+        */
+        const width_type& normal_preferred_width()
+        {
+            adjust_preferred_width(m_preferred_width);
+            return m_preferred_width;
+        }
+
+        /*!
             \brief Sets a width.
 
             \param width A width.

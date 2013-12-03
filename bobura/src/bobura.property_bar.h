@@ -126,7 +126,8 @@ namespace bobura
         */
         void save_settings()
         {
-            m_settings.set_property_bar_width(this->preferred_width());
+            m_settings.set_property_bar_width(this->normal_preferred_width());
+            m_settings.set_property_bar_minimized(this->minimized());
             m_settings.set_property_bar_splitter_position(m_p_map_box->splitter_position());
         }
 
@@ -172,12 +173,25 @@ namespace bobura
                 )
             );
 
+            load_settings();
+        }
+
+        void load_settings()
+        {
             const auto width = m_settings.property_bar_width();
             if (width)
                 this->set_width(*width);
             else
                 this->set_width(width_type(32));
+
+            const auto minimized = m_settings.property_bar_minimized();
+            if (minimized)
+                this->set_minimized(*minimized);
+            else
+                this->set_minimized(false);
+
             this->size_observer_set().resized()();
+
             const auto splitter_position = m_settings.property_bar_splitter_position();
             if (splitter_position)
                 m_p_map_box->set_splitter_position(*splitter_position);
