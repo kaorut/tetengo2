@@ -89,7 +89,7 @@ namespace tetengo2 { namespace stdalt
 /* lambda this capture bug workaround *****************************************/
 
 #if !defined(DOCUMENTATION)
-#   if BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)
+#   if BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)
 #       define TETENGO2_STDALT_HAS_LAMBDA_THIS_CAPTURE_BUG 1
 #   else
 #       define TETENGO2_STDALT_HAS_LAMBDA_THIS_CAPTURE_BUG 0
