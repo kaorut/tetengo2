@@ -247,6 +247,49 @@ BOOST_AUTO_TEST_SUITE(settings)
         BOOST_CHECK(*width == width_type(42));
     }
 
+    BOOST_AUTO_TEST_CASE(property_bar_minimized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<string_type> arguments;
+        arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+        const settings_type settings(arguments);
+
+        const auto minimized = settings.property_bar_minimized();
+
+        BOOST_REQUIRE(!minimized);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_property_bar_minimized)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_property_bar_minimized(false);
+
+            const auto minimized = settings.property_bar_minimized();
+
+            BOOST_REQUIRE(minimized);
+            BOOST_CHECK(!*minimized);
+        }
+        {
+            std::vector<string_type> arguments;
+            arguments.push_back(string_type(TETENGO2_TEXT("path/to/exe")));
+            settings_type settings(arguments);
+
+            settings.set_property_bar_minimized(true);
+
+            const auto minimized = settings.property_bar_minimized();
+
+            BOOST_REQUIRE(minimized);
+            BOOST_CHECK(*minimized);
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(property_bar_splitter_position)
     {
         BOOST_TEST_PASSPOINT();

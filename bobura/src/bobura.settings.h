@@ -228,6 +228,33 @@ namespace bobura
         }
 
         /*!
+            \brief Returns the minimized status of the property bar.
+
+            \return The minimized status.
+        */
+        boost::optional<bool> property_bar_minimized()
+        const
+        {
+            const auto status = m_p_config->get(string_type(TETENGO2_TEXT("MainWindow/PropertyBarMinimized")));
+            if (!status || status->which() != 1)
+                return boost::none;
+
+            return boost::make_optional(boost::get<uint_type>(*status) != 0);
+        }
+        
+        /*!
+            \brief Sets a minimized status of the property bar.
+
+            \param status A minimized status.
+        */
+        void set_property_bar_minimized(const bool status)
+        {
+            m_p_config->set(
+                string_type(TETENGO2_TEXT("MainWindow/PropertyBarMinimized")), config_value_type(status ? 1 : 0)
+            );
+        }
+
+        /*!
             \brief Returns the splitter bar position in the property bar.
 
             \return The splitter bar position.
