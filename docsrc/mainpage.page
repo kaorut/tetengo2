@@ -67,7 +67,7 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Visual Studio 2012 Update 3](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.55.0](http://www.boost.org/)
 - [bzip2](http://www.bzip.org)
-- [WiX 3.7](http://wixtoolset.org/)
+- [WiX 3.8](http://wixtoolset.org/)
 - [Doxygen 1.8.5](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
