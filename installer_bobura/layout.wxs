@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?include define.wxi ?>
-<Wix RequiredVersion="3.7.0.0" xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+<Wix RequiredVersion="3.8.0.0" xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Fragment Id="Layout">
     <DirectoryRef Id="INSTALLDIR" FileSource="$(var.bin)">
       <Component Id="BoburaExe" Guid="fe450803-dbde-4380-a1e9-e9937b810244">
