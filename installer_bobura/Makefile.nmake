@@ -1,6 +1,6 @@
 # Makes the Install Package.
 # This Makefile is for NMAKE.
-# Copyright (C) 2007-2013 kaoru
+# Copyright (C) 2007-2014 kaoru
 # $Id$
 
 DEL=-del /q

@@ -82,7 +82,7 @@ BEGIN
             VALUE "FileDescription", "Bobura Setup Bootstrapper"
             VALUE "FileVersion", "0.0.0"
             VALUE "InternalName", "setup"
-            VALUE "LegalCopyright", "Copyright (C) 2007-2013 kaoru"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2014 kaoru"
             VALUE "OriginalFilename", "setup.exe"
             VALUE "ProductName", "setup"
             VALUE "ProductVersion", "0.0.0"

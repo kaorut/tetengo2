@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::model::station_info::grade.
 
-    Copyright (C) 2007-2013 kaoru
+    Copyright (C) 2007-2014 kaoru
 
     $Id$
 */

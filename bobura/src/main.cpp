@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of the main function.
 
-    Copyright (C) 2007-2013 kaoru
+    Copyright (C) 2007-2014 kaoru
 
     $Id$
 */
