@@ -1,6 +1,6 @@
 #!/bin/sh
 # Checks typedefs.
-# Copyright (C) 2007-2013 kaoru
+# Copyright (C) 2007-2014 kaoru
 # $Id$
 
 LANG=C
