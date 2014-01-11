@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::model::timetable_info::font_color_set.
 
-    Copyright (C) 2007-2013 kaoru
+    Copyright (C) 2007-2014 kaoru
 
     $Id$
 */
