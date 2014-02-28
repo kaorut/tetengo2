@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "Bobura & Tetengo2"
+PROJECT_NAME           = "Tetengo2"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -44,7 +44,7 @@ PROJECT_NUMBER         = 0.0.0
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "Some software about railways and a kind of GUI toolkit"
+PROJECT_BRIEF          = "A kind of GUI toolkit"
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is included in
 # the documentation. The maximum height of the logo should not exceed 55 pixels
@@ -744,9 +744,6 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = docsrc \
-                         bobura/src \
-                         bobura_model/include \
-                         setup/src \
                          tetengo2/include \
                          tetengo2_detail/include \
                          tetengo2_gui/include

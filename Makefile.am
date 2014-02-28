@@ -3,16 +3,11 @@
 # $Id$
 
 SUBDIRS = \
-     bobura bobura_model \
      docsrc \
-     iconsrc \
-     installer_bobura \
      precompiled \
-     samples \
-     setup \
      tetengo2 tetengo2_detail tetengo2_gui
 
-EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile
+EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 
 .PHONY: lint
 lint: lint-includes lint-test-cases lint-typedefs

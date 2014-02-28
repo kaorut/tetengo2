@@ -1,16 +1,16 @@
 /*! \file
-    \brief The common configuration for bobura.
+    \brief The common configuration for Tetengo2.
 
-    Copy this file to the solution directory with the name "bobura_config.h"
-    and edit it to build bobura.
+    Copy this file to the solution directory with the name "tetengo2_config.h"
+    and edit it to build Tetengo2.
 
     Copyright (C) 2007-2014 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURACONFIG_H)
-#define BOBURACONFIG_H
+#if !defined(TETENGO2CONFIG_H)
+#define TETENGO2CONFIG_H
 
 
 // Set to 1 when you are using Visual C++ Express Edition.

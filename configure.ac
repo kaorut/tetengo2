@@ -4,27 +4,14 @@
 
 #### General ####
 AC_PREREQ([2.67])
-AC_INIT([bobura], [0.0.0], [kaorut@mc.pikara.ne.jp])
+AC_INIT([Tetengo2], [0.0.0], [kaorut@mc.pikara.ne.jp])
 AM_INIT_AUTOMAKE([gnu dist-bzip2 dist-zip])
-AC_CONFIG_SRCDIR([bobura_config.h-original])
+AC_CONFIG_SRCDIR([tetengo2_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     Makefile
-    bobura/Makefile
-    bobura/res/Makefile
-    bobura/src/Makefile
-    bobura/test/Makefile
-    bobura_model/Makefile
-    bobura_model/include/Makefile
-    bobura_model/test/Makefile
     docsrc/Makefile
-    iconsrc/Makefile
-    installer_bobura/Makefile
     precompiled/Makefile
-    samples/Makefile
-    setup/Makefile
-    setup/res/Makefile
-    setup/src/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
     tetengo2/res.test/Makefile

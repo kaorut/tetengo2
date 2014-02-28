@@ -8,12 +8,6 @@
 
 /*! \mainpage
 
-What is Bobura? {#what_is_bobura}
-===============
-
-Bobura is some software about railways.
-
-
 What is Tetengo2? {#what_is_tetengo2}
 =================
 
@@ -22,14 +16,6 @@ Tetengo2 is a kind of GUI toolkit.
 
 Requirements {#requirements}
 ============
-
-Bobura application
-------------------
-
-- [Windows 7](http://www.microsoft.com/) or later
-
-Bobura and Tetengo2 libraries
------------------------------
 
 The libraries are available on Windows and UNIX-like systems.
 
@@ -56,13 +42,13 @@ Cloning the Repository
 You can clone the Git repository like this:
 
 ~~~~{.sh}
-$ git clone http://github.com/kaorut/bobura.git
+$ git clone https://github.com/kaorut/tetengo2.git
 ~~~~
 
 Building on Windows
 -------------------
 
-You need the following tools in order to build Bubura and Tetengo2:
+You need the following tools in order to build Tetengo2:
 
 - [Visual Studio 2012 Update 3](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.55.0](http://www.boost.org/)
@@ -71,24 +57,21 @@ You need the following tools in order to build Bubura and Tetengo2:
 - [Doxygen 1.8.6](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
-First make a copy of `bobura_config.h-original` in the top source directory and name it `bobura_config.h`.
-Edit `bobura_config.h` according to your environment.
+First make a copy of `tetengo2_config.h-original` in the top source directory and name it `tetengo2_config.h`.
+Edit `tetengo2_config.h` according to your environment.
 
-Open `bobura.sln` with Visual Studio and build the solution in order to build Bubura and run the unit tests.
+Open `tetengo2.sln` with Visual Studio and build the solution in order to build Tetengo2 and run the unit tests.
 
 To generate API documents, open Command Prompt and run `doxygen` command in the top source directory:
 
 ~~~~{.bat}
-X:\path\to\bobura> doxygen
+X:\path\to\tetengo2> doxygen
 ~~~~
 
 Building on UNIX
 ----------------
 
-On UNIX, we cannot build a Bobura executable yet. However, we can build the Bubura and Tentengo2 libraries and use
-them.
-
-You need the following tools in order to build Bubura and Tetengo2 libraries:
+You need the following tools in order to build Tetengo2 libraries:
 
 - [GCC 4.7.2 or 4.8.2](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
@@ -120,7 +103,7 @@ $ make
 $ sudo make install
 ~~~~
 
-The following instruction tests the Bobura and Tetengo2 libraries:
+The following instruction tests the Tetengo2 libraries:
 
 ~~~~{.sh}
 $ make check
