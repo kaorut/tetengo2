@@ -1,4 +1,3 @@
-*.$hd
 *.a
 *.gch
 *.log
@@ -8,14 +7,11 @@
 *.opensdf
 *.sdf
 *.suo
-*.wixobj
-*.wixpdb
 *.vcxproj.user
 .deps
 aclocal.m4
 autom4te.cache
 bin/
-bobura_config.h
 config.*
 configure
 depcomp
@@ -29,6 +25,7 @@ missing
 obj/
 obj.test/
 stamp-h1
+tetengo2_config.h
 tools/zzz_codesign.bat
 tools/zzz_test_case_check_functions.txt
 tools/zzz_test_case_check_test_cases.txt

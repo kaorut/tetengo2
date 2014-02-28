@@ -29,7 +29,7 @@ var macroName = WScript.Arguments(1);
 
 var stream =
 	WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(
-		solutionDirectory + "bobura_config.h", 1, false, 0
+		solutionDirectory + "tetengo2_config.h", 1, false, 0
 	);
 try
 {
