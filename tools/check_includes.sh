@@ -5,7 +5,7 @@
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/zzz_paths.sh
+. $SOLUTIONDIR/tools/paths.sh
 
 EXIT_STATUS=0
 

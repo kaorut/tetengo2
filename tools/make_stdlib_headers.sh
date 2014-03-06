@@ -5,7 +5,7 @@
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/zzz_paths.sh
+. $SOLUTIONDIR/tools/paths.sh
 
 for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
