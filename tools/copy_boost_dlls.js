@@ -8,9 +8,7 @@ function getDestinationDirectory(solutionDirectory, releaseOrDebug, platform)
 {
 	var filesystem = WScript.CreateObject("Scripting.FileSystemObject");
 	
-	return filesystem.BuildPath(
-		solutionDirectory, "bin\\" + releaseOrDebug + "." + platform
-	);
+	return filesystem.BuildPath(solutionDirectory, "bin\\" + releaseOrDebug + "." + platform);
 }
 
 function getDllNames(version, debug)
@@ -35,10 +33,7 @@ function copyFile(sourceDirectory, destinationDirectory, fileName)
 	var filesystem = WScript.CreateObject("Scripting.FileSystemObject");
 	
 	var sourceFile = filesystem.BuildPath(sourceDirectory, fileName);
-	WScript.Echo(
-		"Copying \"" + sourceFile + "\" to \"" + destinationDirectory +
-		"\" ..."
-	);
+	WScript.Echo("Copying \"" + sourceFile + "\" to \"" + destinationDirectory + "\" ...");
 	filesystem.CopyFile(sourceFile, destinationDirectory);
 }
 
@@ -47,41 +42,29 @@ function copyFile(sourceDirectory, destinationDirectory, fileName)
 
 function include(script)
 {
-	var path =
-		WScript.ScriptFullName.replace(
-			new RegExp(WScript.ScriptName + "$"), ""
-		);
-	var stream =
-		WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(
-			path + script, 1, false, 0
-		);
+	var path = WScript.ScriptFullName.replace(new RegExp(WScript.ScriptName + "$"), "");
+	var stream = WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(path + script, 1, false, 0);
 	try { return stream.ReadAll(); } finally { stream.Close(); }
 }
-eval(include("zzz_parse_bobura_config.js"));
+eval(include("zzz_parse_solution_config.js"));
 
 if (WScript.Arguments.length < 2)
 {
-	WScript.Echo(
-		"Usage: cscript copy_boost_dlls.js SOLUTION_DIRECTORY RELEASE_OR_DEBUG PLATFORM"
-	);
+	WScript.Echo("Usage: cscript copy_boost_dlls.js SOLUTION_DIRECTORY RELEASE_OR_DEBUG PLATFORM");
 	WScript.Quit(1);
 }
 var solutionDirectory = WScript.Arguments(0);
-var releaseOrDebug = WScript.Arguments(1);
-var platform = WScript.Arguments(2);
+var configFileName = WScript.Arguments(1);
+var releaseOrDebug = WScript.Arguments(2);
+var platform = WScript.Arguments(3);
 
-var stream =
-	WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(
-		solutionDirectory + "tetengo2_config.h", 1, false, 0
-	);
+var stream = WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(configFileName, 1, false, 0);
 try
 {
 	var version = getMacroValue(stream, "BOOST_VERSION");
 	var sourceDirectory = getMacroValue(stream, "BOOST_LIB_" + platform);
-	var destinationDirectory =
-		getDestinationDirectory(solutionDirectory, releaseOrDebug, platform);
-	var dllNames =
-		getDllNames(version, releaseOrDebug.toLowerCase() == "debug");
+	var destinationDirectory = getDestinationDirectory(solutionDirectory, releaseOrDebug, platform);
+	var dllNames = getDllNames(version, releaseOrDebug.toLowerCase() == "debug");
 
 	for (var i = 0; i < dllNames.length; ++i)
 		copyFile(sourceDirectory, destinationDirectory, dllNames[i]);

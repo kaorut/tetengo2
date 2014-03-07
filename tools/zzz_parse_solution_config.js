@@ -1,5 +1,5 @@
 /*
-	bobra_config.h Parser
+	Solution Config Parser
 	Copyright (C) 2007-2014 kaoru
 	$Id$
 */
