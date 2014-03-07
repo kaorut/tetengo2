@@ -1,12 +1,3 @@
-bobura::command::parameter_base::as
-bobura::diagram_view::to_station_position::
-bobura::model::serializer::oudia_reader::file_type::
-bobura::model::serializer::oudia_reader::[a-z_]*state::
-bobura::model::serializer::windia_reader::[a-z_]*state::
-bobura::model::serializer::windia_reader::preset_train_kind_type::
-bobura::model::timetable::replace_train_kind_index::
-bobura::settings::value_impl::
-setup::encode
 tetengo2::stdalt::
 tetengo2::gui::message::paint_observer_set::logical_or_combiner::
 tetengo2::gui::virtual_key::
@@ -20,17 +11,6 @@ tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::matches_locale_type::
 tetengo2::suppress_unused_variable_warning
 
-test_bobura::model::serializer::reader_selector::selects
-test_bobura::model::serializer::reader_selector::read
-test_bobura::model::serializer::writer_selector::extension
-test_bobura::model::serializer::writer_selector::selects
-test_bobura::model::serializer::writer_selector::write
-test_bobura::model::serializer::[a-zA-Z0-9_]+_reader::selects
-test_bobura::model::serializer::[a-zA-Z0-9_]+_reader::read
-test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::extension
-test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::selects
-test_bobura::model::serializer::[a-zA-Z0-9_]+_writer::write
-test_bobura::model::station_info::[a-zA-Z0-9_]+::name
 test_tetengo2::config::config_list::get
 test_tetengo2::config::config_list::set
 test_tetengo2::config::[a-zA-Z0-9_]+_config::get
