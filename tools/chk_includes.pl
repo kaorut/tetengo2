@@ -65,6 +65,9 @@ sub collect_stdlib_usages
 	{
 		chomp;
 		my $line = $_;
+		
+		next if $line =~/\#include\s+/;
+		
 		while (
 			$line =~ /(std::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 			$line =~ /(assert)/ ||
@@ -146,10 +149,13 @@ sub check
 	
 	for my $usage (keys(%$r_usages))
 	{
-		my $header = $$r_mappings{$usage};
-		if (!$$r_includes{$header})
+		my $headers = $$r_mappings{$usage};
+		for my $header (split(/\,/, $headers))
 		{
-			print_warning($source_filename, 'Include <'.$header.'>.');
+			if (!$$r_includes{$header})
+			{
+				print_warning($source_filename, 'Include <'.$header.'>.');
+			}
 		}
 	}
 	
@@ -159,10 +165,13 @@ sub check
 		my $found = -1;
 		for (my $i = 0; $i < scalar(@used_headers); ++$i)
 		{
-			if ($used_headers[$i] eq $include)
+			for my $used_header (split(/\,/, $used_headers[$i]))
 			{
-				$found = $i;
-				last;
+				if ($used_header eq $include)
+				{
+					$found = $i;
+					last;
+				}
 			}
 		}
 		if ($found < 0)
