@@ -31,8 +31,8 @@
 #include <intsafe.h>
 #include <stdint.h>
 //#pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
+#define NOMINMAX
+#define OEMRESOURCE
 #include <Windows.h>
 //#if !defined(min) && !defined(DOCUMENTATION)
 //#   define min(a, b) ((a) < (b) ? (a) : (b))

@@ -17,8 +17,8 @@
 #include <intsafe.h>
 #include <stdint.h>
 #pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
+#define NOMINMAX
+#define OEMRESOURCE
 #include <Windows.h>
 #include <d2d1.h>
 
