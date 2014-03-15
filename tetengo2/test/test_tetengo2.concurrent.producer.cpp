@@ -6,11 +6,11 @@
     $Id$
 */
 
-//#include <exception>
+#include <exception>
 #include <queue>
 #include <stdexcept>
 
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 

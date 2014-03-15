@@ -9,24 +9,24 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_SCROLL_H)
 #define TETENGO2_DETAIL_WINDOWS_SCROLL_H
 
-//#include <cassert>
-//#include <cstddef>
-//#include <memory>
-//#include <stdexcept>
-//#include <system_error>
-//#include <utility>
+#include <cassert>
+#include <cstddef>
+#include <memory>
+#include <stdexcept>
+#include <system_error>
+#include <utility>
 
-//#include <boost/noncopyable.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.stdalt.h"

@@ -13,13 +13,13 @@
 #include <functional>
 #include <ios>
 #include <istream>
-//#include <iterator>
+#include <iterator>
 #include <locale>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
-//#include <utility>
+#include <utility>
 #include <vector>
 
 #include <boost/algorithm/string.hpp>

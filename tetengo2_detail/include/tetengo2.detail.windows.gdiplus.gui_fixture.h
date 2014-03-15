@@ -9,26 +9,26 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_GUIFIXTURE_H
 
-//#include <system_error>
+#include <system_error>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 //#if !defined(min) && !defined(DOCUMENTATION)
 //#   define min(a, b) ((a) < (b) ? (a) : (b))
 //#endif
 //#if !defined(max) && !defined(DOCUMENTATION)
 //#   define max(a, b) ((a) > (b) ? (a) : (b))
 //#endif
-//#include <GdiPlus.h>
+#include <GdiPlus.h>
 //#undef min
 //#undef max
 

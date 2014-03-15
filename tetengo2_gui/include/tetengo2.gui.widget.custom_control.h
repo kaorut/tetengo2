@@ -9,12 +9,12 @@
 #if !defined(TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H)
 #define TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H
 
-//#include <cassert>
-//#include <memory>
-//#include <utility>
+#include <cassert>
+#include <memory>
+#include <utility>
 
-//#include <boost/noncopyable.hpp>
-//#include <boost/predef.h>
+#include <boost/noncopyable.hpp>
+#include <boost/predef.h>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"

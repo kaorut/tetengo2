@@ -9,17 +9,17 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
-//#include <cassert>
+#include <cassert>
 #include <limits>
-//#include <memory>
-//#include <stdexcept>
-//#include <system_error>
-//#include <utility>
+#include <memory>
+#include <stdexcept>
+#include <system_error>
+#include <utility>
 
 #include <boost/math/constants/constants.hpp>
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
@@ -28,11 +28,11 @@
 #pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
-//#include <d2d1.h>
+#include <Windows.h>
+#include <d2d1.h>
 #include <dwrite.h>
 #include <dxgiformat.h>
-//#include <Unknwn.h>
+#include <Unknwn.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.direct2d.error_category.h"

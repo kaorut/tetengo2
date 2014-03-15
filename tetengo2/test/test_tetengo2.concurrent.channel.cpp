@@ -6,10 +6,10 @@
     $Id$
 */
 
-//#include <cassert>
+#include <cassert>
 #include <cstddef>
-//#include <exception>
-//#include <stdexcept>
+#include <exception>
+#include <stdexcept>
 #include <string>
 
 #include <boost/test/unit_test.hpp>

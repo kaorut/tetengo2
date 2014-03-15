@@ -10,9 +10,9 @@
 #define TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H
 
 #include <cassert>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

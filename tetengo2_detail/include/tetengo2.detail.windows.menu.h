@@ -10,26 +10,26 @@
 #define TETENGO2_DETAIL_WINDOWS_MENU_H
 
 #include <algorithm>
-//#include <cassert>
-//#include <iterator>
-//#include <memory>
-//#include <stdexcept>
-//#include <system_error>
-//#include <type_traits>
-//#include <utility>
-//#include <vector>
+#include <cassert>
+#include <iterator>
+#include <memory>
+#include <stdexcept>
+#include <system_error>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
-//#include <boost/noncopyable.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.stdalt.h"

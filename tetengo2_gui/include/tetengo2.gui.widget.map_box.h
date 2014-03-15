@@ -10,17 +10,17 @@
 #define TETENGO2_GUI_WIDGET_MAPBOX_H
 
 #include <algorithm>
-//#include <cassert>
+#include <cassert>
 #include <cstddef>
-//#include <iterator>
-//#include <memory>
-//#include <stdexcept>
-//#include <utility>
-//#include <vector>
+#include <iterator>
+#include <memory>
+#include <stdexcept>
+#include <utility>
+#include <vector>
 
-//#include <boost/optional.hpp>
-//#include <boost/rational.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/optional.hpp>
+#include <boost/rational.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include "tetengo2.gui.measure.h"

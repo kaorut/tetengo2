@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H
 
-//#include <system_error>
+#include <system_error>
 
-//#include <boost/noncopyable.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
@@ -21,7 +21,7 @@
 #pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 #include <CommCtrl.h>
 #include <ObjBase.h>
 

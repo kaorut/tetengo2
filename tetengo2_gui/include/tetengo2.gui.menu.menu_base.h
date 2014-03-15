@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBASE_H)
 #define TETENGO2_GUI_MENU_MENUBASE_H
 
-//#include <cassert>
-//#include <memory>
+#include <cassert>
+#include <memory>
 #include <stdexcept>
-//#include <utility>
+#include <utility>
 #include <vector>
 
 #include <boost/iterator/indirect_iterator.hpp>

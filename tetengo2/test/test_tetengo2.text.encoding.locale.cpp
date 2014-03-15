@@ -6,9 +6,9 @@
     $Id$
 */
 
-//#include <locale>
-//#include <stdexcept>
-//#include <string>
+#include <locale>
+#include <stdexcept>
+#include <string>
 
 #include <boost/test/unit_test.hpp>
 

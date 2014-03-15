@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_CONFIG_CONFIGBASE_H)
 #define TETENGO2_CONFIG_CONFIGBASE_H
 
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

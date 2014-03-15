@@ -6,9 +6,9 @@
     $Id$
 */
 
-//#include <utility>
+#include <utility>
 
-//#include <boost/rational.hpp>
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.unit.pixel.h"

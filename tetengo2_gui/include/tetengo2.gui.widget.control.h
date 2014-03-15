@@ -9,11 +9,11 @@
 #if !defined(TETENGO2_GUI_WIDGET_CONTROL_H)
 #define TETENGO2_GUI_WIDGET_CONTROL_H
 
-//#include <cassert>
-//#include <utility>
+#include <cassert>
+#include <utility>
 
-//#include <boost/optional.hpp>
-//#include <boost/predef.h>
+#include <boost/optional.hpp>
+#include <boost/predef.h>
 
 #include "tetengo2.gui.widget.widget.h"
 #include "tetengo2.stdalt.h"

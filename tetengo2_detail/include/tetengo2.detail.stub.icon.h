@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_ICON_H)
 #define TETENGO2_DETAIL_STUB_ICON_H
 
-//#include <memory>
+#include <memory>
 
 #include <boost/noncopyable.hpp>
 

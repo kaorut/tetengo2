@@ -10,40 +10,40 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
 #include <algorithm>
-//#include <cassert>
-//#include <cstddef>
-//#include <iterator>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
 #include <limits>
-//#include <memory>
-//#include <stdexcept>
-//#include <system_error>
-//#include <type_traits>
-//#include <utility>
-//#include <vector>
+#include <memory>
+#include <stdexcept>
+#include <system_error>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include <boost/math/constants/constants.hpp>
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 //#if !defined(min) && !defined(DOCUMENTATION)
 //#   define min(a, b) ((a) < (b) ? (a) : (b))
 //#endif
 //#if !defined(max) && !defined(DOCUMENTATION)
 //#   define max(a, b) ((a) > (b) ? (a) : (b))
 //#endif
-//#include <GdiPlus.h>
+#include <GdiPlus.h>
 //#undef min
 //#undef max
-//#include <wincodec.h>
+#include <wincodec.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"

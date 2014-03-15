@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_MENU_COMMAND_H)
 #define TETENGO2_GUI_MENU_COMMAND_H
 
-//#include <utility>
+#include <utility>
 
 #include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.stdalt.h"

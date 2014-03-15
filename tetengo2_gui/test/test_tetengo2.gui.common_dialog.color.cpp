@@ -6,8 +6,8 @@
     $Id$
 */
 
-//#include <boost/mpl/at.hpp>
-//#include <boost/optional.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_tetengo2.gui.type_list.h"

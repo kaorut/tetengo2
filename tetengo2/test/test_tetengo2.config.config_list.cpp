@@ -6,13 +6,13 @@
     $Id$
 */
 
-//#include <memory>
-//#include <utility>
-//#include <vector>
+#include <memory>
+#include <utility>
+#include <vector>
 
-//#include <boost/mpl/at.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
-//#include <boost/variant.hpp>
+#include <boost/variant.hpp>
 
 #include "test_tetengo2.type_list.h"
 #include "tetengo2.config.temporary_config.h"

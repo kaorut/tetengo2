@@ -10,10 +10,10 @@
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
 #include <cstddef>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 #include <system_error>
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 

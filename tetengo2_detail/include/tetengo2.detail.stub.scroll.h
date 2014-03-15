@@ -10,9 +10,9 @@
 #define TETENGO2_DETAIL_STUB_SCROLL_H
 
 #include <cstddef>
-//#include <memory>
+#include <memory>
 #include <system_error>
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 

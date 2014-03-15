@@ -10,9 +10,9 @@
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
 #include <cstddef>
-//#include <utility>
+#include <utility>
 
-//#include <boost/predef.h>
+#include <boost/predef.h>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"

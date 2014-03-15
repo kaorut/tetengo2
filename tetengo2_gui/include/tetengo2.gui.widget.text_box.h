@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_TEXTBOX_H)
 #define TETENGO2_GUI_WIDGET_TEXTBOX_H
 
-//#include <boost/predef.h>
+#include <boost/predef.h>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.control.h"

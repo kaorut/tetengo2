@@ -10,8 +10,8 @@
 #define TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
 #include <cassert>
-//#include <memory>
-//#include <utility>
+#include <memory>
+#include <utility>
 
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.stdalt.h"

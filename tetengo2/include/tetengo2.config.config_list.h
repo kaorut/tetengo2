@@ -10,11 +10,11 @@
 #define TETENGO2_CONFIG_CONFIGLIST_H
 
 #include <algorithm>
-//#include <memory>
-//#include <utility>
+#include <memory>
+#include <utility>
 #include <vector>
 
-//#include <boost/optional.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
 #include "tetengo2.stdalt.h"

@@ -10,9 +10,9 @@
 #define TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H
 
 #include <cstddef>
-//#include <string>
+#include <string>
 #include <system_error>
-//#include <vector>
+#include <vector>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
@@ -21,7 +21,7 @@
 #pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <Windows.h>
+#include <Windows.h>
 #include <wincodec.h>
 
 #include "tetengo2.detail.windows.encoding.h"
