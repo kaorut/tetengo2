@@ -28,10 +28,10 @@ my $exit_status = 0;
 	my %usages;
 	collect_stdlib_usages($source_filename, \%stdlib_header_mappings, \%usages);
 	
-	my %includes;
-	collect_stdlib_includes($source_filename, \%includes);
+	my @includes;
+	collect_stdlib_includes($source_filename, \@includes);
 	
-	check($source_filename, \%usages, \%includes, \%stdlib_header_mappings);
+	check($source_filename, \%usages, \@includes, \%stdlib_header_mappings);
 	
 	exit $exit_status;
 }
@@ -112,7 +112,7 @@ sub collect_stdlib_includes
 		{
 			if (is_stdlib_header($1))
 			{
-				$$r_includes{$1} = 1;
+				push(@$r_includes, $1);
 			}
 		}
 		
@@ -147,20 +147,120 @@ sub check
 {
 	my($source_filename, $r_usages, $r_includes, $r_mappings) = @_;
 	
+	check_include_order($source_filename, $r_includes) if $source_filename !~ /tetengo2\.stdalt\.h/;
+	check_header_includes($source_filename, $r_usages, $r_includes, $r_mappings);
+	check_header_usages($source_filename, $r_usages, $r_includes);
+}
+
+sub check_include_order
+{
+	my($source_filename, $r_includes) = @_;
+	
+	if (scalar(sort_and_uniq($r_includes)) != scalar(@$r_includes))
+	{
+		print_warning($source_filename, 'Duplicate #includes found.');
+		for my $include (@$r_includes)
+		{
+			print_warning($source_filename, '  '.$include);
+		}
+	}
+	
+	{
+		# Standard Library
+		my @original;
+		for my $include (@$r_includes)
+		{
+			next if $include !~ /^[a-z0-9_\/]+$/;
+			
+			push(@original, $include);
+		}
+		
+		my @sorted = sort(@original);
+		
+		if (join("\0", @sorted) ne join("\0", @original))
+		{
+			print_warning($source_filename, 'The standard libary header #include is not sorted.');
+			for my $include (@original)
+			{
+				print_warning($source_filename, '  '.$include);
+			}
+		}
+	}
+	{
+		# Boost Library
+		my @original;
+		for my $include (@$r_includes)
+		{
+			next if $include !~ /^boost\/.+\.hpp$/ && $include !~ /^boost\/.+\.h$/;
+			
+			push(@original, $include);
+		}
+		
+		my @sorted = sort(@original);
+		
+		if (join("\0", @sorted) ne join("\0", @original))
+		{
+			print_warning($source_filename, 'The Boost libary header #include is not sorted.');
+			for my $include (@original)
+			{
+				print_warning($source_filename, '  '.$include);
+			}
+		}
+	}
+}
+
+sub sort_and_uniq
+{
+	my($r_array) = @_;
+	
+	my %hash;
+	for my $element (@$r_array)
+	{
+		$hash{$element} = 1;
+	}
+	
+	my @result = sort(keys(%hash));
+	return @result;
+}
+
+sub check_header_includes
+{
+	my($source_filename, $r_usages, $r_includes, $r_mappings) = @_;
+	
 	for my $usage (keys(%$r_usages))
 	{
 		my $headers = $$r_mappings{$usage};
 		for my $header (split(/\,/, $headers))
 		{
-			if (!$$r_includes{$header})
+			if (!exists_in_array($r_includes, $header))
 			{
 				print_warning($source_filename, 'Include <'.$header.'>.');
 			}
 		}
 	}
+}
+
+sub exists_in_array
+{
+	my($r_array, $element) = @_;
+	
+	for my $array_element (@$r_array)
+	{
+		if ($array_element eq $element)
+		{
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+
+sub check_header_usages
+{
+	my($source_filename, $r_usages, $r_includes) = @_;
 	
 	my @used_headers = values(%$r_usages);
-	for my $include (keys(%$r_includes))
+	for my $include (@$r_includes)
 	{
 		my $found = -1;
 		for (my $i = 0; $i < scalar(@used_headers); ++$i)
