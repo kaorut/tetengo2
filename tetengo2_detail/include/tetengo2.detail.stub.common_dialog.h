@@ -10,8 +10,8 @@
 #define TETENGO2_DETAIL_STUB_COMMONDIALOG_H
 
 #include <memory>
-#include <utility>
 #include <system_error>
+#include <utility>
 
 #include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
