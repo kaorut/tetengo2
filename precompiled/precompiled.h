@@ -9,7 +9,7 @@
 #if !defined(PRECOMPILED_H)
 #define PRECOMPILED_H
 
-// The standard library
+// The standard library headers
 #include <algorithm>
 #include <cassert>
 #include <chrono>
@@ -35,7 +35,7 @@
 #include <utility>
 #include <vector>
 
-// The standard library
+// The Boost library headers
 #include <boost/algorithm/string.hpp>
 #include <boost/chrono.hpp>
 #include <boost/concept_check.hpp>
