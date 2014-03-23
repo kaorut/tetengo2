@@ -9,13 +9,11 @@
 #if !defined(PRECOMPILED_H)
 #define PRECOMPILED_H
 
-// The standard library headers
-
+// The standard library
 #include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
-#include <condition_variable>
 #include <cstddef>
 #include <cwchar>
 #include <exception>
@@ -33,16 +31,11 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
-#include <system_error>
 #include <thread>
-#include <type_traits>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
-
-// Boost library headers
-
+// The standard library
 #include <boost/algorithm/string.hpp>
 #include <boost/chrono.hpp>
 #include <boost/concept_check.hpp>
@@ -96,6 +89,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/swap.hpp>
+#include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
