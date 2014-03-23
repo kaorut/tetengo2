@@ -62,14 +62,14 @@ sub print_precompiled_h
 	{
 		if (/^\/\/\/\/STDLIB_BOOST_INCLUDES\/\/\/\//)
 		{
-			print "// The standard library\n";
+			print "// The standard library headers\n";
 			for my $key (sort(keys(%$r_stdlib_headers)))
 			{
 				print '#include <'.$key.'>'."\n";
 			}
 			print "\n";
 			
-			print "// The standard library\n";
+			print "// The Boost library headers\n";
 			for my $key (sort(keys(%$r_boost_headers)))
 			{
 				print '#include <'.$key.'>'."\n";
