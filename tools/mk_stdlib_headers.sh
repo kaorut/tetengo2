@@ -10,7 +10,7 @@ test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
 STDLIB_HEADERS="$SOLUTION_DIR/tools/stdlib_headers.txt";
 STDLIB_HEADERS_TMP=$STDLIB_HEADERS".tmp";
 
-export LANG=C
+LANG=C
 
 source "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
