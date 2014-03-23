@@ -10,10 +10,6 @@ use lib dirname($0);
 use zzz_stdlib_usage;
 
 
-my $source_filename_displayed = 0;
-
-my $exit_status = 0;
-
 # main
 {
 	if (scalar(@ARGV) < 2)
@@ -29,19 +25,19 @@ my $exit_status = 0;
 	make_stdlib_headers_mappings($stdlib_headers_filename, \%stdlib_header_mappings);
 	
 	my %usages;
-	collect_stdlib_usages($source_filename, \%stdlib_header_mappings, \%usages);
+	collect_stdlib_usages($source_filename, \%stdlib_header_mappings, 1, \%usages);
 	
 	my @includes;
 	collect_stdlib_includes($source_filename, \@includes);
 	
 	check($source_filename, \%usages, \@includes, \%stdlib_header_mappings);
 	
-	exit $exit_status;
+	exit exit_status();
 }
 
 sub print_usage
 {
-	print STDERR "Usage: ./chk_include.pl source_file stdlib_headers.txt\n"
+	print STDERR "Usage: ./zzz_chk_include.pl source_file stdlib_headers.txt\n"
 }
 
 sub collect_stdlib_includes
@@ -224,19 +220,4 @@ sub check_header_usages
 			print_warning($source_filename, '<'.$include.'> is unused.');
 		}
 	}
-}
-
-sub print_warning
-{
-	my($source_filename, $message) = @_;
-	
-	if (!$source_filename_displayed)
-	{
-		print '['.$source_filename.']'."\n";
-		$source_filename_displayed = 1;
-	}
-	
-	print 'WARNING: '.$message."\n";
-	
-	$exit_status = 1;
 }

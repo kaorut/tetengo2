@@ -24,7 +24,7 @@ sub make_stdlib_headers_mappings
 
 sub collect_stdlib_usages
 {
-	my($source_filename, $r_mappings, $r_usages) = @_;
+	my($source_filename, $r_mappings, $warn_if_unknown, $r_usages) = @_;
 	
 	open(my $fh, $source_filename) || die "Can't open $source_filename";
 	while(<$fh>)
@@ -52,7 +52,7 @@ sub collect_stdlib_usages
 		)
 		{
 			my $header = $$r_mappings{$1};
-			if ($header eq '')
+			if ($warn_if_unknown && $header eq '')
 			{
 				print_warning($source_filename, '"'.$1.'" is unknown in stdlib_headers.txt.');
 				$line =~ s/$1//g;
@@ -63,6 +63,30 @@ sub collect_stdlib_usages
 		}
 	}
 	close($fh);
+}
+
+my $source_filename_displayed = 0;
+
+my $exit_status = 0;
+
+sub print_warning
+{
+	my($source_filename, $message) = @_;
+	
+	if (!$source_filename_displayed)
+	{
+		print '['.$source_filename.']'."\n";
+		$source_filename_displayed = 1;
+	}
+	
+	print 'WARNING: '.$message."\n";
+	
+	$exit_status = 1;
+}
+
+sub exit_status()
+{
+	return $exit_status;
 }
 
 1;
