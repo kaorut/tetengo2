@@ -33,7 +33,7 @@ use zzz_stdlib_usage;
 
 sub print_usage
 {
-	print STDERR "Usage: ./zzz_mk_precompiled_h.pl stdlib_headers.txt precompiled.template.h\n"
+	print STDERR "Usage: ./zzz_make_precompiled_h.pl stdlib_headers.txt precompiled.template.h\n"
 }
 
 sub collect_headers

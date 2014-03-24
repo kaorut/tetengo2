@@ -32,7 +32,7 @@ use zzz_stdlib_usage;
 
 sub print_usage
 {
-	print STDERR "Usage: ./zzz_mk_stdlib_headers.pl source_file stdlib_headers.txt\n"
+	print STDERR "Usage: ./zzz_make_stdlib_headers_txt.pl source_file stdlib_headers.txt\n"
 }
 
 sub print_stdlib_usages

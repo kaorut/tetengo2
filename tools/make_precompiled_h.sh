@@ -10,7 +10,7 @@ test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
 PRECOMPILED_H="$SOLUTION_DIR/precompiled/precompiled.h"
 PRECOMPILED_H_TMP=$PRECOMPILED_H".tmp"
 
-"$TOOLS_DIR/zzz_mk_precompiled_h.pl" \
+"$TOOLS_DIR/zzz_make_precompiled_h.pl" \
   "$SOLUTION_DIR/tools/stdlib_headers.txt" \
   "$SOLUTION_DIR/tools/precompiled.template.h" \
   > $PRECOMPILED_H_TMP

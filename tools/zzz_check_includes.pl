@@ -37,7 +37,7 @@ use zzz_stdlib_usage;
 
 sub print_usage
 {
-	print STDERR "Usage: ./zzz_chk_include.pl source_file stdlib_headers.txt\n"
+	print STDERR "Usage: ./zzz_check_include.pl source_file stdlib_headers.txt\n"
 }
 
 sub collect_stdlib_includes

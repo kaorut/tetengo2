@@ -9,6 +9,8 @@ test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
 
 LANG=C
 
+echo 'Checking the typedefs...'
+
 EXIT_STATUS=0
 source "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;

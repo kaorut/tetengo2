@@ -16,7 +16,7 @@ source "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
     echo -n '.' 1>&2;
-    "$TOOLS_DIR/zzz_mk_stdlib_headers.pl" "$f" $STDLIB_HEADERS;
+    "$TOOLS_DIR/zzz_make_stdlib_headers_txt.pl" "$f" $STDLIB_HEADERS;
 done | sort | uniq > $STDLIB_HEADERS_TMP
 echo '' 1>&2
 
