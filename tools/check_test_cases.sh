@@ -3,20 +3,24 @@
 # Copyright (C) 2007-2014 kaoru
 # $Id$
 
-LANG=C
-SOLUTIONDIR=`dirname $0`/..
+TOOLS_DIR=`dirname $0`
+SOLUTION_DIR="$1"
+test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
+SILENT="$2"
 
-FUNCTIONS_TXT="$SOLUTIONDIR/tools/zzz_test_case_check_functions.txt"
-TESTCASES_TXT="$SOLUTIONDIR/tools/zzz_test_case_check_test_cases.txt"
+LANG=C
+
+FUNCTIONS_TXT="$SOLUTION_DIR/tools/zzz_test_case_check_functions.txt"
+TESTCASES_TXT="$SOLUTION_DIR/tools/zzz_test_case_check_test_cases.txt"
 
 echo 'Checking the test cases...'
 
-(test -n "$1" && test -e "$FUNCTIONS_TXT") || \
-    "$SOLUTIONDIR/tools/zzz_make_function_list.sh" "$2" > "$FUNCTIONS_TXT"
-(test -n "$1" && test -e "$TESTCASES_TXT") || \
-    "$SOLUTIONDIR/tools/zzz_make_test_case_list.sh" "$2" > "$TESTCASES_TXT"
+(test -n "$SILENT" && test -e "$FUNCTIONS_TXT") || \
+    "$TOOLS_DIR/zzz_make_function_list.sh" "$SOLUTION_DIR" "$SILENT" > "$FUNCTIONS_TXT"
+(test -n "$SILENT" && test -e "$TESTCASES_TXT") || \
+    "$TOOLS_DIR/zzz_make_test_case_list.sh" "$SOLUTION_DIR" "$SILENT" > "$TESTCASES_TXT"
 
-"$SOLUTIONDIR/tools/zzz_check_test_cases.pl" \
-    "$FUNCTIONS_TXT" "$TESTCASES_TXT" "$SOLUTIONDIR/tools/test_case_check_ignore.txt"
+"$TOOLS_DIR/zzz_check_test_cases.pl" \
+    "$FUNCTIONS_TXT" "$TESTCASES_TXT" "$SOLUTION_DIR/tools/test_case_check_ignore.txt"
 
 exit $?
