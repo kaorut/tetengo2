@@ -42,7 +42,7 @@ sub collect_headers
 	
 	for my $value (values(%$r_mappings))
 	{
-		if ($value =~ /^boost\//)
+		if ($value =~ /^boost\// && $value !~ /^boost\/test\//)
 		{
 			$$r_boost_headers{$value} = 1;
 		}
