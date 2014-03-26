@@ -15,7 +15,7 @@ eval(include("zzz_parse_solution_config.js"));
 
 if (WScript.Arguments.length < 1)
 {
-	WScript.Echo("Usage: cscript zzz_get_solution_config.js SOLUTION_DIRECTORY MACRO_NAME");
+	WScript.Echo("Usage: cscript zzz_get_solution_config.js CONFIG_FILE_NAME MACRO_NAME");
 	WScript.Quit(1);
 }
 var configFileName = WScript.Arguments(0);
