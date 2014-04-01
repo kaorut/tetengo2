@@ -12,7 +12,7 @@ LANG=C
 echo 'Checking the typedefs...'
 
 EXIT_STATUS=0
-source "$SOLUTION_DIR/tools/paths.sh"
+. "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
     $TOOLS_DIR/zzz_check_typedefs.pl $TOOLS_DIR $f $SOLUTION_DIR/tools/typedef_check_ignore.txt;

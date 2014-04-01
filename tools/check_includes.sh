@@ -11,7 +11,7 @@ EXIT_STATUS=0
 
 echo "Checking the #include declarations in \"$SOLUTION_DIR\" ..."
 
-source "$SOLUTION_DIR/tools/paths.sh"
+. "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
     "$TOOLS_DIR/zzz_check_includes.pl" "$f" "$SOLUTION_DIR/tools/stdlib_headers.txt";

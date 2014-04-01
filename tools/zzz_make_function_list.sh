@@ -13,7 +13,7 @@ LANG=C
 TEMP_FILE="$SOLUTION_DIR/tools/tmp"
 rm -f "$TEMP_FILE"
 
-source $SOLUTION_DIR/tools/paths.sh
+. $SOLUTION_DIR/tools/paths.sh
 for f in `list_sources $SOLUTION_DIR`;
 do
     test -z "$SILENT" && echo -ne "Parsing: $f        \r" >&2;

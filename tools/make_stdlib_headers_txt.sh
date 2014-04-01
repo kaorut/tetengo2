@@ -12,7 +12,7 @@ STDLIB_HEADERS_TMP=$STDLIB_HEADERS".tmp";
 
 LANG=C
 
-source "$SOLUTION_DIR/tools/paths.sh"
+. "$SOLUTION_DIR/tools/paths.sh"
 for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
     echo -n '.' 1>&2;
