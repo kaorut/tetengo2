@@ -38,7 +38,7 @@ function copyFile(sourceDirectory, destinationDirectory, fileName)
     
     var sourceFile = filesystem.BuildPath(sourceDirectory, fileName);
     WScript.Echo("Copying \"" + sourceFile + "\" to \"" + destinationDirectory + "\" ...");
-    //filesystem.CopyFile(sourceFile, destinationDirectory);
+    filesystem.CopyFile(sourceFile, destinationDirectory);
 }
 
 
