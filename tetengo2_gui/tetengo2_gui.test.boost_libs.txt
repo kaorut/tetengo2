@@ -1,0 +1,9 @@
+boost_bzip2
+boost_chrono
+boost_date_time
+boost_filesystem
+boost_iostreams
+boost_program_options
+boost_system
+boost_thread
+boost_unit_test_framework
