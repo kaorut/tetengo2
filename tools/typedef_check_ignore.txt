@@ -1,16 +1,3 @@
-bobura::application_type_list
-bobura::command::file_property::dialog_base_type
-bobura::command::file_property::string_type
-bobura::command::font_color::dialog_base_type
-bobura::command::train_kind::dialog_base_type
-bobura::detail_type_list
-bobura::font_color_dialog::point_size_type
-bobura::load_save_type_list
-bobura::model::station_info::grade_type_set::local_terminal_type
-bobura::model::station_info::grade_type_set::local_type
-bobura::model::station_info::grade_type_set::principal_terminal_type
-bobura::model::station_info::grade_type_set::principal_type
-bobura::view_type_list
 tetengo2::detail::stub::config::string_type
 tetengo2::detail::stub::drawing::background_details_ptr_type
 tetengo2::detail::stub::drawing::canvas_details_ptr_type

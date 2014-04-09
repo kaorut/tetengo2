@@ -10,16 +10,16 @@
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
 #include <algorithm>
-//#include <cassert>
-//#include <chrono>
-//#include <cmath>
+#include <cassert>
+#include <chrono>
+#include <cmath>
 #include <cstddef>
-//#include <memory>
-//#include <utility>
-//#include <vector>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include <boost/math/constants/constants.hpp>
-//#include <boost/optional.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.custom_control.h"

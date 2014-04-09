@@ -9,12 +9,12 @@
 #if !defined(TETENGO2_GUI_MENU_ABSTRACTPOPUP_H)
 #define TETENGO2_GUI_MENU_ABSTRACTPOPUP_H
 
-//#include <memory>
-//#include <stdexcept>
-//#include <utility>
-//#include <vector>
+#include <memory>
+#include <stdexcept>
+#include <utility>
+#include <vector>
 
-//#include <boost/throw_exception.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.recursive_iterator.h"

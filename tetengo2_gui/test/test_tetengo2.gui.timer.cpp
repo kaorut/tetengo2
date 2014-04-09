@@ -6,9 +6,9 @@
     $Id$
 */
 
-//#include <chrono>
+#include <chrono>
 
-//#include <boost/mpl/at.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.timer.h"

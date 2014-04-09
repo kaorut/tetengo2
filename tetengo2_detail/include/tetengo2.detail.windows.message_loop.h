@@ -9,19 +9,19 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H
 
-//#include <system_error>
+#include <system_error>
 
-//#include <boost/noncopyable.hpp>
-//#include <boost/throw_exception.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 

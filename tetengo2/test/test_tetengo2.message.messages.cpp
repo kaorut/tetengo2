@@ -6,13 +6,13 @@
     $Id$
 */
 
-//#include <ios>
-//#include <locale>
-//#include <stdexcept>
-//#include <string>
+#include <ios>
+#include <locale>
+#include <stdexcept>
+#include <string>
 
-//#include <boost/filesystem.hpp>
-//#include <boost/mpl/at.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 

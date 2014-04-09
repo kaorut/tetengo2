@@ -3,16 +3,19 @@
 # Copyright (C) 2007-2014 kaoru
 # $Id$
 
-LANG=C
-SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/zzz_paths.sh
+TOOLS_DIR=`dirname $0`
+SOLUTION_DIR="$1"
+test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
 
-BASE_PATH="$SOLUTIONDIR/tools"
+LANG=C
+
+echo 'Checking the typedefs...'
 
 EXIT_STATUS=0
-for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
+. "$SOLUTION_DIR/tools/paths.sh"
+for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
-    $SOLUTIONDIR/tools/zzz_check_typedefs.pl $BASE_PATH $f $BASE_PATH/typedef_check_ignore.txt;
+    $TOOLS_DIR/zzz_check_typedefs.pl $TOOLS_DIR $f $SOLUTION_DIR/tools/typedef_check_ignore.txt;
     test $? -eq 0 || EXIT_STATUS=1;
 done
 

@@ -9,13 +9,13 @@
 #if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
-//#include <memory>
-//#include <stdexcept>
-//#include <utility>
+#include <memory>
+#include <stdexcept>
+#include <utility>
 
-//#include <boost/optional.hpp>
-//#include <boost/predef.h>
-//#include <boost/throw_exception.hpp>
+#include <boost/optional.hpp>
+#include <boost/predef.h>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.widget.widget.h"
 #include "tetengo2.stdalt.h"

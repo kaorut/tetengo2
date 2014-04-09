@@ -17,12 +17,12 @@
 
 //#pragma warning (push)
 //#pragma warning (disable: 4005)
-//#include <intsafe.h>
-//#include <stdint.h>
+#include <intsafe.h>
+#include <stdint.h>
 //#pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 
 #include "tetengo2.detail.windows.windows_version.h"
 

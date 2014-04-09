@@ -9,17 +9,17 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_DIRECT2D_ERRORCATEGORY_H)
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_ERRORCATEGORY_H
 
-//#include <string>
-//#include <system_error>
+#include <string>
+#include <system_error>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
 #include <stdint.h>
 #pragma warning(pop)
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 #include <d2d1.h>
 
 #include "tetengo2.detail.windows.error_category.h"

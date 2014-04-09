@@ -10,14 +10,11 @@
 #define PRECOMPILED_H
 
 // The standard library headers
-
 #include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
-#include <condition_variable>
 #include <cstddef>
-#include <cstdint>
 #include <cwchar>
 #include <exception>
 #include <functional>
@@ -29,32 +26,22 @@
 #include <locale>
 #include <memory>
 #include <mutex>
-#include <numeric>
-#include <ostream>
 #include <queue>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
 #include <string>
-#include <system_error>
 #include <thread>
-#include <type_traits>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
-
-// Boost library headers
-
+// The Boost library headers
 #include <boost/algorithm/string.hpp>
 #include <boost/chrono.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/format.hpp>
-#include <boost/iostreams/filter/bzip2.hpp>
-#include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -96,19 +83,15 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
-#include <boost/program_options.hpp>
-#include <boost/range/adaptors.hpp>
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/swap.hpp>
-#include <boost/system/system_error.hpp>
 #include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
-#include <boost/utility/string_ref.hpp>
 #include <boost/variant.hpp>
 
 

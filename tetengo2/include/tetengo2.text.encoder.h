@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_TEXT_ENCODER_H)
 #define TETENGO2_TEXT_ENCODER_H
 
-//#include <type_traits>
-//#include <utility>
+#include <type_traits>
+#include <utility>
 
-//#include <boost/operators.hpp>
+#include <boost/operators.hpp>
 
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.utility.h"

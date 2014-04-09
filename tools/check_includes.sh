@@ -1,25 +1,20 @@
-#!/bin/sh
+#/bin/sh
 # Checks the #include directives.
 # Copyright (C) 2007-2014 kaoru
 # $Id$
 
-LANG=C
-SOLUTIONDIR=`dirname $0`/..
-. $SOLUTIONDIR/tools/zzz_paths.sh
+TOOLS_DIR=`dirname $0`
+SOLUTION_DIR="$1"
+test -n "$SOLUTION_DIR" || SOLUTION_DIR="$TOOLS_DIR/.."
 
 EXIT_STATUS=0
 
-echo 'Checking the #include declarations...'
+echo "Checking the #include declarations in \"$SOLUTION_DIR\" ..."
 
-for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
+. "$SOLUTION_DIR/tools/paths.sh"
+for f in `list_sources $SOLUTION_DIR; list_test_sources $SOLUTION_DIR`;
 do
-    "$SOLUTIONDIR/tools/zzz_include_order.pl" "$f";
-    "$SOLUTIONDIR/tools/zzz_check_includes.pl" \
-        "$SOLUTIONDIR" \
-        "$f" \
-        "$SOLUTIONDIR/tools/stdlib_headers.txt" \
-        "$1" \
-        "$2";
+    "$TOOLS_DIR/zzz_check_includes.pl" "$f" "$SOLUTION_DIR/tools/stdlib_headers.txt";
     test $? -eq 0 || EXIT_STATUS=1;
 done
 

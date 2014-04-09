@@ -9,9 +9,9 @@
 #if !defined(TETENGO2_CONFIG_PERSISTENTCONFIG_H)
 #define TETENGO2_CONFIG_PERSISTENTCONFIG_H
 
-//#include <utility>
+#include <utility>
 
-//#include <boost/optional.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
 #include "tetengo2.stdalt.h"

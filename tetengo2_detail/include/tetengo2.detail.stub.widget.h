@@ -17,7 +17,7 @@
 #include <stdexcept>
 #include <string>
 #include <system_error>
-//#include <utility>
+#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>

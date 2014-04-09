@@ -6,13 +6,13 @@
     $Id$
 */
 
-//#include <iterator>
-//#include <memory>
-//#include <utility>
-//#include <vector>
+#include <iterator>
+#include <memory>
+#include <utility>
+#include <vector>
 
-//#include <boost/iterator/indirect_iterator.hpp>
-//#include <boost/mpl/at.hpp>
+#include <boost/iterator/indirect_iterator.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.stdalt.h"

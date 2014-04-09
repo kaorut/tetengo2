@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_CONFIG_CACHEDCONFIG_H)
 #define TETENGO2_CONFIG_CACHEDCONFIG_H
 
-//#include <memory>
-//#include <utility>
+#include <memory>
+#include <utility>
 
-//#include <boost/optional.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.config.config_base.h"
 #include "tetengo2.config.temporary_config.h"

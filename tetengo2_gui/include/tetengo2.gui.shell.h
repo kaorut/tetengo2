@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_SHELL_H)
 #define TETENGO2_GUI_SHELL_H
 
-//#include <memory>
+#include <memory>
 #include <vector>
 
 #include <boost/noncopyable.hpp>

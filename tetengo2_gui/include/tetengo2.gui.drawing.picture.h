@@ -10,8 +10,8 @@
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
 #include <cassert>
-#include <utility>
 #include <stdexcept>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>

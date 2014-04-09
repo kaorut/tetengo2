@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_MENU_POPUP_H)
 #define TETENGO2_GUI_MENU_POPUP_H
 
-//#include <utility>
+#include <utility>
 
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.stdalt.h"

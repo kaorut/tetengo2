@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTUREREADER_H)
 #define TETENGO2_GUI_DRAWING_PICTUREREADER_H
 
-//#include <memory>
-//#include <utility>
+#include <memory>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 

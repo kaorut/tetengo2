@@ -7,9 +7,9 @@
 */
 
 #include <queue>
-//#include <stdexcept>
+#include <stdexcept>
 
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.concurrent.consumer.h"

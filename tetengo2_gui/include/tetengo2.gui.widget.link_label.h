@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_LINKLABEL_H)
 #define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
-//#include <cassert>
-//#include <utility>
+#include <cassert>
+#include <utility>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"

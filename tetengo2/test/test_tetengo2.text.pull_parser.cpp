@@ -6,15 +6,15 @@
     $Id$
 */
 
-//#include <iterator>
+#include <iterator>
 #include <sstream>
-//#include <stdexcept>
-//#include <string>
-//#include <utility>
+#include <stdexcept>
+#include <string>
+#include <utility>
 
-//#include <boost/mpl/at.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
-//#include <boost/variant.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.stdalt.h"
 #include "tetengo2.text.h"

@@ -11,14 +11,14 @@
 
 #include <cassert>
 #include <functional>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
-//#include <utility>
+#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-//#include <boost/predef.h>
+#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"

@@ -10,9 +10,9 @@
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
 #include <cassert>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>

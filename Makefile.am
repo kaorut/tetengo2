@@ -13,13 +13,13 @@ EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 lint: lint-includes lint-test-cases lint-typedefs
 
 lint-includes:
-	$(top_srcdir)/tools/check_includes.sh '' silent
+	$(top_srcdir)/tools/check_includes.sh $(top_srcdir)
 
 lint-test-cases:
-	$(top_srcdir)/tools/check_test_cases.sh '' silent
+	$(top_srcdir)/tools/check_test_cases.sh $(top_srcdir) silent
 
 lint-typedefs:
-	$(top_srcdir)/tools/check_typedefs.sh '' silent
+	$(top_srcdir)/tools/check_typedefs.sh $(top_srcdir)
 
 .PHONY: doc
 doc:

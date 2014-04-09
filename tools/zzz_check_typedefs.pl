@@ -7,18 +7,18 @@ use strict;
 
 if (scalar(@ARGV) < 3)
 {
-	print "Usage: zzz_check_typedefs.pl base_path input typedef_check_ignore.txt\n";
+	print "Usage: zzz_check_typedefs.pl tools_directory input typedef_check_ignore.txt\n";
 	exit(0);
 }
 
-my($base_path) = $ARGV[0];
+my($tools_directory) = $ARGV[0];
 my($file_path) = $ARGV[1];
 my($typedef_ignore_path) = $ARGV[2];
 
 my($exit_status) = 0;
 
 my(@defined_typedefs);
-foreach my $typedef (`$base_path/zzz_list_typedefs.pl $file_path`)
+foreach my $typedef (`$tools_directory/zzz_list_typedefs.pl $file_path`)
 {
 	$typedef =~ s/\r?\n//g;
 	push(@defined_typedefs, $typedef);
