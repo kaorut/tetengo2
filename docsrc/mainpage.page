@@ -19,6 +19,12 @@ Requirements {#requirements}
 
 The libraries are available on Windows and UNIX-like systems.
 
+The following features does not support UNIX-like systems yet...
+
+ - tetengo2::config::persistent_config
+ - tetengo2::text::encoding
+ - tetengo2::gui
+
 It's tested on the following systems:
 
 - [Windows 7 Service Pack 1](http://www.microsoft.com/)
@@ -29,22 +35,6 @@ It's tested on the following systems:
 How to Build {#how_to_build}
 ============
 
-You can obtain the source code either by downloading an archive or by cloning the Git repository.
-
-Downloading the Source Code Archive
------------------------------------
-
-The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
-
-Cloning the Repository
-----------------------
-
-You can clone the Git repository like this:
-
-~~~~{.sh}
-$ git clone https://github.com/kaorut/tetengo2.git
-~~~~
-
 Building on Windows
 -------------------
 
@@ -52,10 +42,24 @@ You need the following tools in order to build Tetengo2:
 
 - [Visual Studio 2012 Update 3](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.55.0](http://www.boost.org/)
-- [bzip2](http://www.bzip.org)
-- [WiX 3.8](http://wixtoolset.org/)
 - [Doxygen 1.8.7](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
+
+You can obtain the source code either by downloading an archive or by cloning the Git repository.
+
+### Downloading the Source Code Archive
+
+The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
+
+### Cloning the Repository
+
+You can clone the Git repository like this:
+
+~~~~{.sh}
+$ git clone https://github.com/kaorut/tetengo2.git
+~~~~
+
+### Build Sequence
 
 First make a copy of `tetengo2_config.h-original` in the top source directory and name it `tetengo2_config.h`.
 Edit `tetengo2_config.h` according to your environment.
@@ -76,19 +80,35 @@ You need the following tools in order to build Tetengo2 libraries:
 - [GCC 4.7.2 or 4.8.2](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.55.0](http://www.boost.org/)
-- [bzip2](http://www.bzip.org)
 - [Doxygen 1.8.7](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
-When you clone the Git repository, you will not find the `configure` script in the working copy.
-Run `bootstrap.sh` to produce the `configure` script. `bootstrap.sh` requires the following tools:
+You can obtain the source code either by downloading an archive or by cloning the Git repository.
 
-- [Autotools (Autoconf, Automake, etc.)](http://www.gnu.org/)
-- [Autoconf Archive](http://www.gnu.org/)
+### Downloading the Source Code Archive
+
+The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
+
+### Cloning the Repository
+
+You can clone the Git repository like this:
+
+~~~~{.sh}
+$ git clone https://github.com/kaorut/bobura.git
+~~~~
+
+Run `bootstrap.sh` to produce the `configure` script:
 
 ~~~~{.sh}
 $ ./bootstrap.sh
 ~~~~
+
+`bootstrap.sh` requires the following tools:
+
+- [Autotools (Autoconf, Automake, etc.)](http://www.gnu.org/)
+- [Autoconf Archive](http://www.gnu.org/)
+
+### Build Sequence
 
 Run `configure` to generate Makefiles. `--enable-precompilation` enables precompilation by generating `.gch` files.
 On some platform such as Linux, you have to link to librt.
@@ -96,6 +116,7 @@ On some platform such as Linux, you have to link to librt.
 ~~~~{.sh}
 $ ./configure [--enable-precompilation] [LIBS=-lrt]
 ~~~~
+
 To install the libraries to your system, run make like this:
 
 ~~~~{.sh}
