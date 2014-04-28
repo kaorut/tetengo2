@@ -20,10 +20,10 @@
 #define BOOST_VERSION "1_55"
 
 // Set the path where the 32-bit (Win32) version of Boost DLLs exist.
-#define BOOST_LIB_Win32 "X:\\path\\to\\boost\\lib-msvc110-Win32"
+#define BOOST_LIB_Win32 "X:\\path\\to\\boost\\lib-msvc120-Win32"
 
 // Set the path where the 64-bit (x64) version of Boost DLLs exist.
-#define BOOST_LIB_x64 "X:\\path\\to\\boost\\lib-msvc110-x64"
+#define BOOST_LIB_x64 "X:\\path\\to\\boost\\lib-msvc120-x64"
 
 // Set to 1 to run test programs for a Win32 (x86) platform.
 #define RUN_TEST_FOR_Win32 1
