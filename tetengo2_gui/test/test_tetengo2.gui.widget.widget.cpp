@@ -71,7 +71,7 @@ namespace
         :
         widget_type(scroll_bar_style, message_handler_map_type()),
         m_p_details(
-            new widget_details_type::widget_details_type(
+            tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
                 p_parent,
                 true,
                 true,
