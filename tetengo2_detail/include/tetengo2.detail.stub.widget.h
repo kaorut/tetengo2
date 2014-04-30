@@ -1324,7 +1324,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
             widget_details_ptr_type p_details(
-                new widget_details_type(
+                stdalt::make_unique<widget_details_type>(
                     p_parent,
                     true,
                     true,
