@@ -33,16 +33,16 @@ namespace tetengo2 { namespace text
         // types
 
         //! The internal encoding type.
-        typedef InternalEncoding internal_encoding_type;
+        using internal_encoding_type = InternalEncoding;
 
         //! The internal string type.
-        typedef typename internal_encoding_type::string_type internal_string_type;
+        using internal_string_type = typename internal_encoding_type::string_type;
 
         //! The external encoding type.
-        typedef ExternalEncoding external_encoding_type;
+        using external_encoding_type = ExternalEncoding;
 
         //! The external string type.
-        typedef typename external_encoding_type::string_type external_string_type;
+        using external_string_type = typename external_encoding_type::string_type;
 
 
         // constructors and destructor

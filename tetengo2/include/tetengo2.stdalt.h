@@ -134,13 +134,13 @@ namespace tetengo2 { namespace stdalt
 {
 #if TETENGO2_STDALT_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
     //! The thread.
-    typedef std::thread thread;
+    using thread = std::thread;
 
     //! The mutex.
-    typedef std::mutex mutex;
+    using mutex = std::mutex;
 
     //! The condition variable.
-    typedef std::condition_variable condition_variable;
+    using condition_variable = std::condition_variable;
 
     /*!
         \brief The unique lock.
@@ -151,19 +151,19 @@ namespace tetengo2 { namespace stdalt
     struct unique_lock
     {
         //! The unique lock type.
-        typedef std::unique_lock<Mutex> type;
+        using type = std::unique_lock<Mutex>;
     };
 #else
-    typedef boost::thread thread;
+    using thread = boost::thread;
 
-    typedef boost::mutex mutex;
+    using mutex = boost::mutex;
 
-    typedef boost::condition_variable condition_variable;
+    using condition_variable = boost::condition_variable;
 
     template <typename Mutex>
     struct unique_lock
     {
-        typedef boost::unique_lock<Mutex> type;
+        using type = boost::unique_lock<Mutex>;
     };
 #endif
 

@@ -34,22 +34,22 @@ namespace tetengo2 { namespace config
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The unsigned integer type.
-        typedef UInt uint_type;
+        using uint_type = UInt;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The detail implementation type of a configuration.
-        typedef ConfigDetails configuration_details_type;
+        using configuration_details_type = ConfigDetails;
 
         //! The base type.
-        typedef config_base<string_type, uint_type> base_type;
+        using base_type = config_base<string_type, uint_type>;
 
         //! The value type.
-        typedef typename base_type::value_type value_type;
+        using value_type = typename base_type::value_type;
 
 
         // constructors and destructor

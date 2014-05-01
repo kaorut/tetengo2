@@ -25,10 +25,10 @@ namespace tetengo2
         // types
 
         //! The multibyte value type.
-        typedef Multibyte multibyte_type;
+        using multibyte_type = Multibyte;
 
         //! The wide value type.
-        typedef Wide wide_type;
+        using wide_type = Wide;
 
 
         // constructors and destructor

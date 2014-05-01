@@ -24,10 +24,10 @@ namespace tetengo2 { namespace text { namespace encoding
         // types
 
         //! The detail implementation type of an encoding.
-        typedef EncodingDetails encoding_details_type;
+        using encoding_details_type = EncodingDetails;
 
         //! The pivot type.
-        typedef typename encoding_details_type::pivot_type pivot_type;
+        using pivot_type = typename encoding_details_type::pivot_type;
 
 
     protected:

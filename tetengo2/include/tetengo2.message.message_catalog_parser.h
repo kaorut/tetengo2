@@ -39,19 +39,19 @@ namespace tetengo2 { namespace message
         // types
 
         //! The pull parser type.
-        typedef PullParser pull_parser_type;
+        using pull_parser_type = PullParser;
 
         //! The input string type.
-        typedef typename pull_parser_type::string_type input_string_type;
+        using input_string_type = typename pull_parser_type::string_type;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The entry type.
-        typedef std::pair<string_type, string_type> entry_type;
+        using entry_type = std::pair<string_type, string_type>;
 
 
         // constructors and destructor
@@ -116,15 +116,15 @@ namespace tetengo2 { namespace message
     private:
         // types
 
-        typedef typename pull_parser_type::attribute_map_type attribute_map_type;
+        using attribute_map_type = typename pull_parser_type::attribute_map_type;
 
-        typedef typename pull_parser_type::element_type element_type;
+        using element_type = typename pull_parser_type::element_type;
 
-        typedef typename pull_parser_type::structure_begin_type structure_begin_type;
+        using structure_begin_type = typename pull_parser_type::structure_begin_type;
 
-        typedef typename pull_parser_type::structure_end_type structure_end_type;
+        using structure_end_type = typename pull_parser_type::structure_end_type;
 
-        typedef typename pull_parser_type::value_type value_type;
+        using value_type = typename pull_parser_type::value_type;
 
 
         // static functions

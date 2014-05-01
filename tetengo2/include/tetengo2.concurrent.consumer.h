@@ -31,10 +31,10 @@ namespace tetengo2 { namespace concurrent
         // types
 
         //! The channel type.
-        typedef Channel channel_type;
+        using channel_type = Channel;
 
         //! The value type.
-        typedef typename channel_type::value_type value_type;
+        using value_type = typename channel_type::value_type;
 
 
         // constructors and destructor

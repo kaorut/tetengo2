@@ -33,16 +33,16 @@ namespace tetengo2 { namespace config
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The unsigned integer type.
-        typedef UInt uint_type;
+        using uint_type = UInt;
 
         //! The base type.
-        typedef config_base<string_type, uint_type> base_type;
+        using base_type = config_base<string_type, uint_type>;
 
         //! The value type.
-        typedef typename base_type::value_type value_type;
+        using value_type = typename base_type::value_type;
 
 
         // constructors and destructor
@@ -79,7 +79,7 @@ namespace tetengo2 { namespace config
     private:
         // types
 
-        typedef std::unordered_map<string_type, value_type> key_value_type;
+        using key_value_type = std::unordered_map<string_type, value_type>;
 
 
         // variables

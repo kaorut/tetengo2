@@ -38,10 +38,10 @@ namespace tetengo2 { namespace concurrent
         // types
 
         //! The value type.
-        typedef T value_type;
+        using value_type = T;
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
 
         // constructors and destructor
@@ -177,13 +177,13 @@ namespace tetengo2 { namespace concurrent
     private:
         // types
 
-        typedef stdalt::mutex mutex_type;
+        using mutex_type = stdalt::mutex;
 
-        typedef stdalt::condition_variable condition_variable_type;
+        using condition_variable_type = stdalt::condition_variable;
 
-        typedef boost::variant<value_type, std::exception_ptr> queue_element_type;
+        using queue_element_type = boost::variant<value_type, std::exception_ptr>;
 
-        typedef std::queue<boost::optional<queue_element_type>> queue_type;
+        using queue_type = std::queue<boost::optional<queue_element_type>>;
 
 
         // variables

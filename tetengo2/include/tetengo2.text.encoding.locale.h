@@ -42,10 +42,10 @@ namespace tetengo2 { namespace text { namespace encoding
         // types
 
         //! The base type.
-        typedef encoding<EncodingDetails> base_type;
+        using base_type = encoding<EncodingDetails>;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
 
         // constructors and destructor
@@ -130,11 +130,11 @@ namespace tetengo2 { namespace text { namespace encoding
     private:
         // type
 
-        typedef typename base_type::pivot_type::value_type pivot_char_type;
+        using pivot_char_type = typename base_type::pivot_type::value_type;
 
-        typedef typename string_type::value_type string_char_type;
+        using string_char_type = typename string_type::value_type;
 
-        typedef std::codecvt<pivot_char_type, string_char_type, std::mbstate_t> converter_type;
+        using converter_type = std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>;
 
 
         // variables

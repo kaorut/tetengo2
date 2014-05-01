@@ -64,21 +64,21 @@ namespace tetengo2 { namespace text { namespace grammar
     public:
         // types
 
-        typedef ForwardIterator iterator;
+        using iterator = ForwardIterator;
 
-        typedef typename iterator::value_type char_type;
+        using char_type = typename iterator::value_type;
 
-        typedef std::basic_string<char_type> string_type;
+        using string_type = std::basic_string<char_type>;
 
-        typedef typename json<iterator>::value_type_type value_type_type;
+        using value_type_type = typename json<iterator>::value_type_type;
 
-        typedef typename json<iterator>::structure_attribute_type structure_attribute_type;
+        using structure_attribute_type = typename json<iterator>::structure_attribute_type;
 
-        typedef typename json<iterator>::structure_signal_type structure_signal_type;
+        using structure_signal_type = typename json<iterator>::structure_signal_type;
 
-        typedef typename json<iterator>::value_signal_type value_signal_type;
+        using value_signal_type = typename json<iterator>::value_signal_type;
 
-        typedef typename json<iterator>::rule_type rule_type;
+        using rule_type = typename json<iterator>::rule_type;
 
 
         // constructors and destructor
@@ -204,11 +204,11 @@ namespace tetengo2 { namespace text { namespace grammar
     private:
         // types
 
-        typedef boost::spirit::qi::rule<iterator, char_type ()> char_rule_type;
+        using char_rule_type = boost::spirit::qi::rule<iterator, char_type ()>;
 
         struct call_handler_type
         {
-            typedef void (impl::* handler_type)(const string_type& attribute);
+            using handler_type = void (impl::*)(const string_type& attribute);
 
             impl& m_self;
             handler_type const m_handler;
@@ -552,7 +552,7 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
 
-    typedef boost::spirit::multi_pass<std::istreambuf_iterator<char>> input_stream_iterator_type;
+    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<char>>;
     template class json<input_stream_iterator_type>;
 
     template class json<std::string::const_iterator>;
