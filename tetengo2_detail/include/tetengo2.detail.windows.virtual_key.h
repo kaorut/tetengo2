@@ -663,7 +663,8 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // forbidden operations
 
-        virtual_key();
+        virtual_key()
+        = delete;
 
     
     };

@@ -660,7 +660,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        menu();
+        menu()
+        = delete;
 
 
    };

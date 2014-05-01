@@ -59,8 +59,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu bar.
         */
         virtual ~menu_bar()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
         // functions

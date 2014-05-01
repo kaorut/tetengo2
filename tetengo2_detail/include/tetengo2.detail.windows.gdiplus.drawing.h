@@ -916,7 +916,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         // forbidden operations
 
-        drawing();
+        drawing()
+        = delete;
 
 
    };

@@ -316,7 +316,8 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        message_handler();
+        message_handler()
+        = delete;
 
 
     };

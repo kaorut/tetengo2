@@ -78,7 +78,8 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        message_loop();
+        message_loop()
+        = delete;
 
 
     };
