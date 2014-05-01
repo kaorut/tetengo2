@@ -32,12 +32,6 @@ namespace
 
     class concrete_config : public config_base_type
     {
-    public:
-        concrete_config()
-        :
-        config_base_type()
-        {}
-
     private:
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const override
