@@ -58,19 +58,10 @@ namespace tetengo2 { namespace detail { namespace windows
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation of an error category.
-        */
-        error_category()
-        :
-        std::error_category()
-        {}
-
-        /*!
             \brief Destroys the detail implementation of the error category.
         */
         virtual ~error_category()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
         // functions
@@ -144,19 +135,10 @@ namespace tetengo2 { namespace detail { namespace windows
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation of an error category of WIC.
-        */
-        wic_error_category()
-        :
-        std::error_category()
-        {}
-
-        /*!
             \brief Destroys the detail implementation of the error category of WIC.
         */
         virtual ~wic_error_category()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
         // functions

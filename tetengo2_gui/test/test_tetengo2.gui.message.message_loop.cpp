@@ -38,8 +38,7 @@ namespace
         }
 
         virtual ~concrete_window()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
     private:

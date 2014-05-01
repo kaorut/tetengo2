@@ -73,9 +73,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
         public:
             virtual ~background_details()
-            TETENGO2_STDALT_NOEXCEPT
-            {}
-        
+            = default;
+
             virtual bool is_transparent()
             const = 0;
 
@@ -98,8 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             {}
 
             virtual ~solid_background_details()
-            TETENGO2_STDALT_NOEXCEPT
-            {}
+            = default;
 
             virtual bool is_transparent()
             const override
@@ -147,9 +145,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
         public:
             virtual ~transparent_background_details()
-            TETENGO2_STDALT_NOEXCEPT
-            {}
-        
+            = default;
+
             virtual bool is_transparent()
             const override
             {

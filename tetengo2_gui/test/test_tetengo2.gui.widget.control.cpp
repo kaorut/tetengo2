@@ -43,8 +43,7 @@ namespace
         }
 
         virtual ~concrete_control()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
     };

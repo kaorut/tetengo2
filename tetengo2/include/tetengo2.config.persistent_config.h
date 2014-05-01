@@ -68,8 +68,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the persistent configuration.
         */
         virtual ~persistent_config()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
     private:

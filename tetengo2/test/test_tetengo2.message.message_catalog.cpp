@@ -49,6 +49,7 @@ namespace
         {}
 
         ~set_global_locale()
+        TETENGO2_STDALT_NOEXCEPT
         {
             std::locale::global(m_initial_locale);
         }

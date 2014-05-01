@@ -63,8 +63,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the cached configuration.
         */
         virtual ~cached_config()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
     private:

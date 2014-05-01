@@ -45,17 +45,10 @@ namespace tetengo2 { namespace config
         // constructors and destructor
 
         /*!
-            \brief Creates a configuration base.
-        */
-        config_base()
-        {}
-
-        /*!
             \brief Destroys the configuration base.
         */
         virtual ~config_base()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
         // functions

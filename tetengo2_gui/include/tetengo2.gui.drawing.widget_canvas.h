@@ -50,8 +50,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the widget canvas.
         */
         virtual ~widget_canvas()
-        TETENGO2_STDALT_NOEXCEPT
-        {}
+        = default;
 
 
     };
