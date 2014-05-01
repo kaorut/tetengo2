@@ -625,7 +625,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        message_handler();
+        message_handler()
+        = delete;
 
 
    };

@@ -181,7 +181,8 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // forbidden operations
 
-        encoding();
+        encoding()
+        = delete;
 
 
    };

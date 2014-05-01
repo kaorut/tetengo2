@@ -926,7 +926,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         // forbidden operations
 
-        drawing();
+        drawing()
+        = delete;
 
 
    };

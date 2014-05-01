@@ -482,7 +482,8 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        drawing();
+        drawing()
+        = delete;
 
 
     };

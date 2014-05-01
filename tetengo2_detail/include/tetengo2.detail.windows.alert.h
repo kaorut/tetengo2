@@ -172,7 +172,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        alert();
+        alert()
+        = delete;
 
 
    };

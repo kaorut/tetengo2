@@ -159,7 +159,8 @@ namespace tetengo2 { namespace gui { namespace drawing
     private:
         // forbidden operations
 
-        system_color_set();
+        system_color_set()
+        = delete;
 
 
     };

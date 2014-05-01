@@ -101,7 +101,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        system_color();
+        system_color()
+        = delete;
 
 
     };

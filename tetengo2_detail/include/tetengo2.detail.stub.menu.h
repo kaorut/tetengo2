@@ -253,7 +253,8 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        menu();
+        menu()
+        = delete;
 
 
     };

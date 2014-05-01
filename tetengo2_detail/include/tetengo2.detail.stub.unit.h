@@ -140,7 +140,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // forbidden operations
 
-        unit();
+        unit()
+        = delete;
 
 
     };

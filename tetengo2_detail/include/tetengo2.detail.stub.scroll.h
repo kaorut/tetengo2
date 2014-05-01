@@ -211,7 +211,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // forbidden operations
 
-        scroll();
+        scroll()
+        = delete;
 
 
     };

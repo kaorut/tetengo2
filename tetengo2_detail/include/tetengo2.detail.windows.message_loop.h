@@ -163,7 +163,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        message_loop();
+        message_loop()
+        = delete;
 
 
    };

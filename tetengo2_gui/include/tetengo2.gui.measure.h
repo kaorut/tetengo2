@@ -168,7 +168,8 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        position();
+        position()
+        = delete;
 
 
     };
@@ -209,7 +210,8 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        position();
+        position()
+        = delete;
 
 
     };
@@ -275,7 +277,8 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        dimension();
+        dimension()
+        = delete;
 
 
     };
@@ -316,7 +319,8 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        dimension();
+        dimension()
+        = delete;
 
 
     };

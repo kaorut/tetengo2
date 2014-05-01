@@ -83,7 +83,8 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        system_color();
+        system_color()
+        = delete;
 
     
     };
