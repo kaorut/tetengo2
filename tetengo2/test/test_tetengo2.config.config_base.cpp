@@ -58,13 +58,6 @@ BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(config_base)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const concrete_config config;
-    }
-
     BOOST_AUTO_TEST_CASE(get)
     {
         BOOST_TEST_PASSPOINT();
