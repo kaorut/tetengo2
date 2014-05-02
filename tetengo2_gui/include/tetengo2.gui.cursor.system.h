@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the system cursor.
         */
         virtual ~system()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

@@ -122,7 +122,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the window.
         */
         virtual ~window()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
     private:

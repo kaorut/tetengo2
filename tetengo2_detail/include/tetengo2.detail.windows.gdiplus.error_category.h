@@ -56,7 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \brief Destroys the detail implementation of the error category.
         */
         virtual ~error_category()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the canvas.
         */
         virtual ~canvas()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

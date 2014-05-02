@@ -28,7 +28,7 @@
     //! The alternative to the C++11 keyword noexcept.
 #   define TETENGO2_STDALT_NOEXCEPT noexcept
 #else
-#   define TETENGO2_STDALT_NOEXCEPT throw ()
+#   define TETENGO2_STDALT_NOEXCEPT
 #endif
 
 

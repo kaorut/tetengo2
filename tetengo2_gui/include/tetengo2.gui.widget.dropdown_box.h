@@ -94,7 +94,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the dropdown box.
         */
         virtual ~dropdown_box()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {}
 
 
         // functions
