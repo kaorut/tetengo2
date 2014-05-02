@@ -98,7 +98,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the list box.
         */
         virtual ~list_box()
-        TETENGO2_STDALT_NOEXCEPT = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {}
 
 
         // functions

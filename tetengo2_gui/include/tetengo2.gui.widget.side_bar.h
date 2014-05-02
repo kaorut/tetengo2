@@ -111,7 +111,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the side bar.
         */
         virtual ~side_bar()
-        TETENGO2_STDALT_NOEXCEPT = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {}
 
 
         // functions
@@ -506,7 +507,8 @@ namespace tetengo2 { namespace gui { namespace widget
             {}
 
             virtual ~caption()
-            TETENGO2_STDALT_NOEXCEPT = default;
+            TETENGO2_STDALT_NOEXCEPT
+            {}
 
 
             // functions

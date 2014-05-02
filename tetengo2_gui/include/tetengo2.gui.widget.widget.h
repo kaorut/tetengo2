@@ -128,7 +128,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the widget.
         */
         virtual ~widget()
-        TETENGO2_STDALT_NOEXCEPT = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {}
 
 
         // functions
