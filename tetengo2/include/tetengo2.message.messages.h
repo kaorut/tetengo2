@@ -127,7 +127,7 @@ namespace tetengo2 { namespace message
             \brief Destroys the messages facet.
         */
         virtual ~messages()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
     private:

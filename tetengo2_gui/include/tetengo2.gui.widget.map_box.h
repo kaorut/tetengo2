@@ -121,7 +121,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the map box.
         */
         virtual ~map_box()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

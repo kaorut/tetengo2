@@ -92,7 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the image.
         */
         virtual ~image()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

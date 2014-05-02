@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~solid_background()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions

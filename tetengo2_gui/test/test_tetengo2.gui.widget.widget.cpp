@@ -92,7 +92,7 @@ namespace
         }
 
         virtual ~concrete_widget()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
     private:

@@ -115,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the picture box.
         */
         virtual ~picture_box()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT = default;
 
 
         // functions
