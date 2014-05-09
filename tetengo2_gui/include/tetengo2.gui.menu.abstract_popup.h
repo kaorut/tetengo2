@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the abstract_popup.
         */
         virtual ~abstract_popup()
-        TETENGO2_STDALT_NOEXCEPT = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:
