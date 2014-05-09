@@ -32,6 +32,24 @@
 #endif
 
 
+/* destructor default implementation ******************************************/
+
+#if !defined(DOCUMENTATION)
+#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(12, 0, 0) || BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 8, 0)
+#       define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED 1
+#   else
+#       define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED 0
+#   endif
+#endif
+
+#if TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED || defined(DOCUMENTATION)
+//! The destructor default implementation.
+#   define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION TETENGO2_STDALT_NOEXCEPT = default;
+#else
+#   define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION TETENGO2_STDALT_NOEXCEPT {}
+#endif
+
+
 /* insertion iterator *********************************************************/
 
 #if !defined(DOCUMENTATION)
