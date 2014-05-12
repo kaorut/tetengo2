@@ -16,13 +16,12 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
+    using virtual_key_type =
         boost::mpl::at<
             test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::virtual_key
-        >::type
-        virtual_key_type;
+        >::type;
 
 
 }

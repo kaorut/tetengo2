@@ -37,46 +37,46 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef widget<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
+        using base_type = widget<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The icon type.
-        typedef typename traits_type::icon_type icon_type;
+        using icon_type = typename traits_type::icon_type;
 
         //! The menu bar type.
-        typedef typename traits_type::menu_bar_type menu_bar_type;
+        using menu_bar_type = typename traits_type::menu_bar_type;
 
         //! The window observer set type.
-        typedef typename traits_type::window_observer_set_type window_observer_set_type;
+        using window_observer_set_type = typename traits_type::window_observer_set_type;
 
         //! The file drop observer set type.
-        typedef typename traits_type::file_drop_observer_set_type file_drop_observer_set_type;
+        using file_drop_observer_set_type = typename traits_type::file_drop_observer_set_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The window state type.
         enum class window_state_type
@@ -310,7 +310,7 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The message handler map type.
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
         // constructors and destructor

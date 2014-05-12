@@ -25,7 +25,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The widget handle type.
-        typedef const void* widget_handle_type;
+        using widget_handle_type = const void*;
 
 
         // static functions

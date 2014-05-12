@@ -38,13 +38,13 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The pivot type.
-        typedef std::wstring pivot_type;
+        using pivot_type = std::wstring;
 
         //! The UTF-8 string type.
-        typedef std::string utf8_string_type;
+        using utf8_string_type = std::string;
 
         //! The CP932 string type.
-        typedef std::string cp932_string_type;
+        using cp932_string_type = std::string;
 
 
         // static functions

@@ -24,10 +24,10 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef WidgetTraits base_type;
+        using base_type = WidgetTraits;
 
         //! The color type.
-        typedef Color color_type;
+        using color_type = Color;
 
 
     };

@@ -36,16 +36,16 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The encoder type for the user interface.
-        typedef UiEncoder ui_encoder_type;
+        using ui_encoder_type = UiEncoder;
 
         //! The encoder type for exceptions.
-        typedef ExceptionEncoder exception_encoder_type;
+        using exception_encoder_type = ExceptionEncoder;
 
         //! The detail implemetation type of an alert.
-        typedef AlertDetails alert_details_type;
+        using alert_details_type = AlertDetails;
 
         //! The widget handle type.
-        typedef typename alert_details_type::widget_handle_type widget_handle_type;
+        using widget_handle_type = typename alert_details_type::widget_handle_type;
 
 
         // constructors and destructor
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui
     private:
         // types
 
-        typedef typename ui_encoder_type::internal_string_type string_type;
+        using string_type = typename ui_encoder_type::internal_string_type;
 
 
         // static functions

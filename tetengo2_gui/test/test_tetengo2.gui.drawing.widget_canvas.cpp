@@ -16,9 +16,8 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::widget_canvas>::type
-        canvas_type;
+    using canvas_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::widget_canvas>::type;
 
 
 }

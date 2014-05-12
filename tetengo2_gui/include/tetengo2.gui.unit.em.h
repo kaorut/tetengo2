@@ -32,10 +32,10 @@ namespace tetengo2 { namespace gui { namespace unit
         // types
 
         //! The value type.
-        typedef Value value_type;
+        using value_type = Value;
 
         //! The detail implementation type of a unit.
-        typedef UnitDetails unit_details_type;
+        using unit_details_type = UnitDetails;
 
 
         // static functions

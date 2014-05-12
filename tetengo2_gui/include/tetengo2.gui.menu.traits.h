@@ -26,16 +26,16 @@ namespace tetengo2 { namespace gui { namespace menu
         //types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The shortcut key type.
-        typedef ShortcutKey shortcut_key_type;
+        using shortcut_key_type = ShortcutKey;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The menu observer set type.
-        typedef MenuObserverSet menu_observer_set_type;
+        using menu_observer_set_type = MenuObserverSet;
 
 
     };

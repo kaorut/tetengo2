@@ -22,13 +22,13 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
+    using uint_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
 
-    typedef tetengo2::config::config_base<string_type, uint_type> config_base_type;
+    using config_base_type = tetengo2::config::config_base<string_type, uint_type>;
 
-    typedef config_base_type::value_type value_type;
+    using value_type = config_base_type::value_type;
 
     class concrete_config : public config_base_type
     {
@@ -57,13 +57,6 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(config_base)
     // test cases
-
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const concrete_config config;
-    }
 
     BOOST_AUTO_TEST_CASE(get)
     {

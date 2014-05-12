@@ -26,16 +26,16 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef LabelTraits base_type;
+        using base_type = LabelTraits;
 
         //! The solid background type.
-        typedef SolidBackground solid_background_type;
+        using solid_background_type = SolidBackground;
 
         //! The system color set type.
-        typedef SystemColorSet system_color_set_type;
+        using system_color_set_type = SystemColorSet;
 
         //! The shell type.
-        typedef Shell shell_type;
+        using shell_type = Shell;
 
 
     };

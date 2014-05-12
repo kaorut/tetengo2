@@ -25,9 +25,9 @@ namespace
 {
     // types
 
-    typedef tetengo2::text::grammar::json<std::string::const_iterator> grammar_type;
+    using grammar_type = tetengo2::text::grammar::json<std::string::const_iterator>;
 
-    typedef grammar_type::structure_attribute_type structure_attribute_type;
+    using structure_attribute_type = grammar_type::structure_attribute_type;
 
 
     // functions

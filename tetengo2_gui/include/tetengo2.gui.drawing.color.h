@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The value type.
-        typedef Value value_type;
+        using value_type = Value;
 
 
         // constructors and destructor

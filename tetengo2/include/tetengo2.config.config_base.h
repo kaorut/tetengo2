@@ -33,13 +33,13 @@ namespace tetengo2 { namespace config
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The unsigned integer type.
-        typedef UInt uint_type;
+        using uint_type = UInt;
 
         //! The value type.
-        typedef boost::variant<string_type, uint_type> value_type;
+        using value_type = boost::variant<string_type, uint_type>;
 
 
         // constructors and destructor
@@ -48,7 +48,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration base.
         */
         virtual ~config_base()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

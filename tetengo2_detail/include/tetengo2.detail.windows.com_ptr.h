@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
     struct unique_com_ptr
     {
         //! The unique COM pointer type.
-        typedef std::unique_ptr<T, detail::release_unknown> type;
+        using type = std::unique_ptr<T, detail::release_unknown>;
 
 
     };

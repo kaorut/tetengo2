@@ -28,10 +28,10 @@ namespace tetengo2 { namespace gui { namespace cursor
         // types
 
         //! The detail implementation type of a cursor.
-        typedef CursorDetails cursor_details_type;
+        using cursor_details_type = CursorDetails;
 
         //! The detail implementation type.
-        typedef typename cursor_details_type::cursor_details_type details_type;
+        using details_type = typename cursor_details_type::cursor_details_type;
 
 
         // constructors and destructor
@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the cursor_base.
         */
         virtual ~cursor_base()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

@@ -36,7 +36,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The code type.
-        typedef unsigned char code_type;
+        using code_type = unsigned char;
 
 
         // static functions

@@ -25,13 +25,13 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef ControlTraits base_type;
+        using base_type = ControlTraits;
 
         //! The picture type.
-        typedef Picture picture_type;
+        using picture_type = Picture;
 
         //! The icon type.
-        typedef Icon icon_type;
+        using icon_type = Icon;
 
 
     };

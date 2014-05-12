@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The base type.
-        typedef canvas<Traits, DrawingDetails> base_type;
+        using base_type = canvas<Traits, DrawingDetails>;
 
 
         // constructors and destructor
@@ -50,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the widget canvas.
         */
         virtual ~widget_canvas()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     };

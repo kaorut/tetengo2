@@ -30,7 +30,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The base type.
-        typedef background<DrawingDetails> base_type;
+        using base_type = background<DrawingDetails>;
 
 
         // constructors and destructor
@@ -48,15 +48,15 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~transparent_background()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:
         // types
 
-        typedef typename base_type::details_type details_type;
+        using details_type = typename base_type::details_type;
 
-        typedef typename base_type::details_ptr_type details_ptr_type;
+        using details_ptr_type = typename base_type::details_ptr_type;
 
 
         // variables

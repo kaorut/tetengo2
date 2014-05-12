@@ -26,10 +26,10 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of resized
         */
-        typedef void resized_type();
+        using resized_type = void ();
 
         //! The signal type of resized.
-        typedef boost::signals2::signal<resized_type> resized_signal_type;
+        using resized_signal_type = boost::signals2::signal<resized_type>;
 
 
         // functions

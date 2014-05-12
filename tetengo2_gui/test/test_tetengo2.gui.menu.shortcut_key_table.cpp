@@ -25,25 +25,21 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
-        menu_base_type;
+    using menu_base_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
 
-    typedef
+    using virtual_key_type =
         boost::mpl::at<
             test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::virtual_key
-        >::type
-        virtual_key_type;
+        >::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::shortcut_key>::type
-        shortcut_key_type;
+    using shortcut_key_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::shortcut_key>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::shortcut_key_table>::type
-        shortcut_key_table_type;
+    using shortcut_key_table_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::shortcut_key_table>::type;
 
     class concrete_menu : public menu_base_type
     {

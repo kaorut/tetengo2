@@ -26,12 +26,12 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type messages_type;
+    using messages_type =
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type;
 
-    typedef std::messages<string_type::value_type> std_messages_type;
+    using std_messages_type = std::messages<string_type::value_type>;
 
     struct set_global_locale
     {

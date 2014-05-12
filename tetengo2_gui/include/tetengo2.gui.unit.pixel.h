@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace unit
         // types
 
         //! The value type.
-        typedef Value value_type;
+        using value_type = Value;
 
 
         // static functions

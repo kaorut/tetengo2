@@ -20,23 +20,19 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
-        widget_type;
+    using widget_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef
+    using mouse_button_type =
         boost::mpl::at<
             test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::mouse_observer_set
-        >::type::mouse_button_type
-        mouse_button_type;
+        >::type::mouse_button_type;
 
-    typedef
-        tetengo2::gui::mouse_capture<widget_type, mouse_button_type, tetengo2::detail::stub::mouse_capture>
-        mouse_capture_type;
+    using mouse_capture_type =
+        tetengo2::gui::mouse_capture<widget_type, mouse_button_type, tetengo2::detail::stub::mouse_capture>;
 
 
 }

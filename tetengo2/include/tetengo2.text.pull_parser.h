@@ -39,20 +39,19 @@ namespace tetengo2 { namespace text
         // types
 
         //! The push parser type.
-        typedef PushParser push_parser_type;
+        using push_parser_type = PushParser;
 
         //! The string type.
-        typedef typename push_parser_type::string_type string_type;
+        using string_type = typename push_parser_type::string_type;
 
         //! The value type.
-        typedef typename push_parser_type::value_type value_type;
+        using value_type = typename push_parser_type::value_type;
 
         //! The attribute map type.
-        typedef
-            typename push_parser_type::attribute_map_type attribute_map_type;
+        using attribute_map_type = typename push_parser_type::attribute_map_type;
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
         //! The structure kind type.
         enum class structure_kind_type
@@ -130,13 +129,13 @@ namespace tetengo2 { namespace text
         };
 
         //! The beginning structure type.
-        typedef structure<structure_kind_type::begin> structure_begin_type;
+        using structure_begin_type = structure<structure_kind_type::begin>;
 
         //! The ending structure type.
-        typedef structure<structure_kind_type::end> structure_end_type;
+        using structure_end_type = structure<structure_kind_type::end>;
 
         //! The element type.
-        typedef boost::variant<structure_begin_type, structure_end_type, value_type> element_type;
+        using element_type = boost::variant<structure_begin_type, structure_end_type, value_type>;
 
 
         // constructors and destructor
@@ -245,11 +244,11 @@ namespace tetengo2 { namespace text
     private:
         // types
 
-        typedef concurrent::channel<element_type, size_type> channel_type;
+        using channel_type = concurrent::channel<element_type, size_type>;
 
-        typedef concurrent::producer<channel_type> producer_type;
+        using producer_type = concurrent::producer<channel_type>;
 
-        typedef concurrent::consumer<channel_type> consumer_type;
+        using consumer_type = concurrent::consumer<channel_type>;
 
 
         // static functions

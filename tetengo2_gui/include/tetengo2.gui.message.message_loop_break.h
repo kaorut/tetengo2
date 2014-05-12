@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         //! The detail implementation type of a message loop.
-        typedef MessageLoopDetails message_loop_details_type;
+        using message_loop_details_type = MessageLoopDetails;
 
 
         // functions

@@ -29,16 +29,16 @@ namespace tetengo2 { namespace gui { namespace cursor
         // types
 
         //! The detail implemetation type of a cursor.
-        typedef CursorDetails cursor_details_type;
+        using cursor_details_type = CursorDetails;
 
         //! The base type.
-        typedef cursor_base<cursor_details_type> base_type;
+        using base_type = cursor_base<cursor_details_type>;
 
         //! The detail implementation type.
-        typedef typename cursor_details_type::cursor_details_type details_type;
+        using details_type = typename cursor_details_type::cursor_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename cursor_details_type::cursor_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename cursor_details_type::cursor_details_ptr_type;
 
         //! The style type.
         enum class style_type
@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the system cursor.
         */
         virtual ~system()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

@@ -48,31 +48,31 @@ namespace tetengo2 { namespace text
         // types
 
         //! The iterator type.
-        typedef ForwardIterator iterator;
+        using iterator = ForwardIterator;
 
         //! The grammar type.
-        typedef Grammar grammar_type;
+        using grammar_type = Grammar;
 
         //! The integer type.
-        typedef Integer integer_type;
+        using integer_type = Integer;
 
         //! The floating point number type.
-        typedef Float float_type;
+        using float_type = Float;
 
         //! The string type.
-        typedef std::basic_string<typename iterator::value_type> string_type;
+        using string_type = std::basic_string<typename iterator::value_type>;
 
         //! The value type.
-        typedef boost::variant<bool, void*, integer_type, float_type, string_type> value_type;
+        using value_type = boost::variant<bool, void*, integer_type, float_type, string_type>;
 
         //! The attribute map type.
-        typedef std::unordered_map<string_type, value_type> attribute_map_type;
+        using attribute_map_type = std::unordered_map<string_type, value_type>;
 
         //! The structure signal type.
-        typedef boost::signals2::signal<void (const string_type&, const attribute_map_type&)> structure_signal_type;
+        using structure_signal_type = boost::signals2::signal<void (const string_type&, const attribute_map_type&)>;
 
         //! The value signal type.
-        typedef boost::signals2::signal<void (const value_type&)> value_signal_type;
+        using value_signal_type = boost::signals2::signal<void (const value_type&)>;
 
 
         // constructors and destructor

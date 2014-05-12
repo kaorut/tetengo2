@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The detail implementation type of a fixture.
-        typedef FixtureDetails fixture_details_type;
+        using fixture_details_type = FixtureDetails;
 
 
         // constructors and destructor

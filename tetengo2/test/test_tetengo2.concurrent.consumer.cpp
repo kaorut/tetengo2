@@ -22,7 +22,7 @@ namespace
     class channel_type : private boost::noncopyable
     {
     public:
-        typedef int value_type;
+        using value_type = int;
 
         channel_type(const bool empty)
         :
@@ -69,7 +69,7 @@ namespace
         std::queue<int> m_values;
     };
 
-    typedef tetengo2::concurrent::consumer<channel_type> consumer_type;
+    using consumer_type = tetengo2::concurrent::consumer<channel_type>;
 
 
 }

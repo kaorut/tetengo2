@@ -36,34 +36,34 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The size type.
-        typedef typename traits_type::size_type size_type;
+        using size_type = typename traits_type::size_type;
 
         //! The string type.
-        typedef typename traits_type::string_type string_type;
+        using string_type = typename traits_type::string_type;
 
         //! The position type.
-        typedef typename traits_type::position_type position_type;
+        using position_type = typename traits_type::position_type;
 
         //! The dimension type.
-        typedef typename traits_type::dimension_type dimension_type;
+        using dimension_type = typename traits_type::dimension_type;
 
         //! The width type.
-        typedef typename gui::dimension<dimension_type>::width_type width_type;
+        using width_type = typename gui::dimension<dimension_type>::width_type;
 
         //! The encoder type.
-        typedef typename traits_type::encoder_type encoder_type;
+        using encoder_type = typename traits_type::encoder_type;
 
         //! The color type.
-        typedef typename traits_type::color_type color_type;
+        using color_type = typename traits_type::color_type;
 
         //! The background type.
-        typedef typename traits_type::background_type background_type;
+        using background_type = typename traits_type::background_type;
 
         //! The solid background type.
-        typedef typename traits_type::solid_background_type solid_background_type;
+        using solid_background_type = typename traits_type::solid_background_type;
 
         //! The line style type.
         enum class line_style_type
@@ -75,22 +75,22 @@ namespace tetengo2 { namespace gui { namespace drawing
         };
 
         //! The font type.
-        typedef typename traits_type::font_type font_type;
+        using font_type = typename traits_type::font_type;
 
         //! The picture type.
-        typedef typename traits_type::picture_type picture_type;
+        using picture_type = typename traits_type::picture_type;
 
         //! The icon type.
-        typedef typename traits_type::icon_type icon_type;
+        using icon_type = typename traits_type::icon_type;
 
         //! The detail implementation type of a drawing.
-        typedef DrawingDetails drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The detail implementation type.
-        typedef typename drawing_details_type::canvas_details_type details_type;
+        using details_type = typename drawing_details_type::canvas_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename drawing_details_type::canvas_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename drawing_details_type::canvas_details_ptr_type;
 
 
         // constructors and destructor
@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the canvas.
         */
         virtual ~canvas()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

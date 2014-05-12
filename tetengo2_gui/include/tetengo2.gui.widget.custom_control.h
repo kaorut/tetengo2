@@ -42,55 +42,55 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The mouse capture type.
-        typedef typename traits_type::mouse_capture_type mouse_capture_type;
+        using mouse_capture_type = typename traits_type::mouse_capture_type;
 
         //! The mouse button type.
-        typedef typename mouse_capture_type::mouse_button_type mouse_button_type;
+        using mouse_button_type = typename mouse_capture_type::mouse_button_type;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef control<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
+        using base_type = control<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The widget type.
-        typedef typename base_type::base_type widget_type;
+        using widget_type = typename base_type::base_type;
 
         //! The widget canvas type.
-        typedef typename base_type::widget_canvas_type widget_canvas_type;
+        using widget_canvas_type = typename base_type::widget_canvas_type;
 
         //! The canvas type.
-        typedef typename base_type::canvas_type canvas_type;
+        using canvas_type = typename base_type::canvas_type;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The scroll bar type.
-        typedef typename base_type::scroll_bar_type scroll_bar_type;
+        using scroll_bar_type = typename base_type::scroll_bar_type;
 
         //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The inner item type.
-        typedef inner_item<custom_control> inner_item_type;
+        using inner_item_type = inner_item<custom_control>;
 
 
         // constructors and destructor
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the custom control.
         */
         virtual ~custom_control()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions
@@ -202,7 +202,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
         // variables
@@ -227,25 +227,25 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The custom control type.
-        typedef CustomControl custom_control_type;
+        using custom_control_type = CustomControl;
 
         //! The mouse button type.
-        typedef typename custom_control_type::mouse_button_type mouse_button_type;
+        using mouse_button_type = typename custom_control_type::mouse_button_type;
 
         //! The postion type.
-        typedef typename custom_control_type::position_type position_type;
+        using position_type = typename custom_control_type::position_type;
 
         //! The left type.
-        typedef typename gui::position<position_type>::left_type left_type;
+        using left_type = typename gui::position<position_type>::left_type;
 
         //! The top type.
-        typedef typename gui::position<position_type>::top_type top_type;
+        using top_type = typename gui::position<position_type>::top_type;
 
         //! The postion type.
-        typedef typename custom_control_type::dimension_type dimension_type;
+        using dimension_type = typename custom_control_type::dimension_type;
 
         //! The canvas type.
-        typedef typename custom_control_type::canvas_type canvas_type;
+        using canvas_type = typename custom_control_type::canvas_type;
 
 
         // constructors and destructors
@@ -254,7 +254,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the inner item.
         */
         virtual ~inner_item()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

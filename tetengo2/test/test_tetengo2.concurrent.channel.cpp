@@ -22,7 +22,7 @@ namespace
 {
     // types
 
-    typedef tetengo2::concurrent::channel<int, std::size_t> channel_type;
+    using channel_type = tetengo2::concurrent::channel<int, std::size_t>;
 
     struct test_exception : public std::runtime_error
     {

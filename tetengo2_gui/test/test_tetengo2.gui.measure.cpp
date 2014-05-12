@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            typedef tetengo2::gui::unit::pixel<int> unit_type;
+            using unit_type = tetengo2::gui::unit::pixel<int>;
             const int value = 123;
 
             const auto unit = tetengo2::gui::to_unit<unit_type>(value);
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(gui)
             BOOST_CHECK_EQUAL(unit.value(), 123);
         }
         {
-            typedef int unit_type;
+            using unit_type = int;
             const int value = 456;
 
             const auto unit = tetengo2::gui::to_unit<unit_type>(value);
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> position_type;
+        using position_type = std::pair<int, int>;
         const auto position = position_type(123, 456);
 
         BOOST_CHECK_EQUAL(tetengo2::gui::position<position_type>::left(position), 123);
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> position_type;
+        using position_type = std::pair<int, int>;
         const auto position = position_type(123, 456);
 
         BOOST_CHECK_EQUAL(tetengo2::gui::position<position_type>::top(position), 456);
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> position_type;
+        using position_type = std::pair<int, int>;
         const auto position = tetengo2::gui::position<position_type>::make(123, 456);
 
         BOOST_CHECK_EQUAL(position.first, 123);
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> dimension_type;
+        using dimension_type = std::pair<int, int>;
         const auto dimension = dimension_type(123, 456);
 
         BOOST_CHECK_EQUAL(tetengo2::gui::dimension<dimension_type>::width(dimension), 123);
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> dimension_type;
+        using dimension_type = std::pair<int, int>;
         const auto dimension = dimension_type(123, 456);
 
         BOOST_CHECK_EQUAL(tetengo2::gui::dimension<dimension_type>::height(dimension), 456);
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::pair<int, int> dimension_type;
+        using dimension_type = std::pair<int, int>;
         const auto dimension = tetengo2::gui::dimension<dimension_type>::make(123, 456);
 
         BOOST_CHECK_EQUAL(dimension.first, 123);

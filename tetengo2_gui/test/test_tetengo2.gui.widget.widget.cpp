@@ -25,36 +25,31 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::details_font>::type
-        details_font_type;
+    using details_font_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::details_font>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type position_type;
+    using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type
-        background_type;
+    using background_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type;
 
-    typedef
+    using transparent_background_type =
         boost::mpl::at<
             test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
-        >::type
-        transparent_background_type;
+        >::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type font_type;
+    using font_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type
-        system_cursor_type;
+    using system_cursor_type =
+        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
-        widget_type;
+    using widget_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;
 
     class concrete_widget : public widget_type
     {
@@ -92,7 +87,7 @@ namespace
         }
 
         virtual ~concrete_widget()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:
@@ -115,15 +110,15 @@ namespace
 
     position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
-        typedef tetengo2::gui::position<position_type>::left_type left_type;
-        typedef tetengo2::gui::position<position_type>::top_type top_type;
+        using left_type = tetengo2::gui::position<position_type>::left_type;
+        using top_type = tetengo2::gui::position<position_type>::top_type;
         return position_type(left_type(left), top_type(top));
     }
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
-        typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+        using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
         return dimension_type(width_type(width), height_type(height));
     }
 

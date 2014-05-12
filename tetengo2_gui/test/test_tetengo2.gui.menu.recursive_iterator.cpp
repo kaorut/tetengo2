@@ -23,19 +23,16 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
-        menu_base_type;
+    using menu_base_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::popup>::type
-        popup_menu_type;
+    using popup_menu_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::popup>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::recursive_iterator>::type
-        iterator_type;
+    using iterator_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::recursive_iterator>::type;
 
 
     // functions

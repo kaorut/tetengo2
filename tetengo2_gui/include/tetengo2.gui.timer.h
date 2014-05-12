@@ -31,20 +31,20 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The widget type.
-        typedef Widget widget_type;
+        using widget_type = Widget;
 
         //! The detail implementation type of a timer.
-        typedef TimerDetails timer_details_type;
+        using timer_details_type = TimerDetails;
 
         /*!
             \brief The procedure type.
 
             \param stop Assign true to stop the timer.
         */
-        typedef std::function<void (bool& stop)> procedure_type;
+        using procedure_type = std::function<void (bool& stop)>;
 
         //! The interval type.
-        typedef std::chrono::milliseconds inteval_type;
+        using inteval_type = std::chrono::milliseconds;
 
 
         // constructors and destructor

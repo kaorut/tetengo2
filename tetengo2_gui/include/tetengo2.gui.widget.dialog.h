@@ -33,41 +33,38 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef
-            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>
-            base_type;
+        using base_type =
+            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The message loop type.
-        typedef typename traits_type::message_loop_type message_loop_type;
+        using message_loop_type = typename traits_type::message_loop_type;
 
         //! The message loop break type.
-        typedef typename traits_type::message_loop_break_type message_loop_break_type;
+        using message_loop_break_type = typename traits_type::message_loop_break_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The result type.
         enum class result_type
@@ -112,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the dialog.
         */
         virtual ~dialog()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions
@@ -165,7 +162,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
         // variables

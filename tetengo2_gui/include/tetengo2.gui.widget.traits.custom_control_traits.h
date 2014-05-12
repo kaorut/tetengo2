@@ -24,10 +24,10 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef ControlTraits base_type;
+        using base_type = ControlTraits;
 
         //! The mouse capture type.
-        typedef MouseCapture mouse_capture_type;
+        using mouse_capture_type = MouseCapture;
 
 
     };

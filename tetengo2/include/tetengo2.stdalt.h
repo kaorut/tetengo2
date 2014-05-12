@@ -28,7 +28,25 @@
     //! The alternative to the C++11 keyword noexcept.
 #   define TETENGO2_STDALT_NOEXCEPT noexcept
 #else
-#   define TETENGO2_STDALT_NOEXCEPT throw ()
+#   define TETENGO2_STDALT_NOEXCEPT
+#endif
+
+
+/* destructor default implementation ******************************************/
+
+#if !defined(DOCUMENTATION)
+#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(12, 0, 0) || BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 8, 0)
+#       define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED 1
+#   else
+#       define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED 0
+#   endif
+#endif
+
+#if TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION_SUPPORTED || defined(DOCUMENTATION)
+//! The destructor default implementation.
+#   define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION TETENGO2_STDALT_NOEXCEPT = default;
+#else
+#   define TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION TETENGO2_STDALT_NOEXCEPT {}
 #endif
 
 
@@ -134,13 +152,13 @@ namespace tetengo2 { namespace stdalt
 {
 #if TETENGO2_STDALT_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
     //! The thread.
-    typedef std::thread thread;
+    using thread = std::thread;
 
     //! The mutex.
-    typedef std::mutex mutex;
+    using mutex = std::mutex;
 
     //! The condition variable.
-    typedef std::condition_variable condition_variable;
+    using condition_variable = std::condition_variable;
 
     /*!
         \brief The unique lock.
@@ -151,19 +169,19 @@ namespace tetengo2 { namespace stdalt
     struct unique_lock
     {
         //! The unique lock type.
-        typedef std::unique_lock<Mutex> type;
+        using type = std::unique_lock<Mutex>;
     };
 #else
-    typedef boost::thread thread;
+    using thread = boost::thread;
 
-    typedef boost::mutex mutex;
+    using mutex = boost::mutex;
 
-    typedef boost::condition_variable condition_variable;
+    using condition_variable = boost::condition_variable;
 
     template <typename Mutex>
     struct unique_lock
     {
-        typedef boost::unique_lock<Mutex> type;
+        using type = boost::unique_lock<Mutex>;
     };
 #endif
 

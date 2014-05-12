@@ -40,7 +40,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The widget handle type.
-        typedef ::HWND widget_handle_type;
+        using widget_handle_type = ::HWND;
 
 
         // static functions
@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return;
             }
 
-            typedef decltype(::TaskDialog)* task_dialog_ptr_type;
+            using task_dialog_ptr_type = decltype(::TaskDialog)*;
             auto p_task_dialog = reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
             if (!p_task_dialog)
             {

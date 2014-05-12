@@ -18,15 +18,13 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type
-        abstract_window_type;
+    using abstract_window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type;
 
-    typedef
+    using dialog_message_loop_type =
         boost::mpl::at<
             test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::dialog_message_loop
-        >::type
-        dialog_message_loop_type;
+        >::type;
 
     class concrete_window : public abstract_window_type
     {
@@ -40,7 +38,7 @@ namespace
         }
 
         virtual ~concrete_window()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

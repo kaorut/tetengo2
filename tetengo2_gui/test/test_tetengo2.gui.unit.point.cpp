@@ -16,11 +16,10 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::point>::type unit_type;
+    using unit_type = boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::point>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::another_point>::type
-        another_unit_type;
+    using another_unit_type =
+        boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::another_point>::type;
 
 
 }

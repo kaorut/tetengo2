@@ -42,51 +42,50 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The solid background type.
-        typedef typename traits_type::solid_background_type solid_background_type;
+        using solid_background_type = typename traits_type::solid_background_type;
 
         //! The system color set type.
-        typedef typename traits_type::system_color_set_type system_color_set_type;
+        using system_color_set_type = typename traits_type::system_color_set_type;
 
         //! The system cursor type.
-        typedef typename traits_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename traits_type::system_cursor_type;
 
         //! The cursor type.
-        typedef typename system_cursor_type::base_type cursor_type;
+        using cursor_type = typename system_cursor_type::base_type;
 
         //! The timer type.
-        typedef typename traits_type::timer_type timer_type;
+        using timer_type = typename traits_type::timer_type;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef
-            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>
-            base_type;
+        using base_type =
+            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The widget type.
-        typedef typename base_type::base_type::base_type widget_type;
+        using widget_type = typename base_type::base_type::base_type;
 
         //! The canvas type.
-        typedef typename base_type::canvas_type canvas_type;
+        using canvas_type = typename base_type::canvas_type;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
         //! The width type.
-        typedef typename gui::dimension<dimension_type>::width_type width_type;
+        using width_type = typename gui::dimension<dimension_type>::width_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
 
         // constructors and destructor
@@ -111,7 +110,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the side bar.
         */
         virtual ~side_bar()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions
@@ -248,23 +247,23 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
-        typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
+        using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        typedef typename canvas_type::size_type size_type;
+        using size_type = typename canvas_type::size_type;
 
-        typedef typename canvas_type::color_type color_type;
+        using color_type = typename canvas_type::color_type;
 
-        typedef typename gui::position<position_type>::left_type left_type;
+        using left_type = typename gui::position<position_type>::left_type;
 
-        typedef typename gui::position<position_type>::top_type top_type;
+        using top_type = typename gui::position<position_type>::top_type;
 
-        typedef typename gui::dimension<dimension_type>::height_type height_type;
+        using height_type = typename gui::dimension<dimension_type>::height_type;
 
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
-        typedef typename base_type::inner_item_type inner_item_type;
+        using inner_item_type = typename base_type::inner_item_type;
 
         class state_button : public inner_item_type
         {
@@ -506,7 +505,7 @@ namespace tetengo2 { namespace gui { namespace widget
             {}
 
             virtual ~caption()
-            = default;
+            TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
             // functions

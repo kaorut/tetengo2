@@ -35,31 +35,31 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         // types
 
         //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
+        using abstract_window_type = AbstractWindow;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The path type.
-        typedef Path path_type;
+        using path_type = Path;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The detail implementation type of common dialogs.
-        typedef CommonDialogDetails common_dialog_details_type;
+        using common_dialog_details_type = CommonDialogDetails;
 
         //! The detail implementation type.
-        typedef typename common_dialog_details_type::file_open_dialog_details_type details_type;
+        using details_type = typename common_dialog_details_type::file_open_dialog_details_type;
 
         //! The detail implementaiton pointer type;
-        typedef typename common_dialog_details_type::file_open_dialog_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename common_dialog_details_type::file_open_dialog_details_ptr_type;
 
         //! The file filter type.
-        typedef std::pair<string_type, string_type> file_filter_type;
+        using file_filter_type = std::pair<string_type, string_type>;
 
         //! The file filters type.
-        typedef std::vector<file_filter_type> file_filters_type;
+        using file_filters_type = std::vector<file_filter_type>;
 
 
         // constructors and destructor

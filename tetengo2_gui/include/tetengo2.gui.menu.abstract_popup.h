@@ -36,37 +36,37 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a menu.
-        typedef MenuDetails menu_details_type;
+        using menu_details_type = MenuDetails;
 
         //! The base type.
-        typedef menu_base<traits_type, menu_details_type> base_type;
+        using base_type = menu_base<traits_type, menu_details_type>;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The shortcut key type.
-        typedef typename base_type::shortcut_key_type shortcut_key_type;
+        using shortcut_key_type = typename base_type::shortcut_key_type;
 
         //! The const iterator type.
-        typedef typename base_type::const_iterator const_iterator;
+        using const_iterator = typename base_type::const_iterator;
 
         //! The iterator type.
-        typedef typename base_type::iterator iterator;
+        using iterator = typename base_type::iterator;
 
         //! The const recursive iterator type.
-        typedef typename base_type::const_recursive_iterator_type const_recursive_iterator_type;
+        using const_recursive_iterator_type = typename base_type::const_recursive_iterator_type;
 
         //! The recursive iterator type.
-        typedef typename base_type::recursive_iterator_type recursive_iterator_type;
+        using recursive_iterator_type = typename base_type::recursive_iterator_type;
 
         //! The detail implementation type.
-        typedef typename menu_details_type::menu_details_type details_type;
+        using details_type = typename menu_details_type::menu_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
 
     protected:
@@ -88,13 +88,13 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the abstract_popup.
         */
         virtual ~abstract_popup()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:
         // types
 
-        typedef typename traits_type::encoder_type encoder_type;
+        using encoder_type = typename traits_type::encoder_type;
 
 
         // static functions

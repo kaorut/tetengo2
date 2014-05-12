@@ -29,17 +29,17 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         //! The path type.
-        typedef Path path_type;
+        using path_type = Path;
 
         /*!
             \brief The observer type of file-dropped.
 
             \param paths Paths.
         */
-        typedef void file_dropped_type(const std::vector<path_type>& paths);
+        using file_dropped_type = void (const std::vector<path_type>& paths);
 
         //! The signal type of file_dropped.
-        typedef boost::signals2::signal<file_dropped_type> file_dropped_signal_type;
+        using file_dropped_signal_type = boost::signals2::signal<file_dropped_type>;
 
 
         // functions

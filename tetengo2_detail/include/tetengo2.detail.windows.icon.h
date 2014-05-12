@@ -53,7 +53,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        typedef std::unique_ptr<typename std::remove_pointer< ::HICON>::type, icon_deleter_type> icon_handle_type;
+        using icon_handle_type = std::unique_ptr<typename std::remove_pointer< ::HICON>::type, icon_deleter_type>;
 #endif
 
         //! The icon details type.
@@ -76,7 +76,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The icon details pointer type.
-        typedef std::unique_ptr<icon_details_type> icon_details_ptr_type;
+        using icon_details_ptr_type = std::unique_ptr<icon_details_type>;
 
 
         // static functions

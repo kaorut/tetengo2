@@ -34,10 +34,10 @@ namespace tetengo2 { namespace text { namespace encoding
         // types
 
         //! The base type.
-        typedef encoding<EncodingDetails> base_type;
+        using base_type = encoding<EncodingDetails>;
 
         //! The string type.
-        typedef std::string string_type;
+        using string_type = std::string;
 
 
         // functions
@@ -100,9 +100,9 @@ namespace tetengo2 { namespace text { namespace encoding
     private:
         // types
 
-        typedef typename base_type::pivot_type::value_type pivot_char_type;
+        using pivot_char_type = typename base_type::pivot_type::value_type;
 
-        typedef string_type::value_type string_char_type;
+        using string_char_type = string_type::value_type;
 
 
         // static functions

@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef ControlTraits base_type;
+        using base_type = ControlTraits;
 
 
     };

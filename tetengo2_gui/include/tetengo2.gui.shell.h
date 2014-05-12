@@ -33,13 +33,13 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The detail implementation type of a shell.
-        typedef ShellDetails shell_details_type;
+        using shell_details_type = ShellDetails;
 
 
         // static functions

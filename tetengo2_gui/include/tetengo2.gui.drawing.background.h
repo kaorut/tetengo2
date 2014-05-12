@@ -30,13 +30,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The detail implementation type of a drawing.
-        typedef DrawingDetails drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The detail implementation type.
-        typedef typename drawing_details_type::background_details_type details_type;
+        using details_type = typename drawing_details_type::background_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename drawing_details_type::background_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename drawing_details_type::background_details_ptr_type;
 
 
         // constructors and destructor
@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~background()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

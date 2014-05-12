@@ -53,13 +53,13 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
-        typedef unique_com_ptr< ::IFileOpenDialog>::type file_open_dialog_ptr_type;
+        using file_open_dialog_ptr_type = unique_com_ptr< ::IFileOpenDialog>::type;
 
-        typedef unique_com_ptr< ::IFileSaveDialog>::type file_save_dialog_ptr_type;
+        using file_save_dialog_ptr_type = unique_com_ptr< ::IFileSaveDialog>::type;
 
-        typedef std::pair<std::wstring, std::wstring> native_filter_type;
+        using native_filter_type = std::pair<std::wstring, std::wstring>;
 
-        typedef std::vector<native_filter_type> native_filters_type;
+        using native_filters_type = std::vector<native_filter_type>;
 
 
     }
@@ -135,7 +135,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The message box details pointer type.
-        typedef std::unique_ptr<message_box_details_type> message_box_details_ptr_type;
+        using message_box_details_ptr_type = std::unique_ptr<message_box_details_type>;
 
         //! The file open dialog details type.
         struct file_open_dialog_details_type
@@ -166,7 +166,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The file open dialog details pointer type.
-        typedef std::unique_ptr<file_open_dialog_details_type> file_open_dialog_details_ptr_type;
+        using file_open_dialog_details_ptr_type = std::unique_ptr<file_open_dialog_details_type>;
 
         //! The file save dialog details type.
         struct file_save_dialog_details_type
@@ -203,7 +203,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The file save dialog details pointer type.
-        typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
+        using file_save_dialog_details_ptr_type = std::unique_ptr<file_save_dialog_details_type>;
 
         //! The font dialog details type.
         struct font_dialog_details_type
@@ -223,7 +223,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         //! The font dialog details pointer type.
-        typedef std::unique_ptr<font_dialog_details_type> font_dialog_details_ptr_type;
+        using font_dialog_details_ptr_type = std::unique_ptr<font_dialog_details_type>;
 
         //! The color dialog details type.
         struct color_dialog_details_type
@@ -242,7 +242,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The color dialog details pointer type.
-        typedef std::unique_ptr<color_dialog_details_type> color_dialog_details_ptr_type;
+        using color_dialog_details_ptr_type = std::unique_ptr<color_dialog_details_type>;
 
         
         // static functions
@@ -696,7 +696,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             else
             {
-                typedef typename std::decay<OptionalFont>::type::value_type font_type;
+                using font_type = typename std::decay<OptionalFont>::type::value_type;
                 const auto& dialog_font = font_type::dialog_font();
 
                 p_log_font->lfHeight = -static_cast< ::LONG>(dialog_font.size());

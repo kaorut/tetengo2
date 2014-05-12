@@ -28,18 +28,18 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param cancel Set true to cancel the window closing.
         */
-        typedef void closing_type(bool& cancel);
+        using closing_type = void (bool& cancel);
 
         //! The signal type of closing.
-        typedef boost::signals2::signal<closing_type> closing_signal_type;
+        using closing_signal_type = boost::signals2::signal<closing_type>;
 
         /*!
             \brief The observer type of destroyed.
         */
-        typedef void destroyed_type();
+        using destroyed_type = void ();
 
         //! The signal type of destroyed.
-        typedef boost::signals2::signal<destroyed_type> destroyed_signal_type;
+        using destroyed_signal_type = boost::signals2::signal<destroyed_type>;
 
 
         // functions
