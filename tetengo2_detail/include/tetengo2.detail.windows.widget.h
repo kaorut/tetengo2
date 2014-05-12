@@ -74,13 +74,13 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The string type.
-        typedef std::wstring string_type;
+        using string_type = std::wstring;
 
         //! The widget details type.
         struct widget_details_type
         {
 #if !defined(DOCUMENTATION)
-            typedef std::unique_ptr<typename std::remove_pointer< ::HWND>::type, detail::widget_deleter> handle_type;
+            using handle_type = std::unique_ptr<typename std::remove_pointer< ::HWND>::type, detail::widget_deleter>;
             handle_type handle;
             ::WNDPROC window_procedure;
             ::HWND first_child_handle;
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows
         };
 
         //! The widget details pointer type.
-        typedef std::unique_ptr<widget_details_type> widget_details_ptr_type;
+        using widget_details_ptr_type = std::unique_ptr<widget_details_type>;
 
 
         // static functions
@@ -991,7 +991,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            typedef gui::position<Position> position_traits_type;
+            using position_traits_type = gui::position<Position>;
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(rectangle.left),
@@ -1055,7 +1055,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (point.y - y_margin < monitor_info.rcWork.top)
                 point.y = monitor_info.rcWork.top + y_margin;
 
-            typedef gui::position<Position> position_traits_type;
+            using position_traits_type = gui::position<Position>;
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(point.x),
@@ -1090,7 +1090,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
@@ -1188,7 +1188,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
@@ -1226,7 +1226,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto& rectangle = window_placement.rcNormalPosition;
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),

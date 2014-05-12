@@ -168,22 +168,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         // types
 
         //! The background details type.
-        typedef detail::background_details background_details_type;
+        using background_details_type = detail::background_details;
 
         //! The background details pointer type.
-        typedef std::unique_ptr<background_details_type> background_details_ptr_type;
+        using background_details_ptr_type = std::unique_ptr<background_details_type>;
 
         //! The picture details type.
-        typedef picture::details_type picture_details_type;
+        using picture_details_type = picture::details_type;
 
         //! The picture details pointer type.
-        typedef picture::details_ptr_type picture_details_ptr_type;
+        using picture_details_ptr_type = picture::details_ptr_type;
 
         //! The canvas details type.
-        typedef ::ID2D1RenderTarget canvas_details_type;
+        using canvas_details_type = ::ID2D1RenderTarget;
 
         //! The canvas details pointer type.
-        typedef std::unique_ptr<canvas_details_type, detail::release_render_target> canvas_details_ptr_type;
+        using canvas_details_ptr_type = std::unique_ptr<canvas_details_type, detail::release_render_target>;
 
 
         // static functions
@@ -657,9 +657,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     private:
         // types
 
-        typedef unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
+        using direct2d_factory_ptr_type = unique_com_ptr< ::ID2D1Factory>::type;
 
-        typedef unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
+        using direct_write_factory_ptr_type = unique_com_ptr< ::IDWriteFactory>::type;
 
 
         // static functions

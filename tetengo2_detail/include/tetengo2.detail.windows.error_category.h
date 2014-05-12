@@ -36,8 +36,8 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        typedef
-            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring, encoding>> encoder_type;
+        using encoder_type =
+            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring, encoding>> ;
 
         inline const encoder_type& encoder()
         {

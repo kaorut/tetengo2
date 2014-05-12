@@ -40,7 +40,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The string type.
-        typedef std::string string_type;
+        using string_type = std::string;
 
 #if !defined(DOCUMENTATION)
         struct details_font_type
@@ -152,7 +152,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         //! The widget details pointer type.
-        typedef std::unique_ptr<widget_details_type> widget_details_ptr_type;
+        using widget_details_ptr_type = std::unique_ptr<widget_details_type>;
 
 
         // static functions
@@ -546,8 +546,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            typedef gui::position<Position> position_traits_type;
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using position_traits_type = gui::position<Position>;
+            using dimension_traits_type = gui::dimension<Dimension>;
             widget.details().position =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(position_traits_type::left(position)),
@@ -575,7 +575,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            typedef gui::position<Position> position_traits_type;
+            using position_traits_type = gui::position<Position>;
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(widget.details().position.first),
@@ -620,7 +620,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
@@ -643,7 +643,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             widget.details().dimension =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(client_dimension)),
@@ -666,7 +666,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
@@ -689,7 +689,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-            typedef gui::dimension<Dimension> dimension_traits_type;
+            using dimension_traits_type = gui::dimension<Dimension>;
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),

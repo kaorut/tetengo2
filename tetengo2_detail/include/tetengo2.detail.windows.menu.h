@@ -56,7 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        typedef std::unique_ptr<typename std::remove_pointer< ::HMENU>::type, menu_deleter> handle_type;
+        using handle_type = std::unique_ptr<typename std::remove_pointer< ::HMENU>::type, menu_deleter>;
 
         struct id_handle_type
         {
@@ -85,9 +85,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        typedef
-            std::unique_ptr<std::remove_pointer< ::HACCEL>::type, detail::accelerator_table_handle_deleter>
-            accelerator_table_handle_ptr_type;
+        using accelerator_table_handle_ptr_type =
+            std::unique_ptr<std::remove_pointer< ::HACCEL>::type, detail::accelerator_table_handle_deleter>;
 
         class shortcut_key_table_details : boost::noncopyable
         {
@@ -127,16 +126,16 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The menu details type.
-        typedef detail::id_handle_type menu_details_type;
+        using menu_details_type = detail::id_handle_type;
 
         //! The menu details pointer type.
-        typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
+        using menu_details_ptr_type = std::unique_ptr<menu_details_type>;
 
         //! The shortcut key table details type.
-        typedef detail::shortcut_key_table_details shortcut_key_table_details_type;
+        using shortcut_key_table_details_type = detail::shortcut_key_table_details;
 
         //! The shortcut key table details pointer type.
-        typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
+        using shortcut_key_table_details_ptr_type = std::unique_ptr<shortcut_key_table_details_type>;
 
         /*!
             \brief The style tag type.

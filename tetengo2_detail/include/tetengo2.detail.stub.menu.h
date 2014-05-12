@@ -32,13 +32,13 @@ namespace tetengo2 { namespace detail { namespace stub
         struct menu_details_type {};
 
         //! The menu details pointer type.
-        typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
+        using menu_details_ptr_type = std::unique_ptr<menu_details_type>;
 
         //! The shortcut key table details type.
         struct shortcut_key_table_details_type {};
 
         //! The shortcut key table details pointer type.
-        typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
+        using shortcut_key_table_details_ptr_type = std::unique_ptr<shortcut_key_table_details_type>;
 
         /*!
             \brief The style tag type.

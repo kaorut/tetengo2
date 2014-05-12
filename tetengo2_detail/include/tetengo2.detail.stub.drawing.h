@@ -37,7 +37,7 @@ namespace tetengo2 { namespace detail { namespace stub
         struct background_details_type {};
 
         //! The background details pointer type.
-        typedef std::unique_ptr<background_details_type> background_details_ptr_type;
+        using background_details_ptr_type = std::unique_ptr<background_details_type>;
 
         //! The picture details type.
         struct picture_details_type
@@ -76,13 +76,13 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         //! The picture details pointer type.
-        typedef std::unique_ptr<picture_details_type> picture_details_ptr_type;
+        using picture_details_ptr_type = std::unique_ptr<picture_details_type>;
 
         //! The canvas details type.
         struct canvas_details_type {};
 
         //! The canvas details pointer type.
-        typedef std::unique_ptr<canvas_details_type> canvas_details_ptr_type;
+        using canvas_details_ptr_type = std::unique_ptr<canvas_details_type>;
 
 
         // static functions
@@ -392,8 +392,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(canvas, font, text, encoder, max_width);
 
-            typedef typename gui::dimension<Dimension>::width_type width_type;
-            typedef typename gui::dimension<Dimension>::height_type height_type;
+            using width_type = typename gui::dimension<Dimension>::width_type;
+            using height_type = typename gui::dimension<Dimension>::height_type;
             return
                 max_width == width_type(0) || max_width >= width_type(123) ?
                 Dimension(width_type(123), height_type(456)) : Dimension(width_type(46), height_type(890));

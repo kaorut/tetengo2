@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     {
         // types
 
-        typedef unique_com_ptr< ::IWICImagingFactory>::type wic_imaging_factory_ptr_type;
+        using wic_imaging_factory_ptr_type = unique_com_ptr< ::IWICImagingFactory>::type;
 
 
         // functions
@@ -73,10 +73,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     // types
 
     //! The details type.
-    typedef ::IWICBitmapSource details_type;
+    using details_type = ::IWICBitmapSource;
 
     //! The details pointer type.
-    typedef unique_com_ptr<details_type>::type details_ptr_type;
+    using details_ptr_type = unique_com_ptr<details_type>::type;
 
 
     // functions

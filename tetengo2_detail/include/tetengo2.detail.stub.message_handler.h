@@ -31,10 +31,10 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The message handler type.
-        typedef std::function<void ()> message_handler_type;
+        using message_handler_type = std::function<void ()>;
 
         //! The message handler map type.
-        typedef std::unordered_map<int, std::vector<message_handler_type>> message_handler_map_type;
+        using message_handler_map_type = std::unordered_map<int, std::vector<message_handler_type>>;
 
 
         // static functions

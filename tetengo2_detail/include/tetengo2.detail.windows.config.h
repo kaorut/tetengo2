@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The string type.
-        typedef std::wstring string_type;
+        using string_type = std::wstring;
 
 
         // static functions

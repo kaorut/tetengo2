@@ -29,10 +29,10 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The cursor details type.
-        typedef int cursor_details_type;
+        using cursor_details_type = int;
 
         //! The cursor details pointer type.
-        typedef std::unique_ptr<cursor_details_type> cursor_details_ptr_type;
+        using cursor_details_ptr_type = std::unique_ptr<cursor_details_type>;
 
 
         // static functions
