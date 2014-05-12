@@ -20,19 +20,18 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
+    using uint_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
 
-    typedef boost::mpl::at<test_tetengo2::config_type_list, test_tetengo2::type::config::encoder>::type encoder_type;
+    using encoder_type = boost::mpl::at<test_tetengo2::config_type_list, test_tetengo2::type::config::encoder>::type;
 
-    typedef
-        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, tetengo2::detail::stub::config>
-        persistent_config_type;
+    using persistent_config_type =
+        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, tetengo2::detail::stub::config>;
 
-    typedef persistent_config_type::base_type config_base_type;
+    using config_base_type = persistent_config_type::base_type;
 
-    typedef persistent_config_type::value_type value_type;
+    using value_type = persistent_config_type::value_type;
 
 
 }

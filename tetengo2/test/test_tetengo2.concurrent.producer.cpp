@@ -26,7 +26,7 @@ namespace
     class channel_type : private boost::noncopyable
     {
     public:
-        typedef int value_type;
+        using value_type = int;
 
         channel_type(const bool empty)
         :
@@ -105,7 +105,7 @@ namespace
         BOOST_THROW_EXCEPTION(std::runtime_error("test exception"));
     }
 
-    typedef tetengo2::concurrent::producer<channel_type> producer_type;
+    using producer_type = tetengo2::concurrent::producer<channel_type>;
 
 
 }
