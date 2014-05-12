@@ -16,11 +16,10 @@ namespace
 {
     // types
 
-    typedef
+    using scroll_bar_observer_set_type =
         boost::mpl::at<
             test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::scroll_bar_observer_set
-        >::type
-        scroll_bar_observer_set_type;
+        >::type;
 
 
 }

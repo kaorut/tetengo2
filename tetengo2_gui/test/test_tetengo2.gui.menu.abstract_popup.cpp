@@ -23,15 +23,13 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
-        menu_base_type;
+    using menu_base_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::abstract_popup>::type
-        abstract_popup_menu_type;
+    using abstract_popup_menu_type =
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::abstract_popup>::type;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {

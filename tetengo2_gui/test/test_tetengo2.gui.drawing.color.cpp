@@ -16,9 +16,8 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
-        color_type;
+    using color_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
 
 
 }

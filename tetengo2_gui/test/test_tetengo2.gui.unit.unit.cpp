@@ -22,7 +22,7 @@ namespace
     public:
         // types
 
-        typedef Value value_type;
+        using value_type = Value;
 
 
         // static functions
@@ -127,9 +127,9 @@ namespace
 
     };
 
-    typedef concrete_unit<int> unit_type;
+    using unit_type = concrete_unit<int>;
 
-    typedef concrete_unit<unsigned short> another_unit_type;
+    using another_unit_type = concrete_unit<unsigned short>;
 
 
 }

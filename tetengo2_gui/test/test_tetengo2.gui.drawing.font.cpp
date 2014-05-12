@@ -18,10 +18,10 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type font_type;
+    using font_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
 
-    typedef font_type::string_type string_type;
+    using string_type = font_type::string_type;
 
 
 }

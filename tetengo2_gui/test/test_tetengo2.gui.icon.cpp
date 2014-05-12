@@ -24,19 +24,19 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
+    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    typedef tetengo2::gui::icon<path_type, dimension_type, tetengo2::detail::stub::icon> icon_type;
+    using icon_type = tetengo2::gui::icon<path_type, dimension_type, tetengo2::detail::stub::icon>;
 
 
     // functions
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
-        typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+        using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
         return dimension_type(width_type(width), height_type(height));
     }
 

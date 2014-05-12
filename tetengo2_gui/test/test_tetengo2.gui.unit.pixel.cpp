@@ -16,7 +16,7 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::pixel>::type unit_type;
+    using unit_type = boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::pixel>::type;
 
 
 }

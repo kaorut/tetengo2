@@ -22,15 +22,13 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
-        widget_type;
+    using widget_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer> timer_type;
+    using timer_type = tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer>;
 
 
     // functions

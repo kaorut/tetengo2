@@ -18,13 +18,11 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
-        color_type;
+    using color_type =
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::control>::type
-        control_type;
+    using control_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::control>::type;
 
     class concrete_control : public control_type
     {

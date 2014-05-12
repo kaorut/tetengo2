@@ -20,15 +20,13 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::dropdown_box>::type
-        dropdown_box_type;
+    using dropdown_box_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::dropdown_box>::type;
 
-    typedef dropdown_box_type::string_type string_type;
+    using string_type = dropdown_box_type::string_type;
 
 
 }

@@ -21,33 +21,27 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::map_box>::type
-        map_box_type;
+    using map_box_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::map_box>::type;
 
-    typedef map_box_type::value_type value_type;
+    using value_type = map_box_type::value_type;
 
-    typedef value_type::first_type key_type;
+    using key_type = value_type::first_type;
 
-    typedef value_type::second_type mapped_type;
+    using mapped_type = value_type::second_type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type
-        position_type;
+    using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
 
-    typedef tetengo2::gui::position<position_type>::left_type left_type;
+    using left_type = tetengo2::gui::position<position_type>::left_type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type
-        dimension_type;
+    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
 
-    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
+    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
 
 
     // functions

@@ -16,13 +16,11 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::text_box>::type
-        text_box_type;
+    using text_box_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::text_box>::type;
 
 
 }
