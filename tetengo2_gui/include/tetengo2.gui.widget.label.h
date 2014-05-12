@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the label.
         */
         virtual ~label()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

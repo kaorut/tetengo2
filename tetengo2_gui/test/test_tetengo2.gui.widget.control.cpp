@@ -43,7 +43,7 @@ namespace
         }
 
         virtual ~concrete_control()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     };

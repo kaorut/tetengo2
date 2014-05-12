@@ -105,7 +105,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the link label.
         */
         virtual ~link_label()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions

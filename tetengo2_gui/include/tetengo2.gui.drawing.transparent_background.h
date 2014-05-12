@@ -48,7 +48,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~transparent_background()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

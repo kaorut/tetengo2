@@ -172,7 +172,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the control.
         */
         virtual ~control()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

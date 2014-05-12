@@ -92,7 +92,7 @@ namespace
         }
 
         virtual ~concrete_widget()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

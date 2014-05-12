@@ -73,7 +73,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the temporary configuration.
         */
         virtual ~temporary_config()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

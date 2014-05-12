@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu command.
         */
         virtual ~command()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
     private:

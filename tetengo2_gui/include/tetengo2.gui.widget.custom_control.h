@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the custom control.
         */
         virtual ~custom_control()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions
@@ -254,7 +254,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the inner item.
         */
         virtual ~inner_item()
-        = default;
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
 
 
         // functions
