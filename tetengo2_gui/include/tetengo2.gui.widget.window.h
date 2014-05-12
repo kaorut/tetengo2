@@ -33,36 +33,35 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef
-            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>
-            base_type;
+        using base_type =
+            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The icon type.
-        typedef typename base_type::icon_type icon_type;
+        using icon_type = typename base_type::icon_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The window state type.
-        typedef typename base_type::window_state_type window_state_type;
+        using window_state_type = typename base_type::window_state_type;
 
 
         // constructors and destructor
@@ -128,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
         // variables

@@ -121,13 +121,13 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The position type.
-        typedef Position position_type;
+        using position_type = Position;
 
         //! The left type.
-        typedef typename Position::left_type left_type;
+        using left_type = typename Position::left_type;
 
         //! The top type.
-        typedef typename Position::top_type top_type;
+        using top_type = typename Position::top_type;
 
 
         // static functions
@@ -181,11 +181,11 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        typedef std::pair<LeftTop, LeftTop> position_type;
+        using position_type = std::pair<LeftTop, LeftTop>;
 
-        typedef LeftTop left_type;
+        using left_type = LeftTop;
 
-        typedef LeftTop top_type;
+        using top_type = LeftTop;
 
 
         // static functions
@@ -230,13 +230,13 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        using dimension_type = Dimension;
 
         //! The left type.
-        typedef typename Dimension::width_type width_type;
+        using width_type = typename Dimension::width_type;
 
         //! The top type.
-        typedef typename Dimension::height_type height_type;
+        using height_type = typename Dimension::height_type;
 
 
         // static functions
@@ -290,11 +290,11 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        typedef std::pair<WidthHeight, WidthHeight> dimension_type;
+        using dimension_type = std::pair<WidthHeight, WidthHeight>;
 
-        typedef WidthHeight width_type;
+        using width_type = WidthHeight;
 
-        typedef WidthHeight height_type;
+        using height_type = WidthHeight;
 
 
         // static functions

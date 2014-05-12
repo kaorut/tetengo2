@@ -33,19 +33,19 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef WidgetTraits base_type;
+        using base_type = WidgetTraits;
 
         //! The icon type.
-        typedef Icon icon_type;
+        using icon_type = Icon;
 
         //! The menu bar type.
-        typedef MenuBar menu_bar_type;
+        using menu_bar_type = MenuBar;
 
         //! The window observer set type.
-        typedef WindowObserverSet window_observer_set_type;
+        using window_observer_set_type = WindowObserverSet;
 
         //! The file drop observer set type.
-        typedef FileDropObserverSet file_drop_observer_set_type;
+        using file_drop_observer_set_type = FileDropObserverSet;
 
 
     };

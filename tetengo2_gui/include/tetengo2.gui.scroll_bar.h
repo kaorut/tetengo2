@@ -32,19 +32,19 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
         //! The range type.
-        typedef std::pair<size_type, size_type> range_type;
+        using range_type = std::pair<size_type, size_type>;
 
         //! The scroll bar observer set type.
-        typedef ScrollBarObserverSet scroll_bar_observer_set_type;
+        using scroll_bar_observer_set_type = ScrollBarObserverSet;
 
         //! The detail implementation type of a scroll.
-        typedef ScrollDetails details_type;
+        using details_type = ScrollDetails;
 
         //! The detail implementation pointer type of a scroll bar.
-        typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
+        using scroll_bar_details_ptr_type = typename details_type::scroll_bar_details_ptr_type;
 
         //! The style type.
         enum class style_type

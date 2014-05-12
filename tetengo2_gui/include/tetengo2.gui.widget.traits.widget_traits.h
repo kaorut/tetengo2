@@ -55,58 +55,58 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         // types
 
         //! The widget canvas type.
-        typedef WidgetCanvas widget_canvas_type;
+        using widget_canvas_type = WidgetCanvas;
 
         //! The canvas type.
-        typedef typename widget_canvas_type::base_type canvas_type;
+        using canvas_type = typename widget_canvas_type::base_type;
 
         //! The alert type.
-        typedef Alert alert_type;
+        using alert_type = Alert;
 
         //! The position type.
-        typedef Position position_type;
+        using position_type = Position;
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        using dimension_type = Dimension;
 
         //! The difference type.
-        typedef typename gui::position<position_type>::left_type difference_type;
+        using difference_type = typename gui::position<position_type>::left_type;
 
         //! The size type.
-        typedef typename gui::dimension<dimension_type>::width_type size_type;
+        using size_type = typename gui::dimension<dimension_type>::width_type;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The background type.
-        typedef Background background_type;
+        using background_type = Background;
 
         //! The font type.
-        typedef Font font_type;
+        using font_type = Font;
 
         //! The system cursor type.
-        typedef SystemCursor system_cursor_type;
+        using system_cursor_type = SystemCursor;
 
         //! The scroll bar type.
-        typedef ScrollBar scroll_bar_type;
+        using scroll_bar_type = ScrollBar;
 
         //! The size observer set type.
-        typedef SizeObserverSet size_observer_set_type;
+        using size_observer_set_type = SizeObserverSet;
 
         //! The focus observer set type.
-        typedef FocusObserverSet focus_observer_set_type;
+        using focus_observer_set_type = FocusObserverSet;
 
         //! The paint observer set type.
-        typedef PaintObserverSet paint_observer_set_type;
+        using paint_observer_set_type = PaintObserverSet;
 
         //! The keyboard observer set type.
-        typedef KeyboardObserverSet keyboard_observer_set_type;
+        using keyboard_observer_set_type = KeyboardObserverSet;
 
         //! The mouse observer set type.
-        typedef MouseObserverSet mouse_observer_set_type;
+        using mouse_observer_set_type = MouseObserverSet;
 
 
     };

@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             // types
 
             //! The string type.
-            typedef String string_type;
+            using string_type = String;
 
             //! The style type.
             enum class style_type
@@ -215,30 +215,25 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         // types
 
         //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
+        using abstract_window_type = AbstractWindow;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The detail implementation type of common dialogs.
-        typedef CommonDialogDetails common_dialog_details_type;
+        using common_dialog_details_type = CommonDialogDetails;
 
         //! The detail implementation type.
-        typedef
-            typename common_dialog_details_type::message_box_details_type
-            details_type;
+        using details_type = typename common_dialog_details_type::message_box_details_type;
 
         //! The detail implementaiton pointer type;
-        typedef
-            typename common_dialog_details_type::message_box_details_ptr_type
-            details_ptr_type;
+        using details_ptr_type = typename common_dialog_details_type::message_box_details_ptr_type;
 
         //! The button style type.
-        typedef
-            message_box_style::button_style<string_type> button_style_type;
+        using button_style_type = message_box_style::button_style<string_type> ;
 
         //! The icon style type.
         enum class icon_style_type

@@ -33,22 +33,22 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef CustomControlTraits base_type;
+        using base_type = CustomControlTraits;
 
         //! The integer size type.
-        typedef IntSize int_size_type;
+        using int_size_type = IntSize;
 
         //! The solid background type.
-        typedef SolidBackground solid_background_type;
+        using solid_background_type = SolidBackground;
 
         //! The system color set type.
-        typedef SystemColorSet system_color_set_type;
+        using system_color_set_type = SystemColorSet;
 
         //! The system cursor type.
-        typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename base_type::base_type::base_type::system_cursor_type;
 
         //! The list selection observer set type.
-        typedef ListSelectionObserverSet list_selection_observer_set_type;
+        using list_selection_observer_set_type = ListSelectionObserverSet;
 
 
     };

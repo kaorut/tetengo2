@@ -27,10 +27,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The color type.
-        typedef Color color_type;
+        using color_type = Color;
 
         //! The detail implementation type of a system color.
-        typedef SystemColorDetails system_color_details_type;
+        using system_color_details_type = SystemColorDetails;
 
 
         // static functions

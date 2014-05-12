@@ -32,16 +32,16 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The shortcut key table type.
-        typedef ShortcutKeyTable shortcut_key_table_type;
+        using shortcut_key_table_type = ShortcutKeyTable;
 
         //! The detail implementation type of a menu.
-        typedef MenuDetails menu_details_type;
+        using menu_details_type = MenuDetails;
 
         //! The base type.
-        typedef abstract_popup<traits_type, menu_details_type> base_type;
+        using base_type = abstract_popup<traits_type, menu_details_type>;
 
 
         // constructors and destructor
@@ -89,9 +89,9 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // types
 
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
-        typedef typename base_type::base_type::style_type style_type;
+        using style_type = typename base_type::base_type::style_type;
 
 
         // variables

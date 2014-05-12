@@ -28,10 +28,10 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The virtual key type.
-        typedef VirtualKey virtual_key_type;
+        using virtual_key_type = VirtualKey;
 
         //! The string type.
-        typedef typename virtual_key_type::string_type string_type;
+        using string_type = typename virtual_key_type::string_type;
 
 
         // constructors and destructor
@@ -145,7 +145,7 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // types
 
-        typedef typename virtual_key_type::details_type virtual_key_details_type;
+        using virtual_key_details_type = typename virtual_key_type::details_type;
 
 
         // variables

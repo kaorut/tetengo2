@@ -33,25 +33,25 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The virtual key type.
-        typedef ShortcutKey shortcut_key_type;
+        using shortcut_key_type = ShortcutKey;
 
         //! The menu base type.
-        typedef MenuBase menu_base_type;
+        using menu_base_type = MenuBase;
 
         //! The detail implementation type of a menu.
-        typedef MenuDetails menu_details_type;
+        using menu_details_type = MenuDetails;
 
         //! The detail implementation type.
-        typedef typename menu_details_type::shortcut_key_table_details_type details_type;
+        using details_type = typename menu_details_type::shortcut_key_table_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename menu_details_type::shortcut_key_table_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename menu_details_type::shortcut_key_table_details_ptr_type;
 
         //! The entry type.
-        typedef std::pair<shortcut_key_type, const menu_base_type*> entry_type;
+        using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;
 
         //! The iterator type.
-        typedef typename std::vector<entry_type>::const_iterator iterator;
+        using iterator = typename std::vector<entry_type>::const_iterator;
 
 
         // constructors and destructor

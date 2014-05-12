@@ -40,44 +40,44 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The string type.
-        typedef typename traits_type::string_type string_type;
+        using string_type = typename traits_type::string_type;
 
         //! The shortcut key type.
-        typedef typename traits_type::shortcut_key_type shortcut_key_type;
+        using shortcut_key_type = typename traits_type::shortcut_key_type;
 
         //! The encoder type.
-        typedef typename traits_type::encoder_type encoder_type;
+        using encoder_type = typename traits_type::encoder_type;
 
         //! The menu observer set type.
-        typedef typename traits_type::menu_observer_set_type menu_observer_set_type;
+        using menu_observer_set_type = typename traits_type::menu_observer_set_type;
 
         //! The const iterator type.
-        typedef
-            boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::const_iterator> const_iterator;
+        using const_iterator =
+            boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::const_iterator>;
 
         //! The iterator type.
-        typedef boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::iterator> iterator;
+        using iterator = boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::iterator>;
 
         //! The const recursive iterator type.
-        typedef recursive_iterator<const menu_base> const_recursive_iterator_type;
+        using const_recursive_iterator_type = recursive_iterator<const menu_base>;
 
         //! The recursive iterator type.
-        typedef recursive_iterator<menu_base> recursive_iterator_type;
+        using recursive_iterator_type = recursive_iterator<menu_base>;
 
         //! The detail implementation type of a menu.
-        typedef MenuDetails menu_details_type;
+        using menu_details_type = MenuDetails;
 
         //! The detail implementation type.
-        typedef typename menu_details_type::menu_details_type details_type;
+        using details_type = typename menu_details_type::menu_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The style type.
-        typedef typename menu_details_type::template style_tag<menu_base> style_type;
+        using style_type = typename menu_details_type::template style_tag<menu_base>;
 
         //! The state type.
         enum class state_type

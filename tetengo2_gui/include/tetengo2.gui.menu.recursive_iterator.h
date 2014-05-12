@@ -34,7 +34,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         //! The menu base type.
-        typedef MenuBase menu_base_type;
+        using menu_base_type = MenuBase;
 
 
         // constructors and destructor
@@ -122,9 +122,9 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // types
 
-        typedef typename menu_base_type::const_iterator::difference_type menu_difference_type;
+        using menu_difference_type = typename menu_base_type::const_iterator::difference_type;
 
-        typedef std::pair<menu_base_type*, menu_difference_type> parent_and_index_type;
+        using parent_and_index_type = std::pair<menu_base_type*, menu_difference_type>;
 
 
         // variables

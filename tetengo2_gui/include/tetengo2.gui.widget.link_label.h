@@ -34,55 +34,55 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef label<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
+        using base_type = label<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The canvas type.
-        typedef typename base_type::canvas_type canvas_type;
+        using canvas_type = typename base_type::canvas_type;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The widget type.
-        typedef typename base_type::base_type::base_type widget_type;
+        using widget_type = typename base_type::base_type::base_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The font type.
-        typedef typename base_type::font_type font_type;
+        using font_type = typename base_type::font_type;
 
         //! The system cursor type.
-        typedef typename base_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The cursor type.
-        typedef typename base_type::cursor_type cursor_type;
+        using cursor_type = typename base_type::cursor_type;
 
         //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The keyboard observer set type.
-        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
+        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
 
         //! The solid background type.
-        typedef typename traits_type::solid_background_type solid_background_type;
+        using solid_background_type = typename traits_type::solid_background_type;
 
         //! The system color set type.
-        typedef typename traits_type::system_color_set_type system_color_set_type;
+        using system_color_set_type = typename traits_type::system_color_set_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The shell type.
-        typedef typename traits_type::shell_type shell_type;
+        using shell_type = typename traits_type::shell_type;
 
 
         // constructors and destructor
@@ -135,9 +135,9 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename gui::position<position_type>::left_type left_type;
+        using left_type = typename gui::position<position_type>::left_type;
 
-        typedef typename gui::position<position_type>::top_type top_type;
+        using top_type = typename gui::position<position_type>::top_type;
 
         class paint_background
         {
@@ -201,7 +201,7 @@ namespace tetengo2 { namespace gui { namespace widget
             p_link_label->focus_observer_set().lost_focus().connect(focus_changed);
             p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_link_label->paint_observer_set().paint_background().connect(paint_background(*p_link_label));
-            typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
+            using virtual_key_type = typename keyboard_observer_set_type::virtual_key_type;
             p_link_label->keyboard_observer_set().key_up().connect(
                 [p_link_label](const virtual_key_type& virtual_key, const bool, const bool, const bool)
                 {

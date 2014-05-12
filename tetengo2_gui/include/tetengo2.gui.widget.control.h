@@ -35,52 +35,52 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef widget<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
+        using base_type = widget<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The widget canvas type.
-        typedef typename base_type::widget_canvas_type widget_canvas_type;
+        using widget_canvas_type = typename base_type::widget_canvas_type;
 
         //! The canvas type.
-        typedef typename base_type::canvas_type canvas_type;
+        using canvas_type = typename base_type::canvas_type;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The dimension type.
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The keyboard observer set type.
-        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
+        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
 
         //! The scroll bar type.
-        typedef typename base_type::scroll_bar_type scroll_bar_type;
+        using scroll_bar_type = typename base_type::scroll_bar_type;
 
         //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The color type.
-        typedef typename traits_type::color_type color_type;
+        using color_type = typename traits_type::color_type;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
 
         // functions
@@ -133,9 +133,7 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The message handler map type.
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
         // constructors and destructor

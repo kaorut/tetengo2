@@ -33,13 +33,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The picture type.
-        typedef Picture picture_type;
+        using picture_type = Picture;
 
         //! The path type.
-        typedef Path path_type;
+        using path_type = Path;
 
         //! The detail implementation type of a drawing.
-        typedef DrawingDetails drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
 
         // constructors and destructor
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     private:
         // types
 
-        typedef typename drawing_details_type::picture_details_ptr_type picture_details_ptr_type;
+        using picture_details_ptr_type = typename drawing_details_type::picture_details_ptr_type;
 
 
         // variables
