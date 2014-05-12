@@ -28,13 +28,13 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The widget type.
-        typedef Widget widget_type;
+        using widget_type = Widget;
 
         //! The mouse button type.
-        typedef MouseButton mouse_button_type;
+        using mouse_button_type = MouseButton;
 
         //! The detail implementation type of a mouse capture.
-        typedef MouseCaptureDetails mouse_capture_details_type;
+        using mouse_capture_details_type = MouseCaptureDetails;
 
 
         // constructors and destructor

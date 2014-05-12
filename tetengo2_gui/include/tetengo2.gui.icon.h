@@ -31,19 +31,19 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The path type.
-        typedef Path path_type;
+        using path_type = Path;
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        using dimension_type = Dimension;
 
         //! The detail implementation type.
-        typedef Details details_type;
+        using details_type = Details;
 
         //! The icon details type.
-        typedef typename details_type::icon_details_type icon_details_type;
+        using icon_details_type = typename details_type::icon_details_type;
 
         //! The icon details pointer type.
-        typedef typename details_type::icon_details_ptr_type icon_details_ptr_type;
+        using icon_details_ptr_type = typename details_type::icon_details_ptr_type;
 
 
         // constructors and destructor

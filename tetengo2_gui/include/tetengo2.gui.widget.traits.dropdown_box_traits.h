@@ -25,13 +25,13 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef ControlTraits base_type;
+        using base_type = ControlTraits;
 
         //! The integer size type.
-        typedef IntSize int_size_type;
+        using int_size_type = IntSize;
 
         //! The list selection observer set type.
-        typedef ListSelectionObserverSet list_selection_observer_set_type;
+        using list_selection_observer_set_type = ListSelectionObserverSet;
 
 
     };

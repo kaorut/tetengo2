@@ -33,7 +33,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {};
 
         //! The icon details pointer type.
-        typedef std::unique_ptr<icon_details_type> icon_details_ptr_type;
+        using icon_details_ptr_type = std::unique_ptr<icon_details_type>;
 
 
         // static functions

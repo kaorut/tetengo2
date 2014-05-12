@@ -37,13 +37,13 @@ namespace tetengo2 { namespace text { namespace grammar
         // types
 
         //! The iterator type.
-        typedef ForwardIterator iterator;
+        using iterator = ForwardIterator;
 
         //! The character type.
-        typedef typename iterator::value_type char_type;
+        using char_type = typename iterator::value_type;
 
         //! The string type.
-        typedef std::basic_string<char_type> string_type;
+        using string_type = std::basic_string<char_type>;
 
         //! The value type type.
         enum class value_type_type
@@ -101,16 +101,14 @@ namespace tetengo2 { namespace text { namespace grammar
         };
 
         //! The structure signal type.
-        typedef
-            boost::signals2::signal<void (const std::string&, const std::vector<structure_attribute_type>&)>
-            structure_signal_type;
+        using structure_signal_type =
+            boost::signals2::signal<void(const std::string&, const std::vector<structure_attribute_type>&)>;
 
         //! The value signal type.
-        typedef
-            boost::signals2::signal<void (value_type_type, const string_type&)> value_signal_type;
+        using value_signal_type = boost::signals2::signal<void (value_type_type, const string_type&)>;
 
         //! The rule type.
-        typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
+        using rule_type = boost::spirit::qi::rule<iterator, string_type ()>;
 
 
         // constructors and destructor

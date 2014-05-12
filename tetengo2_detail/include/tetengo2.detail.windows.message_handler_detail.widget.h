@@ -59,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.keyboard_observer_set().key_down().empty())
                 return boost::none;
 
-            typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
+            using virtual_key_type = typename Widget::keyboard_observer_set_type::virtual_key_type;
 
             const auto virtual_key =
                 virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
@@ -83,7 +83,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.keyboard_observer_set().key_up().empty())
                 return boost::none;
 
-            typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
+            using virtual_key_type = typename Widget::keyboard_observer_set_type::virtual_key_type;
 
             const auto virtual_key =
                 virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.keyboard_observer_set().character_input().empty())
                 return boost::none;
 
-            typedef typename Widget::keyboard_observer_set_type::char_type char_type;
+            using char_type = typename Widget::keyboard_observer_set_type::char_type;
 
             widget.keyboard_observer_set().character_input()(static_cast<char_type>(w_param));
 
@@ -404,7 +404,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::none;
 
             const int scroll_code = LOWORD(w_param);
-            typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
+            using size_type = typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type;
             if (scroll_code == SB_ENDSCROLL)
             {
                 return boost::none;
@@ -446,7 +446,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return boost::none;
 
             const int scroll_code = LOWORD(w_param);
-            typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
+            using size_type = typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type;
             if (scroll_code == SB_ENDSCROLL)
             {
                 return boost::none;

@@ -25,17 +25,17 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type uint_type;
+    using uint_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
 
-    typedef tetengo2::config::cached_config<string_type, uint_type> cached_config_type;
+    using cached_config_type = tetengo2::config::cached_config<string_type, uint_type>;
 
-    typedef cached_config_type::base_type config_base_type;
+    using config_base_type = cached_config_type::base_type;
 
-    typedef cached_config_type::value_type value_type;
+    using value_type = cached_config_type::value_type;
 
-    typedef tetengo2::config::temporary_config<string_type, uint_type> temporary_config_type;
+    using temporary_config_type = tetengo2::config::temporary_config<string_type, uint_type>;
 
 
 }

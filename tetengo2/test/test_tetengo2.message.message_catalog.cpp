@@ -23,12 +23,11 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type messages_type;
+    using messages_type =
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog>::type
-        message_catalog_type;
+    using message_catalog_type =
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog>::type;
 
     struct set_global_locale
     {

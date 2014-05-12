@@ -19,11 +19,11 @@ namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
+    using encoding_details_type = tetengo2::detail::stub::encoding;
 
-    typedef tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
+    using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
 
-    typedef tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
+    using encoder_type = tetengo2::text::encoder<encoding_type, encoding_type>;
 
 }
 

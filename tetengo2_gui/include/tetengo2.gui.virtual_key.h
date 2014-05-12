@@ -33,13 +33,13 @@ namespace tetengo2 { namespace gui
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The detail implementation type.
-        typedef Details details_type;
+        using details_type = Details;
 
         //! The code type.
-        typedef typename details_type::code_type code_type;
+        using code_type = typename details_type::code_type;
 
 
         // static functions
@@ -697,9 +697,9 @@ namespace tetengo2 { namespace gui
     private:
         // types
 
-        typedef std::pair<code_type, string_type> code_and_string_type;
+        using code_and_string_type = std::pair<code_type, string_type>;
 
-        typedef std::unordered_map<code_type, virtual_key> key_map_type;
+        using key_map_type = std::unordered_map<code_type, virtual_key>;
 
         
         // static functions

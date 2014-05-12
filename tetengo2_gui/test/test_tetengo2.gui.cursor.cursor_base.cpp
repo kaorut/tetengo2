@@ -16,9 +16,8 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::cursor_base>::type
-        cursor_type;
+    using cursor_type =
+        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::cursor_base>::type;
 
     class concrete_cursor_type : public cursor_type
     {

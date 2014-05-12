@@ -32,16 +32,16 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        using dimension_type = Dimension;
 
         //! The detail implementation type of a drawing.
-        typedef DrawingDetails drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The detail implementation type.
-        typedef typename drawing_details_type::picture_details_type details_type;
+        using details_type = typename drawing_details_type::picture_details_type;
 
         //! The detail implementation pointer type.
-        typedef typename drawing_details_type::picture_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename drawing_details_type::picture_details_ptr_type;
 
 
         // constructors and destructor

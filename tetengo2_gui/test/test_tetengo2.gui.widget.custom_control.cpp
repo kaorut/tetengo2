@@ -19,29 +19,27 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::custom_control>::type
-        custom_control_type;
+    using custom_control_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::custom_control>::type;
 
-    typedef custom_control_type::mouse_button_type mouse_button_type;
+    using mouse_button_type = custom_control_type::mouse_button_type;
 
-    typedef custom_control_type::position_type position_type;
+    using position_type = custom_control_type::position_type;
 
-    typedef tetengo2::gui::position<position_type>::left_type left_type;
+    using left_type = tetengo2::gui::position<position_type>::left_type;
 
-    typedef tetengo2::gui::position<position_type>::top_type top_type;
+    using top_type = tetengo2::gui::position<position_type>::top_type;
 
-    typedef custom_control_type::dimension_type dimension_type;
+    using dimension_type = custom_control_type::dimension_type;
 
-    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
 
-    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
+    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
 
-    typedef custom_control_type::inner_item_type inner_item_type;
+    using inner_item_type = custom_control_type::inner_item_type;
 
     class concrete_custom_control : public custom_control_type
     {

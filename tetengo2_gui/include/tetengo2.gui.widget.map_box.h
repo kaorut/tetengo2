@@ -44,57 +44,56 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The integer size type.
-        typedef typename traits_type::int_size_type int_size_type;
+        using int_size_type = typename traits_type::int_size_type;
 
         //! The solid background type.
-        typedef typename traits_type::solid_background_type solid_background_type;
+        using solid_background_type = typename traits_type::solid_background_type;
 
         //! The system color set type.
-        typedef typename traits_type::system_color_set_type system_color_set_type;
+        using system_color_set_type = typename traits_type::system_color_set_type;
 
         //! The system cursor type.
-        typedef typename traits_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename traits_type::system_cursor_type;
 
         //! The cursor type.
-        typedef typename system_cursor_type::base_type cursor_type;
+        using cursor_type = typename system_cursor_type::base_type;
 
         //! The list selection observer set type.
-        typedef typename traits_type::list_selection_observer_set_type list_selection_observer_set_type;
+        using list_selection_observer_set_type = typename traits_type::list_selection_observer_set_type;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        typedef
-            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>
-            base_type;
+        using base_type =
+            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
 
         //! The widget type.
-        typedef typename base_type::base_type::base_type widget_type;
+        using widget_type = typename base_type::base_type::base_type;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The position type.
-        typedef typename base_type::position_type position_type;
+        using position_type = typename base_type::position_type;
 
         //! The left type.
-        typedef typename gui::position<position_type>::left_type left_type;
+        using left_type = typename gui::position<position_type>::left_type;
 
         //! The mouse observer set type.
-        typedef typename base_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The value type.
-        typedef std::pair<string_type, string_type> value_type;
+        using value_type = std::pair<string_type, string_type>;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
 
         // constructors and destructor
@@ -316,33 +315,33 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
+        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
 
-        typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
+        using virtual_key_type = typename keyboard_observer_set_type::virtual_key_type;
 
-        typedef typename mouse_observer_set_type::mouse_button_type mouse_button_type;
+        using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        typedef typename mouse_observer_set_type::delta_type delta_type;
+        using delta_type = typename mouse_observer_set_type::delta_type;
 
-        typedef typename mouse_observer_set_type::direction_type direction_type;
+        using direction_type = typename mouse_observer_set_type::direction_type;
 
-        typedef typename base_type::canvas_type canvas_type;
+        using canvas_type = typename base_type::canvas_type;
 
-        typedef typename gui::position<position_type>::top_type top_type;
+        using top_type = typename gui::position<position_type>::top_type;
 
-        typedef typename base_type::dimension_type dimension_type;
+        using dimension_type = typename base_type::dimension_type;
 
-        typedef typename gui::dimension<dimension_type>::width_type width_type;
+        using width_type = typename gui::dimension<dimension_type>::width_type;
 
-        typedef typename gui::dimension<dimension_type>::height_type height_type;
+        using height_type = typename gui::dimension<dimension_type>::height_type;
 
-        typedef typename base_type::scroll_bar_type scroll_bar_type;
+        using scroll_bar_type = typename base_type::scroll_bar_type;
 
-        typedef typename scroll_bar_type::size_type scroll_bar_size_type;
+        using scroll_bar_size_type = typename scroll_bar_type::size_type;
 
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
-        typedef typename base_type::inner_item_type inner_item_type;
+        using inner_item_type = typename base_type::inner_item_type;
 
         class splitter : public inner_item_type
         {
@@ -1050,7 +1049,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             const auto& scroll_bar = this->vertical_scroll_bar();
 
-            typedef typename delta_type::int_type delta_int_type;
+            using delta_int_type = typename delta_type::int_type;
             auto int_delta =
                 boost::rational_cast<delta_int_type>(
                     delta * gui::to_pixels<delta_int_type>(top_type(3)) / scroll_bar_size_unit()

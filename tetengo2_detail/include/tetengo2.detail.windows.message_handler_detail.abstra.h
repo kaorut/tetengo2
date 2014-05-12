@@ -48,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!abstract_window.has_menu_bar())
                 return boost::none;
 
-            typedef typename AbstractWindow::menu_bar_type menu_bar_type;
+            using menu_bar_type = typename AbstractWindow::menu_bar_type;
             const typename menu_bar_type::recursive_iterator_type found =
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
@@ -76,7 +76,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!abstract_window.has_menu_bar())
                 return boost::none;
 
-            typedef typename AbstractWindow::menu_bar_type menu_bar_type;
+            using menu_bar_type = typename AbstractWindow::menu_bar_type;
             const auto found =
                 std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.file_drop_observer_set().file_dropped().empty())
                 return boost::none;
 
-            typedef typename AbstractWindow::file_drop_observer_set_type::path_type path_type;
+            using path_type = typename AbstractWindow::file_drop_observer_set_type::path_type;
             const auto paths = make_paths<path_type>(reinterpret_cast< ::HDROP>(w_param));
             abstract_window.file_drop_observer_set().file_dropped()(paths);
             return boost::make_optional< ::LRESULT>(0);

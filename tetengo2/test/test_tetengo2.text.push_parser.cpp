@@ -27,18 +27,17 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type
-        input_stream_iterator_type;
+    using input_stream_iterator_type =
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type;
 
-    typedef boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type grammar_type;
+    using grammar_type = boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type push_parser_type;
+    using push_parser_type =
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type;
 
-    typedef push_parser_type::attribute_map_type attribute_map_type;
+    using attribute_map_type = push_parser_type::attribute_map_type;
 
-    typedef std::pair<std::string, boost::optional<push_parser_type::value_type>> parsed_structure_type;
+    using parsed_structure_type = std::pair<std::string, boost::optional<push_parser_type::value_type>>;
 
 
     // functions

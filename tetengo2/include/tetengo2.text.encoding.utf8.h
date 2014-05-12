@@ -32,13 +32,13 @@ namespace tetengo2 { namespace text { namespace encoding
         // types
 
         //! The base type.
-        typedef encoding<EncodingDetails> base_type;
+        using base_type = encoding<EncodingDetails>;
 
         //! The string type.
-        typedef std::string string_type;
+        using string_type = std::string;
 
         //! The detail implementation type of an encoding.
-        typedef EncodingDetails encoding_details_type;
+        using encoding_details_type = EncodingDetails;
 
 
         // functions

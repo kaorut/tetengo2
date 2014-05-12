@@ -31,10 +31,10 @@ namespace tetengo2 { namespace concurrent
         // types
 
         //! The channel type.
-        typedef Channel channel_type;
+        using channel_type = Channel;
 
         //! The generator type.
-        typedef std::function<void (channel_type&)> generator_type;
+        using generator_type = std::function<void (channel_type&)>;
 
 
         // constructors and destructor

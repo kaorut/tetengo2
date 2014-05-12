@@ -27,7 +27,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The code type.
-        typedef unsigned char code_type;
+        using code_type = unsigned char;
 
 
         // static functions

@@ -30,22 +30,22 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         // types
 
         //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
+        using abstract_window_type = AbstractWindow;
 
         //! The font type.
-        typedef Font font_type;
+        using font_type = Font;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The detail implementation type of common dialogs.
-        typedef CommonDialogDetails common_dialog_details_type;
+        using common_dialog_details_type = CommonDialogDetails;
 
         //! The detail implementation type.
-        typedef typename common_dialog_details_type::font_dialog_details_type details_type;
+        using details_type = typename common_dialog_details_type::font_dialog_details_type;
 
         //! The detail implementaiton pointer type;
-        typedef typename common_dialog_details_type::font_dialog_details_ptr_type details_ptr_type;
+        using details_ptr_type = typename common_dialog_details_type::font_dialog_details_ptr_type;
 
 
         // constructors and destructor

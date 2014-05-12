@@ -26,10 +26,10 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of selected.
         */
-        typedef void selected_type();
+        using selected_type = void ();
 
         //! The signal type of selected.
-        typedef boost::signals2::signal<selected_type> selected_signal_type;
+        using selected_signal_type = boost::signals2::signal<selected_type>;
 
 
         // functions

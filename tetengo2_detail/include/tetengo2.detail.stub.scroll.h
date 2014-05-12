@@ -31,10 +31,10 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The size type.
-        typedef std::size_t size_type;
+        using size_type = std::size_t;
 
         //! The range type.
-        typedef std::pair<size_type, size_type> range_type;
+        using range_type = std::pair<size_type, size_type>;
 
         //! The scroll bar details type.
         struct scroll_bar_details_type
@@ -62,7 +62,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         //! The scroll bar details pointer type.
-        typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
+        using scroll_bar_details_ptr_type = std::unique_ptr<scroll_bar_details_type>;
 
         //! The style type.
         enum class style_type

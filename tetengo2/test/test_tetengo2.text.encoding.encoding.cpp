@@ -17,7 +17,7 @@ namespace
 {
     // types
 
-    typedef tetengo2::text::encoding::encoding<tetengo2::detail::stub::encoding> encoding_type;
+    using encoding_type = tetengo2::text::encoding::encoding<tetengo2::detail::stub::encoding>;
 
     struct concrete_encoding : public encoding_type
     {

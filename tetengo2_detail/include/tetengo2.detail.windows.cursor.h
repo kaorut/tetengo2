@@ -61,10 +61,10 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The cursor details type.
-        typedef std::remove_pointer< ::HCURSOR>::type cursor_details_type;
+        using cursor_details_type = std::remove_pointer< ::HCURSOR>::type;
 
         //! The cursor details pointer type.
-        typedef std::unique_ptr<cursor_details_type, detail::cursor_deleter> cursor_details_ptr_type;
+        using cursor_details_ptr_type = std::unique_ptr<cursor_details_type, detail::cursor_deleter>;
 
 
         // static functions

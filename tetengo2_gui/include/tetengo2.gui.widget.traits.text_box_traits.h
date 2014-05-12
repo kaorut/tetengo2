@@ -24,10 +24,10 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef ControlTraits base_type;
+        using base_type = ControlTraits;
 
         //! The text box observer set type.
-        typedef TextBoxObserverSet text_box_observer_set_type;
+        using text_box_observer_set_type = TextBoxObserverSet;
 
 
     };

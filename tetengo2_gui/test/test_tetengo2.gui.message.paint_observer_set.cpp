@@ -16,11 +16,10 @@ namespace
 {
     // types
 
-    typedef
+    using paint_observer_set_type =
         boost::mpl::at<
             test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::paint_observer_set
-        >::type
-        paint_observer_set_type;
+        >::type;
 
 
 }

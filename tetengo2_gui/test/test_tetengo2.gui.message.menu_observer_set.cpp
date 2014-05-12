@@ -16,11 +16,10 @@ namespace
 {
     // types
 
-    typedef
+    using menu_observer_set_type =
         boost::mpl::at<
             test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::menu_observer_set
-        >::type
-        menu_observer_set_type;
+        >::type;
 
 
 }

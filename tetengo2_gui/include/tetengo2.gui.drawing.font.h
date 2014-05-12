@@ -30,13 +30,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
         //! The detail implementation type of a drawing.
-        typedef DrawingDetails drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
 
         // static functions

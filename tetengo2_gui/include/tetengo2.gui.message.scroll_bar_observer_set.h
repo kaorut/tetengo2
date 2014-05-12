@@ -27,27 +27,27 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
         /*!
             \brief The observer type of scrolling.
 
             \param new_position A new position.
         */
-        typedef void scrolling_type(size_type new_position);
+        using scrolling_type = void (typename scroll_bar_observer_set::size_type new_position);
 
         //! The signal type of scrolling.
-        typedef boost::signals2::signal<scrolling_type> scrolling_signal_type;
+        using scrolling_signal_type = boost::signals2::signal<scrolling_type>;
 
         /*!
             \brief The observer type of scrolled.
 
             \param new_position A new position.
         */
-        typedef void scrolled_type(size_type new_position);
+        using scrolled_type = void (typename scroll_bar_observer_set::size_type new_position);
 
         //! The signal type of scrolled.
-        typedef boost::signals2::signal<scrolled_type> scrolled_signal_type;
+        using scrolled_signal_type = boost::signals2::signal<scrolled_type>;
 
 
         // functions

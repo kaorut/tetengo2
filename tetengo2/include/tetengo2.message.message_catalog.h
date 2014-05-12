@@ -29,10 +29,10 @@ namespace tetengo2 { namespace message
         // types
 
         //! The messages type.
-        typedef Messages messages_type;
+        using messages_type = Messages;
 
         //! The string type.
-        typedef typename messages_type::string_type string_type;
+        using string_type = typename messages_type::string_type;
 
 
         // constructors and destructor
@@ -97,7 +97,7 @@ namespace tetengo2 { namespace message
     private:
         // types
 
-        typedef typename messages_type::catalog catalog_id_type;
+        using catalog_id_type = typename messages_type::catalog;
 
 
         // static functions

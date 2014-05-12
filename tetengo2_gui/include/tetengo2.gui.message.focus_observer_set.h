@@ -26,18 +26,18 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of got-focus.
         */
-        typedef void got_focus_type();
+        using got_focus_type = void();
 
         //! The signal type of got-focus.
-        typedef boost::signals2::signal<got_focus_type> got_focus_signal_type;
+        using got_focus_signal_type = boost::signals2::signal<got_focus_type>;
 
         /*!
             \brief The observer type of lost-focus.
         */
-        typedef void lost_focus_type();
+        using lost_focus_type = void ();
 
         //! The signal type of lost-focus.
-        typedef boost::signals2::signal<lost_focus_type> lost_focus_signal_type;
+        using lost_focus_signal_type = boost::signals2::signal<lost_focus_type>;
 
 
         // functions

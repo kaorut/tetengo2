@@ -25,13 +25,13 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef AbstractWindowTraits base_type;
+        using base_type = AbstractWindowTraits;
 
         //! The message loop type.
-        typedef MessageLoop message_loop_type;
+        using message_loop_type = MessageLoop;
 
         //! The message loop break type.
-        typedef MessageLoopBreak message_loop_break_type;
+        using message_loop_break_type = MessageLoopBreak;
 
 
     };

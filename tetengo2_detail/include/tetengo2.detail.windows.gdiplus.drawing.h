@@ -191,22 +191,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // types
 
         //! The background details type.
-        typedef detail::background_details background_details_type;
+        using background_details_type = detail::background_details;
 
         //! The background details pointer type.
-        typedef std::unique_ptr<background_details_type> background_details_ptr_type;
+        using background_details_ptr_type = std::unique_ptr<background_details_type>;
 
         //! The picture details type.
-        typedef picture::details_type picture_details_type;
+        using picture_details_type = picture::details_type;
 
         //! The picture details pointer type.
-        typedef picture::details_ptr_type picture_details_ptr_type;
+        using picture_details_ptr_type = picture::details_ptr_type;
 
         //! The canvas details type.
-        typedef detail::canvas_details canvas_details_type;
+        using canvas_details_type = detail::canvas_details;
 
         //! The canvas details pointer type.
-        typedef std::unique_ptr<canvas_details_type> canvas_details_ptr_type;
+        using canvas_details_ptr_type = std::unique_ptr<canvas_details_type>;
 
 
         // static functions
@@ -806,7 +806,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Icon, typename Position>
         static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
         {
-            typedef typename Icon::dimension_type dimension_type;
+            using dimension_type = typename Icon::dimension_type;
             const ::BOOL result =
                 ::DrawIconEx(
                     canvas.get().GetHDC(),
@@ -837,7 +837,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::vector<Gdiplus::PointF> points;
             points.reserve(std::distance(first, last));
 
-            typedef typename Iterator::value_type position_type;
+            using position_type = typename Iterator::value_type;
             std::transform(
                 first,
                 last,

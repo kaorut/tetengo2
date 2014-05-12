@@ -26,19 +26,19 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //types
 
         //! The base type.
-        typedef CustomControlTraits base_type;
+        using base_type = CustomControlTraits;
 
         //! The solid background type.
-        typedef SolidBackground solid_background_type;
+        using solid_background_type = SolidBackground;
 
         //! The system color set type.
-        typedef SystemColorSet system_color_set_type;
+        using system_color_set_type = SystemColorSet;
 
         //! The system cursor type.
-        typedef typename base_type::base_type::base_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename base_type::base_type::base_type::system_cursor_type;
 
         //! The timer type.
-        typedef Timer timer_type;
+        using timer_type = Timer;
 
 
     };

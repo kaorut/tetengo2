@@ -26,25 +26,23 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type
-        input_stream_iterator_type;
+    using input_stream_iterator_type =
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type;
 
-    typedef boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type grammar_type;
+    using grammar_type = boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type push_parser_type;
+    using push_parser_type =
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type pull_parser_type;
+    using pull_parser_type =
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type;
 
-    typedef boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    typedef
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog_parser>::type
-        message_catalog_parser_type;
+    using message_catalog_parser_type =
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog_parser>::type;
 
-    typedef message_catalog_parser_type::entry_type entry_type;
+    using entry_type = message_catalog_parser_type::entry_type;
 
 
     // data

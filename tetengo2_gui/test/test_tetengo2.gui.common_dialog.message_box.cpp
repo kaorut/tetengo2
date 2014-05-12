@@ -17,23 +17,20 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
-        window_type;
+    using window_type =
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
-    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    typedef
+    using button_style_type =
         boost::mpl::at<
             test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::button_style
-        >::type
-        button_style_type;
+        >::type;
 
-    typedef
+    using message_box_type =
         boost::mpl::at<
             test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::message_box
-        >::type
-        message_box_type;
+        >::type;
 
 
 }

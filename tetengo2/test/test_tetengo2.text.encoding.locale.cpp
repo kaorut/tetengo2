@@ -22,11 +22,11 @@ namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
+    using encoding_details_type = tetengo2::detail::stub::encoding;
 
-    typedef tetengo2::text::encoding::locale<std::string, encoding_details_type> multibyte_encoding_type;
+    using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string, encoding_details_type>;
 
-    typedef tetengo2::text::encoding::locale<std::wstring, encoding_details_type> wide_encoding_type;
+    using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring, encoding_details_type>;
 
 
     // functions

@@ -55,22 +55,22 @@ namespace tetengo2 { namespace message
         // types
 
         //! The base type.
-        typedef std::messages<typename MessageCatalogParser::string_type::value_type> base_type;
+        using base_type = std::messages<typename MessageCatalogParser::string_type::value_type>;
 
         //! The catalog type.
-        typedef typename base_type::catalog catalog;
+        using catalog = typename base_type::catalog;
 
         //! The string type.
-        typedef typename base_type::string_type string_type;
+        using string_type = typename base_type::string_type;
 
         //! The path type.
-        typedef Path path_type;
+        using path_type = Path;
 
         //! The message catalog parser type.
-        typedef MessageCatalogParser message_catalog_parser_type;
+        using message_catalog_parser_type = MessageCatalogParser;
 
         //! The encoder type for locale names.
-        typedef LocaleNameEncoder locale_name_encoder_type;
+        using locale_name_encoder_type = LocaleNameEncoder;
 
 
         // static functions
@@ -133,13 +133,13 @@ namespace tetengo2 { namespace message
     private:
         // types
 
-        typedef std::unordered_map<string_type, string_type> catalog_file_mappings_type;
+        using catalog_file_mappings_type = std::unordered_map<string_type, string_type>;
 
-        typedef std::unordered_map<string_type, string_type> message_catalog_type;
+        using message_catalog_type = std::unordered_map<string_type, string_type>;
 
-        typedef boost::filesystem::directory_iterator directory_iterator_type;
+        using directory_iterator_type = boost::filesystem::directory_iterator;
 
-        typedef boost::filesystem::directory_entry directory_entry_type;
+        using directory_entry_type = boost::filesystem::directory_entry;
 
         struct matches_locale_type
         {
@@ -166,11 +166,11 @@ namespace tetengo2 { namespace message
 
         };
 
-        typedef typename message_catalog_parser_type::pull_parser_type pull_parser_type;
+        using pull_parser_type = typename message_catalog_parser_type::pull_parser_type;
 
-        typedef typename pull_parser_type::push_parser_type push_parser_type;
+        using push_parser_type = typename pull_parser_type::push_parser_type;
 
-        typedef typename push_parser_type::grammar_type grammar_type;
+        using grammar_type = typename push_parser_type::grammar_type;
 
 
         // static functions

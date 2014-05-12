@@ -41,76 +41,76 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The traits type.
-        typedef Traits traits_type;
+        using traits_type = Traits;
 
         //! The widget canvas type.
-        typedef typename traits_type::widget_canvas_type widget_canvas_type;
+        using widget_canvas_type = typename traits_type::widget_canvas_type;
 
         //! The canvas type.
-        typedef typename traits_type::canvas_type canvas_type;
+        using canvas_type = typename traits_type::canvas_type;
 
         //! The alert type.
-        typedef typename traits_type::alert_type alert_type;
+        using alert_type = typename traits_type::alert_type;
 
         //! The position type.
-        typedef typename traits_type::position_type position_type;
+        using position_type = typename traits_type::position_type;
 
         //! The dimension type.
-        typedef typename traits_type::dimension_type dimension_type;
+        using dimension_type = typename traits_type::dimension_type;
 
         //! The size type.
-        typedef typename traits_type::size_type size_type;
+        using size_type = typename traits_type::size_type;
 
         //! The string type.
-        typedef typename traits_type::string_type string_type;
+        using string_type = typename traits_type::string_type;
 
         //! The encoder type.
-        typedef typename traits_type::encoder_type encoder_type;
+        using encoder_type = typename traits_type::encoder_type;
 
         //! The background type.
-        typedef typename traits_type::background_type background_type;
+        using background_type = typename traits_type::background_type;
 
         //! The font type.
-        typedef typename traits_type::font_type font_type;
+        using font_type = typename traits_type::font_type;
 
         //! The system cursor type.
-        typedef typename traits_type::system_cursor_type system_cursor_type;
+        using system_cursor_type = typename traits_type::system_cursor_type;
 
         //! The cursor type.
-        typedef typename system_cursor_type::base_type cursor_type;
+        using cursor_type = typename system_cursor_type::base_type;
 
         //! The scroll bar type.
-        typedef typename traits_type::scroll_bar_type scroll_bar_type;
+        using scroll_bar_type = typename traits_type::scroll_bar_type;
 
         //! The size observer set type.
-        typedef typename traits_type::size_observer_set_type size_observer_set_type;
+        using size_observer_set_type = typename traits_type::size_observer_set_type;
 
         //! The focus observer set type.
-        typedef typename traits_type::focus_observer_set_type focus_observer_set_type;
+        using focus_observer_set_type = typename traits_type::focus_observer_set_type;
 
         //! The paint observer set type.
-        typedef typename traits_type::paint_observer_set_type paint_observer_set_type;
+        using paint_observer_set_type = typename traits_type::paint_observer_set_type;
 
         //! The keyboard observer set type.
-        typedef typename traits_type::keyboard_observer_set_type keyboard_observer_set_type;
+        using keyboard_observer_set_type = typename traits_type::keyboard_observer_set_type;
 
         //! The mouse observer set type.
-        typedef typename traits_type::mouse_observer_set_type mouse_observer_set_type;
+        using mouse_observer_set_type = typename traits_type::mouse_observer_set_type;
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The detail implementation type.
-        typedef typename widget_details_type::widget_details_type details_type;
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation type of a message handler.
-        typedef MessageHandlerDetails message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The message handler map type.
-        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
         //! The child type.
-        typedef widget child_type;
+        using child_type = widget;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
@@ -849,9 +849,9 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef typename gui::position<position_type>::left_type left_type;
+        using left_type = typename gui::position<position_type>::left_type;
 
-        typedef typename gui::position<position_type>::top_type top_type;
+        using top_type = typename gui::position<position_type>::top_type;
 
         class paint_background
         {

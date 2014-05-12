@@ -46,37 +46,37 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The size type.
-        typedef Size size_type;
+        using size_type = Size;
 
         //! The string type.
-        typedef String string_type;
+        using string_type = String;
 
         //! The position type.
-        typedef Position position_type;
+        using position_type = Position;
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        using dimension_type = Dimension;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        using encoder_type = Encoder;
 
         //! The color type.
-        typedef Color color_type;
+        using color_type = Color;
 
         //! The background type.
-        typedef Background background_type;
+        using background_type = Background;
 
         //! The solid background type.
-        typedef SolidBackground solid_background_type;
+        using solid_background_type = SolidBackground;
 
         //! The font type.
-        typedef Font font_type;
+        using font_type = Font;
 
         //! The picture type.
-        typedef Picture picture_type;
+        using picture_type = Picture;
 
         //! The icon type.
-        typedef Icon icon_type;
+        using icon_type = Icon;
 
 
     };

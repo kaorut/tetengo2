@@ -29,7 +29,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The string type.
-        typedef std::string string_type;
+        using string_type = std::string;
 
 
         // static functions
