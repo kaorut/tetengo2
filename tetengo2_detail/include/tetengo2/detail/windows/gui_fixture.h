@@ -25,8 +25,8 @@
 #include <CommCtrl.h>
 #include <ObjBase.h>
 
-#include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.detail.windows.windows_version.h"
+#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/windows_version.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

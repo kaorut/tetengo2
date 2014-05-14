@@ -34,10 +34,10 @@
 #include <dxgiformat.h>
 #include <Unknwn.h>
 
-#include "tetengo2.detail.windows.com_ptr.h"
-#include "tetengo2.detail.windows.direct2d.error_category.h"
-#include "tetengo2.detail.windows.font.h"
-#include "tetengo2.detail.windows.picture.h"
+#include <tetengo2/detail/windows/com_ptr.h>
+#include <tetengo2/detail/windows/direct2d/error_category.h>
+#include <tetengo2/detail/windows/font.h>
+#include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>

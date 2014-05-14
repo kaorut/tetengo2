@@ -26,19 +26,19 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.detail.windows.message_handler_detail.abstra.h"
-#include "tetengo2.detail.windows.message_handler_detail.button.h"
-#include "tetengo2.detail.windows.message_handler_detail.contro.h"
-#include "tetengo2.detail.windows.message_handler_detail.custom.h"
-#include "tetengo2.detail.windows.message_handler_detail.dialog.h"
-#include "tetengo2.detail.windows.message_handler_detail.dropdo.h"
-#include "tetengo2.detail.windows.message_handler_detail.messag.h"
-#include "tetengo2.detail.windows.message_handler_detail.list_b.h"
-#include "tetengo2.detail.windows.message_handler_detail.pictur.h"
-#include "tetengo2.detail.windows.message_handler_detail.text_b.h"
-#include "tetengo2.detail.windows.message_handler_detail.widget.h"
-#include "tetengo2.detail.windows.widget.h"
+#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/message_handler_detail/abstra.h>
+#include <tetengo2/detail/windows/message_handler_detail/button.h>
+#include <tetengo2/detail/windows/message_handler_detail/contro.h>
+#include <tetengo2/detail/windows/message_handler_detail/custom.h>
+#include <tetengo2/detail/windows/message_handler_detail/dialog.h>
+#include <tetengo2/detail/windows/message_handler_detail/dropdo.h>
+#include <tetengo2/detail/windows/message_handler_detail/messag.h>
+#include <tetengo2/detail/windows/message_handler_detail/list_b.h>
+#include <tetengo2/detail/windows/message_handler_detail/pictur.h>
+#include <tetengo2/detail/windows/message_handler_detail/text_b.h>
+#include <tetengo2/detail/windows/message_handler_detail/widget.h>
+#include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/utility.h>
 
 

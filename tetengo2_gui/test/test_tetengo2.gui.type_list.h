@@ -18,23 +18,23 @@
 #include <boost/mpl/pair.hpp>
 
 #include <tetengo2.h>
-#include "tetengo2.detail.stub.alert.h"
-#include "tetengo2.detail.stub.common_dialog.h"
-#include "tetengo2.detail.stub.cursor.h"
-#include "tetengo2.detail.stub.drawing.h"
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.detail.stub.icon.h"
-#include "tetengo2.detail.stub.menu.h"
-#include "tetengo2.detail.stub.message_handler.h"
-#include "tetengo2.detail.stub.message_loop.h"
-#include "tetengo2.detail.stub.mouse_capture.h"
-#include "tetengo2.detail.stub.scroll.h"
-#include "tetengo2.detail.stub.shell.h"
-#include "tetengo2.detail.stub.system_color.h"
-#include "tetengo2.detail.stub.timer.h"
-#include "tetengo2.detail.stub.unit.h"
-#include "tetengo2.detail.stub.virtual_key.h"
-#include "tetengo2.detail.stub.widget.h"
+#include <tetengo2/detail/stub/alert.h>
+#include <tetengo2/detail/stub/common_dialog.h>
+#include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/encoding.h>
+#include <tetengo2/detail/stub/icon.h>
+#include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/stub/message_handler.h>
+#include <tetengo2/detail/stub/message_loop.h>
+#include <tetengo2/detail/stub/mouse_capture.h>
+#include <tetengo2/detail/stub/scroll.h>
+#include <tetengo2/detail/stub/shell.h>
+#include <tetengo2/detail/stub/system_color.h>
+#include <tetengo2/detail/stub/timer.h>
+#include <tetengo2/detail/stub/unit.h>
+#include <tetengo2/detail/stub/virtual_key.h>
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2.gui.h>
 
 

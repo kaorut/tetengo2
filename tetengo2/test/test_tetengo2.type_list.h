@@ -19,8 +19,8 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.h>
-#include "tetengo2.detail.stub.config.h"
-#include "tetengo2.detail.stub.encoding.h"
+#include <tetengo2/detail/stub/config.h>
+#include <tetengo2/detail/stub/encoding.h>
 
 
 namespace test_tetengo2

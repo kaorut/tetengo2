@@ -40,8 +40,8 @@
 #include <ShObjIdl.h>
 #include <ShTypes.h>
 
-#include "tetengo2.detail.windows.com_ptr.h"
-#include "tetengo2.detail.windows.error_category.h"
+#include <tetengo2/detail/windows/com_ptr.h>
+#include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 

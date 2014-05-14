@@ -16,7 +16,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.detail.stub.widget.h"
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/utility.h>
 
 

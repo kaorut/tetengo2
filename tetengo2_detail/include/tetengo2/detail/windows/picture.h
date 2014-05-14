@@ -25,8 +25,8 @@
 #include <ObjBase.h>
 #include <wincodec.h>
 
-#include "tetengo2.detail.windows.com_ptr.h"
-#include "tetengo2.detail.windows.error_category.h"
+#include <tetengo2/detail/windows/com_ptr.h>
+#include <tetengo2/detail/windows/error_category.h>
 
 #if !defined(DOCUMENTATION)
     // Use the older version of WIC with the Windows SDK 8.0 for the time being.

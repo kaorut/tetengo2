@@ -22,7 +22,7 @@
 #include <Windows.h>
 #include <d2d1.h>
 
-#include "tetengo2.detail.windows.error_category.h"
+#include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/stdalt.h>
 
 

@@ -32,7 +32,7 @@
 #undef min
 #undef max
 
-#include "tetengo2.detail.windows.gdiplus.error_category.h"
+#include <tetengo2/detail/windows/gdiplus/error_category.h>
 #include <tetengo2/stdalt.h>
 
 

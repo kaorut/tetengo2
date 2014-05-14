@@ -9,7 +9,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.mouse_capture.h"
+#include <tetengo2/detail/stub/mouse_capture.h>
 
 #include <tetengo2.gui.h>
 
