@@ -15,7 +15,7 @@
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.utility.h"
+#include <tetengo2.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub

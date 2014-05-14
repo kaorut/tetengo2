@@ -24,11 +24,8 @@
 #include <Windows.h>
 #include <wincodec.h>
 
+#include <tetengo2.h>
 #include "tetengo2.detail.windows.encoding.h"
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
-#include "tetengo2.text.encoding.utf8.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows

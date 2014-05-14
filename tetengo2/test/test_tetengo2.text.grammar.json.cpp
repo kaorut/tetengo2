@@ -16,9 +16,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.utility.h"
-
-#include "tetengo2.text.grammar.json.h"
+#include <tetengo2.h>
 
 
 namespace

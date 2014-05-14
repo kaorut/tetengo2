@@ -10,9 +10,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.text.h"
-#include "tetengo2.text.encoding.utf8.h"
 
 
 namespace

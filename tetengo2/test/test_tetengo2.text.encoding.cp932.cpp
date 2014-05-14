@@ -11,8 +11,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.text.h"
-#include "tetengo2.text.encoding.cp932.h"
+#include <tetengo2.h>
 
 
 namespace
