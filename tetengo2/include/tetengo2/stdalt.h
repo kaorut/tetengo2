@@ -11,7 +11,7 @@
 
 #include <boost/predef.h>
 
-#include "tetengo2.utility.h"
+#include <tetengo2/utility.h>
 
 
 /* noexcept *******************************************************************/

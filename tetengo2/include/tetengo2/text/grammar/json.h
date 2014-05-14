@@ -16,7 +16,7 @@
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 
-#include "tetengo2.stdalt.h"
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace text { namespace grammar

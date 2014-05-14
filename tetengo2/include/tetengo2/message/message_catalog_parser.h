@@ -19,8 +19,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 
 namespace tetengo2 { namespace message

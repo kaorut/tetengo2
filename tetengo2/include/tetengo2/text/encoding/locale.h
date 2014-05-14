@@ -21,8 +21,8 @@
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.text.h"
-#include "tetengo2.text.encoding.encoding.h"
+#include <tetengo2/text.h>
+#include <tetengo2/text/encoding/encoding.h>
 
 
 namespace tetengo2 { namespace text { namespace encoding

@@ -30,9 +30,9 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace message

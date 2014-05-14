@@ -15,10 +15,10 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
-#include "tetengo2.text.grammar.json.h"
+#include <tetengo2/text/grammar/json.h>
 
 
 namespace tetengo2 { namespace text { namespace grammar

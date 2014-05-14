@@ -18,10 +18,10 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.concurrent.channel.h"
-#include "tetengo2.concurrent.consumer.h"
-#include "tetengo2.concurrent.producer.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/concurrent/channel.h>
+#include <tetengo2/concurrent/consumer.h>
+#include <tetengo2/concurrent/producer.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace text
