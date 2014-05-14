@@ -16,8 +16,8 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub

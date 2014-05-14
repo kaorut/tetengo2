@@ -21,7 +21,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.utility.h"
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail

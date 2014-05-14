@@ -39,7 +39,7 @@
 #include "tetengo2.detail.windows.message_handler_detail.text_b.h"
 #include "tetengo2.detail.windows.message_handler_detail.widget.h"
 #include "tetengo2.detail.windows.widget.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

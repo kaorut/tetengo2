@@ -50,8 +50,8 @@
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.detail.windows.gdiplus.error_category.h"
 #include "tetengo2.detail.windows.picture.h"
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.stdalt.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus

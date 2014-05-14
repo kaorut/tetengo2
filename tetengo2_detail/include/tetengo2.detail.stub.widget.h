@@ -26,8 +26,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub

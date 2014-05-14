@@ -27,8 +27,8 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.stdalt.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
