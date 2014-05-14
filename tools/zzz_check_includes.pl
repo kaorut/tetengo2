@@ -88,7 +88,7 @@ sub check
 {
 	my($source_filename, $r_usages, $r_includes, $r_mappings) = @_;
 	
-	check_include_order($source_filename, $r_includes) if $source_filename !~ /tetengo2\.stdalt\.h/;
+	check_include_order($source_filename, $r_includes) if $source_filename !~ /tetengo2\/stdalt\.h/;
 	check_header_includes($source_filename, $r_usages, $r_includes, $r_mappings);
 	check_header_usages($source_filename, $r_usages, $r_includes);
 }

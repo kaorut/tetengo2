@@ -9,11 +9,9 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_tetengo2.type_list.h"
-#include "tetengo2.detail.stub.config.h"
-#include "tetengo2.text.h"
+#include <tetengo2.h>
 
-#include "tetengo2.config.persistent_config.h"
+#include "test_tetengo2.type_list.h"
 
 
 namespace

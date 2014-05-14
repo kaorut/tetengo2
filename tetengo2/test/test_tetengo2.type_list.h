@@ -18,17 +18,9 @@
 #include <boost/mpl/pair.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
-#include "tetengo2.detail.stub.config.h"
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.message.message_catalog.h"
-#include "tetengo2.message.message_catalog_parser.h"
-#include "tetengo2.message.messages.h"
-#include "tetengo2.meta.assoc_list.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
-#include "tetengo2.text.grammar.json.h"
-#include "tetengo2.text.pull_parser.h"
-#include "tetengo2.text.push_parser.h"
+#include <tetengo2.h>
+#include <tetengo2/detail/stub/config.h>
+#include <tetengo2/detail/stub/encoding.h>
 
 
 namespace test_tetengo2

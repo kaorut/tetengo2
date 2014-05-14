@@ -14,13 +14,16 @@ AC_CONFIG_FILES([
     precompiled/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
+    tetengo2/include/tetengo2/Makefile
     tetengo2/res.test/Makefile
     tetengo2/src/Makefile
     tetengo2/test/Makefile
     tetengo2_detail/Makefile
     tetengo2_detail/include/Makefile
+    tetengo2_detail/include/tetengo2/Makefile
     tetengo2_gui/Makefile
     tetengo2_gui/include/Makefile
+    tetengo2_gui/include/tetengo2/Makefile
     tetengo2_gui/test/Makefile
 ])
 

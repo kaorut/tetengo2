@@ -14,8 +14,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.concurrent.channel.h"
-#include "tetengo2.stdalt.h"
+#include <tetengo2.h>
 
 
 namespace

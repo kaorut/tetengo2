@@ -9,7 +9,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.stdalt.h"
+#include <tetengo2.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -38,7 +38,7 @@ namespace
         }
 
         virtual ~concrete_window()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION
+        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
 
 
     private:

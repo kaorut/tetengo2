@@ -11,11 +11,9 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
-#include "test_tetengo2.type_list.h"
-#include "tetengo2.text.h"
-#include "tetengo2.utility.h"
+#include <tetengo2.h>
 
-#include "tetengo2.config.config_base.h"
+#include "test_tetengo2.type_list.h"
 
 
 namespace
