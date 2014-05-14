@@ -11,7 +11,7 @@
 
 #include <cassert>
 
-#include "tetengo2.gui.cursor.cursor_base.h"
+#include <tetengo2/gui/cursor/cursor_base.h>
 #include "tetengo2.stdalt.h"
 
 

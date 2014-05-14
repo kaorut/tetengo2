@@ -29,7 +29,7 @@
 #include <Windows.h>
 #include <windowsx.h>
 
-#include "tetengo2.gui.measure.h"
+#include <tetengo2.gui.h>
 #include "tetengo2.utility.h"
 
 

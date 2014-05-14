@@ -15,7 +15,7 @@
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 
-#include "tetengo2.gui.widget.widget.h"
+#include <tetengo2/gui/widget/widget.h>
 #include "tetengo2.stdalt.h"
 
 

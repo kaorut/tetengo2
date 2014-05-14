@@ -17,7 +17,7 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.gui.widget.widget.h"
+#include <tetengo2/gui/widget/widget.h>
 #include "tetengo2.stdalt.h"
 
 

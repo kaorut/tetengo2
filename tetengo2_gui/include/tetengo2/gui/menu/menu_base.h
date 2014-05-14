@@ -20,7 +20,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.gui.menu.recursive_iterator.h"
+#include <tetengo2/gui/menu/recursive_iterator.h>
 #include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 

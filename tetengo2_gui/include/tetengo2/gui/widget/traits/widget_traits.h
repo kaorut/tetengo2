@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_TRAITS_WIDGETTRAITS_H)
 #define TETENGO2_GUI_WIDGET_TRAITS_WIDGETTRAITS_H
 
-#include "tetengo2.gui.measure.h"
+#include <tetengo2/gui/measure.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget { namespace traits

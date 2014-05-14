@@ -17,7 +17,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.gui.measure.h"
+#include <tetengo2/gui/measure.h>
 #include "tetengo2.stdalt.h"
 
 

@@ -21,8 +21,8 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.gui.widget.custom_control.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/widget/custom_control.h>
 #include "tetengo2.stdalt.h"
 
 

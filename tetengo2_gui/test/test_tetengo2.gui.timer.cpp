@@ -13,9 +13,9 @@
 
 #include "tetengo2.detail.stub.timer.h"
 
-#include "test_tetengo2.gui.type_list.h"
+#include <tetengo2.gui.h>
 
-#include "tetengo2.gui.timer.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace

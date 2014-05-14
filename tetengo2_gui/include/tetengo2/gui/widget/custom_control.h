@@ -16,8 +16,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/predef.h>
 
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.gui.widget.control.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/widget/control.h>
 #include "tetengo2.stdalt.h"
 #include "tetengo2.utility.h"
 

@@ -11,7 +11,7 @@
 
 #include <utility>
 
-#include "tetengo2.gui.menu.abstract_popup.h"
+#include <tetengo2/gui/menu/abstract_popup.h>
 #include "tetengo2.stdalt.h"
 
 

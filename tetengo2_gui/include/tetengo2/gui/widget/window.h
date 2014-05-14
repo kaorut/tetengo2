@@ -13,7 +13,7 @@
 
 #include <boost/predef.h>
 
-#include "tetengo2.gui.widget.abstract_window.h"
+#include <tetengo2/gui/widget/abstract_window.h>
 #include "tetengo2.stdalt.h"
 
 

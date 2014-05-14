@@ -11,7 +11,7 @@
 
 #include <boost/swap.hpp>
 
-#include "tetengo2.gui.unit.unit.h"
+#include <tetengo2/gui/unit/unit.h>
 
 
 namespace tetengo2 { namespace gui { namespace unit

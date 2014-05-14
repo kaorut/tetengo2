@@ -23,8 +23,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.gui.widget.custom_control.h"
+#include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/widget/custom_control.h>
 #include "tetengo2.stdalt.h"
 
 

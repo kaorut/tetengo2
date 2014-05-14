@@ -27,7 +27,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.gui.measure.h"
+#include <tetengo2.gui.h>
 #include "tetengo2.stdalt.h"
 
 
