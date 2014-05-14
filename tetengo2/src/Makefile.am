@@ -13,7 +13,7 @@ extra_sources =
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
 
-pkglib_LIBRARIES = libtetengo2.a
+lib_LIBRARIES = libtetengo2.a
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
 libtetengo2_a_CPPFLAGS = \
