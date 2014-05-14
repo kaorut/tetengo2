@@ -17,7 +17,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.text.h"
+#include <tetengo2/text.h>
 
 
 namespace tetengo2 { namespace gui { namespace common_dialog

@@ -14,7 +14,7 @@
 #include <utility>
 
 #include <tetengo2/gui/drawing/background.h>
-#include "tetengo2.stdalt.h"
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace drawing

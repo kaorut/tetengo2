@@ -17,6 +17,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
+#include <tetengo2.h>
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.common_dialog.h"
 #include "tetengo2.detail.stub.cursor.h"
@@ -35,9 +36,6 @@
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include <tetengo2.gui.h>
-#include "tetengo2.meta.assoc_list.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
 
 
 namespace test_tetengo2 { namespace gui

@@ -14,8 +14,8 @@
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/label.h>
-#include "tetengo2.stdalt.h"
-#include "tetengo2.utility.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget

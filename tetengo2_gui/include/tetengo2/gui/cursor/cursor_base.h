@@ -11,7 +11,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.stdalt.h"
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace cursor

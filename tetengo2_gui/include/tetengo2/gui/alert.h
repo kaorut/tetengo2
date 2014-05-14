@@ -16,8 +16,8 @@
 
 #include <boost/exception/all.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 
 namespace tetengo2 { namespace gui

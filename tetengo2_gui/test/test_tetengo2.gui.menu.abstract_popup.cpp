@@ -13,8 +13,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/utility.hpp>
 
-#include "tetengo2.stdalt.h"
-#include "tetengo2.text.h"
+#include <tetengo2.h>
 
 #include "test_tetengo2.gui.type_list.h"
 

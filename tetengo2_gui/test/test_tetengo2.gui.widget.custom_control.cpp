@@ -9,8 +9,8 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include <tetengo2.gui.h>
-#include "tetengo2.utility.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
