@@ -14,6 +14,7 @@ AC_CONFIG_FILES([
     precompiled/Makefile
     tetengo2/Makefile
     tetengo2/include/Makefile
+    tetengo2/include/tetengo2/Makefile
     tetengo2/res.test/Makefile
     tetengo2/src/Makefile
     tetengo2/test/Makefile

@@ -2,41 +2,9 @@
 # Copyright (C) 2007-2014 kaoru
 # $Id$
 
+SUBDIRS = tetengo2
+
 headers = \
-    tetengo2.concurrent.channel.h \
-    tetengo2.concurrent.consumer.h \
-    tetengo2.concurrent.producer.h \
-    tetengo2.config.cached_config.h \
-    tetengo2.config.config_base.h \
-    tetengo2.config.config_list.h \
-    tetengo2.config.persistent_config.h \
-    tetengo2.config.temporary_config.h \
-    tetengo2.message.messages.h \
-    tetengo2.message.message_catalog.h \
-    tetengo2.message.message_catalog_parser.h \
-    tetengo2.meta.assoc_list.h \
-    tetengo2.stdalt.h \
-    tetengo2.text.h \
-    tetengo2.text.encoder.h \
-    tetengo2.text.encoding.encoding.h \
-    tetengo2.text.encoding.ascii.h \
-    tetengo2.text.encoding.cp932.h \
-    tetengo2.text.encoding.locale.h \
-    tetengo2.text.encoding.utf8.h \
-    tetengo2.text.grammar.json.h \
-    tetengo2.text.pull_parser.h \
-    tetengo2.text.push_parser.h \
-    tetengo2.utility.h
+    tetengo2.h
 
-extra_headers = \
-    tetengo2.0namespace.h \
-    tetengo2.concurrent.0namespace.h \
-    tetengo2.config.0namespace.h \
-    tetengo2.message.0namespace.h \
-    tetengo2.meta.0namespace.h \
-    tetengo2.text.0namespace.h \
-    tetengo2.text.encoding.0namespace.h \
-    tetengo2.text.grammar.0namespace.h
-
-pkginclude_HEADERS = $(headers)
-EXTRA_DIST = $(extra_headers)
+include_HEADERS = $(headers)
