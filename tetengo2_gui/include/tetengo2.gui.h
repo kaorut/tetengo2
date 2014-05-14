@@ -10,18 +10,14 @@
 #define TETENGO2_GUI_H
 
 
-#include <tetengo2/gui/0namespace.h>
 #include <tetengo2/gui/alert.h>
-#include <tetengo2/gui/common_dialog/0namespace.h>
 #include <tetengo2/gui/common_dialog/color.h>
 #include <tetengo2/gui/common_dialog/file_open.h>
 #include <tetengo2/gui/common_dialog/file_save.h>
 #include <tetengo2/gui/common_dialog/font.h>
 #include <tetengo2/gui/common_dialog/message_box.h>
-#include <tetengo2/gui/cursor/0namespace.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
-#include <tetengo2/gui/drawing/0namespace.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/canvas_traits.h>
@@ -36,7 +32,6 @@
 #include <tetengo2/gui/fixture.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/gui/menu/0namespace.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/command.h>
 #include <tetengo2/gui/menu/menu_bar.h>
@@ -47,7 +42,6 @@
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/menu/traits.h>
-#include <tetengo2/gui/message/0namespace.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>
@@ -66,13 +60,11 @@
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/timer.h>
-#include <tetengo2/gui/unit/0namespace.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/point.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/virtual_key.h>
-#include <tetengo2/gui/widget/0namespace.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/control.h>
@@ -87,7 +79,6 @@
 #include <tetengo2/gui/widget/picture_box.h>
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/text_box.h>
-#include <tetengo2/gui/widget/traits/0namespace.h>
 #include <tetengo2/gui/widget/traits/abstract_window_traits.h>
 #include <tetengo2/gui/widget/traits/button_traits.h>
 #include <tetengo2/gui/widget/traits/control_traits.h>
