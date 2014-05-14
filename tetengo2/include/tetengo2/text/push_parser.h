@@ -27,7 +27,8 @@
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/text.h>
+#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace text
