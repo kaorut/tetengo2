@@ -8,9 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/gui_fixture.h>
-
 #include <tetengo2.gui.h>
+#include <tetengo2/detail/stub/gui_fixture.h>
 
 
 namespace

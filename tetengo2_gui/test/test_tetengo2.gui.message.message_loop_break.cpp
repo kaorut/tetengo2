@@ -8,9 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/message_loop.h>
-
 #include <tetengo2.gui.h>
+#include <tetengo2/detail/stub/message_loop.h>
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
