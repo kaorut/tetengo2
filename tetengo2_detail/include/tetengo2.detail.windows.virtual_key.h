@@ -22,7 +22,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2.h>
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows

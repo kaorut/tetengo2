@@ -29,8 +29,8 @@
 #include <Windows.h>
 #include <windowsx.h>
 
-#include <tetengo2.h>
-#include <tetengo2.gui.h>
+#include "tetengo2.gui.measure.h"
+#include "tetengo2.utility.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail

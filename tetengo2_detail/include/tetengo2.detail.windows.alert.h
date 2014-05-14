@@ -26,7 +26,7 @@
 #include <Windows.h>
 #include <CommCtrl.h>
 
-#include <tetengo2.h>
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
