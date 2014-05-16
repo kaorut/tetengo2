@@ -5,7 +5,9 @@
 SUBDIRS = \
      docsrc \
      precompiled \
-     tetengo2 tetengo2_detail tetengo2_gui
+     tetengo2 tetengo2_detail tetengo2_gui \
+     tools \
+     vsprops
 
 EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 
