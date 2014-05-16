@@ -1,0 +1,28 @@
+# Automake Settings
+# Copyright (C) 2007-2014 kaoru
+# $Id$
+
+EXTRA_DIST = \
+    check_includes.sh \
+    check_test_cases.sh \
+    codesign.bat \
+    copy_boost_dlls.js \
+    get_solution_config.bat \
+    make_precompiled_h.sh \
+    make_stdlib_headers_txt.sh \
+    paths.sh \
+    precompiled.template.h \
+    stdlib_headers.txt \
+    test_case_check_ignore.txt \
+    zzz_check_includes.pl \
+    zzz_check_test_cases.pl \
+    zzz_codesign.bat-skeleton \
+    zzz_get_solution_config.js \
+    zzz_make_function_list.pl \
+    zzz_make_function_list.sh \
+    zzz_make_precompiled_h.pl \
+    zzz_make_stdlib_headers_txt.pl \
+    zzz_make_test_case_list.pl \
+    zzz_make_test_case_list.sh \
+    zzz_parse_solution_config.js \
+    zzz_stdlib_usage.pm
