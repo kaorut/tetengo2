@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_SUITE_END()
             const pull_parser_type pull_parser(std::move(p_push_parser), 3);
         }
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
@@ -360,7 +360,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
@@ -396,7 +396,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream json_text;
+            std::istringstream json_text{};
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
                     input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),

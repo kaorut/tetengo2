@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input;
+            std::istringstream input{};
             push_parser_type parser(
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::vector<parsed_structure_type> parsed{};
 
-            std::istringstream input;
+            std::istringstream input{};
             push_parser_type parser(
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),

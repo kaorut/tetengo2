@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const std::string input("{}");
 
             grammar_type g;
-            std::string output;
+            std::string output{};
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_SUITE(json)
             );
 
             grammar_type g;
-            std::string output;
+            std::string output{};
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const std::string input("[\"hoge\", 42, true, false, null]");
 
             grammar_type g;
-            std::string output;
+            std::string output{};
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
