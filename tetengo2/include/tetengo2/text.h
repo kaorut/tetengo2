@@ -41,8 +41,8 @@ namespace tetengo2
         */
         text_value_holder(const multibyte_type multibyte, const wide_type wide)
         :
-        m_multibyte{ multibyte },
-        m_wide{ wide }
+        m_multibyte(multibyte),
+        m_wide(wide)
         {}
 
 

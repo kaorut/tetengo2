@@ -63,9 +63,9 @@ namespace tetengo2 { namespace message
         */
         explicit message_catalog_parser(std::unique_ptr<pull_parser_type> p_pull_parser)
         :
-        m_p_pull_parser{ std::move(p_pull_parser) },
-        m_p_preread_entry{},
-        m_preamble_read_succeeded{}
+        m_p_pull_parser(std::move(p_pull_parser)),
+        m_p_preread_entry(),
+        m_preamble_read_succeeded()
         {}
 
 

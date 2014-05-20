@@ -46,7 +46,7 @@ namespace tetengo2 { namespace concurrent
         */
         explicit consumer(channel_type& channel)
         :
-        m_channel{ channel }
+        m_channel(channel)
         {}
 
         /*!

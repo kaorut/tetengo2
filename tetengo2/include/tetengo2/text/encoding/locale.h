@@ -55,7 +55,7 @@ namespace tetengo2 { namespace text { namespace encoding
         */
         locale()
         :
-        m_locale{}
+        m_locale()
         {}
 
         /*!
@@ -65,7 +65,7 @@ namespace tetengo2 { namespace text { namespace encoding
         */
         explicit locale(std::locale locale_based_on)
         :
-        m_locale{ std::move(locale_based_on) }
+        m_locale(std::move(locale_based_on))
         {}
 
 

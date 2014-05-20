@@ -86,12 +86,12 @@ namespace tetengo2 { namespace text
         */
         push_parser(const iterator first, const iterator last, std::unique_ptr<grammar_type> p_grammar)
         :
-        m_first{ first },
-        m_last{ last },
-        m_p_grammar{ std::move(p_grammar) },
-        m_on_structure_begin{},
-        m_on_structure_end{},
-        m_on_value{}
+        m_first(first),
+        m_last(last),
+        m_p_grammar(std::move(p_grammar)),
+        m_on_structure_begin(),
+        m_on_structure_end(),
+        m_on_value()
         {
             if (!m_p_grammar)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is nullptr."));

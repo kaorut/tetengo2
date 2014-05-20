@@ -52,7 +52,7 @@ namespace tetengo2 { namespace config
         */
         temporary_config()
         :
-        m_values{}
+        m_values()
         {}
 
         /*!
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace config
         template <typename InputIterator>
         temporary_config(const InputIterator first, const InputIterator last)
         :
-        m_values{ first, last }
+        m_values(first, last)
         {}
 
         /*!
