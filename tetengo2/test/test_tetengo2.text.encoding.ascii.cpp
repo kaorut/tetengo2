@@ -27,27 +27,27 @@ namespace
     // variables
 
     // "\n 0Aa~[DEL]"
-    const wchar_t utf16_ascii[] = {
+    const wchar_t utf16_ascii[]{
         0x000A, 0x0020, 0x0030, 0x0041, 0x0061, 0x007E, 0x007F, 0x0000
     };
 
     // "\n 0Aa~[DEL]"
-    const unsigned char ascii_ascii[] = {
+    const unsigned char ascii_ascii[]{
         0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00
     };
 
     // Non-ASCII characters
-    const wchar_t utf16_nonascii[] = {
+    const wchar_t utf16_nonascii[]{
         0x0080, 0x00FF, 0x0000
     };
 
     // Non-ASCII characters
-    const unsigned char ascii_nonascii[] = {
+    const unsigned char ascii_nonascii[]{
         0x3F, 0x3F, 0x00
     };
 
     // Non-ASCII characters
-    const unsigned char nonascii[] = {
+    const unsigned char nonascii[]{
         0x80, 0xFF, 0x00
     };
 
