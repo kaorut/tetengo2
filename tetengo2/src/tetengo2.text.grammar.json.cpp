@@ -211,7 +211,7 @@ namespace tetengo2 { namespace text { namespace grammar
             using handler_type = void (impl::*)(const string_type& attribute);
 
             impl& m_self;
-            handler_type const m_handler;
+            const handler_type m_handler;
 
             call_handler_type(impl& self, const handler_type handler)
             :

@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows
         struct id_handle_type
         {
             ::UINT id;
-            handle_type handle;
+            handle_type handle{};
             ::HMENU parent_handle;
 
             id_handle_type(const ::UINT id, handle_type handle, const ::HMENU parent_handle)

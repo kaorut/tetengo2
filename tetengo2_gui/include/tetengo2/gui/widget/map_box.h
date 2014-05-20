@@ -1061,7 +1061,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     --int_delta;
             }
-            const delta_int_type new_position = scroll_bar.position() - int_delta;
+            const delta_int_type new_position = scroll_bar.position() - int_delta{};
 
             if (new_position < static_cast<delta_int_type>(scroll_bar.range().first))
                 return scroll_bar.range().first;

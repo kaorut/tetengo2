@@ -213,9 +213,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const string_type title;
-        const string_type main_content;
-        const string_type sub_content;
+        const string_type title{};
+        const string_type main_content{};
+        const string_type sub_content{};
         const message_box_type message_box(
             parent,
             title,
@@ -231,9 +231,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const string_type title;
-        const string_type main_content;
-        const string_type sub_content;
+        const string_type title{};
+        const string_type main_content{};
+        const string_type sub_content{};
         message_box_type message_box(
             parent,
             title,
@@ -251,10 +251,10 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            const string_type title;
-            const string_type main_content;
-            const string_type sub_content;
+            window_type parent{};
+            const string_type title{};
+            const string_type main_content{};
+            const string_type sub_content{};
             const message_box_type message_box(
                 parent,
                 title,
@@ -267,10 +267,10 @@ BOOST_AUTO_TEST_SUITE(message_box)
             message_box.details();
         }
         {
-            window_type parent;
-            const string_type title;
-            const string_type main_content;
-            const string_type sub_content;
+            window_type parent{};
+            const string_type title{};
+            const string_type main_content{};
+            const string_type sub_content{};
             message_box_type message_box(
                 parent,
                 title,

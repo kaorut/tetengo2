@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(file_drop_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const file_drop_observer_set_type observer_set;
+            const file_drop_observer_set_type observer_set{};
 
             observer_set.file_dropped();
         }
         {
-            file_drop_observer_set_type observer_set;
+            file_drop_observer_set_type observer_set{};
 
             observer_set.file_dropped();
         }

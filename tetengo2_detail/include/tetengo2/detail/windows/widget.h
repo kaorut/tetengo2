@@ -81,7 +81,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
 #if !defined(DOCUMENTATION)
             using handle_type = std::unique_ptr<typename std::remove_pointer< ::HWND>::type, detail::widget_deleter>;
-            handle_type handle;
+            handle_type handle{};
             ::WNDPROC window_procedure;
             ::HWND first_child_handle;
             int window_state_when_hidden;

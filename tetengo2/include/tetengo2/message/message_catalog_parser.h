@@ -209,8 +209,8 @@ namespace tetengo2 { namespace message
         std::unique_ptr<entry_type> next_entry()
         const
         {
-            input_string_type key;
-            input_string_type value;
+            input_string_type key{};
+            input_string_type value{};
 
             {
                 if (!m_p_pull_parser->has_next())

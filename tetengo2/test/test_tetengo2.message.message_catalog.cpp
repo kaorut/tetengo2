@@ -117,17 +117,17 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
             {
                 const set_global_locale global_locale(locale_en);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
             {
                 const set_global_locale global_locale(locale_ja);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
             {
                 const set_global_locale global_locale(locale_zh);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
         }
         else
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
             {
                 const set_global_locale global_locale(locale_en);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "English");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hi");
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
             {
                 const set_global_locale global_locale(locale_ja);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "Japanese");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Konnichiwa");
@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
             {
                 const set_global_locale global_locale(locale_zh);
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "Language");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hello");

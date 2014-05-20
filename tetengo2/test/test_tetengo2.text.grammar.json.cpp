@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(json)
     {
         BOOST_TEST_PASSPOINT();
 
-        const grammar_type grammar;
+        const grammar_type grammar{};
     }
 
     BOOST_AUTO_TEST_CASE(on_structure_begin_end)

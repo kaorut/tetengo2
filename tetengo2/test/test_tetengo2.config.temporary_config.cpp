@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         BOOST_TEST_PASSPOINT();
 
         {
-            const temporary_config_type config;
+            const temporary_config_type config{};
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{

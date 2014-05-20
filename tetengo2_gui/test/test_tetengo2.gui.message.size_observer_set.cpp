@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(size_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const size_observer_set_type observer_set;
+            const size_observer_set_type observer_set{};
 
             observer_set.resized();
         }
         {
-            size_observer_set_type observer_set;
+            size_observer_set_type observer_set{};
 
             observer_set.resized();
         }

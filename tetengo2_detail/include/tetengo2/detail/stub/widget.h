@@ -46,7 +46,7 @@ namespace tetengo2 { namespace detail { namespace stub
 #if !defined(DOCUMENTATION)
         struct details_font_type
         {
-            string_type family;
+            string_type family{};
             std::size_t size;
             bool bold;
             bool italic;
@@ -93,8 +93,8 @@ namespace tetengo2 { namespace detail { namespace stub
             int window_state;
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
             std::pair<std::size_t, std::size_t> dimension;
-            string_type text;
-            details_font_type font;
+            string_type text{};
+            details_font_type font{};
             std::vector<void*> children;
             bool focusable;
             bool read_only;

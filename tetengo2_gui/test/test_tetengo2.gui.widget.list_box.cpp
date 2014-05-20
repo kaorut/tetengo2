@@ -43,11 +43,11 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
         }
         {
-            window_type parent;
+            window_type parent{};
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::both);
         }
     }
@@ -57,13 +57,13 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
 
@@ -76,14 +76,14 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            window_type parent;
+            window_type parent{};
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_THROW(list_box.value(0), std::out_of_range);
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
 
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
             BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("fuga")));
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_THROW(list_box.set_value(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
             BOOST_CHECK(list_box.value(3) == string_type(TETENGO2_TEXT("fuga")));
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_THROW(list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
 
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
             BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_THROW(list_box.erase_value(0), std::out_of_range);
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
             list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
 
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
             BOOST_CHECK_EQUAL(*list_box.selected_value_index(), 0U);
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             BOOST_CHECK_THROW(list_box.select_value(0), std::out_of_range);
@@ -210,13 +210,13 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             list_box.list_selection_observer_set();
         }
         {
-            window_type parent;
+            window_type parent{};
             list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
 
             list_box.list_selection_observer_set();

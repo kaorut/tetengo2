@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const iterator_type iterator;
+            const iterator_type iterator{};
         }
         {
             const auto p_menu = create_menu();
@@ -85,8 +85,8 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const iterator_type iterator1;
-            const iterator_type iterator2;
+            const iterator_type iterator1{};
+            const iterator_type iterator2{};
 
             BOOST_CHECK(iterator1 == iterator2);
         }
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
         {
             const auto p_menu = create_menu();
             const iterator_type iterator1(p_menu.get());
-            const iterator_type iterator2;
+            const iterator_type iterator2{};
 
             BOOST_CHECK(iterator1 != iterator2);
         }

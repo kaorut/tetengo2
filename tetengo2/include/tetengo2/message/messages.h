@@ -194,7 +194,7 @@ namespace tetengo2 { namespace message
             if (!catalog_file)
                 return boost::none;
 
-            message_catalog_type message_catalog;
+            message_catalog_type message_catalog{};
             read_message_catalog(*catalog_file, message_catalog);
 
             return boost::make_optional(std::move(message_catalog));
@@ -228,7 +228,7 @@ namespace tetengo2 { namespace message
 
         static catalog_file_mappings_type read_catalog_file_mappings(const path_type& message_catalog_directory)
         {
-            catalog_file_mappings_type mappings;
+            catalog_file_mappings_type mappings{};
 
             boost::filesystem::ifstream input_stream(
                 path_type(message_catalog_directory / catalog_file_mappings_filename())

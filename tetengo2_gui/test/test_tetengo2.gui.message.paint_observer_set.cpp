@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(paint_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const paint_observer_set_type observer_set;
+            const paint_observer_set_type observer_set{};
 
             observer_set.paint_background();
         }
         {
-            paint_observer_set_type observer_set;
+            paint_observer_set_type observer_set{};
 
             observer_set.paint_background();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(paint_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const paint_observer_set_type observer_set;
+            const paint_observer_set_type observer_set{};
 
             observer_set.paint();
         }
         {
-            paint_observer_set_type observer_set;
+            paint_observer_set_type observer_set{};
 
             observer_set.paint();
         }

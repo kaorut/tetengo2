@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         BOOST_TEST_PASSPOINT();
 
         {
-            const shortcut_key_table_type shortcut_key_table;
+            const shortcut_key_table_type shortcut_key_table{};
         }
         {
             const auto menus = make_menus0();

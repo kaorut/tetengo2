@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(scroll_bar_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const scroll_bar_observer_set_type observer_set;
+            const scroll_bar_observer_set_type observer_set{};
 
             observer_set.scrolling();
         }
         {
-            scroll_bar_observer_set_type observer_set;
+            scroll_bar_observer_set_type observer_set{};
 
             observer_set.scrolling();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(scroll_bar_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const scroll_bar_observer_set_type observer_set;
+            const scroll_bar_observer_set_type observer_set{};
 
             observer_set.scrolled();
         }
         {
-            scroll_bar_observer_set_type observer_set;
+            scroll_bar_observer_set_type observer_set{};
 
             observer_set.scrolled();
         }

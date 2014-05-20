@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             image_type image(parent);
 
             picture_reader_type picture_reader("image_file");
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(image)
             BOOST_CHECK(!image.has_picture());
         }
         {
-            window_type parent;
+            window_type parent{};
             image_type image(parent);
 
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             image_type image(parent);
 
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(image)
             BOOST_CHECK(!image.has_icon());
         }
         {
-            window_type parent;
+            window_type parent{};
             image_type image(parent);
 
             picture_reader_type picture_reader("image_file");

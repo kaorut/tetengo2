@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(window)
         BOOST_TEST_PASSPOINT();
 
         {
-            const window_type window;
+            const window_type window{};
         }
         {
             const window_type window(window_type::scroll_bar_style_type::none, false);
@@ -49,19 +49,19 @@ BOOST_AUTO_TEST_SUITE(window)
             const window_type window(window_type::scroll_bar_style_type::none, true);
         }
         {
-            window_type parent;
+            window_type parent{};
             const window_type window(
                 static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_type::none, false
             );
         }
         {
-            window_type parent;
+            window_type parent{};
             const window_type window(
                 static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_type::both, false
             );
         }
         {
-            window_type parent;
+            window_type parent{};
             const window_type window(
                 static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_type::none, true
             );

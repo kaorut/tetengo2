@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(focus_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const focus_observer_set_type observer_set;
+            const focus_observer_set_type observer_set{};
 
             observer_set.got_focus();
         }
         {
-            focus_observer_set_type observer_set;
+            focus_observer_set_type observer_set{};
 
             observer_set.got_focus();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(focus_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const focus_observer_set_type observer_set;
+            const focus_observer_set_type observer_set{};
 
             observer_set.lost_focus();
         }
         {
-            focus_observer_set_type observer_set;
+            focus_observer_set_type observer_set{};
 
             observer_set.lost_focus();
         }

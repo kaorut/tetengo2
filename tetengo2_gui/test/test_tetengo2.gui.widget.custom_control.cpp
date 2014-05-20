@@ -280,14 +280,14 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             concrete_custom_control custom_control(parent);
             const concrete_inner_item inner_item(custom_control);
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
         }
         {
-            window_type parent;
+            window_type parent{};
             concrete_custom_control custom_control(parent);
             concrete_inner_item inner_item(custom_control);
 
@@ -300,14 +300,14 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             concrete_custom_control custom_control(parent);
             const concrete_inner_item inner_item(custom_control);
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
         }
         {
-            window_type parent;
+            window_type parent{};
             concrete_custom_control custom_control(parent);
             concrete_inner_item inner_item(custom_control);
 

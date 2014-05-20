@@ -40,9 +40,9 @@ namespace tetengo2 { namespace detail { namespace stub
         struct scroll_bar_details_type
         {
 #if !defined(DOCUMENTATION)
-            size_type position;
+            size_type position{};
             std::pair<size_type, size_type> range;
-            size_type page_size;
+            size_type page_size{};
             bool enabled;
 
             scroll_bar_details_type(

@@ -712,7 +712,7 @@ namespace tetengo2 { namespace gui
 
         static key_map_type build_key_map()
         {
-            key_map_type key_map;
+            key_map_type key_map{};
 
             insert_key(key_map, details_type::template backspace<string_type>());
             insert_key(key_map, details_type::template tab<string_type>());

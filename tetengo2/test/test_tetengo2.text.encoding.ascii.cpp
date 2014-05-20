@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_SUITE(ascii)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1;
-        const encoding_type encoding2;
+        const encoding_type encoding1{};
+        const encoding_type encoding2{};
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const std::wstring pivot(utf16_ascii);
             const std::string string(ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1);
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const std::wstring pivot(utf16_nonascii);
             const std::string string(ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1);
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const std::wstring pivot(utf16_ascii);
             const std::string string(ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1);
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             const auto result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
         {
             const std::string string(nonascii, nonascii + sizeof(nonascii) - 1);
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             BOOST_CHECK_THROW(encoding.to_pivot(string), std::invalid_argument);
         }
     }

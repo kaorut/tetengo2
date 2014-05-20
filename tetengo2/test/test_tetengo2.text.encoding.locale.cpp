@@ -82,10 +82,10 @@ BOOST_AUTO_TEST_SUITE(locale)
         BOOST_TEST_PASSPOINT();
 
         {
-            const multibyte_encoding_type encoding;
+            const multibyte_encoding_type encoding{};
         }
         {
-            const wide_encoding_type encoding;
+            const wide_encoding_type encoding{};
         }
         {
             const multibyte_encoding_type encoding(std::locale::classic());
