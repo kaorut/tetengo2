@@ -834,7 +834,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Iterator>
         static std::vector<Gdiplus::PointF> to_gdiplus_points(const Iterator first, const Iterator last)
         {
-            std::vector<Gdiplus::PointF> points;
+            std::vector<Gdiplus::PointF> points{};
             points.reserve(std::distance(first, last));
 
             using position_type = typename Iterator::value_type;

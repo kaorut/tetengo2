@@ -207,7 +207,7 @@ namespace tetengo2 { namespace message
             if (!boost::filesystem::is_directory(path))
                 BOOST_THROW_EXCEPTION(std::ios_base::failure("Path is not a directory."));
 
-            std::vector<path_type> catalog_files;
+            std::vector<path_type> catalog_files{};
             std::transform(
                 directory_iterator_type(path),
                 directory_iterator_type(),

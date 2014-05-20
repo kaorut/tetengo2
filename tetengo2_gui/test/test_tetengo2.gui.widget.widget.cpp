@@ -437,7 +437,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background;
+            std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(!widget.background());
@@ -459,7 +459,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background;
+            std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
         }
         {

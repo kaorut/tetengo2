@@ -100,7 +100,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, nullptr, 0);
 
-            std::vector<Path> paths;
+            std::vector<Path> paths{};
             paths.reserve(count);
 
             for (::UINT i = 0; i < count; ++i)

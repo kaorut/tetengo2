@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::vector<std::unique_ptr<config_base_type>> p_configs;
+        std::vector<std::unique_ptr<config_base_type>> p_configs{};
         {
             const std::vector<std::pair<string_type, value_type>> values{
                 { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<config_base_type>> p_configs;
+            std::vector<std::unique_ptr<config_base_type>> p_configs{};
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
             }
         }
         {
-            std::vector<std::unique_ptr<config_base_type>> p_configs;
+            std::vector<std::unique_ptr<config_base_type>> p_configs{};
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("fuga"))) },
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<config_base_type>> p_configs;
+            std::vector<std::unique_ptr<config_base_type>> p_configs{};
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
             BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("piyo")));
         }
         {
-            std::vector<std::unique_ptr<config_base_type>> p_configs;
+            std::vector<std::unique_ptr<config_base_type>> p_configs{};
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },

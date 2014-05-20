@@ -847,7 +847,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                                    encoder
         )
         {
-            std::vector<boost::optional<std::wstring>> labels;
+            std::vector<boost::optional<std::wstring>> labels{};
             labels.reserve(3);
 
             if (ok_button_label)
@@ -876,7 +876,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             assert(button_labels.size() == 3);
 
-            std::vector< ::TASKDIALOG_BUTTON> buttons;
+            std::vector< ::TASKDIALOG_BUTTON> buttons{};
 
             if (button_labels[0])
             {
@@ -1059,7 +1059,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static std::vector< ::COMDLG_FILTERSPEC> to_filterspecs(const detail::native_filters_type& native_filters)
         {
-            std::vector< ::COMDLG_FILTERSPEC> filterspecs;
+            std::vector< ::COMDLG_FILTERSPEC> filterspecs{};
             filterspecs.reserve(native_filters.size());
 
             std::transform(

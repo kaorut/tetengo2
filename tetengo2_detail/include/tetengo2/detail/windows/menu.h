@@ -287,7 +287,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ForwardIterator last
         )
         {
-            std::vector< ::ACCEL> accelerators;
+            std::vector< ::ACCEL> accelerators{};
             for (auto i = first; i != last; ++i)
             {
                 if (!i->has_shortcut_key()) continue;
@@ -624,7 +624,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             const auto native_string = encoder.encode(text);
 
-            std::vector< ::WCHAR> duplicated;
+            std::vector< ::WCHAR> duplicated{};
             duplicated.reserve(native_string.length() + 1);
             std::copy(native_string.begin(), native_string.end(), std::back_inserter(duplicated));
             duplicated.push_back(L'\0');

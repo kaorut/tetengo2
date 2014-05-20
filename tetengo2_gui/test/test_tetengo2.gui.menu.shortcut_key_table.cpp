@@ -78,7 +78,7 @@ namespace
 
     std::vector<std::unique_ptr<concrete_menu>> make_menus1()
     {
-        std::vector<std::unique_ptr<concrete_menu>> menus;
+        std::vector<std::unique_ptr<concrete_menu>> menus{};
 
         menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("hoge"))));
         menus.push_back(

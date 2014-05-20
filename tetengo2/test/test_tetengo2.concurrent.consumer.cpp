@@ -54,7 +54,7 @@ namespace
     private:
         static std::queue<int> make_values(const bool closed)
         {
-            std::queue<int> queue;
+            std::queue<int> queue{};
 
             if (!closed)
             {

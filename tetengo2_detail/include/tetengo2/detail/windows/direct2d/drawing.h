@@ -717,7 +717,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static std::pair< ::FLOAT, ::FLOAT> calculate_dpi()
         {
-            std::pair< ::FLOAT, ::FLOAT> dpi;
+            std::pair< ::FLOAT, ::FLOAT> dpi{};
 
             direct2d_factory().GetDesktopDpi(&dpi.first, &dpi.second);
             assert(dpi.first != 0 && dpi.second != 0);

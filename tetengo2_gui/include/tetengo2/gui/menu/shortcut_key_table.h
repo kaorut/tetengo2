@@ -135,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace menu
         template <typename ForwardIterator>
         static std::vector<entry_type> build_entries(const ForwardIterator first, const ForwardIterator last)
         {
-            std::vector<entry_type> entries;
+            std::vector<entry_type> entries{};
             entries.reserve(std::distance(first, last));
 
             for (ForwardIterator i = first; i != last; ++i)

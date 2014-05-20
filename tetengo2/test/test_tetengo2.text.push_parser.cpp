@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<parsed_structure_type> parsed;
+            std::vector<parsed_structure_type> parsed{};
 
             std::istringstream input;
             push_parser_type parser(
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(!parser.parse());
         }
         {
-            std::vector<parsed_structure_type> parsed;
+            std::vector<parsed_structure_type> parsed{};
 
             std::istringstream input("[]");
             push_parser_type parser(
@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parsed[1].first == "array");
         }
         {
-            std::vector<parsed_structure_type> parsed;
+            std::vector<parsed_structure_type> parsed{};
 
             std::istringstream input(
                 "["
@@ -302,7 +302,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parsed[5].first == "array");
         }
         {
-            std::vector<parsed_structure_type> parsed;
+            std::vector<parsed_structure_type> parsed{};
 
             std::istringstream input(
                 "["

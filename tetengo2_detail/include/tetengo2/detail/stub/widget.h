@@ -847,7 +847,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
             const auto& children_as_void = widget.details().children;
-            std::vector<std::reference_wrapper<Child>> children;
+            std::vector<std::reference_wrapper<Child>> children{};
             children.reserve(children_as_void.size());
 
             std::transform(

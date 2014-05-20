@@ -1404,7 +1404,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Child, typename Widget>
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
-            std::vector<std::reference_wrapper<Child>> children;
+            std::vector<std::reference_wrapper<Child>> children{};
 
             ::EnumChildWindows(
                 widget.details().handle.get(),

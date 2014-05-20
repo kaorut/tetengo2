@@ -99,7 +99,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 widget_handle, encoder.encode(caption), encoder.encode(text1), encoder.encode(text2)
             );
 #else
-            std::basic_ostringstream<typename String::value_type> stream;
+            std::basic_ostringstream<typename String::value_type> stream{};
             stream <<
                 std::endl <<
                 std::endl <<

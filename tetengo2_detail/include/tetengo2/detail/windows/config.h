@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<String, String> build_registry_key_and_value_name(const String& group_name, const String& key)
         {
-            std::vector<String> key_names;
+            std::vector<String> key_names{};
             boost::split(key_names, key, is_splitter<typename String::value_type>);
             if (key_names.size() <= 1)
                 return std::make_pair(group_name, key);

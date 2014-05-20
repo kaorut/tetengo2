@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace menu
         string_type to_string()
         const
         {
-            std::vector<const virtual_key_type*> keys;
+            std::vector<const virtual_key_type*> keys{};
             
             if (m_shift)
                 keys.push_back(&virtual_key_type::shift());

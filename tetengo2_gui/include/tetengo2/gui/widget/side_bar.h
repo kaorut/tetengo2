@@ -463,7 +463,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto& width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
 
-                std::vector<position_type> positions;
+                std::vector<position_type> positions{};
                 positions.reserve(3);
                 for (std::size_t i = 0; i < 3; ++i)
                 {
