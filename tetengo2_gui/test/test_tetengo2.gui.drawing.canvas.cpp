@@ -309,10 +309,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        std::vector<position_type> positions;
-        positions.push_back(make_position(12, 34));
-        positions.push_back(make_position(56, 78));
-        positions.push_back(make_position(90, 12));
+        const std::vector<position_type> positions{
+            make_position(12, 34), make_position(56, 78), make_position(90, 12)
+        };
 
         canvas.draw_polygon(positions.begin(), positions.end());
     }
@@ -323,10 +322,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        std::vector<position_type> positions;
-        positions.push_back(make_position(12, 34));
-        positions.push_back(make_position(56, 78));
-        positions.push_back(make_position(90, 12));
+        const std::vector<position_type> positions{
+            make_position(12, 34), make_position(56, 78), make_position(90, 12)
+        };
 
         canvas.fill_polygon(positions.begin(), positions.end());
     }
