@@ -46,9 +46,10 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             const temporary_config_type config;
         }
         {
-            std::vector<std::pair<string_type, value_type>> values;
-            values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
-            values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
+            const std::vector<std::pair<string_type, value_type>> values{
+                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
+                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+            };
             const temporary_config_type config(values.begin(), values.end());
         }
     }
@@ -57,9 +58,10 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::vector<std::pair<string_type, value_type>> values;
-        values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
-        values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
+        const std::vector<std::pair<string_type, value_type>> values{
+            { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
+            { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+        };
         const temporary_config_type config(values.begin(), values.end());
 
         {
@@ -83,9 +85,10 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::pair<string_type, value_type>> values;
-            values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
-            values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
+            const std::vector<std::pair<string_type, value_type>> values{
+                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
+                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+            };
             temporary_config_type config(values.begin(), values.end());
 
             config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));
@@ -95,9 +98,10 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
         }
         {
-            std::vector<std::pair<string_type, value_type>> values;
-            values.emplace_back(string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))));
-            values.emplace_back(string_type(TETENGO2_TEXT("bar")), value_type(42));
+            const std::vector<std::pair<string_type, value_type>> values{
+                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
+                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+            };
             temporary_config_type config(values.begin(), values.end());
 
             config.set(string_type(TETENGO2_TEXT("baz")), string_type(TETENGO2_TEXT("fuga")));

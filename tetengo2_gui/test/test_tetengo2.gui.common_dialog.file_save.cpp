@@ -35,11 +35,9 @@ namespace
 
     file_save_dialog_type::file_filters_type make_file_filters()
     {
-        file_save_dialog_type::file_filters_type filters;
-
-        filters.emplace_back(string_type(TETENGO2_TEXT("All Files")), string_type(TETENGO2_TEXT("*.*")));
-
-        return filters;
+        return {
+            { string_type(TETENGO2_TEXT("All Files")), string_type(TETENGO2_TEXT("*.*")) }
+        };
     }
 
 
