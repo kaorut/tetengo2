@@ -60,13 +60,11 @@ BOOST_AUTO_TEST_SUITE(structure)
         BOOST_TEST_PASSPOINT();
 
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
         }
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
         }
     }
@@ -76,15 +74,13 @@ BOOST_AUTO_TEST_SUITE(structure)
         BOOST_TEST_PASSPOINT();
 
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
@@ -96,8 +92,7 @@ BOOST_AUTO_TEST_SUITE(structure)
         BOOST_TEST_PASSPOINT();
 
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
@@ -108,8 +103,7 @@ BOOST_AUTO_TEST_SUITE(structure)
             );
         }
         {
-            pull_parser_type::attribute_map_type map;
-            map.insert(std::make_pair(string_type(TETENGO2_TEXT("key")), 42));
+            pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
             const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
