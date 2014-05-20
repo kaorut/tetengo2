@@ -48,9 +48,9 @@ namespace tetengo2 { namespace concurrent
         producer(const generator_type generator, channel_type& channel)
         :
 #if !defined(DOCUMENTATION) // Doxygen warning suppression
-        m_thread_procedure_impl([generator, &channel]() { generator(channel); }),
-        m_channel(channel),
-        m_thread([this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); })
+        m_thread_procedure_impl{ [generator, &channel]() { generator(channel); } },
+        m_channel{ channel },
+        m_thread{ [this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); } }
 #endif
         {}
 

@@ -42,8 +42,8 @@ namespace tetengo2 { namespace message
         */
         message_catalog()
         :
-        m_p_messages(get_messages(std::locale())),
-        m_catalog_id(open_messages(m_p_messages, std::locale()))
+        m_p_messages{ get_messages(std::locale()) },
+        m_catalog_id{ open_messages(m_p_messages, std::locale()) }
         {}
 
         /*!

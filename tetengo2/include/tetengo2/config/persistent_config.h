@@ -61,7 +61,7 @@ namespace tetengo2 { namespace config
         */
         explicit persistent_config(string_type group_name)
         :
-        m_group_name(std::move(group_name))
+        m_group_name{ std::move(group_name) }
         {}
 
         /*!

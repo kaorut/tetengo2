@@ -55,8 +55,8 @@ namespace tetengo2 { namespace config
         */
         explicit cached_config(std::unique_ptr<base_type> p_config)
         :
-        m_p_config(std::move(p_config)),
-        m_cache()
+        m_p_config{ std::move(p_config) },
+        m_cache{}
         {}
 
         /*!

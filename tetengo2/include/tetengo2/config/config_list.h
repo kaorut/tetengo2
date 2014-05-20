@@ -56,7 +56,7 @@ namespace tetengo2 { namespace config
         */
         explicit config_list(std::vector<std::unique_ptr<base_type>> p_configs)
         :
-        m_p_configs(std::move(p_configs))
+        m_p_configs{ std::move(p_configs) }
         {}
 
         /*!

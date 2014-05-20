@@ -119,8 +119,8 @@ namespace tetengo2 { namespace message
         */
         messages(const path_type& path, const std::locale& locale)
         :
-        m_open(false),
-        m_message_catalog(load_message_catalog(path, locale))
+        m_open{ false },
+        m_message_catalog{ load_message_catalog(path, locale) }
         {}
 
         /*!
@@ -147,7 +147,7 @@ namespace tetengo2 { namespace message
 
             matches_locale_type(const std::locale& locale)
             :
-            m_locale(locale)
+            m_locale{ locale }
             {}
 
             bool operator()(const typename catalog_file_mappings_type::value_type& mapping)

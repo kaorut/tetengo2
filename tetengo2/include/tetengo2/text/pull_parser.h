@@ -88,8 +88,8 @@ namespace tetengo2 { namespace text
             */
             structure(string_type name, attribute_map_type attribute_map)
             :
-            m_name(std::move(name)),
-            m_attribute_map(std::move(attribute_map))
+            m_name{ std::move(name) },
+            m_attribute_map{ std::move(attribute_map) }
             {}
 
 
@@ -150,12 +150,12 @@ namespace tetengo2 { namespace text
         */
         pull_parser(std::unique_ptr<push_parser_type> p_push_parser, const size_type channel_capacity)
         :
-        m_p_push_parser(std::move(p_push_parser)),
-        m_channel(channel_capacity),
+        m_p_push_parser{ std::move(p_push_parser) },
+        m_channel{ channel_capacity },
 #if !defined(DOCUMENTATION) // Doxygen warning suppression
-        m_producer([this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel),
+        m_producer{ [this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel },
 #endif
-        m_consumer(m_channel)
+        m_consumer{ m_channel }
         {}
 
 

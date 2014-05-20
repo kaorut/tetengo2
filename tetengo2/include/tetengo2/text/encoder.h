@@ -52,8 +52,8 @@ namespace tetengo2 { namespace text
         */
         encoder()
         :
-        m_internal_encoding(),
-        m_external_encoding()
+        m_internal_encoding{},
+        m_external_encoding{}
         {}
 
         /*!
@@ -64,8 +64,8 @@ namespace tetengo2 { namespace text
         */
         explicit encoder(internal_encoding_type internal_encoding, external_encoding_type external_encoding)
         :
-        m_internal_encoding(std::move(internal_encoding)),
-        m_external_encoding(std::move(external_encoding))
+        m_internal_encoding{ std::move(internal_encoding) },
+        m_external_encoding{ std::move(external_encoding) }
         {}
 
 
