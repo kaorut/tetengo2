@@ -70,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void setup_common_controls()
         {
-            ::INITCOMMONCONTROLSEX enabled_common_controls = {};
+            ::INITCOMMONCONTROLSEX enabled_common_controls{};
             enabled_common_controls.dwSize = sizeof(::INITCOMMONCONTROLSEX);
             enabled_common_controls.dwICC =
                 ICC_WIN95_CLASSES |

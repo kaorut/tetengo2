@@ -231,7 +231,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
             const ::HWND pointing_window_handle = ::WindowFromPoint(point);
             if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
             {
@@ -259,7 +259,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_h_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
             const ::HWND pointing_window_handle = ::WindowFromPoint(point);
             if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
             {
@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Size>
         Size new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS | SIF_RANGE | SIF_PAGE | SIF_TRACKPOS;
 
@@ -502,7 +502,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.paint_observer_set().paint().empty())
                 return boost::none;
 
-            ::PAINTSTRUCT paint_struct = {};
+            ::PAINTSTRUCT paint_struct{};
             if (!::BeginPaint(widget.details().handle.get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(

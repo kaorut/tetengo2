@@ -318,7 +318,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const auto custom_buttons = make_custom_buttons(custom_button_labels);
 
-            ::TASKDIALOGCONFIG config = {};
+            ::TASKDIALOGCONFIG config{};
             config.cbSize = sizeof(::TASKDIALOGCONFIG);
             config.hwndParent = parent_window_handle;
             config.dwCommonButtons = to_task_dialog_common_buttons(button_style, cancellable, custom_button_labels);
@@ -740,7 +740,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Font, typename Encoder>
         static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
-            ::CHOOSEFONTW choose_font = {};
+            ::CHOOSEFONTW choose_font{};
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
             choose_font.hwndOwner = dialog.parent_handle;
             choose_font.hDC = nullptr;
@@ -810,7 +810,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
             static std::vector< ::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
-            ::CHOOSECOLORW choose_color = {};
+            ::CHOOSECOLORW choose_color{};
             choose_color.lStructSize = sizeof(::CHOOSECOLORW);
             choose_color.hwndOwner = dialog.parent_handle;
             choose_color.hInstance = nullptr;
@@ -880,7 +880,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             if (button_labels[0])
             {
-                ::TASKDIALOG_BUTTON button = {};
+                ::TASKDIALOG_BUTTON button{};
                 button.nButtonID = IDOK;
                 button.pszButtonText = button_labels[0]->c_str();
                 buttons.push_back(button);
@@ -890,13 +890,13 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 assert(button_labels[2]);
                 {
-                    ::TASKDIALOG_BUTTON button = {};
+                    ::TASKDIALOG_BUTTON button{};
                     button.nButtonID = IDYES;
                     button.pszButtonText = button_labels[1]->c_str();
                     buttons.push_back(button);
                 }
                 {
-                    ::TASKDIALOG_BUTTON button = {};
+                    ::TASKDIALOG_BUTTON button{};
                     button.nButtonID = IDNO;
                     button.pszButtonText = button_labels[2]->c_str();
                     buttons.push_back(button);
@@ -1049,7 +1049,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static ::COMDLG_FILTERSPEC to_filterspec(const detail::native_filter_type& native_filter)
         {
-            ::COMDLG_FILTERSPEC filterspec = {};
+            ::COMDLG_FILTERSPEC filterspec{};
 
             filterspec.pszName = native_filter.first.c_str();
             filterspec.pszSpec = native_filter.second.c_str();

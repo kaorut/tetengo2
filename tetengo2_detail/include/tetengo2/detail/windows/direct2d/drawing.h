@@ -206,9 +206,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             props.pixelFormat = D2D1::PixelFormat(::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED);
             props.usage = ::D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
 
-            ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props = {};
+            ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props{};
             {
-                ::RECT rect = {};
+                ::RECT rect{};
                 const auto result = ::GetClientRect(window_handle, &rect);
                 if (result == 0)
                 {
@@ -534,7 +534,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
 
-            ::DWRITE_TEXT_METRICS metrics = {};
+            ::DWRITE_TEXT_METRICS metrics{};
             const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
             if (FAILED(get_metrics_hr))
             {
@@ -911,7 +911,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
             typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout(rp_layout);
 
-            const ::DWRITE_TEXT_RANGE range = { 0, static_cast< ::UINT32>(encoded_text.length()) };
+            const ::DWRITE_TEXT_RANGE range{ 0, static_cast< ::UINT32>(encoded_text.length()) };
             p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 

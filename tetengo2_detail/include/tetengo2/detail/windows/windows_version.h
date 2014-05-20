@@ -39,7 +39,7 @@ namespace tetengo2 { namespace detail { namespace windows
         const ::WORD  service_pack_minor
     )
     {
-        ::OSVERSIONINFOEXW info = {};
+        ::OSVERSIONINFOEXW info{};
         info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOEXW);
         info.dwMajorVersion = major;
         info.dwMinorVersion = minor;

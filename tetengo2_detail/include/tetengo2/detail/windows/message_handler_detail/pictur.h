@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (picture_box.fast_paint_observer_set().paint().empty())
                 return boost::none;
 
-            ::PAINTSTRUCT paint_struct = {};
+            ::PAINTSTRUCT paint_struct{};
             if (!::BeginPaint(picture_box.details().handle.get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(

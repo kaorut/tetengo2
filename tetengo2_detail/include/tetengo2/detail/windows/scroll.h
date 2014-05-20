@@ -118,7 +118,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static size_type position(const scroll_bar_details_type& details)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS;
             
@@ -144,7 +144,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static void set_position(scroll_bar_details_type& details, const size_type position)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS | SIF_DISABLENOSCROLL;
             info.nPos = static_cast<int>(position);
@@ -163,7 +163,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static range_type range(const scroll_bar_details_type& details)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_RANGE;
             
@@ -189,7 +189,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static void set_range(scroll_bar_details_type& details, const range_type& range)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_RANGE | SIF_DISABLENOSCROLL;
             info.nMin = static_cast<int>(range.first);
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static size_type page_size(const scroll_bar_details_type& details)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE;
             
@@ -235,7 +235,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE | SIF_DISABLENOSCROLL;
             info.nPage = static_cast< ::UINT>(page_size);

@@ -336,7 +336,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             assert(!menu.details().parent_handle);
 
-            ::MENUITEMINFOW menu_info = {};
+            ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             auto duplicated_text = make_text(menu, encoder);
             menu.style().set_style(menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
@@ -553,7 +553,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename MenuBase::state_type state
         )
         {
-            ::MENUITEMINFOW menu_info = {};
+            ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFOW);
             const auto get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (get_result == 0)
@@ -592,7 +592,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto& shortcut_key = menu.shortcut_key();
 
-            ::ACCEL accel = {};
+            ::ACCEL accel{};
 
             if (shortcut_key.shift())   accel.fVirt |= FSHIFT;
             if (shortcut_key.control()) accel.fVirt |= FCONTROL;

@@ -404,7 +404,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
-            const ::RECT rect = {
+            const ::RECT rect{
                 gui::to_pixels< ::LONG>(gui::position<Position>::left(position)),
                 gui::to_pixels< ::LONG>(gui::position<Position>::top(position)),
                 gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
@@ -739,7 +739,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         {
             auto& picture_details = const_cast<Picture&>(picture).details();
 
-            ::WICPixelFormatGUID pixel_format_guid = {};
+            ::WICPixelFormatGUID pixel_format_guid{};
             const auto get_pixel_format_hr = picture_details.GetPixelFormat(&pixel_format_guid);
             if (FAILED(get_pixel_format_hr))
             {
@@ -763,7 +763,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::UINT buffer_size = stride * height;
             std::vector< ::BYTE> buffer(buffer_size, 0);
 
-            const ::WICRect rectangle = { 0, 0, width, height };
+            const ::WICRect rectangle{ 0, 0, width, height };
             const auto copy_pixels_hr = picture_details.CopyPixels(&rectangle, stride, buffer_size, buffer.data());
             if (FAILED(copy_pixels_hr))
             {

@@ -871,7 +871,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!visible(widget))
                 return;
 
-            ::WINDOWPLACEMENT window_placement = {};
+            ::WINDOWPLACEMENT window_placement{};
             window_placement.length = sizeof(::WINDOWPLACEMENT);
             const auto get_result = ::GetWindowPlacement(widget.details().handle.get(), &window_placement);
             if (get_result == 0)
@@ -981,7 +981,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            ::RECT rectangle = {};
+            ::RECT rectangle{};
             if (::GetWindowRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1016,7 +1016,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Position, typename Widget, typename ParentWidget>
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
-            ::POINT point = {};
+            ::POINT point{};
             const auto x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
             const auto y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
             if (::ClientToScreen(const_cast< ::HWND>(parent.details().handle.get()), &point) == 0)
@@ -1032,7 +1032,7 @@ namespace tetengo2 { namespace detail { namespace windows
             point.y += y_margin;
 
             const auto monitor_handle = ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
-            ::MONITORINFO monitor_info = {};
+            ::MONITORINFO monitor_info{};
             monitor_info.cbSize = sizeof(::MONITORINFO);
             if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
             {
@@ -1078,7 +1078,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-            ::RECT rectangle = {};
+            ::RECT rectangle{};
             if (::GetWindowRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1125,7 +1125,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto top =  gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
             const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(client_dimension));
             const auto height =gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(client_dimension));
-            ::RECT rectangle = { left, top, left + width, top + height };
+            ::RECT rectangle{ left, top, left + width, top + height };
             if (
                 ::AdjustWindowRectEx(
                     &rectangle,
@@ -1176,7 +1176,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-            ::RECT rectangle = {};
+            ::RECT rectangle{};
             if (::GetClientRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1211,7 +1211,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-            ::WINDOWPLACEMENT window_placement = {};
+            ::WINDOWPLACEMENT window_placement{};
             window_placement.length = sizeof(::WINDOWPLACEMENT);
             const auto get_result = ::GetWindowPlacement(widget.details().handle.get(), &window_placement);
             if (get_result == 0)
@@ -1303,7 +1303,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto previous_font_handle =
                 reinterpret_cast< ::HFONT>(::SendMessageW(widget.details().handle.get(), WM_GETFONT, 0, 0));
 
-            ::LOGFONTW log_font = {
+            ::LOGFONTW log_font{
                 -static_cast< ::LONG>(font.size()),
                 0,
                 0,
@@ -1473,7 +1473,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto top = gui::to_pixels< ::LONG>(gui::position<Position>::top(position));
             const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension));
             const auto height = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension));
-            const ::RECT rectangle = { left, top, left + width, top + height };
+            const ::RECT rectangle{ left, top, left + width, top + height };
             if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -2251,7 +2251,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::HINSTANCE   instance_handle
         )
         {
-            ::WNDCLASSEXW window_class = {};
+            ::WNDCLASSEXW window_class{};
             const auto result = ::GetClassInfoExW(instance_handle, window_class_name.c_str(), &window_class);
 
             return result != 0;
