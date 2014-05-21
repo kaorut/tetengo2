@@ -117,8 +117,8 @@ BOOST_AUTO_TEST_SUITE(producer)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel(true);
-        producer_type producer(generate, channel);
+        channel_type channel{ true };
+        producer_type producer{ generate, channel };
         producer.join();
     }
 
@@ -127,8 +127,8 @@ BOOST_AUTO_TEST_SUITE(producer)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(true);
-            producer_type producer(generate, channel);
+            channel_type channel{ true };
+            producer_type producer{ generate, channel };
             producer.join();
 
             BOOST_CHECK_EQUAL(channel.take(), 10);
@@ -139,8 +139,8 @@ BOOST_AUTO_TEST_SUITE(producer)
             BOOST_CHECK(channel.closed());
         }
         {
-            channel_type channel(false);
-            producer_type producer(generate, channel);
+            channel_type channel{ false };
+            producer_type producer{ generate, channel };
             producer.join();
 
             BOOST_CHECK_EQUAL(channel.take(), 123);
@@ -154,8 +154,8 @@ BOOST_AUTO_TEST_SUITE(producer)
             BOOST_CHECK(channel.closed());
         }
         {
-            channel_type channel(true);
-            producer_type producer(throw_exception, channel);
+            channel_type channel{ true };
+            producer_type producer{ throw_exception, channel };
             producer.join();
 
             BOOST_CHECK_THROW(channel.take(), std::runtime_error);

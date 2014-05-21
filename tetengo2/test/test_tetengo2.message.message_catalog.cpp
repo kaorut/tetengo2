@@ -62,7 +62,7 @@ namespace
     {
         try
         {
-            std::locale locale("");
+            std::locale locale{ "" };
             return true;
         }
         catch (const std::runtime_error&)
@@ -75,7 +75,7 @@ namespace
     {
         try
         {
-            return std::locale(name.c_str());
+            return std::locale{ name.c_str() };
         }
         catch (const std::runtime_error&)
         {

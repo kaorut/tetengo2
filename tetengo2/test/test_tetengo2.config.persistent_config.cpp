@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config(string_type(TETENGO2_TEXT("group")));
+        persistent_config_type config{ string_type(TETENGO2_TEXT("group")) };
 
         config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));
     }

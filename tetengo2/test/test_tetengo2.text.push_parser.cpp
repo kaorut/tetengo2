@@ -85,19 +85,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
 
         {
             std::istringstream input{};
-            push_parser_type parser(
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
         }
         {
-            std::istringstream input("{}");
-            push_parser_type parser(
+            std::istringstream input{ "{}" };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
         }
     }
 
@@ -106,17 +106,17 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input("{}");
-            push_parser_type parser(
+            std::istringstream input{ "{}" };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
 
             parser.on_structure_begin().connect(structure_observer0);
         }
         {
-            std::istringstream input("{}");
+            std::istringstream input{ "{}" };
             const push_parser_type parser(
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
@@ -132,8 +132,8 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input("{}");
-            push_parser_type parser(
+            std::istringstream input{ "{}" };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_end().connect(structure_observer0);
         }
         {
-            std::istringstream input("{}");
+            std::istringstream input{ "{}" };
             const push_parser_type parser(
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
@@ -158,8 +158,8 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input("{}");
-            push_parser_type parser(
+            std::istringstream input{ "{}" };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_value().connect(value_observer0);
         }
         {
-            std::istringstream input("{}");
+            std::istringstream input{ "{}" };
             const push_parser_type parser(
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
@@ -187,11 +187,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             std::vector<parsed_structure_type> parsed{};
 
             std::istringstream input{};
-            push_parser_type parser(
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
@@ -213,12 +213,12 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::vector<parsed_structure_type> parsed{};
 
-            std::istringstream input("[]");
-            push_parser_type parser(
+            std::istringstream input{ "{}" };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
@@ -245,19 +245,19 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::vector<parsed_structure_type> parsed{};
 
-            std::istringstream input(
+            std::istringstream input{
                 "["
                 "    false,"
                 "    null,"
                 "    true,"
                 "    \"hoge\\tfuga\""
                 "]"
-            );
-            push_parser_type parser(
+            };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
@@ -304,7 +304,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::vector<parsed_structure_type> parsed{};
 
-            std::istringstream input(
+            std::istringstream input{
                 "["
                 "    42,"
                 "    -42,"
@@ -313,12 +313,12 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 "    4200e-2,"
                 "    42.42e+2"
                 "]"
-            );
-            push_parser_type parser(
+            };
+            push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {

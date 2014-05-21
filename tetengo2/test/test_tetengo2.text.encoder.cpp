@@ -50,8 +50,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
         const encoding_type encoding1{};
         const encoding_type encoding2{};
-        encoder_type encoder1(encoding1, encoding2);
-        encoder_type encoder2(encoding1, encoding2);
+        encoder_type encoder1{ encoding1, encoding2 };
+        encoder_type encoder2{ encoding1, encoding2 };
 
         BOOST_CHECK(encoder1 == encoder2);
     }

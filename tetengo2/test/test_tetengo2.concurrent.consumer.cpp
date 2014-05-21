@@ -83,8 +83,8 @@ BOOST_AUTO_TEST_SUITE(consumer)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel(true); 
-        const consumer_type consumer(channel);
+        channel_type channel{ true }; 
+        const consumer_type consumer{ channel };
     }
 
     BOOST_AUTO_TEST_CASE(closed)
@@ -92,14 +92,14 @@ BOOST_AUTO_TEST_SUITE(consumer)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(false); 
-            consumer_type consumer(channel);
+            channel_type channel{ false }; 
+            consumer_type consumer{ channel };
 
             BOOST_CHECK(!consumer.closed());
         }
         {
-            channel_type channel(true); 
-            consumer_type consumer(channel);
+            channel_type channel{ true }; 
+            consumer_type consumer{ channel };
 
             BOOST_CHECK(consumer.closed());
         }
@@ -110,14 +110,14 @@ BOOST_AUTO_TEST_SUITE(consumer)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(false); 
-            consumer_type consumer(channel);
+            channel_type channel{ false }; 
+            consumer_type consumer{ channel };
 
             BOOST_CHECK_EQUAL(consumer.peek(), 123);
         }
         {
-            channel_type channel(true); 
-            consumer_type consumer(channel);
+            channel_type channel{ true }; 
+            consumer_type consumer{ channel };
 
             BOOST_CHECK_THROW(consumer.take(), std::logic_error);
         }
@@ -128,8 +128,8 @@ BOOST_AUTO_TEST_SUITE(consumer)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(false); 
-            consumer_type consumer(channel);
+            channel_type channel{ false }; 
+            consumer_type consumer{ channel };
 
             consumer.take();
             consumer.take();
@@ -137,8 +137,8 @@ BOOST_AUTO_TEST_SUITE(consumer)
             BOOST_CHECK_THROW(consumer.take(), std::logic_error);
         }
         {
-            channel_type channel(true); 
-            consumer_type consumer(channel);
+            channel_type channel{ true }; 
+            consumer_type consumer{ channel };
 
             BOOST_CHECK_THROW(consumer.take(), std::logic_error);
         }
