@@ -230,13 +230,13 @@ namespace tetengo2 { namespace message
         {
             catalog_file_mappings_type mappings{};
 
-            boost::filesystem::ifstream input_stream(
+            boost::filesystem::ifstream input_stream{
                 path_type(message_catalog_directory / catalog_file_mappings_filename())
-            );
+            };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open the message catalog file mappings."));
 
-            message_catalog_parser_type parser(create_pull_parser(input_stream));
+            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
             {
                 mappings.insert(parser.peek());
@@ -248,11 +248,11 @@ namespace tetengo2 { namespace message
 
         static void read_message_catalog(const path_type& catalog_file, message_catalog_type& message_catalog)
         {
-            boost::filesystem::ifstream input_stream(catalog_file);
+            boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open a message catalog."));
 
-            message_catalog_parser_type parser(create_pull_parser(input_stream));
+            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
             {
                 message_catalog.insert(parser.peek());
