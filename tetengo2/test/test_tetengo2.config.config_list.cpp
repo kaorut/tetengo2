@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
             };
             p_configs.push_back(tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end()));
         }
-        const config_list_type config(std::move(p_configs));
+        const config_list_type config{ std::move(p_configs) };
     }
 
     BOOST_AUTO_TEST_CASE(get)
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
                 );
             }
-            const config_list_type config(std::move(p_configs));
+            const config_list_type config{ std::move(p_configs) };
 
             {
                 const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
                 );
             }
-            const config_list_type config(std::move(p_configs));
+            const config_list_type config{ std::move(p_configs) };
 
             {
                 const auto value = config.get(string_type(TETENGO2_TEXT("foo")));

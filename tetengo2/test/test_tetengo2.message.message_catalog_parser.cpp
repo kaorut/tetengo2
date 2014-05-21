@@ -46,37 +46,37 @@ namespace
 
     // data
 
-    const std::string catalog0(
+    const std::string catalog0{
         ""
-    );
+    };
 
-    const std::string catalog1(
+    const std::string catalog1{
         "{\n"
         "    \"header\":\n"
         "    {\n"
         "        \"Key1\": \"Value1\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog2(
+    const std::string catalog2{
         "{\n"
         "    \"body\":\n"
         "    {\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog3(
+    const std::string catalog3{
         "{\n"
         "    \"body\":\n"
         "    {\n"
         "        \"Key1\": \"Value1\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog4(
+    const std::string catalog4{
         "{\n"
         "    \"header\":\n"
         "    {\n"
@@ -89,7 +89,7 @@ namespace
         "        \"Key2\": \"Value2\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
 
     // functions

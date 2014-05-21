@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
                 { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
                 { string_type(TETENGO2_TEXT("bar")), value_type(42) }
             };
-            const temporary_config_type config(values.begin(), values.end());
+            const temporary_config_type config{ values.begin(), values.end() };
         }
     }
 
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
             { string_type(TETENGO2_TEXT("bar")), value_type(42) }
         };
-        const temporary_config_type config(values.begin(), values.end());
+        const temporary_config_type config{ values.begin(), values.end() };
 
         {
             const auto value = config.get(string_type(TETENGO2_TEXT("foo")));

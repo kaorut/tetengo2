@@ -88,10 +88,10 @@ BOOST_AUTO_TEST_SUITE(locale)
             const wide_encoding_type encoding{};
         }
         {
-            const multibyte_encoding_type encoding(std::locale::classic());
+            const multibyte_encoding_type encoding{ std::locale::classic{} };
         }
         {
-            const wide_encoding_type encoding(std::locale::classic());
+            const wide_encoding_type encoding{ std::locale::classic{} };
         }
     }
 
@@ -102,26 +102,26 @@ BOOST_AUTO_TEST_SUITE(locale)
         if (locale_supported())
         {
             {
-                const multibyte_encoding_type encoding1(locale_en);
-                const multibyte_encoding_type encoding2(locale_en);
+                const multibyte_encoding_type encoding1{ locale_en };
+                const multibyte_encoding_type encoding2{ locale_en };
 
                 BOOST_CHECK(encoding1 == encoding2);
             }
             {
-                const multibyte_encoding_type encoding1(locale_en);
-                const multibyte_encoding_type encoding2(locale_ja);
+                const multibyte_encoding_type encoding1{ locale_en };
+                const multibyte_encoding_type encoding2{ locale_ja };
 
                 BOOST_CHECK(encoding1 != encoding2);
             }
             {
-                const wide_encoding_type encoding1(locale_en);
-                const wide_encoding_type encoding2(locale_en);
+                const wide_encoding_type encoding1{ locale_en };
+                const wide_encoding_type encoding2{ locale_en };
 
                 BOOST_CHECK(encoding1 == encoding2);
             }
             {
-                const wide_encoding_type encoding1(locale_en);
-                const wide_encoding_type encoding2(locale_ja);
+                const wide_encoding_type encoding1{ locale_en };
+                const wide_encoding_type encoding2{ locale_ja };
 
                 BOOST_CHECK(encoding1 != encoding2);
             }
@@ -140,24 +140,24 @@ BOOST_AUTO_TEST_SUITE(locale)
         {
             {
                 {
-                    const multibyte_encoding_type encoding(locale_en);
+                    const multibyte_encoding_type encoding{ locale_en };
 
                     BOOST_CHECK(encoding.locale_based_on() == locale_en);
                 }
                 {
-                    const multibyte_encoding_type encoding(locale_ja);
+                    const multibyte_encoding_type encoding{ locale_ja };
 
                     BOOST_CHECK(encoding.locale_based_on() == locale_ja);
                 }
             }
             {
                 {
-                    const wide_encoding_type encoding(locale_en);
+                    const wide_encoding_type encoding{ locale_en };
 
                     BOOST_CHECK(encoding.locale_based_on() == locale_en);
                 }
                 {
-                    const wide_encoding_type encoding(locale_ja);
+                    const wide_encoding_type encoding{ locale_ja };
 
                     BOOST_CHECK(encoding.locale_based_on() == locale_ja);
                 }
@@ -174,18 +174,18 @@ BOOST_AUTO_TEST_SUITE(locale)
         BOOST_TEST_PASSPOINT();
 
         {
-            const multibyte_encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
-            const multibyte_encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
+            const multibyte_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const multibyte_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
-            const multibyte_encoding_type encoding(std::locale::classic());
+            const multibyte_encoding_type encoding{ std::locale::classic() };
 
             BOOST_CHECK(encoding.from_pivot(pivot) == string);
         }
         {
-            const wide_encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
-            const wide_encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
+            const wide_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
-            const wide_encoding_type encoding(std::locale::classic());
+            const wide_encoding_type encoding{ std::locale::classic() };
 
             BOOST_CHECK(encoding.from_pivot(pivot) == string);
         }
@@ -196,18 +196,18 @@ BOOST_AUTO_TEST_SUITE(locale)
         BOOST_TEST_PASSPOINT();
 
         {
-            const multibyte_encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
-            const multibyte_encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
+            const multibyte_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const multibyte_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
-            const multibyte_encoding_type encoding(std::locale::classic());
+            const multibyte_encoding_type encoding{ std::locale::classic() };
 
             BOOST_CHECK(encoding.to_pivot(string) == pivot);
         }
         {
-            const wide_encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
-            const wide_encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
+            const wide_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
-            const wide_encoding_type encoding(std::locale::classic());
+            const wide_encoding_type encoding{ std::locale::classic() };
 
             BOOST_CHECK(encoding.to_pivot(string) == pivot);
         }

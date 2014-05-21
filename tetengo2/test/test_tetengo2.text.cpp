@@ -29,11 +29,11 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::string string(TETENGO2_TEXT("hoge"));
+            const std::string string{ TETENGO2_TEXT("hoge") };
             BOOST_CHECK(string == "hoge");
         }
         {
-            const char character(TETENGO2_TEXT('H'));
+            const char character{ TETENGO2_TEXT('H') };
             BOOST_CHECK_EQUAL(character, 'H');
         }
     }
@@ -43,11 +43,11 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring string(TETENGO2_TEXT("hoge"));
+            const std::wstring string{ TETENGO2_TEXT("hoge") };
             BOOST_CHECK(string == L"hoge");
         }
         {
-            const wchar_t character(TETENGO2_TEXT('H'));
+            const wchar_t character{ TETENGO2_TEXT('H') };
             BOOST_CHECK_EQUAL(character, L'H');
         }
     }

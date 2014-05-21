@@ -61,11 +61,15 @@ BOOST_AUTO_TEST_SUITE(structure)
 
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_begin_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
         }
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_end_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
         }
     }
 
@@ -75,13 +79,17 @@ BOOST_AUTO_TEST_SUITE(structure)
 
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_begin_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
 
             BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_end_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
 
             BOOST_CHECK(structure.name() == string_type(TETENGO2_TEXT("hoge")));
         }
@@ -93,7 +101,9 @@ BOOST_AUTO_TEST_SUITE(structure)
 
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_begin_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_end_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
             const auto found = structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
@@ -104,7 +114,9 @@ BOOST_AUTO_TEST_SUITE(structure)
         }
         {
             pull_parser_type::attribute_map_type map{ std::make_pair(string_type(TETENGO2_TEXT("key")), 42) };
-            const pull_parser_type::structure_end_type structure(string_type(TETENGO2_TEXT("hoge")), std::move(map));
+            const pull_parser_type::structure_end_type structure{
+                string_type(TETENGO2_TEXT("hoge")), std::move(map)
+            };
 
             BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
             const auto found = structure.attribute_map().find(string_type(TETENGO2_TEXT("key")));
@@ -132,7 +144,7 @@ BOOST_AUTO_TEST_SUITE_END()
                     tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
-            const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+            const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
         }
         {
             std::istringstream json_text{};
@@ -143,7 +155,9 @@ BOOST_AUTO_TEST_SUITE_END()
                     tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
-            BOOST_CHECK_THROW(const pull_parser_type pull_parser(std::move(p_push_parser), 0), std::invalid_argument);
+            BOOST_CHECK_THROW(
+                const pull_parser_type pull_parser{ std::move(p_push_parser), 0 }, std::invalid_argument
+            );
         }
     }
 
@@ -160,7 +174,7 @@ BOOST_AUTO_TEST_SUITE_END()
                     tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
-            const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+            const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
             BOOST_CHECK(!pull_parser.has_next());
         }
@@ -175,7 +189,7 @@ BOOST_AUTO_TEST_SUITE_END()
                     tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
-            const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+            const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
             BOOST_CHECK(pull_parser.has_next());
         }

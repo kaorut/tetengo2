@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             const channel_type channel{ 3 };
         }
         {
-            BOOST_CHECK_THROW(const channel_type channel(0), std::invalid_argument);
+            BOOST_CHECK_THROW(const channel_type channel{ 0 }, std::invalid_argument);
         }
     }
 

@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
         if (locale_supported())
         {
-            const messages_type messages(boost::filesystem::path("messages.test"), std::locale());
+            const messages_type messages{ boost::filesystem::path{ "messages.test" }, std::locale{} };
 
             BOOST_CHECK_THROW(messages_type(boost::filesystem::path(""), std::locale()), std::ios_base::failure);
 
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         if (locale_supported())
         {
             {
-                const set_global_locale global_locale(locale_en);
+                const set_global_locale global_locale{ locale_en };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_CHECK_THROW(messages.open("", std::locale()), std::runtime_error);
             }
             {
-                const set_global_locale global_locale(locale_ja);
+                const set_global_locale global_locale{ locale_ja };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_CHECK_THROW(messages.open("", std::locale()), std::runtime_error);
             }
             {
-                const set_global_locale global_locale(locale_zh);
+                const set_global_locale global_locale{ locale_zh };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         if (locale_supported())
         {
             {
-                const set_global_locale global_locale(locale_en);
+                const set_global_locale global_locale{ locale_en };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 );
             }
             {
-                const set_global_locale global_locale(locale_ja);
+                const set_global_locale global_locale{ locale_ja };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 );
             }
             {
-                const set_global_locale global_locale(locale_zh);
+                const set_global_locale global_locale{ locale_zh };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -320,7 +320,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         if (locale_supported())
         {
             {
-                const set_global_locale global_locale(locale_en);
+                const set_global_locale global_locale{ locale_en };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -337,7 +337,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
             }
             {
-                const set_global_locale global_locale(locale_ja);
+                const set_global_locale global_locale{ locale_ja };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
             }
             {
-                const set_global_locale global_locale(locale_zh);
+                const set_global_locale global_locale{ locale_zh };
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 

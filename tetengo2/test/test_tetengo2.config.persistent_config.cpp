@@ -43,14 +43,14 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        const persistent_config_type config(string_type(TETENGO2_TEXT("group")));
+        const persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
     }
 
     BOOST_AUTO_TEST_CASE(get)
     {
         BOOST_TEST_PASSPOINT();
 
-        const persistent_config_type config(string_type(TETENGO2_TEXT("group")));
+        const persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
 
         config.get(string_type(TETENGO2_TEXT("foo")));
     }
