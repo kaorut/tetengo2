@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(dialog);
 
-            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
+            return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
 
 

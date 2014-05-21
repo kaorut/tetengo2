@@ -2197,7 +2197,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static const std::wstring& property_key_for_cpp_instance()
         {
-            static const std::wstring singleton(L"C++ Instance");
+            static const std::wstring singleton{ L"C++ Instance" };
             return singleton;
         }
 
@@ -2224,25 +2224,25 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static const std::wstring& custom_control_class_name()
         {
-            static const std::wstring singleton(L"tetengo2_customcontrol");
+            static const std::wstring singleton{ L"tetengo2_customcontrol" };
             return singleton;
         }
 
         static const std::wstring& dialog_class_name()
         {
-            static const std::wstring singleton(L"tetengo2_dialog");
+            static const std::wstring singleton{ L"tetengo2_dialog" };
             return singleton;
         }
 
         static const std::wstring& picture_box_class_name()
         {
-            static const std::wstring singleton(L"tetengo2_picturebox");
+            static const std::wstring singleton{ L"tetengo2_picturebox" };
             return singleton;
         }
 
         static const std::wstring& window_class_name()
         {
-            static const std::wstring singleton(L"tetengo2_window");
+            static const std::wstring singleton{ L"tetengo2_window" };
             return singleton;
         }
 

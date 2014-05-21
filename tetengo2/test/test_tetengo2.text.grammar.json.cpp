@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(json)
                 "    \"hoge\": 42,\n"
                 "    \"fuga\": [42, 42, 42]\n"
                 "}\n"
-             };
+            };
 
             grammar_type g;
             std::string output{};

@@ -237,7 +237,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_render_target->BeginDraw();
             p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
 
-            return canvas_details_ptr_type(std::move(p_render_target));
+            return canvas_details_ptr_type{ std::move(p_render_target) };
         }
 
         /*!
@@ -666,7 +666,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static ::ID2D1Factory& direct2d_factory()
         {
-            static const direct2d_factory_ptr_type p_factory(create_direct2d_factory());
+            static const direct2d_factory_ptr_type p_factory{ create_direct2d_factory() };
             return *p_factory;
         }
 
@@ -681,12 +681,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
             }
 
-            return direct2d_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
 
         static ::IDWriteFactory& direct_write_factory()
         {
-            static const direct_write_factory_ptr_type p_factory(create_direct_write_factory());
+            static const direct_write_factory_ptr_type p_factory{ create_direct_write_factory() };
             return *p_factory;
         }
 
@@ -706,7 +706,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
             }
 
-            return direct_write_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
 
         static const std::pair< ::FLOAT, ::FLOAT>& dpi()
@@ -756,7 +756,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
             const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
-            return D2D1::Point2F(left - 0.5f, top - 0.5f);
+            return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
@@ -766,7 +766,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
             const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
             const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
-            return D2D1::RectF(left, top, left + width, top + height);
+            return { left, top, left + width, top + height };
         }
 
         static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)

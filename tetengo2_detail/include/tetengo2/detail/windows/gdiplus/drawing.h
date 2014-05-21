@@ -774,7 +774,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 );
             }
 
-            Gdiplus::Bitmap bitmap(width, height, stride, PixelFormat32bppRGB, buffer.data());
+            Gdiplus::Bitmap bitmap{ width, height, stride, PixelFormat32bppRGB, buffer.data() };
             const auto status =
                 canvas.get().DrawImage(
                     &bitmap,
@@ -873,7 +873,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
 
             const auto& font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
-            const Gdiplus::FontFamily gdiplus_font_family(encoder.encode(font_family).c_str(), &font_collection);
+            const Gdiplus::FontFamily gdiplus_font_family{ encoder.encode(font_family).c_str(), &font_collection };
             if (!gdiplus_font_family.IsAvailable())
             {
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);

@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
 
             parser.on_structure_end().connect(structure_observer0);
         }
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),
                 tetengo2::stdalt::make_unique<grammar_type>()
-            );
+            };
 
             parser.on_value().connect(value_observer0);
         }
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::vector<parsed_structure_type> parsed{};
 
-            std::istringstream input{ "{}" };
+            std::istringstream input{ "[]" };
             push_parser_type parser{
                 input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
                 input_stream_iterator_type(std::istreambuf_iterator<char>()),

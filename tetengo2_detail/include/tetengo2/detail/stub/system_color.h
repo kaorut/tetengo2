@@ -58,21 +58,21 @@ namespace tetengo2 { namespace detail { namespace stub
             switch (index)
             {
             case system_color_index_type::title_bar_text:
-                return Color(255, 255, 255);
+                return { 255, 255, 255 };
             case system_color_index_type::title_bar_background:
-                return Color(0, 0, 128);
+                return { 0, 0, 128 };
             case system_color_index_type::dialog_background:
-                return Color(192, 192, 192);
+                return { 192, 192, 192 };
             case system_color_index_type::control_background:
-                return Color(255, 255, 255);
+                return { 255, 255, 255 };
             case system_color_index_type::control_text:
-                return Color(0, 0, 0);
+                return { 0, 0, 0 };
             case system_color_index_type::selected_background:
-                return Color(0, 0, 128);
+                return { 0, 0, 128 };
             case system_color_index_type::selected_text:
-                return Color(255, 255, 255);
+                return { 255, 255, 255 };
             case system_color_index_type::hyperlink_text:
-                return Color(0, 0,255);
+                return { 0, 0,255 };
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));

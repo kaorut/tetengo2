@@ -88,10 +88,10 @@ BOOST_AUTO_TEST_SUITE(locale)
             const wide_encoding_type encoding{};
         }
         {
-            const multibyte_encoding_type encoding{ std::locale::classic{} };
+            const multibyte_encoding_type encoding{ std::locale::classic() };
         }
         {
-            const wide_encoding_type encoding{ std::locale::classic{} };
+            const wide_encoding_type encoding{ std::locale::classic() };
         }
     }
 

@@ -377,7 +377,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             }
-            detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
+            detail::file_open_dialog_ptr_type p_dialog{ p_raw_dialog };
             return
                 stdalt::make_unique<file_open_dialog_details_type>(
                     std::move(p_dialog),
@@ -469,7 +469,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(Path(encoder.decode(file_name)));
+            return boost::make_optional(Path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -511,7 +511,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             }
-            detail::file_save_dialog_ptr_type p_dialog(p_raw_dialog);
+            detail::file_save_dialog_ptr_type p_dialog{ p_raw_dialog };
             return
                 stdalt::make_unique<file_save_dialog_details_type>(
                     std::move(p_dialog),
@@ -651,7 +651,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(Path(encoder.decode(file_name)));
+            return boost::make_optional(Path{ encoder.decode(file_name) });
         }
 
         /*!

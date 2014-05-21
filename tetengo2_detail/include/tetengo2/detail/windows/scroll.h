@@ -176,7 +176,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return range_type(info.nMin, info.nMax);
+            return { info.nMin, info.nMax };
         }
 
         /*!

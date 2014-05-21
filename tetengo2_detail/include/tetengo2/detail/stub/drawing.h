@@ -360,7 +360,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font>
         static Font make_dialog_font()
         {
-            return Font(typename Font::string_type(TETENGO2_TEXT("TetengoFont")), 12, false, false, false, false);
+            return { typename Font::string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false };
         }
 
         /*!

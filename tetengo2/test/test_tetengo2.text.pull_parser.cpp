@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 );
 
             BOOST_CHECK_THROW(
-                const pull_parser_type pull_parser{ std::move(p_push_parser), 0 }, std::invalid_argument
+                const pull_parser_type pull_parser(std::move(p_push_parser), 0), std::invalid_argument
             );
         }
     }

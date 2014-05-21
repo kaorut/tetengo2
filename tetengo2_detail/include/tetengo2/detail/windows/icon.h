@@ -115,7 +115,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const int width = gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension));
             const int height = gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension));
-            icon_handle_type big_icon_handle(load_icon(path, width, height));
+            icon_handle_type big_icon_handle{ load_icon(path, width, height) };
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
             icon_handle_type small_icon_handle(

@@ -64,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 );
             }
 
-            return wic_imaging_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
     }
 #endif
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     */
     inline ::IWICImagingFactory& wic_imaging_factory()
     {
-        static const detail::wic_imaging_factory_ptr_type p_factory(detail::create_wic_imaging_factory());
+        static const detail::wic_imaging_factory_ptr_type p_factory{ detail::create_wic_imaging_factory() };
         return *p_factory;
     }
 
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             BOOST_THROW_EXCEPTION(std::system_error(std::error_code(hr, wic_category()), "Can't create bitmap."));
         }
 
-        return details_ptr_type(rp_bitmap);
+        return { rp_bitmap };
     }
 
     /*!
@@ -188,7 +188,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             );
         }
 
-        return details_ptr_type(std::move(p_format_converter));
+        return { std::move(p_format_converter) };
     }
 
     /*!
