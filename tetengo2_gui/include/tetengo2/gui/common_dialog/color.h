@@ -55,7 +55,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         color(const boost::optional<color_type>& color, abstract_window_type& parent)
         :
         m_p_details(common_dialog_details_type::create_color_dialog(parent, color)),
-        m_result(color ? *color : color_type(0, 0, 0))
+        m_result(color ? *color : color_type{ 0, 0, 0 })
         {}
 
 

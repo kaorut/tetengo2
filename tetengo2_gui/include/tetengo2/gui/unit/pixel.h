@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static pixel from_pixels(const PixelValue value)
         {
-            return pixel{ value_type(value) };
+            return pixel{ static_cast<value_type>(value) };
         }
 
 

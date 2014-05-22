@@ -867,7 +867,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_self.client_dimension());
+                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
 
                 return true;
             }

@@ -154,9 +154,13 @@ namespace tetengo2 { namespace gui { namespace widget
                     return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_self.client_dimension());
+                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
                 if (m_self.focused())
-                    canvas.draw_focus_indication(position_type(left_type(0), top_type(0)), m_self.client_dimension());
+                {
+                    canvas.draw_focus_indication(
+                        position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension()
+                    );
+                }
 
                 return true;
             }
@@ -179,14 +183,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
             const auto original_font = p_link_label->font();
             p_link_label->set_font(
-                font_type(
+                font_type{
                     original_font.family(),
                     original_font.size(),
                     original_font.bold(),
                     original_font.italic(),
                     true,
                     original_font.strikeout()
-                )
+                }
             );
 
             p_link_label->set_text_color(system_color_set_type::hyperlink_text());

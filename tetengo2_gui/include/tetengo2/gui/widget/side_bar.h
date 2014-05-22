@@ -191,7 +191,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!m_minimized)
             {
                 this->set_dimension(
-                    dimension_type(m_preferred_width, gui::dimension<dimension_type>::height(this->dimension()))
+                    dimension_type{ m_preferred_width, gui::dimension<dimension_type>::height(this->dimension()) }
                 );
             }
 
@@ -215,10 +215,10 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto& splitter_dimension = m_p_splitter->dimension();
 
             return
-                position_type(
+                {
                     left_type::from(gui::dimension<dimension_type>::width(splitter_dimension)),
                     top_type::from(gui::dimension<dimension_type>::height(caption_dimension))
-                );
+                };
         }
 
         /*!
@@ -503,7 +503,7 @@ namespace tetengo2 { namespace gui { namespace widget
         public:
             // constructors and destructor
 
-            caption(side_bar& side_bar_)
+            explicit caption(side_bar& side_bar_)
             :
             inner_item_type(
                 side_bar_,

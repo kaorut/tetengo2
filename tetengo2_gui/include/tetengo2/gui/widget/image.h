@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type()),
+            message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type{}),
             widget_details_type::create_image(parent)
         ),
 #if BOOST_COMP_MSVC
@@ -256,9 +256,15 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (m_p_picture)
-                canvas.paint_picture(*m_p_picture, position_type(left_type(0), top_type(0)), this->client_dimension());
+            {
+                canvas.paint_picture(
+                    *m_p_picture, position_type{ left_type{ 0 }, top_type{ 0 } }, this->client_dimension()
+                );
+            }
             else if (m_p_icon)
-                canvas.paint_icon(*m_p_icon, position_type(left_type(0), top_type(0)));
+            {
+                canvas.paint_icon(*m_p_icon, position_type{ left_type{ 0 }, top_type{ 0 } });
+            }
         }
 
 

@@ -77,7 +77,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const bool file_droppable = false
         )
         :
-        base_type(scroll_bar_style, file_droppable, message_handler_map_type()),
+        base_type(scroll_bar_style, file_droppable, message_handler_map_type{}),
         m_p_details(
             widget_details_type::template create_window<typename base_type::base_type>(
                 nullptr, scroll_bar_style, file_droppable
@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(
             scroll_bar_style,
             file_droppable,
-            message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())
+            message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{})
         ),
 #if BOOST_COMP_MSVC
 #   pragma warning(pop)

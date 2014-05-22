@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 parent, std::move(title), path, std::move(file_filters), encoder()
             )
         ),
-        m_result(path ? *path : path_type())
+        m_result(path ? *path : path_type{})
         {}
 
 
