@@ -90,7 +90,7 @@ namespace tetengo2 { namespace message
         string_type get(const typename string_type::value_type* const p_key)
         const
         {
-            return get(string_type(p_key));
+            return get(string_type{ p_key });
         }
 
 

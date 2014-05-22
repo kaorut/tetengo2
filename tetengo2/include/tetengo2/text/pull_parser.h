@@ -291,17 +291,17 @@ namespace tetengo2 { namespace text
             channel_type&             channel
         )
         {
-            channel.insert(element_type(structure_begin_type(name, attribute_map)));
+            channel.insert(element_type{ structure_begin_type{ name, attribute_map } });
         }
 
         static void on_structure_end(const string_type& name, channel_type& channel)
         {
-            channel.insert(element_type(structure_end_type(name, attribute_map_type())));
+            channel.insert(element_type{ structure_end_type{ name, attribute_map_type{} } });
         }
 
         static void on_value(const value_type& value, channel_type& channel)
         {
-            channel.insert(element_type(value));
+            channel.insert(element_type{ value });
         }
 
 

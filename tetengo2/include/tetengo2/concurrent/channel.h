@@ -215,7 +215,7 @@ namespace tetengo2 { namespace concurrent
                 return;
             }
 
-            m_queue.emplace(queue_element_type(std::move(value)));
+            m_queue.emplace(queue_element_type{ std::move(value) });
 
             m_condition_variable.notify_all();
         }

@@ -168,7 +168,7 @@ namespace tetengo2 { namespace text { namespace encoding
         const
         {
             if (!std::has_facet<converter_type>(m_locale))
-                return string_type(pivot.begin(), pivot.end());
+                return string_type{ pivot.begin(), pivot.end() };
 
             const auto& converter = std::use_facet<converter_type>(m_locale);
             auto state = std::mbstate_t();
@@ -193,7 +193,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 {
                     unshift(converter, state, string_chars, p_string_next, p_string_last, p_string_next);
                     assert(*p_string_next == static_cast<string_char_type>(TETENGO2_TEXT('\0')));
-                    return string_type(string_chars.data(), p_string_next);
+                    return string_type{ string_chars.data(), p_string_next };
                 }
 
                 if (result == converter_type::error)
@@ -265,7 +265,7 @@ namespace tetengo2 { namespace text { namespace encoding
         const
         {
             if (!std::has_facet<converter_type>(m_locale))
-                return typename base_type::pivot_type(string.begin(), string.end());
+                return typename base_type::pivot_type{ string.begin(), string.end() };
 
             const converter_type& converter = std::use_facet<converter_type>(m_locale);
             auto state = std::mbstate_t();
@@ -289,7 +289,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 if (p_string_next == p_string_last)
                 {
                     assert(*p_pivot_next == static_cast<pivot_char_type>(TETENGO2_TEXT('\0')));
-                    return typename base_type::pivot_type(pivot_chars.data(), p_pivot_next);
+                    return typename base_type::pivot_type{ pivot_chars.data(), p_pivot_next };
                 }
 
                 if (result == converter_type::error)

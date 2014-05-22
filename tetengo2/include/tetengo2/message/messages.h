@@ -93,7 +93,7 @@ namespace tetengo2 { namespace message
                 const auto offset = key.rfind(TETENGO2_TEXT(':'), start);
                 if (offset == string_type::npos)
                     return key;
-                if (offset == 0 || key[offset - 1] != typename string_type::value_type(TETENGO2_TEXT('\\')))
+                if (offset == 0 || key[offset - 1] != typename string_type::value_type{ TETENGO2_TEXT('\\') })
                 {
                     string_type ns_removed = key.substr(offset + 1);
                     boost::replace_all(
@@ -211,8 +211,8 @@ namespace tetengo2 { namespace message
 
             std::vector<path_type> catalog_files{};
             std::transform(
-                directory_iterator_type(path),
-                directory_iterator_type(),
+                directory_iterator_type{ path },
+                directory_iterator_type{},
                 std::back_inserter(catalog_files),
                 [](const directory_entry_type& entry) { return entry.path(); }
             );
@@ -233,7 +233,7 @@ namespace tetengo2 { namespace message
             catalog_file_mappings_type mappings{};
 
             boost::filesystem::ifstream input_stream{
-                path_type(message_catalog_directory / catalog_file_mappings_filename())
+                path_type{ message_catalog_directory / catalog_file_mappings_filename() }
             };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open the message catalog file mappings."));

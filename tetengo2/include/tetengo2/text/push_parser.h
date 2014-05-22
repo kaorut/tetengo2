@@ -257,7 +257,7 @@ namespace tetengo2 { namespace text
             assert(string_value.length() >= 2);
             string_type string{ boost::next(string_value.begin()), boost::prior(string_value.end()) };
 
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\"")), string_type(TETENGO2_TEXT("\"")));
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\"") }, string_type{ TETENGO2_TEXT("\"") });
             boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\\") }, string_type{ TETENGO2_TEXT("\\") });
             boost::replace_all(string, string_type{ TETENGO2_TEXT("\\/") }, string_type{ TETENGO2_TEXT("/") });
             boost::replace_all(string, string_type{ TETENGO2_TEXT("\\b") }, string_type{ TETENGO2_TEXT("\b") });
@@ -359,7 +359,7 @@ namespace tetengo2 { namespace text
 
         void observe_structure_end(const string_type& structure_name)
         {
-            m_on_structure_end(structure_name, attribute_map_type());
+            m_on_structure_end(structure_name, attribute_map_type{});
         }
 
         void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
