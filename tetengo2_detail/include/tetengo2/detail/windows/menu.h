@@ -221,7 +221,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
+            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type{}, nullptr);
         }
         
         /*!
@@ -297,7 +297,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 accelerators.push_back(to_accel(*i));
             }
             if (accelerators.empty())
-                return shortcut_key_table_details_ptr_type();
+                return {};
 
             const auto accelerator_table_handle =
                 ::CreateAcceleratorTableW(accelerators.data(), static_cast<int>(accelerators.size()));

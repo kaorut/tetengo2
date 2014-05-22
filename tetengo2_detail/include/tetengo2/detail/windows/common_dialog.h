@@ -1020,9 +1020,9 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             return
-                detail::native_filter_type(
+                {
                     encoder.encode(filter.first), std::wstring(L"*.") + encoder.encode(filter.second)
-                );
+                };
         }
 
         template <typename String, typename Encoder>

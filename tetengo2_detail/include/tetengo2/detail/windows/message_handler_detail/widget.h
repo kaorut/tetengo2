@@ -246,7 +246,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
 
             widget.mouse_observer_set().wheeled()(
-                typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                typename Widget::mouse_observer_set_type::delta_type{ delta, WHEEL_DELTA },
                 Widget::mouse_observer_set_type::direction_type::vertical,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
@@ -274,7 +274,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
 
             widget.mouse_observer_set().wheeled()(
-                typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                typename Widget::mouse_observer_set_type::delta_type{ delta, WHEEL_DELTA },
                 Widget::mouse_observer_set_type::direction_type::horizontal,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,

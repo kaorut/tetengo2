@@ -2461,17 +2461,17 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             catch (const boost::exception& e)
             {
-                (typename Widget::alert_type(window_handle))(e);
+                typename Widget::alert_type{ window_handle }(e);
                 return 0;
             }
             catch (const std::exception& e)
             {
-                (typename Widget::alert_type(window_handle))(e);
+                typename Widget::alert_type{ window_handle }(e);
                 return 0;
             }
             catch (...)
             {
-                (typename Widget::alert_type(window_handle))();
+                typename Widget::alert_type{ window_handle }();
                 return 0;
             }
         }

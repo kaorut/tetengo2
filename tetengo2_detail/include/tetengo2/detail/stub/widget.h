@@ -801,14 +801,14 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
             widget.details().font =
-                details_font_type(
+                details_font_type{
                     encoder.encode(font.family()),
                     font.size(),
                     font.bold(),
                     font.italic(),
                     font.underline(),
                     font.strikeout()
-                );
+                };
         }
 
         /*!
@@ -1382,7 +1382,7 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
                     string_type{},
-                    details_font_type(string_type{}, 12, false, false, false, false),
+                    details_font_type{ string_type{}, 12, false, false, false, false },
                     std::vector<void*>(),
                     false,
                     false,
