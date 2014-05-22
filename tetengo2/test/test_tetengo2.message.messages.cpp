@@ -117,20 +117,20 @@ BOOST_AUTO_TEST_SUITE(messages)
         BOOST_TEST_PASSPOINT();
 
         {
-            const auto namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge")));
+            const auto namespace_removed = messages_type::remove_namespace(string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(namespace_removed == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
-            const auto namespace_removed = messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga")));
+            const auto namespace_removed = messages_type::remove_namespace(string_type{ TETENGO2_TEXT("hoge:fuga") });
 
-            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(namespace_removed == string_type{ TETENGO2_TEXT("fuga") });
         }
         {
             const auto namespace_removed =
-                messages_type::remove_namespace(string_type(TETENGO2_TEXT("hoge:fuga:piyo")));
+                messages_type::remove_namespace(string_type{ TETENGO2_TEXT("hoge:fuga:piyo") });
 
-            BOOST_CHECK(namespace_removed == string_type(TETENGO2_TEXT("piyo")));
+            BOOST_CHECK(namespace_removed == string_type{ TETENGO2_TEXT("piyo") });
         }
     }
 
@@ -217,11 +217,11 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type(TETENGO2_TEXT("Language"))), std::runtime_error);
+                BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type{ TETENGO2_TEXT("Language") }), std::runtime_error);
 
                 BOOST_CHECK(
-                    messages.get(-1, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
-                    string_type(TETENGO2_TEXT("Language"))
+                    messages.get(-1, 0, 0, string_type{ TETENGO2_TEXT("Language") }) ==
+                    string_type{ TETENGO2_TEXT("Language") }
                 );
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -231,20 +231,20 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
-                    string_type(TETENGO2_TEXT("English"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Language") }) ==
+                    string_type{ TETENGO2_TEXT("English") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Hello"))) ==
-                    string_type(TETENGO2_TEXT("Hi"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Hello") }) ==
+                    string_type{ TETENGO2_TEXT("Hi") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
-                    string_type(TETENGO2_TEXT("ByeBye"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:ByeBye") }) ==
+                    string_type{ TETENGO2_TEXT("ByeBye") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
-                    string_type(TETENGO2_TEXT("Colon:"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Colon:") }) ==
+                    string_type{ TETENGO2_TEXT("Colon:") }
                 );
             }
             {
@@ -252,11 +252,11 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const auto& messages = std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
-                BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type(TETENGO2_TEXT("Language"))), std::runtime_error);
+                BOOST_CHECK_THROW(messages.get(0, 0, 0, string_type{ TETENGO2_TEXT("Language") }), std::runtime_error);
 
                 BOOST_CHECK(
-                    messages.get(-1, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
-                    string_type(TETENGO2_TEXT("Language"))
+                    messages.get(-1, 0, 0, string_type{ TETENGO2_TEXT("Language") }) ==
+                    string_type{ TETENGO2_TEXT("Language") }
                 );
 
                 const auto catalog_id = messages.open("", std::locale());
@@ -266,20 +266,20 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
-                    string_type(TETENGO2_TEXT("Japanese"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Language") }) ==
+                    string_type{ TETENGO2_TEXT("Japanese") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Hello"))) ==
-                    string_type(TETENGO2_TEXT("Konnichiwa"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Hello") }) ==
+                    string_type{ TETENGO2_TEXT("Konnichiwa") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
-                    string_type(TETENGO2_TEXT("ByeBye"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:ByeBye") }) ==
+                    string_type{ TETENGO2_TEXT("ByeBye") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
-                    string_type(TETENGO2_TEXT("Colon:"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Colon:") }) ==
+                    string_type{ TETENGO2_TEXT("Colon:") }
                 );
             }
             {
@@ -290,20 +290,20 @@ BOOST_AUTO_TEST_SUITE(messages)
                 const auto catalog_id = messages.open("", std::locale());
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Language"))) ==
-                    string_type(TETENGO2_TEXT("Language"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Language") }) ==
+                    string_type{ TETENGO2_TEXT("Language") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Hello"))) ==
-                    string_type(TETENGO2_TEXT("Hello"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Hello") }) ==
+                    string_type{ TETENGO2_TEXT("Hello") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:ByeBye"))) ==
-                    string_type(TETENGO2_TEXT("ByeBye"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:ByeBye") }) ==
+                    string_type{ TETENGO2_TEXT("ByeBye") }
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, string_type(TETENGO2_TEXT("Name:Space:Colon:"))) ==
-                    string_type(TETENGO2_TEXT("Colon:"))
+                    messages.get(catalog_id, 0, 0, string_type{ TETENGO2_TEXT("Name:Space:Colon:") }) ==
+                    string_type{ TETENGO2_TEXT("Colon:") }
                 );
             }
         }

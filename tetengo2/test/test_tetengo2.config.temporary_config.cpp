@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
-                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
             };
             const temporary_config_type config{ values.begin(), values.end() };
         }
@@ -59,23 +59,23 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         BOOST_TEST_PASSPOINT();
 
         const std::vector<std::pair<string_type, value_type>> values{
-            { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
-            { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+            { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
+            { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
         };
         const temporary_config_type config{ values.begin(), values.end() };
 
         {
-            const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
             BOOST_REQUIRE(value);
-            BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
-            const auto value = config.get(string_type(TETENGO2_TEXT("bar")));
+            const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
             BOOST_REQUIRE(value);
             BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 42U);
         }
         {
-            const auto value = config.get(string_type(TETENGO2_TEXT("baz")));
+            const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
             BOOST_REQUIRE(!value);
         }
     }
@@ -86,29 +86,29 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
 
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
-                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
             };
             temporary_config_type config{ values.begin(), values.end() };
 
-            config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type(4242));
 
-            const auto value = config.get(string_type(TETENGO2_TEXT("foo")));
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
             BOOST_REQUIRE(value);
             BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type(TETENGO2_TEXT("foo")), value_type(string_type(TETENGO2_TEXT("hoge"))) },
-                { string_type(TETENGO2_TEXT("bar")), value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
             };
             temporary_config_type config{ values.begin(), values.end() };
 
-            config.set(string_type(TETENGO2_TEXT("baz")), string_type(TETENGO2_TEXT("fuga")));
+            config.set(string_type{ TETENGO2_TEXT("baz") }, string_type{ TETENGO2_TEXT("fuga") });
 
-            const auto value = config.get(string_type(TETENGO2_TEXT("baz")));
+            const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
             BOOST_REQUIRE(value);
-            BOOST_CHECK(boost::get<string_type>(*value) == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
         }
     }
 

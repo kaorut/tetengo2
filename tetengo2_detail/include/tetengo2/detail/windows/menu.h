@@ -621,7 +621,7 @@ namespace tetengo2 { namespace detail { namespace windows
             auto text = menu.text();
             if (menu.has_shortcut_key())
             {
-                text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
+                text += typename MenuBase::string_type{ TETENGO2_TEXT("\t") };
                 text += menu.shortcut_key().to_string();
             }
             const auto native_string = encoder.encode(text);

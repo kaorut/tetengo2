@@ -96,7 +96,9 @@ namespace tetengo2 { namespace message
                 if (offset == 0 || key[offset - 1] != typename string_type::value_type(TETENGO2_TEXT('\\')))
                 {
                     string_type ns_removed = key.substr(offset + 1);
-                    boost::replace_all(ns_removed, string_type(TETENGO2_TEXT("\\:")), string_type(TETENGO2_TEXT(":")));
+                    boost::replace_all(
+                        ns_removed, string_type{ TETENGO2_TEXT("\\:") }, string_type{ TETENGO2_TEXT(":") }
+                    );
                     return ns_removed;
                 }
                 if (offset == 1)
@@ -183,7 +185,7 @@ namespace tetengo2 { namespace message
 
         static const typename path_type::string_type& catalog_file_mappings_filename()
         {
-            static const typename path_type::string_type singleton(TETENGO2_TEXT("_catalogs.json"));
+            static const typename path_type::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
             return singleton;
         }
 

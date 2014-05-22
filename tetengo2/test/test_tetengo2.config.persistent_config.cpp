@@ -52,16 +52,16 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
         const persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
 
-        config.get(string_type(TETENGO2_TEXT("foo")));
+        config.get(string_type{ TETENGO2_TEXT("foo") });
     }
 
     BOOST_AUTO_TEST_CASE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type(TETENGO2_TEXT("group")) };
+        persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
 
-        config.set(string_type(TETENGO2_TEXT("foo")), value_type(4242));
+        config.set(string_type{ TETENGO2_TEXT("foo") }, value_type(4242));
     }
 
     

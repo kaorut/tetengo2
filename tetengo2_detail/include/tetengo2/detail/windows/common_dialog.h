@@ -979,7 +979,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static bool match_extension(const Path& path, const String& extension)
         {
             const auto path_string = path.template string<String>();
-            const auto dotted_extension = String(TETENGO2_TEXT(".")) + extension;
+            const auto dotted_extension = String{ TETENGO2_TEXT(".") } + extension;
             if (path_string.length() < dotted_extension.length())
                 return false;
 

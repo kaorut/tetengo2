@@ -216,12 +216,12 @@ namespace tetengo2 { namespace detail { namespace windows
             
             return
                 std::make_pair(
-                    String(TETENGO2_TEXT("Software\\tetengo\\")) +
+                    String{ TETENGO2_TEXT("Software\\tetengo\\") } +
                     group_name +
-                        String(TETENGO2_TEXT("\\")) +
+                        String{ TETENGO2_TEXT("\\") } +
                         boost::join(
                             std::make_pair(key_names.begin(), boost::prior(key_names.end())),
-                            String(TETENGO2_TEXT("\\"))
+                            String{ TETENGO2_TEXT("\\") }
                         ),
                     key_names[key_names.size() - 1]
                 );

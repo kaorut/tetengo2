@@ -52,10 +52,10 @@ BOOST_AUTO_TEST_SUITE(icon)
         BOOST_TEST_PASSPOINT();
 
         {
-            const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+            const icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") });
         }
         {
-            const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")), make_dimension(42, 42));
+            const icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42));
         }
     }
 
@@ -63,16 +63,16 @@ BOOST_AUTO_TEST_SUITE(icon)
     {
         BOOST_TEST_PASSPOINT();
 
-        const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+        const icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") });
 
-        BOOST_CHECK(icon.path() == path_type(TETENGO2_TEXT("hoge.ico")));
+        BOOST_CHECK(icon.path() == path_type{ TETENGO2_TEXT("hoge.ico") });
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")), make_dimension(42, 42));
+        const icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42));
 
         BOOST_CHECK(icon.dimension() == make_dimension(42, 42));
     }
@@ -82,12 +82,12 @@ BOOST_AUTO_TEST_SUITE(icon)
         BOOST_TEST_PASSPOINT();
 
         {
-            const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+            const icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") });
 
             icon.details();
         }
         {
-            icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+            icon_type icon(path_type{ TETENGO2_TEXT("hoge.ico") });
 
             icon.details();
         }

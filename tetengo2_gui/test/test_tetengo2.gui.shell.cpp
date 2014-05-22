@@ -49,26 +49,26 @@ BOOST_AUTO_TEST_SUITE(shell)
         BOOST_TEST_PASSPOINT();
 
         {
-            const string_type command(TETENGO2_TEXT("command"));
+            const string_type command{ TETENGO2_TEXT("command") };
 
             const auto result = shell_type::instance().execute(command);
             BOOST_CHECK(result);
         }
         {
-            const string_type command(TETENGO2_TEXT("command_to_fail"));
+            const string_type command{ TETENGO2_TEXT("command_to_fail") };
 
             const auto result = shell_type::instance().execute(command);
             BOOST_CHECK(!result);
         }
         {
-            const string_type command(TETENGO2_TEXT("command"));
+            const string_type command{ TETENGO2_TEXT("command") };
             const std::vector<string_type> parameters{};
 
             const auto result = shell_type::instance().execute(command, parameters.begin(), parameters.end());
             BOOST_CHECK(result);
         }
         {
-            const string_type command(TETENGO2_TEXT("command"));
+            const string_type command{ TETENGO2_TEXT("command") };
             const std::vector<string_type> parameters{
                 string_type{ TETENGO2_TEXT("param1") }
             };
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(shell)
             BOOST_CHECK(result);
         }
         {
-            const string_type command(TETENGO2_TEXT("command"));
+            const string_type command{ TETENGO2_TEXT("command") };
             const std::vector<string_type> parameters{
                 string_type{ TETENGO2_TEXT("param1") }, string_type{ TETENGO2_TEXT("param2") }
             };

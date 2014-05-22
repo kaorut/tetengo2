@@ -258,13 +258,13 @@ namespace tetengo2 { namespace text
             string_type string{ boost::next(string_value.begin()), boost::prior(string_value.end()) };
 
             boost::replace_all(string, string_type(TETENGO2_TEXT("\\\"")), string_type(TETENGO2_TEXT("\"")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\\")), string_type(TETENGO2_TEXT("\\")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\/")), string_type(TETENGO2_TEXT("/")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\b")), string_type(TETENGO2_TEXT("\b")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\f")), string_type(TETENGO2_TEXT("\f")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type(TETENGO2_TEXT("\n")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type(TETENGO2_TEXT("\r")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\t")), string_type(TETENGO2_TEXT("\t")));
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\\") }, string_type{ TETENGO2_TEXT("\\") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\/") }, string_type{ TETENGO2_TEXT("/") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\b") }, string_type{ TETENGO2_TEXT("\b") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\f") }, string_type{ TETENGO2_TEXT("\f") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\n") }, string_type{ TETENGO2_TEXT("\n") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\r") }, string_type{ TETENGO2_TEXT("\r") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\t") }, string_type{ TETENGO2_TEXT("\t") });
 
             return string;
         }
@@ -315,18 +315,18 @@ namespace tetengo2 { namespace text
         static bool to_boolean(const string_type& string_value)
         {
             assert(
-                string_value == string_type(TETENGO2_TEXT("true")) ||
-                string_value == string_type(TETENGO2_TEXT("false"))
+                string_value == string_type{ TETENGO2_TEXT("true") } ||
+                string_value == string_type{ TETENGO2_TEXT("false") }
             );
 
-            return string_value == string_type(TETENGO2_TEXT("true"));
+            return string_value == string_type{ TETENGO2_TEXT("true") };
         }
 
         static void* to_null(const string_type& string_value)
         {
             suppress_unused_variable_warning(string_value);
 
-            assert(string_value == string_type(TETENGO2_TEXT("null")));
+            assert(string_value == string_type{ TETENGO2_TEXT("null") });
 
             return nullptr;
         }

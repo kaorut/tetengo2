@@ -168,7 +168,7 @@ namespace tetengo2 { namespace message
         void skip_preamble()
         const
         {
-            if (!next_is<structure_begin_type>(input_string_type(TETENGO2_TEXT("object"))))
+            if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
                 m_preamble_read_succeeded = boost::make_optional(false);
                 return;
@@ -177,7 +177,7 @@ namespace tetengo2 { namespace message
 
             if (
                 next_is<structure_begin_type>(
-                    input_string_type(TETENGO2_TEXT("member")), input_string_type(TETENGO2_TEXT("header"))
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("header") }
                 )
             )
             {
@@ -186,7 +186,7 @@ namespace tetengo2 { namespace message
 
             if (
                 !next_is<structure_begin_type>(
-                    input_string_type(TETENGO2_TEXT("member")), input_string_type(TETENGO2_TEXT("body"))
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("body") }
                 )
             )
             {
@@ -195,7 +195,7 @@ namespace tetengo2 { namespace message
             }
             m_p_pull_parser->next();
 
-            if (!next_is<structure_begin_type>(input_string_type(TETENGO2_TEXT("object"))))
+            if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
                 m_preamble_read_succeeded = boost::make_optional(false);
                 return;
@@ -293,7 +293,7 @@ namespace tetengo2 { namespace message
         const
         {
             const typename attribute_map_type::const_iterator found =
-                structure.attribute_map().find(input_string_type(TETENGO2_TEXT("name")));
+                structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
                 return input_string_type();
             if (found->second.which() != 4)
