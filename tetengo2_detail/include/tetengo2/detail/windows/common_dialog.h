@@ -983,9 +983,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (path_string.length() < dotted_extension.length())
                 return false;
 
-            const String path_extension(
+            const String path_extension{
                 boost::prior(path_string.end(), dotted_extension.length()), path_string.end()
-            );
+            };
 
             return path_extension == dotted_extension;
         }

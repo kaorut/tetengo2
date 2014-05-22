@@ -364,23 +364,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Color&         color
         )
         {
-            const Gdiplus::Pen pen(
-                Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
+            const Gdiplus::Pen pen{
+                Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                 gui::to_pixels<Gdiplus::REAL>(width)
-            );
-            const Gdiplus::PointF gdiplus_from(
+            };
+            const Gdiplus::PointF gdiplus_from{
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(from)),
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(from))
-            );
-            const Gdiplus::PointF gdiplus_to(
+            };
+            const Gdiplus::PointF gdiplus_to{
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(to)),
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(to))
-            );
+            };
             const auto status = canvas.get().DrawLine(&pen, gdiplus_from, gdiplus_to);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw a line.")
+                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't draw a line." }
                 );
             }
         }
@@ -445,17 +445,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto& background_details = background.details();
             if (!background_details.get()) return;
 
-            const Gdiplus::Rect rectangle(
+            const Gdiplus::Rect rectangle{
                 gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
                 gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
-            );
+            };
             const auto status = canvas.get().FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a rectangle.")
+                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't fill a rectangle." }
                 );
             }
         }
@@ -486,16 +486,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Color&           color
         )
         {
-            const Gdiplus::Pen pen(
-                Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue()),
+            const Gdiplus::Pen pen{
+                Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                 gui::to_pixels<Gdiplus::REAL>(width)
-            );
+            };
             const auto points = to_gdiplus_points(position_first, position_last);
             const auto status = canvas.get().DrawPolygon(&pen, points.data(), static_cast< ::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw a polygon.")
+                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't draw a polygon." }
                 );
             }
         }
@@ -594,9 +594,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::REAL gdiplus_max_width =
                 max_width == typename gui::dimension<Dimension>::width_type(0) ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
-            const Gdiplus::RectF layout(
+            const Gdiplus::RectF layout{
                 0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
-            );
+            };
             Gdiplus::RectF bounding;
             const auto status =
                 canvas.get().MeasureString(
@@ -610,7 +610,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't measure text!")
+                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't measure text!" }
                 );
             }
 
@@ -661,25 +661,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             const auto p_solid_brush = create_solid_background(color);
 
-            const Gdiplus::PointF gdiplus_point(
+            const Gdiplus::PointF gdiplus_point{
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
-            );
+            };
             const Gdiplus::REAL gdiplus_max_width =
                 max_width == Width(0) ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
-            const Gdiplus::RectF layout(
+            const Gdiplus::RectF layout{
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
-            );
+            };
 
             Gdiplus::Matrix original_matrix;
             const auto get_transform_status = canvas.get().GetTransform(&original_matrix);
             if (get_transform_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(get_transform_status, gdiplus_category()), "Can't get transform!"
-                    )
+                    std::system_error{
+                        std::error_code{ get_transform_status, gdiplus_category{} }, "Can't get transform!"
+                    }
                 );
             }
             Gdiplus::Matrix rotating_matrix;

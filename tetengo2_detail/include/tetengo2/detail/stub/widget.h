@@ -1373,7 +1373,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details(
+            widget_details_ptr_type p_details{
                 stdalt::make_unique<widget_details_type>(
                     p_parent,
                     true,
@@ -1389,7 +1389,7 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::vector<string_type>(),
                     boost::none
                 )
-            );
+            };
 
             return std::move(p_details);
         }

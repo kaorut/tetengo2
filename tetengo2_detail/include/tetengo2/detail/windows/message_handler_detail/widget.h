@@ -117,10 +117,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Position>
         Position l_param_to_position(const ::LPARAM l_param)
         {
-            return Position(
+            return {
                 gui::to_unit<typename gui::position<Position>::left_type>(GET_X_LPARAM(l_param)),
                 gui::to_unit<typename gui::position<Position>::top_type>(GET_Y_LPARAM(l_param))
-            );
+            };
         }
 
         template <typename Widget>

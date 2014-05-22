@@ -171,15 +171,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            menu_details_ptr_type p_menu(
+            menu_details_ptr_type p_menu{
                 stdalt::make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr
+                    get_and_increment_id(), detail::handle_type{ ::CreateMenu() }, nullptr
                 )
-            );
+            };
             if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a menu bar.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a menu bar."
+                    }
                 );
             }
 
@@ -195,17 +197,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            menu_details_ptr_type p_menu(
+            menu_details_ptr_type p_menu{
                 stdalt::make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), nullptr
-                )
+                    get_and_increment_id(), detail::handle_type{ ::CreatePopupMenu() }, nullptr
+                }
             );
             if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a popup menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a popup menu."
+                    }
                 );
             }
 

@@ -118,9 +118,9 @@ namespace tetengo2 { namespace detail { namespace windows
             icon_handle_type big_icon_handle{ load_icon(path, width, height) };
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
-            icon_handle_type small_icon_handle(
+            icon_handle_type small_icon_handle{
                 load_icon(path, small_icon_dimension_.first, small_icon_dimension_.second)
-            );
+            };
 
             return stdalt::make_unique<icon_details_type>(std::move(big_icon_handle), std::move(small_icon_handle));
         }

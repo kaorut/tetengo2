@@ -781,12 +781,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const unsigned char alpha
         )
         {
-            return D2D1::ColorF(
-                static_cast< ::FLOAT>(red / 255.0),
-                static_cast< ::FLOAT>(green / 255.0),
-                static_cast< ::FLOAT>(blue / 255.0),
-                static_cast< ::FLOAT>(alpha / 255.0)
-            );
+            return {
+                static_cast<::FLOAT>(red / 255.0),
+                static_cast<::FLOAT>(green / 255.0),
+                static_cast<::FLOAT>(blue / 255.0),
+                static_cast<::FLOAT>(alpha / 255.0)
+            };
         }
 
         static unique_com_ptr< ::ID2D1Brush>::type create_brush(
