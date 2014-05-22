@@ -44,11 +44,11 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
         }
         {
             window_type parent{};
-            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::both);
+            const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::both };
         }
     }
 
@@ -58,14 +58,14 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_CHECK_EQUAL(list_box.value_count(), 1U);
         }
@@ -77,14 +77,14 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(list_box.value(0) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
             window_type parent{};
-            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(list_box.value(0), std::out_of_range);
         }
@@ -96,18 +96,18 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
-            list_box.set_value(0, string_type(TETENGO2_TEXT("fuga")));
+            list_box.set_value(0, string_type{ TETENGO2_TEXT("fuga") });
 
-            BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(list_box.value(0) == string_type{ TETENGO2_TEXT("fuga") });
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
-            BOOST_CHECK_THROW(list_box.set_value(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+            BOOST_CHECK_THROW(list_box.set_value(0, string_type{ TETENGO2_TEXT("fuga") }), std::out_of_range);
         }
     }
 
@@ -117,24 +117,24 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-            list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("piyo")));
-            list_box.insert_value(2, string_type(TETENGO2_TEXT("piyoyo")));
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
+            list_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("piyo") });
+            list_box.insert_value(2, string_type{ TETENGO2_TEXT("piyoyo") });
 
             BOOST_CHECK_EQUAL(list_box.value_count(), 4U);
-            BOOST_CHECK(list_box.value(0) == string_type(TETENGO2_TEXT("piyo")));
-            BOOST_CHECK(list_box.value(1) == string_type(TETENGO2_TEXT("hoge")));
-            BOOST_CHECK(list_box.value(2) == string_type(TETENGO2_TEXT("piyoyo")));
-            BOOST_CHECK(list_box.value(3) == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(list_box.value(0) == string_type{ TETENGO2_TEXT("piyo") });
+            BOOST_CHECK(list_box.value(1) == string_type{ TETENGO2_TEXT("hoge") });
+            BOOST_CHECK(list_box.value(2) == string_type{ TETENGO2_TEXT("piyoyo") });
+            BOOST_CHECK(list_box.value(3) == string_type{ TETENGO2_TEXT("fuga") });
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
-            BOOST_CHECK_THROW(list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+            BOOST_CHECK_THROW(list_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") }), std::out_of_range);
         }
     }
 
@@ -144,8 +144,8 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             list_box.erase_value(0);
 
@@ -153,7 +153,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(list_box.erase_value(0), std::out_of_range);
         }
@@ -164,9 +164,9 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-        list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-        list_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
+        list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+        list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
+        list_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
 
         list_box.clear();
 
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+        const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
         BOOST_CHECK(!list_box.selected_value_index());
     }
@@ -189,8 +189,8 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
-            list_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
+            list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             list_box.select_value(0);
 
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(list_box.select_value(0), std::out_of_range);
         }
@@ -211,13 +211,13 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         {
             window_type parent{};
-            const list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             list_box.list_selection_observer_set();
         }
         {
             window_type parent{};
-            list_box_type list_box(parent, list_box_type::scroll_bar_style_type::none);
+            list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
             list_box.list_selection_observer_set();
         }

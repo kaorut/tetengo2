@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(shell)
         {
             const string_type command(TETENGO2_TEXT("command"));
             const std::vector<string_type> parameters{
-                string_type(TETENGO2_TEXT("param1"))
+                string_type{ TETENGO2_TEXT("param1") }
             };
 
             const auto result = shell_type::instance().execute(command, parameters.begin(), parameters.end());
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(shell)
         {
             const string_type command(TETENGO2_TEXT("command"));
             const std::vector<string_type> parameters{
-                string_type(TETENGO2_TEXT("param1")), string_type(TETENGO2_TEXT("param2"))
+                string_type{ TETENGO2_TEXT("param1") }, string_type{ TETENGO2_TEXT("param2") }
             };
 
             const auto result = shell_type::instance().execute(command, parameters.begin(), parameters.end());

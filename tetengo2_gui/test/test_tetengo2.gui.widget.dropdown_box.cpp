@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const dropdown_box_type dropdown_box(parent);
+        const dropdown_box_type dropdown_box{ parent };
     }
 
     BOOST_AUTO_TEST_CASE(value_count)
@@ -52,14 +52,14 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            const dropdown_box_type dropdown_box(parent);
+            const dropdown_box_type dropdown_box{ parent };
 
             BOOST_CHECK_EQUAL(dropdown_box.value_count(), 0U);
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            dropdown_box_type dropdown_box{ parent };
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_CHECK_EQUAL(dropdown_box.value_count(), 1U);
         }
@@ -71,14 +71,14 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            dropdown_box_type dropdown_box{ parent };
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(dropdown_box.value(0) == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(dropdown_box.value(0) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
             window_type parent{};
-            const dropdown_box_type dropdown_box(parent);
+            const dropdown_box_type dropdown_box{ parent };
 
             BOOST_CHECK_THROW(dropdown_box.value(0), std::out_of_range);
         }
@@ -90,18 +90,18 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            dropdown_box_type dropdown_box{ parent };
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
-            dropdown_box.set_value(0, string_type(TETENGO2_TEXT("fuga")));
+            dropdown_box.set_value(0, string_type{ TETENGO2_TEXT("fuga") });
 
-            BOOST_CHECK(dropdown_box.value(0) == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(dropdown_box.value(0) == string_type{ TETENGO2_TEXT("fuga") });
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
-            BOOST_CHECK_THROW(dropdown_box.set_value(0, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+            BOOST_CHECK_THROW(dropdown_box.set_value(0, string_type{ TETENGO2_TEXT("fuga") }), std::out_of_range);
         }
     }
 
@@ -111,24 +111,24 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-            dropdown_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("piyo")));
-            dropdown_box.insert_value(2, string_type(TETENGO2_TEXT("piyoyo")));
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
+            dropdown_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("piyo") });
+            dropdown_box.insert_value(2, string_type{ TETENGO2_TEXT("piyoyo") });
 
             BOOST_CHECK_EQUAL(dropdown_box.value_count(), 4U);
-            BOOST_CHECK(dropdown_box.value(0) == string_type(TETENGO2_TEXT("piyo")));
-            BOOST_CHECK(dropdown_box.value(1) == string_type(TETENGO2_TEXT("hoge")));
-            BOOST_CHECK(dropdown_box.value(2) == string_type(TETENGO2_TEXT("piyoyo")));
-            BOOST_CHECK(dropdown_box.value(3) == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(dropdown_box.value(0) == string_type{ TETENGO2_TEXT("piyo") });
+            BOOST_CHECK(dropdown_box.value(1) == string_type{ TETENGO2_TEXT("hoge") });
+            BOOST_CHECK(dropdown_box.value(2) == string_type{ TETENGO2_TEXT("piyoyo") });
+            BOOST_CHECK(dropdown_box.value(3) == string_type{ TETENGO2_TEXT("fuga") });
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
-            BOOST_CHECK_THROW(dropdown_box.insert_value(1, string_type(TETENGO2_TEXT("fuga"))), std::out_of_range);
+            BOOST_CHECK_THROW(dropdown_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") }), std::out_of_range);
         }
     }
 
@@ -138,8 +138,8 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            dropdown_box_type dropdown_box{ parent };
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             dropdown_box.erase_value(0);
 
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
             BOOST_CHECK_THROW(dropdown_box.erase_value(0), std::out_of_range);
         }
@@ -158,9 +158,9 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        dropdown_box_type dropdown_box(parent);
-        dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
-        dropdown_box.insert_value(1, string_type(TETENGO2_TEXT("fuga")));
+        dropdown_box_type dropdown_box{ parent };
+        dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
+        dropdown_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
 
         dropdown_box.clear();
 
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const dropdown_box_type dropdown_box(parent);
+        const dropdown_box_type dropdown_box{ parent };
 
         BOOST_CHECK(!dropdown_box.selected_value_index());
     }
@@ -183,8 +183,8 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
-            dropdown_box.insert_value(0, string_type(TETENGO2_TEXT("hoge")));
+            dropdown_box_type dropdown_box{ parent };
+            dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
             dropdown_box.select_value(0);
 
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
             BOOST_CHECK_THROW(dropdown_box.select_value(0), std::out_of_range);
         }
@@ -205,13 +205,13 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
 
         {
             window_type parent{};
-            const dropdown_box_type dropdown_box(parent);
+            const dropdown_box_type dropdown_box{ parent };
 
             dropdown_box.list_selection_observer_set();
         }
         {
             window_type parent{};
-            dropdown_box_type dropdown_box(parent);
+            dropdown_box_type dropdown_box{ parent };
 
             dropdown_box.list_selection_observer_set();
         }

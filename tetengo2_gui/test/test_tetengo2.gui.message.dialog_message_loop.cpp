@@ -73,16 +73,16 @@ BOOST_AUTO_TEST_SUITE(dialog_message_loop)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const dialog_message_loop_type dialog_message_loop(window);
+        concrete_window window{};
+        const dialog_message_loop_type dialog_message_loop{ window };
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const dialog_message_loop_type dialog_message_loop(window);
+        concrete_window window{};
+        const dialog_message_loop_type dialog_message_loop{ window };
 
         dialog_message_loop();
     }

@@ -44,11 +44,11 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent{};
-            const color_dialog_type color(boost::none, parent);
+            const color_dialog_type color{ boost::none, parent };
         }
         {
             window_type parent{};
-            const color_dialog_type color(boost::make_optional(color_type(12, 34, 56)), parent);
+            const color_dialog_type color{ boost::make_optional(color_type{ 12, 34, 56 }), parent };
         }
     }
 
@@ -58,13 +58,13 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent{};
-            const color_dialog_type color(boost::none, parent);
+            const color_dialog_type color{ boost::none, parent };
 
             BOOST_CHECK(color.result() == color_type(0, 0, 0));
         }
         {
             window_type parent{};
-            color_dialog_type color(boost::none, parent);
+            color_dialog_type color{ boost::none, parent };
 
             color.do_modal();
 
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(color)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        color_dialog_type color(boost::none, parent);
+        color_dialog_type color{ boost::none, parent };
 
         color.do_modal();
     }
@@ -88,13 +88,13 @@ BOOST_AUTO_TEST_SUITE(color)
 
         {
             window_type parent{};
-            const color_dialog_type color(boost::none, parent);
+            const color_dialog_type color{ boost::none, parent };
 
             color.details();
         }
         {
             window_type parent{};
-            color_dialog_type color(boost::none, parent);
+            color_dialog_type color{ boost::none, parent };
 
             color.details();
         }

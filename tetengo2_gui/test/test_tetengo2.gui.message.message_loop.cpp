@@ -71,16 +71,16 @@ BOOST_AUTO_TEST_SUITE(message_loop)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const message_loop_type message_loop(window);
+        concrete_window window{};
+        const message_loop_type message_loop{ window };
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const message_loop_type message_loop(window);
+        concrete_window window{};
+        const message_loop_type message_loop{ window };
 
         message_loop();
     }

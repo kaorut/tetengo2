@@ -80,15 +80,16 @@ namespace
     {
         std::vector<std::unique_ptr<concrete_menu>> menus{};
 
-        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("hoge"))));
+        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(string_type{ TETENGO2_TEXT("hoge") }));
         menus.push_back(
             tetengo2::stdalt::make_unique<concrete_menu>(
-                string_type(TETENGO2_TEXT("fuga")), shortcut_key_type(virtual_key_type::char_a(), false, true, false)
+                string_type{ TETENGO2_TEXT("fuga") },
+                shortcut_key_type{ virtual_key_type::char_a(), false, true, false }
             )
         );
         menus.push_back(
             tetengo2::stdalt::make_unique<concrete_menu>(
-                string_type(TETENGO2_TEXT("piyo")), shortcut_key_type(virtual_key_type::del(), false, true, true)
+                string_type{ TETENGO2_TEXT("piyo") }, shortcut_key_type{ virtual_key_type::del(), false, true, true }
             )
         );
 
@@ -113,15 +114,15 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         }
         {
             const auto menus = make_menus0();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
         }
         {
             const auto menus = make_menus1();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
         }
     }
 
@@ -131,17 +132,17 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
 
         {
             const auto menus = make_menus0();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             shortcut_key_table.begin();
         }
         {
             const auto menus = make_menus1();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             const auto iterator = shortcut_key_table.begin();
 
@@ -155,9 +156,9 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
 
         {
             const auto menus = make_menus0();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             const auto iterator = shortcut_key_table.end();
 
@@ -165,9 +166,9 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
         }
         {
             const auto menus = make_menus1();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             const auto iterator = shortcut_key_table.end();
 
@@ -181,33 +182,33 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
 
         {
             const auto menus = make_menus0();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             shortcut_key_table.details();
         }
         {
             const auto menus = make_menus0();
-            shortcut_key_table_type shortcut_key_table(
+            shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             shortcut_key_table.details();
         }
         {
             const auto menus = make_menus1();
-            const shortcut_key_table_type shortcut_key_table(
+            const shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             shortcut_key_table.details();
         }
         {
             const auto menus = make_menus1();
-            shortcut_key_table_type shortcut_key_table(
+            shortcut_key_table_type shortcut_key_table{
                 boost::make_indirect_iterator(menus.begin()), boost::make_indirect_iterator(menus.end())
-            );
+            };
 
             shortcut_key_table.details();
         }

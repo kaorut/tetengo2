@@ -45,18 +45,20 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture(dimension_type(width_type(123), height_type(456)));
+            const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
         }
         {
-            picture_type::details_ptr_type p_details(
-                tetengo2::detail::stub::drawing::create_picture(dimension_type(width_type(123), height_type(456)))
-            );
-            const picture_type picture2(std::move(p_details));
+            picture_type::details_ptr_type p_details{
+                tetengo2::detail::stub::drawing::create_picture(
+                    dimension_type{ width_type{ 123 }, height_type{ 456 } }
+                )
+            };
+            const picture_type picture2{ std::move(p_details) };
         }
         {
             picture_type::details_ptr_type p_details;
 
-            BOOST_CHECK_THROW(picture_type picture(std::move(p_details)), std::invalid_argument);
+            BOOST_CHECK_THROW(picture_type picture{ std::move(p_details) }, std::invalid_argument);
         }
     }
 
@@ -64,9 +66,9 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const picture_type picture(dimension_type(width_type(123), height_type(456)));
+        const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
 
-        BOOST_CHECK(picture.dimension() == dimension_type(width_type(123), height_type(456)));
+        BOOST_CHECK(picture.dimension() == dimension_type(width_type{ 123 }, height_type{ 456 }));
     }
 
     BOOST_AUTO_TEST_CASE(details)
@@ -74,12 +76,12 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture(dimension_type(width_type(123), height_type(456)));
+            const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
 
             picture.details();
         }
         {
-            picture_type picture(dimension_type(width_type(123), height_type(456)));
+            picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
 
             picture.details();
         }

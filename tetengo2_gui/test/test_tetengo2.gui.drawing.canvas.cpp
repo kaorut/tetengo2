@@ -89,7 +89,7 @@ namespace
     {
         concrete_canvas0()
         :
-        canvas_type(canvas_details_ptr_type())
+        canvas_type(canvas_details_ptr_type{})
         {}
 
 
@@ -102,20 +102,20 @@ namespace
     position_type make_position(const Int x, const Int y)
     {
         return
-            position_type(
-                tetengo2::gui::position<position_type>::left_type(x),
-                tetengo2::gui::position<position_type>::top_type(y)
-            );
+            {
+                tetengo2::gui::position<position_type>::left_type{ x },
+                tetengo2::gui::position<position_type>::top_type{ y }
+            };
     }
 
     template <typename Int>
     dimension_type make_dimension(const Int w, const Int h)
     {
         return
-            dimension_type(
-                tetengo2::gui::dimension<dimension_type>::width_type(w),
-                tetengo2::gui::dimension<dimension_type>::height_type(h)
-            );
+            {
+                tetengo2::gui::dimension<dimension_type>::width_type{ w },
+                tetengo2::gui::dimension<dimension_type>::height_type{ h }
+            };
     }
 
 
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_canvas canvas;
+            const concrete_canvas canvas{};
         }
         {
             BOOST_CHECK_THROW(const concrete_canvas0 canvas, std::invalid_argument);
@@ -144,9 +144,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.begin_transaction(make_dimension(123U, 456U));
         canvas.end_transaction();
     }
 
@@ -154,9 +154,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        canvas.begin_transaction(make_dimension(123, 456));
+        canvas.begin_transaction(make_dimension(123U, 456U));
         canvas.end_transaction();
     }
 
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        const concrete_canvas canvas{};
 
         const auto& color = canvas.color();
 
@@ -175,9 +175,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        color_type color(12, 34, 56, 78);
+        color_type color{ 12, 34, 56, 78 };
         canvas.set_color(std::move(color));
 
         BOOST_CHECK(canvas.color() == color);
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        const concrete_canvas canvas{};
 
         const auto& background = canvas.background();
         const auto* const p_solid_background = dynamic_cast<const solid_background_type*>(&background);
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         canvas.set_background(tetengo2::stdalt::make_unique<const transparent_background_type>());
 
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        const concrete_canvas canvas{};
 
         const auto line_width = canvas.line_width();
 
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         canvas.set_line_width(42);
 
@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        const concrete_canvas canvas{};
 
         const auto line_style = canvas.line_style();
 
@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         canvas.set_line_style(canvas_type::line_style_type::dashed);
 
@@ -255,7 +255,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        const concrete_canvas canvas{};
 
         const auto& font = canvas.font();
 
@@ -266,13 +266,13 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        font_type font(string_type(TETENGO2_TEXT("AnotherFont")), 42, true, true, true, true);
+        font_type font{ string_type{ TETENGO2_TEXT("AnotherFont") }, 42, true, true, true, true };
         canvas.set_font(std::move(font));
 
         BOOST_CHECK(
-            canvas.font() == font_type(string_type(TETENGO2_TEXT("AnotherFont")), 42, true, true, true, true)
+            canvas.font() == font_type(string_type{ TETENGO2_TEXT("AnotherFont") }, 42, true, true, true, true)
         );
     }
 
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         canvas.draw_line(make_position(12, 34), make_position(56, 78));
     }
@@ -289,25 +289,25 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        canvas.draw_focus_indication(make_position(12, 34), make_dimension(56, 78));
+        canvas.draw_focus_indication(make_position(12, 34), make_dimension(56U, 78U));
     }
 
     BOOST_AUTO_TEST_CASE(fill_rectangle)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        canvas.fill_rectangle(make_position(12, 34), make_dimension(56, 78));
+        canvas.fill_rectangle(make_position(12, 34), make_dimension(56U, 78U));
     }
 
     BOOST_AUTO_TEST_CASE(draw_polygon)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         const std::vector<position_type> positions{
             make_position(12, 34), make_position(56, 78), make_position(90, 12)
@@ -320,7 +320,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
         const std::vector<position_type> positions{
             make_position(12, 34), make_position(56, 78), make_position(90, 12)
@@ -334,25 +334,25 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_canvas canvas;
+            const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
+            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
+            BOOST_CHECK(dimension == make_dimension(width_type{ 123 }, height_type{ 456 }));
         }
         {
-            const concrete_canvas canvas;
+            const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")), width_type(256));
+            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, width_type{ 256 });
 
-            BOOST_CHECK(dimension == make_dimension(width_type(123), height_type(456)));
+            BOOST_CHECK(dimension == make_dimension(width_type{ 123 }, height_type{ 456 }));
         }
         {
-            const concrete_canvas canvas;
+            const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")), width_type(64));
+            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, width_type{ 64 });
 
-            BOOST_CHECK(dimension == make_dimension(width_type(46), height_type(890)));
+            BOOST_CHECK(dimension == make_dimension(width_type{ 46 }, height_type{ 890 }));
         }
     }
 
@@ -361,19 +361,19 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
-            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), 56.78);
+            canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), 56.78);
         }
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
-            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), width_type(256), 56.78);
+            canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), width_type{ 256 }, 56.78);
         }
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
-            canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), make_position(12, 34), width_type(64), 56.78);
+            canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), width_type{ 64 }, 56.78);
         }
     }
 
@@ -382,15 +382,15 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
-            const picture_type picture(make_dimension(123, 456));
-            canvas.paint_picture(picture, make_position(12, 34), make_dimension(56, 78));
+            const picture_type picture{ make_dimension(123U, 456U) };
+            canvas.paint_picture(picture, make_position(12, 34), make_dimension(56U, 78U));
         }
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
-            const picture_type picture(make_dimension(123, 456));
+            const picture_type picture{ make_dimension(123U, 456U) };
             canvas.paint_picture(picture, make_position(12, 34));
         }
     }
@@ -399,9 +399,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_canvas canvas;
+        concrete_canvas canvas{};
 
-        const icon_type icon(path_type(TETENGO2_TEXT("hoge.ico")));
+        const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
         canvas.paint_icon(icon, make_position(12, 34));
     }
 
@@ -410,12 +410,12 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_canvas canvas;
+            const concrete_canvas canvas{};
 
             canvas.details();
         }
         {
-            concrete_canvas canvas;
+            concrete_canvas canvas{};
 
             canvas.details();
         }

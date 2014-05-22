@@ -45,24 +45,24 @@ BOOST_AUTO_TEST_SUITE(label)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        const label_type label(parent);
+        window_type parent{};
+        const label_type label{ parent };
     }
 
     BOOST_AUTO_TEST_CASE(fit_to_content)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        label_type label(parent);
-        label.set_text(string_type(TETENGO2_TEXT("Tetengo")));
+        window_type parent{};
+        label_type label{ parent };
+        label.set_text(string_type{ TETENGO2_TEXT("Tetengo") });
 
         label.fit_to_content();
 
         const auto dimension = label.dimension();
 
         const auto answer_dimension =
-            label.create_canvas()->calc_text_dimension(string_type(TETENGO2_TEXT("Tetengo")));
+            label.create_canvas()->calc_text_dimension(string_type{ TETENGO2_TEXT("Tetengo") });
         BOOST_CHECK(dimension == answer_dimension);
     }
 
@@ -70,11 +70,11 @@ BOOST_AUTO_TEST_SUITE(label)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        label_type label(parent);
-        label.set_text(string_type(TETENGO2_TEXT("Tetengo")));
+        window_type parent{};
+        label_type label{ parent };
+        label.set_text(string_type{ TETENGO2_TEXT("Tetengo") });
 
-        label.fit_to_content(width_type(42));
+        label.fit_to_content(width_type{ 42 });
     }
 
 
