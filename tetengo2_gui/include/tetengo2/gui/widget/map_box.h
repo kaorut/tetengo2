@@ -377,13 +377,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             static const width_type& width()
             {
-                static const width_type singleton(width_type(1) / 2);
+                static const width_type singleton{ width_type{ 1 } / 2 };
                 return singleton;
             }
 
             static const left_type& min_left()
             {
-                static const left_type singleton(4);
+                static const left_type singleton{ 4 };
                 return singleton;
             }
 
@@ -393,7 +393,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                static const width_type splitter_width(width_type(1) / 2);
+                static const width_type splitter_width{ width_type{ 1 } / 2 };
 
                 adjust_position(this->template parent_to<map_box>().m_splitter_position);
                 this->set_position(
@@ -497,7 +497,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto top =
                     gui::position<position_type>::top(this->position()) - scroll_bar_position * scroll_bar_size_unit();
 
-                return position_type(std::move(left), std::move(top));
+                return { std::move(left), std::move(top) };
             }
 
 
@@ -527,8 +527,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                height_type key_text_height(0);
-                height_type mapped_text_height(0);
+                height_type key_text_height{ 0 };
+                height_type mapped_text_height{ 0 };
                 {
                     const auto p_canvas = this->parent().create_canvas();
                     key_text_height =
@@ -616,7 +616,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto left = gui::position<position_type>::left(position_to_paint_) + left_type::from(padding_width());
                 auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
-                return position_type(std::move(left), std::move(top));
+                return { std::move(left), std::move(top) };
             }
 
             position_type mapped_text_position(const position_type& position_to_paint_)
@@ -628,7 +628,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     left_type::from(padding_width());
                 auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
-                return position_type(std::move(left), std::move(top));
+                return { std::move(left), std::move(top) };
             }
 
             width_type key_text_max_width()
@@ -957,7 +957,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return 0;
 
             const auto client_height = gui::dimension<dimension_type>::height(this->client_dimension());
-            height_type height(0);
+            height_type height{ 0 };
             std::ptrdiff_t count = 0;
             for (
                 std::ptrdiff_t i = *m_selected_value_index;
@@ -977,7 +977,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_value_item_positions()
         {
-            top_type top(0);
+            top_type top{ 0 };
             for (const auto& p_value_item: m_p_value_items)
             {
                 p_value_item->set_position(position_type(left_type(0), top));
@@ -996,7 +996,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     top_type::from_pixels(this->vertical_scroll_bar().tracking_position()) * scroll_bar_size_unit();
             }
 
-            return position_type(left, adjusted_top);
+            return { left, adjusted_top };
         }
 
         void update_scroll_bar()

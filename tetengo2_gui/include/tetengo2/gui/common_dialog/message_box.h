@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style ok(const bool cancellable)
             {
-                return button_style(style_type::ok, cancellable, boost::none, boost::none);
+                return { style_type::ok, cancellable, boost::none, boost::none };
             }
 
             /*!
@@ -71,12 +71,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             static button_style ok(const bool cancellable, string_type ok_button_label)
             {
                 return
-                    button_style(
+                    {
                         style_type::ok,
                         cancellable,
                         boost::make_optional(std::move(ok_button_label)),
                         boost::none
-                    );
+                    };
             }
 
             /*!
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             */
             static button_style yes_no(const bool cancellable)
             {
-                return button_style(style_type::yes_no, cancellable, boost::none, boost::none);
+                return { style_type::yes_no, cancellable, boost::none, boost::none };
             }
 
             /*!

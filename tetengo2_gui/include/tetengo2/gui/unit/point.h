@@ -52,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename V>
         static point from(const point<V, unit_details_type>& another)
         {
-            return point(cast<value_type>(another.value()));
+            return point{ cast<value_type>(another.value()) };
         }
 
         /*!
@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static point from_pixels(const PixelValue value)
         {
-            return point(unit_details_type::template pixels_to_points<value_type>(value));
+            return point{ unit_details_type::template pixels_to_points<value_type>(value) };
         }
 
 
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         point& add(const value_type& another)
         {
-            point temp(*this);
+            point temp{ *this };
 
             temp.m_value += another;
 
@@ -154,7 +154,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         point& subtract(const value_type& another)
         {
-            point temp(*this);
+            point temp{ *this };
 
             temp.m_value -= another;
 
@@ -171,7 +171,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         point& multiply(const value_type& another)
         {
-            point temp(*this);
+            point temp{ *this };
 
             temp.m_value *= another;
 
@@ -188,7 +188,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         point& divide_by(const value_type& another)
         {
-            point temp(*this);
+            point temp{ *this };
 
             temp.m_value /= another;
 

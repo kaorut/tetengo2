@@ -42,11 +42,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& title_bar_background()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::title_bar_background
                 )
-            );
+            };
             return singleton;
         }
 
@@ -57,11 +57,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& title_bar_text()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::title_bar_text
                 )
-            );
+            };
             return singleton;
         }
 
@@ -72,11 +72,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& dialog_background()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::dialog_background
                 )
-            );
+            };
             return singleton;
         }
 
@@ -87,11 +87,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& control_background()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::control_background
                 )
-            );
+            };
             return singleton;
         }
 
@@ -102,11 +102,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& control_text()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::control_text
                 )
-            );
+            };
             return singleton;
         }
 
@@ -117,11 +117,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& selected_background()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::selected_background
                 )
-            );
+            };
             return singleton;
         }
 
@@ -132,11 +132,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& selected_text()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::selected_text
                 )
-            );
+            };
             return singleton;
         }
 
@@ -147,11 +147,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& hyperlink_text()
         {
-            static const color_type singleton(
+            static const color_type singleton{
                 system_color_details_type::template get_system_color<color_type>(
                     system_color_details_type::system_color_index_type::hyperlink_text
                 )
-            );
+            };
             return singleton;
         }
 
