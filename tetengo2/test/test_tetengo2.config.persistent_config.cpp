@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
         persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
 
-        config.set(string_type{ TETENGO2_TEXT("foo") }, value_type(4242));
+        config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
     }
 
     

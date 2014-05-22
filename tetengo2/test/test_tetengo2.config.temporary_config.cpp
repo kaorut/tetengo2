@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
-                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
             const temporary_config_type config{ values.begin(), values.end() };
         }
@@ -59,8 +59,8 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         BOOST_TEST_PASSPOINT();
 
         const std::vector<std::pair<string_type, value_type>> values{
-            { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
-            { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
+            { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+            { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
         const temporary_config_type config{ values.begin(), values.end() };
 
@@ -86,12 +86,12 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
 
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
-                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
             temporary_config_type config{ values.begin(), values.end() };
 
-            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type(4242));
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
 
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
             BOOST_REQUIRE(value);
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{
-                { string_type{ TETENGO2_TEXT("foo") }, value_type(string_type{ TETENGO2_TEXT("hoge") }) },
-                { string_type{ TETENGO2_TEXT("bar") }, value_type(42) }
+                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
             temporary_config_type config{ values.begin(), values.end() };
 

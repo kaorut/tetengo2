@@ -36,8 +36,8 @@ namespace
         {
             return
                 key == string_type{ TETENGO2_TEXT("foo") } ?
-                boost::make_optional(value_type(string_type{ TETENGO2_TEXT("hoge") })) :
-                boost::make_optional(value_type(42));
+                boost::make_optional(value_type{ string_type{ TETENGO2_TEXT("hoge") } }) :
+                boost::make_optional(value_type{ 42 });
         }
 
         virtual void set_impl(const string_type& key, value_type value)

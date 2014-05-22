@@ -142,10 +142,10 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             const messages_type messages{ boost::filesystem::path{ "messages.test" }, std::locale{} };
 
-            BOOST_CHECK_THROW(messages_type(boost::filesystem::path(""), std::locale()), std::ios_base::failure);
+            BOOST_CHECK_THROW(messages_type(boost::filesystem::path{ "" }, std::locale{}), std::ios_base::failure);
 
             BOOST_CHECK_THROW(
-                messages_type(boost::filesystem::path("messages.test") / "English.txt", std::locale()),
+                messages_type(boost::filesystem::path{ "messages.test" } / "English.txt", std::locale{}),
                 std::ios_base::failure
             );
         }

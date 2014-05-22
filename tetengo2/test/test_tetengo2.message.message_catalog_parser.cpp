@@ -100,8 +100,8 @@ namespace
 
         auto p_push_parser =
             tetengo2::stdalt::make_unique<push_parser_type>(
-                input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
-                input_stream_iterator_type(std::istreambuf_iterator<char>()),
+                input_stream_iterator_type{ std::istreambuf_iterator < char > {input} },
+                input_stream_iterator_type{ std::istreambuf_iterator < char > {} },
                 std::move(p_grammar)
             );
 
