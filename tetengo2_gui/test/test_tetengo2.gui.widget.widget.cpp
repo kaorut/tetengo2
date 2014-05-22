@@ -64,7 +64,7 @@ namespace
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none
         )
         :
-        widget_type(scroll_bar_style, message_handler_map_type()),
+        widget_type(scroll_bar_style, message_handler_map_type{}),
         m_p_details(
             tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
                 p_parent,
@@ -74,7 +74,7 @@ namespace
                 std::make_pair(0, 0),
                 std::make_pair(1, 1),
                 string_type{},
-                details_font_type(string_type{}, 12, false, false, false, false),
+                details_font_type{ string_type{}, 12, false, false, false, false },
                 std::vector<void*>(),
                 false,
                 false,
@@ -112,14 +112,14 @@ namespace
     {
         using left_type = tetengo2::gui::position<position_type>::left_type;
         using top_type = tetengo2::gui::position<position_type>::top_type;
-        return position_type(left_type(left), top_type(top));
+        return { left_type{ left }, top_type{ top } };
     }
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
         using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
         using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
-        return dimension_type(width_type(width), height_type(height));
+        return { width_type{ width }, height_type{ height } };
     }
 
 }

@@ -35,7 +35,7 @@ namespace
     {
         using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
         using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
-        return dimension_type(width_type(width), height_type(height));
+        return { width_type{ width }, height_type{ height } };
     }
 
 

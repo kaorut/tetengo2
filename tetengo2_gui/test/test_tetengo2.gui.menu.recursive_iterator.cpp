@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
             ++iterator;
             BOOST_CHECK(iterator->text() == string_type{ TETENGO2_TEXT("3") });
             ++iterator;
-            BOOST_CHECK(iterator == iterator_type());
+            BOOST_CHECK(iterator == iterator_type{});
         }
     }
 

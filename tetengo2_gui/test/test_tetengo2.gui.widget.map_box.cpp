@@ -49,7 +49,7 @@ namespace
     template <typename T, typename U>
     value_type make_value(const T& key, const U& mapped)
     {
-        return value_type(key_type(key), mapped_type(mapped));
+        return { key_type{ key }, mapped_type{ mapped } };
     }
 
 
@@ -258,11 +258,11 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         window_type parent;
         map_box_type map_box(parent);
-        map_box.set_dimension(dimension_type(width_type(42), height_type(24)));
+        map_box.set_dimension(dimension_type{ width_type{ 42 }, height_type{ 24 } });
 
-        map_box.set_splitter_position(left_type(24));
+        map_box.set_splitter_position(left_type{ 24 });
 
-        BOOST_CHECK(map_box.splitter_position() == left_type(24));
+        BOOST_CHECK(map_box.splitter_position() == left_type{ 24 });
     }
 
     BOOST_AUTO_TEST_CASE(list_selection_observer_set)

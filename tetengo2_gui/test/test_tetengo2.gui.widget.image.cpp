@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(image)
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension(width_type(123), height_type(456));
+            const dimension_type answer_dimension(width_type{ 123 }, height_type{ 456 });
             BOOST_CHECK(dimension == answer_dimension);
         }
         {
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_SUITE(image)
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension(width_type(42), height_type(42));
+            const dimension_type answer_dimension(width_type{ 42 }, height_type{ 42 });
             BOOST_CHECK(dimension == answer_dimension);
         }
     }

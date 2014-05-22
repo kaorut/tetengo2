@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         window_type parent;
         side_bar_type side_bar(parent);
 
-        side_bar.set_width(width_type(42));
+        side_bar.set_width(width_type{ 42 });
     }
 
     BOOST_AUTO_TEST_CASE(minimized)
