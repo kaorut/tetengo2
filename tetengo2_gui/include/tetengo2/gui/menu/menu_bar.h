@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         menu_bar()
         :
-        base_type(string_type(), menu_details_type::create_menu_bar()),
+        base_type(string_type{}, menu_details_type::create_menu_bar()),
         m_p_shortcut_key_table(stdalt::make_unique<shortcut_key_table_type>())
         {}
 

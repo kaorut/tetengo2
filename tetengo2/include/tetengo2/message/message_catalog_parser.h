@@ -255,7 +255,7 @@ namespace tetengo2 { namespace message
         }
 
         template <typename Structure>
-        bool next_is(const input_string_type& name, const input_string_type& attribute = input_string_type())
+        bool next_is(const input_string_type& name, const input_string_type& attribute = {})
         const
         {
             if (!m_p_pull_parser->has_next())
@@ -295,9 +295,9 @@ namespace tetengo2 { namespace message
             const typename attribute_map_type::const_iterator found =
                 structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
-                return input_string_type();
+                return {};
             if (found->second.which() != 4)
-                return input_string_type();
+                return {};
             
             return boost::get<input_string_type>(found->second);
         }

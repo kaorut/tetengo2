@@ -46,7 +46,7 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         separator()
         :
-        base_type(string_type(), menu_details_type::create_menu())
+        base_type(string_type{}, menu_details_type::create_menu())
         {}
 
         /*!
