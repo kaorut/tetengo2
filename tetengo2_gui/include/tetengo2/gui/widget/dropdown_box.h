@@ -123,7 +123,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             return widget_details_type::template dropdown_box_value<string_type>(*this, index, widget_type::encoder());
         }
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_value(const int_size_type index, string_type value)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::set_dropdown_box_value(*this, index, std::move(value), widget_type::encoder());
         }
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void insert_value(const int_size_type index, string_type value)
         {
             if (index > value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::insert_dropdown_box_value(*this, index, std::move(value), widget_type::encoder());
         }
@@ -170,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void erase_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::erase_dropdown_box_value(*this, index);
         }
@@ -204,7 +204,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void select_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::select_dropdown_box_value(*this, index);
         }

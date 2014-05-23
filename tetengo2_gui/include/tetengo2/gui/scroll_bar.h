@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui
         {
             const auto r = range();
             if (position < r.first || r.second < position)
-                BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "The position is outside the range." });
 
             details_type::set_position(*m_p_details, position);
         }
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui
         void set_range(range_type range)
         {
             if (range.first > range.second)
-                BOOST_THROW_EXCEPTION(std::out_of_range("Reversed range is not allowed."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "Reversed range is not allowed." });
 
             details_type::set_range(*m_p_details, std::move(range));
         }
@@ -224,7 +224,7 @@ namespace tetengo2 { namespace gui
                 return details_type::style_type::horizontal;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid style." });
             }
         }
 

@@ -165,7 +165,7 @@ namespace tetengo2 { namespace gui { namespace menu
         override
         {
             if (!p_menu)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The unique pointer to a menu is nullptr."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The unique pointer to a menu is nullptr." });
 
             menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
 

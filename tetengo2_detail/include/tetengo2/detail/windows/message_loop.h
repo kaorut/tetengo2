@@ -61,9 +61,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 else if (result == -1)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Win32 Message Loop Error"
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() }, "Win32 Message Loop Error"
+                        }
                     );
                 }
 
@@ -106,9 +106,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 else if (result == -1)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Win32 Message Loop Error"
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() }, "Win32 Message Loop Error"
+                        }
                     );
                 }
 

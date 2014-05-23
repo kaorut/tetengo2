@@ -135,13 +135,13 @@ namespace tetengo2 { namespace detail { namespace windows
             if (is_default)
             {
                 if (::GetDlgItem(parent.root_ancestor().details().handle.get(), IDOK))
-                    BOOST_THROW_EXCEPTION(std::invalid_argument("Default button already exists."));
+                    BOOST_THROW_EXCEPTION(std::invalid_argument{ "Default button already exists." });
                 id = reinterpret_cast< ::HMENU>(IDOK);
             }
             else if (is_cancel)
             {
                 if (::GetDlgItem(parent.root_ancestor().details().handle.get(), IDCANCEL))
-                    BOOST_THROW_EXCEPTION(std::invalid_argument("Cancel button already exists."));
+                    BOOST_THROW_EXCEPTION(std::invalid_argument{ "Cancel button already exists." });
                 id = reinterpret_cast< ::HMENU>(IDCANCEL);
             }
 
@@ -164,7 +164,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a button!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a button!"
+                    }
                 );
             }
 
@@ -197,9 +199,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get the instance handle!"
+                    }
                 );
             }
 
@@ -226,9 +228,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a custom control!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a custom control!"
+                    }
                 );
             }
 
@@ -254,9 +256,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get the instance handle!"
+                    }
                 );
             }
 
@@ -285,7 +287,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a dialog!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a dialog!"
+                    }
                 );
             }
 
@@ -332,9 +336,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a dropdown box!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a dropdown box!"
+                    }
                 );
             }
 
@@ -376,7 +380,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create an image!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create an image!"
+                    }
                 );
             }
 
@@ -418,7 +424,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a label!")
+                    std::system_error{ std::error_code{ ::GetLastError(), win32_category() }, "Can't create a label!" }
                 );
             }
 
@@ -468,7 +474,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a list box!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a list box!"
+                    }
                 );
             }
 
@@ -499,9 +507,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get the instance handle!"
+                    }
                 );
             }
 
@@ -527,9 +535,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a picture box!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a picture box!"
+                    }
                 );
             }
 
@@ -577,7 +585,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a text box!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a text box!"
+                    }
                 );
             }
 
@@ -610,9 +620,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get the instance handle!"
+                    }
                 );
             }
 
@@ -641,7 +651,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a window!"
+                    }
                 );
             }
 
@@ -674,7 +686,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set C++ instance.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set C++ instance."
+                    }
                 );
             }
         }
@@ -713,7 +727,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!parent_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "The widget has no parent.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "The widget has no parent."
+                    }
                 );
             }
 
@@ -740,9 +756,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!root_ancestor_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "The widget has no root ancestor."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "The widget has no root ancestor."
+                    }
                 );
             }
 
@@ -877,9 +893,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get window placement."
+                    }
                 );
             }
 
@@ -889,9 +905,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set window placement."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set window placement."
+                    }
                 );
             }
         }
@@ -961,7 +977,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move the widget.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't move the widget."
+                    }
                 );
             }
         }
@@ -985,9 +1003,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::GetWindowRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get window rectangle."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get window rectangle."
+                    }
                 );
             }
 
@@ -1022,10 +1040,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::ClientToScreen(const_cast< ::HWND>(parent.details().handle.get()), &point) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
                         "Can't get parent window client area position."
-                    )
+                    }
                 );
             }
             point.x += x_margin;
@@ -1037,9 +1055,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get monitor information."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't get monitor information."
+                    }
                 );
             }
 
@@ -1082,9 +1100,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::GetWindowRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get window rectangle."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get window rectangle."
+                    }
                 );
             }
 
@@ -1136,9 +1154,9 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't adjust window rectangle."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't adjust window rectangle."
+                    }
                 );
             }
 
@@ -1156,7 +1174,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move window.")
+                    std::system_error{ std::error_code{ ::GetLastError(), win32_category() }, "Can't move window." }
                 );
             }
         }
@@ -1180,9 +1198,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::GetClientRect(const_cast< ::HWND>(widget.details().handle.get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get client rectangle."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get client rectangle."
+                    }
                 );
             }
 
@@ -1217,9 +1235,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get window placement."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get window placement."
+                    }
                 );
             }
 
@@ -1255,7 +1273,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set text!")
+                    std::system_error{ std::error_code{ ::GetLastError(), win32_category() }, "Can't set text!" }
                 );
             }
         }
@@ -1327,7 +1345,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!font_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't create font.")
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't create font."
+                    }
                 );
             }
             ::SendMessageW(
@@ -1340,9 +1360,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (previous_font_handle && ::DeleteObject(previous_font_handle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't delete previous font."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't delete previous font."
+                    }
                 );
             }
         }
@@ -1376,7 +1396,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (byte_count == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get log font.")
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't get log font."
+                    }
                 );
             }
 
@@ -1433,10 +1455,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (::UpdateWindow(widget.details().handle.get()) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
+                        std::system_error{
+                            std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
                             "Can't repaint a widget immediately."
-                        )
+                        }
                     );
                 }
             }
@@ -1445,9 +1467,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (::InvalidateRect(widget.details().handle.get(), nullptr, FALSE) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
-                        )
+                        std::system_error{
+                            std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't repaint a widget."
+                        }
                     );
                 }
             }
@@ -1477,9 +1499,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't repaint a widget."
+                    }
                 );
             }
         }
@@ -1572,14 +1594,18 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set a menu bar.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set a menu bar."
+                    }
                 );
             }
 
             if (menu && ::DrawMenuBar(widget.details().handle.get()) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't draw the menu bar.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't draw the menu bar."
+                    }
                 );
             }
         }
@@ -1603,9 +1629,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get focusable status."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get focusable status."
+                    }
                 );
             }
             return (style & WS_TABSTOP) != 0;
@@ -1628,9 +1654,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get focusable status."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get focusable status."
+                    }
                 );
             }
 
@@ -1644,9 +1670,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::SetWindowLongW(widget.details().handle.get(), GWL_STYLE, style) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set focusable status."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set focusable status."
+                    }
                 );
             }
         }
@@ -1662,7 +1688,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (::SetFocus(widget.details().handle.get()) == nullptr)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set focus.")
+                    std::system_error{ std::error_code{ ::GetLastError(), win32_category() }, "Can't set focus." }
                 );
             }
         }
@@ -1686,9 +1712,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get read-only status."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get read-only status."
+                    }
                 );
             }
             return (style & ES_READONLY) != 0;
@@ -1712,9 +1738,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set read-only status."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set read-only status."
+                    }
                 );
             }
         }
@@ -1735,7 +1761,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't close the widget.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't close the widget."
+                    }
                 );
             }
         }
@@ -1759,10 +1787,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't obtain the dropdown box value count."
-                    )
+                    }
                 );
             }
 
@@ -1792,10 +1820,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't obtain the dropdown box value length."
-                    )
+                    }
                 );
             }
 
@@ -1810,9 +1838,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (length == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropdown box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain the dropdown box value."
+                    }
                 );
             }
 
@@ -1879,9 +1907,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == CB_ERR || result == CB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't append a dropdown box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't append a dropdown box value."
+                    }
                 );
             }
         }
@@ -1904,9 +1932,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't delete the old value."
+                    }
                 );
             }
         }
@@ -1963,9 +1991,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == CB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't select a dropdown box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't select a dropdown box value."
+                    }
                 );
             }
         }
@@ -1989,9 +2017,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value count."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain the list box value count."
+                    }
                 );
             }
 
@@ -2021,9 +2049,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (length == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value length."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
+                        "Can't obtain the list box value length."
+                    }
                 );
             }
 
@@ -2038,9 +2067,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (length == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain the list box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain the list box value."
+                    }
                 );
             }
 
@@ -2097,9 +2126,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == LB_ERR || result == LB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't append a list box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't append a list box value."
+                    }
                 );
             }
         }
@@ -2122,9 +2151,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete the old value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't delete the old value."
+                    }
                 );
             }
         }
@@ -2181,9 +2210,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == LB_ERR)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't select a list box value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't select a list box value."
+                    }
                 );
             }
         }
@@ -2283,10 +2312,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't register a window class for a custom control!"
-                    )
+                    }
                 );
             }
         }
@@ -2317,10 +2346,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't register a window class for a dialog!"
-                    )
+                    }
                 );
             }
         }
@@ -2351,10 +2380,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't register a window class for a picture box!"
-                    )
+                    }
                 );
             }
         }
@@ -2395,10 +2424,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() },
                         "Can't register a window class for a window!"
-                    )
+                    }
                 );
             }
         }
@@ -2418,7 +2447,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return WS_HSCROLL | WS_VSCROLL;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll bar style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid scroll bar style." });
             }
         }
 
@@ -2435,9 +2464,9 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't delete system menu value."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't delete system menu value."
+                    }
                 );
             }
         }
@@ -2520,9 +2549,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't replace window procedure."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't replace window procedure."
+                    }
                 );
             }
 

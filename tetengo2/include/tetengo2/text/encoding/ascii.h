@@ -128,7 +128,7 @@ namespace tetengo2 { namespace text { namespace encoding
         static pivot_char_type from_ascii(const string_char_type ascii_char)
         {
             if (ascii_char < 0)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Not ASCII code."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Not ASCII code." });
 
             return ascii_char;
         }

@@ -100,7 +100,7 @@ namespace
     {
         tetengo2::suppress_unused_variable_warning(channel);
 
-        BOOST_THROW_EXCEPTION(std::runtime_error("test exception"));
+        BOOST_THROW_EXCEPTION(std::runtime_error{ "test exception" });
     }
 
     using producer_type = tetengo2::concurrent::producer<channel_type>;

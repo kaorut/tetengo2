@@ -226,7 +226,7 @@ namespace tetengo2 { namespace text { namespace encoding
             {
                 const auto result = converter.unshift(state, p_string_first, p_string_last, p_string_next);
                 if (result == converter_type::error)
-                    BOOST_THROW_EXCEPTION(std::invalid_argument("Can't unshift the string."));
+                    BOOST_THROW_EXCEPTION(std::invalid_argument{ "Can't unshift the string." });
 
                 if (result == converter_type::ok || result == converter_type::noconv)
                     break;

@@ -171,9 +171,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!device_context)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get the desktop device context."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get the desktop device context."
+                    }
                 );
             }
             BOOST_SCOPE_EXIT((device_context))

@@ -334,7 +334,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(result, win32_category()), "Can't show a message box.")
+                    std::system_error{ std::error_code{ result, win32_category() }, "Can't show a message box." }
                 );
             }
 
@@ -372,9 +372,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(creation_result, win32_category()), "Can't create a file open dialog."
-                    )
+                    std::system_error{
+                        std::error_code{ creation_result, win32_category() }, "Can't create a file open dialog."
+                    }
                 );
             }
             detail::file_open_dialog_ptr_type p_dialog{ p_raw_dialog };
@@ -411,7 +411,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
+                    std::system_error{ std::error_code{ title_set_result, win32_category() }, "Can't set title." }
                 );
             }
 
@@ -422,10 +422,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(default_extension_set_result, win32_category()),
+                        std::system_error{
+                            std::error_code{ default_extension_set_result, win32_category() },
                             "Can't set default extension."
-                        )
+                        }
                     );
                 }
             }
@@ -436,9 +436,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(filter_set_result, win32_category()), "Can't set file type filter."
-                    )
+                    std::system_error{
+                        std::error_code{ filter_set_result, win32_category() }, "Can't set file type filter."
+                    }
                 );
             }
 
@@ -451,7 +451,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
+                    std::system_error{ std::error_code{ result_result, win32_category() }, "Can't get the result." }
                 );
             }
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
@@ -461,7 +461,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
+                    std::system_error{
+                        std::error_code{ file_title_result, win32_category() }, "Can't get the file path."
+                    }
                 );
             }
             BOOST_SCOPE_EXIT((file_name))
@@ -506,9 +508,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(creation_result, win32_category()), "Can't create a file save dialog."
-                    )
+                    std::system_error{
+                        std::error_code{ creation_result, win32_category() }, "Can't create a file save dialog."
+                    }
                 );
             }
             detail::file_save_dialog_ptr_type p_dialog{ p_raw_dialog };
@@ -547,7 +549,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(title_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(title_set_result, win32_category()), "Can't set title.")
+                    std::system_error{ std::error_code{ title_set_result, win32_category() }, "Can't set title." }
                 );
             }
 
@@ -559,9 +561,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (FAILED(default_path_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(default_path_result, win32_category()), "Can't create default path item."
-                        )
+                        std::system_error{
+                            std::error_code{ default_path_result, win32_category() }, "Can't create default path item."
+                        }
                     );
                 }
             }
@@ -576,9 +578,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (FAILED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(default_path_set_result, win32_category()), "Can't set default path."
-                        )
+                        std::system_error{
+                            std::error_code{ default_path_set_result, win32_category() }, "Can't set default path."
+                        }
                     );
                 }
             }
@@ -590,10 +592,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (FAILED(default_extension_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(default_extension_set_result, win32_category()),
+                        std::system_error{
+                            std::error_code{ default_extension_set_result, win32_category() },
                             "Can't set default extension."
-                        )
+                        }
                     );
                 }
             }
@@ -604,9 +606,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(filter_set_result, win32_category()), "Can't set file type filters."
-                    )
+                    std::system_error{
+                        std::error_code{ filter_set_result, win32_category() }, "Can't set file type filters."
+                    }
                 );
             }
 
@@ -617,9 +619,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (FAILED(filter_index_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(filter_set_result, win32_category()), "Can't set file type filter index."
-                        )
+                        std::system_error{
+                            std::error_code{ filter_set_result, win32_category() }, "Can't set file type filter index."
+                        }
                     );
                 }
             }
@@ -633,7 +635,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
+                    std::system_error{ std::error_code{ result_result, win32_category() }, "Can't get the result." }
                 );
             }
             const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
@@ -643,7 +645,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (FAILED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(file_title_result, win32_category()), "Can't get the file path.")
+                    std::system_error{
+                        std::error_code{ file_title_result, win32_category() }, "Can't get the file path."
+                    }
                 );
             }
             BOOST_SCOPE_EXIT((file_name))
@@ -930,7 +934,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 break;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid button style." });
             }
 
             if (cancellable)
@@ -951,7 +955,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return TD_INFORMATION_ICON;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid icon style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid icon style." });
             }
         }
 
@@ -965,7 +969,7 @@ namespace tetengo2 { namespace detail { namespace windows
             case IDNO:     return message_box_button_id_type::no;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button ID."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid button ID." });
             }
         }
 

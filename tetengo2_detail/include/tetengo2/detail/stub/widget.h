@@ -418,7 +418,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static Widget& parent(Widget& widget)
         {
             if (!has_parent(widget))
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no parent." });
 
             return *reinterpret_cast<Widget*>(widget.details().p_parent);
         }

@@ -292,7 +292,7 @@ namespace tetengo2 { namespace message
             suppress_unused_variable_warning(catalog_name, locale);
 
             if (m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("A message catalog is already open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "A message catalog is already open." });
 
             if (!m_message_catalog) return -1;
 
@@ -314,7 +314,7 @@ namespace tetengo2 { namespace message
                 return remove_namespace(default_message);
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
 
             const auto found = m_message_catalog->find(default_message);
 
@@ -327,7 +327,7 @@ namespace tetengo2 { namespace message
             if (catalog_id < 0) return;
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
 
             m_open = false;
         }

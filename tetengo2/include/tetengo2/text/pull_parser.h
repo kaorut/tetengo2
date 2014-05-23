@@ -186,7 +186,7 @@ namespace tetengo2 { namespace text
         const
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The parser has no more element." });
 
             return m_consumer.peek();
         }
@@ -199,7 +199,7 @@ namespace tetengo2 { namespace text
         void next()
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The parser has no more element." });
 
             m_consumer.take();
         }

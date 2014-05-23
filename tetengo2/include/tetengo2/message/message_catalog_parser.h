@@ -94,7 +94,7 @@ namespace tetengo2 { namespace message
         const
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No next entry." });
 
             return *m_p_preread_entry;
         }
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace message
         void next()
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No next entry." });
 
             m_p_preread_entry.reset();
         }

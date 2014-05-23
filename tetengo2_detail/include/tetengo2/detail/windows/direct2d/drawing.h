@@ -213,9 +213,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Can't get client rectangle."
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() }, "Can't get client rectangle."
+                        }
                     );
                 }
                 hwnd_props =
@@ -229,7 +229,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create HWND render target.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create HWND render target." }
                 );
             }
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
@@ -539,7 +539,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(get_metrics_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(get_metrics_hr, win32_category()), "Can't get text metrics.")
+                    std::system_error{ std::error_code{ get_metrics_hr, win32_category() }, "Can't get text metrics." }
                 );
             }
 
@@ -630,7 +630,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_bitmap_hr, direct2d_category()), "Can't create bitmap.")
+                    std::system_error{
+                        std::error_code{ create_bitmap_hr, direct2d_category() }, "Can't create bitmap."
+                    }
                 );
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
@@ -677,7 +679,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create Direct2D factory.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create Direct2D factory." }
                 );
             }
 
@@ -702,7 +704,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, win32_category()), "Can't create Direct Write factory.")
+                    std::system_error{ std::error_code{ hr, win32_category() }, "Can't create Direct Write factory." }
                 );
             }
 
@@ -807,14 +809,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (FAILED(hr))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(std::error_code(hr, direct2d_category()), "Can't create solid color brush.")
+                        std::system_error{
+                            std::error_code{ hr, direct2d_category() }, "Can't create solid color brush."
+                        }
                     );
                 }
                 return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
             assert(false);
-            BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
+            BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid background details type." });
         }
 
         static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
@@ -837,7 +841,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create stroke style.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create stroke style." }
                 );
             }
             return unique_com_ptr< ::ID2D1StrokeStyle>::type(rp_stroke_style);
@@ -857,7 +861,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return ::D2D1_DASH_STYLE_DASH_DOT;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stroke dash style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Unknown stroke dash style." });
             }
         }
 
@@ -884,7 +888,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_format_hr, win32_category()), "Can't create text format.")
+                    std::system_error{
+                        std::error_code{ create_format_hr, win32_category() }, "Can't create text format."
+                    }
                 );
             }
             const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
@@ -906,7 +912,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_layout_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_layout_hr, win32_category()), "Can't create text layout.")
+                    std::system_error{
+                        std::error_code{ create_layout_hr, win32_category() }, "Can't create text layout."
+                    }
                 );
             }
             typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout(rp_layout);

@@ -75,7 +75,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (stopped())
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't start timer.")
+                    std::system_error{ std::error_code{ ::GetLastError(), win32_category() }, "Can't start timer." }
                 );
             }
         }

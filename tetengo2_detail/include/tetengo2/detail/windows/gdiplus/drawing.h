@@ -107,7 +107,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 if (m_p_memory_graphics)
                 {
-                    BOOST_THROW_EXCEPTION(std::logic_error("Another transaction has already begun."));
+                    BOOST_THROW_EXCEPTION(std::logic_error{ "Another transaction has already begun." });
                 }
 
                 m_p_memory_image = stdalt::make_unique<Gdiplus::Bitmap>(width, height, m_p_widget_graphics.get());
@@ -119,17 +119,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 if (!m_p_memory_graphics)
                 {
-                    BOOST_THROW_EXCEPTION(std::logic_error("No transaction has begun yet."));
+                    BOOST_THROW_EXCEPTION(std::logic_error{ "No transaction has begun yet." });
                 }
 
                 const auto status = m_p_widget_graphics->DrawImage(m_p_memory_image.get(), 0, 0);
                 if (status != Gdiplus::Ok)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(status, gdiplus_category()),
+                        std::system_error{
+                            std::error_code{ status, gdiplus_category() },
                             "Can't paint the memory image to the widget surface."
-                        )
+                        }
                     );
                 }
 
@@ -413,9 +413,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (::DrawFocusRect(canvas.get().GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(Gdiplus::Win32Error, gdiplus_category()), "Can't draw a focus rectangle."
-                    )
+                    std::system_error{
+                        std::error_code{ Gdiplus::Win32Error, gdiplus_category() }, "Can't draw a focus rectangle."
+                    }
                 );
             }
         }
@@ -530,7 +530,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a polygon.")
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't fill a polygon." }
                 );
             }
         }
@@ -688,9 +688,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (set_transform_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(set_transform_status, gdiplus_category()), "Can't set transform!"
-                    )
+                    std::system_error{
+                        std::error_code{ set_transform_status, gdiplus_category() }, "Can't set transform!"
+                    }
                 );
             }
             BOOST_SCOPE_EXIT((&canvas)(&original_matrix))
@@ -710,7 +710,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (draw_string_status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(draw_string_status, gdiplus_category()), "Can't draw text!")
+                    std::system_error{ std::error_code{ draw_string_status, gdiplus_category() }, "Can't draw text!" }
                 );
             }
         }
@@ -744,9 +744,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (FAILED(get_pixel_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(get_pixel_format_hr, wic_category()), "Can't get pixel format."
-                    )
+                    std::system_error{
+                        std::error_code{ get_pixel_format_hr, wic_category() }, "Can't get pixel format."
+                    }
                 );
             }
 
@@ -756,7 +756,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (FAILED(get_size_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(get_size_hr, wic_category()), "Can't get size of picture.")
+                    std::system_error{ std::error_code{ get_size_hr, wic_category() }, "Can't get size of picture." }
                 );
             }
             const ::UINT stride = width * sizeof(Gdiplus::ARGB);
@@ -768,9 +768,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (FAILED(copy_pixels_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(copy_pixels_hr, wic_category()), "Can't copy pixels of picture."
-                    )
+                    std::system_error{
+                        std::error_code{ copy_pixels_hr, wic_category() }, "Can't copy pixels of picture."
+                    }
                 );
             }
 
@@ -786,7 +786,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't paint picture!")
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't paint picture!" }
                 );
             }
         }
@@ -822,7 +822,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(Gdiplus::Win32Error, gdiplus_category()), "Can't paint icon!")
+                    std::system_error{
+                        std::error_code{ Gdiplus::Win32Error, gdiplus_category() }, "Can't paint icon!"
+                    }
                 );
             }
         }
@@ -866,9 +868,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (fallback_level > 2)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(Gdiplus::FontFamilyNotFound, gdiplus_category()), "Font is not available."
-                    )
+                    std::system_error{
+                        std::error_code{ Gdiplus::FontFamilyNotFound, gdiplus_category() }, "Font is not available."
+                    }
                 );
             }
 

@@ -304,9 +304,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!accelerator_table_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a shortcut key table."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a shortcut key table."
+                    }
                 );
             }
 
@@ -353,9 +353,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't insert a native menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't insert a native menu."
+                    }
                 );
             }
 
@@ -456,7 +456,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 suppress_unused_variable_warning(details, menu_info, text, enabled, state);
 
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("A menu bar cannot be inserted."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "A menu bar cannot be inserted." });
             }
         };
 
@@ -561,9 +561,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get a menu item info."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get a menu item info."
+                    }
                 );
             }
 
@@ -582,9 +582,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set a menu item info."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set a menu item info."
+                    }
                 );
             }
         }
@@ -649,9 +649,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't remove a native menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't remove a native menu."
+                    }
                 );
             }
 

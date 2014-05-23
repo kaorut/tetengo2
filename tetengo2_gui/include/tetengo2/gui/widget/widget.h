@@ -156,7 +156,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Has no parent." });
 
             return widget_details_type::parent(*this);
         }
@@ -171,7 +171,7 @@ namespace tetengo2 { namespace gui { namespace widget
         widget& parent()
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Has no parent." });
 
             return widget_details_type::parent(*this);
         }
@@ -185,7 +185,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Has no parent." });
 
             return widget_details_type::root_ancestor(*this);
         }
@@ -198,7 +198,7 @@ namespace tetengo2 { namespace gui { namespace widget
         widget& root_ancestor()
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Has no parent." });
 
             return widget_details_type::root_ancestor(*this);
         }
@@ -336,7 +336,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_client_dimension(const D& client_dimension)
         {
             if (gui::dimension<D>::width(client_dimension) == 0 || gui::dimension<D>::height(client_dimension) == 0)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Client dimension has zero value."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Client dimension has zero value." });
 
             widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension
@@ -471,7 +471,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!has_vertical_scroll_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no vertical scroll bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no vertical scroll bar." });
 
             return *m_p_vertical_scroll_bar;
         }
@@ -486,7 +486,7 @@ namespace tetengo2 { namespace gui { namespace widget
         scroll_bar_type& vertical_scroll_bar()
         {
             if (!has_vertical_scroll_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no vertical scroll bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no vertical scroll bar." });
 
             return *m_p_vertical_scroll_bar;
         }
@@ -513,7 +513,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!has_horizontal_scroll_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no horizontal scroll bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no horizontal scroll bar." });
 
             return *m_p_horizontal_scroll_bar;
         }
@@ -528,7 +528,7 @@ namespace tetengo2 { namespace gui { namespace widget
         scroll_bar_type& horizontal_scroll_bar()
         {
             if (!has_horizontal_scroll_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no horizontal scroll bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no horizontal scroll bar." });
 
             return *m_p_horizontal_scroll_bar;
         }
@@ -741,7 +741,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (m_destroyed)
-                BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "This widget is destroyed." });
 
             return details_impl();
         }
@@ -756,7 +756,7 @@ namespace tetengo2 { namespace gui { namespace widget
         details_type& details()
         {
             if (m_destroyed)
-                BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "This widget is destroyed." });
 
             return details_impl();
         }

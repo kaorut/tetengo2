@@ -342,9 +342,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                     common_dialog_details_type::message_box_button_style_type::yes_no;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid button style.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid button style." });
             }
         }
 
@@ -362,7 +360,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 return common_dialog_details_type::message_box_icon_style_type::information;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid icon style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid icon style." });
             }
         }
 
@@ -382,9 +380,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 return button_id_type::cancel;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid button ID.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button ID."));
             }
         }
 

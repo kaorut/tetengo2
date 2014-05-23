@@ -120,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!m_p_picture)
-                BOOST_THROW_EXCEPTION(std::logic_error("No picture is set."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No picture is set." });
 
             return *m_p_picture;
         }
@@ -135,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace widget
         picture_type& picture()
         {
             if (!m_p_picture)
-                BOOST_THROW_EXCEPTION(std::logic_error("No picture is set."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No picture is set." });
 
             return *m_p_picture;
         }
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!m_p_icon)
-                BOOST_THROW_EXCEPTION(std::logic_error("No icon is set."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No icon is set." });
 
             return *m_p_icon;
         }
@@ -189,7 +189,7 @@ namespace tetengo2 { namespace gui { namespace widget
         icon_type& icon()
         {
             if (!m_p_icon)
-                BOOST_THROW_EXCEPTION(std::logic_error("No icon is set."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No icon is set." });
 
             return *m_p_icon;
         }

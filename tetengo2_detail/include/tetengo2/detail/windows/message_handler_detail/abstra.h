@@ -113,9 +113,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropped file path."
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() },
+                            "Can't obtain the dropped file path."
+                        }
                     );
                 }
 

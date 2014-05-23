@@ -455,7 +455,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is nullptr."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The detail implementation is nullptr." });
         }
 
 
