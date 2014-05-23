@@ -214,28 +214,28 @@ namespace tetengo2 { namespace message
 
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 0)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 const auto& structure = boost::get<structure_begin_type>(element);
                 key = get_attribute(structure);
                 if (key.empty())
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 m_p_pull_parser->next();
             }
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 2)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 const auto& parsed_value = boost::get<value_type>(element);
                 if (parsed_value.which() != 4)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 value = boost::get<input_string_type>(parsed_value);
 
@@ -243,10 +243,10 @@ namespace tetengo2 { namespace message
             }
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 1)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 m_p_pull_parser->next();
             }

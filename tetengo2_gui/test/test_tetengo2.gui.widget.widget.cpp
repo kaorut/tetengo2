@@ -75,10 +75,10 @@ namespace
                 std::make_pair(1, 1),
                 string_type{},
                 details_font_type{ string_type{}, 12, false, false, false, false },
-                std::vector<void*>(),
+                std::vector<void*>{},
                 false,
                 false,
-                std::vector<string_type>(),
+                std::vector<string_type>{},
                 boost::none
             )
         )

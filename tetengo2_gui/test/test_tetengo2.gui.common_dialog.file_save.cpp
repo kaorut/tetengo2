@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
                 parent
             };
 
-            BOOST_CHECK(file_save.result() == boost::filesystem::path("fuga.jpg"));
+            BOOST_CHECK(file_save.result() == boost::filesystem::path{ "fuga.jpg" });
         }
         {
             window_type parent{};
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
             file_save.do_modal();
 
-            BOOST_CHECK(file_save.result() != boost::filesystem::path("fuga.jpg"));
+            BOOST_CHECK(file_save.result() != boost::filesystem::path{ "fuga.jpg" });
         }
     }
 

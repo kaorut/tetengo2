@@ -37,12 +37,12 @@ namespace
         :
         m_initial_locale(
             std::locale::global(
-                std::locale(
+                std::locale{
                     locale,
                     tetengo2::stdalt::make_unique<messages_type>(
-                        boost::filesystem::path("messages.test"), locale
+                        boost::filesystem::path{ "messages.test" }, locale
                     ).release()
-                )
+                }
             )
         )
         {}

@@ -301,40 +301,40 @@ namespace tetengo2 { namespace text { namespace grammar
 
         void object_begun(const string_type&)
         {
-            m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>());
+            m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
         void object_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
         void member_begun(const string_type& attribute)
         {
             m_on_structure_begin(
                 string_type{ TETENGO2_TEXT("member") },
-                std::vector<structure_attribute_type>(
+                std::vector < structure_attribute_type > {
                     1,
                     structure_attribute_type{
                         string_type{ TETENGO2_TEXT("name") }, value_type_type::string, attribute
                     }
-                )
+                }
             );
         }
 
         void member_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{});
         }
 
         void array_begun(const string_type&)
         {
-            m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>());
+            m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
         void array_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
         void string_passed(const string_type& attribute)

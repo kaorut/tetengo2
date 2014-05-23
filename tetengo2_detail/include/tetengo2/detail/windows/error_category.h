@@ -109,7 +109,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 --message_length;
             }
 
-            return detail::encoder().decode(std::wstring(message.begin(), message.begin() + message_length));
+            return detail::encoder().decode(std::wstring{ message.begin(), message.begin() + message_length });
         }
 
 

@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         channel_type channel{ 3 };
 
-        channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+        channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel{ 3 };
 
-            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
 
             try
             {
@@ -135,8 +135,8 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel{ 3 };
 
-            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
-            channel.insert_exception(std::make_exception_ptr(test_exception()));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
+            channel.insert_exception(std::make_exception_ptr(test_exception{}));
 
             channel.take();
             channel.take();

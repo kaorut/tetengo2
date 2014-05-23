@@ -38,7 +38,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> backspace()
         {
-            return std::pair<code_type, String>(0x08, String{ TETENGO2_TEXT("BackSpace") });
+            return { 0x08, String{ TETENGO2_TEXT("BackSpace") } };
         }
 
         //! Returns the key code and string for Tab.

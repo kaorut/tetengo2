@@ -308,7 +308,7 @@ namespace tetengo2 { namespace text
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return boost::variant<float_type>(0);
+                return{ 0 };
             }
         }
 

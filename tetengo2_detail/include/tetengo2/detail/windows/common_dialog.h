@@ -1025,7 +1025,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return
                 {
-                    encoder.encode(filter.first), std::wstring(L"*.") + encoder.encode(filter.second)
+                encoder.encode(filter.first), std::wstring{ L"*." } +encoder.encode(filter.second)
                 };
         }
 

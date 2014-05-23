@@ -798,7 +798,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-               this->template parent_to<side_bar>().set_cursor(std::unique_ptr<cursor_type>());
+                this->template parent_to<side_bar>().set_cursor(std::unique_ptr<cursor_type>{});
             }
 
 

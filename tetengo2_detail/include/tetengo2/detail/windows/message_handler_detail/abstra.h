@@ -120,7 +120,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     );
                 }
 
-                paths.emplace_back(std::wstring(path_string.begin(), path_string.begin() + length));
+                paths.emplace_back(std::wstring{ path_string.begin(), path_string.begin() + length });
             }
 
             return paths;

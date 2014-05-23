@@ -158,7 +158,7 @@ namespace tetengo2 { namespace message
                 const auto locale_name = locale_name_encoder().encode(mapping.first);
                 try
                 {
-                    return std::locale(locale_name.c_str()) == m_locale;
+                    return std::locale{ locale_name.c_str() } == m_locale;
                 }
                 catch (const std::runtime_error&)
                 {
@@ -205,9 +205,9 @@ namespace tetengo2 { namespace message
         static const boost::optional<path_type> select_catalog_file(const path_type& path, const std::locale& locale)
         {
             if (!boost::filesystem::exists(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path does not exist."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path does not exist." });
             if (!boost::filesystem::is_directory(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path is not a directory."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path is not a directory." });
 
             std::vector<path_type> catalog_files{};
             std::transform(
@@ -216,7 +216,7 @@ namespace tetengo2 { namespace message
                 std::back_inserter(catalog_files),
                 [](const directory_entry_type& entry) { return entry.path(); }
             );
-            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
+            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>{});
 
             const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
@@ -236,7 +236,7 @@ namespace tetengo2 { namespace message
                 path_type{ message_catalog_directory / catalog_file_mappings_filename() }
             };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open the message catalog file mappings."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open the message catalog file mappings." });
 
             message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
@@ -252,7 +252,7 @@ namespace tetengo2 { namespace message
         {
             boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open a message catalog."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open a message catalog." });
 
             message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
@@ -268,8 +268,8 @@ namespace tetengo2 { namespace message
             
             auto p_push_parser =
                 stdalt::make_unique<push_parser_type>(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream }),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}),
                     std::move(p_grammar)
                 );
 

@@ -1299,7 +1299,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::vector<wchar_t> text(length + 1, L'\0');
             ::GetWindowTextW(const_cast< ::HWND>(widget.details().handle.get()), text.data(), length + 1);
 
-            return encoder.decode(std::wstring(text.begin(), text.begin() + length));
+            return encoder.decode(std::wstring{ text.begin(), text.begin() + length });
         }
 
         /*!
@@ -1844,7 +1844,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return encoder.decode(std::wstring(value.data()));
+            return encoder.decode(std::wstring{ value.data() });
         }
 
         /*!
@@ -2073,7 +2073,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return encoder.decode(std::wstring(value.data()));
+            return encoder.decode(std::wstring{ value.data() });
         }
 
         /*!

@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
             BOOST_CHECK(image.has_picture());
 
-            image.set_picture(std::unique_ptr<picture_type>());
+            image.set_picture(std::unique_ptr<picture_type>{});
 
             BOOST_CHECK(!image.has_picture());
         }
@@ -173,7 +173,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
             BOOST_CHECK(image.has_icon());
 
-            image.set_icon(std::unique_ptr<icon_type>());
+            image.set_icon(std::unique_ptr<icon_type>{});
 
             BOOST_CHECK(!image.has_icon());
         }

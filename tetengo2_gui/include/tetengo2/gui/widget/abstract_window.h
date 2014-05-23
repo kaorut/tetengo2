@@ -355,7 +355,7 @@ namespace tetengo2 { namespace gui { namespace widget
         TETENGO2_STDALT_NOEXCEPT
         {
             if (!this->destroyed())
-                set_icon(std::unique_ptr<icon_type>());
+                set_icon(std::unique_ptr<icon_type>{});
         }
 
 

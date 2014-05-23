@@ -280,7 +280,7 @@ namespace tetengo2 { namespace detail { namespace windows
             suppress_unused_variable_warning(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
-            return encoder.decode(std::wstring(value.begin(), value.end()));
+            return encoder.decode(std::wstring{ value.begin(), value.end() });
         }
 
         template <typename String, typename Encoder>

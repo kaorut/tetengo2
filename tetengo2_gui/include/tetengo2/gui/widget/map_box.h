@@ -438,7 +438,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_left_impl()
             override
             {
-               this->parent().set_cursor(std::unique_ptr<cursor_type>());
+                this->parent().set_cursor(std::unique_ptr<cursor_type>{});
             }
 
 
