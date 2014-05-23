@@ -126,7 +126,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
                 ));
             }
@@ -171,7 +172,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
                 ));
             }
@@ -217,7 +219,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
                 ));
             }

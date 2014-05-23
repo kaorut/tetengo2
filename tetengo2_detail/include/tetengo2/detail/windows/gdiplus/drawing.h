@@ -380,7 +380,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't draw a line." }
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't draw a line." }
                 ));
             }
         }
@@ -455,7 +455,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't fill a rectangle." }
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't fill a rectangle." }
                 ));
             }
         }
@@ -495,7 +495,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't draw a polygon." }
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't draw a polygon." }
                 ));
             }
         }
@@ -610,7 +610,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ status, gdiplus_category{} }, "Can't measure text!" }
+                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't measure text!" }
                 ));
             }
 
@@ -678,7 +678,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ get_transform_status, gdiplus_category{} }, "Can't get transform!"
+                        std::error_code{ get_transform_status, gdiplus_category() }, "Can't get transform!"
                     }
                 ));
             }
@@ -774,7 +774,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 ));
             }
 
-            Gdiplus::Bitmap bitmap{ width, height, stride, PixelFormat32bppRGB, buffer.data() };
+            Gdiplus::Bitmap bitmap{
+                static_cast< ::INT>(width),
+                static_cast< ::INT>(height),
+                static_cast< ::INT>(stride),
+                PixelFormat32bppRGB,
+                buffer.data()
+            };
             const auto status =
                 canvas.get().DrawImage(
                     &bitmap,

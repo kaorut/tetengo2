@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows
         struct id_handle_type
         {
             ::UINT id;
-            handle_type handle{};
+            handle_type handle;
             ::HMENU parent_handle;
 
             id_handle_type(const ::UINT id, handle_type handle, const ::HMENU parent_handle)
@@ -180,7 +180,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a menu bar."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't create a menu bar."
                     }
                 ));
             }
@@ -200,13 +201,14 @@ namespace tetengo2 { namespace detail { namespace windows
             menu_details_ptr_type p_menu{
                 stdalt::make_unique<menu_details_type>(
                     get_and_increment_id(), detail::handle_type{ ::CreatePopupMenu() }, nullptr
-                }
-            );
+                )
+            };
             if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a popup menu."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't create a popup menu."
                     }
                 ));
             }
@@ -305,7 +307,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a shortcut key table."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't create a shortcut key table."
                     }
                 ));
             }
@@ -354,7 +357,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't insert a native menu."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't insert a native menu."
                     }
                 ));
             }
@@ -562,7 +566,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get a menu item info."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't get a menu item info."
                     }
                 ));
             }
@@ -583,7 +588,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set a menu item info."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't set a menu item info."
                     }
                 ));
             }
@@ -650,7 +656,8 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't remove a native menu."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't remove a native menu."
                     }
                 ));
             }

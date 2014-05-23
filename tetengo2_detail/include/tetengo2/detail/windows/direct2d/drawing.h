@@ -214,7 +214,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 {
                     BOOST_THROW_EXCEPTION((
                         std::system_error{
-                            std::error_code{ ::GetLastError(), win32_category() }, "Can't get client rectangle."
+                            std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                            "Can't get client rectangle."
                         }
                     ));
                 }
@@ -683,7 +684,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 ));
             }
 
-            return { rp_factory };
+            return direct2d_factory_ptr_type{ rp_factory };
         }
 
         static ::IDWriteFactory& direct_write_factory()
@@ -708,7 +709,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 ));
             }
 
-            return { rp_factory };
+            return direct_write_factory_ptr_type{ rp_factory };
         }
 
         static const std::pair< ::FLOAT, ::FLOAT>& dpi()

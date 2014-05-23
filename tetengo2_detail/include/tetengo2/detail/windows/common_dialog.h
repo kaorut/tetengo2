@@ -106,8 +106,8 @@ namespace tetengo2 { namespace detail { namespace windows
             std::wstring main_content;
             std::wstring sub_content;
             bool cancellable;
-            message_box_button_style_type button_style{};
-            message_box_icon_style_type icon_style{};
+            message_box_button_style_type button_style;
+            message_box_icon_style_type icon_style;
             std::vector<boost::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(

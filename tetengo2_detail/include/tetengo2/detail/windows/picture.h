@@ -64,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 ));
             }
 
-            return { rp_factory };
+            return wic_imaging_factory_ptr_type{ rp_factory };
         }
     }
 #endif
