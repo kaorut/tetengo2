@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(color)
             window_type parent{};
             const color_dialog_type color{ boost::none, parent };
 
-            BOOST_CHECK(color.result() == color_type(0, 0, 0));
+            BOOST_CHECK((color.result() == color_type{ 0, 0, 0 }));
         }
         {
             window_type parent{};
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(color)
 
             color.do_modal();
 
-            BOOST_CHECK(color.result() != color_type(0, 0, 0));
+            BOOST_CHECK((color.result() != color_type{ 0, 0, 0 }));
         }
     }
 

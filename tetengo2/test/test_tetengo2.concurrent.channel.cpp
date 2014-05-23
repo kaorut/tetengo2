@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             }
             catch (const std::runtime_error& e)
             {
-                BOOST_CHECK(std::string(e.what()) == "hoge");
+                BOOST_CHECK((std::string{ e.what() } == "hoge"));
             }
             catch (...)
             {

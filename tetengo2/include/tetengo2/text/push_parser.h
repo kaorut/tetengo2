@@ -94,7 +94,7 @@ namespace tetengo2 { namespace text
         m_on_value()
         {
             if (!m_p_grammar)
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The grammar is nullptr." });
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The grammar is nullptr." }));
 
             m_p_grammar->on_structure_begin().connect(
                 [this](
@@ -248,7 +248,7 @@ namespace tetengo2 { namespace text
                 return to_null(string_value);
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
+                BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
             }
         }
 

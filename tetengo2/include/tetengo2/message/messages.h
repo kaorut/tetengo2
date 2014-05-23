@@ -205,9 +205,9 @@ namespace tetengo2 { namespace message
         static const boost::optional<path_type> select_catalog_file(const path_type& path, const std::locale& locale)
         {
             if (!boost::filesystem::exists(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path does not exist." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path does not exist." }));
             if (!boost::filesystem::is_directory(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path is not a directory." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path is not a directory." }));
 
             std::vector<path_type> catalog_files{};
             std::transform(
@@ -236,7 +236,7 @@ namespace tetengo2 { namespace message
                 path_type{ message_catalog_directory / catalog_file_mappings_filename() }
             };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open the message catalog file mappings." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open the message catalog file mappings." }));
 
             message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
@@ -252,7 +252,7 @@ namespace tetengo2 { namespace message
         {
             boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open a message catalog." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open a message catalog." }));
 
             message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
@@ -292,7 +292,7 @@ namespace tetengo2 { namespace message
             suppress_unused_variable_warning(catalog_name, locale);
 
             if (m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error{ "A message catalog is already open." });
+                BOOST_THROW_EXCEPTION((std::runtime_error{ "A message catalog is already open." }));
 
             if (!m_message_catalog) return -1;
 
@@ -314,7 +314,7 @@ namespace tetengo2 { namespace message
                 return remove_namespace(default_message);
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
+                BOOST_THROW_EXCEPTION((std::runtime_error{ "The message catalog is not open." }));
 
             const auto found = m_message_catalog->find(default_message);
 
@@ -327,7 +327,7 @@ namespace tetengo2 { namespace message
             if (catalog_id < 0) return;
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
+                BOOST_THROW_EXCEPTION((std::runtime_error{ "The message catalog is not open." }));
 
             m_open = false;
         }

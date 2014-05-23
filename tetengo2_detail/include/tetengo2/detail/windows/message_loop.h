@@ -60,11 +60,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 else if (result == -1)
                 {
-                    BOOST_THROW_EXCEPTION(
+                    BOOST_THROW_EXCEPTION((
                         std::system_error{
-                            std::error_code{ ::GetLastError(), win32_category() }, "Win32 Message Loop Error"
+                            std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                            "Win32 Message Loop Error"
                         }
-                    );
+                    ));
                 }
 
                 if (
@@ -105,11 +106,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 else if (result == -1)
                 {
-                    BOOST_THROW_EXCEPTION(
+                    BOOST_THROW_EXCEPTION((
                         std::system_error{
-                            std::error_code{ ::GetLastError(), win32_category() }, "Win32 Message Loop Error"
+                            std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                            "Win32 Message Loop Error"
                         }
-                    );
+                    ));
                 }
 
                 if (!dialog.destroyed() && ::IsDialogMessageW(dialog.details().handle.get(), &message) != 0)

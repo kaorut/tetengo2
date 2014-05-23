@@ -82,7 +82,7 @@ namespace tetengo2 { namespace gui
                     const std::string what{ p_system_error->std::runtime_error::what() };
                     auto message = p_system_error->code().message();
                     if (!what.empty())
-                        message += std::string(": ") + what;
+                        message += std::string{ ": " } +what;
                     alert_details_type::show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },

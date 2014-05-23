@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(control)
             concrete_control control;
             control.set_text_color(color_type{ 0x12, 0x34, 0x56 });
 
-            BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
+            BOOST_CHECK((*control.text_color() == color_type{ 0x12, 0x34, 0x56 }));
         }
     }
 
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_SUITE(control)
 
         control.set_text_color(color_type{ 0x12, 0x34, 0x56 });
 
-        BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
+        BOOST_CHECK((*control.text_color() == color_type{ 0x12, 0x34, 0x56 }));
 
         control.set_text_color();
 

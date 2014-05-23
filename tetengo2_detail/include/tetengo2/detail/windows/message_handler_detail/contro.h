@@ -55,21 +55,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     );
                 if (previous_color == CLR_INVALID)
                 {
-                    BOOST_THROW_EXCEPTION(
+                    BOOST_THROW_EXCEPTION((
                         std::system_error{
                             std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't set text color."
                         }
-                    );
+                    ));
                 }
             }
             const auto previous_background_mode = ::SetBkMode(device_context, TRANSPARENT);
             if (previous_background_mode == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
                         std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't set background mode."
                     }
-                );
+                ));
             }
 
             return boost::make_optional(reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH)));

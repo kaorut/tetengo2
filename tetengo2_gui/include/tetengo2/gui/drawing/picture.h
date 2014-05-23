@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details))
         {
             if (!m_p_details)
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The detail implementation is nullptr." });
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
         }
 
 

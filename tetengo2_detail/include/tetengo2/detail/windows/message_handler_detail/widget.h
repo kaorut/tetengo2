@@ -359,11 +359,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (::GetScrollInfo(window_handle, style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
-                );
+                ));
             }
 
             switch (scroll_code)
@@ -391,7 +392,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return info.nMax - info.nPage + 1;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid scroll code." });
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid scroll code." }));
             }
         }
 
@@ -505,11 +506,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             ::PAINTSTRUCT paint_struct{};
             if (!::BeginPaint(widget.details().handle.get(), &paint_struct))
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
                         std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't begin paint."
                     }
-                );
+                ));
             }
             BOOST_SCOPE_EXIT((&widget)(&paint_struct))
             {
@@ -532,11 +533,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
             if (font_handle && ::DeleteObject(font_handle) == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
                         std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't delete previous font."
                     }
-                );
+                ));
             }
         }
 

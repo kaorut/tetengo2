@@ -59,12 +59,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 );
             if (FAILED(hr))
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{ std::error_code{ hr, wic_category() }, "Can't create WIC imaging factory." }
-                );
+                ));
             }
 
-            return { rp_factory };
+            return wic_imaging_factory_ptr_type{ rp_factory };
         }
     }
 #endif
@@ -142,9 +142,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             );
         if (FAILED(create_decoder_hr))
         {
-            BOOST_THROW_EXCEPTION(
+            BOOST_THROW_EXCEPTION((
                 std::system_error{ std::error_code{ create_decoder_hr, wic_category() }, "Can't create WIC decoder." }
-            );
+            ));
         }
         const typename unique_com_ptr< ::IWICBitmapDecoder>::type p_decoder(rp_decoder);
 
@@ -152,9 +152,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         const auto get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
         if (FAILED(get_frame_hr))
         {
-            BOOST_THROW_EXCEPTION(
+            BOOST_THROW_EXCEPTION((
                 std::system_error{ std::error_code{ get_frame_hr, wic_category() }, "Can't create bitmap frame." }
-            );
+            ));
         }
         const typename unique_com_ptr< ::IWICBitmapFrameDecode>::type p_frame(rp_frame);
 
@@ -162,11 +162,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         const auto create_format_converter_hr = wic_imaging_factory().CreateFormatConverter(&rp_format_converter);
         if (FAILED(create_format_converter_hr))
         {
-            BOOST_THROW_EXCEPTION(
+            BOOST_THROW_EXCEPTION((
                 std::system_error{
                     std::error_code{ create_format_converter_hr, wic_category() }, "Can't create format converter."
                 }
-            );
+            ));
         }
         typename unique_com_ptr< ::IWICFormatConverter>::type p_format_converter(rp_format_converter);
 
@@ -181,11 +181,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             );
         if (FAILED(initialize_hr))
         {
-            BOOST_THROW_EXCEPTION(
+            BOOST_THROW_EXCEPTION((
                 std::system_error{
                     std::error_code{ initialize_hr, wic_category() }, "Can't initialize format converter."
                 }
-            );
+            ));
         }
 
         return { std::move(p_format_converter) };
@@ -208,9 +208,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         const auto hr = const_cast<details_type&>(picture).GetSize(&width, &height);
         if (FAILED(hr))
         {
-            BOOST_THROW_EXCEPTION(
+            BOOST_THROW_EXCEPTION((
                 std::system_error{ std::error_code{ hr, wic_category() }, "Can't get size of picture." }
-            );
+            ));
         }
 
         return

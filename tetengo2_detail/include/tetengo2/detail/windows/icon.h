@@ -60,8 +60,8 @@ namespace tetengo2 { namespace detail { namespace windows
         struct icon_details_type
         {
 #if !defined(DOCUMENTATION)
-            const icon_handle_type big_icon_handle{};
-            const icon_handle_type small_icon_handle{};
+            const icon_handle_type big_icon_handle;
+            const icon_handle_type small_icon_handle;
 
             icon_details_type(icon_handle_type big_icon_handle_, icon_handle_type small_icon_handle_)
             :
@@ -145,7 +145,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::HANDLE handle =
                 ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);
             if (!handle)
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't load icon file." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't load icon file." }));
 
             return static_cast< ::HICON>(handle);
         }

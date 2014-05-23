@@ -124,11 +124,12 @@ namespace tetengo2 { namespace detail { namespace windows
             
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
-                );
+                ));
             }
 
             return info.nPos;
@@ -169,11 +170,12 @@ namespace tetengo2 { namespace detail { namespace windows
             
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
-                );
+                ));
             }
 
             return { info.nMin, info.nMax };
@@ -215,11 +217,12 @@ namespace tetengo2 { namespace detail { namespace windows
             
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
-                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't obtain scroll information."
                     }
-                );
+                ));
             }
 
             return info.nPage;
@@ -284,7 +287,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return SB_HORZ;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid style." });
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid style." }));
             }
         }
 
