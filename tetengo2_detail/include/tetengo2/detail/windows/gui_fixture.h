@@ -59,12 +59,12 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             if (!on_windows_vista_or_later())
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
                         std::error_code{ ERROR_OLD_WIN_VERSION, win32_category() },
                         "This program can't run on this platform."
                     }
-                );
+                ));
             }
         }
 
@@ -83,11 +83,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 ICC_LINK_CLASS;
             if (::InitCommonControlsEx(&enabled_common_controls) == FALSE)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{
                         std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't initialize common controls!"
                     }
-                );
+                ));
             }
         }
 
@@ -96,9 +96,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto result = ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (result != S_OK)
             {
-                BOOST_THROW_EXCEPTION(
+                BOOST_THROW_EXCEPTION((
                     std::system_error{ std::error_code{ result, win32_category() }, "Can't initlaize COM." }
-                );
+                ));
             }
         }
 

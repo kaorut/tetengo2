@@ -149,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
+                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             return m_p_value_items[index]->value();
         }
@@ -165,7 +165,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_value(const int_size_type index, value_type value)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
+                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_p_value_items[index]->value() = std::move(value);
 
@@ -184,7 +184,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void insert_value(const int_size_type index, value_type value)
         {
             if (index > value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
+                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_p_value_items.insert(
                 boost::next(m_p_value_items.begin(), index), stdalt::make_unique<value_item>(*this, std::move(value))
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void erase_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
+                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_p_value_items.erase(boost::next(m_p_value_items.begin(), index));
             if (m_selected_value_index)
@@ -262,7 +262,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void select_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
+                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_selected_value_index = boost::make_optional(index);
             ensure_selected_value_shown();

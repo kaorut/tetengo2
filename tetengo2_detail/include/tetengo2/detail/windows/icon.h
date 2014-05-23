@@ -145,7 +145,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::HANDLE handle =
                 ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);
             if (!handle)
-                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't load icon file." });
+                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't load icon file." }));
 
             return static_cast< ::HICON>(handle);
         }

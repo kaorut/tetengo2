@@ -112,12 +112,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     ::DragQueryFileW(drop_handle, i, path_string.data(), static_cast< ::UINT>(path_string.size()));
                 if (result == 0)
                 {
-                    BOOST_THROW_EXCEPTION(
+                    BOOST_THROW_EXCEPTION((
                         std::system_error{
                             std::error_code{ ::GetLastError(), win32_category() },
                             "Can't obtain the dropped file path."
                         }
-                    );
+                    ));
                 }
 
                 paths.emplace_back(std::wstring{ path_string.begin(), path_string.begin() + length });

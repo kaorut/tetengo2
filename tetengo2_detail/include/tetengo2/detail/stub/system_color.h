@@ -75,7 +75,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 return { 0, 0,255 };
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid system color index." });
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid system color index." }));
             }
         }
 

@@ -187,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace menu
         const
         {
             if (!has_shortcut_key())
-                BOOST_THROW_EXCEPTION(std::logic_error{ "This menu has no shortcut key." });
+                BOOST_THROW_EXCEPTION((std::logic_error{ "This menu has no shortcut key." }));
 
             return *m_shortcut_key;
         }
@@ -479,14 +479,14 @@ namespace tetengo2 { namespace gui { namespace menu
         {
             suppress_unused_variable_warning(offset, p_menu);
 
-            BOOST_THROW_EXCEPTION(std::logic_error{ "Can't insert any menus." });
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Can't insert any menus." }));
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
             suppress_unused_variable_warning(first, last);
 
-            BOOST_THROW_EXCEPTION(std::logic_error{ "Can't erase any menus." });
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }
 
 

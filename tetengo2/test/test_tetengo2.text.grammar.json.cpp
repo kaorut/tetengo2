@@ -69,7 +69,7 @@ namespace
         else
         {
             assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
         }
     }
 
@@ -90,7 +90,7 @@ namespace
         else
         {
             assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
         }
     }
 
@@ -121,7 +121,7 @@ namespace
         default:
             {
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
+                BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
             }
         }
 
