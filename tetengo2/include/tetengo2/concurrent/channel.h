@@ -61,7 +61,7 @@ namespace tetengo2 { namespace concurrent
         m_capacity(capacity)
         {
             if (capacity == 0)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Capacity is zero."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Capacity is zero." });
         }
 
 
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace concurrent
             typename stdalt::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
-                BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The channel is already closed." });
 
             if (m_queue.front()->which() == 0)
             {
@@ -120,7 +120,7 @@ namespace tetengo2 { namespace concurrent
                 std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
                 
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
             }
         }
 
@@ -134,7 +134,7 @@ namespace tetengo2 { namespace concurrent
             typename stdalt::unique_lock<mutex_type>::type lock(m_mutex);
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
-                BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The channel is already closed." });
 
             m_queue.pop();
 
@@ -215,7 +215,7 @@ namespace tetengo2 { namespace concurrent
                 return;
             }
 
-            m_queue.emplace(queue_element_type(std::move(value)));
+            m_queue.emplace(queue_element_type{ std::move(value) });
 
             m_condition_variable.notify_all();
         }

@@ -31,7 +31,7 @@ namespace
         :
         control_type(
             control_type::scroll_bar_style_type::none,
-            message_handler_map_type(),
+            message_handler_map_type{},
             widget_details_type::widget_details_ptr_type(
                 tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>()
             )
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(control)
         }
         {
             concrete_control control;
-            control.set_text_color(color_type(0x12, 0x34, 0x56));
+            control.set_text_color(color_type{ 0x12, 0x34, 0x56 });
 
             BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
         }
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(control)
 
         concrete_control control;
 
-        control.set_text_color(color_type(0x12, 0x34, 0x56));
+        control.set_text_color(color_type{ 0x12, 0x34, 0x56 });
 
         BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
 

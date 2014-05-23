@@ -61,9 +61,9 @@ BOOST_AUTO_TEST_SUITE(link_label)
         window_type parent;
         link_label_type label(parent);
 
-        label.set_target(string_type(TETENGO2_TEXT("http://www.tetengo.org")));
+        label.set_target(string_type{ TETENGO2_TEXT("http://www.tetengo.org") });
 
-        BOOST_CHECK(label.target() == string_type(TETENGO2_TEXT("http://www.tetengo.org")));
+        BOOST_CHECK(label.target() == string_type{ TETENGO2_TEXT("http://www.tetengo.org") });
     }
 
 

@@ -150,7 +150,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (!has_icon())
-                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This abstract window has no icon." });
 
             return *m_p_icon;
         }
@@ -163,7 +163,7 @@ namespace tetengo2 { namespace gui { namespace widget
         icon_type& icon()
         {
             if (!has_icon())
-                BOOST_THROW_EXCEPTION(std::logic_error("This abstract window has no icon."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This abstract window has no icon." });
 
             return *m_p_icon;
         }
@@ -202,7 +202,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if(!has_menu_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The abstract window does not have a menu bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The abstract window does not have a menu bar." });
 
             return *m_p_menu_bar;
         }
@@ -217,7 +217,7 @@ namespace tetengo2 { namespace gui { namespace widget
         menu_bar_type& menu_bar()
         {
             if(!has_menu_bar())
-                BOOST_THROW_EXCEPTION(std::logic_error("The abstract window does not have a menu bar."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The abstract window does not have a menu bar." });
 
             return *m_p_menu_bar;
         }
@@ -355,7 +355,7 @@ namespace tetengo2 { namespace gui { namespace widget
         TETENGO2_STDALT_NOEXCEPT
         {
             if (!this->destroyed())
-                set_icon(std::unique_ptr<icon_type>());
+                set_icon(std::unique_ptr<icon_type>{});
         }
 
 

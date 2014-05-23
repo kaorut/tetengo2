@@ -34,16 +34,16 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor(cursor_type::style_type::default_);
+            const cursor_type cursor{ cursor_type::style_type::default_ };
         }
         {
-            const cursor_type cursor(cursor_type::style_type::hand);
+            const cursor_type cursor{ cursor_type::style_type::hand };
         }
         {
-            const cursor_type cursor(cursor_type::style_type::horizontal_resize);
+            const cursor_type cursor{ cursor_type::style_type::horizontal_resize };
         }
         {
-            const cursor_type cursor(cursor_type::style_type::vertical_resize);
+            const cursor_type cursor{ cursor_type::style_type::vertical_resize };
         }
     }
 
@@ -52,22 +52,22 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor(cursor_type::style_type::default_);
+            const cursor_type cursor{ cursor_type::style_type::default_ };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::default_);
         }
         {
-            const cursor_type cursor(cursor_type::style_type::hand);
+            const cursor_type cursor{ cursor_type::style_type::hand };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::hand);
         }
         {
-            const cursor_type cursor(cursor_type::style_type::horizontal_resize);
+            const cursor_type cursor{ cursor_type::style_type::horizontal_resize };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::horizontal_resize);
         }
         {
-            const cursor_type cursor(cursor_type::style_type::vertical_resize);
+            const cursor_type cursor{ cursor_type::style_type::vertical_resize };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::vertical_resize);
         }

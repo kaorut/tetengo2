@@ -48,9 +48,9 @@ BOOST_AUTO_TEST_SUITE(button_style)
         BOOST_TEST_PASSPOINT();
 
         button_style_type::ok(false);
-        button_style_type::ok(true, string_type(TETENGO2_TEXT("hoge")));
+        button_style_type::ok(true, string_type{ TETENGO2_TEXT("hoge") });
         button_style_type::ok(false);
-        button_style_type::ok(true, string_type(TETENGO2_TEXT("hoge")));
+        button_style_type::ok(true, string_type{ TETENGO2_TEXT("hoge") });
     }
 
     BOOST_AUTO_TEST_CASE(yes_no)
@@ -58,9 +58,9 @@ BOOST_AUTO_TEST_SUITE(button_style)
         BOOST_TEST_PASSPOINT();
 
         button_style_type::yes_no(false);
-        button_style_type::yes_no(true, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+        button_style_type::yes_no(true, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") });
         button_style_type::yes_no(false);
-        button_style_type::yes_no(true, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga")));
+        button_style_type::yes_no(true, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") });
     }
 
     BOOST_AUTO_TEST_CASE(style)
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
             BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
-            const auto style = button_style_type::ok(false, string_type(TETENGO2_TEXT("hoge")));
+            const auto style = button_style_type::ok(false, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
             BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
         {
-            const auto style = button_style_type::ok(true, string_type(TETENGO2_TEXT("hoge")));
+            const auto style = button_style_type::ok(true, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_CHECK(style.style() == button_style_type::style_type::ok);
         }
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
         {
             const auto style =
                 button_style_type::yes_no(
-                    false, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
+                    false, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") }
                 );
 
             BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
         {
             const auto style =
                 button_style_type::yes_no(
-                    true, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
+                    true, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") }
                 );
 
             BOOST_CHECK(style.style() == button_style_type::style_type::yes_no);
@@ -151,10 +151,10 @@ BOOST_AUTO_TEST_SUITE(button_style)
             BOOST_REQUIRE(!style.ok_button_label());
         }
         {
-            const auto style = button_style_type::ok(false, string_type(TETENGO2_TEXT("hoge")));
+            const auto style = button_style_type::ok(false, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_REQUIRE(style.ok_button_label());
-            BOOST_CHECK(*style.ok_button_label() == string_type(TETENGO2_TEXT("hoge")));
+            BOOST_CHECK(*style.ok_button_label() == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
             const auto style = button_style_type::yes_no(false);
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
         {
             const auto style =
                 button_style_type::yes_no(
-                    false, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
+                    false, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") }
                 );
 
             BOOST_REQUIRE(!style.ok_button_label());
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(button_style)
             BOOST_REQUIRE(!style.yes_no_button_labels());
         }
         {
-            const auto style = button_style_type::ok(false, string_type(TETENGO2_TEXT("hoge")));
+            const auto style = button_style_type::ok(false, string_type{ TETENGO2_TEXT("hoge") });
 
             BOOST_REQUIRE(!style.yes_no_button_labels());
         }
@@ -193,12 +193,12 @@ BOOST_AUTO_TEST_SUITE(button_style)
         {
             const auto style =
                 button_style_type::yes_no(
-                    false, string_type(TETENGO2_TEXT("hoge")), string_type(TETENGO2_TEXT("fuga"))
+                    false, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") }
                 );
 
             BOOST_REQUIRE(style.yes_no_button_labels());
-            BOOST_CHECK(style.yes_no_button_labels()->first == string_type(TETENGO2_TEXT("hoge")));
-            BOOST_CHECK(style.yes_no_button_labels()->second == string_type(TETENGO2_TEXT("fuga")));
+            BOOST_CHECK(style.yes_no_button_labels()->first == string_type{ TETENGO2_TEXT("hoge") });
+            BOOST_CHECK(style.yes_no_button_labels()->second == string_type{ TETENGO2_TEXT("fuga") });
         }
     }
 
@@ -213,17 +213,17 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const string_type title;
-        const string_type main_content;
-        const string_type sub_content;
-        const message_box_type message_box(
+        const string_type title{};
+        const string_type main_content{};
+        const string_type sub_content{};
+        const message_box_type message_box{
             parent,
             title,
             main_content,
             sub_content,
             button_style_type::ok(true),
             message_box_type::icon_style_type::warning
-        );
+        };
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
@@ -231,17 +231,17 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const string_type title;
-        const string_type main_content;
-        const string_type sub_content;
-        message_box_type message_box(
+        const string_type title{};
+        const string_type main_content{};
+        const string_type sub_content{};
+        message_box_type message_box{
             parent,
             title,
             main_content,
             sub_content,
             button_style_type::ok(true),
             message_box_type::icon_style_type::warning
-        );
+        };
 
         message_box.do_modal();
     }
@@ -251,34 +251,34 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            const string_type title;
-            const string_type main_content;
-            const string_type sub_content;
-            const message_box_type message_box(
+            window_type parent{};
+            const string_type title{};
+            const string_type main_content{};
+            const string_type sub_content{};
+            const message_box_type message_box{
                 parent,
                 title,
                 main_content,
                 sub_content,
                 button_style_type::ok(true),
                 message_box_type::icon_style_type::warning
-            );
+            };
 
             message_box.details();
         }
         {
-            window_type parent;
-            const string_type title;
-            const string_type main_content;
-            const string_type sub_content;
-            message_box_type message_box(
+            window_type parent{};
+            const string_type title{};
+            const string_type main_content{};
+            const string_type sub_content{};
+            message_box_type message_box{
                 parent,
                 title,
                 main_content,
                 sub_content,
                 button_style_type::ok(true),
                 message_box_type::icon_style_type::warning
-            );
+            };
 
             message_box.details();
         }

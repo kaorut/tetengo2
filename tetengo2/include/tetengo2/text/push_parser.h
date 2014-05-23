@@ -94,7 +94,7 @@ namespace tetengo2 { namespace text
         m_on_value()
         {
             if (!m_p_grammar)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is nullptr."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The grammar is nullptr." });
 
             m_p_grammar->on_structure_begin().connect(
                 [this](
@@ -212,7 +212,7 @@ namespace tetengo2 { namespace text
             const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
         )
         {
-            attribute_map_type attribute_map;
+            attribute_map_type attribute_map{};
 
             for (const auto& sa: structure_attributes)
                 attribute_map.insert(to_attribute(sa));
@@ -225,10 +225,10 @@ namespace tetengo2 { namespace text
         )
         {
             return
-                typename attribute_map_type::value_type(
+                {
                     structure_attribute.name(),
                     to_value(structure_attribute.value_type(), structure_attribute.attribute())
-                );
+                };
         }
 
         static value_type to_value(
@@ -248,23 +248,23 @@ namespace tetengo2 { namespace text
                 return to_null(string_value);
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "Must not come here." });
             }
         }
 
         static string_type to_string(const string_type& string_value)
         {
             assert(string_value.length() >= 2);
-            string_type string(boost::next(string_value.begin()), boost::prior(string_value.end()));
+            string_type string{ boost::next(string_value.begin()), boost::prior(string_value.end()) };
 
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\"")), string_type(TETENGO2_TEXT("\"")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\\")), string_type(TETENGO2_TEXT("\\")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\/")), string_type(TETENGO2_TEXT("/")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\b")), string_type(TETENGO2_TEXT("\b")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\f")), string_type(TETENGO2_TEXT("\f")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type(TETENGO2_TEXT("\n")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type(TETENGO2_TEXT("\r")));
-            boost::replace_all(string, string_type(TETENGO2_TEXT("\\t")), string_type(TETENGO2_TEXT("\t")));
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\"") }, string_type{ TETENGO2_TEXT("\"") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\\") }, string_type{ TETENGO2_TEXT("\\") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\/") }, string_type{ TETENGO2_TEXT("/") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\b") }, string_type{ TETENGO2_TEXT("\b") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\f") }, string_type{ TETENGO2_TEXT("\f") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\n") }, string_type{ TETENGO2_TEXT("\n") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\r") }, string_type{ TETENGO2_TEXT("\r") });
+            boost::replace_all(string, string_type{ TETENGO2_TEXT("\\t") }, string_type{ TETENGO2_TEXT("\t") });
 
             return string;
         }
@@ -308,25 +308,25 @@ namespace tetengo2 { namespace text
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return boost::variant<float_type>(0);
+                return{ 0 };
             }
         }
 
         static bool to_boolean(const string_type& string_value)
         {
             assert(
-                string_value == string_type(TETENGO2_TEXT("true")) ||
-                string_value == string_type(TETENGO2_TEXT("false"))
+                string_value == string_type{ TETENGO2_TEXT("true") } ||
+                string_value == string_type{ TETENGO2_TEXT("false") }
             );
 
-            return string_value == string_type(TETENGO2_TEXT("true"));
+            return string_value == string_type{ TETENGO2_TEXT("true") };
         }
 
         static void* to_null(const string_type& string_value)
         {
             suppress_unused_variable_warning(string_value);
 
-            assert(string_value == string_type(TETENGO2_TEXT("null")));
+            assert(string_value == string_type{ TETENGO2_TEXT("null") });
 
             return nullptr;
         }
@@ -359,7 +359,7 @@ namespace tetengo2 { namespace text
 
         void observe_structure_end(const string_type& structure_name)
         {
-            m_on_structure_end(structure_name, attribute_map_type());
+            m_on_structure_end(structure_name, attribute_map_type{});
         }
 
         void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)

@@ -80,7 +80,7 @@ namespace tetengo2 { namespace detail { namespace windows
             converted_length;
             assert(converted_length == string_length);
 
-            return utf8_string_type(string.begin(), string.begin() + string_length);
+            return { string.begin(), string.begin() + string_length };
         }
 
         /*!
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace detail { namespace windows
             converted_length;
             assert(converted_length == pivot_length);
 
-            return pivot_type(pivot.begin(), pivot.begin() + pivot_length);
+            return { pivot.begin(), pivot.begin() + pivot_length };
         }
 
         /*!
@@ -144,7 +144,7 @@ namespace tetengo2 { namespace detail { namespace windows
             converted_length;
             assert(converted_length == string_length);
 
-            return cp932_string_type(string.begin(), string.begin() + string_length);
+            return { string.begin(), string.begin() + string_length };
         }
 
         /*!
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace detail { namespace windows
             converted_length;
             assert(converted_length == pivot_length);
 
-            return pivot_type(pivot.begin(), pivot.begin() + pivot_length);
+            return { pivot.begin(), pivot.begin() + pivot_length };
         }
 
 

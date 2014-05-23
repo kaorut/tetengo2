@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const auto unit = unit_type::from(another_unit_type(123));
+        const auto unit = unit_type::from(another_unit_type{ 123 });
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }

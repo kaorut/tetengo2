@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(position)
         BOOST_TEST_PASSPOINT();
 
         using position_type = std::pair<int, int>;
-        const auto position = position_type(123, 456);
+        const position_type position{ 123, 456 };
 
         BOOST_CHECK_EQUAL(tetengo2::gui::position<position_type>::left(position), 123);
     }
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(position)
         BOOST_TEST_PASSPOINT();
 
         using position_type = std::pair<int, int>;
-        const auto position = position_type(123, 456);
+        const position_type position{ 123, 456 };
 
         BOOST_CHECK_EQUAL(tetengo2::gui::position<position_type>::top(position), 456);
     }
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         using dimension_type = std::pair<int, int>;
-        const auto dimension = dimension_type(123, 456);
+        const dimension_type dimension{ 123, 456 };
 
         BOOST_CHECK_EQUAL(tetengo2::gui::dimension<dimension_type>::width(dimension), 123);
     }
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         using dimension_type = std::pair<int, int>;
-        const auto dimension = dimension_type(123, 456);
+        const dimension_type dimension{ 123, 456 };
 
         BOOST_CHECK_EQUAL(tetengo2::gui::dimension<dimension_type>::height(dimension), 456);
     }

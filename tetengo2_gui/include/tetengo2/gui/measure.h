@@ -203,7 +203,7 @@ namespace tetengo2 { namespace gui
         template <typename L, typename T>
         static position_type make(L&& left, T&& top)
         {
-            return position_type(std::forward<L>(left), std::forward<T>(top));
+            return { std::forward<L>(left), std::forward<T>(top) };
         }
 
 
@@ -312,7 +312,7 @@ namespace tetengo2 { namespace gui
         template <typename W, typename H>
         static dimension_type make(W&& width, H&& height)
         {
-            return dimension_type(std::forward<W>(width), std::forward<H>(height));
+            return { std::forward<W>(width), std::forward<H>(height) };
         }
 
 

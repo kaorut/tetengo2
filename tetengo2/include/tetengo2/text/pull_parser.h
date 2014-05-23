@@ -186,7 +186,7 @@ namespace tetengo2 { namespace text
         const
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The parser has no more element." });
 
             return m_consumer.peek();
         }
@@ -199,7 +199,7 @@ namespace tetengo2 { namespace text
         void next()
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The parser has no more element." });
 
             m_consumer.take();
         }
@@ -291,17 +291,17 @@ namespace tetengo2 { namespace text
             channel_type&             channel
         )
         {
-            channel.insert(element_type(structure_begin_type(name, attribute_map)));
+            channel.insert(element_type{ structure_begin_type{ name, attribute_map } });
         }
 
         static void on_structure_end(const string_type& name, channel_type& channel)
         {
-            channel.insert(element_type(structure_end_type(name, attribute_map_type())));
+            channel.insert(element_type{ structure_end_type{ name, attribute_map_type{} } });
         }
 
         static void on_value(const value_type& value, channel_type& channel)
         {
-            channel.insert(element_type(value));
+            channel.insert(element_type{ value });
         }
 
 

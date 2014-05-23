@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_SUITE(utf8)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1;
-        const encoding_type encoding2;
+        const encoding_type encoding1{};
+        const encoding_type encoding2{};
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -46,10 +46,10 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot(TETENGO2_TEXT("Tetengo2"));
-            const std::string string(TETENGO2_TEXT("Tetengo2"));
+            const std::wstring pivot{ TETENGO2_TEXT("Tetengo2") };
+            const std::string string{ TETENGO2_TEXT("Tetengo2") };
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -61,10 +61,10 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot(TETENGO2_TEXT("Tetengo2"));
-            const std::string string(TETENGO2_TEXT("Tetengo2"));
+            const std::wstring pivot{ TETENGO2_TEXT("Tetengo2") };
+            const std::string string{ TETENGO2_TEXT("Tetengo2") };
 
-            const encoding_type encoding;
+            const encoding_type encoding{};
             const auto result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);

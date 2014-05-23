@@ -206,16 +206,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             props.pixelFormat = D2D1::PixelFormat(::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED);
             props.usage = ::D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
 
-            ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props = {};
+            ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props{};
             {
-                ::RECT rect = {};
+                ::RECT rect{};
                 const auto result = ::GetClientRect(window_handle, &rect);
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Can't get client rectangle."
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() }, "Can't get client rectangle."
+                        }
                     );
                 }
                 hwnd_props =
@@ -229,7 +229,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create HWND render target.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create HWND render target." }
                 );
             }
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
@@ -237,7 +237,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_render_target->BeginDraw();
             p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
 
-            return canvas_details_ptr_type(std::move(p_render_target));
+            return canvas_details_ptr_type{ std::move(p_render_target) };
         }
 
         /*!
@@ -534,12 +534,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
 
-            ::DWRITE_TEXT_METRICS metrics = {};
+            ::DWRITE_TEXT_METRICS metrics{};
             const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
             if (FAILED(get_metrics_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(get_metrics_hr, win32_category()), "Can't get text metrics.")
+                    std::system_error{ std::error_code{ get_metrics_hr, win32_category() }, "Can't get text metrics." }
                 );
             }
 
@@ -630,7 +630,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_bitmap_hr, direct2d_category()), "Can't create bitmap.")
+                    std::system_error{
+                        std::error_code{ create_bitmap_hr, direct2d_category() }, "Can't create bitmap."
+                    }
                 );
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
@@ -666,7 +668,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static ::ID2D1Factory& direct2d_factory()
         {
-            static const direct2d_factory_ptr_type p_factory(create_direct2d_factory());
+            static const direct2d_factory_ptr_type p_factory{ create_direct2d_factory() };
             return *p_factory;
         }
 
@@ -677,16 +679,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create Direct2D factory.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create Direct2D factory." }
                 );
             }
 
-            return direct2d_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
 
         static ::IDWriteFactory& direct_write_factory()
         {
-            static const direct_write_factory_ptr_type p_factory(create_direct_write_factory());
+            static const direct_write_factory_ptr_type p_factory{ create_direct_write_factory() };
             return *p_factory;
         }
 
@@ -702,11 +704,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, win32_category()), "Can't create Direct Write factory.")
+                    std::system_error{ std::error_code{ hr, win32_category() }, "Can't create Direct Write factory." }
                 );
             }
 
-            return direct_write_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
 
         static const std::pair< ::FLOAT, ::FLOAT>& dpi()
@@ -717,7 +719,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         static std::pair< ::FLOAT, ::FLOAT> calculate_dpi()
         {
-            std::pair< ::FLOAT, ::FLOAT> dpi;
+            std::pair< ::FLOAT, ::FLOAT> dpi{};
 
             direct2d_factory().GetDesktopDpi(&dpi.first, &dpi.second);
             assert(dpi.first != 0 && dpi.second != 0);
@@ -756,7 +758,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
             const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
-            return D2D1::Point2F(left - 0.5f, top - 0.5f);
+            return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
@@ -766,7 +768,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
             const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
             const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
-            return D2D1::RectF(left, top, left + width, top + height);
+            return { left, top, left + width, top + height };
         }
 
         static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
@@ -781,12 +783,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const unsigned char alpha
         )
         {
-            return D2D1::ColorF(
-                static_cast< ::FLOAT>(red / 255.0),
-                static_cast< ::FLOAT>(green / 255.0),
-                static_cast< ::FLOAT>(blue / 255.0),
-                static_cast< ::FLOAT>(alpha / 255.0)
-            );
+            return {
+                static_cast<::FLOAT>(red / 255.0),
+                static_cast<::FLOAT>(green / 255.0),
+                static_cast<::FLOAT>(blue / 255.0),
+                static_cast<::FLOAT>(alpha / 255.0)
+            };
         }
 
         static unique_com_ptr< ::ID2D1Brush>::type create_brush(
@@ -807,14 +809,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (FAILED(hr))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(std::error_code(hr, direct2d_category()), "Can't create solid color brush.")
+                        std::system_error{
+                            std::error_code{ hr, direct2d_category() }, "Can't create solid color brush."
+                        }
                     );
                 }
                 return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
             assert(false);
-            BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
+            BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid background details type." });
         }
 
         static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
@@ -837,7 +841,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create stroke style.")
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create stroke style." }
                 );
             }
             return unique_com_ptr< ::ID2D1StrokeStyle>::type(rp_stroke_style);
@@ -857,7 +861,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return ::D2D1_DASH_STYLE_DASH_DOT;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Unknown stroke dash style."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Unknown stroke dash style." });
             }
         }
 
@@ -884,7 +888,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_format_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_format_hr, win32_category()), "Can't create text format.")
+                    std::system_error{
+                        std::error_code{ create_format_hr, win32_category() }, "Can't create text format."
+                    }
                 );
             }
             const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
@@ -906,12 +912,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_layout_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_layout_hr, win32_category()), "Can't create text layout.")
+                    std::system_error{
+                        std::error_code{ create_layout_hr, win32_category() }, "Can't create text layout."
+                    }
                 );
             }
             typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout(rp_layout);
 
-            const ::DWRITE_TEXT_RANGE range = { 0, static_cast< ::UINT32>(encoded_text.length()) };
+            const ::DWRITE_TEXT_RANGE range{ 0, static_cast< ::UINT32>(encoded_text.length()) };
             p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 

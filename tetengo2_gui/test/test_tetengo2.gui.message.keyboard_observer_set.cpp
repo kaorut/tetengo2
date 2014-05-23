@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(keyboard_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const keyboard_observer_set_type observer_set;
+            const keyboard_observer_set_type observer_set{};
 
             observer_set.key_up();
         }
         {
-            keyboard_observer_set_type observer_set;
+            keyboard_observer_set_type observer_set{};
 
             observer_set.key_up();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(keyboard_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const keyboard_observer_set_type observer_set;
+            const keyboard_observer_set_type observer_set{};
 
             observer_set.key_down();
         }
         {
-            keyboard_observer_set_type observer_set;
+            keyboard_observer_set_type observer_set{};
 
             observer_set.key_down();
         }
@@ -68,12 +68,12 @@ BOOST_AUTO_TEST_SUITE(keyboard_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const keyboard_observer_set_type observer_set;
+            const keyboard_observer_set_type observer_set{};
 
             observer_set.character_input();
         }
         {
-            keyboard_observer_set_type observer_set;
+            keyboard_observer_set_type observer_set{};
 
             observer_set.character_input();
         }

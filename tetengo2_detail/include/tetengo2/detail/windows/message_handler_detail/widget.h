@@ -117,10 +117,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Position>
         Position l_param_to_position(const ::LPARAM l_param)
         {
-            return Position(
+            return {
                 gui::to_unit<typename gui::position<Position>::left_type>(GET_X_LPARAM(l_param)),
                 gui::to_unit<typename gui::position<Position>::top_type>(GET_Y_LPARAM(l_param))
-            );
+            };
         }
 
         template <typename Widget>
@@ -231,7 +231,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
             const ::HWND pointing_window_handle = ::WindowFromPoint(point);
             if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
             {
@@ -246,7 +246,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
 
             widget.mouse_observer_set().wheeled()(
-                typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                typename Widget::mouse_observer_set_type::delta_type{ delta, WHEEL_DELTA },
                 Widget::mouse_observer_set_type::direction_type::vertical,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
@@ -259,7 +259,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_mouse_h_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            const ::POINT point = { GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
+            const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
             const ::HWND pointing_window_handle = ::WindowFromPoint(point);
             if (pointing_window_handle && pointing_window_handle != widget.details().handle.get())
             {
@@ -274,7 +274,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
 
             widget.mouse_observer_set().wheeled()(
-                typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                typename Widget::mouse_observer_set_type::delta_type{ delta, WHEEL_DELTA },
                 Widget::mouse_observer_set_type::direction_type::horizontal,
                 (key_state & MK_SHIFT) != 0,
                 (key_state & MK_CONTROL) != 0,
@@ -353,16 +353,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Size>
         Size new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
         {
-            ::SCROLLINFO info = {};
+            ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS | SIF_RANGE | SIF_PAGE | SIF_TRACKPOS;
 
             if (::GetScrollInfo(window_handle, style, &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't obtain scroll information."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't obtain scroll information."
+                    }
                 );
             }
 
@@ -391,7 +391,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 return info.nMax - info.nPage + 1;
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid scroll code." });
             }
         }
 
@@ -502,11 +502,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (widget.paint_observer_set().paint().empty())
                 return boost::none;
 
-            ::PAINTSTRUCT paint_struct = {};
+            ::PAINTSTRUCT paint_struct{};
             if (!::BeginPaint(widget.details().handle.get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint.")
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't begin paint."
+                    }
                 );
             }
             BOOST_SCOPE_EXIT((&widget)(&paint_struct))
@@ -531,9 +533,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (font_handle && ::DeleteObject(font_handle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't delete previous font."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't delete previous font."
+                    }
                 );
             }
         }

@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(cursor_base)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_cursor_type cursor;
+        const concrete_cursor_type cursor{};
     }
 
     BOOST_AUTO_TEST_CASE(details)
@@ -67,12 +67,12 @@ BOOST_AUTO_TEST_SUITE(cursor_base)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_cursor_type cursor;
+            const concrete_cursor_type cursor{};
 
             cursor.details();
         }
         {
-            concrete_cursor_type cursor;
+            concrete_cursor_type cursor{};
 
             cursor.details();
         }

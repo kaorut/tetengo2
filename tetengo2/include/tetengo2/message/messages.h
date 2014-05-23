@@ -93,10 +93,12 @@ namespace tetengo2 { namespace message
                 const auto offset = key.rfind(TETENGO2_TEXT(':'), start);
                 if (offset == string_type::npos)
                     return key;
-                if (offset == 0 || key[offset - 1] != typename string_type::value_type(TETENGO2_TEXT('\\')))
+                if (offset == 0 || key[offset - 1] != typename string_type::value_type{ TETENGO2_TEXT('\\') })
                 {
                     string_type ns_removed = key.substr(offset + 1);
-                    boost::replace_all(ns_removed, string_type(TETENGO2_TEXT("\\:")), string_type(TETENGO2_TEXT(":")));
+                    boost::replace_all(
+                        ns_removed, string_type{ TETENGO2_TEXT("\\:") }, string_type{ TETENGO2_TEXT(":") }
+                    );
                     return ns_removed;
                 }
                 if (offset == 1)
@@ -156,7 +158,7 @@ namespace tetengo2 { namespace message
                 const auto locale_name = locale_name_encoder().encode(mapping.first);
                 try
                 {
-                    return std::locale(locale_name.c_str()) == m_locale;
+                    return std::locale{ locale_name.c_str() } == m_locale;
                 }
                 catch (const std::runtime_error&)
                 {
@@ -183,7 +185,7 @@ namespace tetengo2 { namespace message
 
         static const typename path_type::string_type& catalog_file_mappings_filename()
         {
-            static const typename path_type::string_type singleton(TETENGO2_TEXT("_catalogs.json"));
+            static const typename path_type::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
             return singleton;
         }
 
@@ -194,7 +196,7 @@ namespace tetengo2 { namespace message
             if (!catalog_file)
                 return boost::none;
 
-            message_catalog_type message_catalog;
+            message_catalog_type message_catalog{};
             read_message_catalog(*catalog_file, message_catalog);
 
             return boost::make_optional(std::move(message_catalog));
@@ -203,18 +205,18 @@ namespace tetengo2 { namespace message
         static const boost::optional<path_type> select_catalog_file(const path_type& path, const std::locale& locale)
         {
             if (!boost::filesystem::exists(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path does not exist."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path does not exist." });
             if (!boost::filesystem::is_directory(path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path is not a directory."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Path is not a directory." });
 
-            std::vector<path_type> catalog_files;
+            std::vector<path_type> catalog_files{};
             std::transform(
-                directory_iterator_type(path),
-                directory_iterator_type(),
+                directory_iterator_type{ path },
+                directory_iterator_type{},
                 std::back_inserter(catalog_files),
                 [](const directory_entry_type& entry) { return entry.path(); }
             );
-            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
+            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>{});
 
             const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
@@ -228,15 +230,15 @@ namespace tetengo2 { namespace message
 
         static catalog_file_mappings_type read_catalog_file_mappings(const path_type& message_catalog_directory)
         {
-            catalog_file_mappings_type mappings;
+            catalog_file_mappings_type mappings{};
 
-            boost::filesystem::ifstream input_stream(
-                path_type(message_catalog_directory / catalog_file_mappings_filename())
-            );
+            boost::filesystem::ifstream input_stream{
+                path_type{ message_catalog_directory / catalog_file_mappings_filename() }
+            };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open the message catalog file mappings."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open the message catalog file mappings." });
 
-            message_catalog_parser_type parser(create_pull_parser(input_stream));
+            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
             {
                 mappings.insert(parser.peek());
@@ -248,11 +250,11 @@ namespace tetengo2 { namespace message
 
         static void read_message_catalog(const path_type& catalog_file, message_catalog_type& message_catalog)
         {
-            boost::filesystem::ifstream input_stream(catalog_file);
+            boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open a message catalog."));
+                BOOST_THROW_EXCEPTION(std::ios_base::failure{ "Can't open a message catalog." });
 
-            message_catalog_parser_type parser(create_pull_parser(input_stream));
+            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
             while (parser.has_next())
             {
                 message_catalog.insert(parser.peek());
@@ -266,8 +268,8 @@ namespace tetengo2 { namespace message
             
             auto p_push_parser =
                 stdalt::make_unique<push_parser_type>(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream }),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}),
                     std::move(p_grammar)
                 );
 
@@ -290,7 +292,7 @@ namespace tetengo2 { namespace message
             suppress_unused_variable_warning(catalog_name, locale);
 
             if (m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("A message catalog is already open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "A message catalog is already open." });
 
             if (!m_message_catalog) return -1;
 
@@ -312,7 +314,7 @@ namespace tetengo2 { namespace message
                 return remove_namespace(default_message);
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
 
             const auto found = m_message_catalog->find(default_message);
 
@@ -325,7 +327,7 @@ namespace tetengo2 { namespace message
             if (catalog_id < 0) return;
 
             if (!m_open)
-                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
+                BOOST_THROW_EXCEPTION(std::runtime_error{ "The message catalog is not open." });
 
             m_open = false;
         }

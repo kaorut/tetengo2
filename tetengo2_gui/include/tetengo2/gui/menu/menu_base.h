@@ -187,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace menu
         const
         {
             if (!has_shortcut_key())
-                BOOST_THROW_EXCEPTION(std::logic_error("This menu has no shortcut key."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This menu has no shortcut key." });
 
             return *m_shortcut_key;
         }
@@ -434,59 +434,59 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual const_iterator begin_impl()
         const
         {
-            return const_iterator(empty_children().begin());
+            return { empty_children().begin() };
         }
 
         virtual iterator begin_impl()
         {
-            return iterator(empty_children().begin());
+            return { empty_children().begin() };
         }
 
         virtual const_iterator end_impl()
         const
         {
-            return const_iterator(empty_children().end());
+            return { empty_children().end() };
         }
 
         virtual iterator end_impl()
         {
-            return iterator(empty_children().end());
+            return { empty_children().end() };
         }
 
         virtual const_recursive_iterator_type recursive_begin_impl()
         const
         {
-            return const_recursive_iterator_type();
+            return {};
         }
 
         virtual recursive_iterator_type recursive_begin_impl()
         {
-            return recursive_iterator_type();
+            return {};
         }
 
         virtual const_recursive_iterator_type recursive_end_impl()
         const
         {
-            return const_recursive_iterator_type();
+            return {};
         }
 
         virtual recursive_iterator_type recursive_end_impl()
         {
-            return recursive_iterator_type();
+            return {};
         }
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
             suppress_unused_variable_warning(offset, p_menu);
 
-            BOOST_THROW_EXCEPTION(std::logic_error("Can't insert any menus."));
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Can't insert any menus." });
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
             suppress_unused_variable_warning(first, last);
 
-            BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Can't erase any menus." });
         }
 
 

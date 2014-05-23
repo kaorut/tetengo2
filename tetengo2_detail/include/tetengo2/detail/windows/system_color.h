@@ -83,7 +83,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return get_system_color_impl<Color>(COLOR_HOTLIGHT);
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Invalid system color index." });
             }
         }
 
@@ -95,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Color get_system_color_impl(const int index)
         {
             const auto color_ref = ::GetSysColor(index);
-            return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
+            return { GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref) };
         }
 
 

@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static pixel from_pixels(const PixelValue value)
         {
-            return pixel(value_type(value));
+            return pixel{ static_cast<value_type>(value) };
         }
 
 
@@ -115,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         pixel& add(const value_type& another)
         {
-            pixel temp(*this);
+            pixel temp{ *this };
 
             temp.m_value += another;
 
@@ -132,7 +132,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         pixel& subtract(const value_type& another)
         {
-            pixel temp(*this);
+            pixel temp{ *this };
 
             temp.m_value -= another;
 
@@ -149,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         pixel& multiply(const value_type& another)
         {
-            pixel temp(*this);
+            pixel temp{ *this };
 
             temp.m_value *= another;
 
@@ -166,7 +166,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         pixel& divide_by(const value_type& another)
         {
-            pixel temp(*this);
+            pixel temp{ *this };
 
             temp.m_value /= another;
 

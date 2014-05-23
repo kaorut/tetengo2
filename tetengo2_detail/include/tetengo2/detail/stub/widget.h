@@ -418,7 +418,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static Widget& parent(Widget& widget)
         {
             if (!has_parent(widget))
-                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "The widget has no parent." });
 
             return *reinterpret_cast<Widget*>(widget.details().p_parent);
         }
@@ -801,14 +801,14 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
             widget.details().font =
-                details_font_type(
+                details_font_type{
                     encoder.encode(font.family()),
                     font.size(),
                     font.bold(),
                     font.italic(),
                     font.underline(),
                     font.strikeout()
-                );
+                };
         }
 
         /*!
@@ -847,7 +847,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
             const auto& children_as_void = widget.details().children;
-            std::vector<std::reference_wrapper<Child>> children;
+            std::vector<std::reference_wrapper<Child>> children{};
             children.reserve(children_as_void.size());
 
             std::transform(
@@ -1373,7 +1373,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details(
+            widget_details_ptr_type p_details{
                 stdalt::make_unique<widget_details_type>(
                     p_parent,
                     true,
@@ -1381,15 +1381,15 @@ namespace tetengo2 { namespace detail { namespace stub
                     0,
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
-                    string_type(),
-                    details_font_type(string_type(), 12, false, false, false, false),
-                    std::vector<void*>(),
+                    string_type{},
+                    details_font_type{ string_type{}, 12, false, false, false, false },
+                    std::vector<void*>{},
                     false,
                     false,
-                    std::vector<string_type>(),
+                    std::vector<string_type>{},
                     boost::none
                 )
-            );
+            };
 
             return std::move(p_details);
         }

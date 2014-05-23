@@ -37,11 +37,11 @@ BOOST_AUTO_TEST_SUITE(picture_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             const picture_box_type picture_box(parent, picture_box_type::scroll_bar_style_type::none);
         }
         {
-            window_type parent;
+            window_type parent{};
             const picture_box_type picture_box(parent, picture_box_type::scroll_bar_style_type::both);
         }
     }
@@ -61,13 +61,13 @@ BOOST_AUTO_TEST_SUITE(picture_box)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
+            window_type parent{};
             const picture_box_type picture_box(parent, picture_box_type::scroll_bar_style_type::none);
 
             picture_box.fast_paint_observer_set();
         }
         {
-            window_type parent;
+            window_type parent{};
             picture_box_type picture_box(parent, picture_box_type::scroll_bar_style_type::none);
 
             picture_box.fast_paint_observer_set();

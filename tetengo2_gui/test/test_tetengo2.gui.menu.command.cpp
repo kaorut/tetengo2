@@ -43,14 +43,14 @@ BOOST_AUTO_TEST_SUITE(command)
     {
         BOOST_TEST_PASSPOINT();
 
-        const menu_command_type menu_command(string_type(TETENGO2_TEXT("Tetengo")));
+        const menu_command_type menu_command{ string_type{ TETENGO2_TEXT("Tetengo") } };
     }
 
     BOOST_AUTO_TEST_CASE(style)
     {
         BOOST_TEST_PASSPOINT();
 
-        const menu_command_type menu_command(string_type(TETENGO2_TEXT("Tetengo")));
+        const menu_command_type menu_command{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
         BOOST_CHECK(&menu_command.style() == &menu_details_type::menu_command_style<menu_base_type>());
     }

@@ -29,7 +29,7 @@ namespace
     public:
         concrete_window()
         :
-        abstract_window_type(abstract_window_type::scroll_bar_style_type::none, false, message_handler_map_type()),
+        abstract_window_type(abstract_window_type::scroll_bar_style_type::none, false, message_handler_map_type{}),
         m_p_details(tetengo2::stdalt::make_unique<details_type>())
         {
             this->initialize(this);
@@ -71,16 +71,16 @@ BOOST_AUTO_TEST_SUITE(message_loop)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const message_loop_type message_loop(window);
+        concrete_window window{};
+        const message_loop_type message_loop{ window };
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_window window;
-        const message_loop_type message_loop(window);
+        concrete_window window{};
+        const message_loop_type message_loop{ window };
 
         message_loop();
     }

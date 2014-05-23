@@ -89,7 +89,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type()),
+            message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
             widget_details_type::create_label(parent)
         )
 #if BOOST_COMP_MSVC
@@ -125,11 +125,11 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content(width_type max_width)
         {
-            if (this->text().empty() || max_width == width_type(0)) return;
+            if (this->text().empty() || max_width == width_type{ 0 }) return;
 
             auto one_line_dimension = calc_text_dimension();
-            const width_type line_count(gui::dimension<dimension_type>::width(one_line_dimension) / max_width);
-            if (line_count <= width_type(1))
+            const width_type line_count{ gui::dimension<dimension_type>::width(one_line_dimension) / max_width };
+            if (line_count <= width_type{ 1 })
             {
                 this->set_client_dimension(std::move(one_line_dimension));
                 return;
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             const auto int_line_count = ceil<std::size_t>(line_count);
             auto height = gui::dimension<dimension_type>::height(one_line_dimension) * int_line_count;
-            this->set_client_dimension(dimension_type(std::move(max_width), std::move(height)));
+            this->set_client_dimension(dimension_type{ std::move(max_width), std::move(height) });
         }
 
 

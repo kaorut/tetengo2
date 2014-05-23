@@ -39,7 +39,7 @@ namespace
         concrete_window(const bool file_droppable = false)
         :
         abstract_window_type(
-            abstract_window_type::scroll_bar_style_type::none, file_droppable, message_handler_map_type()
+            abstract_window_type::scroll_bar_style_type::none, file_droppable, message_handler_map_type{}
         ),
         m_p_details(tetengo2::stdalt::make_unique<details_type>())
         {
@@ -158,12 +158,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         concrete_window window;
 
         std::unique_ptr<icon_type> p_icon =
-            tetengo2::stdalt::make_unique<icon_type>(path_type(TETENGO2_TEXT("hoge.ico")));
+            tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
         window.set_icon(std::move(p_icon));
 
         BOOST_REQUIRE(window.has_icon());
         const icon_type& icon = window.icon();
-        BOOST_CHECK(icon.path() == path_type(TETENGO2_TEXT("hoge.ico")));
+        BOOST_CHECK(icon.path() == path_type{ TETENGO2_TEXT("hoge.ico") });
     }
 
     BOOST_AUTO_TEST_CASE(has_menu_bar)

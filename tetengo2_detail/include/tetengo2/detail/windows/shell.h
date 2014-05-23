@@ -93,7 +93,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::for_each(
                 first,
                 last,
-                [&parameters](const String& parameter) { parameters += parameter + String(TETENGO2_TEXT(" ")); }
+                [&parameters](const String& parameter) { parameters += parameter + String{ TETENGO2_TEXT(" ") }; }
             );
 
             return parameters;

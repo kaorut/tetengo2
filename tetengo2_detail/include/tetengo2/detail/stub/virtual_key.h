@@ -38,7 +38,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> backspace()
         {
-            return std::pair<code_type, String>(0x08, String(TETENGO2_TEXT("BackSpace")));
+            return { 0x08, String{ TETENGO2_TEXT("BackSpace") } };
         }
 
         //! Returns the key code and string for Tab.
@@ -47,7 +47,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> tab()
         {
-            return std::pair<code_type, String>(0x09, String(TETENGO2_TEXT("Tab")));
+            return { 0x09, String{ TETENGO2_TEXT("Tab") } };
         }
 
         //! Returns the key code and string for Enter.
@@ -56,7 +56,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> enter()
         {
-            return std::pair<code_type, String>(0x0D, String(TETENGO2_TEXT("Enter")));
+            return { 0x0D, String{ TETENGO2_TEXT("Enter") } };
         }
 
         //! Returns the key code and string for Shift.
@@ -65,7 +65,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> shift()
         {
-            return std::pair<code_type, String>(0x10, String(TETENGO2_TEXT("Shift")));
+            return { 0x10, String{ TETENGO2_TEXT("Shift") } };
         }
 
         //! Returns the key code and string for Control.
@@ -74,7 +74,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> control()
         {
-            return std::pair<code_type, String>(0x11, String(TETENGO2_TEXT("Ctrl")));
+            return { 0x11, String{ TETENGO2_TEXT("Ctrl") } };
         }
 
         //! Returns the key code and string for Meta.
@@ -83,7 +83,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> meta()
         {
-            return std::pair<code_type, String>(0x12, String(TETENGO2_TEXT("Alt")));
+            return { 0x12, String{ TETENGO2_TEXT("Alt") } };
         }
 
         //! Returns the key code and string for Escape.
@@ -92,7 +92,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> escape()
         {
-            return std::pair<code_type, String>(0x1B, String(TETENGO2_TEXT("Esc")));
+            return { 0x1B, String{ TETENGO2_TEXT("Esc") } };
         }
 
         //! Returns the key code and string for Space.
@@ -101,7 +101,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> space()
         {
-            return std::pair<code_type, String>(0x20, String(TETENGO2_TEXT("Space")));
+            return { 0x20, String{ TETENGO2_TEXT("Space") } };
         }
 
         //! Returns the key code and string for PageUp.
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> page_up()
         {
-            return std::pair<code_type, String>(0x21, String(TETENGO2_TEXT("PageUp")));
+            return { 0x21, String{ TETENGO2_TEXT("PageUp") } };
         }
 
         //! Returns the key code and string for PageDown.
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> page_down()
         {
-            return std::pair<code_type, String>(0x22, String(TETENGO2_TEXT("PageDown")));
+            return { 0x22, String{ TETENGO2_TEXT("PageDown") } };
         }
 
         //! Returns the key code and string for End.
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> end()
         {
-            return std::pair<code_type, String>(0x23, String(TETENGO2_TEXT("End")));
+            return { 0x23, String{ TETENGO2_TEXT("End") } };
         }
 
         //! Returns the key code and string for Home.
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> home()
         {
-            return std::pair<code_type, String>(0x24, String(TETENGO2_TEXT("Home")));
+            return { 0x24, String{ TETENGO2_TEXT("Home") } };
         }
 
         //! Returns the key code and string for Left.
@@ -146,7 +146,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> left()
         {
-            return std::pair<code_type, String>(0x25, String(TETENGO2_TEXT("Left")));
+            return { 0x25, String{ TETENGO2_TEXT("Left") } };
         }
 
         //! Returns the key code and string for Up.
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> up()
         {
-            return std::pair<code_type, String>(0x26, String(TETENGO2_TEXT("Up")));
+            return { 0x26, String{ TETENGO2_TEXT("Up") } };
         }
 
         //! Returns the key code and string for Right.
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> right()
         {
-            return std::pair<code_type, String>(0x27, String(TETENGO2_TEXT("Right")));
+            return { 0x27, String{ TETENGO2_TEXT("Right") } };
         }
 
         //! Returns the key code and string for Down.
@@ -173,7 +173,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> down()
         {
-            return std::pair<code_type, String>(0x28, String(TETENGO2_TEXT("Down")));
+            return { 0x28, String{ TETENGO2_TEXT("Down") } };
         }
 
         //! Returns the key code and string for Insert.
@@ -182,7 +182,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> insert()
         {
-            return std::pair<code_type, String>(0x2D, String(TETENGO2_TEXT("Ins")));
+            return { 0x2D, String{ TETENGO2_TEXT("Ins") } };
         }
 
         //! Returns the key code and string for Delete.
@@ -191,7 +191,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> del()
         {
-            return std::pair<code_type, String>(0x2E, String(TETENGO2_TEXT("Del")));
+            return { 0x2E, String{ TETENGO2_TEXT("Del") } };
         }
 
         //! Returns the key code and string for '0'.
@@ -200,7 +200,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_0()
         {
-            return std::pair<code_type, String>('0', String(TETENGO2_TEXT("0")));
+            return { '0', String{ TETENGO2_TEXT("0") } };
         }
 
         //! Returns the key code and string for '1'.
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_1()
         {
-            return std::pair<code_type, String>('1', String(TETENGO2_TEXT("1")));
+            return { '1', String{ TETENGO2_TEXT("1") } };
         }
 
         //! Returns the key code and string for 'A'.
@@ -218,7 +218,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_2()
         {
-            return std::pair<code_type, String>('2', String(TETENGO2_TEXT("2")));
+            return { '2', String{ TETENGO2_TEXT("2") } };
         }
 
         //! Returns the key code and string for '3'.
@@ -227,7 +227,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_3()
         {
-            return std::pair<code_type, String>('3', String(TETENGO2_TEXT("3")));
+            return { '3', String{ TETENGO2_TEXT("3") } };
         }
 
         //! Returns the key code and string for '4'.
@@ -236,7 +236,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_4()
         {
-            return std::pair<code_type, String>('4', String(TETENGO2_TEXT("4")));
+            return { '4', String{ TETENGO2_TEXT("4") } };
         }
 
         //! Returns the key code and string for '5'.
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_5()
         {
-            return std::pair<code_type, String>('5', String(TETENGO2_TEXT("5")));
+            return { '5', String{ TETENGO2_TEXT("5") } };
         }
 
         //! Returns the key code and string for '6'.
@@ -254,7 +254,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_6()
         {
-            return std::pair<code_type, String>('6', String(TETENGO2_TEXT("6")));
+            return { '6', String{ TETENGO2_TEXT("6") } };
         }
 
         //! Returns the key code and string for '7'.
@@ -263,7 +263,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_7()
         {
-            return std::pair<code_type, String>('7', String(TETENGO2_TEXT("7")));
+            return { '7', String{ TETENGO2_TEXT("7") } };
         }
 
         //! Returns the key code and string for '8'.
@@ -272,7 +272,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_8()
         {
-            return std::pair<code_type, String>('8', String(TETENGO2_TEXT("8")));
+            return { '8', String{ TETENGO2_TEXT("8") } };
         }
 
         //! Returns the key code and string for '9'.
@@ -281,7 +281,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_9()
         {
-            return std::pair<code_type, String>('9', String(TETENGO2_TEXT("9")));
+            return { '9', String{ TETENGO2_TEXT("9") } };
         }
 
         //! Returns the key code and string for 'A'.
@@ -290,7 +290,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_a()
         {
-            return std::pair<code_type, String>('A', String(TETENGO2_TEXT("A")));
+            return { 'A', String{ TETENGO2_TEXT("A") } };
         }
 
         //! Returns the key code and string for 'B'.
@@ -299,7 +299,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_b()
         {
-            return std::pair<code_type, String>('B', String(TETENGO2_TEXT("B")));
+            return { 'B', String{ TETENGO2_TEXT("B") } };
         }
 
         //! Returns the key code and string for 'C'.
@@ -308,7 +308,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_c()
         {
-            return std::pair<code_type, String>('C', String(TETENGO2_TEXT("C")));
+            return { 'C', String{ TETENGO2_TEXT("C") } };
         }
 
         //! Returns the key code and string for 'D'.
@@ -317,7 +317,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_d()
         {
-            return std::pair<code_type, String>('D', String(TETENGO2_TEXT("D")));
+            return { 'D', String{ TETENGO2_TEXT("D") } };
         }
 
         //! Returns the key code and string for 'E'.
@@ -326,7 +326,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_e()
         {
-            return std::pair<code_type, String>('E', String(TETENGO2_TEXT("E")));
+            return { 'E', String{ TETENGO2_TEXT("E") } };
         }
 
         //! Returns the key code and string for 'F'.
@@ -335,7 +335,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_f()
         {
-            return std::pair<code_type, String>('F', String(TETENGO2_TEXT("F")));
+            return { 'F', String{ TETENGO2_TEXT("F") } };
         }
 
         //! Returns the key code and string for 'G'.
@@ -344,7 +344,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_g()
         {
-            return std::pair<code_type, String>('G', String(TETENGO2_TEXT("G")));
+            return { 'G', String{ TETENGO2_TEXT("G") } };
         }
 
         //! Returns the key code and string for 'H'.
@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_h()
         {
-            return std::pair<code_type, String>('H', String(TETENGO2_TEXT("H")));
+            return { 'H', String{ TETENGO2_TEXT("H") } };
         }
 
         //! Returns the key code and string for 'I'.
@@ -362,7 +362,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_i()
         {
-            return std::pair<code_type, String>('I', String(TETENGO2_TEXT("I")));
+            return { 'I', String{ TETENGO2_TEXT("I") } };
         }
 
         //! Returns the key code and string for 'J'.
@@ -371,7 +371,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_j()
         {
-            return std::pair<code_type, String>('J', String(TETENGO2_TEXT("J")));
+            return { 'J', String{ TETENGO2_TEXT("J") } };
         }
 
         //! Returns the key code and string for 'K'.
@@ -380,7 +380,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_k()
         {
-            return std::pair<code_type, String>('K', String(TETENGO2_TEXT("K")));
+            return { 'K', String{ TETENGO2_TEXT("K") } };
         }
 
         //! Returns the key code and string for 'L'.
@@ -389,7 +389,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_l()
         {
-            return std::pair<code_type, String>('L', String(TETENGO2_TEXT("L")));
+            return { 'L', String{ TETENGO2_TEXT("L") } };
         }
 
         //! Returns the key code and string for 'M'.
@@ -398,7 +398,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_m()
         {
-            return std::pair<code_type, String>('M', String(TETENGO2_TEXT("M")));
+            return { 'M', String{ TETENGO2_TEXT("M") } };
         }
 
         //! Returns the key code and string for 'N'.
@@ -407,7 +407,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_n()
         {
-            return std::pair<code_type, String>('N', String(TETENGO2_TEXT("N")));
+            return { 'N', String{ TETENGO2_TEXT("N") } };
         }
 
         //! Returns the key code and string for 'O'.
@@ -416,7 +416,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_o()
         {
-            return std::pair<code_type, String>('O', String(TETENGO2_TEXT("O")));
+            return { 'O', String{ TETENGO2_TEXT("O") } };
         }
 
         //! Returns the key code and string for 'P'.
@@ -425,7 +425,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_p()
         {
-            return std::pair<code_type, String>('P', String(TETENGO2_TEXT("P")));
+            return { 'P', String{ TETENGO2_TEXT("P") } };
         }
 
         //! Returns the key code and string for 'Q'.
@@ -434,7 +434,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_q()
         {
-            return std::pair<code_type, String>('Q', String(TETENGO2_TEXT("Q")));
+            return { 'Q', String{ TETENGO2_TEXT("Q") } };
         }
 
         //! Returns the key code and string for 'R'.
@@ -443,7 +443,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_r()
         {
-            return std::pair<code_type, String>('R', String(TETENGO2_TEXT("R")));
+            return { 'R', String{ TETENGO2_TEXT("R") } };
         }
 
         //! Returns the key code and string for 'S'.
@@ -452,7 +452,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_s()
         {
-            return std::pair<code_type, String>('S', String(TETENGO2_TEXT("S")));
+            return { 'S', String{ TETENGO2_TEXT("S") } };
         }
 
         //! Returns the key code and string for 'T'.
@@ -461,7 +461,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_t()
         {
-            return std::pair<code_type, String>('T', String(TETENGO2_TEXT("T")));
+            return { 'T', String{ TETENGO2_TEXT("T") } };
         }
 
         //! Returns the key code and string for 'U'.
@@ -470,7 +470,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_u()
         {
-            return std::pair<code_type, String>('U', String(TETENGO2_TEXT("U")));
+            return { 'U', String{ TETENGO2_TEXT("U") } };
         }
 
         //! Returns the key code and string for 'V'.
@@ -479,7 +479,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_v()
         {
-            return std::pair<code_type, String>('V', String(TETENGO2_TEXT("V")));
+            return { 'V', String{ TETENGO2_TEXT("V") } };
         }
 
         //! Returns the key code and string for 'W'.
@@ -488,7 +488,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_w()
         {
-            return std::pair<code_type, String>('W', String(TETENGO2_TEXT("W")));
+            return { 'W', String{ TETENGO2_TEXT("W") } };
         }
 
         //! Returns the key code and string for 'X'.
@@ -497,7 +497,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_x()
         {
-            return std::pair<code_type, String>('X', String(TETENGO2_TEXT("X")));
+            return { 'X', String{ TETENGO2_TEXT("X") } };
         }
 
         //! Returns the key code and string for 'Y'.
@@ -506,7 +506,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_y()
         {
-            return std::pair<code_type, String>('Y', String(TETENGO2_TEXT("Y")));
+            return { 'Y', String{ TETENGO2_TEXT("Y") } };
         }
 
         //! Returns the key code and string for 'Z'.
@@ -515,7 +515,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> char_z()
         {
-            return std::pair<code_type, String>('Z', String(TETENGO2_TEXT("Z")));
+            return { 'Z', String{ TETENGO2_TEXT("Z") } };
         }
 
         //! Returns the key code and string for F1.
@@ -524,7 +524,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f1()
         {
-            return std::pair<code_type, String>(0x70, String(TETENGO2_TEXT("F1")));
+            return { 0x70, String{ TETENGO2_TEXT("F1") } };
         }
 
         //! Returns the key code and string for F2.
@@ -533,7 +533,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f2()
         {
-            return std::pair<code_type, String>(0x71, String(TETENGO2_TEXT("F2")));
+            return { 0x71, String{ TETENGO2_TEXT("F2") } };
         }
 
         //! Returns the key code and string for F3.
@@ -542,7 +542,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f3()
         {
-            return std::pair<code_type, String>(0x72, String(TETENGO2_TEXT("F3")));
+            return { 0x72, String{ TETENGO2_TEXT("F3") } };
         }
 
         //! Returns the key code and string for F4.
@@ -551,7 +551,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f4()
         {
-            return std::pair<code_type, String>(0x73, String(TETENGO2_TEXT("F4")));
+            return { 0x73, String{ TETENGO2_TEXT("F4") } };
         }
 
         //! Returns the key code and string for F5.
@@ -560,7 +560,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f5()
         {
-            return std::pair<code_type, String>(0x74, String(TETENGO2_TEXT("F5")));
+            return { 0x74, String{ TETENGO2_TEXT("F5") } };
         }
 
         //! Returns the key code and string for F6.
@@ -569,7 +569,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f6()
         {
-            return std::pair<code_type, String>(0x75, String(TETENGO2_TEXT("F6")));
+            return { 0x75, String{ TETENGO2_TEXT("F6") } };
         }
 
         //! Returns the key code and string for F7.
@@ -578,7 +578,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f7()
         {
-            return std::pair<code_type, String>(0x76, String(TETENGO2_TEXT("F7")));
+            return { 0x76, String{ TETENGO2_TEXT("F7") } };
         }
 
         //! Returns the key code and string for F8.
@@ -587,7 +587,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f8()
         {
-            return std::pair<code_type, String>(0x77, String(TETENGO2_TEXT("F8")));
+            return { 0x77, String{ TETENGO2_TEXT("F8") } };
         }
 
         //! Returns the key code and string for F9.
@@ -596,7 +596,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f9()
         {
-            return std::pair<code_type, String>(0x78, String(TETENGO2_TEXT("F9")));
+            return { 0x78, String{ TETENGO2_TEXT("F9") } };
         }
 
         //! Returns the key code and string for F10.
@@ -605,7 +605,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f10()
         {
-            return std::pair<code_type, String>(0x79, String(TETENGO2_TEXT("F10")));
+            return { 0x79, String{ TETENGO2_TEXT("F10") } };
         }
 
         //! Returns the key code and string for F11.
@@ -614,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f11()
         {
-            return std::pair<code_type, String>(0x7A, String(TETENGO2_TEXT("F11")));
+            return { 0x7A, String{ TETENGO2_TEXT("F11") } };
         }
 
         //! Returns the key code and string for F12.
@@ -623,7 +623,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String>
         static std::pair<code_type, String> f12()
         {
-            return std::pair<code_type, String>(0x7B, String(TETENGO2_TEXT("F12")));
+            return { 0x7B, String{ TETENGO2_TEXT("F12") } };
         }
 
         /*!
@@ -644,7 +644,7 @@ namespace tetengo2 { namespace detail { namespace stub
             for (InputIterator i = first; i != last; ++i)
             {
                 if (i != first)
-                    string += String(TETENGO2_TEXT("+"));
+                    string += String{ TETENGO2_TEXT("+") };
                 string += (*i)->to_string();
             }
             return string;

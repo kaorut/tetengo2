@@ -40,16 +40,16 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        path_type path;
-        const picture_reader_type reader(std::move(path));
+        path_type path{};
+        const picture_reader_type reader{ std::move(path) };
     }
 
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
 
-        path_type path;
-        picture_reader_type reader(std::move(path));
+        path_type path{};
+        picture_reader_type reader{ std::move(path) };
 
         const auto p_picture = reader.read();
     }

@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_SUITE(transparent_background)
     {
         BOOST_TEST_PASSPOINT();
 
-        const background_type background;
+        const background_type background{};
     }
 
 

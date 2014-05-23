@@ -71,10 +71,10 @@ namespace tetengo2 { namespace text { namespace encoding
         const
         {
             return
-                string_type(
+                {
                     boost::make_transform_iterator(pivot.begin(), to_ascii),
                     boost::make_transform_iterator(pivot.end(), to_ascii)
-                );
+                };
         }
 
         /*!
@@ -90,10 +90,10 @@ namespace tetengo2 { namespace text { namespace encoding
         const
         {
             return
-                typename base_type::pivot_type(
+                {
                     boost::make_transform_iterator(string.begin(), from_ascii),
                     boost::make_transform_iterator(string.end(), from_ascii)
-                );
+                };
         }
 
 
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace text { namespace encoding
         static pivot_char_type from_ascii(const string_char_type ascii_char)
         {
             if (ascii_char < 0)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Not ASCII code."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "Not ASCII code." });
 
             return ascii_char;
         }

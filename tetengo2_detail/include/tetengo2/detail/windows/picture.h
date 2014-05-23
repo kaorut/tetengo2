@@ -60,11 +60,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, wic_category()), "Can't create WIC imaging factory.")
+                    std::system_error{ std::error_code{ hr, wic_category() }, "Can't create WIC imaging factory." }
                 );
             }
 
-            return wic_imaging_factory_ptr_type(rp_factory);
+            return { rp_factory };
         }
     }
 #endif
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     */
     inline ::IWICImagingFactory& wic_imaging_factory()
     {
-        static const detail::wic_imaging_factory_ptr_type p_factory(detail::create_wic_imaging_factory());
+        static const detail::wic_imaging_factory_ptr_type p_factory{ detail::create_wic_imaging_factory() };
         return *p_factory;
     }
 
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             BOOST_THROW_EXCEPTION(std::system_error(std::error_code(hr, wic_category()), "Can't create bitmap."));
         }
 
-        return details_ptr_type(rp_bitmap);
+        return { rp_bitmap };
     }
 
     /*!
@@ -143,7 +143,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         if (FAILED(create_decoder_hr))
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(std::error_code(create_decoder_hr, wic_category()), "Can't create WIC decoder.")
+                std::system_error{ std::error_code{ create_decoder_hr, wic_category() }, "Can't create WIC decoder." }
             );
         }
         const typename unique_com_ptr< ::IWICBitmapDecoder>::type p_decoder(rp_decoder);
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         if (FAILED(get_frame_hr))
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(std::error_code(get_frame_hr, wic_category()), "Can't create bitmap frame.")
+                std::system_error{ std::error_code{ get_frame_hr, wic_category() }, "Can't create bitmap frame." }
             );
         }
         const typename unique_com_ptr< ::IWICBitmapFrameDecode>::type p_frame(rp_frame);
@@ -163,9 +163,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         if (FAILED(create_format_converter_hr))
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(
-                    std::error_code(create_format_converter_hr, wic_category()), "Can't create format converter."
-                )
+                std::system_error{
+                    std::error_code{ create_format_converter_hr, wic_category() }, "Can't create format converter."
+                }
             );
         }
         typename unique_com_ptr< ::IWICFormatConverter>::type p_format_converter(rp_format_converter);
@@ -182,13 +182,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         if (FAILED(initialize_hr))
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(
-                    std::error_code(initialize_hr, wic_category()), "Can't initialize format converter."
-                )
+                std::system_error{
+                    std::error_code{ initialize_hr, wic_category() }, "Can't initialize format converter."
+                }
             );
         }
 
-        return details_ptr_type(std::move(p_format_converter));
+        return { std::move(p_format_converter) };
     }
 
     /*!
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         if (FAILED(hr))
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(std::error_code(hr, wic_category()), "Can't get size of picture.")
+                std::system_error{ std::error_code{ hr, wic_category() }, "Can't get size of picture." }
             );
         }
 

@@ -100,7 +100,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, nullptr, 0);
 
-            std::vector<Path> paths;
+            std::vector<Path> paths{};
             paths.reserve(count);
 
             for (::UINT i = 0; i < count; ++i)
@@ -113,13 +113,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (result == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(::GetLastError(), win32_category()), "Can't obtain the dropped file path."
-                        )
+                        std::system_error{
+                            std::error_code{ ::GetLastError(), win32_category() },
+                            "Can't obtain the dropped file path."
+                        }
                     );
                 }
 
-                paths.emplace_back(std::wstring(path_string.begin(), path_string.begin() + length));
+                paths.emplace_back(std::wstring{ path_string.begin(), path_string.begin() + length });
             }
 
             return paths;

@@ -83,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             scroll_bar_style,
-            message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type()),
+            message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
             widget_details_type::create_list_box(parent, scroll_bar_style)
         ),
 #if BOOST_COMP_MSVC
@@ -127,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             return widget_details_type::template list_box_value<string_type>(*this, index, widget_type::encoder());
         }
@@ -143,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_value(const int_size_type index, string_type value)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::set_list_box_value(*this, index, std::move(value), widget_type::encoder());
         }
@@ -159,7 +159,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void insert_value(const int_size_type index, string_type value)
         {
             if (index > value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::insert_list_box_value(*this, index, std::move(value), widget_type::encoder());
         }
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void erase_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::erase_list_box_value(*this, index);
         }
@@ -208,7 +208,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void select_value(const int_size_type index)
         {
             if (index >= value_count())
-                BOOST_THROW_EXCEPTION(std::out_of_range("index is out of range."));
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of range." });
 
             widget_details_type::select_list_box_value(*this, index);
         }

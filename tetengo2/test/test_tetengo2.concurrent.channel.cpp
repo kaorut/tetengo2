@@ -58,10 +58,10 @@ BOOST_AUTO_TEST_SUITE(channel)
         BOOST_TEST_PASSPOINT();
 
         {
-            const channel_type channel(3);
+            const channel_type channel{ 3 };
         }
         {
-            BOOST_CHECK_THROW(const channel_type channel(0), std::invalid_argument);
+            BOOST_CHECK_THROW(const channel_type channel{ 0 }, std::invalid_argument);
         }
     }
 
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_SUITE(channel)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel(3);
+        channel_type channel{ 3 };
 
         channel.insert(12);
         channel.insert(34);
@@ -80,9 +80,9 @@ BOOST_AUTO_TEST_SUITE(channel)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel(3);
+        channel_type channel{ 3 };
 
-        channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+        channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
             channel.insert(34);
@@ -98,9 +98,9 @@ BOOST_AUTO_TEST_SUITE(channel)
             BOOST_CHECK_EQUAL(channel.peek(), 12);
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
-            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
 
             try
             {
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
             channel.insert(34);
@@ -133,10 +133,10 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.take();
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
-            channel.insert_exception(std::make_exception_ptr(std::runtime_error("hoge")));
-            channel.insert_exception(std::make_exception_ptr(test_exception()));
+            channel.insert_exception(std::make_exception_ptr(std::runtime_error{ "hoge" }));
+            channel.insert_exception(std::make_exception_ptr(test_exception{}));
 
             channel.take();
             channel.take();
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
 
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.insert(34);
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
 
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             BOOST_CHECK_THROW(channel.peek(), std::logic_error);
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
 
@@ -183,14 +183,14 @@ BOOST_AUTO_TEST_SUITE(channel)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.close();
 
             BOOST_CHECK(channel.closed());
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
             channel.insert(12);
 
@@ -203,9 +203,9 @@ BOOST_AUTO_TEST_SUITE(channel)
             BOOST_CHECK(channel.closed());
         }
         {
-            channel_type channel(3);
+            channel_type channel{ 3 };
 
-            tetengo2::stdalt::thread producing_thread(produce, &channel);
+            tetengo2::stdalt::thread producing_thread{ produce, &channel };
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();

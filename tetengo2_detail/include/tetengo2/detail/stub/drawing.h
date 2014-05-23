@@ -360,7 +360,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font>
         static Font make_dialog_font()
         {
-            return Font(typename Font::string_type(TETENGO2_TEXT("TetengoFont")), 12, false, false, false, false);
+            return { typename Font::string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false };
         }
 
         /*!
@@ -376,7 +376,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param text      A text.
             \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
-
+width_type\(([0-9]+)\)
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
@@ -395,8 +395,8 @@ namespace tetengo2 { namespace detail { namespace stub
             using width_type = typename gui::dimension<Dimension>::width_type;
             using height_type = typename gui::dimension<Dimension>::height_type;
             return
-                max_width == width_type(0) || max_width >= width_type(123) ?
-                Dimension(width_type(123), height_type(456)) : Dimension(width_type(46), height_type(890));
+                max_width == width_type{ 0 } || max_width >= width_type{ 123 } ?
+                Dimension{ width_type{ 123 }, height_type{ 456 } } : Dimension{ width_type{ 46 }, height_type{ 890 } };
         }
 
         /*!

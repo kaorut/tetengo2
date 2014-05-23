@@ -56,9 +56,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (previous_color == CLR_INVALID)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't set text color."
-                        )
+                        std::system_error{
+                            std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't set text color."
+                        }
                     );
                 }
             }
@@ -66,9 +66,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (previous_background_mode == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't set background mode."
-                    )
+                    std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't set background mode."
+                    }
                 );
             }
 

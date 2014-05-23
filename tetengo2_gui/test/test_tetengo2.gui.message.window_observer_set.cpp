@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(window_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const window_observer_set_type observer_set;
+            const window_observer_set_type observer_set{};
 
             observer_set.closing();
         }
         {
-            window_observer_set_type observer_set;
+            window_observer_set_type observer_set{};
 
             observer_set.closing();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(window_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const window_observer_set_type observer_set;
+            const window_observer_set_type observer_set{};
 
             observer_set.destroyed();
         }
         {
-            window_observer_set_type observer_set;
+            window_observer_set_type observer_set{};
 
             observer_set.destroyed();
         }

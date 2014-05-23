@@ -92,7 +92,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(
             base_type::scroll_bar_style_type::none,
             file_droppable,
-            message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type())
+            message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})
         ),
 #if BOOST_COMP_MSVC
 #   pragma warning(pop)
@@ -148,11 +148,11 @@ namespace tetengo2 { namespace gui { namespace widget
             auto& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
 
-            this->window_observer_set().destroyed().connect([]() { message_loop_break_type()(0); });
+            this->window_observer_set().destroyed().connect([]() { message_loop_break_type{}(0); });
             this->set_position(widget_details_type::template dialog_position<position_type>(*this, parent_window));
             this->set_visible(true);
 
-            message_loop_type(*this)();
+            message_loop_type{ *this }();
 
             parent_window.set_enabled(true);
             parent_window.activate();

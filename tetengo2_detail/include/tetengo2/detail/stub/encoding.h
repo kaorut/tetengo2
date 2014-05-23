@@ -47,7 +47,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
         {
-            utf8_string_type string;
+            utf8_string_type string{};
             string.reserve(pivot.length());
             std::transform(
                 pivot.begin(),
@@ -67,7 +67,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static pivot_type utf8_to_pivot(const utf8_string_type& string)
         {
-            pivot_type pivot;
+            pivot_type pivot{};
             pivot.reserve(string.length());
             std::transform(
                 string.begin(),
@@ -87,7 +87,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static cp932_string_type pivot_to_cp932(const pivot_type& pivot)
         {
-            cp932_string_type string;
+            cp932_string_type string{};
             string.reserve(pivot.length());
             std::transform(
                 pivot.begin(),
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static pivot_type cp932_to_pivot(const cp932_string_type& string)
         {
-            pivot_type pivot;
+            pivot_type pivot{};
             pivot.reserve(string.length());
             std::transform(
                 string.begin(),

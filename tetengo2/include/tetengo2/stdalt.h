@@ -196,13 +196,13 @@ namespace tetengo2 { namespace stdalt
     template <typename Int>
     void this_thread_sleep_for(const Int ms)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        std::this_thread::sleep_for(std::chrono::milliseconds{ ms });
     }
 #else
     template <typename Int>
     void this_thread_sleep_for(const Int ms)
     {
-        boost::this_thread::sleep_for(boost::chrono::milliseconds(ms));
+        boost::this_thread::sleep_for(boost::chrono::milliseconds{ ms });
     }
 #endif
 
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace stdalt
     template <typename T, typename... A>
     std::unique_ptr<T> make_unique(A&&... args)
     {
-        return std::unique_ptr<T>(new T(std::forward<A>(args)...));
+        return std::unique_ptr<T>{ new T(std::forward<A>(args)...) };
     }
 #endif
 

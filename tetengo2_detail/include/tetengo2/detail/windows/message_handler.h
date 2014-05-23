@@ -77,7 +77,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[WM_COMMAND].push_back(
                 [&abstract_window](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 [&button](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -167,7 +167,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::control_color)].push_back(
                 [&control](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -222,7 +222,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[WM_COMMAND].push_back(
                 [&dialog](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -263,7 +263,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 [&dropdown_box](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -333,7 +333,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 [&list_box](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -361,7 +361,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[WM_ERASEBKGND].push_back(
                 [&picture_box](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -395,7 +395,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[static_cast< ::UINT>(message_handler_detail::custom_message_type::command)].push_back(
                 [&text_box](const ::WPARAM w_param, const ::LPARAM l_param)
@@ -423,7 +423,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(std::move(initial_map));
+            message_handler_map_type map{ std::move(initial_map) };
 
             map[WM_COMMAND].push_back(
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param)

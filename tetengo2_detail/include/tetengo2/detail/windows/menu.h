@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows
         struct id_handle_type
         {
             ::UINT id;
-            handle_type handle;
+            handle_type handle{};
             ::HMENU parent_handle;
 
             id_handle_type(const ::UINT id, handle_type handle, const ::HMENU parent_handle)
@@ -171,15 +171,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            menu_details_ptr_type p_menu(
+            menu_details_ptr_type p_menu{
                 stdalt::make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreateMenu()), nullptr
+                    get_and_increment_id(), detail::handle_type{ ::CreateMenu() }, nullptr
                 )
-            );
+            };
             if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a menu bar.")
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a menu bar."
+                    }
                 );
             }
 
@@ -195,17 +197,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            menu_details_ptr_type p_menu(
+            menu_details_ptr_type p_menu{
                 stdalt::make_unique<menu_details_type>(
-                    get_and_increment_id(), detail::handle_type(::CreatePopupMenu()), nullptr
-                )
+                    get_and_increment_id(), detail::handle_type{ ::CreatePopupMenu() }, nullptr
+                }
             );
             if (!p_menu->handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a popup menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a popup menu."
+                    }
                 );
             }
 
@@ -219,7 +221,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type(), nullptr);
+            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type{}, nullptr);
         }
         
         /*!
@@ -287,7 +289,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ForwardIterator last
         )
         {
-            std::vector< ::ACCEL> accelerators;
+            std::vector< ::ACCEL> accelerators{};
             for (auto i = first; i != last; ++i)
             {
                 if (!i->has_shortcut_key()) continue;
@@ -295,16 +297,16 @@ namespace tetengo2 { namespace detail { namespace windows
                 accelerators.push_back(to_accel(*i));
             }
             if (accelerators.empty())
-                return shortcut_key_table_details_ptr_type();
+                return {};
 
             const auto accelerator_table_handle =
                 ::CreateAcceleratorTableW(accelerators.data(), static_cast<int>(accelerators.size()));
             if (!accelerator_table_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a shortcut key table."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't create a shortcut key table."
+                    }
                 );
             }
 
@@ -336,7 +338,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             assert(!menu.details().parent_handle);
 
-            ::MENUITEMINFOW menu_info = {};
+            ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             auto duplicated_text = make_text(menu, encoder);
             menu.style().set_style(menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
@@ -351,9 +353,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't insert a native menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't insert a native menu."
+                    }
                 );
             }
 
@@ -454,7 +456,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 suppress_unused_variable_warning(details, menu_info, text, enabled, state);
 
                 assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("A menu bar cannot be inserted."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "A menu bar cannot be inserted." });
             }
         };
 
@@ -553,15 +555,15 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename MenuBase::state_type state
         )
         {
-            ::MENUITEMINFOW menu_info = {};
+            ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFOW);
             const auto get_result = ::GetMenuItemInfoW(menu_handle, menu_id, FALSE, &menu_info);
             if (get_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't get a menu item info."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't get a menu item info."
+                    }
                 );
             }
 
@@ -580,9 +582,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (set_result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't set a menu item info."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't set a menu item info."
+                    }
                 );
             }
         }
@@ -592,7 +594,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto& shortcut_key = menu.shortcut_key();
 
-            ::ACCEL accel = {};
+            ::ACCEL accel{};
 
             if (shortcut_key.shift())   accel.fVirt |= FSHIFT;
             if (shortcut_key.control()) accel.fVirt |= FCONTROL;
@@ -619,12 +621,12 @@ namespace tetengo2 { namespace detail { namespace windows
             auto text = menu.text();
             if (menu.has_shortcut_key())
             {
-                text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
+                text += typename MenuBase::string_type{ TETENGO2_TEXT("\t") };
                 text += menu.shortcut_key().to_string();
             }
             const auto native_string = encoder.encode(text);
 
-            std::vector< ::WCHAR> duplicated;
+            std::vector< ::WCHAR> duplicated{};
             duplicated.reserve(native_string.length() + 1);
             std::copy(native_string.begin(), native_string.end(), std::back_inserter(duplicated));
             duplicated.push_back(L'\0');
@@ -647,9 +649,9 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't remove a native menu."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category() }, "Can't remove a native menu."
+                    }
                 );
             }
 

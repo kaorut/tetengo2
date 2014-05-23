@@ -311,7 +311,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return calc_text_dimension(text, width_type(0));
+            return calc_text_dimension(text, width_type{ 0 });
         }
 
         /*!
@@ -344,7 +344,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            draw_text(text, position, width_type(0), angle);
+            draw_text(text, position, width_type{ 0 }, angle);
         }
 
         /*!
@@ -449,13 +449,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         :
         m_p_details(std::move(p_details)),
         m_color(0, 0, 0, 255),
-        m_p_background(stdalt::make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
+        m_p_background(stdalt::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 })),
         m_line_width(1),
         m_line_style(line_style_type::solid),
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is nullptr."));
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The detail implementation is nullptr." });
         }
 
 

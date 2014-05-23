@@ -46,37 +46,37 @@ namespace
 
     // data
 
-    const std::string catalog0(
+    const std::string catalog0{
         ""
-    );
+    };
 
-    const std::string catalog1(
+    const std::string catalog1{
         "{\n"
         "    \"header\":\n"
         "    {\n"
         "        \"Key1\": \"Value1\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog2(
+    const std::string catalog2{
         "{\n"
         "    \"body\":\n"
         "    {\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog3(
+    const std::string catalog3{
         "{\n"
         "    \"body\":\n"
         "    {\n"
         "        \"Key1\": \"Value1\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
-    const std::string catalog4(
+    const std::string catalog4{
         "{\n"
         "    \"header\":\n"
         "    {\n"
@@ -89,7 +89,7 @@ namespace
         "        \"Key2\": \"Value2\"\n"
         "    }\n"
         "}\n"
-    );
+    };
 
 
     // functions
@@ -100,8 +100,8 @@ namespace
 
         auto p_push_parser =
             tetengo2::stdalt::make_unique<push_parser_type>(
-                input_stream_iterator_type(std::istreambuf_iterator<char>(input)),
-                input_stream_iterator_type(std::istreambuf_iterator<char>()),
+                input_stream_iterator_type{ std::istreambuf_iterator < char > {input} },
+                input_stream_iterator_type{ std::istreambuf_iterator < char > {} },
                 std::move(p_grammar)
             );
 
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::istringstream input_stream(catalog0);
+        std::istringstream input_stream{ catalog0 };
         const auto p_parser =
             tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
     }
@@ -131,35 +131,35 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input_stream(catalog0);
+            std::istringstream input_stream{ catalog0 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK(!p_parser->has_next());
         }
         {
-            std::istringstream input_stream(catalog1);
+            std::istringstream input_stream{ catalog1 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK(!p_parser->has_next());
         }
         {
-            std::istringstream input_stream(catalog2);
+            std::istringstream input_stream{ catalog2 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK(!p_parser->has_next());
         }
         {
-            std::istringstream input_stream(catalog3);
+            std::istringstream input_stream{ catalog3 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK(p_parser->has_next());
         }
         {
-            std::istringstream input_stream(catalog4);
+            std::istringstream input_stream{ catalog4 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
@@ -172,43 +172,43 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input_stream(catalog0);
+            std::istringstream input_stream{ catalog0 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog1);
+            std::istringstream input_stream{ catalog1 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog2);
+            std::istringstream input_stream{ catalog2 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog3);
+            std::istringstream input_stream{ catalog3 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             const auto& entry = p_parser->peek();
-            BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
-            BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
+            BOOST_CHECK(entry.first == string_type{ TETENGO2_TEXT("Key1") });
+            BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value1") });
         }
         {
-            std::istringstream input_stream(catalog4);
+            std::istringstream input_stream{ catalog4 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             const auto& entry = p_parser->peek();
-            BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
-            BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
+            BOOST_CHECK(entry.first == string_type{ TETENGO2_TEXT("Key1") });
+            BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value1") });
         }
     }
 
@@ -217,54 +217,54 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::istringstream input_stream(catalog0);
+            std::istringstream input_stream{ catalog0 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog1);
+            std::istringstream input_stream{ catalog1 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog2);
+            std::istringstream input_stream{ catalog2 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
         }
         {
-            std::istringstream input_stream(catalog3);
+            std::istringstream input_stream{ catalog3 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             {
                 const auto& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
-                BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
+                BOOST_CHECK(entry.first == string_type{ TETENGO2_TEXT("Key1") });
+                BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value1") });
                 p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());
         }
         {
-            std::istringstream input_stream(catalog4);
+            std::istringstream input_stream{ catalog4 };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
             {
                 const auto& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
-                BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
+                BOOST_CHECK(entry.first == string_type{ TETENGO2_TEXT("Key1") });
+                BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value1") });
                 p_parser->next();
             }
             {
                 const auto& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key2")));
-                BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value2")));
+                BOOST_CHECK(entry.first == string_type{ TETENGO2_TEXT("Key2") });
+                BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value2") });
                 p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());

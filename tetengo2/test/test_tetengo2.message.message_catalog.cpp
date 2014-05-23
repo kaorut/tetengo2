@@ -37,12 +37,12 @@ namespace
         :
         m_initial_locale(
             std::locale::global(
-                std::locale(
+                std::locale{
                     locale,
                     tetengo2::stdalt::make_unique<messages_type>(
-                        boost::filesystem::path("messages.test"), locale
+                        boost::filesystem::path{ "messages.test" }, locale
                     ).release()
-                )
+                }
             )
         )
         {}
@@ -62,7 +62,7 @@ namespace
     {
         try
         {
-            std::locale locale("");
+            std::locale locale{ "" };
             return true;
         }
         catch (const std::runtime_error&)
@@ -75,7 +75,7 @@ namespace
     {
         try
         {
-            return std::locale(name.c_str());
+            return std::locale{ name.c_str() };
         }
         catch (const std::runtime_error&)
         {
@@ -115,19 +115,19 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
         if (locale_supported())
         {
             {
-                const set_global_locale global_locale(locale_en);
+                const set_global_locale global_locale{ locale_en };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
             {
-                const set_global_locale global_locale(locale_ja);
+                const set_global_locale global_locale{ locale_ja };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
             {
-                const set_global_locale global_locale(locale_zh);
+                const set_global_locale global_locale{ locale_zh };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
             }
         }
         else
@@ -143,9 +143,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
         if (locale_supported())
         {
             {
-                const set_global_locale global_locale(locale_en);
+                const set_global_locale global_locale{ locale_en };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "English");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hi");
@@ -154,9 +154,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
             }
             {
-                const set_global_locale global_locale(locale_ja);
+                const set_global_locale global_locale{ locale_ja };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "Japanese");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Konnichiwa");
@@ -165,9 +165,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
             }
             {
-                const set_global_locale global_locale(locale_zh);
+                const set_global_locale global_locale{ locale_zh };
 
-                const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog{};
 
                 BOOST_CHECK(message_catalog.get("Language") == "Language");
                 BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hello");

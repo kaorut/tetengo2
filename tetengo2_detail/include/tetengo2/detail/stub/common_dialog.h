@@ -312,7 +312,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             return
                 boost::make_optional(
-                    Font(typename Font::string_type(TETENGO2_TEXT("font_dialog_font")), 42, false, true, false, true)
+                    Font(typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true)
                 );
         }
 
@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             suppress_unused_variable_warning(dialog);
 
-            return boost::make_optional(Color(0xAB, 0xCD, 0xEF));
+            return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
 
 

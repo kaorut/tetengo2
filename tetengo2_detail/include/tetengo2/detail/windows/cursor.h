@@ -83,24 +83,24 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename SystemCursor>
         static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
         {
-            cursor_details_ptr_type p_cursor(
-                reinterpret_cast< ::HCURSOR>(
+            cursor_details_ptr_type p_cursor{
+                reinterpret_cast<::HCURSOR>(
                     ::LoadImageW(
-                        0,
-                        MAKEINTRESOURCEW(translate_style<SystemCursor>(style)),
-                        IMAGE_CURSOR,
-                        0,
-                        0,
-                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    0,
+                    MAKEINTRESOURCEW(translate_style<SystemCursor>(style)),
+                    IMAGE_CURSOR,
+                    0,
+                    0,
+                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
                     )
                 )
-            );
+            };
             if (!p_cursor)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()), "Can't create a system cursor."
-                    )
+                    std::system_error{
+                        std::error_code{ ::GetLastError(), win32_category{} }, "Can't create a system cursor."
+                    }
                 );
             }
 

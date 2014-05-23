@@ -37,12 +37,12 @@ BOOST_AUTO_TEST_SUITE(list_selection_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const list_selection_observer_set_type observer_set;
+            const list_selection_observer_set_type observer_set{};
 
             observer_set.selection_changed();
         }
         {
-            list_selection_observer_set_type observer_set;
+            list_selection_observer_set_type observer_set{};
 
             observer_set.selection_changed();
         }

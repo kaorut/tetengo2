@@ -43,9 +43,9 @@ namespace tetengo2 { namespace detail { namespace windows
         if (::SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, metrics_size, &metrics, 0) == 0)
         {
             BOOST_THROW_EXCEPTION(
-                std::system_error(
-                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get non-client metrics."
-                )
+                std::system_error{
+                    std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't get non-client metrics."
+                }
             );
         }
     }

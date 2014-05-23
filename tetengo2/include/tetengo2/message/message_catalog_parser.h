@@ -94,7 +94,7 @@ namespace tetengo2 { namespace message
         const
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No next entry." });
 
             return *m_p_preread_entry;
         }
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace message
         void next()
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
+                BOOST_THROW_EXCEPTION(std::logic_error{ "No next entry." });
 
             m_p_preread_entry.reset();
         }
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace message
         void skip_preamble()
         const
         {
-            if (!next_is<structure_begin_type>(input_string_type(TETENGO2_TEXT("object"))))
+            if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
                 m_preamble_read_succeeded = boost::make_optional(false);
                 return;
@@ -177,7 +177,7 @@ namespace tetengo2 { namespace message
 
             if (
                 next_is<structure_begin_type>(
-                    input_string_type(TETENGO2_TEXT("member")), input_string_type(TETENGO2_TEXT("header"))
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("header") }
                 )
             )
             {
@@ -186,7 +186,7 @@ namespace tetengo2 { namespace message
 
             if (
                 !next_is<structure_begin_type>(
-                    input_string_type(TETENGO2_TEXT("member")), input_string_type(TETENGO2_TEXT("body"))
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("body") }
                 )
             )
             {
@@ -195,7 +195,7 @@ namespace tetengo2 { namespace message
             }
             m_p_pull_parser->next();
 
-            if (!next_is<structure_begin_type>(input_string_type(TETENGO2_TEXT("object"))))
+            if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
                 m_preamble_read_succeeded = boost::make_optional(false);
                 return;
@@ -209,33 +209,33 @@ namespace tetengo2 { namespace message
         std::unique_ptr<entry_type> next_entry()
         const
         {
-            input_string_type key;
-            input_string_type value;
+            input_string_type key{};
+            input_string_type value{};
 
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 0)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 const auto& structure = boost::get<structure_begin_type>(element);
                 key = get_attribute(structure);
                 if (key.empty())
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 m_p_pull_parser->next();
             }
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 2)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 const auto& parsed_value = boost::get<value_type>(element);
                 if (parsed_value.which() != 4)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 value = boost::get<input_string_type>(parsed_value);
 
@@ -243,10 +243,10 @@ namespace tetengo2 { namespace message
             }
             {
                 if (!m_p_pull_parser->has_next())
-                    return std::unique_ptr<entry_type>();
+                    return {};
                 const auto& element = m_p_pull_parser->peek();
                 if (element.which() != 1)
-                    return std::unique_ptr<entry_type>();
+                    return {};
 
                 m_p_pull_parser->next();
             }
@@ -255,7 +255,7 @@ namespace tetengo2 { namespace message
         }
 
         template <typename Structure>
-        bool next_is(const input_string_type& name, const input_string_type& attribute = input_string_type())
+        bool next_is(const input_string_type& name, const input_string_type& attribute = {})
         const
         {
             if (!m_p_pull_parser->has_next())
@@ -293,11 +293,11 @@ namespace tetengo2 { namespace message
         const
         {
             const typename attribute_map_type::const_iterator found =
-                structure.attribute_map().find(input_string_type(TETENGO2_TEXT("name")));
+                structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
-                return input_string_type();
+                return {};
             if (found->second.which() != 4)
-                return input_string_type();
+                return {};
             
             return boost::get<input_string_type>(found->second);
         }

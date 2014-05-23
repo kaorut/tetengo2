@@ -33,11 +33,7 @@ namespace
 
     file_open_dialog_type::file_filters_type make_file_filters()
     {
-        file_open_dialog_type::file_filters_type filters;
-
-        filters.emplace_back(string_type(TETENGO2_TEXT("All Files")), string_type(TETENGO2_TEXT("*.*")));
-
-        return filters;
+        return { { string_type{ TETENGO2_TEXT("All Files") }, string_type{ TETENGO2_TEXT("*.*") } } };
     }
 
 
@@ -55,18 +51,18 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            const file_open_dialog_type file_open(string_type(), make_file_filters(), parent);
+            window_type parent{};
+            const file_open_dialog_type file_open{ string_type{}, make_file_filters(), parent };
         }
         {
-            window_type parent;
-            const file_open_dialog_type file_open(
-                string_type(TETENGO2_TEXT("hoge")), file_open_dialog_type::file_filters_type(), parent
-            );
+            window_type parent{};
+            const file_open_dialog_type file_open{
+                string_type{ TETENGO2_TEXT("hoge") }, file_open_dialog_type::file_filters_type{}, parent
+            };
         }
         {
-            window_type parent;
-            const file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+            window_type parent{};
+            const file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
         }
     }
 
@@ -75,14 +71,14 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            const file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+            window_type parent{};
+            const file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
             BOOST_CHECK(file_open.result().empty());
         }
         {
-            window_type parent;
-            file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+            window_type parent{};
+            file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
             file_open.do_modal();
 
@@ -95,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+        file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
         file_open.do_modal();
     }
@@ -105,14 +101,15 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            const file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+            window_type parent{};
+            const file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
+
 
             file_open.details();
         }
         {
-            window_type parent;
-            file_open_dialog_type file_open(string_type(TETENGO2_TEXT("hoge")), make_file_filters(), parent);
+            window_type parent{};
+            file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
             file_open.details();
         }

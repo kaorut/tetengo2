@@ -211,7 +211,7 @@ namespace tetengo2 { namespace text { namespace grammar
             using handler_type = void (impl::*)(const string_type& attribute);
 
             impl& m_self;
-            handler_type const m_handler;
+            const handler_type m_handler;
 
             call_handler_type(impl& self, const handler_type handler)
             :
@@ -301,37 +301,40 @@ namespace tetengo2 { namespace text { namespace grammar
 
         void object_begun(const string_type&)
         {
-            m_on_structure_begin(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
+            m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
         void object_ended(const string_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
         void member_begun(const string_type& attribute)
         {
             m_on_structure_begin(
-                string_type(TETENGO2_TEXT("member")),
-                std::vector<structure_attribute_type>(
-                    1, structure_attribute_type(string_type(TETENGO2_TEXT("name")), value_type_type::string, attribute)
-                )
+                string_type{ TETENGO2_TEXT("member") },
+                std::vector < structure_attribute_type > {
+                    1,
+                    structure_attribute_type{
+                        string_type{ TETENGO2_TEXT("name") }, value_type_type::string, attribute
+                    }
+                }
             );
         }
 
         void member_ended(const string_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("member")), std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{});
         }
 
         void array_begun(const string_type&)
         {
-            m_on_structure_begin(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
+            m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
         void array_ended(const string_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
+            m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
         void string_passed(const string_type& attribute)
@@ -361,18 +364,18 @@ namespace tetengo2 { namespace text { namespace grammar
             // 2. JSON Grammar
             m_json_text = m_object | m_array;
             m_json_text.name("JSON-text");
-            m_begin_array = m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
-            m_begin_object = m_ws >> qi::char_(char_type(TETENGO2_TEXT('{'))) >> m_ws;
-            m_end_array = m_ws >> qi::char_(char_type(TETENGO2_TEXT(']'))) >> m_ws;
-            m_end_object = m_ws >> qi::char_(char_type(TETENGO2_TEXT('}'))) >> m_ws;
-            m_name_separator = m_ws >> qi::char_(char_type(TETENGO2_TEXT(':'))) >> m_ws;
-            m_value_separator = m_ws >> qi::char_(char_type(TETENGO2_TEXT(','))) >> m_ws;
+            m_begin_array = m_ws >> qi::char_(char_type{ TETENGO2_TEXT('[') }) >> m_ws;
+            m_begin_object = m_ws >> qi::char_(char_type{ TETENGO2_TEXT('{') }) >> m_ws;
+            m_end_array = m_ws >> qi::char_(char_type{ TETENGO2_TEXT(']') }) >> m_ws;
+            m_end_object = m_ws >> qi::char_(char_type{ TETENGO2_TEXT('}') }) >> m_ws;
+            m_name_separator = m_ws >> qi::char_(char_type{ TETENGO2_TEXT(':') }) >> m_ws;
+            m_value_separator = m_ws >> qi::char_(char_type{ TETENGO2_TEXT(',') }) >> m_ws;
             m_ws =
                 *(
-                    qi::char_(char_type(TETENGO2_TEXT(' '))) |
-                    qi::char_(char_type(TETENGO2_TEXT('\t'))) |
-                    qi::char_(char_type(TETENGO2_TEXT('\n'))) |
-                    qi::char_(char_type(TETENGO2_TEXT('\r')))
+                    qi::char_(char_type{ TETENGO2_TEXT(' ') }) |
+                    qi::char_(char_type{ TETENGO2_TEXT('\t') }) |
+                    qi::char_(char_type{ TETENGO2_TEXT('\n') }) |
+                    qi::char_(char_type{ TETENGO2_TEXT('\r') })
                 );
 
             // 2.1. Values
@@ -385,9 +388,9 @@ namespace tetengo2 { namespace text { namespace grammar
                 m_number[call_handler_type(*this, &impl::number_passed)] |
                 m_string[call_handler_type(*this, &impl::string_passed)];
             m_value.name("value");
-            m_false = qi::string(string_type(TETENGO2_TEXT("false")));
-            m_null = qi::string(string_type(TETENGO2_TEXT("null")));
-            m_true = qi::string(string_type(TETENGO2_TEXT("true")));
+            m_false = qi::string(string_type{ TETENGO2_TEXT("false") });
+            m_null = qi::string(string_type{ TETENGO2_TEXT("null") });
+            m_true = qi::string(string_type{ TETENGO2_TEXT("true") });
 
             // 2.2. Objects
             m_object =
@@ -411,15 +414,15 @@ namespace tetengo2 { namespace text { namespace grammar
             // 2.4. Numbers
             m_number = -m_minus >> m_int >> -m_frac >> -m_exp;
             m_number.name("number");
-            m_decimal_point = qi::char_(char_type(TETENGO2_TEXT('.')));
-            m_digit1to9 = qi::char_(char_type(TETENGO2_TEXT('1')), char_type(TETENGO2_TEXT('9')));
-            m_e = qi::char_(char_type(TETENGO2_TEXT('e'))) | qi::char_(char_type(TETENGO2_TEXT('E')));
+            m_decimal_point = qi::char_(char_type{ TETENGO2_TEXT('.') });
+            m_digit1to9 = qi::char_(char_type{ TETENGO2_TEXT('1') }, char_type{ TETENGO2_TEXT('9') });
+            m_e = qi::char_(char_type{ TETENGO2_TEXT('e') }) | qi::char_(char_type{ TETENGO2_TEXT('E') });
             m_exp = m_e >> (m_minus | m_plus) >> +qi::digit;
             m_frac = m_decimal_point >> +qi::digit;
             m_int = m_zero | (m_digit1to9 >> *qi::digit);
-            m_minus = qi::char_(char_type(TETENGO2_TEXT('-')));
-            m_plus = qi::char_(char_type(TETENGO2_TEXT('+')));
-            m_zero = qi::char_(char_type(TETENGO2_TEXT('0')));
+            m_minus = qi::char_(char_type{ TETENGO2_TEXT('-') });
+            m_plus = qi::char_(char_type{ TETENGO2_TEXT('+') });
+            m_zero = qi::char_(char_type{ TETENGO2_TEXT('0') });
 
             // 2.5. Strings
             m_string = m_quotation_mark >> *m_char >> m_quotation_mark;
@@ -429,20 +432,20 @@ namespace tetengo2 { namespace text { namespace grammar
                 (
                     m_escape >>
                     (
-                        qi::char_(char_type(TETENGO2_TEXT('"'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('\\'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('/'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('b'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('f'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('n'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('r'))) |
-                        qi::char_(char_type(TETENGO2_TEXT('t'))) |
-                        (qi::char_(char_type(TETENGO2_TEXT('u'))) >> qi::repeat(4)[qi::xdigit])
+                        qi::char_(char_type{ TETENGO2_TEXT('"') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('\\') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('/') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('b') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('f') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('n') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('r') }) |
+                        qi::char_(char_type{ TETENGO2_TEXT('t') }) |
+                        (qi::char_(char_type{ TETENGO2_TEXT('u') }) >> qi::repeat(4)[qi::xdigit])
                     )
                 );
-            m_escape = qi::char_(char_type(TETENGO2_TEXT('\\')));
-            m_quotation_mark = qi::char_(char_type(TETENGO2_TEXT('"')));
-            m_unescaped = qi::char_ - qi::char_(char_type(0x00), char_type(0x19)) - m_quotation_mark - m_escape;
+            m_escape = qi::char_(char_type{ TETENGO2_TEXT('\\') });
+            m_quotation_mark = qi::char_(char_type{ TETENGO2_TEXT('"') });
+            m_unescaped = qi::char_ - qi::char_(char_type{ 0x00 }, char_type{ 0x19 }) - m_quotation_mark - m_escape;
         }
 
 

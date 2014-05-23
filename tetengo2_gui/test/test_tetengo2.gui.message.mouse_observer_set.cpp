@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.clicked();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.clicked();
         }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.doubleclicked();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.doubleclicked();
         }
@@ -68,12 +68,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.pressed();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.pressed();
         }
@@ -84,12 +84,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.released();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.released();
         }
@@ -100,12 +100,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.moved();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.moved();
         }
@@ -116,12 +116,12 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const mouse_observer_set_type observer_set;
+            const mouse_observer_set_type observer_set{};
 
             observer_set.wheeled();
         }
         {
-            mouse_observer_set_type observer_set;
+            mouse_observer_set_type observer_set{};
 
             observer_set.clicked();
         }
