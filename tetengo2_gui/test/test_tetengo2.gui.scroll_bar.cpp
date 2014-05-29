@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
 
             scroll_bar.set_range(scroll_bar_type::range_type{ 0, 42 });
 
-            BOOST_CHECK(scroll_bar.range() == scroll_bar_type::range_type(0, 42));
+            BOOST_CHECK((scroll_bar.range() == scroll_bar_type::range_type{ 0, 42 }));
         }
         {
             scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);

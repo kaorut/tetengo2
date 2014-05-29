@@ -49,10 +49,10 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension default_dimension()
         {
             return
-                Dimension(
-                    typename gui::dimension<Dimension>::width_type(42),
-                    typename gui::dimension<Dimension>::height_type(42)
-                );
+                {
+                    typename gui::dimension<Dimension>::width_type{ 42 },
+                    typename gui::dimension<Dimension>::height_type{ 42 }
+                };
         }
 
         /*!
