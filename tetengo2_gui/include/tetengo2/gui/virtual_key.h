@@ -787,7 +787,7 @@ namespace tetengo2 { namespace gui
         static void insert_key(key_map_type& key_map, code_and_string_type code_and_string)
         {
             const auto code = code_and_string.first;
-            key_map.insert(std::make_pair(code, virtual_key(std::move(code_and_string))));
+            key_map.insert(std::make_pair(code, virtual_key{ std::move(code_and_string) }));
         }
 
 
