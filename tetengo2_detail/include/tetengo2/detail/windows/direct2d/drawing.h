@@ -496,7 +496,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return
                 Font{
                     log_font.lfFaceName,
-                    -log_font.lfHeight,
+                    static_cast<typename Font::size_type>(-log_font.lfHeight),
                     log_font.lfWeight >= FW_BOLD,
                     log_font.lfItalic != 0,
                     log_font.lfUnderline != 0,
