@@ -214,10 +214,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         }
 
         return
-            Dimension(
+            {
                 gui::to_unit<typename gui::dimension<Dimension>::width_type>(width),
                 gui::to_unit<typename gui::dimension<Dimension>::height_type>(height)
-            );
+            };
     }
 
 

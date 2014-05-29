@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(alert)
         BOOST_TEST_PASSPOINT();
 
         {
-            const alert_type alert(nullptr);
+            const alert_type alert{ nullptr };
         }
     }
 
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(alert)
     {
         BOOST_TEST_PASSPOINT();
 
-        const alert_type alert(nullptr);
+        const alert_type alert{ nullptr };
 
         const boost_exception exception;
         alert(exception);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(alert)
     {
         BOOST_TEST_PASSPOINT();
 
-        const alert_type alert(nullptr);
+        const alert_type alert{ nullptr };
 
         const std::runtime_error exception("Tetengo2");
         alert(exception);

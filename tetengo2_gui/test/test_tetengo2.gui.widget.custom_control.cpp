@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control(parent);
         const concrete_inner_item inner_item(custom_control);
 
-        BOOST_CHECK(inner_item.position() == position_type(left_type{ 42 }, top_type{ 24 }));
+        BOOST_CHECK((inner_item.position() == position_type{ left_type{ 42 }, top_type{ 24 } }));
     }
 
     BOOST_AUTO_TEST_CASE(set_position)
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
 
         inner_item.set_position(position_type{ left_type{ 53 }, top_type{ 35 } });
 
-        BOOST_CHECK(inner_item.position() == position_type(left_type{ 53 }, top_type{ 35 }));
+        BOOST_CHECK((inner_item.position() == position_type{ left_type{ 53 }, top_type{ 35 } }));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control(parent);
         const concrete_inner_item inner_item(custom_control);
 
-        BOOST_CHECK(inner_item.dimension() == dimension_type(width_type{ 12 }, height_type{ 34 }));
+        BOOST_CHECK((inner_item.dimension() == dimension_type{ width_type{ 12 }, height_type{ 34 } }));
     }
 
     BOOST_AUTO_TEST_CASE(set_dimension)
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
 
         inner_item.set_dimension(dimension_type{ width_type{ 56 }, height_type{ 78 } });
 
-        BOOST_CHECK(inner_item.dimension() == dimension_type(width_type{ 56 }, height_type{ 78 }));
+        BOOST_CHECK((inner_item.dimension() == dimension_type{ width_type{ 56 }, height_type{ 78 } }));
     }
 
     BOOST_AUTO_TEST_CASE(resized)

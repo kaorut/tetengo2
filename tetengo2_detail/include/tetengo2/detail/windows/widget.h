@@ -1323,7 +1323,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static String text(const Widget& widget, const Encoder& encoder)
         {
             const auto length = ::GetWindowTextLengthW(const_cast< ::HWND>(widget.details().handle.get()));
-            if (length == 0) return String();
+            if (length == 0) return String{};
 
             std::vector<wchar_t> text(length + 1, L'\0');
             ::GetWindowTextW(const_cast< ::HWND>(widget.details().handle.get()), text.data(), length + 1);
@@ -1432,14 +1432,14 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                Font(
+                Font{
                     encoder.decode(log_font.lfFaceName),
                     log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight,
                     log_font.lfWeight >= FW_BOLD,
                     log_font.lfItalic != FALSE,
                     log_font.lfUnderline != FALSE,
                     log_font.lfStrikeOut != FALSE
-                );
+                };
         }
 
         /*!
@@ -1556,7 +1556,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 ::ReleaseDC(window_handle, device_context_handle);
             } BOOST_SCOPE_EXIT_END;
-            typename Widget::widget_canvas_type canvas(device_context_handle);
+            typename Widget::widget_canvas_type canvas{ device_context_handle };
 
             return function(canvas);
         }

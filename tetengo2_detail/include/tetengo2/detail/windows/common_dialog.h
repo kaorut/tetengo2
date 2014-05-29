@@ -767,7 +767,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return
                 boost::make_optional(
-                    Font(
+                    Font{
                         encoder.decode(choose_font.lpLogFont->lfFaceName),
                         choose_font.lpLogFont->lfHeight < 0 ?
                             -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight,
@@ -775,7 +775,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         choose_font.lpLogFont->lfItalic != FALSE,
                         choose_font.lpLogFont->lfUnderline != FALSE,
                         choose_font.lpLogFont->lfStrikeOut != FALSE
-                    )
+                    }
                 );
         }
 
@@ -831,11 +831,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
             return
                 boost::make_optional(
-                    Color(
+                    Color{
                         GetRValue(choose_color.rgbResult),
                         GetGValue(choose_color.rgbResult),
                         GetBValue(choose_color.rgbResult)
-                    )
+                    }
                 );
         }
 
@@ -976,7 +976,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename OptionalPath>
         static String to_native_path(const OptionalPath& path)
         {
-            return path ? path->template string<String>() : String();
+            return path ? path->template string<String>() : String{};
         }
 
         template <typename Path, typename String>
@@ -1014,7 +1014,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static String to_default_extension(const std::vector<std::pair<String, String>>& filters)
         {
-            return filters.empty() ? String() : filters[0].second;
+            return filters.empty() ? String{} : filters[0].second;
         }
 
         template <typename String, typename Encoder>

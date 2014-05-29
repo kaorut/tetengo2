@@ -217,10 +217,10 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension picture_dimension(const picture_details_type& picture)
         {
             return
-                Dimension(
+                {
                     gui::to_unit<typename gui::dimension<Dimension>::width_type>(picture.dimension().first),
                     gui::to_unit<typename gui::dimension<Dimension>::height_type>(picture.dimension().second)
-                );
+                };
         }
 
         /*!

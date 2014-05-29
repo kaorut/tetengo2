@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const image_type image(parent);
+        const image_type image{ parent };
     }
 
     BOOST_AUTO_TEST_CASE(has_picture)
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent);
+        image_type image{ parent };
 
         BOOST_CHECK(!image.has_picture());
 
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent);
+        image_type image{ parent };
         const auto& const_image = image;
 
         BOOST_CHECK_THROW(image.picture(), std::logic_error);
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         {
             window_type parent{};
-            image_type image(parent);
+            image_type image{ parent };
 
             picture_reader_type picture_reader("image_file");
             image.set_picture(picture_reader.read());
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(image)
         }
         {
             window_type parent{};
-            image_type image(parent);
+            image_type image{ parent };
 
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
             image.set_icon(std::move(p_icon));
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent);
+        image_type image{ parent };
 
         BOOST_CHECK(!image.has_icon());
 
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent);
+        image_type image{ parent };
         const auto& const_image = image;
 
         BOOST_CHECK_THROW(image.icon(), std::logic_error);
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         {
             window_type parent{};
-            image_type image(parent);
+            image_type image{ parent };
 
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
             image.set_icon(std::move(p_icon));
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_SUITE(image)
         }
         {
             window_type parent{};
-            image_type image(parent);
+            image_type image{ parent };
 
             picture_reader_type picture_reader("image_file");
             image.set_picture(picture_reader.read());
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent);
+        image_type image{ parent };
 
         {
             picture_reader_type picture_reader("image_file");

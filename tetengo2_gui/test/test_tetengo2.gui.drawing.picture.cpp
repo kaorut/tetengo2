@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(picture)
 
         const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
 
-        BOOST_CHECK(picture.dimension() == dimension_type(width_type{ 123 }, height_type{ 456 }));
+        BOOST_CHECK((picture.dimension() == dimension_type{ width_type{ 123 }, height_type{ 456 } }));
     }
 
     BOOST_AUTO_TEST_CASE(details)

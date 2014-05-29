@@ -830,7 +830,7 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             const auto& font = widget.details().font;
             return
-                Font(encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout);
+                Font{ encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout };
         }
 
         /*!

@@ -251,10 +251,10 @@ namespace tetengo2 { namespace gui { namespace unit
         static To cast(const boost::rational<FromInteger>& from)
         {
             return
-                To(
+                To{
                     static_cast<typename To::int_type>(from.numerator()),
                     static_cast<typename To::int_type>(from.denominator())
-                );
+                };
         }
 
 
