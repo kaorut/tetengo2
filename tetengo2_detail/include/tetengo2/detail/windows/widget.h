@@ -1556,7 +1556,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 ::ReleaseDC(window_handle, device_context_handle);
             } BOOST_SCOPE_EXIT_END;
-            typename Widget::widget_canvas_type canvas(device_context_handle);
+            typename Widget::widget_canvas_type canvas{ device_context_handle };
 
             return function(canvas);
         }

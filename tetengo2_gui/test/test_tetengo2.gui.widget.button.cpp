@@ -38,15 +38,15 @@ BOOST_AUTO_TEST_SUITE(button)
 
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::normal);
+            const button_type button{ parent, button_type::style_type::normal };
         }
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::default_);
+            const button_type button{ parent, button_type::style_type::default_ };
         }
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::cancel);
+            const button_type button{ parent, button_type::style_type::cancel };
         }
     }
 
@@ -56,19 +56,19 @@ BOOST_AUTO_TEST_SUITE(button)
 
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::normal);
+            const button_type button{ parent, button_type::style_type::normal };
 
             BOOST_CHECK(button.style() == button_type::style_type::normal);
         }
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::default_);
+            const button_type button{ parent, button_type::style_type::default_ };
 
             BOOST_CHECK(button.style() == button_type::style_type::default_);
         }
         {
             window_type parent{};
-            const button_type button(parent, button_type::style_type::cancel);
+            const button_type button{ parent, button_type::style_type::cancel };
 
             BOOST_CHECK(button.style() == button_type::style_type::cancel);
         }

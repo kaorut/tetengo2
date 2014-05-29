@@ -42,7 +42,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const auto device_context = reinterpret_cast< ::HDC>(w_param);
             if (!control.paint_observer_set().paint_background().empty())
             {
-                typename Control::base_type::widget_canvas_type canvas(device_context);
+                typename Control::base_type::widget_canvas_type canvas{ device_context };
                 control.paint_observer_set().paint_background()(canvas);
             }
 
