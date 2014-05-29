@@ -769,8 +769,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 boost::make_optional(
                     Font{
                         encoder.decode(choose_font.lpLogFont->lfFaceName),
-                        choose_font.lpLogFont->lfHeight < 0 ?
-                            -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight,
+                        static_cast<typename Font::size_type>(
+                            choose_font.lpLogFont->lfHeight < 0 ?
+                            -choose_font.lpLogFont->lfHeight : choose_font.lpLogFont->lfHeight
+                        ),
                         choose_font.lpLogFont->lfWeight >= FW_BOLD,
                         choose_font.lpLogFont->lfItalic != FALSE,
                         choose_font.lpLogFont->lfUnderline != FALSE,
