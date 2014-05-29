@@ -494,14 +494,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             assert(log_font.lfHeight < 0);
             return
-                Font(
+                Font{
                     log_font.lfFaceName,
                     -log_font.lfHeight,
                     log_font.lfWeight >= FW_BOLD,
                     log_font.lfItalic != 0,
                     log_font.lfUnderline != 0,
                     log_font.lfStrikeOut != 0
-                );
+                };
         }
 
         /*!
@@ -545,10 +545,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
 
             return
-                Dimension(
+                {
                     gui::to_unit<typename gui::dimension<Dimension>::width_type>(to_ddp_x(metrics.width)),
                     gui::to_unit<typename gui::dimension<Dimension>::height_type>(to_ddp_y(metrics.height))
-                );
+                };
         }
 
         /*!
@@ -898,7 +898,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip =
-                max_width == Width(0) ?
+                max_width == Width{ 0 } ?
                 std::numeric_limits< ::FLOAT>::max() : to_dip_x(gui::to_pixels< ::FLOAT>(max_width));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =

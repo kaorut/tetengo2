@@ -549,14 +549,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             assert(log_font.lfHeight < 0);
             return
-                Font(
+                Font{
                     log_font.lfFaceName,
                     -log_font.lfHeight,
                     log_font.lfWeight >= FW_BOLD,
                     log_font.lfItalic != 0,
                     log_font.lfUnderline != 0,
                     log_font.lfStrikeOut != 0
-                );
+                };
         }
 
         /*!
@@ -615,10 +615,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
 
             return
-                Dimension(
+                {
                     gui::to_unit<typename gui::dimension<Dimension>::width_type>(bounding.Width),
                     gui::to_unit<typename gui::dimension<Dimension>::height_type>(bounding.Height)
-                );
+                };
         }
 
         /*!
@@ -666,7 +666,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
             };
             const Gdiplus::REAL gdiplus_max_width =
-                max_width == Width(0) ?
+                max_width == Width{ 0 } ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout{
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()

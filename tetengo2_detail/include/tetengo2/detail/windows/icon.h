@@ -93,10 +93,10 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
             return
-                Dimension(
+                {
                     typename gui::dimension<Dimension>::width_type::from_pixels(big_icon_dimension_.first),
                     typename gui::dimension<Dimension>::height_type::from_pixels(big_icon_dimension_.second)
-                );
+                };
         }
 
         /*!

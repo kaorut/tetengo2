@@ -230,7 +230,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Char>
         static bool is_splitter(const Char character)
         {
-            return character == Char(TETENGO2_TEXT('/'));
+            return character == Char{ TETENGO2_TEXT('/') };
         }
 
         template <typename String, typename Encoder>
