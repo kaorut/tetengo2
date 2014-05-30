@@ -1431,7 +1431,9 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 Font{
                     encoder.decode(log_font.lfFaceName),
-                    log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight,
+                    static_cast<typename Font::size_type>(
+                        log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight
+                    ),
                     log_font.lfWeight >= FW_BOLD,
                     log_font.lfItalic != FALSE,
                     log_font.lfUnderline != FALSE,
