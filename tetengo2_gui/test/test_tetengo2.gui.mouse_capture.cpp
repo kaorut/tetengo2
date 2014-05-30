@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(mouse_capture)
         BOOST_TEST_PASSPOINT();
 
         const window_type window;
-        const mouse_capture_type mouse_capture(window, mouse_button_type::left);
+        const mouse_capture_type mouse_capture{ window, mouse_button_type::left };
     }
 
     BOOST_AUTO_TEST_CASE(button)
@@ -56,13 +56,13 @@ BOOST_AUTO_TEST_SUITE(mouse_capture)
 
         {
             const window_type window{};
-            const mouse_capture_type mouse_capture(window, mouse_button_type::left);
+            const mouse_capture_type mouse_capture{ window, mouse_button_type::left };
 
             BOOST_CHECK(mouse_capture.button() == mouse_button_type::left);
         }
         {
             const window_type window{};
-            const mouse_capture_type mouse_capture(window, mouse_button_type::right);
+            const mouse_capture_type mouse_capture{ window, mouse_button_type::right };
 
             BOOST_CHECK(mouse_capture.button() == mouse_button_type::right);
         }

@@ -35,10 +35,10 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         BOOST_TEST_PASSPOINT();
 
         {
-            const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+            const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
         }
         {
-            const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::horizontal);
+            const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::horizontal };
         }
     }
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.position();
     }
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         BOOST_TEST_PASSPOINT();
 
         {
-            scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+            scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
             scroll_bar.set_range(scroll_bar_type::range_type{ 0, 100 });
 
             scroll_bar.set_position(42);
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
             BOOST_CHECK_EQUAL(scroll_bar.position(), 42U);
         }
         {
-            scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+            scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
             scroll_bar.set_range(scroll_bar_type::range_type{ 0, 100 });
 
             BOOST_CHECK_THROW(scroll_bar.set_position(128), std::out_of_range);
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.tracking_position();
     }
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.range();
     }
@@ -94,14 +94,14 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         BOOST_TEST_PASSPOINT();
 
         {
-            scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+            scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
             scroll_bar.set_range(scroll_bar_type::range_type{ 0, 42 });
 
             BOOST_CHECK((scroll_bar.range() == scroll_bar_type::range_type{ 0, 42 }));
         }
         {
-            scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+            scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
             BOOST_CHECK_THROW(scroll_bar.set_range(scroll_bar_type::range_type{ 42, 10 }), std::out_of_range);
         }
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.page_size();
     }
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.set_page_size(42);
 
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        const scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        const scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.enabled();
     }
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.set_enabled(true);
 
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        scroll_bar_type scroll_bar(0, scroll_bar_type::style_type::vertical);
+        scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
 
         scroll_bar.scroll_bar_observer_set();
     }
