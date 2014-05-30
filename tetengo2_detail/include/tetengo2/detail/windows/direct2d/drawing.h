@@ -815,7 +815,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                         }
                     ));
                 }
-                return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
+                return unique_com_ptr< ::ID2D1Brush>::type{ rp_brush };
             }
 
             assert(false);
@@ -845,7 +845,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create stroke style." }
                 ));
             }
-            return unique_com_ptr< ::ID2D1StrokeStyle>::type(rp_stroke_style);
+            return unique_com_ptr< ::ID2D1StrokeStyle>::type{ rp_stroke_style };
         }
 
         static ::D2D1_DASH_STYLE to_stroke_dash_style(const int style)

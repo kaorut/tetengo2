@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
         list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
         list_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
         BOOST_CHECK(!list_box.selected_value_index());

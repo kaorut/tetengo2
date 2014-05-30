@@ -120,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton;
+            static const encoder_type singleton{};
             return singleton;
         }
 

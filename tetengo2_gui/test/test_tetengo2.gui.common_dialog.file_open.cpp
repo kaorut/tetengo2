@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
         file_open.do_modal();

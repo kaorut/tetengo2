@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        const concrete_widget widget{};
     }
 
     BOOST_AUTO_TEST_CASE(has_parent)
@@ -143,13 +143,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             BOOST_CHECK(!widget.has_parent());
         }
         {
             concrete_widget parent;
-            const concrete_widget widget(&parent);
+            const concrete_widget widget{ &parent };
 
             BOOST_CHECK(widget.has_parent());
         }
@@ -160,19 +160,19 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             BOOST_CHECK_THROW(widget.parent(), std::logic_error);
         }
         {
             concrete_widget parent;
-            const concrete_widget widget(&parent);
+            const concrete_widget widget{ &parent };
 
             BOOST_CHECK_EQUAL(&widget.parent(), &parent);
         }
         {
             concrete_widget parent;
-            concrete_widget widget(&parent);
+            concrete_widget widget{ &parent };
 
             BOOST_CHECK_EQUAL(&widget.parent(), &parent);
         }
@@ -183,19 +183,19 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             BOOST_CHECK_THROW(widget.root_ancestor(), std::logic_error);
         }
         {
             concrete_widget parent;
-            const concrete_widget widget(&parent);
+            const concrete_widget widget{ &parent };
 
             widget.root_ancestor();
         }
         {
             concrete_widget parent;
-            concrete_widget widget(&parent);
+            concrete_widget widget{ &parent };
 
             widget.root_ancestor();
         }
@@ -206,14 +206,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_enabled(true);
 
             BOOST_CHECK(widget.enabled());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_enabled(false);
 
@@ -226,14 +226,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_enabled(true);
 
             BOOST_CHECK(widget.enabled());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_enabled(false);
 
@@ -246,14 +246,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_visible(true);
 
             BOOST_CHECK(widget.visible());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_visible(false);
 
@@ -266,14 +266,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_visible(true);
 
             BOOST_CHECK(widget.visible());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_visible(false);
 
@@ -286,14 +286,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.focus_observer_set().got_focus()();
 
             BOOST_CHECK(widget.focused());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.focus_observer_set().lost_focus()();
 
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_focus();
     }
@@ -314,7 +314,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_position(make_position(123, 456));
 
@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_position(make_position(123, 456));
 
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_dimension(make_dimension(123, 456));
 
@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_dimension(make_dimension(123, 456));
 
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_client_dimension(make_dimension(123, 456));
 
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.set_client_dimension(make_dimension(123, 456));
 
@@ -383,12 +383,12 @@ BOOST_AUTO_TEST_SUITE(widget)
             BOOST_CHECK(client_dimension == make_dimension(123, 456));
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             BOOST_CHECK_THROW(widget.set_client_dimension(make_dimension(0, 456)), std::invalid_argument);
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             BOOST_CHECK_THROW(widget.set_client_dimension(make_dimension(123, 0)), std::invalid_argument);
         }
@@ -398,7 +398,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_position_and_dimension(make_position(123, 456), make_dimension(789, 012));
 
@@ -412,7 +412,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_text("Tetengo");
 
@@ -423,7 +423,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_text("Tetengo");
 
@@ -435,7 +435,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
@@ -443,7 +443,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             BOOST_CHECK(!widget.background());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
@@ -457,13 +457,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
@@ -474,7 +474,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         const font_type font{ font_type::dialog_font().family(), 42, false, true, false, true };
         widget.set_font(font);
@@ -486,7 +486,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         const font_type font{ font_type::dialog_font().family(), 42, false, true, false, true };
         widget.set_font(font);
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        const concrete_widget widget{};
 
         BOOST_CHECK(!widget.cursor());
     }
@@ -507,7 +507,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         auto p_cursor = tetengo2::stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
         widget.set_cursor(std::move(p_cursor));
@@ -522,22 +522,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK(!widget.has_vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             BOOST_CHECK(widget.has_vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             BOOST_CHECK(!widget.has_vertical_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             BOOST_CHECK(widget.has_vertical_scroll_bar());
         }
@@ -548,42 +548,42 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             widget.vertical_scroll_bar();
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             widget.vertical_scroll_bar();
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             BOOST_CHECK_THROW(widget.vertical_scroll_bar(), std::logic_error);
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             widget.vertical_scroll_bar();
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             widget.vertical_scroll_bar();
         }
@@ -594,22 +594,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK(!widget.has_horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             BOOST_CHECK(!widget.has_horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             BOOST_CHECK(widget.has_horizontal_scroll_bar());
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             BOOST_CHECK(widget.has_horizontal_scroll_bar());
         }
@@ -620,42 +620,42 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::none);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
             BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::vertical);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
             BOOST_CHECK_THROW(widget.horizontal_scroll_bar(), std::logic_error);
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             widget.horizontal_scroll_bar();
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::horizontal);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
             widget.horizontal_scroll_bar();
         }
         {
-            const concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             widget.horizontal_scroll_bar();
         }
         {
-            concrete_widget widget(nullptr, widget_type::scroll_bar_style_type::both);
+            concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
             widget.horizontal_scroll_bar();
         }
@@ -666,15 +666,15 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             BOOST_CHECK(widget.children().empty());
         }
         {
-            concrete_widget widget;
-            concrete_widget child1(&widget);
+            concrete_widget widget{};
+            concrete_widget child1{ &widget };
             child1.set_text("hoge");
-            concrete_widget child2(&widget);
+            concrete_widget child2{ &widget };
             child2.set_text("fuga");
 
             BOOST_REQUIRE_EQUAL(widget.children().size(), 2U);
@@ -688,12 +688,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.repaint(true);
         }
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.repaint(false);
         }
@@ -703,7 +703,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        const concrete_widget widget{};
 
         widget.repaint_partially(make_position(12, 34), make_dimension(56, 78));
     }
@@ -712,7 +712,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        const concrete_widget widget{};
 
         widget.create_canvas();
     }
@@ -722,12 +722,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.click();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.click();
         }
@@ -738,12 +738,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.size_observer_set();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.size_observer_set();
         }
@@ -754,12 +754,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.focus_observer_set();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.focus_observer_set();
         }
@@ -770,12 +770,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.paint_observer_set();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.paint_observer_set();
         }
@@ -786,12 +786,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.keyboard_observer_set();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.keyboard_observer_set();
         }
@@ -802,12 +802,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.mouse_observer_set();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.mouse_observer_set();
         }
@@ -818,12 +818,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             BOOST_CHECK(!widget.destroyed());
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
             widget.set_destroyed();
 
             BOOST_CHECK(widget.destroyed());
@@ -834,7 +834,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget widget;
+        concrete_widget widget{};
 
         widget.set_destroyed();
     }
@@ -844,12 +844,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_widget widget;
+            const concrete_widget widget{};
 
             widget.details();
         }
         {
-            concrete_widget widget;
+            concrete_widget widget{};
 
             widget.details();
         }
@@ -859,7 +859,7 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        const concrete_widget widget{};
 
         widget.message_handler_map();
     }
@@ -877,7 +877,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_TEST_PASSPOINT();
 
         // initialize() is called in the constructor of concrete_widget.
-        const concrete_widget widget;
+        const concrete_widget widget{};
     }
 
 

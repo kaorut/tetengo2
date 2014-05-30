@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         file_save_dialog_type file_save{
             string_type{ TETENGO2_TEXT("hoge") }, boost::none, make_file_filters(), parent
         };

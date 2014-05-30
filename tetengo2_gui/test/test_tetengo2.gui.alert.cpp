@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(alert)
 
         const alert_type alert{ nullptr };
 
-        const boost_exception exception;
+        const boost_exception exception{};
         alert(exception);
     }
 
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(alert)
 
         const alert_type alert{ nullptr };
 
-        const std::runtime_error exception("Tetengo2");
+        const std::runtime_error exception{ "Tetengo2" };
         alert(exception);
     }
 

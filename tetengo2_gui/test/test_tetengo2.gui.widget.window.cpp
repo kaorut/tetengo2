@@ -40,13 +40,13 @@ BOOST_AUTO_TEST_SUITE(window)
             const window_type window{};
         }
         {
-            const window_type window(window_type::scroll_bar_style_type::none, false);
+            const window_type window{ window_type::scroll_bar_style_type::none, false };
         }
         {
-            const window_type window(window_type::scroll_bar_style_type::both, false);
+            const window_type window{ window_type::scroll_bar_style_type::both, false };
         }
         {
-            const window_type window(window_type::scroll_bar_style_type::none, true);
+            const window_type window{ window_type::scroll_bar_style_type::none, true };
         }
         {
             window_type parent{};

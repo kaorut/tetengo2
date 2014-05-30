@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const image_type image{ parent };
     }
 
@@ -68,12 +68,12 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         BOOST_CHECK(!image.has_picture());
 
-        picture_reader_type picture_reader("image_file");
+        picture_reader_type picture_reader{ "image_file" };
         image.set_picture(picture_reader.read());
 
         BOOST_CHECK(image.has_picture());
@@ -83,14 +83,14 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
         const auto& const_image = image;
 
         BOOST_CHECK_THROW(image.picture(), std::logic_error);
         BOOST_CHECK_THROW(const_image.picture(), std::logic_error);
 
-        picture_reader_type picture_reader("image_file");
+        picture_reader_type picture_reader{ "image_file" };
         image.set_picture(picture_reader.read());
         image.picture();
         const_image.picture();
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(image)
             window_type parent{};
             image_type image{ parent };
 
-            picture_reader_type picture_reader("image_file");
+            picture_reader_type picture_reader{ "image_file" };
             image.set_picture(picture_reader.read());
 
             BOOST_CHECK(image.has_picture());
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(image)
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
             image.set_icon(std::move(p_icon));
 
-            picture_reader_type picture_reader("image_file");
+            picture_reader_type picture_reader{ "image_file" };
             image.set_picture(picture_reader.read());
 
             BOOST_CHECK(image.has_picture());
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         BOOST_CHECK(!image.has_icon());
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
         const auto& const_image = image;
 
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(image)
             window_type parent{};
             image_type image{ parent };
 
-            picture_reader_type picture_reader("image_file");
+            picture_reader_type picture_reader{ "image_file" };
             image.set_picture(picture_reader.read());
 
             auto p_icon = tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
@@ -196,17 +196,17 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         {
-            picture_reader_type picture_reader("image_file");
+            picture_reader_type picture_reader{ "image_file" };
             image.set_picture(picture_reader.read());
 
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension(width_type{ 123 }, height_type{ 456 });
+            const dimension_type answer_dimension{ width_type{ 123 }, height_type{ 456 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
         {
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_SUITE(image)
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension(width_type{ 42 }, height_type{ 42 });
+            const dimension_type answer_dimension{ width_type{ 42 }, height_type{ 42 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
     }

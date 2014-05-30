@@ -109,17 +109,17 @@ BOOST_AUTO_TEST_SUITE(custom_control)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        const concrete_custom_control custom_control(parent);
+        window_type parent{};
+        const concrete_custom_control custom_control{ parent };
     }
 
     BOOST_AUTO_TEST_CASE(mouse_captured)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         BOOST_CHECK(!custom_control.mouse_captured(nullptr));
         BOOST_CHECK(!custom_control.mouse_captured(mouse_button_type::left, &inner_item));
@@ -131,10 +131,10 @@ BOOST_AUTO_TEST_SUITE(custom_control)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item1(custom_control);
-        const concrete_inner_item inner_item2(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item1{ custom_control };
+        const concrete_inner_item inner_item2{ custom_control };
 
         BOOST_CHECK(custom_control.set_mouse_capture(mouse_button_type::left, &inner_item1));
 
@@ -148,9 +148,9 @@ BOOST_AUTO_TEST_SUITE(custom_control)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         custom_control.set_mouse_capture(mouse_button_type::left, &inner_item);
         custom_control.release_mouse_capture();
@@ -168,18 +168,18 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
     }
 
     BOOST_AUTO_TEST_CASE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         BOOST_CHECK((inner_item.position() == position_type{ left_type{ 42 }, top_type{ 24 } }));
     }
@@ -188,9 +188,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.set_position(position_type{ left_type{ 53 }, top_type{ 35 } });
 
@@ -201,9 +201,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         BOOST_CHECK((inner_item.dimension() == dimension_type{ width_type{ 12 }, height_type{ 34 } }));
     }
@@ -212,9 +212,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.set_dimension(dimension_type{ width_type{ 56 }, height_type{ 78 } });
 
@@ -225,9 +225,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.resized();
     }
@@ -236,9 +236,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         const auto p_canvas = custom_control.create_canvas();
         inner_item.paint(*p_canvas);
@@ -248,9 +248,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.mouse_pressed(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
     }
@@ -259,9 +259,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.mouse_released(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
     }
@@ -270,9 +270,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
 
         inner_item.mouse_moved(position_type{ left_type{ 11 }, top_type{ 22 } });
     }
@@ -283,15 +283,15 @@ BOOST_AUTO_TEST_SUITE(inner_item)
 
         {
             window_type parent{};
-            concrete_custom_control custom_control(parent);
-            const concrete_inner_item inner_item(custom_control);
+            concrete_custom_control custom_control{ parent };
+            const concrete_inner_item inner_item{ custom_control };
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
         }
         {
             window_type parent{};
-            concrete_custom_control custom_control(parent);
-            concrete_inner_item inner_item(custom_control);
+            concrete_custom_control custom_control{ parent };
+            concrete_inner_item inner_item{ custom_control };
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
         }
@@ -303,15 +303,15 @@ BOOST_AUTO_TEST_SUITE(inner_item)
 
         {
             window_type parent{};
-            concrete_custom_control custom_control(parent);
-            const concrete_inner_item inner_item(custom_control);
+            concrete_custom_control custom_control{ parent };
+            const concrete_inner_item inner_item{ custom_control };
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
         }
         {
             window_type parent{};
-            concrete_custom_control custom_control(parent);
-            concrete_inner_item inner_item(custom_control);
+            concrete_custom_control custom_control{ parent };
+            concrete_inner_item inner_item{ custom_control };
 
             BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
         }
@@ -321,9 +321,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        concrete_custom_control custom_control(parent);
-        const concrete_inner_item inner_item(custom_control);
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        const concrete_inner_item inner_item{ custom_control };
 
         BOOST_CHECK(!inner_item.call_inside(position_type{ left_type{ 0 }, top_type{ 0 } }));
         BOOST_CHECK(inner_item.call_inside(position_type{ left_type{ 42 }, top_type{ 24 } }));
