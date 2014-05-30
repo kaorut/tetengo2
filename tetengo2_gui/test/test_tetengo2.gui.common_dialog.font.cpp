@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(font)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         font_dialog_type font{ boost::none, parent };
 
         font.do_modal();

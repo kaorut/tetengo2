@@ -783,7 +783,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton;
+            static const encoder_type singleton{};
             return singleton;
         }
 

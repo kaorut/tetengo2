@@ -179,7 +179,7 @@ namespace tetengo2 { namespace message
 
         static const locale_name_encoder_type& locale_name_encoder()
         {
-            static const locale_name_encoder_type singleton;
+            static const locale_name_encoder_type singleton{};
             return singleton;
         }
 

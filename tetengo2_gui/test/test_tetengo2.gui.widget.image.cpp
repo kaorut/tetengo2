@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const image_type image{ parent };
     }
 
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         BOOST_CHECK(!image.has_picture());
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
         const auto& const_image = image;
 
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         BOOST_CHECK(!image.has_icon());
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
         const auto& const_image = image;
 
@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         image_type image{ parent };
 
         {

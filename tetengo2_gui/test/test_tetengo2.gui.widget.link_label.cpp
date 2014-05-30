@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const link_label_type label{ parent };
     }
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const link_label_type label{ parent };
 
         BOOST_CHECK(label.target().empty());
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         link_label_type label{ parent };
 
         label.set_target(string_type{ TETENGO2_TEXT("http://www.tetengo.org") });

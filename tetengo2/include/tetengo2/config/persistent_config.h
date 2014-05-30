@@ -76,7 +76,7 @@ namespace tetengo2 { namespace config
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton;
+            static const encoder_type singleton{};
             return singleton;
         }
 

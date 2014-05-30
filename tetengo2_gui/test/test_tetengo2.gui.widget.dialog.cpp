@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         concrete_dialog dialog(parent);
 
         dialog.do_modal();

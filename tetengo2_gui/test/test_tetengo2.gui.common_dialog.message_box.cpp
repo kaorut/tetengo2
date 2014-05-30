@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const string_type title{};
         const string_type main_content{};
         const string_type sub_content{};
@@ -230,7 +230,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const string_type title{};
         const string_type main_content{};
         const string_type sub_content{};

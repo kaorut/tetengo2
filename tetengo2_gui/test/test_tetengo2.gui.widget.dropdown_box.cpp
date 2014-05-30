@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const dropdown_box_type dropdown_box{ parent };
     }
 
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         dropdown_box_type dropdown_box{ parent };
         dropdown_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
         dropdown_box.insert_value(1, string_type{ TETENGO2_TEXT("fuga") });
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(dropdown_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const dropdown_box_type dropdown_box{ parent };
 
         BOOST_CHECK(!dropdown_box.selected_value_index());

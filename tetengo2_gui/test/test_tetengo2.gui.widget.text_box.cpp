@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(text_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const text_box_type text_box{ parent, text_box_type::scroll_bar_style_type::none };
 
         BOOST_CHECK(!text_box.read_only());

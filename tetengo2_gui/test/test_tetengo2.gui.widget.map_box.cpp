@@ -47,7 +47,7 @@ namespace
     // functions
 
     template <typename T, typename U>
-    value_type make_value{ const T& key, const U& mapped }
+    value_type make_value(const T& key, const U& mapped)
     {
         return { key_type{ key }, mapped_type{ mapped } };
     }
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const map_box_type map_box{ parent };
     }
 
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         map_box_type map_box{ parent };
         map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
         map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         const map_box_type map_box{ parent };
 
         BOOST_CHECK(!map_box.selected_value_index());
@@ -246,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         map_box_type map_box{ parent };
 
         map_box.splitter_position();
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
+        window_type parent{};
         map_box_type map_box{ parent };
         map_box.set_dimension(dimension_type{ width_type{ 42 }, height_type{ 24 } });
 
