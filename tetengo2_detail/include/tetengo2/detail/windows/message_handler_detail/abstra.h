@@ -106,7 +106,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             for (::UINT i = 0; i < count; ++i)
             {
                 const auto length = ::DragQueryFileW(drop_handle, i, nullptr, 0);
-                std::vector<wchar_t> path_string(length + 1, 0);
+                std::vector<wchar_t> path_string{ length + 1, 0 };
 
                 const auto result =
                     ::DragQueryFileW(drop_handle, i, path_string.data(), static_cast< ::UINT>(path_string.size()));

@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<int> value(123);
+            const tetengo2::gui::unit::pixel<int> value{ 123 };
 
             const auto pixels = tetengo2::gui::to_pixels<int>(value);
 
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<boost::rational<int>> value(boost::rational<int>(3, 2));
+            const tetengo2::gui::unit::pixel<boost::rational<int>> value{ boost::rational<int>(3, 2) };
 
             const auto ceiling = tetengo2::gui::ceil<int>(value);
 
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<boost::rational<int>> value(boost::rational<int>(3, 2));
+            const tetengo2::gui::unit::pixel<boost::rational<int>> value{ boost::rational<int>(3, 2) };
 
             const auto floor = tetengo2::gui::floor<int>(value);
 

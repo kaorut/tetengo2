@@ -61,7 +61,7 @@ namespace
 
         concrete_unit& add(const value_type& another)
         {
-            concrete_unit temp(*this);
+            concrete_unit temp{ *this };
 
             temp.m_value += another;
 
@@ -71,7 +71,7 @@ namespace
 
         concrete_unit& subtract(const value_type& another)
         {
-            concrete_unit temp(*this);
+            concrete_unit temp{ *this };
 
             temp.m_value -= another;
 
@@ -81,7 +81,7 @@ namespace
 
         concrete_unit& multiply(const value_type& another)
         {
-            concrete_unit temp(*this);
+            concrete_unit temp{ *this };
 
             temp.m_value *= another;
 
@@ -91,7 +91,7 @@ namespace
 
         concrete_unit& divide_by(const value_type& another)
         {
-            concrete_unit temp(*this);
+            concrete_unit temp{ *this };
 
             temp.m_value /= another;
 

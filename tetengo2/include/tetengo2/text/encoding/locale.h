@@ -176,7 +176,7 @@ namespace tetengo2 { namespace text { namespace encoding
             const auto* p_pivot_first = pivot.c_str();
             const auto* const p_pivot_last = p_pivot_first + pivot.length();
 
-            std::vector<string_char_type> string_chars(8, TETENGO2_TEXT('\0'));
+            std::vector<string_char_type> string_chars{ 8, TETENGO2_TEXT('\0') };
             auto* p_string_first = string_chars.data();
             auto* p_string_last = p_string_first + string_chars.size() - 1;
 
@@ -273,7 +273,7 @@ namespace tetengo2 { namespace text { namespace encoding
             const auto* p_string_first = string.c_str();
             const string_char_type* const p_string_last = p_string_first + string.length();
 
-            std::vector<pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
+            std::vector<pivot_char_type> pivot_chars{ 8, TETENGO2_TEXT('\0') };
             auto* p_pivot_first = pivot_chars.data();
             pivot_char_type* p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
 

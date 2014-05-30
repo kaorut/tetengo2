@@ -145,7 +145,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 id = reinterpret_cast< ::HMENU>(IDCANCEL);
             }
 
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     0,
                     WC_BUTTONW,
@@ -160,7 +160,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -211,7 +211,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 register_window_class_for_custom_control<Widget>(instance_handle);
 
             const ::DWORD ex_style = border ? WS_EX_CLIENTEDGE : 0;
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     ex_style,
                     custom_control_class_name().c_str(),
@@ -226,7 +226,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     instance_handle,
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -272,7 +272,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::DWORD ex_style = WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
             if (file_droppable)
                 ex_style |= WS_EX_ACCEPTFILES;
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     ex_style,
                     dialog_class_name().c_str(),
@@ -287,7 +287,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     instance_handle,
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -319,15 +319,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_dropdown_box(Widget& parent)
         {
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     WC_COMBOBOXW,
                     L"",
-                    WS_CHILD |
-                        WS_TABSTOP |
-                        WS_VISIBLE |
-                        CBS_DROPDOWNLIST,
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | CBS_DROPDOWNLIST,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -337,7 +334,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -367,7 +364,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_image(Widget& parent)
         {
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     0,
                     WC_STATICW,
@@ -382,7 +379,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -412,7 +409,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_label(Widget& parent)
         {
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     0,
                     WC_STATICW,
@@ -427,7 +424,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -460,7 +457,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     WC_LISTBOXW,
@@ -479,7 +476,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -527,7 +524,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(picture_box_class_name(), instance_handle))
                 register_window_class_for_picture_box<Widget>(instance_handle);
 
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     picture_box_class_name().c_str(),
@@ -542,7 +539,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     instance_handle,
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -574,7 +571,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     WC_EDITW,
@@ -593,7 +590,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::GetModuleHandle(nullptr),
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((
@@ -646,7 +643,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::DWORD ex_style = WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style);
             if (file_droppable)
                 ex_style |= WS_EX_ACCEPTFILES;
-            typename widget_details_type::handle_type p_widget(
+            typename widget_details_type::handle_type p_widget{
                 ::CreateWindowExW(
                     ex_style,
                     window_class_name().c_str(),
@@ -661,7 +658,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     instance_handle,
                     nullptr
                 )
-            );
+            };
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION((

@@ -83,10 +83,10 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_window window(false);
+            const concrete_window window{ false };
         }
         {
-            const concrete_window window(true);
+            const concrete_window window{ true };
         }
     }
 
@@ -230,12 +230,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_window window(false);
+            const concrete_window window{ false };
 
             BOOST_CHECK(!window.file_droppable());
         }
         {
-            const concrete_window window(true);
+            const concrete_window window{ true };
 
             BOOST_CHECK(window.file_droppable());
         }
