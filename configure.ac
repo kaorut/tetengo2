@@ -38,8 +38,8 @@ AC_ARG_ENABLE(
         [--enable-precompilation],
         [enables precompilation.]
     ),
-    PRECOMPILE_CPPFLAGS=" -I\$(top_srcdir)/precompiled -include precompiled.h";
-    PRECOMPILE_BUILT_SOURCES="\$(top_srcdir)/precompiled/precompiled.h.gch"
+    PRECOMPILE_CPPFLAGS=" -I\$(top_builddir)/precompiled -I\$(top_srcdir)/precompiled -include precompiled.h";
+    PRECOMPILE_BUILT_SOURCES="\$(top_builddir)/precompiled/precompiled.h.gch"
 )
 AC_SUBST([PRECOMPILE_CPPFLAGS])
 AC_SUBST([PRECOMPILE_BUILT_SOURCES])
