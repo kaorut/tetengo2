@@ -3,7 +3,7 @@
 # $Id$
 
 #### General ####
-AC_PREREQ([2.67])
+AC_PREREQ([2.69])
 AC_INIT([Tetengo2], [0.0.0], [kaorut@mc.pikara.ne.jp])
 AM_INIT_AUTOMAKE([gnu dist-bzip2 dist-zip])
 AC_CONFIG_SRCDIR([tetengo2_config.h-original])
