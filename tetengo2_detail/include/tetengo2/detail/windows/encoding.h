@@ -122,18 +122,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static cp932_string_type pivot_to_cp932(const pivot_type& pivot)
         {
-            const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
-
             const auto string_length =
                 ::WideCharToMultiByte(
-                    932, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
+                    932, 0, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
                 );
             std::vector<char> string(string_length + 1, '\0');
+            const ::DWORD le = ::GetLastError(); le;
 
             const auto converted_length =
                 ::WideCharToMultiByte(
                     932,
-                    flags,
+                    0,
                     pivot.c_str(),
                     static_cast<int>(pivot.length()),
                     string.data(),

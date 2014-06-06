@@ -20,7 +20,8 @@
 
 #include <tetengo2.h>
 #include <tetengo2/detail/stub/config.h>
-#include <tetengo2/detail/stub/encoding.h>
+
+#include "test_tetengo2.detail_type_list.h"
 
 
 namespace test_tetengo2
@@ -53,7 +54,7 @@ namespace test_tetengo2
 #if !defined(DOCUMENTATION)
     namespace detail { namespace config
     {
-        using encoding_details_type = tetengo2::detail::stub::encoding;
+        using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type =
             tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>;
         using config_encoding_type =
@@ -120,7 +121,7 @@ namespace test_tetengo2
 #if !defined(DOCUMENTATION)
     namespace detail { namespace message
     {
-        using encoding_details_type = tetengo2::detail::stub::encoding;
+        using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type =
             tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>;
         using message_catalog_encoding_type =

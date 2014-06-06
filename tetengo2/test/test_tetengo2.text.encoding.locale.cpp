@@ -15,12 +15,15 @@
 #include <tetengo2.h>
 #include <tetengo2/detail/stub/encoding.h>
 
+#include "test_tetengo2.detail_type_list.h"
+
 
 namespace
 {
     // types
 
-    using encoding_details_type = tetengo2::detail::stub::encoding;
+    using encoding_details_type =
+        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
 
     using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string, encoding_details_type>;
 
