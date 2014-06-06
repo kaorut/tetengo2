@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::unix::encoding.
+    \brief The definition of tetengo2::detail::unixos::encoding.
 
     Copyright (C) 2007-2014 kaoru
 
@@ -16,7 +16,7 @@
 #include <boost/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace unix
+namespace tetengo2 { namespace detail { namespace unixos
 {
     /*!
         \brief The class for a detail implementation of an encoding.

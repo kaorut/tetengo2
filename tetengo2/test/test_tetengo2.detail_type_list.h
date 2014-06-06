@@ -17,7 +17,7 @@
 #if BOOST_COMP_MSVC
 #   include <tetengo2/detail/windows/encoding.h>
 #else
-#   include <tetengo2/detail/unix/encoding.h>
+#   include <tetengo2/detail/unixos/encoding.h>
 #endif
 
 
@@ -36,7 +36,7 @@ namespace test_tetengo2
 #if BOOST_COMP_MSVC
         using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
-        using encoding_details_type = tetengo2::detail::unix::encoding;
+        using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
     }}
 #endif

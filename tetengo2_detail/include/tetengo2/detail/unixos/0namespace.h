@@ -6,6 +6,6 @@
     $Id$
 */
 
-/*! \namespace tetengo2::detail::unix
+/*! \namespace tetengo2::detail::unixos
     \brief The namespace for the detail implementations using the libaray functions for UNIX.
 */
