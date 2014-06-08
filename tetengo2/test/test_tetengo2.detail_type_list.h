@@ -9,7 +9,6 @@
 #if !defined(TESTTETENGO2_DETAILTYPELIST_H)
 #define TESTTETENGO2_DETAILTYPELIST_H
 
-#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 #include <boost/predef.h>
 
