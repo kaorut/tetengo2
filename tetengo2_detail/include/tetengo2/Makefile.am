@@ -21,7 +21,8 @@ pkg_headers = \
     detail/stub/timer.h \
     detail/stub/unit.h \
     detail/stub/virtual_key.h \
-    detail/stub/widget.h
+    detail/stub/widget.h \
+    detail/unixos/encoding.h
 
 extra_headers = \
     detail/stub/0namespace.h \
