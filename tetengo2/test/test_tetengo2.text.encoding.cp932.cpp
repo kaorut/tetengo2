@@ -9,6 +9,7 @@
 #include <string>
 
 #include <boost/mpl/at.hpp>
+#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -29,6 +30,39 @@ namespace
 
     using encoding_type = tetengo2::text::encoding::cp932<encoding_details_type>;
 
+
+    // function
+
+    string_type::value_type tc(const unsigned char c)
+    {
+        return static_cast<string_type::value_type>(c);
+    }
+
+
+    // data
+
+#if BOOST_OS_WINDOWS
+    const pivot_type pivot{
+        0x304F, // KU in fullwidth hiragana
+        0x307E, // MA in fullwidth hiragana
+        0xFF93, // MO in halfwidth katakana
+        0xFF9D, // N  in halfwidth katakana
+    }; // in UTF-16
+#else
+    const pivot_type pivot{
+        tc(0xE3), tc(0x81), tc(0x8F), // KU in fullwidth hiragana
+        tc(0xE3), tc(0x81), tc(0xBE), // MA in fullwidth hiragana
+        tc(0xEF), tc(0xBE), tc(0x93), // MO in halfwidth katakana
+        tc(0xEF), tc(0xBE), tc(0x9D), // N  in halfwidth katakana
+    }; // in UTF-8
+#endif
+
+    const string_type cp932_{
+        tc(0x82), tc(0xAD), // KU in fullwidth hiragana
+        tc(0x82), tc(0xDC), // MA in fullwidth hiragana
+        tc(0xD3),           // MO in halfwidth katakana
+        tc(0xDD),           // N  in halfwidth katakana
+    }; // in CP932
 
 }
 
@@ -53,13 +87,10 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
-            const string_type string{ TETENGO2_TEXT("Tetengo2") };
-
             const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
-            BOOST_CHECK(result == string);
+            BOOST_CHECK(result == cp932_);
         }
     }
 
@@ -68,11 +99,8 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
-            const string_type string{ TETENGO2_TEXT("Tetengo2") };
-
             const encoding_type encoding{};
-            const auto result = encoding.to_pivot(string);
+            const auto result = encoding.to_pivot(cp932_);
 
             BOOST_CHECK(result == pivot);
         }

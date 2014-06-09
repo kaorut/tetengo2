@@ -111,10 +111,10 @@ $ ./bootstrap.sh
 ### Build Sequence
 
 Run `configure` to generate Makefiles. `--enable-precompilation` enables precompilation by generating `.gch` files.
-On some platform such as Linux, you have to link to librt.
+On some platform such as Linux, you have to link to librt, or if you use Cygwin, link to libiconv.
 
 ~~~~{.sh}
-$ ./configure [--enable-precompilation] [LIBS=-lrt]
+$ ./configure [--enable-precompilation] [LIBS=-lrt|LIBS=-liconv]
 ~~~~
 
 To install the libraries to your system, run make like this:
