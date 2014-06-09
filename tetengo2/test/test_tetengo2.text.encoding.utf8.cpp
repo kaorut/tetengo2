@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <string>
-
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
