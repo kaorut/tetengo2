@@ -38,6 +38,8 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The pivot type.
+        //!
+        //! Stores UTF-8.
         using pivot_type = std::wstring;
 
         //! The UTF-8 string type.

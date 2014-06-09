@@ -114,7 +114,10 @@ namespace tetengo2 { namespace text { namespace encoding
 
         static string_char_type to_ascii_impl(const char pivot_char)
         {
-            return pivot_char;
+            if (0 <= pivot_char && pivot_char <= 0x7F)
+                return pivot_char;
+            else
+                return 0x3F;
         }
 
         static string_char_type to_ascii_impl(const wchar_t pivot_char)

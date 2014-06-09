@@ -24,14 +24,16 @@ namespace
     using encoding_details_type =
         boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
 
+    using pivot_type = encoding_details_type::pivot_type;
+
     using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
 
 
     // variables
 
     // "\n 0Aa~[DEL]"
-    const wchar_t utf16_ascii[]{
-        0x000A, 0x0020, 0x0030, 0x0041, 0x0061, 0x007E, 0x007F, 0x0000
+    const unsigned char pivot_ascii[]{
+        0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00
     };
 
     // "\n 0Aa~[DEL]"
@@ -40,8 +42,8 @@ namespace
     };
 
     // Non-ASCII characters
-    const wchar_t utf16_nonascii[]{
-        0x0080, 0x00FF, 0x0000
+    const unsigned char pivot_nonascii[]{
+        0x80, 0xFF, 0x00
     };
 
     // Non-ASCII characters
@@ -77,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot{ utf16_ascii };
+            const pivot_type pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
             const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
             const encoding_type encoding{};
@@ -86,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             BOOST_CHECK(result == string);
         }
         {
-            const std::wstring pivot{ utf16_nonascii };
+            const pivot_type pivot{ pivot_nonascii, pivot_nonascii + sizeof(pivot_nonascii) - 1 };
             const std::string string{ ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1 };
 
             const encoding_type encoding{};
@@ -101,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot{ utf16_ascii };
+            const pivot_type pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
             const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
             const encoding_type encoding{};

@@ -23,6 +23,10 @@ namespace
     using encoding_details_type =
         boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
 
+    using pivot_type = encoding_details_type::pivot_type;
+
+    using string_type = encoding_details_type::utf8_string_type;
+
     using encoding_type = tetengo2::text::encoding::utf8<encoding_details_type>;
 
 
@@ -49,8 +53,8 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot{ TETENGO2_TEXT("Tetengo2") };
-            const std::string string{ TETENGO2_TEXT("Tetengo2") };
+            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const string_type string{ TETENGO2_TEXT("Tetengo2") };
 
             const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
@@ -64,8 +68,8 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::wstring pivot{ TETENGO2_TEXT("Tetengo2") };
-            const std::string string{ TETENGO2_TEXT("Tetengo2") };
+            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
+            const string_type string{ TETENGO2_TEXT("Tetengo2") };
 
             const encoding_type encoding{};
             const auto result = encoding.to_pivot(string);
