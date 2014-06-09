@@ -26,6 +26,7 @@ pkg_headers = \
 
 extra_headers = \
     detail/stub/0namespace.h \
+    detail/unixos/0namespace.h \
     detail/windows/0namespace.h \
     detail/windows/alert.h \
     detail/windows/com_ptr.h \
