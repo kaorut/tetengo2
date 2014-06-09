@@ -13,6 +13,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/predef.h>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -89,7 +90,7 @@ namespace
 
     // data
 
-#if defined(_WIN32)
+#if BOOST_OS_WINDOWS
     const std::locale locale_en = make_locale("English");
 
     const std::locale locale_ja = make_locale("Japanese_Japan");

@@ -11,6 +11,7 @@
 #include <string>
 
 #include <boost/mpl/at.hpp>
+#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -60,7 +61,7 @@ namespace
 
     // data
 
-#if defined(_WIN32)
+#if BOOST_OS_WINDOWS
     const std::locale locale_en = make_locale("English");
 
     const std::locale locale_ja = make_locale("Japanese_Japan");

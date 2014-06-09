@@ -24,6 +24,7 @@
 #include <boost/exception/all.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/predef.h>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -2585,13 +2586,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static ::WNDPROC replace_window_procedure(const ::HWND handle)
         {
-#if defined(_WIN32) && !defined(_WIN64)
+#if BOOST_COMP_MSVC && BOOST_ARCH_X86_32
 #    pragma warning(push)
 #    pragma warning(disable: 4244)
 #endif
             const auto proc = window_procedure<Widget>;
             const auto result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast< ::LONG_PTR>(proc));
-#if defined(_WIN32) && !defined(_WIN64)
+#if BOOST_COMP_MSVC && BOOST_ARCH_X86_32
 #    pragma warning(pop)
 #endif
             if (result == 0)
