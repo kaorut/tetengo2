@@ -37,6 +37,7 @@ sub collect_stdlib_usages
 		while (
 			$line =~ /(std::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 			$line =~ /(assert)/ ||
+			$line =~ /(errno)/ ||
 			$line =~ /(boost::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 			$line =~ /(BOOST_[A-Z0-9_]*[a-zA-Z0-9_])/ ||
 			$line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||

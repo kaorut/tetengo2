@@ -223,6 +223,7 @@
 ::WPARAM                                         Windows.h
 ::WideCharToMultiByte                            Windows.h
 ::WindowFromPoint                                Windows.h
+BOOST_ARCH_X86_32                                boost/predef.h
 BOOST_AUTO_TEST_CASE                             boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE                            boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
@@ -240,6 +241,7 @@ BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_OS_LINUX                                   boost/predef.h
+BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_REQUIRE_EQUAL                              boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
@@ -250,13 +252,10 @@ BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_VERSION_NUMBER                             boost/predef.h
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 D2D1::BrushProperties                            Windows.h,d2d1.h
-D2D1::ColorF                                     Windows.h,d2d1.h
 D2D1::HwndRenderTargetProperties                 Windows.h,d2d1.h
 D2D1::Matrix3x2F                                 Windows.h,d2d1.h
 D2D1::Matrix3x2F::Rotation                       Windows.h,d2d1.h
 D2D1::PixelFormat                                Windows.h,d2d1.h
-D2D1::Point2F                                    Windows.h,d2d1.h
-D2D1::RectF                                      Windows.h,d2d1.h
 D2D1::RenderTargetProperties                     Windows.h,d2d1.h
 D2D1::SizeU                                      Windows.h,d2d1.h
 D2D1::StrokeStyleProperties                      Windows.h,d2d1.h
@@ -541,6 +540,7 @@ boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
+errno                                            cerrno
 std::advance                                     iterator
 std::any_of                                      algorithm
 std::back_inserter                               iterator

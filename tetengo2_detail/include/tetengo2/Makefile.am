@@ -8,7 +8,6 @@ pkg_headers = \
     detail/stub/config.h \
     detail/stub/cursor.h \
     detail/stub/drawing.h \
-    detail/stub/encoding.h \
     detail/stub/gui_fixture.h \
     detail/stub/icon.h \
     detail/stub/menu.h \
@@ -21,10 +20,12 @@ pkg_headers = \
     detail/stub/timer.h \
     detail/stub/unit.h \
     detail/stub/virtual_key.h \
-    detail/stub/widget.h
+    detail/stub/widget.h \
+    detail/unixos/encoding.h
 
 extra_headers = \
     detail/stub/0namespace.h \
+    detail/unixos/0namespace.h \
     detail/windows/0namespace.h \
     detail/windows/alert.h \
     detail/windows/com_ptr.h \

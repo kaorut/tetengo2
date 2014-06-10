@@ -23,7 +23,6 @@
 #include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/encoding.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_handler.h>
@@ -36,6 +35,8 @@
 #include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/detail/stub/widget.h>
+
+#include "test_tetengo2.gui.detail_type_list.h"
 
 
 namespace test_tetengo2 { namespace gui
@@ -62,7 +63,7 @@ namespace test_tetengo2 { namespace gui
         using difference_type = std::ptrdiff_t;
         using string_type = std::string;
         using exception_string_type = std::string;
-        using encoding_details_type = tetengo2::detail::stub::encoding;
+        using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
         using ui_encoding_type =
             tetengo2::text::encoding::locale<tetengo2::detail::stub::widget::string_type, encoding_details_type>;
