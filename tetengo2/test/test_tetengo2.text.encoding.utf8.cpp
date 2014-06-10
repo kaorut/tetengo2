@@ -28,6 +28,40 @@ namespace
     using encoding_type = tetengo2::text::encoding::utf8<encoding_details_type>;
 
 
+    // functions
+
+    string_type::value_type tc(const unsigned char c)
+    {
+        return static_cast<string_type::value_type>(c);
+    }
+
+
+    // data
+
+#if BOOST_OS_WINDOWS
+    const pivot_type pivot{
+        0x68EE,         // MORI in kanji
+        0x9DD7,         // OU in kanji
+        0x5916,         // GAI in kanji
+        0xD842, 0xDF9F, // SHIKARU in kanji
+    }; // in UTF-16
+#else
+    const pivot_type pivot{
+        tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
+        tc(0xE9), tc(0xB7), tc(0x97),           // OU in kanji
+        tc(0xE5), tc(0xA4), tc(0x96),           // GAI in kanji
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+    }; // in UTF-8
+#endif
+
+    const string_type utf8_{
+        tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
+        tc(0xE9), tc(0xB7), tc(0x97),           // OU in kanji
+        tc(0xE5), tc(0xA4), tc(0x96),           // GAI in kanji
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+    }; // in CP932
+
+
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -51,13 +85,10 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
-            const string_type string{ TETENGO2_TEXT("Tetengo2") };
-
             const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
-            BOOST_CHECK(result == string);
+            BOOST_CHECK(result == utf8_);
         }
     }
 
@@ -66,11 +97,8 @@ BOOST_AUTO_TEST_SUITE(utf8)
         BOOST_TEST_PASSPOINT();
 
         {
-            const pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
-            const string_type string{ TETENGO2_TEXT("Tetengo2") };
-
             const encoding_type encoding{};
-            const auto result = encoding.to_pivot(string);
+            const auto result = encoding.to_pivot(utf8_);
 
             BOOST_CHECK(result == pivot);
         }

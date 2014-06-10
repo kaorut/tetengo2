@@ -56,15 +56,7 @@ namespace tetengo2 { namespace detail { namespace unixos
         */
         static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
         {
-            utf8_string_type string{};
-            string.reserve(pivot.length());
-            std::transform(
-                pivot.begin(),
-                pivot.end(),
-                std::back_inserter(string),
-                [](const pivot_type::value_type c) { return static_cast<utf8_string_type::value_type>(c); }
-            );
-            return string;
+            return pivot;
         }
 
         /*!
@@ -76,15 +68,7 @@ namespace tetengo2 { namespace detail { namespace unixos
         */
         static pivot_type utf8_to_pivot(const utf8_string_type& string)
         {
-            pivot_type pivot{};
-            pivot.reserve(string.length());
-            std::transform(
-                string.begin(),
-                string.end(),
-                std::back_inserter(pivot),
-                [](const utf8_string_type::value_type c) { return static_cast<pivot_type::value_type>(c); }
-            );
-            return pivot;
+            return string;
         }
 
         /*!

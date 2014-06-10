@@ -29,7 +29,7 @@ namespace
     using encoding_type = tetengo2::text::encoding::cp932<encoding_details_type>;
 
 
-    // function
+    // functions
 
     string_type::value_type tc(const unsigned char c)
     {
