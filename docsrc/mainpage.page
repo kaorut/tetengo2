@@ -80,6 +80,7 @@ You need the following tools in order to build Tetengo2 libraries:
 - [GCC 4.7.2 or 4.8.3](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.55.0](http://www.boost.org/)
+- [libiconv](http://www.gnu.org/) (on Cygwin)
 - [Doxygen 1.8.7](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
@@ -111,10 +112,9 @@ $ ./bootstrap.sh
 ### Build Sequence
 
 Run `configure` to generate Makefiles. `--enable-precompilation` enables precompilation by generating `.gch` files.
-On some platform such as Linux, you have to link to librt, or if you use Cygwin, link to libiconv.
 
 ~~~~{.sh}
-$ ./configure [--enable-precompilation] [LIBS=-lrt|LIBS=-liconv]
+$ ./configure [--enable-precompilation]
 ~~~~
 
 To install the libraries to your system, run make like this:
