@@ -8,7 +8,6 @@ pkg_headers = \
     detail/stub/config.h \
     detail/stub/cursor.h \
     detail/stub/drawing.h \
-    detail/stub/encoding.h \
     detail/stub/gui_fixture.h \
     detail/stub/icon.h \
     detail/stub/menu.h \
