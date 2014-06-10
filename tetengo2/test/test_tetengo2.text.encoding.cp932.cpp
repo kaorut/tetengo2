@@ -46,12 +46,26 @@ namespace
         0xFF93, // MO in halfwidth katakana
         0xFF9D, // N  in halfwidth katakana
     }; // in UTF-16
+
+    const pivot_type unconvertible_pivot{
+        0x68EE,         // MORI in kanji
+        0x9DD7,         // OU in kanji
+        0x5916,         // GAI in kanji
+        0xD842, 0xDF9F, // SHIKARU in kanji
+    }; // in UTF-16
 #else
     const pivot_type pivot{
         tc(0xE3), tc(0x81), tc(0x8F), // KU in fullwidth hiragana
         tc(0xE3), tc(0x81), tc(0xBE), // MA in fullwidth hiragana
         tc(0xEF), tc(0xBE), tc(0x93), // MO in halfwidth katakana
         tc(0xEF), tc(0xBE), tc(0x9D), // N  in halfwidth katakana
+    }; // in UTF-8
+
+    const pivot_type unconvertible_pivot{
+        tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
+        tc(0xE9), tc(0xB7), tc(0x97),           // OU in kanji
+        tc(0xE5), tc(0xA4), tc(0x96),           // GAI in kanji
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
     }; // in UTF-8
 #endif
 
@@ -61,6 +75,23 @@ namespace
         tc(0xD3),           // MO in halfwidth katakana
         tc(0xDD),           // N  in halfwidth katakana
     }; // in CP932
+
+#if BOOST_OS_WINDOWS
+    const string_type unconvertible_cp932_{
+        tc(0x90), tc(0x58), // MORI in kanji
+        tc(0x3F),           // OU in kanji
+        tc(0x8A), tc(0x4F), // GAI in kanji
+        tc(0x3F), tc(0x3F), // SHIKARU in kanji
+    }; // in CP932
+#else
+    const string_type unconvertible_cp932_{
+        tc(0x90), tc(0x58),                     // MORI in kanji
+        tc(0x3F), tc(0x3F), tc(0x3F),           // OU in kanji
+        tc(0x8A), tc(0x4F),                     // GAI in kanji
+        tc(0x3F), tc(0x3F), tc(0x3F), tc(0x3F), // SHIKARU in kanji
+    }; // in CP932
+#endif
+
 
 }
 
@@ -89,6 +120,12 @@ BOOST_AUTO_TEST_SUITE(cp932)
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == cp932_);
+        }
+        {
+            const encoding_type encoding{};
+            const auto result = encoding.from_pivot(unconvertible_pivot);
+
+            BOOST_CHECK(result == unconvertible_cp932_);
         }
     }
 
