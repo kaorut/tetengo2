@@ -99,6 +99,13 @@ BOOST_AUTO_TEST_SUITE(cached_config)
         BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
     }
 
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

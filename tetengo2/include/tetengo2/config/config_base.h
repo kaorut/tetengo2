@@ -77,6 +77,14 @@ namespace tetengo2 { namespace config
             set_impl(key, std::move(value));
         }
 
+        /*!
+            \brief Clears the configuration.
+        */
+        void clear()
+        {
+            clear_impl();
+        }
+
 
     private:
         // virtual functions
@@ -85,6 +93,9 @@ namespace tetengo2 { namespace config
         const = 0;
 
         virtual void set_impl(const string_type& key, value_type value)
+        = 0;
+
+        virtual void clear_impl()
         = 0;
 
 

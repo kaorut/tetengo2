@@ -100,6 +100,12 @@ namespace tetengo2 { namespace config
             configuration_details_type::set(m_group_name, key, std::move(value), encoder());
         }
 
+        virtual void clear_impl()
+        override
+        {
+            // TODO Implement it.
+        }
+
 
     };
 

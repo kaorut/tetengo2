@@ -33,6 +33,7 @@ namespace
 
 }
 
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(temporary_config)
@@ -110,6 +111,13 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     
