@@ -6,16 +6,14 @@
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_UNIX_ENCODING_H)
-#define TETENGO2_DETAIL_UNIX_ENCODING_H
+#if !defined(TETENGO2_DETAIL_UNIXOS_ENCODING_H)
+#define TETENGO2_DETAIL_UNIXOS_ENCODING_H
 
 #include <iconv.h>
 
-#include <algorithm>
 #include <cassert>
 #include <cerrno>
 #include <cstddef>
-#include <iterator>
 #include <stdexcept>
 #include <string>
 #include <vector>
