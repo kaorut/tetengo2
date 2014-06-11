@@ -11,11 +11,9 @@
 
 #include <iconv.h>
 
-#include <algorithm>
 #include <cassert>
 #include <cerrno>
 #include <cstddef>
-#include <iterator>
 #include <stdexcept>
 #include <string>
 #include <vector>
