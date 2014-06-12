@@ -117,7 +117,18 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const std::vector<std::pair<string_type, value_type>> values{
+                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
+            };
+            temporary_config_type config{ values.begin(), values.end() };
+
+            config.clear();
+
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("foo") }));
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("bar") }));
+        }
     }
 
     
