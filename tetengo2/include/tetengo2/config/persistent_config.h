@@ -103,7 +103,7 @@ namespace tetengo2 { namespace config
         virtual void clear_impl()
         override
         {
-            // TODO Implement it.
+            configuration_details_type::clear(m_group_name, encoder());
         }
 
 

@@ -72,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
-            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_READ);
+            const registry<String, Encoder> handle{ registry_key_and_value_name.first, encoder, KEY_READ };
             if (!handle.get())
                 return boost::none;
 
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
-            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_WRITE);
+            const registry<String, Encoder> handle{ registry_key_and_value_name.first, encoder, KEY_WRITE };
             if (!handle.get())
                 return;
 
@@ -143,6 +143,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 assert(false);
                 break;
             }
+        }
+
+        /*!
+            \brief Clears the configuration.
+
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param group_name A group_name.
+            \param encoder    An encoder.
+        */
+        template <typename String, typename Encoder>
+        static void clear(const String& group_name, const Encoder& encoder)
+        {
+            const registry<String, Encoder> handle{ path_prefix<String>(), encoder, KEY_WRITE };
+            if (!handle.get())
+                return;
+
+            ::RegDeleteTreeW(handle.get(), encoder.encode(group_name).c_str());
         }
 
 
@@ -207,10 +226,15 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         template <typename String>
+        static const String& path_prefix()
+        {
+            static const String singleton{ TETENGO2_TEXT("Software\\tetengo\\") };
+            return singleton;
+        }
+
+        template <typename String>
         static std::pair<String, String> build_registry_key_and_value_name(const String& group_name, const String& key)
         {
-            static const String path_prefix{ TETENGO2_TEXT("Software\\tetengo\\") };
-
             std::vector<String> key_names{};
             boost::split(
                 key_names,
@@ -220,11 +244,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             );
             if (key_names.size() <= 1)
-                return std::make_pair(path_prefix + group_name, key);
+                return std::make_pair(path_prefix<String>() + group_name, key);
             
             return
                 std::make_pair(
-                     path_prefix +
+                     path_prefix<String>() +
                         group_name +
                         String{ TETENGO2_TEXT("\\") } +
                         boost::join(

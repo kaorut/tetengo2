@@ -82,6 +82,21 @@ namespace tetengo2 { namespace detail { namespace stub
             suppress_unused_variable_warning(group_name, key, value, encoder);
         }
 
+        /*!
+            \brief Clears the configuration.
+
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param group_name A group_name.
+            \param encoder    An encoder.
+        */
+        template <typename String, typename Encoder>
+        static void clear(const String& group_name, const Encoder& encoder)
+        {
+            suppress_unused_variable_warning(group_name, encoder);
+        }
+
 
     };
 

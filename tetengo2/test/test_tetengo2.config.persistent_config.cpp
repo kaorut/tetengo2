@@ -25,7 +25,12 @@ namespace
     using encoder_type = boost::mpl::at<test_tetengo2::config_type_list, test_tetengo2::type::config::encoder>::type;
 
     using persistent_config_type =
-        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, tetengo2::detail::stub::config>;
+        tetengo2::config::persistent_config<
+            string_type,
+            uint_type,
+            encoder_type,
+            boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::config>::type
+        >;
 
     using config_base_type = persistent_config_type::base_type;
 
@@ -43,32 +48,40 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        const persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
+        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+
+        config.clear();
     }
 
     BOOST_AUTO_TEST_CASE(get)
     {
         BOOST_TEST_PASSPOINT();
 
-        const persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
+        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
         config.get(string_type{ TETENGO2_TEXT("foo") });
+
+        config.clear();
     }
 
     BOOST_AUTO_TEST_CASE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type{ TETENGO2_TEXT("group") } };
+        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
         config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
+
+        config.clear();
     }
 
     BOOST_AUTO_TEST_CASE(clear)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+
+        config.clear();
     }
 
     

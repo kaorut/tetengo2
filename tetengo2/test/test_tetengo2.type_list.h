@@ -58,7 +58,9 @@ namespace test_tetengo2
         using internal_encoding_type =
             tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>;
         using config_encoding_type =
-            tetengo2::text::encoding::locale<tetengo2::detail::stub::config::string_type, encoding_details_type>;
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::config>::type::string_type, encoding_details_type
+            >;
         using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
     }}
 #endif
