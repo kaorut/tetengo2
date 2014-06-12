@@ -100,7 +100,11 @@ BOOST_AUTO_TEST_SUITE(config_base)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            concrete_config config;
+
+            config.clear();
+        }
     }
 
 
