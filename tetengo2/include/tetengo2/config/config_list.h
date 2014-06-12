@@ -100,7 +100,11 @@ namespace tetengo2 { namespace config
         virtual void clear_impl()
         override
         {
-            // TODO Implement it.
+            std::for_each(
+                m_p_configs.begin(),
+                m_p_configs.end(),
+                [](std::unique_ptr<base_type>& p_config) { p_config->clear(); }
+            );
         }
 
 

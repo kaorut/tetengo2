@@ -203,7 +203,34 @@ BOOST_AUTO_TEST_SUITE(config_list)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            std::vector<std::unique_ptr<config_base_type>> p_configs{};
+            {
+                const std::vector<std::pair<string_type, value_type>> values{
+                    { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                    { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
+                };
+                p_configs.push_back(
+                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
+                );
+            }
+            {
+                const std::vector<std::pair<string_type, value_type>> values{
+                    { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
+                    { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
+                };
+                p_configs.push_back(
+                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
+                );
+            }
+            config_list_type config{ std::move(p_configs) };
+
+            config.clear();
+
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("foo") }));
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("bar") }));
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("baz") }));
+        }
     }
 
     
