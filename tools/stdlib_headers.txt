@@ -171,6 +171,7 @@
 ::REGSAM                                         Windows.h
 ::RegCloseKey                                    Windows.h
 ::RegCreateKeyExW                                Windows.h
+::RegDeleteTreeW                                 Windows.h
 ::RegQueryValueExW                               Windows.h
 ::RegSetValueEx                                  Windows.h
 ::RegisterClassExW                               Windows.h
