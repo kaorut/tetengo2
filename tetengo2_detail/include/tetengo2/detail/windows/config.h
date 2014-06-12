@@ -209,15 +209,23 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<String, String> build_registry_key_and_value_name(const String& group_name, const String& key)
         {
+            static const String path_prefix{ TETENGO2_TEXT("Software\\tetengo\\") };
+
             std::vector<String> key_names{};
-            boost::split(key_names, key, is_splitter<typename String::value_type>);
+            boost::split(
+                key_names,
+                key,
+                [](const typename String::value_type c) {
+                    return c == typename String::value_type{ TETENGO2_TEXT('/') };
+                }
+            );
             if (key_names.size() <= 1)
-                return std::make_pair(group_name, key);
+                return std::make_pair(path_prefix + group_name, key);
             
             return
                 std::make_pair(
-                    String{ TETENGO2_TEXT("Software\\tetengo\\") } +
-                    group_name +
+                     path_prefix +
+                        group_name +
                         String{ TETENGO2_TEXT("\\") } +
                         boost::join(
                             std::make_pair(key_names.begin(), boost::prior(key_names.end())),
@@ -225,12 +233,6 @@ namespace tetengo2 { namespace detail { namespace windows
                         ),
                     key_names[key_names.size() - 1]
                 );
-        }
-
-        template <typename Char>
-        static bool is_splitter(const Char character)
-        {
-            return character == Char{ TETENGO2_TEXT('/') };
         }
 
         template <typename String, typename Encoder>
