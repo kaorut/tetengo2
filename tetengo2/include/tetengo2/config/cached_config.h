@@ -105,7 +105,8 @@ namespace tetengo2 { namespace config
         virtual void clear_impl()
         override
         {
-            // TODO Implement it.
+            m_cache.clear();
+            m_p_config->clear();
         }
 
 
