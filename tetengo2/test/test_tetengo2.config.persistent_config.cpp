@@ -8,6 +8,7 @@
 
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/variant.hpp>
 
 #include <tetengo2.h>
 
@@ -59,7 +60,10 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
         persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
-        config.get(string_type{ TETENGO2_TEXT("foo") });
+        {
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
+            BOOST_REQUIRE(!value);
+        }
 
         config.clear();
     }
@@ -68,11 +72,32 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+        {
+            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
-        config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
+            config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
 
-        config.clear();
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
+            BOOST_REQUIRE(value);
+            BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 4242U);
+
+            config.clear();
+        }
+        {
+            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
+            config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
+            config.set(string_type{ TETENGO2_TEXT("baz") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } });
+
+            const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
+            BOOST_REQUIRE(value);
+            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
+
+            config.clear();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(clear)
