@@ -104,9 +104,17 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+        {
+            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
-        config.clear();
+            config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
+            config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
+
+            config.clear();
+
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("foo") }));
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("bar") }));
+        }
     }
 
     

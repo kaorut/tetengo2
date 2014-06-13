@@ -118,11 +118,8 @@ namespace tetengo2 { namespace detail { namespace unixos
         template <typename String, typename Encoder>
         static void clear(const String& group_name, const Encoder& encoder)
         {
-            const auto setting_file_path = make_setting_file_path(group_name, encoder);
-            if (!boost::filesystem::exists(setting_file_path))
-                return;
-            if (!boost::filesystem::remove(setting_file_path))
-                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't remove the setting file."));
+            values<String, std::size_t> values_{};
+            save_to_file(group_name, values_, encoder);
         }
 
 
