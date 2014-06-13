@@ -10,16 +10,18 @@
 #define TETENGO2_DETAIL_UNIXOS_CONFIG_H
 
 #include <cassert>
+#include <cstddef>
 #include <cstdlib>
 #include <ios>
 #include <iterator>
 #include <map>
-#include <memory>
+#include <ostream>
 #include <stack>
 #include <string>
 #include <utility>
 
 #include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
