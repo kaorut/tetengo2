@@ -19,7 +19,6 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.h>
-#include <tetengo2/detail/stub/config.h>
 
 #include "test_tetengo2.detail_type_list.h"
 

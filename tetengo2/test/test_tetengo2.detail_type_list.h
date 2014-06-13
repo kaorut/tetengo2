@@ -17,7 +17,7 @@
 #   include <tetengo2/detail/windows/config.h>
 #   include <tetengo2/detail/windows/encoding.h>
 #else
-#   include <tetengo2/detail/stub/config.h>
+#   include <tetengo2/detail/unixos/config.h>
 #   include <tetengo2/detail/unixos/encoding.h>
 #endif
 
@@ -40,7 +40,7 @@ namespace test_tetengo2
 
         using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
-        using config_details_type = tetengo2::detail::stub::config;
+        using config_details_type = tetengo2::detail::unixos::config;
 
         using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif

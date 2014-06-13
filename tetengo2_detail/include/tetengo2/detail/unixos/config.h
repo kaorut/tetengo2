@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::detail::stub::config.
+    \brief The definition of tetengo2::detail::unixos::config.
 
     Copyright (C) 2007-2014 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_STUB_CONFIG_H)
-#define TETENGO2_DETAIL_STUB_CONFIG_H
+#if !defined(TETENGO2_DETAIL_UNIXOS_CONFIG_H)
+#define TETENGO2_DETAIL_UNIXOS_CONFIG_H
 
 #include <string>
 
@@ -18,7 +18,7 @@
 #include <tetengo2/utility.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
+namespace tetengo2 { namespace detail { namespace unixos
 {
     /*!
         \brief The class for a detail implementation of a configuration.
