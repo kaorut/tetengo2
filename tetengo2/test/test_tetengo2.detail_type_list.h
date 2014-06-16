@@ -36,8 +36,7 @@ namespace test_tetengo2
     namespace detail { namespace detail
     {
 #if BOOST_COMP_MSVC
-        using config_details_type = tetengo2::detail::unixos::config;
-//        using config_details_type = tetengo2::detail::windows::config;
+        using config_details_type = tetengo2::detail::windows::config;
 
         using encoding_details_type = tetengo2::detail::windows::encoding;
 #else

@@ -276,7 +276,7 @@ namespace tetengo2 { namespace detail { namespace windows
             switch (type)
             {
             case REG_SZ:
-                return std::make_pair(value_type::string, value_size / sizeof(typename String::value_type));
+                return std::make_pair(value_type::string, value_size / sizeof(string_type::value_type));
             case REG_DWORD:
                 return std::make_pair(value_type::dword, 0);
             default:
@@ -292,8 +292,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                   encoder
         )
         {
-            std::vector<typename String::value_type> value(result_length, 0);
-            auto value_size = static_cast< ::DWORD>(result_length * sizeof(typename String::value_type));
+            std::vector<typename string_type::value_type> value(result_length, 0);
+            auto value_size =
+                static_cast< ::DWORD>(result_length * sizeof(typename string_type::value_type));
             const auto query_value_result =
                 ::RegQueryValueExW(
                     handle,
@@ -306,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace windows
             suppress_unused_variable_warning(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
-            return encoder.decode(std::wstring{ value.begin(), value.end() });
+            return encoder.decode(&value[0]);
         }
 
         template <typename String, typename Encoder>
@@ -339,7 +340,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 0,
                 REG_SZ,
                 reinterpret_cast<const ::BYTE*>(encoded_value.c_str()),
-                static_cast< ::DWORD>((encoded_value.length() + 1) * sizeof(typename String::value_type))
+                static_cast< ::DWORD>(
+                    (encoded_value.length() + 1) * sizeof(typename string_type::value_type)
+                )
             );
         }
 
