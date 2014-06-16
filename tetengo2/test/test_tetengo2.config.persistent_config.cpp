@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
         {
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_REQUIRE(!value);
+            BOOST_CHECK(!value);
         }
 
         config.clear();

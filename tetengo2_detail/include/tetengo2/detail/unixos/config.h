@@ -11,6 +11,9 @@
 
 #include <cassert>
 #include <cstddef>
+#if __CYGWIN__ // BOOST_OS_CYGWIN
+#   include <cstdio>
+#endif
 #include <cstdlib>
 #include <ios>
 #include <iterator>
@@ -28,6 +31,12 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
+
+#if __CYGWIN__ // BOOST_OS_CYGWIN
+#   include <sys/types.h>
+#   include <sys/stat.h>
+#   include <unistd.h>
+#endif
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
@@ -118,8 +127,17 @@ namespace tetengo2 { namespace detail { namespace unixos
         template <typename String, typename Encoder>
         static void clear(const String& group_name, const Encoder& encoder)
         {
-            values<String, std::size_t> values_{};
-            save_to_file(group_name, values_, encoder);
+            const auto setting_file_path = make_setting_file_path(group_name, encoder);
+#if __CYGWIN__ // BOOST_OS_CYGWIN
+            // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
+            // But Tetengo2 treats paths in the UNIX style
+            struct ::stat stat_;
+            if (::stat(setting_file_path.string().c_str(), &stat_) == 0)
+                std::remove(setting_file_path.string().c_str());
+#else
+            if (boost::filesystem::exists(setting_file_path))
+                boost::filesystem::remove(setting_file_path);
+#endif
         }
 
 
@@ -153,7 +171,14 @@ namespace tetengo2 { namespace detail { namespace unixos
             const auto* const p_home_directory = std::getenv("HOME");
             const boost::filesystem::path base{ p_home_directory ? p_home_directory : "" };
 #endif
+#if __CYGWIN__ // BOOST_OS_CYGWIN
+            // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
+            // But Tetengo2 treats paths in the UNIX style
+            return
+                base.string() + encoder.decode(String(TETENGO2_TEXT("/")) + String(TETENGO2_TEXT(".")) + group_name);
+#else
             return base / encoder.decode(String(TETENGO2_TEXT(".")) + group_name);
+#endif
         }
 
         template <typename String, typename UInt, typename Encoder>
