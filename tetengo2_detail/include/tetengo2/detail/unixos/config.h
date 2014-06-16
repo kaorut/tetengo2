@@ -281,7 +281,9 @@ namespace tetengo2 { namespace detail { namespace unixos
 
                 first_time = false;
             }
-            stream << "\n}\n";
+            if (!first_time)
+                stream << "\n";
+            stream << "}\n";
 
             stream << std::flush;
         }
