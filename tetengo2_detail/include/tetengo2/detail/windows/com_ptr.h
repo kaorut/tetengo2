@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::windows::com_ptr.
+    \brief The definition of COM smart pointers for tetengo2::detail::windows.
 
     Copyright (C) 2007-2014 kaoru
 

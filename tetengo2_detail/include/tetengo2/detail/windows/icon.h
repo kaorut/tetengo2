@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of detail::windows::icon.
+    \brief The definition of tetengo2::detail::windows::icon.
 
     Copyright (C) 2007-2014 kaoru
 

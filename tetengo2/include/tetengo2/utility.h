@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of utilities.
+    \brief The definition of utilities for tetengo2.
 
     Copyright (C) 2007-2014 kaoru
 

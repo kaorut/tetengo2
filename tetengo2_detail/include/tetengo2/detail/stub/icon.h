@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of detail::stub::icon.
+    \brief The definition of tetengo2::detail::stub::icon.
 
     Copyright (C) 2007-2014 kaoru
 

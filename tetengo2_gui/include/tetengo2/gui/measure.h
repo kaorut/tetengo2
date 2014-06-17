@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::measure.
+    \brief The definition of measurement utilities for tetengo2::gui.
 
     Copyright (C) 2007-2014 kaoru
 
