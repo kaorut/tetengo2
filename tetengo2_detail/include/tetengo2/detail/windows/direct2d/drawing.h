@@ -233,7 +233,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create HWND render target." }
                 ));
             }
-            std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
+            std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target{
+                rp_render_target
+            };
 
             p_render_target->BeginDraw();
             p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
@@ -636,7 +638,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     }
                 ));
             }
-            const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
+            const unique_com_ptr< ::ID2D1Bitmap> p_bitmap{ rp_bitmap };
 
             canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_rect_f(position, dimension));
         }
@@ -660,9 +662,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     private:
         // types
 
-        using direct2d_factory_ptr_type = unique_com_ptr< ::ID2D1Factory>::type;
+        using direct2d_factory_ptr_type = unique_com_ptr< ::ID2D1Factory>;
 
-        using direct_write_factory_ptr_type = unique_com_ptr< ::IDWriteFactory>::type;
+        using direct_write_factory_ptr_type = unique_com_ptr< ::IDWriteFactory>;
 
 
         // static functions
@@ -792,7 +794,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             };
         }
 
-        static unique_com_ptr< ::ID2D1Brush>::type create_brush(
+        static unique_com_ptr< ::ID2D1Brush> create_brush(
             canvas_details_type&           canvas,
             const background_details_type& background_details
         )
@@ -815,14 +817,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                         }
                     ));
                 }
-                return unique_com_ptr< ::ID2D1Brush>::type{ rp_brush };
+                return unique_com_ptr< ::ID2D1Brush>{ rp_brush };
             }
 
             assert(false);
             BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid background details type." }));
         }
 
-        static unique_com_ptr< ::ID2D1StrokeStyle>::type create_stroke_style(const int style)
+        static unique_com_ptr< ::ID2D1StrokeStyle> create_stroke_style(const int style)
         {
             ::ID2D1StrokeStyle* rp_stroke_style = nullptr;
             const auto hr =
@@ -845,7 +847,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create stroke style." }
                 ));
             }
-            return unique_com_ptr< ::ID2D1StrokeStyle>::type{ rp_stroke_style };
+            return unique_com_ptr< ::ID2D1StrokeStyle>{ rp_stroke_style };
         }
 
         static ::D2D1_DASH_STYLE to_stroke_dash_style(const int style)
@@ -867,7 +869,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         template <typename String, typename Font, typename Encoder, typename Width>
-        static unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
+        static unique_com_ptr< ::IDWriteTextLayout> create_text_layout(
             const String&       text,
             const Font&         font,
             const Encoder&      encoder,
@@ -894,7 +896,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     }
                 ));
             }
-            const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
+            const typename unique_com_ptr< ::IDWriteTextFormat> p_format{ rp_format };
 
             const auto encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip =
@@ -918,7 +920,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     }
                 ));
             }
-            typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout(rp_layout);
+            typename unique_com_ptr< ::IDWriteTextLayout> p_layout{ rp_layout };
 
             const ::DWRITE_TEXT_RANGE range{ 0, static_cast< ::UINT32>(encoded_text.length()) };
             p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
