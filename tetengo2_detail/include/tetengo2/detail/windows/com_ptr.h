@@ -51,13 +51,7 @@ namespace tetengo2 { namespace detail { namespace windows
         \tparam T A type.
     */
     template <typename T>
-    struct unique_com_ptr
-    {
-        //! The unique COM pointer type.
-        using type = std::unique_ptr<T, detail::release_unknown>;
-
-
-    };
+    using unique_com_ptr = std::unique_ptr<T, detail::release_unknown>;
 
 
 }}}

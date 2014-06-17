@@ -53,9 +53,9 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
-        using file_open_dialog_ptr_type = unique_com_ptr< ::IFileOpenDialog>::type;
+        using file_open_dialog_ptr_type = unique_com_ptr< ::IFileOpenDialog>;
 
-        using file_save_dialog_ptr_type = unique_com_ptr< ::IFileSaveDialog>::type;
+        using file_save_dialog_ptr_type = unique_com_ptr< ::IFileSaveDialog>;
 
         using native_filter_type = std::pair<std::wstring, std::wstring>;
 
@@ -454,7 +454,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error{ std::error_code{ result_result, win32_category() }, "Can't get the result." }
                 ));
             }
-            const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
+            const typename unique_com_ptr< ::IShellItem> p_item{ p_raw_item };
 
             wchar_t* file_name = nullptr;
             const auto file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
@@ -638,7 +638,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error{ std::error_code{ result_result, win32_category() }, "Can't get the result." }
                 ));
             }
-            const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
+            const typename unique_com_ptr< ::IShellItem> p_item{ p_raw_item };
 
             wchar_t* file_name = nullptr;
             const auto file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);

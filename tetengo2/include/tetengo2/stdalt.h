@@ -166,11 +166,7 @@ namespace tetengo2 { namespace stdalt
         \tparam Mutex A mutex type.
     */
     template <typename Mutex>
-    struct unique_lock
-    {
-        //! The unique lock type.
-        using type = std::unique_lock<Mutex>;
-    };
+    using unique_lock = std::unique_lock<Mutex>;
 #else
     using thread = boost::thread;
 
@@ -179,10 +175,7 @@ namespace tetengo2 { namespace stdalt
     using condition_variable = boost::condition_variable;
 
     template <typename Mutex>
-    struct unique_lock
-    {
-        using type = boost::unique_lock<Mutex>;
-    };
+    using unique_lock = boost::unique_lock<Mutex>;
 #endif
 
 #if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
