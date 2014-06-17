@@ -114,6 +114,8 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
             BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("foo") }));
             BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("bar") }));
+
+            config.clear();
         }
     }
 
