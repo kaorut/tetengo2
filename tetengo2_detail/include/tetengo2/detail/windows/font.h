@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::windows::font.
+    \brief The definition of font utilities for tetengo2::detail::windows.
 
     Copyright (C) 2007-2014 kaoru
 
