@@ -21,8 +21,6 @@ The libraries are available on Windows and UNIX-like systems.
 
 The following features does not support UNIX-like systems yet...
 
- - tetengo2::config::persistent_config
- - tetengo2::text::encoding
  - tetengo2::gui
 
 It's tested on the following systems:
