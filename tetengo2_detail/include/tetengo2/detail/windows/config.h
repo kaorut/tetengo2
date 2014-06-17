@@ -72,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
-            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_READ);
+            const registry<String, Encoder> handle{ registry_key_and_value_name.first, encoder, KEY_READ };
             if (!handle.get())
                 return boost::none;
 
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
-            const registry<String, Encoder> handle(registry_key_and_value_name.first, encoder, KEY_WRITE);
+            const registry<String, Encoder> handle{ registry_key_and_value_name.first, encoder, KEY_WRITE };
             if (!handle.get())
                 return;
 
@@ -143,6 +143,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 assert(false);
                 break;
             }
+        }
+
+        /*!
+            \brief Clears the configuration.
+
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param group_name A group_name.
+            \param encoder    An encoder.
+        */
+        template <typename String, typename Encoder>
+        static void clear(const String& group_name, const Encoder& encoder)
+        {
+            const registry<String, Encoder> handle{ path_prefix<String>(), encoder, KEY_WRITE };
+            if (!handle.get())
+                return;
+
+            ::RegDeleteTreeW(handle.get(), encoder.encode(group_name).c_str());
         }
 
 
@@ -207,17 +226,30 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         template <typename String>
+        static const String& path_prefix()
+        {
+            static const String singleton{ TETENGO2_TEXT("Software\\tetengo\\") };
+            return singleton;
+        }
+
+        template <typename String>
         static std::pair<String, String> build_registry_key_and_value_name(const String& group_name, const String& key)
         {
             std::vector<String> key_names{};
-            boost::split(key_names, key, is_splitter<typename String::value_type>);
+            boost::split(
+                key_names,
+                key,
+                [](const typename String::value_type c) {
+                    return c == typename String::value_type{ TETENGO2_TEXT('/') };
+                }
+            );
             if (key_names.size() <= 1)
-                return std::make_pair(group_name, key);
+                return std::make_pair(path_prefix<String>() + group_name, key);
             
             return
                 std::make_pair(
-                    String{ TETENGO2_TEXT("Software\\tetengo\\") } +
-                    group_name +
+                     path_prefix<String>() +
+                        group_name +
                         String{ TETENGO2_TEXT("\\") } +
                         boost::join(
                             std::make_pair(key_names.begin(), boost::prior(key_names.end())),
@@ -225,12 +257,6 @@ namespace tetengo2 { namespace detail { namespace windows
                         ),
                     key_names[key_names.size() - 1]
                 );
-        }
-
-        template <typename Char>
-        static bool is_splitter(const Char character)
-        {
-            return character == Char{ TETENGO2_TEXT('/') };
         }
 
         template <typename String, typename Encoder>
@@ -250,7 +276,7 @@ namespace tetengo2 { namespace detail { namespace windows
             switch (type)
             {
             case REG_SZ:
-                return std::make_pair(value_type::string, value_size / sizeof(typename String::value_type));
+                return std::make_pair(value_type::string, value_size / sizeof(string_type::value_type));
             case REG_DWORD:
                 return std::make_pair(value_type::dword, 0);
             default:
@@ -266,8 +292,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                   encoder
         )
         {
-            std::vector<typename String::value_type> value(result_length, 0);
-            auto value_size = static_cast< ::DWORD>(result_length * sizeof(typename String::value_type));
+            std::vector<typename string_type::value_type> value(result_length, 0);
+            auto value_size =
+                static_cast< ::DWORD>(result_length * sizeof(typename string_type::value_type));
             const auto query_value_result =
                 ::RegQueryValueExW(
                     handle,
@@ -280,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace windows
             suppress_unused_variable_warning(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
-            return encoder.decode(std::wstring{ value.begin(), value.end() });
+            return encoder.decode(&value[0]);
         }
 
         template <typename String, typename Encoder>
@@ -313,7 +340,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 0,
                 REG_SZ,
                 reinterpret_cast<const ::BYTE*>(encoded_value.c_str()),
-                static_cast< ::DWORD>((encoded_value.length() + 1) * sizeof(typename String::value_type))
+                static_cast< ::DWORD>(
+                    (encoded_value.length() + 1) * sizeof(typename string_type::value_type)
+                )
             );
         }
 

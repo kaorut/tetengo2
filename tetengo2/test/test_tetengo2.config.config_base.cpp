@@ -46,6 +46,10 @@ namespace
             tetengo2::suppress_unused_variable_warning(key, value);
         }
 
+        virtual void clear_impl()
+        override
+        {}
+
     };
 
 
@@ -92,7 +96,18 @@ BOOST_AUTO_TEST_SUITE(config_base)
         }
     }
 
-    
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_config config;
+
+            config.clear();
+        }
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

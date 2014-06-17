@@ -102,6 +102,13 @@ namespace tetengo2 { namespace config
             m_p_config->set(key, std::move(value));
         }
 
+        virtual void clear_impl()
+        override
+        {
+            m_cache.clear();
+            m_p_config->clear();
+        }
+
 
     };
 

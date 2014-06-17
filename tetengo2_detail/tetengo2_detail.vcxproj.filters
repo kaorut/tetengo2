@@ -33,9 +33,6 @@
     <ClInclude Include="include\tetengo2\detail\stub\common_dialog.h">
       <Filter>headers\tetengo2::detail\stub</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\detail\stub\config.h">
-      <Filter>headers\tetengo2::detail\stub</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\detail\stub\cursor.h">
       <Filter>headers\tetengo2::detail\stub</Filter>
     </ClInclude>

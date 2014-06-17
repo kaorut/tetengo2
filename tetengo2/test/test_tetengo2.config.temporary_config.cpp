@@ -33,6 +33,7 @@ namespace
 
 }
 
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(temporary_config)
@@ -109,6 +110,24 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
             BOOST_REQUIRE(value);
             BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const std::vector<std::pair<string_type, value_type>> values{
+                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
+                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
+            };
+            temporary_config_type config{ values.begin(), values.end() };
+
+            config.clear();
+
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("foo") }));
+            BOOST_CHECK(!config.get(string_type{ TETENGO2_TEXT("bar") }));
         }
     }
 

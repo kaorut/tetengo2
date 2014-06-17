@@ -171,6 +171,7 @@
 ::REGSAM                                         Windows.h
 ::RegCloseKey                                    Windows.h
 ::RegCreateKeyExW                                Windows.h
+::RegDeleteTreeW                                 Windows.h
 ::RegQueryValueExW                               Windows.h
 ::RegSetValueEx                                  Windows.h
 ::RegisterClassExW                               Windows.h
@@ -240,6 +241,7 @@ BOOST_ERROR                                      boost/test/unit_test.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
+BOOST_OS_CYGWIN                                  boost/predef.h
 BOOST_OS_LINUX                                   boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
@@ -468,7 +470,9 @@ boost::filesystem::directory_iterator            boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
 boost::filesystem::ifstream                      boost/filesystem/fstream.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
+boost::filesystem::ofstream                      boost/filesystem.hpp
 boost::filesystem::path                          boost/filesystem.hpp
+boost::filesystem::remove                        boost/filesystem.hpp
 boost::filesystem::temp_directory_path           boost/filesystem.hpp
 boost::filesystem::unique_path                   boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
@@ -563,9 +567,11 @@ std::exception                                   exception
 std::exception_ptr                               exception
 std::find_if                                     algorithm
 std::floor                                       cmath
+std::flush                                       ostream
 std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
+std::getenv                                      cstdlib
 std::greater                                     functional
 std::has_facet                                   locale
 std::invalid_argument                            stdexcept
@@ -583,6 +589,7 @@ std::logic_error                                 stdexcept
 std::make_exception_ptr                          exception
 std::make_pair                                   utility
 std::make_unique                                 memory
+std::map                                         map
 std::max                                         algorithm
 std::mbstate_t                                   cwchar
 std::messages                                    locale
@@ -597,6 +604,7 @@ std::ptrdiff_t                                   cstddef
 std::queue                                       queue
 std::ref                                         functional
 std::reference_wrapper                           functional
+std::remove                                      cstdio
 std::remove_pointer                              type_traits
 std::rethrow_exception                           exception
 std::runtime_error                               stdexcept

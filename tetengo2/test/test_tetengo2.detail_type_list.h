@@ -14,8 +14,10 @@
 
 #include <tetengo2.h>
 #if BOOST_COMP_MSVC
+#   include <tetengo2/detail/windows/config.h>
 #   include <tetengo2/detail/windows/encoding.h>
 #else
+#   include <tetengo2/detail/unixos/config.h>
 #   include <tetengo2/detail/unixos/encoding.h>
 #endif
 
@@ -26,15 +28,20 @@ namespace test_tetengo2
 
     namespace type { namespace detail
     {
-        struct encoding;        //!< The encoding type.
+        struct config;   //!< The configuration type.
+        struct encoding; //!< The encoding type.
     }}
 
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
 #if BOOST_COMP_MSVC
+        using config_details_type = tetengo2::detail::windows::config;
+
         using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
+        using config_details_type = tetengo2::detail::unixos::config;
+
         using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
     }}
@@ -42,9 +49,10 @@ namespace test_tetengo2
 
     //! The detail type list.
     using detail_type_list =
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::config, detail::detail::config_details_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_details_type>,
         tetengo2::meta::assoc_list_end
-        >;
+        >>;
 
 
 }

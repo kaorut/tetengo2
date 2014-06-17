@@ -5,7 +5,6 @@
 pkg_headers = \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
-    detail/stub/config.h \
     detail/stub/cursor.h \
     detail/stub/drawing.h \
     detail/stub/gui_fixture.h \
@@ -21,6 +20,7 @@ pkg_headers = \
     detail/stub/unit.h \
     detail/stub/virtual_key.h \
     detail/stub/widget.h \
+    detail/unixos/config.h \
     detail/unixos/encoding.h
 
 extra_headers = \

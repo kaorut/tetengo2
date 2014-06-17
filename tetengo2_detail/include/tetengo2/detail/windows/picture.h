@@ -115,7 +115,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             );
         if (FAILED(hr))
         {
-            BOOST_THROW_EXCEPTION(std::system_error(std::error_code(hr, wic_category()), "Can't create bitmap."));
+            BOOST_THROW_EXCEPTION(std::system_error{ std::error_code(hr, wic_category()), "Can't create bitmap." });
         }
 
         return { rp_bitmap };
