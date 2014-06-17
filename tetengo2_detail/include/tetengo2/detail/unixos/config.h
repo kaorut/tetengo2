@@ -175,9 +175,9 @@ namespace tetengo2 { namespace detail { namespace unixos
             // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
             // But Tetengo2 treats paths in the UNIX style
             return
-                base.string() + encoder.decode(String(TETENGO2_TEXT("/")) + String(TETENGO2_TEXT(".")) + group_name);
+                base.string() + encoder.encode(String(TETENGO2_TEXT("/")) + String(TETENGO2_TEXT(".")) + group_name);
 #else
-            return base / encoder.decode(String(TETENGO2_TEXT(".")) + group_name);
+            return base / encoder.encode(String(TETENGO2_TEXT(".")) + group_name);
 #endif
         }
 
