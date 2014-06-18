@@ -12,6 +12,7 @@
 #include <cassert>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -21,6 +22,7 @@
 #include <tetengo2/concurrent/channel.h>
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
+#include <tetengo2/text/push_parser.h>
 #include <tetengo2/utility.h>
 
 
@@ -29,29 +31,44 @@ namespace tetengo2 { namespace text
     /*!
         \brief The class template for a pull parser.
 
-        \tparam PushParser A push parser type.
-        \tparam Size       A size type.
+        \tparam ForwardIterator A forward iterator type.
+        \tparam Grammar         A grammar type.
+        \tparam Integer         An integer type.
+        \tparam Float           A floating point number type.
+        \tparam Size            A size type.
     */
-    template <typename PushParser, typename Size>
+    template <typename ForwardIterator, typename Grammar, typename Integer, typename Float, typename Size>
     class pull_parser : private boost::noncopyable
     {
     public:
         // types
 
-        //! The push parser type.
-        using push_parser_type = PushParser;
+        //! The iterator type.
+        using iterator = ForwardIterator;
 
         //! The string type.
-        using string_type = typename push_parser_type::string_type;
+        using string_type = std::basic_string<typename iterator::value_type>;
+
+        //! The grammar type.
+        using grammar_type = Grammar;
+
+        //! The integer type.
+        using integer_type = Integer;
+
+        //! The floating point number type.
+        using float_type = Float;
+
+        //! The size type.
+        using size_type = Size;
+
+        //! The push parser type.
+        using push_parser_type = push_parser<iterator, grammar_type, integer_type, float_type>;
 
         //! The value type.
         using value_type = typename push_parser_type::value_type;
 
         //! The attribute map type.
         using attribute_map_type = typename push_parser_type::attribute_map_type;
-
-        //! The size type.
-        using size_type = Size;
 
         //! The structure kind type.
         enum class structure_kind_type
