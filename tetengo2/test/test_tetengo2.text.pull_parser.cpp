@@ -32,11 +32,10 @@ namespace
 
     using grammar_type = boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type;
 
-    using push_parser_type =
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type;
-
     using pull_parser_type =
         boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type;
+
+    using push_parser_type = pull_parser_type::push_parser_type;
 
 }
 

@@ -90,6 +90,10 @@ namespace test_tetengo2
             >;
         using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
         using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
+        using pull_parser_type =
+            tetengo2::text::pull_parser<
+                input_stream_iterator_type, grammar_type, int, double, boost::mpl::at<type_list, type::size>::type
+            >;
     }}
 #endif
 
@@ -99,13 +103,7 @@ namespace test_tetengo2
             boost::mpl::pair<type::text::input_stream_iterator, detail::text::input_stream_iterator_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::text::grammar, detail::text::grammar_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::text::push_parser, detail::text::push_parser_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::text::pull_parser,
-                tetengo2::text::pull_parser<
-                    detail::text::push_parser_type, boost::mpl::at<type_list, type::size>::type
-                >
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::text::pull_parser, detail::text::pull_parser_type>,
         tetengo2::meta::assoc_list_end
         >>>>;
 
