@@ -14,25 +14,55 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2/message/messages.h>
+
 
 namespace tetengo2 { namespace message
 {
     /*!
         \brief The class template for a message catalog.
 
-        \tparam Messages A messages facet type.
+        \tparam Path              A path type.
+        \tparam ForwardIterator   A forward iterator type.
+        \tparam String            A string type.
+        \tparam Size              A size type.
+        \tparam Encoder           An encoder type.
+        \tparam LocaleNameEncoder An encoder type for locale names.
     */
-    template <typename Messages>
+    template <
+        typename Path,
+        typename ForwardIterator,
+        typename String,
+        typename Size,
+        typename Encoder,
+        typename LocaleNameEncoder
+    >
     class message_catalog : private boost::noncopyable
     {
     public:
         // types
 
-        //! The messages type.
-        using messages_type = Messages;
+        //! The path type.
+        using path_type = Path;
+
+        //! The iterator type.
+        using iterator = ForwardIterator;
 
         //! The string type.
-        using string_type = typename messages_type::string_type;
+        using string_type = String;
+
+        //! The size type.
+        using size_type = Size;
+
+        //! The encoder type.
+        using encoder_type = Encoder;
+
+        //! The encoder type for locale names.
+        using locale_name_encoder_type = LocaleNameEncoder;
+
+        //! The messages type.
+        using messages_type =
+            messages<path_type, iterator, string_type, size_type, encoder_type, locale_name_encoder_type>;
 
 
         // constructors and destructor
