@@ -139,7 +139,12 @@ namespace test_tetengo2
             >;
         using messages_type =
             tetengo2::message::messages<
-                boost::filesystem::path, message_catalog_parser_type, locale_name_encoder_type
+                boost::filesystem::path,
+                boost::mpl::at<text_type_list, type::text::input_stream_iterator>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                message_catalog_encoder_type,
+                locale_name_encoder_type
             >;
     }}
 #endif
