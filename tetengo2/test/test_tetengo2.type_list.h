@@ -132,8 +132,9 @@ namespace test_tetengo2
         using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
         using message_catalog_parser_type =
             tetengo2::message::message_catalog_parser<
-                boost::mpl::at<text_type_list, type::text::pull_parser>::type,
+                boost::mpl::at<text_type_list, type::text::input_stream_iterator>::type,
                 boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
                 message_catalog_encoder_type
             >;
         using messages_type =
