@@ -30,6 +30,7 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/utility.h>
@@ -42,35 +43,52 @@ namespace tetengo2 { namespace message
 
         It is a customized locale facet for a messages facet.
 
-        \tparam Path                 A path type.
-        \tparam MessageCatalogParser A message catalog parser type.
-        \tparam LocaleNameEncoder    An encoder type for locale names.
+        \tparam Path              A path type.
+        \tparam ForwardIterator   A forward iterator type.
+        \tparam String            A string type.
+        \tparam Size              A size type.
+        \tparam Encoder           An encoder type.
+        \tparam LocaleNameEncoder An encoder type for locale names.
     */
-    template <typename Path, typename MessageCatalogParser, typename LocaleNameEncoder>
-    class messages :
-        public std::messages<typename MessageCatalogParser::string_type::value_type>,
-        private boost::noncopyable
+    template <
+        typename Path,
+        typename ForwardIterator,
+        typename String,
+        typename Size,
+        typename Encoder,
+        typename LocaleNameEncoder
+    >
+    class messages : public std::messages<typename String::value_type>, private boost::noncopyable
     {
     public:
         // types
 
-        //! The base type.
-        using base_type = std::messages<typename MessageCatalogParser::string_type::value_type>;
-
-        //! The catalog type.
-        using catalog = typename base_type::catalog;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
         //! The path type.
         using path_type = Path;
 
+        //! The iterator type.
+        using iterator = ForwardIterator;
+
+        //! The string type.
+        using string_type = String;
+
+        //! The size type.
+        using size_type = Size;
+
+        //! The encoder type.
+        using encoder_type = Encoder;
+
         //! The message catalog parser type.
-        using message_catalog_parser_type = MessageCatalogParser;
+        using message_catalog_parser_type = message_catalog_parser<iterator, string_type, size_type, encoder_type>;
 
         //! The encoder type for locale names.
         using locale_name_encoder_type = LocaleNameEncoder;
+
+        //! The base type.
+        using base_type = std::messages<typename string_type::value_type>;
+
+        //! The catalog type.
+        using catalog = typename base_type::catalog;
 
 
         // static functions

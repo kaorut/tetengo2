@@ -132,13 +132,28 @@ namespace test_tetengo2
         using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
         using message_catalog_parser_type =
             tetengo2::message::message_catalog_parser<
-                boost::mpl::at<text_type_list, type::text::pull_parser>::type,
+                boost::mpl::at<text_type_list, type::text::input_stream_iterator>::type,
                 boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
                 message_catalog_encoder_type
             >;
         using messages_type =
             tetengo2::message::messages<
-                boost::filesystem::path, message_catalog_parser_type, locale_name_encoder_type
+                boost::filesystem::path,
+                boost::mpl::at<text_type_list, type::text::input_stream_iterator>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                message_catalog_encoder_type,
+                locale_name_encoder_type
+            >;
+        using message_catalog_type =
+            tetengo2::message::message_catalog<
+                boost::filesystem::path,
+                boost::mpl::at<text_type_list, type::text::input_stream_iterator>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                message_catalog_encoder_type,
+                locale_name_encoder_type
             >;
     }}
 #endif
@@ -149,9 +164,7 @@ namespace test_tetengo2
             boost::mpl::pair<type::message::message_catalog_parser, detail::message::message_catalog_parser_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::message::messages, detail::message::messages_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::message::message_catalog, tetengo2::message::message_catalog<detail::message::messages_type>
-            >,
+            boost::mpl::pair<type::message::message_catalog, detail::message::message_catalog_type>,
         tetengo2::meta::assoc_list_end
         >>>;
 

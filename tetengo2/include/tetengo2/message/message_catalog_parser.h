@@ -12,6 +12,7 @@
 #include <cassert>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -21,6 +22,8 @@
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/grammar/json.h>
+#include <tetengo2/text/pull_parser.h>
 
 
 namespace tetengo2 { namespace message
@@ -28,24 +31,31 @@ namespace tetengo2 { namespace message
     /*!
         \brief The class template for a message catalog parser.
 
-        \tparam PullParser A pull parser type.
-        \tparam String     A string type.
-        \tparam Encoder    An encoder type.
+        \tparam ForwardIterator A forward iterator type.
+        \tparam String          A string type.
+        \tparam Size            A size type.
+        \tparam Encoder         An encoder type.
     */
-    template <typename PullParser, typename String, typename Encoder>
+    template <typename ForwardIterator, typename String, typename Size, typename Encoder>
     class message_catalog_parser : private boost::noncopyable
     {
     public:
         // types
 
-        //! The pull parser type.
-        using pull_parser_type = PullParser;
+        //! The iterator type.
+        using iterator = ForwardIterator;
 
         //! The input string type.
-        using input_string_type = typename pull_parser_type::string_type;
+        using input_string_type = std::basic_string<typename iterator::value_type>;
 
         //! The string type.
         using string_type = String;
+
+        //! The size type.
+        using size_type = Size;
+
+        //! The pull parser type.
+        using pull_parser_type = text::pull_parser<iterator, text::grammar::json<iterator>, int, double, size_type>;
 
         //! The encoder type.
         using encoder_type = Encoder;
