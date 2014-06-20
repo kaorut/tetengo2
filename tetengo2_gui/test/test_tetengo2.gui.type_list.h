@@ -519,20 +519,21 @@ namespace test_tetengo2 { namespace gui
     {
         using widget_traits_type =
             tetengo2::gui::widget::traits::widget_traits<
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<type_list, type::difference>::type,
-                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::widget_canvas>::type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::alert>::type,
                 boost::mpl::at<type_list, type::position>::type,
                 boost::mpl::at<type_list, type::dimension>::type,
-                boost::mpl::at<type_list, type::path>::type,
+                boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<type_list, type::exception_encoder>::type,
-                tetengo2::detail::stub::drawing,
-                tetengo2::detail::stub::icon,
-                tetengo2::detail::stub::alert,
-                tetengo2::detail::stub::cursor,
-                tetengo2::detail::stub::scroll,
-                tetengo2::detail::stub::virtual_key
+                boost::mpl::at<drawing_type_list, type::drawing::background>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::font>::type,
+                boost::mpl::at<cursor_type_list, type::cursor::system>::type,
+                boost::mpl::at<scroll_type_list, type::scroll::scroll_bar>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::size_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::mouse_observer_set>::type
             >;
         using widget_details_type = tetengo2::detail::stub::widget;
         using message_handler_details_type = tetengo2::detail::stub::message_handler;
