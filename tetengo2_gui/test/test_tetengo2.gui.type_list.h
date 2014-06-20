@@ -287,8 +287,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::drawing::picture_reader,
                 tetengo2::gui::drawing::picture_reader<
-                    detail::drawing::picture_type,
                     boost::mpl::at<type_list, type::path>::type,
+                    boost::mpl::at<type_list, type::dimension>::type,
                     detail::drawing::drawing_details_type
                 >
             >,
