@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The color.
         */
-        const color_type& color()
+        const color_type& get_color()
         const
         {
             return m_color;

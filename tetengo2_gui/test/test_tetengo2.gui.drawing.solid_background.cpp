@@ -43,13 +43,13 @@ BOOST_AUTO_TEST_SUITE(solid_background)
         const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
     }
 
-    BOOST_AUTO_TEST_CASE(color)
+    BOOST_AUTO_TEST_CASE(get_color)
     {
         BOOST_TEST_PASSPOINT();
 
         const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
-        BOOST_CHECK((background.color() == color_type{ 0x12, 0x34, 0x56, 0x78 }));
+        BOOST_CHECK((background.get_color() == color_type{ 0x12, 0x34, 0x56, 0x78 }));
     }
 
 
