@@ -14,6 +14,7 @@
 #include <utility>
 
 #include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -22,10 +23,9 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a solid background.
 
-        \tparam Color          A color type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Color, typename DrawingDetails>
+    template <typename DrawingDetails>
     class solid_background : public background<DrawingDetails>
     {
     public:
@@ -35,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using base_type = background<DrawingDetails>;
 
         //! The color type.
-        using color_type = Color;
+        using color_type = color<unsigned char>;
 
 
         // constructors and destructor

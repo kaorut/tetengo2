@@ -233,11 +233,10 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace drawing
     {
-        using color_type = tetengo2::gui::drawing::color<unsigned char>;
         using system_color_details_type = tetengo2::detail::stub::system_color;
         using drawing_details_type = tetengo2::detail::stub::drawing;
         using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
-        using solid_background_type = tetengo2::gui::drawing::solid_background<color_type, drawing_details_type>;
+        using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
         using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
         using font_type =
             tetengo2::gui::drawing::font<
@@ -247,6 +246,7 @@ namespace test_tetengo2 { namespace gui
             >;
         using picture_type =
             tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::dimension>::type, drawing_details_type>;
+        using color_type = tetengo2::gui::drawing::color<unsigned char>;
         using canvas_traits_type =
             tetengo2::gui::drawing::canvas_traits<
                 boost::mpl::at<type_list, type::size>::type,
