@@ -539,7 +539,13 @@ namespace test_tetengo2 { namespace gui
         using widget_type =
             tetengo2::gui::widget::widget<widget_traits_type, widget_details_type, message_handler_details_type>;
         using abstract_window_traits_type =
-            tetengo2::gui::widget::traits::abstract_window_traits<widget_traits_type, tetengo2::detail::stub::menu>;
+            tetengo2::gui::widget::traits::abstract_window_traits<
+                widget_traits_type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type,
+                boost::mpl::at<menu_type_list, type::menu::menu_bar>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::window_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::file_drop_observer_set>::type
+            >;
         using window_traits_type = tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type>;
         using details_font_type = tetengo2::detail::stub::widget::details_font_type;
         using abstract_window_type =
