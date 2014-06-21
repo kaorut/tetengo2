@@ -11,24 +11,23 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2/gui/drawing/color.h>
-
 
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a system color set.
 
+        \tparam Color              A color type.
         \tparam SystemColorDetails A detail implementation type of a system color.
     */
-    template <typename SystemColorDetails>
+    template <typename Color, typename SystemColorDetails>
     class system_color_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The color type.
-        using color_type = color<unsigned char>;
+        using color_type = Color;
 
         //! The detail implementation type of a system color.
         using system_color_details_type = SystemColorDetails;
