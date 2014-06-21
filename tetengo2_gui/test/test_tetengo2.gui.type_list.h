@@ -272,9 +272,7 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::system_color_set,
-                tetengo2::gui::drawing::system_color_set<
-                    detail::drawing::color_type, detail::drawing::system_color_details_type
-                >
+                tetengo2::gui::drawing::system_color_set<detail::drawing::system_color_details_type>
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,
         tetengo2::meta::assoc_list<
