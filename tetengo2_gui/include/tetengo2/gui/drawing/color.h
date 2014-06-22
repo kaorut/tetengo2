@@ -17,12 +17,12 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a color.
+        \brief The class template for a basic color.
 
         \tparam Value A value type.
     */
     template <typename Value>
-    class color : private boost::equality_comparable<color<Value>>
+    class basic_color : private boost::equality_comparable<basic_color<Value>>
     {
     public:
         // types
@@ -34,14 +34,14 @@ namespace tetengo2 { namespace gui { namespace drawing
         // constructors and destructor
 
         /*!
-            \brief Creates a color.
+            \brief Creates a basic color.
 
             \param red   A red value.
             \param green A green value.
             \param blue  A blue value.
             \param alpha An alpha channel value.
         */
-        color(
+        basic_color(
             const value_type red,
             const value_type green,
             const value_type blue,
@@ -58,15 +58,15 @@ namespace tetengo2 { namespace gui { namespace drawing
         // functions
 
         /*!
-            \brief Checks whether one color is equal to another.
+            \brief Checks whether one basic color is equal to another.
 
             \param one     One color.
-            \param another Another color.
+            \param another Another basic color.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const color& one, const color& another)
+        friend bool operator==(const basic_color& one, const basic_color& another)
         {
             return
                 one.m_red == another.m_red &&
@@ -133,6 +133,10 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
     };
+
+
+    //! The type for a color.
+    using color = basic_color<unsigned char>;
 
 
 }}}

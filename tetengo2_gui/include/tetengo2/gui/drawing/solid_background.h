@@ -35,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using base_type = background<DrawingDetails>;
 
         //! The color type.
-        using color_type = color<unsigned char>;
+        using color_type = color;
 
 
         // constructors and destructor

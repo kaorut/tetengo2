@@ -246,7 +246,7 @@ namespace test_tetengo2 { namespace gui
             >;
         using picture_type =
             tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::dimension>::type, drawing_details_type>;
-        using color_type = tetengo2::gui::drawing::color<unsigned char>;
+        using color_type = tetengo2::gui::drawing::color;
         using canvas_traits_type =
             tetengo2::gui::drawing::canvas_traits<
                 boost::mpl::at<type_list, type::size>::type,
