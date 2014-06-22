@@ -250,16 +250,14 @@ namespace test_tetengo2 { namespace gui
         using canvas_traits_type =
             tetengo2::gui::drawing::canvas_traits<
                 boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::path>::type,
                 boost::mpl::at<type_list, type::position>::type,
                 boost::mpl::at<type_list, type::dimension>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                color_type,
-                background_type,
-                solid_background_type,
-                font_type,
-                picture_type,
-                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
+                drawing_details_type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
             >;
         using canvas_details_type = drawing_details_type::canvas_details_type;
         using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
