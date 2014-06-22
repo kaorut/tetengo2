@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         // types
 
         //! The color type.
-        using color_type = color<unsigned char>;
+        using color_type = color;
 
         //! The detail implementation type of a system color.
         using system_color_details_type = SystemColorDetails;

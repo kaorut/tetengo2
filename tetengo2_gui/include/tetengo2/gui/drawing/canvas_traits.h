@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using solid_background_type = solid_background<drawing_details_type>;
 
         //! The color type.
-        using color_type = color<unsigned char>;
+        using color_type = color;
 
         //! The font type.
         using font_type = font<string_type, int_size_type, drawing_details_type>;
