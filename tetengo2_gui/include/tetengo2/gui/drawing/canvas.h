@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using picture_type = picture<dimension_type, drawing_details_type>;
 
         //! The icon details type.
-        using icon_details_type = typename IconDetails;
+        using icon_details_type = IconDetails;
 
         //! The icon type.
         using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
@@ -143,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The color.
         */
-        const color_type& color()
+        const color_type& get_color()
         const
         {
             return m_color;
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The background.
         */
-        const background_type& background()
+        const background_type& get_background()
         const
         {
             assert(m_p_background);
@@ -230,7 +230,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The font.
         */
-        const font_type& font()
+        const font_type& get_font()
         const
         {
             return m_font;

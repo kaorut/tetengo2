@@ -160,13 +160,13 @@ BOOST_AUTO_TEST_SUITE(canvas)
         canvas.end_transaction();
     }
 
-    BOOST_AUTO_TEST_CASE(color)
+    BOOST_AUTO_TEST_CASE(get_color)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_canvas canvas{};
 
-        const auto& color = canvas.color();
+        const auto& color = canvas.get_color();
 
         BOOST_CHECK((color == color_type{ 0, 0, 0, 255 }));
     }
@@ -180,16 +180,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
         color_type color{ 12, 34, 56, 78 };
         canvas.set_color(std::move(color));
 
-        BOOST_CHECK(canvas.color() == color);
+        BOOST_CHECK(canvas.get_color() == color);
     }
 
-    BOOST_AUTO_TEST_CASE(background)
+    BOOST_AUTO_TEST_CASE(get_background)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_canvas canvas{};
 
-        const auto& background = canvas.background();
+        const auto& background = canvas.get_background();
         const auto* const p_solid_background = dynamic_cast<const solid_background_type*>(&background);
 
         BOOST_REQUIRE(p_solid_background);
@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_background(tetengo2::stdalt::make_unique<const transparent_background_type>());
 
-        BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
+        BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
     }
 
     BOOST_AUTO_TEST_CASE(line_width)
@@ -251,13 +251,13 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_CHECK(canvas.line_style() == canvas_type::line_style_type::dashed);
     }
 
-    BOOST_AUTO_TEST_CASE(font)
+    BOOST_AUTO_TEST_CASE(get_font)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_canvas canvas{};
 
-        const auto& font = canvas.font();
+        const auto& font = canvas.get_font();
 
         BOOST_CHECK(font == font_type::dialog_font());
     }
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         canvas.set_font(std::move(font));
 
         BOOST_CHECK(
-            canvas.font() == font_type(string_type{ TETENGO2_TEXT("AnotherFont") }, 42, true, true, true, true)
+            canvas.get_font() == font_type(string_type{ TETENGO2_TEXT("AnotherFont") }, 42, true, true, true, true)
         );
     }
 
