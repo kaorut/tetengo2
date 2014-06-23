@@ -478,7 +478,6 @@ namespace test_tetengo2 { namespace gui
                 type::scroll::scroll_bar,
                 tetengo2::gui::scroll_bar<
                     boost::mpl::at<type_list, type::size>::type,
-                    boost::mpl::at<observer_set_type_list, type::observer_set::scroll_bar_observer_set>::type,
                     tetengo2::detail::stub::scroll
                 >
             >,

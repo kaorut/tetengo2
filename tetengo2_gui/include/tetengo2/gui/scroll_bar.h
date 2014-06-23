@@ -15,17 +15,18 @@
 
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/message/scroll_bar_observer_set.h>
+
 
 namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a scroll bar.
 
-        \tparam Size                 A size type.
-        \tparam ScrollBarObserverSet A scroll bar observer set.
-        \tparam ScrollDetails        A detail implementation type of a scroll.
+        \tparam Size          A size type.
+        \tparam ScrollDetails A detail implementation type of a scroll.
     */
-    template <typename Size, typename ScrollBarObserverSet, typename ScrollDetails>
+    template <typename Size, typename ScrollDetails>
     class scroll_bar
     {
     public:
@@ -37,14 +38,14 @@ namespace tetengo2 { namespace gui
         //! The range type.
         using range_type = std::pair<size_type, size_type>;
 
-        //! The scroll bar observer set type.
-        using scroll_bar_observer_set_type = ScrollBarObserverSet;
-
         //! The detail implementation type of a scroll.
         using details_type = ScrollDetails;
 
         //! The detail implementation pointer type of a scroll bar.
         using scroll_bar_details_ptr_type = typename details_type::scroll_bar_details_ptr_type;
+
+        //! The scroll bar observer set type.
+        using scroll_bar_observer_set_type = gui::message::scroll_bar_observer_set<size_type>;
 
         //! The style type.
         enum class style_type
