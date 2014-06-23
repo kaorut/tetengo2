@@ -15,9 +15,9 @@ TESTCASES_TXT="$SOLUTION_DIR/tools/zzz_test_case_check_test_cases.txt"
 
 echo 'Checking the test cases...'
 
-(test -n "$SILENT" && test -e "$FUNCTIONS_TXT") || \
+(test -z "$SILENT" && test -e "$FUNCTIONS_TXT") || \
     "$TOOLS_DIR/zzz_make_function_list.sh" "$SOLUTION_DIR" "$SILENT" > "$FUNCTIONS_TXT"
-(test -n "$SILENT" && test -e "$TESTCASES_TXT") || \
+(test -z "$SILENT" && test -e "$TESTCASES_TXT") || \
     "$TOOLS_DIR/zzz_make_test_case_list.sh" "$SOLUTION_DIR" "$SILENT" > "$TESTCASES_TXT"
 
 "$TOOLS_DIR/zzz_check_test_cases.pl" \
