@@ -251,7 +251,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        using size_type = typename canvas_type::size_type;
+        using unit_size_type = typename canvas_type::unit_size_type;
 
         using color_type = typename canvas_type::color_type;
 
@@ -389,7 +389,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_line_width = canvas.line_width();
                 auto original_background = canvas.background().clone();
                 canvas.set_color(border_color());
-                canvas.set_line_width(size_type{ 1 } / 16);
+                canvas.set_line_width(unit_size_type{ 1 } / 16);
                 canvas.set_background(stdalt::make_unique<solid_background_type>(*m_p_current_background_color));
 
                 const auto triangle = make_triangle();

@@ -58,9 +58,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         using dimension_type = typename traits_type::dimension_type;
 
-        //! The size type.
-        using size_type = typename traits_type::size_type;
-
         //! The string type.
         using string_type = typename traits_type::string_type;
 

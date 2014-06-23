@@ -580,7 +580,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
 
                 canvas.set_color(system_color_set_type::dialog_background());
-                canvas.set_line_width(typename canvas_type::size_type{ 1 } / 12);
+                canvas.set_line_width(typename canvas_type::unit_size_type{ 1 } / 12);
                 {
                     auto positions = border_line_positions(position_to_paint_);
                     canvas.draw_line(positions.first, positions.second);
