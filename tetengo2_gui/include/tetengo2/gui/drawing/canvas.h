@@ -48,8 +48,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The size type.
         using size_type = typename traits_type::size_type;
 
-        //! The integer size type.
-        using int_size_type = typename traits_type::int_size_type;
+        //! The unit size type.
+        using unit_size_type = typename traits_type::unit_size_type;
 
         //! The string type.
         using string_type = typename traits_type::string_type;
@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using solid_background_type = solid_background<drawing_details_type>;
 
         //! The font type.
-        using font_type = font<string_type, int_size_type, drawing_details_type>;
+        using font_type = font<string_type, size_type, drawing_details_type>;
 
         //! The picture type.
         using picture_type = picture<dimension_type, drawing_details_type>;
@@ -186,7 +186,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        const size_type& line_width()
+        const unit_size_type& line_width()
         const
         {
             return m_line_width;
@@ -197,7 +197,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param line_width A line width.
         */
-        void set_line_width(size_type line_width)
+        void set_line_width(unit_size_type line_width)
         {
             m_line_width = std::move(line_width);
         }
@@ -493,7 +493,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         std::unique_ptr<const background_type> m_p_background;
 
-        size_type m_line_width;
+        unit_size_type m_line_width;
 
         line_style_type m_line_style;
 
