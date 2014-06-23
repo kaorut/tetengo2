@@ -385,9 +385,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                auto original_color = canvas.color();
+                auto original_color = canvas.get_color();
                 auto original_line_width = canvas.line_width();
-                auto original_background = canvas.background().clone();
+                auto original_background = canvas.get_background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(unit_size_type{ 1 } / 16);
                 canvas.set_background(stdalt::make_unique<solid_background_type>(*m_p_current_background_color));
@@ -545,8 +545,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                auto original_color = canvas.color();
-                auto original_background = canvas.background().clone();
+                auto original_color = canvas.get_color();
+                auto original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
@@ -742,7 +742,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-                auto original_background = canvas.background().clone();
+                auto original_background = canvas.get_background().clone();
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
                 );
