@@ -17,6 +17,12 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/drawing/picture.h>
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
@@ -28,8 +34,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
+        \tparam IconDetails    An icon details type.
     */
-    template <typename Traits, typename DrawingDetails>
+    template <typename Traits, typename DrawingDetails, typename IconDetails>
     class canvas : private boost::noncopyable
     {
     public:
@@ -41,8 +48,14 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The size type.
         using size_type = typename traits_type::size_type;
 
+        //! The integer size type.
+        using int_size_type = typename traits_type::int_size_type;
+
         //! The string type.
         using string_type = typename traits_type::string_type;
+
+        //! The path type.
+        using path_type = typename traits_type::path_type;
 
         //! The position type.
         using position_type = typename traits_type::position_type;
@@ -56,14 +69,35 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
-        //! The color type.
-        using color_type = typename traits_type::color_type;
+        //! The detail implementation type of a drawing.
+        using drawing_details_type = DrawingDetails;
+
+        //! The detail implementation type.
+        using details_type = typename drawing_details_type::canvas_details_type;
+
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename drawing_details_type::canvas_details_ptr_type;
 
         //! The background type.
-        using background_type = typename traits_type::background_type;
+        using background_type = background<drawing_details_type>;
 
         //! The solid background type.
-        using solid_background_type = typename traits_type::solid_background_type;
+        using solid_background_type = solid_background<drawing_details_type>;
+
+        //! The font type.
+        using font_type = font<string_type, int_size_type, drawing_details_type>;
+
+        //! The picture type.
+        using picture_type = picture<dimension_type, drawing_details_type>;
+
+        //! The icon details type.
+        using icon_details_type = typename IconDetails;
+
+        //! The icon type.
+        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
+
+        //! The color type.
+        using color_type = color;
 
         //! The line style type.
         enum class line_style_type
@@ -73,24 +107,6 @@ namespace tetengo2 { namespace gui { namespace drawing
             dotted,     //!< Dotted.
             dot_dashed, //!< Dot-Dashed.
         };
-
-        //! The font type.
-        using font_type = typename traits_type::font_type;
-
-        //! The picture type.
-        using picture_type = typename traits_type::picture_type;
-
-        //! The icon type.
-        using icon_type = typename traits_type::icon_type;
-
-        //! The detail implementation type of a drawing.
-        using drawing_details_type = DrawingDetails;
-
-        //! The detail implementation type.
-        using details_type = typename drawing_details_type::canvas_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename drawing_details_type::canvas_details_ptr_type;
 
 
         // constructors and destructor

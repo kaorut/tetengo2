@@ -255,9 +255,7 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::path>::type,
                 boost::mpl::at<type_list, type::position>::type,
                 boost::mpl::at<type_list, type::dimension>::type,
-                boost::mpl::at<type_list, type::ui_encoder>::type,
-                drawing_details_type,
-                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
+                boost::mpl::at<type_list, type::ui_encoder>::type
             >;
         using canvas_details_type = drawing_details_type::canvas_details_type;
         using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
@@ -296,14 +294,18 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::drawing::canvas,
                 tetengo2::gui::drawing::canvas<
-                    detail::drawing::canvas_traits_type, detail::drawing::drawing_details_type
+                    detail::drawing::canvas_traits_type,
+                    detail::drawing::drawing_details_type,
+                    boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::widget_canvas,
                 tetengo2::gui::drawing::widget_canvas<
-                    detail::drawing::canvas_traits_type, detail::drawing::drawing_details_type
+                    detail::drawing::canvas_traits_type,
+                    detail::drawing::drawing_details_type,
+                    boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
                 >
             >,
         tetengo2::meta::assoc_list_end

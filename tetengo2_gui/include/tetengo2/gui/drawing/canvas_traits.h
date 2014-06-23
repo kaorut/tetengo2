@@ -9,13 +9,6 @@
 #if !defined(TETENGO2_GUI_DRAWING_CANVASTRAITS_H)
 #define TETENGO2_GUI_DRAWING_CANVASTRAITS_H
 
-#include <tetengo2/gui/drawing/background.h>
-#include <tetengo2/gui/drawing/color.h>
-#include <tetengo2/gui/drawing/font.h>
-#include <tetengo2/gui/drawing/picture.h>
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/icon.h>
-
 
 namespace tetengo2 { namespace gui { namespace drawing
 {
@@ -29,8 +22,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam Position        A position type.
         \tparam Dimension       A dimension type.
         \tparam Encoder         An encoder type.
-        \tparam DrawingDetails  A drawing details type.
-        \tparam IconDetails     An icon details type.
     */
     template <
         typename Size,
@@ -39,9 +30,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Path,
         typename Position,
         typename Dimension,
-        typename Encoder,
-        typename DrawingDetails,
-        typename IconDetails
+        typename Encoder
     >
     class canvas_traits
     {
@@ -68,30 +57,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The encoder type.
         using encoder_type = Encoder;
-
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The background type.
-        using background_type = background<drawing_details_type>;
-
-        //! The solid background type.
-        using solid_background_type = solid_background<drawing_details_type>;
-
-        //! The color type.
-        using color_type = color;
-
-        //! The font type.
-        using font_type = font<string_type, int_size_type, drawing_details_type>;
-
-        //! The picture type.
-        using picture_type = picture<dimension_type, drawing_details_type>;
-
-        //! The icon details type.
-        using icon_details_type = IconDetails;
-
-        //! The icon type.
-        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
 
 
     };
