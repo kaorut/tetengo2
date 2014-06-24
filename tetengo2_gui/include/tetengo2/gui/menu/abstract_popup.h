@@ -26,26 +26,37 @@ namespace tetengo2 { namespace gui { namespace menu
     /*!
         \brief The base class template for an abstract popup menu.
 
-        \tparam Traits      A traits type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam String            A string type.
+        \tparam Encoder           An encoder type.
+        \tparam MenuDetails       A detail implementation type of a menu.
+        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
-    template <typename Traits, typename MenuDetails>
-    class abstract_popup : public menu_base<Traits, MenuDetails>
+    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
+    class abstract_popup : public menu_base<String, Encoder, MenuDetails, VirtualKeyDetails>
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
+        //! The string type.
+        using string_type = String;
 
-        //! The detail implementation type of a menu.
+        //! The encoder type.
+        using encoder_type = Encoder;
+
+        //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The base type.
-        using base_type = menu_base<traits_type, menu_details_type>;
+        //! The detail implementation type.
+        using details_type = typename menu_details_type::menu_details_type;
 
-        //! The string type.
-        using string_type = typename base_type::string_type;
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The base type.
+        using base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;
@@ -61,12 +72,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The recursive iterator type.
         using recursive_iterator_type = typename base_type::recursive_iterator_type;
-
-        //! The detail implementation type.
-        using details_type = typename menu_details_type::menu_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
 
     protected:
@@ -92,11 +97,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
 
     private:
-        // types
-
-        using encoder_type = typename traits_type::encoder_type;
-
-
         // static functions
 
         static const encoder_type& encoder()

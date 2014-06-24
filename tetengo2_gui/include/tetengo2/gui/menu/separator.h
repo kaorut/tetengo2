@@ -20,23 +20,31 @@ namespace tetengo2 { namespace gui { namespace menu
 
         The text is empty.
 
-        \tparam Traits      A traits type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam String            A string type.
+        \tparam Encoder           An encoder type.
+        \tparam MenuDetails       A detail implementation type of a menu.
+        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
-    template <typename Traits, typename MenuDetails>
-    class separator : public menu_base<Traits, MenuDetails>
+    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
+    class separator : public menu_base<String, Encoder, MenuDetails, VirtualKeyDetails>
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
+        //! The string type.
+        using string_type = String;
 
-        //! The detail implementation type of a menu.
+        //! The encoder type.
+        using encoder_type = Encoder;
+
+        //! The menu details type.
         using menu_details_type = MenuDetails;
 
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
         //! The base type.
-        using base_type = menu_base<traits_type, menu_details_type>;
+        using base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
 
         // constructors and destructor
@@ -58,8 +66,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
     private:
         // types
-
-        using string_type = typename base_type::string_type;
 
         using style_type = typename base_type::style_type;
 

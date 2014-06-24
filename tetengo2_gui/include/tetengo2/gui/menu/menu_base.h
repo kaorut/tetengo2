@@ -21,6 +21,8 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/menu/recursive_iterator.h>
+#include <tetengo2/gui/menu/shortcut_key.h>
+#include <tetengo2/gui/message/menu_observer_set.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>
 
@@ -30,29 +32,40 @@ namespace tetengo2 { namespace gui { namespace menu
     /*!
         \brief The base class template for a menu base.
 
-        \tparam Traits      A traits type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam String            A string type.
+        \tparam Encoder           An encoder type.
+        \tparam MenuDetails       A detail implementation type of a menu.
+        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
-    template <typename Traits, typename MenuDetails>
+    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
     class menu_base : boost::noncopyable
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
-
         //! The string type.
-        using string_type = typename traits_type::string_type;
-
-        //! The shortcut key type.
-        using shortcut_key_type = typename traits_type::shortcut_key_type;
+        using string_type = String;
 
         //! The encoder type.
-        using encoder_type = typename traits_type::encoder_type;
+        using encoder_type = Encoder;
+
+        //! The menu details type.
+        using menu_details_type = MenuDetails;
+
+        //! The detail implementation type.
+        using details_type = typename menu_details_type::menu_details_type;
+
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The shortcut key type.
+        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
 
         //! The menu observer set type.
-        using menu_observer_set_type = typename traits_type::menu_observer_set_type;
+        using menu_observer_set_type = gui::message::menu_observer_set;
 
         //! The const iterator type.
         using const_iterator =
@@ -66,15 +79,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The recursive iterator type.
         using recursive_iterator_type = recursive_iterator<menu_base>;
-
-        //! The detail implementation type of a menu.
-        using menu_details_type = MenuDetails;
-
-        //! The detail implementation type.
-        using details_type = typename menu_details_type::menu_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The style type.
         using style_type = typename menu_details_type::template style_tag<menu_base>;
@@ -183,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \throw std::logic_error When the menu has no shortcut key.
         */
-        const shortcut_key_type& shortcut_key()
+        const shortcut_key_type& get_shortcut_key()
         const
         {
             if (!has_shortcut_key())

@@ -404,19 +404,23 @@ namespace test_tetengo2 { namespace gui
     {
         using shortcut_key_type =
             tetengo2::gui::menu::shortcut_key<
-                boost::mpl::at<gui_common_type_list, type::gui_common::virtual_key>::type
-            >;
-        using menu_traits_type =
-            tetengo2::gui::menu::traits<
-                boost::mpl::at<type_list, type::string>::type,
-                shortcut_key_type,
-                boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::menu_observer_set>::type
+                boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
             >;
         using menu_details_type = tetengo2::detail::stub::menu;
-        using menu_base_type = tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>;
+        using menu_base_type =
+            tetengo2::gui::menu::menu_base<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
+                menu_details_type,
+                tetengo2::detail::stub::virtual_key
+                >;
         using shortcut_key_table_type =
-            tetengo2::gui::menu::shortcut_key_table<shortcut_key_type, menu_base_type, menu_details_type>;
+            tetengo2::gui::menu::shortcut_key_table<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
+                menu_details_type,
+                tetengo2::detail::stub::virtual_key
+            >;
     }}
 #endif
 
@@ -428,31 +432,53 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::abstract_popup,
-                tetengo2::gui::menu::abstract_popup<detail::menu::menu_traits_type, detail::menu::menu_details_type>
+                tetengo2::gui::menu::abstract_popup<
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::menu::menu_details_type,
+                    tetengo2::detail::stub::virtual_key
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::menu_bar,
                 tetengo2::gui::menu::menu_bar<
-                    detail::menu::menu_traits_type,
+                    boost::mpl::at<type_list, type::string>::type,
                     detail::menu::shortcut_key_table_type,
-                    detail::menu::menu_details_type
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::menu::menu_details_type,
+                    tetengo2::detail::stub::virtual_key
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::popup,
-                tetengo2::gui::menu::popup<detail::menu::menu_traits_type, detail::menu::menu_details_type>
+                tetengo2::gui::menu::popup<
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::menu::menu_details_type,
+                    tetengo2::detail::stub::virtual_key
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::command,
-                tetengo2::gui::menu::command<detail::menu::menu_traits_type, detail::menu::menu_details_type>
+                tetengo2::gui::menu::command<
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::menu::menu_details_type,
+                    tetengo2::detail::stub::virtual_key
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::separator,
-                tetengo2::gui::menu::separator<detail::menu::menu_traits_type, detail::menu::menu_details_type>
+                tetengo2::gui::menu::separator<
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::menu::menu_details_type,
+                    tetengo2::detail::stub::virtual_key
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<

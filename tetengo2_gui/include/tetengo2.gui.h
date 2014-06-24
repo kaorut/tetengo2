@@ -41,7 +41,6 @@
 #include <tetengo2/gui/menu/separator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
-#include <tetengo2/gui/menu/traits.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>

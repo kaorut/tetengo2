@@ -195,9 +195,6 @@
     <ClInclude Include="include\tetengo2\gui\measure.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\message\menu_observer_set.h">
-      <Filter>headers\tetengo2::gui\menu</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\menu\menu_base.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
@@ -291,9 +288,6 @@
     <ClInclude Include="include\tetengo2\gui\timer.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\menu\traits.h">
-      <Filter>headers\tetengo2::gui\menu</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\drawing\transparent_background.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
     </ClInclude>
@@ -323,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\message\menu_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -184,14 +184,14 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(shortcut_key)
+    BOOST_AUTO_TEST_CASE(get_shortcut_key)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             const concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-            BOOST_CHECK_THROW(menu.shortcut_key(), std::logic_error);
+            BOOST_CHECK_THROW(menu.get_shortcut_key(), std::logic_error);
         }
         {
             const concrete_menu menu{
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
                 shortcut_key_type{ virtual_key_type::char_a(), false, true, false }
             };
 
-            const auto& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.get_shortcut_key();
             BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
             BOOST_CHECK(!shortcut_key.shift());
             BOOST_CHECK(shortcut_key.control());

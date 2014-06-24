@@ -598,7 +598,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename MenuBase>
         static ::ACCEL to_accel(const MenuBase& menu)
         {
-            const auto& shortcut_key = menu.shortcut_key();
+            const auto& shortcut_key = menu.get_shortcut_key();
 
             ::ACCEL accel{};
 
@@ -628,7 +628,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (menu.has_shortcut_key())
             {
                 text += typename MenuBase::string_type{ TETENGO2_TEXT("\t") };
-                text += menu.shortcut_key().to_string();
+                text += menu.get_shortcut_key().to_string();
             }
             const auto native_string = encoder.encode(text);
 
