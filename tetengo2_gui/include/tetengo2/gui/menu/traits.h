@@ -9,9 +9,6 @@
 #if !defined(TETENGO2_GUI_MENU_TRAITS_H)
 #define TETENGO2_GUI_MENU_TRAITS_H
 
-#include <tetengo2/gui/menu/shortcut_key.h>
-#include <tetengo2/gui/message/menu_observer_set.h>
-
 
 namespace tetengo2 { namespace gui { namespace menu
 {
@@ -35,12 +32,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
-
-        //! The shortcut key type.
-        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
-
-        //! The menu observer set type.
-        using menu_observer_set_type = gui::message::menu_observer_set;
 
 
     };

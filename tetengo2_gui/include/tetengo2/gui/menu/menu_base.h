@@ -21,6 +21,8 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/menu/recursive_iterator.h>
+#include <tetengo2/gui/menu/shortcut_key.h>
+#include <tetengo2/gui/message/menu_observer_set.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>
 
@@ -45,14 +47,17 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The string type.
         using string_type = typename traits_type::string_type;
 
-        //! The shortcut key type.
-        using shortcut_key_type = typename traits_type::shortcut_key_type;
-
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
+        //! The virtual key details type.
+        using virtual_key_details_type = typename traits_type::virtual_key_details_type;
+
+        //! The shortcut key type.
+        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
+
         //! The menu observer set type.
-        using menu_observer_set_type = typename traits_type::menu_observer_set_type;
+        using menu_observer_set_type = gui::message::menu_observer_set;
 
         //! The const iterator type.
         using const_iterator =
