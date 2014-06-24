@@ -21,7 +21,15 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/alert.h>
+#include <tetengo2/gui/cursor/cursor_base.h>
+#include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -32,9 +40,23 @@ namespace tetengo2 { namespace gui { namespace widget
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam IconDetails           A detail implementation type of an icon.
+        \tparam AlertDetails          A detail implementation type of an alert.
+        \tparam FontDetails           A detail implementation type of a font.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
-    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename IconDetails,
+        typename AlertDetails,
+        typename FontDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails
+    >
     class widget : private boost::noncopyable
     {
     public:
@@ -43,14 +65,17 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The widget canvas type.
-        using widget_canvas_type = typename traits_type::widget_canvas_type;
+        //! The size type.
+        using size_type = typename traits_type::size_type;
 
-        //! The canvas type.
-        using canvas_type = typename traits_type::canvas_type;
+        //! The unit size type.
+        using unit_size_type = typename traits_type::unit_size_type;
 
-        //! The alert type.
-        using alert_type = typename traits_type::alert_type;
+        //! The string type.
+        using string_type = typename traits_type::string_type;
+
+        //! The path type.
+        using path_type = typename traits_type::path_type;
 
         //! The position type.
         using position_type = typename traits_type::position_type;
@@ -58,26 +83,78 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         using dimension_type = typename traits_type::dimension_type;
 
-        //! The string type.
-        using string_type = typename traits_type::string_type;
-
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
+        //! The exception encoder type.
+        using exception_encoder_type = typename traits_type::exception_encoder;
+
+        //! The drawing details type.
+        using drawing_details_type = DrawingDetails;
+
+        //! The icon details type.
+        using icon_details_type = IconDetails;
+
+        //! The canvas traits type.
+        using canvas_traits_type =
+            gui::drawing::canvas_traits<
+                size_type, unit_size_type, string_type, path_type, position_type, dimension_type, encoder_type
+            >;
+
+        //! The widget canvas type.
+        using widget_canvas_type =
+            gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+
+        //! The canvas type.
+        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+
+        //! The alert details type.
+        using alert_details_type = AlertDetails;
+
+        //! The alert type.
+        using alert_type = gui::alert<encoder_type, exception_encoder_type, alert_details_type>;
+
         //! The background type.
-        using background_type = typename traits_type::background_type;
+        using background_type = gui::drawing::background<drawing_details_type>;
+
+        //! The font details type.
+        using font_details_type = FontDetails;
 
         //! The font type.
-        using font_type = typename traits_type::font_type;
+        using font_type = gui::drawing::font<string_type, size_type, font_details_type>;;
 
-        //! The system cursor type.
-        using system_cursor_type = typename traits_type::system_cursor_type;
+        //! The cursor details type.
+        using cursor_details_type = CursorDetails;
 
         //! The cursor type.
-        using cursor_type = typename system_cursor_type::base_type;
+        using cursor_type = gui::cursor::cursor_base<cursor_details_type>;
+
+        //! The system cursor type.
+        using system_cursor_type = gui::cursor::cursor_base<cursor_details\type>;;
+
+        //! The detail implementation type of a message handler.
+        using message_handler_details_type = MessageHandlerDetails;
+
+        //! The message handler map type.
+        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+
+        //! The child type.
+        using child_type = widget;
+
+        //! The cursor details type.
+        using cursor_details_type = CursorDetails;
+
+        //! The system cursor type.
+        using system_cursor_type = gui::cursor::system<cursor_details_type>;
+
+        //! The cursor type.
+        using cursor_type = gui::cursor::cursor_base<cursor_details_type>;
+
+        //! The scroll details type.
+        using scroll_details_type = ScrollDetails;
 
         //! The scroll bar type.
-        using scroll_bar_type = typename traits_type::scroll_bar_type;
+        using scroll_bar_type = gui::scroll_bar<size_type, scroll_details_type>;
 
         //! The size observer set type.
         using size_observer_set_type = typename traits_type::size_observer_set_type;
@@ -99,15 +176,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation type of a message handler.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The message handler map type.
-        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
-
-        //! The child type.
-        using child_type = widget;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
