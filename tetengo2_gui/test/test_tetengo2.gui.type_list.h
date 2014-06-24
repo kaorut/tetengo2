@@ -404,7 +404,7 @@ namespace test_tetengo2 { namespace gui
     {
         using shortcut_key_type =
             tetengo2::gui::menu::shortcut_key<
-                boost::mpl::at<gui_common_type_list, type::gui_common::virtual_key>::type
+                boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
             >;
         using menu_traits_type =
             tetengo2::gui::menu::traits<

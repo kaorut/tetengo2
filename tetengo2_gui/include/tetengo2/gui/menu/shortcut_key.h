@@ -13,25 +13,31 @@
 
 #include <boost/operators.hpp>
 
+#include <tetengo2/gui/virtual_key.h>
+
 
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The class template for a shortcut key.
 
-        \tparam VirtualKey A virtual key type.
+        \tparam String            A string type.
+        \tparam VirtualKeyDetails A virtual key detail implementation type.
    */
-    template <typename VirtualKey>
-    class shortcut_key : private boost::equality_comparable<shortcut_key<VirtualKey>>
+    template <typename String, typename VirtualKeyDetails>
+    class shortcut_key : private boost::equality_comparable<shortcut_key<String, VirtualKeyDetails>>
     {
     public:
         // types
 
-        //! The virtual key type.
-        using virtual_key_type = VirtualKey;
-
         //! The string type.
-        using string_type = typename virtual_key_type::string_type;
+        using string_type = String;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The virtual key type.
+        using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
 
 
         // constructors and destructor
@@ -143,11 +149,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
 
     private:
-        // types
-
-        using virtual_key_details_type = typename virtual_key_type::details_type;
-
-
         // variables
 
         const virtual_key_type* m_p_key;
