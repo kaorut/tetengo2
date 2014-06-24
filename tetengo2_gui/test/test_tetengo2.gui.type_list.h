@@ -415,7 +415,12 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::detail::stub::virtual_key
                 >;
         using shortcut_key_table_type =
-            tetengo2::gui::menu::shortcut_key_table<shortcut_key_type, menu_base_type, menu_details_type>;
+            tetengo2::gui::menu::shortcut_key_table<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
+                menu_details_type,
+                tetengo2::detail::stub::virtual_key
+            >;
     }}
 #endif
 

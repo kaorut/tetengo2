@@ -49,7 +49,7 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The encoder type.
         using encoder_type = Encoder;
 
-        //! The detail implementation type of a menu.
+        //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The detail implementation type.

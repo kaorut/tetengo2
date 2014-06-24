@@ -16,29 +16,33 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/gui/menu/shortcut_key.h>
+
 
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The class template for a shortcut key table.
 
-        \tparam ShortcutKey A shortcut key type.
-        \tparam MenuBase    A menu base type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam String            A string type.
+        \tparam Encoder           An encoder type.
+        \tparam MenuDetails       A detail implementation type of a menu.
+        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
-    template <typename ShortcutKey, typename MenuBase, typename MenuDetails>
+    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
     class shortcut_key_table : private boost::noncopyable
     {
     public:
         // types
 
-        //! The virtual key type.
-        using shortcut_key_type = ShortcutKey;
+        //! The string type.
+        using string_type = String;
 
-        //! The menu base type.
-        using menu_base_type = MenuBase;
+        //! The encoder type.
+        using encoder_type = Encoder;
 
-        //! The detail implementation type of a menu.
+        //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The detail implementation type.
@@ -46,6 +50,15 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The detail implementation pointer type.
         using details_ptr_type = typename menu_details_type::shortcut_key_table_details_ptr_type;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The virtual key type.
+        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
+
+        //! The menu base type.
+        using menu_base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;
