@@ -67,8 +67,6 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // types
 
-        using string_type = typename base_type::string_type;
-
         using style_type = typename base_type::style_type;
 
 

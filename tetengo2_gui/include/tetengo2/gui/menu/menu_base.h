@@ -187,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \throw std::logic_error When the menu has no shortcut key.
         */
-        const shortcut_key_type& shortcut_key()
+        const shortcut_key_type& get_shortcut_key()
         const
         {
             if (!has_shortcut_key())
