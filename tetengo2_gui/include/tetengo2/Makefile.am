@@ -34,7 +34,6 @@ pkg_headers = \
     gui/menu/separator.h \
     gui/menu/shortcut_key.h \
     gui/menu/shortcut_key_table.h \
-    gui/menu/traits.h \
     gui/message/dialog_message_loop.h \
     gui/message/file_drop_observer_set.h \
     gui/message/focus_observer_set.h \
