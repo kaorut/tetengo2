@@ -17,9 +17,8 @@ namespace tetengo2 { namespace gui { namespace menu
 
         \tparam String            A string type.
         \tparam Encoder           An encoder type.
-        \tparam VirtualKeyDetails A virtual key detail implementation type.
    */
-    template <typename String, typename Encoder, typename VirtualKeyDetails>
+    template <typename String, typename Encoder>
     struct traits
     {
         //types
@@ -29,9 +28,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The encoder type.
         using encoder_type = Encoder;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
 
 
     };

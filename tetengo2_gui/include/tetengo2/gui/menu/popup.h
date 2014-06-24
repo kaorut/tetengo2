@@ -20,26 +20,31 @@ namespace tetengo2 { namespace gui { namespace menu
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Traits      A traits type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam String            A string type.
+        \tparam Encoder           An encoder type.
+        \tparam MenuDetails       A detail implementation type of a menu.
+        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
-    template <typename Traits, typename MenuDetails>
-    class popup : public abstract_popup<Traits, MenuDetails>
+    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
+    class popup : public abstract_popup<String, Encoder, MenuDetails, VirtualKeyDetails>
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
+        //! The string type.
+        using string_type = String;
 
-        //! The detail implementation type of a menu.
+        //! The encoder type.
+        using encoder_type = Encoder;
+
+        //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The base type.
-        using base_type = abstract_popup<traits_type, menu_details_type>;
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
 
-        //! The string type.
-        using string_type = typename base_type::string_type;
+        //! The base type.
+        using base_type = abstract_popup<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
 
         // constructors and destructor
