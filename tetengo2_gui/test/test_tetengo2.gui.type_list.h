@@ -409,9 +409,8 @@ namespace test_tetengo2 { namespace gui
         using menu_traits_type =
             tetengo2::gui::menu::traits<
                 boost::mpl::at<type_list, type::string>::type,
-                shortcut_key_type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::menu_observer_set>::type
+                tetengo2::detail::stub::virtual_key
             >;
         using menu_details_type = tetengo2::detail::stub::menu;
         using menu_base_type = tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>;
