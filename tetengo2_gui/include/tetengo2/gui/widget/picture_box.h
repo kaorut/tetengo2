@@ -13,6 +13,9 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/widget_canvas.h>
+#include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
 
@@ -31,6 +34,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam FastDrawingDetails    A detail implementation type of fast drawing.
     */
     template <
         typename Traits,
@@ -41,7 +45,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename FastDrawingDetails
     >
     class picture_box :
         public control<
@@ -62,17 +67,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The fast widget canvas type.
-        using fast_widget_canvas_type = typename Traits::fast_widget_canvas_type;
-
-        //! The fast canvas type.
-        using fast_canvas_type = typename Traits::fast_canvas_type;
-
-        //! The fast paint observer set type.
-        using fast_paint_observer_set_type = typename traits_type::fast_paint_observer_set_type;
-
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
+
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
@@ -94,6 +93,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The fast drawing details type.
+        using fast_drawing_details_type = FastDrawingDetails;
 
         //! The base type.
         using base_type =
@@ -133,8 +135,19 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The fast canvas traits type.
+        using canvas_traits_type = typename base_type::canvas_traits_type;
+
+        //! The fast widget canvas type.
+        using fast_widget_canvas_type =
+            gui::drawing::widget_canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
+
+        //! The fast canvas type.
+        using fast_canvas_type =
+            gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
+
+        //! The fast paint observer set type.
+        using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;
 
 
         // constructors and destructor
