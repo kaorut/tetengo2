@@ -603,12 +603,7 @@ namespace test_tetengo2 { namespace gui
         using label_traits_type = tetengo2::gui::widget::traits::label_traits<control_traits_type>;
         using shell_details_type = tetengo2::detail::stub::shell;
         using link_label_traits_type = tetengo2::gui::widget::traits::link_label_traits<label_traits_type>;
-        using list_box_traits_type =
-            tetengo2::gui::widget::traits::list_box_traits<
-                control_traits_type,
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
-            >;
+        using list_box_traits_type = tetengo2::gui::widget::traits::list_box_traits<control_traits_type>;
         using custom_control_traits_type = tetengo2::gui::widget::traits::custom_control_traits<control_traits_type>;
         using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
         using map_box_traits_type = tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type>;
