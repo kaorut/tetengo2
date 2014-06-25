@@ -15,37 +15,15 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a map box.
 
-        \tparam CustomControlTraits      A traits type for a custom control.
-        \tparam IntSize                  A integer size type.
-        \tparam SolidBackground          A solid background type.
-        \tparam SystemColorSet           A system color set type.
-        \tparam ListSelectionObserverSet A list selection observer set type.
+        \tparam CustomControlTraits A traits type for a custom control.
    */
-    template <
-        typename CustomControlTraits,
-        typename IntSize,
-        typename SolidBackground,
-        typename SystemColorSet,
-        typename ListSelectionObserverSet
-    >
+    template <typename CustomControlTraits>
     struct map_box_traits
     {
         //types
 
         //! The base type.
         using base_type = CustomControlTraits;
-
-        //! The integer size type.
-        using int_size_type = IntSize;
-
-        //! The solid background type.
-        using solid_background_type = SolidBackground;
-
-        //! The system color set type.
-        using system_color_set_type = SystemColorSet;
-
-        //! The list selection observer set type.
-        using list_selection_observer_set_type = ListSelectionObserverSet;
 
 
     };
