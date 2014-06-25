@@ -640,14 +640,9 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::widget_canvas>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type
             >;
-        using timer_type = tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer>;
         using side_bar_traits_type =
-            tetengo2::gui::widget::traits::side_bar_traits<
-                custom_control_traits_type,
-                boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                timer_type
-            >;
+            tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>;
+        using timer_details_type = tetengo2::detail::stub::timer;
         using text_box_traits_type =
             tetengo2::gui::widget::traits::text_box_traits<
                 control_traits_type,
@@ -866,7 +861,9 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::scroll_details_type,
                     detail::widget::message_handler_details_type,
                     detail::widget::virtual_key_details_type,
-                    detail::widget::mouse_capture_details_type
+                    detail::widget::mouse_capture_details_type,
+                    detail::widget::system_color_details_type,
+                    detail::widget::timer_details_type
                 >
             >,
         tetengo2::meta::assoc_list<

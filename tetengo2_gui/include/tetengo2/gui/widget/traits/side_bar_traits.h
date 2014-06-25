@@ -16,26 +16,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a side bar.
 
         \tparam CustomControlTraits A traits type for a custom control.
-        \tparam SolidBackground     A solid background type.
-        \tparam SystemColorSet      A system color set type.
-        \tparam Timer               A timer type.
    */
-    template <typename CustomControlTraits, typename SolidBackground, typename SystemColorSet, typename Timer>
+    template <typename CustomControlTraits>
     struct side_bar_traits
     {
         //types
 
         //! The base type.
         using base_type = CustomControlTraits;
-
-        //! The solid background type.
-        using solid_background_type = SolidBackground;
-
-        //! The system color set type.
-        using system_color_set_type = SystemColorSet;
-
-        //! The timer type.
-        using timer_type = Timer;
 
 
     };

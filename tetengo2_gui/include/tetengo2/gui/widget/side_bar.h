@@ -21,6 +21,9 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/optional.hpp>
 
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/stdalt.h>
@@ -41,6 +44,8 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
         \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \tparam SystemColorDetails    A detail implementation type of system colors.
+        \tparam TimerDetails          A detail implementation type of a timer.
     */
     template <
         typename Traits,
@@ -52,7 +57,9 @@ namespace tetengo2 { namespace gui { namespace widget
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename VirtualKeyDetails,
-        typename MouseCaptureDetails
+        typename MouseCaptureDetails,
+        typename SystemColorDetails,
+        typename TimerDetails
     >
     class side_bar :
         public custom_control<
@@ -73,15 +80,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         using traits_type = Traits;
-
-        //! The solid background type.
-        using solid_background_type = typename traits_type::solid_background_type;
-
-        //! The system color set type.
-        using system_color_set_type = typename traits_type::system_color_set_type;
-
-        //! The timer type.
-        using timer_type = typename traits_type::timer_type;
 
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
@@ -110,6 +108,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
+
+        //! The timer details type.
+        using timer_details_type = TimerDetails;
+
         //! The base type.
         using base_type =
             custom_control<
@@ -125,8 +129,23 @@ namespace tetengo2 { namespace gui { namespace widget
                 mouse_capture_details_type
             >;
 
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
+
+        //! THe timer details type.
+        using timer_details_type = TimerDetails;
+
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
+
+        //! The solid background type.
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        //! The system color set type.
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+
+        //! The timer type.
+        using timer_type = gui::timer<widget_type, timer_details_type>;
 
         //! The system cursor type.
         using system_cursor_type = typename widget_type::system_cursor_type;
