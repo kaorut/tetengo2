@@ -31,6 +31,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MenuDetails           A detail implementation type of a menu.
     */
     template <
         typename Traits,
@@ -41,7 +42,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename MenuDetails
     >
     class dialog :
         public abstract_window<
@@ -53,7 +55,8 @@ namespace tetengo2 { namespace gui { namespace widget
             CursorDetails,
             ScrollDetails,
             MessageHandlerDetails,
-            VirtualKeyDetails
+            VirtualKeyDetails,
+            MenuDetails
         >
     {
     public:
@@ -86,6 +89,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
 
+        //! The menu details type.
+        using menu_details_type = MenuDetails;
+
         //! The base type.
         using base_type =
             abstract_window<
@@ -97,7 +103,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 cursor_details_type,
                 scroll_details_type,
                 message_handler_details_type,
-                virtual_key_details_type
+                virtual_key_details_type,
+                menu_details_type
             >;
 
         //! The position type.

@@ -17,6 +17,11 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/menu/menu_bar.h>
+#include <tetengo2/gui/menu/shortcut_key_table.h>
+#include <tetengo2/gui/message/window_observer_set.h>
+#include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
@@ -35,6 +40,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MenuDetails           A detail implementation type of a menu.
     */
     template <
         typename Traits,
@@ -45,7 +51,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename MenuDetails
     >
     class abstract_window :
         public widget<
@@ -104,6 +111,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 virtual_key_details_type
             >;
 
+        //! The menu details type.
+        using menu_details_type = MenuDetails;
+
         //! The position type.
         using position_type = typename base_type::position_type;
 
@@ -114,16 +124,23 @@ namespace tetengo2 { namespace gui { namespace widget
         using string_type = typename base_type::string_type;
 
         //! The icon type.
-        using icon_type = typename traits_type::icon_type;
+        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
+
+        //! The shortcut key table type.
+        using shortcut_key_table_type =
+            gui::menu::shortcut_key_table<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type = typename traits_type::menu_bar_type;
+        using menu_bar_type =
+            gui::menu::menu_bar<
+                string_type, shortcut_key_table_type, encoder_type, menu_details_type, virtual_key_details_type
+            >;
 
         //! The window observer set type.
-        using window_observer_set_type = typename traits_type::window_observer_set_type;
+        using window_observer_set_type = gui::message::window_observer_set;
 
         //! The file drop observer set type.
-        using file_drop_observer_set_type = typename traits_type::file_drop_observer_set_type;
+        using file_drop_observer_set_type = gui::message::file_drop_observer_set<path_type>;
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;
