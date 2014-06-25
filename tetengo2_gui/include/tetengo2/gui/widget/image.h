@@ -112,6 +112,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         using widget_type = typename base_type::base_type;
 
+        //! The path type.
+        using path_type = typename base_type::path_type;
+
+        //! The dimension type.
+        using dimension_type = typename base_type::dimension_type;
+
         //! The picture type.
         using picture_type = gui::drawing::picture<dimension_type, drawing_details_type>;
         

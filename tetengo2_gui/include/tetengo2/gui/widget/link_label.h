@@ -150,6 +150,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The system color set type.
         using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
 
+        //! The encoder type.
+        using encoder_type = typename base_type::encoder_type;
+
         //! The shell type.
         using shell_type = gui::shell<string_type, encoder_type, shell_details_type>;
 
