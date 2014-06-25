@@ -17,6 +17,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>
@@ -40,6 +41,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
     */
     template <
         typename Traits,
@@ -50,7 +52,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename MouseCaptureDetails
     >
     class custom_control :
         public control<
@@ -70,12 +73,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         using traits_type = Traits;
-
-        //! The mouse capture type.
-        using mouse_capture_type = typename traits_type::mouse_capture_type;
-
-        //! The mouse button type.
-        using mouse_button_type = typename mouse_capture_type::mouse_button_type;
 
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
@@ -100,6 +97,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The mouse capture details type.
+        using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
         using base_type =
@@ -141,6 +141,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
+
+        //! The mouse button type.
+        using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
+
+        //! The mouse capture type.
+        using mouse_capture_type = gui::mouse_capture<widget_type, mouse_button_type, mouse_capture_details_type>;
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;

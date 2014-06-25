@@ -630,16 +630,8 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
             >;
-        using mouse_capture_type =
-            tetengo2::gui::mouse_capture<
-                widget_type,
-                boost::mpl::at<
-                    observer_set_type_list, type::observer_set::mouse_observer_set
-                >::type::mouse_button_type,
-                tetengo2::detail::stub::mouse_capture
-            >;
-        using custom_control_traits_type =
-            tetengo2::gui::widget::traits::custom_control_traits<control_traits_type, mouse_capture_type>;
+        using custom_control_traits_type = tetengo2::gui::widget::traits::custom_control_traits<control_traits_type>;
+        using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
         using map_box_traits_type =
             tetengo2::gui::widget::traits::map_box_traits<
                 custom_control_traits_type,
@@ -741,7 +733,8 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::cursor_details_type,
                     detail::widget::scroll_details_type,
                     detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::virtual_key_details_type,
+                    detail::widget::mouse_capture_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -846,7 +839,8 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::cursor_details_type,
                     detail::widget::scroll_details_type,
                     detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::virtual_key_details_type,
+                    detail::widget::mouse_capture_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -876,7 +870,8 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::cursor_details_type,
                     detail::widget::scroll_details_type,
                     detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::virtual_key_details_type,
+                    detail::widget::mouse_capture_details_type
                 >
             >,
         tetengo2::meta::assoc_list<

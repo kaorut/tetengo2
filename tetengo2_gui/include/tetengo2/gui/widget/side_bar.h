@@ -40,6 +40,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
     */
     template <
         typename Traits,
@@ -50,7 +51,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename MouseCaptureDetails
     >
     class side_bar :
         public custom_control<
@@ -62,7 +64,8 @@ namespace tetengo2 { namespace gui { namespace widget
             CursorDetails,
             ScrollDetails,
             MessageHandlerDetails,
-            VirtualKeyDetails
+            VirtualKeyDetails,
+            MouseCaptureDetails
         >
     {
     public:
@@ -104,6 +107,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
 
+        //! The mouse capture details type.
+        using mouse_capture_details_type = MouseCaptureDetails;
+
         //! The base type.
         using base_type =
             custom_control<
@@ -115,7 +121,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 cursor_details_type,
                 scroll_details_type,
                 message_handler_details_type,
-                virtual_key_details_type
+                virtual_key_details_type,
+                mouse_capture_details_type
             >;
 
         //! The widget type.
