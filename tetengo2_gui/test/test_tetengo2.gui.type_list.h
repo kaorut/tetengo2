@@ -599,12 +599,7 @@ namespace test_tetengo2 { namespace gui
         using control_traits_type = tetengo2::gui::widget::traits::control_traits<widget_traits_type>;
         using button_traits_type = tetengo2::gui::widget::traits::button_traits<control_traits_type>;
         using dropdown_box_traits_type = tetengo2::gui::widget::traits::dropdown_box_traits<control_traits_type>;
-        using image_traits_type =
-            tetengo2::gui::widget::traits::image_traits<
-                control_traits_type,
-                boost::mpl::at<drawing_type_list, type::drawing::picture>::type,
-                boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type
-            >;
+        using image_traits_type = tetengo2::gui::widget::traits::image_traits<control_traits_type>;
         using label_traits_type = tetengo2::gui::widget::traits::label_traits<control_traits_type>;
         using shell_type =
             tetengo2::gui::shell<

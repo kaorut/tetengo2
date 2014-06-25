@@ -16,6 +16,8 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/drawing/picture.h>
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
@@ -69,6 +71,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
 
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
+
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
@@ -108,13 +113,10 @@ namespace tetengo2 { namespace gui { namespace widget
         using widget_type = typename base_type::base_type;
 
         //! The picture type.
-        using picture_type = typename traits_type::picture_type;
+        using picture_type = gui::drawing::picture<dimension_type, drawing_details_type>;
         
         //! The icon type.
-        using icon_type = typename traits_type::icon_type;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
 
 
         // constructors and destructor
