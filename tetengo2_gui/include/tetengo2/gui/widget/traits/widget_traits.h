@@ -17,15 +17,12 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a GUI widget.
 
-        \tparam Size             A size type.
-        \tparam UnitSize         A unit size type.
-        \tparam String           A string type.
-        \tparam Path             A path type.
-        \tparam Position         A position type.
-        \tparam Dimension        A dimension type.
-        \tparam Encoder          An encoder type.
-        \tparam ExceptionEncoder An exception encoder type.
-
+        \tparam WidgetCanvas        A widget canvas type.
+        \tparam Alert               An alert type.
+        \tparam Position            A position type.
+        \tparam Dimension           A dimension type.
+        \tparam String              A string type.
+        \tparam Encoder             An encoder type.
         \tparam Background          A background type.
         \tparam Font                A font type.
         \tparam SystemCursor        A system cursor type.
@@ -37,15 +34,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam MouseObserverSet    A mouse observer set type.
    */
     template <
-        typename Size,
-        typename UnitSize,
-        typename String,
-        typename Path,
+        typename WidgetCanvas,
+        typename Alert,
         typename Position,
         typename Dimension,
+        typename String,
         typename Encoder,
-        typename ExceptionEncoder,
-
+        typename Background,
+        typename Font,
         typename SystemCursor,
         typename ScrollBar,
         typename SizeObserverSet,
@@ -58,17 +54,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     {
         // types
 
-        //! The size type.
-        using size_type = Size;
+        //! The widget canvas type.
+        using widget_canvas_type = WidgetCanvas;
 
-        //! The unit size type.
-        using unit_size_type = UnitSize;
+        //! The canvas type.
+        using canvas_type = typename widget_canvas_type::base_type;
 
-        //! The string type.
-        using string_type = String;
-
-        //! The path type.
-        using path_type = Path;
+        //! The alert type.
+        using alert_type = Alert;
 
         //! The position type.
         using position_type = Position;
@@ -76,13 +69,20 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The dimension type.
         using dimension_type = Dimension;
 
+        //! The string type.
+        using string_type = String;
+
         //! The encoder type.
         using encoder_type = Encoder;
 
-        //! The exception encoder type.
-        using exception_encoder_type = ExceptionEncoder;
+        //! The background type.
+        using background_type = Background;
 
+        //! The font type.
+        using font_type = Font;
 
+        //! The system cursor type.
+        using system_cursor_type = SystemCursor;
 
         //! The scroll bar type.
         using scroll_bar_type = ScrollBar;
