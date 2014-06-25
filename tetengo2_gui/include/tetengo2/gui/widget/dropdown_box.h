@@ -17,6 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
 
@@ -66,14 +67,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The integer size type.
-        using int_size_type = typename traits_type::int_size_type;
-
-        //! The list selection observer set type.
-        using list_selection_observer_set_type = typename traits_type::list_selection_observer_set_type;
-
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
+
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
@@ -113,11 +111,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         using widget_type = typename base_type::base_type;
 
+        //! The size type.
+        using size_type = typename base_type::size_type;
+
         //! The string type.
         using string_type = typename base_type::string_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The list selection observer set type.
+        using list_selection_observer_set_type = gui::message::list_selection_observer_set;
 
 
         // constructors and destructor
@@ -160,10 +161,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The value count.
         */
-        int_size_type value_count()
+        size_type value_count()
         const
         {
-            return widget_details_type::template dropdown_box_value_count<int_size_type>(*this);
+            return widget_details_type::template dropdown_box_value_count<size_type>(*this);
         }
 
         /*!
@@ -175,7 +176,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type value(const int_size_type index)
+        string_type value(const size_type index)
         const
         {
             if (index >= value_count())
@@ -192,7 +193,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_value(const int_size_type index, string_type value)
+        void set_value(const size_type index, string_type value)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -208,7 +209,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_value(const int_size_type index, string_type value)
+        void insert_value(const size_type index, string_type value)
         {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -223,7 +224,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void erase_value(const int_size_type index)
+        void erase_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -244,10 +245,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The selected value index. Or boost::none when no value is selected.
         */
-        boost::optional<int_size_type> selected_value_index()
+        boost::optional<size_type> selected_value_index()
         const
         {
-            return widget_details_type::template selected_dropdown_box_value_index<int_size_type>(*this);
+            return widget_details_type::template selected_dropdown_box_value_index<size_type>(*this);
         }
 
         /*!
@@ -257,7 +258,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_value(const int_size_type index)
+        void select_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));

@@ -598,12 +598,7 @@ namespace test_tetengo2 { namespace gui
         using dialog_traits_type = tetengo2::gui::widget::traits::dialog_traits<abstract_window_traits_type>;
         using control_traits_type = tetengo2::gui::widget::traits::control_traits<widget_traits_type>;
         using button_traits_type = tetengo2::gui::widget::traits::button_traits<control_traits_type>;
-        using dropdown_box_traits_type =
-            tetengo2::gui::widget::traits::dropdown_box_traits<
-                control_traits_type,
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::list_selection_observer_set>::type
-            >;
+        using dropdown_box_traits_type = tetengo2::gui::widget::traits::dropdown_box_traits<control_traits_type>;
         using image_traits_type =
             tetengo2::gui::widget::traits::image_traits<
                 control_traits_type,
