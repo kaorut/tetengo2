@@ -542,26 +542,36 @@ namespace test_tetengo2 { namespace gui
     {
         using widget_traits_type =
             tetengo2::gui::widget::traits::widget_traits<
-                boost::mpl::at<drawing_type_list, type::drawing::widget_canvas>::type,
-                boost::mpl::at<gui_common_type_list, type::gui_common::alert>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::difference>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::path>::type,
                 boost::mpl::at<type_list, type::position>::type,
                 boost::mpl::at<type_list, type::dimension>::type,
-                boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::background>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::font>::type,
-                boost::mpl::at<cursor_type_list, type::cursor::system>::type,
-                boost::mpl::at<scroll_type_list, type::scroll::scroll_bar>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::size_observer_set>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::mouse_observer_set>::type
+                boost::mpl::at<type_list, type::exception_encoder>::type
             >;
         using widget_details_type = tetengo2::detail::stub::widget;
+        using drawing_details_type = tetengo2::detail::stub::drawing;
+        using icon_details_type = tetengo2::detail::stub::icon;
+        using alert_details_type = tetengo2::detail::stub::alert;
+        using cursor_details_type = tetengo2::detail::stub::cursor;
+        using scroll_details_type = tetengo2::detail::stub::scroll;
         using message_handler_details_type = tetengo2::detail::stub::message_handler;
+        using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
         using widget_type =
-            tetengo2::gui::widget::widget<widget_traits_type, widget_details_type, message_handler_details_type>;
+            tetengo2::gui::widget::widget<
+                widget_traits_type,
+                widget_details_type,
+                drawing_details_type,
+                icon_details_type,
+                alert_details_type,
+                cursor_details_type,
+                scroll_details_type,
+                message_handler_details_type,
+                virtual_key_details_type
+            >;
         using abstract_window_traits_type =
             tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
@@ -574,7 +584,15 @@ namespace test_tetengo2 { namespace gui
         using details_font_type = tetengo2::detail::stub::widget::details_font_type;
         using abstract_window_type =
             tetengo2::gui::widget::abstract_window<
-                abstract_window_traits_type, widget_details_type, message_handler_details_type
+                abstract_window_traits_type,
+                widget_details_type,
+                drawing_details_type,
+                icon_details_type,
+                alert_details_type,
+                cursor_details_type,
+                scroll_details_type,
+                message_handler_details_type,
+                virtual_key_details_type
             >;
         using message_loop_details_type = tetengo2::detail::stub::message_loop;
         using message_loop_type =
@@ -680,7 +698,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::window<
                     detail::widget::window_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -689,7 +713,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::dialog<
                     detail::widget::dialog_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -698,7 +728,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::control<
                     detail::widget::control_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -707,7 +743,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::custom_control<
                     detail::widget::custom_control_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -716,7 +758,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::button<
                     detail::widget::button_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -725,7 +773,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::dropdown_box<
                     detail::widget::dropdown_box_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -734,7 +788,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::image<
                     detail::widget::image_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -743,7 +803,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::label<
                     detail::widget::label_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -752,7 +818,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::link_label<
                     detail::widget::link_label_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -761,7 +833,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::list_box<
                     detail::widget::list_box_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -770,7 +848,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::map_box<
                     detail::widget::map_box_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -779,7 +863,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::picture_box<
                     detail::widget::picture_box_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -788,7 +878,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::side_bar<
                     detail::widget::side_bar_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -797,7 +893,13 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::widget::text_box<
                     detail::widget::text_box_traits_type,
                     detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
+                    detail::widget::drawing_details_type,
+                    detail::widget::icon_details_type,
+                    detail::widget::alert_details_type,
+                    detail::widget::cursor_details_type,
+                    detail::widget::scroll_details_type,
+                    detail::widget::message_handler_details_type,
+                    detail::widget::virtual_key_details_type
                 >
             >,
         tetengo2::meta::assoc_list_end

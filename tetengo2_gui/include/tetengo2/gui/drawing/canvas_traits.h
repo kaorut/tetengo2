@@ -15,7 +15,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The traits class template for a canvas.
 
-        \tparam Size      Asize type.
+        \tparam Size      A size type.
         \tparam UnitSize  A unit size type.
         \tparam String    A string type.
         \tparam Path      A path type.
