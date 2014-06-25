@@ -12,7 +12,10 @@
 #include <cassert>
 #include <utility>
 
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>
@@ -32,6 +35,8 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam SystemColorDetails    A detail implementation type of system colors.
+        \tparam ShellDetails          A detail implementation type of a shell.
     */
     template <
         typename Traits,
@@ -42,7 +47,9 @@ namespace tetengo2 { namespace gui { namespace widget
         typename CursorDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
-        typename VirtualKeyDetails
+        typename VirtualKeyDetails,
+        typename SystemColorDetails,
+        typename ShellDetails
     >
     class link_label :
         public label<
@@ -66,6 +73,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
 
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
+
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
@@ -86,6 +96,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
+
+        //! The shell details type.
+        using shell_details_type = ShellDetails;
 
         //! The base type.
         using base_type =
@@ -129,16 +145,13 @@ namespace tetengo2 { namespace gui { namespace widget
         using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
 
         //! The solid background type.
-        using solid_background_type = typename traits_type::solid_background_type;
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
         //! The system color set type.
-        using system_color_set_type = typename traits_type::system_color_set_type;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
 
         //! The shell type.
-        using shell_type = typename traits_type::shell_type;
+        using shell_type = gui::shell<string_type, encoder_type, shell_details_type>;
 
 
         // constructors and destructor

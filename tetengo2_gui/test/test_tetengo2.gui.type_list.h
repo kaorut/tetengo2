@@ -601,19 +601,8 @@ namespace test_tetengo2 { namespace gui
         using dropdown_box_traits_type = tetengo2::gui::widget::traits::dropdown_box_traits<control_traits_type>;
         using image_traits_type = tetengo2::gui::widget::traits::image_traits<control_traits_type>;
         using label_traits_type = tetengo2::gui::widget::traits::label_traits<control_traits_type>;
-        using shell_type =
-            tetengo2::gui::shell<
-                boost::mpl::at<type_list, type::string>::type,
-                boost::mpl::at<type_list, type::ui_encoder>::type,
-                tetengo2::detail::stub::shell
-            >;
-        using link_label_traits_type =
-            tetengo2::gui::widget::traits::link_label_traits<
-                label_traits_type,
-                boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
-                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type,
-                shell_type
-            >;
+        using shell_details_type = tetengo2::detail::stub::shell;
+        using link_label_traits_type = tetengo2::gui::widget::traits::link_label_traits<label_traits_type>;
         using list_box_traits_type =
             tetengo2::gui::widget::traits::list_box_traits<
                 control_traits_type,
@@ -788,7 +777,9 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::cursor_details_type,
                     detail::widget::scroll_details_type,
                     detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::virtual_key_details_type,
+                    detail::widget::system_color_details_type,
+                    detail::widget::shell_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
