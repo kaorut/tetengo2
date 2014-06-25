@@ -13,6 +13,8 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/gui/message/dialog_message_loop.h>
+#include <tetengo2/gui/message/message_loop_break.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
@@ -24,10 +26,42 @@ namespace tetengo2 { namespace gui { namespace widget
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam IconDetails           A detail implementation type of an icon.
+        \tparam AlertDetails          A detail implementation type of an alert.
+        \tparam CursorDetails         A detail implementation type of a cursor.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
-   */
-    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
-    class dialog : public abstract_window<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
+        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MenuDetails           A detail implementation type of a menu.
+        \tparam MessageLoopDetails    A detail implementation type of a message loop.
+    */
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename IconDetails,
+        typename AlertDetails,
+        typename CursorDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename VirtualKeyDetails,
+        typename MenuDetails,
+        typename MessageLoopDetails
+    >
+    class dialog :
+        public abstract_window<
+            typename Traits::base_type,
+            WidgetDetails,
+            DrawingDetails,
+            IconDetails,
+            AlertDetails,
+            CursorDetails,
+            ScrollDetails,
+            MessageHandlerDetails,
+            VirtualKeyDetails,
+            MenuDetails
+        >
     {
     public:
         // types
@@ -38,12 +72,53 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
 
-        //! The detail implementation type of a message handler.
+        //! The drawing details type.
+        using drawing_details_type = DrawingDetails;
+
+        //! The icon details type.
+        using icon_details_type = IconDetails;
+
+        //! The alert details type.
+        using alert_details_type = AlertDetails;
+
+        //! The cursor details type.
+        using cursor_details_type = CursorDetails;
+
+        //! The scroll details type.
+        using scroll_details_type = ScrollDetails;
+
+        //! The message handler details type.
         using message_handler_details_type = MessageHandlerDetails;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The menu details type.
+        using menu_details_type = MenuDetails;
+
+        //! The message loop details type.
+        using message_loop_details_type = MessageLoopDetails;
 
         //! The base type.
         using base_type =
-            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
+            abstract_window<
+                typename traits_type::base_type,
+                widget_details_type,
+                drawing_details_type,
+                icon_details_type,
+                alert_details_type,
+                cursor_details_type,
+                scroll_details_type,
+                message_handler_details_type,
+                virtual_key_details_type,
+                menu_details_type
+            >;
+
+        //! The message loop type.
+        using message_loop_type = gui::message::dialog_message_loop<base_type, message_loop_details_type>;
+
+        //! The message loop break type.
+        using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
 
         //! The position type.
         using position_type = typename base_type::position_type;
@@ -53,12 +128,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The string type.
         using string_type = typename base_type::string_type;
-
-        //! The message loop type.
-        using message_loop_type = typename traits_type::message_loop_type;
-
-        //! The message loop break type.
-        using message_loop_break_type = typename traits_type::message_loop_break_type;
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;

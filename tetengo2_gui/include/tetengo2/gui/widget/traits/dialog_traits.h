@@ -16,22 +16,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a dialog.
 
         \tparam AbstractWindowTraits A traits type for an abstract window.
-        \tparam MessageLoop          A message loop type.
-        \tparam MessageLoopBreak     A message loop break type.
    */
-    template <typename AbstractWindowTraits, typename MessageLoop, typename MessageLoopBreak>
+    template <typename AbstractWindowTraits>
     struct dialog_traits
     {
         //types
 
         //! The base type.
         using base_type = AbstractWindowTraits;
-
-        //! The message loop type.
-        using message_loop_type = MessageLoop;
-
-        //! The message loop break type.
-        using message_loop_break_type = MessageLoopBreak;
 
 
     };

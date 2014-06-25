@@ -16,18 +16,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a custom control.
 
         \tparam ControlTraits A traits type for a control.
-        \tparam MouseCapture  A mouse capture type.
    */
-    template <typename ControlTraits, typename MouseCapture>
+    template <typename ControlTraits>
     struct custom_control_traits
     {
         //types
 
         //! The base type.
         using base_type = ControlTraits;
-
-        //! The mouse capture type.
-        using mouse_capture_type = MouseCapture;
 
 
     };

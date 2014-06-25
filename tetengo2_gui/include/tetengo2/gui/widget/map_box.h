@@ -23,6 +23,9 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/stdalt.h>
@@ -35,10 +38,42 @@ namespace tetengo2 { namespace gui { namespace widget
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam IconDetails           A detail implementation type of an icon.
+        \tparam AlertDetails          A detail implementation type of an alert.
+        \tparam CursorDetails         A detail implementation type of a cursor.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
-   */
-    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
-    class map_box : public custom_control<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
+        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \tparam SystemColorDetails    A detail implementation type of system colors.
+    */
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename IconDetails,
+        typename AlertDetails,
+        typename CursorDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename VirtualKeyDetails,
+        typename MouseCaptureDetails,
+        typename SystemColorDetails
+    >
+    class map_box :
+        public custom_control<
+            typename Traits::base_type,
+            WidgetDetails,
+            DrawingDetails,
+            IconDetails,
+            AlertDetails,
+            CursorDetails,
+            ScrollDetails,
+            MessageHandlerDetails,
+            VirtualKeyDetails,
+            MouseCaptureDetails
+        >
     {
     public:
         // types
@@ -46,36 +81,62 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The integer size type.
-        using int_size_type = typename traits_type::int_size_type;
+        //! The detail implementation type of a widget.
+        using widget_details_type = WidgetDetails;
 
-        //! The solid background type.
-        using solid_background_type = typename traits_type::solid_background_type;
+        //! The drawing details type.
+        using drawing_details_type = DrawingDetails;
 
-        //! The system color set type.
-        using system_color_set_type = typename traits_type::system_color_set_type;
+        //! The icon details type.
+        using icon_details_type = IconDetails;
+
+        //! The alert details type.
+        using alert_details_type = AlertDetails;
+
+        //! The cursor details type.
+        using cursor_details_type = CursorDetails;
+
+        //! The scroll details type.
+        using scroll_details_type = ScrollDetails;
+
+        //! The message handler details type.
+        using message_handler_details_type = MessageHandlerDetails;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
+        //! The mouse capture details type.
+        using mouse_capture_details_type = MouseCaptureDetails;
+
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
+
+        //! The base type.
+        using base_type =
+            custom_control<
+                typename traits_type::base_type,
+                widget_details_type,
+                drawing_details_type,
+                icon_details_type,
+                alert_details_type,
+                cursor_details_type,
+                scroll_details_type,
+                message_handler_details_type,
+                virtual_key_details_type,
+                mouse_capture_details_type
+            >;
+
+        //! The widget type.
+        using widget_type = typename base_type::base_type::base_type;
 
         //! The system cursor type.
-        using system_cursor_type = typename traits_type::system_cursor_type;
+        using system_cursor_type = typename widget_type::system_cursor_type;
 
         //! The cursor type.
         using cursor_type = typename system_cursor_type::base_type;
 
-        //! The list selection observer set type.
-        using list_selection_observer_set_type = typename traits_type::list_selection_observer_set_type;
-
-        //! The detail implementation type of a widget.
-        using widget_details_type = WidgetDetails;
-
-        //! The detail implementation type of a message handler.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type =
-            custom_control<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
+        //! The integer size type.
+        using size_type = typename base_type::size_type;
 
         //! The string type.
         using string_type = typename base_type::string_type;
@@ -85,6 +146,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The left type.
         using left_type = typename gui::position<position_type>::left_type;
+
+        //! The solid background type.
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        //! The system color set type.
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+
+        //! The list selection observer set type.
+        using list_selection_observer_set_type = gui::message::list_selection_observer_set;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
@@ -130,7 +200,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The value count.
         */
-        int_size_type value_count()
+        size_type value_count()
         const
         {
             return m_p_value_items.size();
@@ -145,7 +215,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        const value_type& value(const int_size_type index)
+        const value_type& value(const size_type index)
         const
         {
             if (index >= value_count())
@@ -162,7 +232,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_value(const int_size_type index, value_type value)
+        void set_value(const size_type index, value_type value)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -181,7 +251,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_value(const int_size_type index, value_type value)
+        void insert_value(const size_type index, value_type value)
         {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -206,7 +276,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void erase_value(const int_size_type index)
+        void erase_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -246,7 +316,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The selected value index. Or boost::none when no value is selected.
         */
-        boost::optional<int_size_type> selected_value_index()
+        boost::optional<size_type> selected_value_index()
         const
         {
             return m_selected_value_index;
@@ -259,7 +329,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_value(const int_size_type index)
+        void select_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -705,7 +775,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     );
             }
 
-            int_size_type index()
+            size_type index()
             const
             {
                 const auto my_position =
@@ -876,7 +946,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::vector<std::unique_ptr<value_item>> m_p_value_items;
 
-        boost::optional<int_size_type> m_selected_value_index;
+        boost::optional<size_type> m_selected_value_index;
 
         bool m_list_selection_observer_call_requested;
 
@@ -934,7 +1004,7 @@ namespace tetengo2 { namespace gui { namespace widget
             }
         }
 
-        int_size_type index_to_select(std::ptrdiff_t delta)
+        size_type index_to_select(std::ptrdiff_t delta)
         const
         {
             assert(value_count() > 0);
@@ -944,7 +1014,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             if (delta < 0)
             {
-                if (*m_selected_value_index > static_cast<int_size_type>(-delta))
+                if (*m_selected_value_index > static_cast<size_type>(-delta))
                     return *m_selected_value_index + delta;
                 else
                     return 0;

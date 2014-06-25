@@ -16,18 +16,14 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a control.
 
         \tparam WidgetTraits A traits type for a GUI widget.
-        \tparam Color        A color type.
    */
-    template <typename WidgetTraits, typename Color>
+    template <typename WidgetTraits>
     struct control_traits
     {
         //types
 
         //! The base type.
         using base_type = WidgetTraits;
-
-        //! The color type.
-        using color_type = Color;
 
 
     };

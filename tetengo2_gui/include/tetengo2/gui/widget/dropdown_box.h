@@ -17,6 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
 
@@ -28,10 +29,37 @@ namespace tetengo2 { namespace gui { namespace widget
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam IconDetails           A detail implementation type of an icon.
+        \tparam AlertDetails          A detail implementation type of an alert.
+        \tparam CursorDetails         A detail implementation type of a cursor.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
-   */
-    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
-    class dropdown_box : public control<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
+        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
+    */
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename IconDetails,
+        typename AlertDetails,
+        typename CursorDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename VirtualKeyDetails
+    >
+    class dropdown_box :
+        public control<
+            typename Traits::base_type,
+            WidgetDetails,
+            DrawingDetails,
+            IconDetails,
+            AlertDetails,
+            CursorDetails,
+            ScrollDetails,
+            MessageHandlerDetails,
+            VirtualKeyDetails
+        >
     {
     public:
         // types
@@ -39,29 +67,58 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The integer size type.
-        using int_size_type = typename traits_type::int_size_type;
-
-        //! The list selection observer set type.
-        using list_selection_observer_set_type = typename traits_type::list_selection_observer_set_type;
-
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
 
-        //! The detail implementation type of a message handler.
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
+
+        //! The drawing details type.
+        using drawing_details_type = DrawingDetails;
+
+        //! The icon details type.
+        using icon_details_type = IconDetails;
+
+        //! The alert details type.
+        using alert_details_type = AlertDetails;
+
+        //! The cursor details type.
+        using cursor_details_type = CursorDetails;
+
+        //! The scroll details type.
+        using scroll_details_type = ScrollDetails;
+
+        //! The message handler details type.
         using message_handler_details_type = MessageHandlerDetails;
 
+        //! The virtual key details type.
+        using virtual_key_details_type = VirtualKeyDetails;
+
         //! The base type.
-        using base_type = control<typename traits_type::base_type, widget_details_type, message_handler_details_type>;
+        using base_type =
+            control<
+                typename traits_type::base_type,
+                widget_details_type,
+                drawing_details_type,
+                icon_details_type,
+                alert_details_type,
+                cursor_details_type,
+                scroll_details_type,
+                message_handler_details_type,
+                virtual_key_details_type
+            >;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;
 
+        //! The size type.
+        using size_type = typename base_type::size_type;
+
         //! The string type.
         using string_type = typename base_type::string_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The list selection observer set type.
+        using list_selection_observer_set_type = gui::message::list_selection_observer_set;
 
 
         // constructors and destructor
@@ -104,10 +161,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The value count.
         */
-        int_size_type value_count()
+        size_type value_count()
         const
         {
-            return widget_details_type::template dropdown_box_value_count<int_size_type>(*this);
+            return widget_details_type::template dropdown_box_value_count<size_type>(*this);
         }
 
         /*!
@@ -119,7 +176,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type value(const int_size_type index)
+        string_type value(const size_type index)
         const
         {
             if (index >= value_count())
@@ -136,7 +193,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_value(const int_size_type index, string_type value)
+        void set_value(const size_type index, string_type value)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -152,7 +209,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_value(const int_size_type index, string_type value)
+        void insert_value(const size_type index, string_type value)
         {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -167,7 +224,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void erase_value(const int_size_type index)
+        void erase_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -188,10 +245,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The selected value index. Or boost::none when no value is selected.
         */
-        boost::optional<int_size_type> selected_value_index()
+        boost::optional<size_type> selected_value_index()
         const
         {
-            return widget_details_type::template selected_dropdown_box_value_index<int_size_type>(*this);
+            return widget_details_type::template selected_dropdown_box_value_index<size_type>(*this);
         }
 
         /*!
@@ -201,7 +258,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_value(const int_size_type index)
+        void select_value(const size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
