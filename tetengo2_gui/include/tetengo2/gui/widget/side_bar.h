@@ -108,12 +108,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
-
-        //! The timer details type.
-        using timer_details_type = TimerDetails;
-
         //! The base type.
         using base_type =
             custom_control<
