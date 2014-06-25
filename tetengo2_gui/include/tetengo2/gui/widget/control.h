@@ -15,6 +15,7 @@
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
@@ -130,7 +131,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The color type.
-        using color_type = typename traits_type::color_type;
+        using color_type = gui::drawing::color;
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;

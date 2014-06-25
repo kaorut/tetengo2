@@ -596,10 +596,7 @@ namespace test_tetengo2 { namespace gui
             tetengo2::gui::message::dialog_message_loop<abstract_window_type, message_loop_details_type>;
         using message_loop_break_type = tetengo2::gui::message::message_loop_break<message_loop_details_type>;
         using dialog_traits_type = tetengo2::gui::widget::traits::dialog_traits<abstract_window_traits_type>;
-        using control_traits_type =
-            tetengo2::gui::widget::traits::control_traits<
-                widget_traits_type, boost::mpl::at<drawing_type_list, type::drawing::color>::type
-            >;
+        using control_traits_type = tetengo2::gui::widget::traits::control_traits<widget_traits_type>;
         using button_traits_type = tetengo2::gui::widget::traits::button_traits<control_traits_type>;
         using dropdown_box_traits_type =
             tetengo2::gui::widget::traits::dropdown_box_traits<
