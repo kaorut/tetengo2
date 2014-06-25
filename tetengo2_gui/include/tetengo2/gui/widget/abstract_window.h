@@ -123,6 +123,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = typename base_type::string_type;
 
+        //! The path type.
+        using path_type = typename base_type::path_type;
+
+        //! The encoder type.
+        using encoder_type = typename base_type::encoder_type;
+
         //! The icon type.
         using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
 

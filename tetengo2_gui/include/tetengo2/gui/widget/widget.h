@@ -135,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using background_type = gui::drawing::background<drawing_details_type>;
 
         //! The font type.
-        using font_type = gui::drawing::font<string_type, size_type, drawing_details_type>;;
+        using font_type = gui::drawing::font<string_type, size_type, drawing_details_type>;
 
         //! The cursor details type.
         using cursor_details_type = CursorDetails;
