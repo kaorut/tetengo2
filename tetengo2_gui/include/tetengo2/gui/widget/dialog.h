@@ -13,6 +13,8 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/gui/message/dialog_message_loop.h>
+#include <tetengo2/gui/message/message_loop_break.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
@@ -32,6 +34,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
         \tparam MenuDetails           A detail implementation type of a menu.
+        \tparam MessageLoopDetails    A detail implementation type of a message loop.
     */
     template <
         typename Traits,
@@ -43,7 +46,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename VirtualKeyDetails,
-        typename MenuDetails
+        typename MenuDetails,
+        typename MessageLoopDetails
     >
     class dialog :
         public abstract_window<
@@ -92,6 +96,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
+        //! The message loop details type.
+        using message_loop_details_type = MessageLoopDetails;
+
         //! The base type.
         using base_type =
             abstract_window<
@@ -107,6 +114,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 menu_details_type
             >;
 
+        //! The message loop type.
+        using message_loop_type = gui::message::dialog_message_loop<base_type, message_loop_details_type>;
+
+        //! The message loop break type.
+        using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
+
         //! The position type.
         using position_type = typename base_type::position_type;
 
@@ -115,12 +128,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The string type.
         using string_type = typename base_type::string_type;
-
-        //! The message loop type.
-        using message_loop_type = typename traits_type::message_loop_type;
-
-        //! The message loop break type.
-        using message_loop_break_type = typename traits_type::message_loop_break_type;
 
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;
