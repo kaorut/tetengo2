@@ -15,19 +15,15 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a text box.
 
-        \tparam ControlTraits      A traits type for a control.
-        \tparam TextBoxObserverSet A text box observer set type.
+        \tparam ControlTraits A traits type for a control.
    */
-    template <typename ControlTraits, typename TextBoxObserverSet>
+    template <typename ControlTraits>
     struct text_box_traits
     {
         //types
 
         //! The base type.
         using base_type = ControlTraits;
-
-        //! The text box observer set type.
-        using text_box_observer_set_type = TextBoxObserverSet;
 
 
     };

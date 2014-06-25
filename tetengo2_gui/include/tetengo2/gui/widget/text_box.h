@@ -12,6 +12,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
 
@@ -61,11 +62,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The text box observer set type.
-        using text_box_observer_set_type = typename traits_type::text_box_observer_set_type;
-
         //! The detail implementation type of a widget.
         using widget_details_type = WidgetDetails;
+
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
@@ -105,11 +106,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         using widget_type = typename base_type::base_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
+
+        //! The text box observer set type.
+        using text_box_observer_set_type = gui::message::text_box_observer_set;
 
 
         // constructors and destructor

@@ -610,14 +610,9 @@ namespace test_tetengo2 { namespace gui
         using map_box_traits_type = tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type>;
         using system_color_details_type = tetengo2::detail::stub::system_color;
         using picture_box_traits_type = tetengo2::gui::widget::traits::picture_box_traits<control_traits_type>;
-        using side_bar_traits_type =
-            tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>;
+        using side_bar_traits_type = tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>;
         using timer_details_type = tetengo2::detail::stub::timer;
-        using text_box_traits_type =
-            tetengo2::gui::widget::traits::text_box_traits<
-                control_traits_type,
-                boost::mpl::at<observer_set_type_list, type::observer_set::text_box_observer_set>::type
-            >;
+        using text_box_traits_type = tetengo2::gui::widget::traits::text_box_traits<control_traits_type>;
     }}
 #endif
 
