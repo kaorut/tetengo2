@@ -71,23 +71,8 @@ pkg_headers = \
     gui/widget/picture_box.h \
     gui/widget/side_bar.h \
     gui/widget/text_box.h \
-    gui/widget/traits/abstract_window_traits.h \
-    gui/widget/traits/button_traits.h \
-    gui/widget/traits/control_traits.h \
-    gui/widget/traits/custom_control_traits.h \
-    gui/widget/traits/dialog_traits.h \
-    gui/widget/traits/dropdown_box_traits.h \
-    gui/widget/traits/image_traits.h \
-    gui/widget/traits/label_traits.h \
-    gui/widget/traits/link_label_traits.h \
-    gui/widget/traits/list_box_traits.h \
-    gui/widget/traits/map_box_traits.h \
-    gui/widget/traits/picture_box_traits.h \
-    gui/widget/traits/side_bar_traits.h \
-    gui/widget/traits/text_box_traits.h \
-    gui/widget/traits/widget_traits.h \
-    gui/widget/traits/window_traits.h \
     gui/widget/widget.h \
+    gui/widget/widget_traits.h \
     gui/widget/window.h
 
 extra_headers = \

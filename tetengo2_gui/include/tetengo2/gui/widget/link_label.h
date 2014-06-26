@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace widget
     >
     class link_label :
         public label<
-            typename Traits::base_type,
+            Traits,
             WidgetDetails,
             DrawingDetails,
             IconDetails,
@@ -106,7 +106,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type =
             label<
-                typename traits_type::base_type,
+                traits_type,
                 widget_details_type,
                 drawing_details_type,
                 icon_details_type,

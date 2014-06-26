@@ -63,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace widget
     >
     class map_box :
         public custom_control<
-            typename Traits::base_type,
+            Traits,
             WidgetDetails,
             DrawingDetails,
             IconDetails,
@@ -114,7 +114,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type =
             custom_control<
-                typename traits_type::base_type,
+                traits_type,
                 widget_details_type,
                 drawing_details_type,
                 icon_details_type,

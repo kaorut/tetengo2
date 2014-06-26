@@ -1,18 +1,18 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget::traits::widget_traits.
+    \brief The definition of tetengo2::gui::widget::widget_traits.
 
     Copyright (C) 2007-2014 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIDGET_TRAITS_WIDGETTRAITS_H)
-#define TETENGO2_GUI_WIDGET_TRAITS_WIDGETTRAITS_H
+#if !defined(TETENGO2_GUI_WIDGET_WIDGETTRAITS_H)
+#define TETENGO2_GUI_WIDGET_WIDGETTRAITS_H
 
 #include <tetengo2/gui/measure.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget { namespace traits
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The traits class template for a GUI widget.
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     };
 
 
-}}}}
+}}}
 
 
 #endif
