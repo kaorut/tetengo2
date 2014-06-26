@@ -32,41 +32,12 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for a custom control.
 
-        \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam IconDetails           A detail implementation type of an icon.
-        \tparam AlertDetails          A detail implementation type of an alert.
-        \tparam CursorDetails         A detail implementation type of a cursor.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \tparam Traits              A traits type.
+        \tparam DetailsTraits       A detail implementation type traits.
+        \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
     */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename IconDetails,
-        typename AlertDetails,
-        typename CursorDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails,
-        typename MouseCaptureDetails
-    >
-    class custom_control :
-        public control<
-            Traits,
-            WidgetDetails,
-            DrawingDetails,
-            IconDetails,
-            AlertDetails,
-            CursorDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            VirtualKeyDetails
-        >
+    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails>
+    class custom_control : public control<Traits, DetailsTraits>
     {
     public:
         // types
@@ -74,46 +45,38 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
+        //! The details traits type.
+        using details_traits_type = DetailsTraits;
+
         //! The detail implementation type of a widget.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = typename details_traits_type::widget_details_type;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = typename details_traits_type::drawing_details_type;
 
         //! The icon details type.
-        using icon_details_type = IconDetails;
+        using icon_details_type = typename details_traits_type::icon_details_type;
 
         //! The alert details type.
-        using alert_details_type = AlertDetails;
+        using alert_details_type = typename details_traits_type::alert_details_type;
 
         //! The cursor details type.
-        using cursor_details_type = CursorDetails;
+        using cursor_details_type = typename details_traits_type::cursor_details_type;
 
         //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
+        using scroll_details_type = typename details_traits_type::scroll_details_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
+        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type =
-            control<
-                traits_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type
-            >;
+        using base_type = control<traits_type, details_traits_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

@@ -270,5 +270,8 @@
     <ClInclude Include="include\tetengo2\gui\widget\widget_traits.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\widget\widget_details_traits.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
