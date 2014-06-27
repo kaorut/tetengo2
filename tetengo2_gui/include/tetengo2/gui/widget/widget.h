@@ -92,6 +92,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type.
         using details_type = typename widget_details_type::widget_details_type;
 
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
+
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
