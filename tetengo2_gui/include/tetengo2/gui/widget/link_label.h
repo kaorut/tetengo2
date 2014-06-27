@@ -43,32 +43,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
-        //! The detail implementation type of a widget.
-        using widget_details_type = typename details_traits_type::widget_details_type;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -94,11 +70,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The font type.
         using font_type = typename base_type::font_type;
 
+        //! The encoder type.
+        using encoder_type = typename base_type::encoder_type;
+
         //! The system cursor type.
         using system_cursor_type = typename base_type::system_cursor_type;
-
-        //! The cursor type.
-        using cursor_type = typename base_type::cursor_type;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
@@ -111,9 +87,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The system color set type.
         using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
-
-        //! The encoder type.
-        using encoder_type = typename base_type::encoder_type;
 
         //! The shell type.
         using shell_type = gui::shell<string_type, encoder_type, shell_details_type>;
