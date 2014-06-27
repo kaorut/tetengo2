@@ -58,35 +58,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
-        //! The detail implementation type of a widget.
-        using widget_details_type = typename details_traits_type::widget_details_type;
-
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
-
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The base type.
-        using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -94,23 +70,17 @@ namespace tetengo2 { namespace gui { namespace widget
         //! THe timer details type.
         using timer_details_type = TimerDetails;
 
+        //! The base type.
+        using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
+
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
 
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
-
-        //! The timer type.
-        using timer_type = gui::timer<widget_type, timer_details_type>;
+        //! The cursor type.
+        using cursor_type = typename base_type::cursor_type;
 
         //! The system cursor type.
-        using system_cursor_type = typename widget_type::system_cursor_type;
-
-        //! The cursor type.
-        using cursor_type = typename system_cursor_type::base_type;
+        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
@@ -124,8 +94,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The width type.
         using width_type = typename gui::dimension<dimension_type>::width_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The solid background type.
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        //! The system color set type.
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+
+        //! The timer type.
+        using timer_type = gui::timer<widget_type, timer_details_type>;
 
 
         // constructors and destructor
