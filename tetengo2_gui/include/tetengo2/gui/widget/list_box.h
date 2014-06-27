@@ -45,29 +45,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The base type.
         using base_type = control<traits_type, details_traits_type>;
@@ -81,11 +60,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = typename base_type::string_type;
 
-        //! The list selection observer set type.
-        using list_selection_observer_set_type = gui::message::list_selection_observer_set;
-
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
+
+        //! The list selection observer set type.
+        using list_selection_observer_set_type = gui::message::list_selection_observer_set;
 
 
         // constructors and destructor
