@@ -51,26 +51,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
@@ -81,9 +63,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         using widget_type = typename base_type::base_type;
 
-        //! The widget canvas type.
-        using widget_canvas_type = typename base_type::widget_canvas_type;
-
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
 
@@ -92,12 +71,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The scroll bar type.
-        using scroll_bar_type = typename base_type::scroll_bar_type;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
@@ -110,9 +83,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The mouse capture type.
         using mouse_capture_type = gui::mouse_capture<widget_type, mouse_button_type, mouse_capture_details_type>;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
 
         //! The inner item type.
         using inner_item_type = inner_item<custom_control>;
