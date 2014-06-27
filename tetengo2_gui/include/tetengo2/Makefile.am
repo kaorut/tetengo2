@@ -83,8 +83,7 @@ extra_headers = \
     gui/menu/0namespace.h \
     gui/message/0namespace.h \
     gui/unit/0namespace.h \
-    gui/widget/0namespace.h \
-    gui/widget/traits/0namespace.h
+    gui/widget/0namespace.h
 
 nobase_pkginclude_HEADERS = $(pkg_headers)
 EXTRA_DIST = $(extra_headers)
