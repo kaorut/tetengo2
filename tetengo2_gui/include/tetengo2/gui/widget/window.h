@@ -41,26 +41,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation type of a widget.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
 
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
@@ -68,23 +56,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type = abstract_window<traits_type, details_traits_type, menu_details_type>;
 
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The icon type.
-        using icon_type = typename base_type::icon_type;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
-        //! The window state type.
-        using window_state_type = typename base_type::window_state_type;
 
 
         // constructors and destructor
