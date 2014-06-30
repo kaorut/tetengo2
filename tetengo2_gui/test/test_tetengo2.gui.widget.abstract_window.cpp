@@ -36,6 +36,8 @@ namespace
     class concrete_window : public abstract_window_type
     {
     public:
+        using details_ptr_type = abstract_window_type::details_ptr_type;
+
         concrete_window(const bool file_droppable = false)
         :
         abstract_window_type(

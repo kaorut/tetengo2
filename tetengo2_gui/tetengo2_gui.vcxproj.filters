@@ -28,9 +28,6 @@
     <Filter Include="headers\tetengo2::gui\cursor">
       <UniqueIdentifier>{ba750395-8784-4e73-ac24-1f82418fbc0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2::gui\widget\traits">
-      <UniqueIdentifier>{8ec3aa1c-a5da-4244-9d69-a90c4f8397ce}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.h">
@@ -51,9 +48,6 @@
     <ClInclude Include="include\tetengo2\gui\message\0namespace.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\0namespace.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\unit\0namespace.h">
       <Filter>headers\tetengo2::gui\unit</Filter>
     </ClInclude>
@@ -66,9 +60,6 @@
     <ClInclude Include="include\tetengo2\gui\widget\abstract_window.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\abstract_window_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\alert.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -77,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\button.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\button_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
@@ -99,17 +87,11 @@
     <ClInclude Include="include\tetengo2\gui\widget\control.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\control_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\cursor\cursor_base.h">
       <Filter>headers\tetengo2::gui\cursor</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\custom_control.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\custom_control_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\dialog.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
@@ -117,14 +99,8 @@
     <ClInclude Include="include\tetengo2\gui\message\dialog_message_loop.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\dialog_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\dropdown_box.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\dropdown_box_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\unit\em.h">
       <Filter>headers\tetengo2::gui\unit</Filter>
@@ -156,38 +132,23 @@
     <ClInclude Include="include\tetengo2\gui\widget\image.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\image_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\keyboard_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\label.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\label_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\link_label.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\link_label_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\list_box.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\list_box_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\list_selection_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\map_box.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\map_box_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\menu\menu_bar.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
@@ -218,9 +179,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\drawing\picture.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\picture_box_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\picture_box.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
@@ -261,9 +219,6 @@
     <ClInclude Include="include\tetengo2\gui\widget\side_bar.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\side_bar_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\size_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
@@ -281,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\text_box_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\text_box_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\timer.h">
       <Filter>headers\tetengo2::gui</Filter>
@@ -303,14 +255,8 @@
     <ClInclude Include="include\tetengo2\gui\drawing\widget_canvas.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\widget_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\window.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\traits\window_traits.h">
-      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\window_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
@@ -320,6 +266,12 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\menu_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\widget\widget_traits.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\widget\widget_details_traits.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

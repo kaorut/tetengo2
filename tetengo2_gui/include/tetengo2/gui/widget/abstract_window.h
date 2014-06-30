@@ -31,41 +31,12 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for an abstract window.
 
-        \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam IconDetails           A detail implementation type of an icon.
-        \tparam AlertDetails          A detail implementation type of an alert.
-        \tparam CursorDetails         A detail implementation type of a cursor.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
-        \tparam MenuDetails           A detail implementation type of a menu.
+        \tparam Traits        A traits type.
+        \tparam DetailsTraits A detail implementation type traits.
+        \tparam MenuDetails   A detail implementation type of a menu.
     */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename IconDetails,
-        typename AlertDetails,
-        typename CursorDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails,
-        typename MenuDetails
-    >
-    class abstract_window :
-        public widget<
-            typename Traits::base_type,
-            WidgetDetails,
-            DrawingDetails,
-            IconDetails,
-            AlertDetails,
-            CursorDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            VirtualKeyDetails
-        >
+    template <typename Traits, typename DetailsTraits, typename MenuDetails>
+    class abstract_window : public widget<Traits, DetailsTraits>
     {
     public:
         // types
@@ -73,49 +44,26 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        //! The details traits type.
+        using details_traits_type = DetailsTraits;
 
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        //! The detail implementation type of a widget.
+        using widget_details_type = typename details_traits_type::widget_details_type;
 
         //! The icon details type.
-        using icon_details_type = IconDetails;
-
-        //! The alert details type.
-        using alert_details_type = AlertDetails;
-
-        //! The cursor details type.
-        using cursor_details_type = CursorDetails;
-
-        //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
+        using icon_details_type = typename details_traits_type::icon_details_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
-        //! The base type.
-        using base_type =
-            widget<
-                typename traits_type::base_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type
-            >;
+        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The position type.
-        using position_type = typename base_type::position_type;
+        //! The base type.
+        using base_type = widget<traits_type, details_traits_type>;
 
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
@@ -128,6 +76,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The encoder type.
         using encoder_type = typename base_type::encoder_type;
+
+        //! The scroll bar style type.
+        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The icon type.
         using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
@@ -147,15 +98,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The file drop observer set type.
         using file_drop_observer_set_type = gui::message::file_drop_observer_set<path_type>;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The window state type.
         enum class window_state_type

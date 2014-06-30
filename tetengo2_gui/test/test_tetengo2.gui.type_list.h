@@ -541,7 +541,7 @@ namespace test_tetengo2 { namespace gui
     namespace detail { namespace widget
     {
         using widget_traits_type =
-            tetengo2::gui::widget::traits::widget_traits<
+            tetengo2::gui::widget::widget_traits<
                 boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<type_list, type::size>::type,
                 boost::mpl::at<type_list, type::difference>::type,
@@ -552,67 +552,33 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::ui_encoder>::type,
                 boost::mpl::at<type_list, type::exception_encoder>::type
             >;
-        using widget_details_type = tetengo2::detail::stub::widget;
-        using drawing_details_type = tetengo2::detail::stub::drawing;
-        using fast_drawing_details_type = tetengo2::detail::stub::drawing;
-        using icon_details_type = tetengo2::detail::stub::icon;
-        using alert_details_type = tetengo2::detail::stub::alert;
-        using cursor_details_type = tetengo2::detail::stub::cursor;
-        using scroll_details_type = tetengo2::detail::stub::scroll;
-        using message_handler_details_type = tetengo2::detail::stub::message_handler;
-        using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
-        using widget_type =
-            tetengo2::gui::widget::widget<
-                widget_traits_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type
+        using widget_details_traits_type =
+            tetengo2::gui::widget::widget_details_traits<
+                tetengo2::detail::stub::widget,
+                tetengo2::detail::stub::drawing,
+                tetengo2::detail::stub::icon,
+                tetengo2::detail::stub::alert,
+                tetengo2::detail::stub::cursor,
+                tetengo2::detail::stub::scroll,
+                tetengo2::detail::stub::message_handler,
+                tetengo2::detail::stub::virtual_key
             >;
-        using abstract_window_traits_type = tetengo2::gui::widget::traits::abstract_window_traits<widget_traits_type>;
-        using window_traits_type = tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type>;
+        using fast_drawing_details_type = tetengo2::detail::stub::drawing;
+        using widget_type = tetengo2::gui::widget::widget<widget_traits_type, widget_details_traits_type>;
         using details_font_type = tetengo2::detail::stub::widget::details_font_type;
         using menu_details_type = tetengo2::detail::stub::menu;
         using abstract_window_type =
-            tetengo2::gui::widget::abstract_window<
-                abstract_window_traits_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type,
-                menu_details_type
-            >;
+            tetengo2::gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
         using message_loop_details_type = tetengo2::detail::stub::message_loop;
         using message_loop_type =
             tetengo2::gui::message::message_loop<abstract_window_type, message_loop_details_type>;
         using dialog_message_loop_type =
             tetengo2::gui::message::dialog_message_loop<abstract_window_type, message_loop_details_type>;
         using message_loop_break_type = tetengo2::gui::message::message_loop_break<message_loop_details_type>;
-        using dialog_traits_type = tetengo2::gui::widget::traits::dialog_traits<abstract_window_traits_type>;
-        using control_traits_type = tetengo2::gui::widget::traits::control_traits<widget_traits_type>;
-        using button_traits_type = tetengo2::gui::widget::traits::button_traits<control_traits_type>;
-        using dropdown_box_traits_type = tetengo2::gui::widget::traits::dropdown_box_traits<control_traits_type>;
-        using image_traits_type = tetengo2::gui::widget::traits::image_traits<control_traits_type>;
-        using label_traits_type = tetengo2::gui::widget::traits::label_traits<control_traits_type>;
         using shell_details_type = tetengo2::detail::stub::shell;
-        using link_label_traits_type = tetengo2::gui::widget::traits::link_label_traits<label_traits_type>;
-        using list_box_traits_type = tetengo2::gui::widget::traits::list_box_traits<control_traits_type>;
-        using custom_control_traits_type = tetengo2::gui::widget::traits::custom_control_traits<control_traits_type>;
         using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
-        using map_box_traits_type = tetengo2::gui::widget::traits::map_box_traits<custom_control_traits_type>;
         using system_color_details_type = tetengo2::detail::stub::system_color;
-        using picture_box_traits_type = tetengo2::gui::widget::traits::picture_box_traits<control_traits_type>;
-        using side_bar_traits_type = tetengo2::gui::widget::traits::side_bar_traits<custom_control_traits_type>;
         using timer_details_type = tetengo2::detail::stub::timer;
-        using text_box_traits_type = tetengo2::gui::widget::traits::text_box_traits<control_traits_type>;
     }}
 #endif
 
@@ -631,15 +597,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::window,
                 tetengo2::gui::widget::window<
-                    detail::widget::window_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::menu_details_type
                 >
             >,
@@ -647,15 +606,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::dialog,
                 tetengo2::gui::widget::dialog<
-                    detail::widget::dialog_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::menu_details_type,
                     detail::widget::message_loop_details_type
                 >
@@ -664,30 +616,15 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::control,
                 tetengo2::gui::widget::control<
-                    detail::widget::control_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::custom_control,
                 tetengo2::gui::widget::custom_control<
-                    detail::widget::custom_control_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::mouse_capture_details_type
                 >
             >,
@@ -695,75 +632,36 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::button,
                 tetengo2::gui::widget::button<
-                    detail::widget::button_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::dropdown_box,
                 tetengo2::gui::widget::dropdown_box<
-                    detail::widget::dropdown_box_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::image,
                 tetengo2::gui::widget::image<
-                    detail::widget::image_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::label,
                 tetengo2::gui::widget::label<
-                    detail::widget::label_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::link_label,
                 tetengo2::gui::widget::link_label<
-                    detail::widget::link_label_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::system_color_details_type,
                     detail::widget::shell_details_type
                 >
@@ -772,30 +670,15 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::list_box,
                 tetengo2::gui::widget::list_box<
-                    detail::widget::list_box_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::map_box,
                 tetengo2::gui::widget::map_box<
-                    detail::widget::map_box_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::mouse_capture_details_type,
                     detail::widget::system_color_details_type
                 >
@@ -804,15 +687,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::picture_box,
                 tetengo2::gui::widget::picture_box<
-                    detail::widget::picture_box_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::fast_drawing_details_type
                 >
             >,
@@ -820,15 +696,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::side_bar,
                 tetengo2::gui::widget::side_bar<
-                    detail::widget::side_bar_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type,
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_traits_type,
                     detail::widget::mouse_capture_details_type,
                     detail::widget::system_color_details_type,
                     detail::widget::timer_details_type
@@ -838,15 +707,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::widget::text_box,
                 tetengo2::gui::widget::text_box<
-                    detail::widget::text_box_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::drawing_details_type,
-                    detail::widget::icon_details_type,
-                    detail::widget::alert_details_type,
-                    detail::widget::cursor_details_type,
-                    detail::widget::scroll_details_type,
-                    detail::widget::message_handler_details_type,
-                    detail::widget::virtual_key_details_type
+                    detail::widget::widget_traits_type, detail::widget::widget_details_traits_type
                 >
             >,
         tetengo2::meta::assoc_list_end

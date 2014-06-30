@@ -26,43 +26,13 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for a link label.
 
-        \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam IconDetails           A detail implementation type of an icon.
-        \tparam AlertDetails          A detail implementation type of an alert.
-        \tparam CursorDetails         A detail implementation type of a cursor.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
-        \tparam SystemColorDetails    A detail implementation type of system colors.
-        \tparam ShellDetails          A detail implementation type of a shell.
+        \tparam Traits             A traits type.
+        \tparam DetailsTraits      A detail implementation type traits.
+        \tparam SystemColorDetails A detail implementation type of system colors.
+        \tparam ShellDetails       A detail implementation type of a shell.
     */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename IconDetails,
-        typename AlertDetails,
-        typename CursorDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails,
-        typename SystemColorDetails,
-        typename ShellDetails
-    >
-    class link_label :
-        public label<
-            typename Traits::base_type,
-            WidgetDetails,
-            DrawingDetails,
-            IconDetails,
-            AlertDetails,
-            CursorDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            VirtualKeyDetails
-        >
+    template <typename Traits, typename DetailsTraits, typename SystemColorDetails, typename ShellDetails>
+    class link_label : public label<Traits, DetailsTraits>
     {
     public:
         // types
@@ -70,32 +40,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The detail implementation type of a widget.
-        using widget_details_type = WidgetDetails;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The details traits type.
+        using details_traits_type = DetailsTraits;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The icon details type.
-        using icon_details_type = IconDetails;
-
-        //! The alert details type.
-        using alert_details_type = AlertDetails;
-
-        //! The cursor details type.
-        using cursor_details_type = CursorDetails;
-
-        //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
+        using drawing_details_type = typename details_traits_type::drawing_details_type;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -104,18 +53,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using shell_details_type = ShellDetails;
 
         //! The base type.
-        using base_type =
-            label<
-                typename traits_type::base_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type
-            >;
+        using base_type = label<traits_type, details_traits_type>;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
@@ -132,11 +70,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The font type.
         using font_type = typename base_type::font_type;
 
+        //! The encoder type.
+        using encoder_type = typename base_type::encoder_type;
+
         //! The system cursor type.
         using system_cursor_type = typename base_type::system_cursor_type;
-
-        //! The cursor type.
-        using cursor_type = typename base_type::cursor_type;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
@@ -149,9 +87,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The system color set type.
         using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
-
-        //! The encoder type.
-        using encoder_type = typename base_type::encoder_type;
 
         //! The shell type.
         using shell_type = gui::shell<string_type, encoder_type, shell_details_type>;

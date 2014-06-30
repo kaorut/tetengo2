@@ -78,23 +78,9 @@
 #include <tetengo2/gui/widget/picture_box.h>
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/text_box.h>
-#include <tetengo2/gui/widget/traits/abstract_window_traits.h>
-#include <tetengo2/gui/widget/traits/button_traits.h>
-#include <tetengo2/gui/widget/traits/control_traits.h>
-#include <tetengo2/gui/widget/traits/custom_control_traits.h>
-#include <tetengo2/gui/widget/traits/dialog_traits.h>
-#include <tetengo2/gui/widget/traits/dropdown_box_traits.h>
-#include <tetengo2/gui/widget/traits/image_traits.h>
-#include <tetengo2/gui/widget/traits/label_traits.h>
-#include <tetengo2/gui/widget/traits/link_label_traits.h>
-#include <tetengo2/gui/widget/traits/list_box_traits.h>
-#include <tetengo2/gui/widget/traits/map_box_traits.h>
-#include <tetengo2/gui/widget/traits/picture_box_traits.h>
-#include <tetengo2/gui/widget/traits/side_bar_traits.h>
-#include <tetengo2/gui/widget/traits/text_box_traits.h>
-#include <tetengo2/gui/widget/traits/widget_traits.h>
-#include <tetengo2/gui/widget/traits/window_traits.h>
 #include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/gui/widget/widget_details_traits.h>
+#include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/gui/widget/window.h>
 
 

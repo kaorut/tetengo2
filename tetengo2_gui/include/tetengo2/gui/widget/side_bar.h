@@ -34,46 +34,20 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for a side bar.
 
-        \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam IconDetails           A detail implementation type of an icon.
-        \tparam AlertDetails          A detail implementation type of an alert.
-        \tparam CursorDetails         A detail implementation type of a cursor.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
-        \tparam SystemColorDetails    A detail implementation type of system colors.
-        \tparam TimerDetails          A detail implementation type of a timer.
+        \tparam Traits              A traits type.
+        \tparam DetailsTraits       A detail implementation type traits.
+        \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
+        \tparam SystemColorDetails  A detail implementation type of system colors.
+        \tparam TimerDetails        A detail implementation type of a timer.
     */
     template <
         typename Traits,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename IconDetails,
-        typename AlertDetails,
-        typename CursorDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails,
+        typename DetailsTraits,
         typename MouseCaptureDetails,
         typename SystemColorDetails,
         typename TimerDetails
     >
-    class side_bar :
-        public custom_control<
-            typename Traits::base_type,
-            WidgetDetails,
-            DrawingDetails,
-            IconDetails,
-            AlertDetails,
-            CursorDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            VirtualKeyDetails,
-            MouseCaptureDetails
-        >
+    class side_bar : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
         // types
@@ -81,47 +55,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
-        //! The detail implementation type of a widget.
-        using widget_details_type = WidgetDetails;
+        //! The details traits type.
+        using details_traits_type = DetailsTraits;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The icon details type.
-        using icon_details_type = IconDetails;
-
-        //! The alert details type.
-        using alert_details_type = AlertDetails;
-
-        //! The cursor details type.
-        using cursor_details_type = CursorDetails;
-
-        //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
+        using drawing_details_type = typename details_traits_type::drawing_details_type;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The base type.
-        using base_type =
-            custom_control<
-                typename traits_type::base_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type,
-                mouse_capture_details_type
-            >;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -129,23 +70,17 @@ namespace tetengo2 { namespace gui { namespace widget
         //! THe timer details type.
         using timer_details_type = TimerDetails;
 
+        //! The base type.
+        using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
+
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
 
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
-
-        //! The timer type.
-        using timer_type = gui::timer<widget_type, timer_details_type>;
+        //! The cursor type.
+        using cursor_type = typename base_type::cursor_type;
 
         //! The system cursor type.
-        using system_cursor_type = typename widget_type::system_cursor_type;
-
-        //! The cursor type.
-        using cursor_type = typename system_cursor_type::base_type;
+        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
@@ -159,8 +94,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The width type.
         using width_type = typename gui::dimension<dimension_type>::width_type;
 
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
+        //! The solid background type.
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        //! The system color set type.
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+
+        //! The timer type.
+        using timer_type = gui::timer<widget_type, timer_details_type>;
 
 
         // constructors and destructor

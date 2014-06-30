@@ -24,44 +24,13 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for a modal dialog.
 
-        \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam IconDetails           A detail implementation type of an icon.
-        \tparam AlertDetails          A detail implementation type of an alert.
-        \tparam CursorDetails         A detail implementation type of a cursor.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
-        \tparam MenuDetails           A detail implementation type of a menu.
-        \tparam MessageLoopDetails    A detail implementation type of a message loop.
+        \tparam Traits             A traits type.
+        \tparam DetailsTraits      A detail implementation type traits.
+        \tparam MenuDetails        A detail implementation type of a menu.
+        \tparam MessageLoopDetails A detail implementation type of a message loop.
     */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename IconDetails,
-        typename AlertDetails,
-        typename CursorDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails,
-        typename MenuDetails,
-        typename MessageLoopDetails
-    >
-    class dialog :
-        public abstract_window<
-            typename Traits::base_type,
-            WidgetDetails,
-            DrawingDetails,
-            IconDetails,
-            AlertDetails,
-            CursorDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            VirtualKeyDetails,
-            MenuDetails
-        >
+    template <typename Traits, typename DetailsTraits, typename MenuDetails, typename MessageLoopDetails>
+    class dialog : public abstract_window<Traits, DetailsTraits, MenuDetails>
     {
     public:
         // types
@@ -69,29 +38,20 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
+        //! The details traits type.
+        using details_traits_type = DetailsTraits;
+
         //! The detail implementation type of a widget.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        //! The detail implementation type.
+        using details_type = typename widget_details_type::widget_details_type;
 
-        //! The icon details type.
-        using icon_details_type = IconDetails;
-
-        //! The alert details type.
-        using alert_details_type = AlertDetails;
-
-        //! The cursor details type.
-        using cursor_details_type = CursorDetails;
-
-        //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
+        //! The detail implementation pointer type.
+        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
+        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
@@ -100,40 +60,16 @@ namespace tetengo2 { namespace gui { namespace widget
         using message_loop_details_type = MessageLoopDetails;
 
         //! The base type.
-        using base_type =
-            abstract_window<
-                typename traits_type::base_type,
-                widget_details_type,
-                drawing_details_type,
-                icon_details_type,
-                alert_details_type,
-                cursor_details_type,
-                scroll_details_type,
-                message_handler_details_type,
-                virtual_key_details_type,
-                menu_details_type
-            >;
+        using base_type = abstract_window<traits_type, details_traits_type, menu_details_type>;
+
+        //! The position type.
+        using position_type = typename base_type::position_type;
 
         //! The message loop type.
         using message_loop_type = gui::message::dialog_message_loop<base_type, message_loop_details_type>;
 
         //! The message loop break type.
         using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The detail implementation type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The result type.
         enum class result_type
