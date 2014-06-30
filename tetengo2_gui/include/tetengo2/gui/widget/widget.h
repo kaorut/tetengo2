@@ -101,21 +101,27 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
 
+        //! The alert details type.
+        using alert_details_type = typename details_traits_type::alert_details_type;
+
+        //! The cursor details type.
+        using cursor_details_type = typename details_traits_type::cursor_details_type;
+
+        //! The scroll details type.
+        using scroll_details_type = typename details_traits_type::scroll_details_type;
+
         //! The canvas traits type.
         using canvas_traits_type =
             gui::drawing::canvas_traits<
                 size_type, unit_size_type, string_type, path_type, position_type, dimension_type, encoder_type
             >;
 
-        //! The widget canvas type.
-        using widget_canvas_type =
-            gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
-
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
+        //! The widget canvas type.
+        using widget_canvas_type =
+            gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The alert type.
         using alert_type = gui::alert<encoder_type, exception_encoder_type, alert_details_type>;
@@ -126,20 +132,20 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The font type.
         using font_type = gui::drawing::font<string_type, size_type, drawing_details_type>;
 
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base<cursor_details_type>;
 
         //! The system cursor type.
         using system_cursor_type = gui::cursor::system<cursor_details_type>;
 
-        //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
-
         //! The scroll bar type.
         using scroll_bar_type = gui::scroll_bar<size_type, scroll_details_type>;
+
+        //! The message handler details type.
+        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+
+        //! The virtual key details type.
+        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
@@ -149,9 +155,6 @@ namespace tetengo2 { namespace gui { namespace widget
             horizontal, //!< The widget has a horizontal scroll bar.
             both,       //!< The widget has both vertiacal and horizontal scroll bars.
         };
-
-        //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The message handler map type.
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
@@ -167,9 +170,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The paint observer set type.
         using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
 
         //! The virtual key type.
         using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
