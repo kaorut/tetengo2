@@ -19,22 +19,6 @@
 
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
-#include <tetengo2/detail/stub/alert.h>
-#include <tetengo2/detail/stub/common_dialog.h>
-#include <tetengo2/detail/stub/cursor.h>
-#include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/icon.h>
-#include <tetengo2/detail/stub/menu.h>
-#include <tetengo2/detail/stub/message_handler.h>
-#include <tetengo2/detail/stub/message_loop.h>
-#include <tetengo2/detail/stub/mouse_capture.h>
-#include <tetengo2/detail/stub/scroll.h>
-#include <tetengo2/detail/stub/shell.h>
-#include <tetengo2/detail/stub/system_color.h>
-#include <tetengo2/detail/stub/timer.h>
-#include <tetengo2/detail/stub/unit.h>
-#include <tetengo2/detail/stub/virtual_key.h>
-#include <tetengo2/detail/stub/widget.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 
@@ -66,7 +50,9 @@ namespace test_tetengo2 { namespace gui
         using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
         using ui_encoding_type =
-            tetengo2::text::encoding::locale<tetengo2::detail::stub::widget::string_type, encoding_details_type>;
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type, encoding_details_type
+            >;
         using exception_encoding_type = tetengo2::text::encoding::locale<exception_string_type, encoding_details_type>;
     }
 #endif
@@ -123,7 +109,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::alert<
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     boost::mpl::at<type_list, type::exception_encoder>::type,
-                    tetengo2::detail::stub::alert
+                    boost::mpl::at<detail_type_list, type::detail::alert>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -132,14 +118,16 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::icon<
                     boost::mpl::at<type_list, type::path>::type,
                     boost::mpl::at<type_list, type::dimension>::type,
-                    tetengo2::detail::stub::icon
+                    boost::mpl::at<detail_type_list, type::detail::icon>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::gui_common::virtual_key,
                 tetengo2::gui::virtual_key<
-                    boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<detail_type_list,
+                    type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -157,7 +145,7 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace cursor
     {
-        using cursor_details_type = tetengo2::detail::stub::cursor;
+        using cursor_details_type = boost::mpl::at<detail_type_list, type::detail::cursor>::type;
     }}
 #endif
 
@@ -188,7 +176,7 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace unit
     {
-        using unit_details_type = tetengo2::detail::stub::unit;
+        using unit_details_type = boost::mpl::at<detail_type_list, type::detail::unit>::type;
     }}
 #endif
 
@@ -233,8 +221,8 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace drawing
     {
-        using system_color_details_type = tetengo2::detail::stub::system_color;
-        using drawing_details_type = tetengo2::detail::stub::drawing;
+        using system_color_details_type = boost::mpl::at<detail_type_list, type::detail::system_color>::type;
+        using drawing_details_type = boost::mpl::at<detail_type_list, type::detail::drawing>::type;
         using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
         using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
         using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
@@ -404,22 +392,24 @@ namespace test_tetengo2 { namespace gui
     {
         using shortcut_key_type =
             tetengo2::gui::menu::shortcut_key<
-                boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<detail_type_list,
+                type::detail::virtual_key>::type
             >;
-        using menu_details_type = tetengo2::detail::stub::menu;
+        using menu_details_type = boost::mpl::at<detail_type_list, type::detail::menu>::type;
         using menu_base_type =
             tetengo2::gui::menu::menu_base<
                 boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
                 menu_details_type,
-                tetengo2::detail::stub::virtual_key
+                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >;
         using shortcut_key_table_type =
             tetengo2::gui::menu::shortcut_key_table<
                 boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
                 menu_details_type,
-                tetengo2::detail::stub::virtual_key
+                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
             >;
     }}
 #endif
@@ -436,7 +426,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::menu::menu_details_type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -447,7 +437,7 @@ namespace test_tetengo2 { namespace gui
                     detail::menu::shortcut_key_table_type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::menu::menu_details_type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -457,7 +447,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::menu::menu_details_type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -467,7 +457,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::menu::menu_details_type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -477,7 +467,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::menu::menu_details_type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -504,7 +494,7 @@ namespace test_tetengo2 { namespace gui
                 type::scroll::scroll_bar,
                 tetengo2::gui::scroll_bar<
                     boost::mpl::at<type_list, type::size>::type,
-                    tetengo2::detail::stub::scroll
+                    boost::mpl::at<detail_type_list, type::detail::scroll>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -554,31 +544,31 @@ namespace test_tetengo2 { namespace gui
             >;
         using widget_details_traits_type =
             tetengo2::gui::widget::widget_details_traits<
-                tetengo2::detail::stub::widget,
-                tetengo2::detail::stub::drawing,
-                tetengo2::detail::stub::icon,
-                tetengo2::detail::stub::alert,
-                tetengo2::detail::stub::cursor,
-                tetengo2::detail::stub::scroll,
-                tetengo2::detail::stub::message_handler,
-                tetengo2::detail::stub::virtual_key
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type,
+                boost::mpl::at<detail_type_list, type::detail::icon>::type,
+                boost::mpl::at<detail_type_list, type::detail::alert>::type,
+                boost::mpl::at<detail_type_list, type::detail::cursor>::type,
+                boost::mpl::at<detail_type_list, type::detail::scroll>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type,
+                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
             >;
-        using fast_drawing_details_type = tetengo2::detail::stub::drawing;
+        using fast_drawing_details_type = boost::mpl::at<detail_type_list, type::detail::drawing>::type;
         using widget_type = tetengo2::gui::widget::widget<widget_traits_type, widget_details_traits_type>;
-        using details_font_type = tetengo2::detail::stub::widget::details_font_type;
-        using menu_details_type = tetengo2::detail::stub::menu;
+        using details_font_type = boost::mpl::at<detail_type_list, type::detail::widget>::type::details_font_type;
+        using menu_details_type = boost::mpl::at<detail_type_list, type::detail::menu>::type;
         using abstract_window_type =
             tetengo2::gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
-        using message_loop_details_type = tetengo2::detail::stub::message_loop;
+        using message_loop_details_type = boost::mpl::at<detail_type_list, type::detail::message_loop>::type;
         using message_loop_type =
             tetengo2::gui::message::message_loop<abstract_window_type, message_loop_details_type>;
         using dialog_message_loop_type =
             tetengo2::gui::message::dialog_message_loop<abstract_window_type, message_loop_details_type>;
         using message_loop_break_type = tetengo2::gui::message::message_loop_break<message_loop_details_type>;
-        using shell_details_type = tetengo2::detail::stub::shell;
-        using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
-        using system_color_details_type = tetengo2::detail::stub::system_color;
-        using timer_details_type = tetengo2::detail::stub::timer;
+        using shell_details_type = boost::mpl::at<detail_type_list, type::detail::shell>::type;
+        using mouse_capture_details_type = boost::mpl::at<detail_type_list, type::detail::mouse_capture>::type;
+        using system_color_details_type = boost::mpl::at<detail_type_list, type::detail::system_color>::type;
+        using timer_details_type = boost::mpl::at<detail_type_list, type::detail::timer>::type;
     }}
 #endif
 
@@ -729,7 +719,7 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace common_dialog
     {
-        using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
+        using common_dialog_details_type = boost::mpl::at<detail_type_list, type::detail::common_dialog>::type;
     }}
 #endif
 
