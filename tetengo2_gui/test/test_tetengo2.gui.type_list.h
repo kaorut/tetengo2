@@ -92,106 +92,6 @@ namespace test_tetengo2 { namespace gui
         >>>>>>>>>;
 
 
-    /**** Drawing ***********************************************************/
-
-    namespace type { namespace drawing
-    {
-        struct color;          //!< The color type.
-        struct system_color_set; //!< The system color set type.
-        struct background;     //!< The background type.
-        struct solid_background; //!< The solid background type.
-        struct transparent_background; //!< The transparent background type.
-        struct font;           //!< The font type.
-        struct picture;        //!< The picture type.
-        struct picture_reader; //!< The picture reader type.
-        struct canvas_details; //!< The canvas details type.
-        struct canvas_details_ptr; //!< The canvas details pointer type.
-        struct canvas;         //!< The canvas type.
-        struct widget_canvas;  //!< The widget canvas type.
-    }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace drawing
-    {
-        using system_color_details_type = boost::mpl::at<detail_type_list, type::detail::system_color>::type;
-        using drawing_details_type = boost::mpl::at<detail_type_list, type::detail::drawing>::type;
-        using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
-        using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
-        using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
-        using font_type =
-            tetengo2::gui::drawing::font<
-                boost::mpl::at<type_list, type::string>::type,
-                boost::mpl::at<type_list, type::size>::type,
-                drawing_details_type
-            >;
-        using picture_type =
-            tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::dimension>::type, drawing_details_type>;
-        using color_type = tetengo2::gui::drawing::color;
-        using canvas_traits_type =
-            tetengo2::gui::drawing::canvas_traits<
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<type_list, type::string>::type,
-                boost::mpl::at<type_list, type::path>::type,
-                boost::mpl::at<type_list, type::position>::type,
-                boost::mpl::at<type_list, type::dimension>::type,
-                boost::mpl::at<type_list, type::ui_encoder>::type
-            >;
-        using canvas_details_type = drawing_details_type::canvas_details_type;
-        using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
-    }}
-#endif
-
-    //! The drawing type list.
-    using drawing_type_list =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::color, detail::drawing::color_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::system_color_set,
-                tetengo2::gui::drawing::system_color_set<detail::drawing::system_color_details_type>
-            >,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::drawing::solid_background, detail::drawing::solid_background_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::drawing::transparent_background, detail::drawing::transparent_background_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::font, detail::drawing::font_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::picture, detail::drawing::picture_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::picture_reader,
-                tetengo2::gui::drawing::picture_reader<
-                    boost::mpl::at<type_list, type::path>::type,
-                    boost::mpl::at<type_list, type::dimension>::type,
-                    detail::drawing::drawing_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::drawing::canvas_details, detail::drawing::canvas_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::drawing::canvas_details_ptr, detail::drawing::canvas_details_ptr_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::canvas,
-                tetengo2::gui::drawing::canvas<
-                    detail::drawing::canvas_traits_type,
-                    detail::drawing::drawing_details_type,
-                    boost::mpl::at<detail_type_list, type::detail::icon>::type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::widget_canvas,
-                tetengo2::gui::drawing::widget_canvas<
-                    detail::drawing::canvas_traits_type,
-                    detail::drawing::drawing_details_type,
-                    boost::mpl::at<detail_type_list, type::detail::icon>::type
-                >
-            >,
-        tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>;
-
-
     /**** Observer Set ******************************************************/
 
     namespace type { namespace observer_set
@@ -212,6 +112,22 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace observer_set
     {
+        using drawing_details_type =
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+        using canvas_traits_type =
+            tetengo2::gui::drawing::canvas_traits<
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::path>::type,
+                boost::mpl::at<type_list, type::position>::type,
+                boost::mpl::at<type_list, type::dimension>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type
+            >;
+        using canvas_type =
+            tetengo2::gui::drawing::canvas<
+                canvas_traits_type, drawing_details_type, boost::mpl::at<detail_type_list, type::detail::icon>::type
+            >;
         using virtual_key_type =
             tetengo2::gui::virtual_key<
                 boost::mpl::at<type_list, type::string>::type,
@@ -240,9 +156,7 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::paint_observer_set,
-                tetengo2::gui::message::paint_observer_set<
-                    boost::mpl::at<drawing_type_list, type::drawing::canvas>::type
-                >
+                tetengo2::gui::message::paint_observer_set<detail::observer_set::canvas_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -622,6 +536,13 @@ namespace test_tetengo2 { namespace gui
     namespace detail { namespace common_dialog
     {
         using common_dialog_details_type = boost::mpl::at<detail_type_list, type::detail::common_dialog>::type;
+        using drawing_details_type = boost::mpl::at<detail_type_list, type::detail::drawing>::type;
+        using font_type =
+            tetengo2::gui::drawing::font<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                drawing_details_type
+            >;
     }}
 #endif
 
@@ -632,7 +553,7 @@ namespace test_tetengo2 { namespace gui
                 type::common_dialog::color,
                 tetengo2::gui::common_dialog::color<
                     boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
-                    boost::mpl::at<drawing_type_list, type::drawing::color>::type,
+                    tetengo2::gui::drawing::color,
                     detail::common_dialog::common_dialog_details_type
                 >
             >,
@@ -663,7 +584,7 @@ namespace test_tetengo2 { namespace gui
                 type::common_dialog::font,
                 tetengo2::gui::common_dialog::font<
                     boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
-                    boost::mpl::at<drawing_type_list, type::drawing::font>::type,
+                    detail::common_dialog::font_type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::common_dialog::common_dialog_details_type
                 >

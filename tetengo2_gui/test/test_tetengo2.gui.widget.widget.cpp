@@ -26,6 +26,8 @@ namespace
 {
     // types
 
+    using size_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type;
+
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
     using details_font_type =
@@ -35,16 +37,14 @@ namespace
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    using background_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
-    using transparent_background_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
-        >::type;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-    using font_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+
+    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
     using system_cursor_type =
         tetengo2::gui::cursor::system<

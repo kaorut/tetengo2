@@ -13,6 +13,7 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,8 +21,10 @@ namespace
 {
     // types
 
-    using background_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
     struct concrete_background : public background_type
     {

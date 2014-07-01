@@ -18,8 +18,7 @@ namespace
 {
     // types
 
-    using color_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
+    using color_type = tetengo2::gui::drawing::color;
 
     using control_type =
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::control>::type;
