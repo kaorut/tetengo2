@@ -18,6 +18,7 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -46,7 +47,9 @@ namespace
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
 
     using system_cursor_type =
-        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type;
+        tetengo2::gui::cursor::system<
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::cursor>::type
+        >;
 
     using widget_type =
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;

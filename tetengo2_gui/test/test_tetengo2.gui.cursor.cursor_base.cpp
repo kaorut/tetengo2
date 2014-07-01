@@ -9,6 +9,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -17,7 +18,9 @@ namespace
     // types
 
     using cursor_type =
-        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::cursor_base>::type;
+        tetengo2::gui::cursor::cursor_base<
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::cursor>::type
+        >;
 
     class concrete_cursor_type : public cursor_type
     {

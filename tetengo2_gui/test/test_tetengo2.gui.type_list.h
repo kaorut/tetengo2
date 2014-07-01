@@ -92,33 +92,6 @@ namespace test_tetengo2 { namespace gui
         >>>>>>>>>;
 
 
-    /**** Cursor ************************************************************/
-
-    namespace type { namespace cursor
-    {
-        struct cursor_base;    //!< The cursor base type.
-        struct system;         //!< The system cursor type.
-    }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace cursor
-    {
-        using cursor_details_type = boost::mpl::at<detail_type_list, type::detail::cursor>::type;
-    }}
-#endif
-
-    //! The cursor type list.
-    using cursor_type_list =
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::cursor::cursor_base, tetengo2::gui::cursor::cursor_base<detail::cursor::cursor_details_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::cursor::system, tetengo2::gui::cursor::system<detail::cursor::cursor_details_type>>,
-        tetengo2::meta::assoc_list_end
-        >>;
-
-
     /**** Unit **************************************************************/
 
     namespace type { namespace unit
