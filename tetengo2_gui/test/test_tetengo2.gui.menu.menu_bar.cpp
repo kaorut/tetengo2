@@ -9,7 +9,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -18,13 +18,32 @@ namespace
     // types
 
     using menu_details_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_details>::type;
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
 
     using menu_base_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
+        tetengo2::gui::menu::menu_base<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
+
+    using shortcut_key_table_type =
+        tetengo2::gui::menu::shortcut_key_table<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
     using menu_bar_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_bar>::type;
+        tetengo2::gui::menu::menu_bar<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            shortcut_key_table_type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
 
 }

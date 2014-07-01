@@ -14,6 +14,7 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -21,16 +22,28 @@ namespace
 {
     // types
 
+    using menu_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+
     using menu_base_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
+        tetengo2::gui::menu::menu_base<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
     using popup_menu_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::popup>::type;
+        tetengo2::gui::menu::popup<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
-    using iterator_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::recursive_iterator>::type;
+    using iterator_type = tetengo2::gui::menu::recursive_iterator<menu_base_type>;
 
 
     // functions
