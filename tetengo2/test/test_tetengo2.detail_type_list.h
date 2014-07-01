@@ -24,8 +24,6 @@
 
 namespace test_tetengo2
 {
-    /**** Detail Implementation *********************************************/
-
     namespace type { namespace detail
     {
         struct config;   //!< The configuration type.
