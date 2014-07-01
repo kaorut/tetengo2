@@ -33,7 +33,11 @@ namespace
         boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture_reader>::type;
 
     using icon_type =
-        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type;
+        tetengo2::gui::icon<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
+        >;
 
     using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
 

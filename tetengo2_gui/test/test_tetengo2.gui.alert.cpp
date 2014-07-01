@@ -12,6 +12,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,7 +21,11 @@ namespace
     // types
 
     using alert_type =
-        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::alert>::type;
+        tetengo2::gui::alert<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::exception_encoder>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::alert>::type
+        >;
 
     struct boost_exception : public boost::exception
     {};

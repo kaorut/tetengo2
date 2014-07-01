@@ -92,48 +92,6 @@ namespace test_tetengo2 { namespace gui
         >>>>>>>>>;
 
 
-    /**** GUI Common ********************************************************/
-
-    namespace type { namespace gui_common
-    {
-        struct alert;          //!< The alert type.
-        struct icon;           //!< The icon type.
-        struct virtual_key;    //!< The virtual key type.
-    }}
-
-    //! The GUI common type list.
-    using gui_common_type_list =
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::gui_common::alert,
-                tetengo2::gui::alert<
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    boost::mpl::at<type_list, type::exception_encoder>::type,
-                    boost::mpl::at<detail_type_list, type::detail::alert>::type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::gui_common::icon,
-                tetengo2::gui::icon<
-                    boost::mpl::at<type_list, type::path>::type,
-                    boost::mpl::at<type_list, type::dimension>::type,
-                    boost::mpl::at<detail_type_list, type::detail::icon>::type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::gui_common::virtual_key,
-                tetengo2::gui::virtual_key<
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<detail_type_list,
-                    type::detail::virtual_key>::type
-                >
-            >,
-        tetengo2::meta::assoc_list_end
-        >>>;
-
-
     /**** Cursor ************************************************************/
 
     namespace type { namespace cursor
@@ -284,7 +242,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::canvas<
                     detail::drawing::canvas_traits_type,
                     detail::drawing::drawing_details_type,
-                    boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
+                    boost::mpl::at<detail_type_list, type::detail::icon>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -293,7 +251,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::widget_canvas<
                     detail::drawing::canvas_traits_type,
                     detail::drawing::drawing_details_type,
-                    boost::mpl::at<gui_common_type_list, type::gui_common::icon>::type::details_type
+                    boost::mpl::at<detail_type_list, type::detail::icon>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -316,6 +274,17 @@ namespace test_tetengo2 { namespace gui
         struct scroll_bar_observer_set; //!< The scroll bar observer set type.
         struct text_box_observer_set; //!< The text box observer set type.
     }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace observer_set
+    {
+        using virtual_key_type =
+            tetengo2::gui::virtual_key<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
+            >;
+    }}
+#endif
 
     //! The observer set type list.
     using observer_set_type_list =
@@ -345,8 +314,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::observer_set::keyboard_observer_set,
                 tetengo2::gui::message::keyboard_observer_set<
-                    boost::mpl::at<gui_common_type_list, type::gui_common::virtual_key>::type,
-                    boost::mpl::at<type_list, type::string>::type::value_type
+                    detail::observer_set::virtual_key_type, boost::mpl::at<type_list, type::string>::type::value_type
                 >
             >,
         tetengo2::meta::assoc_list<
