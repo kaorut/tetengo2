@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_tetengo2.gui.type_list.h"
@@ -16,10 +15,7 @@ namespace
 {
     // types
 
-    using size_observer_set_type =
-        boost::mpl::at<
-            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::size_observer_set
-        >::type;
+    using size_observer_set_type = tetengo2::gui::message::size_observer_set;
 
 
 }

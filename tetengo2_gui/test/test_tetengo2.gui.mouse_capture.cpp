@@ -12,6 +12,7 @@
 #include <tetengo2.gui.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -26,12 +27,17 @@ namespace
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
 
     using mouse_button_type =
-        boost::mpl::at<
-            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::mouse_observer_set
-        >::type::mouse_button_type;
+        tetengo2::gui::message::mouse_observer_set<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::difference>::type
+        >::mouse_button_type;
 
     using mouse_capture_type =
-        tetengo2::gui::mouse_capture<widget_type, mouse_button_type, tetengo2::detail::stub::mouse_capture>;
+        tetengo2::gui::mouse_capture<
+            widget_type,
+            mouse_button_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::mouse_capture>::type
+        >;
 
 
 }
