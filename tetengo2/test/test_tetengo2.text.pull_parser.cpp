@@ -13,6 +13,7 @@
 #include <utility>
 
 #include <boost/mpl/at.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
@@ -25,17 +26,20 @@ namespace
 {
     // types
 
+    using size_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
+
     using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
-    using input_stream_iterator_type =
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type;
+    using io_string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::io_string>::type;
 
-    using grammar_type = boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type;
+    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+
+    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
 
     using pull_parser_type =
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type;
-
-    using push_parser_type = pull_parser_type::push_parser_type;
+        tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
 
 }
 

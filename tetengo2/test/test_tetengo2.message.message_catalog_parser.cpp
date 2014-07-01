@@ -14,10 +14,12 @@
 #include <utility>
 
 #include <boost/mpl/at.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.detail_type_list.h"
 #include "test_tetengo2.type_list.h"
 
 
@@ -25,20 +27,35 @@ namespace
 {
     // types
 
-    using input_stream_iterator_type =
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type;
-
-    using grammar_type = boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type;
-
-    using pull_parser_type =
-        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type;
-
-    using push_parser_type = pull_parser_type::push_parser_type;
+    using size_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
 
     using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
 
+    using io_string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::io_string>::type;
+
+    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+
+    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
+
+    using pull_parser_type = 
+        tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
+
+    using encoding_details_type =
+        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
+
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
+
+    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+
+    using message_catalog_encoder_type =
+        tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
+
     using message_catalog_parser_type =
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog_parser>::type;
+        tetengo2::message::message_catalog_parser<
+            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type
+        >;
 
     using entry_type = message_catalog_parser_type::entry_type;
 

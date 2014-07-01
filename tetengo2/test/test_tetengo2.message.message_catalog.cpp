@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <iterator>
 #include <locale>
 #include <stdexcept>
 #include <string>
@@ -13,10 +14,12 @@
 #include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/predef.h>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.detail_type_list.h"
 #include "test_tetengo2.type_list.h"
 
 
@@ -24,11 +27,52 @@ namespace
 {
     // types
 
+    using size_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
+
+    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
+
+    using io_string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::io_string>::type;
+
+    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+
+    using encoding_details_type =
+        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
+
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
+
+    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+
+    using message_catalog_encoder_type =
+        tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
+
+    using message_catalog_parser_type =
+        tetengo2::message::message_catalog_parser<
+            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type
+        >;
+
+    using locale_name_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+
+    using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
+
     using messages_type =
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type;
+        tetengo2::message::messages<
+            boost::filesystem::path,
+            input_stream_iterator_type,
+            string_type,
+            size_type,
+            message_catalog_encoder_type,
+            locale_name_encoder_type
+        >;
 
     using message_catalog_type =
-        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog>::type;
+        tetengo2::message::message_catalog<
+            boost::filesystem::path,
+            input_stream_iterator_type,
+            string_type,
+            size_type,
+            message_catalog_encoder_type,
+            locale_name_encoder_type
+        >;
 
     struct set_global_locale
     {
