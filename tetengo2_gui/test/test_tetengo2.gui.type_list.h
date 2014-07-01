@@ -92,45 +92,6 @@ namespace test_tetengo2 { namespace gui
         >>>>>>>>>;
 
 
-    /**** Unit **************************************************************/
-
-    namespace type { namespace unit
-    {
-        struct unit_details;   //!< The unit details type.
-        struct em;             //!< The em unit type.
-        struct another_em;     //!< The another em unit type.
-        struct pixel;          //!< The pixel unit type.
-        struct point;          //!< The point unit type.
-        struct another_point;  //!< The another point unit type.
-    }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace unit
-    {
-        using unit_details_type = boost::mpl::at<detail_type_list, type::detail::unit>::type;
-    }}
-#endif
-
-    //! The unit type list.
-    using unit_type_list =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::unit_details, detail::unit::unit_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, detail::unit::unit_details_type>>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::unit::another_em, tetengo2::gui::unit::em<unsigned short, detail::unit::unit_details_type>
-            >,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int>>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::unit::point, tetengo2::gui::unit::point<int, detail::unit::unit_details_type>>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::unit::another_point, tetengo2::gui::unit::point<unsigned short, detail::unit::unit_details_type>
-            >,
-        tetengo2::meta::assoc_list_end
-        >>>>>>;
-
-
     /**** Drawing ***********************************************************/
 
     namespace type { namespace drawing
