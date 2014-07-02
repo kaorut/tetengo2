@@ -6,17 +6,21 @@
     $Id$
 */
 
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include <tetengo2.gui.h>
-#include <tetengo2/detail/stub/gui_fixture.h>
+
+#include "test_tetengo2.gui.detail_type_list.h"
 
 
 namespace
 {
     // types
 
-    using fixture_type = tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>;
+    using fixture_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::gui_fixture>::type;
 
 
 }
@@ -32,6 +36,7 @@ BOOST_AUTO_TEST_SUITE(fixture)
         BOOST_TEST_PASSPOINT();
 
         const fixture_type fixture;
+        tetengo2::suppress_unused_variable_warning(fixture);
     }
 
 

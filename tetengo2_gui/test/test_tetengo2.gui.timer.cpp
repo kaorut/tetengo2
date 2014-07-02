@@ -11,8 +11,8 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include <tetengo2.gui.h>
-#include <tetengo2/detail/stub/timer.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -38,7 +38,12 @@ namespace
             menu_details_type
         >;
 
-    using timer_type = tetengo2::gui::timer<widget_type, tetengo2::detail::stub::timer>;
+    using timer_type =
+        tetengo2::gui::timer<
+            widget_type, boost::mpl::at<
+                test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::timer
+            >::type
+        >;
 
 
     // functions

@@ -17,6 +17,7 @@
 #include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_handler.h>
@@ -45,6 +46,7 @@ namespace test_tetengo2 { namespace gui
         struct cursor;          //!< The cursor type.
         struct drawing;         //!< The drawing type.
         struct encoding;        //!< The encoding type.
+        struct gui_fixture;     //!< The GUI fixture type.
         struct icon;            //!< The icon type.
         struct menu;            //!< The menu type.
         struct message_handler; //!< The message handler type.
@@ -71,6 +73,7 @@ namespace test_tetengo2 { namespace gui
 #else
         using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
+        using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
         using icon_details_type = tetengo2::detail::stub::icon;
         using menu_details_type = tetengo2::detail::stub::menu;
         using message_handler_details_type = tetengo2::detail::stub::message_handler;
@@ -94,6 +97,7 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_details_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_details_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::icon_details_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_details_type>,
         tetengo2::meta::assoc_list<
@@ -112,7 +116,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_details_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_details_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>;
+        >>>>>>>>>>>>>>>>>>;
 
 
 }}
