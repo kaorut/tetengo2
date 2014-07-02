@@ -32,7 +32,6 @@ namespace test_tetengo2 { namespace gui
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
         struct string;         //!< The string type.
-        struct exception_string; //!< The exception string type.
         struct path;           //!< The path type.
         struct ui_encoder;     //!< The UI encoder type.
         struct exception_encoder; //!< The exception encoder type.
@@ -93,14 +92,13 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::position, detail::position_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::dimension, detail::dimension_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_string, detail::exception_string_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::path, detail::path_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui_encoder, detail::ui_encoder_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_encoder, detail::exception_encoder_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_traits, detail::widget_traits_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_details_traits, detail::widget_details_traits_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>;
+        >>>>>>>>>>;
 
 
 }}
