@@ -31,7 +31,9 @@ namespace
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
     using details_font_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::details_font>::type;
+        boost::mpl::at<
+            test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::widget
+        >::type::details_font_type;
 
     using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
 
@@ -52,7 +54,10 @@ namespace
         >;
 
     using widget_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;
+        tetengo2::gui::widget::widget<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+        >;
 
     class concrete_widget : public widget_type
     {

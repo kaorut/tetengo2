@@ -11,6 +11,7 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -18,11 +19,21 @@ namespace
 {
     // types
 
+    using menu_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+
     using abstract_window_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type;
+        tetengo2::gui::widget::abstract_window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
+
+    using message_loop_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::message_loop>::type;
 
     using message_loop_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::message_loop>::type;
+        tetengo2::gui::message::message_loop<abstract_window_type, message_loop_details_type>;
 
     class concrete_window : public abstract_window_type
     {

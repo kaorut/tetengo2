@@ -53,7 +53,11 @@ namespace
         >;
 
     using abstract_window_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type;
+        tetengo2::gui::widget::abstract_window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
 
     class concrete_window : public abstract_window_type
     {
