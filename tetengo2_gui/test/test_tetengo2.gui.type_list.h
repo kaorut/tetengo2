@@ -25,8 +25,6 @@
 
 namespace test_tetengo2 { namespace gui
 {
-    /**** Common ************************************************************/
-
     namespace type
     {
         struct size;           //!< The size type.
@@ -88,7 +86,7 @@ namespace test_tetengo2 { namespace gui
     }
 #endif
 
-    //! The common type list.
+    //! The type list.
     using type_list =
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, detail::difference_type>,
@@ -103,103 +101,6 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_details_traits, detail::widget_details_traits_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>;
-
-
-    /**** Common Dialog *****************************************************/
-
-    namespace type { namespace common_dialog
-    {
-        struct color;          //!< The color dialog type.
-        struct file_open;      //!< The file open dialog type.
-        struct file_save;      //!< The file save dialog type.
-        struct font;           //!< The font dialog type.
-        struct message_box;    //!< The message box type.
-        struct button_style;   //!< The button style type.
-    }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace common_dialog
-    {
-        using menu_details_type = boost::mpl::at<detail_type_list, type::detail::menu>::type;
-        using abstract_window_type =
-            tetengo2::gui::widget::abstract_window<
-                boost::mpl::at<type_list, type::widget_traits>::type,
-                boost::mpl::at<type_list, type::widget_details_traits>::type,
-                menu_details_type
-            >;
-        using common_dialog_details_type = boost::mpl::at<detail_type_list, type::detail::common_dialog>::type;
-        using drawing_details_type = boost::mpl::at<detail_type_list, type::detail::drawing>::type;
-        using font_type =
-            tetengo2::gui::drawing::font<
-                boost::mpl::at<type_list, type::string>::type,
-                boost::mpl::at<type_list, type::size>::type,
-                drawing_details_type
-            >;
-    }}
-#endif
-
-    //! The common dialog type list.
-    using common_dialog_type_list =
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::color,
-                tetengo2::gui::common_dialog::color<
-                    detail::common_dialog::abstract_window_type,
-                    tetengo2::gui::drawing::color,
-                    detail::common_dialog::common_dialog_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::file_open,
-                tetengo2::gui::common_dialog::file_open<
-                    detail::common_dialog::abstract_window_type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<type_list, type::path>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::common_dialog::common_dialog_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::file_save,
-                tetengo2::gui::common_dialog::file_save<
-                    detail::common_dialog::abstract_window_type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<type_list, type::path>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::common_dialog::common_dialog_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::font,
-                tetengo2::gui::common_dialog::font<
-                    detail::common_dialog::abstract_window_type,
-                    detail::common_dialog::font_type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::common_dialog::common_dialog_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::message_box,
-                tetengo2::gui::common_dialog::message_box<
-                    detail::common_dialog::abstract_window_type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::common_dialog::common_dialog_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::common_dialog::button_style,
-                tetengo2::gui::common_dialog::message_box_style::button_style<
-                    boost::mpl::at<type_list, type::string>::type
-                >
-            >,
-        tetengo2::meta::assoc_list_end
-        >>>>>>;
 
 
 }}

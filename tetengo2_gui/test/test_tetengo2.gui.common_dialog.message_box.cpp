@@ -31,15 +31,25 @@ namespace
             menu_details_type
         >;
 
-    using button_style_type =
-        boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::button_style
-        >::type;
+    using button_style_type = tetengo2::gui::common_dialog::message_box_style::button_style<string_type>;
+
+    using abstract_window_type =
+        tetengo2::gui::widget::abstract_window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
+
+    using common_dialog_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::common_dialog>::type;
 
     using message_box_type =
-        boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::message_box
-        >::type;
+        tetengo2::gui::common_dialog::message_box<
+            abstract_window_type,
+            string_type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            common_dialog_details_type
+        >;
 
 
 }
