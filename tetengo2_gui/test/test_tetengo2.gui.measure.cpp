@@ -11,6 +11,7 @@
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include <tetengo2.gui.h>
 
 

@@ -6,18 +6,17 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_tetengo2.gui.type_list.h"
+#include <tetengo2.h>
+#include <tetengo2.gui.h>
 
 
 namespace
 {
     // types
 
-    using color_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
+    using color_type = tetengo2::gui::drawing::color;
 
 
 }

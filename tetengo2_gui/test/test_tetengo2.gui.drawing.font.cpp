@@ -10,7 +10,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
+#include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -18,8 +20,15 @@ namespace
 {
     // types
 
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+
     using font_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
+        tetengo2::gui::drawing::font<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
+            drawing_details_type
+        >;
 
     using string_type = font_type::string_type;
 

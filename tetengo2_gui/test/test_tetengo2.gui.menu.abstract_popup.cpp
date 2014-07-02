@@ -14,7 +14,9 @@
 #include <boost/utility.hpp>
 
 #include <tetengo2.h>
+#include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -22,13 +24,26 @@ namespace
 {
     // types
 
-    using menu_base_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type;
-
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
+    using menu_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+
+    using menu_base_type =
+        tetengo2::gui::menu::menu_base<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
+
     using abstract_popup_menu_type =
-        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::abstract_popup>::type;
+        tetengo2::gui::menu::abstract_popup<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            menu_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {

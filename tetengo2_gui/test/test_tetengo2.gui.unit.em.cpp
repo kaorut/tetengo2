@@ -9,6 +9,10 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
+#include <tetengo2.gui.h>
+
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -16,10 +20,12 @@ namespace
 {
     // types
 
-    using unit_type = boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::em>::type;
+    using unit_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::unit>::type;
 
-    using another_unit_type =
-        boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::another_em>::type;
+    using unit_type = tetengo2::gui::unit::em<int, unit_details_type>;
+
+    using another_unit_type = tetengo2::gui::unit::em<unsigned short, unit_details_type>;
 
 
 }

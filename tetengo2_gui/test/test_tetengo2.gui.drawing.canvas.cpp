@@ -16,6 +16,7 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -25,6 +26,8 @@ namespace
 
     using size_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type;
 
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+
     using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
@@ -33,47 +36,49 @@ namespace
 
     using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
 
-    using color_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
+    using color_type = tetengo2::gui::drawing::color;
 
-    using background_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background
-        >::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
-    using solid_background_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::solid_background
-        >::type;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-    using transparent_background_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
-        >::type;
+    using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
 
-    using font_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-    using picture_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type;
+    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
     using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
 
     using icon_type =
-        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type;
+        tetengo2::gui::icon<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
+        >;
 
-    using canvas_details_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas_details>::type;
+    using canvas_details_type = drawing_details_type::canvas_details_type;
 
-    using canvas_details_ptr_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas_details_ptr
-        >::type;
+    using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
+    using encoder_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type;
+
+    using canvas_traits_type =
+        tetengo2::gui::drawing::canvas_traits<
+            size_type, size_type, string_type, path_type, position_type, dimension_type, encoder_type
+        >;
+
     using canvas_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas>::type;
+        tetengo2::gui::drawing::canvas<
+            canvas_traits_type,
+            drawing_details_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
+        >;
 
     struct concrete_canvas : public canvas_type
     {

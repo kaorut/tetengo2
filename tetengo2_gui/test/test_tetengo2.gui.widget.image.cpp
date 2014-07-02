@@ -16,6 +16,7 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -23,19 +24,18 @@ namespace
 {
     // types
 
+    using menu_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+
     using window_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
+        tetengo2::gui::widget::window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
 
-    using picture_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type;
-
-    using picture_reader_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture_reader>::type;
-
-    using icon_type =
-        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::icon>::type;
-
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
@@ -43,8 +43,27 @@ namespace
 
     using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
 
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
+
+    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
+
+    using picture_reader_type =
+        tetengo2::gui::drawing::picture_reader<path_type, dimension_type, drawing_details_type>;
+
+    using icon_type =
+        tetengo2::gui::icon<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
+        >;
+
+    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
+
     using image_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::image>::type;
+        tetengo2::gui::widget::image<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+        >;
 
 
 }

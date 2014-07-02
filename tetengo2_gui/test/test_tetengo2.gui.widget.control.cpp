@@ -10,7 +10,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
+#include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -18,11 +20,13 @@ namespace
 {
     // types
 
-    using color_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type;
+    using color_type = tetengo2::gui::drawing::color;
 
     using control_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::control>::type;
+        tetengo2::gui::widget::control<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+        >;
 
     class concrete_control : public control_type
     {

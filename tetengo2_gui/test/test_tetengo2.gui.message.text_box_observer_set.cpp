@@ -6,20 +6,17 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_tetengo2.gui.type_list.h"
+#include <tetengo2.h>
+#include <tetengo2.gui.h>
 
 
 namespace
 {
     // types
 
-    using text_box_observer_set_type =
-        boost::mpl::at<
-            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::text_box_observer_set
-        >::type;
+    using text_box_observer_set_type = tetengo2::gui::message::text_box_observer_set;
 
 
 }

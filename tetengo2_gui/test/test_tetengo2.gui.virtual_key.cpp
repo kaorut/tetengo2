@@ -9,6 +9,9 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
+#include <tetengo2.gui.h>
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -19,9 +22,10 @@ namespace
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
     using virtual_key_type =
-        boost::mpl::at<
-            test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::virtual_key
-        >::type;
+        tetengo2::gui::virtual_key<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+        >;
 
 
 }

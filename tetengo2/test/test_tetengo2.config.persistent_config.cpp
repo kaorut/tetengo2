@@ -12,6 +12,7 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.detail_type_list.h"
 #include "test_tetengo2.type_list.h"
 
 
@@ -23,7 +24,18 @@ namespace
 
     using uint_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
 
-    using encoder_type = boost::mpl::at<test_tetengo2::config_type_list, test_tetengo2::type::config::encoder>::type;
+    using encoding_details_type =
+        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
+
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
+
+    using config_encoding_type =
+        tetengo2::text::encoding::locale<
+            boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::config>::type::string_type,
+            encoding_details_type
+        >;
+
+    using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
 
     using persistent_config_type =
         tetengo2::config::persistent_config<

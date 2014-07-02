@@ -17,7 +17,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
+#include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -25,31 +27,38 @@ namespace
 {
     // types
 
+    using size_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type;
+
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
     using details_font_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::details_font>::type;
+        boost::mpl::at<
+            test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::widget
+        >::type::details_font_type;
 
     using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    using background_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
-    using transparent_background_type =
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
-        >::type;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-    using font_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+
+    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
     using system_cursor_type =
-        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type;
+        tetengo2::gui::cursor::system<
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::cursor>::type
+        >;
 
     using widget_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type;
+        tetengo2::gui::widget::widget<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+        >;
 
     class concrete_widget : public widget_type
     {

@@ -12,8 +12,10 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.h>
 #include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -21,14 +23,16 @@ namespace
 {
     // types
 
-    using picture_type =
-        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type;
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
-    using dimension_type = picture_type::dimension_type;
+    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
     using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
 
     using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
+
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
 
 }

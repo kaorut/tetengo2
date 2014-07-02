@@ -12,7 +12,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
+#include <tetengo2.gui.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,15 +22,36 @@ namespace
 {
     // types
 
-    using window_type =
-        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type;
-
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
+    using menu_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+
+    using window_type =
+        tetengo2::gui::widget::window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
+
+    using abstract_window_type =
+        tetengo2::gui::widget::abstract_window<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
+
+    using common_dialog_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::common_dialog>::type;
+
     using file_save_dialog_type =
-        boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::file_save
-        >::type;
+        tetengo2::gui::common_dialog::file_save<
+            abstract_window_type,
+            string_type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
+            common_dialog_details_type
+        >;
 
 
     // functions
