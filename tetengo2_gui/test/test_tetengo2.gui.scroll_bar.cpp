@@ -11,6 +11,9 @@
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.gui.h>
+
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -19,7 +22,10 @@ namespace
     // types
 
     using scroll_bar_type =
-        boost::mpl::at<test_tetengo2::gui::scroll_type_list, test_tetengo2::gui::type::scroll::scroll_bar>::type;
+        tetengo2::gui::scroll_bar<
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::scroll>::type
+        >;
 
 
 }
