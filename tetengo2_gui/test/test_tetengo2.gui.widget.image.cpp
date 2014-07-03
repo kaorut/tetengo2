@@ -45,14 +45,10 @@ namespace
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
-
-    using picture_reader_type =
-        tetengo2::gui::drawing::picture_reader<path_type, dimension_type, drawing_details_type>;
+    using picture_reader_type = tetengo2::gui::drawing::picture_reader<dimension_type, drawing_details_type>;
 
     using icon_type =
         tetengo2::gui::icon<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
         >;

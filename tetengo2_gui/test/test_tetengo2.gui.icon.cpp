@@ -26,7 +26,7 @@ namespace
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    using icon_type = tetengo2::gui::icon<path_type, dimension_type, tetengo2::detail::stub::icon>;
+    using icon_type = tetengo2::gui::icon<dimension_type, tetengo2::detail::stub::icon>;
 
 
     // functions

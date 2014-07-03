@@ -12,6 +12,7 @@
 #include <cassert>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 
@@ -20,18 +21,14 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for an icon.
 
-        \tparam Path      A path type.
         \tparam Dimension A dimension type.
         \tparam Details   A detail implementation type.
     */
-    template <typename Path, typename Dimension, typename Details>
+    template <typename Dimension, typename Details>
     class icon : private boost::noncopyable
     {
     public:
         // types
-
-        //! The path type.
-        using path_type = Path;
 
         //! The dimension type.
         using dimension_type = Dimension;
@@ -44,6 +41,9 @@ namespace tetengo2 { namespace gui
 
         //! The icon details pointer type.
         using icon_details_ptr_type = typename details_type::icon_details_ptr_type;
+
+        //! The path type.
+        using path_type = boost::filesystem::path;
 
 
         // constructors and destructor

@@ -68,9 +68,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = typename traits_type::string_type;
 
-        //! The path type.
-        using path_type = typename traits_type::path_type;
-
         //! The position type.
         using position_type = typename traits_type::position_type;
 
@@ -113,7 +110,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The canvas traits type.
         using canvas_traits_type =
             gui::drawing::canvas_traits<
-                size_type, unit_size_type, string_type, path_type, position_type, dimension_type, encoder_type
+                size_type, unit_size_type, string_type, position_type, dimension_type, encoder_type
             >;
 
         //! The canvas type.

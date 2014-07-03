@@ -8,6 +8,7 @@
 
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -22,8 +23,6 @@ namespace
 {
     // types
 
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
-
     using drawing_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
@@ -31,8 +30,9 @@ namespace
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-    using picture_reader_type =
-        tetengo2::gui::drawing::picture_reader<path_type, dimension_type, drawing_details_type>;
+    using picture_reader_type = tetengo2::gui::drawing::picture_reader<dimension_type, drawing_details_type>;
+
+    using path_type = boost::filesystem::path;
 
 
 }

@@ -65,7 +65,6 @@ namespace test_tetengo2 { namespace gui
                 size_type,
                 difference_type,
                 string_type,
-                path_type,
                 position_type,
                 dimension_type,
                 ui_encoder_type,
