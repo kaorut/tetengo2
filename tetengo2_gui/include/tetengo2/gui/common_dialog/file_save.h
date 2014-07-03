@@ -24,22 +24,31 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     /*!
         \brief The class template for a file save dialog.
 
-        \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
+        \tparam WidgetTraits        A widget traits type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
+        \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
+        \tparam MenuDetails         A detail implementation type of a menu.
     */
-    template <typename AbstractWindow, typename String, typename Encoder, typename CommonDialogDetails>
+    template <
+        typename String,
+        typename WidgetTraits,
+        typename Encoder,
+        typename CommonDialogDetails,
+        typename WidgetDetailsTraits,
+        typename MenuDetails
+    >
     class file_save : private boost::noncopyable
     {
     public:
         // types
 
-        //! The abstract window type.
-        using abstract_window_type = AbstractWindow;
-
         //! The string type.
         using string_type = String;
+
+        //! The widget traits type.
+        using widget_traits_type = WidgetTraits;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -52,6 +61,16 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The detail implementaiton pointer type;
         using details_ptr_type = typename common_dialog_details_type::file_save_dialog_details_ptr_type;
+
+        //! The widget details traits type.
+        using widget_details_traits_type = WidgetDetailsTraits;
+
+        //! The menu details type.
+        using menu_details_type = MenuDetails;
+
+        //! The abstract window type.
+        using abstract_window_type =
+            gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;
