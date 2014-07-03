@@ -26,6 +26,7 @@
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/measure.h>

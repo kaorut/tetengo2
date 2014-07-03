@@ -44,7 +44,13 @@ namespace
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::common_dialog>::type;
 
     using color_dialog_type =
-        tetengo2::gui::common_dialog::color<abstract_window_type, color_type, common_dialog_details_type>;
+        tetengo2::gui::common_dialog::color<
+            color_type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
+            common_dialog_details_type,
+            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
+            menu_details_type
+        >;
 
 
 }
