@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
@@ -25,11 +26,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
-        \tparam Path                A path type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <typename AbstractWindow, typename String, typename Path, typename Encoder, typename CommonDialogDetails>
+    template <typename AbstractWindow, typename String, typename Encoder, typename CommonDialogDetails>
     class file_save : private boost::noncopyable
     {
     public:
@@ -40,9 +40,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The string type.
         using string_type = String;
-
-        //! The path type.
-        using path_type = Path;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -55,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The detail implementaiton pointer type;
         using details_ptr_type = typename common_dialog_details_type::file_save_dialog_details_ptr_type;
+
+        //! The path type.
+        using path_type = boost::filesystem::path;
 
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;
