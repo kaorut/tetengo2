@@ -17,7 +17,7 @@ namespace tetengo2 { namespace gui { namespace message
     /*!
         \brief The class template for a message loop break.
 
-        \tparam MessageLoopDetails The detail implementation type of a message loop.
+        \tparam MessageLoopDetails The message loop details type.
     */
     template <typename MessageLoopDetails>
     class message_loop_break : public std::unary_function<int, void>
@@ -25,7 +25,7 @@ namespace tetengo2 { namespace gui { namespace message
     public:
         // types
 
-        //! The detail implementation type of a message loop.
+        //! The message loop details type.
         using message_loop_details_type = MessageLoopDetails;
 
 

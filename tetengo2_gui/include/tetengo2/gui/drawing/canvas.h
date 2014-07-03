@@ -66,10 +66,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
-        //! The detail implementation type of a drawing.
+        //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename drawing_details_type::canvas_details_type;
 
         //! The detail implementation pointer type.

@@ -34,7 +34,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         //! The base type.
         using base_type = cursor_base<cursor_details_type>;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename cursor_details_type::cursor_details_type;
 
         //! The detail implementation pointer type.

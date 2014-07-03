@@ -53,10 +53,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The encoder type.
         using encoder_type = Encoder;
 
-        //! The detail implementation type of common dialogs.
+        //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename common_dialog_details_type::file_save_dialog_details_type;
 
         //! The detail implementaiton pointer type;

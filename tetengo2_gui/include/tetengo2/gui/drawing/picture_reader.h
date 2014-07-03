@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The dimension type.
         using dimension_type = Dimension;
 
-        //! The detail implementation type of a drawing.
+        //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
         //! The picture type.

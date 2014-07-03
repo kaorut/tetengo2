@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui
         //! The dimension type.
         using dimension_type = Dimension;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = Details;
 
         //! The icon details type.

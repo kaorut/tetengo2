@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
-        //! The detail implementation type of a widget.
+        //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
         //! The icon details type.

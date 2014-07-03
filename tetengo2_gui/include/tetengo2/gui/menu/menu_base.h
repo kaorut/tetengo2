@@ -52,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename menu_details_type::menu_details_type;
 
         //! The detail implementation pointer type.

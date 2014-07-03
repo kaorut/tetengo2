@@ -34,7 +34,7 @@ namespace tetengo2 { namespace gui { namespace unit
         //! The value type.
         using value_type = Value;
 
-        //! The detail implementation type of a unit.
+        //! The unit details type.
         using unit_details_type = UnitDetails;
 
 
