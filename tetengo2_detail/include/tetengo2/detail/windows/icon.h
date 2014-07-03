@@ -15,6 +15,7 @@
 #include <type_traits>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 

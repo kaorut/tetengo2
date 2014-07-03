@@ -12,7 +12,6 @@
 #include <locale>
 #include <utility>
 
-#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2/message/messages.h>
