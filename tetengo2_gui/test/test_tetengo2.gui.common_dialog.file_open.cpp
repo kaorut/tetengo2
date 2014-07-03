@@ -46,7 +46,6 @@ namespace
         tetengo2::gui::common_dialog::file_open<
             abstract_window_type,
             string_type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
             common_dialog_details_type
         >;
