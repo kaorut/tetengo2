@@ -53,12 +53,7 @@ namespace
 
     using messages_type =
         tetengo2::message::messages<
-            boost::filesystem::path,
-            input_stream_iterator_type,
-            string_type,
-            size_type,
-            message_catalog_encoder_type,
-            locale_name_encoder_type
+            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type, locale_name_encoder_type
         >;
 
     using std_messages_type = std::messages<string_type::value_type>;

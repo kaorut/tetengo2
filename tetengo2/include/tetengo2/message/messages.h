@@ -43,7 +43,6 @@ namespace tetengo2 { namespace message
 
         It is a customized locale facet for a messages facet.
 
-        \tparam Path              A path type.
         \tparam ForwardIterator   A forward iterator type.
         \tparam String            A string type.
         \tparam Size              A size type.
@@ -51,7 +50,6 @@ namespace tetengo2 { namespace message
         \tparam LocaleNameEncoder An encoder type for locale names.
     */
     template <
-        typename Path,
         typename ForwardIterator,
         typename String,
         typename Size,
@@ -62,9 +60,6 @@ namespace tetengo2 { namespace message
     {
     public:
         // types
-
-        //! The path type.
-        using path_type = Path;
 
         //! The iterator type.
         using iterator = ForwardIterator;
@@ -89,6 +84,9 @@ namespace tetengo2 { namespace message
 
         //! The catalog type.
         using catalog = typename base_type::catalog;
+
+        //! The path type.
+        using path_type = boost::filesystem::path;
 
 
         // static functions

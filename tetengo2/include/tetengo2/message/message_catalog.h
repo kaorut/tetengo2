@@ -12,6 +12,7 @@
 #include <locale>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2/message/messages.h>
@@ -22,7 +23,6 @@ namespace tetengo2 { namespace message
     /*!
         \brief The class template for a message catalog.
 
-        \tparam Path              A path type.
         \tparam ForwardIterator   A forward iterator type.
         \tparam String            A string type.
         \tparam Size              A size type.
@@ -30,7 +30,6 @@ namespace tetengo2 { namespace message
         \tparam LocaleNameEncoder An encoder type for locale names.
     */
     template <
-        typename Path,
         typename ForwardIterator,
         typename String,
         typename Size,
@@ -41,9 +40,6 @@ namespace tetengo2 { namespace message
     {
     public:
         // types
-
-        //! The path type.
-        using path_type = Path;
 
         //! The iterator type.
         using iterator = ForwardIterator;
@@ -61,8 +57,10 @@ namespace tetengo2 { namespace message
         using locale_name_encoder_type = LocaleNameEncoder;
 
         //! The messages type.
-        using messages_type =
-            messages<path_type, iterator, string_type, size_type, encoder_type, locale_name_encoder_type>;
+        using messages_type = messages<iterator, string_type, size_type, encoder_type, locale_name_encoder_type>;
+
+        //! The path type.
+        using path_type = boost::filesystem::path;
 
 
         // constructors and destructor

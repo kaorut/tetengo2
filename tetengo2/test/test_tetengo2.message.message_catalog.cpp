@@ -56,22 +56,12 @@ namespace
 
     using messages_type =
         tetengo2::message::messages<
-            boost::filesystem::path,
-            input_stream_iterator_type,
-            string_type,
-            size_type,
-            message_catalog_encoder_type,
-            locale_name_encoder_type
+            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type, locale_name_encoder_type
         >;
 
     using message_catalog_type =
         tetengo2::message::message_catalog<
-            boost::filesystem::path,
-            input_stream_iterator_type,
-            string_type,
-            size_type,
-            message_catalog_encoder_type,
-            locale_name_encoder_type
+            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type, locale_name_encoder_type
         >;
 
     struct set_global_locale
