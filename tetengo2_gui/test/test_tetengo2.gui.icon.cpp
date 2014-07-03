@@ -16,6 +16,7 @@
 #include <tetengo2.gui.h>
 #include <tetengo2/detail/stub/icon.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -25,7 +26,11 @@ namespace
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
-    using icon_type = tetengo2::gui::icon<dimension_type, tetengo2::detail::stub::icon>;
+    using icon_type =
+        tetengo2::gui::icon<
+            dimension_type,
+            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
+        >;
 
 
     // functions
