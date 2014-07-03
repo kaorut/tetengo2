@@ -85,9 +85,6 @@ namespace tetengo2 { namespace message
         //! The catalog type.
         using catalog = typename base_type::catalog;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
 
         // static functions
 
@@ -135,7 +132,7 @@ namespace tetengo2 { namespace message
 
             \throw std::ios_base::failure When the path does not exist or is not a directory.
         */
-        messages(const path_type& path, const std::locale& locale)
+        messages(const boost::filesystem::path& path, const std::locale& locale)
         :
         m_open(false),
         m_message_catalog(load_message_catalog(path, locale))
@@ -199,14 +196,14 @@ namespace tetengo2 { namespace message
             return singleton;
         }
 
-        static const typename path_type::string_type& catalog_file_mappings_filename()
+        static const typename boost::filesystem::path::string_type& catalog_file_mappings_filename()
         {
-            static const typename path_type::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
+            static const typename boost::filesystem::path::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
             return singleton;
         }
 
         static boost::optional<message_catalog_type>
-        load_message_catalog(const path_type& path, const std::locale& locale)
+        load_message_catalog(const boost::filesystem::path& path, const std::locale& locale)
         {
             const auto catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
@@ -218,21 +215,24 @@ namespace tetengo2 { namespace message
             return boost::make_optional(std::move(message_catalog));
         }
 
-        static const boost::optional<path_type> select_catalog_file(const path_type& path, const std::locale& locale)
+        static const boost::optional<boost::filesystem::path> select_catalog_file(
+            const boost::filesystem::path& path,
+            const std::locale&             locale
+        )
         {
             if (!boost::filesystem::exists(path))
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path does not exist." }));
             if (!boost::filesystem::is_directory(path))
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path is not a directory." }));
 
-            std::vector<path_type> catalog_files{};
+            std::vector<boost::filesystem::path> catalog_files{};
             std::transform(
                 directory_iterator_type{ path },
                 directory_iterator_type{},
                 std::back_inserter(catalog_files),
                 [](const directory_entry_type& entry) { return entry.path(); }
             );
-            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>{});
+            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<boost::filesystem::path>{});
 
             const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
@@ -244,12 +244,14 @@ namespace tetengo2 { namespace message
             return boost::none;
         }
 
-        static catalog_file_mappings_type read_catalog_file_mappings(const path_type& message_catalog_directory)
+        static catalog_file_mappings_type read_catalog_file_mappings(
+            const boost::filesystem::path& message_catalog_directory
+        )
         {
             catalog_file_mappings_type mappings{};
 
             boost::filesystem::ifstream input_stream{
-                path_type{ message_catalog_directory / catalog_file_mappings_filename() }
+                boost::filesystem::path{ message_catalog_directory / catalog_file_mappings_filename() }
             };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open the message catalog file mappings." }));
@@ -264,7 +266,10 @@ namespace tetengo2 { namespace message
             return mappings;
         }
 
-        static void read_message_catalog(const path_type& catalog_file, message_catalog_type& message_catalog)
+        static void read_message_catalog(
+            const boost::filesystem::path& catalog_file,
+            message_catalog_type&          message_catalog
+        )
         {
             boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())

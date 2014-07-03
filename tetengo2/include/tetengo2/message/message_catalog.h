@@ -59,9 +59,6 @@ namespace tetengo2 { namespace message
         //! The messages type.
         using messages_type = messages<iterator, string_type, size_type, encoder_type, locale_name_encoder_type>;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
 
         // constructors and destructor
 

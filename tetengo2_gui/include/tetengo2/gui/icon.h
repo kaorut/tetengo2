@@ -42,9 +42,6 @@ namespace tetengo2 { namespace gui
         //! The icon details pointer type.
         using icon_details_ptr_type = typename details_type::icon_details_ptr_type;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
 
         // constructors and destructor
 
@@ -55,7 +52,7 @@ namespace tetengo2 { namespace gui
 
             \param path A path.
         */
-        explicit icon(path_type path)
+        explicit icon(boost::filesystem::path path)
         :
         m_path(std::move(path)),
         m_dimension(details_type::template default_dimension<dimension_type>()),
@@ -68,7 +65,7 @@ namespace tetengo2 { namespace gui
             \param path      A path.
             \param dimension A dimension.
         */
-        icon(path_type path, dimension_type dimension)
+        icon(boost::filesystem::path path, dimension_type dimension)
         :
         m_path(std::move(path)),
         m_dimension(std::move(dimension)),
@@ -83,7 +80,7 @@ namespace tetengo2 { namespace gui
 
             \return The path.
         */
-        const path_type& path()
+        const boost::filesystem::path& path()
         const
         {
             return m_path;
@@ -127,7 +124,7 @@ namespace tetengo2 { namespace gui
     private:
         // variables
 
-        const path_type m_path;
+        const boost::filesystem::path m_path;
 
         const dimension_type m_dimension;
 

@@ -15,6 +15,7 @@
 #include <system_error>
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -138,8 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.file_drop_observer_set().file_dropped().empty())
                 return boost::none;
 
-            using path_type = typename AbstractWindow::file_drop_observer_set_type::path_type;
-            const auto paths = make_paths<path_type>(reinterpret_cast< ::HDROP>(w_param));
+            const auto paths = make_paths<boost::filesystem::path>(reinterpret_cast< ::HDROP>(w_param));
             abstract_window.file_drop_observer_set().file_dropped()(paths);
             return boost::make_optional< ::LRESULT>(0);
         }

@@ -42,9 +42,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The picture type.
         using picture_type = picture<dimension_type, drawing_details_type>;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
 
         // constructors and destructor
 
@@ -53,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param path A path.
         */
-        explicit picture_reader(path_type path)
+        explicit picture_reader(boost::filesystem::path path)
         :
         m_path(std::move(path))
         {}
@@ -81,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // variables
 
-        const path_type m_path;
+        const boost::filesystem::path m_path;
 
 
     };

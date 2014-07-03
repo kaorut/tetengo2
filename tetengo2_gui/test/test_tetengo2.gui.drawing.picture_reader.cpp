@@ -32,8 +32,6 @@ namespace
 
     using picture_reader_type = tetengo2::gui::drawing::picture_reader<dimension_type, drawing_details_type>;
 
-    using path_type = boost::filesystem::path;
-
 
 }
 
@@ -48,7 +46,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        path_type path{};
+        boost::filesystem::path path{};
         const picture_reader_type reader{ std::move(path) };
     }
 
@@ -56,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        path_type path{};
+        boost::filesystem::path path{};
         picture_reader_type reader{ std::move(path) };
 
         const auto p_picture = reader.read();

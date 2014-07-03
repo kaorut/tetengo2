@@ -53,9 +53,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The detail implementaiton pointer type;
         using details_ptr_type = typename common_dialog_details_type::file_save_dialog_details_ptr_type;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;
 
@@ -74,10 +71,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent       A parent widget.
         */
         file_save(
-            string_type                       title,
-            const boost::optional<path_type>& path,
-            file_filters_type                 file_filters,
-            abstract_window_type&             parent
+            string_type                                     title,
+            const boost::optional<boost::filesystem::path>& path,
+            file_filters_type                               file_filters,
+            abstract_window_type&                           parent
         )
         :
         m_p_details(
@@ -85,7 +82,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 parent, std::move(title), path, std::move(file_filters), encoder()
             )
         ),
-        m_result(path ? *path : path_type{})
+        m_result(path ? *path : boost::filesystem::path{})
         {}
 
 
@@ -96,7 +93,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const path_type& result()
+        const boost::filesystem::path& result()
         const
         {
             return m_result;
@@ -111,7 +108,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         bool do_modal()
         {
             const auto result =
-                common_dialog_details_type::template show_file_save_dialog<path_type>(*m_p_details, encoder());
+                common_dialog_details_type::template show_file_save_dialog<boost::filesystem::path>(
+                    *m_p_details, encoder()
+                );
             if (!result)
                 return false;
 
@@ -155,7 +154,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         details_ptr_type m_p_details;
 
-        path_type m_result;
+        boost::filesystem::path m_result;
 
 
     };

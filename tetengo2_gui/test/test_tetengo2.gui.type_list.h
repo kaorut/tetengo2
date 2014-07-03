@@ -13,7 +13,6 @@
 #include <string>
 #include <utility>
 
-#include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
@@ -32,7 +31,6 @@ namespace test_tetengo2 { namespace gui
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
         struct string;         //!< The string type.
-        struct path;           //!< The path type.
         struct ui_encoder;     //!< The UI encoder type.
         struct exception_encoder; //!< The exception encoder type.
         struct widget_traits;  //!< The widget traits type.
@@ -49,7 +47,6 @@ namespace test_tetengo2 { namespace gui
         using dimension_type = std::pair<tetengo2::gui::unit::pixel<size_type>, tetengo2::gui::unit::pixel<size_type>>;
         using string_type = std::string;
         using exception_string_type = std::string;
-        using path_type = boost::filesystem::path;
         using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
         using ui_encoding_type =
@@ -91,13 +88,12 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<boost::mpl::pair<type::position, detail::position_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::dimension, detail::dimension_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::path, detail::path_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui_encoder, detail::ui_encoder_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_encoder, detail::exception_encoder_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_traits, detail::widget_traits_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_details_traits, detail::widget_details_traits_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>;
+        >>>>>>>>>;
 
 
 }}

@@ -8,6 +8,7 @@
 
 #include <cstddef>
 
+#include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -21,8 +22,6 @@
 namespace
 {
     // types
-
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
 
     using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
 
@@ -52,10 +51,10 @@ BOOST_AUTO_TEST_SUITE(icon)
         BOOST_TEST_PASSPOINT();
 
         {
-            const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
+            const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
         }
         {
-            const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42) };
+            const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42) };
         }
     }
 
@@ -63,16 +62,16 @@ BOOST_AUTO_TEST_SUITE(icon)
     {
         BOOST_TEST_PASSPOINT();
 
-        const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
+        const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
 
-        BOOST_CHECK(icon.path() == path_type{ TETENGO2_TEXT("hoge.ico") });
+        BOOST_CHECK(icon.path() == boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42) };
+        const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") }, make_dimension(42, 42) };
 
         BOOST_CHECK(icon.dimension() == make_dimension(42, 42));
     }
@@ -82,12 +81,12 @@ BOOST_AUTO_TEST_SUITE(icon)
         BOOST_TEST_PASSPOINT();
 
         {
-            const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
+            const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
 
             icon.details();
         }
         {
-            icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
+            icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
 
             icon.details();
         }

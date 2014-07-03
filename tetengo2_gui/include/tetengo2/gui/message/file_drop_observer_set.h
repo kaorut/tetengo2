@@ -26,15 +26,12 @@ namespace tetengo2 { namespace gui { namespace message
     public:
         // types
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
         /*!
             \brief The observer type of file-dropped.
 
             \param paths Paths.
         */
-        using file_dropped_type = void (const std::vector<path_type>& paths);
+        using file_dropped_type = void (const std::vector<boost::filesystem::path>& paths);
 
         //! The signal type of file_dropped.
         using file_dropped_signal_type = boost::signals2::signal<file_dropped_type>;

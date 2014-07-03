@@ -52,9 +52,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The detail implementaiton pointer type;
         using details_ptr_type = typename common_dialog_details_type::file_open_dialog_details_ptr_type;
 
-        //! The path type.
-        using path_type = boost::filesystem::path;
-
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;
 
@@ -89,7 +86,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const path_type& result()
+        const boost::filesystem::path& result()
         const
         {
             return m_result;
@@ -104,7 +101,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         bool do_modal()
         {
             const auto result =
-                common_dialog_details_type::template show_file_open_dialog<path_type>(*m_p_details, encoder());
+                common_dialog_details_type::template show_file_open_dialog<boost::filesystem::path>(
+                    *m_p_details, encoder()
+                );
             if (!result)
                 return false;
 
@@ -148,7 +147,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         details_ptr_type m_p_details;
 
-        path_type m_result;
+        boost::filesystem::path m_result;
 
 
     };
