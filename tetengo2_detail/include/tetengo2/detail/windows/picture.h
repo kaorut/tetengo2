@@ -12,6 +12,7 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)
@@ -122,16 +123,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     /*!
         \brief Reads a picture.
 
-        \tparam Path A path type.
-
         \param path A path.
 
         \return A unique pointer to a picture.
 
         \throw std::system_error When the picture cannot be read.
     */
-    template <typename Path>
-    details_ptr_type read(const Path& path)
+    inline details_ptr_type read(const boost::filesystem::path& path)
     {
         ::IWICBitmapDecoder* rp_decoder = nullptr;
         const auto create_decoder_hr =
