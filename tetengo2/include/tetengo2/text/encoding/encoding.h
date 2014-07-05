@@ -23,7 +23,7 @@ namespace tetengo2 { namespace text { namespace encoding
     public:
         // types
 
-        //! The detail implementation type of an encoding.
+        //! The encoding details type.
         using encoding_details_type = EncodingDetails;
 
         //! The pivot type.

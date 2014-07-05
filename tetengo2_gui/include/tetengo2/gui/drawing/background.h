@@ -29,10 +29,10 @@ namespace tetengo2 { namespace gui { namespace drawing
     public:
         // types
 
-        //! The detail implementation type of a drawing.
+        //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename drawing_details_type::background_details_type;
 
         //! The detail implementation pointer type.

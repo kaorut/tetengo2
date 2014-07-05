@@ -21,6 +21,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
@@ -391,7 +392,6 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Shows a file open dialog and return a path.
 
-            \tparam Path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file open dialog.
@@ -401,8 +401,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \throw std::system_error When the file open dialog cannot be shown.
         */
-        template <typename Path, typename Encoder>
-        static boost::optional<Path> show_file_open_dialog(
+        template <typename Encoder>
+        static boost::optional<boost::filesystem::path> show_file_open_dialog(
             file_open_dialog_details_type& dialog,
             const Encoder&                 encoder
         )
@@ -471,7 +471,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(Path{ encoder.decode(file_name) });
+            return boost::make_optional(boost::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -529,7 +529,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Shows a file save dialog and return a path.
 
-            \tparam Path    A path type.
+            \tparam boost::filesystem::path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file save dialog.
@@ -539,8 +539,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \throw std::system_error When the file save dialog cannot be shown.
         */
-        template <typename Path, typename Encoder>
-        static boost::optional<Path> show_file_save_dialog(
+        template <typename Encoder>
+        static boost::optional<boost::filesystem::path> show_file_save_dialog(
             file_save_dialog_details_type& dialog,
             const Encoder&                 encoder
         )
@@ -655,7 +655,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(Path{ encoder.decode(file_name) });
+            return boost::make_optional(boost::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -981,8 +981,8 @@ namespace tetengo2 { namespace detail { namespace windows
             return path ? path->template string<String>() : String{};
         }
 
-        template <typename Path, typename String>
-        static bool match_extension(const Path& path, const String& extension)
+        template <typename String>
+        static bool match_extension(const boost::filesystem::path& path, const String& extension)
         {
             const auto path_string = path.template string<String>();
             const auto dotted_extension = String{ TETENGO2_TEXT(".") } + extension;

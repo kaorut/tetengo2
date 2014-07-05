@@ -472,6 +472,7 @@ boost::filesystem::ifstream                      boost/filesystem/fstream.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::ofstream                      boost/filesystem.hpp
 boost::filesystem::path                          boost/filesystem.hpp
+boost::filesystem::path::string_type             boost/filesystem.hpp
 boost::filesystem::remove                        boost/filesystem.hpp
 boost::filesystem::temp_directory_path           boost/filesystem.hpp
 boost::filesystem::unique_path                   boost/filesystem.hpp

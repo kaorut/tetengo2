@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
-        //! The detail implementation type of a widget.
+        //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
         //! The icon details type.
@@ -71,9 +71,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = typename base_type::string_type;
 
-        //! The path type.
-        using path_type = typename base_type::path_type;
-
         //! The encoder type.
         using encoder_type = typename base_type::encoder_type;
 
@@ -81,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The icon type.
-        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
+        using icon_type = gui::icon<dimension_type, icon_details_type>;
 
         //! The shortcut key table type.
         using shortcut_key_table_type =
@@ -97,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using window_observer_set_type = gui::message::window_observer_set;
 
         //! The file drop observer set type.
-        using file_drop_observer_set_type = gui::message::file_drop_observer_set<path_type>;
+        using file_drop_observer_set_type = gui::message::file_drop_observer_set;
 
         //! The window state type.
         enum class window_state_type

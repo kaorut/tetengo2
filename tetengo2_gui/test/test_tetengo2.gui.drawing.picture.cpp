@@ -53,9 +53,7 @@ BOOST_AUTO_TEST_SUITE(picture)
         }
         {
             picture_type::details_ptr_type p_details{
-                tetengo2::detail::stub::drawing::create_picture(
-                    dimension_type{ width_type{ 123 }, height_type{ 456 } }
-                )
+                drawing_details_type::create_picture(dimension_type{ width_type{ 123 }, height_type{ 456 } })
             };
             const picture_type picture2{ std::move(p_details) };
         }

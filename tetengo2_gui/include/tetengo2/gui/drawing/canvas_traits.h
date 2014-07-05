@@ -18,7 +18,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam Size      A size type.
         \tparam UnitSize  A unit size type.
         \tparam String    A string type.
-        \tparam Path      A path type.
         \tparam Position  A position type.
         \tparam Dimension A dimension type.
         \tparam Encoder   An encoder type.
@@ -27,7 +26,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename UnitSize,
         typename String,
-        typename Path,
         typename Position,
         typename Dimension,
         typename Encoder
@@ -45,9 +43,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The string type.
         using string_type = String;
-
-        //! The path type.
-        using path_type = Path;
 
         //! The position type.
         using position_type = Position;

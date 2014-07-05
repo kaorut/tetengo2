@@ -37,7 +37,7 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The string type.
         using string_type = std::string;
 
-        //! The detail implementation type of an encoding.
+        //! The encoding details type.
         using encoding_details_type = EncodingDetails;
 
 

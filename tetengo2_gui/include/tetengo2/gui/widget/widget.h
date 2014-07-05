@@ -26,6 +26,7 @@
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/measure.h>
@@ -68,9 +69,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = typename traits_type::string_type;
 
-        //! The path type.
-        using path_type = typename traits_type::path_type;
-
         //! The position type.
         using position_type = typename traits_type::position_type;
 
@@ -86,10 +84,10 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
-        //! The detail implementation type of a widget.
+        //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
 
         //! The detail implementation pointer type.
@@ -113,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The canvas traits type.
         using canvas_traits_type =
             gui::drawing::canvas_traits<
-                size_type, unit_size_type, string_type, path_type, position_type, dimension_type, encoder_type
+                size_type, unit_size_type, string_type, position_type, dimension_type, encoder_type
             >;
 
         //! The canvas type.

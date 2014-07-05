@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/measure.h>
@@ -58,7 +59,6 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates an icon.
 
-            \tparam Path      A path type.
             \tparam Dimension A dimension type.
 
             \param path      A path.
@@ -66,8 +66,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to an icon.
         */
-        template <typename Path, typename Dimension>
-        static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
+        template <typename Dimension>
+        static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
         {
             suppress_unused_variable_warning(path, dimension);
             return stdalt::make_unique<icon_details_type>();

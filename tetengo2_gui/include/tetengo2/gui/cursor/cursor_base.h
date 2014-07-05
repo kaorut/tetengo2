@@ -27,10 +27,10 @@ namespace tetengo2 { namespace gui { namespace cursor
     public:
         // types
 
-        //! The detail implementation type of a cursor.
+        //! The cursor details type.
         using cursor_details_type = CursorDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename cursor_details_type::cursor_details_type;
 
 

@@ -35,7 +35,7 @@ namespace tetengo2 { namespace gui
         //! The string type.
         using string_type = String;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = Details;
 
         //! The code type.

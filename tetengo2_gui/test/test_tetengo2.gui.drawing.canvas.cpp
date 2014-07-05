@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -51,11 +52,8 @@ namespace
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
-
     using icon_type =
         tetengo2::gui::icon<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
         >;
@@ -70,7 +68,7 @@ namespace
 
     using canvas_traits_type =
         tetengo2::gui::drawing::canvas_traits<
-            size_type, size_type, string_type, path_type, position_type, dimension_type, encoder_type
+            size_type, size_type, string_type, position_type, dimension_type, encoder_type
         >;
 
     using canvas_type =
@@ -406,7 +404,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas{};
 
-        const icon_type icon{ path_type{ TETENGO2_TEXT("hoge.ico") } };
+        const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
         canvas.paint_icon(icon, make_position(12, 34));
     }
 

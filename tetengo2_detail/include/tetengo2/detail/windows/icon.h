@@ -15,6 +15,7 @@
 #include <type_traits>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -102,7 +103,6 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates an icon.
 
-            \tparam Path      A path type.
             \tparam Dimension A dimension type.
 
             \param path      A path.
@@ -110,8 +110,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A unique pointer to an icon.
         */
-        template <typename Path, typename Dimension>
-        static icon_details_ptr_type create(const Path& path, const Dimension& dimension)
+        template <typename Dimension>
+        static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
         {
             const int width = gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension));
             const int height = gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension));
@@ -139,8 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return std::make_pair(::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
         }
 
-        template <typename Path>
-        static ::HICON load_icon(const Path& path, const int width, const int height)
+        inline static ::HICON load_icon(const boost::filesystem::path& path, const int width, const int height)
         {
             const ::HANDLE handle =
                 ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);

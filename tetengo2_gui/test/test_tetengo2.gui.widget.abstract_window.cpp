@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -24,11 +25,8 @@ namespace
 {
     // types
 
-    using path_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type;
-
     using icon_type =
         tetengo2::gui::icon<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
         >;
@@ -187,12 +185,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         concrete_window window;
 
         std::unique_ptr<icon_type> p_icon =
-            tetengo2::stdalt::make_unique<icon_type>(path_type{ TETENGO2_TEXT("hoge.ico") });
+            tetengo2::stdalt::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
         window.set_icon(std::move(p_icon));
 
         BOOST_REQUIRE(window.has_icon());
         const icon_type& icon = window.icon();
-        BOOST_CHECK(icon.path() == path_type{ TETENGO2_TEXT("hoge.ico") });
+        BOOST_CHECK(icon.path() == boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
     }
 
     BOOST_AUTO_TEST_CASE(has_menu_bar)
