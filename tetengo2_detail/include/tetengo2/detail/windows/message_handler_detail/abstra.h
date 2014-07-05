@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (abstract_window.file_drop_observer_set().file_dropped().empty())
                 return boost::none;
 
-            const auto paths = make_paths<boost::filesystem::path>(reinterpret_cast< ::HDROP>(w_param));
+            const auto paths = make_paths(reinterpret_cast< ::HDROP>(w_param));
             abstract_window.file_drop_observer_set().file_dropped()(paths);
             return boost::make_optional< ::LRESULT>(0);
         }
