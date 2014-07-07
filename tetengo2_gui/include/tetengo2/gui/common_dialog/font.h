@@ -22,7 +22,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         \tparam Font                A font type.
         \tparam WidgetTraits        A widget traits type.
-        \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
         \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
         \tparam MenuDetails         A detail implementation type of a menu.
@@ -30,7 +29,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     template <
         typename Font,
         typename WidgetTraits,
-        typename Encoder,
         typename CommonDialogDetails,
         typename WidgetDetailsTraits,
         typename MenuDetails
@@ -47,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         using widget_traits_type = WidgetTraits;
 
         //! The encoder type.
-        using encoder_type = Encoder;
+        using encoder_type = typename widget_traits_type::encoder_type;
 
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;

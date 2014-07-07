@@ -47,7 +47,6 @@ namespace
         tetengo2::gui::common_dialog::font<
             font_type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
             common_dialog_details_type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
             menu_details_type
