@@ -38,7 +38,7 @@ namespace tetengo2 { namespace gui
         //! The range type.
         using range_type = std::pair<size_type, size_type>;
 
-        //! The detail implementation type of a scroll.
+        //! The scroll details type.
         using details_type = ScrollDetails;
 
         //! The detail implementation pointer type of a scroll bar.

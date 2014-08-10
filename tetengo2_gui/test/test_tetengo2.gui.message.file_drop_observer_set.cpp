@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,10 +18,7 @@ namespace
 {
     // types
 
-    using file_drop_observer_set_type =
-        tetengo2::gui::message::file_drop_observer_set<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type
-        >;
+    using file_drop_observer_set_type = tetengo2::gui::message::file_drop_observer_set;
 
 
 }

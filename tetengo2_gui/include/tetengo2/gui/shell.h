@@ -38,7 +38,7 @@ namespace tetengo2 { namespace gui
         //! The encoder type.
         using encoder_type = Encoder;
 
-        //! The detail implementation type of a shell.
+        //! The shell details type.
         using shell_details_type = ShellDetails;
 
 

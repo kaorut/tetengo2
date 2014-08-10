@@ -25,7 +25,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The detail implementation type of a fixture.
+        //! The fixture details type.
         using fixture_details_type = FixtureDetails;
 
 

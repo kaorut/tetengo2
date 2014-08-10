@@ -188,7 +188,6 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Shows a file open dialog and return a path.
 
-            \tparam Path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file open dialog.
@@ -198,8 +197,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the file open dialog cannot be shown.
         */
-        template <typename Path, typename Encoder>
-        static boost::optional<Path> show_file_open_dialog(
+        template <typename Encoder>
+        static boost::optional<boost::filesystem::path> show_file_open_dialog(
             file_open_dialog_details_type& dialog,
             const Encoder&                 encoder
         )
@@ -245,7 +244,6 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Shows a file save dialog and return a path.
 
-            \tparam Path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file save dialog.
@@ -255,8 +253,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the file save dialog cannot be shown.
         */
-        template <typename Path, typename Encoder>
-        static boost::optional<Path> show_file_save_dialog(
+        template <typename Encoder>
+        static boost::optional<boost::filesystem::path> show_file_save_dialog(
             file_save_dialog_details_type& dialog,
             const Encoder&                 encoder
         )

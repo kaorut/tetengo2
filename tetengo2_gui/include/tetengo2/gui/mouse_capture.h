@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui
         //! The mouse button type.
         using mouse_button_type = MouseButton;
 
-        //! The detail implementation type of a mouse capture.
+        //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 
 

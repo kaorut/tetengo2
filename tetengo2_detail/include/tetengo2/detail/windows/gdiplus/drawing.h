@@ -21,6 +21,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
@@ -311,16 +312,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Reads a picture.
 
-            \tparam Path A path type.
-
             \param path A path.
 
             \return A unique pointer to a picture.
 
             \throw std::system_error When the picture cannot be read.
         */
-        template <typename Path>
-        static picture_details_ptr_type read_picture(const Path& path)
+        inline static picture_details_ptr_type read_picture(const boost::filesystem::path& path)
         {
             return picture::read(path);
         }

@@ -11,6 +11,7 @@
 
 #include <vector>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
@@ -18,25 +19,19 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class template for a file drop observer set.
-
-        \tparam Path A path type.
+        \brief The class for a file drop observer set.
     */
-    template <typename Path>
     class file_drop_observer_set : private boost::noncopyable
     {
     public:
         // types
-
-        //! The path type.
-        using path_type = Path;
 
         /*!
             \brief The observer type of file-dropped.
 
             \param paths Paths.
         */
-        using file_dropped_type = void (const std::vector<path_type>& paths);
+        using file_dropped_type = void (const std::vector<boost::filesystem::path>& paths);
 
         //! The signal type of file_dropped.
         using file_dropped_signal_type = boost::signals2::signal<file_dropped_type>;

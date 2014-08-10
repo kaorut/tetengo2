@@ -42,7 +42,7 @@ namespace tetengo2 { namespace config
         //! The encoder type.
         using encoder_type = Encoder;
 
-        //! The detail implementation type of a configuration.
+        //! The configuration details type.
         using configuration_details_type = ConfigDetails;
 
         //! The base type.

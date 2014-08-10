@@ -28,7 +28,6 @@ namespace
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type

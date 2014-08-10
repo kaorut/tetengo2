@@ -12,6 +12,7 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)
@@ -122,16 +123,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     /*!
         \brief Reads a picture.
 
-        \tparam Path A path type.
-
         \param path A path.
 
         \return A unique pointer to a picture.
 
         \throw std::system_error When the picture cannot be read.
     */
-    template <typename Path>
-    details_ptr_type read(const Path& path)
+    inline details_ptr_type read(const boost::filesystem::path& path)
     {
         ::IWICBitmapDecoder* rp_decoder = nullptr;
         const auto create_decoder_hr =
@@ -144,7 +142,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 std::system_error{ std::error_code{ create_decoder_hr, wic_category() }, "Can't create WIC decoder." }
             ));
         }
-        const typename unique_com_ptr< ::IWICBitmapDecoder> p_decoder{ rp_decoder };
+        const unique_com_ptr< ::IWICBitmapDecoder> p_decoder{ rp_decoder };
 
         ::IWICBitmapFrameDecode* rp_frame = nullptr;
         const auto get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
@@ -154,7 +152,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 std::system_error{ std::error_code{ get_frame_hr, wic_category() }, "Can't create bitmap frame." }
             ));
         }
-        const typename unique_com_ptr< ::IWICBitmapFrameDecode> p_frame{ rp_frame };
+        const unique_com_ptr< ::IWICBitmapFrameDecode> p_frame{ rp_frame };
 
         ::IWICFormatConverter* rp_format_converter = nullptr;
         const auto create_format_converter_hr = wic_imaging_factory().CreateFormatConverter(&rp_format_converter);
@@ -166,7 +164,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
                 }
             ));
         }
-        typename unique_com_ptr< ::IWICFormatConverter> p_format_converter{ rp_format_converter };
+        unique_com_ptr< ::IWICFormatConverter> p_format_converter{ rp_format_converter };
 
         const auto initialize_hr =
             p_format_converter->Initialize(

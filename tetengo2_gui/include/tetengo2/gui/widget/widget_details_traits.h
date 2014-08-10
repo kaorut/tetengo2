@@ -38,7 +38,7 @@ namespace tetengo2 { namespace gui { namespace widget
     {
         // types
 
-        //! The detail implementation type of a widget.
+        //! The widget details type.
         using widget_details_type = WidgetDetails;
 
         //! The drawing details type.

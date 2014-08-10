@@ -12,6 +12,7 @@
 #include <cassert>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 
@@ -20,23 +21,19 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for an icon.
 
-        \tparam Path      A path type.
         \tparam Dimension A dimension type.
         \tparam Details   A detail implementation type.
     */
-    template <typename Path, typename Dimension, typename Details>
+    template <typename Dimension, typename Details>
     class icon : private boost::noncopyable
     {
     public:
         // types
 
-        //! The path type.
-        using path_type = Path;
-
         //! The dimension type.
         using dimension_type = Dimension;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = Details;
 
         //! The icon details type.
@@ -55,7 +52,7 @@ namespace tetengo2 { namespace gui
 
             \param path A path.
         */
-        explicit icon(path_type path)
+        explicit icon(boost::filesystem::path path)
         :
         m_path(std::move(path)),
         m_dimension(details_type::template default_dimension<dimension_type>()),
@@ -68,7 +65,7 @@ namespace tetengo2 { namespace gui
             \param path      A path.
             \param dimension A dimension.
         */
-        icon(path_type path, dimension_type dimension)
+        icon(boost::filesystem::path path, dimension_type dimension)
         :
         m_path(std::move(path)),
         m_dimension(std::move(dimension)),
@@ -83,7 +80,7 @@ namespace tetengo2 { namespace gui
 
             \return The path.
         */
-        const path_type& path()
+        const boost::filesystem::path& path()
         const
         {
             return m_path;
@@ -127,7 +124,7 @@ namespace tetengo2 { namespace gui
     private:
         // variables
 
-        const path_type m_path;
+        const boost::filesystem::path m_path;
 
         const dimension_type m_dimension;
 

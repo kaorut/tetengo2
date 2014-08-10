@@ -12,6 +12,7 @@
 #include <memory>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
@@ -23,23 +24,19 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a picture reader.
 
-        \tparam Path           A path type.
         \tparam Dimension      A dimension type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Path, typename Dimension, typename DrawingDetails>
+    template <typename Dimension, typename DrawingDetails>
     class picture_reader : private boost::noncopyable
     {
     public:
         // types
 
-        //! The path type.
-        using path_type = Path;
-
         //! The dimension type.
         using dimension_type = Dimension;
 
-        //! The detail implementation type of a drawing.
+        //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
         //! The picture type.
@@ -53,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param path A path.
         */
-        explicit picture_reader(path_type path)
+        explicit picture_reader(boost::filesystem::path path)
         :
         m_path(std::move(path))
         {}
@@ -81,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // variables
 
-        const path_type m_path;
+        const boost::filesystem::path m_path;
 
 
     };

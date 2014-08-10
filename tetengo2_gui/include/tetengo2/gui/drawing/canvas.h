@@ -54,9 +54,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The string type.
         using string_type = typename traits_type::string_type;
 
-        //! The path type.
-        using path_type = typename traits_type::path_type;
-
         //! The position type.
         using position_type = typename traits_type::position_type;
 
@@ -69,10 +66,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
-        //! The detail implementation type of a drawing.
+        //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
-        //! The detail implementation type.
+        //! The details type.
         using details_type = typename drawing_details_type::canvas_details_type;
 
         //! The detail implementation pointer type.
@@ -94,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using icon_details_type = IconDetails;
 
         //! The icon type.
-        using icon_type = gui::icon<path_type, dimension_type, icon_details_type>;
+        using icon_type = gui::icon<dimension_type, icon_details_type>;
 
         //! The color type.
         using color_type = color;

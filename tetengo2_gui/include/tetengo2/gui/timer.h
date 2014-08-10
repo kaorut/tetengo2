@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui
         //! The widget type.
         using widget_type = Widget;
 
-        //! The detail implementation type of a timer.
+        //! The timer details type.
         using timer_details_type = TimerDetails;
 
         /*!
