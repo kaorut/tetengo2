@@ -20,7 +20,7 @@
 #include <utility>
 #include <vector>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>

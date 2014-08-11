@@ -12,8 +12,8 @@
 #include <memory>
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/stdalt.h>

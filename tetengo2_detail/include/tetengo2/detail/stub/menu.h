@@ -12,7 +12,7 @@
 #include <memory>
 #include <system_error>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>

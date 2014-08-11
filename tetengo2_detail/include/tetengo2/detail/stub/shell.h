@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_SHELL_H)
 #define TETENGO2_DETAIL_STUB_SHELL_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/utility.h>
 #include <tetengo2/text.h>

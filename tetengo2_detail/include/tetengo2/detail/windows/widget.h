@@ -21,8 +21,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/scope_exit.hpp>

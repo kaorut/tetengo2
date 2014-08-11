@@ -15,7 +15,7 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>

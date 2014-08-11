@@ -14,7 +14,7 @@
 #include <system_error>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/utility.h>

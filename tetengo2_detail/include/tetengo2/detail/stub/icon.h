@@ -11,8 +11,8 @@
 
 #include <memory>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>

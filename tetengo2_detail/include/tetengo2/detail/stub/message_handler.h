@@ -14,7 +14,7 @@
 #include <utility>
 #include <vector>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/utility.h>

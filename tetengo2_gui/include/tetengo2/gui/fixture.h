@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_FIXTURE_H)
 #define TETENGO2_GUI_FIXTURE_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 
 namespace tetengo2 { namespace gui

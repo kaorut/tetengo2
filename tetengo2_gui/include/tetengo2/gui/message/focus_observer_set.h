@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_MESSAGE_FOCUSOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_FOCUSOBSERVERSET_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
 

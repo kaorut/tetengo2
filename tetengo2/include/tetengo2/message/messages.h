@@ -23,9 +23,9 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>

@@ -14,7 +14,7 @@
 #include <utility>
 #include <vector>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
 //#pragma warning (push)

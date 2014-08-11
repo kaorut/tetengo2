@@ -10,7 +10,7 @@
 #include <queue>
 #include <stdexcept>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 

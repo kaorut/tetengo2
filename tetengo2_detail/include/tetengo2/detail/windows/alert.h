@@ -13,7 +13,7 @@
 #include <sstream>
 #include <string>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 
 #pragma warning (push)

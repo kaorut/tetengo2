@@ -12,8 +12,8 @@
 #include <cassert>
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 
 
 namespace tetengo2 { namespace gui

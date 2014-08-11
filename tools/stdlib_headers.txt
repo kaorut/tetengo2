@@ -521,7 +521,7 @@ boost::mpl::void_                                boost/mpl/void.hpp
 boost::multiplicative                            boost/operators.hpp
 boost::mutex                                     boost/thread.hpp
 boost::next                                      boost/utility.hpp
-boost::noncopyable                               boost/noncopyable.hpp
+boost::noncopyable                               boost/core/noncopyable.hpp
 boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
 boost::prior                                     boost/utility.hpp

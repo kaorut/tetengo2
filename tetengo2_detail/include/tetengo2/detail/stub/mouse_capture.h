@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_MOUSECAPTURE_H)
 #define TETENGO2_DETAIL_STUB_MOUSECAPTURE_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/utility.h>
 

@@ -13,7 +13,7 @@
 #include <memory>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2/gui/measure.h>

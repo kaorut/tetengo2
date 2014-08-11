@@ -12,8 +12,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/text.h>

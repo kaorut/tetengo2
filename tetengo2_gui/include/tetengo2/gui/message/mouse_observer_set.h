@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 #include <boost/signals2.hpp>
 
