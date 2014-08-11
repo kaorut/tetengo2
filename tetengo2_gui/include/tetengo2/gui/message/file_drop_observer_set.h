@@ -11,8 +11,8 @@
 
 #include <vector>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
 

@@ -12,10 +12,10 @@
 #include <type_traits>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/operators.hpp>
 
 #include <tetengo2/text/encoding/locale.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace text
@@ -147,7 +147,7 @@ namespace tetengo2 { namespace text
             const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
-            suppress_unused_variable_warning(internal_encoding, external_encoding);
+            boost::ignore_unused(internal_encoding, external_encoding);
 
             return std::move(string);
         }
@@ -184,7 +184,7 @@ namespace tetengo2 { namespace text
             const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
         )
         {
-            suppress_unused_variable_warning(internal_encoding, external_encoding);
+            boost::ignore_unused(internal_encoding, external_encoding);
 
             return std::move(string);
         }

@@ -33,7 +33,6 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
-#include <tetengo2/utility.h>
 
 
 #endif

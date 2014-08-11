@@ -13,7 +13,7 @@
 #include <functional>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 
 namespace tetengo2 { namespace gui

@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_STDALT_H)
 #define TETENGO2_STDALT_H
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/predef.h>
-
-#include <tetengo2/utility.h>
 
 
 /* noexcept *******************************************************************/
@@ -81,7 +80,7 @@ namespace tetengo2 { namespace stdalt
         const typename Container::const_iterator iterator
     )
     {
-        suppress_unused_variable_warning(container);
+        boost::ignore_unused(container);
 
         return iterator;
     }

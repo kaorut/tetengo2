@@ -10,6 +10,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_DROPDOWNBOX_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_DROPDOWNBOX_H
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 
 #pragma warning (push)
@@ -20,8 +21,6 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
@@ -35,7 +34,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM l_param
         )
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             switch (HIWORD(w_param))
             {

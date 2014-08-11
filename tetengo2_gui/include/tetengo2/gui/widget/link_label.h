@@ -18,7 +18,6 @@
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget

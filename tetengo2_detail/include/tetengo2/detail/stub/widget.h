@@ -20,14 +20,14 @@
 #include <utility>
 #include <vector>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -176,7 +176,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
-            suppress_unused_variable_warning(is_default, is_cancel);
+            boost::ignore_unused(is_default, is_cancel);
 
             return create_details<Widget>(&parent);
         }
@@ -201,7 +201,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            suppress_unused_variable_warning(border, scroll_bar_style);
+            boost::ignore_unused(border, scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }
@@ -221,7 +221,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_dialog(Widget* const p_parent, const bool file_droppable)
         {
-            suppress_unused_variable_warning(file_droppable);
+            boost::ignore_unused(file_droppable);
 
             return create_details<Widget>(p_parent);
         }
@@ -295,7 +295,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style);
+            boost::ignore_unused(scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }
@@ -318,7 +318,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style);
+            boost::ignore_unused(scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }
@@ -341,7 +341,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename Widget::scroll_bar_style_type scroll_bar_style
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style);
+            boost::ignore_unused(scroll_bar_style);
 
             return create_details<Widget>(&parent);
         }
@@ -366,7 +366,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const bool                                   file_droppable
         )
         {
-            suppress_unused_variable_warning(scroll_bar_style, file_droppable);
+            boost::ignore_unused(scroll_bar_style, file_droppable);
 
             return create_details<Widget>(p_parent);
         }
@@ -618,7 +618,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename ParentWidget>
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
-            suppress_unused_variable_warning(widget);
+            boost::ignore_unused(widget);
 
             return position<Position>(parent);
         }
@@ -870,7 +870,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void repaint(Widget& widget, const bool immediately)
         {
-            suppress_unused_variable_warning(widget, immediately);
+            boost::ignore_unused(widget, immediately);
         }
 
         /*!
@@ -889,7 +889,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            suppress_unused_variable_warning(widget, position, dimension);
+            boost::ignore_unused(widget, position, dimension);
         }
 
         /*!
@@ -921,7 +921,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void activate(Widget& widget)
         {
-            suppress_unused_variable_warning(widget);
+            boost::ignore_unused(widget);
         }
 
         /*!
@@ -938,7 +938,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Icon>
         static void set_icon(Widget& widget, const Icon* const p_icon)
         {
-            suppress_unused_variable_warning(widget, p_icon);
+            boost::ignore_unused(widget, p_icon);
         }
 
         /*!
@@ -955,7 +955,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename MenuBase>
         static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {
-            suppress_unused_variable_warning(widget, menu);
+            boost::ignore_unused(widget, menu);
         }
 
         /*!
@@ -1000,7 +1000,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void set_focus(Widget& widget)
         {
-            suppress_unused_variable_warning(widget);
+            boost::ignore_unused(widget);
         }
 
         /*!
@@ -1049,7 +1049,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static void close(Widget& widget)
         {
-            suppress_unused_variable_warning(widget);
+            boost::ignore_unused(widget);
         }
 
         /*!

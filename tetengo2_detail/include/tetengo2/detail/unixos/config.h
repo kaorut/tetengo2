@@ -23,9 +23,9 @@
 #include <string>
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>

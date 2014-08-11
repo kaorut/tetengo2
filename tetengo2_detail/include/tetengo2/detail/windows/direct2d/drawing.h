@@ -16,9 +16,10 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/math/constants/constants.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -41,7 +42,6 @@
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
@@ -259,7 +259,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Dimension>
         static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
         {
-            suppress_unused_variable_warning(canvas, dimension);
+            boost::ignore_unused(canvas, dimension);
         }
 
         /*!
@@ -273,7 +273,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         static void end_transaction(canvas_details_type& canvas)
         {
-            suppress_unused_variable_warning(canvas);
+            boost::ignore_unused(canvas);
         }
 
         /*!
@@ -531,7 +531,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
-            suppress_unused_variable_warning(canvas);
+            boost::ignore_unused(canvas);
 
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
 

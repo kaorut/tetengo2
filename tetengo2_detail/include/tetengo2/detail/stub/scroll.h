@@ -14,10 +14,10 @@
 #include <system_error>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -92,7 +92,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const style_type     style
         )
         {
-            suppress_unused_variable_warning(widget_details, style);
+            boost::ignore_unused(widget_details, style);
 
             return stdalt::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }

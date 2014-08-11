@@ -11,7 +11,7 @@
 
 #include <stdexcept>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/stdalt.h>

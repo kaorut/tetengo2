@@ -14,7 +14,7 @@
 #include <utility>
 #include <vector>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/shortcut_key.h>

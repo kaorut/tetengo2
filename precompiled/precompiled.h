@@ -39,6 +39,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/chrono.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -79,7 +80,6 @@
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/void.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
