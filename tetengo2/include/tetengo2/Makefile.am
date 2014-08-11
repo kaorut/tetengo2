@@ -25,8 +25,7 @@ pkg_headers = \
     text/encoding/utf8.h \
     text/grammar/json.h \
     text/pull_parser.h \
-    text/push_parser.h \
-    utility.h
+    text/push_parser.h
 
 extra_headers = \
     0namespace.h \

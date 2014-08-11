@@ -131,7 +131,6 @@
     <ClInclude Include="include\tetengo2\text\grammar\json.h" />
     <ClInclude Include="include\tetengo2\text\pull_parser.h" />
     <ClInclude Include="include\tetengo2\text\push_parser.h" />
-    <ClInclude Include="include\tetengo2\utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">
