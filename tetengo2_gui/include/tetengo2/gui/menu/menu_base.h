@@ -177,7 +177,7 @@ namespace tetengo2 { namespace gui { namespace menu
         bool has_shortcut_key()
         const
         {
-            return m_shortcut_key;
+            return static_cast<bool>(m_shortcut_key);
         }
 
         /*!
