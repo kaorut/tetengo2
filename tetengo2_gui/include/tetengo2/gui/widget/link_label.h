@@ -12,8 +12,6 @@
 #include <cassert>
 #include <utility>
 
-#include <boost/core/ignore_unused.hpp>
-
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/measure.h>

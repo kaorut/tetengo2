@@ -479,7 +479,7 @@ boost::filesystem::unique_path                   boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::get                                       boost/variant.hpp
 boost::get_error_info                            boost/exception/all.hpp
-boost::ignore_unused_variable_warning            boost/concept_check.hpp
+boost::ignore_unused                             boost/core/ignore_unused.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::join                                      boost/algorithm/string.hpp

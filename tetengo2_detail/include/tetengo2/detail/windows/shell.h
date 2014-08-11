@@ -11,7 +11,6 @@
 
 #include <algorithm>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #pragma warning (push)

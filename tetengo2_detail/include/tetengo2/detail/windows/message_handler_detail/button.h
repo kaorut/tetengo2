@@ -10,6 +10,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_BUTTON_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_BUTTON_H
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 
 #pragma warning (push)

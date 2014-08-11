@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>

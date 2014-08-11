@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
