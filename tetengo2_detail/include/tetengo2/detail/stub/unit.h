@@ -11,7 +11,7 @@
 
 #include <type_traits>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 
 

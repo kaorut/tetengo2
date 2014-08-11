@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
@@ -43,7 +44,7 @@ namespace
         virtual void set_impl(const string_type& key, value_type value)
         override
         {
-            tetengo2::suppress_unused_variable_warning(key, value);
+            boost::ignore_unused(key, value);
         }
 
         virtual void clear_impl()

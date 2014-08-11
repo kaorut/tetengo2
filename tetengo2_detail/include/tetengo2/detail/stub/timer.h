@@ -12,9 +12,8 @@
 #include <chrono>
 #include <functional>
 
-#include <boost/noncopyable.hpp>
-
-#include <tetengo2/utility.h>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -45,7 +44,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const bool                       once_only
         )
         {
-            suppress_unused_variable_warning(widget, procedure, interval, once_only);
+            boost::ignore_unused(widget, procedure, interval, once_only);
         }
 
 

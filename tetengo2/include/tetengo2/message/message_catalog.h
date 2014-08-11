@@ -12,7 +12,7 @@
 #include <locale>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/message/messages.h>
 

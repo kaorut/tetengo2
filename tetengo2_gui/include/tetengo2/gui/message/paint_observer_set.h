@@ -11,7 +11,7 @@
 
 #include <algorithm>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
 

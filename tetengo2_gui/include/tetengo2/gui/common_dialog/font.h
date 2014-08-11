@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_FONT_H)
 #define TETENGO2_GUI_COMMONDIALOG_FONT_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>

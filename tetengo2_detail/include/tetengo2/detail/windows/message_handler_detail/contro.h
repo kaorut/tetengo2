@@ -12,6 +12,7 @@
 
 #include <system_error>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -24,8 +25,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/utility.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
@@ -34,7 +33,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Control>
         boost::optional< ::LRESULT> on_control_color(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (!control.background() && !control.text_color())
                 return boost::none;
@@ -78,7 +77,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Control>
         boost::optional< ::LRESULT> on_set_focus(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (control.has_parent())
             {

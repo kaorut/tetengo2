@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
@@ -168,7 +169,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_end().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+                    boost::ignore_unused(structure_attributes);
 
                     structure_ended(output, type);
                 }
@@ -203,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_end().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+                    boost::ignore_unused(structure_attributes);
 
                     structure_ended(output, type);
                 }
@@ -245,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_end().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    tetengo2::suppress_unused_variable_warning(structure_attributes);
+                    boost::ignore_unused(structure_attributes);
 
                     structure_ended(output, type);
                 }

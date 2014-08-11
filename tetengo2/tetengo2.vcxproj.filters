@@ -138,9 +138,6 @@
     <ClInclude Include="include\tetengo2\text\encoding\utf8.h">
       <Filter>headers\tetengo2\text\encoding</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\utility.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>

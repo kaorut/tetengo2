@@ -12,7 +12,7 @@
 #include <cassert>
 #include <stdexcept>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)

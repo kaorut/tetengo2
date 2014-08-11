@@ -11,9 +11,8 @@
 
 #include <system_error>
 
-#include <boost/noncopyable.hpp>
-
-#include <tetengo2/utility.h>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -40,7 +39,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int loop(AbstractWindow& window)
         {
-            suppress_unused_variable_warning(window);
+            boost::ignore_unused(window);
 
             return 0;
         }
@@ -59,7 +58,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static int dialog_loop(AbstractWindow& dialog)
         {
-            suppress_unused_variable_warning(dialog);
+            boost::ignore_unused(dialog);
 
             return 0;
         }
@@ -71,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void break_loop(const int exit_code)
         {
-            suppress_unused_variable_warning(exit_code);
+            boost::ignore_unused(exit_code);
         }
 
 

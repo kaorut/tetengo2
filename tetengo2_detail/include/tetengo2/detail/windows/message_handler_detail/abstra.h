@@ -15,6 +15,7 @@
 #include <system_error>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -28,8 +29,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/utility.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
@@ -42,7 +41,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             const ::WORD id = LOWORD(w_param);
 
@@ -70,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             const auto handle = reinterpret_cast< ::HMENU>(w_param);
 
@@ -133,7 +132,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (abstract_window.file_drop_observer_set().file_dropped().empty())
                 return boost::none;
@@ -150,7 +149,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
@@ -167,7 +166,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (abstract_window.window_observer_set().closing().empty())
                 return boost::none;
@@ -184,7 +183,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (abstract_window.window_observer_set().destroyed().empty())
                 return boost::none;

@@ -16,7 +16,7 @@
 #include <system_error>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 //#pragma warning (push)

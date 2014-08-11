@@ -13,6 +13,7 @@
 #include <memory>
 #include <system_error>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -26,8 +27,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/utility.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
@@ -40,7 +39,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (picture_box.fast_paint_observer_set().paint_background().empty())
                 return boost::none;
@@ -56,7 +55,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename PictureBox>
         boost::optional< ::LRESULT> on_paint(PictureBox& picture_box, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (picture_box.fast_paint_observer_set().paint().empty())
                 return boost::none;

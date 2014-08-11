@@ -10,7 +10,8 @@
 #include <queue>
 #include <stdexcept>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -98,7 +99,7 @@ namespace
 
     void throw_exception(channel_type& channel)
     {
-        tetengo2::suppress_unused_variable_warning(channel);
+        boost::ignore_unused(channel);
 
         BOOST_THROW_EXCEPTION((std::runtime_error{ "test exception" }));
     }

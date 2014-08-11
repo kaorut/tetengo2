@@ -15,13 +15,13 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/noncopyable.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const HandleOrWidgetDetails& handle_or_widget_details
         )
         {
-            suppress_unused_variable_warning(handle_or_widget_details);
+            boost::ignore_unused(handle_or_widget_details);
 
             return stdalt::make_unique<canvas_details_type>();
         }
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
         {
-            suppress_unused_variable_warning(canvas, dimension);
+            boost::ignore_unused(canvas, dimension);
         }
 
         /*!
@@ -136,7 +136,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void end_transaction(canvas_details_type& canvas)
         {
-            suppress_unused_variable_warning(canvas);
+            boost::ignore_unused(canvas);
         }
 
         /*!
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Color>
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
-            suppress_unused_variable_warning(color);
+            boost::ignore_unused(color);
 
             return stdalt::make_unique<background_details_type>();
         }
@@ -197,7 +197,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         inline static std::unique_ptr<picture_details_type> read_picture(const boost::filesystem::path& path)
         {
-            suppress_unused_variable_warning(path);
+            boost::ignore_unused(path);
 
             return stdalt::make_unique<picture_details_type>(123, 456);
         }
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Color&         color
         )
         {
-            suppress_unused_variable_warning(canvas, from, to, width, style, color);
+            boost::ignore_unused(canvas, from, to, width, style, color);
         }
 
         /*!
@@ -267,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Dimension&     dimension
         )
         {
-            suppress_unused_variable_warning(canvas, position, dimension);
+            boost::ignore_unused(canvas, position, dimension);
         }
 
         /*!
@@ -292,7 +292,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Background&    background
         )
         {
-            suppress_unused_variable_warning(canvas, position, dimension, background);
+            boost::ignore_unused(canvas, position, dimension, background);
         }
 
         /*!
@@ -321,7 +321,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Color&           color
         )
         {
-            suppress_unused_variable_warning(canvas, position_first, position_last, width, style, color);
+            boost::ignore_unused(canvas, position_first, position_last, width, style, color);
         }
 
         /*!
@@ -345,7 +345,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Background&      background
         )
         {
-            suppress_unused_variable_warning(canvas, position_first, position_last, background);
+            boost::ignore_unused(canvas, position_first, position_last, background);
         }
 
         /*!
@@ -388,7 +388,7 @@ width_type\(([0-9]+)\)
             const typename gui::dimension<Dimension>::width_type& max_width
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder, max_width);
+            boost::ignore_unused(canvas, font, text, encoder, max_width);
 
             using width_type = typename gui::dimension<Dimension>::width_type;
             using height_type = typename gui::dimension<Dimension>::height_type;
@@ -430,7 +430,7 @@ width_type\(([0-9]+)\)
             const double         angle
         )
         {
-            suppress_unused_variable_warning(canvas, font, text, encoder, position, max_width, color, angle);
+            boost::ignore_unused(canvas, font, text, encoder, position, max_width, color, angle);
         }
 
         /*!
@@ -455,7 +455,7 @@ width_type\(([0-9]+)\)
             const Dimension&     dimension
         )
         {
-            suppress_unused_variable_warning(canvas, picture, position, dimension);
+            boost::ignore_unused(canvas, picture, position, dimension);
         }
 
         /*!
@@ -473,7 +473,7 @@ width_type\(([0-9]+)\)
         template <typename Icon, typename Position>
         static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
         {
-            suppress_unused_variable_warning(canvas, icon, position);
+            boost::ignore_unused(canvas, icon, position);
         }
 
 

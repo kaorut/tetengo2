@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H)
 #define TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/drawing/color.h>
 

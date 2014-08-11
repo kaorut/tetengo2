@@ -13,14 +13,14 @@
 #include <memory>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/ignore_unused.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -488,22 +488,22 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual void paint_impl(canvas_type& canvas)
         const
         {
-            suppress_unused_variable_warning(canvas);
+            boost::ignore_unused(canvas);
         }
 
         virtual void mouse_pressed_impl(const position_type& cursor_position)
         {
-            suppress_unused_variable_warning(cursor_position);
+            boost::ignore_unused(cursor_position);
         }
 
         virtual void mouse_released_impl(const position_type& cursor_position)
         {
-            suppress_unused_variable_warning(cursor_position);
+            boost::ignore_unused(cursor_position);
         }
 
         virtual void mouse_moved_impl(const position_type& cursor_position)
         {
-            suppress_unused_variable_warning(cursor_position);
+            boost::ignore_unused(cursor_position);
         }
 
         virtual void mouse_entered_impl()

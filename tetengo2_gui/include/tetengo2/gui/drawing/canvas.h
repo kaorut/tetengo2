@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/drawing/background.h>
