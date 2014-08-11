@@ -43,7 +43,7 @@ namespace
         virtual void set_impl(const string_type& key, value_type value)
         override
         {
-            tetengo2::suppress_unused_variable_warning(key, value);
+            boost::ignore_unused(key, value);
         }
 
         virtual void clear_impl()

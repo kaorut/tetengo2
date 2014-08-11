@@ -12,10 +12,10 @@
 #include <memory>
 #include <system_error>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -51,7 +51,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename SystemCursor>
         static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
         {
-            suppress_unused_variable_warning(style);
+            boost::ignore_unused(style);
 
             return stdalt::make_unique<cursor_details_type>();
         }

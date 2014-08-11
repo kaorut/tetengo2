@@ -13,13 +13,13 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -123,7 +123,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                             encoder
         )
         {
-            suppress_unused_variable_warning(
+            boost::ignore_unused(
                 parent,
                 title,
                 main_content,
@@ -150,7 +150,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static message_box_button_id_type show_message_box(message_box_details_type& message_box)
         {
-            suppress_unused_variable_warning(message_box);
+            boost::ignore_unused(message_box);
 
             return message_box_button_id_type::cancel;
         }
@@ -180,7 +180,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&  encoder
         )
         {
-            suppress_unused_variable_warning(parent, title, filters, encoder);
+            boost::ignore_unused(parent, title, filters, encoder);
 
             return stdalt::make_unique<file_open_dialog_details_type>();
         }
@@ -203,7 +203,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            suppress_unused_variable_warning(dialog, encoder);
+            boost::ignore_unused(dialog, encoder);
 
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
@@ -236,7 +236,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
-            suppress_unused_variable_warning(parent, title, path, filters, encoder);
+            boost::ignore_unused(parent, title, path, filters, encoder);
 
             return stdalt::make_unique<file_save_dialog_details_type>();
         }
@@ -259,7 +259,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            suppress_unused_variable_warning(dialog, encoder);
+            boost::ignore_unused(dialog, encoder);
 
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
@@ -286,7 +286,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&      encoder
         )
         {
-            suppress_unused_variable_warning(parent, font, encoder);
+            boost::ignore_unused(parent, font, encoder);
             return stdalt::make_unique<font_dialog_details_type>();
         }
 
@@ -306,7 +306,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Encoder>
         static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
-            suppress_unused_variable_warning(dialog, encoder);
+            boost::ignore_unused(dialog, encoder);
 
             return
                 boost::make_optional(
@@ -332,7 +332,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow, typename OptionalColor>
         static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
-            suppress_unused_variable_warning(parent, color);
+            boost::ignore_unused(parent, color);
 
             return stdalt::make_unique<color_dialog_details_type>();
         }
@@ -351,7 +351,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Color>
         static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
-            suppress_unused_variable_warning(dialog);
+            boost::ignore_unused(dialog);
 
             return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }

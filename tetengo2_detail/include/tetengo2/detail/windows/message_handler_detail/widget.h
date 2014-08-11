@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <system_error>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -30,7 +31,6 @@
 #include <windowsx.h>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_key_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (widget.keyboard_observer_set().key_down().empty())
                 return boost::none;
@@ -78,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_key_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (widget.keyboard_observer_set().key_up().empty())
                 return boost::none;
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_char(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (widget.keyboard_observer_set().character_input().empty())
                 return boost::none;
@@ -218,7 +218,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_l_doubleclick(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (widget.mouse_observer_set().doubleclicked().empty())
                 return boost::none;
@@ -287,7 +287,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_control_color(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(widget);
+            boost::ignore_unused(widget);
 
             if (l_param == 0) return boost::none;
 
@@ -305,7 +305,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_set_cursor(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (!widget.cursor())
                 return boost::none;
@@ -322,7 +322,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM  l_param
         )
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (widget.size_observer_set().resized().empty())
                 return boost::none;
@@ -335,7 +335,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_set_focus(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             widget.focus_observer_set().got_focus()();
             return boost::none;
@@ -344,7 +344,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_kill_focus(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             widget.focus_observer_set().lost_focus()();
             return boost::none;
@@ -399,7 +399,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_vertical_scroll(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (!widget.has_vertical_scroll_bar())
                 return boost::none;
@@ -441,7 +441,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM l_param
         )
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (!widget.has_horizontal_scroll_bar())
                 return boost::none;
@@ -483,7 +483,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const ::LPARAM l_param
         )
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (widget.paint_observer_set().paint_background().empty())
                 return boost::none;
@@ -498,7 +498,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_paint(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (widget.paint_observer_set().paint().empty())
                 return boost::none;
@@ -544,7 +544,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Widget>
         boost::optional< ::LRESULT> on_destroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             delete_current_font(widget);
             return boost::make_optional< ::LRESULT>(0);
@@ -553,7 +553,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename WidgetDetails, typename Widget>
         boost::optional< ::LRESULT> on_ncdestroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             const auto* const p_widget =
                 reinterpret_cast<const Widget*>(

@@ -23,6 +23,7 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -33,7 +34,6 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace message
@@ -310,7 +310,7 @@ namespace tetengo2 { namespace message
         virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
         const override
         {
-            suppress_unused_variable_warning(catalog_name, locale);
+            boost::ignore_unused(catalog_name, locale);
 
             if (m_open)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "A message catalog is already open." }));
@@ -329,7 +329,7 @@ namespace tetengo2 { namespace message
         )
         const override
         {
-            suppress_unused_variable_warning(set, message);
+            boost::ignore_unused(set, message);
 
             if (catalog_id < 0)
                 return remove_namespace(default_message);

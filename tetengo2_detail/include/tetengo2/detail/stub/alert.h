@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_ALERT_H)
 #define TETENGO2_DETAIL_STUB_ALERT_H
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
-
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -39,7 +38,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
-            suppress_unused_variable_warning(widget_handle);
+            boost::ignore_unused(widget_handle);
 
             return nullptr;
         }
@@ -69,9 +68,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&           encoder
         )
         {
-            suppress_unused_variable_warning(
-                widget_handle, caption, text1, text2, source_file_name, source_file_line, encoder
-            );
+            boost::ignore_unused(widget_handle, caption, text1, text2, source_file_name, source_file_line, encoder);
         }
 
 

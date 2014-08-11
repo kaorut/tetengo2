@@ -19,6 +19,7 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/signals2.hpp>
@@ -28,7 +29,6 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/text.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace text
@@ -111,7 +111,7 @@ namespace tetengo2 { namespace text
                     const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
                 )
                 {
-                    suppress_unused_variable_warning(structure_attributes);
+                    boost::ignore_unused(structure_attributes);
 
                     this->observe_structure_end(structure_name);
                 }
@@ -324,7 +324,7 @@ namespace tetengo2 { namespace text
 
         static void* to_null(const string_type& string_value)
         {
-            suppress_unused_variable_warning(string_value);
+            boost::ignore_unused(string_value);
 
             assert(string_value == string_type{ TETENGO2_TEXT("null") });
 

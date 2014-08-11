@@ -12,6 +12,7 @@
 
 #include <cassert>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 
 #pragma warning (push)
@@ -22,8 +23,6 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
@@ -59,7 +58,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename WidgetDetails, typename Dialog>
         boost::optional< ::LRESULT> on_syscommand(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(l_param);
+            boost::ignore_unused(l_param);
 
             if (w_param == SC_CLOSE)
             {
@@ -116,7 +115,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename WidgetDetails, typename Dialog>
         boost::optional< ::LRESULT> on_set_focus(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             if (dialog.details().first_child_handle)
             {

@@ -15,6 +15,7 @@
 #include <system_error>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -29,7 +30,6 @@
 
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -125,7 +125,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::DWORD    elapsed_time
         )
         {
-            suppress_unused_variable_warning(window_handle, message, elapsed_time);
+            boost::ignore_unused(window_handle, message, elapsed_time);
 
             timer* const p_timer = reinterpret_cast<timer*>(id);
             assert(p_timer);

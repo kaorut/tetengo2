@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/optional.hpp>
@@ -24,7 +25,6 @@
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -481,14 +481,14 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
-            suppress_unused_variable_warning(offset, p_menu);
+            boost::ignore_unused(offset, p_menu);
 
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't insert any menus." }));
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
-            suppress_unused_variable_warning(first, last);
+            boost::ignore_unused(first, last);
 
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }

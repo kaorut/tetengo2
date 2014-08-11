@@ -14,6 +14,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
@@ -39,7 +40,6 @@
 #include <tetengo2/detail/windows/message_handler_detail/text_b.h>
 #include <tetengo2/detail/windows/message_handler_detail/widget.h>
 #include <tetengo2/detail/windows/widget.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -201,7 +201,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            suppress_unused_variable_warning(custom_control);
+            boost::ignore_unused(custom_control);
 
             return std::move(initial_map);
         }
@@ -291,7 +291,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            suppress_unused_variable_warning(image);
+            boost::ignore_unused(image);
 
             return std::move(initial_map);
         }
@@ -312,7 +312,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            suppress_unused_variable_warning(label);
+            boost::ignore_unused(label);
 
             return std::move(initial_map);
         }
@@ -607,7 +607,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            suppress_unused_variable_warning(window);
+            boost::ignore_unused(window);
 
             return std::move(initial_map);
         }

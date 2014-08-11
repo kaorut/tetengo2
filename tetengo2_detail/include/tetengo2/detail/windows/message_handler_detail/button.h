@@ -29,7 +29,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         template <typename Button>
         boost::optional< ::LRESULT> on_tetengo2_command(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
         {
-            suppress_unused_variable_warning(w_param, l_param);
+            boost::ignore_unused(w_param, l_param);
 
             button.mouse_observer_set().clicked()();
 

@@ -12,10 +12,10 @@
 #include <memory>
 #include <system_error>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -96,7 +96,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
         {
-            suppress_unused_variable_warning(menu, enabled);
+            boost::ignore_unused(menu, enabled);
         }
 
         /*!
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename MenuBase>
         static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
         {
-            suppress_unused_variable_warning(menu, state);
+            boost::ignore_unused(menu, state);
         }
 
         /*!
@@ -145,7 +145,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const InputIterator last
         )
         {
-            suppress_unused_variable_warning(first, last);
+            boost::ignore_unused(first, last);
             return stdalt::make_unique<shortcut_key_table_details_type>();
         }
 
@@ -172,7 +172,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&        encoder
         )
         {
-            suppress_unused_variable_warning(popup_menu, offset, menu, encoder);
+            boost::ignore_unused(popup_menu, offset, menu, encoder);
         }
 
         /*!
@@ -190,7 +190,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
         {
-            suppress_unused_variable_warning(popup_menu, first, last);
+            boost::ignore_unused(popup_menu, first, last);
         }
 
         /*!

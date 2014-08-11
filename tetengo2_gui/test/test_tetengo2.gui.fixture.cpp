@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(fixture)
         BOOST_TEST_PASSPOINT();
 
         const fixture_type fixture;
-        tetengo2::suppress_unused_variable_warning(fixture);
+        boost::ignore_unused(fixture);
     }
 
 

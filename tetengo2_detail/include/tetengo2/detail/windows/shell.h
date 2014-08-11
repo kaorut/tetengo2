@@ -11,6 +11,7 @@
 
 #include <algorithm>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #pragma warning (push)
@@ -23,7 +24,6 @@
 #include <Windows.h>
 
 #include <tetengo2/text.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

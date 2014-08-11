@@ -15,6 +15,7 @@
 #include <string>
 #include <utility>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
@@ -23,7 +24,6 @@
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
 #include <tetengo2/text/push_parser.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace text
@@ -287,7 +287,7 @@ namespace tetengo2 { namespace text
                     const attribute_map_type& attribute_map
                 )
                 {
-                    suppress_unused_variable_warning(attribute_map);
+                    boost::ignore_unused(attribute_map);
 
                     on_structure_end(name, channel);
                 }

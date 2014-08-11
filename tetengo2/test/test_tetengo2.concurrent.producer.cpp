@@ -98,7 +98,7 @@ namespace
 
     void throw_exception(channel_type& channel)
     {
-        tetengo2::suppress_unused_variable_warning(channel);
+        boost::ignore_unused(channel);
 
         BOOST_THROW_EXCEPTION((std::runtime_error{ "test exception" }));
     }

@@ -11,12 +11,12 @@
 
 #include <memory>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/utility.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -69,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
         {
-            suppress_unused_variable_warning(path, dimension);
+            boost::ignore_unused(path, dimension);
             return stdalt::make_unique<icon_details_type>();
         }
 
