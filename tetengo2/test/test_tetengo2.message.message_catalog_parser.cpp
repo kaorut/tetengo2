@@ -110,6 +110,10 @@ namespace
 
     // functions
 
+#if !( \
+    BOOST_OS_LINUX && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
+    )
     std::unique_ptr<pull_parser_type> create_pull_parser(std::istringstream& input)
     {
         auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
@@ -123,7 +127,7 @@ namespace
 
         return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
     }
-
+#endif
 
 }
 
@@ -133,6 +137,10 @@ BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(message_catalog_parser)
     // test cases
 
+#if !( \
+    BOOST_OS_LINUX && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
+    )
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -286,6 +294,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             BOOST_CHECK(!p_parser->has_next());
         }
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
