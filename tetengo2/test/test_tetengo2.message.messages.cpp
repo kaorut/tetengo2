@@ -58,6 +58,10 @@ namespace
 
     using std_messages_type = std::messages<string_type::value_type>;
 
+#if !( \
+    BOOST_OS_LINUX && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
+    )
     struct set_global_locale
     {
         const std::locale m_initial_locale;
@@ -83,7 +87,7 @@ namespace
         }
 
     };
-
+#endif
 
     // functions
 
@@ -160,6 +164,10 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
     }
 
+#if !( \
+    BOOST_OS_LINUX && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
+    )
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -393,6 +401,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
