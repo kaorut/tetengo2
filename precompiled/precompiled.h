@@ -12,9 +12,12 @@
 // The standard library headers
 #include <algorithm>
 #include <cassert>
+#include <cerrno>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
+#include <cstdio>
+#include <cstdlib>
 #include <cwchar>
 #include <exception>
 #include <functional>
@@ -24,8 +27,10 @@
 #include <iterator>
 #include <limits>
 #include <locale>
+#include <map>
 #include <memory>
 #include <mutex>
+#include <ostream>
 #include <queue>
 #include <sstream>
 #include <stack>
@@ -38,7 +43,7 @@
 // The Boost library headers
 #include <boost/algorithm/string.hpp>
 #include <boost/chrono.hpp>
-#include <boost/concept_check.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
