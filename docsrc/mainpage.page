@@ -40,7 +40,7 @@ You need the following tools in order to build Tetengo2:
 
 - [Visual Studio 2013 Update 3](http://www.microsoft.com/) (including Express for Desktop)
 - [Boost C++ Libraries 1.56.0](http://www.boost.org/)
-- [Doxygen 1.8.7](http://www.doxygen.org) (to generate API documents)
+- [Doxygen 1.8.8](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
@@ -79,7 +79,7 @@ You need the following tools in order to build Tetengo2 libraries:
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.56.0](http://www.boost.org/)
 - [libiconv](http://www.gnu.org/) (on Cygwin)
-- [Doxygen 1.8.7](http://www.doxygen.org) (to generate API documents)
+- [Doxygen 1.8.8](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
