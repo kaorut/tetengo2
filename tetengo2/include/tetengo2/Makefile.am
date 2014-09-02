@@ -28,14 +28,14 @@ pkg_headers = \
     text/push_parser.h
 
 extra_headers = \
-    0namespace.h \
-    concurrent/0namespace.h \
-    config/0namespace.h \
-    message/0namespace.h \
-    meta/0namespace.h \
-    text/0namespace.h \
-    text/encoding/0namespace.h \
-    text/grammar/0namespace.h
+    0namespace.dox \
+    concurrent/0namespace.dox \
+    config/0namespace.dox \
+    message/0namespace.dox \
+    meta/0namespace.dox \
+    text/0namespace.dox \
+    text/encoding/0namespace.dox \
+    text/grammar/0namespace.dox
 
 nobase_pkginclude_HEADERS = $(pkg_headers)
 EXTRA_DIST = $(extra_headers)

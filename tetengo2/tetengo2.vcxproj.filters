@@ -45,28 +45,28 @@
     <ClInclude Include="include\tetengo2.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\0namespace.h">
+    <ClInclude Include="include\tetengo2\0namespace.dox">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\concurrent\0namespace.h">
+    <ClInclude Include="include\tetengo2\concurrent\0namespace.dox">
       <Filter>headers\tetengo2\concurrent</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\config\0namespace.h">
+    <ClInclude Include="include\tetengo2\config\0namespace.dox">
       <Filter>headers\tetengo2\config</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\message\0namespace.h">
+    <ClInclude Include="include\tetengo2\message\0namespace.dox">
       <Filter>headers\tetengo2\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\meta\0namespace.h">
+    <ClInclude Include="include\tetengo2\meta\0namespace.dox">
       <Filter>headers\tetengo2\meta</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\text\0namespace.h">
+    <ClInclude Include="include\tetengo2\text\0namespace.dox">
       <Filter>headers\tetengo2\text</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\text\encoding\0namespace.h">
+    <ClInclude Include="include\tetengo2\text\encoding\0namespace.dox">
       <Filter>headers\tetengo2\text\encoding</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\text\grammar\0namespace.h">
+    <ClInclude Include="include\tetengo2\text\grammar\0namespace.dox">
       <Filter>headers\tetengo2\text\grammar</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\text\encoding\ascii.h">

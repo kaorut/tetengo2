@@ -20,18 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.gui.h" />
-    <ClInclude Include="include\tetengo2\gui\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\alert.h" />
-    <ClInclude Include="include\tetengo2\gui\common_dialog\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\common_dialog\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\color.h" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\file_open.h" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\file_save.h" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\font.h" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\message_box.h" />
-    <ClInclude Include="include\tetengo2\gui\cursor\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\cursor\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\cursor\cursor_base.h" />
     <ClInclude Include="include\tetengo2\gui\cursor\system.h" />
-    <ClInclude Include="include\tetengo2\gui\drawing\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\drawing\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\drawing\background.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\canvas_traits.h" />
@@ -46,7 +46,7 @@
     <ClInclude Include="include\tetengo2\gui\fixture.h" />
     <ClInclude Include="include\tetengo2\gui\icon.h" />
     <ClInclude Include="include\tetengo2\gui\measure.h" />
-    <ClInclude Include="include\tetengo2\gui\menu\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\menu\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\menu\abstract_popup.h" />
     <ClInclude Include="include\tetengo2\gui\menu\command.h" />
     <ClInclude Include="include\tetengo2\gui\menu\menu_bar.h" />
@@ -56,7 +56,7 @@
     <ClInclude Include="include\tetengo2\gui\menu\separator.h" />
     <ClInclude Include="include\tetengo2\gui\menu\shortcut_key.h" />
     <ClInclude Include="include\tetengo2\gui\menu\shortcut_key_table.h" />
-    <ClInclude Include="include\tetengo2\gui\message\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\message\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\message\dialog_message_loop.h" />
     <ClInclude Include="include\tetengo2\gui\message\file_drop_observer_set.h" />
     <ClInclude Include="include\tetengo2\gui\message\focus_observer_set.h" />
@@ -75,13 +75,13 @@
     <ClInclude Include="include\tetengo2\gui\scroll_bar.h" />
     <ClInclude Include="include\tetengo2\gui\shell.h" />
     <ClInclude Include="include\tetengo2\gui\timer.h" />
-    <ClInclude Include="include\tetengo2\gui\unit\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\unit\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\unit\em.h" />
     <ClInclude Include="include\tetengo2\gui\unit\pixel.h" />
     <ClInclude Include="include\tetengo2\gui\unit\point.h" />
     <ClInclude Include="include\tetengo2\gui\unit\unit.h" />
     <ClInclude Include="include\tetengo2\gui\virtual_key.h" />
-    <ClInclude Include="include\tetengo2\gui\widget\0namespace.h" />
+    <ClInclude Include="include\tetengo2\gui\widget\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\widget\abstract_window.h" />
     <ClInclude Include="include\tetengo2\gui\widget\button.h" />
     <ClInclude Include="include\tetengo2\gui\widget\control.h" />

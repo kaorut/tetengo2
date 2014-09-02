@@ -77,14 +77,14 @@ pkg_headers = \
     gui/widget/window.h
 
 extra_headers = \
-    gui/0namespace.h \
-    gui/common_dialog/0namespace.h \
-    gui/cursor/0namespace.h \
-    gui/drawing/0namespace.h \
-    gui/menu/0namespace.h \
-    gui/message/0namespace.h \
-    gui/unit/0namespace.h \
-    gui/widget/0namespace.h
+    gui/0namespace.dox \
+    gui/common_dialog/0namespace.dox \
+    gui/cursor/0namespace.dox \
+    gui/drawing/0namespace.dox \
+    gui/menu/0namespace.dox \
+    gui/message/0namespace.dox \
+    gui/unit/0namespace.dox \
+    gui/widget/0namespace.dox
 
 nobase_pkginclude_HEADERS = $(pkg_headers)
 EXTRA_DIST = $(extra_headers)
