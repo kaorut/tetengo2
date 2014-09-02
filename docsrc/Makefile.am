@@ -3,4 +3,4 @@
 # $Id$
 
 EXTRA_DIST = \
-    mainpage.page
+    mainpage.dox
