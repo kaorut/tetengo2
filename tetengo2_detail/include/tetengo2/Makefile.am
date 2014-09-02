@@ -24,21 +24,21 @@ pkg_headers = \
     detail/unixos/encoding.h
 
 extra_headers = \
-    detail/stub/0namespace.h \
-    detail/unixos/0namespace.h \
-    detail/windows/0namespace.h \
+    detail/stub/0namespace.dox \
+    detail/unixos/0namespace.dox \
+    detail/windows/0namespace.dox \
     detail/windows/alert.h \
     detail/windows/com_ptr.h \
     detail/windows/common_dialog.h \
     detail/windows/config.h \
     detail/windows/cursor.h \
-    detail/windows/direct2d/0namespace.h \
+    detail/windows/direct2d/0namespace.dox \
     detail/windows/direct2d/drawing.h \
     detail/windows/direct2d/error_category.h \
     detail/windows/encoding.h \
     detail/windows/error_category.h \
     detail/windows/font.h \
-    detail/windows/gdiplus/0namespace.h \
+    detail/windows/gdiplus/0namespace.dox \
     detail/windows/gdiplus/drawing.h \
     detail/windows/gdiplus/error_category.h \
     detail/windows/gdiplus/gui_fixture.h \
@@ -46,7 +46,7 @@ extra_headers = \
     detail/windows/icon.h \
     detail/windows/menu.h \
     detail/windows/message_handler.h \
-    detail/windows/message_handler_detail/0namespace.h \
+    detail/windows/message_handler_detail/0namespace.dox \
     detail/windows/message_handler_detail/abstra.h \
     detail/windows/message_handler_detail/button.h \
     detail/windows/message_handler_detail/contro.h \
