@@ -102,7 +102,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using pivot_char_type = typename base_type::pivot_type::value_type;
 
-        using string_char_type = string_type::value_type;
+        using string_char_type = typename string_type::value_type;
 
 
         // static functions
