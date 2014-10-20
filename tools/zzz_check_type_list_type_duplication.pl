@@ -16,7 +16,10 @@ while(<$fh>)
 {
 	if (/[ :](type::[0-9A-Za-z_:]+)/)
 	{
-		++$occurrence{$1};
+		if ($1 ne 'type::value')
+		{
+			++$occurrence{$1};
+		}
 	}
 }
 close($fh);
