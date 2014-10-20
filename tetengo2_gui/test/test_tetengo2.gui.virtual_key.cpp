@@ -23,7 +23,7 @@ namespace
 
     using virtual_key_type =
         tetengo2::gui::virtual_key<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            string_type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
         >;
 

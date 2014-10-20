@@ -46,13 +46,12 @@ namespace test_tetengo2 { namespace gui
             std::pair<tetengo2::gui::unit::pixel<difference_type>, tetengo2::gui::unit::pixel<difference_type>>;
         using dimension_type = std::pair<tetengo2::gui::unit::pixel<size_type>, tetengo2::gui::unit::pixel<size_type>>;
         using string_type = std::string;
+        using widget_details_type = boost::mpl::at<detail_type_list, type::detail::widget>::type;
         using exception_string_type = std::string;
         using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
         using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
         using ui_encoding_type =
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type, encoding_details_type
-            >;
+            tetengo2::text::encoding::locale<widget_details_type::string_type, encoding_details_type>;
         using ui_encoder_type  = tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>;
         using exception_encoding_type = tetengo2::text::encoding::locale<exception_string_type, encoding_details_type>;
         using exception_encoder_type = tetengo2::text::encoder<internal_encoding_type, exception_encoding_type>;
@@ -69,7 +68,7 @@ namespace test_tetengo2 { namespace gui
             >;
         using widget_details_traits_type =
             tetengo2::gui::widget::widget_details_traits<
-                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                widget_details_type,
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type,
                 boost::mpl::at<detail_type_list, type::detail::icon>::type,
                 boost::mpl::at<detail_type_list, type::detail::alert>::type,
