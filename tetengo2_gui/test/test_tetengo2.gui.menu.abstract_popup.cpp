@@ -26,24 +26,19 @@ namespace
 
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
 
+    using ui_encoder_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type;
+
     using menu_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
 
+    using virtual_key_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type;
+
     using menu_base_type =
-        tetengo2::gui::menu::menu_base<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
-            menu_details_type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
-        >;
+        tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
     using abstract_popup_menu_type =
-        tetengo2::gui::menu::abstract_popup<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
-            menu_details_type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
-        >;
+        tetengo2::gui::menu::abstract_popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {

@@ -23,29 +23,24 @@ namespace
 {
     // types
 
-    using virtual_key_type =
-        tetengo2::gui::virtual_key<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
-        >;
-
-    using shortcut_key_type =
-        tetengo2::gui::menu::shortcut_key<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
-        >;
-
     using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+
+    using virtual_key_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type;
+
+    using virtual_key_type = tetengo2::gui::virtual_key<string_type, virtual_key_details_type>;
+
+    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type, virtual_key_details_type>;
 
     using menu_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
 
     using menu_base_type =
         tetengo2::gui::menu::menu_base<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            string_type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
             menu_details_type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
+            virtual_key_details_type
         >;
 
     class concrete_menu : public menu_base_type
