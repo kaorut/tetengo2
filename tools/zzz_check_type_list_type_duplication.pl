@@ -12,21 +12,29 @@ my($source_filename) = $ARGV[0];
 my(%occurrence);
 
 open(my $fh, $source_filename) || die "Can't open $source_filename";
+my($section);
 while(<$fh>)
 {
+	if (/\/\*+ ([0-9A-Za-z ]+) \*+\//)
+	{
+		$section = $1.': ';
+		next;
+	}
 	if (/[ :](type::[0-9A-Za-z_:]+)/)
 	{
 		if ($1 ne 'type::value')
 		{
-			++$occurrence{$1};
+			++$occurrence{$section.$1};
 		}
 	}
 }
 close($fh);
 
 my($source_filename_shown) = 0;
-while (my($name, $count) = each(%occurrence))
+foreach my $name (sort(keys(%occurrence)))
 {
+	my($count) = $occurrence{$name};
+	
 	if ($count >= 2)
 	{
 		if (!$source_filename_shown)
