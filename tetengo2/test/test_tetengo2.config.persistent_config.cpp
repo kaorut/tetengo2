@@ -29,21 +29,16 @@ namespace
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
 
+    using config_details_type =
+        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::config>::type;
+
     using config_encoding_type =
-        tetengo2::text::encoding::locale<
-            boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::config>::type::string_type,
-            encoding_details_type
-        >;
+        tetengo2::text::encoding::locale<config_details_type::string_type, encoding_details_type>;
 
     using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
 
     using persistent_config_type =
-        tetengo2::config::persistent_config<
-            string_type,
-            uint_type,
-            encoder_type,
-            boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::config>::type
-        >;
+        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, config_details_type>;
 
     using config_base_type = persistent_config_type::base_type;
 

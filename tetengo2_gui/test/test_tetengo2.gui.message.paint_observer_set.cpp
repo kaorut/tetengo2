@@ -20,18 +20,20 @@ namespace
 {
     // types
 
-    using drawing_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+    using size_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type;
 
     using canvas_traits_type =
         tetengo2::gui::drawing::canvas_traits<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
+            size_type,
+            size_type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
             boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type
         >;
+
+    using drawing_details_type =
+        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
 
     using canvas_type =
         tetengo2::gui::drawing::canvas<

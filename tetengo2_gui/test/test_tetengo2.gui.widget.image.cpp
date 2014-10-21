@@ -25,15 +25,17 @@ namespace
 {
     // types
 
+    using widget_traits_type =
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type;
+
+    using widget_details_traits_type =
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type;
+
     using menu_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
 
     using window_type =
-        tetengo2::gui::widget::window<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
-            menu_details_type
-        >;
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
     using drawing_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
@@ -50,15 +52,11 @@ namespace
 
     using icon_type =
         tetengo2::gui::icon<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type,
+            dimension_type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::icon>::type
         >;
 
-    using image_type =
-        tetengo2::gui::widget::image<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
-        >;
+    using image_type = tetengo2::gui::widget::image<widget_traits_type, widget_details_traits_type>;
 
 
 }

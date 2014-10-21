@@ -20,17 +20,15 @@ namespace
 {
     // types
 
+    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+
     using virtual_key_type =
         tetengo2::gui::virtual_key<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
+            string_type,
             boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type
         >;
 
-    using keyboard_observer_set_type =
-        tetengo2::gui::message::keyboard_observer_set<
-            virtual_key_type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type::value_type
-        >;
+    using keyboard_observer_set_type = tetengo2::gui::message::keyboard_observer_set<virtual_key_type, string_type>;
 
 
 }

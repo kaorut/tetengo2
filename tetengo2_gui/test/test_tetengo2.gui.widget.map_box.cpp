@@ -22,15 +22,17 @@ namespace
 {
     // types
 
+    using widget_traits_type =
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type;
+
+    using widget_details_traits_type =
+        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type;
+
     using menu_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
 
     using window_type =
-        tetengo2::gui::widget::window<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
-            menu_details_type
-        >;
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
     using mouse_capture_details_type =
         boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::mouse_capture>::type;
@@ -40,10 +42,7 @@ namespace
 
     using map_box_type =
         tetengo2::gui::widget::map_box<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type,
-            mouse_capture_details_type,
-            system_color_details_type
+            widget_traits_type, widget_details_traits_type, mouse_capture_details_type, system_color_details_type
         >;
 
     using value_type = map_box_type::value_type;
