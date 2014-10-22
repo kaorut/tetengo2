@@ -20,6 +20,10 @@ while(<$fh>)
 		$section = $1.': ';
 		next;
 	}
+	if (/ template class /)
+	{
+		last;
+	}
 	if (/[ :](type::[0-9A-Za-z_:]+)/)
 	{
 		if ($1 ne 'type::value')
