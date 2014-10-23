@@ -11,6 +11,8 @@ my($source_filename) = $ARGV[0];
 
 my(%occurrence);
 
+my($exit_status) = 0;
+
 open(my $fh, $source_filename) || die "Can't open $source_filename";
 my($section);
 while(<$fh>)
@@ -45,8 +47,11 @@ foreach my $name (sort(keys(%occurrence)))
 		{
 			print "WARNING: $source_filename: Same type list type is used twice or more.\n";
 			$source_filename_shown = 1;
+			$exit_status = 1;
 		}
 		
 		print "  ".$name."\n";
 	}
 }
+
+exit($exit_status);
