@@ -5,6 +5,7 @@
 EXTRA_DIST = \
     check_includes.sh \
     check_test_cases.sh \
+    check_type_list_type_duplication.sh \
     codesign.bat \
     copy_boost_dlls.js \
     get_solution_config.bat \
@@ -16,6 +17,7 @@ EXTRA_DIST = \
     test_case_check_ignore.txt \
     zzz_check_includes.pl \
     zzz_check_test_cases.pl \
+    zzz_check_type_list_type_duplication.pl \
     zzz_codesign.bat-skeleton \
     zzz_get_solution_config.js \
     zzz_make_function_list.pl \
