@@ -42,6 +42,7 @@ namespace test_tetengo2
 
         using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
+
     }}
 #endif
 

@@ -65,27 +65,45 @@ namespace test_tetengo2 { namespace gui
     namespace detail { namespace detail
     {
         using alert_details_type = tetengo2::detail::stub::alert;
+
         using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
+
         using cursor_details_type = tetengo2::detail::stub::cursor;
+
         using drawing_details_type = tetengo2::detail::stub::drawing;
+
 #if BOOST_COMP_MSVC
         using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
         using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
+
         using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
+
         using icon_details_type = tetengo2::detail::stub::icon;
+
         using menu_details_type = tetengo2::detail::stub::menu;
+
         using message_handler_details_type = tetengo2::detail::stub::message_handler;
+
         using message_loop_details_type = tetengo2::detail::stub::message_loop;
+
         using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
+
         using scroll_details_type = tetengo2::detail::stub::scroll;
+
         using shell_details_type = tetengo2::detail::stub::shell;
+
         using system_color_details_type = tetengo2::detail::stub::system_color;
+
         using timer_details_type = tetengo2::detail::stub::timer;
+
         using unit_details_type = tetengo2::detail::stub::unit;
+
         using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
+
         using widget_details_type = tetengo2::detail::stub::widget;
+
     }}
 #endif
 
