@@ -22,7 +22,7 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list<test_tetengo2::gui::detail_kind::stub>;
 
     using drawing_details_type =
         boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::drawing>::type;

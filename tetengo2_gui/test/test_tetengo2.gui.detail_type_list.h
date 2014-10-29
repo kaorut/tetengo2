@@ -39,6 +39,11 @@
 
 namespace test_tetengo2 { namespace gui
 {
+    namespace detail_kind
+    {
+        struct stub;           //!< For the stub implementation.
+    }
+
     namespace type { namespace detail
     {
         struct alert;           //!< The alert type.
@@ -64,77 +69,92 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
-        using alert_details_type = tetengo2::detail::stub::alert;
+        namespace stub
+        {
+            using alert_details_type = tetengo2::detail::stub::alert;
 
-        using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
+            using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
 
-        using cursor_details_type = tetengo2::detail::stub::cursor;
+            using cursor_details_type = tetengo2::detail::stub::cursor;
 
-        using drawing_details_type = tetengo2::detail::stub::drawing;
+            using drawing_details_type = tetengo2::detail::stub::drawing;
 
 #if BOOST_COMP_MSVC
-        using encoding_details_type = tetengo2::detail::windows::encoding;
+            using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
-        using encoding_details_type = tetengo2::detail::unixos::encoding;
+            using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
 
-        using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
+            using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
 
-        using icon_details_type = tetengo2::detail::stub::icon;
+            using icon_details_type = tetengo2::detail::stub::icon;
 
-        using menu_details_type = tetengo2::detail::stub::menu;
+            using menu_details_type = tetengo2::detail::stub::menu;
 
-        using message_handler_details_type = tetengo2::detail::stub::message_handler;
+            using message_handler_details_type = tetengo2::detail::stub::message_handler;
 
-        using message_loop_details_type = tetengo2::detail::stub::message_loop;
+            using message_loop_details_type = tetengo2::detail::stub::message_loop;
 
-        using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
+            using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
 
-        using scroll_details_type = tetengo2::detail::stub::scroll;
+            using scroll_details_type = tetengo2::detail::stub::scroll;
 
-        using shell_details_type = tetengo2::detail::stub::shell;
+            using shell_details_type = tetengo2::detail::stub::shell;
 
-        using system_color_details_type = tetengo2::detail::stub::system_color;
+            using system_color_details_type = tetengo2::detail::stub::system_color;
 
-        using timer_details_type = tetengo2::detail::stub::timer;
+            using timer_details_type = tetengo2::detail::stub::timer;
 
-        using unit_details_type = tetengo2::detail::stub::unit;
+            using unit_details_type = tetengo2::detail::stub::unit;
 
-        using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
+            using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
 
-        using widget_details_type = tetengo2::detail::stub::widget;
+            using widget_details_type = tetengo2::detail::stub::widget;
+
+        }
+
+        template <typename DetailKind>
+        struct detail_type_list_impl;
+
+        template <>
+        struct detail_type_list_impl<detail_kind::stub>
+        {
+            using type =
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, stub::alert_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::common_dialog, stub::common_dialog_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, stub::cursor_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, stub::drawing_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, stub::encoding_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, stub::gui_fixture_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, stub::icon_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, stub::menu_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::message_handler, stub::message_handler_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::message_loop, stub::message_loop_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::mouse_capture, stub::mouse_capture_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, stub::scroll_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, stub::shell_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::system_color, stub::system_color_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, stub::timer_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, stub::unit_details_type>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::detail::virtual_key, stub::virtual_key_details_type>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, stub::widget_details_type>,
+                tetengo2::meta::assoc_list_end
+                >>>>>>>>>>>>>>>>>>;
+
+        };
 
     }}
 #endif
 
     //! The detail type list.
-    using detail_type_list =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::alert_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::icon_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_handler, detail::detail::message_handler_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::mouse_capture, detail::detail::mouse_capture_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::scroll_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, detail::detail::shell_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::system_color, detail::detail::system_color_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::timer_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::unit_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_details_type>,
-        tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>;
+    template <typename DetailKind>
+    using detail_type_list = typename detail::detail::detail_type_list_impl<DetailKind>::type;
 
 
 }}

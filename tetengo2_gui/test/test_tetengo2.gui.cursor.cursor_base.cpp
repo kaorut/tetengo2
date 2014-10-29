@@ -20,7 +20,7 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list<test_tetengo2::gui::detail_kind::stub>;
 
     using cursor_type =
         tetengo2::gui::cursor::cursor_base<
