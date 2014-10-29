@@ -15,6 +15,16 @@
 #include "test_tetengo2.gui.detail_type_list.h"
 
 
+namespace
+{
+    // types
+
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(message)
@@ -27,9 +37,7 @@ BOOST_AUTO_TEST_SUITE(message_loop_break)
 
         using message_loop_break_type =
             tetengo2::gui::message::message_loop_break<
-                boost::mpl::at<
-                    test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::message_loop
-                >::type
+                boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::message_loop>::type
             >;
         const message_loop_break_type message_loop_break{};
 

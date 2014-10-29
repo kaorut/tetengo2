@@ -23,15 +23,19 @@ namespace
 {
     // types
 
-    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
 
-    using encoder_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type;
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+
+    using encoder_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type;
 
     using shell_type =
         tetengo2::gui::shell<
             string_type,
             encoder_type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::shell>::type
+            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::shell>::type
         >;
 
 

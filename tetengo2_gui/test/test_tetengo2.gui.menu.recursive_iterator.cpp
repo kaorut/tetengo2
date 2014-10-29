@@ -23,15 +23,18 @@ namespace
 {
     // types
 
-    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
 
-    using ui_encoder_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type;
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
 
-    using menu_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+
+    using ui_encoder_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type;
+
+    using menu_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::menu>::type;
 
     using virtual_key_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::virtual_key>::type;
 
     using menu_base_type =
         tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;

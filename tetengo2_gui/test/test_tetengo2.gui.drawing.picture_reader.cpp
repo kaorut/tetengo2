@@ -23,10 +23,14 @@ namespace
 {
     // types
 
-    using drawing_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
 
-    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
+    using drawing_details_type =
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::drawing>::type;
+
+    using dimension_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::dimension>::type;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 

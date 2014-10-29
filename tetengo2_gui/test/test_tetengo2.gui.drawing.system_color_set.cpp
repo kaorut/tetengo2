@@ -20,8 +20,12 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
     using system_color_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::system_color>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::system_color>::type;
 
     using system_color_set_type = tetengo2::gui::drawing::system_color_set<system_color_details_type>;
 

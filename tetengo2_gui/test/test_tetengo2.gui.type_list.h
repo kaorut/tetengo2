@@ -51,23 +51,35 @@ namespace test_tetengo2 { namespace gui
 
         using string_type = std::string;
 
-        using widget_details_type = boost::mpl::at<detail_type_list, type::detail::widget>::type;
+        template <typename DetailTypeList>
+        using widget_details_type = typename boost::mpl::at<DetailTypeList, type::detail::widget>::type;
 
         using exception_string_type = std::string;
 
-        using encoding_details_type = boost::mpl::at<detail_type_list, type::detail::encoding>::type;
+        template <typename DetailTypeList>
+        using encoding_details_type = typename boost::mpl::at<DetailTypeList, type::detail::encoding>::type;
 
-        using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
+        template <typename DetailTypeList>
+        using internal_encoding_type =
+            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
 
+        template <typename DetailTypeList>
         using ui_encoding_type =
-            tetengo2::text::encoding::locale<widget_details_type::string_type, encoding_details_type>;
+            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
 
-        using ui_encoder_type  = tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>;
+        template <typename DetailTypeList>
+        using ui_encoder_type =
+            tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, ui_encoding_type<DetailTypeList>>;
 
-        using exception_encoding_type = tetengo2::text::encoding::locale<exception_string_type, encoding_details_type>;
+        template <typename DetailTypeList>
+        using exception_encoding_type =
+            tetengo2::text::encoding::locale<exception_string_type, encoding_details_type<DetailTypeList>>;
 
-        using exception_encoder_type = tetengo2::text::encoder<internal_encoding_type, exception_encoding_type>;
+        template <typename DetailTypeList>
+        using exception_encoder_type =
+            tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, exception_encoding_type<DetailTypeList>>;
 
+        template <typename DetailTypeList>
         using widget_traits_type =
             tetengo2::gui::widget::widget_traits<
                 size_type,
@@ -76,36 +88,38 @@ namespace test_tetengo2 { namespace gui
                 string_type,
                 position_type,
                 dimension_type,
-                ui_encoder_type,
-                exception_encoder_type
+                ui_encoder_type<DetailTypeList>,
+                exception_encoder_type<DetailTypeList>
             >;
 
+        template <typename DetailTypeList>
         using widget_details_traits_type =
             tetengo2::gui::widget::widget_details_traits<
-                widget_details_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type,
-                boost::mpl::at<detail_type_list, type::detail::icon>::type,
-                boost::mpl::at<detail_type_list, type::detail::alert>::type,
-                boost::mpl::at<detail_type_list, type::detail::cursor>::type,
-                boost::mpl::at<detail_type_list, type::detail::scroll>::type,
-                boost::mpl::at<detail_type_list, type::detail::message_handler>::type,
-                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
+                widget_details_type<DetailTypeList>,
+                typename boost::mpl::at<DetailTypeList, type::detail::drawing>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::icon>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::alert>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::cursor>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::scroll>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::message_handler>::type,
+                typename boost::mpl::at<DetailTypeList, type::detail::virtual_key>::type
             >;
 
     }
 #endif
 
     //! The type list.
+    template <typename DetailTypeList>
     using type_list =
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, detail::difference_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::position, detail::position_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::dimension, detail::dimension_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui_encoder, detail::ui_encoder_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_encoder, detail::exception_encoder_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_traits, detail::widget_traits_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_details_traits, detail::widget_details_traits_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui_encoder, detail::ui_encoder_type<DetailTypeList>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_encoder, detail::exception_encoder_type<DetailTypeList>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_traits, detail::widget_traits_type<DetailTypeList>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget_details_traits, detail::widget_details_traits_type<DetailTypeList>>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>;
 

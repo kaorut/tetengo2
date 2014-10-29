@@ -20,12 +20,16 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
     using color_type = tetengo2::gui::drawing::color;
 
     using control_type =
         tetengo2::gui::widget::control<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_details_traits>::type
         >;
 
     class concrete_control : public control_type

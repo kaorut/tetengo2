@@ -20,9 +20,11 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+
     using cursor_type =
         tetengo2::gui::cursor::cursor_base<
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::cursor>::type
+            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::cursor>::type
         >;
 
     class concrete_cursor_type : public cursor_type

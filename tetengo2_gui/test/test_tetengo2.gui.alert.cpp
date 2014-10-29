@@ -23,11 +23,15 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
     using alert_type =
         tetengo2::gui::alert<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::ui_encoder>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::exception_encoder>::type,
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::alert>::type
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::exception_encoder>::type,
+            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::alert>::type
         >;
 
     struct boost_exception : public boost::exception
