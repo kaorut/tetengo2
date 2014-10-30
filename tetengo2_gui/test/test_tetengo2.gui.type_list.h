@@ -108,7 +108,11 @@ namespace test_tetengo2 { namespace gui
     }
 #endif
 
-    //! The type list.
+    /*!
+        \brief The type list.
+
+        \tparam DetailTypeList A detail type list.
+    */
     template <typename DetailTypeList>
     using type_list =
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
