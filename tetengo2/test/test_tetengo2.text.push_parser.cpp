@@ -28,7 +28,9 @@ namespace
 {
     // types
 
-    using io_string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::io_string>::type;
+    using type_list_type = test_tetengo2::type_list;
+
+    using io_string_type = boost::mpl::at<type_list_type, test_tetengo2::type::io_string>::type;
 
     using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
 

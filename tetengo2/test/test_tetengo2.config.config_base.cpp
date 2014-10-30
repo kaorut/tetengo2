@@ -21,9 +21,11 @@ namespace
 {
     // types
 
-    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
+    using type_list_type = test_tetengo2::type_list;
 
-    using uint_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+
+    using uint_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
 
     using config_base_type = tetengo2::config::config_base<string_type, uint_type>;
 
