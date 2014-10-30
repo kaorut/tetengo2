@@ -12,7 +12,6 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,13 +19,17 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
     using drawing_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::drawing>::type;
 
     using font_type =
         tetengo2::gui::drawing::font<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::size>::type,
             drawing_details_type
         >;
 

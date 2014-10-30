@@ -20,7 +20,6 @@
 
 #include <tetengo2.h>
 
-#include "test_tetengo2.detail_type_list.h"
 #include "test_tetengo2.type_list.h"
 
 
@@ -28,11 +27,15 @@ namespace
 {
     // types
 
-    using size_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::size>::type;
+    using detail_type_list_type = test_tetengo2::detail_type_list_for_test;
 
-    using string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::string>::type;
+    using type_list_type = test_tetengo2::type_list;
 
-    using io_string_type = boost::mpl::at<test_tetengo2::type_list, test_tetengo2::type::io_string>::type;
+    using size_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+
+    using io_string_type = boost::mpl::at<type_list_type, test_tetengo2::type::io_string>::type;
 
     using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
 
@@ -43,8 +46,7 @@ namespace
     using pull_parser_type = 
         tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
 
-    using encoding_details_type =
-        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
+    using encoding_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::encoding>::type;
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
 

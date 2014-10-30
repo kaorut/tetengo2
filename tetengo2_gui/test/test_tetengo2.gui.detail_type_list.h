@@ -64,57 +64,82 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
-        using alert_details_type = tetengo2::detail::stub::alert;
-        using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
-        using cursor_details_type = tetengo2::detail::stub::cursor;
-        using drawing_details_type = tetengo2::detail::stub::drawing;
+        namespace test
+        {
+            using alert_details_type = tetengo2::detail::stub::alert;
+
+            using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
+
+            using cursor_details_type = tetengo2::detail::stub::cursor;
+
+            using drawing_details_type = tetengo2::detail::stub::drawing;
+
 #if BOOST_COMP_MSVC
-        using encoding_details_type = tetengo2::detail::windows::encoding;
+            using encoding_details_type = tetengo2::detail::windows::encoding;
 #else
-        using encoding_details_type = tetengo2::detail::unixos::encoding;
+            using encoding_details_type = tetengo2::detail::unixos::encoding;
 #endif
-        using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
-        using icon_details_type = tetengo2::detail::stub::icon;
-        using menu_details_type = tetengo2::detail::stub::menu;
-        using message_handler_details_type = tetengo2::detail::stub::message_handler;
-        using message_loop_details_type = tetengo2::detail::stub::message_loop;
-        using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
-        using scroll_details_type = tetengo2::detail::stub::scroll;
-        using shell_details_type = tetengo2::detail::stub::shell;
-        using system_color_details_type = tetengo2::detail::stub::system_color;
-        using timer_details_type = tetengo2::detail::stub::timer;
-        using unit_details_type = tetengo2::detail::stub::unit;
-        using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
-        using widget_details_type = tetengo2::detail::stub::widget;
+
+            using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
+
+            using icon_details_type = tetengo2::detail::stub::icon;
+
+            using menu_details_type = tetengo2::detail::stub::menu;
+
+            using message_handler_details_type = tetengo2::detail::stub::message_handler;
+
+            using message_loop_details_type = tetengo2::detail::stub::message_loop;
+
+            using mouse_capture_details_type = tetengo2::detail::stub::mouse_capture;
+
+            using scroll_details_type = tetengo2::detail::stub::scroll;
+
+            using shell_details_type = tetengo2::detail::stub::shell;
+
+            using system_color_details_type = tetengo2::detail::stub::system_color;
+
+            using timer_details_type = tetengo2::detail::stub::timer;
+
+            using unit_details_type = tetengo2::detail::stub::unit;
+
+            using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
+
+            using widget_details_type = tetengo2::detail::stub::widget;
+
+        }
+
     }}
 #endif
 
-    //! The detail type list.
-    using detail_type_list =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::alert_details_type>,
+    /*!
+        \brief The detail type list for the testing.
+    */
+    using detail_type_list_for_test =
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::test::alert_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::icon_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_details_type>,
+            boost::mpl::pair<type::detail::common_dialog, detail::detail::test::common_dialog_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::test::cursor_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::test::drawing_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_handler, detail::detail::message_handler_details_type>,
+            boost::mpl::pair<type::detail::encoding, detail::detail::test::encoding_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::test::gui_fixture_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::test::icon_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::test::menu_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_details_type>,
+            boost::mpl::pair<type::detail::message_handler, detail::detail::test::message_handler_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::mouse_capture, detail::detail::mouse_capture_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::scroll_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, detail::detail::shell_details_type>,
+            boost::mpl::pair<type::detail::message_loop, detail::detail::test::message_loop_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::system_color, detail::detail::system_color_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::timer_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::unit_details_type>,
+            boost::mpl::pair<type::detail::mouse_capture, detail::detail::test::mouse_capture_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::test::scroll_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, detail::detail::test::shell_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_details_type>,
+            boost::mpl::pair<type::detail::system_color, detail::detail::test::system_color_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::test::timer_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::test::unit_details_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::detail::virtual_key, detail::detail::test::virtual_key_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::test::widget_details_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>>>>>>>;
 

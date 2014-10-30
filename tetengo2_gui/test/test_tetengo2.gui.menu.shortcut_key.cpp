@@ -12,7 +12,6 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,10 +19,14 @@ namespace
 {
     // types
 
-    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
 
     using virtual_key_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::virtual_key>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::virtual_key>::type;
 
     using virtual_key_type = tetengo2::gui::virtual_key<string_type, virtual_key_details_type>;
 

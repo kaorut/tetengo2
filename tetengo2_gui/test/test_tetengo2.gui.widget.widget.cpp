@@ -19,7 +19,6 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -27,21 +26,23 @@ namespace
 {
     // types
 
-    using size_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::size>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
 
-    using string_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type;
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
+    using size_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::size>::type;
+
+    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
 
     using details_font_type =
-        boost::mpl::at<
-            test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::widget
-        >::type::details_font_type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::widget>::type::details_font_type;
 
-    using position_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type;
+    using position_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::position>::type;
 
-    using dimension_type = boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type;
+    using dimension_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::dimension>::type;
 
     using drawing_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::drawing>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::drawing>::type;
 
     using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
@@ -51,13 +52,13 @@ namespace
 
     using system_cursor_type =
         tetengo2::gui::cursor::system<
-            boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::cursor>::type
+            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::cursor>::type
         >;
 
     using widget_type =
         tetengo2::gui::widget::widget<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_traits>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_details_traits>::type
         >;
 
     class concrete_widget : public widget_type

@@ -16,6 +16,8 @@
 
 #include <tetengo2.h>
 
+#include "test_tetengo2.detail_type_list.h"
+
 
 namespace test_tetengo2
 {
@@ -26,7 +28,9 @@ namespace test_tetengo2
         struct io_string;      //!< The I/O string type.
     }
 
-    //! The common type list.
+    /*!
+        \brief The type list.
+    */
     using type_list =
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, std::size_t>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,

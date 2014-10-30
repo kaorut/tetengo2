@@ -12,7 +12,6 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -20,10 +19,14 @@ namespace
 {
     // types
 
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
     using mouse_observer_set_type =
         tetengo2::gui::message::mouse_observer_set<
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type,
-            boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::difference>::type
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::position>::type,
+            boost::mpl::at<type_list_type, test_tetengo2::gui::type::difference>::type
         >;
 
 

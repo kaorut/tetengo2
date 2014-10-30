@@ -11,15 +11,16 @@
 
 #include <tetengo2.h>
 
-#include "test_tetengo2.detail_type_list.h"
+#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using encoding_details_type =
-        boost::mpl::at<test_tetengo2::detail_type_list, test_tetengo2::type::detail::encoding>::type;
+    using detail_type_list_type = test_tetengo2::detail_type_list_for_test;
+
+    using encoding_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::encoding>::type;
 
     using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
 

@@ -13,7 +13,6 @@
 #include <tetengo2.h>
 #include <tetengo2.gui.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -21,14 +20,16 @@ namespace
 {
     // types
 
-    using widget_traits_type =
-        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_traits>::type;
+    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+
+    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+
+    using widget_traits_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_traits>::type;
 
     using widget_details_traits_type =
-        boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::widget_details_traits>::type;
+        boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_details_traits>::type;
 
-    using menu_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::menu>::type;
+    using menu_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::menu>::type;
 
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
@@ -36,7 +37,7 @@ namespace
     using color_type = tetengo2::gui::drawing::color;
 
     using common_dialog_details_type =
-        boost::mpl::at<test_tetengo2::gui::detail_type_list, test_tetengo2::gui::type::detail::common_dialog>::type;
+        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::common_dialog>::type;
 
     using color_dialog_type =
         tetengo2::gui::common_dialog::color<
