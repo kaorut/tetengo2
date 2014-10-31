@@ -17,6 +17,10 @@ open(my $fh, $source_filename) || die "Can't open $source_filename";
 my($section);
 while(<$fh>)
 {
+	if (/ \/\/[ \r\n]/)
+	{
+		next;
+	}
 	if (/\/\*+ ([0-9A-Za-z ]+) \*+\//)
 	{
 		$section = $1.': ';
