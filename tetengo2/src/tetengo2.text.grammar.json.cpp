@@ -555,10 +555,25 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
 
-    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<char>>;
-    template class json<input_stream_iterator_type>;
+    namespace
+    {
+        namespace application
+        {
+            using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<char>>;
 
-    template class json<std::string::const_iterator>;
+        }
+
+        namespace test
+        {
+            using input_stream_iterator_type = std::string::const_iterator;
+
+        }
+
+    }
+
+    template class json<application::input_stream_iterator_type>;
+
+    template class json<test::input_stream_iterator_type>;
 
 
 }}}
