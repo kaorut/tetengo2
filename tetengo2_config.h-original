@@ -17,7 +17,7 @@
 #define USE_VISUAL_CPP_EXPRESS_EDITION 0
 
 // Set the Boost version.
-#define BOOST_VERSION "1_55"
+#define BOOST_VERSION "1_57"
 
 // Set the path where the 32-bit (Win32) version of Boost DLLs exist.
 #define BOOST_LIB_Win32 "X:\\path\\to\\boost\\lib-msvc120-Win32"
