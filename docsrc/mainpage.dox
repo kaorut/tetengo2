@@ -93,7 +93,7 @@ The latest archives can be downloaded from [the web site](http://www.tetengo.org
 You can clone the Git repository like this:
 
 ~~~~{.sh}
-$ git clone https://github.com/kaorut/bobura.git
+$ git clone https://github.com/kaorut/tetengo2.git
 ~~~~
 
 Run `bootstrap.sh` to produce the `configure` script:
