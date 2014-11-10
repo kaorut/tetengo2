@@ -18,9 +18,9 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
     using widget_traits_type = common_type_list_type::widget_traits_type;
 

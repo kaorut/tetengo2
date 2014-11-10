@@ -19,7 +19,7 @@
 #include "test_tetengo2.gui.detail_type_list.h"
 
 
-namespace test_tetengo2 { namespace gui { namespace type_list_temp
+namespace test_tetengo2 { namespace gui { namespace type_list
 {
 #if !defined(DOCUMENTATION)
     namespace detail { namespace common

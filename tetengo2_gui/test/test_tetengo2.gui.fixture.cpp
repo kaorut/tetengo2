@@ -19,7 +19,7 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
     using fixture_type = detail_type_list_type::gui_fixture_type;
 

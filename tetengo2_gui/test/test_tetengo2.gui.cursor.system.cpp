@@ -18,7 +18,7 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
     using cursor_type = tetengo2::gui::cursor::system<detail_type_list_type::cursor_type>;
 
