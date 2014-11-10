@@ -11,7 +11,6 @@
 #include <vector>
 
 #include <boost/filesystem.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -24,17 +23,17 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
-    using size_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::size>::type;
+    using size_type = common_type_list_type::size_type;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using position_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::position>::type;
+    using position_type = common_type_list_type::position_type;
 
-    using dimension_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::dimension>::type;
+    using dimension_type = common_type_list_type::dimension_type;
 
     using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
 
@@ -42,8 +41,7 @@ namespace
 
     using color_type = tetengo2::gui::drawing::color;
 
-    using drawing_details_type =
-        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::drawing>::type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
     using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
@@ -55,7 +53,7 @@ namespace
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-    using icon_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::icon>::type;
+    using icon_details_type = detail_type_list_type::icon_type;
 
     using icon_type = tetengo2::gui::icon<dimension_type, icon_details_type>;
 
@@ -63,7 +61,7 @@ namespace
 
     using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
-    using encoder_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type;
+    using encoder_type = common_type_list_type::ui_encoder_type;
 
     using canvas_traits_type =
         tetengo2::gui::drawing::canvas_traits<

@@ -7,7 +7,6 @@
 */
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -20,9 +19,9 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using fixture_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::gui_fixture>::type;
+    using fixture_type = detail_type_list_type::gui_fixture_type;
 
 
 }

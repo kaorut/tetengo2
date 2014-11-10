@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,12 +18,11 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
-    using system_color_details_type =
-        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::system_color>::type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
     using system_color_set_type = tetengo2::gui::drawing::system_color_set<system_color_details_type>;
 

@@ -9,7 +9,6 @@
 #include <stdexcept>
 
 #include <boost/exception/all.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -22,15 +21,15 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
     using alert_type =
         tetengo2::gui::alert<
-            boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type,
-            boost::mpl::at<type_list_type, test_tetengo2::gui::type::exception_encoder>::type,
-            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::alert>::type
+            common_type_list_type::ui_encoder_type,
+            common_type_list_type::exception_encoder_type,
+            detail_type_list_type::alert_type
         >;
 
     struct boost_exception : public boost::exception

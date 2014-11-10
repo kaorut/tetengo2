@@ -8,7 +8,6 @@
 
 #include <vector>
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -22,20 +21,15 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using encoder_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::ui_encoder>::type;
+    using encoder_type = common_type_list_type::ui_encoder_type;
 
-    using shell_type =
-        tetengo2::gui::shell<
-            string_type,
-            encoder_type,
-            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::shell>::type
-        >;
+    using shell_type = tetengo2::gui::shell<string_type, encoder_type, detail_type_list_type::shell_type>;
 
 
 }

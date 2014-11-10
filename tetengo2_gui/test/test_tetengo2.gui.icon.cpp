@@ -9,7 +9,6 @@
 #include <cstddef>
 
 #include <boost/filesystem.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -23,16 +22,13 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
-    using dimension_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::dimension>::type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-    using icon_type =
-        tetengo2::gui::icon<
-            dimension_type, boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::icon>::type
-        >;
+    using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
 
 
     // functions

@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,7 +18,7 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
 
 }
@@ -37,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(message_loop_break)
 
         using message_loop_break_type =
             tetengo2::gui::message::message_loop_break<
-                boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::message_loop>::type
+                detail_type_list_type::message_loop_type
             >;
         const message_loop_break_type message_loop_break{};
 

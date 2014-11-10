@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -18,26 +17,24 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using widget_traits_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_traits>::type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-    using widget_details_traits_type =
-        boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_details_traits>::type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-    using menu_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::menu>::type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
     using button_style_type = tetengo2::gui::common_dialog::message_box_style::button_style<string_type>;
 
-    using common_dialog_details_type =
-        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::common_dialog>::type;
+    using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
     using message_box_type =
         tetengo2::gui::common_dialog::message_box<

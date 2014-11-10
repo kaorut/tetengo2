@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,14 +18,12 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list_temp::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list_temp::common<detail_type_list_type>;
 
     using scroll_bar_observer_set_type =
-        tetengo2::gui::message::scroll_bar_observer_set<
-            boost::mpl::at<type_list_type, test_tetengo2::gui::type::size>::type
-        >;
+        tetengo2::gui::message::scroll_bar_observer_set<common_type_list_type::size_type>;
 
 
 }
