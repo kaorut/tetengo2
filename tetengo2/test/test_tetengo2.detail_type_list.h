@@ -9,7 +9,6 @@
 #if !defined(TESTTETENGO2_DETAILTYPELIST_H)
 #define TESTTETENGO2_DETAILTYPELIST_H
 
-#include <boost/mpl/pair.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2.h>
@@ -22,14 +21,8 @@
 #endif
 
 
-namespace test_tetengo2
+namespace test_tetengo2 { namespace type_list
 {
-    namespace type { namespace detail
-    {
-        struct config;   //!< The configuration type.
-        struct encoding; //!< The encoding type.
-    }}
-
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
@@ -53,15 +46,16 @@ namespace test_tetengo2
     /*!
         \brief The detail type list for the testing.
     */
-    using detail_type_list_for_test =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::config, detail::detail::test::config_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::encoding, detail::detail::test::encoding_details_type>,
-        tetengo2::meta::assoc_list_end
-        >>;
+    struct detail_for_test
+    {
+        //!< The configuration type.
+        using config_type = detail::detail::test::config_details_type;
 
+        //!< The encoding type.
+        using encoding_type = detail::detail::test::encoding_details_type;
+    };
 
-}
+}}
 
 
 #endif

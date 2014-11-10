@@ -13,7 +13,6 @@
 #include <string>
 
 #include <boost/filesystem.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/predef.h>
 #include <boost/scope_exit.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
@@ -28,19 +27,19 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
 
-    using type_list_type = test_tetengo2::type_list;
+    using common_type_list_type = test_tetengo2::type_list::common;
 
-    using size_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+    using size_type = common_type_list_type::size_type;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using io_string_type = boost::mpl::at<type_list_type, test_tetengo2::type::io_string>::type;
+    using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
 
-    using encoding_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::encoding>::type;
+    using encoding_details_type = detail_type_list_type::encoding_type;
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
 

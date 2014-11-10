@@ -7,7 +7,6 @@
 */
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -21,11 +20,11 @@ namespace
 {
     // types
 
-    using type_list_type = test_tetengo2::type_list;
+    using common_type_list_type = test_tetengo2::type_list::common;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using uint_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+    using uint_type = common_type_list_type::size_type;
 
     using config_base_type = tetengo2::config::config_base<string_type, uint_type>;
 
