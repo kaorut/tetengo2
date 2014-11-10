@@ -9,7 +9,6 @@
 #if !defined(TESTTETENGO2_GUI_DETAILTYPELIST_H)
 #define TESTTETENGO2_GUI_DETAILTYPELIST_H
 
-#include <boost/mpl/pair.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2.h>
@@ -37,30 +36,8 @@
 #endif
 
 
-namespace test_tetengo2 { namespace gui
+namespace test_tetengo2 { namespace gui { namespace type_list
 {
-    namespace type { namespace detail
-    {
-        struct alert;           //!< The alert type.
-        struct common_dialog;   //!< The common dialog type.
-        struct cursor;          //!< The cursor type.
-        struct drawing;         //!< The drawing type.
-        struct encoding;        //!< The encoding type.
-        struct gui_fixture;     //!< The GUI fixture type.
-        struct icon;            //!< The icon type.
-        struct menu;            //!< The menu type.
-        struct message_handler; //!< The message handler type.
-        struct message_loop;    //!< The message loop type.
-        struct mouse_capture;   //!< The mouse_capture_type.
-        struct scroll;          //!< The scroll type.
-        struct shell;           //!< The shell type.
-        struct system_color;    //!< The system color type.
-        struct timer;           //!< The timer type.
-        struct unit;            //!< The unit type.
-        struct virtual_key;     //!< The virtual key type.
-        struct widget;          //!< The widget type.
-    }}
-
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
@@ -114,37 +91,65 @@ namespace test_tetengo2 { namespace gui
     /*!
         \brief The detail type list for the testing.
     */
-    using detail_type_list_for_test =
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::test::alert_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::common_dialog, detail::detail::test::common_dialog_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::test::cursor_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::test::drawing_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::encoding, detail::detail::test::encoding_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::test::gui_fixture_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::icon, detail::detail::test::icon_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::test::menu_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_handler, detail::detail::test::message_handler_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_loop, detail::detail::test::message_loop_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::mouse_capture, detail::detail::test::mouse_capture_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::scroll, detail::detail::test::scroll_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::shell, detail::detail::test::shell_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::system_color, detail::detail::test::system_color_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::timer, detail::detail::test::timer_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::test::unit_details_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::virtual_key, detail::detail::test::virtual_key_details_type>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::test::widget_details_type>,
-        tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>;
+    struct detail_for_test
+    {
+        //!< The alert type.
+        using alert_type = detail::detail::test::alert_details_type;
 
+        //!< The common dialog type.
+        using common_dialog_type = detail::detail::test::common_dialog_details_type;
 
-}}
+        //!< The cursor type.
+        using cursor_type = detail::detail::test::cursor_details_type;
+
+        //!< The drawing type.
+        using drawing_type = detail::detail::test::drawing_details_type;
+
+        //!< The encoding type.
+        using encoding_type = detail::detail::test::encoding_details_type;
+
+        //!< The GUI fixture type.
+        using gui_fixture_type = detail::detail::test::gui_fixture_type;
+
+        //!< The icon type.
+        using icon_type = detail::detail::test::icon_details_type;
+
+        //!< The menu type.
+        using menu_type = detail::detail::test::menu_details_type;
+
+        //!< The message handler type.
+        using message_handler_type = detail::detail::test::message_handler_details_type;
+
+        //!< The message loop type.
+        using message_loop_type = detail::detail::test::message_loop_details_type;
+
+        //!< The mouse_capture_type.
+        using mouse_capture_type = detail::detail::test::mouse_capture_details_type;
+
+        //!< The scroll type.
+        using scroll_type = detail::detail::test::scroll_details_type;
+
+        //!< The shell type.
+        using shell_type = detail::detail::test::shell_details_type;
+
+        //!< The system color type.
+        using system_color_type = detail::detail::test::system_color_details_type;
+
+        //!< The timer type.
+        using timer_type = detail::detail::test::timer_details_type;
+
+        //!< The unit type.
+        using unit_type = detail::detail::test::unit_details_type;
+
+        //!< The virtual key type.
+        using virtual_key_type = detail::detail::test::virtual_key_details_type;
+
+        //!< The widget type.
+        using widget_type = detail::detail::test::widget_details_type;
+
+    };
+
+}}}
 
 
 #endif

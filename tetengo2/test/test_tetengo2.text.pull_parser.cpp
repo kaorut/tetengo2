@@ -12,7 +12,6 @@
 #include <string>
 #include <utility>
 
-#include <boost/mpl/at.hpp>
 #include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
@@ -27,13 +26,13 @@ namespace
 {
     // types
 
-    using type_list_type = test_tetengo2::type_list;
+    using common_type_list_type = test_tetengo2::type_list::common;
 
-    using size_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+    using size_type = common_type_list_type::size_type;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using io_string_type = boost::mpl::at<type_list_type, test_tetengo2::type::io_string>::type;
+    using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
 

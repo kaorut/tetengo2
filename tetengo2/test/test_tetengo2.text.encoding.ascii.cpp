@@ -9,7 +9,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -21,9 +20,9 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
 
-    using encoding_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::encoding>::type;
+    using encoding_details_type = detail_type_list_type::encoding_type;
 
     using pivot_type = encoding_details_type::pivot_type;
 

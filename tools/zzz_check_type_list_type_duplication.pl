@@ -30,7 +30,7 @@ while(<$fh>)
 	{
 		last;
 	}
-	if (/[ :](type::[0-9A-Za-z_:]+)/)
+	if (/[ :]([0-9A-Za-z_:]+_type_list_type::[0-9A-Za-z_:]+)/)
 	{
 		if ($1 ne 'type::value')
 		{

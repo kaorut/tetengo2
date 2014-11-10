@@ -8,7 +8,6 @@
 
 #include <stdexcept>
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -21,25 +20,22 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_traits_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_traits>::type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-    using widget_details_traits_type =
-        boost::mpl::at<type_list_type, test_tetengo2::gui::type::widget_details_traits>::type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-    using menu_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::menu>::type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using mouse_capture_details_type =
-        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::mouse_capture>::type;
+    using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using system_color_details_type =
-        boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::system_color>::type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
     using map_box_type =
         tetengo2::gui::widget::map_box<
@@ -52,11 +48,11 @@ namespace
 
     using mapped_type = value_type::second_type;
 
-    using position_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::position>::type;
+    using position_type = common_type_list_type::position_type;
 
     using left_type = tetengo2::gui::position<position_type>::left_type;
 
-    using dimension_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::dimension>::type;
+    using dimension_type = common_type_list_type::dimension_type;
 
     using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
 

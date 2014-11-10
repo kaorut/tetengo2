@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,12 +18,9 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using cursor_type =
-        tetengo2::gui::cursor::cursor_base<
-            boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::cursor>::type
-        >;
+    using cursor_type = tetengo2::gui::cursor::cursor_base<detail_type_list_type::cursor_type>;
 
     class concrete_cursor_type : public cursor_type
     {

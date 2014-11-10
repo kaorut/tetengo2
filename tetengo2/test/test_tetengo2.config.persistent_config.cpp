@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
@@ -19,19 +18,19 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
 
-    using type_list_type = test_tetengo2::type_list;
+    using common_type_list_type = test_tetengo2::type_list::common;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using uint_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+    using uint_type = common_type_list_type::size_type;
 
-    using encoding_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::encoding>::type;
+    using encoding_details_type = detail_type_list_type::encoding_type;
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
 
-    using config_details_type = boost::mpl::at<detail_type_list_type, test_tetengo2::type::detail::config>::type;
+    using config_details_type = detail_type_list_type::config_type;
 
     using config_encoding_type =
         tetengo2::text::encoding::locale<config_details_type::string_type, encoding_details_type>;

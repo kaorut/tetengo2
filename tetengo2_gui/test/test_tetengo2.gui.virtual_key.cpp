@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -19,16 +18,13 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::detail_type_list_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using type_list_type = test_tetengo2::gui::type_list<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::gui::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using virtual_key_type =
-        tetengo2::gui::virtual_key<
-            string_type, boost::mpl::at<detail_type_list_type, test_tetengo2::gui::type::detail::virtual_key>::type
-        >;
+    using virtual_key_type = tetengo2::gui::virtual_key<string_type, detail_type_list_type::virtual_key_type>;
 
 
 }

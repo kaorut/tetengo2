@@ -9,7 +9,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
@@ -22,11 +21,11 @@ namespace
 {
     // types
 
-    using type_list_type = test_tetengo2::type_list;
+    using common_type_list_type = test_tetengo2::type_list::common;
 
-    using string_type = boost::mpl::at<type_list_type, test_tetengo2::type::string>::type;
+    using string_type = common_type_list_type::string_type;
 
-    using uint_type = boost::mpl::at<type_list_type, test_tetengo2::type::size>::type;
+    using uint_type = common_type_list_type::size_type;
 
     using temporary_config_type = tetengo2::config::temporary_config<string_type, uint_type>;
 
