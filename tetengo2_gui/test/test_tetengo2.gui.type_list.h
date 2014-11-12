@@ -21,6 +21,8 @@
 
 namespace test_tetengo2 { namespace gui { namespace type_list
 {
+    /**** Common *****************************************************************************************************/
+
 #if !defined(DOCUMENTATION)
     namespace detail { namespace common
     {

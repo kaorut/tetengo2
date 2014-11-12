@@ -17,18 +17,20 @@
 
 namespace test_tetengo2 { namespace type_list
 {
+    /**** Common *****************************************************************************************************/
+
     /*!
         \brief The common type list.
     */
     struct common
     {
-        //!< The size type.
+        //! The size type.
         using size_type = std::size_t;
 
-        //!< The string type.
+        //! The string type.
         using string_type = std::string;
         
-        //!< The I/O string type.
+        //! The I/O string type.
         using io_string_type = std::string;
 
     };

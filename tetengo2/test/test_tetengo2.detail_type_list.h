@@ -23,6 +23,8 @@
 
 namespace test_tetengo2 { namespace type_list
 {
+    /**** Detail Implementation **************************************************************************************/
+
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
@@ -48,10 +50,10 @@ namespace test_tetengo2 { namespace type_list
     */
     struct detail_for_test
     {
-        //!< The configuration type.
+        //! The configuration type.
         using config_type = detail::detail::test::config_details_type;
 
-        //!< The encoding type.
+        //! The encoding type.
         using encoding_type = detail::detail::test::encoding_details_type;
     };
 
