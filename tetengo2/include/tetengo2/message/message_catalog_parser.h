@@ -265,7 +265,7 @@ namespace tetengo2 { namespace message
         }
 
         template <typename Structure>
-        bool next_is(const input_string_type& name, const input_string_type& attribute = {})
+        bool next_is(const input_string_type& name, const input_string_type& attribute = input_string_type{})
         const
         {
             if (!m_p_pull_parser->has_next())
