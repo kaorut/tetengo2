@@ -13,9 +13,6 @@
 #define TETENGO2CONFIG_H
 
 
-// Set to 1 when you are using Visual C++ Express Edition.
-#define USE_VISUAL_CPP_EXPRESS_EDITION 0
-
 // Set the Boost version.
 #define BOOST_VERSION "1_57"
 
