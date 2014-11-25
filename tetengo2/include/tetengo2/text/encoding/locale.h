@@ -167,6 +167,8 @@ namespace tetengo2 { namespace text { namespace encoding
         string_type from_pivot_impl_impl(const typename base_type::pivot_type& pivot)
         const
         {
+            if (pivot.empty())
+                return string_type{};
             if (!std::has_facet<converter_type>(m_locale))
                 return string_type{ pivot.begin(), pivot.end() };
 
@@ -264,6 +266,8 @@ namespace tetengo2 { namespace text { namespace encoding
         typename base_type::pivot_type to_pivot_impl_impl(const string_type& string)
         const
         {
+            if (string.empty())
+                return typename base_type::pivot_type{};
             if (!std::has_facet<converter_type>(m_locale))
                 return typename base_type::pivot_type{ string.begin(), string.end() };
 
