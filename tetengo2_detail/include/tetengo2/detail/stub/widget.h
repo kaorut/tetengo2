@@ -1163,6 +1163,13 @@ namespace tetengo2 { namespace detail { namespace stub
             dropdown_box.details().list_box_values.erase(
                 boost::next(dropdown_box.details().list_box_values.begin(), index)
             );
+            if (
+                dropdown_box.details().selected_list_box_value_index &&
+                *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size()
+            )
+            {
+                dropdown_box.details().selected_list_box_value_index = boost::none;
+            }
         }
 
         /*!
@@ -1178,6 +1185,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void clear_dropdown_box(DropdownBox& dropdown_box)
         {
             dropdown_box.details().list_box_values.clear();
+            dropdown_box.details().selected_list_box_value_index = boost::none;
         }
 
         /*!
@@ -1314,6 +1322,13 @@ namespace tetengo2 { namespace detail { namespace stub
         static void erase_list_box_value(ListBox& list_box, const Size index)
         {
             list_box.details().list_box_values.erase(boost::next(list_box.details().list_box_values.begin(), index));
+            if (
+                list_box.details().selected_list_box_value_index &&
+                *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size()
+            )
+            {
+                list_box.details().selected_list_box_value_index = boost::none;
+            }
         }
 
         /*!
@@ -1329,6 +1344,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void clear_list_box(ListBox& list_box)
         {
             list_box.details().list_box_values.clear();
+            list_box.details().selected_list_box_value_index = boost::none;
         }
 
         /*!
