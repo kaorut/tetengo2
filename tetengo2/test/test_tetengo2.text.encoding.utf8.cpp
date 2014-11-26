@@ -55,12 +55,16 @@ namespace
     }; // in UTF-8
 #endif
 
+    const pivot_type empty_pivot{};
+
     const string_type utf8_{
         tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
         tc(0xE9), tc(0xB7), tc(0x97),           // OU in kanji
         tc(0xE5), tc(0xA4), tc(0x96),           // GAI in kanji
         tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
     }; // in CP932
+
+    const string_type empty_utf8_{};
 
 
 }
@@ -91,6 +95,12 @@ BOOST_AUTO_TEST_SUITE(utf8)
 
             BOOST_CHECK(result == utf8_);
         }
+        {
+            const encoding_type encoding{};
+            const auto result = encoding.from_pivot(empty_pivot);
+
+            BOOST_CHECK(result == empty_utf8_);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(to_pivot)
@@ -102,6 +112,12 @@ BOOST_AUTO_TEST_SUITE(utf8)
             const auto result = encoding.to_pivot(utf8_);
 
             BOOST_CHECK(result == pivot);
+        }
+        {
+            const encoding_type encoding{};
+            const auto result = encoding.to_pivot(empty_utf8_);
+
+            BOOST_CHECK(result == empty_pivot);
         }
     }
 
