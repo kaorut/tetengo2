@@ -186,8 +186,24 @@ BOOST_AUTO_TEST_SUITE(locale)
             BOOST_CHECK(encoding.from_pivot(pivot) == string);
         }
         {
+            const multibyte_encoding_type::pivot_type pivot{};
+            const multibyte_encoding_type::string_type string{};
+
+            const multibyte_encoding_type encoding{ std::locale::classic() };
+
+            BOOST_CHECK(encoding.from_pivot(pivot) == string);
+        }
+        {
             const wide_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
             const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
+
+            const wide_encoding_type encoding{ std::locale::classic() };
+
+            BOOST_CHECK(encoding.from_pivot(pivot) == string);
+        }
+        {
+            const wide_encoding_type::pivot_type pivot{};
+            const wide_encoding_type::string_type string{};
 
             const wide_encoding_type encoding{ std::locale::classic() };
 
@@ -208,8 +224,24 @@ BOOST_AUTO_TEST_SUITE(locale)
             BOOST_CHECK(encoding.to_pivot(string) == pivot);
         }
         {
+            const multibyte_encoding_type::pivot_type pivot{};
+            const multibyte_encoding_type::string_type string{};
+
+            const multibyte_encoding_type encoding{ std::locale::classic() };
+
+            BOOST_CHECK(encoding.to_pivot(string) == pivot);
+        }
+        {
             const wide_encoding_type::pivot_type pivot{ TETENGO2_TEXT("Tetengo2") };
             const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
+
+            const wide_encoding_type encoding{ std::locale::classic() };
+
+            BOOST_CHECK(encoding.to_pivot(string) == pivot);
+        }
+        {
+            const wide_encoding_type::pivot_type pivot{};
+            const wide_encoding_type::string_type string{};
 
             const wide_encoding_type encoding{ std::locale::classic() };
 
