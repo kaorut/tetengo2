@@ -4,6 +4,7 @@
 # $Id$
 
 use strict;
+use File::Copy "copy";
 
 my($ctags_command) = 'ctags -f - --language-force="C++" --file-scope=no --fields=+aK --C++-kinds=+p ';
 
@@ -14,8 +15,11 @@ if (scalar(@ARGV) < 1)
 }
 
 my($file_name) = $ARGV[0];
+$file_name =~ /(\.[a-zA-Z0-9]+)$/;
+my($file_name_tmp) = $file_name.'.tmp'.$1;
+`sed \"s/\\boverride\\b//\" < $file_name > $file_name_tmp`;
 
-foreach my $output (`$ctags_command $file_name`)
+foreach my $output (`$ctags_command $file_name_tmp`)
 {
 	$output =~ s/\r?\n//g;
 	next if $output =~ /^!/;
@@ -36,11 +40,19 @@ foreach my $output (`$ctags_command $file_name`)
 		next if $namespace =~ /::impl/;
 		next if $namespace =~ /::detail::/;
 		next if $namespace =~ /::detail$/;
-		next if $access ne 'access:public' && $access ne 'access:protected' && $access ne 'access:friend' && $access ne '';
+		next if $access eq 'access:private' && $description !~ /\bvirtual\b/;
 	}
 	
 	$namespace =~ s/^namespace://;
 	$namespace =~ s/^class://;
 	$namespace =~ s/^struct://;
+	
+	if ($description =~ /\bvirtual\b/)
+	{
+		$name =~ s/_impl$//;
+	}
+	
 	print $namespace.'::'.$name."\n";
 }
+
+unlink($file_name_tmp);
