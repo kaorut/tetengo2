@@ -7,6 +7,9 @@ tetengo2::gui::widget::side_bar::caption::
 tetengo2::gui::widget::side_bar::splitter::
 tetengo2::gui::widget::side_bar::state_button::
 tetengo2::gui::widget::widget::paint_background::
+tetengo2::message::messages::do_close
+tetengo2::message::messages::do_get
+tetengo2::message::messages::do_open
 tetengo2::message::messages::matches_locale_type::
 tetengo2::text::grammar::json::on_structure_[a-zA-Z0-9_]+
 tetengo2::text::grammar::json::structure_attribute_type::
