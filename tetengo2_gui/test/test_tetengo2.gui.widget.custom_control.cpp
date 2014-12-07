@@ -344,6 +344,20 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         BOOST_CHECK(!inner_item.call_inside(position_type{ left_type{ 100 }, top_type{ 100 } }));
     }
 
+    BOOST_AUTO_TEST_CASE(mouse_entered)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(mouse_left)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

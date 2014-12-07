@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(do_open)
+    BOOST_AUTO_TEST_CASE(open)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -241,7 +241,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(do_get)
+    BOOST_AUTO_TEST_CASE(get)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(do_close)
+    BOOST_AUTO_TEST_CASE(close)
     {
         BOOST_TEST_PASSPOINT();
 

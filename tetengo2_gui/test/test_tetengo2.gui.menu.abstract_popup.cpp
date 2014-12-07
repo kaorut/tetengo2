@@ -118,6 +118,33 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 0);
     }
 
+    BOOST_AUTO_TEST_CASE(begin)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(end)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(recursive_begin)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(recursive_end)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
 
 
 BOOST_AUTO_TEST_SUITE_END()
