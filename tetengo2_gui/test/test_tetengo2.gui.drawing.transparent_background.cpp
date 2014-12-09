@@ -47,14 +47,28 @@ BOOST_AUTO_TEST_SUITE(transparent_background)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const background_type background{};
+
+        const auto p_clone = background.clone();
+
+        BOOST_REQUIRE(p_clone);
+        BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get()));
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const background_type background{};
+
+            background.details();
+        }
+        {
+            background_type background{};
+
+            background.details();
+        }
     }
 
 

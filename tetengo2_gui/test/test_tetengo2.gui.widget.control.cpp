@@ -132,7 +132,16 @@ BOOST_AUTO_TEST_SUITE(control)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const concrete_control control;
+
+            control.details();
+        }
+        {
+            concrete_control control;
+
+            control.details();
+        }
     }
 
 

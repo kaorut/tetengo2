@@ -58,14 +58,29 @@ BOOST_AUTO_TEST_SUITE(solid_background)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+
+        const auto p_clone = background.clone();
+        
+        BOOST_REQUIRE(p_clone);
+        BOOST_REQUIRE(dynamic_cast<background_type*>(p_clone.get()));
+        BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get())->get_color() == background.get_color());
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+
+            background.details();
+        }
+        {
+            background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+
+            background.details();
+        }
     }
 
 
