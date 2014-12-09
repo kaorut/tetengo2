@@ -84,7 +84,16 @@ BOOST_AUTO_TEST_SUITE(window)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const window_type window{};
+
+            window.details();
+        }
+        {
+            window_type window{};
+
+            window.details();
+        }
     }
 
 
