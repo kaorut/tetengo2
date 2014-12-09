@@ -122,28 +122,112 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+
+            popup_menu.begin();
+        }
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+
+            popup_menu.begin();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(end)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+            auto p_child1 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+            auto p_child2 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+            auto p_child3 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+            popup_menu.insert(popup_menu.end(), std::move(p_child1));
+            popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
+            popup_menu.insert(popup_menu.end(), std::move(p_child3));
+
+            const abstract_popup_menu_type& const_popup_menu = popup_menu;
+
+            BOOST_REQUIRE_EQUAL(std::distance(const_popup_menu.begin(), const_popup_menu.end()), 2);
+            BOOST_CHECK(const_popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Hoge") });
+            BOOST_CHECK(boost::next(const_popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Piyo") });
+        }
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+            auto p_child1 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+            auto p_child2 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+            auto p_child3 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+            popup_menu.insert(popup_menu.end(), std::move(p_child1));
+            popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
+            popup_menu.insert(popup_menu.end(), std::move(p_child3));
+
+            BOOST_REQUIRE_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
+            BOOST_CHECK(popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Hoge") });
+            BOOST_CHECK(boost::next(popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Piyo") });
+        }
     }
 
     BOOST_AUTO_TEST_CASE(recursive_begin)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+
+            popup_menu.recursive_begin();
+        }
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+
+            popup_menu.recursive_begin();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(recursive_end)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+            auto p_child1 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+            auto p_child2 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+            auto p_child3 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+            popup_menu.insert(popup_menu.end(), std::move(p_child1));
+            popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
+            popup_menu.insert(popup_menu.end(), std::move(p_child3));
+
+            const abstract_popup_menu_type& const_popup_menu = popup_menu;
+
+            BOOST_REQUIRE_EQUAL(
+                std::distance(const_popup_menu.recursive_begin(), const_popup_menu.recursive_end()), 4
+            );
+            BOOST_CHECK(const_popup_menu.recursive_begin()->text() == string_type{ TETENGO2_TEXT("Tetengo") });
+            BOOST_CHECK(
+                boost::next(const_popup_menu.recursive_begin(), 1)->text() == string_type{ TETENGO2_TEXT("Hoge") }
+            );
+            BOOST_CHECK(
+                boost::next(const_popup_menu.recursive_begin(), 2)->text() == string_type{ TETENGO2_TEXT("Fuga") }
+            );
+            BOOST_CHECK(
+                boost::next(const_popup_menu.recursive_begin(), 3)->text() == string_type{ TETENGO2_TEXT("Piyo") }
+            );
+        }
+        {
+            concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
+            auto p_child1 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+            auto p_child2 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+            auto p_child3 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+            popup_menu.insert(popup_menu.end(), std::move(p_child1));
+            popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
+            popup_menu.insert(popup_menu.end(), std::move(p_child3));
+
+            BOOST_REQUIRE_EQUAL(std::distance(popup_menu.recursive_begin(), popup_menu.recursive_end()), 4);
+            BOOST_CHECK(popup_menu.recursive_begin()->text() == string_type{ TETENGO2_TEXT("Tetengo") });
+            BOOST_CHECK(boost::next(popup_menu.recursive_begin(), 1)->text() == string_type{ TETENGO2_TEXT("Hoge") });
+            BOOST_CHECK(boost::next(popup_menu.recursive_begin(), 2)->text() == string_type{ TETENGO2_TEXT("Fuga") });
+            BOOST_CHECK(boost::next(popup_menu.recursive_begin(), 3)->text() == string_type{ TETENGO2_TEXT("Piyo") });
+        }
     }
 
 
