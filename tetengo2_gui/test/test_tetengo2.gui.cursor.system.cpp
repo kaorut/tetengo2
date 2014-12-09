@@ -80,7 +80,9 @@ BOOST_AUTO_TEST_SUITE(system)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const cursor_type cursor{ cursor_type::style_type::default_ };
+
+        cursor.details();
     }
 
 
