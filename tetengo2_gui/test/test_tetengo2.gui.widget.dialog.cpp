@@ -151,7 +151,18 @@ BOOST_AUTO_TEST_SUITE(dialog)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            window_type parent{};
+            const concrete_dialog dialog{ parent };
+
+            dialog.details();
+        }
+        {
+            window_type parent{};
+            concrete_dialog dialog{ parent };
+
+            dialog.details();
+        }
     }
 
 
