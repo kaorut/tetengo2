@@ -80,9 +80,16 @@ BOOST_AUTO_TEST_SUITE(system)
     {
         BOOST_TEST_PASSPOINT();
 
-        const cursor_type cursor{ cursor_type::style_type::default_ };
+        {
+            const cursor_type cursor{ cursor_type::style_type::default_ };
 
-        cursor.details();
+            cursor.details();
+        }
+        {
+            cursor_type cursor{ cursor_type::style_type::default_ };
+
+            cursor.details();
+        }
     }
 
 
