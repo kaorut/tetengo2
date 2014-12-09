@@ -257,39 +257,6 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         inner_item.paint(*p_canvas);
     }
 
-    BOOST_AUTO_TEST_CASE(mouse_pressed)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type parent{};
-        concrete_custom_control custom_control{ parent };
-        concrete_inner_item inner_item{ custom_control };
-
-        inner_item.mouse_pressed(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
-    }
-
-    BOOST_AUTO_TEST_CASE(mouse_released)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type parent{};
-        concrete_custom_control custom_control{ parent };
-        concrete_inner_item inner_item{ custom_control };
-
-        inner_item.mouse_released(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
-    }
-
-    BOOST_AUTO_TEST_CASE(mouse_moved)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type parent{};
-        concrete_custom_control custom_control{ parent };
-        concrete_inner_item inner_item{ custom_control };
-
-        inner_item.mouse_moved(position_type{ left_type{ 11 }, top_type{ 22 } });
-    }
-
     BOOST_AUTO_TEST_CASE(parent)
     {
         BOOST_TEST_PASSPOINT();
@@ -344,18 +311,37 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         BOOST_CHECK(!inner_item.call_inside(position_type{ left_type{ 100 }, top_type{ 100 } }));
     }
 
-    BOOST_AUTO_TEST_CASE(mouse_entered)
+    BOOST_AUTO_TEST_CASE(mouse_pressed)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
+
+        inner_item.mouse_pressed(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
     }
 
-    BOOST_AUTO_TEST_CASE(mouse_left)
+    BOOST_AUTO_TEST_CASE(mouse_released)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
+
+        inner_item.mouse_released(mouse_button_type::left, position_type{ left_type{ 11 }, top_type{ 22 } });
+    }
+
+    BOOST_AUTO_TEST_CASE(mouse_moved)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        concrete_custom_control custom_control{ parent };
+        concrete_inner_item inner_item{ custom_control };
+
+        inner_item.mouse_moved(position_type{ left_type{ 11 }, top_type{ 22 } });
     }
 
 
