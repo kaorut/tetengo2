@@ -552,7 +552,9 @@ std::back_inserter                               iterator
 std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::ceil                                        cmath
+std::chrono::duration                            chrono
 std::chrono::milliseconds                        chrono
+std::chrono::time_point                          chrono
 std::codecvt                                     locale
 std::condition_variable                          condition_variable
 std::copy                                        algorithm
@@ -572,6 +574,8 @@ std::flush                                       ostream
 std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
+std::future                                      future
+std::future_status                               future
 std::getenv                                      cstdlib
 std::greater                                     functional
 std::has_facet                                   locale
