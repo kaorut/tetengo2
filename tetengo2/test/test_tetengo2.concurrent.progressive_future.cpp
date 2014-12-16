@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <string>
+#include <utility>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -20,7 +23,24 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+            future_type future1;
+            const future_type future2{ std::move(future1) };
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<const std::string&, int>;
+
+            future_type future1;
+            const future_type future2{ std::move(future1) };
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<void, int>;
+
+            future_type future1;
+            const future_type future2{ std::move(future1) };
+        }
     }
 
 
