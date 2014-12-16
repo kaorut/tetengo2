@@ -84,6 +84,8 @@ namespace tetengo2 { namespace concurrent
         progressive_future_base& operator=(progressive_future_base&& another)
         TETENGO2_STDALT_NOEXCEPT
         {
+            m_future = std::move(another.m_future);
+
             return *this;
         }
 
@@ -231,7 +233,8 @@ namespace tetengo2 { namespace concurrent
         progressive_future& operator=(progressive_future&& another)
         TETENGO2_STDALT_NOEXCEPT
         {
-            return base_type::operator=(another);
+            base_type::operator=(std::move(another));
+            return *this;
         }
 
         /*!
@@ -282,7 +285,8 @@ namespace tetengo2 { namespace concurrent
         progressive_future& operator=(progressive_future&& another)
         TETENGO2_STDALT_NOEXCEPT
         {
-            return base_type::operator=(another);
+            base_type::operator=(std::move(another));
+            return *this;
         }
 
         result_type get()
@@ -327,7 +331,8 @@ namespace tetengo2 { namespace concurrent
         progressive_future& operator=(progressive_future&& another)
         TETENGO2_STDALT_NOEXCEPT
         {
-            return base_type::operator=(another);
+            base_type::operator=(std::move(another));
+            return *this;
         }
 
         result_type get()

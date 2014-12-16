@@ -26,20 +26,47 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
         {
             using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
 
-            future_type future1;
+            future_type future1{};
             const future_type future2{ std::move(future1) };
         }
         {
             using future_type = tetengo2::concurrent::progressive_future<const std::string&, int>;
 
-            future_type future1;
+            future_type future1{};
             const future_type future2{ std::move(future1) };
         }
         {
             using future_type = tetengo2::concurrent::progressive_future<void, int>;
 
-            future_type future1;
+            future_type future1{};
             const future_type future2{ std::move(future1) };
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+            future_type future1{};
+            future_type future2{};
+            future2 = std::move(future1);
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<const std::string&, int>;
+
+            future_type future1{};
+            future_type future2{};
+            future2 = std::move(future1);
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<void, int>;
+
+            future_type future1{};
+            future_type future2{};
+            future2 = std::move(future1);
         }
     }
 
