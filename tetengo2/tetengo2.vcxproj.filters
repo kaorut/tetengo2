@@ -141,6 +141,12 @@
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\concurrent\progressive_future.h">
+      <Filter>headers\tetengo2\concurrent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\concurrent\progressive_promise.h">
+      <Filter>headers\tetengo2\concurrent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp">

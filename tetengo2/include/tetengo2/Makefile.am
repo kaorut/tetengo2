@@ -6,6 +6,8 @@ pkg_headers = \
     concurrent/channel.h \
     concurrent/consumer.h \
     concurrent/producer.h \
+    concurrent/progressive_future.h \
+    concurrent/progressive_promise.h \
     config/cached_config.h \
     config/config_base.h \
     config/config_list.h \

@@ -107,6 +107,8 @@
     <ClCompile Include="test\test_tetengo2.concurrent.channel.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.producer.cpp" />
+    <ClCompile Include="test\test_tetengo2.concurrent.progressive_future.cpp" />
+    <ClCompile Include="test\test_tetengo2.concurrent.progressive_promise.cpp" />
     <ClCompile Include="test\test_tetengo2.config.cached_config.cpp" />
     <ClCompile Include="test\test_tetengo2.config.config_base.cpp" />
     <ClCompile Include="test\test_tetengo2.config.config_list.cpp" />
