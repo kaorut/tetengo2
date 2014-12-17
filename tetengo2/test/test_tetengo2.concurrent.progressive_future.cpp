@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <chrono>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -74,35 +76,66 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+            future_type future{};
+            BOOST_CHECK_THROW(future.get(), std::logic_error);
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<const std::string&, int>;
+
+            future_type future{};
+            BOOST_CHECK_THROW(future.get(), std::logic_error);
+        }
+        {
+            using future_type = tetengo2::concurrent::progressive_future<void, int>;
+
+            future_type future{};
+            BOOST_CHECK_THROW(future.get(), std::logic_error);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(valid)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+        future_type future{};
+        BOOST_CHECK(!future.valid());
     }
 
     BOOST_AUTO_TEST_CASE(wait)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+        future_type future{};
+        BOOST_CHECK_THROW(future.wait(), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(wait_for)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+        future_type future{};
+        const std::chrono::seconds rel_time{ 42 };
+        BOOST_CHECK_THROW(future.wait_for(rel_time), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(wait_until)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+        future_type future{};
+        const auto abs_time = std::chrono::system_clock::now() + std::chrono::seconds{ 42 };
+        BOOST_CHECK_THROW(future.wait_until(abs_time), std::logic_error);
     }
 
 

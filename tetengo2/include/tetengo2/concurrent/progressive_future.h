@@ -124,7 +124,7 @@ namespace tetengo2 { namespace concurrent
         std::future_status wait_for(const std::chrono::duration<Rep, Period>& rel_time)
         const
         {
-            m_future.wait_for(rel_time);
+            return m_future.wait_for(rel_time);
         }
 
         /*!
@@ -141,7 +141,7 @@ namespace tetengo2 { namespace concurrent
         std::future_status wait_until(const std::chrono::time_point<Clock, Duration>& abs_time)
         const
         {
-            m_future.wait_until(abs_time);
+            return m_future.wait_until(abs_time);
         }
 
 
@@ -244,7 +244,7 @@ namespace tetengo2 { namespace concurrent
         */
         result_type get()
         {
-            return get_impl();
+            return this->get_impl();
         }
 
 
@@ -291,7 +291,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            return get_impl();
+            return this->get_impl();
         }
 
 
@@ -337,7 +337,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            get_impl();
+            this->get_impl();
         }
 
 

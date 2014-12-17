@@ -554,6 +554,8 @@ std::basic_string                                string
 std::ceil                                        cmath
 std::chrono::duration                            chrono
 std::chrono::milliseconds                        chrono
+std::chrono::seconds                             chrono
+std::chrono::system_clock::now                   chrono
 std::chrono::time_point                          chrono
 std::codecvt                                     locale
 std::condition_variable                          condition_variable
