@@ -9,17 +9,147 @@
 #if !defined(TETENGO2_CONCURRENT_PROGRESSIVEPROMISE_H)
 #define TETENGO2_CONCURRENT_PROGRESSIVEPROMISE_H
 
+#include <exception>
+#include <future>
+#include <memory>
+#include <utility>
+
+#include <tetengo2.h>
+
 
 namespace tetengo2 { namespace concurrent
 {
     /*!
-        \brief The class template for a progressive promise.
+        \brief The class template for a progressive promise base.
 
-        \tparam T A type.
+        \tparam T        A type.
+        \tparam Progress A progress type.
     */
-    template <typename T>
-    class progressive_promise
+    template <typename T, typename Progress>
+    class progressive_promise_base
     {
+    public:
+        // types
+
+        //! The result type.
+        using result_type = T;
+
+        //! The progress type.
+        using progress_type = Progress;
+
+        //! The promise type.
+        using promise_type = std::promise<result_type>;
+
+        //! The progressive future type.
+        using progressive_future_type = progressive_future<result_type, progress_type>;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a progressive promise base.
+        */
+        progressive_promise_base()
+        :
+        m_promise()
+        {}
+
+        /*!
+            \brief Creates a progressive promise base.
+
+            \tparam Allocator An allocator type.
+
+            \param allocator_arg An allocator argument.
+            \param allocator     An allocator.
+        */
+        template <typename Allocator>
+        progressive_promise_base(std::allocator_arg_t allocator_arg, const Allocator& allocator)
+        :
+        m_promise(std::move(allocator_arg), allocator)
+        {}
+
+        /*!
+            \brief Moves a progressive promise base.
+
+            \param another Another progressive promise base.
+        */
+        progressive_promise_base(progressive_promise_base&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        m_promise(std::move(another.m_promise))
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Assigns another progressive promise base.
+
+            \param another Another progressive promise base.
+
+            \return This object.
+        */
+        progressive_promise_base& operator=(progressive_promise_base&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            m_promise = std::move(another.m_promise);
+
+            return *this;
+        }
+
+        /*!
+            \brief Swaps this and another promises.
+
+            \param another Another promise.
+        */
+        void swap(progressive_promise_base& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            m_promise.swap(another.m_promise);
+        }
+
+        /*
+            \brief Returns the progressive future.
+
+            \return The progressive future.
+        */
+        progressive_future_type get_future()
+        {
+            return progressive_future_type{};
+        }
+
+        /*!
+            \brief Sets an exception.
+
+            \param p_exception An exception pointer.
+        */
+        void set_exception(std::exception_ptr p_exception)
+        {
+            m_promise.set_exception(std::move(p_exception));
+        }
+
+        /*!
+            \brief Sets an exception when the thread finishes.
+
+            \param p_exception An exception pointer.
+        */
+        void set_exception_at_thread_exit(std::exception_ptr p_exception)
+        {
+            m_promise.set_exception_at_thread_exit(std::move(p_exception));
+        }
+
+
+    private:
+        // variables
+
+        promise_type m_promise;
+
+
+        // firbidden operations
+
+        progressive_promise_base(const progressive_promise_base&) = delete;
+
+        progressive_promise_base& operator=(const progressive_promise_base&) = delete;
 
 
     };

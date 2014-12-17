@@ -547,6 +547,7 @@ boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
 errno                                            cerrno
 std::advance                                     iterator
+std::allocator_arg_t                             memory
 std::any_of                                      algorithm
 std::back_inserter                               iterator
 std::basic_ostringstream                         sstream
@@ -607,6 +608,7 @@ std::numeric_limits                              limits
 std::out_of_range                                stdexcept
 std::pair                                        utility
 std::pow                                         cmath
+std::promise                                     future
 std::ptrdiff_t                                   cstddef
 std::queue                                       queue
 std::ref                                         functional
