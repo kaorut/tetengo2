@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <memory>
+#include <string>
+#include <utility>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -20,7 +24,27 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+            const promise_type promise1{};
+            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise3{ std::move(promise2) };
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
+
+            const promise_type promise1{};
+            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise3{ std::move(promise2) };
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
+
+            const promise_type promise1{};
+            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise3{ std::move(promise2) };
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

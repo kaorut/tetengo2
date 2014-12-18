@@ -215,7 +215,7 @@ namespace tetengo2 { namespace concurrent
         progressive_promise(progressive_promise&& another)
         TETENGO2_STDALT_NOEXCEPT
         :
-        base_type(std::move(another.m_promise))
+        base_type(std::move(another))
         {}
 
 
@@ -324,7 +324,7 @@ namespace tetengo2 { namespace concurrent
         progressive_promise(progressive_promise&& another)
         TETENGO2_STDALT_NOEXCEPT
         :
-        base_type(std::move(another.m_promise))
+        base_type(std::move(another))
         {}
 
 
@@ -390,7 +390,7 @@ namespace tetengo2 { namespace concurrent
         progressive_promise(progressive_promise&& another)
         TETENGO2_STDALT_NOEXCEPT
         :
-        base_type(std::move(another.m_promise))
+        base_type(std::move(another))
         {}
 
 
