@@ -155,6 +155,275 @@ namespace tetengo2 { namespace concurrent
     };
 
 
+    /*!
+        \brief The class template for a progressive promise.
+
+        \tparam T        A type.
+        \tparam Progress A progress type.
+    */
+    template <typename T, typename Progress>
+    class progressive_promise : public progressive_promise_base<T, Progress>
+    {
+    public:
+        // types
+
+        //! The result type.
+        using result_type = T;
+
+        //! The progress type.
+        using progress_type = Progress;
+
+        //! The base type.
+        using base_type = progressive_promise_base<result_type, progress_type>;
+
+        //! The promise type.
+        using promise_type = std::promise<result_type>;
+
+        //! The progressive future type.
+        using progressive_future_type = progressive_future<result_type, progress_type>;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a progressive promise.
+        */
+        progressive_promise()
+        :
+        base_type()
+        {}
+
+        /*!
+            \brief Creates a progressive promise.
+
+            \tparam Allocator An allocator type.
+
+            \param allocator_arg An allocator argument.
+            \param allocator     An allocator.
+        */
+        template <typename Allocator>
+        progressive_promise(std::allocator_arg_t allocator_arg, const Allocator& allocator)
+        :
+        base_type(std::move(allocator_arg), allocator)
+        {}
+
+        /*!
+            \brief Moves a progressive promise.
+
+            \param another Another progressive promise.
+        */
+        progressive_promise(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(another.m_promise))
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Assigns another progressive promise.
+
+            \param another Another progressive promise.
+
+            \return This object.
+        */
+        progressive_promise& operator=(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::operator=(std::move(another));
+            return *this;
+        }
+
+        /*!
+            \brief Swaps this and another promises.
+
+            \param another Another promise.
+        */
+        void swap(progressive_promise& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::swap(another);
+        }
+
+        /*!
+            \brief Sets a result value.
+
+            \param result A result value.
+        */
+        void set_value(const result_type& result)
+        {
+            base_type::set_value(result);
+        }
+
+        /*!
+            \brief Sets a result value.
+
+            \param result A result value.
+        */
+        void set_value(result_type&& result)
+        {
+            base_type::set_value(std::move(result));
+        }
+
+        /*!
+            \brief Sets a result value when the thread finishes.
+
+            \param result A result value.
+        */
+        void set_value_at_thread_exit(const result_type& result)
+        {
+            base_type::set_value_at_thread_exit(result);
+        }
+
+        /*!
+            \brief Sets a result value when the thread finishes.
+
+            \param result A result value.
+        */
+        void set_value_at_thread_exit(result_type&& result)
+        {
+            base_type::set_value_at_thread_exit(std::move(result));
+        }
+
+
+    };
+
+
+#if !defined(DOCUMENTATION)
+    template <typename R, typename Progress>
+    class progressive_promise<R&, Progress> : public progressive_promise_base<R&, Progress>
+    {
+    public:
+        // types
+
+        using result_type = R&;
+
+        using progress_type = Progress;
+
+        using base_type = progressive_promise_base<result_type, progress_type>;
+
+        using promise_type = std::promise<result_type>;
+
+        using progressive_future_type = progressive_future<result_type, progress_type>;
+
+
+        // constructors and destructor
+
+        progressive_promise()
+        :
+        base_type()
+        {}
+
+        template <typename Allocator>
+        progressive_promise(std::allocator_arg_t allocator_arg, const Allocator& allocator)
+        :
+        base_type(std::move(allocator_arg), allocator)
+        {}
+
+        progressive_promise(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(another.m_promise))
+        {}
+
+
+        // functions
+
+        progressive_promise& operator=(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::operator=(std::move(another));
+            return *this;
+        }
+
+        void swap(progressive_promise& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::swap(another);
+        }
+
+        void set_value(result_type& result)
+        {
+            base_type::set_value(result);
+        }
+
+        void set_value_at_thread_exit(result_type& result)
+        {
+            base_type::set_value_at_thread_exit(result);
+        }
+
+
+    };
+
+
+    template <typename Progress>
+    class progressive_promise<void, Progress> : public progressive_promise_base<void, Progress>
+    {
+    public:
+        // types
+
+        using result_type = void;
+
+        using progress_type = Progress;
+
+        using base_type = progressive_promise_base<result_type, progress_type>;
+
+        using promise_type = std::promise<result_type>;
+
+        using progressive_future_type = progressive_future<result_type, progress_type>;
+
+
+        // constructors and destructor
+
+        progressive_promise()
+        :
+        base_type()
+        {}
+
+        template <typename Allocator>
+        progressive_promise(std::allocator_arg_t allocator_arg, const Allocator& allocator)
+        :
+        base_type(std::move(allocator_arg), allocator)
+        {}
+
+        progressive_promise(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(another.m_promise))
+        {}
+
+
+        // functions
+
+        progressive_promise& operator=(progressive_promise&& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::operator=(std::move(another));
+            return *this;
+        }
+
+        void swap(progressive_promise& another)
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            base_type::swap(another);
+        }
+
+        void set_value()
+        {
+            base_type::set_value();
+        }
+
+        void set_value_at_thread_exit()
+        {
+            base_type::set_value_at_thread_exit();
+        }
+
+
+    };
+#endif
+
+
 }}
 
 

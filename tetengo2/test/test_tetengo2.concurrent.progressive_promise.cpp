@@ -23,6 +23,55 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(swap)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(get_future)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_exception)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_value_at_thread_exit)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_exception_at_thread_exit)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
