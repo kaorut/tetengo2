@@ -220,6 +220,9 @@ namespace tetengo2 { namespace concurrent
         //! The base type.
         using base_type = progressive_future_base<result_type, progress_type>;
 
+        //! The future type.
+        using future_type = std::future<result_type>;
+
 
         // constructors and destructor
 
@@ -278,7 +281,7 @@ namespace tetengo2 { namespace concurrent
         */
         result_type get()
         {
-            return get_future().get();
+            return this->get_future().get();
         }
 
 
@@ -298,6 +301,8 @@ namespace tetengo2 { namespace concurrent
 
         using base_type = progressive_future_base<result_type, progress_type>;
 
+        using future_type = std::future<result_type>;
+
 
         // constructors and destructor
 
@@ -331,7 +336,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            return get_future().get();
+            return this->get_future().get();
         }
 
 
@@ -350,6 +355,8 @@ namespace tetengo2 { namespace concurrent
 
         using base_type = progressive_future_base<result_type, progress_type>;
 
+        using future_type = std::future<result_type>;
+
 
         // constructors and destructor
 
@@ -383,7 +390,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            return get_future().get();
+            return this->get_future().get();
         }
 
 

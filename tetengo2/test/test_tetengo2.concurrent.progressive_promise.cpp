@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <future>
 #include <memory>
 #include <string>
 #include <utility>

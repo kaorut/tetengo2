@@ -547,6 +547,8 @@ boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
 errno                                            cerrno
 std::advance                                     iterator
+std::allocator                                   memory
+std::allocator_arg                               memory
 std::allocator_arg_t                             memory
 std::any_of                                      algorithm
 std::back_inserter                               iterator
@@ -578,6 +580,7 @@ std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
 std::future                                      future
+std::future_error                                future
 std::future_status                               future
 std::getenv                                      cstdlib
 std::greater                                     functional
@@ -624,6 +627,7 @@ std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
 std::string::const_iterator                      string
+std::swap                                        utility
 std::system_error                                system_error
 std::this_thread::sleep_for                      thread
 std::thread                                      thread
