@@ -80,19 +80,19 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
             using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
 
             future_type future{};
-            BOOST_CHECK_THROW(future.get(), std::logic_error);
+            BOOST_CHECK_THROW(future.get(), std::future_error);
         }
         {
             using future_type = tetengo2::concurrent::progressive_future<const std::string&, int>;
 
             future_type future{};
-            BOOST_CHECK_THROW(future.get(), std::logic_error);
+            BOOST_CHECK_THROW(future.get(), std::future_error);
         }
         {
             using future_type = tetengo2::concurrent::progressive_future<void, int>;
 
             future_type future{};
-            BOOST_CHECK_THROW(future.get(), std::logic_error);
+            BOOST_CHECK_THROW(future.get(), std::future_error);
         }
     }
 
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
         using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
 
         future_type future{};
-        BOOST_CHECK_THROW(future.wait(), std::logic_error);
+        BOOST_CHECK_THROW(future.wait(), std::future_error);
     }
 
     BOOST_AUTO_TEST_CASE(wait_for)
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
 
         future_type future{};
         const std::chrono::seconds rel_time{ 42 };
-        BOOST_CHECK_THROW(future.wait_for(rel_time), std::logic_error);
+        BOOST_CHECK_THROW(future.wait_for(rel_time), std::future_error);
     }
 
     BOOST_AUTO_TEST_CASE(wait_until)
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
 
         future_type future{};
         const auto abs_time = std::chrono::system_clock::now() + std::chrono::seconds{ 42 };
-        BOOST_CHECK_THROW(future.wait_until(abs_time), std::logic_error);
+        BOOST_CHECK_THROW(future.wait_until(abs_time), std::future_error);
     }
 
 

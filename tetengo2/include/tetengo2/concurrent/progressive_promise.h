@@ -115,7 +115,7 @@ namespace tetengo2 { namespace concurrent
         */
         progressive_future_type get_future()
         {
-            return progressive_future_type{};
+            return progressive_future_type{ m_promise.get_future() };
         }
 
         /*!
@@ -136,6 +136,31 @@ namespace tetengo2 { namespace concurrent
         void set_exception_at_thread_exit(std::exception_ptr p_exception)
         {
             m_promise.set_exception_at_thread_exit(std::move(p_exception));
+        }
+
+
+    protected:
+        // functions
+
+        /*!
+            \brief Returns the promise.
+
+            \return The promise.
+        */
+        const promise_type& get_promise()
+        const
+        {
+            return m_promise;
+        }
+
+        /*!
+            \brief Returns the promise.
+
+            \return The promise.
+        */
+        promise_type& get_promise()
+        {
+            return m_promise;
         }
 
 
@@ -263,7 +288,7 @@ namespace tetengo2 { namespace concurrent
         */
         void set_value(result_type&& result)
         {
-            base_type::set_value(std::move(result));
+            get_promise().set_value(std::move(result));
         }
 
         /*!
@@ -273,7 +298,7 @@ namespace tetengo2 { namespace concurrent
         */
         void set_value_at_thread_exit(const result_type& result)
         {
-            base_type::set_value_at_thread_exit(result);
+            get_promise().set_value_at_thread_exit(result);
         }
 
         /*!
@@ -283,7 +308,7 @@ namespace tetengo2 { namespace concurrent
         */
         void set_value_at_thread_exit(result_type&& result)
         {
-            base_type::set_value_at_thread_exit(std::move(result));
+            get_promise().set_value_at_thread_exit(std::move(result));
         }
 
 
@@ -345,12 +370,12 @@ namespace tetengo2 { namespace concurrent
 
         void set_value(result_type& result)
         {
-            base_type::set_value(result);
+            get_promise().set_value(result);
         }
 
         void set_value_at_thread_exit(result_type& result)
         {
-            base_type::set_value_at_thread_exit(result);
+            get_promise().set_value_at_thread_exit(result);
         }
 
 
@@ -411,12 +436,12 @@ namespace tetengo2 { namespace concurrent
 
         void set_value()
         {
-            base_type::set_value();
+            get_promise().set_value();
         }
 
         void set_value_at_thread_exit()
         {
-            base_type::set_value_at_thread_exit();
+            get_promise().set_value_at_thread_exit();
         }
 
 

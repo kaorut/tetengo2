@@ -71,6 +71,18 @@ namespace tetengo2 { namespace concurrent
         m_future(std::move(another.m_future))
         {}
 
+        /*!
+            \brief Creates a progressive future base.
+
+            \param future A future.
+        */
+        progressive_future_base(future_type&& future)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        m_future(std::move(future))
+        {}
+
+
 
         // functions
 
@@ -147,16 +159,27 @@ namespace tetengo2 { namespace concurrent
 
 
     protected:
+        // functions
+
         /*!
-            \brief Returns the result.
+            \brief Returns the future.
 
-            This function is for the derived classes of this class.
-
-            \return The result.
+            \return The future.
         */
-        result_type get_impl()
+        const future_type& get_future()
+        const
         {
-            return m_future.get();
+            return m_future;
+        }
+
+        /*!
+            \brief Returns the future.
+
+            \return The future.
+        */
+        future_type& get_future()
+        {
+            return m_future;
         }
 
 
@@ -220,6 +243,17 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
+        /*!
+            \brief Creates a progressive future base.
+
+            \param future A future.
+        */
+        progressive_future(future_type&& future)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(future))
+        {}
+
 
         // functions
 
@@ -244,7 +278,7 @@ namespace tetengo2 { namespace concurrent
         */
         result_type get()
         {
-            return this->get_impl();
+            return get_future().get();
         }
 
 
@@ -279,6 +313,12 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
+        progressive_future(future_type&& future)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(future))
+        {}
+
 
         // functions
 
@@ -291,7 +331,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            return this->get_impl();
+            return get_future().get();
         }
 
 
@@ -325,6 +365,12 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
+        progressive_future(future_type&& future)
+        TETENGO2_STDALT_NOEXCEPT
+        :
+        base_type(std::move(future))
+        {}
+
 
         // functions
 
@@ -337,7 +383,7 @@ namespace tetengo2 { namespace concurrent
 
         result_type get()
         {
-            this->get_impl();
+            return get_future().get();
         }
 
 

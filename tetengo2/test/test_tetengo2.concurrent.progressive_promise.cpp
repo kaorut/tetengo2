@@ -117,7 +117,23 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+        {
+            promise_type promise{};
+
+            const auto future = promise.get_future();
+            BOOST_CHECK(future.valid());
+        }
+        {
+            promise_type promise{};
+
+            promise.set_value("hoge");
+
+            const auto future = promise.get_future();
+
+            BOOST_CHECK_THROW(promise.get_future(), std::future_error);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_value)
