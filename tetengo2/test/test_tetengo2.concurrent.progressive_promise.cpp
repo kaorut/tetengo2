@@ -51,14 +51,66 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1 = std::move(promise2);
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1 = std::move(promise2);
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1 = std::move(promise2);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1.swap(promise2);
+
+            std::swap(promise1, promise2);
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1.swap(promise2);
+
+            std::swap(promise1, promise2);
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
+
+            promise_type promise1{};
+            promise_type promise2{};
+
+            promise1.swap(promise2);
+
+            std::swap(promise1, promise2);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(get_future)

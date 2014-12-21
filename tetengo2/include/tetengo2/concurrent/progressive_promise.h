@@ -427,4 +427,29 @@ namespace tetengo2 { namespace concurrent
 }}
 
 
+namespace std
+{
+    /*!
+        \brief Swaps promises.
+
+        \tparam T        A type.
+        \tparam Progress A progress type.
+
+        \param one     One promise.
+        \param another Another promise.
+    */
+    template <typename T, typename Progress>
+    void swap(
+        tetengo2::concurrent::progressive_promise<T, Progress>& one,
+        tetengo2::concurrent::progressive_promise<T, Progress>& another
+    )
+    TETENGO2_STDALT_NOEXCEPT
+    {
+        one.swap(another);
+    }
+
+
+}
+
+
 #endif
