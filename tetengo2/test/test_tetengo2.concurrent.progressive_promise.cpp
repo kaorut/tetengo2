@@ -142,28 +142,86 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
     {
         BOOST_TEST_PASSPOINT();
 
-        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+        struct test_exception : public std::runtime_error
+        {
+            test_exception() : std::runtime_error("test exception")
+            {}
 
-        promise_type promise{};
-        auto future = promise.get_future();
-        BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+        };
 
-        promise.set_value("hoge");
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-        BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-        BOOST_CHECK(future.get() == "hoge");
+            {
+                promise_type promise{};
+                auto future = promise.get_future();
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+                const std::string value{ "hoge" };
+                promise.set_value(value);
+
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
+                BOOST_CHECK(future.get() == "hoge");
+
+                BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
+                BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
+            }
+            {
+                promise_type promise{};
+                auto future = promise.get_future();
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+                promise.set_value("hoge");
+
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
+                BOOST_CHECK(future.get() == "hoge");
+
+                BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
+                BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
+            }
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
+
+            promise_type promise{};
+            auto future = promise.get_future();
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+            const std::string value{ "hoge" };
+            promise.set_value(value);
+
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
+            BOOST_CHECK(future.get() == "hoge");
+
+            BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
+            BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
+
+            promise_type promise{};
+            auto future = promise.get_future();
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+            promise.set_value();
+
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
+
+            BOOST_CHECK_THROW(promise.set_value(), std::future_error);
+            BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_exception)
     {
         BOOST_TEST_PASSPOINT();
 
-        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
-
         struct test_exception : public std::runtime_error
         {
             test_exception() : std::runtime_error("test exception") {}
         };
+
+        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
         promise_type promise{};
         auto future = promise.get_future();
@@ -173,6 +231,9 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
         BOOST_CHECK_THROW(future.get(), test_exception);
+
+        BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
+        BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
     }
 
     BOOST_AUTO_TEST_CASE(set_value_at_thread_exit)

@@ -278,7 +278,7 @@ namespace tetengo2 { namespace concurrent
         */
         void set_value(const result_type& result)
         {
-            base_type::set_value(result);
+            this->get_promise().set_value(result);
         }
 
         /*!
