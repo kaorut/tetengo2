@@ -43,7 +43,6 @@
 
 // The Boost library headers
 #include <boost/algorithm/string.hpp>
-#include <boost/chrono.hpp>
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
@@ -95,7 +94,6 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/swap.hpp>
-#include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>

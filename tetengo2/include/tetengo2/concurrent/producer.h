@@ -11,6 +11,7 @@
 
 #include <exception>
 #include <functional>
+#include <thread>
 
 #include <boost/core/noncopyable.hpp>
 
@@ -101,7 +102,7 @@ namespace tetengo2 { namespace concurrent
 
         channel_type& m_channel;
 
-        stdalt::thread m_thread;
+        std::thread m_thread;
 
 
     };
