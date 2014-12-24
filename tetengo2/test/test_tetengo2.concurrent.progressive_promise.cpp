@@ -12,8 +12,10 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <thread>
 #include <utility>
 
+#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -238,19 +240,119 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
     }
 
+#if !(BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 9, 0))
     BOOST_AUTO_TEST_CASE(set_value_at_thread_exit)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        struct test_exception : public std::runtime_error
+        {
+            test_exception() : std::runtime_error("test exception")
+            {}
+
+        };
+
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+            {
+                promise_type promise{};
+                auto future = promise.get_future();
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+                std::thread thread{
+                    [&promise]()
+                    {
+                        const std::string value{ "hoge" };
+                        promise.set_value_at_thread_exit(value);
+                    }
+                };
+
+                BOOST_CHECK(future.get() == "hoge");
+
+                thread.join();
+            }
+            {
+                promise_type promise{};
+                auto future = promise.get_future();
+                BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+                std::thread thread{
+                    [&promise]()
+                    {
+                        promise.set_value_at_thread_exit("hoge");
+                    }
+                };
+
+                BOOST_CHECK(future.get() == "hoge");
+
+                thread.join();
+            }
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
+
+            promise_type promise{};
+            auto future = promise.get_future();
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+            const std::string value{ "hoge" };
+            std::thread thread{
+                [&promise, &value]()
+                {
+                    promise.set_value_at_thread_exit(value);
+                }
+            };
+
+            BOOST_CHECK(future.get() == "hoge");
+
+            thread.join();
+        }
+        {
+            using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
+
+            promise_type promise{};
+            auto future = promise.get_future();
+            BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+            std::thread thread{
+                [&promise]()
+                {
+                    promise.set_value();
+                }
+            };
+
+            thread.join();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_exception_at_thread_exit)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        struct test_exception : public std::runtime_error
+        {
+            test_exception() : std::runtime_error("test exception") {}
+        };
+
+        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+        promise_type promise{};
+        auto future = promise.get_future();
+        BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+        std::thread thread{
+            [&promise]()
+            {
+                promise.set_exception(std::make_exception_ptr(test_exception{}));
+            }
+        };
+
+        BOOST_CHECK_THROW(future.get(), test_exception);
+
+        thread.join();
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
