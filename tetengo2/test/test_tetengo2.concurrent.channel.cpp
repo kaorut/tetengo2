@@ -7,10 +7,12 @@
 */
 
 #include <cassert>
+#include <chrono>
 #include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 #include <boost/test/unit_test.hpp>
 
@@ -33,14 +35,14 @@ namespace
 
     void produce(channel_type* const p_channel)
     {
-        tetengo2::stdalt::this_thread_sleep_for(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
         p_channel->insert(12);
-        tetengo2::stdalt::this_thread_sleep_for(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
         p_channel->insert(34);
-        tetengo2::stdalt::this_thread_sleep_for(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
         p_channel->insert(56);
 
-        tetengo2::stdalt::this_thread_sleep_for(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
         p_channel->close();
     }
 
@@ -205,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel{ 3 };
 
-            tetengo2::stdalt::thread producing_thread{ produce, &channel };
+            std::thread producing_thread{ produce, &channel };
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();
