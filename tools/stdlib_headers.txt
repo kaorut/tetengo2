@@ -582,6 +582,7 @@ std::function                                    functional
 std::future                                      future
 std::future_error                                future
 std::future_status                               future
+std::future_status::ready                        future
 std::getenv                                      cstdlib
 std::greater                                     functional
 std::has_facet                                   locale
