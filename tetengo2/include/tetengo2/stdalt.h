@@ -121,47 +121,6 @@ namespace tetengo2 { namespace stdalt
 #endif
 
 
-/* thread *********************************************************************/
-
-#if !defined(DOCUMENTATION)
-#   define TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
-#endif
-
-#include <thread>
-#include <boost/thread.hpp>
-#if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
-#   include <chrono>
-#else
-#   include <boost/chrono.hpp>
-#endif
-
-namespace tetengo2 { namespace stdalt
-{
-#if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
-    /*!
-        \brief Sleep this thread.
-
-        \tparam Int An integer type.
-
-        \param ms Milliseconds.
-    */
-    template <typename Int>
-    void this_thread_sleep_for(const Int ms)
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds{ ms });
-    }
-#else
-    template <typename Int>
-    void this_thread_sleep_for(const Int ms)
-    {
-        boost::this_thread::sleep_for(boost::chrono::milliseconds{ ms });
-    }
-#endif
-
-
-}}
-
-
 /* make_unique ****************************************************************/
 
 #if !defined(DOCUMENTATION)

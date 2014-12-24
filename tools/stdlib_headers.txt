@@ -460,7 +460,6 @@ WM_VSCROLL                                       Windows.h
 assert                                           cassert
 boost::additive                                  boost/operators.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
-boost::chrono::milliseconds                      boost/chrono.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::exception                                 boost/exception/all.hpp
@@ -536,7 +535,6 @@ boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::split                                     boost/algorithm/string.hpp
 boost::swap                                      boost/swap.hpp
-boost::this_thread::sleep_for                    boost/thread.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
