@@ -10,7 +10,9 @@
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
 #include <cassert>
+#include <condition_variable>
 #include <exception>
+#include <mutex>
 #include <queue>
 #include <stdexcept>
 #include <utility>
@@ -104,7 +106,7 @@ namespace tetengo2 { namespace concurrent
         const value_type& peek()
         const
         {
-            stdalt::unique_lock<mutex_type> lock{ m_mutex };
+            std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The channel is already closed." }));
@@ -131,7 +133,7 @@ namespace tetengo2 { namespace concurrent
         */
         void take()
         {
-            stdalt::unique_lock<mutex_type> lock{ m_mutex };
+            std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             if (closed_impl())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The channel is already closed." }));
@@ -146,7 +148,7 @@ namespace tetengo2 { namespace concurrent
         */
         void close()
         {
-            stdalt::unique_lock<mutex_type> lock{ m_mutex };
+            std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {
@@ -168,7 +170,7 @@ namespace tetengo2 { namespace concurrent
         bool closed()
         const
         {
-            stdalt::unique_lock<mutex_type> lock{ m_mutex };
+            std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
             return closed_impl();
         }
@@ -177,9 +179,9 @@ namespace tetengo2 { namespace concurrent
     private:
         // types
 
-        using mutex_type = stdalt::mutex;
+        using mutex_type = std::mutex;
 
-        using condition_variable_type = stdalt::condition_variable;
+        using condition_variable_type = std::condition_variable;
 
         using queue_element_type = boost::variant<value_type, std::exception_ptr>;
 
@@ -207,7 +209,7 @@ namespace tetengo2 { namespace concurrent
 
         void insert_impl(queue_element_type value)
         {
-            stdalt::unique_lock<mutex_type> lock{ m_mutex };
+            std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_insert(); });
             if (can_take() && !m_queue.back())
             {

@@ -11,6 +11,7 @@
 #include <exception>
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 #include <boost/test/unit_test.hpp>
 
@@ -205,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel{ 3 };
 
-            tetengo2::stdalt::thread producing_thread{ produce, &channel };
+            std::thread producing_thread{ produce, &channel };
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();

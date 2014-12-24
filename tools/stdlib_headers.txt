@@ -461,7 +461,6 @@ assert                                           cassert
 boost::additive                                  boost/operators.hpp
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::chrono::milliseconds                      boost/chrono.hpp
-boost::condition_variable                        boost/thread.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::exception                                 boost/exception/all.hpp
@@ -519,7 +518,6 @@ boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
 boost::multiplicative                            boost/operators.hpp
-boost::mutex                                     boost/thread.hpp
 boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/core/noncopyable.hpp
 boost::none                                      boost/optional.hpp
@@ -539,11 +537,9 @@ boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::split                                     boost/algorithm/string.hpp
 boost::swap                                      boost/swap.hpp
 boost::this_thread::sleep_for                    boost/thread.hpp
-boost::thread                                    boost/thread.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
-boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
 errno                                            cerrno
 std::advance                                     iterator

@@ -124,23 +124,11 @@ namespace tetengo2 { namespace stdalt
 /* thread *********************************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
-#       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 1
-#   else
-#       define TETENGO2_STDALT_STD_THREAD_SUPPORTED 0
-#   endif
-#endif
-#if !defined(DOCUMENTATION)
 #   define TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED 0
 #endif
 
 #include <thread>
 #include <boost/thread.hpp>
-#if TETENGO2_STDALT_STD_THREAD_SUPPORTED
-#   include <condition_variable>
-#   include <mutex>
-#else
-#endif
 #if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED
 #   include <chrono>
 #else
@@ -149,34 +137,6 @@ namespace tetengo2 { namespace stdalt
 
 namespace tetengo2 { namespace stdalt
 {
-#if TETENGO2_STDALT_STD_THREAD_SUPPORTED || defined(DOCUMENTATION)
-    //! The thread.
-    using thread = std::thread;
-
-    //! The mutex.
-    using mutex = std::mutex;
-
-    //! The condition variable.
-    using condition_variable = std::condition_variable;
-
-    /*!
-        \brief The unique lock.
-
-        \tparam Mutex A mutex type.
-    */
-    template <typename Mutex>
-    using unique_lock = std::unique_lock<Mutex>;
-#else
-    using thread = boost::thread;
-
-    using mutex = boost::mutex;
-
-    using condition_variable = boost::condition_variable;
-
-    template <typename Mutex>
-    using unique_lock = boost::unique_lock<Mutex>;
-#endif
-
 #if TETENGO2_STDALT_STD_THIS_THREAD_SLEEP_FOR_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief Sleep this thread.
