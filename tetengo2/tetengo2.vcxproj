@@ -105,6 +105,8 @@
     <ClInclude Include="include\tetengo2\concurrent\channel.h" />
     <ClInclude Include="include\tetengo2\concurrent\consumer.h" />
     <ClInclude Include="include\tetengo2\concurrent\producer.h" />
+    <ClInclude Include="include\tetengo2\concurrent\progressive_future.h" />
+    <ClInclude Include="include\tetengo2\concurrent\progressive_promise.h" />
     <ClInclude Include="include\tetengo2\config\0namespace.dox" />
     <ClInclude Include="include\tetengo2\config\cached_config.h" />
     <ClInclude Include="include\tetengo2\config\config_base.h" />

@@ -13,6 +13,8 @@
 #include <tetengo2/concurrent/channel.h>
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
+#include <tetengo2/concurrent/progressive_future.h>
+#include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/config/cached_config.h>
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/config/config_list.h>

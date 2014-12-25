@@ -21,6 +21,7 @@
 #include <cwchar>
 #include <exception>
 #include <functional>
+#include <future>
 #include <iomanip>
 #include <ios>
 #include <istream>

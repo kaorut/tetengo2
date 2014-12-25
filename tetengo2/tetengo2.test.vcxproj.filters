@@ -125,6 +125,12 @@
     <ClCompile Include="test\test_tetengo2.config.persistent_config.cpp">
       <Filter>sources\test_tetengo2\config</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.concurrent.progressive_future.cpp">
+      <Filter>sources\test_tetengo2\concurrent</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.concurrent.progressive_promise.cpp">
+      <Filter>sources\test_tetengo2\concurrent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.json">
