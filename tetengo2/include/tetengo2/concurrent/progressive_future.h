@@ -13,6 +13,7 @@
 #include <future>
 #include <memory>
 #include <mutex>
+#include <stdexcept>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
@@ -244,6 +245,21 @@ namespace tetengo2 { namespace concurrent
             return m_future.wait_until(abs_time);
         }
 
+        /*!
+            \brief Returns the progress.
+
+            \return The progress.
+
+            \throw std::logic_error When this future is not valid.
+        */
+        const progress_type& progress()
+        const
+        {
+            if (!valid())
+                throw std::logic_error{ "This future is not valid." };
+
+            return m_p_state->get();
+        }
 
 
     protected:

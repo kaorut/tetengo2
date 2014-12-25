@@ -354,6 +354,22 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
     }
 #endif
 
+    BOOST_AUTO_TEST_CASE(set_progress)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+        promise_type promise{ 0 };
+        auto future = promise.get_future();
+
+        BOOST_CHECK_EQUAL(future.progress(), 0);
+
+        promise.set_progress(42);
+
+        BOOST_CHECK_EQUAL(future.progress(), 42);
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

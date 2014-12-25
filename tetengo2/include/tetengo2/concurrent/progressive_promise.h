@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_CONCURRENT_PROGRESSIVEPROMISE_H)
 #define TETENGO2_CONCURRENT_PROGRESSIVEPROMISE_H
 
+#include <cassert>
 #include <exception>
 #include <future>
 #include <memory>
@@ -118,7 +119,7 @@ namespace tetengo2 { namespace concurrent
             m_p_state.swap(another.m_p_state);
         }
 
-        /*
+        /*!
             \brief Returns the progressive future.
 
             \return The progressive future.
@@ -146,6 +147,17 @@ namespace tetengo2 { namespace concurrent
         void set_exception_at_thread_exit(std::exception_ptr p_exception)
         {
             m_promise.set_exception_at_thread_exit(std::move(p_exception));
+        }
+
+        /*!
+            \brief Set a progress.
+
+            \param progress A progress.
+        */
+        void set_progress(progress_type progress)
+        {
+            assert(m_p_state);
+            m_p_state->set(std::move(progress));
         }
 
 

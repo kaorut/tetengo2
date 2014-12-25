@@ -8,6 +8,7 @@
 
 #include <chrono>
 #include <future>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -136,6 +137,16 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
         future_type future{};
         const auto abs_time = std::chrono::system_clock::now() + std::chrono::seconds{ 42 };
         BOOST_CHECK_THROW(future.wait_until(abs_time), std::future_error);
+    }
+
+    BOOST_AUTO_TEST_CASE(progress)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
+
+        future_type future{};
+        BOOST_CHECK_THROW(future.progress(), std::logic_error);
     }
 
 
