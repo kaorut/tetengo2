@@ -11,7 +11,11 @@
 
 #include <chrono>
 #include <future>
+#include <memory>
+#include <mutex>
 #include <utility>
+
+#include <boost/core/noncopyable.hpp>
 
 #include <tetengo2.h>
 
@@ -21,6 +25,88 @@ namespace tetengo2 { namespace concurrent
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        template <typename Progress>
+        class progress_state : private boost::noncopyable
+        {
+        public:
+            // types
+
+            using progress_type = Progress;
+
+
+            // constructors and destructor
+
+            explicit progress_state(progress_type initial_progress)
+            :
+            m_progress(std::move(initial_progress)),
+            m_mutex()
+            {}
+
+
+            // functions
+
+            const progress_type& get()
+            const
+            {
+                std::lock_guard<std::mutex> lock{ m_mutex };
+                return m_progress;
+            }
+
+            void set(progress_type progress)
+            {
+                std::lock_guard<std::mutex> lock{ m_mutex };
+                m_progress = std::move(progress);
+            }
+
+
+        private:
+            // variables
+
+            progress_type m_progress;
+
+            mutable std::mutex m_mutex;
+
+
+        };
+
+        template <>
+        class progress_state<void> : private boost::noncopyable
+        {
+        public:
+            // types
+
+            using progress_type = void;
+
+
+            // constructors and destructor
+
+            explicit progress_state()
+            :
+            m_mutex()
+            {}
+
+
+            // functions
+
+            void get()
+            const
+            {
+                std::lock_guard<std::mutex> lock{ m_mutex };
+            }
+
+            void set()
+            {
+                std::lock_guard<std::mutex> lock{ m_mutex };
+            }
+
+
+        private:
+            // variables
+
+            mutable std::mutex m_mutex;
+
+
+        };
 
 
     }
@@ -57,7 +143,8 @@ namespace tetengo2 { namespace concurrent
         progressive_future_base()
         TETENGO2_STDALT_NOEXCEPT
         :
-        m_future()
+        m_future(),
+        m_p_state()
         {}
 
         /*!
@@ -68,20 +155,20 @@ namespace tetengo2 { namespace concurrent
         progressive_future_base(progressive_future_base&& another)
         TETENGO2_STDALT_NOEXCEPT
         :
-        m_future(std::move(another.m_future))
+        m_future(std::move(another.m_future)),
+        m_p_state(std::move(another.m_p_state))
         {}
 
-        /*!
-            \brief Creates a progressive future base.
-
-            \param future A future.
-        */
-        progressive_future_base(future_type&& future)
-        TETENGO2_STDALT_NOEXCEPT
+#if !defined(DOCUMENTATION)
+        progressive_future_base(
+            future_type&&                                                 future,
+            const std::shared_ptr<detail::progress_state<progress_type>>& p_state
+        )
         :
-        m_future(std::move(future))
+        m_future(std::move(future)),
+        m_p_state(p_state)
         {}
-
+#endif
 
 
         // functions
@@ -97,6 +184,7 @@ namespace tetengo2 { namespace concurrent
         TETENGO2_STDALT_NOEXCEPT
         {
             m_future = std::move(another.m_future);
+            m_p_state = std::move(another.m_p_state);
 
             return *this;
         }
@@ -110,7 +198,7 @@ namespace tetengo2 { namespace concurrent
         bool valid()
         const TETENGO2_STDALT_NOEXCEPT
         {
-            return m_future.valid();
+            return m_future.valid() && m_p_state;
         }
 
         /*!
@@ -188,6 +276,8 @@ namespace tetengo2 { namespace concurrent
 
         future_type m_future;
 
+        std::shared_ptr<detail::progress_state<progress_type>> m_p_state;
+
         
         // forbidden operations
 
@@ -246,16 +336,12 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
-        /*!
-            \brief Creates a progressive future base.
-
-            \param future A future.
-        */
-        progressive_future(future_type&& future)
-        TETENGO2_STDALT_NOEXCEPT
+#if !defined(DOCUMENTATION)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
         :
-        base_type(std::move(future))
+        base_type(std::move(future), p_state)
         {}
+#endif
 
 
         // functions
@@ -318,10 +404,9 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
-        progressive_future(future_type&& future)
-        TETENGO2_STDALT_NOEXCEPT
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
         :
-        base_type(std::move(future))
+        base_type(std::move(future), p_state)
         {}
 
 
@@ -372,10 +457,10 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
-        progressive_future(future_type&& future)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
         TETENGO2_STDALT_NOEXCEPT
         :
-        base_type(std::move(future))
+        base_type(std::move(future), p_state)
         {}
 
 

@@ -591,9 +591,11 @@ std::istringstream                               sstream
 std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale
+std::lock_guard                                  mutex
 std::logic_error                                 stdexcept
 std::make_exception_ptr                          exception
 std::make_pair                                   utility
+std::make_shared                                 memory
 std::make_unique                                 memory
 std::map                                         map
 std::max                                         algorithm
@@ -616,6 +618,7 @@ std::remove_pointer                              type_traits
 std::rethrow_exception                           exception
 std::runtime_error                               stdexcept
 std::runtime_error::what                         stdexcept
+std::shared_ptr                                  memory
 std::sin                                         cmath
 std::size_t                                      cstddef
 std::sort                                        algorithm

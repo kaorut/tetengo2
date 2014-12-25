@@ -33,22 +33,22 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-            const promise_type promise1{};
-            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise1{ 0 };
+            promise_type promise2{ 0, std::allocator_arg, std::allocator<promise_type>{} };
             const promise_type promise3{ std::move(promise2) };
         }
         {
             using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
 
-            const promise_type promise1{};
-            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise1{ 0 };
+            promise_type promise2{ 0, std::allocator_arg, std::allocator<promise_type>{} };
             const promise_type promise3{ std::move(promise2) };
         }
         {
             using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
 
-            const promise_type promise1{};
-            promise_type promise2{ std::allocator_arg, std::allocator<promise_type>{} };
+            const promise_type promise1{ 0 };
+            promise_type promise2{ 0, std::allocator_arg, std::allocator<promise_type>{} };
             const promise_type promise3{ std::move(promise2) };
         }
     }
@@ -60,24 +60,24 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1 = std::move(promise2);
         }
         {
             using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1 = std::move(promise2);
         }
         {
             using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1 = std::move(promise2);
         }
@@ -90,8 +90,8 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1.swap(promise2);
 
@@ -100,8 +100,8 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1.swap(promise2);
 
@@ -110,8 +110,8 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
 
-            promise_type promise1{};
-            promise_type promise2{};
+            promise_type promise1{ 0 };
+            promise_type promise2{ 0 };
 
             promise1.swap(promise2);
 
@@ -126,13 +126,13 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
         {
-            promise_type promise{};
+            promise_type promise{ 0 };
 
             const auto future = promise.get_future();
             BOOST_CHECK(future.valid());
         }
         {
-            promise_type promise{};
+            promise_type promise{ 0 };
 
             promise.set_value("hoge");
 
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
             using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
             {
-                promise_type promise{};
+                promise_type promise{ 0 };
                 auto future = promise.get_future();
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                 BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
             }
             {
-                promise_type promise{};
+                promise_type promise{ 0 };
                 auto future = promise.get_future();
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
 
-            promise_type promise{};
+            promise_type promise{ 0 };
             auto future = promise.get_future();
             BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
 
-            promise_type promise{};
+            promise_type promise{ 0 };
             auto future = promise.get_future();
             BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
 
         using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-        promise_type promise{};
+        promise_type promise{ 0 };
         auto future = promise.get_future();
         BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
             using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
             {
-                promise_type promise{};
+                promise_type promise{ 0 };
                 auto future = promise.get_future();
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                 thread.join();
             }
             {
-                promise_type promise{};
+                promise_type promise{ 0 };
                 auto future = promise.get_future();
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<const std::string&, int>;
 
-            promise_type promise{};
+            promise_type promise{ 0 };
             auto future = promise.get_future();
             BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         {
             using promise_type = tetengo2::concurrent::progressive_promise<void, int>;
 
-            promise_type promise{};
+            promise_type promise{ 0 };
             auto future = promise.get_future();
             BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
@@ -337,7 +337,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
 
         using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
 
-        promise_type promise{};
+        promise_type promise{ 0 };
         auto future = promise.get_future();
         BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
