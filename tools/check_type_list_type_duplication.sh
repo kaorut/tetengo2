@@ -1,6 +1,6 @@
 #/bin/sh
 # Checks type list type duplications.
-# Copyright (C) 2007-2014 kaoru
+# Copyright (C) 2007-2015 kaoru
 # $Id$
 
 TOOLS_DIR=`dirname $0`

@@ -1,6 +1,6 @@
 @echo off
 rem Code-signs a file.
-rem Copyright (C) 2007-2014 kaoru
+rem Copyright (C) 2007-2015 kaoru
 rem $Id$
 
 if not exist "%~dp0zzz_codesign.bat" exit /b

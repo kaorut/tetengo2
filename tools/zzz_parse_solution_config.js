@@ -1,6 +1,6 @@
 /*
 	Solution Config Parser
-	Copyright (C) 2007-2014 kaoru
+	Copyright (C) 2007-2015 kaoru
 	$Id$
 */
 

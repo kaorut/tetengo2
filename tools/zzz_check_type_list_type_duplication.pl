@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # Checks the #include directives.
-# Copyright (C) 2007-2014 kaoru
+# Copyright (C) 2007-2015 kaoru
 # $Id$
 
 
