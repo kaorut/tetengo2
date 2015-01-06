@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::detail::stub::gui_fixture.
 
-    Copyright (C) 2007-2014 kaoru
+    Copyright (C) 2007-2015 kaoru
 
     $Id$
 */

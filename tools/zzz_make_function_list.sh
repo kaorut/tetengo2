@@ -1,6 +1,6 @@
 #!/bin/sh
 # Makes a function definition list.
-# Copyright (C) 2007-2014 kaoru
+# Copyright (C) 2007-2015 kaoru
 # $Id$
 
 TOOLS_DIR=`dirname $0`

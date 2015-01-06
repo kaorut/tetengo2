@@ -1,6 +1,6 @@
 #!/bin/sh
 # File path lister.
-# Copyright (C) 2007-2014 kaoru
+# Copyright (C) 2007-2015 kaoru
 # $Id$
 
 list_sources()
