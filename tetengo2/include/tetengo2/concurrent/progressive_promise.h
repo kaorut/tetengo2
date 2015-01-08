@@ -150,7 +150,7 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Set a progress.
+            \brief Sets a progress.
 
             \param progress A progress.
         */
