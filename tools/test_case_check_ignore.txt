@@ -21,6 +21,7 @@ tetengo2::stdalt::
 tetengo2::text::grammar::json::on_structure_[a-zA-Z0-9_]+
 tetengo2::text::grammar::json::structure_attribute_type::
 
+test_tetengo2::concurrent::progressive_future::abort
 test_tetengo2::concurrent::progressive_future::construction
 test_tetengo2::concurrent::progressive_future::operator_assign
 test_tetengo2::concurrent::progressive_future::progress
@@ -28,10 +29,11 @@ test_tetengo2::concurrent::progressive_future::valid
 test_tetengo2::concurrent::progressive_future::wait
 test_tetengo2::concurrent::progressive_future::wait_for
 test_tetengo2::concurrent::progressive_future::wait_until
+test_tetengo2::concurrent::progressive_promise::aborted
 test_tetengo2::concurrent::progressive_promise::construction
+test_tetengo2::concurrent::progressive_promise::get_future
 test_tetengo2::concurrent::progressive_promise::operator_assign
 test_tetengo2::concurrent::progressive_promise::swap
-test_tetengo2::concurrent::progressive_promise::get_future
 test_tetengo2::concurrent::progressive_promise::set_exception
 test_tetengo2::concurrent::progressive_promise::set_progress
 test_tetengo2::config::config_list::get
