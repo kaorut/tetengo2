@@ -160,6 +160,19 @@ namespace tetengo2 { namespace concurrent
             m_p_state->set(std::move(progress));
         }
 
+        /*!
+            \brief Checks whether the task is aborted.
+
+            \retval true  When the task is aborted.
+            \retval false Otherwise.
+        */
+        bool aborted()
+        const
+        {
+            assert(m_p_state);
+            return m_p_state->aborted();
+        }
+
 
     protected:
         // functions

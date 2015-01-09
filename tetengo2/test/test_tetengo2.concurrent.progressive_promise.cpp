@@ -370,6 +370,26 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         BOOST_CHECK_EQUAL(future.progress(), 42);
     }
 
+    BOOST_AUTO_TEST_CASE(aborted)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
+
+        promise_type promise{ 0 };
+        auto future = promise.get_future();
+
+        BOOST_CHECK(!promise.aborted());
+
+        future.abort();
+
+        BOOST_CHECK(promise.aborted());
+
+        future.abort();
+
+        BOOST_CHECK(promise.aborted());
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

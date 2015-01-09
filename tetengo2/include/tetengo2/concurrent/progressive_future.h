@@ -61,7 +61,7 @@ namespace tetengo2 { namespace concurrent
                 m_progress = std::move(progress);
             }
 
-            bool is_aborted()
+            bool aborted()
             const
             {
                 std::lock_guard<std::mutex> lock{ m_abortion_mutex };
@@ -116,7 +116,7 @@ namespace tetengo2 { namespace concurrent
             void set()
             {}
 
-            bool is_aborted()
+            bool aborted()
             const
             {
                 std::lock_guard<std::mutex> lock{ m_abortion_mutex };
