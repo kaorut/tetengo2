@@ -40,7 +40,9 @@ namespace tetengo2 { namespace concurrent
             explicit progress_state(progress_type initial_progress)
             :
             m_progress(std::move(initial_progress)),
-            m_mutex()
+            m_aborted(false),
+            m_progress_mutex(),
+            m_abortion_mutex()
             {}
 
 
@@ -49,14 +51,27 @@ namespace tetengo2 { namespace concurrent
             const progress_type& get()
             const
             {
-                std::lock_guard<std::mutex> lock{ m_mutex };
+                std::lock_guard<std::mutex> lock{ m_progress_mutex };
                 return m_progress;
             }
 
             void set(progress_type progress)
             {
-                std::lock_guard<std::mutex> lock{ m_mutex };
+                std::lock_guard<std::mutex> lock{ m_progress_mutex };
                 m_progress = std::move(progress);
+            }
+
+            bool is_aborted()
+            const
+            {
+                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
+                return m_aborted;
+            }
+
+            void abort()
+            {
+                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
+                m_aborted = true;
             }
 
 
@@ -65,7 +80,11 @@ namespace tetengo2 { namespace concurrent
 
             progress_type m_progress;
 
-            mutable std::mutex m_mutex;
+            bool m_aborted;
+
+            mutable std::mutex m_progress_mutex;
+
+            mutable std::mutex m_abortion_mutex;
 
 
         };
@@ -83,7 +102,8 @@ namespace tetengo2 { namespace concurrent
 
             explicit progress_state()
             :
-            m_mutex()
+            m_aborted(false),
+            m_abortion_mutex()
             {}
 
 
@@ -91,20 +111,31 @@ namespace tetengo2 { namespace concurrent
 
             void get()
             const
-            {
-                std::lock_guard<std::mutex> lock{ m_mutex };
-            }
+            {}
 
             void set()
+            {}
+
+            bool is_aborted()
+            const
             {
-                std::lock_guard<std::mutex> lock{ m_mutex };
+                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
+                return m_aborted;
+            }
+
+            void abort()
+            {
+                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
+                m_aborted = true;
             }
 
 
         private:
             // variables
 
-            mutable std::mutex m_mutex;
+            bool m_aborted;
+
+            mutable std::mutex m_abortion_mutex;
 
 
         };
@@ -259,6 +290,17 @@ namespace tetengo2 { namespace concurrent
                 throw std::logic_error{ "This future is not valid." };
 
             return m_p_state->get();
+        }
+
+        /*!
+            \brief Aborts the task.
+        */
+        void abort()
+        {
+            if (!valid())
+                throw std::logic_error{ "This future is not valid." };
+
+            m_p_state->abort();
         }
 
 
