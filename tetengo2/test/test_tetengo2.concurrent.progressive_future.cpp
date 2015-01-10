@@ -149,14 +149,14 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
         BOOST_CHECK_THROW(future.progress(), std::logic_error);
     }
 
-    BOOST_AUTO_TEST_CASE(abort)
+    BOOST_AUTO_TEST_CASE(request_abort)
     {
         BOOST_TEST_PASSPOINT();
 
         using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
 
         future_type future{};
-        BOOST_CHECK_THROW(future.abort(), std::logic_error);
+        BOOST_CHECK_THROW(future.request_abort(), std::logic_error);
     }
 
 
