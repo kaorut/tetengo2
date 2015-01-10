@@ -370,7 +370,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         BOOST_CHECK_EQUAL(future.progress(), 42);
     }
 
-    BOOST_AUTO_TEST_CASE(aborted)
+    BOOST_AUTO_TEST_CASE(abort_requested)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -379,15 +379,15 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         promise_type promise{ 0 };
         auto future = promise.get_future();
 
-        BOOST_CHECK(!promise.aborted());
+        BOOST_CHECK(!promise.abort_requested());
 
-        future.abort();
+        future.request_abort();
 
-        BOOST_CHECK(promise.aborted());
+        BOOST_CHECK(promise.abort_requested());
 
-        future.abort();
+        future.request_abort();
 
-        BOOST_CHECK(promise.aborted());
+        BOOST_CHECK(promise.abort_requested());
     }
 
 

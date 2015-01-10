@@ -161,16 +161,16 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Checks whether the task is aborted.
+            \brief Checks whether a task abort is requested.
 
-            \retval true  When the task is aborted.
+            \retval true  When a task abort is requested.
             \retval false Otherwise.
         */
-        bool aborted()
+        bool abort_requested()
         const
         {
             assert(m_p_state);
-            return m_p_state->aborted();
+            return m_p_state->abort_requested();
         }
 
 
