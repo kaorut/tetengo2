@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_fast_paint_observer_set()
         {
-            this->initialize(this);
+            base_type::initialize(this);
             this->paint_observer_set().paint_background().connect(
                 [](typename base_type::canvas_type&) { return true; }
             );

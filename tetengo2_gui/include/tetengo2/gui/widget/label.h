@@ -83,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         {
-            this->initialize(this);
+            base_type::initialize(this);
         }
 
         /*!

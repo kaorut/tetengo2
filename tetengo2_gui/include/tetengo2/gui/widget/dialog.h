@@ -204,7 +204,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void initialize_dialog()
         {
-            this->initialize(this);
+            base_type::initialize(this);
         }
 
 
