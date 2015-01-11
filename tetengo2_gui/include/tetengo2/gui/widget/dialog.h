@@ -164,6 +164,21 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
 
+    protected:
+        // functions
+
+        /*!
+            \brief Initializes the dialog.
+
+            This function must be called in the constructor and only in the constructor.
+        */
+        void initialize_dialog()
+        {
+            base_type::initialize(this);
+        }
+
+
+
     private:
         // types
 
@@ -197,14 +212,6 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             assert(m_p_details);
             return *m_p_details;
-        }
-
-
-        // functions
-
-        void initialize_dialog()
-        {
-            base_type::initialize(this);
         }
 
 

@@ -69,6 +69,7 @@ pkg_headers = \
     gui/widget/list_box.h \
     gui/widget/map_box.h \
     gui/widget/picture_box.h \
+    gui/widget/progress_dialog.h \
     gui/widget/side_bar.h \
     gui/widget/text_box.h \
     gui/widget/widget.h \

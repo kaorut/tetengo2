@@ -165,6 +165,15 @@ BOOST_AUTO_TEST_SUITE(dialog)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(initialize_dialog)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        // initialize_dialog() is called in the constructor of concrete_widget.
+        window_type parent{};
+        const concrete_dialog dialog{ parent };
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
