@@ -42,7 +42,7 @@ namespace
             )
         )
         {
-            this->initialize(this);
+            base_type::initialize(this);
         }
 
         virtual ~concrete_control()

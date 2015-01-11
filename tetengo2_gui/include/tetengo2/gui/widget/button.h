@@ -86,7 +86,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_style(style)
         {
-            this->initialize(this);
+            base_type::initialize(this);
         }
 
         /*!

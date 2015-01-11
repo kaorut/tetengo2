@@ -86,7 +86,7 @@ namespace
             )
         )
         {
-            this->initialize(this);
+            widget_type::initialize(this);
         }
 
         virtual ~concrete_widget()
