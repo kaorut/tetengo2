@@ -70,6 +70,21 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
+        // virtual functions
+
+        virtual void do_modal_impl()
+        override
+        {
+        
+        }
+
+        virtual void do_modal_finished_impl()
+        override
+        {
+        
+        }
+
+
         // functions
 
         void initialize_progress_dialog()

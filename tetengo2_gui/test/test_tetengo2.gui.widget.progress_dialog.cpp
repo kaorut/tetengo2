@@ -61,6 +61,16 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         const dialog_type dialog{ parent };
     }
 
+    BOOST_AUTO_TEST_CASE(do_modal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        dialog_type dialog{ parent };
+
+        dialog.do_modal();
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

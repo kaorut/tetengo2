@@ -159,6 +159,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             message_loop_type{ *this }();
 
+            do_modal_finished_impl();
+
             parent_window.set_enabled(true);
             parent_window.activate();
         }
@@ -198,6 +200,9 @@ namespace tetengo2 { namespace gui { namespace widget
         {}
 
         virtual void do_modal_impl()
+        {}
+
+        virtual void do_modal_finished_impl()
         {}
 
         virtual const details_type& details_impl()
