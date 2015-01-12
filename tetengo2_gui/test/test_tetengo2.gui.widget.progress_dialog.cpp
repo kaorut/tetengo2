@@ -41,12 +41,12 @@ namespace
 
     using dialog_type =
         tetengo2::gui::widget::progress_dialog<
-            widget_traits_type, widget_details_traits_type, menu_details_type, message_loop_details_type
+            widget_traits_type, int, widget_details_traits_type, menu_details_type, message_loop_details_type
         >;
 
-    using promise_type = std::promise<int>;
+    using promise_type = dialog_type::promise_type;
 
-    using future_type = std::future<int>;
+    using future_type = dialog_type::future_type;
 
 
     // functions
@@ -71,21 +71,28 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        promise_type promise;
-        future_type future = promise.get_future();
-        const dialog_type dialog{ parent, [&promise]() { task(promise); } };
+        const dialog_type dialog{ parent, task };
+    }
+
+    BOOST_AUTO_TEST_CASE(task_future)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        dialog_type dialog{ parent, task };
+        const future_type& future = dialog.task_future();
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
     }
+
 
     BOOST_AUTO_TEST_CASE(do_modal)
     {
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        promise_type promise;
-        future_type future = promise.get_future();
-        dialog_type dialog{ parent, [&promise]() { task(promise); } };
+        dialog_type dialog{ parent, task };
+        future_type& future = dialog.task_future();
 
         dialog.do_modal();
 
