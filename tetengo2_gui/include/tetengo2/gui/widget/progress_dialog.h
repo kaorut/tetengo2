@@ -12,6 +12,7 @@
 #include <functional>
 #include <memory>
 #include <thread>
+#include <utility>
 
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/stdalt.h>
