@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <chrono>
+#include <future>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -41,10 +44,20 @@ namespace
             widget_traits_type, widget_details_traits_type, menu_details_type, message_loop_details_type
         >;
 
+    using promise_type = std::promise<int>;
+
+    using future_type = std::future<int>;
+
+
+    // functions
+
+    void task(promise_type& promise)
+    {
+        promise.set_value(42);
+    }
+
 
 }
-
-
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -58,7 +71,11 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const dialog_type dialog{ parent };
+        promise_type promise;
+        future_type future = promise.get_future();
+        const dialog_type dialog{ parent, [&promise]() { task(promise); } };
+
+        BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
@@ -66,9 +83,13 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        dialog_type dialog{ parent };
+        promise_type promise;
+        future_type future = promise.get_future();
+        dialog_type dialog{ parent, [&promise]() { task(promise); } };
 
         dialog.do_modal();
+
+        BOOST_CHECK_EQUAL(future.get(), 42);
     }
 
 

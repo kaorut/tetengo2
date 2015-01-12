@@ -9,6 +9,10 @@
 #if !defined(TETENGO2_GUI_WIDGET_PROGRESSDIALOG_H)
 #define TETENGO2_GUI_WIDGET_PROGRESSDIALOG_H
 
+#include <functional>
+#include <memory>
+#include <thread>
+
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/stdalt.h>
 
@@ -47,6 +51,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
 
+        //! The task type.
+        using task_type = std::function<void ()>;
+
 
         // constructors and destructor
 
@@ -55,9 +62,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent window.
         */
-        explicit progress_dialog(abstract_window_type& parent)
+        explicit progress_dialog(abstract_window_type& parent, task_type task)
         :
-        base_type(parent, false)
+        base_type(parent, false),
+        m_task(std::move(task)),
+        m_p_thread()
         {
             initialize_progress_dialog();
         }
@@ -70,18 +79,26 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
+        // variables
+
+        const task_type m_task;
+
+        std::unique_ptr<std::thread> m_p_thread;
+
+
         // virtual functions
 
         virtual void do_modal_impl()
         override
         {
-        
+            m_p_thread = tetengo2::stdalt::make_unique<std::thread>(m_task);
         }
 
         virtual void do_modal_finished_impl()
         override
         {
-        
+            if (m_p_thread)
+                m_p_thread->join();
         }
 
 
