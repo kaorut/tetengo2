@@ -14,9 +14,11 @@
 #include <memory>
 #include <mutex>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.h>
 
@@ -136,6 +138,20 @@ namespace tetengo2 { namespace concurrent
             bool m_abort_requested;
 
             mutable std::mutex m_abort_request_mutex;
+
+
+        };
+
+
+        class task_aborted : public std::runtime_error
+        {
+        public:
+            // constructors
+
+            task_aborted()
+            :
+            std::runtime_error(std::string{})
+            {}
 
 
         };
@@ -421,11 +437,18 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Returns the result.
 
-            \return The result.
+            \return The result. Or boost::none if the task is aborted.
         */
-        result_type get()
+        boost::optional<result_type> get()
         {
-            return this->get_future().get();
+            try
+            {
+                return this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {
+                return boost::none;
+            }
         }
 
 
@@ -477,9 +500,16 @@ namespace tetengo2 { namespace concurrent
             return *this;
         }
 
-        result_type get()
+        boost::optional<result_type> get()
         {
-            return this->get_future().get();
+            try
+            {
+                return this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {
+                return boost::none;
+            }
         }
 
 
@@ -531,9 +561,14 @@ namespace tetengo2 { namespace concurrent
             return *this;
         }
 
-        result_type get()
+        void get()
         {
-            return this->get_future().get();
+            try
+            {
+                this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {}
         }
 
 

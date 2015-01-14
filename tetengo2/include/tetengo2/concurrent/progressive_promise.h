@@ -173,6 +173,14 @@ namespace tetengo2 { namespace concurrent
             return m_p_state->abort_requested();
         }
 
+        /*!
+            \brief Aborts the task.
+        */
+        void abort()
+        {
+            set_exception(std::make_exception_ptr(detail::task_aborted{}));
+        }
+
 
     protected:
         // functions
