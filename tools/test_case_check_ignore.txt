@@ -4,11 +4,13 @@ tetengo2::concurrent::progressive_future_base::
 tetengo2::concurrent::progressive_promise::move
 tetengo2::concurrent::progressive_promise_base::
 tetengo2::gui::virtual_key::
+tetengo2::gui::widget::dialog::on_close
 tetengo2::gui::widget::inner_item::mouse_entered
 tetengo2::gui::widget::inner_item::mouse_left
 tetengo2::gui::widget::link_label::paint_background::
 tetengo2::gui::widget::map_box::splitter::
 tetengo2::gui::widget::map_box::value_item::
+tetengo2::gui::widget::progress_dialog::on_close
 tetengo2::gui::widget::side_bar::caption::
 tetengo2::gui::widget::side_bar::splitter::
 tetengo2::gui::widget::side_bar::state_button::
