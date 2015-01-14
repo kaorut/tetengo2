@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_list_selection_observer_set()
         {
-            this->initialize(this);
+            base_type::initialize(this);
         }
 
         /*!
