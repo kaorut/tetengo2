@@ -164,10 +164,15 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_p_thread->join();
         }
 
-        virtual void on_destroy_impl()
+        virtual void on_close_impl(bool& cancel)
         override
         {
-            m_future.request_abort();
+            if (m_future.wait_for(std::chrono::seconds{ 0 }) != std::future_status::ready)
+            {
+                m_future.request_abort();
+                cancel = true;
+                return;
+            }
         }
 
 

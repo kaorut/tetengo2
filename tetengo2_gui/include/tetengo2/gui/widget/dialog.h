@@ -153,7 +153,8 @@ namespace tetengo2 { namespace gui { namespace widget
             auto& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
 
-            this->window_observer_set().destroyed().connect([this]() { this->on_destroy_impl(); });
+            this->window_observer_set().closing().connect([this](bool& cancel) { this->on_close_impl(cancel); });
+            this->window_observer_set().destroyed().connect([]() { message_loop_break_type{}(0); });
             this->set_position(widget_details_type::template dialog_position<position_type>(*this, parent_window));
             this->set_visible(true);
 
@@ -200,10 +201,8 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual void do_modal_impl()
         {}
 
-        virtual void on_destroy_impl()
-        {
-            message_loop_break_type{}(0);
-        }
+        virtual void on_close_impl(bool& cancel)
+        {}
 
         virtual const details_type& details_impl()
         const override
