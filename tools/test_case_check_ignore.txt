@@ -31,6 +31,7 @@ test_tetengo2::concurrent::progressive_future::valid
 test_tetengo2::concurrent::progressive_future::wait
 test_tetengo2::concurrent::progressive_future::wait_for
 test_tetengo2::concurrent::progressive_future::wait_until
+test_tetengo2::concurrent::progressive_promise::abort
 test_tetengo2::concurrent::progressive_promise::abort_requested
 test_tetengo2::concurrent::progressive_promise::construction
 test_tetengo2::concurrent::progressive_promise::get_future

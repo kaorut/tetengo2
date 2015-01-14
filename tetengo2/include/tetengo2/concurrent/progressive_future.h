@@ -14,9 +14,11 @@
 #include <memory>
 #include <mutex>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.h>
 
@@ -40,9 +42,9 @@ namespace tetengo2 { namespace concurrent
             explicit progress_state(progress_type initial_progress)
             :
             m_progress(std::move(initial_progress)),
-            m_aborted(false),
+            m_abort_requested(false),
             m_progress_mutex(),
-            m_abortion_mutex()
+            m_abort_request_mutex()
             {}
 
 
@@ -64,14 +66,14 @@ namespace tetengo2 { namespace concurrent
             bool abort_requested()
             const
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                return m_aborted;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                return m_abort_requested;
             }
 
             void request_abort()
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                m_aborted = true;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                m_abort_requested = true;
             }
 
 
@@ -80,11 +82,11 @@ namespace tetengo2 { namespace concurrent
 
             progress_type m_progress;
 
-            bool m_aborted;
+            bool m_abort_requested;
 
             mutable std::mutex m_progress_mutex;
 
-            mutable std::mutex m_abortion_mutex;
+            mutable std::mutex m_abort_request_mutex;
 
 
         };
@@ -100,10 +102,10 @@ namespace tetengo2 { namespace concurrent
 
             // constructors and destructor
 
-            explicit progress_state()
+            progress_state()
             :
-            m_aborted(false),
-            m_abortion_mutex()
+            m_abort_requested(false),
+            m_abort_request_mutex()
             {}
 
 
@@ -119,23 +121,37 @@ namespace tetengo2 { namespace concurrent
             bool abort_requested()
             const
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                return m_aborted;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                return m_abort_requested;
             }
 
             void request_abort()
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                m_aborted = true;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                m_abort_requested = true;
             }
 
 
         private:
             // variables
 
-            bool m_aborted;
+            bool m_abort_requested;
 
-            mutable std::mutex m_abortion_mutex;
+            mutable std::mutex m_abort_request_mutex;
+
+
+        };
+
+
+        class task_aborted : public std::runtime_error
+        {
+        public:
+            // constructors
+
+            task_aborted()
+            :
+            std::runtime_error(std::string{})
+            {}
 
 
         };
@@ -421,11 +437,18 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Returns the result.
 
-            \return The result.
+            \return The result. Or boost::none if the task is aborted.
         */
-        result_type get()
+        boost::optional<result_type> get()
         {
-            return this->get_future().get();
+            try
+            {
+                return this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {
+                return boost::none;
+            }
         }
 
 
@@ -477,9 +500,16 @@ namespace tetengo2 { namespace concurrent
             return *this;
         }
 
-        result_type get()
+        boost::optional<result_type> get()
         {
-            return this->get_future().get();
+            try
+            {
+                return this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {
+                return boost::none;
+            }
         }
 
 
@@ -531,9 +561,14 @@ namespace tetengo2 { namespace concurrent
             return *this;
         }
 
-        result_type get()
+        void get()
         {
-            return this->get_future().get();
+            try
+            {
+                this->get_future().get();
+            }
+            catch (const detail::task_aborted&)
+            {}
         }
 
 
