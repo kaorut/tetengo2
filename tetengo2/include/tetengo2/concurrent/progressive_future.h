@@ -40,9 +40,9 @@ namespace tetengo2 { namespace concurrent
             explicit progress_state(progress_type initial_progress)
             :
             m_progress(std::move(initial_progress)),
-            m_aborted(false),
+            m_abort_requested(false),
             m_progress_mutex(),
-            m_abortion_mutex()
+            m_abort_request_mutex()
             {}
 
 
@@ -64,14 +64,14 @@ namespace tetengo2 { namespace concurrent
             bool abort_requested()
             const
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                return m_aborted;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                return m_abort_requested;
             }
 
             void request_abort()
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                m_aborted = true;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                m_abort_requested = true;
             }
 
 
@@ -80,11 +80,11 @@ namespace tetengo2 { namespace concurrent
 
             progress_type m_progress;
 
-            bool m_aborted;
+            bool m_abort_requested;
 
             mutable std::mutex m_progress_mutex;
 
-            mutable std::mutex m_abortion_mutex;
+            mutable std::mutex m_abort_request_mutex;
 
 
         };
@@ -100,10 +100,10 @@ namespace tetengo2 { namespace concurrent
 
             // constructors and destructor
 
-            explicit progress_state()
+            progress_state()
             :
-            m_aborted(false),
-            m_abortion_mutex()
+            m_abort_requested(false),
+            m_abort_request_mutex()
             {}
 
 
@@ -119,23 +119,23 @@ namespace tetengo2 { namespace concurrent
             bool abort_requested()
             const
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                return m_aborted;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                return m_abort_requested;
             }
 
             void request_abort()
             {
-                std::lock_guard<std::mutex> lock{ m_abortion_mutex };
-                m_aborted = true;
+                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                m_abort_requested = true;
             }
 
 
         private:
             // variables
 
-            bool m_aborted;
+            bool m_abort_requested;
 
-            mutable std::mutex m_abortion_mutex;
+            mutable std::mutex m_abort_request_mutex;
 
 
         };
