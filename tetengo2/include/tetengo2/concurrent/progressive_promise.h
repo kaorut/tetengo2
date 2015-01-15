@@ -15,7 +15,8 @@
 #include <memory>
 #include <utility>
 
-#include <tetengo2.h>
+#include <tetengo2/concurrent/progressive_future.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace concurrent

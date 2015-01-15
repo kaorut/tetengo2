@@ -20,7 +20,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace concurrent
