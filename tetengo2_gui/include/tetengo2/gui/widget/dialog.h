@@ -201,7 +201,7 @@ namespace tetengo2 { namespace gui { namespace widget
         virtual void do_modal_impl()
         {}
 
-        virtual void on_close_impl(bool& cancel)
+        virtual void on_close_impl(bool&)
         {}
 
         virtual const details_type& details_impl()
