@@ -98,9 +98,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_task(std::move(task)),
         m_p_thread(),
         m_p_timer()
-        {
-            initialize_progress_dialog();
-        }
+        {}
 
         /*!
             \brief Destroys the progress dialog.
@@ -177,11 +175,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         // functions
-
-        void initialize_progress_dialog()
-        {
-            base_type::initialize_dialog();
-        }
 
         void timer_procedure(bool&)
         {
