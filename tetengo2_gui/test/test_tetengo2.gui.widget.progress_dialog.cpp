@@ -25,6 +25,8 @@ namespace
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
+    using string_type = common_type_list_type::string_type;
+
     using widget_traits_type = common_type_list_type::widget_traits_type;
 
     using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
@@ -78,7 +80,7 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const dialog_type dialog{ parent, task };
+        const dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
     }
 
     BOOST_AUTO_TEST_CASE(task_future)
@@ -86,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        dialog_type dialog{ parent, task };
+        dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
         const future_type& future = dialog.task_future();
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
@@ -98,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        dialog_type dialog{ parent, task };
+        dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
         future_type& future = dialog.task_future();
 
         dialog.do_modal();

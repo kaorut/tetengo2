@@ -19,6 +19,7 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
+#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/stdalt.h>
@@ -51,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The traits type.
         using traits_type = Traits;
+
+        //! The string type.
+        using string_type = typename traits_type::string_type;
 
         //! The task result type.
         using task_result_type = TaskResult;
@@ -89,8 +93,10 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a progress dialog.
 
             \param parent A parent window.
+            \param title  A title.
+            \param task   A task.
         */
-        progress_dialog(abstract_window_type& parent, task_type task)
+        progress_dialog(abstract_window_type& parent, string_type title, task_type task)
         :
         base_type(parent, false),
         m_promise(0),
@@ -99,14 +105,23 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_thread(),
         m_p_timer()
         {
-            initialize_progress_dialog();
+            initialize_dialog(std::move(title));
         }
 
         /*!
             \brief Destroys the progress dialog.
         */
         virtual ~progress_dialog()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            try
+            {
+                if (m_p_thread && m_p_thread->joinable())
+                    m_p_thread->join();
+            }
+            catch (...)
+            {}
+        }
 
 
         // functions
@@ -124,6 +139,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // types
+
+        using dimension_type = typename traits_type::dimension_type;
+
+        using width_type = typename gui::dimension<dimension_type>::width_type;
+
+        using height_type = typename gui::dimension<dimension_type>::height_type;
 
         using widget_type = typename abstract_window_type::base_type;
 
@@ -159,9 +180,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     std::chrono::milliseconds{ 100 },
                     false
                 );
-
-            if (m_p_thread)
-                m_p_thread->join();
         }
 
         virtual void on_close_impl(bool& cancel)
@@ -173,21 +191,31 @@ namespace tetengo2 { namespace gui { namespace widget
                 cancel = true;
                 return;
             }
+
+            if (m_p_thread && m_p_thread->joinable())
+                m_p_thread->join();
         }
 
 
         // functions
 
-        void initialize_progress_dialog()
+        void initialize_dialog(string_type title)
         {
-            base_type::initialize_dialog();
+            this->set_text(std::move(title));
+
+            locate_controls();
+        }
+
+        void locate_controls()
+        {
+            this->set_client_dimension(dimension_type{ width_type{ 36 }, height_type{ 10 } });
         }
 
         void timer_procedure(bool&)
         {
-            if (m_future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::ready)
+            if (this->visible() && m_future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::ready)
             {
-                message_loop_break_type{}(0);
+                this->close();
                 return;
             }
         }
