@@ -14,11 +14,9 @@
 #include <memory>
 #include <mutex>
 #include <stdexcept>
-#include <string>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/stdalt.h>
 
@@ -138,20 +136,6 @@ namespace tetengo2 { namespace concurrent
             bool m_abort_requested;
 
             mutable std::mutex m_abort_request_mutex;
-
-
-        };
-
-
-        class task_aborted : public std::runtime_error
-        {
-        public:
-            // constructors
-
-            task_aborted()
-            :
-            std::runtime_error(std::string{})
-            {}
 
 
         };
@@ -437,18 +421,11 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Returns the result.
 
-            \return The result. Or boost::none if the task is aborted.
+            \return The result.
         */
-        boost::optional<result_type> get()
+        result_type get()
         {
-            try
-            {
-                return this->get_future().get();
-            }
-            catch (const detail::task_aborted&)
-            {
-                return boost::none;
-            }
+            return this->get_future().get();
         }
 
 
@@ -500,16 +477,9 @@ namespace tetengo2 { namespace concurrent
             return *this;
         }
 
-        boost::optional<result_type> get()
+        result_type get()
         {
-            try
-            {
-                return this->get_future().get();
-            }
-            catch (const detail::task_aborted&)
-            {
-                return boost::none;
-            }
+            return this->get_future().get();
         }
 
 
@@ -563,12 +533,7 @@ namespace tetengo2 { namespace concurrent
 
         void get()
         {
-            try
-            {
-                this->get_future().get();
-            }
-            catch (const detail::task_aborted&)
-            {}
+            this->get_future().get();
         }
 
 

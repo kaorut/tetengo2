@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
 
         window_type parent{};
         dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
-        const future_type& future = dialog.task_future();
+        const auto& future = dialog.task_future();
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
     }
@@ -101,11 +101,11 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
 
         window_type parent{};
         dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
-        future_type& future = dialog.task_future();
+        auto& future = dialog.task_future();
 
         dialog.do_modal();
 
-        BOOST_CHECK_EQUAL(*future.get(), 42);
+        BOOST_CHECK_EQUAL(future.get(), 42);
     }
 
 

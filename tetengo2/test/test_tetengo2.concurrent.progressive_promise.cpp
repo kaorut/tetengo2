@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                 promise.set_value(value);
 
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-                BOOST_CHECK(*future.get() == "hoge");
+                BOOST_CHECK(future.get() == "hoge");
 
                 BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
                 BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                 promise.set_value("hoge");
 
                 BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-                BOOST_CHECK(*future.get() == "hoge");
+                BOOST_CHECK(future.get() == "hoge");
 
                 BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
                 BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
             promise.set_value(value);
 
             BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-            BOOST_CHECK(*future.get() == "hoge");
+            BOOST_CHECK(future.get() == "hoge");
 
             BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
             BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         promise.set_exception(std::make_exception_ptr(test_exception{}));
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-        BOOST_CHECK_THROW(*future.get(), test_exception);
+        BOOST_CHECK_THROW(future.get(), test_exception);
 
         BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
         BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                     }
                 };
 
-                BOOST_CHECK(*future.get() == "hoge");
+                BOOST_CHECK(future.get() == "hoge");
 
                 thread.join();
             }
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                     }
                 };
 
-                BOOST_CHECK(*future.get() == "hoge");
+                BOOST_CHECK(future.get() == "hoge");
 
                 thread.join();
             }
@@ -304,7 +304,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
                 }
             };
 
-            BOOST_CHECK(*future.get() == "hoge");
+            BOOST_CHECK(future.get() == "hoge");
 
             thread.join();
         }
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
             }
         };
 
-        BOOST_CHECK_THROW(*future.get(), test_exception);
+        BOOST_CHECK_THROW(future.get(), test_exception);
 
         thread.join();
     }
@@ -388,24 +388,6 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         future.request_abort();
 
         BOOST_CHECK(promise.abort_requested());
-    }
-
-    BOOST_AUTO_TEST_CASE(abort)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using promise_type = tetengo2::concurrent::progressive_promise<std::string, int>;
-
-        promise_type promise{ 0 };
-        auto future = promise.get_future();
-        BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
-
-        promise.abort();
-
-        BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
-        BOOST_CHECK(!future.get());
-
-        BOOST_CHECK_THROW(promise.set_value("fuga"), std::future_error);
     }
 
 
