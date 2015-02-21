@@ -381,13 +381,13 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.1. Values
             m_value =
-                m_false[call_handler_type(*this, &impl::boolean_passed)] |
-                m_null[call_handler_type(*this, &impl::null_passed)] |
-                m_true[call_handler_type(*this, &impl::boolean_passed)] |
+                m_false[call_handler_type{ *this, &impl::boolean_passed }] |
+                m_null[call_handler_type{ *this, &impl::null_passed }] |
+                m_true[call_handler_type{ *this, &impl::boolean_passed }] |
                 m_object |
                 m_array |
-                m_number[call_handler_type(*this, &impl::number_passed)] |
-                m_string[call_handler_type(*this, &impl::string_passed)];
+                m_number[call_handler_type{ *this, &impl::number_passed }] |
+                m_string[call_handler_type{ *this, &impl::string_passed }];
             m_value.name("value");
             m_false = qi::string(string_type{ TETENGO2_TEXT("false") });
             m_null = qi::string(string_type{ TETENGO2_TEXT("null") });
@@ -395,21 +395,21 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.2. Objects
             m_object =
-                m_begin_object[call_handler_type(*this, &impl::object_begun)] >>
+                m_begin_object[call_handler_type{ *this, &impl::object_begun }] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
-                m_end_object[call_handler_type(*this, &impl::object_ended)];
+                m_end_object[call_handler_type{ *this, &impl::object_ended }];
             m_object.name("object");
             m_member =
-                m_string[call_handler_type(*this, &impl::member_begun)] >>
+                m_string[call_handler_type{ *this, &impl::member_begun }] >>
                 m_name_separator >>
-                m_value[call_handler_type(*this, &impl::member_ended)];
+                m_value[call_handler_type{ *this, &impl::member_ended }];
             m_member.name("member");
 
             // 2.3. Arrays
             m_array =
-                m_begin_array[call_handler_type(*this, &impl::array_begun)] >>
+                m_begin_array[call_handler_type{ *this, &impl::array_begun }] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
-                m_end_array[call_handler_type(*this, &impl::array_ended)];
+                m_end_array[call_handler_type{ *this, &impl::array_ended }];
             m_array.name("array");
 
             // 2.4. Numbers
