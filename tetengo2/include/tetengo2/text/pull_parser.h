@@ -308,18 +308,27 @@ namespace tetengo2 { namespace text
             channel_type&             channel
         )
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ structure_begin_type{ name, attribute_map } });
             return true;
         }
 
         static bool on_structure_end(const string_type& name, channel_type& channel)
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ structure_end_type{ name, attribute_map_type{} } });
             return true;
         }
 
         static bool on_value(const value_type& value, channel_type& channel)
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ value });
             return true;
         }

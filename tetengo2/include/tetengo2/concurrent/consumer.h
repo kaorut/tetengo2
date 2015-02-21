@@ -57,6 +57,7 @@ namespace tetengo2 { namespace concurrent
         {
             try
             {
+                m_channel.request_close();
                 while (!closed())
                     take();
             }

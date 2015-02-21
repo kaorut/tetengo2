@@ -302,7 +302,8 @@ namespace tetengo2 { namespace text { namespace grammar
 
         bool object_begun(const string_type&)
         {
-            return m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
+            return
+                m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
         bool object_ended(const string_type&)
@@ -312,15 +313,16 @@ namespace tetengo2 { namespace text { namespace grammar
 
         bool member_begun(const string_type& attribute)
         {
-            return m_on_structure_begin(
-                string_type{ TETENGO2_TEXT("member") },
-                std::vector < structure_attribute_type > {
-                    1,
-                    structure_attribute_type{
-                        string_type{ TETENGO2_TEXT("name") }, value_type_type::string, attribute
+            return
+                m_on_structure_begin(
+                    string_type{ TETENGO2_TEXT("member") },
+                    std::vector < structure_attribute_type > {
+                        1,
+                        structure_attribute_type{
+                            string_type{ TETENGO2_TEXT("name") }, value_type_type::string, attribute
+                        }
                     }
-                }
-            );
+                );
         }
 
         bool member_ended(const string_type&)
@@ -330,7 +332,8 @@ namespace tetengo2 { namespace text { namespace grammar
 
         bool array_begun(const string_type&)
         {
-            return m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
+            return
+                m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
         bool array_ended(const string_type&)
