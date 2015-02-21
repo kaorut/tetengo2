@@ -60,7 +60,8 @@ namespace tetengo2 { namespace concurrent
         m_mutex(),
         m_condition_variable(),
         m_queue(),
-        m_capacity(capacity)
+        m_capacity(capacity),
+        m_close_requested(false)
         {
             if (capacity == 0)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Capacity is zero." }));
@@ -144,6 +145,28 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
+            \brief Checks whether the channel close is requested.
+
+            \retval true  When the channel close is requested.
+            \retval false Otherwise.
+        */
+        bool close_requested()
+        const
+        {
+            std::unique_lock<mutex_type> lock{ m_mutex };
+            return m_close_requested;
+        }
+
+        /*!
+            \brief Request the channel to close.
+        */
+        void request_close()
+        {
+            std::unique_lock<mutex_type> lock{ m_mutex };
+            m_close_requested = true;
+        }
+
+        /*!
             \brief Closes the channel.
         */
         void close()
@@ -197,6 +220,8 @@ namespace tetengo2 { namespace concurrent
         queue_type m_queue;
 
         const size_type m_capacity;
+
+        bool m_close_requested;
 
 
         // functions
