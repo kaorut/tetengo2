@@ -208,9 +208,10 @@ namespace tetengo2 { namespace text { namespace grammar
 
         struct call_handler_type
         {
-            using handler_type = void (impl::*)(const string_type& attribute);
+            using handler_type = bool (impl::*)(const string_type& attribute);
 
             impl& m_self;
+
             const handler_type m_handler;
 
             call_handler_type(impl& self, const handler_type handler)
@@ -219,10 +220,10 @@ namespace tetengo2 { namespace text { namespace grammar
             m_handler(handler)
             {}
 
-            void operator()(const string_type& attribute, const boost::spirit::qi::unused_type&, const bool)
+            void operator()(const string_type& attribute, const boost::spirit::qi::unused_type&, bool& pass)
             const
             {
-                (m_self.*m_handler)(attribute);
+                pass = (m_self.*m_handler)(attribute);
             }
 
         };
@@ -299,19 +300,19 @@ namespace tetengo2 { namespace text { namespace grammar
 
         // functions
 
-        void object_begun(const string_type&)
+        bool object_begun(const string_type&)
         {
-            m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
+            return m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
-        void object_ended(const string_type&)
+        bool object_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
+            return m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
         }
 
-        void member_begun(const string_type& attribute)
+        bool member_begun(const string_type& attribute)
         {
-            m_on_structure_begin(
+            return m_on_structure_begin(
                 string_type{ TETENGO2_TEXT("member") },
                 std::vector < structure_attribute_type > {
                     1,
@@ -322,39 +323,39 @@ namespace tetengo2 { namespace text { namespace grammar
             );
         }
 
-        void member_ended(const string_type&)
+        bool member_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{});
+            return m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{});
         }
 
-        void array_begun(const string_type&)
+        bool array_begun(const string_type&)
         {
-            m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
+            return m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
-        void array_ended(const string_type&)
+        bool array_ended(const string_type&)
         {
-            m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
+            return m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
         }
 
-        void string_passed(const string_type& attribute)
+        bool string_passed(const string_type& attribute)
         {
-            m_on_value(value_type_type::string, attribute);
+            return m_on_value(value_type_type::string, attribute);
         }
 
-        void number_passed(const string_type& attribute)
+        bool number_passed(const string_type& attribute)
         {
-            m_on_value(value_type_type::number, attribute);
+            return m_on_value(value_type_type::number, attribute);
         }
 
-        void boolean_passed(const string_type& attribute)
+        bool boolean_passed(const string_type& attribute)
         {
-            m_on_value(value_type_type::boolean, attribute);
+            return m_on_value(value_type_type::boolean, attribute);
         }
 
-        void null_passed(const string_type& attribute)
+        bool null_passed(const string_type& attribute)
         {
-            m_on_value(value_type_type::null, attribute);
+            return m_on_value(value_type_type::null, attribute);
         }
 
         void define_rules()
