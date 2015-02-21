@@ -208,6 +208,8 @@ namespace tetengo2 { namespace detail { namespace unixos
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
 
                     structure_stack.push({ name, get_key(attributes) });
+
+                    return true;
                 }
             );
             parser.on_structure_end().connect(
@@ -216,6 +218,8 @@ namespace tetengo2 { namespace detail { namespace unixos
                     if (structure_stack.top().first != name)
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     structure_stack.pop();
+
+                    return true;
                 }
             );
             parser.on_value().connect(
@@ -236,6 +240,8 @@ namespace tetengo2 { namespace detail { namespace unixos
                     {
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     }
+
+                    return true;
                 }
             );
 

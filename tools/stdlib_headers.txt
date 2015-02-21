@@ -541,6 +541,7 @@ boost::totally_ordered                           boost/operators.hpp
 boost::variant                                   boost/variant.hpp
 errno                                            cerrno
 std::advance                                     iterator
+std::all_of                                      algorithm
 std::allocator                                   memory
 std::allocator_arg                               memory
 std::allocator_arg_t                             memory

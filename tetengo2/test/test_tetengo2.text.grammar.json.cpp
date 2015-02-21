@@ -41,7 +41,7 @@ namespace
 
     void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute);
 
-    void structure_begun(
+    bool structure_begun(
         std::string&                                 output,
         const std::string&                           type,
         const std::vector<structure_attribute_type>& structure_attributes
@@ -72,9 +72,11 @@ namespace
             assert(false);
             BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
         }
+
+        return true;
     }
 
-    void structure_ended(std::string& output, const std::string& type)
+    bool structure_ended(std::string& output, const std::string& type)
     {
         if      (type == "object")
         {
@@ -93,9 +95,11 @@ namespace
             assert(false);
             BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
         }
+
+        return true;
     }
 
-    void value_passed(std::string& output, const grammar_type::value_type_type type, const std::string& parsed)
+    bool value_passed(std::string& output, const grammar_type::value_type_type type, const std::string& parsed)
     {
         switch (type)
         {
@@ -127,6 +131,8 @@ namespace
         }
 
         output += parsed + ", ";
+
+        return true;
     }
 
     void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute)
@@ -163,7 +169,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    structure_begun(output, type, structure_attributes);
+                    return structure_begun(output, type, structure_attributes);
                 }
             );
             g.on_structure_end().connect(
@@ -171,13 +177,13 @@ BOOST_AUTO_TEST_SUITE(json)
                 {
                     boost::ignore_unused(structure_attributes);
 
-                    structure_ended(output, type);
+                    return structure_ended(output, type);
                 }
             );
             g.on_value().connect(
                 [&output](const grammar_type::value_type_type type, const std::string& parsed)
                 {
-                    value_passed(output, type, parsed);
+                    return value_passed(output, type, parsed);
                 }
             );
 
@@ -198,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    structure_begun(output, type, structure_attributes);
+                    return structure_begun(output, type, structure_attributes);
                 }
             );
             g.on_structure_end().connect(
@@ -206,13 +212,13 @@ BOOST_AUTO_TEST_SUITE(json)
                 {
                     boost::ignore_unused(structure_attributes);
 
-                    structure_ended(output, type);
+                    return structure_ended(output, type);
                 }
             );
             g.on_value().connect(
                 [&output](const grammar_type::value_type_type type, const std::string& parsed)
                 {
-                    value_passed(output, type, parsed);
+                    return value_passed(output, type, parsed);
                 }
             );
 
@@ -240,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(json)
             g.on_structure_begin().connect(
                 [&output](const std::string& type, const std::vector<structure_attribute_type>& structure_attributes)
                 {
-                    structure_begun(output, type, structure_attributes);
+                    return structure_begun(output, type, structure_attributes);
                 }
             );
             g.on_structure_end().connect(
@@ -248,13 +254,13 @@ BOOST_AUTO_TEST_SUITE(json)
                 {
                     boost::ignore_unused(structure_attributes);
 
-                    structure_ended(output, type);
+                    return structure_ended(output, type);
                 }
             );
             g.on_value().connect(
                 [&output](const grammar_type::value_type_type type, const std::string& parsed)
                 {
-                    value_passed(output, type, parsed);
+                    return value_passed(output, type, parsed);
                 }
             );
 

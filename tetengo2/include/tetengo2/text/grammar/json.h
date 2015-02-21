@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_TEXT_GRAMMAR_JSON_H)
 #define TETENGO2_TEXT_GRAMMAR_JSON_H
 
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
@@ -100,12 +101,37 @@ namespace tetengo2 { namespace text { namespace grammar
 
         };
 
+        //! The signal result combiner type.
+        struct signal_result_combiner_type
+        {
+            //! The result type.
+            using result_type = bool;
+
+            /*!
+                \brief Combines the results.
+
+                \param first The first position of result.
+                \param last  The last position of result.
+
+                \return The combined result.
+            */
+            template <typename InputIterator>
+            bool operator()(InputIterator first, InputIterator last)
+            {
+                return std::all_of(first, last, [](bool b) { return b; });
+            }
+
+        };
+
         //! The structure signal type.
         using structure_signal_type =
-            boost::signals2::signal<void(const std::string&, const std::vector<structure_attribute_type>&)>;
+            boost::signals2::signal<
+                bool (const std::string&, const std::vector<structure_attribute_type>&), signal_result_combiner_type
+            >;
 
         //! The value signal type.
-        using value_signal_type = boost::signals2::signal<void (value_type_type, const string_type&)>;
+        using value_signal_type =
+            boost::signals2::signal<bool (value_type_type, const string_type&), signal_result_combiner_type>;
 
         //! The rule type.
         using rule_type = boost::spirit::qi::rule<iterator, string_type ()>;

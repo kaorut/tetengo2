@@ -278,7 +278,7 @@ namespace tetengo2 { namespace text
                     const attribute_map_type& attribute_map
                 )
                 {
-                    on_structure_begin(name, attribute_map, channel);
+                    return on_structure_begin(name, attribute_map, channel);
                 }
             );
             push_parser.on_structure_end().connect(
@@ -289,36 +289,48 @@ namespace tetengo2 { namespace text
                 {
                     boost::ignore_unused(attribute_map);
 
-                    on_structure_end(name, channel);
+                    return on_structure_end(name, channel);
                 }
             );
             push_parser.on_value().connect(
                 [&channel](const value_type& value)
                 {
-                    on_value(value, channel);
+                    return on_value(value, channel);
                 }
             );
 
             push_parser.parse();
         }
 
-        static void on_structure_begin(
+        static bool on_structure_begin(
             const string_type&        name,
             const attribute_map_type& attribute_map,
             channel_type&             channel
         )
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ structure_begin_type{ name, attribute_map } });
+            return true;
         }
 
-        static void on_structure_end(const string_type& name, channel_type& channel)
+        static bool on_structure_end(const string_type& name, channel_type& channel)
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ structure_end_type{ name, attribute_map_type{} } });
+            return true;
         }
 
-        static void on_value(const value_type& value, channel_type& channel)
+        static bool on_value(const value_type& value, channel_type& channel)
         {
+            if (channel.close_requested())
+                return false;
+
             channel.insert(element_type{ value });
+            return true;
         }
 
 
