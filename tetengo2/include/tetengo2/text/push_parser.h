@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_JSON_PUSHPARSER_H)
 #define TETENGO2_JSON_PUSHPARSER_H
 
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <memory>
@@ -68,11 +69,34 @@ namespace tetengo2 { namespace text
         //! The attribute map type.
         using attribute_map_type = std::unordered_map<string_type, value_type>;
 
+        //! The signal result combiner type.
+        struct signal_result_combiner_type
+        {
+            //! The result type.
+            using result_type = bool;
+
+            /*!
+                \brief Combines the results.
+
+                \param first The first position of result.
+                \param last  The last position of result.
+
+                \return The combined result.
+            */
+            template <typename InputIterator>
+            bool operator()(InputIterator first, InputIterator last)
+            {
+                return std::all_of(first, last, [](bool b) { return b; });
+            }
+
+        };
+
         //! The structure signal type.
-        using structure_signal_type = boost::signals2::signal<void (const string_type&, const attribute_map_type&)>;
+        using structure_signal_type =
+            boost::signals2::signal<bool (const string_type&, const attribute_map_type&), signal_result_combiner_type>;
 
         //! The value signal type.
-        using value_signal_type = boost::signals2::signal<void (const value_type&)>;
+        using value_signal_type = boost::signals2::signal<bool (const value_type&), signal_result_combiner_type>;
 
 
         // constructors and destructor
@@ -102,7 +126,7 @@ namespace tetengo2 { namespace text
                     const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
                 )
                 {
-                    this->observe_structure_begin(structure_name, structure_attributes);
+                    return this->observe_structure_begin(structure_name, structure_attributes);
                 }
             );
             m_p_grammar->on_structure_end().connect(
@@ -113,13 +137,13 @@ namespace tetengo2 { namespace text
                 {
                     boost::ignore_unused(structure_attributes);
 
-                    this->observe_structure_end(structure_name);
+                    return this->observe_structure_end(structure_name);
                 }
             );
             m_p_grammar->on_value().connect(
                 [this](const typename grammar_type::value_type_type value_type, const string_type& value)
                 {
-                    this->observe_value(value_type, value);
+                    return this->observe_value(value_type, value);
                 }
             );
         }
@@ -349,22 +373,22 @@ namespace tetengo2 { namespace text
 
         // functions
 
-        void observe_structure_begin(
+        bool observe_structure_begin(
             const string_type&                                                  structure_name,
             const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
         )
         {
-            m_on_structure_begin(structure_name, to_attribute_map(structure_attributes));
+            return m_on_structure_begin(structure_name, to_attribute_map(structure_attributes));
         }
 
-        void observe_structure_end(const string_type& structure_name)
+        bool observe_structure_end(const string_type& structure_name)
         {
-            m_on_structure_end(structure_name, attribute_map_type{});
+            return m_on_structure_end(structure_name, attribute_map_type{});
         }
 
-        void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
+        bool observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
         {
-            m_on_value(to_value(value_type, value));
+            return m_on_value(to_value(value_type, value));
         }
 
 

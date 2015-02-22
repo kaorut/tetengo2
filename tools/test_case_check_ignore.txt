@@ -21,7 +21,9 @@ tetengo2::message::messages::do_open
 tetengo2::message::messages::matches_locale_type::
 tetengo2::stdalt::
 tetengo2::text::grammar::json::on_structure_[a-zA-Z0-9_]+
+tetengo2::text::grammar::json::signal_result_combiner_type::
 tetengo2::text::grammar::json::structure_attribute_type::
+tetengo2::text::push_parser::signal_result_combiner_type::
 
 test_tetengo2::concurrent::progressive_future::construction
 test_tetengo2::concurrent::progressive_future::operator_assign

@@ -44,12 +44,14 @@ namespace
 
     // functions
 
-    void structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
+    bool structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
     {
         boost::ignore_unused(structure, attribute_map);
+
+        return true;
     }
 
-    void structure_observer1(
+    bool structure_observer1(
         const std::string&                  structure,
         const attribute_map_type&           attribute_map,
         std::vector<parsed_structure_type>& parsed_structures
@@ -58,19 +60,23 @@ namespace
         boost::ignore_unused(attribute_map);
 
         parsed_structures.emplace_back(structure, boost::none);
+        return true;
     }
 
-    void value_observer0(const push_parser_type::value_type& value)
+    bool value_observer0(const push_parser_type::value_type& value)
     {
         boost::ignore_unused(value);
+
+        return true;
     }
 
-    void value_observer1(
+    bool value_observer1(
         const push_parser_type::value_type& value,
         std::vector<parsed_structure_type>& parsed_structures
     )
     {
         parsed_structures.emplace_back("value", boost::make_optional(value));
+        return true;
     }
 
 
@@ -198,17 +204,17 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_structure_end().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_value().connect(
-                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
+                [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(!parser.parse());
@@ -225,17 +231,17 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_structure_end().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_value().connect(
-                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
+                [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());
@@ -264,17 +270,17 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_structure_end().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_value().connect(
-                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
+                [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());
@@ -325,17 +331,17 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_begin().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_structure_end().connect(
                 [&parsed](const std::string& structure, const attribute_map_type& attribute_map)
                 {
-                    structure_observer1(structure, attribute_map, parsed);
+                    return structure_observer1(structure, attribute_map, parsed);
                 }      
             );
             parser.on_value().connect(
-                [&parsed](const push_parser_type::value_type& value) { value_observer1(value, parsed); }
+                [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
             BOOST_CHECK(parser.parse());

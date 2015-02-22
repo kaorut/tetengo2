@@ -29,12 +29,6 @@ namespace
         m_values(make_values(empty))
         {}
 
-        bool closed()
-        const
-        {
-            return m_values.empty();
-        }
-
         const int& peek()
         const
         {
@@ -49,6 +43,21 @@ namespace
         void insert(int value)
         {
             m_values.push(value);
+        }
+
+        bool close_requested()
+        const
+        {
+            return false;
+        }
+
+        void request_close()
+        {}
+
+        bool closed()
+        const
+        {
+            return m_values.empty();
         }
 
     private:

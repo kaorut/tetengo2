@@ -145,6 +145,26 @@ BOOST_AUTO_TEST_SUITE(channel)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(close_requested)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const channel_type channel{ 3 };
+
+        BOOST_CHECK(!channel.close_requested());
+    }
+
+    BOOST_AUTO_TEST_CASE(request_close)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        channel_type channel{ 3 };
+
+        channel.request_close();
+
+        BOOST_CHECK(channel.close_requested());
+    }
+
     BOOST_AUTO_TEST_CASE(close)
     {
         BOOST_TEST_PASSPOINT();
