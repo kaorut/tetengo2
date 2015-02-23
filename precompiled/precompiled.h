@@ -48,6 +48,7 @@
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -88,6 +89,7 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
+#include <boost/range/iterator_range.hpp>
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
