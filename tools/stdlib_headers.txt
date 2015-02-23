@@ -479,10 +479,12 @@ boost::get                                       boost/variant.hpp
 boost::get_error_info                            boost/exception/all.hpp
 boost::ignore_unused                             boost/core/ignore_unused.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
+boost::iostreams::filtering_istream              boost/iostreams/filtering_stream.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::join                                      boost/algorithm/string.hpp
 boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_indirect_iterator                    boost/iterator/indirect_iterator.hpp
+boost::make_iterator_range                       boost/range/iterator_range.hpp
 boost::make_optional                             boost/optional.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::math::constants::pi                       boost/math/constants/constants.hpp
