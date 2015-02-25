@@ -200,7 +200,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        string_type m_canceling_message;
+        const string_type m_canceling_message;
 
         std::unique_ptr<label_type> m_p_message_label;
 
@@ -244,7 +244,8 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 m_future.request_abort();
 
-                m_p_message_label->set_text(std::move(m_canceling_message));
+                m_p_message_label->set_text(m_canceling_message);
+                m_p_progress_label->set_text(string_type{});
 
                 cancel = true;
                 return;
