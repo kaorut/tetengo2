@@ -19,7 +19,8 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
-#include <tetengo2/gui/drawing/transparent_background.h>
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/button.h>
@@ -40,6 +41,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam MenuDetails        A detail implementation type of a menu.
         \tparam MessageLoopDetails A detail implementation type of a message loop.
         \tparam TimerDetails       A detail implementation type of a timer.
+        \tparam SystemColorDetails A detail implementation type of a system color.
     */
     template <
         typename Traits,
@@ -48,7 +50,8 @@ namespace tetengo2 { namespace gui { namespace widget
         typename DetailsTraits,
         typename MenuDetails,
         typename MessageLoopDetails,
-        typename TimerDetails
+        typename TimerDetails,
+        typename SystemColorDetails
     >
     class progress_dialog : public dialog<Traits, DetailsTraits, MenuDetails, MessageLoopDetails>
     {
@@ -78,6 +81,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The timer details type.
         using timer_details_type = TimerDetails;
+
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
 
         //! The base type.
         using base_type = dialog<traits_type, details_traits_type, menu_details_type, message_loop_details_type>;
@@ -119,6 +125,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent, false),
         m_canceling_message(std::move(canceling_message)),
         m_p_message_label(),
+        m_p_progress_label(),
         m_p_cancel_button(),
         m_promise(0),
         m_future(m_promise.get_future()),
@@ -180,20 +187,24 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
-        using transparent_background_type = gui::drawing::transparent_background<drawing_details_type>;
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
         using button_type = button<traits_type, details_traits_type>;
 
         using timer_type = gui::timer<widget_type, timer_details_type>;
+
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
 
         using message_loop_break_type = typename base_type::message_loop_break_type;
 
 
         // variables
 
-        const string_type m_canceling_message;
+        string_type m_canceling_message;
 
         std::unique_ptr<label_type> m_p_message_label;
+
+        std::unique_ptr<label_type> m_p_progress_label;
 
         std::unique_ptr<button_type> m_p_cancel_button;
 
@@ -232,6 +243,9 @@ namespace tetengo2 { namespace gui { namespace widget
             if (m_future.wait_for(std::chrono::seconds{ 0 }) != std::future_status::ready)
             {
                 m_future.request_abort();
+
+                m_p_message_label->set_text(std::move(m_canceling_message));
+
                 cancel = true;
                 return;
             }
@@ -248,6 +262,7 @@ namespace tetengo2 { namespace gui { namespace widget
             this->set_text(std::move(title));
 
             m_p_message_label = create_message_label(std::move(waiting_message));
+            m_p_progress_label = create_progress_label();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
@@ -257,8 +272,21 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             auto p_label = tetengo2::stdalt::make_unique<label_type>(*this);
 
-            p_label->set_text(waiting_message);
-            auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
+            p_label->set_text(std::move(waiting_message));
+            auto p_background =
+                tetengo2::stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+            p_label->set_background(std::move(p_background));
+
+            return std::move(p_label);
+        }
+
+        std::unique_ptr<label_type> create_progress_label()
+        {
+            auto p_label = tetengo2::stdalt::make_unique<label_type>(*this);
+
+            p_label->set_text(string_type{ TETENGO2_TEXT("0%") });
+            auto p_background =
+                tetengo2::stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -278,8 +306,11 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             this->set_client_dimension(dimension_type{ width_type{ 36 }, height_type{ 10 } });
 
-            m_p_message_label->fit_to_content();
+            m_p_message_label->set_dimension(dimension_type{ width_type{ 32 }, height_type{ 2 } });
             m_p_message_label->set_position(position_type{ left_type{ 2 }, top_type{ 1 } });
+
+            m_p_progress_label->set_dimension(dimension_type{ width_type{ 3 }, height_type{ 2 } });
+            m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
 
             m_p_cancel_button->set_dimension(dimension_type{ width_type{ 8 }, height_type{ 2 } });
             m_p_cancel_button->set_position(position_type{ left_type{ 26 }, top_type{ 7 } });
