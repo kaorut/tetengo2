@@ -17,6 +17,8 @@
 #include <thread>
 #include <utility>
 
+#include <boost/rational.hpp>
+
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/gui/drawing/solid_background.h>
@@ -91,11 +93,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
 
+        //! The progress type.
+        using progress_type = boost::rational<std::size_t>;
+
         //! The promise type.
-        using promise_type = concurrent::progressive_promise<task_result_type, std::size_t>;
+        using promise_type = concurrent::progressive_promise<task_result_type, progress_type>;
 
         //! The future type.
-        using future_type = concurrent::progressive_future<task_result_type, std::size_t>;
+        using future_type = concurrent::progressive_future<task_result_type, progress_type>;
 
         //! The task type.
         using task_type = std::function<void (promise_type& promise)>;
