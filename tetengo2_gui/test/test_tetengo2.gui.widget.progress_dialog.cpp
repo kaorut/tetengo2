@@ -43,14 +43,20 @@ namespace
 
     using timer_details_type = detail_type_list_type::timer_type;
 
+    using system_color_details_type = detail_type_list_type::system_color_type;
+
+    using message_catalog_type = common_type_list_type::message_catalog_type;
+
     using dialog_type =
         tetengo2::gui::widget::progress_dialog<
             widget_traits_type,
             int,
+            message_catalog_type,
             widget_details_traits_type,
             menu_details_type,
             message_loop_details_type,
-            timer_details_type
+            timer_details_type,
+            system_color_details_type
         >;
 
     using promise_type = dialog_type::promise_type;
@@ -80,7 +86,15 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
+        const message_catalog_type message_catalog;
+        const dialog_type dialog{
+            parent,
+            string_type{ TETENGO2_TEXT("title") },
+            string_type{ TETENGO2_TEXT("waiting") },
+            string_type{ TETENGO2_TEXT("canceling") },
+            task,
+            message_catalog
+        };
     }
 
     BOOST_AUTO_TEST_CASE(task_future)
@@ -88,7 +102,15 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
+        const message_catalog_type message_catalog;
+        dialog_type dialog{
+            parent,
+            string_type{ TETENGO2_TEXT("title") },
+            string_type{ TETENGO2_TEXT("waiting") },
+            string_type{ TETENGO2_TEXT("canceling") },
+            task,
+            message_catalog
+        };
         const auto& future = dialog.task_future();
 
         BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
@@ -100,7 +122,15 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        dialog_type dialog{ parent, string_type{ TETENGO2_TEXT("hoge") }, task };
+        const message_catalog_type message_catalog;
+        dialog_type dialog{
+            parent,
+            string_type{ TETENGO2_TEXT("title") },
+            string_type{ TETENGO2_TEXT("waiting") },
+            string_type{ TETENGO2_TEXT("canceling") },
+            task,
+            message_catalog
+        };
         auto& future = dialog.task_future();
 
         dialog.do_modal();
