@@ -17,6 +17,7 @@
 #include <thread>
 #include <utility>
 
+#include <boost/lexical_cast.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
@@ -137,6 +138,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_task(std::move(task)),
         m_p_thread(),
         m_p_timer(),
+        m_previous_progress(),
         m_message_catalog(message_catalog)
         {
             initialize_dialog(std::move(title), std::move(waiting_message));
@@ -222,6 +224,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<std::thread> m_p_thread;
 
         std::unique_ptr<timer_type> m_p_timer;
+
+        progress_type m_previous_progress;
 
         const message_catalog_type& m_message_catalog;
 
@@ -329,6 +333,23 @@ namespace tetengo2 { namespace gui { namespace widget
                 this->close();
                 return;
             }
+
+            update_progress_label();
+        }
+
+        void update_progress_label()
+        {
+            if (m_p_progress_label->text().empty())
+                return;
+
+            const auto& progress = m_future.progress();
+            if (progress == m_previous_progress)
+                return;
+            const auto percentage = boost::rational_cast<typename progress_type::int_type>(m_future.progress() * 100);
+            auto text = boost::lexical_cast<string_type>(percentage) + string_type{ TETENGO2_TEXT("%") };
+            m_p_progress_label->set_text(std::move(text));
+
+           m_previous_progress = progress;
         }
 
 
