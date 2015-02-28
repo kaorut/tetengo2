@@ -584,6 +584,7 @@ std::future_status::timeout                      future
 std::getenv                                      cstdlib
 std::greater                                     functional
 std::has_facet                                   locale
+std::input_iterator_tag                          iterator
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
