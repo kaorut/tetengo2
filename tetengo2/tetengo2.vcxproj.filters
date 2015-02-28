@@ -147,7 +147,7 @@
     <ClInclude Include="include\tetengo2\concurrent\progressive_promise.h">
       <Filter>headers\tetengo2\concurrent</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\observable_input_iterator.h">
+    <ClInclude Include="include\tetengo2\observable_forward_iterator.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
   </ItemGroup>

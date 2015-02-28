@@ -24,7 +24,7 @@ sources = \
     test_tetengo2.message.message_catalog.cpp \
     test_tetengo2.message.message_catalog_parser.cpp \
     test_tetengo2.meta.assoc_list.cpp \
-    test_tetengo2.observable_input_iterator.cpp \
+    test_tetengo2.observable_forward_iterator.cpp \
     test_tetengo2.text.cpp \
     test_tetengo2.text.encoder.cpp \
     test_tetengo2.text.encoding.encoding.cpp \
