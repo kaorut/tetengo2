@@ -17,6 +17,7 @@ pkg_headers = \
     message/message_catalog.h \
     message/message_catalog_parser.h \
     meta/assoc_list.h \
+    observable_input_iterator.h \
     stdalt.h \
     text.h \
     text/encoder.h \

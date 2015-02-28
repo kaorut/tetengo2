@@ -131,6 +131,9 @@
     <ClCompile Include="test\test_tetengo2.concurrent.progressive_promise.cpp">
       <Filter>sources\test_tetengo2\concurrent</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.observable_input_iterator.cpp">
+      <Filter>sources\test_tetengo2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.json">

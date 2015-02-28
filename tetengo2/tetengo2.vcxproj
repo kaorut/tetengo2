@@ -119,6 +119,7 @@
     <ClInclude Include="include\tetengo2\message\message_catalog_parser.h" />
     <ClInclude Include="include\tetengo2\meta\0namespace.dox" />
     <ClInclude Include="include\tetengo2\meta\assoc_list.h" />
+    <ClInclude Include="include\tetengo2\observable_input_iterator.h" />
     <ClInclude Include="include\tetengo2\stdalt.h" />
     <ClInclude Include="include\tetengo2\text.h" />
     <ClInclude Include="include\tetengo2\text\0namespace.dox" />
