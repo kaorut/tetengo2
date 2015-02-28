@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::observable_input_iterator.
+    \brief Test of class tetengo2::observable_forward_iterator.
 
     Copyright (C) 2007-2015 kaoru
 
@@ -14,7 +14,7 @@
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(observable_input_iterator)
+BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
 
         std::vector<int> v{ 42, 43, 44, 45, };
 
-        const tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator{ v.begin() };
+        const tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator{ v.begin() };
     }
 
     BOOST_AUTO_TEST_CASE(dereference)
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
 
         std::vector<int> v{ 42, 43, 44, 45, };
 
-        const tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator{ v.begin() };
+        const tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator{ v.begin() };
 
         BOOST_CHECK_EQUAL(*iterator, 42);
     }
@@ -43,8 +43,8 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
 
         std::vector<int> v{ 42, 43, 44, 45, };
 
-        const tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator1{ v.begin() };
-        const tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator2{ v.begin() };
+        const tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator1{ v.begin() };
+        const tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator2{ v.begin() };
 
         BOOST_CHECK(iterator1 == iterator2);
     }
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
 
         std::vector<int> v{ 42, 43, 44, 45, };
 
-        tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator{ v.begin() };
+        tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator{ v.begin() };
 
         ++iterator;
 
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
         ++iterator;
         ++iterator;
 
-        const tetengo2::observable_input_iterator<std::vector<int>::iterator> last{ v.end() };
+        const tetengo2::observable_forward_iterator<std::vector<int>::iterator> last{ v.end() };
         BOOST_CHECK(iterator == last);
     }
 
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
 
         std::vector<int> v{ 42, 43, 44, 45, };
 
-        tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator{ v.begin() };
+        tetengo2::observable_forward_iterator<std::vector<int>::iterator> iterator{ v.begin() };
         
         int count = 0;
         iterator.set_observer([&count]() { ++count; });
