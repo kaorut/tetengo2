@@ -575,6 +575,7 @@ std::floor                                       cmath
 std::flush                                       ostream
 std::for_each                                    algorithm
 std::forward                                     utility
+std::forward_iterator_tag                        iterator
 std::function                                    functional
 std::future                                      future
 std::future_error                                future
@@ -584,7 +585,6 @@ std::future_status::timeout                      future
 std::getenv                                      cstdlib
 std::greater                                     functional
 std::has_facet                                   locale
-std::input_iterator_tag                          iterator
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits

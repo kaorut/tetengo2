@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::observable_input_iterator.
+    \brief The definition of tetengo2::observable_forward_iterator.
 
     Copyright (C) 2007-2015 kaoru
 
@@ -19,21 +19,23 @@
 namespace tetengo2
 {
     /*!
-        \brief The class template for an observable input iterator.
+        \brief The class template for an observable forward iterator.
 
-        \tparam InputIterator An input iterator type.
+        \tparam ForwardIterator An forward iterator type.
     */
-    template <typename InputIterator>
-    class observable_input_iterator :
+    template <typename ForwardIterator>
+    class observable_forward_iterator :
         public boost::iterator_facade<
-            observable_input_iterator<InputIterator>, typename InputIterator::value_type, std::input_iterator_tag
+            observable_forward_iterator<ForwardIterator>,
+            typename ForwardIterator::value_type,
+            std::forward_iterator_tag
         >
     {
     public:
         // types
 
         //! The iterator type.
-        using iterator = InputIterator;
+        using iterator = ForwardIterator;
 
         //! The observer type.
         using observer_type = std::function<void ()>;
@@ -42,13 +44,13 @@ namespace tetengo2
         // constructors and destructor
 
         /*!
-            \brief Creates an observable input iterator.
+            \brief Creates an observable forward iterator.
 
-            \param input_iterator An input iterator.
+            \param forward_iterator An forward iterator.
         */
-        explicit observable_input_iterator(iterator input_iterator)
+        explicit observable_forward_iterator(iterator forward_iterator)
         :
-        m_input_iterator(input_iterator),
+        m_input_iterator(forward_iterator),
         m_observer([]() {})
         {}
 
@@ -60,7 +62,7 @@ namespace tetengo2
 
             \return The dereferenced value.
         */
-        typename observable_input_iterator::reference dereference()
+        typename observable_forward_iterator::reference dereference()
         const
         {
             return *m_input_iterator;
@@ -74,7 +76,7 @@ namespace tetengo2
             \retval true  When the iterator is equal to another iterator.
             \retval false Otherwise.
         */
-        bool equal(const observable_input_iterator& another)
+        bool equal(const observable_forward_iterator& another)
         const
         {
             return m_input_iterator == another.m_input_iterator;
