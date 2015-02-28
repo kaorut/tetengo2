@@ -69,6 +69,28 @@ BOOST_AUTO_TEST_SUITE(observable_input_iterator)
         BOOST_CHECK(iterator == last);
     }
 
+    BOOST_AUTO_TEST_CASE(set_observer)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<int> v{ 42, 43, 44, 45, };
+
+        tetengo2::observable_input_iterator<std::vector<int>::iterator> iterator{ v.begin() };
+        
+        int count = 0;
+        iterator.set_observer([&count]() { ++count; });
+
+        ++iterator;
+
+        BOOST_CHECK_EQUAL(count, 1);
+
+        ++iterator;
+        ++iterator;
+        ++iterator;
+
+        BOOST_CHECK_EQUAL(count, 4);
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

@@ -9,7 +9,9 @@
 #if !defined(TETENGO2_OBSERVABLEINPUTITERATOR_H)
 #define TETENGO2_OBSERVABLEINPUTITERATOR_H
 
+#include <functional>
 #include <iterator>
+#include <utility>
 
 #include <boost/iterator/iterator_facade.hpp>
 
@@ -33,12 +35,21 @@ namespace tetengo2
         //! The iterator type.
         using iterator = InputIterator;
 
+        //! The observer type.
+        using observer_type = std::function<void ()>;
+
 
         // constructors and destructor
 
+        /*!
+            \brief Creates an observable input iterator.
+
+            \param input_iterator An input iterator.
+        */
         explicit observable_input_iterator(iterator input_iterator)
         :
-        m_input_iterator(input_iterator)
+        m_input_iterator(input_iterator),
+        m_observer([]() {})
         {}
 
 
@@ -75,6 +86,17 @@ namespace tetengo2
         void increment()
         {
             ++m_input_iterator;
+            m_observer();
+        }
+
+        /*!
+            \brief Sets an observer.
+
+            \param observer An observer.
+        */
+        void set_observer(observer_type observer)
+        {
+            m_observer = std::move(observer);
         }
 
 
@@ -82,6 +104,8 @@ namespace tetengo2
         // variables
 
         iterator m_input_iterator;
+
+        observer_type m_observer;
 
 
     };
