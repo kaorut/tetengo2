@@ -15,11 +15,13 @@
 #include <cerrno>
 #include <chrono>
 #include <cmath>
+#include <condition_variable>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cwchar>
 #include <exception>
+#include <forward_list>
 #include <functional>
 #include <future>
 #include <iomanip>
@@ -37,7 +39,10 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
+#include <system_error>
 #include <thread>
+#include <type_traits>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 

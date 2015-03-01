@@ -576,6 +576,7 @@ std::flush                                       ostream
 std::for_each                                    algorithm
 std::forward                                     utility
 std::forward_iterator_tag                        iterator
+std::forward_list                                forward_list
 std::function                                    functional
 std::future                                      future
 std::future_error                                future

@@ -46,7 +46,7 @@ sub collect_headers
 		{
 			$$r_boost_headers{$value} = 1;
 		}
-		elsif ($value =~ /^[a-z0-9]+$/)
+		elsif ($value =~ /^[a-z0-9_]+$/)
 		{
 			$$r_stdlib_headers{$value} = 1;
 		}
