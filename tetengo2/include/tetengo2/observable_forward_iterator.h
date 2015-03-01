@@ -21,7 +21,7 @@ namespace tetengo2
     /*!
         \brief The class template for an observable forward iterator.
 
-        \tparam ForwardIterator An forward iterator type.
+        \tparam ForwardIterator A forward iterator type.
     */
     template <typename ForwardIterator>
     class observable_forward_iterator :
@@ -46,7 +46,7 @@ namespace tetengo2
         /*!
             \brief Creates an observable forward iterator.
 
-            \param forward_iterator An forward iterator.
+            \param forward_iterator A forward iterator.
         */
         explicit observable_forward_iterator(iterator forward_iterator)
         :
@@ -111,6 +111,22 @@ namespace tetengo2
 
 
     };
+
+
+    /*!
+        \brief Creates an observable forward iterator.
+
+        \tparam ForwardIterator A forward iterator type.
+
+        \param forward_iterator A forward iterator.
+
+        \return An observable forward iterator.
+    */
+    template <typename ForwardIterator>
+    observable_forward_iterator<ForwardIterator> make_observable_forward_iterator(ForwardIterator forward_iterator)
+    {
+        return observable_forward_iterator<ForwardIterator>{ forward_iterator };
+    }
 
 
 }

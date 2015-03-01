@@ -97,4 +97,18 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_CASE(make_observable_forward_iterator)
+{
+    BOOST_TEST_PASSPOINT();
+
+    std::forward_list<int> list{ 42, 43, 44, 45, };
+
+    const auto iterator = tetengo2::make_observable_forward_iterator<std::forward_list<int>::iterator>(list.begin());
+
+    BOOST_CHECK_EQUAL(*iterator, 42);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
