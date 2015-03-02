@@ -73,6 +73,24 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         BOOST_CHECK(iterator == last);
     }
 
+    BOOST_AUTO_TEST_CASE(base)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::forward_list<int> list{ 42, 43, 44, 45, };
+
+        {
+            const tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
+        
+            BOOST_CHECK(iterator.base() == list.begin());
+        }
+        {
+            tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
+        
+            BOOST_CHECK(iterator.base() == list.begin());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(increment_signal)
     {
         BOOST_TEST_PASSPOINT();
@@ -82,7 +100,9 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
         
         int count = 0;
-        iterator.increment_signal().connect([&count]() { ++count; });
+        iterator.increment_signal().connect(
+            [&count](tetengo2::observable_forward_iterator<std::forward_list<int>::iterator>) { ++count; }
+        );
 
         ++iterator;
 

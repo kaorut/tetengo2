@@ -39,7 +39,7 @@ namespace tetengo2
         using iterator = ForwardIterator;
 
         //! The increment observer signature type.
-        using increment_observer_signature_type = void ();
+        typedef void increment_observer_signature_type(observable_forward_iterator current);
 
         //! The increment observer type.
         using increment_observer_type = std::function<increment_observer_signature_type>;
@@ -57,7 +57,7 @@ namespace tetengo2
         */
         explicit observable_forward_iterator(iterator forward_iterator)
         :
-        m_input_iterator(forward_iterator),
+        m_forward_iterator(forward_iterator),
         m_p_increment_signal(std::make_shared<increment_signal_type>())
         {}
 
@@ -72,7 +72,7 @@ namespace tetengo2
         typename observable_forward_iterator::reference dereference()
         const
         {
-            return *m_input_iterator;
+            return *m_forward_iterator;
         }
 
         /*!
@@ -86,7 +86,7 @@ namespace tetengo2
         bool equal(const observable_forward_iterator& another)
         const
         {
-            return m_input_iterator == another.m_input_iterator;
+            return m_forward_iterator == another.m_forward_iterator;
         }
 
         /*!
@@ -94,12 +94,33 @@ namespace tetengo2
         */
         void increment()
         {
-            ++m_input_iterator;
-            (*m_p_increment_signal)();
+            ++m_forward_iterator;
+            (*m_p_increment_signal)(*this);
         }
 
         /*!
-            \brief Return the incremental signal.
+            \brief Returns the base iterator.
+
+            \return The base iterator.
+        */
+        const iterator& base()
+        const
+        {
+            return m_forward_iterator;
+        }
+
+        /*!
+            \brief Returns the base iterator.
+
+            \return The base iterator.
+        */
+        iterator& base()
+        {
+            return m_forward_iterator;
+        }
+
+        /*!
+            \brief Returns the incremental signal.
 
             \return The incremental signal.
         */
@@ -110,7 +131,7 @@ namespace tetengo2
         }
 
         /*!
-            \brief Return the incremental signal.
+            \brief Returns the incremental signal.
 
             \return The incremental signal.
         */
@@ -123,7 +144,7 @@ namespace tetengo2
     private:
         // variables
 
-        iterator m_input_iterator;
+        iterator m_forward_iterator;
 
         std::shared_ptr<increment_signal_type> m_p_increment_signal;
 
