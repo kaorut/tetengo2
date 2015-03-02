@@ -11,9 +11,10 @@
 
 #include <functional>
 #include <iterator>
-#include <utility>
+#include <memory>
 
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/signals2.hpp>
 
 
 namespace tetengo2
@@ -37,8 +38,14 @@ namespace tetengo2
         //! The iterator type.
         using iterator = ForwardIterator;
 
-        //! The observer type.
-        using observer_type = std::function<void ()>;
+        //! The increment observer signature type.
+        using increment_observer_signature_type = void ();
+
+        //! The increment observer type.
+        using increment_observer_type = std::function<increment_observer_signature_type>;
+
+        //! The increment signal type.
+        using increment_signal_type = boost::signals2::signal<increment_observer_signature_type>;
 
 
         // constructors and destructor
@@ -51,7 +58,7 @@ namespace tetengo2
         explicit observable_forward_iterator(iterator forward_iterator)
         :
         m_input_iterator(forward_iterator),
-        m_observer([]() {})
+        m_p_increment_signal(std::make_shared<increment_signal_type>())
         {}
 
 
@@ -88,17 +95,28 @@ namespace tetengo2
         void increment()
         {
             ++m_input_iterator;
-            m_observer();
+            (*m_p_increment_signal)();
         }
 
         /*!
-            \brief Sets an observer.
+            \brief Return the incremental signal.
 
-            \param observer An observer.
+            \return The incremental signal.
         */
-        void set_observer(observer_type observer)
+        const increment_signal_type& increment_signal()
+        const
         {
-            m_observer = std::move(observer);
+            return *m_p_increment_signal;
+        }
+
+        /*!
+            \brief Return the incremental signal.
+
+            \return The incremental signal.
+        */
+        increment_signal_type& increment_signal()
+        {
+            return *m_p_increment_signal;
         }
 
 
@@ -107,7 +125,7 @@ namespace tetengo2
 
         iterator m_input_iterator;
 
-        observer_type m_observer;
+        std::shared_ptr<increment_signal_type> m_p_increment_signal;
 
 
     };

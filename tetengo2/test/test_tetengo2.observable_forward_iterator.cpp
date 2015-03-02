@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         BOOST_CHECK(iterator == last);
     }
 
-    BOOST_AUTO_TEST_CASE(set_observer)
+    BOOST_AUTO_TEST_CASE(increment_signal)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
         
         int count = 0;
-        iterator.set_observer([&count]() { ++count; });
+        iterator.increment_signal().connect([&count]() { ++count; });
 
         ++iterator;
 
