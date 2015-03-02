@@ -106,7 +106,9 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using input_stream_iterator_type =
-            boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>;
+            tetengo2::observable_forward_iterator<
+                boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>
+            >;
 
         template <typename DetailTypeList>
         using message_catalog_parser_type =

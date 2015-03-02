@@ -34,7 +34,10 @@ namespace
 
     using io_string_type = common_type_list_type::io_string_type;
 
-    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+    using input_stream_iterator_type =
+        tetengo2::observable_forward_iterator<
+            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+        >;
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
@@ -146,22 +149,34 @@ BOOST_AUTO_TEST_SUITE_END()
 
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
         }
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             BOOST_CHECK_THROW(
@@ -176,11 +191,17 @@ BOOST_AUTO_TEST_SUITE_END()
 
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -191,11 +212,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "{}"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -210,11 +237,17 @@ BOOST_AUTO_TEST_SUITE_END()
 
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -225,11 +258,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "{}"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -259,11 +298,17 @@ BOOST_AUTO_TEST_SUITE_END()
                 "    \"fuga\": [42, 42, 42]\n"
                 "}\n"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -384,11 +429,17 @@ BOOST_AUTO_TEST_SUITE_END()
 
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -399,11 +450,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "{}"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -420,11 +477,17 @@ BOOST_AUTO_TEST_SUITE_END()
 
         {
             std::istringstream json_text{};
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -435,11 +498,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "[42]"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -455,11 +524,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "[42]"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -473,11 +548,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "[42]"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
@@ -489,11 +570,17 @@ BOOST_AUTO_TEST_SUITE_END()
             std::istringstream json_text{
                 "[12, [34, 56], 78]"
             };
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ json_text })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_push_parser =
                 tetengo2::stdalt::make_unique<push_parser_type>(
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{ json_text } },
-                    input_stream_iterator_type{ std::istreambuf_iterator<char>{} },
-                    tetengo2::stdalt::make_unique<grammar_type>()
+                    first, last, tetengo2::stdalt::make_unique<grammar_type>()
                 );
 
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };

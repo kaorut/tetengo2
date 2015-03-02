@@ -37,7 +37,10 @@ namespace
 
     using io_string_type = common_type_list_type::io_string_type;
 
-    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+    using input_stream_iterator_type =
+        tetengo2::observable_forward_iterator<
+            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+        >;
 
     using encoding_details_type = detail_type_list_type::encoding_type;
 

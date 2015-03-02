@@ -38,6 +38,7 @@
 #   include <unistd.h>
 #endif
 
+#include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/push_parser.h>
@@ -147,13 +148,12 @@ namespace tetengo2 { namespace detail { namespace unixos
         template <typename String, typename UInt>
         using values = std::map<String, boost::variant<String, UInt>>;
 
-        using input_stream_iterator_type = std::istreambuf_iterator<char>;
+        using input_stream_iterator_type =
+            tetengo2::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
-        using multi_pass_stream_iterator_type = boost::spirit::multi_pass<input_stream_iterator_type>;
+        using json_type = text::grammar::json<input_stream_iterator_type>;
 
-        using json_type = text::grammar::json<multi_pass_stream_iterator_type>;
-
-        using parser_type = text::push_parser<multi_pass_stream_iterator_type, json_type, std::size_t, double>;
+        using parser_type = text::push_parser<input_stream_iterator_type, json_type, std::size_t, double>;
 
         using attribute_map_type = parser_type::attribute_map_type;
 
@@ -189,12 +189,16 @@ namespace tetengo2 { namespace detail { namespace unixos
             if (!stream)
                 return;
 
+            const auto first =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ stream })
+                );
+            const auto last =
+                tetengo2::make_observable_forward_iterator(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+                );
             auto p_grammer = stdalt::make_unique<json_type>();
-            parser_type parser(
-                boost::spirit::make_default_multi_pass(input_stream_iterator_type{ stream }),
-                boost::spirit::make_default_multi_pass(input_stream_iterator_type{}),
-                std::move(p_grammer)
-            );
+            parser_type parser(first, last, std::move(p_grammer));
 
             std::stack<std::pair<string_type, string_type>> structure_stack{};
             parser.on_structure_begin().connect(
