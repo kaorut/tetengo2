@@ -15,6 +15,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
+#include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
@@ -563,7 +564,8 @@ namespace tetengo2 { namespace text { namespace grammar
     {
         namespace application
         {
-            using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<char>>;
+            using input_stream_iterator_type =
+                tetengo2::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
         }
 

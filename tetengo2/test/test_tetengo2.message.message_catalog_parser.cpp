@@ -38,7 +38,10 @@ namespace
 
     using io_string_type = common_type_list_type::io_string_type;
 
-    using input_stream_iterator_type = boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>;
+    using input_stream_iterator_type =
+        tetengo2::observable_forward_iterator<
+            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+        >;
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
@@ -122,12 +125,15 @@ namespace
     {
         auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
 
-        auto p_push_parser =
-            tetengo2::stdalt::make_unique<push_parser_type>(
-                input_stream_iterator_type{ std::istreambuf_iterator < char > {input} },
-                input_stream_iterator_type{ std::istreambuf_iterator < char > {} },
-                std::move(p_grammar)
+        const auto first =
+            tetengo2::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
             );
+        const auto last =
+            tetengo2::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
+            );
+        auto p_push_parser = tetengo2::stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
 
         return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
     }
