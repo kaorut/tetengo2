@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_OBSERVABLEINPUTITERATOR_H)
 #define TETENGO2_OBSERVABLEINPUTITERATOR_H
 
+#include <cstddef>
 #include <functional>
 #include <iterator>
 #include <utility>
@@ -95,24 +96,16 @@ namespace tetengo2
         }
 
         /*!
-            \brief Returns the base iterator.
+            \brief Returns the distance to another iterator.
 
-            \return The base iterator.
+            \param another Another iterator.
+
+            \return The distance.
         */
-        const iterator& base()
+        std::ptrdiff_t distance_to(observable_forward_iterator another)
         const
         {
-            return m_forward_iterator;
-        }
-
-        /*!
-            \brief Returns the base iterator.
-
-            \return The base iterator.
-        */
-        iterator& base()
-        {
-            return m_forward_iterator;
+            return std::distance(m_forward_iterator, another.m_forward_iterator);
         }
 
         /*!
