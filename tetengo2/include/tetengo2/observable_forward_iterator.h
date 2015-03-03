@@ -106,7 +106,10 @@ namespace tetengo2
         )
         const
         {
-            return std::distance(m_forward_iterator, another.m_forward_iterator);
+            return
+                static_cast<typename std::iterator_traits<observable_forward_iterator>::difference_type>(
+                    std::distance(m_forward_iterator, another.m_forward_iterator)
+                );
         }
 
         /*!
