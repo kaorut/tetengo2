@@ -11,10 +11,9 @@
 
 #include <functional>
 #include <iterator>
-#include <memory>
+#include <utility>
 
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/signals2.hpp>
 
 
 namespace tetengo2
@@ -44,9 +43,6 @@ namespace tetengo2
         //! The increment observer type.
         using increment_observer_type = std::function<increment_observer_signature_type>;
 
-        //! The increment signal type.
-        using increment_signal_type = boost::signals2::signal<increment_observer_signature_type>;
-
 
         // constructors and destructor
 
@@ -58,7 +54,7 @@ namespace tetengo2
         explicit observable_forward_iterator(iterator forward_iterator)
         :
         m_forward_iterator(forward_iterator),
-        m_p_increment_signal(std::make_shared<increment_signal_type>())
+        m_increment_observer([](observable_forward_iterator) {})
         {}
 
 
@@ -95,49 +91,35 @@ namespace tetengo2
         void increment()
         {
             ++m_forward_iterator;
-            (*m_p_increment_signal)(*this);
+            m_increment_observer(*this);
         }
 
         /*!
-            \brief Returns the base iterator.
+            \brief Returns the distance to another iterator.
 
-            \return The base iterator.
+            \param another Another iterator.
+
+            \return The distance.
         */
-        const iterator& base()
+        typename std::iterator_traits<observable_forward_iterator>::difference_type distance_to(
+            observable_forward_iterator another
+        )
         const
         {
-            return m_forward_iterator;
+            return
+                static_cast<typename std::iterator_traits<observable_forward_iterator>::difference_type>(
+                    std::distance(m_forward_iterator, another.m_forward_iterator)
+                );
         }
 
         /*!
-            \brief Returns the base iterator.
+            \brief Sets an increment observer.
 
-            \return The base iterator.
+            \param observer An increment observer.
         */
-        iterator& base()
+        void set_increment_observer(increment_observer_type observer)
         {
-            return m_forward_iterator;
-        }
-
-        /*!
-            \brief Returns the incremental signal.
-
-            \return The incremental signal.
-        */
-        const increment_signal_type& increment_signal()
-        const
-        {
-            return *m_p_increment_signal;
-        }
-
-        /*!
-            \brief Returns the incremental signal.
-
-            \return The incremental signal.
-        */
-        increment_signal_type& increment_signal()
-        {
-            return *m_p_increment_signal;
+            m_increment_observer = std::move(observer);
         }
 
 
@@ -146,7 +128,7 @@ namespace tetengo2
 
         iterator m_forward_iterator;
 
-        std::shared_ptr<increment_signal_type> m_p_increment_signal;
+        increment_observer_type m_increment_observer;
 
 
     };
