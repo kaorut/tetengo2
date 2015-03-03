@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_OBSERVABLEINPUTITERATOR_H)
 #define TETENGO2_OBSERVABLEINPUTITERATOR_H
 
-#include <cstddef>
 #include <functional>
 #include <iterator>
 #include <utility>
@@ -102,7 +101,9 @@ namespace tetengo2
 
             \return The distance.
         */
-        std::ptrdiff_t distance_to(observable_forward_iterator another)
+        typename std::iterator_traits<observable_forward_iterator>::difference_type distance_to(
+            observable_forward_iterator another
+        )
         const
         {
             return std::distance(m_forward_iterator, another.m_forward_iterator);
