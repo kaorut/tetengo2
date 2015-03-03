@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(increment_signal)
+    BOOST_AUTO_TEST_CASE(set_increment_observer)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
         
         int count = 0;
-        iterator.increment_signal().connect(
+        iterator.set_increment_observer(
             [&count](tetengo2::observable_forward_iterator<std::forward_list<int>::iterator>) { ++count; }
         );
 
