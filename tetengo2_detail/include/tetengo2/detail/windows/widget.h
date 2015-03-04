@@ -555,6 +555,25 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a progress bar.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a picture box.
+
+            \throw std::system_error When a picture box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_progress_bar(Widget& parent)
+        {
+            parent;
+            assert(false);
+            return widget_details_ptr_type();
+        }
+
+        /*!
             \brief Creates a text box.
 
             \tparam Widget A widget type.

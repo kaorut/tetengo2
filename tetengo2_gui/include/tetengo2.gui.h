@@ -76,6 +76,7 @@
 #include <tetengo2/gui/widget/list_box.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/picture_box.h>
+#include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/text_box.h>
