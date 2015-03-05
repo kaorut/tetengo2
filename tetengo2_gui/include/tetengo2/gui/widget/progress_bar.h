@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         size_type goal()
         const
         {
-            return widget_details_type::progress_bar_goal(*this);
+            return widget_details_type::progress_bar_goal<size_type>(*this);
         }
 
         /*!
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace gui { namespace widget
         size_type progress()
         const
         {
-            return widget_details_type::progress_bar_progress(*this);
+            return widget_details_type::progress_bar_progress<size_type>(*this);
         }
 
         /*!
