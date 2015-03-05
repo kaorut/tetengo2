@@ -276,5 +276,8 @@
     <ClInclude Include="include\tetengo2\gui\widget\progress_dialog.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\widget\progress_bar.h">
+      <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

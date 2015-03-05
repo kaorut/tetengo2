@@ -29,6 +29,7 @@
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
+#include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -132,6 +133,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_canceling_message(std::move(canceling_message)),
         m_p_message_label(),
         m_p_progress_label(),
+        m_p_progress_bar(),
         m_p_cancel_button(),
         m_promise(0),
         m_future(m_promise.get_future()),
@@ -192,11 +194,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using label_type = label<traits_type, details_traits_type>;
 
+        using progress_bar_type = progress_bar<traits_type, details_traits_type>;
+
+        using button_type = button<traits_type, details_traits_type>;
+
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        using button_type = button<traits_type, details_traits_type>;
 
         using timer_type = gui::timer<widget_type, timer_details_type>;
 
@@ -212,6 +216,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<label_type> m_p_message_label;
 
         std::unique_ptr<label_type> m_p_progress_label;
+
+        std::unique_ptr<progress_bar_type> m_p_progress_bar;
 
         std::unique_ptr<button_type> m_p_cancel_button;
 
@@ -255,6 +261,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 m_p_message_label->set_text(m_canceling_message);
                 m_p_progress_label->set_text(string_type{});
+                m_p_progress_bar->set_state(progress_bar_type::state_type::pausing);
 
                 cancel = true;
                 return;
@@ -273,6 +280,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_p_message_label = create_message_label(std::move(waiting_message));
             m_p_progress_label = create_progress_label();
+            m_p_progress_bar = create_progress_bar();
             m_p_cancel_button = create_cancel_button();
 
             locate_controls();
@@ -302,6 +310,15 @@ namespace tetengo2 { namespace gui { namespace widget
             return std::move(p_label);
         }
 
+        std::unique_ptr<progress_bar_type> create_progress_bar()
+        {
+            auto p_progress_bar = tetengo2::stdalt::make_unique<progress_bar_type>(*this);
+
+            p_progress_bar->set_goal(100);
+
+            return std::move(p_progress_bar);
+        }
+
         std::unique_ptr<button_type> create_cancel_button()
         {
             auto p_button = tetengo2::stdalt::make_unique<button_type>(*this, button_type::style_type::cancel);
@@ -322,6 +339,9 @@ namespace tetengo2 { namespace gui { namespace widget
             m_p_progress_label->set_dimension(dimension_type{ width_type{ 3 }, height_type{ 2 } });
             m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
 
+            m_p_progress_bar->set_dimension(dimension_type{ width_type{ 29 }, height_type{ 2 } });
+            m_p_progress_bar->set_position(position_type{ left_type{ 5 }, top_type{ 3 } });
+
             m_p_cancel_button->set_dimension(dimension_type{ width_type{ 8 }, height_type{ 2 } });
             m_p_cancel_button->set_position(position_type{ left_type{ 26 }, top_type{ 7 } });
         }
@@ -334,10 +354,10 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
             }
 
-            update_progress_label();
+            update_progress();
         }
 
-        void update_progress_label()
+        void update_progress()
         {
             if (m_p_progress_label->text().empty())
                 return;
@@ -346,10 +366,13 @@ namespace tetengo2 { namespace gui { namespace widget
             if (progress == m_previous_progress)
                 return;
             const auto percentage = boost::rational_cast<typename progress_type::int_type>(m_future.progress() * 100);
+
             auto text = boost::lexical_cast<string_type>(percentage) + string_type{ TETENGO2_TEXT("%") };
             m_p_progress_label->set_text(std::move(text));
 
-           m_previous_progress = progress;
+            m_p_progress_bar->set_progress(percentage);
+
+            m_previous_progress = progress;
         }
 
 

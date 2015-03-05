@@ -75,6 +75,7 @@ sources = \
     test_tetengo2.gui.widget.list_box.cpp \
     test_tetengo2.gui.widget.map_box.cpp \
     test_tetengo2.gui.widget.picture_box.cpp \
+    test_tetengo2.gui.widget.progress_bar.cpp \
     test_tetengo2.gui.widget.progress_dialog.cpp \
     test_tetengo2.gui.widget.side_bar.cpp \
     test_tetengo2.gui.widget.text_box.cpp \
