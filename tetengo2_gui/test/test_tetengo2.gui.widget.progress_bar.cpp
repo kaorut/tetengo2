@@ -55,42 +55,63 @@ BOOST_AUTO_TEST_SUITE(progress_bar)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        const progress_bar_type progress_bar{ parent };
+
+        progress_bar.goal();
     }
 
     BOOST_AUTO_TEST_CASE(set_goal)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        progress_bar_type progress_bar{ parent };
+
+        progress_bar.set_goal(42);
+        BOOST_CHECK_EQUAL(progress_bar.goal(), 42);
     }
 
     BOOST_AUTO_TEST_CASE(progress)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        const progress_bar_type progress_bar{ parent };
+
+        progress_bar.progress();
     }
 
     BOOST_AUTO_TEST_CASE(set_progress)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        progress_bar_type progress_bar{ parent };
+
+        progress_bar.set_progress(42);
+        BOOST_CHECK_EQUAL(progress_bar.progress(), 42);
     }
 
     BOOST_AUTO_TEST_CASE(state)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        const progress_bar_type progress_bar{ parent };
+
+        progress_bar.state();
     }
 
     BOOST_AUTO_TEST_CASE(set_state)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        progress_bar_type progress_bar{ parent };
+
+        progress_bar.set_state(progress_bar_type::state_type::pausing);
+        BOOST_CHECK(progress_bar.state() == progress_bar_type::state_type::pausing);
     }
 
 

@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <functional>
 #include <iterator>
@@ -100,6 +101,9 @@ namespace tetengo2 { namespace detail { namespace stub
             bool read_only;
             std::vector<string_type> list_box_values;
             boost::optional<std::size_t> selected_list_box_value_index;
+            std::size_t progress_bar_goal;
+            std::size_t progress_bar_progress;
+            int progress_bar_state;
 
             widget_details_type()
             :
@@ -115,23 +119,29 @@ namespace tetengo2 { namespace detail { namespace stub
             focusable(),
             read_only(),
             list_box_values(),
-            selected_list_box_value_index()
+            selected_list_box_value_index(),
+            progress_bar_goal(),
+            progress_bar_progress(),
+            progress_bar_state()
             {}
 
             widget_details_type(
-                void* const                                 p_parent,
-                const bool                                  enabled,
-                const bool                                  visible,
-                const int                                   window_state,
-                std::pair<std::ptrdiff_t, std::ptrdiff_t>   position,
-                std::pair<std::size_t, std::size_t>         dimension,
-                string_type                                 text,
-                details_font_type                           font,
-                std::vector<void*>                          children,
-                const bool                                  focusable,
-                const bool                                  read_only,
-                std::vector<string_type>                    list_box_values,
-                boost::optional<std::size_t>                selected_list_box_value_index
+                void* const                               p_parent,
+                const bool                                enabled,
+                const bool                                visible,
+                const int                                 window_state,
+                std::pair<std::ptrdiff_t, std::ptrdiff_t> position,
+                std::pair<std::size_t, std::size_t>       dimension,
+                string_type                               text,
+                details_font_type                         font,
+                std::vector<void*>                        children,
+                const bool                                focusable,
+                const bool                                read_only,
+                std::vector<string_type>                  list_box_values,
+                boost::optional<std::size_t>              selected_list_box_value_index,
+                const std::size_t                         progress_bar_goal,
+                const std::size_t                         progress_bar_progress,
+                const int                                 progress_bar_state
             )
             :
             p_parent(p_parent),
@@ -146,7 +156,10 @@ namespace tetengo2 { namespace detail { namespace stub
             focusable(focusable),
             read_only(read_only),
             list_box_values(std::move(list_box_values)),
-            selected_list_box_value_index(std::move(selected_list_box_value_index))
+            selected_list_box_value_index(std::move(selected_list_box_value_index)),
+            progress_bar_goal(),
+            progress_bar_progress(),
+            progress_bar_state()
             {}
 #endif
 
@@ -1414,7 +1427,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename ProgressBar>
         static Size progress_bar_goal(ProgressBar& progress_bar)
         {
-            return 0;
+            return progress_bar.details().progress_bar_goal;
         }
 
         /*!
@@ -1431,7 +1444,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar, typename Size>
         static void set_progress_bar_goal(ProgressBar& progress_bar, const Size goal)
         {
-            boost::ignore_unused(progress_bar, goal);
+            progress_bar.details().progress_bar_goal = goal;
         }
 
         /*!
@@ -1449,7 +1462,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Size, typename ProgressBar>
         static Size progress_bar_progress(ProgressBar& progress_bar)
         {
-            return 0;
+            return progress_bar.details().progress_bar_progress;
         }
 
         /*!
@@ -1466,7 +1479,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar, typename Size>
         static void set_progress_bar_progress(ProgressBar& progress_bar, const Size progress)
         {
-            boost::ignore_unused(progress_bar, progress);
+            progress_bar.details().progress_bar_progress = progress;
         }
 
         /*!
@@ -1483,7 +1496,15 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar>
         static typename ProgressBar::state_type progress_bar_state(ProgressBar& progress_bar)
         {
-            return ProgressBar::state_type::error;
+            switch (progress_bar.details().progress_bar_state)
+            {
+            case 0:
+                return ProgressBar::state_type::running;
+            case 1:
+                return ProgressBar::state_type::pausing;
+            default:
+                return ProgressBar::state_type::error;
+            }
         }
 
         /*!
@@ -1499,7 +1520,19 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar>
         static void set_progress_bar_state(ProgressBar& progress_bar, const typename ProgressBar::state_type state)
         {
-            boost::ignore_unused(progress_bar, state);
+            switch (state)
+            {
+            case ProgressBar::state_type::running:
+                progress_bar.details().progress_bar_state = 0;
+                break;
+            case ProgressBar::state_type::pausing:
+                progress_bar.details().progress_bar_state = 1;
+                break;
+            default:
+                assert(state == ProgressBar::state_type::error);
+                progress_bar.details().progress_bar_state = 2;
+                break;
+            }
         }
 
 
@@ -1523,7 +1556,10 @@ namespace tetengo2 { namespace detail { namespace stub
                     false,
                     false,
                     std::vector<string_type>{},
-                    boost::none
+                    boost::none,
+                    100,
+                    0,
+                    0
                 )
             };
 
