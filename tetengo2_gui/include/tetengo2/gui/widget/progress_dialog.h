@@ -331,19 +331,19 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type{ width_type{ 36 }, height_type{ 10 } });
+            this->set_client_dimension(dimension_type{ width_type{ 30 }, height_type{ 8 } });
 
-            m_p_message_label->set_dimension(dimension_type{ width_type{ 32 }, height_type{ 2 } });
+            m_p_message_label->set_dimension(dimension_type{ width_type{ 26 }, height_type{ 2 } });
             m_p_message_label->set_position(position_type{ left_type{ 2 }, top_type{ 1 } });
 
             m_p_progress_label->set_dimension(dimension_type{ width_type{ 3 }, height_type{ 2 } });
             m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
 
-            m_p_progress_bar->set_dimension(dimension_type{ width_type{ 29 }, height_type{ 2 } });
+            m_p_progress_bar->set_dimension(dimension_type{ width_type{ 23 }, height_type{ 1 } });
             m_p_progress_bar->set_position(position_type{ left_type{ 5 }, top_type{ 3 } });
 
             m_p_cancel_button->set_dimension(dimension_type{ width_type{ 8 }, height_type{ 2 } });
-            m_p_cancel_button->set_position(position_type{ left_type{ 26 }, top_type{ 7 } });
+            m_p_cancel_button->set_position(position_type{ left_type{ 20 }, top_type{ 5 } });
         }
 
         void timer_procedure(bool&)
