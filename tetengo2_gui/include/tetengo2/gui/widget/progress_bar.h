@@ -32,6 +32,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         using traits_type = Traits;
 
+        //! The size type.
+        using size_type = typename traits_type::size_type;
+
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
@@ -46,6 +49,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The widget type.
         using widget_type = typename base_type::base_type;
+
+        //! The state type.
+        enum class state_type
+        {
+            running, //!< The running state.
+            pausing, //!< The pausing state.
+            error,   //!< The error state.
+        };
 
 
         // constructors and destructor
@@ -78,6 +89,72 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         virtual ~progress_bar()
         TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+
+
+        // functions
+
+        /*!
+            \brief Returns the goal.
+
+            \return The goal.
+        */
+        size_type goal()
+        const
+        {
+            return widget_details_type::progress_bar_goal(*this);
+        }
+
+        /*!
+            \brief Sets a goal.
+
+            \param goal A goal.
+        */
+        void set_goal(const size_type goal)
+        {
+            widget_details_type::set_progress_bar_goal(*this, goal);
+        }
+
+        /*!
+            \brief Returns the progress.
+
+            \return The progress.
+        */
+        size_type progress()
+        const
+        {
+            return widget_details_type::progress_bar_progress(*this);
+        }
+
+        /*!
+            \brief Sets a progress.
+
+            \param progress A progress.
+        */
+        void set_progress(const size_type progress)
+        {
+            widget_details_type::set_progress_bar_progress(*this, progress);
+        }
+
+        /*!
+            \brief Returns the state.
+
+            \return The state.
+        */
+        state_type state()
+        const
+        {
+            return widget_details_type::progress_bar_state(*this);
+        }
+
+        /*!
+            \brief Sets a state.
+
+            \param state A state.
+        */
+        void set_state(const state_type state)
+        {
+            widget_details_type::set_progress_bar_state(*this, state);
+        }
 
 
     private:

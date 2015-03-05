@@ -568,9 +568,35 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_progress_bar(Widget& parent)
         {
-            parent;
-            assert(false);
-            return widget_details_ptr_type();
+            typename widget_details_type::handle_type p_widget{
+                ::CreateWindowExW(
+                    0,
+                    PROGRESS_CLASSW,
+                    L"",
+                    WS_CHILD | WS_VISIBLE,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent.details().handle.get(),
+                    nullptr,
+                    ::GetModuleHandle(nullptr),
+                    nullptr
+                )
+            };
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION((
+                    std::system_error{
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't create a progress bar!"
+                    }
+                ));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
+            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -2282,6 +2308,143 @@ namespace tetengo2 { namespace detail { namespace windows
                     }
                 ));
             }
+        }
+
+        /*!
+            \brief Returns the progress bar goal.
+
+            \tparam Size        A size type.
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The goal.
+
+            \throw std::system_error When the goal cannot be obtained.
+        */
+        template <typename Size, typename ProgressBar>
+        static Size progress_bar_goal(ProgressBar& progress_bar)
+        {
+            return ::SendMessageW(progress_bar.details().handle.get(), SBM_GETRANGE, FALSE, nullptr);
+        }
+
+        /*!
+            \brief Sets a progress bar goal.
+
+            \tparam ProgressBar A progress bar type.
+            \tparam Size        A size type.
+
+            \param progress_bar A progress bar.
+            \param goal         A goal.
+
+            \throw std::system_error When the goal cannot be set.
+        */
+        template <typename ProgressBar, typename Size>
+        static void set_progress_bar_goal(ProgressBar& progress_bar, const Size goal)
+        {
+            const auto result =
+                ::SendMessageW(progress_bar.details().handle.get(), PBM_SETRANGE, 0, MAKELPARAM(0, goal));
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION((
+                    std::system_error{
+                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                        "Can't set progress bar range."
+                    }
+                ));
+            }
+        }
+
+        /*!
+            \brief Returns the progress bar progress.
+
+            \tparam Size        A size type.
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The progress.
+
+            \throw std::system_error When the progress cannot be obtained.
+        */
+        template <typename Size, typename ProgressBar>
+        static Size progress_bar_progress(ProgressBar& progress_bar)
+        {
+            return ::SendMessageW(progress_bar.details().handle.get(), PBM_GETPOS, 0, 0);
+        }
+
+        /*!
+            \brief Sets a progress bar progress.
+
+            \tparam ProgressBar A progress bar type.
+            \tparam Size        A size type.
+
+            \param progress_bar A progress bar.
+            \param progress     A progress.
+
+            \throw std::system_error When the progress cannot be set.
+        */
+        template <typename ProgressBar, typename Size>
+        static void set_progress_bar_progress(ProgressBar& progress_bar, const Size progress)
+        {
+            ::SendMessageW(progress_bar.details().handle.get(), PBM_SETPOS, progress, 0);
+        }
+
+        /*!
+            \brief Returns the progress bar state.
+
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The state.
+
+            \throw std::system_error When the state cannot be obtained.
+        */
+        template <typename ProgressBar>
+        static typename ProgressBar::state_type progress_bar_state(ProgressBar& progress_bar)
+        {
+            const auto state = ::SendMessageW(progress_bar.details().handle.get(), PBM_GETSTATE, 0, 0);
+            switch (state)
+            {
+            case PBST_NORMAL:
+                return ProgressBar::state_type::running;
+            case PBST_PAUSED:
+                return ProgressBar::state_type::pausing;
+            default:
+                assert(state == PBST_ERROR);
+                return ProgressBar::state_type::error;
+            }
+        }
+
+        /*!
+            \brief Sets a progress bar state.
+
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+            \param state        A state.
+
+            \throw std::system_error When the progress cannot be set.
+        */
+        template <typename ProgressBar>
+        static void set_progress_bar_state(ProgressBar& progress_bar, const typename ProgressBar::state_type state)
+        {
+            ::WPARAM native_state = PBST_ERROR;
+            switch (state)
+            {
+            case ProgressBar::state_type::running:
+                native_state = PBST_NORMAL;
+                break;
+            case ProgressBar::state_type::pausing:
+                native_state = PBST_PAUSED;
+                break;
+            default:
+                assert(state == ProgressBar::state_type::error);
+                native_state = PBST_ERROR;
+                break;
+            }
+            ::SendMessageW(progress_bar.details().handle.get(), PBM_SETSTATE, native_state, 0);
         }
 
         /*!

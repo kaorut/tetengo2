@@ -1399,6 +1399,109 @@ namespace tetengo2 { namespace detail { namespace stub
             list_box.details().selected_list_box_value_index = boost::make_optional<std::size_t>(index);
         }
 
+        /*!
+            \brief Returns the progress bar goal.
+
+            \tparam Size        A size type.
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The goal.
+
+            \throw std::system_error When the goal cannot be obtained.
+        */
+        template <typename Size, typename ProgressBar>
+        static Size progress_bar_goal(ProgressBar& progress_bar)
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Sets a progress bar goal.
+
+            \tparam ProgressBar A progress bar type.
+            \tparam Size        A size type.
+
+            \param progress_bar A progress bar.
+            \param goal         A goal.
+
+            \throw std::system_error When the goal cannot be set.
+        */
+        template <typename ProgressBar, typename Size>
+        static void set_progress_bar_goal(ProgressBar& progress_bar, const Size goal)
+        {
+
+        }
+
+        /*!
+            \brief Returns the progress bar progress.
+
+            \tparam Size        A size type.
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The progress.
+
+            \throw std::system_error When the progress cannot be obtained.
+        */
+        template <typename Size, typename ProgressBar>
+        static Size progress_bar_progress(ProgressBar& progress_bar)
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Sets a progress bar progress.
+
+            \tparam ProgressBar A progress bar type.
+            \tparam Size        A size type.
+
+            \param progress_bar A progress bar.
+            \param progress     A progress.
+
+            \throw std::system_error When the progress cannot be set.
+        */
+        template <typename ProgressBar, typename Size>
+        static void set_progress_bar_progress(ProgressBar& progress_bar, const Size progress)
+        {
+
+        }
+
+        /*!
+            \brief Returns the progress bar state.
+
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+
+            \return The state.
+
+            \throw std::system_error When the state cannot be obtained.
+        */
+        template <typename ProgressBar>
+        static typename ProgressBar::state_type progress_bar_state(ProgressBar& progress_bar)
+        {
+            return ProgressBar::state_type::error;
+        }
+
+        /*!
+            \brief Sets a progress bar state.
+
+            \tparam ProgressBar A progress bar type.
+
+            \param progress_bar A progress bar.
+            \param state        A state.
+
+            \throw std::system_error When the progress cannot be set.
+        */
+        template <typename ProgressBar>
+        static void set_progress_bar_state(ProgressBar& progress_bar, const typename ProgressBar::state_type state)
+        {
+
+        }
+
 
     private:
         // static functions
