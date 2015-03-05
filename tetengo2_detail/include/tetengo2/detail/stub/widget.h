@@ -1431,7 +1431,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar, typename Size>
         static void set_progress_bar_goal(ProgressBar& progress_bar, const Size goal)
         {
-
+            boost::ignore_unused(progress_bar, goal);
         }
 
         /*!
@@ -1466,7 +1466,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar, typename Size>
         static void set_progress_bar_progress(ProgressBar& progress_bar, const Size progress)
         {
-
+            boost::ignore_unused(progress_bar, progress);
         }
 
         /*!
@@ -1499,7 +1499,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ProgressBar>
         static void set_progress_bar_state(ProgressBar& progress_bar, const typename ProgressBar::state_type state)
         {
-
+            boost::ignore_unused(progress_bar, state);
         }
 
 
