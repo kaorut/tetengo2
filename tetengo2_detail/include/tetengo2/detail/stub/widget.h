@@ -157,9 +157,9 @@ namespace tetengo2 { namespace detail { namespace stub
             read_only(read_only),
             list_box_values(std::move(list_box_values)),
             selected_list_box_value_index(std::move(selected_list_box_value_index)),
-            progress_bar_goal(),
-            progress_bar_progress(),
-            progress_bar_state()
+            progress_bar_goal(progress_bar_goal),
+            progress_bar_progress(progress_bar_progress),
+            progress_bar_state(progress_bar_state)
             {}
 #endif
 
