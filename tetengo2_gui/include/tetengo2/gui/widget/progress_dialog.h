@@ -262,6 +262,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_p_message_label->set_text(m_canceling_message);
                 m_p_progress_label->set_text(string_type{});
                 m_p_progress_bar->set_state(progress_bar_type::state_type::pausing);
+                m_p_cancel_button->set_enabled(false);
 
                 cancel = true;
                 return;
