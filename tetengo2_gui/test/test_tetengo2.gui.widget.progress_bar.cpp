@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_SUITE(progress_bar)
         progress_bar_type progress_bar{ parent };
 
         progress_bar.set_goal(42);
-        BOOST_CHECK_EQUAL(progress_bar.goal(), 42);
+        BOOST_CHECK_EQUAL(progress_bar.goal(), 42U);
     }
 
     BOOST_AUTO_TEST_CASE(progress)
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_SUITE(progress_bar)
         progress_bar_type progress_bar{ parent };
 
         progress_bar.set_progress(42);
-        BOOST_CHECK_EQUAL(progress_bar.progress(), 42);
+        BOOST_CHECK_EQUAL(progress_bar.progress(), 42U);
     }
 
     BOOST_AUTO_TEST_CASE(state)
