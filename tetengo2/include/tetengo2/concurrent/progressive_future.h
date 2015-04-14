@@ -152,7 +152,7 @@ namespace tetengo2 { namespace concurrent
         \tparam Progress A progress type.
     */
     template <typename T, typename Progress>
-    class progressive_future_base
+    class progressive_future_base : private boost::noncopyable
     {
     public:
         // types
@@ -337,13 +337,6 @@ namespace tetengo2 { namespace concurrent
         std::shared_ptr<detail::progress_state<progress_type>> m_p_state;
 
         
-        // forbidden operations
-
-        progressive_future_base(const progressive_future_base&) = delete;
-
-        progressive_future_base& operator=(const progressive_future_base&) = delete;
-        
-
     };
 
 
