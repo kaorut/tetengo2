@@ -60,7 +60,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
     template <typename ForwardIterator>
-    class json<ForwardIterator>::impl : boost::noncopyable
+    class json<ForwardIterator>::impl : private boost::noncopyable
     {
     public:
         // types
