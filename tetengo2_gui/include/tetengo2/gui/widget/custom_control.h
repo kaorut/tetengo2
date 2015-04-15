@@ -214,7 +214,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam CustomControl A custom control type.
     */
     template <typename CustomControl>
-    class inner_item : boost::noncopyable
+    class inner_item : private boost::noncopyable
     {
     public:
         // types

@@ -69,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a widget.
     */
-    class widget : boost::noncopyable
+    class widget : private boost::noncopyable
     {
     public:
         // types

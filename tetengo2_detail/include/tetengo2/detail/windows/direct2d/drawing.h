@@ -70,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
         };
 
-        class background_details : boost::noncopyable
+        class background_details : private boost::noncopyable
         {
         public:
             virtual ~background_details()

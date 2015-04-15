@@ -23,7 +23,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a menu.
     */
-    class menu : boost::noncopyable
+    class menu : private boost::noncopyable
     {
     public:
         // types
