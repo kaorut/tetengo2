@@ -14,6 +14,7 @@
 #include <string>
 #include <system_error>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 
 #include <tetengo2/stdalt.h>
@@ -30,7 +31,7 @@ namespace tetengo2 { namespace gui
         \tparam AlertDetails     A detail implementation type of an alert.
     */
     template <typename UiEncoder, typename ExceptionEncoder, typename AlertDetails>
-    class alert
+    class alert : private boost::noncopyable
     {
     public:
         // types

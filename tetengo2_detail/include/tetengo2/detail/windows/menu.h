@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace windows
         using accelerator_table_handle_ptr_type =
             std::unique_ptr<std::remove_pointer< ::HACCEL>::type, detail::accelerator_table_handle_deleter>;
 
-        class shortcut_key_table_details : boost::noncopyable
+        class shortcut_key_table_details : private boost::noncopyable
         {
         public:
             shortcut_key_table_details()

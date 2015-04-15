@@ -38,7 +38,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam VirtualKeyDetails A detail implementation type of a virtual key.
    */
     template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
-    class menu_base : boost::noncopyable
+    class menu_base : private boost::noncopyable
     {
     public:
         // types

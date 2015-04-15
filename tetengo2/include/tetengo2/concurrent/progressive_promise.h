@@ -15,6 +15,8 @@
 #include <memory>
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
+
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/stdalt.h>
 
@@ -28,7 +30,7 @@ namespace tetengo2 { namespace concurrent
         \tparam Progress A progress type.
     */
     template <typename T, typename Progress>
-    class progressive_promise_base
+    class progressive_promise_base : private boost::noncopyable
     {
     public:
         // types
@@ -206,13 +208,6 @@ namespace tetengo2 { namespace concurrent
         promise_type m_promise;
 
         std::shared_ptr<detail::progress_state<progress_type>> m_p_state;
-
-
-        // firbidden operations
-
-        progressive_promise_base(const progressive_promise_base&) = delete;
-
-        progressive_promise_base& operator=(const progressive_promise_base&) = delete;
 
 
     };

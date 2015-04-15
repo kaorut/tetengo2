@@ -169,7 +169,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         template <typename String, typename Encoder>
-        class registry
+        class registry : private boost::noncopyable
         {
         public:
             registry(const String& key, const Encoder& encoder, const ::REGSAM mode)
