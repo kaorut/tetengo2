@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/message/scroll_bar_observer_set.h>
@@ -27,7 +28,7 @@ namespace tetengo2 { namespace gui
         \tparam ScrollDetails A detail implementation type of a scroll.
     */
     template <typename Size, typename ScrollDetails>
-    class scroll_bar
+    class scroll_bar : private boost::noncopyable
     {
     public:
         // types
