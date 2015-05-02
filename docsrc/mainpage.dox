@@ -27,7 +27,7 @@ It's tested on the following systems:
 
 - [Windows 7 Service Pack 1](http://www.microsoft.com/)
 - [Debian GNU/Linux 7](http://www.debian.org/)
-- [Cygwin 1.7 (x64)](http://www.cygwin.com/)
+- [Cygwin 2.0 (x64)](http://www.cygwin.com/)
 
 
 How to Build {#how_to_build}
