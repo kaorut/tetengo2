@@ -12,7 +12,6 @@
 #include <string>
 #include <utility>
 
-#include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
