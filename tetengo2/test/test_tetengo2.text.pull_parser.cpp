@@ -139,10 +139,6 @@ BOOST_AUTO_TEST_SUITE(structure)
 BOOST_AUTO_TEST_SUITE_END()
     // test cases
 
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -594,7 +590,6 @@ BOOST_AUTO_TEST_SUITE_END()
             BOOST_CHECK_EQUAL(value, 78);
         }
     }
-#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
