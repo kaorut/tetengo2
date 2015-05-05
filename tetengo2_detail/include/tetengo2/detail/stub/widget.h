@@ -577,17 +577,9 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using position_traits_type = gui::position<Position>;
             using dimension_traits_type = gui::dimension<Dimension>;
-#else
-            typedef gui::position<Position> position_traits_type;
-            typedef gui::dimension<Dimension> dimension_traits_type;
-#endif
+
             widget.details().position =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(position_traits_type::left(position)),
@@ -615,15 +607,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using position_traits_type = gui::position<Position>;
-#else
-            typedef gui::position<Position> position_traits_type;
-#endif
+
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(widget.details().position.first),
@@ -668,15 +653,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using dimension_traits_type = gui::dimension<Dimension>;
-#else
-            typedef gui::dimension<Dimension> dimension_traits_type;
-#endif
+
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
@@ -699,15 +677,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using dimension_traits_type = gui::dimension<Dimension>;
-#else
-            typedef gui::dimension<Dimension> dimension_traits_type;
-#endif
+
             widget.details().dimension =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(dimension_traits_type::width(client_dimension)),
@@ -730,15 +701,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using dimension_traits_type = gui::dimension<Dimension>;
-#else
-            typedef gui::dimension<Dimension> dimension_traits_type;
-#endif
+
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
@@ -761,15 +725,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-// This using somehow won't compile with gcc 4.7 on Linux.
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(4, 8, 0)) \
-    )
             using dimension_traits_type = gui::dimension<Dimension>;
-#else
-            typedef gui::dimension<Dimension> dimension_traits_type;
-#endif
+
             return
                 dimension_traits_type::make(
                     gui::to_unit<typename dimension_traits_type::width_type>(widget.details().dimension.first),
