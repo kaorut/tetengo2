@@ -87,7 +87,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the text box.
         */
         virtual ~text_box()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions

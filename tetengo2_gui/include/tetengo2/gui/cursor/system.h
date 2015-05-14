@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the system cursor.
         */
         virtual ~system()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions

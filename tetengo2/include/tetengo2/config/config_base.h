@@ -48,7 +48,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration base.
         */
         virtual ~config_base()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions
