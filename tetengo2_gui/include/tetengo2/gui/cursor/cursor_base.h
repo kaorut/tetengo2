@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the cursor_base.
         */
         virtual ~cursor_base()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions

@@ -63,7 +63,7 @@ namespace tetengo2 { namespace config
             \brief Destroys the configuration list.
         */
         virtual ~config_list()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
     private:

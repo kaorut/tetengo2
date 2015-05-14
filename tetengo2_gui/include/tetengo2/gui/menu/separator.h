@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu separator.
         */
         virtual ~separator()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
     private:

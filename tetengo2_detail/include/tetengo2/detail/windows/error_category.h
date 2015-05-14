@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of the error category.
         */
         virtual ~error_category()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions
@@ -138,7 +138,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of the error category of WIC.
         */
         virtual ~wic_error_category()
-        TETENGO2_STDALT_DESTRUCTOR_DEFAULT_IMPLEMENTATION;
+        = default;
 
 
         // functions
