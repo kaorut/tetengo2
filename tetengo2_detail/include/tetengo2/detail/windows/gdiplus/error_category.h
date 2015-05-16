@@ -31,8 +31,6 @@
 #undef min
 #undef max
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {

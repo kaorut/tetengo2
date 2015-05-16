@@ -12,7 +12,6 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget

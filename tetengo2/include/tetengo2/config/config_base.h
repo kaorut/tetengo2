@@ -15,8 +15,6 @@
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace config
 {

@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace drawing
