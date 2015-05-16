@@ -18,7 +18,6 @@
 
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace menu

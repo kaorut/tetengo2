@@ -24,7 +24,6 @@
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace menu

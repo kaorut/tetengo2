@@ -17,7 +17,6 @@
 
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
