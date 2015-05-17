@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit tab_frame(widget_type& parent)
         :
-        base_type(parent, false, typename base_type::scroll_bar_style_type::none)
+        base_type(parent, false, base_type::scroll_bar_style_type::none)
         {
             initialize_tab_frame(*this);
         }
