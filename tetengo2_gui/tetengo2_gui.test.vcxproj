@@ -172,6 +172,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.progress_bar.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.progress_dialog.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.side_bar.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.widget.tab_frame.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.text_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.window.cpp" />

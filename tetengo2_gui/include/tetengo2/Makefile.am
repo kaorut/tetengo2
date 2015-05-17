@@ -72,6 +72,7 @@ pkg_headers = \
     gui/widget/progress_bar.h \
     gui/widget/progress_dialog.h \
     gui/widget/side_bar.h \
+    gui/widget/tab_frame.h \
     gui/widget/text_box.h \
     gui/widget/widget.h \
     gui/widget/widget_details_traits.h \

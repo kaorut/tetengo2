@@ -79,6 +79,7 @@
 #include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/side_bar.h>
+#include <tetengo2/gui/widget/tab_frame.h>
 #include <tetengo2/gui/widget/text_box.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/gui/widget/widget_details_traits.h>
