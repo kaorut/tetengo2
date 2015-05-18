@@ -22,7 +22,7 @@
 
 namespace tetengo2 { namespace gui { namespace widget
 {
-    template <typename String, typename Widget>
+    template <typename String, typename Control>
     class tab;
 
 
@@ -55,14 +55,17 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
 
-        //! The string type.
-        using string_type = typename traits_type::string_type;
-
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
 
+        //! The string type.
+        using string_type = typename traits_type::string_type;
+
+        //! The control type.
+        using control_type = typename base_type::base_type;
+
         //! The tab type.
-        using tab_type = tab<string_type, widget_type>;
+        using tab_type = tab<string_type, control_type>;
 
 
         // constructors and destructor
@@ -147,10 +150,10 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The class template for a tab.
 
-        \tparam String A string type.
-        \tparam Widget A widget type.
+        \tparam String  A string type.
+        \tparam Control A control type.
     */
-    template <typename String, typename Widget>
+    template <typename String, typename Control>
     class tab : private boost::noncopyable
     {
     public:
@@ -159,8 +162,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The string type.
         using string_type = String;
 
-        //! The widget type.
-        using widget_type = Widget;
+        //! The control type.
+        using control_type = Control;
 
 
         // constructors and destructors
@@ -168,12 +171,12 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a tab.
 
-            \param p_widget A unique pointer to a widget.
-            \param title    A title.
+            \param p_control A unique pointer to a control.
+            \param title     A title.
         */
-        tab(std::unique_ptr<widget_type> p_widget, string_type title)
+        tab(std::unique_ptr<control_type> p_control, string_type title)
         :
-        m_p_widget(std::move(p_widget)),
+        m_p_control(std::move(p_control)),
         m_title(std::move(title))
         {}
 
@@ -181,32 +184,32 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         /*!
-            \brief Returns the widget.
+            \brief Returns the control.
 
-            \tparam ConcreteWidget A concrete widget type.
+            \tparam ConcreteWidget A concrete control type.
 
-            \return The widget.
+            \return The control.
         */
         template <typename ConcreteWidget>
-        const ConcreteWidget& widget()
+        const ConcreteWidget& control()
         const
         {
-            assert(dynamic_cast<const ConcreteWidget*>(m_p_widget.get()));
-            return dynamic_cast<const ConcreteWidget&>(*m_p_widget);
+            assert(dynamic_cast<const ConcreteWidget*>(m_p_control.get()));
+            return dynamic_cast<const ConcreteWidget&>(*m_p_control);
         }
 
         /*!
-            \brief Returns the widget.
+            \brief Returns the control.
 
-            \tparam ConcreteWidget A concrete widget type.
+            \tparam ConcreteWidget A concrete control type.
 
-            \return The widget.
+            \return The control.
         */
         template <typename ConcreteWidget>
-        ConcreteWidget& widget()
+        ConcreteWidget& control()
         {
-            assert(dynamic_cast<ConcreteWidget*>(m_p_widget.get()));
-            return dynamic_cast<ConcreteWidget&>(*m_p_widget);
+            assert(dynamic_cast<ConcreteWidget*>(m_p_control.get()));
+            return dynamic_cast<ConcreteWidget&>(*m_p_control);
         }
 
         /*!
@@ -224,7 +227,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // variables
 
-        const std::unique_ptr<widget_type> m_p_widget;
+        const std::unique_ptr<control_type> m_p_control;
 
         const string_type m_title;
 
