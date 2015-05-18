@@ -81,11 +81,22 @@ BOOST_AUTO_TEST_SUITE(tab)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent{};
-        std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
+        {
+            window_type parent{};
+            std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            const widget_type* const rp_tab_frame = p_tab_frame.get();
+            const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+            BOOST_CHECK(&tab.template widget<tab_frame_type>() == rp_tab_frame);
+        }
+        {
+            window_type parent{};
+            std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            widget_type* const rp_tab_frame = p_tab_frame.get();
+            tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
+
+            BOOST_CHECK(&tab.template widget<tab_frame_type>() == rp_tab_frame);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(title)
@@ -96,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(tab)
         std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
         const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_CHECK(tab.title() == string_type{ TETENGO2_TEXT("hoge") });
     }
 
 
