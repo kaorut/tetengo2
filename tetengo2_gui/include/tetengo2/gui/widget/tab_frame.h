@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // static functions
 
-        static void initialize_tab_frame(tab_frame& tab_frame_)
+        static void initialize_tab_frame(tab_frame& /*tab_frame_*/)
         {
 
         }
