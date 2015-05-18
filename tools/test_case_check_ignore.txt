@@ -14,6 +14,7 @@ tetengo2::gui::widget::progress_dialog::on_close
 tetengo2::gui::widget::side_bar::caption::
 tetengo2::gui::widget::side_bar::splitter::
 tetengo2::gui::widget::side_bar::state_button::
+tetengo2::gui::widget::tab_frame::tab_item::
 tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::do_close
 tetengo2::message::messages::do_get

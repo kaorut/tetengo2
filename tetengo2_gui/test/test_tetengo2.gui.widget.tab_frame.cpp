@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <memory>
+#include <utility>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.h>
@@ -36,6 +39,12 @@ namespace
     using tab_frame_type =
         tetengo2::gui::widget::tab_frame<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
 
+    using string_type = tab_frame_type::string_type;
+
+    using widget_type = tab_frame_type::widget_type;
+
+    using tab_type = tetengo2::gui::widget::tab<string_type, widget_type>;
+
 
 }
 
@@ -52,6 +61,42 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
 
         window_type parent{};
         const tab_frame_type tab_frame{ parent };
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(tab)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+        const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
+    }
+
+    BOOST_AUTO_TEST_CASE(widget)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+        const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(title)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        std::unique_ptr<widget_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+        const tab_type tab( std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } );
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

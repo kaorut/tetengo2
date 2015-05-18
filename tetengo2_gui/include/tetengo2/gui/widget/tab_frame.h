@@ -9,11 +9,23 @@
 #if !defined(TETENGO2_GUI_WIDGET_TABFRAME_H)
 #define TETENGO2_GUI_WIDGET_TABFRAME_H
 
+#include <cassert>
+#include <memory>
+#include <utility>
+#include <vector>
+
+#include <boost/core/noncopyable.hpp>
+
+#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
 {
+    template <typename String, typename Widget>
+    class tab;
+
+
     /*!
         \brief The class template for a tab frame.
 
@@ -43,8 +55,14 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
 
+        //! The string type.
+        using string_type = typename traits_type::string_type;
+
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
+
+        //! The tab type.
+        using tab_type = tab<string_type, widget_type>;
 
 
         // constructors and destructor
@@ -56,7 +74,8 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit tab_frame(widget_type& parent)
         :
-        base_type(parent, false, base_type::scroll_bar_style_type::none)
+        base_type(parent, false, base_type::scroll_bar_style_type::none),
+        m_p_tab_items()
         {
             initialize_tab_frame(*this);
         }
@@ -69,12 +88,145 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
+        // types
+
+        using position_type = typename base_type::position_type;
+
+        using left_type = typename gui::position<position_type>::left_type;
+
+        using top_type = typename gui::position<position_type>::top_type;
+
+        using dimension_type = typename base_type::dimension_type;
+
+        using width_type = typename gui::dimension<dimension_type>::width_type;
+
+        using height_type = typename gui::dimension<dimension_type>::height_type;
+
+        class tab_item : public inner_item<typename tab_frame::base_type>
+        {
+        public:
+            // types
+
+            using base_type = inner_item<typename tab_frame::base_type>;
+
+
+            // constructors and destructors
+
+            explicit tab_item(tab_frame& parent)
+            :
+            base_type(
+                parent,
+                position_type{ left_type{ 0 }, top_type{ 0 } },
+                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+            )
+            {}
+
+            virtual ~tab_item()
+            = default;
+
+
+        };
+
+
         // static functions
 
         static void initialize_tab_frame(tab_frame& /*tab_frame_*/)
         {
 
         }
+
+
+        // variables
+
+        std::vector<std::unique_ptr<tab_item>> m_p_tab_items;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a tab.
+
+        \tparam String A string type.
+        \tparam Widget A widget type.
+    */
+    template <typename String, typename Widget>
+    class tab : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The string type.
+        using string_type = String;
+
+        //! The widget type.
+        using widget_type = Widget;
+
+
+        // constructors and destructors
+
+        /*!
+            \brief Creates a tab.
+
+            \param p_widget A unique pointer to a widget.
+            \param title    A title.
+        */
+        tab(std::unique_ptr<widget_type> p_widget, string_type title)
+        :
+        m_p_widget(std::move(p_widget)),
+        m_title(std::move(title))
+        {}
+
+
+        // variables
+
+        /*!
+            \brief Returns the widget.
+
+            \tparam ConcreteWidget A concrete widget type.
+
+            \return The widget.
+        */
+        template <typename ConcreteWidget>
+        const ConcreteWidget& widget()
+        const
+        {
+            assert(dynamic_cast<const ConcreteWidget*>(m_p_widget.get()));
+            return dynamic_cast<const ConcreteWidget&>(*m_p_widget);
+        }
+
+        /*!
+            \brief Returns the widget.
+
+            \tparam ConcreteWidget A concrete widget type.
+
+            \return The widget.
+        */
+        template <typename ConcreteWidget>
+        ConcreteWidget& widget()
+        {
+            assert(dynamic_cast<ConcreteWidget*>(m_p_widget.get()));
+            return dynamic_cast<ConcreteWidget&>(*m_p_widget);
+        }
+
+        /*!
+            \brief Returns the title.
+
+            \return The title.
+        */
+        const string_type& title()
+        const
+        {
+            return m_title;
+        }
+
+
+    private:
+        // variables
+
+        const std::unique_ptr<widget_type> m_p_widget;
+
+        const string_type m_title;
 
 
     };
