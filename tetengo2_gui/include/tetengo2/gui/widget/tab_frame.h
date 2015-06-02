@@ -186,30 +186,30 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Returns the control.
 
-            \tparam ConcreteWidget A concrete control type.
+            \tparam ConcreteControl A concrete control type.
 
             \return The control.
         */
-        template <typename ConcreteWidget>
-        const ConcreteWidget& control()
+        template <typename ConcreteControl>
+        const ConcreteControl& control()
         const
         {
-            assert(dynamic_cast<const ConcreteWidget*>(m_p_control.get()));
-            return dynamic_cast<const ConcreteWidget&>(*m_p_control);
+            assert(dynamic_cast<const ConcreteControl*>(m_p_control.get()));
+            return dynamic_cast<const ConcreteControl&>(*m_p_control);
         }
 
         /*!
             \brief Returns the control.
 
-            \tparam ConcreteWidget A concrete control type.
+            \tparam ConcreteControl A concrete control type.
 
             \return The control.
         */
-        template <typename ConcreteWidget>
-        ConcreteWidget& control()
+        template <typename ConcreteControl>
+        ConcreteControl& control()
         {
-            assert(dynamic_cast<ConcreteWidget*>(m_p_control.get()));
-            return dynamic_cast<ConcreteWidget&>(*m_p_control);
+            assert(dynamic_cast<ConcreteControl*>(m_p_control.get()));
+            return dynamic_cast<ConcreteControl&>(*m_p_control);
         }
 
         /*!
