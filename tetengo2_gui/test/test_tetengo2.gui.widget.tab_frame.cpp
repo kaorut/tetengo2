@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <stdexcept>
 #include <utility>
 
 #include <boost/test/unit_test.hpp>
@@ -72,9 +73,17 @@ BOOST_AUTO_TEST_SUITE(tab)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent{};
-        std::unique_ptr<control_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        const tab_type tab{ std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } };
+        {
+            window_type parent{};
+            std::unique_ptr<control_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            const tab_type tab{ std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } };
+        }
+        {
+            window_type parent{};
+            std::unique_ptr<control_type> p_tab_frame{};
+            string_type title{ TETENGO2_TEXT("hoge") };
+            BOOST_CHECK_THROW(const tab_type tab(std::move(p_tab_frame), std::move(title)), std::invalid_argument);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(control)
@@ -108,6 +117,34 @@ BOOST_AUTO_TEST_SUITE(tab)
         const tab_type tab{ std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } };
 
         BOOST_CHECK(tab.title() == string_type{ TETENGO2_TEXT("hoge") });
+    }
+
+    BOOST_AUTO_TEST_CASE(visible)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        std::unique_ptr<control_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+        const tab_type tab{ std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } };
+
+        BOOST_CHECK_EQUAL(tab.visible(), tab.template control<control_type>().visible());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_visible)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        std::unique_ptr<control_type> p_tab_frame = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+        tab_type tab{ std::move(p_tab_frame), string_type{ TETENGO2_TEXT("hoge") } };
+
+        tab.set_visible(true);
+
+        BOOST_CHECK(tab.visible());
+
+        tab.set_visible(false);
+
+        BOOST_CHECK(!tab.visible());
     }
 
 

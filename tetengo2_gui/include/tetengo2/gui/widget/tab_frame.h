@@ -11,10 +11,12 @@
 
 #include <cassert>
 #include <memory>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
@@ -173,15 +175,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param p_control A unique pointer to a control.
             \param title     A title.
+
+            \throw std::invalid_argument When p_control is nullptr.
         */
         tab(std::unique_ptr<control_type> p_control, string_type title)
         :
         m_p_control(std::move(p_control)),
         m_title(std::move(title))
-        {}
+        {
+            if (!m_p_control)
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_control is nullptr." });
+        }
 
 
-        // variables
+        // functions
 
         /*!
             \brief Returns the control.
@@ -221,6 +228,27 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             return m_title;
+        }
+
+        /*!
+            \brief Returns the visible status.
+
+            \return The visible status.
+        */
+        bool visible()
+        const
+        {
+            return m_p_control->visible();
+        }
+
+        /*!
+            \brief Sets a visible status.
+
+            \param visible A visible status.
+        */
+        void set_visible(const bool visible)
+        {
+            m_p_control->set_visible(visible);
         }
 
 
