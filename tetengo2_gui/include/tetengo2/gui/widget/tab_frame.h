@@ -17,9 +17,11 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -66,6 +68,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The control type.
         using control_type = typename base_type::base_type;
 
+        //! The size type.
+        using size_type = typename control_type::size_type;
+
         //! The tab type.
         using tab_type = tab<string_type, control_type>;
 
@@ -90,6 +95,70 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         virtual ~tab_frame()
         = default;
+
+
+        // functions
+
+        /*!
+            \brief Returns the tab count.
+
+            \return The tab count.
+        */
+        size_type tab_count()
+        const
+        {
+            return m_p_tab_items.size();
+        }
+
+        /*!
+            \brief Returns the tab at the specified index.
+
+            \param index An index.
+
+            \return The tab at the speficied position.
+
+            \throw std::out_of_range When the index is out of the range.
+        */
+        const tab_type& tab_at(const size_type index)
+        const
+        {
+            if (index >= m_p_tab_items.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+
+            return m_p_tab_items[index]->tab();
+        }
+
+        /*!
+            \brief Returns the tab at the specified index.
+
+            \param index An index.
+
+            \return The tab at the speficied position.
+
+            \throw std::out_of_range When the index is out of the range.
+        */
+        tab_type& tab_at(const size_type index)
+        {
+            if (index >= m_p_tab_items.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+
+            return m_p_tab_items[index]->tab();
+        }
+
+        /*!
+            \brief Inserts a tab.
+
+            \param index An index where the tab is inserted. It must be 0 <= index <= tab_count().
+            \param p_tab A unique pointer to a tab.
+        */
+        void insert_tab(const size_type index, std::unique_ptr<tab_type> p_tab)
+        {
+            if (index > m_p_tab_items.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+
+            auto p_tab_item = stdalt::make_unique<tab_item>(*this, std::move(p_tab));
+            m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
+        }
 
 
     private:
@@ -117,17 +186,40 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // constructors and destructors
 
-            explicit tab_item(tab_frame& parent)
+            explicit tab_item(tab_frame& parent, std::unique_ptr<tab_type> p_tab)
             :
             base_type(
                 parent,
                 position_type{ left_type{ 0 }, top_type{ 0 } },
                 dimension_type{ width_type{ 0 }, height_type{ 0 } }
-            )
-            {}
+            ),
+            m_p_tab(std::move(p_tab))
+            {
+                assert(m_p_tab);
+            }
 
             virtual ~tab_item()
             = default;
+
+
+            // functions
+
+            const tab_type& tab()
+            const
+            {
+                return *m_p_tab;
+            }
+
+            tab_type& tab()
+            {
+                return *m_p_tab;
+            }
+
+
+        private:
+            // variables
+
+            const std::unique_ptr<tab_type> m_p_tab;
 
 
         };
