@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -85,10 +86,9 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit tab_frame(widget_type& parent)
         :
         base_type(parent, false, base_type::scroll_bar_style_type::none),
-        m_p_tab_items()
-        {
-            initialize_tab_frame(*this);
-        }
+        m_p_tab_items(),
+        m_selected_tab_index()
+        {}
 
         /*!
             \brief Destroys the tab frame.
@@ -148,16 +148,64 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Inserts a tab.
 
+            The inserted tab is automatically selected.
+
             \param index An index where the tab is inserted. It must be 0 <= index <= tab_count().
             \param p_tab A unique pointer to a tab.
+
+            \throw std::out_of_range     When the index is out of the range.
+            \throw std::invalid_argument When p_tab is nullptr.
         */
         void insert_tab(const size_type index, std::unique_ptr<tab_type> p_tab)
         {
             if (index > m_p_tab_items.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+            if (!p_tab)
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_tab is nullptr." });
 
             auto p_tab_item = stdalt::make_unique<tab_item>(*this, std::move(p_tab));
-            m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
+            const auto inserted_position =
+                m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
+
+            select_tab(index);
+        }
+
+        /*!
+            \brief Returns the selected tab index.
+
+            \return The selected tab index.
+
+            \throw std::logic_error When no tab is selected.
+        */
+        size_type selected_tab_index()
+        const
+        {
+            if (!m_selected_tab_index || m_p_tab_items.empty())
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
+
+            return *m_selected_tab_index;
+        }
+
+        /*!
+            \brief Selects a tab.
+
+            \param index A tab index.
+
+            \throw std::out_of_range When the index is out of the range.
+        */
+        void select_tab(const size_type index)
+        {
+            if (index >= m_p_tab_items.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+
+            for (size_type i = 0; i < m_p_tab_items.size(); ++i)
+            {
+                if (i == index)
+                    m_p_tab_items[i]->select();
+                else
+                    m_p_tab_items[i]->unselect();
+            }
+            m_selected_tab_index = boost::make_optional(index);
         }
 
 
@@ -215,6 +263,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 return *m_p_tab;
             }
 
+            void select()
+            {
+                m_p_tab->set_visible(true);
+            }
+
+            void unselect()
+            {
+                m_p_tab->set_visible(false);
+            }
+
 
         private:
             // variables
@@ -225,17 +283,11 @@ namespace tetengo2 { namespace gui { namespace widget
         };
 
 
-        // static functions
-
-        static void initialize_tab_frame(tab_frame& /*tab_frame_*/)
-        {
-
-        }
-
-
         // variables
 
         std::vector<std::unique_ptr<tab_item>> m_p_tab_items;
+
+        boost::optional<size_type> m_selected_tab_index;
 
 
     };
