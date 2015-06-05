@@ -164,8 +164,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_tab is nullptr." });
 
             auto p_tab_item = stdalt::make_unique<tab_item>(*this, std::move(p_tab));
-            const auto inserted_position =
-                m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
+            m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
 
             select_tab(index);
         }
