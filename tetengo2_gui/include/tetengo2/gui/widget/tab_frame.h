@@ -170,6 +170,29 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Erases a tab.
+
+            \param index An tab index to erase.
+
+            \throw std::out_of_range When the index is out of the range.
+        */
+        void erase_tab(const size_type index)
+        {
+            if (index >= m_p_tab_items.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
+
+            if (m_selected_tab_index)
+            {
+                if (index < *m_selected_tab_index)
+                    --*m_selected_tab_index;
+                else if (index == *m_selected_tab_index)
+                    m_selected_tab_index = boost::none;
+            }
+
+            m_p_tab_items.erase(boost::next(m_p_tab_items.begin(), index));
+        }
+
+        /*!
             \brief Returns the selected tab index.
 
             \return The selected tab index.

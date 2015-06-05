@@ -99,28 +99,83 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         window_type parent{};
         tab_frame_type tab_frame{ parent };
         
-        auto p_child1 = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        auto p_tab1 =
-            tetengo2::stdalt::make_unique<tab_type>(std::move(p_child1), string_type{ TETENGO2_TEXT("hoge") });
-        tab_frame.insert_tab(0, std::move(p_tab1));
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("hoge") });
+            tab_frame.insert_tab(0, std::move(p_tab));
 
-        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
+            BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
+            BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
+        }
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("fuga") });
+            tab_frame.insert_tab(0, std::move(p_tab));
 
-        auto p_child2 = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        auto p_tab2 =
-            tetengo2::stdalt::make_unique<tab_type>(std::move(p_child2), string_type{ TETENGO2_TEXT("fuga") });
-        tab_frame.insert_tab(0, std::move(p_tab2));
+            BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2);
+            BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("fuga") });
+        }
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("piyo") });
+            BOOST_CHECK_THROW(tab_frame.insert_tab(3, std::move(p_tab)), std::out_of_range);
 
-        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2);
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("fuga") });
-
-        auto p_child3 = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        auto p_tab3 =
-            tetengo2::stdalt::make_unique<tab_type>(std::move(p_child3), string_type{ TETENGO2_TEXT("piyo") });
-        BOOST_CHECK_THROW(tab_frame.insert_tab(3, std::move(p_tab3)), std::out_of_range);
+        }
 
         BOOST_CHECK_THROW(tab_frame.insert_tab(2, nullptr), std::invalid_argument);
+    }
+
+    BOOST_AUTO_TEST_CASE(erase_tab)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        tab_frame_type tab_frame{ parent };
+        
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("hoge") });
+            tab_frame.insert_tab(0, std::move(p_tab));
+        }
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("fuga") });
+            tab_frame.insert_tab(0, std::move(p_tab));
+        }
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("piyo") });
+            tab_frame.insert_tab(0, std::move(p_tab));
+        }
+
+        BOOST_CHECK_THROW(tab_frame.erase_tab(3), std::out_of_range);
+
+        tab_frame.select_tab(1);
+
+        tab_frame.erase_tab(0);
+
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK(tab_frame.tab_at(0).visible());
+        BOOST_CHECK(!tab_frame.tab_at(1).visible());
+
+        tab_frame.erase_tab(0);
+
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
+        BOOST_CHECK_THROW(tab_frame.selected_tab_index(), std::logic_error);
+        BOOST_CHECK(!tab_frame.tab_at(0).visible());
+
+        tab_frame.erase_tab(0);
+
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 0);
+
+        BOOST_CHECK_THROW(tab_frame.erase_tab(0), std::out_of_range);
     }
 
     BOOST_AUTO_TEST_CASE(selected_tab_index)
@@ -142,22 +197,25 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         
         BOOST_CHECK_THROW(tab_frame.select_tab(0), std::out_of_range);
 
-        auto p_child1 = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        auto p_tab1 =
-            tetengo2::stdalt::make_unique<tab_type>(std::move(p_child1), string_type{ TETENGO2_TEXT("hoge") });
-        tab_frame.insert_tab(0, std::move(p_tab1));
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("hoge") });
+            tab_frame.insert_tab(0, std::move(p_tab));
 
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
-        BOOST_CHECK(tab_frame.tab_at(0).visible());
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+            BOOST_CHECK(tab_frame.tab_at(0).visible());
+        }
+        {
+            auto p_child = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
+            auto p_tab =
+                tetengo2::stdalt::make_unique<tab_type>(std::move(p_child), string_type{ TETENGO2_TEXT("fuga") });
+            tab_frame.insert_tab(0, std::move(p_tab));
 
-        auto p_child2 = tetengo2::stdalt::make_unique<tab_frame_type>(parent);
-        auto p_tab2 =
-            tetengo2::stdalt::make_unique<tab_type>(std::move(p_child2), string_type{ TETENGO2_TEXT("fuga") });
-        tab_frame.insert_tab(0, std::move(p_tab2));
-
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
-        BOOST_CHECK(tab_frame.tab_at(0).visible());
-        BOOST_CHECK(!tab_frame.tab_at(1).visible());
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+            BOOST_CHECK(tab_frame.tab_at(0).visible());
+            BOOST_CHECK(!tab_frame.tab_at(1).visible());
+        }
 
         tab_frame.select_tab(1);
 
