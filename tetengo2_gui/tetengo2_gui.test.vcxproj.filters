@@ -266,5 +266,8 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.progress_bar.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message.child_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

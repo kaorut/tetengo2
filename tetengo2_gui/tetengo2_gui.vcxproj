@@ -57,6 +57,7 @@
     <ClInclude Include="include\tetengo2\gui\menu\shortcut_key.h" />
     <ClInclude Include="include\tetengo2\gui\menu\shortcut_key_table.h" />
     <ClInclude Include="include\tetengo2\gui\message\0namespace.dox" />
+    <ClInclude Include="include\tetengo2\gui\message\child_observer_set.h" />
     <ClInclude Include="include\tetengo2\gui\message\dialog_message_loop.h" />
     <ClInclude Include="include\tetengo2\gui\message\file_drop_observer_set.h" />
     <ClInclude Include="include\tetengo2\gui\message\focus_observer_set.h" />
