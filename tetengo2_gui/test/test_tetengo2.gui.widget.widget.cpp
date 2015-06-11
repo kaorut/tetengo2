@@ -739,6 +739,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(child_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget{};
+
+            widget.child_observer_set();
+        }
+        {
+            concrete_widget widget{};
+
+            widget.child_observer_set();
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(size_observer_set)
     {
         BOOST_TEST_PASSPOINT();
