@@ -30,6 +30,7 @@
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>
 #include <tetengo2/gui/message/keyboard_observer_set.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
@@ -159,6 +160,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The child type.
         using child_type = widget;
+
+        //! The child observer set type.
+        using child_observer_set_type = gui::message::child_observer_set<child_type>;
 
         //! The size observer set type.
         using size_observer_set_type = gui::message::size_observer_set;
@@ -664,6 +668,27 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the child observer set.
+
+            \return The child observer set.
+        */
+        const child_observer_set_type& child_observer_set()
+        const
+        {
+            return m_child_observer_set;
+        }
+
+        /*!
+            \brief Returns the child observer set.
+
+            \return The child observer set.
+        */
+        child_observer_set_type& child_observer_set()
+        {
+            return m_child_observer_set;
+        }
+
+        /*!
             \brief Returns the size observer set.
 
             \return The size observer set.
@@ -892,6 +917,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_scroll_bar_style(scroll_bar_style),
         m_p_vertical_scroll_bar(),
         m_p_horizontal_scroll_bar(),
+        m_child_observer_set(),
         m_size_observer_set(),
         m_focus_observer_set(),
         m_paint_observer_set(),
@@ -953,6 +979,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<scroll_bar_type> m_p_vertical_scroll_bar;
 
         std::unique_ptr<scroll_bar_type> m_p_horizontal_scroll_bar;
+
+        child_observer_set_type m_child_observer_set;
 
         size_observer_set_type m_size_observer_set;
 

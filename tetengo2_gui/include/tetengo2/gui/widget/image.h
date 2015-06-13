@@ -95,6 +95,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_icon()
         {
             initialize_image(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

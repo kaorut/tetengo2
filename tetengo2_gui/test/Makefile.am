@@ -40,6 +40,7 @@ sources = \
     test_tetengo2.gui.menu.separator.cpp \
     test_tetengo2.gui.menu.shortcut_key.cpp \
     test_tetengo2.gui.menu.shortcut_key_table.cpp \
+    test_tetengo2.gui.message.child_observer_set.cpp \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
     test_tetengo2.gui.message.file_drop_observer_set.cpp \
     test_tetengo2.gui.message.focus_observer_set.cpp \

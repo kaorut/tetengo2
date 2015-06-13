@@ -282,5 +282,8 @@
     <ClInclude Include="include\tetengo2\gui\widget\tab_frame.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\message\child_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
