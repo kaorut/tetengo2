@@ -115,6 +115,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_mouse_captured_item(nullptr)
         {
             base_type::initialize(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

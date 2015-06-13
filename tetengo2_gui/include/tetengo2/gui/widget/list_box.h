@@ -91,6 +91,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_list_selection_observer_set()
         {
             base_type::initialize(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

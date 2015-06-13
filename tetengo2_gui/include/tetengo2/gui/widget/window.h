@@ -110,6 +110,8 @@ namespace tetengo2 { namespace gui { namespace widget
         )
         {
             initialize_window();
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

@@ -107,6 +107,8 @@ namespace tetengo2 { namespace gui { namespace widget
         )
         {
             initialize_dialog();
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

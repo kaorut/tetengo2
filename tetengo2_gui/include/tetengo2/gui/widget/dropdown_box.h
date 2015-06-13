@@ -70,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
         */
-        dropdown_box(widget_type& parent)
+        explicit dropdown_box(widget_type& parent)
         :
 #if BOOST_COMP_MSVC
 #   pragma warning(push)
@@ -87,6 +87,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_list_selection_observer_set()
         {
             base_type::initialize(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

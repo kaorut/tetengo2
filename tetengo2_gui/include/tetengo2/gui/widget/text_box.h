@@ -80,6 +80,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_text_box_observer_set()
         {
             base_type::initialize(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!

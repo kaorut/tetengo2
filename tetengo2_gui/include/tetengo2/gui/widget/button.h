@@ -86,6 +86,8 @@ namespace tetengo2 { namespace gui { namespace widget
         m_style(style)
         {
             base_type::initialize(this);
+
+            parent.child_observer_set().created()(*this);
         }
 
         /*!
