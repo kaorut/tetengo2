@@ -55,6 +55,22 @@ BOOST_AUTO_TEST_SUITE(child_observer_set)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(destroying)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const child_observer_set_type observer_set{};
+
+            observer_set.destroying();
+        }
+        {
+            child_observer_set_type observer_set{};
+
+            observer_set.destroying();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
