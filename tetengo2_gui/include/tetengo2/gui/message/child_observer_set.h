@@ -13,6 +13,8 @@
 #include <boost/predef.h>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2 { namespace gui { namespace message
 {
@@ -45,6 +47,22 @@ namespace tetengo2 { namespace gui { namespace message
         //! The signal type of child creation.
         using created_signal_type = boost::signals2::signal<created_type>;
 
+        /*!
+            \brief The observer type of child destruction.
+
+            \param child A child.
+        */
+#if BOOST_VERSION_NUMBER(12, 0, 0) <= BOOST_COMP_MSVC && BOOST_COMP_MSVC < BOOST_VERSION_NUMBER(13, 0, 0)
+        // Somehow Visual C++ 2013 won't compile the type alias.
+        typedef void destroying_type(widget_type& child);
+#else
+        using destroying_type = void (widget_type& child);
+#endif
+
+        //! The signal type of child destruction.
+        using destroying_signal_type = boost::signals2::signal<destroying_type>;
+
+
 
         // functions
 
@@ -69,11 +87,34 @@ namespace tetengo2 { namespace gui { namespace message
             return m_created;
         }
 
+        /*!
+            \brief Returns the observer called when a child is about to be destroyed.
+
+            \return The observer called when a child is about to be destroyed.
+        */
+        const destroying_signal_type& destroying()
+        const
+        {
+            return m_destroying;
+        }
+
+        /*!
+            \brief Returns the observer called when a child is about to be destroyed.
+
+            \return The observer called when a child is about to be destroyed.
+        */
+        destroying_signal_type& destroying()
+        {
+            return m_destroying;
+        }
+
 
     private:
         // variables
 
         created_signal_type m_created;
+
+        destroying_signal_type m_destroying;
 
 
     };
