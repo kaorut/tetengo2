@@ -20,6 +20,7 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -103,7 +104,16 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the image.
         */
         virtual ~image()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            try
+            {
+                if (this->has_parent())
+                    this->parent().child_observer_set().destroying()(*this);
+            }
+            catch (...)
+            {}
+        }
 
 
         // functions

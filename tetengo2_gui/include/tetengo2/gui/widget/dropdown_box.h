@@ -19,6 +19,7 @@
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -95,7 +96,16 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the dropdown box.
         */
         virtual ~dropdown_box()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            try
+            {
+                if (this->has_parent())
+                    this->parent().child_observer_set().destroying()(*this);
+            }
+            catch (...)
+            {}
+        }
 
 
         // functions

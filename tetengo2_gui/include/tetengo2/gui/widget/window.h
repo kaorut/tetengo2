@@ -118,7 +118,16 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the window.
         */
         virtual ~window()
-        = default;
+        TETENGO2_STDALT_NOEXCEPT
+        {
+            try
+            {
+                if (this->has_parent())
+                    this->parent().child_observer_set().destroying()(*this);
+            }
+            catch (...)
+            {}
+        }
 
 
     private:
