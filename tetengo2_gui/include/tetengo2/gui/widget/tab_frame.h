@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_TABFRAME_H)
 #define TETENGO2_GUI_WIDGET_TABFRAME_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 #include <stdexcept>
@@ -27,8 +28,118 @@
 
 namespace tetengo2 { namespace gui { namespace widget
 {
+    /*!
+        \brief The class template for a tab.
+
+        \tparam String  A string type.
+        \tparam Control A control type.
+    */
     template <typename String, typename Control>
-    class tab;
+    class tab : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The string type.
+        using string_type = String;
+
+        //! The control type.
+        using control_type = Control;
+
+
+        // constructors and destructors
+
+        /*!
+            \brief Creates a tab.
+
+            \param p_control A unique pointer to a control.
+            \param title     A title.
+
+            \throw std::invalid_argument When p_control is nullptr.
+        */
+        tab(std::unique_ptr<control_type> p_control, string_type title)
+        :
+        m_p_control(std::move(p_control)),
+        m_title(std::move(title))
+        {
+            if (!m_p_control)
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_control is nullptr." });
+        }
+
+
+        // functions
+
+        /*!
+            \brief Returns the control.
+
+            \tparam ConcreteControl A concrete control type.
+
+            \return The control.
+        */
+        template <typename ConcreteControl>
+        const ConcreteControl& get_control()
+        const
+        {
+            assert(dynamic_cast<const ConcreteControl*>(m_p_control.get()));
+            return dynamic_cast<const ConcreteControl&>(*m_p_control);
+        }
+
+        /*!
+            \brief Returns the control.
+
+            \tparam ConcreteControl A concrete control type.
+
+            \return The control.
+        */
+        template <typename ConcreteControl>
+        ConcreteControl& get_control()
+        {
+            assert(dynamic_cast<ConcreteControl*>(m_p_control.get()));
+            return dynamic_cast<ConcreteControl&>(*m_p_control);
+        }
+
+        /*!
+            \brief Returns the title.
+
+            \return The title.
+        */
+        const string_type& title()
+        const
+        {
+            return m_title;
+        }
+
+        /*!
+            \brief Returns the visible status.
+
+            \return The visible status.
+        */
+        bool visible()
+        const
+        {
+            return m_p_control->visible();
+        }
+
+        /*!
+            \brief Sets a visible status.
+
+            \param visible A visible status.
+        */
+        void set_visible(const bool visible)
+        {
+            m_p_control->set_visible(visible);
+        }
+
+
+    private:
+        // variables
+
+        const std::unique_ptr<control_type> m_p_control;
+
+        const string_type m_title;
+
+
+    };
 
 
     /*!
@@ -88,7 +199,9 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(parent, false, base_type::scroll_bar_style_type::none),
         m_p_tab_items(),
         m_selected_tab_index()
-        {}
+        {
+            initialize_tab_frame(*this);
+        }
 
         /*!
             \brief Destroys the tab frame.
@@ -145,6 +258,7 @@ namespace tetengo2 { namespace gui { namespace widget
             return m_p_tab_items[index]->tab();
         }
 
+#if 0
         /*!
             \brief Inserts a tab.
 
@@ -191,6 +305,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_p_tab_items.erase(boost::next(m_p_tab_items.begin(), index));
         }
+#endif
 
         /*!
             \brief Returns the selected tab index.
@@ -305,6 +420,17 @@ namespace tetengo2 { namespace gui { namespace widget
         };
 
 
+        // static functions
+
+        static void initialize_tab_frame(tab_frame& self)
+        {
+            self.child_observer_set().created().connect([&self](widget_type& child) { self.child_created(child); });
+            self.child_observer_set().destroying().connect(
+                [&self](widget_type& child) { self.child_destroying(child); }
+            );
+        }
+
+
         // variables
 
         std::vector<std::unique_ptr<tab_item>> m_p_tab_items;
@@ -312,118 +438,41 @@ namespace tetengo2 { namespace gui { namespace widget
         boost::optional<size_type> m_selected_tab_index;
 
 
-    };
-
-
-    /*!
-        \brief The class template for a tab.
-
-        \tparam String  A string type.
-        \tparam Control A control type.
-    */
-    template <typename String, typename Control>
-    class tab : private boost::noncopyable
-    {
-    public:
-        // types
-
-        //! The string type.
-        using string_type = String;
-
-        //! The control type.
-        using control_type = Control;
-
-
-        // constructors and destructors
-
-        /*!
-            \brief Creates a tab.
-
-            \param p_control A unique pointer to a control.
-            \param title     A title.
-
-            \throw std::invalid_argument When p_control is nullptr.
-        */
-        tab(std::unique_ptr<control_type> p_control, string_type title)
-        :
-        m_p_control(std::move(p_control)),
-        m_title(std::move(title))
-        {
-            if (!m_p_control)
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_control is nullptr." });
-        }
-
-
         // functions
 
-        /*!
-            \brief Returns the control.
+        void child_created(widget_type& child)
+        {
+            control_type* const p_child = dynamic_cast<control_type*>(&child);
+            if (!p_child)
+                return;
 
-            \tparam ConcreteControl A concrete control type.
+        }
 
-            \return The control.
-        */
-        template <typename ConcreteControl>
-        const ConcreteControl& control()
+        void child_destroying(widget_type& child)
+        {
+            const control_type* const p_child = dynamic_cast<control_type*>(&child);
+            if (!p_child)
+                return;
+
+            const auto tab_item_position = find_tab_item(*p_child);
+            if (tab_item_position == m_p_tab_items.end())
+                return;
+
+        }
+
+        typename std::vector<std::unique_ptr<tab_item>>::const_iterator find_tab_item(const control_type& child)
         const
         {
-            assert(dynamic_cast<const ConcreteControl*>(m_p_control.get()));
-            return dynamic_cast<const ConcreteControl&>(*m_p_control);
+            return
+                std::find_if(
+                    m_p_tab_items.begin(),
+                    m_p_tab_items.end(),
+                    [&child](const std::unique_ptr<tab_item>& p_item)
+                    {
+                        return &p_item->tab().template get_control<control_type>() == &child;
+                    }
+                );
         }
-
-        /*!
-            \brief Returns the control.
-
-            \tparam ConcreteControl A concrete control type.
-
-            \return The control.
-        */
-        template <typename ConcreteControl>
-        ConcreteControl& control()
-        {
-            assert(dynamic_cast<ConcreteControl*>(m_p_control.get()));
-            return dynamic_cast<ConcreteControl&>(*m_p_control);
-        }
-
-        /*!
-            \brief Returns the title.
-
-            \return The title.
-        */
-        const string_type& title()
-        const
-        {
-            return m_title;
-        }
-
-        /*!
-            \brief Returns the visible status.
-
-            \return The visible status.
-        */
-        bool visible()
-        const
-        {
-            return m_p_control->visible();
-        }
-
-        /*!
-            \brief Sets a visible status.
-
-            \param visible A visible status.
-        */
-        void set_visible(const bool visible)
-        {
-            m_p_control->set_visible(visible);
-        }
-
-
-    private:
-        // variables
-
-        const std::unique_ptr<control_type> m_p_control;
-
-        const string_type m_title;
 
 
     };
