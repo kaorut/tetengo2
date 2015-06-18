@@ -44,6 +44,8 @@ namespace
 
     using control_type = tab_frame_type::control_type;
 
+    using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
+
 
 }
 
@@ -67,9 +69,21 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const tab_frame_type tab_frame{ parent };
+        tab_frame_type tab_frame{ parent };
 
         BOOST_CHECK_EQUAL(tab_frame.tab_count(), 0);
+
+        label_type label1{ tab_frame };
+
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
+
+        {
+            label_type label2{ tab_frame };
+
+            BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2);
+        }
+
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
     }
 
     BOOST_AUTO_TEST_CASE(tab_at)

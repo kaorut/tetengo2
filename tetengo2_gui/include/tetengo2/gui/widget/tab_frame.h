@@ -11,14 +11,13 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <utility>
 #include <vector>
 
-#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
@@ -182,7 +181,7 @@ namespace tetengo2 { namespace gui { namespace widget
         :
         base_type(parent, false, base_type::scroll_bar_style_type::none),
         m_p_tabs(),
-        m_selected_tab_index()
+        m_selected_tab_index(0)
         {
             initialize_tab_frame(*this);
         }
@@ -242,55 +241,6 @@ namespace tetengo2 { namespace gui { namespace widget
             return *m_p_tabs[index];
         }
 
-#if 0
-        /*!
-            \brief Inserts a tab.
-
-            The inserted tab is automatically selected.
-
-            \param index An index where the tab is inserted. It must be 0 <= index <= tab_count().
-            \param p_tab A unique pointer to a tab.
-
-            \throw std::out_of_range     When the index is out of the range.
-            \throw std::invalid_argument When p_tab is nullptr.
-        */
-        void insert_tab(const size_type index, std::unique_ptr<tab_type> p_tab)
-        {
-            if (index > m_p_tab_items.size())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
-            if (!p_tab)
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_tab is nullptr." });
-
-            auto p_tab_item = stdalt::make_unique<tab_item>(*this, std::move(p_tab));
-            m_p_tab_items.insert(boost::next(m_p_tab_items.begin(), index), std::move(p_tab_item));
-
-            select_tab(index);
-        }
-
-        /*!
-            \brief Erases a tab.
-
-            \param index An tab index to erase.
-
-            \throw std::out_of_range When the index is out of the range.
-        */
-        void erase_tab(const size_type index)
-        {
-            if (index >= m_p_tab_items.size())
-                BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
-
-            if (m_selected_tab_index)
-            {
-                if (index < *m_selected_tab_index)
-                    --*m_selected_tab_index;
-                else if (index == *m_selected_tab_index)
-                    m_selected_tab_index = boost::none;
-            }
-
-            m_p_tab_items.erase(boost::next(m_p_tab_items.begin(), index));
-        }
-#endif
-
         /*!
             \brief Returns the selected tab index.
 
@@ -301,10 +251,10 @@ namespace tetengo2 { namespace gui { namespace widget
         size_type selected_tab_index()
         const
         {
-            if (!m_selected_tab_index || m_p_tabs.empty())
+            if (m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
-            return *m_selected_tab_index;
+            return m_selected_tab_index;
         }
 
         /*!
@@ -326,7 +276,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     m_p_tabs[i]->unselect();
             }
-            m_selected_tab_index = boost::make_optional(index);
+            m_selected_tab_index = index;
         }
 
 
@@ -361,7 +311,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::vector<std::unique_ptr<tab_type>> m_p_tabs;
 
-        boost::optional<size_type> m_selected_tab_index;
+        size_type m_selected_tab_index;
 
 
         // functions
@@ -372,6 +322,10 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!p_child)
                 return;
 
+            auto p_tab = stdalt::make_unique<tab_type>(*this, *p_child);
+            m_p_tabs.push_back(std::move(p_tab));
+
+            select_tab(m_p_tabs.size() - 1);
         }
 
         void child_destroying(widget_type& child)
@@ -380,10 +334,27 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!p_child)
                 return;
 
-            const auto tab_item_position = find_tab_item(*p_child);
-            if (tab_item_position == m_p_tabs.end())
+            const auto tab_position_to_erase = find_tab_item(*p_child);
+            if (tab_position_to_erase == m_p_tabs.end())
                 return;
+            const auto index_to_erase =
+                static_cast<size_type>(std::distance(m_p_tabs.cbegin(), tab_position_to_erase));
 
+            if (m_p_tabs.size() > 1)
+            {
+                if (index_to_erase < m_selected_tab_index)
+                    --m_selected_tab_index;
+                else if (index_to_erase == m_selected_tab_index)
+                    select_tab(std::min(m_selected_tab_index + 1, m_p_tabs.size() - 1));
+            }
+            else
+            {
+                m_selected_tab_index = 0;
+            }
+
+            m_p_tabs.erase(tab_position_to_erase);
+
+            assert(m_p_tabs.empty() || m_p_tabs[m_selected_tab_index]->selected());
         }
 
         typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child)
