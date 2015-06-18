@@ -16,7 +16,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
@@ -28,120 +27,6 @@
 
 namespace tetengo2 { namespace gui { namespace widget
 {
-    /*!
-        \brief The class template for a tab.
-
-        \tparam String  A string type.
-        \tparam Control A control type.
-    */
-    template <typename String, typename Control>
-    class tab : private boost::noncopyable
-    {
-    public:
-        // types
-
-        //! The string type.
-        using string_type = String;
-
-        //! The control type.
-        using control_type = Control;
-
-
-        // constructors and destructors
-
-        /*!
-            \brief Creates a tab.
-
-            \param p_control A unique pointer to a control.
-            \param title     A title.
-
-            \throw std::invalid_argument When p_control is nullptr.
-        */
-        tab(std::unique_ptr<control_type> p_control, string_type title)
-        :
-        m_p_control(std::move(p_control)),
-        m_title(std::move(title))
-        {
-            if (!m_p_control)
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "p_control is nullptr." });
-        }
-
-
-        // functions
-
-        /*!
-            \brief Returns the control.
-
-            \tparam ConcreteControl A concrete control type.
-
-            \return The control.
-        */
-        template <typename ConcreteControl>
-        const ConcreteControl& get_control()
-        const
-        {
-            assert(dynamic_cast<const ConcreteControl*>(m_p_control.get()));
-            return dynamic_cast<const ConcreteControl&>(*m_p_control);
-        }
-
-        /*!
-            \brief Returns the control.
-
-            \tparam ConcreteControl A concrete control type.
-
-            \return The control.
-        */
-        template <typename ConcreteControl>
-        ConcreteControl& get_control()
-        {
-            assert(dynamic_cast<ConcreteControl*>(m_p_control.get()));
-            return dynamic_cast<ConcreteControl&>(*m_p_control);
-        }
-
-        /*!
-            \brief Returns the title.
-
-            \return The title.
-        */
-        const string_type& title()
-        const
-        {
-            return m_title;
-        }
-
-        /*!
-            \brief Returns the visible status.
-
-            \return The visible status.
-        */
-        bool visible()
-        const
-        {
-            return m_p_control->visible();
-        }
-
-        /*!
-            \brief Sets a visible status.
-
-            \param visible A visible status.
-        */
-        void set_visible(const bool visible)
-        {
-            m_p_control->set_visible(visible);
-        }
-
-
-    private:
-        // variables
-
-        const std::unique_ptr<control_type> m_p_control;
-
-        const string_type m_title;
-
-
-    };
-
-
     /*!
         \brief The class template for a tab frame.
 
@@ -184,7 +69,106 @@ namespace tetengo2 { namespace gui { namespace widget
         using size_type = typename control_type::size_type;
 
         //! The tab type.
-        using tab_type = tab<string_type, control_type>;
+        class tab_type : public inner_item<typename tab_frame::base_type>
+        {
+        public:
+            // types
+
+            //! The base type.
+            using base_type = inner_item<typename tab_frame::base_type>;
+
+
+            // constructors and destructors
+
+            /*!
+                \brief Creates a tab.
+
+                \param parent  A parent.
+                \param control A control.
+            */
+            explicit tab_type(tab_frame& parent, control_type& control)
+            :
+            base_type(
+                parent,
+                position_type{ left_type{ 0 }, top_type{ 0 } },
+                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+            ),
+            m_control(control)
+            {}
+
+            /*!
+                \brief Destroys the tab.
+            */
+            virtual ~tab_type()
+            = default;
+
+
+            // functions
+
+            /*!
+                \brief Returns the control.
+
+                \tparam Control A concrete control type.
+
+                \return The control.
+            */
+            template <typename Control>
+            const Control& get()
+            const
+            {
+                assert(dynamic_cast<const Control*>(&m_control));
+                return dynamic_cast<const Control&>(m_control);
+            }
+
+            /*!
+                \brief Returns the control.
+
+                \tparam Control A concrete control type.
+
+                \return The control.
+            */
+            template <typename Control>
+            Control& get()
+            {
+                assert(dynamic_cast<Control*>(&m_control));
+                return dynamic_cast<Control&>(m_control);
+            }
+
+            /*!
+                \brief Returns the selected status.
+
+                \return The selected status.
+            */
+            bool selected()
+            const
+            {
+                return m_control.visible();
+            }
+
+            /*!
+                \brief Selects this tab.
+            */
+            void select()
+            {
+                m_control.set_visible(true);
+            }
+
+            /*!
+                \brief Unselects this tab.
+            */
+            void unselect()
+            {
+                m_control.set_visible(false);
+            }
+
+
+        private:
+            // variables
+
+            control_type& m_control;
+
+
+        };
 
 
         // constructors and destructor
@@ -197,7 +181,7 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit tab_frame(widget_type& parent)
         :
         base_type(parent, false, base_type::scroll_bar_style_type::none),
-        m_p_tab_items(),
+        m_p_tabs(),
         m_selected_tab_index()
         {
             initialize_tab_frame(*this);
@@ -220,7 +204,7 @@ namespace tetengo2 { namespace gui { namespace widget
         size_type tab_count()
         const
         {
-            return m_p_tab_items.size();
+            return m_p_tabs.size();
         }
 
         /*!
@@ -235,10 +219,10 @@ namespace tetengo2 { namespace gui { namespace widget
         const tab_type& tab_at(const size_type index)
         const
         {
-            if (index >= m_p_tab_items.size())
+            if (index >= m_p_tabs.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
 
-            return m_p_tab_items[index]->tab();
+            return *m_p_tabs[index];
         }
 
         /*!
@@ -252,10 +236,10 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         tab_type& tab_at(const size_type index)
         {
-            if (index >= m_p_tab_items.size())
+            if (index >= m_p_tabs.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
 
-            return m_p_tab_items[index]->tab();
+            return *m_p_tabs[index];
         }
 
 #if 0
@@ -317,7 +301,7 @@ namespace tetengo2 { namespace gui { namespace widget
         size_type selected_tab_index()
         const
         {
-            if (!m_selected_tab_index || m_p_tab_items.empty())
+            if (!m_selected_tab_index || m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
             return *m_selected_tab_index;
@@ -332,15 +316,15 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void select_tab(const size_type index)
         {
-            if (index >= m_p_tab_items.size())
+            if (index >= m_p_tabs.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
 
-            for (size_type i = 0; i < m_p_tab_items.size(); ++i)
+            for (size_type i = 0; i < m_p_tabs.size(); ++i)
             {
                 if (i == index)
-                    m_p_tab_items[i]->select();
+                    m_p_tabs[i]->select();
                 else
-                    m_p_tab_items[i]->unselect();
+                    m_p_tabs[i]->unselect();
             }
             m_selected_tab_index = boost::make_optional(index);
         }
@@ -361,64 +345,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using height_type = typename gui::dimension<dimension_type>::height_type;
 
-        class tab_item : public inner_item<typename tab_frame::base_type>
-        {
-        public:
-            // types
-
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
-            // constructors and destructors
-
-            explicit tab_item(tab_frame& parent, std::unique_ptr<tab_type> p_tab)
-            :
-            base_type(
-                parent,
-                position_type{ left_type{ 0 }, top_type{ 0 } },
-                dimension_type{ width_type{ 0 }, height_type{ 0 } }
-            ),
-            m_p_tab(std::move(p_tab))
-            {
-                assert(m_p_tab);
-            }
-
-            virtual ~tab_item()
-            = default;
-
-
-            // functions
-
-            const tab_type& tab()
-            const
-            {
-                return *m_p_tab;
-            }
-
-            tab_type& tab()
-            {
-                return *m_p_tab;
-            }
-
-            void select()
-            {
-                m_p_tab->set_visible(true);
-            }
-
-            void unselect()
-            {
-                m_p_tab->set_visible(false);
-            }
-
-
-        private:
-            // variables
-
-            const std::unique_ptr<tab_type> m_p_tab;
-
-
-        };
-
 
         // static functions
 
@@ -433,7 +359,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // variables
 
-        std::vector<std::unique_ptr<tab_item>> m_p_tab_items;
+        std::vector<std::unique_ptr<tab_type>> m_p_tabs;
 
         boost::optional<size_type> m_selected_tab_index;
 
@@ -455,21 +381,21 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
 
             const auto tab_item_position = find_tab_item(*p_child);
-            if (tab_item_position == m_p_tab_items.end())
+            if (tab_item_position == m_p_tabs.end())
                 return;
 
         }
 
-        typename std::vector<std::unique_ptr<tab_item>>::const_iterator find_tab_item(const control_type& child)
+        typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child)
         const
         {
             return
                 std::find_if(
-                    m_p_tab_items.begin(),
-                    m_p_tab_items.end(),
-                    [&child](const std::unique_ptr<tab_item>& p_item)
+                    m_p_tabs.begin(),
+                    m_p_tabs.end(),
+                    [&child](const std::unique_ptr<tab_type>& p_tab)
                     {
-                        return &p_item->tab().template get_control<control_type>() == &child;
+                        return &p_tab->template get<control_type>() == &child;
                     }
                 );
         }
