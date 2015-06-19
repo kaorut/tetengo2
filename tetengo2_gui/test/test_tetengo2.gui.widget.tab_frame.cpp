@@ -42,8 +42,6 @@ namespace
 
     using string_type = tab_frame_type::string_type;
 
-    using control_type = tab_frame_type::control_type;
-
     using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
 
 
@@ -105,6 +103,14 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
             BOOST_CHECK(&tab_frame.tab_at(0).template get<label_type>() == &label1);
             BOOST_CHECK(&tab_frame.tab_at(1).template get<label_type>() == &label2);
             BOOST_CHECK_THROW(tab_frame.tab_at(2), std::out_of_range);
+
+            auto& tab = tab_frame.tab_at(0);
+            
+            BOOST_CHECK(tab.title().empty());
+
+            tab.set_title(string_type{ TETENGO2_TEXT("hoge") });
+
+            BOOST_CHECK(tab.title() == string_type{ TETENGO2_TEXT("hoge") });
         }
     }
 

@@ -92,7 +92,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 position_type{ left_type{ 0 }, top_type{ 0 } },
                 dimension_type{ width_type{ 0 }, height_type{ 0 } }
             ),
-            m_control(control)
+            m_control(control),
+            m_title()
             {}
 
             /*!
@@ -160,11 +161,34 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_control.set_visible(false);
             }
 
+            /*!
+                \brief Returns the title.
+
+                \return The title.
+            */
+            const string_type& title()
+            const
+            {
+                return m_title;
+            }
+
+            /*!
+                \brief Sets a title.
+
+                \param A title.
+            */
+            void set_title(string_type title)
+            {
+                m_title = std::move(title);
+            }
+
 
         private:
             // variables
 
             control_type& m_control;
+
+            string_type m_title;
 
 
         };
