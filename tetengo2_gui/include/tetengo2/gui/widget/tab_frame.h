@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
@@ -204,8 +205,7 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit tab_frame(widget_type& parent)
         :
         base_type(parent, false, base_type::scroll_bar_style_type::none),
-        m_p_tabs(),
-        m_selected_tab_index(0)
+        m_p_tabs()
         {
             initialize_tab_frame(*this);
         }
@@ -278,7 +278,20 @@ namespace tetengo2 { namespace gui { namespace widget
             if (m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
-            return m_selected_tab_index;
+            assert(
+                std::count_if(
+                    m_p_tabs.begin(),
+                    m_p_tabs.end(),
+                    [this](const std::unique_ptr<tab_type>& p_tab) { return p_tab->selected(); }
+                ) == 1
+            );
+            const auto tab_position =
+                std::find_if(
+                    m_p_tabs.begin(),
+                    m_p_tabs.end(),
+                    [this](const std::unique_ptr<tab_type>& p_tab) { return p_tab->selected(); }
+                );
+            return std::distance(m_p_tabs.begin(), tab_position);
         }
 
         /*!
@@ -300,7 +313,28 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     m_p_tabs[i]->unselect();
             }
-            m_selected_tab_index = index;
+        }
+
+        /*!
+            \brief Moves a tab.
+
+            \param from An origin index.
+            \param to   A destination index.
+
+            \throw std::out_of_range When from and/or to are out of the range.
+        */
+        void move_tab(const size_type from, const size_type to)
+        {
+            if (from >= m_p_tabs.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index from is out of the range." });
+            if (to >= m_p_tabs.size())
+                BOOST_THROW_EXCEPTION(std::out_of_range{ "index to is out_of the range." });
+            if (from == to)
+                return;
+
+            auto p_tab = std::move(m_p_tabs[from]);
+            m_p_tabs.erase(boost::next(m_p_tabs.begin(), from));
+            m_p_tabs.insert(boost::next(m_p_tabs.begin(), to), std::move(p_tab));
         }
 
 
@@ -335,8 +369,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::vector<std::unique_ptr<tab_type>> m_p_tabs;
 
-        size_type m_selected_tab_index;
-
 
         // functions
 
@@ -366,19 +398,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
             if (m_p_tabs.size() > 1)
             {
-                if (index_to_erase < m_selected_tab_index)
-                    --m_selected_tab_index;
-                else if (index_to_erase == m_selected_tab_index)
-                    select_tab(std::min(m_selected_tab_index, m_p_tabs.size() - 2));
-            }
-            else
-            {
-                m_selected_tab_index = 0;
+                const auto selected_tab_index_ = selected_tab_index();
+                if (index_to_erase == selected_tab_index_)
+                    select_tab(std::min(selected_tab_index_, m_p_tabs.size() - 2));
             }
 
             m_p_tabs.erase(tab_position_to_erase);
-
-            assert(m_p_tabs.empty() || m_p_tabs[m_selected_tab_index]->selected());
         }
 
         typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child)

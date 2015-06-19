@@ -562,6 +562,7 @@ std::condition_variable                          condition_variable
 std::copy                                        algorithm
 std::cos                                         cmath
 std::current_exception                           exception
+std::count_if                                    algorithm
 std::decay                                       type_traits
 std::distance                                    iterator
 std::enable_if                                   type_traits

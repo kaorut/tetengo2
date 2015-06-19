@@ -162,6 +162,52 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
     }
 
+    BOOST_AUTO_TEST_CASE(move_tab)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent{};
+        tab_frame_type tab_frame{ parent };
+        label_type label1{ tab_frame };
+        label_type label2{ tab_frame };
+        label_type label3{ tab_frame };
+        tab_frame.tab_at(0).set_title(string_type{ TETENGO2_TEXT("hoge") });
+        tab_frame.tab_at(1).set_title(string_type{ TETENGO2_TEXT("fuga") });
+        tab_frame.tab_at(2).set_title(string_type{ TETENGO2_TEXT("piyo") });
+
+        tab_frame.move_tab(2, 2);
+
+        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
+
+        tab_frame.move_tab(2, 1);
+
+        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+
+        tab_frame.move_tab(0, 1);
+
+        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+
+        tab_frame.move_tab(0, 2);
+
+        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
+
+        BOOST_CHECK_THROW(tab_frame.move_tab(3, 0), std::out_of_range);
+        BOOST_CHECK_THROW(tab_frame.move_tab(0, 3), std::out_of_range);
+        BOOST_CHECK_THROW(tab_frame.move_tab(3, 3), std::out_of_range);
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
