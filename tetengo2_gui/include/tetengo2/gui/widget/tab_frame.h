@@ -345,7 +345,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (index_to_erase < m_selected_tab_index)
                     --m_selected_tab_index;
                 else if (index_to_erase == m_selected_tab_index)
-                    select_tab(std::min(m_selected_tab_index + 1, m_p_tabs.size() - 1));
+                    select_tab(std::min(m_selected_tab_index, m_p_tabs.size() - 2));
             }
             else
             {

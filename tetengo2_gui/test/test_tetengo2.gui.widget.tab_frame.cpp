@@ -113,16 +113,47 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const tab_frame_type tab_frame{ parent };
+        tab_frame_type tab_frame{ parent };
         
         BOOST_CHECK_THROW(tab_frame.selected_tab_index(), std::logic_error);
+
+        label_type label1{ tab_frame };
+
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+
+        {
+            label_type label2{ tab_frame };
+
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+        }
+
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
     }
 
     BOOST_AUTO_TEST_CASE(select_tab)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type parent{};
+        tab_frame_type tab_frame{ parent };
+
+        BOOST_CHECK_THROW(tab_frame.select_tab(0), std::out_of_range);
+
+        label_type label1{ tab_frame };
+
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+
+        {
+            label_type label2{ tab_frame };
+
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+
+            tab_frame.select_tab(0);
+
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        }
+
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
     }
 
 
