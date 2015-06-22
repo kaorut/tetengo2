@@ -17,6 +17,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -69,15 +70,9 @@ namespace tetengo2 { namespace gui { namespace widget
         using size_type = typename control_type::size_type;
 
         //! The tab type.
-        class tab_type : public inner_item<typename tab_frame::base_type>
+        class tab_type : private boost::noncopyable
         {
         public:
-            // types
-
-            //! The base type.
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
             // constructors and destructors
 
             /*!
@@ -88,11 +83,6 @@ namespace tetengo2 { namespace gui { namespace widget
             */
             explicit tab_type(tab_frame& parent, control_type& control)
             :
-            base_type(
-                parent,
-                position_type{ left_type{ 0 }, top_type{ 0 } },
-                dimension_type{ width_type{ 0 }, height_type{ 0 } }
-            ),
             m_control(control),
             m_title()
             {}
