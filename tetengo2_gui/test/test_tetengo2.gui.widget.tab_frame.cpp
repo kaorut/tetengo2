@@ -100,8 +100,8 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
             label_type label1{ tab_frame };
             label_type label2{ tab_frame };
 
-            BOOST_CHECK(&tab_frame.tab_at(0).template get<label_type>() == &label1);
-            BOOST_CHECK(&tab_frame.tab_at(1).template get<label_type>() == &label2);
+            BOOST_CHECK(&tab_frame.tab_at(0).template body<label_type>() == &label1);
+            BOOST_CHECK(&tab_frame.tab_at(1).template body<label_type>() == &label2);
             BOOST_CHECK_THROW(tab_frame.tab_at(2), std::out_of_range);
 
             auto& tab = tab_frame.tab_at(0);

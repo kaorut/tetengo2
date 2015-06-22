@@ -69,28 +69,104 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The size type.
         using size_type = typename control_type::size_type;
 
-        //! The tab type.
-        class tab_type : private boost::noncopyable
+        //! The tab label type.
+        class tab_label_type : public inner_item<typename tab_frame::base_type>
         {
         public:
-            // constructors and destructors
+            // types
+
+            //! The base type.
+            using base_type = inner_item<typename tab_frame::base_type>;
+
+
+            // constructors and destructor
 
             /*!
-                \brief Creates a tab.
+                \brief Creates a tab label.
 
-                \param parent  A parent.
-                \param control A control.
+                \param parent A parent.
             */
-            explicit tab_type(tab_frame& parent, control_type& control)
+            explicit tab_label_type(tab_frame& parent)
             :
-            m_control(control),
+            base_type(
+                parent,
+                position_type{ left_type{ 0 }, top_type{ 0 } },
+                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+            ),
             m_title()
             {}
 
             /*!
-                \brief Destroys the tab.
+                \brief Destroys the tab body.
             */
-            virtual ~tab_type()
+            virtual ~tab_label_type()
+            = default;
+
+
+            // functions
+
+            /*!
+                \brief Returns the title.
+
+                \return The title.
+            */
+            const string_type& title()
+            const
+            {
+                return m_title;
+            }
+
+            /*!
+                \brief Sets a title.
+
+                \param title A title.
+            */
+            void set_title(string_type title)
+            {
+                m_title = std::move(title);
+            }
+
+
+        private:
+            // variables
+
+            string_type m_title;
+
+
+        };
+
+        //! The tab body type.
+        class tab_body_type : public inner_item<typename tab_frame::base_type>
+        {
+        public:
+            // types
+
+            //! The base type.
+            using base_type = inner_item<typename tab_frame::base_type>;
+
+
+            // constructors and destructor
+
+            /*!
+                \brief Creates a tab body.
+
+                \param parent A parent.
+                \param control A control.
+            */
+            tab_body_type(tab_frame& parent, control_type& control)
+            :
+            base_type(
+                parent,
+                position_type{ left_type{ 0 }, top_type{ 0 } },
+                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+            ),
+            m_control(control)
+            {}
+
+            /*!
+                \brief Destroys the tab body.
+            */
+            virtual ~tab_body_type()
             = default;
 
 
@@ -125,32 +201,34 @@ namespace tetengo2 { namespace gui { namespace widget
                 return dynamic_cast<Control&>(m_control);
             }
 
-            /*!
-                \brief Returns the selected status.
 
-                \return The selected status.
-            */
-            bool selected()
-            const
-            {
-                return m_control.visible();
-            }
+        private:
+            // variables
 
-            /*!
-                \brief Selects this tab.
-            */
-            void select()
-            {
-                m_control.set_visible(true);
-            }
+            control_type& m_control;
+
+        };
+
+        //! The tab type.
+        class tab_type : private boost::noncopyable
+        {
+        public:
+            // constructors and destructor
 
             /*!
-                \brief Unselects this tab.
+                \brief Creates a tab.
+
+                \param parent  A parent.
+                \param control A control.
             */
-            void unselect()
-            {
-                m_control.set_visible(false);
-            }
+            tab_type(tab_frame& parent, control_type& control)
+            :
+            m_label(parent),
+            m_body(parent, control)
+            {}
+
+
+            // functions
 
             /*!
                 \brief Returns the title.
@@ -160,26 +238,80 @@ namespace tetengo2 { namespace gui { namespace widget
             const string_type& title()
             const
             {
-                return m_title;
+                return m_label.title();
             }
 
             /*!
                 \brief Sets a title.
 
-                \param A title.
+                \param title A title.
             */
             void set_title(string_type title)
             {
-                m_title = std::move(title);
+                m_label.set_title(std::move(title));
+            }
+
+            /*!
+                \brief Returns the control.
+
+                \tparam Control A concrete control type.
+
+                \return The control.
+            */
+            template <typename Control>
+            const Control& body()
+            const
+            {
+                return m_body.template get<Control>();
+            }
+
+            /*!
+                \brief Returns the control.
+
+                \tparam Control A concrete control type.
+
+                \return The control.
+            */
+            template <typename Control>
+            Control& body()
+            {
+                return m_body.template get<Control>();
+            }
+
+            /*!
+                \brief Returns the selected status.
+
+                \return The selected status.
+            */
+            bool selected()
+            const
+            {
+                return m_body.template get<control_type>().visible();
+            }
+
+            /*!
+                \brief Selects this tab.
+            */
+            void select()
+            {
+                m_body.template get<control_type>().set_visible(true);
+            }
+
+            /*!
+                \brief Unselects this tab.
+            */
+            void unselect()
+            {
+                m_body.template get<control_type>().set_visible(false);
             }
 
 
         private:
             // variables
 
-            control_type& m_control;
+            tab_label_type m_label;
 
-            string_type m_title;
+            tab_body_type m_body;
 
 
         };
@@ -405,7 +537,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_tabs.end(),
                     [&child](const std::unique_ptr<tab_type>& p_tab)
                     {
-                        return &p_tab->template get<control_type>() == &child;
+                        return &p_tab->template body<control_type>() == &child;
                     }
                 );
         }

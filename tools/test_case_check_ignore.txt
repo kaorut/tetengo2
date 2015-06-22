@@ -15,6 +15,8 @@ tetengo2::gui::widget::side_bar::caption::
 tetengo2::gui::widget::side_bar::splitter::
 tetengo2::gui::widget::side_bar::state_button::
 tetengo2::gui::widget::tab_frame::tab_type::
+tetengo2::gui::widget::tab_frame::tab_body_type::
+tetengo2::gui::widget::tab_frame::tab_label_type::
 tetengo2::gui::widget::widget::paint_background::
 tetengo2::message::messages::do_close
 tetengo2::message::messages::do_get
