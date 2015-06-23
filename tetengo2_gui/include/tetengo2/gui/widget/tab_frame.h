@@ -21,6 +21,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/stdalt.h>
@@ -34,11 +36,13 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
+        \tparam SystemColorDetails  A detail implementation type of system colors.
     */
     template <
         typename Traits,
         typename DetailsTraits,
-        typename MouseCaptureDetails
+        typename MouseCaptureDetails,
+        typename SystemColorDetails
     >
     class tab_frame : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
@@ -50,6 +54,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
+
+        //! The system color details type.
+        using system_color_details_type = SystemColorDetails;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
@@ -463,6 +470,8 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
+        using drawing_details_type = typename details_traits_type::drawing_details_type;
+
         using position_type = typename base_type::position_type;
 
         using left_type = typename gui::position<position_type>::left_type;
@@ -475,14 +484,30 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using height_type = typename gui::dimension<dimension_type>::height_type;
 
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+
 
         // static functions
 
-        static void initialize_tab_frame(tab_frame& self)
+        static void initialize_tab_frame(tab_frame& tab_frame_)
         {
-            self.child_observer_set().created().connect([&self](widget_type& child) { self.child_created(child); });
-            self.child_observer_set().destroying().connect(
-                [&self](widget_type& child) { self.child_destroying(child); }
+            tab_frame_.set_dimension(dimension_type{ width_type{ 16 }, height_type{ 16 } });
+            tab_frame_.set_background(
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+            );
+
+            set_observers(tab_frame_);
+        }
+
+        static void set_observers(tab_frame& tab_frame_)
+        {
+            tab_frame_.child_observer_set().created().connect(
+                [&tab_frame_](widget_type& child) { tab_frame_.child_created(child); }
+            );
+            tab_frame_.child_observer_set().destroying().connect(
+                [&tab_frame_](widget_type& child) { tab_frame_.child_destroying(child); }
             );
         }
 
