@@ -67,6 +67,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
 
+        //! The canvas type.
+        using canvas_type = typename base_type::canvas_type;
+
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -238,51 +241,45 @@ namespace tetengo2 { namespace gui { namespace widget
             // functions
 
             /*!
-                \brief Returns the title.
+                \brief Returns the label.
 
-                \return The title.
+                \return The label.
             */
-            const string_type& title()
+            const tab_label_type& label()
             const
             {
-                return m_label.title();
+                return m_label;
             }
 
             /*!
-                \brief Sets a title.
+                \brief Returns the label.
 
-                \param title A title.
+                \return The label.
             */
-            void set_title(string_type title)
+            tab_label_type& label()
             {
-                m_label.set_title(std::move(title));
+                return m_label;
             }
 
             /*!
-                \brief Returns the control.
+                \brief Returns the body.
 
-                \tparam Control A concrete control type.
-
-                \return The control.
+                \return The body.
             */
-            template <typename Control>
-            const Control& body()
+            const tab_body_type& body()
             const
             {
-                return m_body.template get<Control>();
+                return m_body;
             }
 
             /*!
-                \brief Returns the control.
+                \brief Returns the body.
 
-                \tparam Control A concrete control type.
-
-                \return The control.
+                \return The body.
             */
-            template <typename Control>
-            Control& body()
+            tab_body_type& body()
             {
-                return m_body.template get<Control>();
+                return m_body;
             }
 
             /*!
@@ -472,6 +469,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
+        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
+
+        using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
+
         using position_type = typename base_type::position_type;
 
         using left_type = typename gui::position<position_type>::left_type;
@@ -509,6 +510,84 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_frame_.child_observer_set().destroying().connect(
                 [&tab_frame_](widget_type& child) { tab_frame_.child_destroying(child); }
             );
+
+            tab_frame_.size_observer_set().resized().connect(
+                [&tab_frame_]()
+                {
+                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    {
+                        p_tab->label().resized();
+                        p_tab->body().resized();
+                    }
+                }
+            );
+
+            tab_frame_.paint_observer_set().paint_background().disconnect_all_slots();
+            tab_frame_.paint_observer_set().paint_background().connect(
+                [&tab_frame_](canvas_type& canvas) { return paint_background(tab_frame_, canvas); }
+            );
+            tab_frame_.paint_observer_set().paint().connect(
+                [&tab_frame_](canvas_type& canvas)
+                {
+                    canvas.begin_transaction(tab_frame_.client_dimension());
+
+                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    {
+                        p_tab->label().paint(canvas);
+                        p_tab->body().paint(canvas);
+                    }
+
+                    canvas.end_transaction();
+                }
+            );
+
+            tab_frame_.mouse_observer_set().pressed().connect(
+                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool)
+                {
+                    if (button != mouse_button_type::left)
+                        return;
+
+                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    {
+                        p_tab->label().mouse_pressed(button, position);
+                        p_tab->body().mouse_pressed(button, position);
+                    }
+                }
+            );
+            tab_frame_.mouse_observer_set().released().connect(
+                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool)
+                {
+                    if (button != mouse_button_type::left)
+                        return;
+
+                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    {
+                        p_tab->label().mouse_released(button, position);
+                        p_tab->body().mouse_released(button, position);
+                    }
+                }
+            );
+            tab_frame_.mouse_observer_set().moved().connect(
+                [&tab_frame_](const position_type& position, bool, bool, bool)
+                {
+                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    {
+                        p_tab->label().mouse_moved(position);
+                        p_tab->body().mouse_moved(position);
+                    }
+                }
+            );
+        }
+
+        static bool paint_background(const tab_frame& tab_frame_, canvas_type& canvas)
+        {
+            if (!tab_frame_.background())
+                return false;
+
+            canvas.set_background(tab_frame_.background()->clone());
+            canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, tab_frame_.client_dimension());
+
+            return true;
         }
 
 
@@ -562,7 +641,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_tabs.end(),
                     [&child](const std::unique_ptr<tab_type>& p_tab)
                     {
-                        return &p_tab->template body<control_type>() == &child;
+                        return &p_tab->body().template get<control_type>() == &child;
                     }
                 );
         }

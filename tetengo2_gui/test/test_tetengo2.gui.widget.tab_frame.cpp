@@ -104,17 +104,17 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
             label_type label1{ tab_frame };
             label_type label2{ tab_frame };
 
-            BOOST_CHECK(&tab_frame.tab_at(0).template body<label_type>() == &label1);
-            BOOST_CHECK(&tab_frame.tab_at(1).template body<label_type>() == &label2);
+            BOOST_CHECK(&tab_frame.tab_at(0).body().template get<label_type>() == &label1);
+            BOOST_CHECK(&tab_frame.tab_at(1).body().template get<label_type>() == &label2);
             BOOST_CHECK_THROW(tab_frame.tab_at(2), std::out_of_range);
 
             auto& tab = tab_frame.tab_at(0);
             
-            BOOST_CHECK(tab.title().empty());
+            BOOST_CHECK(tab.label().title().empty());
 
-            tab.set_title(string_type{ TETENGO2_TEXT("hoge") });
+            tab.label().set_title(string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(tab.title() == string_type{ TETENGO2_TEXT("hoge") });
+            BOOST_CHECK(tab.label().title() == string_type{ TETENGO2_TEXT("hoge") });
         }
     }
 
@@ -175,36 +175,36 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         label_type label1{ tab_frame };
         label_type label2{ tab_frame };
         label_type label3{ tab_frame };
-        tab_frame.tab_at(0).set_title(string_type{ TETENGO2_TEXT("hoge") });
-        tab_frame.tab_at(1).set_title(string_type{ TETENGO2_TEXT("fuga") });
-        tab_frame.tab_at(2).set_title(string_type{ TETENGO2_TEXT("piyo") });
+        tab_frame.tab_at(0).label().set_title(string_type{ TETENGO2_TEXT("hoge") });
+        tab_frame.tab_at(1).label().set_title(string_type{ TETENGO2_TEXT("fuga") });
+        tab_frame.tab_at(2).label().set_title(string_type{ TETENGO2_TEXT("piyo") });
 
         tab_frame.move_tab(2, 2);
 
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
-        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("fuga") });
-        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("piyo") });
         BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
 
         tab_frame.move_tab(2, 1);
 
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
-        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("piyo") });
-        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("fuga") });
         BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
 
         tab_frame.move_tab(0, 1);
 
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("piyo") });
-        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("hoge") });
-        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("fuga") });
         BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
 
         tab_frame.move_tab(0, 2);
 
-        BOOST_CHECK(tab_frame.tab_at(0).title() == string_type{ TETENGO2_TEXT("hoge") });
-        BOOST_CHECK(tab_frame.tab_at(1).title() == string_type{ TETENGO2_TEXT("fuga") });
-        BOOST_CHECK(tab_frame.tab_at(2).title() == string_type{ TETENGO2_TEXT("piyo") });
+        BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
+        BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("fuga") });
+        BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("piyo") });
         BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
 
         BOOST_CHECK_THROW(tab_frame.move_tab(3, 0), std::out_of_range);
