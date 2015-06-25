@@ -70,6 +70,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
 
+        //! The position type.
+        using position_type = typename base_type::position_type;
+
+        //! The dimension type.
+        using dimension_type = typename base_type::dimension_type;
+
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -141,6 +147,53 @@ namespace tetengo2 { namespace gui { namespace widget
             // variables
 
             string_type m_title;
+
+
+            // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+
+            }
+
+            virtual void paint_impl(canvas_type& /*canvas*/)
+            const override
+            {
+
+            }
+
+            virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
+            override
+            {
+
+            }
+
+            virtual void mouse_released_impl(const position_type& /*cursor_position*/)
+            override
+            {
+
+            }
+
+            virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
+            override
+            {
+                if (!this->parent().mouse_captured(this))
+                    return;
+
+            }
+
+            virtual void mouse_entered_impl()
+            override
+            {
+
+            }
+
+            virtual void mouse_left_impl()
+            override
+            {
+
+            }
 
 
         };
@@ -216,6 +269,22 @@ namespace tetengo2 { namespace gui { namespace widget
             // variables
 
             control_type& m_control;
+
+
+            // virtual functions
+
+            virtual void resized_impl()
+            override
+            {
+
+            }
+
+            virtual void paint_impl(canvas_type& /*canvas*/)
+            const override
+            {
+
+            }
+
 
         };
 
@@ -473,13 +542,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        using position_type = typename base_type::position_type;
-
         using left_type = typename gui::position<position_type>::left_type;
 
         using top_type = typename gui::position<position_type>::top_type;
-
-        using dimension_type = typename base_type::dimension_type;
 
         using width_type = typename gui::dimension<dimension_type>::width_type;
 
