@@ -79,6 +79,7 @@ sources = \
     test_tetengo2.gui.widget.progress_bar.cpp \
     test_tetengo2.gui.widget.progress_dialog.cpp \
     test_tetengo2.gui.widget.side_bar.cpp \
+    test_tetengo2.gui.widget.tab_frame.cpp \
     test_tetengo2.gui.widget.text_box.cpp \
     test_tetengo2.gui.widget.widget.cpp \
     test_tetengo2.gui.widget.window.cpp

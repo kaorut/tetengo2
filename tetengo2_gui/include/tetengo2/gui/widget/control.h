@@ -61,6 +61,15 @@ namespace tetengo2 { namespace gui { namespace widget
         using color_type = gui::drawing::color;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the control.
+        */
+        virtual ~control()
+        = default;
+
+
         // functions
 
         /*!
@@ -143,12 +152,6 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_details(std::move(p_details)),
         m_text_color()
         {}
-
-        /*!
-            \brief Destroys the control.
-        */
-        virtual ~control()
-        = default;
 
 
     private:
