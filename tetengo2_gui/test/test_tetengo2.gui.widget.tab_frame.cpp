@@ -73,19 +73,19 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         window_type parent{};
         tab_frame_type tab_frame{ parent };
 
-        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 0U);
 
         label_type label1{ tab_frame };
 
-        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1U);
 
         {
             label_type label2{ tab_frame };
 
-            BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2);
+            BOOST_CHECK_EQUAL(tab_frame.tab_count(), 2U);
         }
 
-        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1);
+        BOOST_CHECK_EQUAL(tab_frame.tab_count(), 1U);
     }
 
     BOOST_AUTO_TEST_CASE(tab_at)
@@ -129,15 +129,15 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
 
         label_type label1{ tab_frame };
 
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
 
         {
             label_type label2{ tab_frame };
 
-            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1U);
         }
 
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
     }
 
     BOOST_AUTO_TEST_CASE(select_tab)
@@ -151,19 +151,19 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
 
         label_type label1{ tab_frame };
 
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
 
         {
             label_type label2{ tab_frame };
 
-            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1U);
 
             tab_frame.select_tab(0);
 
-            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+            BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
         }
 
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
     }
 
     BOOST_AUTO_TEST_CASE(move_tab)
@@ -184,28 +184,28 @@ BOOST_AUTO_TEST_SUITE(tab_frame)
         BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
         BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("fuga") });
         BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("piyo") });
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2U);
 
         tab_frame.move_tab(2, 1);
 
         BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
         BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("piyo") });
         BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("fuga") });
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 1U);
 
         tab_frame.move_tab(0, 1);
 
         BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("piyo") });
         BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("hoge") });
         BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("fuga") });
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 0U);
 
         tab_frame.move_tab(0, 2);
 
         BOOST_CHECK(tab_frame.tab_at(0).label().title() == string_type{ TETENGO2_TEXT("hoge") });
         BOOST_CHECK(tab_frame.tab_at(1).label().title() == string_type{ TETENGO2_TEXT("fuga") });
         BOOST_CHECK(tab_frame.tab_at(2).label().title() == string_type{ TETENGO2_TEXT("piyo") });
-        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2);
+        BOOST_CHECK_EQUAL(tab_frame.selected_tab_index(), 2U);
 
         BOOST_CHECK_THROW(tab_frame.move_tab(3, 0), std::out_of_range);
         BOOST_CHECK_THROW(tab_frame.move_tab(0, 3), std::out_of_range);
