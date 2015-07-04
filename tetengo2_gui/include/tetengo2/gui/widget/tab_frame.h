@@ -276,7 +276,10 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
+                this->set_position(position_type{ left_type{ 0 }, top_type{ 0 } });
+                this->set_dimension(this->parent().client_dimension());
 
+                m_control.set_position_and_dimension(this->position(), this->dimension());
             }
 
             virtual void paint_impl(canvas_type& /*canvas*/)
