@@ -276,16 +276,17 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                this->set_position(position_type{ left_type{ 0 }, top_type{ 0 } });
-                this->set_dimension(this->parent().client_dimension());
+                const auto& tab_width = static_cast<const tab_frame&>(this->parent()).tab_width();
+                this->set_position(position_type{ left_type::from(tab_width), top_type{ 0 } });
+                const auto client_dimension = this->parent().client_dimension();
+                const auto width =
+                    tetengo2::gui::dimension<dimension_type>::width(client_dimension) > tab_width ?
+                    tetengo2::gui::dimension<dimension_type>::width(client_dimension) - tab_width : width_type{ 0 };
+                this->set_dimension(
+                    dimension_type{ width, tetengo2::gui::dimension<dimension_type>::height(client_dimension) }
+                );
 
                 m_control.set_position_and_dimension(this->position(), this->dimension());
-            }
-
-            virtual void paint_impl(canvas_type& /*canvas*/)
-            const override
-            {
-
             }
 
 
@@ -668,7 +669,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void child_created(widget_type& child)
         {
-            control_type* const p_child = dynamic_cast<control_type*>(&child);
+            auto* const p_child = dynamic_cast<control_type*>(&child);
             if (!p_child)
                 return;
 
@@ -680,7 +681,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void child_destroying(widget_type& child)
         {
-            const control_type* const p_child = dynamic_cast<control_type*>(&child);
+            const auto* const p_child = dynamic_cast<control_type*>(&child);
             if (!p_child)
                 return;
 
@@ -712,6 +713,24 @@ namespace tetengo2 { namespace gui { namespace widget
                         return &p_tab->body().template get<control_type>() == &child;
                     }
                 );
+        }
+
+        const width_type& tab_width()
+        const
+        {
+            static const auto singleton = calculate_tab_width();
+            return singleton;
+        }
+
+        width_type calculate_tab_width()
+        const
+        {
+            static const auto padding = width_type{ 1 } / 4;
+
+            const auto p_canvas = this->create_canvas();
+            const auto text_dimension = p_canvas->calc_text_dimension(string_type{ TETENGO2_TEXT("M") });
+
+            return padding + width_type::from(tetengo2::gui::dimension<dimension_type>::height(text_dimension));
         }
 
 
