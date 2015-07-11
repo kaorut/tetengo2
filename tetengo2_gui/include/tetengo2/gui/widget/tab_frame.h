@@ -156,7 +156,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-
+                this->set_position(
+                    position_type{ left_type{ 0 }, static_cast<const tab_frame&>(this->parent()).tab_label_top(*this) }
+                );
             }
 
             virtual void paint_impl(canvas_type& /*canvas*/)
@@ -297,12 +299,12 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                const auto& tab_width = static_cast<const tab_frame&>(this->parent()).tab_width();
-                this->set_position(position_type{ left_type::from(tab_width), top_type{ 0 } });
+                const auto& tab_label_width = static_cast<const tab_frame&>(this->parent()).tab_label_width();
+                this->set_position(position_type{ left_type::from(tab_label_width), top_type{ 0 } });
                 const auto client_dimension = this->parent().client_dimension();
                 const auto width =
-                    gui::dimension<dimension_type>::width(client_dimension) > tab_width ?
-                    gui::dimension<dimension_type>::width(client_dimension) - tab_width : width_type{ 0 };
+                    gui::dimension<dimension_type>::width(client_dimension) > tab_label_width ?
+                    gui::dimension<dimension_type>::width(client_dimension) - tab_label_width : width_type{ 0 };
                 this->set_dimension(
                     dimension_type{ width, gui::dimension<dimension_type>::height(client_dimension) }
                 );
@@ -736,7 +738,22 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
         }
 
-        const width_type& tab_width()
+        top_type tab_label_top(const tab_label_type& tab_label)
+        const
+        {
+            top_type top{ 0 };
+            for (const auto& p_tab: m_p_tabs)
+            {
+                if (&p_tab->label() == &tab_label)
+                    break;
+
+                top += top_type::from(gui::dimension<dimension_type>::height(p_tab->label().dimension()));
+            }
+
+            return top;
+        }
+
+        const width_type& tab_label_width()
         const
         {
             const auto max_width_tab =
