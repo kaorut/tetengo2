@@ -2709,7 +2709,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WPARAM w_param,
             const ::LPARAM l_param
         )
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

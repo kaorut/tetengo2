@@ -31,8 +31,6 @@
 #undef min
 #undef max
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
@@ -67,7 +65,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return The name.
         */
         virtual const char* name()
-        const TETENGO2_STDALT_NOEXCEPT override
+        const noexcept override
         {
             return "gdiplus";
         }

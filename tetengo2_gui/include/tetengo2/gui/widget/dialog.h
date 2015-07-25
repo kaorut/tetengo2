@@ -16,7 +16,6 @@
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
 #include <tetengo2/gui/widget/abstract_window.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -116,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the dialog.
         */
         virtual ~dialog()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {
