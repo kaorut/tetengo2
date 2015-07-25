@@ -658,6 +658,11 @@ namespace tetengo2 { namespace gui { namespace widget
             return true;
         }
 
+        static bool has_same_control(const tab_type& tab, const control_type& child)
+        {
+            return &tab.body().template get<control_type>() == &child;
+        }
+
 
         // variables
 
@@ -709,7 +714,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_tabs.end(),
                     [&child](const std::unique_ptr<tab_type>& p_tab)
                     {
-                        return &p_tab->body().template get<control_type>() == &child;
+                        return has_same_control(*p_tab, child);
                     }
                 );
         }
