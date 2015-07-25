@@ -150,7 +150,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the progress dialog.
         */
         virtual ~progress_dialog()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

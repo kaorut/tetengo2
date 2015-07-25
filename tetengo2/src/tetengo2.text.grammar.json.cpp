@@ -467,7 +467,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
     template <typename ForwardIterator>
     json<ForwardIterator>::~json()
-    TETENGO2_STDALT_NOEXCEPT
+    noexcept
     {}
 
 

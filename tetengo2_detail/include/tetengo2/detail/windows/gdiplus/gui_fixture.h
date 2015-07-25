@@ -33,7 +33,6 @@
 #undef max
 
 #include <tetengo2/detail/windows/gdiplus/error_category.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
@@ -60,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \brief Destroys the detail implementation of a GUI fixture.
         */
         ~gui_fixture()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             teardown_gdiplus(m_gdiplus_token);
         }
@@ -86,7 +85,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         static void teardown_gdiplus(const ::ULONG_PTR gdiplus_token)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             Gdiplus::GdiplusShutdown(gdiplus_token);
         }

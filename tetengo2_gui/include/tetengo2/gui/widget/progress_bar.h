@@ -89,7 +89,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the progress bar.
         */
         virtual ~progress_bar()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

@@ -12,24 +12,6 @@
 #include <boost/predef.h>
 
 
-/* noexcept *******************************************************************/
-
-#if !defined(DOCUMENTATION)
-#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(14, 0, 0) || BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
-#       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 1
-#   else
-#       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 0
-#   endif
-#endif
-
-#if TETENGO2_STDALT_NOEXCEPT_SUPPORTED || defined(DOCUMENTATION)
-    //! The alternative to the C++11 keyword noexcept.
-#   define TETENGO2_STDALT_NOEXCEPT noexcept
-#else
-#   define TETENGO2_STDALT_NOEXCEPT
-#endif
-
-
 /* make_unique ****************************************************************/
 
 #if !defined(DOCUMENTATION)

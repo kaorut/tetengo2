@@ -123,7 +123,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the custom control.
         */
         virtual ~custom_control()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {
