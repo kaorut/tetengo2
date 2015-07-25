@@ -15,7 +15,7 @@
 /* noexcept *******************************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
+#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(14, 0, 0) || BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 7, 0)
 #       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 1
 #   else
 #       define TETENGO2_STDALT_NOEXCEPT_SUPPORTED 0
