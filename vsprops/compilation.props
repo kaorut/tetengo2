@@ -14,8 +14,8 @@
     <ClCompile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_OPTIONAL_USE_OLD_DEFINITION_OF_NONE;BOOST_THREAD_VERSION=3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4003;4100;4127;4146;4275;4373;4503;4512;4702;4706;4714;4819;4913</DisableSpecificWarnings>
-      <AdditionalOptions>/Zm245 /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4003;4100;4127;4146;4275;4373;4458;4459;4503;4512;4702;4706;4714;4819;4913</DisableSpecificWarnings>
+      <AdditionalOptions>/Zm320 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
