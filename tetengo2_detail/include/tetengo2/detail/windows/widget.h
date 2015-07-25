@@ -1399,14 +1399,14 @@ namespace tetengo2 { namespace detail { namespace windows
                 0,
                 0,
                 font.bold() ? FW_BOLD : FW_NORMAL,
-                font.italic() ? TRUE : FALSE,
-                font.underline() ? TRUE : FALSE,
-                font.strikeout() ? TRUE : FALSE,
-                DEFAULT_CHARSET,
-                OUT_DEFAULT_PRECIS,
-                CLIP_DEFAULT_PRECIS,
-                DEFAULT_QUALITY,
-                DEFAULT_PITCH | FF_DONTCARE,
+                static_cast< ::BYTE>(font.italic() ? TRUE : FALSE),
+                static_cast< ::BYTE>(font.underline() ? TRUE : FALSE),
+                static_cast< ::BYTE>(font.strikeout() ? TRUE : FALSE),
+                static_cast< ::BYTE>(DEFAULT_CHARSET),
+                static_cast< ::BYTE>(OUT_DEFAULT_PRECIS),
+                static_cast< ::BYTE>(CLIP_DEFAULT_PRECIS),
+                static_cast< ::BYTE>(DEFAULT_QUALITY),
+                static_cast< ::BYTE>(DEFAULT_PITCH | FF_DONTCARE),
                 L""
             };
             const auto font_family = encoder.encode(font.family());

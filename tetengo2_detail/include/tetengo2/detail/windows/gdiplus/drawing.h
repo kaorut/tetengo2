@@ -761,7 +761,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::UINT buffer_size = stride * height;
             std::vector< ::BYTE> buffer(buffer_size, 0);
 
-            const ::WICRect rectangle{ 0, 0, width, height };
+            const ::WICRect rectangle{ 0, 0, static_cast< ::INT>(width), static_cast< ::INT>(height) };
             const auto copy_pixels_hr = picture_details.CopyPixels(&rectangle, stride, buffer_size, buffer.data());
             if (FAILED(copy_pixels_hr))
             {
