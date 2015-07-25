@@ -25,6 +25,7 @@
 #include <wincodec.h>
 
 #include <tetengo2/detail/windows/encoding.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/utf8.h>
@@ -71,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const override
+        const TETENGO2_STDALT_NOEXCEPT override
         {
             return "win32";
         }
@@ -148,7 +149,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The name.
         */
         virtual const char* name()
-        const override
+        const TETENGO2_STDALT_NOEXCEPT override
         {
             return "Windows Imaging Component";
         }
