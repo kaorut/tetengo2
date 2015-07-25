@@ -20,8 +20,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace detail { namespace windows
 {
@@ -50,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of a mouse capture.
         */
         ~mouse_capture()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             ::ReleaseCapture();
         }

@@ -30,7 +30,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -178,7 +177,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {}
 
             ~registry()
-            TETENGO2_STDALT_NOEXCEPT
+            noexcept
             {
                 ::RegCloseKey(m_handle);
             }

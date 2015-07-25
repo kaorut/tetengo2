@@ -23,7 +23,6 @@
 #include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -370,7 +369,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the abstract window.
         */
         virtual ~abstract_window()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             if (!this->destroyed())
                 set_icon(std::unique_ptr<icon_type>{});

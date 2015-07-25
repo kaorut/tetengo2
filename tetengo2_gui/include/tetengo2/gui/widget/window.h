@@ -118,7 +118,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the window.
         */
         virtual ~window()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

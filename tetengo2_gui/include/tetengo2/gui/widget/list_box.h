@@ -19,7 +19,6 @@
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -100,7 +99,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the list box.
         */
         virtual ~list_box()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

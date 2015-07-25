@@ -18,7 +18,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace concurrent
@@ -87,7 +86,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another progressive promise base.
         */
         progressive_promise_base(progressive_promise_base&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         m_promise(std::move(another.m_promise)),
         m_p_state(std::move(another.m_p_state))
@@ -104,7 +103,7 @@ namespace tetengo2 { namespace concurrent
             \return This object.
         */
         progressive_promise_base& operator=(progressive_promise_base&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             progressive_promise_base{ std::move(another) }.swap(*this);
             return *this;
@@ -116,7 +115,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another promise.
         */
         void swap(progressive_promise_base& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             m_promise.swap(another.m_promise);
             m_p_state.swap(another.m_p_state);
@@ -278,7 +277,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another progressive promise.
         */
         progressive_promise(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
@@ -294,7 +293,7 @@ namespace tetengo2 { namespace concurrent
             \return This object.
         */
         progressive_promise& operator=(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -306,7 +305,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another promise.
         */
         void swap(progressive_promise& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::swap(another);
         }
@@ -391,7 +390,7 @@ namespace tetengo2 { namespace concurrent
         {}
 
         progressive_promise(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
@@ -400,14 +399,14 @@ namespace tetengo2 { namespace concurrent
         // functions
 
         progressive_promise& operator=(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
         }
 
         void swap(progressive_promise& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::swap(another);
         }
@@ -461,7 +460,7 @@ namespace tetengo2 { namespace concurrent
         {}
 
         progressive_promise(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
@@ -470,14 +469,14 @@ namespace tetengo2 { namespace concurrent
         // functions
 
         progressive_promise& operator=(progressive_promise&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
         }
 
         void swap(progressive_promise& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::swap(another);
         }
@@ -516,7 +515,7 @@ namespace std
         tetengo2::concurrent::progressive_promise<T, Progress>& one,
         tetengo2::concurrent::progressive_promise<T, Progress>& another
     )
-    TETENGO2_STDALT_NOEXCEPT
+    noexcept
     {
         one.swap(another);
     }

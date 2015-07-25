@@ -18,8 +18,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace concurrent
 {
@@ -173,7 +171,7 @@ namespace tetengo2 { namespace concurrent
             \brief Creates an empty progressive future base.
         */
         progressive_future_base()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         m_future(),
         m_p_state()
@@ -185,7 +183,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another progressive future base.
         */
         progressive_future_base(progressive_future_base&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         m_future(std::move(another.m_future)),
         m_p_state(std::move(another.m_p_state))
@@ -213,7 +211,7 @@ namespace tetengo2 { namespace concurrent
             \return This object.
         */
         progressive_future_base& operator=(progressive_future_base&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             m_future = std::move(another.m_future);
             m_p_state = std::move(another.m_p_state);
@@ -228,7 +226,7 @@ namespace tetengo2 { namespace concurrent
             \retval false Otherwise.
         */
         bool valid()
-        const TETENGO2_STDALT_NOEXCEPT
+        const noexcept
         {
             return m_future.valid() && m_p_state;
         }
@@ -371,7 +369,7 @@ namespace tetengo2 { namespace concurrent
             \brief Creates an empty progressive future.
         */
         progressive_future()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type()
         {}
@@ -382,7 +380,7 @@ namespace tetengo2 { namespace concurrent
             \param another Another progressive future.
         */
         progressive_future(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
@@ -405,7 +403,7 @@ namespace tetengo2 { namespace concurrent
             \return This object.
         */
         progressive_future& operator=(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -444,13 +442,13 @@ namespace tetengo2 { namespace concurrent
         // constructors and destructor
 
         progressive_future()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type()
         {}
 
         progressive_future(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
@@ -464,7 +462,7 @@ namespace tetengo2 { namespace concurrent
         // functions
 
         progressive_future& operator=(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -497,19 +495,19 @@ namespace tetengo2 { namespace concurrent
         // constructors and destructor
 
         progressive_future()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type()
         {}
 
         progressive_future(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(another))
         {}
 
         progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         :
         base_type(std::move(future), p_state)
         {}
@@ -518,7 +516,7 @@ namespace tetengo2 { namespace concurrent
         // functions
 
         progressive_future& operator=(progressive_future&& another)
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             base_type::operator=(std::move(another));
             return *this;

@@ -14,7 +14,6 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -95,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the button.
         */
         virtual ~button()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             try
             {

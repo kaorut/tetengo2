@@ -15,8 +15,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace concurrent
 {
@@ -59,7 +57,7 @@ namespace tetengo2 { namespace concurrent
             \brief Destroys the producer.
         */
         ~producer()
-        TETENGO2_STDALT_NOEXCEPT
+        noexcept
         {
             join();
         }
