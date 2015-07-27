@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_MESSAGE_CHILDOBSERVERSET_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 #include <boost/signals2.hpp>
 
 #include <tetengo2/stdalt.h>
@@ -37,12 +36,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param child A child.
         */
-#if BOOST_VERSION_NUMBER(12, 0, 0) <= BOOST_COMP_MSVC && BOOST_COMP_MSVC < BOOST_VERSION_NUMBER(13, 0, 0)
-        // Somehow Visual C++ 2013 won't compile the type alias.
-        typedef void created_type(widget_type& child);
-#else
         using created_type = void (widget_type& child);
-#endif
 
         //! The signal type of child creation.
         using created_signal_type = boost::signals2::signal<created_type>;
@@ -52,12 +46,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param child A child.
         */
-#if BOOST_VERSION_NUMBER(12, 0, 0) <= BOOST_COMP_MSVC && BOOST_COMP_MSVC < BOOST_VERSION_NUMBER(13, 0, 0)
-        // Somehow Visual C++ 2013 won't compile the type alias.
-        typedef void destroying_type(widget_type& child);
-#else
         using destroying_type = void (widget_type& child);
-#endif
 
         //! The signal type of child destruction.
         using destroying_signal_type = boost::signals2::signal<destroying_type>;
