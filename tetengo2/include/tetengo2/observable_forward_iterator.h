@@ -38,7 +38,7 @@ namespace tetengo2
         using iterator = ForwardIterator;
 
         //! The increment observer signature type.
-        typedef void increment_observer_signature_type(observable_forward_iterator current);
+        using increment_observer_signature_type = void (observable_forward_iterator current);
 
         //! The increment observer type.
         using increment_observer_type = std::function<increment_observer_signature_type>;
