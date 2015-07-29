@@ -186,10 +186,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
             }
 
-            virtual void paint_impl(canvas_type& /*canvas*/)
+            virtual void paint_impl(canvas_type& canvas)
             const override
             {
+                canvas.fill_rectangle(this->position(), this->dimension());
 
+                {
+                    const position_type text_position{
+                        tetengo2::gui::position<position_type>::left(this->position()) +
+                            left_type::from(tetengo2::gui::dimension<dimension_type>::width(this->dimension())),
+                        tetengo2::gui::position<position_type>::top(this->position())
+                    };
+                    canvas.draw_text(m_title, text_position, 3.1415926 / 2);
+                }
             }
 
             virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
