@@ -101,14 +101,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 \brief Creates a tab label.
 
                 \param parent A parent.
-            */
-            explicit tab_label_type(tab_frame& parent)
+                \param index  A tab index.
+                */
+            tab_label_type(tab_frame& parent, const size_type index)
             :
             base_type(
                 parent,
                 position_type{ left_type{ 0 }, top_type{ 0 } },
                 dimension_type{ width_type{ 0 }, height_type{ 0 } }
             ),
+            m_index(index),
             m_title()
             {}
 
@@ -120,6 +122,27 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
             // functions
+
+            /*!
+                \brief Returns the index.
+
+                \return The index.
+            */
+            size_type index()
+            const
+            {
+                return m_index;
+            }
+
+            /*!
+                \brief Sets a tab index.
+
+                \param index A tab index.
+            */
+            void set_index(const size_type index)
+            {
+                m_index = index;
+            }
 
             /*!
                 \brief Returns the title.
@@ -147,6 +170,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             // variables
+
+            size_type m_index;
 
             string_type m_title;
 
@@ -325,11 +350,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 \brief Creates a tab.
 
                 \param parent  A parent.
+                \param index   A tab index.
                 \param control A control.
             */
-            tab_type(tab_frame& parent, control_type& control)
+            tab_type(tab_frame& parent, const size_type index, control_type& control)
             :
-            m_label(parent),
+            m_label(parent, index),
             m_body(parent, control)
             {}
 
@@ -376,6 +402,27 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_body_type& body()
             {
                 return m_body;
+            }
+
+            /*!
+                \brief Returns the index.
+
+                \return The index.
+            */
+            size_type index()
+            const
+            {
+                return m_label.index();
+            }
+
+            /*!
+                \brief Sets a tab index.
+
+                \param index A tab index.
+            */
+            void set_index(const size_type index)
+            {
+                m_label.set_index(index);
             }
 
             /*!
@@ -557,6 +604,9 @@ namespace tetengo2 { namespace gui { namespace widget
             auto p_tab = std::move(m_p_tabs[from]);
             m_p_tabs.erase(boost::next(m_p_tabs.begin(), from));
             m_p_tabs.insert(boost::next(m_p_tabs.begin(), to), std::move(p_tab));
+
+            for (size_type i = std::min(from, to); i <= std::max(from, to); ++i)
+                m_p_tabs[i]->set_index(i);
         }
 
 
@@ -701,7 +751,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!p_child)
                 return;
 
-            auto p_tab = stdalt::make_unique<tab_type>(*this, *p_child);
+            auto p_tab = stdalt::make_unique<tab_type>(*this, m_p_tabs.size(), *p_child);
             m_p_tabs.push_back(std::move(p_tab));
 
             select_tab(m_p_tabs.size() - 1);
