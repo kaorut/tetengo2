@@ -223,7 +223,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto original_line_width = canvas.line_width();
                 canvas.set_color(system_color_set_type::control_text());
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
                 );
                 canvas.set_line_width(unit_size_type{ 1 } / 8);
 
