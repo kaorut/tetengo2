@@ -562,7 +562,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const override
             {
                 auto original_color = canvas.get_color();
-                auto original_background = canvas.get_background().clone();
+                auto p_original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
@@ -576,7 +576,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->template parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
                 );
 
-                canvas.set_background(std::move(original_background));
+                canvas.set_background(std::move(p_original_background));
                 canvas.set_color(std::move(original_color));
             }
 

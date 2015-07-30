@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -169,6 +170,34 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         private:
+            // types
+
+            using left_type = typename tab_frame::left_type;
+
+            using top_type = typename tab_frame::top_type;
+
+            using width_type = typename tab_frame::width_type;
+
+            using height_type = typename tab_frame::height_type;
+
+            using unit_size_type = typename canvas_type::unit_size_type;
+
+
+            // static functions
+
+            static const width_type& horizontal_padding()
+            {
+                static const auto singleton = width_type{ 1 } / 4;
+                return singleton;
+            }
+
+            static const height_type& vertical_padding()
+            {
+                static const auto singleton = height_type{ 1 } / 2;
+                return singleton;
+            }
+
+
             // variables
 
             size_type m_index;
@@ -189,16 +218,51 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                canvas.fill_rectangle(this->position(), this->dimension());
+                auto original_color = canvas.get_color();
+                auto p_original_background = canvas.get_background().clone();
+                auto original_line_width = canvas.line_width();
+                canvas.set_color(system_color_set_type::control_text());
+                canvas.set_background(
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
+                );
+                canvas.set_line_width(unit_size_type{ 1 } / 8);
 
+                canvas.fill_rectangle(this->position(), this->dimension());
                 {
                     const position_type text_position{
-                        tetengo2::gui::position<position_type>::left(this->position()) +
-                            left_type::from(tetengo2::gui::dimension<dimension_type>::width(this->dimension())),
-                        tetengo2::gui::position<position_type>::top(this->position())
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())) -
+                            horizontal_padding(),
+                        gui::position<position_type>::top(this->position()) + vertical_padding()
                     };
-                    canvas.draw_text(m_title, text_position, 3.1415926 / 2);
+                    canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
                 }
+                {
+                    const auto left_top = this->position();
+                    const position_type left_bottom{
+                        gui::position<position_type>::left(this->position()),
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                    };
+                    const position_type right_top{
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
+                        gui::position<position_type>::top(this->position())
+                    };
+                    const position_type right_bottom{
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                    };
+                    canvas.draw_line(left_top, left_bottom);
+                    canvas.draw_line(left_top, right_top);
+                    canvas.draw_line(left_bottom, right_bottom);
+                }
+
+                canvas.set_line_width(std::move(original_line_width));
+                canvas.set_background(std::move(p_original_background));
+                canvas.set_color(std::move(original_color));
             }
 
             virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
@@ -238,16 +302,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             void calculate_dimension()
             {
-                static const auto width_padding = width_type{ 1 } / 4;
-                static const auto height_padding = width_type{ 1 } / 2;
-
                 const auto p_canvas = this->parent().create_canvas();
                 const auto text_dimension = p_canvas->calc_text_dimension(m_title);
 
                 this->set_dimension(
                     dimension_type{
-                        width_padding + width_type::from(gui::dimension<dimension_type>::height(text_dimension)),
-                        height_padding + height_type::from(gui::dimension<dimension_type>::width(text_dimension)),
+                        horizontal_padding() * 2 +
+                            width_type::from(gui::dimension<dimension_type>::height(text_dimension)),
+                        vertical_padding() * 2 +
+                            height_type::from(gui::dimension<dimension_type>::width(text_dimension)),
                     }
                 );
             }
