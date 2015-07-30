@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -101,14 +102,16 @@ namespace tetengo2 { namespace gui { namespace widget
                 \brief Creates a tab label.
 
                 \param parent A parent.
-            */
-            explicit tab_label_type(tab_frame& parent)
+                \param index  A tab index.
+                */
+            tab_label_type(tab_frame& parent, const size_type index)
             :
             base_type(
                 parent,
                 position_type{ left_type{ 0 }, top_type{ 0 } },
                 dimension_type{ width_type{ 0 }, height_type{ 0 } }
             ),
+            m_index(index),
             m_title()
             {}
 
@@ -120,6 +123,27 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
             // functions
+
+            /*!
+                \brief Returns the index.
+
+                \return The index.
+            */
+            size_type index()
+            const
+            {
+                return m_index;
+            }
+
+            /*!
+                \brief Sets a tab index.
+
+                \param index A tab index.
+            */
+            void set_index(const size_type index)
+            {
+                m_index = index;
+            }
 
             /*!
                 \brief Returns the title.
@@ -140,11 +164,43 @@ namespace tetengo2 { namespace gui { namespace widget
             void set_title(string_type title)
             {
                 m_title = std::move(title);
+
+                calculate_dimension();
             }
 
 
         private:
+            // types
+
+            using left_type = typename tab_frame::left_type;
+
+            using top_type = typename tab_frame::top_type;
+
+            using width_type = typename tab_frame::width_type;
+
+            using height_type = typename tab_frame::height_type;
+
+            using unit_size_type = typename canvas_type::unit_size_type;
+
+
+            // static functions
+
+            static const width_type& horizontal_padding()
+            {
+                static const auto singleton = width_type{ 1 } / 4;
+                return singleton;
+            }
+
+            static const height_type& vertical_padding()
+            {
+                static const auto singleton = height_type{ 1 } / 2;
+                return singleton;
+            }
+
+
             // variables
+
+            size_type m_index;
 
             string_type m_title;
 
@@ -154,13 +210,59 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-
+                this->set_position(
+                    position_type{ left_type{ 0 }, static_cast<const tab_frame&>(this->parent()).tab_label_top(*this) }
+                );
             }
 
-            virtual void paint_impl(canvas_type& /*canvas*/)
+            virtual void paint_impl(canvas_type& canvas)
             const override
             {
+                auto original_color = canvas.get_color();
+                auto p_original_background = canvas.get_background().clone();
+                auto original_line_width = canvas.line_width();
+                canvas.set_color(system_color_set_type::control_text());
+                canvas.set_background(
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
+                );
+                canvas.set_line_width(unit_size_type{ 1 } / 8);
 
+                canvas.fill_rectangle(this->position(), this->dimension());
+                {
+                    const position_type text_position{
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())) -
+                            horizontal_padding(),
+                        gui::position<position_type>::top(this->position()) + vertical_padding()
+                    };
+                    canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
+                }
+                {
+                    const auto left_top = this->position();
+                    const position_type left_bottom{
+                        gui::position<position_type>::left(this->position()),
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                    };
+                    const position_type right_top{
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
+                        gui::position<position_type>::top(this->position())
+                    };
+                    const position_type right_bottom{
+                        gui::position<position_type>::left(this->position()) +
+                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
+                        gui::position<position_type>::top(this->position()) +
+                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                    };
+                    canvas.draw_line(left_top, left_bottom);
+                    canvas.draw_line(left_top, right_top);
+                    canvas.draw_line(left_bottom, right_bottom);
+                }
+
+                canvas.set_line_width(std::move(original_line_width));
+                canvas.set_background(std::move(p_original_background));
+                canvas.set_color(std::move(original_color));
             }
 
             virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
@@ -193,6 +295,24 @@ namespace tetengo2 { namespace gui { namespace widget
             override
             {
 
+            }
+
+
+            // functions
+
+            void calculate_dimension()
+            {
+                const auto p_canvas = this->parent().create_canvas();
+                const auto text_dimension = p_canvas->calc_text_dimension(m_title);
+
+                this->set_dimension(
+                    dimension_type{
+                        horizontal_padding() * 2 +
+                            width_type::from(gui::dimension<dimension_type>::height(text_dimension)),
+                        vertical_padding() * 2 +
+                            height_type::from(gui::dimension<dimension_type>::width(text_dimension)),
+                    }
+                );
             }
 
 
@@ -276,16 +396,17 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                this->set_position(position_type{ left_type{ 0 }, top_type{ 0 } });
-                this->set_dimension(this->parent().client_dimension());
+                const auto& tab_label_width = static_cast<const tab_frame&>(this->parent()).tab_label_width();
+                this->set_position(position_type{ left_type::from(tab_label_width), top_type{ 0 } });
+                const auto client_dimension = this->parent().client_dimension();
+                const auto width =
+                    gui::dimension<dimension_type>::width(client_dimension) > tab_label_width ?
+                    gui::dimension<dimension_type>::width(client_dimension) - tab_label_width : width_type{ 0 };
+                this->set_dimension(
+                    dimension_type{ width, gui::dimension<dimension_type>::height(client_dimension) }
+                );
 
                 m_control.set_position_and_dimension(this->position(), this->dimension());
-            }
-
-            virtual void paint_impl(canvas_type& /*canvas*/)
-            const override
-            {
-
             }
 
 
@@ -301,11 +422,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 \brief Creates a tab.
 
                 \param parent  A parent.
+                \param index   A tab index.
                 \param control A control.
             */
-            tab_type(tab_frame& parent, control_type& control)
+            tab_type(tab_frame& parent, const size_type index, control_type& control)
             :
-            m_label(parent),
+            m_label(parent, index),
             m_body(parent, control)
             {}
 
@@ -352,6 +474,27 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_body_type& body()
             {
                 return m_body;
+            }
+
+            /*!
+                \brief Returns the index.
+
+                \return The index.
+            */
+            size_type index()
+            const
+            {
+                return m_label.index();
+            }
+
+            /*!
+                \brief Sets a tab index.
+
+                \param index A tab index.
+            */
+            void set_index(const size_type index)
+            {
+                m_label.set_index(index);
             }
 
             /*!
@@ -533,6 +676,9 @@ namespace tetengo2 { namespace gui { namespace widget
             auto p_tab = std::move(m_p_tabs[from]);
             m_p_tabs.erase(boost::next(m_p_tabs.begin(), from));
             m_p_tabs.insert(boost::next(m_p_tabs.begin(), to), std::move(p_tab));
+
+            for (size_type i = std::min(from, to); i <= std::max(from, to); ++i)
+                m_p_tabs[i]->set_index(i);
         }
 
 
@@ -673,11 +819,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void child_created(widget_type& child)
         {
-            control_type* const p_child = dynamic_cast<control_type*>(&child);
+            auto* const p_child = dynamic_cast<control_type*>(&child);
             if (!p_child)
                 return;
 
-            auto p_tab = stdalt::make_unique<tab_type>(*this, *p_child);
+            auto p_tab = stdalt::make_unique<tab_type>(*this, m_p_tabs.size(), *p_child);
             m_p_tabs.push_back(std::move(p_tab));
 
             select_tab(m_p_tabs.size() - 1);
@@ -685,7 +831,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void child_destroying(widget_type& child)
         {
-            const control_type* const p_child = dynamic_cast<control_type*>(&child);
+            const auto* const p_child = dynamic_cast<control_type*>(&child);
             if (!p_child)
                 return;
 
@@ -717,6 +863,44 @@ namespace tetengo2 { namespace gui { namespace widget
                         return has_same_control(*p_tab, child);
                     }
                 );
+        }
+
+        top_type tab_label_top(const tab_label_type& tab_label)
+        const
+        {
+            top_type top{ 0 };
+            for (const auto& p_tab: m_p_tabs)
+            {
+                if (&p_tab->label() == &tab_label)
+                    break;
+
+                top += top_type::from(gui::dimension<dimension_type>::height(p_tab->label().dimension()));
+            }
+
+            return top;
+        }
+
+        const width_type& tab_label_width()
+        const
+        {
+            const auto max_width_tab =
+                std::max_element(
+                    m_p_tabs.begin(),
+                    m_p_tabs.end(),
+                    [](const std::unique_ptr<tab_type>& p_tab1, const std::unique_ptr<tab_type>& p_tab2)
+                    {
+                        return
+                            gui::dimension<dimension_type>::width(p_tab1->label().dimension()) <
+                            gui::dimension<dimension_type>::width(p_tab2->label().dimension());
+                    }
+                );
+            if (max_width_tab == m_p_tabs.end())
+            {
+                static const width_type zero_width{ 0 };
+                return zero_width;
+            }
+
+            return gui::dimension<dimension_type>::width((*max_width_tab)->label().dimension());
         }
 
 

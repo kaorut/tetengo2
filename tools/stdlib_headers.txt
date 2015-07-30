@@ -242,7 +242,6 @@ BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_OS_CYGWIN                                  boost/predef.h
-BOOST_OS_LINUX                                   boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_REQUIRE_EQUAL                              boost/test/unit_test.hpp
@@ -542,7 +541,6 @@ boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::variant                                   boost/variant.hpp
 errno                                            cerrno
-std::advance                                     iterator
 std::all_of                                      algorithm
 std::allocator                                   memory
 std::allocator_arg                               memory
@@ -561,8 +559,8 @@ std::codecvt                                     locale
 std::condition_variable                          condition_variable
 std::copy                                        algorithm
 std::cos                                         cmath
-std::current_exception                           exception
 std::count_if                                    algorithm
+std::current_exception                           exception
 std::decay                                       type_traits
 std::distance                                    iterator
 std::enable_if                                   type_traits
@@ -607,6 +605,7 @@ std::make_shared                                 memory
 std::make_unique                                 memory
 std::map                                         map
 std::max                                         algorithm
+std::max_element                                 algorithm
 std::mbstate_t                                   cwchar
 std::messages                                    locale
 std::min                                         algorithm
