@@ -274,7 +274,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& /*cursor_position*/)
             override
             {
-
+                static_cast<tab_frame&>(this->parent()).select_tab(m_index);
             }
 
             virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
