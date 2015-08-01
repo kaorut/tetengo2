@@ -689,7 +689,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_tabs[i]->unselect();
             }
 
-            this->repaint();
+            if (index != selected_tab_index())
+                this->repaint();
         }
 
         /*!
