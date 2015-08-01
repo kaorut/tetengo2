@@ -182,6 +182,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using unit_size_type = typename canvas_type::unit_size_type;
 
+            using font_type = typename canvas_type::font_type;
+
 
             // static functions
 
@@ -227,33 +229,60 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
                 canvas.set_line_width(unit_size_type{ 1 } / 8);
 
-                canvas.fill_rectangle(this->position(), this->dimension());
+                left_type unselected_left{ 0 };
+                if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
+                    unselected_left = left_type{ 1 } / 6;
+                position_type label_position{
+                    gui::position<position_type>::left(this->position()) + unselected_left,
+                    gui::position<position_type>::top(this->position())
+                };
+                dimension_type label_dimension{
+                    gui::dimension<dimension_type>::width(this->dimension()) - width_type::from(unselected_left),
+                    gui::dimension<dimension_type>::height(this->dimension())
+                };
+
+                canvas.fill_rectangle(label_position, label_dimension);
                 {
                     const position_type text_position{
-                        gui::position<position_type>::left(this->position()) +
-                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())) -
-                            horizontal_padding(),
-                        gui::position<position_type>::top(this->position()) + vertical_padding()
+                        gui::position<position_type>::left(label_position) +
+                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
+                            horizontal_padding() +
+                            unselected_left,
+                        gui::position<position_type>::top(label_position) + vertical_padding()
                     };
+
+                    auto original_font = canvas.get_font();
+                    auto font = original_font;
+                    if (m_index == static_cast<const tab_frame&>(this->parent()).selected_tab_index())
+                    {
+                        font =
+                            font_type{
+                                font.family(), font.size(), true, font.italic(), font.underline(), font.strikeout()
+                            };
+                    }
+                    canvas.set_font(std::move(font));
+
                     canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
+
+                    canvas.set_font(std::move(original_font));
                 }
                 {
-                    const auto left_top = this->position();
+                    const auto left_top = label_position;
                     const position_type left_bottom{
-                        gui::position<position_type>::left(this->position()),
-                        gui::position<position_type>::top(this->position()) +
-                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                        gui::position<position_type>::left(label_position),
+                        gui::position<position_type>::top(label_position) +
+                            top_type::from(gui::dimension<dimension_type>::height(label_dimension))
                     };
                     const position_type right_top{
-                        gui::position<position_type>::left(this->position()) +
-                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
-                        gui::position<position_type>::top(this->position())
+                        gui::position<position_type>::left(label_position) +
+                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)),
+                        gui::position<position_type>::top(label_position)
                     };
                     const position_type right_bottom{
-                        gui::position<position_type>::left(this->position()) +
-                            left_type::from(gui::dimension<dimension_type>::width(this->dimension())),
-                        gui::position<position_type>::top(this->position()) +
-                            top_type::from(gui::dimension<dimension_type>::height(this->dimension()))
+                        gui::position<position_type>::left(label_position) +
+                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)),
+                        gui::position<position_type>::top(label_position) +
+                            top_type::from(gui::dimension<dimension_type>::height(label_dimension))
                     };
                     canvas.draw_line(left_top, left_bottom);
                     canvas.draw_line(left_top, right_top);
@@ -274,7 +303,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& /*cursor_position*/)
             override
             {
-
+                static_cast<tab_frame&>(this->parent()).select_tab(m_index);
             }
 
             virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
@@ -428,7 +457,8 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_type(tab_frame& parent, const size_type index, control_type& control)
             :
             m_label(parent, index),
-            m_body(parent, control)
+            m_body(parent, control),
+            m_selected(false)
             {}
 
 
@@ -505,7 +535,7 @@ namespace tetengo2 { namespace gui { namespace widget
             bool selected()
             const
             {
-                return m_body.template get<control_type>().visible();
+                return m_selected;
             }
 
             /*!
@@ -513,6 +543,7 @@ namespace tetengo2 { namespace gui { namespace widget
             */
             void select()
             {
+                m_selected = true;
                 m_body.template get<control_type>().set_visible(true);
             }
 
@@ -521,6 +552,7 @@ namespace tetengo2 { namespace gui { namespace widget
             */
             void unselect()
             {
+                m_selected = false;
                 m_body.template get<control_type>().set_visible(false);
             }
 
@@ -531,6 +563,8 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_label_type m_label;
 
             tab_body_type m_body;
+
+            bool m_selected;
 
 
         };
@@ -654,6 +688,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                     m_p_tabs[i]->unselect();
             }
+
+            if (index != selected_tab_index())
+                this->repaint();
         }
 
         /*!
@@ -745,6 +782,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     canvas.begin_transaction(tab_frame_.client_dimension());
 
+                    paint_background(tab_frame_, canvas);
                     for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
                     {
                         p_tab->label().paint(canvas);
@@ -799,7 +837,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 return false;
 
             canvas.set_background(tab_frame_.background()->clone());
-            canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, tab_frame_.client_dimension());
+            const position_type position{ left_type{ -1 }, top_type{ -1 } };
+            const auto client_dimension = tab_frame_.client_dimension();
+            const dimension_type dimension{
+                gui::dimension<dimension_type>::width(client_dimension) + width_type{ 2 },
+                gui::dimension<dimension_type>::height(client_dimension) + height_type{ 2 }
+            };
+            canvas.fill_rectangle(position, dimension);
 
             return true;
         }
