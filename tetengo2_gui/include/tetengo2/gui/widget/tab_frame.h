@@ -681,15 +681,22 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= m_p_tabs.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
 
+            bool needs_repaint = true;
             for (size_type i = 0; i < m_p_tabs.size(); ++i)
             {
                 if (i == index)
+                {
+                    if (m_p_tabs[i]->selected())
+                        needs_repaint = false;
                     m_p_tabs[i]->select();
+                }
                 else
+                {
                     m_p_tabs[i]->unselect();
+                }
             }
 
-            if (index != selected_tab_index())
+            if (needs_repaint)
                 this->repaint();
         }
 
