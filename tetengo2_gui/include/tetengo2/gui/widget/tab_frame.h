@@ -195,7 +195,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             static const height_type& vertical_padding()
             {
-                static const auto singleton = height_type{ 1 } / 2;
+                static const auto singleton = height_type{ 1 };
                 return singleton;
             }
 
