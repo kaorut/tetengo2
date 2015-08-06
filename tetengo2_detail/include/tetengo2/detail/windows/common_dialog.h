@@ -26,7 +26,6 @@
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
@@ -693,7 +692,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
-                    boost::next(native_face_name.begin(), native_face_name_length),
+                    std::next(native_face_name.begin(), native_face_name_length),
                     p_log_font->lfFaceName
                 );
                 p_log_font->lfFaceName[native_face_name_length] = 0;
@@ -713,7 +712,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
-                    boost::next(native_face_name.begin(), native_face_name_length),
+                    std::next(native_face_name.begin(), native_face_name_length),
                     p_log_font->lfFaceName
                 );
                 p_log_font->lfFaceName[native_face_name_length] = 0;
@@ -989,9 +988,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (path_string.length() < dotted_extension.length())
                 return false;
 
-            const String path_extension{
-                boost::prior(path_string.end(), dotted_extension.length()), path_string.end()
-            };
+            const String path_extension{ std::prev(path_string.end(), dotted_extension.length()), path_string.end() };
 
             return path_extension == dotted_extension;
         }

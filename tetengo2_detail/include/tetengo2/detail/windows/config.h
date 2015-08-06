@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_CONFIG_H
 
 #include <cassert>
+#include <iterator>
 #include <string>
 #include <utility>
 #include <vector>
@@ -18,7 +19,6 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
 #pragma warning (push)
@@ -251,7 +251,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         group_name +
                         String{ TETENGO2_TEXT("\\") } +
                         boost::join(
-                            std::make_pair(key_names.begin(), boost::prior(key_names.end())),
+                            std::make_pair(key_names.begin(), std::prev(key_names.end())),
                             String{ TETENGO2_TEXT("\\") }
                         ),
                     key_names[key_names.size() - 1]

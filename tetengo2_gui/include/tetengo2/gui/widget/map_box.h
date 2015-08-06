@@ -21,7 +21,6 @@
 #include <boost/optional.hpp>
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -193,7 +192,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_p_value_items.insert(
-                boost::next(m_p_value_items.begin(), index), stdalt::make_unique<value_item>(*this, std::move(value))
+                std::next(m_p_value_items.begin(), index), stdalt::make_unique<value_item>(*this, std::move(value))
             );
             if (m_selected_value_index && index <= *m_selected_value_index)
             {
@@ -217,7 +216,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            m_p_value_items.erase(boost::next(m_p_value_items.begin(), index));
+            m_p_value_items.erase(std::next(m_p_value_items.begin(), index));
             if (m_selected_value_index)
             {
                 if      (index == *m_selected_value_index)

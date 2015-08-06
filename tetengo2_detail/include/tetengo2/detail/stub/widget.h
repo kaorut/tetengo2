@@ -25,7 +25,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2/gui/measure.h>
 
@@ -1128,7 +1127,7 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             dropdown_box.details().list_box_values.insert(
-                boost::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
+                std::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
             );
         }
 
@@ -1147,7 +1146,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void erase_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
             dropdown_box.details().list_box_values.erase(
-                boost::next(dropdown_box.details().list_box_values.begin(), index)
+                std::next(dropdown_box.details().list_box_values.begin(), index)
             );
             if (
                 dropdown_box.details().selected_list_box_value_index &&
@@ -1289,7 +1288,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void insert_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
             list_box.details().list_box_values.insert(
-                boost::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
+                std::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
             );
         }
 
@@ -1307,7 +1306,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size>
         static void erase_list_box_value(ListBox& list_box, const Size index)
         {
-            list_box.details().list_box_values.erase(boost::next(list_box.details().list_box_values.begin(), index));
+            list_box.details().list_box_values.erase(std::next(list_box.details().list_box_values.begin(), index));
             if (
                 list_box.details().selected_list_box_value_index &&
                 *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size()

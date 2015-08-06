@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -26,7 +27,6 @@
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/text.h>
@@ -279,7 +279,7 @@ namespace tetengo2 { namespace text
         static string_type to_string(const string_type& string_value)
         {
             assert(string_value.length() >= 2);
-            string_type string{ boost::next(string_value.begin()), boost::prior(string_value.end()) };
+            string_type string{ std::next(string_value.begin()), std::prev(string_value.end()) };
 
             boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\"") }, string_type{ TETENGO2_TEXT("\"") });
             boost::replace_all(string, string_type{ TETENGO2_TEXT("\\\\") }, string_type{ TETENGO2_TEXT("\\") });
