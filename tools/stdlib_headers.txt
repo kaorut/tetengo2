@@ -518,11 +518,9 @@ boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
 boost::multiplicative                            boost/operators.hpp
-boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/core/noncopyable.hpp
 boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
-boost::prior                                     boost/utility.hpp
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
 boost::replace_all                               boost/algorithm/string.hpp
@@ -611,10 +609,12 @@ std::messages                                    locale
 std::min                                         algorithm
 std::move                                        utility
 std::mutex                                       mutex
+std::next                                        iterator
 std::numeric_limits                              limits
 std::out_of_range                                stdexcept
 std::pair                                        utility
 std::pow                                         cmath
+std::prev                                        iterator
 std::promise                                     future
 std::ptrdiff_t                                   cstddef
 std::queue                                       queue

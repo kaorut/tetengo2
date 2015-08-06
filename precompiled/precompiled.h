@@ -102,7 +102,6 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
 

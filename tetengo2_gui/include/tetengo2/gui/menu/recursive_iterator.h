@@ -16,7 +16,6 @@
 
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/utility.hpp>
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -102,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace menu
             {
                 const auto index = m_parents.top().second;
                 m_parents.emplace(m_p_menu, 0);
-                m_p_menu = &*boost::next(m_p_menu->begin(), index);
+                m_p_menu = &*std::next(m_p_menu->begin(), index);
                 return;
             }
 

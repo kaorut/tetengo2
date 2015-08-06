@@ -20,7 +20,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -718,8 +717,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 return;
 
             auto p_tab = std::move(m_p_tabs[from]);
-            m_p_tabs.erase(boost::next(m_p_tabs.begin(), from));
-            m_p_tabs.insert(boost::next(m_p_tabs.begin(), to), std::move(p_tab));
+            m_p_tabs.erase(std::next(m_p_tabs.begin(), from));
+            m_p_tabs.insert(std::next(m_p_tabs.begin(), to), std::move(p_tab));
 
             for (size_type i = std::min(from, to); i <= std::max(from, to); ++i)
                 m_p_tabs[i]->set_index(i);
