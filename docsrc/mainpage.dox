@@ -25,9 +25,9 @@ The following features does not support UNIX-like systems yet...
 
 It's tested on the following systems:
 
-- [Windows 7 Service Pack 1](http://www.microsoft.com/)
+- [Windows 10](http://www.microsoft.com/)
 - [Debian GNU/Linux 8](http://www.debian.org/)
-- [Cygwin 2.0 (x64)](http://www.cygwin.com/)
+- [Cygwin 2.2 (x64)](http://www.cygwin.com/)
 
 
 How to Build {#how_to_build}
