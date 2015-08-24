@@ -242,24 +242,34 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 canvas.fill_rectangle(label_position, label_dimension);
                 {
+                    auto original_font = canvas.get_font();
+                    auto font = m_index == static_cast<const tab_frame&>(this->parent()).selected_tab_index() ?
+                        font_type{
+                            original_font.family(),
+                            original_font.size(),
+                            true,
+                            original_font.italic(),
+                            original_font.underline(),
+                            original_font.strikeout()
+                        } :
+                        original_font;
+                    canvas.set_font(std::move(font));
+
+                    const auto text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
                         gui::position<position_type>::left(label_position) +
-                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
-                            horizontal_padding() +
-                            unselected_left,
-                        gui::position<position_type>::top(label_position) + vertical_padding()
+                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)) +
+                            (
+                                left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
+                                width_type::from(gui::dimension<dimension_type>::height(text_dimension)) -
+                                unselected_left
+                            ) / 2,
+                        gui::position<position_type>::top(label_position) +
+                            (
+                                top_type::from(gui::dimension<dimension_type>::height(label_dimension)) -
+                                top_type::from(gui::dimension<dimension_type>::width(text_dimension))
+                            ) / 2
                     };
-
-                    auto original_font = canvas.get_font();
-                    auto font = original_font;
-                    if (m_index == static_cast<const tab_frame&>(this->parent()).selected_tab_index())
-                    {
-                        font =
-                            font_type{
-                                font.family(), font.size(), true, font.italic(), font.underline(), font.strikeout()
-                            };
-                    }
-                    canvas.set_font(std::move(font));
 
                     canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
 
@@ -331,7 +341,22 @@ namespace tetengo2 { namespace gui { namespace widget
             void calculate_dimension()
             {
                 const auto p_canvas = this->parent().create_canvas();
+
+                auto original_font = p_canvas->get_font();
+                auto font =
+                    font_type{
+                        original_font.family(),
+                        original_font.size(),
+                        true,
+                        original_font.italic(),
+                        original_font.underline(),
+                        original_font.strikeout()
+                    };
+                p_canvas->set_font(std::move(font));
+
                 const auto text_dimension = p_canvas->calc_text_dimension(m_title);
+
+                p_canvas->set_font(std::move(original_font));
 
                 this->set_dimension(
                     dimension_type{
