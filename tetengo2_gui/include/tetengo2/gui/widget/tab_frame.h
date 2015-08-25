@@ -230,7 +230,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 left_type unselected_left{ 0 };
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
-                    unselected_left = left_type{ 1 } / 6;
+                    unselected_left = left_type{ 1 } / 12;
                 position_type label_position{
                     gui::position<position_type>::left(this->position()) + unselected_left,
                     gui::position<position_type>::top(this->position())
@@ -258,7 +258,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     const auto text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
                         gui::position<position_type>::left(label_position) +
-                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)) +
+                            left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
                             (
                                 left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
                                 width_type::from(gui::dimension<dimension_type>::height(text_dimension)) -
