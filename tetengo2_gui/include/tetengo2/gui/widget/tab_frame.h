@@ -303,36 +303,10 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_color(std::move(original_color));
             }
 
-            virtual void mouse_pressed_impl(const position_type& /*cursor_position*/)
-            override
-            {
-
-            }
-
             virtual void mouse_released_impl(const position_type& /*cursor_position*/)
             override
             {
                 static_cast<tab_frame&>(this->parent()).select_tab(m_index);
-            }
-
-            virtual void mouse_moved_impl(const position_type& /*cursor_position*/)
-            override
-            {
-                if (!this->parent().mouse_captured(this))
-                    return;
-
-            }
-
-            virtual void mouse_entered_impl()
-            override
-            {
-
-            }
-
-            virtual void mouse_left_impl()
-            override
-            {
-
             }
 
 
