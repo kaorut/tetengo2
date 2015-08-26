@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         const auto unit = unit_type::from_pixels(123);
 
-        BOOST_CHECK_EQUAL(unit.value(), 123);
+        BOOST_TEST(unit.value() == 123);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         unit1 += 123;
 
-        BOOST_CHECK_EQUAL(unit1.value(), 579);
+        BOOST_TEST(unit1.value() == 579);
     }
 
     BOOST_AUTO_TEST_CASE(subtract)
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         unit1 -= 123;
 
-        BOOST_CHECK_EQUAL(unit1.value(), 333);
+        BOOST_TEST(unit1.value() == 333);
     }
 
     BOOST_AUTO_TEST_CASE(multiply)
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         unit1.multiply(123);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 56088);
+        BOOST_TEST(unit1.value() == 56088);
     }
 
     BOOST_AUTO_TEST_CASE(divide_by)
@@ -126,13 +126,13 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
             unit1.divide_by(123);
 
-            BOOST_CHECK_EQUAL(unit1.value(), 3);
+            BOOST_TEST(unit1.value() == 3);
         }
         {
             const unit_type unit1{ 456 };
             const unit_type unit2{ 123 };
 
-            BOOST_CHECK_EQUAL(unit1.divide_by(unit2), 3);
+            BOOST_TEST(unit1.divide_by(unit2) == 3);
         }
     }
 
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         const unit_type unit{ 123 };
 
-        BOOST_CHECK_EQUAL(unit.value(), 123);
+        BOOST_TEST(unit.value() == 123);
     }
 
     BOOST_AUTO_TEST_CASE(to_pixels)
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         const unit_type unit{ 123 };
 
-        BOOST_CHECK_EQUAL(unit.to_pixels<int>(), 123);
+        BOOST_TEST(unit.to_pixels<int>() == 123);
     }
 
 

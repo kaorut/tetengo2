@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
         }
         {
             const char character{ TETENGO2_TEXT('H') };
-            BOOST_CHECK_EQUAL(character, 'H');
+            BOOST_TEST(character == 'H');
         }
     }
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_SUITE(text_value_holder)
         }
         {
             const wchar_t character{ TETENGO2_TEXT('H') };
-            BOOST_CHECK_EQUAL(character, L'H');
+            BOOST_TEST(character == L'H');
         }
     }
 

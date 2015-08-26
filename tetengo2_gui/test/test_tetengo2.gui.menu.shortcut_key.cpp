@@ -129,12 +129,12 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), false, false, false };
 
-            BOOST_CHECK(!shortcut_key.shift());
+            BOOST_TEST(!shortcut_key.shift());
         }
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), true, false, false };
 
-            BOOST_CHECK(shortcut_key.shift());
+            BOOST_TEST(shortcut_key.shift());
         }
     }
 
@@ -145,12 +145,12 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), false, false, false };
 
-            BOOST_CHECK(!shortcut_key.control());
+            BOOST_TEST(!shortcut_key.control());
         }
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), false, true, false };
 
-            BOOST_CHECK(shortcut_key.control());
+            BOOST_TEST(shortcut_key.control());
         }
     }
 
@@ -161,12 +161,12 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), false, false, false };
 
-            BOOST_CHECK(!shortcut_key.meta());
+            BOOST_TEST(!shortcut_key.meta());
         }
         {
             const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), false, false, true };
 
-            BOOST_CHECK(shortcut_key.meta());
+            BOOST_TEST(shortcut_key.meta());
         }
     }
 

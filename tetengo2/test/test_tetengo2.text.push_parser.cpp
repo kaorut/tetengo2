@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
-            BOOST_CHECK(!parser.parse());
+            BOOST_TEST(!parser.parse());
         }
         {
             std::vector<parsed_structure_type> parsed{};
@@ -287,8 +287,8 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
-            BOOST_CHECK(parser.parse());
-            BOOST_REQUIRE_EQUAL(parsed.size(), 2U);
+            BOOST_TEST_REQUIRE(parser.parse());
+            BOOST_TEST_REQUIRE(parsed.size() == 2U);
 
             BOOST_CHECK(parsed[0].first == "array");
 
@@ -330,29 +330,29 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
-            BOOST_CHECK(parser.parse());
-            BOOST_REQUIRE_EQUAL(parsed.size(), 6U);
+            BOOST_TEST(parser.parse());
+            BOOST_TEST_REQUIRE(parsed.size() == 6U);
 
             BOOST_CHECK(parsed[0].first == "array");
 
             BOOST_CHECK(parsed[1].first == "value");
-            BOOST_CHECK(parsed[1].second);
-            BOOST_CHECK_EQUAL(parsed[1].second->which(), 0);
-            BOOST_CHECK(!boost::get<bool>(*parsed[1].second));
+            BOOST_TEST(parsed[1].second.is_initialized());
+            BOOST_TEST(parsed[1].second->which() == 0);
+            BOOST_TEST(!boost::get<bool>(*parsed[1].second));
 
             BOOST_CHECK(parsed[2].first == "value");
-            BOOST_CHECK(parsed[2].second);
-            BOOST_CHECK_EQUAL(parsed[2].second->which(), 1);
-            BOOST_CHECK(!boost::get<void*>(*parsed[2].second));
+            BOOST_TEST(parsed[2].second.is_initialized());
+            BOOST_TEST(parsed[2].second->which() == 1);
+            BOOST_TEST(!boost::get<void*>(*parsed[2].second));
 
             BOOST_CHECK(parsed[3].first == "value");
-            BOOST_CHECK(parsed[3].second);
-            BOOST_CHECK_EQUAL(parsed[3].second->which(), 0);
-            BOOST_CHECK(boost::get<bool>(*parsed[3].second));
+            BOOST_TEST(parsed[3].second.is_initialized());
+            BOOST_TEST(parsed[3].second->which() == 0);
+            BOOST_TEST(boost::get<bool>(*parsed[3].second));
 
             BOOST_CHECK(parsed[4].first == "value");
-            BOOST_CHECK(parsed[4].second);
-            BOOST_CHECK_EQUAL(parsed[4].second->which(), 4);
+            BOOST_TEST(parsed[4].second.is_initialized());
+            BOOST_TEST(parsed[4].second->which() == 4);
             BOOST_CHECK(boost::get<std::string>(*parsed[4].second) == "hoge\tfuga");
 
             BOOST_CHECK(parsed[5].first == "array");
@@ -395,40 +395,40 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 [&parsed](const push_parser_type::value_type& value) { return value_observer1(value, parsed); }
             );
 
-            BOOST_CHECK(parser.parse());
-            BOOST_REQUIRE_EQUAL(parsed.size(), 8U);
+            BOOST_TEST(parser.parse());
+            BOOST_TEST_REQUIRE(parsed.size() == 8U);
 
             BOOST_CHECK(parsed[0].first == "array");
 
             BOOST_CHECK(parsed[1].first == "value");
-            BOOST_CHECK(parsed[1].second);
-            BOOST_CHECK_EQUAL(parsed[1].second->which(), 2);
-            BOOST_CHECK_EQUAL(boost::get<int>(*parsed[1].second), 42);
+            BOOST_TEST(parsed[1].second.is_initialized());
+            BOOST_TEST(parsed[1].second->which() == 2);
+            BOOST_TEST(boost::get<int>(*parsed[1].second) == 42);
 
             BOOST_CHECK(parsed[2].first == "value");
-            BOOST_CHECK(parsed[2].second);
-            BOOST_CHECK_EQUAL(parsed[2].second->which(), 2);
-            BOOST_CHECK_EQUAL(boost::get<int>(*parsed[2].second), -42);
+            BOOST_TEST(parsed[2].second.is_initialized());
+            BOOST_TEST(parsed[2].second->which() == 2);
+            BOOST_TEST(boost::get<int>(*parsed[2].second) == -42);
 
             BOOST_CHECK(parsed[3].first == "value");
-            BOOST_CHECK(parsed[3].second);
-            BOOST_CHECK_EQUAL(parsed[3].second->which(), 3);
-            BOOST_CHECK_CLOSE(boost::get<double>(*parsed[3].second), 42.42, 0.001);
+            BOOST_TEST(parsed[3].second.is_initialized());
+            BOOST_TEST(parsed[3].second->which() == 3);
+            BOOST_TEST(boost::get<double>(*parsed[3].second) == 42.42, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[4].first == "value");
-            BOOST_CHECK(parsed[4].second);
-            BOOST_CHECK_EQUAL(parsed[4].second->which(), 3);
-            BOOST_CHECK_CLOSE(boost::get<double>(*parsed[4].second), 4200.0, 0.001);
+            BOOST_TEST(parsed[4].second.is_initialized());
+            BOOST_TEST(parsed[4].second->which() == 3);
+            BOOST_TEST(boost::get<double>(*parsed[4].second) == 4200.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[5].first == "value");
-            BOOST_CHECK(parsed[5].second);
-            BOOST_CHECK_EQUAL(parsed[5].second->which(), 3);
-            BOOST_CHECK_CLOSE(boost::get<double>(*parsed[5].second), 42.0, 0.001);
+            BOOST_TEST(parsed[5].second.is_initialized());
+            BOOST_TEST(parsed[5].second->which() == 3);
+            BOOST_TEST(boost::get<double>(*parsed[5].second) == 42.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[6].first == "value");
-            BOOST_CHECK(parsed[6].second);
-            BOOST_CHECK_EQUAL(parsed[6].second->which(), 3);
-            BOOST_CHECK_CLOSE(boost::get<double>(*parsed[6].second), 4242.0, 0.001);
+            BOOST_TEST(parsed[6].second.is_initialized());
+            BOOST_TEST(parsed[6].second->which() == 3);
+            BOOST_TEST(boost::get<double>(*parsed[6].second) == 4242.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[7].first == "array");
         }

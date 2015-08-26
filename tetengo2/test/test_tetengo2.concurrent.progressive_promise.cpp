@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
             promise_type promise{ 0 };
 
             const auto future = promise.get_future();
-            BOOST_CHECK(future.valid());
+            BOOST_TEST(future.valid());
         }
         {
             promise_type promise{ 0 };
@@ -363,11 +363,11 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         promise_type promise{ 0 };
         auto future = promise.get_future();
 
-        BOOST_CHECK_EQUAL(future.progress(), 0);
+        BOOST_TEST(future.progress() == 0);
 
         promise.set_progress(42);
 
-        BOOST_CHECK_EQUAL(future.progress(), 42);
+        BOOST_TEST(future.progress() == 42);
     }
 
     BOOST_AUTO_TEST_CASE(abort_requested)
@@ -379,15 +379,15 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         promise_type promise{ 0 };
         auto future = promise.get_future();
 
-        BOOST_CHECK(!promise.abort_requested());
+        BOOST_TEST(!promise.abort_requested());
 
         future.request_abort();
 
-        BOOST_CHECK(promise.abort_requested());
+        BOOST_TEST(promise.abort_requested());
 
         future.request_abort();
 
-        BOOST_CHECK(promise.abort_requested());
+        BOOST_TEST(promise.abort_requested());
     }
 
 

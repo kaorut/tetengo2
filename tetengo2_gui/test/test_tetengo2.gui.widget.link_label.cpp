@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
         window_type parent{};
         const link_label_type label{ parent };
 
-        BOOST_CHECK(label.target().empty());
+        BOOST_TEST(label.target().empty());
     }
 
     BOOST_AUTO_TEST_CASE(set_target)

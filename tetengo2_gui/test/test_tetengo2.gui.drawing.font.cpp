@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(font)
 
         const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-        BOOST_CHECK_EQUAL(font.size(), 12U);
+        BOOST_TEST(font.size() == 12U);
     }
 
     BOOST_AUTO_TEST_CASE(bold)
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(font)
 
         const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-        BOOST_CHECK(!font.bold());
+        BOOST_TEST(!font.bold());
     }
 
     BOOST_AUTO_TEST_CASE(italic)
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_SUITE(font)
 
         const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-        BOOST_CHECK(font.italic());
+        BOOST_TEST(font.italic());
     }
 
     BOOST_AUTO_TEST_CASE(underline)
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(font)
 
         const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-        BOOST_CHECK(!font.underline());
+        BOOST_TEST(!font.underline());
     }
 
     BOOST_AUTO_TEST_CASE(strikeout)
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(font)
 
         const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-        BOOST_CHECK(font.strikeout());
+        BOOST_TEST(font.strikeout());
     }
 
 

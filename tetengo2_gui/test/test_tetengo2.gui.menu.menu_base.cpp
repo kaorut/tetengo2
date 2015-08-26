@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-        BOOST_CHECK(menu.enabled());
+        BOOST_TEST(menu.enabled());
     }
 
     BOOST_AUTO_TEST_CASE(set_enabled)
@@ -121,14 +121,14 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
             menu.set_enabled(true);
 
-            BOOST_CHECK(menu.enabled());
+            BOOST_TEST(menu.enabled());
         }
         {
             concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
             menu.set_enabled(false);
 
-            BOOST_CHECK(!menu.enabled());
+            BOOST_TEST(!menu.enabled());
         }
     }
 
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             const concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-            BOOST_CHECK(!menu.has_shortcut_key());
+            BOOST_TEST(!menu.has_shortcut_key());
         }
         {
             const concrete_menu menu{
@@ -183,7 +183,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
                 shortcut_key_type{ virtual_key_type::char_a(), false, true, false }
             };
 
-            BOOST_CHECK(menu.has_shortcut_key());
+            BOOST_TEST(menu.has_shortcut_key());
         }
     }
 
@@ -204,9 +204,9 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
             const auto& shortcut_key = menu.get_shortcut_key();
             BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
-            BOOST_CHECK(!shortcut_key.shift());
-            BOOST_CHECK(shortcut_key.control());
-            BOOST_CHECK(!shortcut_key.meta());
+            BOOST_TEST(!shortcut_key.shift());
+            BOOST_TEST(shortcut_key.control());
+            BOOST_TEST(!shortcut_key.meta());
         }
     }
 

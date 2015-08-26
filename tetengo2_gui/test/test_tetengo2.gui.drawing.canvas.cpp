@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         const auto& background = canvas.get_background();
         const auto* const p_solid_background = dynamic_cast<const solid_background_type*>(&background);
 
-        BOOST_REQUIRE(p_solid_background);
+        BOOST_TEST_REQUIRE(p_solid_background);
         BOOST_CHECK((p_solid_background->get_color() == color_type{ 255, 255, 255, 255 }));
     }
 
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_background(tetengo2::stdalt::make_unique<const transparent_background_type>());
 
-        BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
+        BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
     }
 
     BOOST_AUTO_TEST_CASE(line_width)
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto line_width = canvas.line_width();
 
-        BOOST_CHECK_EQUAL(line_width, 1U);
+        BOOST_TEST(line_width == 1U);
     }
 
     BOOST_AUTO_TEST_CASE(set_line_width)
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_line_width(42);
 
-        BOOST_CHECK_EQUAL(canvas.line_width(), 42U);
+        BOOST_TEST(canvas.line_width() == 42U);
     }
 
     BOOST_AUTO_TEST_CASE(line_style)

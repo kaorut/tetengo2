@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(progress_dialog)
 
         dialog.do_modal();
 
-        BOOST_CHECK_EQUAL(future.get(), 42);
+        BOOST_TEST(future.get() == 42);
     }
 
 

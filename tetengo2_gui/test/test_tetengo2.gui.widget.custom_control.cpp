@@ -134,10 +134,10 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_CHECK(!custom_control.mouse_captured(nullptr));
-        BOOST_CHECK(!custom_control.mouse_captured(mouse_button_type::left, &inner_item));
-        BOOST_CHECK(!custom_control.mouse_captured(mouse_button_type::right, &inner_item));
-        BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
+        BOOST_TEST(!custom_control.mouse_captured(nullptr));
+        BOOST_TEST(!custom_control.mouse_captured(mouse_button_type::left, &inner_item));
+        BOOST_TEST(!custom_control.mouse_captured(mouse_button_type::right, &inner_item));
+        BOOST_TEST(!custom_control.mouse_captured(&inner_item));
     }
 
     BOOST_AUTO_TEST_CASE(set_mouse_capture)
@@ -149,12 +149,12 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         const concrete_inner_item inner_item1{ custom_control };
         const concrete_inner_item inner_item2{ custom_control };
 
-        BOOST_CHECK(custom_control.set_mouse_capture(mouse_button_type::left, &inner_item1));
+        BOOST_TEST(custom_control.set_mouse_capture(mouse_button_type::left, &inner_item1));
 
-        BOOST_CHECK(custom_control.mouse_captured(&inner_item1));
-        BOOST_CHECK(custom_control.mouse_captured(mouse_button_type::left, &inner_item1));
-        BOOST_CHECK(!custom_control.set_mouse_capture(mouse_button_type::left, &inner_item2));
-        BOOST_CHECK(custom_control.mouse_captured(nullptr));
+        BOOST_TEST(custom_control.mouse_captured(&inner_item1));
+        BOOST_TEST(custom_control.mouse_captured(mouse_button_type::left, &inner_item1));
+        BOOST_TEST(!custom_control.set_mouse_capture(mouse_button_type::left, &inner_item2));
+        BOOST_TEST(custom_control.mouse_captured(nullptr));
     }
 
     BOOST_AUTO_TEST_CASE(release_mouse_capture)
@@ -168,8 +168,8 @@ BOOST_AUTO_TEST_SUITE(custom_control)
         custom_control.set_mouse_capture(mouse_button_type::left, &inner_item);
         custom_control.release_mouse_capture();
 
-        BOOST_CHECK(!custom_control.mouse_captured(&inner_item));
-        BOOST_CHECK(!custom_control.mouse_captured(nullptr));
+        BOOST_TEST(!custom_control.mouse_captured(&inner_item));
+        BOOST_TEST(!custom_control.mouse_captured(nullptr));
     }
 
 
@@ -266,14 +266,14 @@ BOOST_AUTO_TEST_SUITE(inner_item)
             concrete_custom_control custom_control{ parent };
             const concrete_inner_item inner_item{ custom_control };
 
-            BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
+            BOOST_TEST(&inner_item.call_parent() == &custom_control);
         }
         {
             window_type parent{};
             concrete_custom_control custom_control{ parent };
             concrete_inner_item inner_item{ custom_control };
 
-            BOOST_CHECK_EQUAL(&inner_item.call_parent(), &custom_control);
+            BOOST_TEST(&inner_item.call_parent() == &custom_control);
         }
     }
 
@@ -286,14 +286,14 @@ BOOST_AUTO_TEST_SUITE(inner_item)
             concrete_custom_control custom_control{ parent };
             const concrete_inner_item inner_item{ custom_control };
 
-            BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
+            BOOST_TEST(&inner_item.call_parent_to<concrete_custom_control>() == &custom_control);
         }
         {
             window_type parent{};
             concrete_custom_control custom_control{ parent };
             concrete_inner_item inner_item{ custom_control };
 
-            BOOST_CHECK_EQUAL(&inner_item.call_parent_to<concrete_custom_control>(), &custom_control);
+            BOOST_TEST(&inner_item.call_parent_to<concrete_custom_control>() == &custom_control);
         }
     }
 
@@ -305,10 +305,10 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_CHECK(!inner_item.call_inside(position_type{ left_type{ 0 }, top_type{ 0 } }));
-        BOOST_CHECK(inner_item.call_inside(position_type{ left_type{ 42 }, top_type{ 24 } }));
-        BOOST_CHECK(inner_item.call_inside(position_type{ left_type{ 50 }, top_type{ 50 } }));
-        BOOST_CHECK(!inner_item.call_inside(position_type{ left_type{ 100 }, top_type{ 100 } }));
+        BOOST_TEST(!inner_item.call_inside(position_type{ left_type{ 0 }, top_type{ 0 } }));
+        BOOST_TEST(inner_item.call_inside(position_type{ left_type{ 42 }, top_type{ 24 } }));
+        BOOST_TEST(inner_item.call_inside(position_type{ left_type{ 50 }, top_type{ 50 } }));
+        BOOST_TEST(!inner_item.call_inside(position_type{ left_type{ 100 }, top_type{ 100 } }));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_pressed)

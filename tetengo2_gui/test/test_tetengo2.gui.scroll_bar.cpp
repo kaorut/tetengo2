@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
 
             scroll_bar.set_position(42);
 
-            BOOST_CHECK_EQUAL(scroll_bar.position(), 42U);
+            BOOST_TEST(scroll_bar.position() == 42U);
         }
         {
             scroll_bar_type scroll_bar{ 0, scroll_bar_type::style_type::vertical };
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
 
         scroll_bar.set_page_size(42);
 
-        BOOST_CHECK_EQUAL(scroll_bar.page_size(), 42U);
+        BOOST_TEST(scroll_bar.page_size() == 42U);
     }
 
     BOOST_AUTO_TEST_CASE(enabled)
@@ -150,11 +150,11 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
 
         scroll_bar.set_enabled(true);
 
-        BOOST_CHECK(scroll_bar.enabled());
+        BOOST_TEST(scroll_bar.enabled());
 
         scroll_bar.set_enabled(false);
 
-        BOOST_CHECK(!scroll_bar.enabled());
+        BOOST_TEST(!scroll_bar.enabled());
     }
 
     BOOST_AUTO_TEST_CASE(scroll_bar_observer_set)

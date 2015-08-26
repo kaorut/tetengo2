@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(basic_color)
 
         const color_type color{ 0x02, 0x46, 0x8A, 0xCE };
 
-        BOOST_CHECK_EQUAL(color.red(), 0x02);
+        BOOST_TEST(color.red() == 0x02);
     }
 
     BOOST_AUTO_TEST_CASE(green)
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(basic_color)
 
         const color_type color{ 0x02, 0x46, 0x8A, 0xCE };
 
-        BOOST_CHECK_EQUAL(color.green(), 0x46);
+        BOOST_TEST(color.green() == 0x46);
     }
 
     BOOST_AUTO_TEST_CASE(blue)
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(basic_color)
 
         const color_type color{ 0x02, 0x46, 0x8A, 0xCE };
 
-        BOOST_CHECK_EQUAL(color.blue(), 0x8A);
+        BOOST_TEST(color.blue() == 0x8A);
     }
 
     BOOST_AUTO_TEST_CASE(alpha)
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(basic_color)
 
         const color_type color{ 0x02, 0x46, 0x8A, 0xCE };
 
-        BOOST_CHECK_EQUAL(color.alpha(), 0xCE);
+        BOOST_TEST(color.alpha() == 0xCE);
     }
 
 

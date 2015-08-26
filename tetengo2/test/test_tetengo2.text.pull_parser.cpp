@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_SUITE(structure)
                 string_type{ TETENGO2_TEXT("hoge") }, std::move(map)
             };
 
-            BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
+            BOOST_TEST_REQUIRE(structure.attribute_map().size() == 1U);
             const auto found = structure.attribute_map().find(string_type{ TETENGO2_TEXT("key") });
             BOOST_REQUIRE(found != structure.attribute_map().end());
             BOOST_CHECK(
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_SUITE(structure)
                 string_type{ TETENGO2_TEXT("hoge") }, std::move(map)
             };
 
-            BOOST_REQUIRE_EQUAL(structure.attribute_map().size(), 1U);
+            BOOST_TEST_REQUIRE(structure.attribute_map().size() == 1U);
             const auto found = structure.attribute_map().find(string_type{ TETENGO2_TEXT("key") });
             BOOST_REQUIRE(found != structure.attribute_map().end());
             BOOST_CHECK(
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
             const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
         {
             std::istringstream json_text{
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
             const pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
-            BOOST_CHECK(pull_parser.has_next());
+            BOOST_TEST(pull_parser.has_next());
         }
     }
 
@@ -269,22 +269,22 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_TEST(element.which() == 0);
                 const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_TEST(element.which() == 1);
                 const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
         {
             std::istringstream json_text{
@@ -309,112 +309,112 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_TEST(element.which() == 0);
                 const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_TEST(element.which() == 0);
                 const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 const auto attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
-                BOOST_CHECK_EQUAL(attribute->second.which(), 4);
+                BOOST_TEST(attribute->second.which() == 4);
                 const auto attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "hoge");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_TEST(element.which() == 2);
                 const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
-                BOOST_CHECK_EQUAL(value, 42);
+                BOOST_TEST(value == 42);
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_TEST(element.which() == 1);
                 const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_TEST(element.which() == 0);
                 const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 const auto attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
-                BOOST_CHECK_EQUAL(attribute->second.which(), 4);
+                BOOST_TEST(attribute->second.which() == 4);
                 const auto attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "fuga");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_TEST(element.which() == 0);
                 const auto structure = boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_TEST(element.which() == 2);
                 const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
-                BOOST_CHECK_EQUAL(value, 42);
+                BOOST_TEST(value == 42);
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_TEST(element.which() == 2);
                 const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
-                BOOST_CHECK_EQUAL(value, 42);
+                BOOST_TEST(value == 42);
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_TEST(element.which() == 2);
                 const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
-                BOOST_CHECK_EQUAL(value, 42);
+                BOOST_TEST(value == 42);
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_TEST(element.which() == 1);
                 const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_TEST(element.which() == 1);
                 const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
-                BOOST_CHECK(pull_parser.has_next());
+                BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_TEST(element.which() == 1);
                 const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
     }
 
@@ -462,7 +462,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
             pull_parser.next();
             pull_parser.next();
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
     }
 
@@ -511,7 +511,7 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.next();
             pull_parser.skip_next();
             const auto& element = pull_parser.peek();
-            BOOST_CHECK_EQUAL(element.which(), 1);
+            BOOST_TEST(element.which() == 1);
             const auto structure = boost::get<pull_parser_type::structure_end_type>(element);
             BOOST_CHECK(structure.name() == "array");
         }
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.next();
             pull_parser.next();
             pull_parser.skip_next();
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
         {
             std::istringstream json_text{
@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser_type pull_parser{ std::move(p_push_parser), 3 };
 
             pull_parser.skip_next();
-            BOOST_CHECK(!pull_parser.has_next());
+            BOOST_TEST(!pull_parser.has_next());
         }
         {
             std::istringstream json_text{
@@ -584,9 +584,9 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.next();
             pull_parser.skip_next();
             const auto& element = pull_parser.peek();
-            BOOST_CHECK_EQUAL(element.which(), 2);
+            BOOST_TEST(element.which() == 2);
             const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
-            BOOST_CHECK_EQUAL(value, 78);
+            BOOST_TEST(value == 78);
         }
     }
 

@@ -42,13 +42,13 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
         {
             const auto virtual_key = virtual_key_type::find_by_code(virtual_key_type::char_a().code());
 
-            BOOST_REQUIRE(virtual_key);
+            BOOST_TEST_REQUIRE(virtual_key.is_initialized());
             BOOST_CHECK(*virtual_key == virtual_key_type::char_a());
         }
         {
             const auto virtual_key = virtual_key_type::find_by_code(0);
 
-            BOOST_REQUIRE(!virtual_key);
+            BOOST_TEST_REQUIRE(!virtual_key.is_initialized());
         }
     }
 
@@ -136,10 +136,10 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK_EQUAL(virtual_key_type::backspace().code(), 0x08);
-        BOOST_CHECK_EQUAL(virtual_key_type::char_0().code(), string_type::value_type{ TETENGO2_TEXT('0') });
-        BOOST_CHECK_EQUAL(virtual_key_type::char_a().code(), string_type::value_type{ TETENGO2_TEXT('A') });
-        BOOST_CHECK_EQUAL(virtual_key_type::f1().code(), 0x70);
+        BOOST_TEST(virtual_key_type::backspace().code() == 0x08);
+        BOOST_TEST(virtual_key_type::char_0().code() == string_type::value_type{ TETENGO2_TEXT('0') });
+        BOOST_TEST(virtual_key_type::char_a().code() == string_type::value_type{ TETENGO2_TEXT('A') });
+        BOOST_TEST(virtual_key_type::f1().code() == 0x70);
     }
 
     BOOST_AUTO_TEST_CASE(string)

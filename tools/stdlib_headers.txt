@@ -229,10 +229,6 @@ BOOST_AUTO_TEST_CASE                             boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE                            boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
 BOOST_CHECK                                      boost/test/unit_test.hpp
-BOOST_CHECK_CLOSE                                boost/test/unit_test.hpp
-BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
-BOOST_CHECK_GE                                   boost/test/unit_test.hpp
-BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_COMP_GNUC                                  boost/predef.h
@@ -244,11 +240,12 @@ BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_OS_CYGWIN                                  boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
-BOOST_REQUIRE_EQUAL                              boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
+BOOST_TEST                                       boost/test/unit_test.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
 BOOST_TEST_PASSPOINT                             boost/test/unit_test.hpp
+BOOST_TEST_REQUIRE                               boost/test/unit_test.hpp
 BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_VERSION_NUMBER                             boost/predef.h
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
@@ -534,6 +531,7 @@ boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::split                                     boost/algorithm/string.hpp
 boost::swap                                      boost/swap.hpp
+boost::test_tools::tolerance                     boost/test/unit_test.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp

@@ -104,13 +104,13 @@ BOOST_AUTO_TEST_SUITE(consumer)
             channel_type channel{ false }; 
             consumer_type consumer{ channel };
 
-            BOOST_CHECK(!consumer.closed());
+            BOOST_TEST(!consumer.closed());
         }
         {
             channel_type channel{ true }; 
             consumer_type consumer{ channel };
 
-            BOOST_CHECK(consumer.closed());
+            BOOST_TEST(consumer.closed());
         }
     }
 
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_SUITE(consumer)
             channel_type channel{ false }; 
             consumer_type consumer{ channel };
 
-            BOOST_CHECK_EQUAL(consumer.peek(), 123);
+            BOOST_TEST(consumer.peek() == 123);
         }
         {
             channel_type channel{ true }; 

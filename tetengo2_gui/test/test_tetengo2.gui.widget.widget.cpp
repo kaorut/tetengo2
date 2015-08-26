@@ -151,13 +151,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget{};
 
-            BOOST_CHECK(!widget.has_parent());
+            BOOST_TEST(!widget.has_parent());
         }
         {
             concrete_widget parent;
             const concrete_widget widget{ &parent };
 
-            BOOST_CHECK(widget.has_parent());
+            BOOST_TEST(widget.has_parent());
         }
     }
 
@@ -174,13 +174,13 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget parent;
             const concrete_widget widget{ &parent };
 
-            BOOST_CHECK_EQUAL(&widget.parent(), &parent);
+            BOOST_TEST(&widget.parent() == &parent);
         }
         {
             concrete_widget parent;
             concrete_widget widget{ &parent };
 
-            BOOST_CHECK_EQUAL(&widget.parent(), &parent);
+            BOOST_TEST(&widget.parent() == &parent);
         }
     }
 
@@ -216,14 +216,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_enabled(true);
 
-            BOOST_CHECK(widget.enabled());
+            BOOST_TEST(widget.enabled());
         }
         {
             concrete_widget widget{};
 
             widget.set_enabled(false);
 
-            BOOST_CHECK(!widget.enabled());
+            BOOST_TEST(!widget.enabled());
         }
     }
 
@@ -236,14 +236,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_enabled(true);
 
-            BOOST_CHECK(widget.enabled());
+            BOOST_TEST(widget.enabled());
         }
         {
             concrete_widget widget{};
 
             widget.set_enabled(false);
 
-            BOOST_CHECK(!widget.enabled());
+            BOOST_TEST(!widget.enabled());
         }
     }
 
@@ -256,14 +256,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_visible(true);
 
-            BOOST_CHECK(widget.visible());
+            BOOST_TEST(widget.visible());
         }
         {
             concrete_widget widget{};
 
             widget.set_visible(false);
 
-            BOOST_CHECK(!widget.visible());
+            BOOST_TEST(!widget.visible());
         }
     }
 
@@ -276,14 +276,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.set_visible(true);
 
-            BOOST_CHECK(widget.visible());
+            BOOST_TEST(widget.visible());
         }
         {
             concrete_widget widget{};
 
             widget.set_visible(false);
 
-            BOOST_CHECK(!widget.visible());
+            BOOST_TEST(!widget.visible());
         }
     }
 
@@ -296,14 +296,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.focus_observer_set().got_focus()();
 
-            BOOST_CHECK(widget.focused());
+            BOOST_TEST(widget.focused());
         }
         {
             concrete_widget widget{};
 
             widget.focus_observer_set().lost_focus()();
 
-            BOOST_CHECK(!widget.focused());
+            BOOST_TEST(!widget.focused());
         }
     }
 
@@ -446,7 +446,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
 
-            BOOST_CHECK(!widget.background());
+            BOOST_TEST(!widget.background().is_initialized());
         }
         {
             concrete_widget widget{};
@@ -454,7 +454,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
 
-            BOOST_CHECK(widget.background());
+            BOOST_TEST(widget.background().is_initialized());
         }
     }
 
@@ -506,7 +506,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         const concrete_widget widget{};
 
-        BOOST_CHECK(!widget.cursor());
+        BOOST_TEST(!widget.cursor());
     }
 
     BOOST_AUTO_TEST_CASE(set_cursor)
@@ -519,7 +519,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         widget.set_cursor(std::move(p_cursor));
 
         const auto cursor = widget.cursor();
-        BOOST_REQUIRE(cursor);
+        BOOST_TEST_REQUIRE(cursor.is_initialized());
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
     }
 
@@ -530,22 +530,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
-            BOOST_CHECK(!widget.has_vertical_scroll_bar());
+            BOOST_TEST(!widget.has_vertical_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
-            BOOST_CHECK(widget.has_vertical_scroll_bar());
+            BOOST_TEST(widget.has_vertical_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
-            BOOST_CHECK(!widget.has_vertical_scroll_bar());
+            BOOST_TEST(!widget.has_vertical_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
-            BOOST_CHECK(widget.has_vertical_scroll_bar());
+            BOOST_TEST(widget.has_vertical_scroll_bar());
         }
     }
 
@@ -602,22 +602,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::none };
 
-            BOOST_CHECK(!widget.has_horizontal_scroll_bar());
+            BOOST_TEST(!widget.has_horizontal_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::vertical };
 
-            BOOST_CHECK(!widget.has_horizontal_scroll_bar());
+            BOOST_TEST(!widget.has_horizontal_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::horizontal };
 
-            BOOST_CHECK(widget.has_horizontal_scroll_bar());
+            BOOST_TEST(widget.has_horizontal_scroll_bar());
         }
         {
             const concrete_widget widget{ nullptr, widget_type::scroll_bar_style_type::both };
 
-            BOOST_CHECK(widget.has_horizontal_scroll_bar());
+            BOOST_TEST(widget.has_horizontal_scroll_bar());
         }
     }
 
@@ -674,7 +674,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget{};
 
-            BOOST_CHECK(widget.children().empty());
+            BOOST_TEST(widget.children().empty());
         }
         {
             concrete_widget widget{};
@@ -683,7 +683,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget child2{ &widget };
             child2.set_text("fuga");
 
-            BOOST_REQUIRE_EQUAL(widget.children().size(), 2U);
+            BOOST_TEST_REQUIRE(widget.children().size() == 2U);
             BOOST_CHECK(widget.children()[0].get().text() == "hoge" || widget.children()[1].get().text() == "hoge");
             BOOST_CHECK(widget.children()[0].get().text() == "fuga" || widget.children()[1].get().text() == "fuga");
         }
@@ -842,13 +842,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             const concrete_widget widget{};
 
-            BOOST_CHECK(!widget.destroyed());
+            BOOST_TEST(!widget.destroyed());
         }
         {
             concrete_widget widget{};
             widget.set_destroyed();
 
-            BOOST_CHECK(widget.destroyed());
+            BOOST_TEST(widget.destroyed());
         }
     }
 
