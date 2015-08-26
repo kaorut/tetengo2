@@ -88,9 +88,9 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         auto p_child2 = tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
 
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
-        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 1);
+        BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 1);
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));
-        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
+        BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 2);
 
         BOOST_CHECK(popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Fuga") });
         BOOST_CHECK(std::next(popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Hoge") });
@@ -107,14 +107,14 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));
 
         popup_menu.erase(popup_menu.begin(), popup_menu.begin());
-        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
+        BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 2);
 
         popup_menu.erase(popup_menu.begin(), std::next(popup_menu.begin()));
-        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 1);
+        BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 1);
         BOOST_CHECK(popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Hoge") });
 
         popup_menu.erase(popup_menu.begin(), popup_menu.end());
-        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 0);
+        BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 0);
     }
 
     BOOST_AUTO_TEST_CASE(begin)
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
 
             const abstract_popup_menu_type& const_popup_menu = popup_menu;
 
-            BOOST_REQUIRE_EQUAL(std::distance(const_popup_menu.begin(), const_popup_menu.end()), 2);
+            BOOST_TEST_REQUIRE(std::distance(const_popup_menu.begin(), const_popup_menu.end()) == 2);
             BOOST_CHECK(const_popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Hoge") });
             BOOST_CHECK(std::next(const_popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Piyo") });
         }
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
             popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
             popup_menu.insert(popup_menu.end(), std::move(p_child3));
 
-            BOOST_REQUIRE_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
+            BOOST_TEST_REQUIRE(std::distance(popup_menu.begin(), popup_menu.end()) == 2);
             BOOST_CHECK(popup_menu.begin()->text() == string_type{ TETENGO2_TEXT("Hoge") });
             BOOST_CHECK(std::next(popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Piyo") });
         }
@@ -198,8 +198,8 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
 
             const abstract_popup_menu_type& const_popup_menu = popup_menu;
 
-            BOOST_REQUIRE_EQUAL(
-                std::distance(const_popup_menu.recursive_begin(), const_popup_menu.recursive_end()), 4
+            BOOST_TEST_REQUIRE(
+                std::distance(const_popup_menu.recursive_begin(), const_popup_menu.recursive_end()) == 4
             );
             BOOST_CHECK(const_popup_menu.recursive_begin()->text() == string_type{ TETENGO2_TEXT("Tetengo") });
             BOOST_CHECK(
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
             popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
             popup_menu.insert(popup_menu.end(), std::move(p_child3));
 
-            BOOST_REQUIRE_EQUAL(std::distance(popup_menu.recursive_begin(), popup_menu.recursive_end()), 4);
+            BOOST_TEST_REQUIRE(std::distance(popup_menu.recursive_begin(), popup_menu.recursive_end()) == 4);
             BOOST_CHECK(popup_menu.recursive_begin()->text() == string_type{ TETENGO2_TEXT("Tetengo") });
             BOOST_CHECK(std::next(popup_menu.recursive_begin(), 1)->text() == string_type{ TETENGO2_TEXT("Hoge") });
             BOOST_CHECK(std::next(popup_menu.recursive_begin(), 2)->text() == string_type{ TETENGO2_TEXT("Fuga") });

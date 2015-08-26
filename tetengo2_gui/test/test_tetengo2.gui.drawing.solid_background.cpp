@@ -62,8 +62,8 @@ BOOST_AUTO_TEST_SUITE(solid_background)
 
         const auto p_clone = background.clone();
         
-        BOOST_REQUIRE(p_clone);
-        BOOST_REQUIRE(dynamic_cast<background_type*>(p_clone.get()));
+        BOOST_TEST_REQUIRE(p_clone.get());
+        BOOST_TEST_REQUIRE(dynamic_cast<background_type*>(p_clone.get()));
         BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get())->get_color() == background.get_color());
     }
 

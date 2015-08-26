@@ -113,15 +113,15 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         window_type parent{};
         side_bar_type side_bar{ parent };
 
-        BOOST_CHECK(!side_bar.minimized());
+        BOOST_TEST(!side_bar.minimized());
 
         side_bar.set_minimized(true);
 
-        BOOST_CHECK(side_bar.minimized());
+        BOOST_TEST(side_bar.minimized());
 
         side_bar.set_minimized(false);
 
-        BOOST_CHECK(!side_bar.minimized());
+        BOOST_TEST(!side_bar.minimized());
     }
 
     BOOST_AUTO_TEST_CASE(child_control_area_position)

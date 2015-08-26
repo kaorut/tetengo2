@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
             window_type parent{};
             const file_open_dialog_type file_open{ string_type{ TETENGO2_TEXT("hoge") }, make_file_filters(), parent };
 
-            BOOST_CHECK(file_open.result().empty());
+            BOOST_TEST(file_open.result().empty());
         }
         {
             window_type parent{};
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
             file_open.do_modal();
 
-            BOOST_CHECK(!file_open.result().empty());
+            BOOST_TEST(!file_open.result().empty());
         }
     }
 

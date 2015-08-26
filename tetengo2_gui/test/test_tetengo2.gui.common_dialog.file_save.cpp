@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
                 string_type{ TETENGO2_TEXT("hoge") }, boost::none, make_file_filters(), parent
             };
 
-            BOOST_CHECK(file_save.result().empty());
+            BOOST_TEST(file_save.result().empty());
         }
         {
             window_type parent{};
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
             file_save.do_modal();
 
-            BOOST_CHECK(!file_save.result().empty());
+            BOOST_TEST(!file_save.result().empty());
         }
         {
             window_type parent{};

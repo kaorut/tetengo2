@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         const auto unit = unit_type::from(another_unit_type{ 12 });
 
-        BOOST_CHECK_EQUAL(unit.value(), 12);
+        BOOST_TEST(unit.value() == 12);
     }
 
     BOOST_AUTO_TEST_CASE(from_pixels)
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         const auto unit = unit_type::from_pixels(16);
 
-        BOOST_CHECK_EQUAL(unit.value(), 12);
+        BOOST_TEST(unit.value() == 12);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         unit1.add(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 46);
+        BOOST_TEST(unit1.value() == 46);
     }
 
     BOOST_AUTO_TEST_CASE(subtract)
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         unit1.subtract(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 22);
+        BOOST_TEST(unit1.value() == 22);
     }
 
     BOOST_AUTO_TEST_CASE(multiply)
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         unit1.multiply(12);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 408);
+        BOOST_TEST(unit1.value() == 408);
     }
 
     BOOST_AUTO_TEST_CASE(divide_by)
@@ -143,13 +143,13 @@ BOOST_AUTO_TEST_SUITE(point)
 
             unit1.divide_by(12);
 
-            BOOST_CHECK_EQUAL(unit1.value(), 3);
+            BOOST_TEST(unit1.value() == 3);
         }
         {
             const unit_type unit1{ 36 };
             const unit_type unit2{ 12 };
 
-            BOOST_CHECK_EQUAL(unit1.divide_by(unit2), 3);
+            BOOST_TEST(unit1.divide_by(unit2) == 3);
         }
     }
 
@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         const unit_type unit{ 12 };
 
-        BOOST_CHECK_EQUAL(unit.value(), 12);
+        BOOST_TEST(unit.value() == 12);
     }
 
     BOOST_AUTO_TEST_CASE(to_pixels)
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(point)
 
         const unit_type unit{ 12 };
 
-        BOOST_CHECK_EQUAL(unit.to_pixels<int>(), 16);
+        BOOST_TEST(unit.to_pixels<int>() == 16);
     }
 
 

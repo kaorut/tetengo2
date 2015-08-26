@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(timer)
 
         timer.stop();
 
-        BOOST_CHECK(timer.stopped());
+        BOOST_TEST(timer.stopped());
     }
 
 

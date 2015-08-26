@@ -69,14 +69,14 @@ BOOST_AUTO_TEST_SUITE(list_box)
             window_type parent{};
             const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
-            BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+            BOOST_TEST(list_box.value_count() == 0U);
         }
         {
             window_type parent{};
             list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
             list_box.insert_value(0, string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK_EQUAL(list_box.value_count(), 1U);
+            BOOST_TEST(list_box.value_count() == 1U);
         }
     }
 
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
             list_box.insert_value(0, string_type{ TETENGO2_TEXT("piyo") });
             list_box.insert_value(2, string_type{ TETENGO2_TEXT("piyoyo") });
 
-            BOOST_CHECK_EQUAL(list_box.value_count(), 4U);
+            BOOST_TEST(list_box.value_count() == 4U);
             BOOST_CHECK(list_box.value(0) == string_type{ TETENGO2_TEXT("piyo") });
             BOOST_CHECK(list_box.value(1) == string_type{ TETENGO2_TEXT("hoge") });
             BOOST_CHECK(list_box.value(2) == string_type{ TETENGO2_TEXT("piyoyo") });
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
             list_box.erase_value(0);
 
-            BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+            BOOST_TEST(list_box.value_count() == 0U);
         }
         {
             window_type parent{};
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
         list_box.clear();
 
-        BOOST_CHECK_EQUAL(list_box.value_count(), 0U);
+        BOOST_TEST(list_box.value_count() == 0U);
     }
 
     BOOST_AUTO_TEST_CASE(selected_value_index)
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_SUITE(list_box)
         window_type parent{};
         const list_box_type list_box{ parent, list_box_type::scroll_bar_style_type::none };
 
-        BOOST_CHECK(!list_box.selected_value_index());
+        BOOST_TEST(!list_box.selected_value_index());
     }
 
     BOOST_AUTO_TEST_CASE(select_value)
@@ -203,8 +203,8 @@ BOOST_AUTO_TEST_SUITE(list_box)
 
             list_box.select_value(0);
 
-            BOOST_REQUIRE(list_box.selected_value_index());
-            BOOST_CHECK_EQUAL(*list_box.selected_value_index(), 0U);
+            BOOST_TEST_REQUIRE(list_box.selected_value_index().is_initialized());
+            BOOST_TEST(*list_box.selected_value_index() == 0U);
         }
         {
             window_type parent{};

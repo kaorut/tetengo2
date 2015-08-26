@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_SUITE(control)
         {
             const concrete_control control;
 
-            BOOST_CHECK(!control.text_color());
+            BOOST_TEST(!control.text_color());
         }
         {
             concrete_control control;
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(control)
 
         control.set_text_color();
 
-        BOOST_CHECK(!control.text_color());
+        BOOST_TEST(!control.text_color());
     }
 
     BOOST_AUTO_TEST_CASE(focusable)
@@ -117,14 +117,14 @@ BOOST_AUTO_TEST_SUITE(control)
 
             control.set_focusable(false);
 
-            BOOST_CHECK(!control.focusable());
+            BOOST_TEST(!control.focusable());
         }
         {
             concrete_control control;
 
             control.set_focusable(true);
 
-            BOOST_CHECK(control.focusable());
+            BOOST_TEST(control.focusable());
         }
     }
 
