@@ -34,11 +34,11 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
 
         tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator{ list.begin() };
 
-        BOOST_CHECK_EQUAL(*iterator, 42);
+        BOOST_TEST(*iterator == 42);
 
         *iterator = 24;
 
-        BOOST_CHECK_EQUAL(list.front(), 24);
+        BOOST_TEST(list.front() == 24);
     }
 
     BOOST_AUTO_TEST_CASE(equal)
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
 
         ++iterator;
 
-        BOOST_CHECK_EQUAL(*iterator, 43);
+        BOOST_TEST(*iterator == 43);
 
         ++iterator;
         ++iterator;
@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         const tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator1{ list.begin() };
         const tetengo2::observable_forward_iterator<std::forward_list<int>::iterator> iterator2{ list.end() };
         
-        BOOST_CHECK_EQUAL(iterator1.distance_to(iterator1), 0);
-        BOOST_CHECK_EQUAL(iterator1.distance_to(iterator2), 4);
+        BOOST_TEST(iterator1.distance_to(iterator1) == 0);
+        BOOST_TEST(iterator1.distance_to(iterator2) == 4);
     }
 
     BOOST_AUTO_TEST_CASE(set_increment_observer)
@@ -101,13 +101,13 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
 
         ++iterator;
 
-        BOOST_CHECK_EQUAL(count, 1);
+        BOOST_TEST(count == 1);
 
         ++iterator;
         ++iterator;
         ++iterator;
 
-        BOOST_CHECK_EQUAL(count, 4);
+        BOOST_TEST(count == 4);
     }
 
 
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(make_observable_forward_iterator)
 
     const auto iterator = tetengo2::make_observable_forward_iterator<std::forward_list<int>::iterator>(list.begin());
 
-    BOOST_CHECK_EQUAL(*iterator, 42);
+    BOOST_TEST(*iterator == 42);
 }
 
 

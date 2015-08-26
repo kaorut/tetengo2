@@ -70,15 +70,15 @@ BOOST_AUTO_TEST_SUITE(config_base)
             const concrete_config config;
 
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_REQUIRE(value);
+            BOOST_TEST_REQUIRE(value.is_initialized());
             BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
             const concrete_config config;
 
             const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
-            BOOST_REQUIRE(value);
-            BOOST_CHECK_EQUAL(boost::get<uint_type>(*value), 42U);
+            BOOST_TEST_REQUIRE(value.is_initialized());
+            BOOST_TEST(boost::get<uint_type>(*value) == 42U);
         }
     }
 

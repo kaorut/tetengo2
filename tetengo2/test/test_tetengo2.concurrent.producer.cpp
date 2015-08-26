@@ -132,27 +132,27 @@ BOOST_AUTO_TEST_SUITE(producer)
             producer_type producer{ generate, channel };
             producer.join();
 
-            BOOST_CHECK_EQUAL(channel.take(), 10);
-            BOOST_CHECK_EQUAL(channel.take(), 20);
-            BOOST_CHECK_EQUAL(channel.take(), 30);
-            BOOST_CHECK_EQUAL(channel.take(), 40);
-            BOOST_CHECK_EQUAL(channel.take(), 50);
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.take() == 10);
+            BOOST_TEST(channel.take() == 20);
+            BOOST_TEST(channel.take() == 30);
+            BOOST_TEST(channel.take() == 40);
+            BOOST_TEST(channel.take() == 50);
+            BOOST_TEST(channel.closed());
         }
         {
             channel_type channel{ false };
             producer_type producer{ generate, channel };
             producer.join();
 
-            BOOST_CHECK_EQUAL(channel.take(), 123);
-            BOOST_CHECK_EQUAL(channel.take(), 456);
-            BOOST_CHECK_EQUAL(channel.take(), 789);
-            BOOST_CHECK_EQUAL(channel.take(), 10);
-            BOOST_CHECK_EQUAL(channel.take(), 20);
-            BOOST_CHECK_EQUAL(channel.take(), 30);
-            BOOST_CHECK_EQUAL(channel.take(), 40);
-            BOOST_CHECK_EQUAL(channel.take(), 50);
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.take() == 123);
+            BOOST_TEST(channel.take() == 456);
+            BOOST_TEST(channel.take() == 789);
+            BOOST_TEST(channel.take() == 10);
+            BOOST_TEST(channel.take() == 20);
+            BOOST_TEST(channel.take() == 30);
+            BOOST_TEST(channel.take() == 40);
+            BOOST_TEST(channel.take() == 50);
+            BOOST_TEST(channel.closed());
         }
         {
             channel_type channel{ true };
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_SUITE(producer)
             producer.join();
 
             BOOST_CHECK_THROW(channel.take(), std::runtime_error);
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.closed());
         }
     }
 

@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(progressive_future)
         using future_type = tetengo2::concurrent::progressive_future<std::string, int>;
 
         future_type future{};
-        BOOST_CHECK(!future.valid());
+        BOOST_TEST(!future.valid());
     }
 
     BOOST_AUTO_TEST_CASE(wait)

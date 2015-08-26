@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.insert(12);
             channel.insert(34);
 
-            BOOST_CHECK_EQUAL(channel.peek(), 12);
+            BOOST_TEST(channel.peek() == 12);
         }
         {
             channel_type channel{ 3 };
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         const channel_type channel{ 3 };
 
-        BOOST_CHECK(!channel.close_requested());
+        BOOST_TEST(!channel.close_requested());
     }
 
     BOOST_AUTO_TEST_CASE(request_close)
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         channel.request_close();
 
-        BOOST_CHECK(channel.close_requested());
+        BOOST_TEST(channel.close_requested());
     }
 
     BOOST_AUTO_TEST_CASE(close)
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.close();
 
-            BOOST_CHECK_EQUAL(channel.peek(), 12);
+            BOOST_TEST(channel.peek() == 12);
             channel.take();
             BOOST_CHECK_THROW(channel.peek(), std::logic_error);
         }
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.close();
 
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.closed());
         }
         {
             channel_type channel{ 3 };
@@ -218,25 +218,25 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.close();
 
-            BOOST_CHECK(!channel.closed());
+            BOOST_TEST(!channel.closed());
 
             channel.take();
 
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.closed());
         }
         {
             channel_type channel{ 3 };
 
             std::thread producing_thread{ produce, &channel };
 
-            BOOST_CHECK_EQUAL(channel.peek(), 12);
+            BOOST_TEST(channel.peek() == 12);
             channel.take();
-            BOOST_CHECK_EQUAL(channel.peek(), 34);
+            BOOST_TEST(channel.peek() == 34);
             channel.take();
-            BOOST_CHECK_EQUAL(channel.peek(), 56);
+            BOOST_TEST(channel.peek() == 56);
             channel.take();
 
-            BOOST_CHECK(channel.closed());
+            BOOST_TEST(channel.closed());
 
             assert(producing_thread.joinable());
             producing_thread.join();

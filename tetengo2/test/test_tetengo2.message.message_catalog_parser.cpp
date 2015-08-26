@@ -160,35 +160,35 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            BOOST_CHECK(!p_parser->has_next());
+            BOOST_TEST(!p_parser->has_next());
         }
         {
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog1) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            BOOST_CHECK(!p_parser->has_next());
+            BOOST_TEST(!p_parser->has_next());
         }
         {
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog2) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            BOOST_CHECK(!p_parser->has_next());
+            BOOST_TEST(!p_parser->has_next());
         }
         {
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog3) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            BOOST_CHECK(p_parser->has_next());
+            BOOST_TEST(p_parser->has_next());
         }
         {
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog4) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(create_pull_parser(input_stream));
 
-            BOOST_CHECK(p_parser->has_next());
+            BOOST_TEST(p_parser->has_next());
         }
     }
 
@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value1") });
                 p_parser->next();
             }
-            BOOST_CHECK(!p_parser->has_next());
+            BOOST_TEST(!p_parser->has_next());
         }
         {
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog4) };
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 BOOST_CHECK(entry.second == string_type{ TETENGO2_TEXT("Value2") });
                 p_parser->next();
             }
-            BOOST_CHECK(!p_parser->has_next());
+            BOOST_TEST(!p_parser->has_next());
         }
     }
 

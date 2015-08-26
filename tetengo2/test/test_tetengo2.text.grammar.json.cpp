@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_SUITE(json)
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
             BOOST_CHECK(output == "OB, OE, ");
         }
         {
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_SUITE(json)
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
             BOOST_CHECK(
                 output ==
                 "OB, "
@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_SUITE(json)
             );
 
             const auto result = full_match(input.begin(), input.end(), g);
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
             BOOST_CHECK(
                 output ==
                 "AB, S:\"hoge\", N:42, B:true, B:false, L:null, AE, "
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[]" };
@@ -291,7 +291,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "" };
@@ -299,7 +299,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42" };
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "[[[]], {}]" };
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[[[]]" };
@@ -323,7 +323,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ 
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g);
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
     }
 
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.json_text());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[]" };
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.json_text());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "" };
@@ -373,7 +373,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.json_text());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42" };
@@ -381,7 +381,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.json_text());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "null" };
@@ -408,7 +408,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "true" };
@@ -416,7 +416,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{}" };
@@ -424,7 +424,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[]" };
@@ -432,7 +432,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "hoge" };
@@ -440,7 +440,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42" };
@@ -448,7 +448,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "\"hoge\"" };
@@ -456,7 +456,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.value());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
     }
 
@@ -475,7 +475,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{\"hoge\": 42}" };
@@ -483,7 +483,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{\"hoge\": 42, \"hoge\": 42}" };
@@ -491,7 +491,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{\"hoge\": 42, \"hoge\": 42, \"hoge\": 42}" };
@@ -499,7 +499,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{\n  \"hoge\": 42\n,\t\"hoge\": 42}" };
@@ -507,7 +507,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "{\"hoge\": 42" };
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "{\"hoge\": 42,}" };
@@ -523,7 +523,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "[]" };
@@ -531,7 +531,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.object());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
@@ -550,7 +550,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.member());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "\"hoge\"\t:\n\n42" };
@@ -558,7 +558,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.member());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42: \"hoge\"" };
@@ -566,7 +566,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.member());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"hoge\": 42: 42" };
@@ -574,7 +574,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.member());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"hoge\":" };
@@ -582,7 +582,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.member());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
@@ -601,7 +601,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[42]" };
@@ -609,7 +609,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[42, 42]" };
@@ -617,7 +617,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[42, 42, 42]" };
@@ -625,7 +625,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[\n  42\n,\t42]" };
@@ -633,7 +633,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "[42" };
@@ -641,7 +641,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "[42,]" };
@@ -649,7 +649,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "{}" };
@@ -657,7 +657,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.array());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
@@ -676,7 +676,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "0" };
@@ -684,7 +684,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "02" };
@@ -692,7 +692,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "-42" };
@@ -700,7 +700,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "-0" };
@@ -708,7 +708,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "-02" };
@@ -716,7 +716,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42.42" };
@@ -724,7 +724,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42.42.42" };
@@ -732,7 +732,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42e+42" };
@@ -740,7 +740,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42.42e+42" };
@@ -748,7 +748,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42E+42" };
@@ -756,7 +756,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42e-42" };
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "42e+42.42" };
@@ -772,7 +772,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42e+42e+42" };
@@ -780,7 +780,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42f+42" };
@@ -788,7 +788,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42e*42" };
@@ -796,7 +796,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "42e" };
@@ -804,7 +804,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.number());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
@@ -823,7 +823,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "\"hoge\"fuga" };
@@ -831,7 +831,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"hoge" };
@@ -839,7 +839,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "hoge" };
@@ -847,7 +847,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"a\\\"a\"" };
@@ -855,7 +855,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "\"a\"a\"" };
@@ -863,7 +863,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"\\n\\u12ABXYZ\"" };
@@ -871,7 +871,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(result);
+            BOOST_TEST(result);
         }
         {
             const std::string input{ "\"\\m\\u12ABXYZ\"" };
@@ -879,7 +879,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"\\n\\u12PQXYZ\"" };
@@ -887,7 +887,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
         {
             const std::string input{ "\"\\n\\u12\"" };
@@ -895,7 +895,7 @@ BOOST_AUTO_TEST_SUITE(json)
             const grammar_type g{};
             const auto result = full_match(input.begin(), input.end(), g.string());
 
-            BOOST_CHECK(!result);
+            BOOST_TEST(!result);
         }
     }
 
