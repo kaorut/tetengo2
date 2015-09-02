@@ -71,7 +71,7 @@ namespace tetengo2 { namespace message
         {}
 
         /*!
-            \brief Destroys a message catalog.
+            \brief Destroys the message catalog.
         */
         ~message_catalog()
         {
