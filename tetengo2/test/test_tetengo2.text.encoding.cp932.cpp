@@ -40,12 +40,15 @@ namespace
     // data
 
 #if BOOST_OS_WINDOWS
+#   pragma warning (push)
+#   pragma warning (disable: 4592)
     const pivot_type pivot{
         0x304F, // KU in fullwidth hiragana
         0x307E, // MA in fullwidth hiragana
         0xFF93, // MO in halfwidth katakana
         0xFF9D, // N  in halfwidth katakana
     }; // in UTF-16
+#   pragma warning (pop)
 #else
     const pivot_type pivot{
         tc(0xE3), tc(0x81), tc(0x8F), // KU in fullwidth hiragana
@@ -58,12 +61,15 @@ namespace
     const pivot_type empty_pivot{};
 
 #if BOOST_OS_WINDOWS
+#   pragma warning (push)
+#   pragma warning (disable: 4592)
     const pivot_type unconvertible_pivot{
         0x68EE,         // MORI in kanji
         0x9DD7,         // OU in kanji
         0x5916,         // GAI in kanji
         0xD842, 0xDF9F, // SHIKARU in kanji
     }; // in UTF-16
+#   pragma warning (pop)
 #else
     const pivot_type unconvertible_pivot{
         tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji

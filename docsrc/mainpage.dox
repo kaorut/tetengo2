@@ -38,7 +38,7 @@ Building on Windows
 
 You need the following tools in order to build Tetengo2:
 
-- [Visual Studio 2015](http://www.microsoft.com/) (Express for Desktop is not available. Use Community instead.)
+- [Visual Studio 2015 Update 1](http://www.microsoft.com/) (Express for Desktop is not available. Use Community instead.)
 - [Boost C++ Libraries 1.59.0](http://www.boost.org/)
 - [Doxygen 1.8.10](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
