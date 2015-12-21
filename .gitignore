@@ -4,6 +4,7 @@
 *.msi
 *.mst
 *.o
+*.opendb
 *.opensdf
 *.sdf
 *.suo
