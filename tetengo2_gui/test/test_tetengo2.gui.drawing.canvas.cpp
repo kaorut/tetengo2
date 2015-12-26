@@ -289,6 +289,15 @@ BOOST_AUTO_TEST_SUITE(canvas)
         canvas.draw_focus_indication(make_position(12, 34), make_dimension(56U, 78U));
     }
 
+    BOOST_AUTO_TEST_CASE(draw_rectangle)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas{};
+
+        canvas.draw_rectangle(make_position(12, 34), make_dimension(56U, 78U));
+    }
+
     BOOST_AUTO_TEST_CASE(fill_rectangle)
     {
         BOOST_TEST_PASSPOINT();
