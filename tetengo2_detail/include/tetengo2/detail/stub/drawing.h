@@ -271,6 +271,36 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Draws a rectangle.
+
+            \tparam Position   A position type.
+            \tparam Dimension  A dimension type.
+            \tparam Size       A size type.
+            \tparam Color      A color type.
+
+            \param canvas     A canvas.
+            \param position   A position of a region.
+            \param dimension  A dimension of a region.
+            \param width      A width.
+            \param style      A style.
+            \param color      A color.
+
+            \throw std::system_error When the rectangle cannot be filled.
+        */
+        template <typename Position, typename Dimension, typename Size, typename Color>
+        static void draw_rectangle(
+            canvas_details_type& canvas,
+            const Position&      position,
+            const Dimension&     dimension,
+            const Size           width,
+            const int            style,
+            const Color&         color
+        )
+        {
+            boost::ignore_unused(canvas, position, dimension, width, style, color);
+        }
+
+        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.

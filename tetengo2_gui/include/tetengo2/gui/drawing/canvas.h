@@ -270,6 +270,20 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Draws a rectangle.
+
+            \param position   A position of a region.
+            \param dimension  A dimension of a region.
+        */
+        void draw_rectangle(const position_type& position, const dimension_type& dimension)
+        {
+            assert(m_p_background);
+            drawing_details_type::draw_rectangle(
+                *m_p_details, position, dimension, m_line_width, static_cast<int>(m_line_style), m_color
+            );
+        }
+
+        /*!
             \brief Fills a rectangle region.
 
             \param position   A position of a region.
