@@ -435,7 +435,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const auto p_stroke_style = create_stroke_style(style);
             canvas.DrawRectangle(
                 position_and_dimension_to_rect_f(position, dimension),
-                p_brush_get(),
+                p_brush.get(),
                 size_to_float(width),
                 p_stroke_style.get()
             );
