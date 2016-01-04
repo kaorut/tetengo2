@@ -11,6 +11,7 @@
 *.trs
 *.vcxproj.user
 .deps
+.vs/
 aclocal.m4
 autom4te.cache
 bin/
