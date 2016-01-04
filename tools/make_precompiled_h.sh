@@ -1,6 +1,6 @@
 #/bin/sh
 # Makes precompiled.h.
-# Copyright (C) 2007-2015 kaoru
+# Copyright (C) 2007-2016 kaoru
 # $Id$
 
 TOOLS_DIR=`dirname $0`

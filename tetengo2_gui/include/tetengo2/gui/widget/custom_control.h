@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::widget::custom_control.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */

@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::shell.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */
