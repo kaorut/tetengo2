@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::message::text_box_observer_set.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */

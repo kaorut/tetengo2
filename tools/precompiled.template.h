@@ -1,7 +1,7 @@
 /*! \file
     \brief The precompiled header for Visual C++.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */

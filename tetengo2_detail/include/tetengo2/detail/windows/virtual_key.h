@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::detail::windows::virtual_key.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */

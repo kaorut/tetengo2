@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::config::cached_config.
 
-    Copyright (C) 2007-2015 kaoru
+    Copyright (C) 2007-2016 kaoru
 
     $Id$
 */
