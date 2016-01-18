@@ -912,7 +912,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
             side_bar_.paint_observer_set().paint_background().disconnect_all_slots();
             side_bar_.paint_observer_set().paint_background().connect(
-                [&side_bar_](canvas_type& canvas) { return paint_background(side_bar_, canvas); }
+                [&side_bar_](canvas_type& canvas)
+                {
+                    return true;
+                }
             );
             side_bar_.paint_observer_set().paint().connect(
                 [&side_bar_](canvas_type& canvas)
@@ -954,17 +957,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     side_bar_.m_p_splitter->mouse_moved(position);
                 }
             );
-        }
-
-        static bool paint_background(const side_bar& side_bar_, canvas_type& canvas)
-        {
-            if (!side_bar_.background())
-                return false;
-
-            canvas.set_background(side_bar_.background()->clone());
-            canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, side_bar_.client_dimension());
-
-            return true;
         }
 
 
