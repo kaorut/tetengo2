@@ -217,7 +217,11 @@ namespace tetengo2 { namespace detail { namespace windows
                     ex_style,
                     custom_control_class_name().c_str(),
                     L"",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),
+                    WS_CHILD |
+                        WS_TABSTOP |
+                        WS_VISIBLE |
+                        WS_CLIPCHILDREN |
+                        window_style_for_scroll_bars<Widget>(scroll_bar_style),
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -278,7 +282,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ex_style,
                     dialog_class_name().c_str(),
                     dialog_class_name().c_str(),
-                    WS_POPUPWINDOW | WS_CAPTION,
+                    WS_POPUPWINDOW | WS_CAPTION | WS_CLIPCHILDREN,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -694,7 +698,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ex_style,
                     window_class_name().c_str(),
                     window_class_name().c_str(),
-                    WS_OVERLAPPEDWINDOW,
+                    WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,

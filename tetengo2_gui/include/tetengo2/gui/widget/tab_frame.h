@@ -780,14 +780,28 @@ namespace tetengo2 { namespace gui { namespace widget
 
             tab_frame_.paint_observer_set().paint_background().disconnect_all_slots();
             tab_frame_.paint_observer_set().paint_background().connect(
-                [&tab_frame_](canvas_type& canvas) { return paint_background(tab_frame_, canvas); }
+                [&tab_frame_](canvas_type& canvas)
+                {
+                    return true;
+                }
             );
             tab_frame_.paint_observer_set().paint().connect(
                 [&tab_frame_](canvas_type& canvas)
                 {
                     canvas.begin_transaction(tab_frame_.client_dimension());
 
-                    paint_background(tab_frame_, canvas);
+                    if (tab_frame_.background())
+                    {
+                        canvas.set_background(tab_frame_.background()->clone());
+                        const position_type position{ left_type{ -1 }, top_type{ -1 } };
+                        const auto client_dimension = tab_frame_.client_dimension();
+                        const dimension_type dimension{
+                            gui::dimension<dimension_type>::width(client_dimension) + width_type{ 2 },
+                            gui::dimension<dimension_type>::height(client_dimension) + height_type{ 2 }
+                        };
+                        canvas.fill_rectangle(position, dimension);
+                    }
+
                     for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
                     {
                         p_tab->label().paint(canvas);
@@ -834,23 +848,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     }
                 }
             );
-        }
-
-        static bool paint_background(const tab_frame& tab_frame_, canvas_type& canvas)
-        {
-            if (!tab_frame_.background())
-                return false;
-
-            canvas.set_background(tab_frame_.background()->clone());
-            const position_type position{ left_type{ -1 }, top_type{ -1 } };
-            const auto client_dimension = tab_frame_.client_dimension();
-            const dimension_type dimension{
-                gui::dimension<dimension_type>::width(client_dimension) + width_type{ 2 },
-                gui::dimension<dimension_type>::height(client_dimension) + height_type{ 2 }
-            };
-            canvas.fill_rectangle(position, dimension);
-
-            return true;
         }
 
         static bool has_same_control(const tab_type& tab, const control_type& child)
