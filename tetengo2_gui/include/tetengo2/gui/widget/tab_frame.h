@@ -780,7 +780,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             tab_frame_.paint_observer_set().paint_background().disconnect_all_slots();
             tab_frame_.paint_observer_set().paint_background().connect(
-                [&tab_frame_](canvas_type& canvas)
+                [](canvas_type&)
                 {
                     return true;
                 }

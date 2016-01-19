@@ -912,7 +912,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             side_bar_.paint_observer_set().paint_background().disconnect_all_slots();
             side_bar_.paint_observer_set().paint_background().connect(
-                [&side_bar_](canvas_type& canvas)
+                [](canvas_type&)
                 {
                     return true;
                 }
