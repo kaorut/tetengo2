@@ -282,7 +282,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     ex_style,
                     dialog_class_name().c_str(),
                     dialog_class_name().c_str(),
-                    WS_POPUPWINDOW | WS_CAPTION | WS_CLIPCHILDREN,
+                    WS_POPUPWINDOW | WS_CAPTION,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
