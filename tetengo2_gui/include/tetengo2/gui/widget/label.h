@@ -82,7 +82,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(pop)
 #endif
         {
-            base_type::initialize(this);
+            initialize_label(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -142,6 +142,42 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+
+        class paint_background
+        {
+        public:
+            paint_background(label& self)
+            :
+            m_self(self)
+            {}
+
+            bool operator()(canvas_type& canvas)
+            const
+            {
+                if (!m_self.background())
+                    return false;
+
+                canvas.set_background(m_self.background()->clone());
+                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
+
+                return true;
+            }
+
+        private:
+            label& m_self;
+
+        };
+
+
+        // static functions
+
+        static void initialize_label(label* const p_label)
+        {
+            base_type::initialize(p_label);
+
+            p_label->paint_observer_set().paint_background().disconnect_all_slots();
+            p_label->paint_observer_set().paint_background().connect(paint_background(*p_label));
+        }
 
 
         // functions
