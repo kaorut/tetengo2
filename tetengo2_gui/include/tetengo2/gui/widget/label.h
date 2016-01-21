@@ -53,6 +53,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
 
+        //! The position type.
+        using position_type = typename base_type::position_type;
+
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
 
@@ -142,6 +145,10 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+
+        using left_type = typename gui::position<position_type>::left_type;
+
+        using top_type = typename gui::position<position_type>::top_type;
 
         class paint_background
         {
