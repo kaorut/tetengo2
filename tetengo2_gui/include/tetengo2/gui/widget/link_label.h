@@ -54,12 +54,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The base type.
         using base_type = label<traits_type, details_traits_type>;
 
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
 
@@ -140,6 +134,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // types
+
+        using canvas_type = typename base_type::canvas_type;
+
+        using position_type = typename base_type::position_type;
 
         using left_type = typename gui::position<position_type>::left_type;
 
