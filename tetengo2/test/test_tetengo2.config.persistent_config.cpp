@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
@@ -47,6 +48,10 @@ namespace
 
 }
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(persistent_config)
@@ -130,3 +135,4 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

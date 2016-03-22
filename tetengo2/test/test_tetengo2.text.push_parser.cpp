@@ -14,6 +14,7 @@
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
+#include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -47,6 +48,10 @@ namespace
 
     // functions
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
     bool structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
     {
         boost::ignore_unused(structure, attribute_map);
@@ -81,11 +86,16 @@ namespace
         parsed_structures.emplace_back("value", boost::make_optional(value));
         return true;
     }
+#endif
 
 
 }
 
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(push_parser)
@@ -438,3 +448,4 @@ BOOST_AUTO_TEST_SUITE(push_parser)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

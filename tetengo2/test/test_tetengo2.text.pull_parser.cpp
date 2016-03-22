@@ -12,6 +12,7 @@
 #include <string>
 #include <utility>
 
+#include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -138,6 +139,10 @@ BOOST_AUTO_TEST_SUITE(structure)
 BOOST_AUTO_TEST_SUITE_END()
     // test cases
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -589,6 +594,7 @@ BOOST_AUTO_TEST_SUITE_END()
             BOOST_TEST(value == 78);
         }
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
