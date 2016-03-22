@@ -13,6 +13,7 @@
 #include <vector>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/predef.h>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
@@ -31,6 +32,10 @@ namespace
 
     // functions
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
     template <typename ForwardIterator, typename Parser>
     bool full_match(const ForwardIterator first, const ForwardIterator last, const Parser& parser)
     {
@@ -139,11 +144,16 @@ namespace
     {
         value_passed(output, structure_attribute.value_type(), structure_attribute.attribute());
     }
+#endif
 
 
 }
 
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(grammar)
@@ -904,3 +914,4 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

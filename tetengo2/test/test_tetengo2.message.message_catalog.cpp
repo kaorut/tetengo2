@@ -68,6 +68,10 @@ namespace
             input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type, locale_name_encoder_type
         >;
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
     struct set_global_locale
     {
         const std::locale m_initial_locale;
@@ -93,9 +97,14 @@ namespace
         }
 
     };
+#endif
 
     // functions
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
     bool locale_supported()
     {
         try
@@ -108,6 +117,7 @@ namespace
             return false;
         }
     }
+#endif
 
     std::locale make_locale(const std::string& name)
     {
@@ -141,6 +151,10 @@ namespace
 }
 
 
+#if !( \
+    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
+    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
+)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(message_catalog)
@@ -224,3 +238,4 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif
