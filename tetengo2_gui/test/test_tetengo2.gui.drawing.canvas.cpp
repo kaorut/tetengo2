@@ -360,6 +360,17 @@ BOOST_AUTO_TEST_SUITE(canvas)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(calc_vertical_text_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas{};
+
+        const auto dimension = canvas.calc_vertical_text_dimension(string_type{ TETENGO2_TEXT("hoge") });
+
+        BOOST_CHECK(dimension == make_dimension(width_type{ 456 }, height_type{ 123 }));
+    }
+
     BOOST_AUTO_TEST_CASE(draw_text)
     {
         BOOST_TEST_PASSPOINT();
@@ -379,6 +390,15 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
             canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), width_type{ 64 }, 56.78);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(draw_vertical_text)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas{};
+
+        canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), 56.78);
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)

@@ -647,6 +647,31 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
+            \brief Calculates the dimension of a vertical text.
+
+            \tparam Dimension A dimension type.
+            \tparam Font      A font type.
+            \tparam String    A string type.
+            \tparam Encoder   An encoder type.
+
+            \param canvas  A canvas.
+            \param font    A font.
+            \param text    A text.
+            \param encoder An encoder.
+
+            \return The dimension of the vertical text.
+
+            \throw std::system_error When the dimention of a vertical text cannot be calculated.
+        */
+        template <typename Dimension, typename Font, typename String, typename Encoder>
+        static Dimension calc_vertical_text_dimension(
+            const canvas_details_type& canvas,
+            const Font&                font,
+            const String&              text,
+            const Encoder&             encoder
+        );
+
+        /*!
             \brief Draws a text.
 
             \tparam Font     A font type.
@@ -739,6 +764,37 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 ));
             }
         }
+
+        /*!
+            \brief Draws a vertical text.
+
+            \tparam Font     A font type.
+            \tparam String   A string type.
+            \tparam Encoder  An encoder type.
+            \tparam Position A position type.
+            \tparam Width    A width type.
+            \tparam Color    A color type.
+
+            \param canvas   A canvas.
+            \param font     A font.
+            \param text     A text to draw.
+            \param encoder  An encoder.
+            \param position A position where the text is drawn.
+            \param color    A color.
+            \param angle    A clockwise angle in radians.
+
+            \throw std::system_error When the text cannot be drawn.
+        */
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        static void draw_vertical_text(
+            canvas_details_type& canvas,
+            const Font&          font,
+            const String&        text,
+            const Encoder&       encoder,
+            const Position&      position,
+            const Color&         color,
+            const double         angle
+        );
 
         /*!
             \brief Paints a picture.

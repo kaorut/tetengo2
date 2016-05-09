@@ -590,6 +590,54 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
+            \brief Calculates the dimension of a vertical text.
+
+            \tparam Dimension A dimension type.
+            \tparam Font      A font type.
+            \tparam String    A string type.
+            \tparam Encoder   An encoder type.
+
+            \param canvas  A canvas.
+            \param font    A font.
+            \param text    A text.
+            \param encoder An encoder.
+
+            \return The dimension of the vertical text.
+
+            \throw std::system_error When the dimention of a vertical text cannot be calculated.
+        */
+        template <typename Dimension, typename Font, typename String, typename Encoder>
+        static Dimension calc_vertical_text_dimension(
+            const canvas_details_type& canvas,
+            const Font&                font,
+            const String&              text,
+            const Encoder&             encoder
+        )
+        {
+            boost::ignore_unused(canvas);
+
+            const auto p_layout =
+                create_vertical_text_layout<
+                    String, Font, Encoder, typename tetengo2::gui::dimension<Dimension>::width_type
+                >(text, font, encoder);
+
+            ::DWRITE_TEXT_METRICS metrics{};
+            const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
+            if (FAILED(get_metrics_hr))
+            {
+                BOOST_THROW_EXCEPTION((
+                    std::system_error{ std::error_code{ get_metrics_hr, win32_category() }, "Can't get text metrics." }
+                ));
+            }
+
+            return
+                {
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(to_ddp_x(metrics.width)),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(to_ddp_y(metrics.height))
+                };
+        }
+
+        /*!
             \brief Draws a text.
 
             \tparam Font     A font type.
@@ -623,6 +671,55 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         )
         {
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
+
+            const auto p_background_details = create_solid_background(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
+
+            auto original_transform = D2D1::Matrix3x2F();
+            canvas.GetTransform(&original_transform);
+            BOOST_SCOPE_EXIT((&canvas)(&original_transform))
+            {
+                canvas.SetTransform(original_transform);
+            } BOOST_SCOPE_EXIT_END;
+            auto rotating_transform =
+                D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
+            canvas.SetTransform(rotating_transform);
+
+            canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
+        }
+
+        /*!
+            \brief Draws a vertical text.
+
+            \tparam Font     A font type.
+            \tparam String   A string type.
+            \tparam Encoder  An encoder type.
+            \tparam Position A position type.
+            \tparam Width    A width type.
+            \tparam Color    A color type.
+
+            \param canvas   A canvas.
+            \param font     A font.
+            \param text     A text to draw.
+            \param encoder  An encoder.
+            \param position A position where the text is drawn.
+            \param color    A color.
+            \param angle    A clockwise angle in radians.
+
+            \throw std::system_error When the text cannot be drawn.
+        */
+        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        static void draw_vertical_text(
+            canvas_details_type& canvas,
+            const Font&          font,
+            const String&        text,
+            const Encoder&       encoder,
+            const Position&      position,
+            const Color&         color,
+            const double         angle
+        )
+        {
+            const auto p_layout = create_text_layout<String, Font, Encoder, Width>(text, font, encoder);
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -963,6 +1060,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 
             return std::move(p_layout);
+        }
+
+        template <typename String, typename Font, typename Encoder, typename Width>
+        static unique_com_ptr< ::IDWriteTextLayout> create_vertical_text_layout(
+            const String&  text,
+            const Font&    font,
+            const Encoder& encoder
+        )
+        {
+            return create_text_layout(text, font, encoder, Width{ 0 });
         }
 
         static ::FLOAT radian_to_degree(const double radian)
