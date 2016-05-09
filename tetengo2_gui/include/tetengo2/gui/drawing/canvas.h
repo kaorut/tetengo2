@@ -359,6 +359,22 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Calculates the dimension of a vertical text.
+
+            \param text A vertical text.
+
+            \return The dimension of the vertical text.
+        */
+        dimension_type calc_vertical_text_dimension(const string_type& text)
+        const
+        {
+            return
+                drawing_details_type::template calc_vertical_text_dimension<dimension_type>(
+                    *m_p_details, m_font, text, encoder()
+                );
+        }
+
+        /*!
             \brief Draws a text.
 
             The maximum width is unlimited.
@@ -393,6 +409,22 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             drawing_details_type::draw_text(
                 *m_p_details, m_font, text, encoder(), position, max_width, m_color, angle
+            );
+        }
+
+        /*!
+            \brief Draws a vertical text.
+
+            The text is rotated around the argument position.
+
+            \param text     A text to draw.
+            \param position A position where the text is drawn.
+            \param angle    A clockwise angle in radians.
+        */
+        void draw_vertical_text(const string_type& text, const position_type& position, const double angle = 0.0)
+        {
+            drawing_details_type::template draw_text<font_type, string_type, encoder_type, position_type, width_type>(
+                *m_p_details, m_font, text, encoder(), position, m_color, angle
             );
         }
 

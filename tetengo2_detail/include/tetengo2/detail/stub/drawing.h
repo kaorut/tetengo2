@@ -452,7 +452,7 @@ width_type\(([0-9]+)\)
             const Encoder&             encoder
         )
         {
-            boost::ignore_unused(canvas, font, text, encoder, max_width);
+            boost::ignore_unused(canvas, font, text, encoder);
 
             using width_type = typename gui::dimension<Dimension>::width_type;
             using height_type = typename gui::dimension<Dimension>::height_type;
