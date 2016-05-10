@@ -423,9 +423,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_vertical_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            drawing_details_type::template draw_text<font_type, string_type, encoder_type, position_type, width_type>(
-                *m_p_details, m_font, text, encoder(), position, m_color, angle
-            );
+            drawing_details_type::template draw_vertical_text<
+                font_type, string_type, encoder_type, position_type, width_type
+            >(*m_p_details, m_font, text, encoder(), position, m_color, angle);
         }
 
         /*!
