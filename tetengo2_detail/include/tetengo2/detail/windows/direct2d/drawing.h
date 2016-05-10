@@ -719,7 +719,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const double         angle
         )
         {
-            const auto p_layout = create_text_layout<String, Font, Encoder, Width>(text, font, encoder);
+            const auto p_layout = create_vertical_text_layout<String, Font, Encoder, Width>(text, font, encoder);
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
