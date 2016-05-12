@@ -123,6 +123,7 @@
     <ClInclude Include="include\tetengo2\stdalt.h" />
     <ClInclude Include="include\tetengo2\text.h" />
     <ClInclude Include="include\tetengo2\text\0namespace.dox" />
+    <ClInclude Include="include\tetengo2\text\character_iterator.h" />
     <ClInclude Include="include\tetengo2\text\encoder.h" />
     <ClInclude Include="include\tetengo2\text\encoding\0namespace.dox" />
     <ClInclude Include="include\tetengo2\text\encoding\ascii.h" />

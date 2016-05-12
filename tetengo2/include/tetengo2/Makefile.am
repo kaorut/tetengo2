@@ -20,6 +20,7 @@ pkg_headers = \
     observable_forward_iterator.h \
     stdalt.h \
     text.h \
+    text/character_iterator.h \
     text/encoder.h \
     text/encoding/encoding.h \
     text/encoding/ascii.h \

@@ -26,6 +26,7 @@ sources = \
     test_tetengo2.meta.assoc_list.cpp \
     test_tetengo2.observable_forward_iterator.cpp \
     test_tetengo2.text.cpp \
+    test_tetengo2.text.character_iterator \
     test_tetengo2.text.encoder.cpp \
     test_tetengo2.text.encoding.encoding.cpp \
     test_tetengo2.text.encoding.ascii.cpp \
