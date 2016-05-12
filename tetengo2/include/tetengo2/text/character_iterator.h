@@ -9,16 +9,21 @@
 #if !defined(TETENGO2_TEXT_CHARACTERITERATOR_H)
 #define TETENGO2_TEXT_CHARACTERITERATOR_H
 
+#include <cassert>
 #include <iterator>
+#include <stdexcept>
 #include <utility>
 
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/throw_exception.hpp>
 
 
 namespace tetengo2 { namespace text
 {
     /*!
         \brief The class template for a character iterator.
+
+        Iterates the string codepoint by codepoint.
 
         \tparam String      A string type.
         \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
@@ -38,6 +43,20 @@ namespace tetengo2 { namespace text
 
 
         // constructors and destructor
+
+        /*!
+            \brief Creates a character iterator.
+
+            The iterator created by this constructor is used for a terminator.
+        */
+        character_iterator()
+        :
+        m_p_string(nullptr),
+        m_utf8_encoder(),
+        m_utf8_string(utf8_string_type{}),
+        m_next_offset(0),
+        m_current_character(string_type{})
+        {}
 
         /*!
             \brief Creates a character iterator.
@@ -79,6 +98,9 @@ namespace tetengo2 { namespace text
         bool equal(const character_iterator& another)
         const
         {
+            if (m_current_character.empty() && another.m_current_character.empty())
+                return true;
+
             return
                 m_p_string == another.m_p_string &&
                 m_current_character == another.m_current_character &&
@@ -90,6 +112,18 @@ namespace tetengo2 { namespace text
         */
         void increment()
         {
+            if (!m_p_string)
+                BOOST_THROW_EXCEPTION(std::logic_error("The iterator has reached the terminal."));
+            if (m_next_offset >= m_utf8_string.length())
+            {
+                m_p_string = nullptr;
+                m_utf8_string.clear();
+                m_next_offset = 0;
+                m_current_character.clear();
+                return;
+            }
+
+            m_current_character = extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder);
         }
 
 
@@ -112,6 +146,8 @@ namespace tetengo2 { namespace text
         )
         {
             const unsigned char head = static_cast<unsigned char>(utf8_string[next_offset]);
+            if (head == 0x00)
+                return string_type{};
 
             size_type byte_length = 0;
             if      ((head & 0x80) == 0x00)
@@ -150,7 +186,7 @@ namespace tetengo2 { namespace text
 
         utf8_encoder_type m_utf8_encoder;
 
-        const utf8_string_type m_utf8_string;
+        utf8_string_type m_utf8_string;
 
         size_type m_next_offset;
 
