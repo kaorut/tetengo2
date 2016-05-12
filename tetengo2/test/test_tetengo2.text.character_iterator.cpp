@@ -17,11 +17,37 @@ namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
 
-    using string_type = common_type_list_type::string_type;
+    using encoding_details_type = detail_type_list_type::encoding_type;
 
-    using character_iterator_type = tetengo2::text::character_iterator<string_type>;
+    using string_type = encoding_details_type::utf8_string_type;
+
+    using utf8_encoder_type =
+        tetengo2::text::encoder<
+            tetengo2::text::encoding::utf8<encoding_details_type>,
+            tetengo2::text::encoding::utf8<encoding_details_type>
+        >;
+
+    using character_iterator_type = tetengo2::text::character_iterator<string_type, utf8_encoder_type>;
+
+
+    // functions
+
+    string_type::value_type tc(const unsigned char c)
+    {
+        return static_cast<string_type::value_type>(c);
+    }
+
+
+    // data
+
+    string_type test_string{
+        tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
+        tc(0x41),                               // A
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+        tc(0x34),                               // 4
+    };
 
 
 }
@@ -36,8 +62,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        const string_type string;
-        const character_iterator_type iterator(string);
+        const character_iterator_type iterator(test_string, utf8_encoder_type{});
     }
 
     BOOST_AUTO_TEST_CASE(dereference)
@@ -70,7 +95,7 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         const string_type string;
-        tetengo2::text::make_character_iterator(string);
+        tetengo2::text::make_character_iterator(string, utf8_encoder_type{});
     }
 
 

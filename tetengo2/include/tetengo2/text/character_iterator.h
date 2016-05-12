@@ -10,6 +10,7 @@
 #define TETENGO2_TEXT_CHARACTERITERATOR_H
 
 #include <iterator>
+#include <utility>
 
 #include <boost/iterator/iterator_facade.hpp>
 
@@ -19,11 +20,12 @@ namespace tetengo2 { namespace text
     /*!
         \brief The class template for a character iterator.
 
-        \tparam String A string type.
+        \tparam String      A string type.
+        \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
     */
-    template <typename String>
+    template <typename String, typename Utf8Encoder>
     class character_iterator :
-        public boost::iterator_facade<character_iterator<String>, String, std::forward_iterator_tag>
+        public boost::iterator_facade<character_iterator<String, Utf8Encoder>, String, std::forward_iterator_tag>
     {
     public:
         // types
@@ -31,17 +33,22 @@ namespace tetengo2 { namespace text
         //! The string type.
         using string_type = String;
 
+        //! The UTF-8 encoder type.
+        using utf8_encoder_type = Utf8Encoder;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a character iterator.
 
-            \param string A string.
+            \param string       A string.
+            \param utf8_encoder An encoder converting from the encoding of string to UTF-8.
         */
-        explicit character_iterator(const string_type& string)
+        character_iterator(const string_type& string, utf8_encoder_type utf8_encoder)
         :
         m_p_string(&string),
+        m_utf8_encoder(std::move(utf8_encoder)),
         m_current_character(),
         m_next_offset(0)
         {}
@@ -98,6 +105,8 @@ namespace tetengo2 { namespace text
 
         const string_type* m_p_string;
 
+        utf8_encoder_type m_utf8_encoder;
+
         string_type m_current_character;
 
         size_type m_next_offset;
@@ -109,16 +118,18 @@ namespace tetengo2 { namespace text
     /*!
         \brief Creates a character  iterator.
 
-        \tparam String A string type.
+        \tparam String      A string type.
+        \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
 
-        \param string A string.
+        \param string       A string.
+        \param utf8_encoder An encoder converting from the encoding of string to UTF-8.
 
         \return A character iterator.
     */
-    template <typename String>
-    character_iterator<String> make_character_iterator(const String& string)
+    template <typename String, typename Utf8Encoder>
+    character_iterator<String, Utf8Encoder> make_character_iterator(const String& string, Utf8Encoder utf8_encoder)
     {
-        return character_iterator<String>{ string };
+        return character_iterator<String, Utf8Encoder>{ string, std::move(utf8_encoder) };
     }
 
 
