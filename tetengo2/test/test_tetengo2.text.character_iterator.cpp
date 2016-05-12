@@ -42,10 +42,26 @@ namespace
 
     // data
 
-    string_type test_string{
+    const string_type test_string{
         tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
         tc(0x41),                               // A
         tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+        tc(0x34),                               // 4
+    };
+
+    const string_type string_mori{
+        tc(0xE6), tc(0xA3), tc(0xAE),           // MORI in kanji
+    };
+
+    const string_type string_a{
+        tc(0x41),                               // A
+    };
+
+    const string_type string_shikaru{
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+    };
+
+    const string_type string_4{
         tc(0x34),                               // 4
     };
 
@@ -62,14 +78,17 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        const character_iterator_type iterator(test_string, utf8_encoder_type{});
+        const character_iterator_type iterator{ test_string, utf8_encoder_type{} };
     }
 
     BOOST_AUTO_TEST_CASE(dereference)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Implement it.");
+        character_iterator_type iterator{ test_string, utf8_encoder_type{} };
+
+        const auto value = *iterator;
+        BOOST_TEST(value == string_mori);
     }
 
     BOOST_AUTO_TEST_CASE(equal)

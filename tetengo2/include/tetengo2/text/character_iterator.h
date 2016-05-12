@@ -25,7 +25,7 @@ namespace tetengo2 { namespace text
     */
     template <typename String, typename Utf8Encoder>
     class character_iterator :
-        public boost::iterator_facade<character_iterator<String, Utf8Encoder>, String, std::forward_iterator_tag>
+        public boost::iterator_facade<character_iterator<String, Utf8Encoder>, const String, std::forward_iterator_tag>
     {
     public:
         // types
@@ -49,8 +49,9 @@ namespace tetengo2 { namespace text
         :
         m_p_string(&string),
         m_utf8_encoder(std::move(utf8_encoder)),
-        m_current_character(),
-        m_next_offset(0)
+        m_utf8_string(m_utf8_encoder.encode(*m_p_string)),
+        m_next_offset(0),
+        m_current_character(extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder))
         {}
 
 
@@ -89,16 +90,58 @@ namespace tetengo2 { namespace text
         */
         void increment()
         {
-
         }
 
 
     private:
         // types
 
+        using utf8_string_type = typename utf8_encoder_type::external_string_type;
+
         using size_type = typename string_type::size_type;
 
         using difference_type = typename std::iterator_traits<character_iterator>::difference_type;
+
+
+        // static functions
+
+        static string_type extract_current_character(
+            const utf8_string_type&  utf8_string,
+            size_type&               next_offset,
+            const utf8_encoder_type& utf8_encoder
+        )
+        {
+            const unsigned char head = static_cast<unsigned char>(utf8_string[next_offset]);
+
+            size_type byte_length = 0;
+            if      ((head & 0x80) == 0x00)
+            {
+                byte_length = 1;
+            }
+            else if ((head & 0xE0) == 0xC0)
+            {
+                byte_length = 2;
+            }
+            else if ((head & 0xF0) == 0xE0)
+            {
+                byte_length = 3;
+            }
+            else
+            {
+                assert((head & 0xF8) == 0xF0);
+                byte_length = 4;
+            }
+
+            utf8_string_type utf8_character{};
+            for (size_type i = 0; i < byte_length; ++i)
+            {
+                assert(i == 0 || (static_cast<unsigned char>(utf8_string[next_offset + i]) & 0xC0) == 0x80);
+                utf8_character.push_back(utf8_string[next_offset + i]);
+            }
+
+            next_offset += byte_length;
+            return utf8_encoder.decode(utf8_character);
+        }
 
 
         // variables
@@ -107,9 +150,11 @@ namespace tetengo2 { namespace text
 
         utf8_encoder_type m_utf8_encoder;
 
-        string_type m_current_character;
+        const utf8_string_type m_utf8_string;
 
         size_type m_next_offset;
+
+        string_type m_current_character;
 
 
     };
