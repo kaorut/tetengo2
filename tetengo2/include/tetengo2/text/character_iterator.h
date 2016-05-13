@@ -23,7 +23,7 @@ namespace tetengo2 { namespace text
     /*!
         \brief The class template for a character iterator.
 
-        Iterates the string codepoint by codepoint.
+        Traverses the string codepoint by codepoint.
 
         \tparam String      A string type.
         \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
