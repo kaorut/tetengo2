@@ -197,7 +197,23 @@ namespace tetengo2 { namespace text
 
 
     /*!
-        \brief Creates a character  iterator.
+        \brief Creates a character iterator.
+
+        The iterator created by this function is used for a terminator.
+
+        \tparam String      A string type.
+        \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
+
+        \return A character iterator.
+    */
+    template <typename String, typename Utf8Encoder>
+    character_iterator<String, Utf8Encoder> make_character_iterator()
+    {
+        return character_iterator<String, Utf8Encoder>{};
+    }
+
+    /*!
+        \brief Creates a character iterator.
 
         \tparam String      A string type.
         \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.

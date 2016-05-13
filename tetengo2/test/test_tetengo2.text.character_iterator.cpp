@@ -187,8 +187,13 @@ BOOST_AUTO_TEST_SUITE_END()
     {
         BOOST_TEST_PASSPOINT();
 
-        const string_type string;
-        tetengo2::text::make_character_iterator(string, utf8_encoder_type{});
+        {
+            tetengo2::text::make_character_iterator<string_type, utf8_encoder_type>();
+        }
+        {
+            const string_type string;
+            tetengo2::text::make_character_iterator(string, utf8_encoder_type{});
+        }
     }
 
 
