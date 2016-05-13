@@ -26,14 +26,15 @@
 #include <tetengo2/meta/assoc_list.h>
 #include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
+#include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoding/ascii.h>
 #include <tetengo2/text/encoding/cp932.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
-#include <tetengo2/text.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
 

@@ -150,6 +150,9 @@
     <ClInclude Include="include\tetengo2\observable_forward_iterator.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\text\character_iterator.h">
+      <Filter>headers\tetengo2\text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp">
