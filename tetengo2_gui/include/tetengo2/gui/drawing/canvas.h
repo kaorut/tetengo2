@@ -419,13 +419,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
-            \param angle    A clockwise angle in radians.
         */
-        void draw_vertical_text(const string_type& text, const position_type& position, const double angle = 0.0)
+        void draw_vertical_text(const string_type& text, const position_type& position)
         {
             drawing_details_type::template draw_vertical_text<
                 font_type, string_type, encoder_type, position_type, width_type
-            >(*m_p_details, m_font, text, encoder(), position, m_color, angle);
+            >(*m_p_details, m_font, text, encoder(), position, m_color);
         }
 
         /*!

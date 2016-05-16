@@ -511,7 +511,6 @@ width_type\(([0-9]+)\)
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
-            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -522,11 +521,10 @@ width_type\(([0-9]+)\)
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color,
-            const double         angle
+            const Color&         color
         )
         {
-            boost::ignore_unused(canvas, font, text, encoder, position, color, angle);
+            boost::ignore_unused(canvas, font, text, encoder, position, color);
         }
 
         /*!

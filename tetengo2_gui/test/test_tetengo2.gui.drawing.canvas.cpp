@@ -398,7 +398,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas{};
 
-        canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), 56.78);
+        canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34));
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)

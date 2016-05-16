@@ -704,7 +704,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
-            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -715,8 +714,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color,
-            const double         angle
+            const Color&         color
         )
         {
             const auto p_layout = create_vertical_text_layout<String, Font, Encoder, Width>(text, font, encoder);
@@ -731,7 +729,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 canvas.SetTransform(original_transform);
             } BOOST_SCOPE_EXIT_END;
             auto rotating_transform =
-                D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
+                D2D1::Matrix3x2F::Rotation(radian_to_degree(0.0), position_to_point_2f(position));
             canvas.SetTransform(rotating_transform);
 
             canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
