@@ -617,9 +617,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             boost::ignore_unused(canvas);
 
             const auto p_layout =
-                create_vertical_text_layout<
+                create_text_layout<
                     String, Font, Encoder, typename tetengo2::gui::dimension<Dimension>::width_type
-                >(text, font, encoder);
+                >(text, font, encoder, typename tetengo2::gui::dimension<Dimension>::width_type{ 0 });
 
             ::DWRITE_TEXT_METRICS metrics{};
             const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
@@ -717,7 +717,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Color&         color
         )
         {
-            const auto p_layout = create_vertical_text_layout<String, Font, Encoder, Width>(text, font, encoder);
+            const auto p_layout = create_text_layout<String, Font, Encoder, Width>(text, font, encoder, Width{ 0 });
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -1058,16 +1058,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 
             return std::move(p_layout);
-        }
-
-        template <typename String, typename Font, typename Encoder, typename Width>
-        static unique_com_ptr< ::IDWriteTextLayout> create_vertical_text_layout(
-            const String&  text,
-            const Font&    font,
-            const Encoder& encoder
-        )
-        {
-            return create_text_layout(text, font, encoder, Width{ 0 });
         }
 
         static ::FLOAT radian_to_degree(const double radian)
