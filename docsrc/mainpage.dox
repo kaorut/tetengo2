@@ -27,7 +27,7 @@ It's tested on the following systems:
 
 - [Windows 10](http://www.microsoft.com/)
 - [Debian GNU/Linux 8](http://www.debian.org/)
-- [Cygwin 2.4 (x64)](http://www.cygwin.com/)
+- [Cygwin 2.5 (x64)](http://www.cygwin.com/)
 
 
 How to Build {#how_to_build}
