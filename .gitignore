@@ -1,4 +1,5 @@
 *.a
+*.db
 *.gch
 *.log
 *.msi
