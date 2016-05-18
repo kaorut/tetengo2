@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <system_error>
 #include <utility>
+#include <vector>
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
@@ -42,6 +43,9 @@
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text/character_iterator.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/utf8.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
@@ -616,6 +620,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             boost::ignore_unused(canvas);
 
+            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+
             const auto p_layout =
                 create_text_layout<
                     String, Font, Encoder, typename tetengo2::gui::dimension<Dimension>::width_type
@@ -1058,6 +1064,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 
             return std::move(p_layout);
+        }
+
+        template <typename String, typename Encoder>
+        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
+        {
+            using internal_encoding_type = typename Encoder::internal_encoding_type;
+            using utf8_encoder_type =
+                text::encoder<
+                    internal_encoding_type,
+                    text::encoding::utf8<typename internal_encoding_type::encoding_details_type>
+                >;
+            using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
+
+            return
+                std::vector<String>{character_iterator_type{ text, utf8_encoder_type{} }, character_iterator_type{} };
         }
 
         static ::FLOAT radian_to_degree(const double radian)
