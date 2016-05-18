@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <system_error>
 #include <utility>
+#include <vector>
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
@@ -42,6 +43,9 @@
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text/character_iterator.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/utf8.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
@@ -616,10 +620,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             boost::ignore_unused(canvas);
 
+            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+
             const auto p_layout =
-                create_vertical_text_layout<
+                create_text_layout<
                     String, Font, Encoder, typename tetengo2::gui::dimension<Dimension>::width_type
-                >(text, font, encoder);
+                >(text, font, encoder, typename tetengo2::gui::dimension<Dimension>::width_type{ 0 });
 
             ::DWRITE_TEXT_METRICS metrics{};
             const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
@@ -704,7 +710,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
-            \param angle    A clockwise angle in radians.
 
             \throw std::system_error When the text cannot be drawn.
         */
@@ -715,11 +720,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color,
-            const double         angle
+            const Color&         color
         )
         {
-            const auto p_layout = create_vertical_text_layout<String, Font, Encoder, Width>(text, font, encoder);
+            const auto p_layout = create_text_layout<String, Font, Encoder, Width>(text, font, encoder, Width{ 0 });
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -731,7 +735,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 canvas.SetTransform(original_transform);
             } BOOST_SCOPE_EXIT_END;
             auto rotating_transform =
-                D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
+                D2D1::Matrix3x2F::Rotation(radian_to_degree(0.0), position_to_point_2f(position));
             canvas.SetTransform(rotating_transform);
 
             canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
@@ -1062,14 +1066,19 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return std::move(p_layout);
         }
 
-        template <typename String, typename Font, typename Encoder, typename Width>
-        static unique_com_ptr< ::IDWriteTextLayout> create_vertical_text_layout(
-            const String&  text,
-            const Font&    font,
-            const Encoder& encoder
-        )
+        template <typename String, typename Encoder>
+        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
         {
-            return create_text_layout(text, font, encoder, Width{ 0 });
+            using internal_encoding_type = typename Encoder::internal_encoding_type;
+            using utf8_encoder_type =
+                text::encoder<
+                    internal_encoding_type,
+                    text::encoding::utf8<typename internal_encoding_type::encoding_details_type>
+                >;
+            using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
+
+            return
+                std::vector<String>{character_iterator_type{ text, utf8_encoder_type{} }, character_iterator_type{} };
         }
 
         static ::FLOAT radian_to_degree(const double radian)
