@@ -9,10 +9,12 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
+#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <system_error>
 #include <utility>
 #include <vector>
@@ -1090,8 +1092,77 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 >;
             using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
 
-            return
-                std::vector<String>{character_iterator_type{ text, utf8_encoder_type{} }, character_iterator_type{} };
+            static const utf8_encoder_type utf8_encoder{};
+            std::vector<String> chunks{};
+            String tatechuyoko{};
+            const character_iterator_type end{};
+            for (auto i = character_iterator_type{ text, utf8_encoder }; i != end; ++i)
+            {
+                const auto& char_as_string = *i;
+                if (is_tatechuyoko_character(char_as_string, utf8_encoder))
+                {
+                    tatechuyoko.append(char_as_string);
+                    continue;
+                }
+                if (!tatechuyoko.empty())
+                {
+                    chunks.push_back(tatechuyoko);
+                    tatechuyoko.clear();
+                }
+
+                if (!chunks.empty() && is_dakuten_character(char_as_string, utf8_encoder))
+                    chunks.back().append(char_as_string);
+                else
+                    chunks.push_back(char_as_string);
+            }
+            if (!tatechuyoko.empty())
+                chunks.push_back(tatechuyoko);
+
+            return std::move(chunks);
+        }
+
+        template <typename String, typename Utf8Encoder>
+        static bool is_tatechuyoko_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        {
+            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+
+            static const std::vector<std::string> digits{
+                std::string{ to_char(0x30) }, // 0
+                std::string{ to_char(0x31) }, // 1
+                std::string{ to_char(0x32) }, // 2
+                std::string{ to_char(0x33) }, // 3
+                std::string{ to_char(0x34) }, // 4
+                std::string{ to_char(0x35) }, // 5
+                std::string{ to_char(0x36) }, // 6
+                std::string{ to_char(0x37) }, // 7
+                std::string{ to_char(0x38) }, // 8
+                std::string{ to_char(0x39) }, // 9
+            };
+            if (std::find(digits.begin(), digits.end(), char_in_utf8) != digits.end())
+                return true;
+
+            return false;
+        }
+
+        template <typename String, typename Utf8Encoder>
+        static bool is_dakuten_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        {
+            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+
+            static const std::vector<std::string> dakutens{
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9E) }, // halfwidth katakana dakuten
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9F) }, // halfwidth katakana handakuten
+            };
+            if (std::find(dakutens.begin(), dakutens.end(), char_in_utf8) != dakutens.end())
+                return true;
+
+            return false;
+        }
+
+        template <typename C>
+        static char to_char(C c)
+        {
+            return static_cast<char>(c);
         }
 
         static ::FLOAT radian_to_degree(const double radian)
