@@ -9,10 +9,12 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_DRAWING_H
 
+#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <system_error>
 #include <utility>
 #include <vector>
@@ -618,29 +620,24 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Encoder&             encoder
         )
         {
-            boost::ignore_unused(canvas);
-
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            const auto p_layout =
-                create_text_layout<
-                    String, Font, Encoder, typename tetengo2::gui::dimension<Dimension>::width_type
-                >(text, font, encoder, typename tetengo2::gui::dimension<Dimension>::width_type{ 0 });
-
-            ::DWRITE_TEXT_METRICS metrics{};
-            const auto get_metrics_hr = p_layout->GetMetrics(&metrics);
-            if (FAILED(get_metrics_hr))
+            using width_type = typename gui::dimension<Dimension>::width_type;
+            using height_type = typename gui::dimension<Dimension>::height_type;
+            width_type max_width{ 0 };
+            height_type total_height{ 0 };
+            for (const auto& chunk: chunks)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ get_metrics_hr, win32_category() }, "Can't get text metrics." }
-                ));
+                const auto chunk_dimension =
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
+                const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
+                const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
+                if (chunk_width > max_width)
+                    max_width = chunk_width;
+                total_height += chunk_height;
             }
 
-            return
-                {
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(to_ddp_x(metrics.width)),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(to_ddp_y(metrics.height))
-                };
+            return Dimension{ max_width, total_height };
         }
 
         /*!
@@ -697,12 +694,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font      A font type.
+            \tparam String    A string type.
+            \tparam Encoder   An encoder type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+            \tparam Color     A color type.
 
             \param canvas   A canvas.
             \param font     A font.
@@ -713,7 +710,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename Dimension,
+            typename Color
+        >
         static void draw_vertical_text(
             canvas_details_type& canvas,
             const Font&          font,
@@ -723,22 +727,33 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Color&         color
         )
         {
-            const auto p_layout = create_text_layout<String, Font, Encoder, Width>(text, font, encoder, Width{ 0 });
+            const auto dimension = calc_vertical_text_dimension<Dimension>(canvas, font, text, encoder);
+            const auto& max_width = gui::dimension<Dimension>::width(dimension);
 
-            const auto p_background_details = create_solid_background(color);
-            const auto p_brush = create_brush(canvas, *p_background_details);
+            const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            auto original_transform = D2D1::Matrix3x2F();
-            canvas.GetTransform(&original_transform);
-            BOOST_SCOPE_EXIT((&canvas)(&original_transform))
+            using top_type = typename gui::position<Position>::top_type;
+            using left_type = typename gui::position<Position>::left_type;
+            using width_type = typename gui::dimension<Dimension>::width_type;
+            const auto& base_left = gui::position<Position>::left(position);
+            const auto& base_top = gui::position<Position>::top(position);
+            auto next_chunk_top = base_top;
+            for (const auto& chunk: chunks)
             {
-                canvas.SetTransform(original_transform);
-            } BOOST_SCOPE_EXIT_END;
-            auto rotating_transform =
-                D2D1::Matrix3x2F::Rotation(radian_to_degree(0.0), position_to_point_2f(position));
-            canvas.SetTransform(rotating_transform);
+                const auto chunk_dimension =
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
+                const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
+                const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
 
-            canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
+                const auto chunk_left = base_left + left_type::from(max_width - chunk_width) / 2;
+                
+                draw_text<Font, String, Encoder, Position, width_type, Color>(
+                    canvas, font, chunk, encoder, Position{ chunk_left, next_chunk_top }, width_type{ 0 }, color, 0.0
+                );
+
+                next_chunk_top += top_type::from(chunk_height);
+            }
+
         }
 
         /*!
@@ -1077,8 +1092,77 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 >;
             using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
 
-            return
-                std::vector<String>{character_iterator_type{ text, utf8_encoder_type{} }, character_iterator_type{} };
+            static const utf8_encoder_type utf8_encoder{};
+            std::vector<String> chunks{};
+            String tatechuyoko{};
+            const character_iterator_type end{};
+            for (auto i = character_iterator_type{ text, utf8_encoder }; i != end; ++i)
+            {
+                const auto& char_as_string = *i;
+                if (is_tatechuyoko_character(char_as_string, utf8_encoder))
+                {
+                    tatechuyoko.append(char_as_string);
+                    continue;
+                }
+                if (!tatechuyoko.empty())
+                {
+                    chunks.push_back(tatechuyoko);
+                    tatechuyoko.clear();
+                }
+
+                if (!chunks.empty() && is_dakuten_character(char_as_string, utf8_encoder))
+                    chunks.back().append(char_as_string);
+                else
+                    chunks.push_back(char_as_string);
+            }
+            if (!tatechuyoko.empty())
+                chunks.push_back(tatechuyoko);
+
+            return std::move(chunks);
+        }
+
+        template <typename String, typename Utf8Encoder>
+        static bool is_tatechuyoko_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        {
+            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+
+            static const std::vector<std::string> digits{
+                std::string{ to_char(0x30) }, // 0
+                std::string{ to_char(0x31) }, // 1
+                std::string{ to_char(0x32) }, // 2
+                std::string{ to_char(0x33) }, // 3
+                std::string{ to_char(0x34) }, // 4
+                std::string{ to_char(0x35) }, // 5
+                std::string{ to_char(0x36) }, // 6
+                std::string{ to_char(0x37) }, // 7
+                std::string{ to_char(0x38) }, // 8
+                std::string{ to_char(0x39) }, // 9
+            };
+            if (std::find(digits.begin(), digits.end(), char_in_utf8) != digits.end())
+                return true;
+
+            return false;
+        }
+
+        template <typename String, typename Utf8Encoder>
+        static bool is_dakuten_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        {
+            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+
+            static const std::vector<std::string> dakutens{
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9E) }, // halfwidth katakana dakuten
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9F) }, // halfwidth katakana handakuten
+            };
+            if (std::find(dakutens.begin(), dakutens.end(), char_in_utf8) != dakutens.end())
+                return true;
+
+            return false;
+        }
+
+        template <typename C>
+        static char to_char(C c)
+        {
+            return static_cast<char>(c);
         }
 
         static ::FLOAT radian_to_degree(const double radian)
