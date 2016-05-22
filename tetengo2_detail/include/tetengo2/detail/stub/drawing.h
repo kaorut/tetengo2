@@ -498,12 +498,12 @@ width_type\(([0-9]+)\)
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font      A font type.
+            \tparam String    A string type.
+            \tparam Encoder   An encoder type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+            \tparam Color     A color type.
 
             \param canvas   A canvas.
             \param font     A font.
@@ -514,7 +514,14 @@ width_type\(([0-9]+)\)
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename Dimension,
+            typename Color
+        >
         static void draw_vertical_text(
             canvas_details_type& canvas,
             const Font&          font,
