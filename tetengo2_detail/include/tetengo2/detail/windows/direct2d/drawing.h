@@ -632,9 +632,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
                 const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
                 const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
-                if (chunk_width > max_width)
-                    max_width = chunk_width;
-                total_height += chunk_height;
+                if (character_rotation(chunk, encoder) % 2 == 0)
+                {
+                    if (chunk_width > max_width)
+                        max_width = chunk_width;
+                    total_height += chunk_height;
+                }
+                else
+                {
+                    if (chunk_height > max_width)
+                        max_width = chunk_height;
+                    total_height += chunk_width;
+                }
             }
 
             return Dimension{ max_width, total_height };
@@ -745,13 +754,44 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
                 const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
 
-                const auto chunk_left = base_left + left_type::from(max_width - chunk_width) / 2;
+                const int rotation = character_rotation(chunk, encoder);
+                const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
+
+                const auto chunk_left =
+                    rotation % 2 == 0 ?
+                    base_left + left_type::from(max_width - chunk_width) / 2 :
+                    base_left + left_type::from(max_width - chunk_height) / 2;
+
+                Position chunk_position{ chunk_left, next_chunk_top };
+                if (rotation == 1)
+                {
+                    chunk_position = Position{ chunk_left + left_type::from(chunk_height), next_chunk_top };
+                }
+                else if (rotation == 2)
+                {
+                    chunk_position =
+                        Position{
+                            chunk_left + left_type::from(chunk_width), next_chunk_top + top_type::from(chunk_height)
+                        };
+                }
+                else
+                {
+                    assert(rotation == 0);
+                }
+
                 
                 draw_text<Font, String, Encoder, Position, width_type, Color>(
-                    canvas, font, chunk, encoder, Position{ chunk_left, next_chunk_top }, width_type{ 0 }, color, 0.0
+                    canvas,
+                    font,
+                    chunk,
+                    encoder,
+                    chunk_position,
+                    width_type{ 0 },
+                    color,
+                    angle
                 );
 
-                next_chunk_top += top_type::from(chunk_height);
+                next_chunk_top += rotation % 2 == 0 ? top_type::from(chunk_height) : top_type::from(chunk_width);
             }
 
         }
@@ -1082,7 +1122,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         template <typename String, typename Encoder>
-        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
+        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder&)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
             using utf8_encoder_type =
@@ -1157,6 +1197,82 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return true;
 
             return false;
+        }
+
+        template <typename String, typename Encoder>
+        static int character_rotation(const String& char_as_string, const Encoder&)
+        {
+            using internal_encoding_type = typename Encoder::internal_encoding_type;
+            using utf8_encoder_type =
+                text::encoder<
+                    internal_encoding_type,
+                    text::encoding::utf8<typename internal_encoding_type::encoding_details_type>
+                >;
+
+            static const utf8_encoder_type utf8_encoder{};
+            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+
+            static const std::vector<std::string> r90degs{
+                std::string{ to_char(0x29) },                               // right parenthesis
+                std::string{ to_char(0x2D) },                               // hyphen-minus
+                std::string{ to_char(0x5B) },                               // left square bracket
+                std::string{ to_char(0x5D) },                               // right square bracket
+                std::string{ to_char(0x7B) },                               // left curly bracket
+                std::string{ to_char(0x7D) },                               // left curly bracket
+                std::string{ to_char(0x28) },                               // left parenthesis
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x88) }, // left angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x89) }, // right angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8A) }, // left double angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8B) }, // right double angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8C) }, // left corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8D) }, // right corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8E) }, // left white corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8F) }, // right white corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x90) }, // left black lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x91) }, // right black lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x94) }, // left tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x95) }, // right tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x96) }, // left white lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x97) }, // right white lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x98) }, // left white tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x99) }, // right white tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x9A) }, // left white square bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x9B) }, // right white square bracket
+                std::string{ to_char(0xE3), to_char(0x83), to_char(0xBC) }, // choon
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x88) }, // fullwidth left parenthesis
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x89) }, // fullwidth right parenthesis
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8D) }, // fullwidth hyphen-minus
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0xBB) }, // fullwidth left bracket
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0xBD) }, // fullwidth right bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9B) }, // fullwidth left curly bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9D) }, // fullwidth right curly bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9E) }, // fullwidth tilde
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA2) }, // halfwidth left corner bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA3) }, // halfwidth right corner bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xB0) }, // halfwidth choon
+            };
+            static const std::vector<std::string> r180degs{
+                std::string{ to_char(0x2C) },                               // comma
+                std::string{ to_char(0x2E) },                               // full stop
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x81) }, // toten
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x82) }, // kuten
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8C) }, // fullwidth comma
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8E) }, // fullwidth full stop
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA1) }, // halfwidth kuten
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA4) }, // halfwidth toten
+            };
+            if (std::find(r90degs.begin(), r90degs.end(), char_in_utf8) != r90degs.end())
+            {
+                return 1;
+            }
+            else if (std::find(r180degs.begin(), r180degs.end(), char_in_utf8) != r180degs.end())
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         template <typename C>
