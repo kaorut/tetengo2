@@ -8,7 +8,6 @@
 
 #include <cassert>
 #include <chrono>
-#include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <string>
@@ -23,7 +22,7 @@ namespace
 {
     // types
 
-    using channel_type = tetengo2::concurrent::channel<int, std::size_t>;
+    using channel_type = tetengo2::concurrent::channel<int>;
 
     struct test_exception : public std::runtime_error
     {

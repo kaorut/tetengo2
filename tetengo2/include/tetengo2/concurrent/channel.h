@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <exception>
 #include <mutex>
 #include <queue>
@@ -22,16 +23,17 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2 { namespace concurrent
 {
     /*!
         \brief The class template for a channel.
 
-        \tparam T    A type.
-        \tparam Size A size type.
+        \tparam T A type.
     */
-    template <typename T, typename Size>
+    template <typename T>
     class channel : private boost::noncopyable
     {
     public:
@@ -41,7 +43,7 @@ namespace tetengo2 { namespace concurrent
         using value_type = T;
 
         //! The size type.
-        using size_type = Size;
+        using size_type = type_list::size_type;
 
 
         // constructors and destructor
