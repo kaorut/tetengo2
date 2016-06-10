@@ -18,7 +18,7 @@
 #include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/concurrent/progressive_promise.h>
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

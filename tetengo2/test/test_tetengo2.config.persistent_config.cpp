@@ -10,7 +10,9 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/config/persistent_config.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.type_list.h"
 
