@@ -10,7 +10,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/text/character_iterator.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/utf8.h>
 
 #include "test_tetengo2.type_list.h"
 
