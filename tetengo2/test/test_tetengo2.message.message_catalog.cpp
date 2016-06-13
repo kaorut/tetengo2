@@ -16,7 +16,13 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/message/message_catalog_parser.h>
+#include <tetengo2/message/messages.h>
+#include <tetengo2/message/message_catalog.h>
+#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.type_list.h"
 
