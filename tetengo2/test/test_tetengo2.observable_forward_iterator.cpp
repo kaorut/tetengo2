@@ -11,7 +11,7 @@
 #include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/observable_forward_iterator.h>
 
 
 #if !( \
