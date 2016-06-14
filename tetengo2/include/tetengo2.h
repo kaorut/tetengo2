@@ -37,6 +37,7 @@
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
+#include <tetengo2/type_list.h>
 
 
 #endif
