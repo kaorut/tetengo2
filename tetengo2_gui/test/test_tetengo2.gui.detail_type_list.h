@@ -11,7 +11,6 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2.h>
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/cursor.h>
