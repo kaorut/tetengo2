@@ -13,8 +13,16 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
-#include <tetengo2.gui.h>
+#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/canvas_traits.h>
+#include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/drawing/picture.h>
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/drawing/transparent_background.h>
+#include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/measure.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
