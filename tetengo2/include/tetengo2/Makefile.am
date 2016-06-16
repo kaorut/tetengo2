@@ -29,7 +29,8 @@ pkg_headers = \
     text/encoding/utf8.h \
     text/grammar/json.h \
     text/pull_parser.h \
-    text/push_parser.h
+    text/push_parser.h \
+    type_list.h
 
 extra_headers = \
     0namespace.dox \

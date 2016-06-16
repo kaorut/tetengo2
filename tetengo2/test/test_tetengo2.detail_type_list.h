@@ -11,7 +11,6 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2.h>
 #if BOOST_COMP_MSVC
 #   include <tetengo2/detail/windows/config.h>
 #   include <tetengo2/detail/windows/encoding.h>

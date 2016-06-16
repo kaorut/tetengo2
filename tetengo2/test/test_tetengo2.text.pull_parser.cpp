@@ -17,7 +17,11 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text/grammar/json.h>
+#include <tetengo2/text/pull_parser.h>
+#include <tetengo2/text/push_parser.h>
 
 #include "test_tetengo2.type_list.h"
 

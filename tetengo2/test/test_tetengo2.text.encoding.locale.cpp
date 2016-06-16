@@ -13,7 +13,7 @@
 #include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.type_list.h"
 

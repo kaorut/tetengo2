@@ -15,7 +15,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/concurrent/producer.h>
 
 
 namespace

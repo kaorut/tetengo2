@@ -13,3 +13,7 @@
 /*! \namespace tetengo2::stdalt
     \brief The namespace for the alternatives of the standard C++ features.
 */
+
+/*! \namespace tetengo2::type_list
+    \brief The namespace for the type list for Tetengo2.
+*/

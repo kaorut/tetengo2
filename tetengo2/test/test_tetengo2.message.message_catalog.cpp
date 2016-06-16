@@ -16,7 +16,14 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/message/message_catalog_parser.h>
+#include <tetengo2/message/messages.h>
+#include <tetengo2/message/message_catalog.h>
+#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.type_list.h"
 
@@ -199,33 +206,67 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
 
                 const message_catalog_type message_catalog{};
 
-                BOOST_CHECK(message_catalog.get("Language") == "English");
-                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hi");
-                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
-                BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
-                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Language")) == string_type{ TETENGO2_TEXT("English") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Hello")) == string_type{ TETENGO2_TEXT("Hi") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:ByeBye")) == string_type{ TETENGO2_TEXT("ByeBye") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Colon:")) == string_type{ TETENGO2_TEXT("Colon:") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Esc\\:ape")) ==
+                    string_type{ TETENGO2_TEXT("Esc:ape") }
+                );
             }
             {
                 const set_global_locale global_locale{ locale_ja };
 
                 const message_catalog_type message_catalog{};
 
-                BOOST_CHECK(message_catalog.get("Language") == "Japanese");
-                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Konnichiwa");
-                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
-                BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
-                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Language")) == string_type{ TETENGO2_TEXT("Japanese") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Hello")) ==
+                    string_type{ TETENGO2_TEXT("Konnichiwa") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:ByeBye")) == string_type{ TETENGO2_TEXT("ByeBye") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Colon:")) == string_type{ TETENGO2_TEXT("Colon:") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Esc\\:ape")) ==
+                    string_type{ TETENGO2_TEXT("Esc:ape") }
+                );
             }
             {
                 const set_global_locale global_locale{ locale_zh };
 
                 const message_catalog_type message_catalog{};
 
-                BOOST_CHECK(message_catalog.get("Language") == "Language");
-                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hello");
-                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
-                BOOST_CHECK(message_catalog.get("Name:Space:Colon:") == "Colon:");
-                BOOST_CHECK(message_catalog.get("Name:Space:Esc\\:ape") == "Esc:ape");
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Language")) == string_type{ TETENGO2_TEXT("Language") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Hello")) == string_type{ TETENGO2_TEXT("Hello") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:ByeBye")) == string_type{ TETENGO2_TEXT("ByeBye") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Colon:")) == string_type{ TETENGO2_TEXT("Colon:") }
+                );
+                BOOST_CHECK(
+                    message_catalog.get(TETENGO2_TEXT("Name:Space:Esc\\:ape")) ==
+                    string_type{ TETENGO2_TEXT("Esc:ape") }
+                );
             }
         }
         else

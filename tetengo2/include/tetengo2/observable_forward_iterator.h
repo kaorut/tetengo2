@@ -54,7 +54,7 @@ namespace tetengo2
         explicit observable_forward_iterator(iterator forward_iterator)
         :
         m_forward_iterator(forward_iterator),
-        m_increment_observer([](observable_forward_iterator) {})
+        m_increment_observer([](const observable_forward_iterator&) {})
         {}
 
 

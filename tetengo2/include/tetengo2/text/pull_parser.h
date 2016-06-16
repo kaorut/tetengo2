@@ -261,7 +261,7 @@ namespace tetengo2 { namespace text
     private:
         // types
 
-        using channel_type = concurrent::channel<element_type, size_type>;
+        using channel_type = concurrent::channel<element_type>;
 
         using producer_type = concurrent::producer<channel_type>;
 

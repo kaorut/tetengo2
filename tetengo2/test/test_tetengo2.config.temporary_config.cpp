@@ -12,7 +12,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/config/temporary_config.h>
 
 #include "test_tetengo2.type_list.h"
 

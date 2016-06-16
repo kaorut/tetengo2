@@ -11,7 +11,7 @@
 #include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
+#include <tetengo2/observable_forward_iterator.h>
 
 
 #if !( \
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
         
         int count = 0;
         iterator.set_increment_observer(
-            [&count](tetengo2::observable_forward_iterator<std::forward_list<int>::iterator>) { ++count; }
+            [&count](const tetengo2::observable_forward_iterator<std::forward_list<int>::iterator>&) { ++count; }
         );
 
         ++iterator;
