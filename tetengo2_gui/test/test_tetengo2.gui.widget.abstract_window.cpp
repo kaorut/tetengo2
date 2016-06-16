@@ -13,8 +13,11 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
-#include <tetengo2.gui.h>
+#include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/menu/menu_bar.h>
+#include <tetengo2/gui/menu/shortcut_key_table.h>
+#include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
