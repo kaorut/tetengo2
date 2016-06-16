@@ -21,6 +21,7 @@
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -424,9 +425,9 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget{};
 
-        widget.set_text("Tetengo");
+        widget.set_text(string_type{ TETENGO2_TEXT("Tetengo") });
 
-        BOOST_CHECK(widget.text() == "Tetengo");
+        BOOST_CHECK(widget.text() == string_type{ TETENGO2_TEXT("Tetengo") });
     }
 
     BOOST_AUTO_TEST_CASE(set_text)
@@ -435,9 +436,9 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget{};
 
-        widget.set_text("Tetengo");
+        widget.set_text(string_type{ TETENGO2_TEXT("Tetengo") });
 
-        BOOST_CHECK(widget.text() == "Tetengo");
+        BOOST_CHECK(widget.text() == string_type{ TETENGO2_TEXT("Tetengo") });
     }
 
     BOOST_AUTO_TEST_CASE(background)
@@ -683,13 +684,19 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget{};
             concrete_widget child1{ &widget };
-            child1.set_text("hoge");
+            child1.set_text(string_type{ TETENGO2_TEXT("hoge") });
             concrete_widget child2{ &widget };
-            child2.set_text("fuga");
+            child2.set_text(string_type{ TETENGO2_TEXT("fuga") });
 
             BOOST_TEST_REQUIRE(widget.children().size() == 2U);
-            BOOST_CHECK(widget.children()[0].get().text() == "hoge" || widget.children()[1].get().text() == "hoge");
-            BOOST_CHECK(widget.children()[0].get().text() == "fuga" || widget.children()[1].get().text() == "fuga");
+            BOOST_CHECK(
+                widget.children()[0].get().text() == string_type{ TETENGO2_TEXT("hoge") } ||
+                widget.children()[1].get().text() == string_type{ TETENGO2_TEXT("hoge") }
+            );
+            BOOST_CHECK(
+                widget.children()[0].get().text() == string_type{ TETENGO2_TEXT("fuga") } ||
+                widget.children()[1].get().text() == string_type{ TETENGO2_TEXT("fuga") }
+            );
         }
     }
 
