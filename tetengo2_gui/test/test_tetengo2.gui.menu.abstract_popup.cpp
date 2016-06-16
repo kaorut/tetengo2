@@ -11,8 +11,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
-#include <tetengo2.gui.h>
+#include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.type_list.h"
 

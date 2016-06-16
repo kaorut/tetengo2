@@ -8,8 +8,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.h>
-#include <tetengo2.gui.h>
+#include <tetengo2/gui/menu/menu_bar.h>
+#include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/gui/menu/shortcut_key_table.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
