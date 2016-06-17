@@ -263,7 +263,7 @@ namespace tetengo2 { namespace text
 
         using channel_type = concurrent::channel<element_type>;
 
-        using producer_type = concurrent::producer<channel_type>;
+        using producer_type = concurrent::producer<element_type>;
 
         using consumer_type = concurrent::consumer<element_type>;
 

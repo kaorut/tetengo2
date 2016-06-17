@@ -15,22 +15,27 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/concurrent/channel.h>
+
 
 namespace tetengo2 { namespace concurrent
 {
     /*!
         \brief The class template for a producer.
 
-        \tparam Channel A channel type.
+        \tparam T A type.
     */
-    template <typename Channel>
+    template <typename T>
     class producer : private boost::noncopyable
     {
     public:
         // types
 
+        //! The value type.
+        using value_type = T;
+
         //! The channel type.
-        using channel_type = Channel;
+        using channel_type = channel<value_type>;
 
         //! The generator type.
         using generator_type = std::function<void (channel_type&)>;
@@ -47,7 +52,9 @@ namespace tetengo2 { namespace concurrent
         producer(const generator_type generator, channel_type& channel)
         :
 #if !defined(DOCUMENTATION) // Doxygen warning suppression
-        m_thread_procedure_impl([generator, &channel]() { generator(channel); }),
+        m_thread_procedure_impl([generator, &channel]() {
+            generator(channel);
+        }),
         m_channel(channel),
         m_thread([this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); })
 #endif

@@ -34,7 +34,7 @@ namespace tetengo2 { namespace concurrent
         using value_type = T;
 
         //! The channel type.
-        using channel_type = channel<T>;
+        using channel_type = channel<value_type>;
 
 
         // constructors and destructor
