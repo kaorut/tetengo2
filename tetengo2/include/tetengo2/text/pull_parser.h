@@ -265,7 +265,7 @@ namespace tetengo2 { namespace text
 
         using producer_type = concurrent::producer<channel_type>;
 
-        using consumer_type = concurrent::consumer<channel_type>;
+        using consumer_type = concurrent::consumer<element_type>;
 
 
         // static functions
