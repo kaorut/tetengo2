@@ -6,10 +6,8 @@
     $Id$
 */
 
-#include <queue>
 #include <stdexcept>
 
-#include <boost/core/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/concurrent/channel.h>
@@ -19,67 +17,6 @@
 namespace
 {
     // types
-
-#if 0
-    class channel_type : private boost::noncopyable
-    {
-    public:
-        using value_type = int;
-
-        channel_type(const bool empty)
-        :
-        m_values(make_values(empty))
-        {}
-
-        const int& peek()
-        const
-        {
-            return m_values.front();
-        }
-
-        void take()
-        {
-            m_values.pop();
-        }
-
-        void insert(int value)
-        {
-            m_values.push(value);
-        }
-
-        bool close_requested()
-        const
-        {
-            return false;
-        }
-
-        void request_close()
-        {}
-
-        bool closed()
-        const
-        {
-            return m_values.empty();
-        }
-
-    private:
-        static std::queue<int> make_values(const bool closed)
-        {
-            std::queue<int> queue{};
-
-            if (!closed)
-            {
-                queue.push(123);
-                queue.push(456);
-                queue.push(789);
-            }
-
-            return queue;
-        }
-
-        std::queue<int> m_values;
-    };
-#endif
 
     using value_type = int;
 
