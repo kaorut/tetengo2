@@ -7,6 +7,7 @@ headers =
 extra_headers =
 
 sources = \
+    tetengo2.concurrent.progressive_future.cpp \
     tetengo2.text.grammar.json.cpp
 
 extra_sources =

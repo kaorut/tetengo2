@@ -6,12 +6,11 @@
     $Id$
 */
 
-#include <queue>
 #include <stdexcept>
 
-#include <boost/core/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/concurrent/channel.h>
 #include <tetengo2/concurrent/consumer.h>
 
 
@@ -19,66 +18,11 @@ namespace
 {
     // types
 
-    class channel_type : private boost::noncopyable
-    {
-    public:
-        using value_type = int;
+    using value_type = int;
 
-        channel_type(const bool empty)
-        :
-        m_values(make_values(empty))
-        {}
+    using channel_type = tetengo2::concurrent::channel<value_type>;
 
-        const int& peek()
-        const
-        {
-            return m_values.front();
-        }
-
-        void take()
-        {
-            m_values.pop();
-        }
-
-        void insert(int value)
-        {
-            m_values.push(value);
-        }
-
-        bool close_requested()
-        const
-        {
-            return false;
-        }
-
-        void request_close()
-        {}
-
-        bool closed()
-        const
-        {
-            return m_values.empty();
-        }
-
-    private:
-        static std::queue<int> make_values(const bool closed)
-        {
-            std::queue<int> queue{};
-
-            if (!closed)
-            {
-                queue.push(123);
-                queue.push(456);
-                queue.push(789);
-            }
-
-            return queue;
-        }
-
-        std::queue<int> m_values;
-    };
-
-    using consumer_type = tetengo2::concurrent::consumer<channel_type>;
+    using consumer_type = tetengo2::concurrent::consumer<value_type>;
 
 
 }
@@ -92,26 +36,22 @@ BOOST_AUTO_TEST_SUITE(consumer)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel{ true }; 
+        channel_type channel{ 42 }; 
         const consumer_type consumer{ channel };
+
+        channel.close();
     }
 
     BOOST_AUTO_TEST_CASE(closed)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            channel_type channel{ false }; 
-            consumer_type consumer{ channel };
+        channel_type channel{ 42 }; 
+        consumer_type consumer{ channel };
 
-            BOOST_TEST(!consumer.closed());
-        }
-        {
-            channel_type channel{ true }; 
-            consumer_type consumer{ channel };
+        channel.close();
 
-            BOOST_TEST(consumer.closed());
-        }
+        BOOST_TEST(consumer.closed());
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -119,16 +59,20 @@ BOOST_AUTO_TEST_SUITE(consumer)
         BOOST_TEST_PASSPOINT();
 
         {
-            channel_type channel{ false }; 
+            channel_type channel{ 42 };
+            channel.insert(123);
             consumer_type consumer{ channel };
 
             BOOST_TEST(consumer.peek() == 123);
+            channel.close();
         }
         {
-            channel_type channel{ true }; 
+            channel_type channel{ 42 }; 
             consumer_type consumer{ channel };
 
-            BOOST_CHECK_THROW(consumer.take(), std::logic_error);
+            channel.close();
+
+            BOOST_CHECK_THROW(consumer.peek(), std::logic_error);
         }
     }
     
@@ -136,21 +80,12 @@ BOOST_AUTO_TEST_SUITE(consumer)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            channel_type channel{ false }; 
-            consumer_type consumer{ channel };
+        channel_type channel{ 42 }; 
+        consumer_type consumer{ channel };
 
-            consumer.take();
-            consumer.take();
-            consumer.take();
-            BOOST_CHECK_THROW(consumer.take(), std::logic_error);
-        }
-        {
-            channel_type channel{ true }; 
-            consumer_type consumer{ channel };
+        channel.close();
 
-            BOOST_CHECK_THROW(consumer.take(), std::logic_error);
-        }
+        BOOST_CHECK_THROW(consumer.take(), std::logic_error);
     }
 
     

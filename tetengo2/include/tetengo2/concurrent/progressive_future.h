@@ -12,11 +12,13 @@
 #include <chrono>
 #include <future>
 #include <memory>
-#include <mutex>
 #include <stdexcept>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/rational.hpp>
+
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace concurrent
@@ -24,116 +26,43 @@ namespace tetengo2 { namespace concurrent
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        template <typename Progress>
         class progress_state : private boost::noncopyable
         {
         public:
             // types
 
-            using progress_type = Progress;
+            using progress_type = boost::rational<type_list::size_type>;
 
 
             // constructors and destructor
 
-            explicit progress_state(progress_type initial_progress)
-            :
-            m_progress(std::move(initial_progress)),
-            m_abort_requested(false),
-            m_progress_mutex(),
-            m_abort_request_mutex()
-            {}
+            explicit progress_state(progress_type initial_progress);
+
+            ~progress_state();
 
 
             // functions
 
             const progress_type& get()
-            const
-            {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
-                return m_progress;
-            }
+            const;
 
-            void set(progress_type progress)
-            {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
-                m_progress = std::move(progress);
-            }
+            void set(progress_type progress);
 
             bool abort_requested()
-            const
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                return m_abort_requested;
-            }
+            const;
 
-            void request_abort()
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                m_abort_requested = true;
-            }
+            void request_abort();
 
 
         private:
-            // variables
-
-            progress_type m_progress;
-
-            bool m_abort_requested;
-
-            mutable std::mutex m_progress_mutex;
-
-            mutable std::mutex m_abort_request_mutex;
-
-
-        };
-
-        template <>
-        class progress_state<void> : private boost::noncopyable
-        {
-        public:
             // types
 
-            using progress_type = void;
+            class impl;
 
 
-            // constructors and destructor
-
-            progress_state()
-            :
-            m_abort_requested(false),
-            m_abort_request_mutex()
-            {}
-
-
-            // functions
-
-            void get()
-            const
-            {}
-
-            void set()
-            {}
-
-            bool abort_requested()
-            const
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                return m_abort_requested;
-            }
-
-            void request_abort()
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                m_abort_requested = true;
-            }
-
-
-        private:
             // variables
 
-            bool m_abort_requested;
-
-            mutable std::mutex m_abort_request_mutex;
+            const std::unique_ptr<impl> m_p_impl;
 
 
         };
@@ -146,10 +75,9 @@ namespace tetengo2 { namespace concurrent
     /*!
         \brief The class template for a progressive future base.
 
-        \tparam T        A type.
-        \tparam Progress A progress type.
+        \tparam T A type.
     */
-    template <typename T, typename Progress>
+    template <typename T>
     class progressive_future_base : private boost::noncopyable
     {
     public:
@@ -158,11 +86,11 @@ namespace tetengo2 { namespace concurrent
         //! The result type.
         using result_type = T;
 
-        //! The progress type.
-        using progress_type = Progress;
-
         //! The future type.
         using future_type = std::future<result_type>;
+
+        //! The progress type.
+        using progress_type = boost::rational<type_list::size_type>;
 
 
         // constructors and destructor
@@ -191,8 +119,8 @@ namespace tetengo2 { namespace concurrent
 
 #if !defined(DOCUMENTATION)
         progressive_future_base(
-            future_type&&                                                 future,
-            const std::shared_ptr<detail::progress_state<progress_type>>& p_state
+            future_type&&                                  future,
+            const std::shared_ptr<detail::progress_state>& p_state
         )
         :
         m_future(std::move(future)),
@@ -332,7 +260,7 @@ namespace tetengo2 { namespace concurrent
 
         future_type m_future;
 
-        std::shared_ptr<detail::progress_state<progress_type>> m_p_state;
+        std::shared_ptr<detail::progress_state> m_p_state;
 
         
     };
@@ -341,11 +269,10 @@ namespace tetengo2 { namespace concurrent
     /*!
         \brief The class template for a progressive future.
 
-        \tparam T        A type.
-        \tparam Progress A progress type.
+        \tparam T A type.
     */
-    template <typename T, typename Progress>
-    class progressive_future : public progressive_future_base<T, Progress>
+    template <typename T>
+    class progressive_future : public progressive_future_base<T>
     {
     public:
         // types
@@ -353,14 +280,14 @@ namespace tetengo2 { namespace concurrent
         //! The result type.
         using result_type = T;
 
-        //! The progress type.
-        using progress_type = Progress;
-
         //! The base type.
-        using base_type = progressive_future_base<result_type, progress_type>;
+        using base_type = progressive_future_base<result_type>;
 
         //! The future type.
         using future_type = std::future<result_type>;
+
+        //! The progress type.
+        using progress_type = boost::rational<type_list::size_type>;
 
 
         // constructors and destructor
@@ -386,7 +313,7 @@ namespace tetengo2 { namespace concurrent
         {}
 
 #if !defined(DOCUMENTATION)
-        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
         :
         base_type(std::move(future), p_state)
         {}
@@ -424,19 +351,19 @@ namespace tetengo2 { namespace concurrent
 
 
 #if !defined(DOCUMENTATION)
-    template <typename R, typename Progress>
-    class progressive_future<R&, Progress> : public progressive_future_base<R&, Progress>
+    template <typename R>
+    class progressive_future<R&> : public progressive_future_base<R&>
     {
     public:
         // types
 
         using result_type = R&;
 
-        using progress_type = Progress;
-
-        using base_type = progressive_future_base<result_type, progress_type>;
+        using base_type = progressive_future_base<result_type>;
 
         using future_type = std::future<result_type>;
+
+        using progress_type = boost::rational<type_list::size_type>;
 
 
         // constructors and destructor
@@ -453,7 +380,7 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
-        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
         :
         base_type(std::move(future), p_state)
         {}
@@ -477,19 +404,19 @@ namespace tetengo2 { namespace concurrent
     };
 
 
-    template <typename Progress>
-    class progressive_future<void, Progress> : public progressive_future_base<void, Progress>
+    template <>
+    class progressive_future<void> : public progressive_future_base<void>
     {
     public:
         // types
 
         using result_type = void;
 
-        using progress_type = Progress;
-
-        using base_type = progressive_future_base<result_type, progress_type>;
+        using base_type = progressive_future_base<result_type>;
 
         using future_type = std::future<result_type>;
+
+        using progress_type = boost::rational<type_list::size_type>;
 
 
         // constructors and destructor
@@ -506,7 +433,7 @@ namespace tetengo2 { namespace concurrent
         base_type(std::move(another))
         {}
 
-        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state<progress_type>>& p_state)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
         noexcept
         :
         base_type(std::move(future), p_state)

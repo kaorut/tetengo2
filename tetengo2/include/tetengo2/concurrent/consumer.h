@@ -14,25 +14,27 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/concurrent/channel.h>
+
 
 namespace tetengo2 { namespace concurrent
 {
     /*!
         \brief The class template for a consumer.
 
-        \tparam Channel A channel type.
+        \tparam T A type.
     */
-    template <typename Channel>
+    template <typename T>
     class consumer : private boost::noncopyable
     {
     public:
         // types
 
-        //! The channel type.
-        using channel_type = Channel;
-
         //! The value type.
-        using value_type = typename channel_type::value_type;
+        using value_type = T;
+
+        //! The channel type.
+        using channel_type = channel<value_type>;
 
 
         // constructors and destructor
