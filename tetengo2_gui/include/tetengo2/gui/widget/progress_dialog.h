@@ -102,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using promise_type = concurrent::progressive_promise<task_result_type, progress_type>;
 
         //! The future type.
-        using future_type = concurrent::progressive_future<task_result_type, progress_type>;
+        using future_type = concurrent::progressive_future<task_result_type>;
 
         //! The task type.
         using task_type = std::function<void (promise_type& promise)>;

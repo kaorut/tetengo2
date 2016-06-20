@@ -44,7 +44,7 @@ namespace tetengo2 { namespace concurrent
         using promise_type = std::promise<result_type>;
 
         //! The progressive future type.
-        using progressive_future_type = progressive_future<result_type, progress_type>;
+        using progressive_future_type = progressive_future<result_type>;
 
 
         // constructors and destructor
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace concurrent
         explicit progressive_promise_base(progress_type initial_progress)
         :
         m_promise(),
-        m_p_state(std::make_shared<detail::progress_state<progress_type>>(std::move(initial_progress)))
+        m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
         {}
 
         /*!
@@ -77,7 +77,7 @@ namespace tetengo2 { namespace concurrent
         )
         :
         m_promise(std::move(allocator_arg), allocator),
-        m_p_state(std::make_shared<detail::progress_state<progress_type>>(std::move(initial_progress)))
+        m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
         {}
 
         /*!
@@ -206,7 +206,7 @@ namespace tetengo2 { namespace concurrent
 
         promise_type m_promise;
 
-        std::shared_ptr<detail::progress_state<progress_type>> m_p_state;
+        std::shared_ptr<detail::progress_state> m_p_state;
 
 
     };
@@ -237,7 +237,7 @@ namespace tetengo2 { namespace concurrent
         using promise_type = std::promise<result_type>;
 
         //! The progressive future type.
-        using progressive_future_type = progressive_future<result_type, progress_type>;
+        using progressive_future_type = progressive_future<result_type>;
 
 
         // constructors and destructor
@@ -369,7 +369,7 @@ namespace tetengo2 { namespace concurrent
 
         using promise_type = std::promise<result_type>;
 
-        using progressive_future_type = progressive_future<result_type, progress_type>;
+        using progressive_future_type = progressive_future<result_type>;
 
 
         // constructors and destructor
@@ -439,7 +439,7 @@ namespace tetengo2 { namespace concurrent
 
         using promise_type = std::promise<result_type>;
 
-        using progressive_future_type = progressive_future<result_type, progress_type>;
+        using progressive_future_type = progressive_future<result_type>;
 
 
         // constructors and destructor
