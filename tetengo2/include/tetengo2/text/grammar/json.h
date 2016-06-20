@@ -145,8 +145,7 @@ namespace tetengo2 { namespace text { namespace grammar
         /*!
             \brief Destroys the grammar of JSON.
         */
-        ~json()
-        noexcept;
+        ~json();
 
 
         // functions

@@ -89,7 +89,7 @@ namespace tetengo2 { namespace concurrent
         {}
 
         progress_state::~progress_state()
-        noexcept = default;
+        = default;
 
         const progress_state::progress_type& progress_state::get()
         const

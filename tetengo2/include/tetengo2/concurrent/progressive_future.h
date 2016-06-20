@@ -38,8 +38,7 @@ namespace tetengo2 { namespace concurrent
 
             explicit progress_state(progress_type initial_progress);
 
-            ~progress_state()
-            noexcept;
+            ~progress_state();
 
 
             // functions
