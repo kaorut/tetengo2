@@ -16,8 +16,10 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/rational.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace concurrent
@@ -25,10 +27,9 @@ namespace tetengo2 { namespace concurrent
     /*!
         \brief The class template for a progressive promise base.
 
-        \tparam T        A type.
-        \tparam Progress A progress type.
+        \tparam T  A type.
     */
-    template <typename T, typename Progress>
+    template <typename T>
     class progressive_promise_base : private boost::noncopyable
     {
     public:
@@ -38,7 +39,7 @@ namespace tetengo2 { namespace concurrent
         using result_type = T;
 
         //! The progress type.
-        using progress_type = Progress;
+        using progress_type = boost::rational<type_list::size_type>;
 
         //! The promise type.
         using promise_type = std::promise<result_type>;
@@ -215,11 +216,10 @@ namespace tetengo2 { namespace concurrent
     /*!
         \brief The class template for a progressive promise.
 
-        \tparam T        A type.
-        \tparam Progress A progress type.
+        \tparam T A type.
     */
-    template <typename T, typename Progress>
-    class progressive_promise : public progressive_promise_base<T, Progress>
+    template <typename T>
+    class progressive_promise : public progressive_promise_base<T>
     {
     public:
         // types
@@ -228,10 +228,10 @@ namespace tetengo2 { namespace concurrent
         using result_type = T;
 
         //! The progress type.
-        using progress_type = Progress;
+        using progress_type = boost::rational<type_list::size_type>;
 
         //! The base type.
-        using base_type = progressive_promise_base<result_type, progress_type>;
+        using base_type = progressive_promise_base<result_type>;
 
         //! The promise type.
         using promise_type = std::promise<result_type>;
@@ -355,17 +355,17 @@ namespace tetengo2 { namespace concurrent
 
 
 #if !defined(DOCUMENTATION)
-    template <typename R, typename Progress>
-    class progressive_promise<R&, Progress> : public progressive_promise_base<R&, Progress>
+    template <typename R>
+    class progressive_promise<R&> : public progressive_promise_base<R&>
     {
     public:
         // types
 
         using result_type = R&;
 
-        using progress_type = Progress;
+        using progress_type = boost::rational<type_list::size_type>;
 
-        using base_type = progressive_promise_base<result_type, progress_type>;
+        using base_type = progressive_promise_base<result_type>;
 
         using promise_type = std::promise<result_type>;
 
@@ -425,17 +425,17 @@ namespace tetengo2 { namespace concurrent
     };
 
 
-    template <typename Progress>
-    class progressive_promise<void, Progress> : public progressive_promise_base<void, Progress>
+    template <>
+    class progressive_promise<void> : public progressive_promise_base<void>
     {
     public:
         // types
 
         using result_type = void;
 
-        using progress_type = Progress;
+        using progress_type = boost::rational<type_list::size_type>;
 
-        using base_type = progressive_promise_base<result_type, progress_type>;
+        using base_type = progressive_promise_base<result_type>;
 
         using promise_type = std::promise<result_type>;
 
@@ -504,16 +504,15 @@ namespace std
     /*!
         \brief Swaps promises.
 
-        \tparam T        A type.
-        \tparam Progress A progress type.
+        \tparam T A type.
 
         \param one     One promise.
         \param another Another promise.
     */
-    template <typename T, typename Progress>
+    template <typename T>
     void swap(
-        tetengo2::concurrent::progressive_promise<T, Progress>& one,
-        tetengo2::concurrent::progressive_promise<T, Progress>& another
+        tetengo2::concurrent::progressive_promise<T>& one,
+        tetengo2::concurrent::progressive_promise<T>& another
     )
     noexcept
     {

@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIDGET_PROGRESSDIALOG_H
 
 #include <chrono>
-#include <cstddef>
 #include <functional>
 #include <future>
 #include <memory>
@@ -95,11 +94,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
 
-        //! The progress type.
-        using progress_type = boost::rational<std::size_t>;
-
         //! The promise type.
-        using promise_type = concurrent::progressive_promise<task_result_type, progress_type>;
+        using promise_type = concurrent::progressive_promise<task_result_type>;
 
         //! The future type.
         using future_type = concurrent::progressive_future<task_result_type>;
@@ -207,6 +203,8 @@ namespace tetengo2 { namespace gui { namespace widget
         using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
 
         using message_loop_break_type = typename base_type::message_loop_break_type;
+
+        using progress_type = typename future_type::progress_type;
 
 
         // variables
