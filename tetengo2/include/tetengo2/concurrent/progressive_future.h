@@ -12,7 +12,6 @@
 #include <chrono>
 #include <future>
 #include <memory>
-#include <mutex>
 #include <stdexcept>
 #include <utility>
 
@@ -37,54 +36,34 @@ namespace tetengo2 { namespace concurrent
 
             // constructors and destructor
 
-            explicit progress_state(progress_type initial_progress)
-            :
-            m_progress(std::move(initial_progress)),
-            m_abort_requested(false),
-            m_progress_mutex(),
-            m_abort_request_mutex()
-            {}
+            explicit progress_state(progress_type initial_progress);
+
+            ~progress_state()
+            noexcept;
 
 
             // functions
 
             const progress_type& get()
-            const
-            {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
-                return m_progress;
-            }
+            const;
 
-            void set(progress_type progress)
-            {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
-                m_progress = std::move(progress);
-            }
+            void set(progress_type progress);
 
             bool abort_requested()
-            const
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                return m_abort_requested;
-            }
+            const;
 
-            void request_abort()
-            {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
-                m_abort_requested = true;
-            }
+            void request_abort();
 
 
         private:
+            // types
+
+            class impl;
+
+
             // variables
 
-            progress_type m_progress;
-
-            bool m_abort_requested;
-
-            mutable std::mutex m_progress_mutex;
-
-            mutable std::mutex m_abort_request_mutex;
+            const std::unique_ptr<impl> m_p_impl;
 
 
         };
