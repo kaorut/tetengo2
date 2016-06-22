@@ -10,12 +10,16 @@
 #define TETENGO2_TYPELIST_H
 
 #include <cstddef>
+#include <string>
 
 
 namespace tetengo2 { namespace type_list
 {
     //! The type for size.
     using size_type = std::size_t;
+
+    //! The type for string.
+    using string_type = std::wstring;
 
 
 }}
