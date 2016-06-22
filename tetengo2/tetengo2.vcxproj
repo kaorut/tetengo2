@@ -143,6 +143,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\tetengo2.concurrent.progressive_future.cpp" />
+    <ClCompile Include="src\tetengo2.config.cached_config.cpp" />
+    <ClCompile Include="src\tetengo2.config.config_base.cpp" />
+    <ClCompile Include="src\tetengo2.config.config_list.cpp" />
+    <ClCompile Include="src\tetengo2.config.persistent_config.cpp" />
+    <ClCompile Include="src\tetengo2.config.temporary_config.cpp" />
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

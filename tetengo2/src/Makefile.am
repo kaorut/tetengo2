@@ -8,6 +8,11 @@ extra_headers =
 
 sources = \
     tetengo2.concurrent.progressive_future.cpp \
+    tetengo2.config.cached_config.cpp \
+    tetengo2.config.config_base.cpp \
+    tetengo2.config.config_list.cpp \
+    tetengo2.config.persistent_config.cpp \
+    tetengo2.config.temporary_config.cpp \
     tetengo2.text.grammar.json.cpp
 
 extra_sources =
