@@ -28,7 +28,7 @@ namespace
 
     using uint_type = tetengo2::type_list::size_type;
 
-    using config_list_type = tetengo2::config::config_list<string_type, uint_type>;
+    using config_list_type = tetengo2::config::config_list;
 
     using config_base_type = config_list_type::base_type;
 

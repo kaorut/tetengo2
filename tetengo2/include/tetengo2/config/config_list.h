@@ -9,9 +9,7 @@
 #if !defined(TETENGO2_CONFIG_CONFIGLIST_H)
 #define TETENGO2_CONFIG_CONFIGLIST_H
 
-#include <algorithm>
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -23,12 +21,8 @@
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a configuration list.
-
-        \tparam String A string type.
-        \tparam UInt   An unsigned integer type.
+        \brief The class for a configuration list.
     */
-    template <typename String, typename UInt>
     class config_list : public config_base
     {
     public:
@@ -44,7 +38,7 @@ namespace tetengo2 { namespace config
         using base_type = config_base;
 
         //! The value type.
-        using value_type = typename base_type::value_type;
+        using value_type = base_type::value_type;
 
 
         // constructors and destructor
@@ -54,58 +48,35 @@ namespace tetengo2 { namespace config
 
             \param p_configs A vector of unique pointers to configurations.
         */
-        explicit config_list(std::vector<std::unique_ptr<base_type>> p_configs)
-        :
-        m_p_configs(std::move(p_configs))
-        {}
+        explicit config_list(std::vector<std::unique_ptr<base_type>> p_configs);
 
         /*!
             \brief Destroys the configuration list.
         */
-        virtual ~config_list()
-        = default;
+        virtual ~config_list();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        std::vector<std::unique_ptr<base_type>> m_p_configs;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const override
-        {
-            for (const std::unique_ptr<base_type>& p_config: m_p_configs)
-            {
-                const auto value = p_config->get(key);
-                if (value)
-                    return value;
-            }
-
-            return boost::none;
-        }
+        const override;
 
         virtual void set_impl(const string_type& key, value_type value)
-        override
-        {
-            std::for_each(
-                m_p_configs.begin(),
-                m_p_configs.end(),
-                [&key, &value](std::unique_ptr<base_type>& p_config) { p_config->set(key, std::move(value)); }
-            );
-        }
+        override;
 
         virtual void clear_impl()
-        override
-        {
-            std::for_each(
-                m_p_configs.begin(),
-                m_p_configs.end(),
-                [](std::unique_ptr<base_type>& p_config) { p_config->clear(); }
-            );
-        }
+        override;
 
 
     };
