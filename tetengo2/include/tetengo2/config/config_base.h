@@ -9,32 +9,30 @@
 #if !defined(TETENGO2_CONFIG_CONFIGBASE_H)
 #define TETENGO2_CONFIG_CONFIGBASE_H
 
-#include <utility>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a configuration base.
-
-        \tparam String A string type.
-        \tparam UInt   An unsigned integer type.
+        \brief The class for a configuration base.
     */
-    template <typename String, typename UInt>
     class config_base : private boost::noncopyable
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = type_list::string_type;
 
         //! The unsigned integer type.
-        using uint_type = UInt;
+        using uint_type = type_list::size_type;
 
         //! The value type.
         using value_type = boost::variant<string_type, uint_type>;
@@ -43,10 +41,14 @@ namespace tetengo2 { namespace config
         // constructors and destructor
 
         /*!
+            \brief Creates a configuration base.
+        */
+        config_base();
+
+        /*!
             \brief Destroys the configuration base.
         */
-        virtual ~config_base()
-        = default;
+        virtual ~config_base();
 
 
         // functions
@@ -59,10 +61,7 @@ namespace tetengo2 { namespace config
             \return The value.
         */
         boost::optional<value_type> get(const string_type& key)
-        const
-        {
-            return get_impl(key);
-        }
+        const;
 
         /*!
             \brief Sets a string value.
@@ -70,21 +69,25 @@ namespace tetengo2 { namespace config
             \param key   A key.
             \param value A value.
         */
-        void set(const string_type& key, value_type value)
-        {
-            set_impl(key, std::move(value));
-        }
+        void set(const string_type& key, value_type value);
 
         /*!
             \brief Clears the configuration.
         */
-        void clear()
-        {
-            clear_impl();
-        }
+        void clear();
 
 
     private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)

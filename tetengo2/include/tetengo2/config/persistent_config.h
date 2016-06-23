@@ -14,6 +14,7 @@
 #include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace config
@@ -27,16 +28,16 @@ namespace tetengo2 { namespace config
         \tparam ConfigDetails A detail implementation type of a configuration.
     */
     template <typename String, typename UInt, typename Encoder, typename ConfigDetails>
-    class persistent_config : public config_base<String, UInt>
+    class persistent_config : public config_base
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = type_list::string_type;
 
         //! The unsigned integer type.
-        using uint_type = UInt;
+        using uint_type = type_list::size_type;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -45,7 +46,7 @@ namespace tetengo2 { namespace config
         using configuration_details_type = ConfigDetails;
 
         //! The base type.
-        using base_type = config_base<string_type, uint_type>;
+        using base_type = config_base;
 
         //! The value type.
         using value_type = typename base_type::value_type;
