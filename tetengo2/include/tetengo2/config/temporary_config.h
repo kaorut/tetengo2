@@ -9,8 +9,7 @@
 #if !defined(TETENGO2_CONFIG_TEMPORARYCONFIG_H)
 #define TETENGO2_CONFIG_TEMPORARYCONFIG_H
 
-#include <unordered_map>
-#include <utility>
+#include <memory>
 
 #include <boost/optional.hpp>
 
@@ -21,12 +20,8 @@
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a temporary configuration.
-
-        \tparam String A string type.
-        \tparam UInt   An unsigned integer type.
+        \brief The class for a temporary configuration.
     */
-    template <typename String, typename UInt>
     class temporary_config : public config_base
     {
     public:
@@ -50,63 +45,35 @@ namespace tetengo2 { namespace config
         /*!
             \brief Creates a temporary configuration.
         */
-        temporary_config()
-        :
-        m_values()
-        {}
-
-        /*!
-            \brief Creates a temporary configuration.
-
-            \tparam InputIterator An input iterator type.
-
-            \param first The first position of values.
-            \param last  The last position of values.
-        */
-        template <typename InputIterator>
-        temporary_config(const InputIterator first, const InputIterator last)
-        :
-        m_values(first, last)
-        {}
+        temporary_config();
 
         /*!
             \brief Destroys the temporary configuration.
         */
-        virtual ~temporary_config()
-        = default;
+        virtual ~temporary_config();
 
 
     private:
         // types
 
-        using key_value_type = std::unordered_map<string_type, value_type>;
+        class impl;
 
 
         // variables
 
-        key_value_type m_values;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const override
-        {
-            const typename key_value_type::const_iterator found = m_values.find(key);
-            return found != m_values.end() ? boost::make_optional<value_type>(found->second) : boost::none;
-        }
+        const override;
 
         virtual void set_impl(const string_type& key, value_type value)
-        override
-        {
-            m_values[key] = std::move(value);
-        }
+        override;
 
         virtual void clear_impl()
-        override
-        {
-            m_values.clear();
-        }
+        override;
 
 
     };

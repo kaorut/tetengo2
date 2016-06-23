@@ -29,9 +29,9 @@ namespace tetengo2 { namespace config
 
         using uint_type = type_list::size_type;
 
-        using base_type = config_base;
+        using base_type = config_list::base_type;
 
-        using value_type = typename base_type::value_type;
+        using value_type = config_list::value_type;
 
 
         // constructors and destructor

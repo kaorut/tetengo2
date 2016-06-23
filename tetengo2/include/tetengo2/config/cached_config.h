@@ -69,7 +69,7 @@ namespace tetengo2 { namespace config
     private:
         // types
 
-        using cache_type = temporary_config<string_type, uint_type>;
+        using cache_type = temporary_config;
 
 
         // variables

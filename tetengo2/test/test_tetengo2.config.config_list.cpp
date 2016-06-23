@@ -34,7 +34,7 @@ namespace
 
     using value_type = config_list_type::value_type;
 
-    using temporary_config_type = tetengo2::config::temporary_config<string_type, uint_type>;
+    using temporary_config_type = tetengo2::config::temporary_config;
 
 
 }
@@ -54,14 +54,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                 { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                 { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
-            p_configs.push_back(tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end()));
+            auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+            for (const auto& value: values)
+            {
+                p_config->set(value.first, value.second);
+            }
+            p_configs.push_back(std::move(p_config));
         }
         {
             const std::vector<std::pair<string_type, value_type>> values{
                 { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                 { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
             };
-            p_configs.push_back(tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end()));
+            auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+            for (const auto& value: values)
+            {
+                p_config->set(value.first, value.second);
+            }
+            p_configs.push_back(std::move(p_config));
         }
         const config_list_type config{ std::move(p_configs) };
     }
@@ -77,18 +87,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                     { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             const config_list_type config{ std::move(p_configs) };
 
@@ -115,18 +131,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                     { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             const config_list_type config{ std::move(p_configs) };
 
@@ -149,18 +171,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                     { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             config_list_type config{ std::move(p_configs) };
 
@@ -177,18 +205,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                     { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             config_list_type config{ std::move(p_configs) };
 
@@ -211,18 +245,24 @@ BOOST_AUTO_TEST_SUITE(config_list)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             {
                 const std::vector<std::pair<string_type, value_type>> values{
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                     { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                 };
-                p_configs.push_back(
-                    tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end())
-                );
+                auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                for (const auto& value: values)
+                {
+                    p_config->set(value.first, value.second);
+                }
+                p_configs.push_back(std::move(p_config));
             }
             config_list_type config{ std::move(p_configs) };
 
