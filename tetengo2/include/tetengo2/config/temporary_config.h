@@ -37,7 +37,7 @@ namespace tetengo2 { namespace config
         using base_type = config_base;
 
         //! The value type.
-        using value_type = typename base_type::value_type;
+        using value_type = base_type::value_type;
 
 
         // constructors and destructor

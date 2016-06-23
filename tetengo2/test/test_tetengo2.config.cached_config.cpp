@@ -27,9 +27,7 @@ namespace
 
     using uint_type = tetengo2::type_list::size_type;
 
-    using cached_config_type = tetengo2::config::cached_config<string_type, uint_type>;
-
-    using config_base_type = cached_config_type::base_type;
+    using cached_config_type = tetengo2::config::cached_config;
 
     using value_type = cached_config_type::value_type;
 

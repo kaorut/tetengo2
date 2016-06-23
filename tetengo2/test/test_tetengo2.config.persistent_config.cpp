@@ -45,8 +45,6 @@ namespace
     using persistent_config_type =
         tetengo2::config::persistent_config<string_type, uint_type, encoder_type, config_details_type>;
 
-    using config_base_type = persistent_config_type::base_type;
-
     using value_type = persistent_config_type::value_type;
 
 
