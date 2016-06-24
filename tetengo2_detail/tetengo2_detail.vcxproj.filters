@@ -22,6 +22,18 @@
     <Filter Include="headers\tetengo2::detail\windows\message_handler_detail">
       <UniqueIdentifier>{b61737cf-0997-4425-b9b3-428991d517c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{b759834b-7e24-4de1-8c82-225f02871682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::detail">
+      <UniqueIdentifier>{ab4d5a06-fa2b-45a8-bd59-bce8d5dddde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::detail\base">
+      <UniqueIdentifier>{63e3a975-2350-42dc-aa62-c289376bfb95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail\base">
+      <UniqueIdentifier>{3c9ca551-f105-4c80-b1de-1c5ce69ef769}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox">
@@ -207,5 +219,13 @@
     <ClInclude Include="include\tetengo2\detail\windows\message_handler_detail\widget.h">
       <Filter>headers\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\config.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\tetengo2.detail.base.config.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

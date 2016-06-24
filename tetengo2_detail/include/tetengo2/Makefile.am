@@ -3,6 +3,7 @@
 # $Id$
 
 pkg_headers = \
+    detail/base/config.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \
