@@ -165,12 +165,8 @@ namespace tetengo2 { namespace detail { namespace unixos
         template <typename String, typename Encoder>
         static boost::filesystem::path make_setting_file_path(const String& group_name, const Encoder& encoder)
         {
-#if BOOST_OS_WINDOWS
-            const boost::filesystem::path base{ "D:\\temp" };
-#else
             const auto* const p_home_directory = std::getenv("HOME");
             const boost::filesystem::path base{ p_home_directory ? p_home_directory : "" };
-#endif
 #if __CYGWIN__ // BOOST_OS_CYGWIN
             // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
             // But Tetengo2 treats paths in the UNIX style
