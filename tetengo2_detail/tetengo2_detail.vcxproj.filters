@@ -34,6 +34,9 @@
     <Filter Include="headers\tetengo2::detail\base">
       <UniqueIdentifier>{3c9ca551-f105-4c80-b1de-1c5ce69ef769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::detail\windows">
+      <UniqueIdentifier>{602fcf81-7a97-4927-bcb6-1c5b31d6fa97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.config.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
