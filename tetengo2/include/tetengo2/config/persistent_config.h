@@ -91,19 +91,19 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const override
         {
-            return configuration_details_type::template get<string_type, uint_type>(m_group_name, key, encoder());
+            return configuration_details_type::template get_static<string_type, uint_type>(m_group_name, key, encoder());
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         override
         {
-            configuration_details_type::set(m_group_name, key, std::move(value), encoder());
+            configuration_details_type::set_static(m_group_name, key, std::move(value), encoder());
         }
 
         virtual void clear_impl()
         override
         {
-            configuration_details_type::clear(m_group_name, encoder());
+            configuration_details_type::clear_static(m_group_name, encoder());
         }
 
 

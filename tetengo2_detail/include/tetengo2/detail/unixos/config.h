@@ -75,7 +75,7 @@ namespace tetengo2 { namespace detail { namespace unixos
             \return The value.
         */
         template <typename String, typename UInt, typename Encoder>
-        static boost::optional<boost::variant<String, UInt>> get(
+        static boost::optional<boost::variant<String, UInt>> get_static(
             const String&  group_name,
             const String&  key,
             const Encoder& encoder
@@ -101,7 +101,7 @@ namespace tetengo2 { namespace detail { namespace unixos
             \param encoder    An encoder.
         */
         template <typename String, typename UInt, typename Encoder>
-        static void set(
+        static void set_static(
             const String&                group_name,
             const String&                key,
             boost::variant<String, UInt> value,
@@ -126,7 +126,7 @@ namespace tetengo2 { namespace detail { namespace unixos
             \param encoder    An encoder.
         */
         template <typename String, typename Encoder>
-        static void clear(const String& group_name, const Encoder& encoder)
+        static void clear_static(const String& group_name, const Encoder& encoder)
         {
             const auto setting_file_path = make_setting_file_path(group_name, encoder);
 #if __CYGWIN__ // BOOST_OS_CYGWIN
