@@ -9,6 +9,7 @@ list_sources()
         $1/tetengo2/include \
         $1/tetengo2/src \
         $1/tetengo2_detail/include \
+        $1/tetengo2_detail/src \
         $1/tetengo2_gui/include \
         -type f \
         -name '*.h' -or \

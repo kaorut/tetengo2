@@ -8,6 +8,9 @@
 
 #include <utility>
 
+#include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
+
 #include <tetengo2/detail/unixos/config.h>
 #include <tetengo2/stdalt.h>
 
@@ -69,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace unixos
 
     config::config()
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>())
+    m_p_impl(stdalt::make_unique<impl>())
     {}
 
 
