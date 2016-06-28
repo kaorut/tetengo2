@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <iterator>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -30,6 +31,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/base/config.h>
 #include <tetengo2/text.h>
 
 
@@ -38,16 +40,32 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a config.
     */
-    class config : private boost::noncopyable
+    class config : private base::config
     {
     public:
         // types
 
         //! The string type.
-        using string_type = std::wstring;
+        using string_type_static = std::wstring;
+
+        //! The string type.
+        using string_type = type_list::string_type;
+
+        //! The unsigned integer type.
+        using uint_type = type_list::size_type;
+
+        //! The value type.
+        using value_type = boost::variant<string_type, uint_type>;
 
 
         // static functions
+
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
+        static const config& instance();
 
         /*!
             \brief Returns the configuration value.
@@ -79,14 +97,14 @@ namespace tetengo2 { namespace detail { namespace windows
 
             switch (type.first)
             {
-            case value_type::string:
+            case value_kind_type::string:
                 return
                     boost::make_optional(
                         boost::variant<String, UInt>(
                             get_string(handle.get(), registry_key_and_value_name.second, type.second, encoder)
                         )
                     );
-            case value_type::dword:
+            case value_kind_type::dword:
                 return
                     boost::make_optional(
                         boost::variant<String, UInt>(
@@ -94,7 +112,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         )
                     );
             default:
-                assert(type.first == value_type::unknown);
+                assert(type.first == value_kind_type::unknown);
                 return boost::none;
             }
         }
@@ -164,8 +182,18 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the detail implementation.
+        */
+        virtual ~config();
+
+
     private:
         // types
+
+        class impl;
 
         template <typename String, typename Encoder>
         class registry : private boost::noncopyable
@@ -214,7 +242,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         };
 
-        enum class value_type
+        enum class value_kind_type
         {
             unknown,
             string,
@@ -259,7 +287,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename String, typename Encoder>
-        static std::pair<value_type, typename String::size_type> query_value_type(
+        static std::pair<value_kind_type, typename String::size_type> query_value_type(
             const ::HKEY   handle,
             const String&  key,
             const Encoder& encoder
@@ -270,16 +298,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto query_value_result =
                 ::RegQueryValueExW(handle, encoder.encode(key).c_str(), 0, &type, nullptr, &value_size);
             if (query_value_result != ERROR_SUCCESS)
-                return std::make_pair(value_type::unknown, 0);
+                return std::make_pair(value_kind_type::unknown, 0);
 
             switch (type)
             {
             case REG_SZ:
-                return std::make_pair(value_type::string, value_size / sizeof(string_type::value_type));
+                return std::make_pair(value_kind_type::string, value_size / sizeof(string_type_static::value_type));
             case REG_DWORD:
-                return std::make_pair(value_type::dword, 0);
+                return std::make_pair(value_kind_type::dword, 0);
             default:
-                return std::make_pair(value_type::unknown, 0);
+                return std::make_pair(value_kind_type::unknown, 0);
             }
         }
 
@@ -291,9 +319,9 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                   encoder
         )
         {
-            std::vector<typename string_type::value_type> value(result_length, 0);
+            std::vector<typename string_type_static::value_type> value(result_length, 0);
             auto value_size =
-                static_cast< ::DWORD>(result_length * sizeof(typename string_type::value_type));
+                static_cast< ::DWORD>(result_length * sizeof(typename string_type_static::value_type));
             const auto query_value_result =
                 ::RegQueryValueExW(
                     handle,
@@ -340,7 +368,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 REG_SZ,
                 reinterpret_cast<const ::BYTE*>(encoded_value.c_str()),
                 static_cast< ::DWORD>(
-                    (encoded_value.length() + 1) * sizeof(typename string_type::value_type)
+                    (encoded_value.length() + 1) * sizeof(typename string_type_static::value_type)
                 )
             );
         }
@@ -357,6 +385,28 @@ namespace tetengo2 { namespace detail { namespace windows
                 sizeof(::DWORD)
             );
         }
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        config();
+
+
+        // virtual functions
+
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
+        const override;
+
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
+        const override;
+
+        virtual void clear_impl(const string_type& group_name)
+        const override;
 
 
     };

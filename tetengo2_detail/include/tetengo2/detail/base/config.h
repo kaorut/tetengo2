@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::detail::unixos::config.
+    \brief The definition of tetengo2::detail::base::config.
 
     Copyright (C) 2007-2016 kaoru
 
@@ -44,7 +44,7 @@ namespace tetengo2 { namespace detail { namespace base
         virtual ~config();
 
 
-        // virtual functions
+        // functions
 
         /*!
             \brief Returns the configuration value.
@@ -54,8 +54,8 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return The value.
         */
-        virtual boost::optional<value_type> get(const string_type& group_name, const string_type& key)
-        const = 0;
+        boost::optional<value_type> get(const string_type& group_name, const string_type& key)
+        const;
 
         /*!
             \brief Sets a configuration value.
@@ -64,22 +64,35 @@ namespace tetengo2 { namespace detail { namespace base
             \param key        A key.
             \param value      A value.
         */
-        virtual void set(const string_type& group_name, const string_type& key, value_type value)
-        const = 0;
+        void set(const string_type& group_name, const string_type& key, value_type value)
+        const;
 
         /*!
             \brief Clears the configuration.
 
             \param group_name A group_name.
         */
-        virtual void clear(const string_type& group_name)
-        const = 0;
+        void clear(const string_type& group_name)
+        const;
 
 
     protected:
         // constructors
 
         config();
+
+
+    private:
+        // virtual functions
+
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
+        const = 0;
+
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
+        const = 0;
+
+        virtual void clear_impl(const string_type& group_name)
+        const = 0;
 
 
     };

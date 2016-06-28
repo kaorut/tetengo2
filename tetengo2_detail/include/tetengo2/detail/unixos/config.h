@@ -18,12 +18,12 @@
 #include <ios>
 #include <iterator>
 #include <map>
+#include <memory>
 #include <ostream>
 #include <stack>
 #include <string>
 #include <utility>
 
-#include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/optional.hpp>
@@ -38,11 +38,13 @@
 #   include <unistd.h>
 #endif
 
+#include <tetengo2/detail/base/config.h>
 #include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/push_parser.h>
 #include <tetengo2/text/grammar/json.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos
@@ -50,16 +52,32 @@ namespace tetengo2 { namespace detail { namespace unixos
     /*!
         \brief The class for a detail implementation of a configuration.
     */
-    class config : private boost::noncopyable
+    class config : private base::config
     {
     public:
         // types
 
         //! The string type.
-        using string_type = std::string;
+        using string_type_static = std::string;
+
+        //! The string type.
+        using string_type = type_list::string_type;
+
+        //! The unsigned integer type.
+        using uint_type = type_list::size_type;
+
+        //! The value type.
+        using value_type = boost::variant<string_type, uint_type>;
 
 
         // static functions
+
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
+        static const config& instance();
 
         /*!
             \brief Returns the configuration value.
@@ -142,8 +160,18 @@ namespace tetengo2 { namespace detail { namespace unixos
         }
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the detail implementation.
+        */
+        virtual ~config();
+
+
     private:
         // types
+
+        class impl;
 
         template <typename String, typename UInt>
         using values = std::map<String, boost::variant<String, UInt>>;
@@ -196,9 +224,9 @@ namespace tetengo2 { namespace detail { namespace unixos
             auto p_grammer = stdalt::make_unique<json_type>();
             parser_type parser(first, last, std::move(p_grammer));
 
-            std::stack<std::pair<string_type, string_type>> structure_stack{};
+            std::stack<std::pair<string_type_static, string_type_static>> structure_stack{};
             parser.on_structure_begin().connect(
-                [&structure_stack](const string_type& name, const attribute_map_type& attributes)
+                [&structure_stack](const string_type_static& name, const attribute_map_type& attributes)
                 {
                     if (name != "object" && name != "member")
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
@@ -213,7 +241,7 @@ namespace tetengo2 { namespace detail { namespace unixos
                 }
             );
             parser.on_structure_end().connect(
-                [&structure_stack](const string_type& name, const attribute_map_type&)
+                [&structure_stack](const string_type_static& name, const attribute_map_type&)
                 {
                     if (structure_stack.top().first != name)
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
@@ -234,7 +262,7 @@ namespace tetengo2 { namespace detail { namespace unixos
                     else if (value.which() == 4)
                     {
                         values_[encoder.decode(structure_stack.top().second)] =
-                            encoder.decode(boost::get<string_type>(value));
+                            encoder.decode(boost::get<string_type_static>(value));
                     }
                     else
                     {
@@ -248,14 +276,14 @@ namespace tetengo2 { namespace detail { namespace unixos
             parser.parse();
         }
 
-        static string_type get_key(const attribute_map_type& attributes)
+        static string_type_static get_key(const attribute_map_type& attributes)
         {
             const auto found = attributes.find("name");
             if (found == attributes.end())
                 return {};
 
             assert(found->second.which() == 4);
-            return boost::get<string_type>(found->second);
+            return boost::get<string_type_static>(found->second);
         }
 
         template <typename String, typename UInt, typename Encoder>
@@ -293,6 +321,28 @@ namespace tetengo2 { namespace detail { namespace unixos
 
             stream << std::flush;
         }
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        config();
+
+
+        // virtual functions
+
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
+        const override;
+
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
+        const override;
+
+        virtual void clear_impl(const string_type& group_name)
+        const override;
 
 
     };
