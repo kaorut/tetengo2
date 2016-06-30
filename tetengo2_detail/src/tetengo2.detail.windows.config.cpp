@@ -33,6 +33,7 @@
 #include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/stdalt.h>
 
+
 namespace tetengo2 { namespace detail { namespace windows
 {
     class config::impl : private boost::noncopyable
