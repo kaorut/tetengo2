@@ -16,6 +16,7 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
