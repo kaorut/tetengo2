@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
-            const registry_type handle{ registry_key_and_value_name.first, encoder(), KEY_READ };
+            const registry_type handle{ registry_key_and_value_name.first, KEY_READ };
             if (!handle.get())
                 return boost::none;
 
@@ -89,16 +89,41 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
-        virtual void set_impl(const string_type& /*group_name*/, const string_type& /*key*/, value_type /*value*/)
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
         const
         {
-            // TODO Implement it.
+            const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
+
+            const registry_type handle{ registry_key_and_value_name.first, KEY_WRITE };
+            if (!handle.get())
+                return;
+
+            switch (value.which())
+            {
+            case 0:
+                set_string(handle.get(), registry_key_and_value_name.second, boost::get<string_type>(value));
+                break;
+            case 1:
+                set_dword(
+                    handle.get(),
+                    registry_key_and_value_name.second,
+                    static_cast< ::DWORD>(boost::get<uint_type>(value))
+                );
+                break;
+            default:
+                assert(false);
+                break;
+            }
         }
 
-        virtual void clear_impl(const string_type& /*group_name*/)
+        virtual void clear_impl(const string_type& group_name)
         const
         {
-            // TODO Implement it.
+            const registry_type handle{ path_prefix(), KEY_WRITE };
+            if (!handle.get())
+                return;
+
+            ::RegDeleteTreeW(handle.get(), encoder().encode(group_name).c_str());
         }
 
 
@@ -118,9 +143,9 @@ namespace tetengo2 { namespace detail { namespace windows
         class registry_type : private boost::noncopyable
         {
         public:
-            registry_type(const string_type& key, const encoder_type& encoder, const ::REGSAM mode)
+            registry_type(const string_type& key, const ::REGSAM mode)
             :
-            m_handle(create(key, encoder, mode))
+            m_handle(create(key, mode))
             {}
 
             ~registry_type()
@@ -136,13 +161,13 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
         private:
-            static ::HKEY create(const string_type&  key, const encoder_type& encoder, const ::REGSAM mode)
+            static ::HKEY create(const string_type&  key, const ::REGSAM mode)
             {
                 ::HKEY handle = nullptr;
                 const auto create_key_result =
                     ::RegCreateKeyExW(
                         HKEY_CURRENT_USER,
-                        encoder.encode(key).c_str(),
+                        encoder().encode(key).c_str(),
                         0,
                         nullptr,
                         REG_OPTION_NON_VOLATILE,
