@@ -78,16 +78,31 @@ namespace tetengo2 { namespace detail { namespace unixos
             return found != value_map.end() ? boost::make_optional(found->second) : boost::none;
         }
 
-        virtual void set_impl(const string_type& /*group_name*/, const string_type& /*key*/, value_type /*value*/)
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
         const
         {
-            // TODO Implement it.
+            value_map_type value_map{};
+            load_from_file(group_name, value_map);
+
+            value_map[key] = std::move(value);
+
+            save_to_file(group_name, value_map);
         }
 
-        virtual void clear_impl(const string_type& /*group_name*/)
+        virtual void clear_impl(const string_type& group_name)
         const
         {
-            // TODO Implement it.
+            const auto setting_file_path = make_setting_file_path(group_name);
+#if __CYGWIN__ // BOOST_OS_CYGWIN
+            // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
+            // But Tetengo2 treats paths in the UNIX style
+            struct ::stat stat_;
+            if (::stat(setting_file_path.string().c_str(), &stat_) == 0)
+                std::remove(setting_file_path.string().c_str());
+#else
+            if (boost::filesystem::exists(setting_file_path))
+                boost::filesystem::remove(setting_file_path);
+#endif
         }
 
 
