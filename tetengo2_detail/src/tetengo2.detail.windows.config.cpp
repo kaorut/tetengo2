@@ -55,8 +55,6 @@ namespace tetengo2 { namespace detail { namespace windows
         {}
 
 
-        // functions
-
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
