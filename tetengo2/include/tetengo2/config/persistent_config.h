@@ -40,12 +40,6 @@ namespace tetengo2 { namespace config
         //! The unsigned integer type.
         using uint_type = type_list::size_type;
 
-        //! The encoder type.
-        using encoder_type = Encoder;
-
-        //! The configuration details type.
-        using configuration_details_type = ConfigDetails;
-
         //! The base type.
         using base_type = config_base;
 
@@ -78,15 +72,6 @@ namespace tetengo2 { namespace config
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
-
-
         // variables
 
         const string_type m_group_name;
@@ -99,19 +84,19 @@ namespace tetengo2 { namespace config
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const override
         {
-            return configuration_details_type::template get_static<string_type, uint_type>(m_group_name, key, encoder());
+            return m_config_details.get(m_group_name, key);
         }
 
         virtual void set_impl(const string_type& key, value_type value)
         override
         {
-            configuration_details_type::set_static(m_group_name, key, std::move(value), encoder());
+            return m_config_details.set(m_group_name, key, std::move(value));
         }
 
         virtual void clear_impl()
         override
         {
-            configuration_details_type::clear_static(m_group_name, encoder());
+            return m_config_details.clear(m_group_name);
         }
 
 
