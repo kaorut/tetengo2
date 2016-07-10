@@ -137,6 +137,9 @@
     <None Include="res.test\messages.test\_catalogs.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\tetengo2_detail\tetengo2_detail.vcxproj">
+      <Project>{981f9626-081f-46b5-b64b-515cd5258f4a}</Project>
+    </ProjectReference>
     <ProjectReference Include="tetengo2.vcxproj">
       <Project>{a5ebac50-5464-4e80-b47a-a28fa0d7a3cc}</Project>
     </ProjectReference>

@@ -14,6 +14,7 @@
 #include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
+#include <tetengo2/detail/base/config.h>
 #include <tetengo2/type_list.h>
 
 
@@ -51,17 +52,22 @@ namespace tetengo2 { namespace config
         //! The value type.
         using value_type = typename base_type::value_type;
 
+        //! The config detail type.
+        using config_details_type = detail::base::config;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a persistent configuration.
 
-            \param group_name A group name.
+            \param group_name     A group name.
+            \param config_details A deteil implementation of config.
         */
-        explicit persistent_config(string_type group_name)
+        explicit persistent_config(string_type group_name, const config_details_type& config_details)
         :
-        m_group_name(std::move(group_name))
+        m_group_name(std::move(group_name)),
+        m_config_details(config_details)
         {}
 
         /*!
@@ -84,6 +90,8 @@ namespace tetengo2 { namespace config
         // variables
 
         const string_type m_group_name;
+
+        const config_details_type& m_config_details;
 
 
         // virtual functions

@@ -48,14 +48,17 @@ TESTS = tetengo2.test
 
 tetengo2_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a \
+    $(top_builddir)/tetengo2/src/libtetengo2_detail.a \
     messages.test
 tetengo2_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include
 tetengo2_test_LDFLAGS = \
-    -L$(top_builddir)/tetengo2/src
+    -L$(top_builddir)/tetengo2/src \
+    -L$(top_builddir)/tetengo2_detail/src
 tetengo2_test_LDADD = \
     -ltetengo2 \
+    -ltetengo2_detail \
     $(UNITTEST_LIBS)
 tetengo2_test_SOURCES = $(headers) $(sources)
 
@@ -73,5 +76,10 @@ $(top_builddir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precomp
 
 $(top_builddir)/tetengo2/src/libtetengo2.a:
 	pushd $(top_builddir)/tetengo2/src; \
+	$(MAKE) all; \
+	popd
+
+$(top_builddir)/tetengo2/src/libtetengo2_detail.a:
+	pushd $(top_builddir)/tetengo2_detail/src; \
 	$(MAKE) all; \
 	popd

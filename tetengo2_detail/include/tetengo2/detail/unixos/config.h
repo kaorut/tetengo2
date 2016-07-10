@@ -52,7 +52,7 @@ namespace tetengo2 { namespace detail { namespace unixos
     /*!
         \brief The class for a detail implementation of a configuration.
     */
-    class config : private base::config
+    class config : public base::config
     {
     public:
         // types

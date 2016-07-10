@@ -23,7 +23,8 @@ lib_LIBRARIES = libtetengo2.a
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
 libtetengo2_a_CPPFLAGS = \
-    -I$(top_srcdir)/tetengo2/include
+    -I$(top_srcdir)/tetengo2/include \
+    -I$(top_srcdir)/tetengo2_detail/include
 libtetengo2_a_SOURCES = $(headers) $(sources)
 
 $(top_builddir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
