@@ -33,7 +33,6 @@
 #   include <unistd.h>
 #endif
 
-
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/config.h>
@@ -122,6 +121,17 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         using value_map_type = std::map<string_type, value_type>;
 
+        using input_stream_iterator_type =
+            tetengo2::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
+
+        using json_type = text::grammar::json<input_stream_iterator_type>;
+
+        using parser_type = text::push_parser<input_stream_iterator_type, json_type, std::size_t, double>;
+
+        using attribute_map_type = parser_type::attribute_map_type;
+
+        using parser_value_type = parser_type::value_type;
+
 
         // static functions
 
@@ -164,9 +174,9 @@ namespace tetengo2 { namespace detail { namespace unixos
             auto p_grammer = stdalt::make_unique<json_type>();
             parser_type parser(first, last, std::move(p_grammer));
 
-            std::stack<std::pair<string_type_static, string_type_static>> structure_stack{};
+            std::stack<std::pair<native_string_type, native_string_type>> structure_stack{};
             parser.on_structure_begin().connect(
-                [&structure_stack](const string_type_static& name, const attribute_map_type& attributes)
+                [&structure_stack](const native_string_type& name, const attribute_map_type& attributes)
                 {
                     if (name != "object" && name != "member")
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
@@ -181,7 +191,7 @@ namespace tetengo2 { namespace detail { namespace unixos
                 }
             );
             parser.on_structure_end().connect(
-                [&structure_stack](const string_type_static& name, const attribute_map_type&)
+                [&structure_stack](const native_string_type& name, const attribute_map_type&)
                 {
                     if (structure_stack.top().first != name)
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
@@ -202,7 +212,7 @@ namespace tetengo2 { namespace detail { namespace unixos
                     else if (value.which() == 4)
                     {
                         value_map[encoder().decode(structure_stack.top().second)] =
-                            encoder().decode(boost::get<string_type_static>(value));
+                            encoder().decode(boost::get<native_string_type>(value));
                     }
                     else
                     {
@@ -216,14 +226,14 @@ namespace tetengo2 { namespace detail { namespace unixos
             parser.parse();
         }
 
-        static string_type_static get_key(const attribute_map_type& attributes)
+        static native_string_type get_key(const attribute_map_type& attributes)
         {
             const auto found = attributes.find("name");
             if (found == attributes.end())
                 return {};
 
             assert(found->second.which() == 4);
-            return boost::get<string_type_static>(found->second);
+            return boost::get<native_string_type>(found->second);
         }
 
         static void save_to_file(const string_type& group_name, const value_map_type& value_map)

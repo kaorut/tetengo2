@@ -43,7 +43,7 @@ namespace
     using config_details_type = detail_type_list_type::config_type;
 
     using config_encoding_type =
-        tetengo2::text::encoding::locale<config_details_type::string_type_static, encoding_details_type>;
+        tetengo2::text::encoding::locale<config_details_type::string_type, encoding_details_type>;
 
     using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
 
