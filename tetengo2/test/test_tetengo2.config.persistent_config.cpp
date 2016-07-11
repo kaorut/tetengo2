@@ -6,54 +6,32 @@
     $Id$
 */
 
-#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/persistent_config.h>
-#include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/detail/config.h>
+#include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using string_type = tetengo2::type_list::string_type;
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using uint_type = tetengo2::type_list::size_type;
 
-    using string_type = common_type_list_type::string_type;
-
-    using uint_type = common_type_list_type::size_type;
-
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
-
-    using config_details_type = detail_type_list_type::config_type;
-
-    using config_encoding_type =
-        tetengo2::text::encoding::locale<config_details_type::string_type, encoding_details_type>;
-
-    using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
-
-    using persistent_config_type =
-        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, config_details_type>;
-
-    using config_base_type = persistent_config_type::base_type;
+    using persistent_config_type = tetengo2::config::persistent_config;
 
     using value_type = persistent_config_type::value_type;
+
+    using config_details_type = tetengo2::detail::config;
 
 
 }
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(persistent_config)
@@ -63,7 +41,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+        persistent_config_type config{
+            string_type{ TETENGO2_TEXT("test_tetengo2") }, config_details_type::instance()
+        };
 
         config.clear();
     }
@@ -72,7 +52,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+        persistent_config_type config{
+            string_type{ TETENGO2_TEXT("test_tetengo2") }, config_details_type::instance()
+        };
 
         {
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
@@ -87,7 +69,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
         BOOST_TEST_PASSPOINT();
 
         {
-            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+            persistent_config_type config{
+                string_type{ TETENGO2_TEXT("test_tetengo2") }, config_details_type::instance()
+            };
 
             config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
             config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
@@ -100,7 +84,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
             config.clear();
         }
         {
-            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+            persistent_config_type config{
+                string_type{ TETENGO2_TEXT("test_tetengo2") }, config_details_type::instance()
+            };
 
             config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
             config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
@@ -119,7 +105,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
         BOOST_TEST_PASSPOINT();
 
         {
-            persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
+            persistent_config_type config{
+                string_type{ TETENGO2_TEXT("test_tetengo2") }, config_details_type::instance()
+            };
 
             config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } });
             config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
@@ -137,4 +125,3 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-#endif

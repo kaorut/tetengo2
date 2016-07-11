@@ -239,6 +239,7 @@ BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
 BOOST_OS_CYGWIN                                  boost/predef.h
 BOOST_OS_LINUX                                   boost/predef.h
+BOOST_OS_UNIX                                    boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp

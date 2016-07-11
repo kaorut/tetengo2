@@ -12,21 +12,18 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/config_base.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/text.h>
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using config_base_type = tetengo2::config::config_base;
 
-    using string_type = common_type_list_type::string_type;
+    using string_type = config_base_type::string_type;
 
-    using uint_type = common_type_list_type::size_type;
-
-    using config_base_type = tetengo2::config::config_base<string_type, uint_type>;
+    using uint_type = config_base_type::uint_type;
 
     using value_type = config_base_type::value_type;
 
@@ -61,6 +58,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(config)
 BOOST_AUTO_TEST_SUITE(config_base)
     // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_config config;
+    }
 
     BOOST_AUTO_TEST_CASE(get)
     {

@@ -3,6 +3,8 @@
 # $Id$
 
 pkg_headers = \
+    detail/config.h \
+    detail/base/config.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \
@@ -24,6 +26,7 @@ pkg_headers = \
     detail/unixos/encoding.h
 
 extra_headers = \
+    detail/base/0namespace.dox \
     detail/stub/0namespace.dox \
     detail/unixos/0namespace.dox \
     detail/windows/0namespace.dox \

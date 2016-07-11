@@ -13,21 +13,19 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/temporary_config.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using string_type = tetengo2::type_list::string_type;
 
-    using string_type = common_type_list_type::string_type;
+    using uint_type = tetengo2::type_list::size_type;
 
-    using uint_type = common_type_list_type::size_type;
-
-    using temporary_config_type = tetengo2::config::temporary_config<string_type, uint_type>;
+    using temporary_config_type = tetengo2::config::temporary_config;
 
     using value_type = temporary_config_type::value_type;
 
@@ -44,16 +42,7 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const temporary_config_type config{};
-        }
-        {
-            const std::vector<std::pair<string_type, value_type>> values{
-                { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
-                { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
-            };
-            const temporary_config_type config{ values.begin(), values.end() };
-        }
+        const temporary_config_type config{};
     }
 
     BOOST_AUTO_TEST_CASE(get)
@@ -64,7 +53,11 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
-        const temporary_config_type config{ values.begin(), values.end() };
+        temporary_config_type config{};
+        for (const auto& value: values)
+        {
+            config.set(value.first, value.second);
+        }
 
         {
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
@@ -91,7 +84,11 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
                 { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                 { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
-            temporary_config_type config{ values.begin(), values.end() };
+            temporary_config_type config{};
+            for (const auto& value: values)
+            {
+                config.set(value.first, value.second);
+            }
 
             config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
 
@@ -104,7 +101,11 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
                 { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                 { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
-            temporary_config_type config{ values.begin(), values.end() };
+            temporary_config_type config{};
+            for (const auto& value: values)
+            {
+                config.set(value.first, value.second);
+            }
 
             config.set(string_type{ TETENGO2_TEXT("baz") }, string_type{ TETENGO2_TEXT("fuga") });
 
@@ -123,7 +124,11 @@ BOOST_AUTO_TEST_SUITE(temporary_config)
                 { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                 { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
             };
-            temporary_config_type config{ values.begin(), values.end() };
+            temporary_config_type config{};
+            for (const auto& value: values)
+            {
+                config.set(value.first, value.second);
+            }
 
             config.clear();
 

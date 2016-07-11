@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)tetengo2_detail\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\tetengo2_detail\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(ProjectDir)$(ProjectName).boost_libs.txt" "$(SolutionDir)tetengo2_config.h" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)

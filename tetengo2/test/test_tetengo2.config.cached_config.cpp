@@ -15,27 +15,23 @@
 #include <tetengo2/config/cached_config.h>
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using string_type = tetengo2::type_list::string_type;
 
-    using string_type = common_type_list_type::string_type;
+    using uint_type = tetengo2::type_list::size_type;
 
-    using uint_type = common_type_list_type::size_type;
-
-    using cached_config_type = tetengo2::config::cached_config<string_type, uint_type>;
-
-    using config_base_type = cached_config_type::base_type;
+    using cached_config_type = tetengo2::config::cached_config;
 
     using value_type = cached_config_type::value_type;
 
-    using temporary_config_type = tetengo2::config::temporary_config<string_type, uint_type>;
+    using temporary_config_type = tetengo2::config::temporary_config;
 
 
 }
@@ -53,7 +49,11 @@ BOOST_AUTO_TEST_SUITE(cached_config)
             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
-        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+        for (const auto& value: values)
+        {
+            p_temporary_config->set(value.first, value.second);
+        }
         const cached_config_type config{ std::move(p_temporary_config) };
     }
 
@@ -65,7 +65,11 @@ BOOST_AUTO_TEST_SUITE(cached_config)
             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
-        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+        for (const auto& value: values)
+        {
+            p_temporary_config->set(value.first, value.second);
+        }
         const cached_config_type config{ std::move(p_temporary_config) };
 
         {
@@ -92,7 +96,11 @@ BOOST_AUTO_TEST_SUITE(cached_config)
             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
-        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+        for (const auto& value: values)
+        {
+            p_temporary_config->set(value.first, value.second);
+        }
         cached_config_type config{ std::move(p_temporary_config) };
 
         config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
@@ -110,7 +118,11 @@ BOOST_AUTO_TEST_SUITE(cached_config)
             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
         };
-        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>(values.begin(), values.end());
+        auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+        for (const auto& value: values)
+        {
+            p_temporary_config->set(value.first, value.second);
+        }
         cached_config_type config{ std::move(p_temporary_config) };
 
         config.clear();

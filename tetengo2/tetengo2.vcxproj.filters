@@ -43,6 +43,9 @@
     <Filter Include="sources\tetengo2\concurrent">
       <UniqueIdentifier>{59965896-645b-4bb7-9a51-fe897ec4351c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2\config">
+      <UniqueIdentifier>{157bfdc6-9ecd-406d-ac3a-df4fdaa3145b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.h">
@@ -169,6 +172,21 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.concurrent.progressive_future.cpp">
       <Filter>sources\tetengo2\concurrent</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.config.cached_config.cpp">
+      <Filter>sources\tetengo2\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.config.config_base.cpp">
+      <Filter>sources\tetengo2\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.config.config_list.cpp">
+      <Filter>sources\tetengo2\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.config.persistent_config.cpp">
+      <Filter>sources\tetengo2\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.config.temporary_config.cpp">
+      <Filter>sources\tetengo2\config</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,25 +7,21 @@ headers =
 extra_headers =
 
 sources = \
-    tetengo2.concurrent.progressive_future.cpp \
-    tetengo2.config.cached_config.cpp \
-    tetengo2.config.config_base.cpp \
-    tetengo2.config.config_list.cpp \
-    tetengo2.config.persistent_config.cpp \
-    tetengo2.config.temporary_config.cpp \
-    tetengo2.text.grammar.json.cpp
+    tetengo2.detail.base.config.cpp \
+    tetengo2.detail.unixos.config.cpp
 
-extra_sources =
+extra_sources = \
+    tetengo2.detail.windows.config.cpp
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
 
-lib_LIBRARIES = libtetengo2.a
+lib_LIBRARIES = libtetengo2_detail.a
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
-libtetengo2_a_CPPFLAGS = \
+libtetengo2_detail_a_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include
-libtetengo2_a_SOURCES = $(headers) $(sources)
+libtetengo2_detail_a_SOURCES = $(headers) $(sources)
 
 $(top_builddir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \

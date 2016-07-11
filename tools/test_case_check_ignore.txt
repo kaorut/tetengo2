@@ -3,6 +3,12 @@ tetengo2::concurrent::progressive_future::move
 tetengo2::concurrent::progressive_future_base::
 tetengo2::concurrent::progressive_promise::move
 tetengo2::concurrent::progressive_promise_base::
+tetengo2::config::config_list::get_impl
+tetengo2::config::config_list::set_impl
+tetengo2::config::config_list::clear_impl
+tetengo2::config::[a-zA-Z0-9_]+_config::get_impl
+tetengo2::config::[a-zA-Z0-9_]+_config::set_impl
+tetengo2::config::[a-zA-Z0-9_]+_config::clear_impl
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::dialog::on_close
 tetengo2::gui::widget::inner_item::mouse_entered
