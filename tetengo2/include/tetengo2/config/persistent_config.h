@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_CONFIG_PERSISTENTCONFIG_H)
 #define TETENGO2_CONFIG_PERSISTENTCONFIG_H
 
+#include <memory>
 #include <utility>
 
 #include <boost/optional.hpp>
@@ -52,46 +53,34 @@ namespace tetengo2 { namespace config
             \param group_name     A group name.
             \param config_details A deteil implementation of config.
         */
-        explicit persistent_config(string_type group_name, const config_details_type& config_details)
-        :
-        m_group_name(std::move(group_name)),
-        m_config_details(config_details)
-        {}
+        persistent_config(string_type group_name, const config_details_type& config_details);
 
         /*!
             \brief Destroys the persistent configuration.
         */
-        virtual ~persistent_config()
-        = default;
+        virtual ~persistent_config();
 
 
     private:
+        // types
+
+        class impl;
+
         // variables
 
-        const string_type m_group_name;
-
-        const config_details_type& m_config_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual boost::optional<value_type> get_impl(const string_type& key)
-        const override
-        {
-            return m_config_details.get(m_group_name, key);
-        }
+        const override;
 
         virtual void set_impl(const string_type& key, value_type value)
-        override
-        {
-            return m_config_details.set(m_group_name, key, std::move(value));
-        }
+        override;
 
         virtual void clear_impl()
-        override
-        {
-            return m_config_details.clear(m_group_name);
-        }
+        override;
 
 
     };
