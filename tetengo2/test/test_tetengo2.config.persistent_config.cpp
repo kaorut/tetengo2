@@ -6,16 +6,11 @@
     $Id$
 */
 
-#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/persistent_config.h>
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/config.h>
-#else
-#   include <tetengo2/detail/unixos/config.h>
-#endif
+#include <tetengo2/detail/config.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
 
@@ -32,11 +27,7 @@ namespace
 
     using value_type = persistent_config_type::value_type;
 
-#if BOOST_OS_WINDOWS
-    using config_details_type = tetengo2::detail::windows::config;
-#else
-    using config_details_type = tetengo2::detail::unixos::config;
-#endif
+    using config_details_type = tetengo2::detail::config;
 
 
 }

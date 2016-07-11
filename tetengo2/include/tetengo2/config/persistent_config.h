@@ -10,7 +10,6 @@
 #define TETENGO2_CONFIG_PERSISTENTCONFIG_H
 
 #include <memory>
-#include <utility>
 
 #include <boost/optional.hpp>
 

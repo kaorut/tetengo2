@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="include\tetengo2\detail\base\config.h" />
+    <ClInclude Include="include\tetengo2\detail\config.h" />
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox" />
     <ClInclude Include="include\tetengo2\detail\stub\alert.h" />
     <ClInclude Include="include\tetengo2\detail\stub\common_dialog.h" />
