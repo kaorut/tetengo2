@@ -21,14 +21,8 @@
 namespace tetengo2 { namespace config
 {
     /*!
-        \brief The class template for a persistent configuration.
-
-        \tparam String        A string type.
-        \tparam UInt          An unsigned integer type.
-        \tparam Encoder       An encoder type.
-        \tparam ConfigDetails A detail implementation type of a configuration.
+        \brief The class for a persistent configuration.
     */
-    template <typename String, typename UInt, typename Encoder, typename ConfigDetails>
     class persistent_config : public config_base
     {
     public:
@@ -44,7 +38,7 @@ namespace tetengo2 { namespace config
         using base_type = config_base;
 
         //! The value type.
-        using value_type = typename base_type::value_type;
+        using value_type = base_type::value_type;
 
         //! The config detail type.
         using config_details_type = detail::base::config;

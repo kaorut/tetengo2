@@ -17,38 +17,18 @@
 #   include <tetengo2/detail/unixos/config.h>
 #endif
 #include <tetengo2/text.h>
-#include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/type_list.h>
-
-#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
-    using common_type_list_type = test_tetengo2::type_list::common;
-
     using string_type = tetengo2::type_list::string_type;
 
     using uint_type = tetengo2::type_list::size_type;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
-
-    using config_details_type = detail_type_list_type::config_type;
-
-    using config_encoding_type =
-        tetengo2::text::encoding::locale<config_details_type::string_type, encoding_details_type>;
-
-    using encoder_type = tetengo2::text::encoder<internal_encoding_type, config_encoding_type>;
-
-    using persistent_config_type =
-        tetengo2::config::persistent_config<string_type, uint_type, encoder_type, config_details_type>;
+    using persistent_config_type = tetengo2::config::persistent_config;
 
     using value_type = persistent_config_type::value_type;
 
