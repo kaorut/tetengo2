@@ -26,6 +26,7 @@ pkg_headers = \
     detail/unixos/encoding.h
 
 extra_headers = \
+    detail/base/0namespace.dox \
     detail/stub/0namespace.dox \
     detail/unixos/0namespace.dox \
     detail/windows/0namespace.dox \

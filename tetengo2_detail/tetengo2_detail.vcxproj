@@ -92,6 +92,9 @@
     <ClCompile Include="src\tetengo2.detail.base.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.config.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="include\tetengo2\detail\base\0namespace.dox" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{981F9626-081F-46B5-B64B-515CD5258F4A}</ProjectGuid>
     <RootNamespace>tetengo2</RootNamespace>

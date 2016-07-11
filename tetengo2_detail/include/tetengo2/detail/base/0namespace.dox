@@ -1,0 +1,11 @@
+/*! \file
+    The Doxygen documents for namespaces.
+
+    Copyright (C) 2007-2016 kaoru
+
+    $Id$
+*/
+
+/*! \namespace tetengo2::detail::base
+    \brief The namespace for the base classes of the detail implementations.
+*/
