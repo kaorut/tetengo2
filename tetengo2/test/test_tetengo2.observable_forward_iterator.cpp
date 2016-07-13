@@ -8,16 +8,11 @@
 
 #include <forward_list>
 
-#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/observable_forward_iterator.h>
 
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(observable_forward_iterator)
     // test cases
@@ -132,4 +127,3 @@ BOOST_AUTO_TEST_CASE(make_observable_forward_iterator)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-#endif
