@@ -75,7 +75,7 @@ Building on UNIX
 
 You need the following tools in order to build Tetengo2 libraries:
 
-- [GCC 4.9.2 or 4.9.3](http://www.gnu.org/)
+- [GCC 4.9.2 or 5.4.0](http://www.gnu.org/)
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.61.0](http://www.boost.org/)
 - [libiconv](http://www.gnu.org/) (on Cygwin)

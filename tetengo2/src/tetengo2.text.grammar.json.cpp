@@ -12,7 +12,6 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
@@ -23,10 +22,6 @@
 #include <tetengo2/text/grammar/json.h>
 
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 namespace tetengo2 { namespace text { namespace grammar
 {
     template <typename ForwardIterator>
@@ -587,4 +582,3 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
 }}}
-#endif
