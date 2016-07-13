@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_H)
 #define TETENGO2_DETAIL_H
 
-#include <tetengo2/detail/base/config.h>
+
 #include <tetengo2/detail/config.h>
 
 
