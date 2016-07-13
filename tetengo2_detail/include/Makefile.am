@@ -3,3 +3,8 @@
 # $Id$
 
 SUBDIRS = tetengo2
+
+headers = \
+    tetengo2.detail.h
+
+include_HEADERS = $(headers)
