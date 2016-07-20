@@ -18,7 +18,7 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/messages.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
@@ -42,7 +42,7 @@ namespace
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
-        tetengo2::observable_forward_iterator<
+        tetengo2::iterator::observable_forward_iterator<
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
