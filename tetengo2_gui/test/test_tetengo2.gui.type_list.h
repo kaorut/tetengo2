@@ -22,7 +22,7 @@
 #include <tetengo2/message/message_catalog.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -113,7 +113,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using input_stream_iterator_type =
-            tetengo2::observable_forward_iterator<
+            tetengo2::iterator::observable_forward_iterator<
                 boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>
             >;
 

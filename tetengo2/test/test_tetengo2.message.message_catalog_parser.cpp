@@ -18,8 +18,8 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
-#include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -45,7 +45,7 @@ namespace
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
-        tetengo2::observable_forward_iterator<
+        tetengo2::iterator::observable_forward_iterator<
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
@@ -128,11 +128,11 @@ namespace
         auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
 
         const auto first =
-            tetengo2::make_observable_forward_iterator(
+            tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
             );
         const auto last =
-            tetengo2::make_observable_forward_iterator(
+            tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
             );
         auto p_push_parser = tetengo2::stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));

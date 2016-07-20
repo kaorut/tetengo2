@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::observable_forward_iterator.
+    \brief The definition of tetengo2::iterator::observable_forward_iterator.
 
     Copyright (C) 2007-2016 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_OBSERVABLEINPUTITERATOR_H)
-#define TETENGO2_OBSERVABLEINPUTITERATOR_H
+#if !defined(TETENGO2_ITERATOR_OBSERVABLEINPUTITERATOR_H)
+#define TETENGO2_ITERATOR_OBSERVABLEINPUTITERATOR_H
 
 #include <functional>
 #include <iterator>
@@ -16,7 +16,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 
 
-namespace tetengo2
+namespace tetengo2 { namespace iterator
 {
     /*!
         \brief The class template for an observable forward iterator.
@@ -150,7 +150,7 @@ namespace tetengo2
     }
 
 
-}
+}}
 
 
 #endif

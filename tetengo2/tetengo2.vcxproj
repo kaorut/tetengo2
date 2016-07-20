@@ -113,13 +113,13 @@
     <ClInclude Include="include\tetengo2\config\config_list.h" />
     <ClInclude Include="include\tetengo2\config\persistent_config.h" />
     <ClInclude Include="include\tetengo2\config\temporary_config.h" />
+    <ClInclude Include="include\tetengo2\iterator\observable_forward_iterator.h" />
     <ClInclude Include="include\tetengo2\message\0namespace.dox" />
     <ClInclude Include="include\tetengo2\message\messages.h" />
     <ClInclude Include="include\tetengo2\message\message_catalog.h" />
     <ClInclude Include="include\tetengo2\message\message_catalog_parser.h" />
     <ClInclude Include="include\tetengo2\meta\0namespace.dox" />
     <ClInclude Include="include\tetengo2\meta\assoc_list.h" />
-    <ClInclude Include="include\tetengo2\observable_forward_iterator.h" />
     <ClInclude Include="include\tetengo2\stdalt.h" />
     <ClInclude Include="include\tetengo2\text.h" />
     <ClInclude Include="include\tetengo2\text\0namespace.dox" />
@@ -149,6 +149,9 @@
     <ClCompile Include="src\tetengo2.config.persistent_config.cpp" />
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp" />
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\tetengo2\iterator\0namespace.dox" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

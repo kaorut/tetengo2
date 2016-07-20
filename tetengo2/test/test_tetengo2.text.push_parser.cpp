@@ -18,7 +18,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/push_parser.h>
@@ -35,7 +35,7 @@ namespace
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
-        tetengo2::observable_forward_iterator<
+        tetengo2::iterator::observable_forward_iterator<
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
@@ -101,11 +101,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{};
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             const push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -113,11 +113,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             const push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -131,11 +131,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -145,11 +145,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             const push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -165,11 +165,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -179,11 +179,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             const push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -199,11 +199,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -213,11 +213,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         {
             std::istringstream input{ "{}" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             const push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -235,11 +235,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
 
             std::istringstream input{};
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -266,11 +266,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
 
             std::istringstream input{ "[]" };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -309,11 +309,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 "]"
             };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
@@ -374,11 +374,11 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 "]"
             };
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             push_parser_type parser{ first, last, tetengo2::stdalt::make_unique<grammar_type>() };
