@@ -36,7 +36,7 @@
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/config.h>
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace unixos
         using value_map_type = std::map<string_type, value_type>;
 
         using input_stream_iterator_type =
-            tetengo2::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
+            tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
         using json_type = text::grammar::json<input_stream_iterator_type>;
 
@@ -164,11 +164,11 @@ namespace tetengo2 { namespace detail { namespace unixos
                 return;
 
             const auto first =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ stream })
                 );
             const auto last =
-                tetengo2::make_observable_forward_iterator(
+                tetengo2::iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             auto p_grammer = stdalt::make_unique<json_type>();
