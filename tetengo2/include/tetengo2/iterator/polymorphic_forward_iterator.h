@@ -20,6 +20,15 @@ namespace tetengo2 { namespace iterator
     template <typename T>
     class polymorphic_forward_iterator
     {
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a polymorphic forward iterator.
+        */
+        polymorphic_forward_iterator()
+        {}
+
 
     };
 
