@@ -21,6 +21,19 @@ namespace tetengo2 { namespace iterator
     class polymorphic_forward_iterator
     {
     protected:
+        // types
+
+        // difference_type
+
+        // value_type
+
+        // pointer
+
+        // reference
+
+        // iterator_category
+
+
         // constructors
 
         /*!
@@ -28,6 +41,44 @@ namespace tetengo2 { namespace iterator
         */
         polymorphic_forward_iterator()
         {}
+
+        // X b(a)
+
+
+        // functions
+
+        // b = a
+
+        // ++a
+
+        // a++
+
+        // a == b
+
+        // a != b
+
+        // *a
+
+        // a->m
+
+        // *a = t
+
+        // *a++ = t
+
+        // b=a; *a++; *b;
+
+
+    private:
+        // variables
+
+
+        // functions
+
+        // c.dereference()
+
+        // c.equal(y)
+
+        // a.increment()
 
 
     };
