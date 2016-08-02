@@ -592,6 +592,7 @@ std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
 std::istringstream                               sstream
+std::iterator                                    iterator
 std::iterator_traits                             iterator
 std::locale                                      locale
 std::locale::classic                             locale
