@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_ITERATOR_POLYMORPHICFORWARDITERATOR_H)
 #define TETENGO2_ITERATOR_POLYMORPHICFORWARDITERATOR_H
 
+#include <iterator>
+
 
 namespace tetengo2 { namespace iterator
 {
@@ -18,20 +20,25 @@ namespace tetengo2 { namespace iterator
         \tparam T A type.
     */
     template <typename T>
-    class polymorphic_forward_iterator
+    class polymorphic_forward_iterator : public std::iterator<std::forward_iterator_tag, T>
     {
     protected:
         // types
 
-        // difference_type
+        //! The value type.
+        using value_type = T;
 
-        // value_type
+        //! The difference type.
+        using difference_type = typename std::iterator<std::forward_iterator_tag, T>::difference_type;
 
-        // pointer
+        //! The pointer type.
+        using pointer = typename std::iterator<std::forward_iterator_tag, T>::pointer;
 
-        // reference
+        //! The reference type.
+        using reference = typename std::iterator<std::forward_iterator_tag, T>::reference;
 
-        // iterator_category
+        //! The iterator category type.
+        using iterator_category = std::forward_iterator_tag;
 
 
         // constructors
