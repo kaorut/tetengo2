@@ -75,55 +75,6 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_preincrement)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_postincrement)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_equal)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_not_equal)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_asterisk)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_arrow)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        BOOST_WARN_MESSAGE(false, "Implement it.");
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
