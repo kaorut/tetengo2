@@ -79,13 +79,16 @@ namespace tetengo2 { namespace iterator
         // variables
 
 
-        // functions
+        // virtual functions
 
-        // c.dereference()
+        virtual reference dereference()
+        = 0;
 
-        // c.equal(y)
+        virtual bool equal(const polymorphic_forward_iterator& another)
+        const = 0;
 
-        // a.increment()
+        virtual void increment()
+        = 0;
 
 
     };

@@ -17,6 +17,37 @@ namespace
 
     class concrete_iterator : public tetengo2::iterator::polymorphic_forward_iterator<int>
     {
+    public:
+        explicit concrete_iterator(const int first)
+        :
+        m_count(first)
+        {}
+
+    private:
+        int m_count;
+
+        virtual reference dereference()
+        override
+        {
+            return m_count;
+        }
+
+        virtual bool equal(const polymorphic_forward_iterator& another)
+        const override
+        {
+            const concrete_iterator* const p_another = dynamic_cast<const concrete_iterator*>(&another);
+            if (!p_another)
+                return false;
+
+            return m_count == p_another->m_count;
+        }
+
+        virtual void increment()
+        override
+        {
+            ++m_count;
+        }
+
 
     };
 
@@ -33,7 +64,64 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_iterator iter{};
+        {
+            const concrete_iterator iter{ 42 };
+        }
+        {
+            const concrete_iterator iter1{ 42 };
+            const concrete_iterator iter2{ iter1 };
+
+            BOOST_WARN_MESSAGE(false, "Compaire the values of both.");
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_preincrement)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_postincrement)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_not_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_asterisk)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_arrow)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Implement it.");
     }
 
 
