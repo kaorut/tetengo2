@@ -25,7 +25,12 @@ lint-type-list-type-duplication:
 
 .PHONY: doc
 doc:
-	$(DOXYGEN) $(top_srcdir)/Doxyfile
+	cd $(top_srcdir) && $(DOXYGEN) Doxyfile
+	if test "$(top_srcdir)" != "$(top_builddir)"; \
+	then \
+	    rm -rf $(top_builddir)/doc; \
+	    mv $(top_srcdir)/doc $(top_builddir); \
+	fi
 
 .PHONY: clean-doc
 clean-doc:
