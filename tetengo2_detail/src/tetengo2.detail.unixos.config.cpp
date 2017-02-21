@@ -27,12 +27,6 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#if __CYGWIN__ // BOOST_OS_CYGWIN
-#   include <sys/types.h>
-#   include <sys/stat.h>
-#   include <unistd.h>
-#endif
-
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/config.h>
@@ -93,16 +87,8 @@ namespace tetengo2 { namespace detail { namespace unixos
         const
         {
             const auto setting_file_path = make_setting_file_path(group_name);
-#if __CYGWIN__ // BOOST_OS_CYGWIN
-            // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
-            // But Tetengo2 treats paths in the UNIX style
-            struct ::stat stat_;
-            if (::stat(setting_file_path.string().c_str(), &stat_) == 0)
-                std::remove(setting_file_path.string().c_str());
-#else
             if (boost::filesystem::exists(setting_file_path))
                 boost::filesystem::remove(setting_file_path);
-#endif
         }
 
 
@@ -145,15 +131,7 @@ namespace tetengo2 { namespace detail { namespace unixos
         {
             const auto* const p_home_directory = std::getenv("HOME");
             const boost::filesystem::path base{ p_home_directory ? p_home_directory : "" };
-#if __CYGWIN__ // BOOST_OS_CYGWIN
-            // By default, Boost.Filesystem on Cygwin recognizes Windows style paths, not UNIX style.
-            // But Tetengo2 treats paths in the UNIX style
-            return
-                base.string() +
-                encoder().encode(string_type(TETENGO2_TEXT("/")) + string_type(TETENGO2_TEXT(".")) + group_name);
-#else
             return base / encoder().encode(string_type(TETENGO2_TEXT(".")) + group_name);
-#endif
         }
 
         static void load_from_file(const string_type& group_name, value_map_type& value_map)
