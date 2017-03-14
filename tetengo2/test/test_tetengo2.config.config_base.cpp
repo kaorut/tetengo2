@@ -29,6 +29,10 @@ namespace
 
     class concrete_config : public config_base_type
     {
+    public:
+        concrete_config()
+        {}
+
     private:
         virtual boost::optional<value_type> get_impl(const string_type& key)
         const override
@@ -63,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(config_base)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_config config;
+        const concrete_config config{};
     }
 
     BOOST_AUTO_TEST_CASE(get)
@@ -71,14 +75,14 @@ BOOST_AUTO_TEST_SUITE(config_base)
         BOOST_TEST_PASSPOINT();
 
         {
-            const concrete_config config;
+            const concrete_config config{};
 
             const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
             BOOST_TEST_REQUIRE(value.is_initialized());
             BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
-            const concrete_config config;
+            const concrete_config config{};
 
             const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
             BOOST_TEST_REQUIRE(value.is_initialized());
@@ -91,12 +95,12 @@ BOOST_AUTO_TEST_SUITE(config_base)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_config config;
+            concrete_config config{};
 
             config.set(string_type{ TETENGO2_TEXT("foo") }, string_type{ TETENGO2_TEXT("hoge") });
         }
         {
-            concrete_config config;
+            concrete_config config{};
 
             config.set(string_type{ TETENGO2_TEXT("bar") }, 42);
         }
@@ -107,7 +111,7 @@ BOOST_AUTO_TEST_SUITE(config_base)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_config config;
+            concrete_config config{};
 
             config.clear();
         }

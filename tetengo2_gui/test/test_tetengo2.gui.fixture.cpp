@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(fixture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const fixture_type fixture;
+        const fixture_type fixture{};
         boost::ignore_unused(fixture);
     }
 
