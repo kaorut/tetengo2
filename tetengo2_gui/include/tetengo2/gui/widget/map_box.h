@@ -400,8 +400,6 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                static const width_type splitter_width{ width_type{ 1 } / 2 };
-
                 adjust_position(this->template parent_to<map_box>().m_splitter_position);
                 this->set_position(
                     position_type{
