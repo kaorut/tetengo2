@@ -18,7 +18,20 @@ namespace tetengo2 { namespace detail { namespace stub
         \brief The class for a detail implementation of a GUI fixture.
     */
     class gui_fixture : private boost::noncopyable
-    {};
+    {
+    public:
+        // constructors and destructor
+
+        /*!
+            \brief Creates a detail implementation of a GUI fixture.
+
+            \throw std::system_error When an initialization fails.
+        */
+        gui_fixture()
+        {}
+
+    
+    };
 
 
 }}}
