@@ -4,7 +4,7 @@
 
 EXTRA_DIST = precompiled.h precompiled.cpp
 
-PRECOMPILE_OUTPUT = $(top_builddir)/precompiled/precompiled.h.gch
+PRECOMPILE_OUTPUT = $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT)
 
 all-local: $(PRECOMPILE_OUTPUT)
 
