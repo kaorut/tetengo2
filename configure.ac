@@ -36,12 +36,19 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_ARG_ENABLE(
     precompilation,
     AS_HELP_STRING(
-        [--enable-precompilation],
-        [enables precompilation.]
+        [--enable-precompilation=EXT],
+        [
+            enables precompilation.
+            When EXT given, it will be used for the extension of the precompiled header file.
+            Otherwise, ``gch'' is used for the extension of the precompiled header file.
+        ]
     ),
+    test "X$enableval" = "Xyes" && PRECOMPILE_EXT="gch";
+    test "X$enableval" = "Xyes" || PRECOMPILE_EXT=$enableval;
     PRECOMPILE_CPPFLAGS=" -I\$(top_builddir)/precompiled -I\$(top_srcdir)/precompiled -include precompiled.h";
-    PRECOMPILE_BUILT_SOURCES="\$(top_builddir)/precompiled/precompiled.h.gch"
+    PRECOMPILE_BUILT_SOURCES="\$(top_builddir)/precompiled/precompiled.h.$PRECOMPILE_EXT"
 )
+AC_SUBST([PRECOMPILE_EXT])
 AC_SUBST([PRECOMPILE_CPPFLAGS])
 AC_SUBST([PRECOMPILE_BUILT_SOURCES])
 

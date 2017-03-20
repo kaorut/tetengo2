@@ -109,7 +109,7 @@ tetengo2_gui_test_LDADD = \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
-$(top_builddir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
+$(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \
 	popd
