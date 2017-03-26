@@ -1,5 +1,5 @@
 # Autoconf Settings
-# Copyright (C) 2007-2016 kaoru
+# Copyright (C) 2007-2017 kaoru
 # $Id$
 
 #### General ####
@@ -36,12 +36,19 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_ARG_ENABLE(
     precompilation,
     AS_HELP_STRING(
-        [--enable-precompilation],
-        [enables precompilation.]
+        [--enable-precompilation=EXT],
+        [
+            enables precompilation.
+            When EXT given, it will be used for the extension of the precompiled header file.
+            Otherwise, ``gch'' is used for the extension of the precompiled header file.
+        ]
     ),
+    test "X$enableval" = "Xyes" && PRECOMPILE_EXT="gch";
+    test "X$enableval" = "Xyes" || PRECOMPILE_EXT=$enableval;
     PRECOMPILE_CPPFLAGS=" -I\$(top_builddir)/precompiled -I\$(top_srcdir)/precompiled -include precompiled.h";
-    PRECOMPILE_BUILT_SOURCES="\$(top_builddir)/precompiled/precompiled.h.gch"
+    PRECOMPILE_BUILT_SOURCES="\$(top_builddir)/precompiled/precompiled.h.$PRECOMPILE_EXT"
 )
+AC_SUBST([PRECOMPILE_EXT])
 AC_SUBST([PRECOMPILE_CPPFLAGS])
 AC_SUBST([PRECOMPILE_BUILT_SOURCES])
 
@@ -71,7 +78,7 @@ AC_CHECK_LIB(pthread, pthread_cancel)
 AC_CHECK_LIB(bz2, BZ2_bzCompressInit)
 AC_CHECK_FUNC(iconv, , [AC_CHECK_LIB(iconv, libiconv)])
 
-AX_BOOST_BASE([1.61.0])
+AX_BOOST_BASE([1.63.0])
 AX_BOOST_CHRONO
 AX_BOOST_DATE_TIME
 AX_BOOST_FILESYSTEM

@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::message::dialog_message_loop.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */

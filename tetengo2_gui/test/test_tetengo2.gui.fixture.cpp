@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::fixture.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(fixture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const fixture_type fixture;
+        const fixture_type fixture{};
         boost::ignore_unused(fixture);
     }
 
