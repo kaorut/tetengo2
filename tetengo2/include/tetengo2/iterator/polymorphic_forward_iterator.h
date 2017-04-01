@@ -22,7 +22,7 @@ namespace tetengo2 { namespace iterator
     template <typename T>
     class polymorphic_forward_iterator : public std::iterator<std::forward_iterator_tag, T>
     {
-    protected:
+    public:
         // types
 
         //! The value type.
@@ -41,20 +41,20 @@ namespace tetengo2 { namespace iterator
         using iterator_category = std::forward_iterator_tag;
 
 
-        // constructors
-
-        /*!
-            \brief Creates a polymorphic forward iterator.
-        */
-        polymorphic_forward_iterator()
-        {}
-
-        // X b(a)
-
-
         // functions
 
-        // b = a
+        /*
+            \brief Dereferences the iterator.
+
+            \return The reference to the value.
+        */
+        reference operator*()
+        const
+        {
+            return const_cast<polymorphic_forward_iterator*>(this)->dereference();
+        }
+
+        // a->m
 
         // ++a
 
@@ -64,15 +64,37 @@ namespace tetengo2 { namespace iterator
 
         // a != b
 
-        // *a
-
-        // a->m
-
         // *a = t
 
         // *a++ = t
 
         // b=a; *a++; *b;
+
+
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a polymorphic forward iterator.
+        */
+        polymorphic_forward_iterator()
+        {}
+
+        /*!
+            \brief Moves a polymorphic forward iterator.
+
+            \param another Another iterator.
+        */
+        polymorphic_forward_iterator(polymorphic_forward_iterator&& another)
+        {}
+
+        /*!
+            \brief Copies a polymorphic forward iterator.
+
+            \param another Another iterator.
+        */
+        polymorphic_forward_iterator(const polymorphic_forward_iterator& another)
+        {}
 
 
     private:

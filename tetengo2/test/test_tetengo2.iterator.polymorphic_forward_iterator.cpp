@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <utility>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/iterator/polymorphic_forward_iterator.h>
@@ -15,13 +16,29 @@ namespace
 {
     // types
 
-    class concrete_iterator : public tetengo2::iterator::polymorphic_forward_iterator<int>
+    using base_type = tetengo2::iterator::polymorphic_forward_iterator<int>;
+
+    class concrete_iterator : public base_type
     {
     public:
         explicit concrete_iterator(const int first)
         :
+        base_type(),
         m_count(first)
         {}
+
+        concrete_iterator(concrete_iterator&& another)
+        :
+        base_type(std::forward<concrete_iterator>(another)),
+        m_count(another.m_count)
+        {}
+
+        concrete_iterator(const concrete_iterator& another)
+        :
+        base_type(another),
+        m_count(another.m_count)
+        {}
+
 
     private:
         int m_count;
@@ -68,10 +85,16 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
             const concrete_iterator iter{ 42 };
         }
         {
+            concrete_iterator iter1{ 42 };
+            const concrete_iterator iter2{ std::move(iter1) };
+
+            BOOST_TEST(*iter2 == 42);
+        }
+        {
             const concrete_iterator iter1{ 42 };
             const concrete_iterator iter2{ iter1 };
 
-            BOOST_WARN_MESSAGE(false, "Compaire the values of both.");
+            BOOST_TEST(*iter2 == *iter1);
         }
     }
 
