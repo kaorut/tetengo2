@@ -46,7 +46,7 @@ namespace tetengo2 { namespace iterator
 
         // functions
 
-        /*
+        /*!
             \brief Dereferences the iterator.
 
             \return The reference to the value.
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace iterator
             return const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
 
-        /*
+        /*!
             \brief Dereferences the iterator.
 
             \return The reference to the value.
@@ -68,8 +68,10 @@ namespace tetengo2 { namespace iterator
             return &const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
 
-        /*
+        /*!
             \brief Increments the iterator.
+            
+            \return THis iterator.
         */
         polymorphic_forward_iterator& operator++()
         {
@@ -77,7 +79,7 @@ namespace tetengo2 { namespace iterator
             return *this;
         }
 
-        /*
+        /*!
             \brief Increments the iterator.
 
             The post increment operator of the polymorphic forward iterator does not return the previous state value.
