@@ -14,6 +14,7 @@ pkg_headers = \
     config/persistent_config.h \
     config/temporary_config.h \
     iterator/observable_forward_iterator.h \
+    iterator/polymorphic_forward_iterator.h \
     message/messages.h \
     message/message_catalog.h \
     message/message_catalog_parser.h \

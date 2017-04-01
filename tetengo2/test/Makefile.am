@@ -21,6 +21,7 @@ sources = \
     test_tetengo2.config.persistent_config.cpp \
     test_tetengo2.config.temporary_config.cpp \
     test_tetengo2.iterator.observable_forward_iterator.cpp \
+    test_tetengo2.iterator.polymorphic_forward_iterator.cpp \
     test_tetengo2.message.messages.cpp \
     test_tetengo2.message.message_catalog.cpp \
     test_tetengo2.message.message_catalog_parser.cpp \
