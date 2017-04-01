@@ -73,6 +73,42 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
         const concrete_iterator iter{ 42 };
     }
 
+    BOOST_AUTO_TEST_CASE(operator_dereference)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_iterator iter{ 42 };
+
+            BOOST_TEST(*iter == std::string(42, 'a'));
+        }
+        {
+            concrete_iterator iter{ 42 };
+
+            *iter = std::string(24, 'a');
+
+            BOOST_TEST(*iter == std::string(24, 'a'));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_arrow)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_iterator iter{ 42 };
+
+            BOOST_TEST(iter->length() == 42);
+        }
+        {
+            const concrete_iterator iter{ 42 };
+
+            iter->append("a");
+
+            BOOST_TEST(iter->length() == 43);
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

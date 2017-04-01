@@ -56,6 +56,17 @@ namespace tetengo2 { namespace iterator
 
         // a->m
 
+        /*
+            \brief Dereferences the iterator.
+
+            \return The reference to the value.
+        */
+        pointer operator->()
+        const
+        {
+            return &const_cast<polymorphic_forward_iterator*>(this)->dereference();
+        }
+
         // ++a
 
         // a++
