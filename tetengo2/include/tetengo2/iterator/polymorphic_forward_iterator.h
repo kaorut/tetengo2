@@ -11,6 +11,7 @@
 
 #include <iterator>
 
+#include <boost/operators.hpp>
 
 namespace tetengo2 { namespace iterator
 {
@@ -20,7 +21,9 @@ namespace tetengo2 { namespace iterator
         \tparam T A type.
     */
     template <typename T>
-    class polymorphic_forward_iterator : public std::iterator<std::forward_iterator_tag, T>
+    class polymorphic_forward_iterator :
+        public std::iterator<std::forward_iterator_tag, T>,
+        private boost::equality_comparable<polymorphic_forward_iterator<T>>
     {
     public:
         // types
@@ -54,8 +57,6 @@ namespace tetengo2 { namespace iterator
             return const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
 
-        // a->m
-
         /*
             \brief Dereferences the iterator.
 
@@ -67,19 +68,38 @@ namespace tetengo2 { namespace iterator
             return &const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
 
-        // ++a
+        /*
+            \brief Increments the iterator.
+        */
+        polymorphic_forward_iterator& operator++()
+        {
+            increment();
+            return *this;
+        }
 
-        // a++
+        /*
+            \brief Increments the iterator.
 
-        // a == b
+            The post increment operator of the polymorphic forward iterator does not return the previous state value.
+        */
+        void operator++(int)
+        {
+            increment();
+        }
 
-        // a != b
+        /*!
+            \brief Checks whether one polymorphic forward iterator is equal to another.
 
-        // *a = t
+            \param one     One iterator.
+            \param another Another iterator.
 
-        // *a++ = t
-
-        // b=a; *a++; *b;
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const polymorphic_forward_iterator& one, const polymorphic_forward_iterator& another)
+        {
+            return one.equal(another);
+        }
 
 
     protected:
