@@ -80,22 +80,6 @@ namespace tetengo2 { namespace iterator
         polymorphic_forward_iterator()
         {}
 
-        /*!
-            \brief Moves a polymorphic forward iterator.
-
-            \param another Another iterator.
-        */
-        polymorphic_forward_iterator(polymorphic_forward_iterator&& another)
-        {}
-
-        /*!
-            \brief Copies a polymorphic forward iterator.
-
-            \param another Another iterator.
-        */
-        polymorphic_forward_iterator(const polymorphic_forward_iterator& another)
-        {}
-
 
     private:
         // variables

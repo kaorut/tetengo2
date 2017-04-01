@@ -7,6 +7,8 @@
 */
 
 #include <utility>
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/iterator/polymorphic_forward_iterator.h>
@@ -16,37 +18,24 @@ namespace
 {
     // types
 
-    using base_type = tetengo2::iterator::polymorphic_forward_iterator<int>;
+    using base_type = tetengo2::iterator::polymorphic_forward_iterator<std::string>;
 
     class concrete_iterator : public base_type
     {
     public:
         explicit concrete_iterator(const int first)
         :
-        base_type(),
-        m_count(first)
-        {}
-
-        concrete_iterator(concrete_iterator&& another)
-        :
-        base_type(std::forward<concrete_iterator>(another)),
-        m_count(another.m_count)
-        {}
-
-        concrete_iterator(const concrete_iterator& another)
-        :
-        base_type(another),
-        m_count(another.m_count)
+        m_value(first, 'a')
         {}
 
 
     private:
-        int m_count;
+        std::string m_value;
 
         virtual reference dereference()
         override
         {
-            return m_count;
+            return m_value;
         }
 
         virtual bool equal(const polymorphic_forward_iterator& another)
@@ -56,13 +45,13 @@ namespace
             if (!p_another)
                 return false;
 
-            return m_count == p_another->m_count;
+            return m_value == p_another->m_value;
         }
 
         virtual void increment()
         override
         {
-            ++m_count;
+            m_value += "a";
         }
 
 
@@ -81,21 +70,7 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const concrete_iterator iter{ 42 };
-        }
-        {
-            concrete_iterator iter1{ 42 };
-            const concrete_iterator iter2{ std::move(iter1) };
-
-            BOOST_TEST(*iter2 == 42);
-        }
-        {
-            const concrete_iterator iter1{ 42 };
-            const concrete_iterator iter2{ iter1 };
-
-            BOOST_TEST(*iter2 == *iter1);
-        }
+        const concrete_iterator iter{ 42 };
     }
 
 
