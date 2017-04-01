@@ -178,6 +178,14 @@ sub to_expected_test_case
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_divide_assign/;
 		}
+		elsif ($1 eq '++')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_increment/;
+		}
+		elsif ($1 eq '->')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_arrow/;
+		}
 		elsif ($1 =~ /[a-zA-Z0-9_]+/)
 		{
 			$test_case =~ s/::operator ([^:]+)$/::operator_$1/;
