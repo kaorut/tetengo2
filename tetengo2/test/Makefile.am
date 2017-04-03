@@ -1,5 +1,5 @@
 # Automake Settings
-# Copyright (C) 2007-2016 kaoru
+# Copyright (C) 2007-2017 kaoru
 # $Id$
 
 headers = \
@@ -20,11 +20,12 @@ sources = \
     test_tetengo2.config.config_list.cpp \
     test_tetengo2.config.persistent_config.cpp \
     test_tetengo2.config.temporary_config.cpp \
+    test_tetengo2.iterator.observable_forward_iterator.cpp \
+    test_tetengo2.iterator.polymorphic_forward_iterator.cpp \
     test_tetengo2.message.messages.cpp \
     test_tetengo2.message.message_catalog.cpp \
     test_tetengo2.message.message_catalog_parser.cpp \
     test_tetengo2.meta.assoc_list.cpp \
-    test_tetengo2.observable_forward_iterator.cpp \
     test_tetengo2.text.cpp \
     test_tetengo2.text.character_iterator.cpp \
     test_tetengo2.text.encoder.cpp \
@@ -69,7 +70,7 @@ clean-local:
 	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
 	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
-$(top_builddir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
+$(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \
 	popd

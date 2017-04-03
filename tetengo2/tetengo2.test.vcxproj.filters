@@ -40,6 +40,9 @@
     <Filter Include="sources\test_tetengo2\config">
       <UniqueIdentifier>{e9ade08b-bf85-4dc9-a534-e322bde295dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2\iterator">
+      <UniqueIdentifier>{75338c5e-b69a-475d-b8ab-25f78ea20706}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -131,11 +134,14 @@
     <ClCompile Include="test\test_tetengo2.concurrent.progressive_promise.cpp">
       <Filter>sources\test_tetengo2\concurrent</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.observable_forward_iterator.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.character_iterator.cpp">
       <Filter>sources\test_tetengo2\text</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.iterator.observable_forward_iterator.cpp">
+      <Filter>sources\test_tetengo2\iterator</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.iterator.polymorphic_forward_iterator.cpp">
+      <Filter>sources\test_tetengo2\iterator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

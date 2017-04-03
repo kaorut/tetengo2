@@ -1,7 +1,7 @@
 /*! \file
     \brief The facade of tetengo2.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -20,11 +20,11 @@
 #include <tetengo2/config/config_list.h>
 #include <tetengo2/config/persistent_config.h>
 #include <tetengo2/config/temporary_config.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
 #include <tetengo2/meta/assoc_list.h>
-#include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>

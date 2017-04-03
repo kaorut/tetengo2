@@ -231,13 +231,13 @@ BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
 BOOST_CHECK                                      boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
+BOOST_COMP_CLANG                                 boost/predef.h
 BOOST_COMP_GNUC                                  boost/predef.h
 BOOST_COMP_MSVC                                  boost/predef.h
 BOOST_ERROR                                      boost/test/unit_test.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
-BOOST_OS_CYGWIN                                  boost/predef.h
 BOOST_OS_LINUX                                   boost/predef.h
 BOOST_OS_UNIX                                    boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
@@ -592,6 +592,7 @@ std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
 std::istringstream                               sstream
+std::iterator                                    iterator
 std::iterator_traits                             iterator
 std::locale                                      locale
 std::locale::classic                             locale
@@ -621,7 +622,6 @@ std::ptrdiff_t                                   cstddef
 std::queue                                       queue
 std::ref                                         functional
 std::reference_wrapper                           functional
-std::remove                                      cstdio
 std::remove_pointer                              type_traits
 std::rethrow_exception                           exception
 std::runtime_error                               stdexcept

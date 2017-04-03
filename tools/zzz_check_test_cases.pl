@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # Checks the test cases.
-# Copyright (C) 2007-2016 kaoru
+# Copyright (C) 2007-2017 kaoru
 # $Id$
 
 use strict;
@@ -177,6 +177,14 @@ sub to_expected_test_case
 		elsif ($1 eq '/=')
 		{
 			$test_case =~ s/::operator [^:]+$/::operator_divide_assign/;
+		}
+		elsif ($1 eq '++')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_increment/;
+		}
+		elsif ($1 eq '->')
+		{
+			$test_case =~ s/::operator [^:]+$/::operator_arrow/;
 		}
 		elsif ($1 =~ /[a-zA-Z0-9_]+/)
 		{

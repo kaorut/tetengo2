@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::text::grammar::json.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -12,21 +12,16 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include <tetengo2/text/grammar/json.h>
 
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 namespace tetengo2 { namespace text { namespace grammar
 {
     template <typename ForwardIterator>
@@ -569,7 +564,7 @@ namespace tetengo2 { namespace text { namespace grammar
         namespace application
         {
             using input_stream_iterator_type =
-                tetengo2::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
+                tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
         }
 
@@ -587,4 +582,3 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
 }}}
-#endif

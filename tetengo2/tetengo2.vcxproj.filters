@@ -46,6 +46,9 @@
     <Filter Include="sources\tetengo2\config">
       <UniqueIdentifier>{157bfdc6-9ecd-406d-ac3a-df4fdaa3145b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2\iterator">
+      <UniqueIdentifier>{a801222c-2346-4b99-957e-aa3247879010}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.h">
@@ -153,14 +156,17 @@
     <ClInclude Include="include\tetengo2\concurrent\progressive_promise.h">
       <Filter>headers\tetengo2\concurrent</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\observable_forward_iterator.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\text\character_iterator.h">
       <Filter>headers\tetengo2\text</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\type_list.h">
       <Filter>headers\tetengo2</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\iterator\observable_forward_iterator.h">
+      <Filter>headers\tetengo2\iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\iterator\polymorphic_forward_iterator.h">
+      <Filter>headers\tetengo2\iterator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,5 +194,10 @@
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp">
       <Filter>sources\tetengo2\config</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\tetengo2\iterator\0namespace.dox">
+      <Filter>headers\tetengo2\iterator</Filter>
+    </None>
   </ItemGroup>
 </Project>

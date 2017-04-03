@@ -4,7 +4,7 @@
     Copy this file to the solution directory with the name "tetengo2_config.h"
     and edit it to build Tetengo2.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -14,7 +14,7 @@
 
 
 // Set the Boost version.
-#define BOOST_VERSION "1_61"
+#define BOOST_VERSION "1_63"
 
 // Set the path where the 32-bit (Win32) version of Boost DLLs exist.
 #define BOOST_LIB_Win32 "X:\\path\\to\\boost\\lib-msvc140-Win32"

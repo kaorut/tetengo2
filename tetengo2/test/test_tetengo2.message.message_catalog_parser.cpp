@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::message::message_catalog_parser.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -14,13 +14,12 @@
 #include <utility>
 
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/predef.h>
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
-#include <tetengo2/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -46,7 +45,7 @@ namespace
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
-        tetengo2::observable_forward_iterator<
+        tetengo2::iterator::observable_forward_iterator<
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
@@ -124,36 +123,27 @@ namespace
 
     // functions
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
     std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input)
     {
         auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
 
         const auto first =
-            tetengo2::make_observable_forward_iterator(
+            tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input })
             );
         const auto last =
-            tetengo2::make_observable_forward_iterator(
+            tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
             );
         auto p_push_parser = tetengo2::stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
 
         return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
     }
-#endif
 
 
 }
 
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(message_catalog_parser)
@@ -317,4 +307,3 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-#endif

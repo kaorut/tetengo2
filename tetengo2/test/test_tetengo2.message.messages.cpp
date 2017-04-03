@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::message::messages.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
@@ -18,7 +18,7 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/observable_forward_iterator.h>
+#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/messages.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
@@ -42,7 +42,7 @@ namespace
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
-        tetengo2::observable_forward_iterator<
+        tetengo2::iterator::observable_forward_iterator<
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
@@ -66,10 +66,6 @@ namespace
 
     using std_messages_type = std::messages<string_type::value_type>;
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
     struct set_global_locale
     {
         const std::locale m_initial_locale;
@@ -95,14 +91,10 @@ namespace
         }
 
     };
-#endif
+
 
     // functions
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
     bool locale_supported()
     {
         try
@@ -115,7 +107,6 @@ namespace
             return false;
         }
     }
-#endif
 
     std::locale make_locale(const std::string& name)
     {
@@ -150,10 +141,6 @@ namespace
 }
 
 
-#if !( \
-    __CYGWIN__ /*BOOST_OS_CYGWIN*/ && \
-    (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(5, 3, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 4, 0)) \
-)
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(messages)
@@ -419,4 +406,3 @@ BOOST_AUTO_TEST_SUITE(messages)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-#endif
