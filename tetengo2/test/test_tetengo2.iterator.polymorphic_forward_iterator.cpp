@@ -134,14 +134,14 @@ BOOST_AUTO_TEST_SUITE(polymorphic_forward_iterator)
         {
             const concrete_iterator iter{ 42 };
 
-            BOOST_TEST(iter->length() == 42);
+            BOOST_TEST(iter->length() == 42U);
         }
         {
             const concrete_iterator iter{ 42 };
 
             iter->append("a");
 
-            BOOST_TEST(iter->length() == 43);
+            BOOST_TEST(iter->length() == 43U);
         }
     }
 
