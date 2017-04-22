@@ -364,7 +364,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto& progress = m_future.progress();
             if (progress == m_previous_progress)
                 return;
-            const auto percentage = boost::rational_cast<typename progress_type::int_type>(m_future.progress() * 100);
+            const auto percentage = boost::rational_cast<typename progress_type::int_type>(m_future.progress() * 100U);
 
             auto text = boost::lexical_cast<string_type>(percentage) + string_type{ TETENGO2_TEXT("%") };
             m_p_progress_label->set_text(std::move(text));
