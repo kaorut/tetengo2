@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename PixelValue, typename Value>
         static PixelValue em_to_pixels(const Value& value)
         {
-            return to_pixel_value<PixelValue, Value>(value * 12U, 1);
+            return to_pixel_value<PixelValue, Value>(value * static_cast<typename Value::int_type>(12), 1);
         }
 
         /*!
