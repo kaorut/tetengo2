@@ -1063,7 +1063,8 @@ namespace tetengo2 { namespace gui { namespace widget
             using delta_int_type = typename delta_type::int_type;
             auto int_delta =
                 boost::rational_cast<delta_int_type>(
-                    delta * gui::to_pixels<delta_int_type>(top_type{ 3 }) / scroll_bar_size_unit()
+                    delta * gui::to_pixels<delta_int_type>(top_type{ 3 }) /
+                    static_cast<delta_int_type>(scroll_bar_size_unit())
                 );
             if (int_delta == 0)
             {

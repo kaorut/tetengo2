@@ -73,7 +73,10 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue em_to_pixels(const Value& value)
         {
             const auto& message_font = get_message_font();
-            return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight, 1);
+            return
+                to_pixel_value<PixelValue, Value>(
+                    value * static_cast<typename Value::int_type>(-message_font.lfHeight), 1
+                );
         }
 
         /*!
