@@ -7,6 +7,7 @@
 */
 
 #include <string>
+#include <utility>
 
 #include <boost/predef.h>
 

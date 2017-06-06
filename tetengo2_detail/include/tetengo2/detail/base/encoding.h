@@ -9,6 +9,10 @@
 #if !defined(TETENGO2_DETAIL_BASE_ENCODING_H)
 #define TETENGO2_DETAIL_BASE_ENCODING_H
 
+#include <string>
+
+#include <boost/core/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace base
 {
