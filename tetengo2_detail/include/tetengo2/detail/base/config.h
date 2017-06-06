@@ -79,6 +79,9 @@ namespace tetengo2 { namespace detail { namespace base
     protected:
         // constructors
 
+        /*!
+            \brief Creates a detail implementation.
+        */
         config();
 
 
