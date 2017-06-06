@@ -6,56 +6,11 @@
     $Id$
 */
 
-#include <string>
-#include <utility>
-
-#include <boost/predef.h>
-
 #include <tetengo2/detail/base/encoding.h>
 
 
 namespace tetengo2 { namespace detail { namespace base
 {
-    class encoding::pivot_type
-    {
-    public:
-        // types
-
-#if BOOST_OS_WINDOWS
-        using string_type = std::wstring;
-#elif BOOST_OS_UNIX
-        using string_type = std::string;
-#else
-#   error Specify the pivot string type.
-#endif
-
-
-        // constructors and destructor
-
-        explicit pivot_type(string_type string)
-        :
-        m_string(std::move(string))
-        {}
-
-
-        // functions
-
-        const string_type& get()
-        const
-        {
-            return m_string;
-        }
-
-
-    private:
-        // variables
-
-        string_type m_string;
-
-
-    };
-
-
     encoding::encoding()
     = default;
 

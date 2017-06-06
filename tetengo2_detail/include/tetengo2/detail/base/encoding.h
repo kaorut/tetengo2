@@ -12,6 +12,7 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/predef.h>
 
 
 namespace tetengo2 { namespace detail { namespace base
@@ -25,7 +26,13 @@ namespace tetengo2 { namespace detail { namespace base
         // types
 
         //! The pivot type.
-        class pivot_type;
+#if BOOST_OS_WINDOWS
+        using pivot_type = std::wstring;
+#elif BOOST_OS_UNIX
+        using pivot_type = std::string;
+#else
+#   error Specify the pivot string type.
+#endif
 
         //! The UTF-8 string type.
         using utf8_string_type = std::string;
