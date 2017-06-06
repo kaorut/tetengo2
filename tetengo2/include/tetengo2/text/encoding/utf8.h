@@ -71,7 +71,7 @@ namespace tetengo2 { namespace text { namespace encoding
         string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
-            return encoding_details_type::pivot_to_utf8(pivot);
+            return encoding_details_type::instance().pivot_to_utf8(pivot);
         }
 
         /*!
@@ -86,7 +86,7 @@ namespace tetengo2 { namespace text { namespace encoding
         typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
-            return encoding_details_type::utf8_to_pivot(string);
+            return encoding_details_type::instance().utf8_to_pivot(string);
         }
 
 
