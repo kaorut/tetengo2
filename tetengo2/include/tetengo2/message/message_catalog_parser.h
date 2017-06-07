@@ -141,7 +141,9 @@ namespace tetengo2 { namespace message
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton{};
+            static const encoder_type singleton{
+                typename encoder_type::internal_encoding_type{}, typename encoder_type::external_encoding_type{}
+            };
             return singleton;
         }
 

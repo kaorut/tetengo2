@@ -24,9 +24,9 @@ namespace
 
     using encoding_details_type = detail_type_list_type::encoding_type;
 
-    using pivot_type = encoding_details_type::pivot_type;
+    using encoding_type = tetengo2::text::encoding::ascii;
 
-    using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
+    using pivot_type = encoding_type::pivot_type;
 
 
     // variables
@@ -74,12 +74,19 @@ BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(ascii)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{ encoding_details_type::instance() };
+    }
+
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -92,7 +99,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const pivot_type pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
             const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -101,7 +108,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const pivot_type pivot{ pivot_empty, pivot_empty + sizeof(pivot_empty) - 1 };
             const std::string string{ ascii_empty, ascii_empty + sizeof(ascii_empty) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -110,7 +117,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const pivot_type pivot{ pivot_nonascii, pivot_nonascii + sizeof(pivot_nonascii) - 1 };
             const std::string string{ ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -125,7 +132,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const pivot_type pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
             const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);
@@ -134,7 +141,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
             const pivot_type pivot{ pivot_empty, pivot_empty + sizeof(pivot_empty) - 1 };
             const std::string string{ ascii_empty, ascii_empty + sizeof(ascii_empty) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);
@@ -142,7 +149,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
         {
             const std::string string{ nonascii, nonascii + sizeof(nonascii) - 1 };
 
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             BOOST_CHECK_THROW(encoding.to_pivot(string), std::invalid_argument);
         }
     }

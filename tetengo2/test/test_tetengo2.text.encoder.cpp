@@ -22,7 +22,7 @@ namespace
 
     using encoding_details_type = detail_type_list_type::encoding_type;
 
-    using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
+    using encoding_type = tetengo2::text::encoding::ascii;
 
     using encoder_type = tetengo2::text::encoder<encoding_type, encoding_type>;
 
@@ -38,22 +38,17 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const encoder_type encoder{};
-        }
-        {
-            const encoding_type encoding1{};
-            const encoding_type encoding2{};
-            const encoder_type encoder{ encoding1, encoding2 };
-        }
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
+        const encoder_type encoder{ encoding1, encoding2 };
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
         encoder_type encoder1{ encoding1, encoding2 };
         encoder_type encoder2{ encoding1, encoding2 };
 
@@ -64,8 +59,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
         const encoder_type encoder{ encoding1, encoding2 };
     }
 
@@ -73,8 +68,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
         const encoder_type encoder{ encoding1, encoding2 };
     }
 
@@ -85,8 +80,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
         const encoder_type::internal_string_type internal_string{ TETENGO2_TEXT("Tetengo2") };
         const encoder_type::external_string_type external_string{ TETENGO2_TEXT("Tetengo2") };
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
         const encoder_type encoder{ encoding1, encoding2 };
 
         BOOST_CHECK(encoder.encode(internal_string) == external_string);
@@ -99,8 +94,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
         const encoder_type::internal_string_type internal_string{ TETENGO2_TEXT("Tetengo2") };
         const encoder_type::external_string_type external_string{ TETENGO2_TEXT("Tetengo2") };
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
         const encoder_type encoder{ encoding1, encoding2 };
 
         BOOST_CHECK(encoder.decode(external_string) == internal_string);

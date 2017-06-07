@@ -162,13 +162,18 @@ namespace tetengo2 { namespace gui
 
         static const ui_encoder_type& ui_encoder()
         {
-            static const ui_encoder_type singleton{};
+            static const ui_encoder_type singleton{
+                typename ui_encoder_type::internal_encoding_type{}, typename ui_encoder_type::external_encoding_type{}
+            };
             return singleton;
         }
 
         static const exception_encoder_type& exception_encoder()
         {
-            static const exception_encoder_type singleton{};
+            static const exception_encoder_type singleton{
+                typename exception_encoder_type::internal_encoding_type{},
+                typename exception_encoder_type::external_encoding_type{}
+            };
             return singleton;
         }
 
