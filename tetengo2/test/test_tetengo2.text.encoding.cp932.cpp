@@ -22,11 +22,11 @@ namespace
 
     using encoding_details_type = detail_type_list_type::encoding_type;
 
-    using pivot_type = encoding_details_type::pivot_type;
+    using encoding_type = tetengo2::text::encoding::cp932;
 
-    using string_type = encoding_details_type::cp932_string_type;
+    using pivot_type = encoding_type::pivot_type;
 
-    using encoding_type = tetengo2::text::encoding::cp932<encoding_details_type>;
+    using string_type = encoding_type::string_type;
 
 
     // functions
@@ -113,12 +113,19 @@ BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(cp932)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{ encoding_details_type::instance() };
+    }
+
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
+        const encoding_type encoding1{ encoding_details_type::instance() };
+        const encoding_type encoding2{ encoding_details_type::instance() };
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -128,19 +135,19 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == cp932_);
         }
         {
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(empty_pivot);
 
             BOOST_CHECK(result == empty_cp932_);
         }
         {
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.from_pivot(unconvertible_pivot);
 
             BOOST_CHECK(result == unconvertible_cp932_);
@@ -152,13 +159,13 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.to_pivot(cp932_);
 
             BOOST_CHECK(result == pivot);
         }
         {
-            const encoding_type encoding{};
+            const encoding_type encoding{ encoding_details_type::instance() };
             const auto result = encoding.to_pivot(empty_cp932_);
 
             BOOST_CHECK(result == empty_pivot);
