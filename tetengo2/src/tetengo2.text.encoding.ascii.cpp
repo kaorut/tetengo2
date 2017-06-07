@@ -39,6 +39,8 @@ namespace tetengo2 { namespace text { namespace encoding
         {}
 
 
+        // functions
+
         friend bool operator==(const impl& one, const impl& another)
         {
             boost::ignore_unused(one, another);
