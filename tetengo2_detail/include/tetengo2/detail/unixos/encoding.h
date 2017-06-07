@@ -9,16 +9,7 @@
 #if !defined(TETENGO2_DETAIL_UNIXOS_ENCODING_H)
 #define TETENGO2_DETAIL_UNIXOS_ENCODING_H
 
-#include <iconv.h>
-
-#include <cassert>
-#include <cerrno>
-#include <cstddef>
-#include <stdexcept>
-#include <string>
-#include <vector>
-
-#include <boost/core/noncopyable.hpp>
+#include <memory>
 
 
 namespace tetengo2 { namespace detail { namespace unixos
@@ -26,155 +17,68 @@ namespace tetengo2 { namespace detail { namespace unixos
     /*!
         \brief The class for a detail implementation of an encoding.
     */
-    class encoding : private boost::noncopyable
+    class encoding : public base::encoding
     {
     public:
         // types
 
         //! The pivot type.
-        //!
-        //! Stores UTF-8.
-        using pivot_type = std::string;
+        using pivot_type = base::encoding::pivot_type;
 
         //! The UTF-8 string type.
-        using utf8_string_type = std::string;
+        using utf8_string_type = base::encoding::utf8_string_type;
 
         //! The CP932 string type.
-        using cp932_string_type = std::string;
+        using cp932_string_type = base::encoding::cp932_string_type;
 
 
         // static functions
 
         /*!
-            \brief Converts a pivot to a UTF-8 string.
+            \brief Returns the instance of the detail implementation.
 
-            \param pivot A pivot.
-
-            \return A UTF-8 string.
+            \return The instance.
         */
-        static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
-        {
-            return pivot;
-        }
+        static const encoding& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Converts a UTF-8 string to a pivot.
-
-            \param string A UTF-8 string.
-
-            \return A pivot.
+            \brief Destroys the detail implementaion.
         */
-        static pivot_type utf8_to_pivot(const utf8_string_type& string)
-        {
-            return string;
-        }
-
-        /*!
-            \brief Converts a pivot to a CP932 string.
-
-            \param pivot A pivot.
-
-            \return A CP932 string.
-        */
-        static cp932_string_type pivot_to_cp932(const pivot_type& pivot)
-        {
-            return utf8_to_cp932().convert(pivot);
-        }
-
-        /*!
-            \brief Converts a CP932 string to a pivot.
-
-            \param string A CP932 string.
-
-            \return A pivot.
-        */
-        static pivot_type cp932_to_pivot(const cp932_string_type& string)
-        {
-            return cp932_to_utf8().convert(string);
-        }
+        virtual ~encoding();
 
 
     private:
         // types
 
-        class iconv_converter
-        {
-        public:
-            iconv_converter(const char* const from, const char* const to)
-            :
-            m_conversion_descriptor(::iconv_open(to, from))
-            {
-                if (m_conversion_descriptor == reinterpret_cast< ::iconv_t>(-1))
-                    throw std::runtime_error("Can't open iconv.");
-            }
-
-            ~iconv_converter()
-            {
-                ::iconv_close(m_conversion_descriptor);
-            }
-
-            std::string convert(const std::string& input)
-            const
-            {
-                std::string converted{};
-
-                char* p_in = const_cast<char*>(input.c_str());
-                const std::size_t in_length = input.length();
-                std::size_t in_left = in_length;
-                for (;;)
-                {
-                    static const std::size_t outbuf_capacity = 10;
-                    std::vector<char> outbuf(outbuf_capacity, 0);
-                    char* p_out = &outbuf[0];
-                    std::size_t out_left = outbuf_capacity;
-
-                    errno = 0;
-                    const std::size_t result = ::iconv(m_conversion_descriptor, &p_in, &in_left, &p_out, &out_left);
-                    if (result == static_cast<std::size_t>(-1) && errno == EINVAL)
-                        break;
-
-                    converted.append(&outbuf[0], outbuf_capacity - out_left);
-
-                    if (errno == EILSEQ)
-                    {
-                        assert(in_left > 0);
-                        converted += '?';
-                        ++p_in;
-                        --in_left;
-                    }
-
-                    if (in_left == 0)
-                        break;
-                }
-
-                return converted;
-            }
-
-        private:
-            iconv_t m_conversion_descriptor;
-
-        };
+        class impl;
 
 
-        // static functions
+        // constructors
 
-        static const iconv_converter& utf8_to_cp932()
-        {
-            static const iconv_converter singleton{ "UTF-8", "CP932" };
-            return singleton;
-        }
-
-        static const iconv_converter& cp932_to_utf8()
-        {
-            static const iconv_converter singleton{ "CP932", "UTF-8" };
-            return singleton;
-        }
+        encoding();
 
 
-        // forbidden operations
+        // variables
 
-        encoding()
-        = delete;
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual utf8_string_type pivot_to_utf8_impl(const pivot_type& pivot)
+        const override;
+
+        virtual pivot_type utf8_to_pivot_impl(const utf8_string_type& string)
+        const override;
+
+        virtual cp932_string_type pivot_to_cp932_impl(const pivot_type& pivot)
+        const override;
+
+        virtual pivot_type cp932_to_pivot_impl(const cp932_string_type& string)
+        const override;
 
 
     };
