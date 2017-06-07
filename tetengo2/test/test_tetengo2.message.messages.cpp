@@ -46,16 +46,14 @@ namespace
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
 
-    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
-
-    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
 
     using message_catalog_encoder_type =
         tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
 
-    using locale_name_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+    using locale_name_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
 
     using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
 

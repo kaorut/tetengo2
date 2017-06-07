@@ -36,11 +36,13 @@ namespace tetengo2 { namespace detail { namespace windows
     namespace detail
     {
         using encoder_type =
-            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring, encoding>> ;
+            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring>> ;
 
         inline const encoder_type& encoder()
         {
-            static const encoder_type singleton;
+            static const encoder_type singleton{
+                encoder_type::internal_encoding_type{}, encoder_type::external_encoding_type{ encoding::instance() }
+            };
             return singleton;
         }
 

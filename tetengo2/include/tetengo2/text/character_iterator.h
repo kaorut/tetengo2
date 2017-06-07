@@ -52,7 +52,7 @@ namespace tetengo2 { namespace text
         character_iterator()
         :
         m_p_string(nullptr),
-        m_utf8_encoder(),
+        m_utf8_encoder(utf8_encoder_type::internal_encoding_type{}, utf8_encoder_type::external_encoding_type{}),
         m_utf8_string(utf8_string_type{}),
         m_next_offset(0),
         m_current_character(string_type{})

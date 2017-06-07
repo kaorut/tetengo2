@@ -134,10 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows
         using encoding_details_type = encoding;
 
         using encoder_type =
-            text::encoder<
-                text::encoding::locale<string_type, encoding_details_type>,
-                text::encoding::locale<native_string_type, encoding_details_type>
-            >;
+            text::encoder<text::encoding::locale<string_type>, text::encoding::locale<native_string_type>>;
 
         class registry_type : private boost::noncopyable
         {
@@ -198,8 +195,8 @@ namespace tetengo2 { namespace detail { namespace windows
         static const encoder_type& encoder()
         {
             static const encoder_type singleton{
-                text::encoding::locale<string_type, encoding_details_type>{},
-                text::encoding::locale<native_string_type, encoding_details_type>{}
+                text::encoding::locale<string_type>{ encoding_details_type::instance() },
+                text::encoding::locale<native_string_type>{ encoding_details_type::instance() }
             };
             return singleton;
         }

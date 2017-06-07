@@ -165,11 +165,11 @@ namespace tetengo2 { namespace text
             return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
         }
 
-        template <typename S, typename D>
+        template <typename S>
         static external_string_type encode_impl(
-            internal_string_type&&        string,
-            const encoding::locale<S, D>& internal_encoding,
-            const encoding::locale<S, D>& external_encoding
+            internal_string_type&&     string,
+            const encoding::locale<S>& internal_encoding,
+            const encoding::locale<S>& external_encoding
         )
         {
             if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
@@ -202,11 +202,11 @@ namespace tetengo2 { namespace text
             return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));
         }
 
-        template <typename S, typename D>
+        template <typename S>
         static internal_string_type decode_impl(
-            external_string_type&&        string,
-            const encoding::locale<S, D>& internal_encoding,
-            const encoding::locale<S, D>& external_encoding
+            external_string_type&&     string,
+            const encoding::locale<S>& internal_encoding,
+            const encoding::locale<S>& external_encoding
         )
         {
             if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
