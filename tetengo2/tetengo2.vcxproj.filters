@@ -49,6 +49,9 @@
     <Filter Include="headers\tetengo2\iterator">
       <UniqueIdentifier>{a801222c-2346-4b99-957e-aa3247879010}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2\text\encoding">
+      <UniqueIdentifier>{df4f6e13-ee53-47a5-befc-03e1533d11c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.h">
@@ -193,6 +196,21 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp">
       <Filter>sources\tetengo2\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.ascii.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.cp932.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.encoding.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.locale.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.utf8.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

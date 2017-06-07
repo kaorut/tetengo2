@@ -149,6 +149,11 @@
     <ClCompile Include="src\tetengo2.config.config_list.cpp" />
     <ClCompile Include="src\tetengo2.config.persistent_config.cpp" />
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.ascii.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.cp932.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.encoding.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.locale.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.utf8.cpp" />
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp" />
   </ItemGroup>
   <ItemGroup>

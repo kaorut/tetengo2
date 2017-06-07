@@ -11,6 +11,11 @@ sources = \
     tetengo2.config.cached_config.cpp \
     tetengo2.config.config_base.cpp \
     tetengo2.config.config_list.cpp \
+    tetengo2.encoding.ascii.cpp \
+    tetengo2.encoding.cp932.cpp \
+    tetengo2.encoding.encoding.cpp \
+    tetengo2.encoding.locale.cpp \
+    tetengo2.encoding.utf8.cpp \
     tetengo2.config.persistent_config.cpp \
     tetengo2.config.temporary_config.cpp \
     tetengo2.text.grammar.json.cpp
