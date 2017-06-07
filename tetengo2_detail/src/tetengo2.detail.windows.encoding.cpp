@@ -168,16 +168,13 @@ namespace tetengo2 { namespace detail { namespace windows
         return impl::instance();
     }
 
-
     encoding::~encoding()
     = default;
-
 
     encoding::encoding()
     :
     m_p_impl(stdalt::make_unique<impl>())
     {}
-
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(const pivot_type& pivot)
     const
