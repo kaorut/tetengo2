@@ -48,18 +48,15 @@ namespace tetengo2 { namespace text { namespace encoding
 
         /*!
             \brief Creates an encoding based on the current locale.
-
-            \param encoding_details A detail implementation of encoding.
         */
-        explicit locale(const encoding_details_type& encoding_details);
+        locale();
 
         /*!
             \brief Creates an encoding based on a locale.
 
-            \param locale_based_on  A locale based on.
-            \param encoding_details A detail implementation of encoding.
+            \param locale_based_on A locale based on.
         */
-        locale(std::locale locale_based_on, const encoding_details_type& encoding_details);
+        locale(std::locale locale_based_on);
 
         /*!
             \brief Destroys the encoding based on a locale.

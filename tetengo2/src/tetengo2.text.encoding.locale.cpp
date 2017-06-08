@@ -18,8 +18,16 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#if BOOST_OS_WINDOWS
+#   include <tetengo2/detail/windows/encoding.h>
+#elif BOOST_OS_LINUX
+#   include <tetengo2/detail/unixos/encoding.h>
+#else
+#   error Unsupported platform.
+#endif
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -41,16 +49,28 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // constructors and destructors
 
-        explicit impl(const encoding_details_type& encoding_details)
+        impl()
         :
         m_locale(),
-        m_encoding_details(encoding_details)
+#if BOOST_OS_WINDOWS
+        m_encoding_details(tetengo2::detail::windows::encoding::instance())
+#elif BOOST_OS_LINUX
+        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
+#else
+#   error Unsupported platform.
+#endif
         {}
 
-        impl(std::locale locale_based_on, const encoding_details_type& encoding_details)
+        explicit impl(std::locale locale_based_on)
         :
         m_locale(std::move(locale_based_on)),
-        m_encoding_details(encoding_details)
+#if BOOST_OS_WINDOWS
+        m_encoding_details(tetengo2::detail::windows::encoding::instance())
+#elif BOOST_OS_LINUX
+        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
+#else
+#   error Unsupported platform.
+#endif
         {}
 
 
@@ -286,15 +306,15 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
     template <typename String>
-    locale<String>::locale(const encoding_details_type& encoding_details)
+    locale<String>::locale()
     :
-    m_p_impl(std::make_shared<impl>(encoding_details))
+    m_p_impl(std::make_shared<impl>())
     {}
 
     template <typename String>
-    locale<String>::locale(std::locale locale_based_on, const encoding_details_type& encoding_details)
+    locale<String>::locale(std::locale locale_based_on)
     :
-    m_p_impl(std::make_shared<impl>(encoding_details))
+    m_p_impl(std::make_shared<impl>(std::move(locale_based_on)))
     {}
 
     template <typename String>
@@ -308,8 +328,12 @@ namespace tetengo2 { namespace text { namespace encoding
         return m_p_impl->locale_based_on();
     }
 
-    template <typename String>
-    bool operator==(const locale<String>& one, const locale<String>& another)
+    bool operator==(const locale<std::string>& one, const locale<std::string>& another)
+    {
+        return *one.m_p_impl == *another.m_p_impl;
+    }
+
+    bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another)
     {
         return *one.m_p_impl == *another.m_p_impl;
     }
@@ -332,6 +356,10 @@ namespace tetengo2 { namespace text { namespace encoding
     template class locale<std::string>;
 
     template class locale<std::wstring>;
+
+    //template bool operator==(const locale<std::string>& one, const locale<std::string>& another);
+
+    //template bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another);
 
 
 }}}

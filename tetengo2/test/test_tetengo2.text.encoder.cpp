@@ -8,6 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/ascii.h>
 
