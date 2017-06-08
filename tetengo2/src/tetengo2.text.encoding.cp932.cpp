@@ -10,7 +10,15 @@
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <boost/predef.h>
 
+#if BOOST_OS_WINDOWS
+#   include <tetengo2/detail/windows/encoding.h>
+#elif BOOST_OS_LINUX
+#   include <tetengo2/detail/unixos/encoding.h>
+#else
+#   error Unsupported platform.
+#endif
 #include <tetengo2/text/encoding/cp932.h>
 
 
@@ -30,9 +38,15 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // constructors and destructors
 
-        explicit impl(const encoding_details_type& encoding_details)
+        impl()
         :
-        m_encoding_details(encoding_details)
+#if BOOST_OS_WINDOWS
+        m_encoding_details(tetengo2::detail::windows::encoding::instance())
+#elif BOOST_OS_LINUX
+        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
+#else
+#   error Unsupported platform.
+#endif
         {}
 
 
@@ -66,9 +80,9 @@ namespace tetengo2 { namespace text { namespace encoding
     };
 
 
-    cp932::cp932(const encoding_details_type& encoding_details)
+    cp932::cp932()
     :
-    m_p_impl(std::make_shared<impl>(encoding_details))
+    m_p_impl(std::make_shared<impl>())
     {}
 
     cp932::~cp932()

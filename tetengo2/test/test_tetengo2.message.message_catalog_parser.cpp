@@ -34,8 +34,6 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
     using common_type_list_type = test_tetengo2::type_list::common;
 
     using size_type = common_type_list_type::size_type;
@@ -56,11 +54,9 @@ namespace
     using pull_parser_type = 
         tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
 
-    using internal_encoding_type = tetengo2::text::encoding::locale<string_type, encoding_details_type>;
-
-    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type, encoding_details_type>;
+    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
 
     using message_catalog_encoder_type =
         tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;

@@ -11,16 +11,10 @@
 
 #include <tetengo2/text/encoding/cp932.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
-
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
-    using encoding_details_type = detail_type_list_type::encoding_type;
 
     using encoding_type = tetengo2::text::encoding::cp932;
 
@@ -117,15 +111,15 @@ BOOST_AUTO_TEST_SUITE(cp932)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding{ encoding_details_type::instance() };
+        const encoding_type encoding{};
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{ encoding_details_type::instance() };
-        const encoding_type encoding2{ encoding_details_type::instance() };
+        const encoding_type encoding1{};
+        const encoding_type encoding2{};
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -135,19 +129,19 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const encoding_type encoding{ encoding_details_type::instance() };
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == cp932_);
         }
         {
-            const encoding_type encoding{ encoding_details_type::instance() };
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(empty_pivot);
 
             BOOST_CHECK(result == empty_cp932_);
         }
         {
-            const encoding_type encoding{ encoding_details_type::instance() };
+            const encoding_type encoding{};
             const auto result = encoding.from_pivot(unconvertible_pivot);
 
             BOOST_CHECK(result == unconvertible_cp932_);
@@ -159,13 +153,13 @@ BOOST_AUTO_TEST_SUITE(cp932)
         BOOST_TEST_PASSPOINT();
 
         {
-            const encoding_type encoding{ encoding_details_type::instance() };
+            const encoding_type encoding{};
             const auto result = encoding.to_pivot(cp932_);
 
             BOOST_CHECK(result == pivot);
         }
         {
-            const encoding_type encoding{ encoding_details_type::instance() };
+            const encoding_type encoding{};
             const auto result = encoding.to_pivot(empty_cp932_);
 
             BOOST_CHECK(result == empty_pivot);

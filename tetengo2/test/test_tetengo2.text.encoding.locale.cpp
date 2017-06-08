@@ -16,14 +16,10 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
-
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
 
     using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string>;
 

@@ -43,10 +43,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
         /*!
             \brief Creates an ASCII encoding.
-
-            \param encoding_details A detail implementation of encoding.
         */
-        explicit ascii(const encoding_details_type& encoding_details);
+        ascii();
 
         /*!
             \brief Destroys the ASCII encoding.
