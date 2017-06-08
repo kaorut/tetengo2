@@ -17,8 +17,11 @@
 namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
-        \brief The class for a encoding.
+        \brief The class template for a encoding.
+
+        \param String A string type.
     */
+    template <typename String>
     class encoding
     {
     public:
@@ -29,6 +32,9 @@ namespace tetengo2 { namespace text { namespace encoding
 
         //! The pivot type.
         using pivot_type = typename encoding_details_type::pivot_type;
+
+        //! The string type.
+        using string_type = String;
 
 
         // constructors and destructor

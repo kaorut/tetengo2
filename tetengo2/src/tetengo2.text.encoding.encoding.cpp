@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <string>
 
 #include <boost/core/noncopyable.hpp>
 
@@ -15,7 +16,8 @@
 
 namespace tetengo2 { namespace text { namespace encoding
 {
-    class encoding::impl : private boost::noncopyable
+    template <typename String>
+    class encoding<String>::impl : private boost::noncopyable
     {
     public:
         // types
@@ -34,13 +36,20 @@ namespace tetengo2 { namespace text { namespace encoding
     };
 
 
-    encoding::~encoding()
+    template <typename String>
+    encoding<String>::~encoding()
     = default;
 
-    encoding::encoding()
+    template <typename String>
+    encoding<String>::encoding()
     :
     m_p_impl(std::make_shared<impl>())
     {}
+
+
+    template class encoding<std::string>;
+
+    template class encoding<std::wstring>;
 
 
 }}}

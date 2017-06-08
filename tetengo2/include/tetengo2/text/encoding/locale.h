@@ -27,16 +27,19 @@ namespace tetengo2 { namespace text { namespace encoding
         \tparam String A string type.
     */
     template <typename String>
-    class locale : public encoding, private boost::equality_comparable<locale<String>>
+    class locale : public encoding<String>, private boost::equality_comparable<locale<String>>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = encoding;
+        using base_type = encoding<String>;
+
+        //! The pivot type.
+        using pivot_type = typename base_type::pivot_type;
 
         //! The string type.
-        using string_type = String;
+        using string_type = typename base_type::string_type;
 
         //! The encoding detail type.
         using encoding_details_type = tetengo2::detail::base::encoding;
@@ -92,7 +95,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        string_type from_pivot(const typename base_type::pivot_type& pivot)
+        string_type from_pivot(const pivot_type& pivot)
         const;
 
         /*!
@@ -104,7 +107,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        typename base_type::pivot_type to_pivot(const string_type& string)
+        pivot_type to_pivot(const string_type& string)
         const;
 
 

@@ -24,16 +24,16 @@ namespace tetengo2 { namespace text { namespace encoding
     /*!
         \brief The class for a UTF-8 encoding.
     */
-    class utf8 : public encoding, private boost::equality_comparable<utf8>
+    class utf8 : public encoding<std::string>, private boost::equality_comparable<utf8>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = encoding;
+        using base_type = encoding<std::string>;
 
         //! The string type.
-        using string_type = std::string;
+        using string_type = base_type::string_type;
 
         //! The encoding details type.
         using encoding_details_type = tetengo2::detail::base::encoding;

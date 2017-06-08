@@ -339,14 +339,14 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
-    String locale<String>::from_pivot(const typename base_type::pivot_type& pivot)
+    String locale<String>::from_pivot(const pivot_type& pivot)
     const
     {
         return m_p_impl->from_pivot(pivot);
     }
 
     template <typename String>
-    typename locale<String>::base_type::pivot_type locale<String>::to_pivot(const string_type& string)
+    typename locale<String>::pivot_type locale<String>::to_pivot(const string_type& string)
     const
     {
         return m_p_impl->to_pivot(string);

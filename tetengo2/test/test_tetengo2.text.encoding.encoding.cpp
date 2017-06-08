@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/encoding/encoding.h>
@@ -15,7 +17,7 @@ namespace
 {
     // types
 
-    using encoding_type = tetengo2::text::encoding::encoding;
+    using encoding_type = tetengo2::text::encoding::encoding<std::string>;
 
     struct concrete_encoding : public encoding_type
     {

@@ -24,16 +24,16 @@ namespace tetengo2 { namespace text { namespace encoding
     /*!
         \brief The class for a CP932 encoding.
     */
-    class cp932 : public encoding, private boost::equality_comparable<cp932>
+    class cp932 : public encoding<std::string>, private boost::equality_comparable<cp932>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = encoding;
+        using base_type = encoding<std::string>;
 
         //! The string type.
-        using string_type = std::string;
+        using string_type = base_type::string_type;
 
         //! The encoding details type.
         using encoding_details_type = tetengo2::detail::base::encoding;
