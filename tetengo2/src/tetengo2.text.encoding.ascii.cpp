@@ -27,7 +27,7 @@
 
 namespace tetengo2 { namespace text { namespace encoding
 {
-    class ascii::impl : boost::noncopyable
+    class ascii::impl : private boost::noncopyable
     {
     public:
         // types

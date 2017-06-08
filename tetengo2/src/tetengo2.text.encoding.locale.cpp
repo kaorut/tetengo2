@@ -35,7 +35,7 @@
 namespace tetengo2 { namespace text { namespace encoding
 {
     template <typename String>
-    class locale<String>::impl : boost::noncopyable
+    class locale<String>::impl : private boost::noncopyable
     {
     public:
         // types
