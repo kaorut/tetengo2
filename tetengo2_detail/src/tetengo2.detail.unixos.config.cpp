@@ -26,7 +26,6 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/detail/base/config.h>
-#include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/config.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
@@ -95,13 +94,8 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         using native_string_type = std::string;
 
-        using encoding_details_type = encoding;
-
         using encoder_type =
-            text::encoder<
-                text::encoding::locale<string_type, encoding_details_type>,
-                text::encoding::locale<native_string_type, encoding_details_type>
-            >;
+            text::encoder<text::encoding::locale<string_type>, text::encoding::locale<native_string_type>>;
 
         using value_map_type = std::map<string_type, value_type>;
 
@@ -121,7 +115,9 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton{};
+            static const encoder_type singleton{
+                encoder_type::internal_encoding_type{}, encoder_type::external_encoding_type{}
+            };
             return singleton;
         }
 

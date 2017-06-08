@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include <tetengo2/detail/base/encoding.h>
+
 
 namespace tetengo2 { namespace detail { namespace unixos
 {

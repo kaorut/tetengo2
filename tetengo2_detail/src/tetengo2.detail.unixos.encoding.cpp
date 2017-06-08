@@ -18,6 +18,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/unixos/encoding.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos

@@ -70,13 +70,16 @@ namespace tetengo2 { namespace text { namespace encoding
         /*!
             \brief Checks whether one encoding based on a locale is equal to another.
 
+            \tparam S A string type.
+
             \param one     One encoding based on a locale.
             \param another Another encoding based on a locale.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const locale& one, const locale& another);
+        template <typename S>
+        friend bool operator==(const locale<S>& one, const locale<S>& another);
 
         /*!
             \brief Returns the locale based on.

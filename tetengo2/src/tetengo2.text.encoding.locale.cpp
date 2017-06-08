@@ -76,11 +76,6 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
-        friend bool operator==(const impl& one, const impl& another)
-        {
-            return one.m_locale == another.m_locale;
-        }
-
         const std::locale& locale_based_on()
         const
         {
@@ -328,18 +323,14 @@ namespace tetengo2 { namespace text { namespace encoding
         return m_p_impl->locale_based_on();
     }
 
-    bool operator==(const locale<std::string>& one, const locale<std::string>& another)
+    template <typename S>
+    bool operator==(const locale<S>& one, const locale<S>& another)
     {
-        return *one.m_p_impl == *another.m_p_impl;
-    }
-
-    bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another)
-    {
-        return *one.m_p_impl == *another.m_p_impl;
+        return one.locale_based_on() == another.locale_based_on();
     }
 
     template <typename String>
-    String locale<String>::from_pivot(const pivot_type& pivot)
+    typename locale<String>::string_type locale<String>::from_pivot(const pivot_type& pivot)
     const
     {
         return m_p_impl->from_pivot(pivot);
@@ -357,9 +348,9 @@ namespace tetengo2 { namespace text { namespace encoding
 
     template class locale<std::wstring>;
 
-    //template bool operator==(const locale<std::string>& one, const locale<std::string>& another);
+    template bool operator==(const locale<std::string>& one, const locale<std::string>& another);
 
-    //template bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another);
+    template bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another);
 
 
 }}}
