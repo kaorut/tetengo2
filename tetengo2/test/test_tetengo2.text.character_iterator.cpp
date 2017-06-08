@@ -27,11 +27,7 @@ namespace
 
     using string_type = encoding_details_type::utf8_string_type;
 
-    using utf8_encoder_type =
-        tetengo2::text::encoder<
-            tetengo2::text::encoding::utf8<encoding_details_type>,
-            tetengo2::text::encoding::utf8<encoding_details_type>
-        >;
+    using utf8_encoder_type = tetengo2::text::encoder<tetengo2::text::encoding::utf8, tetengo2::text::encoding::utf8>;
 
     using character_iterator_type = tetengo2::text::character_iterator<string_type, utf8_encoder_type>;
 
