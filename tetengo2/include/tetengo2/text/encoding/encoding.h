@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_TEXT_ENCODING_ENCODING_H)
 #define TETENGO2_TEXT_ENCODING_ENCODING_H
 
+#include <memory>
+
 #include <tetengo2/detail/base/encoding.h>
 
 
@@ -29,14 +31,32 @@ namespace tetengo2 { namespace text { namespace encoding
         using pivot_type = typename encoding_details_type::pivot_type;
 
 
-    protected:
         // constructors and destructor
+
+        /*!
+            \brief Destroys the encoding.
+        */
+        virtual ~encoding();
+
+
+    protected:
+        // constructors
 
         /*!
             \brief Creates an encoding.
         */
-        encoding()
-        {}
+        encoding();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        std::shared_ptr<impl> m_p_impl; 
 
 
     };
