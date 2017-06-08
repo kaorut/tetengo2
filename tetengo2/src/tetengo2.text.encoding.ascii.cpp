@@ -9,19 +9,10 @@
 #include <memory>
 #include <stdexcept>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/transform_iterator.hpp>
-#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/encoding.h>
-#elif BOOST_OS_LINUX
-#   include <tetengo2/detail/unixos/encoding.h>
-#else
-#   error Unsupported platform.
-#endif
 #include <tetengo2/text/encoding/ascii.h>
 
 
@@ -35,22 +26,6 @@ namespace tetengo2 { namespace text { namespace encoding
         using base_type = ascii::base_type;
 
         using string_type = ascii::string_type;
-
-        using encoding_details_type = ascii::encoding_details_type;
-
-
-        // constructors and destructors
-
-        impl()
-        :
-#if BOOST_OS_WINDOWS
-        m_encoding_details(tetengo2::detail::windows::encoding::instance())
-#elif BOOST_OS_LINUX
-        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
-#else
-#   error Unsupported platform.
-#endif
-        {}
 
 
         // functions
@@ -114,11 +89,6 @@ namespace tetengo2 { namespace text { namespace encoding
 
             return ascii_char;
         }
-
-
-        // variables
-
-        const encoding_details_type& m_encoding_details;
 
 
     };

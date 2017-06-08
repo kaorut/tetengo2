@@ -22,8 +22,11 @@ namespace
 
     struct concrete_encoding : public encoding_type
     {
-        concrete_encoding()
-        {}
+        void call_details()
+        const
+        {
+            details();
+        }
 
     private:
         virtual string_type from_pivot_impl(const pivot_type& pivot)
@@ -57,6 +60,33 @@ BOOST_AUTO_TEST_SUITE(encoding)
         BOOST_TEST_PASSPOINT();
 
         const concrete_encoding encoding{};
+    } 
+
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.call_details();
+    } 
+
+    BOOST_AUTO_TEST_CASE(from_pivot)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.from_pivot(encoding_type::pivot_type{});
+    } 
+
+    BOOST_AUTO_TEST_CASE(to_pivot)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.to_pivot(encoding_type::string_type{});
     } 
 
 

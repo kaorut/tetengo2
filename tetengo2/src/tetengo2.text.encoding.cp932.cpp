@@ -8,17 +8,8 @@
 
 #include <memory>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/encoding.h>
-#elif BOOST_OS_LINUX
-#   include <tetengo2/detail/unixos/encoding.h>
-#else
-#   error Unsupported platform.
-#endif
 #include <tetengo2/text/encoding/cp932.h>
 
 
@@ -33,42 +24,20 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using string_type = cp932::string_type;
 
-        using encoding_details_type = cp932::encoding_details_type;
-
-
-        // constructors and destructors
-
-        impl()
-        :
-#if BOOST_OS_WINDOWS
-        m_encoding_details(tetengo2::detail::windows::encoding::instance())
-#elif BOOST_OS_LINUX
-        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
-#else
-#   error Unsupported platform.
-#endif
-        {}
-
 
         // functions
 
-        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(const typename base_type::pivot_type& pivot, const cp932& base)
         const
         {
-            return m_encoding_details.pivot_to_cp932(pivot);
+            return base.details().pivot_to_cp932(pivot);
         }
 
-        typename base_type::pivot_type to_pivot_impl(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl(const string_type& string, const cp932& base)
         const
         {
-            return m_encoding_details.cp932_to_pivot(string);
+            return base.details().cp932_to_pivot(string);
         }
-
-
-    private:
-        // variables
-
-        const encoding_details_type& m_encoding_details;
 
 
     };
@@ -86,13 +55,13 @@ namespace tetengo2 { namespace text { namespace encoding
     cp932::string_type cp932::from_pivot_impl(const typename base_type::pivot_type& pivot)
     const
     {
-        return m_p_impl->from_pivot_impl(pivot);
+        return m_p_impl->from_pivot_impl(pivot, *this);
     }
 
     typename cp932::base_type::pivot_type cp932::to_pivot_impl(const string_type& string)
     const
     {
-        return m_p_impl->to_pivot_impl(string);
+        return m_p_impl->to_pivot_impl(string, *this);
     }
 
 

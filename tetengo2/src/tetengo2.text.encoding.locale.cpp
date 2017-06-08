@@ -18,16 +18,8 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/encoding.h>
-#elif BOOST_OS_LINUX
-#   include <tetengo2/detail/unixos/encoding.h>
-#else
-#   error Unsupported platform.
-#endif
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -44,33 +36,17 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using string_type = typename locale::string_type;
 
-        using encoding_details_type = typename locale::encoding_details_type;
-
 
         // constructors and destructors
 
         impl()
         :
-        m_locale(),
-#if BOOST_OS_WINDOWS
-        m_encoding_details(tetengo2::detail::windows::encoding::instance())
-#elif BOOST_OS_LINUX
-        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
-#else
-#   error Unsupported platform.
-#endif
+        m_locale()
         {}
 
         explicit impl(std::locale locale_based_on)
         :
-        m_locale(std::move(locale_based_on)),
-#if BOOST_OS_WINDOWS
-        m_encoding_details(tetengo2::detail::windows::encoding::instance())
-#elif BOOST_OS_LINUX
-        m_encoding_details(tetengo2::detail::unixos::encoding::instance())
-#else
-#   error Unsupported platform.
-#endif
+        m_locale(std::move(locale_based_on))
         {}
 
 
@@ -108,8 +84,6 @@ namespace tetengo2 { namespace text { namespace encoding
         // variables
 
         const std::locale m_locale;
-
-        const encoding_details_type& m_encoding_details;
 
 
         // functions

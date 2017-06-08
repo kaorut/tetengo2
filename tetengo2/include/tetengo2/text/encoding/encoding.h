@@ -10,6 +10,7 @@
 #define TETENGO2_TEXT_ENCODING_ENCODING_H
 
 #include <memory>
+#include <stdexcept>
 
 #include <tetengo2/detail/base/encoding.h>
 
@@ -93,6 +94,17 @@ namespace tetengo2 { namespace text { namespace encoding
             \brief Creates an encoding.
         */
         encoding();
+
+
+        // functions
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        const encoding_details_type& details()
+        const;
 
 
     private:
