@@ -45,6 +45,47 @@ namespace tetengo2 { namespace text { namespace encoding
         virtual ~encoding();
 
 
+        // functions
+
+        /*!
+            \brief Checks whether one encoding is equal to another.
+
+            \tparam S A string type.
+
+            \param one     One encoding.
+            \param another Another encoding.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        template <typename S>
+        friend bool operator==(const encoding<S>& one, const encoding<S>& another);
+
+        /*!
+            \brief Translates a string from the pivot encoding.
+
+            \param pivot A pivot string.
+
+            \return A translated string.
+
+            \throw std::invalid_argument When the string cannot be translated.
+        */
+        string_type from_pivot(const pivot_type& pivot)
+        const;
+
+        /*!
+            \brief Translates a string to the pivot encoding.
+
+            \param string A string.
+
+            \return A translated pivot string.
+
+            \throw std::invalid_argument When the string cannot be translated.
+        */
+        pivot_type to_pivot(const string_type& string)
+        const;
+
+
     protected:
         // constructors
 
@@ -63,6 +104,15 @@ namespace tetengo2 { namespace text { namespace encoding
         // variables
 
         std::shared_ptr<impl> m_p_impl; 
+
+
+        // virtual functions
+
+        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        const = 0;
+
+        virtual pivot_type to_pivot_impl(const string_type& string)
+        const = 0;
 
 
     };

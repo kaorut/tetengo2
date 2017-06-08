@@ -82,16 +82,16 @@ namespace tetengo2 { namespace text { namespace encoding
             return m_locale;
         }
 
-        string_type from_pivot(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
         const
         {
-            return from_pivot_impl(pivot);
+            return from_pivot_impl2(pivot);
         }
 
-        typename base_type::pivot_type to_pivot(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl(const string_type& string)
         const
         {
-            return to_pivot_impl(string);
+            return to_pivot_impl2(string);
         }
 
 
@@ -115,7 +115,7 @@ namespace tetengo2 { namespace text { namespace encoding
         // functions
 
         template <typename Pivot>
-        string_type from_pivot_impl(
+        string_type from_pivot_impl2(
             Pivot&& pivot,
             const typename std::enable_if<std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
@@ -125,16 +125,16 @@ namespace tetengo2 { namespace text { namespace encoding
         }
 
         template <typename Pivot>
-        string_type from_pivot_impl(
+        string_type from_pivot_impl2(
             Pivot&& pivot,
             const typename std::enable_if<!std::is_convertible<Pivot, string_type>::value>::type* const = nullptr
         )
         const
         {
-            return from_pivot_impl_impl(std::move(pivot));
+            return from_pivot_impl3(std::move(pivot));
         }
 
-        string_type from_pivot_impl_impl(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl3(const typename base_type::pivot_type& pivot)
         const
         {
             if (pivot.empty())
@@ -210,7 +210,7 @@ namespace tetengo2 { namespace text { namespace encoding
         }
 
         template <typename Str>
-        typename base_type::pivot_type to_pivot_impl(
+        typename base_type::pivot_type to_pivot_impl2(
             Str&& string,
             const typename std::enable_if<
                 std::is_convertible<Str, typename base_type::pivot_type>::value
@@ -222,7 +222,7 @@ namespace tetengo2 { namespace text { namespace encoding
         }
 
         template <typename Str>
-        typename base_type::pivot_type to_pivot_impl(
+        typename base_type::pivot_type to_pivot_impl2(
             Str&& string,
             const typename std::enable_if<
                 !std::is_convertible<Str, typename base_type::pivot_type>::value
@@ -230,10 +230,10 @@ namespace tetengo2 { namespace text { namespace encoding
         )
         const
         {
-            return to_pivot_impl_impl(std::move(string));
+            return to_pivot_impl3(std::move(string));
         }
 
-        typename base_type::pivot_type to_pivot_impl_impl(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl3(const string_type& string)
         const
         {
             if (string.empty())
@@ -330,17 +330,17 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
-    typename locale<String>::string_type locale<String>::from_pivot(const pivot_type& pivot)
+    typename locale<String>::string_type locale<String>::from_pivot_impl(const pivot_type& pivot)
     const
     {
-        return m_p_impl->from_pivot(pivot);
+        return m_p_impl->from_pivot_impl(pivot);
     }
 
     template <typename String>
-    typename locale<String>::pivot_type locale<String>::to_pivot(const string_type& string)
+    typename locale<String>::pivot_type locale<String>::to_pivot_impl(const string_type& string)
     const
     {
-        return m_p_impl->to_pivot(string);
+        return m_p_impl->to_pivot_impl(string);
     }
 
 

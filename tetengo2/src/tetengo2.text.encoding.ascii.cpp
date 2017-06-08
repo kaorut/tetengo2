@@ -55,14 +55,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
-        friend bool operator==(const impl& one, const impl& another)
-        {
-            boost::ignore_unused(one, another);
-
-            return true;
-        }
-
-        string_type from_pivot(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
         const
         {
             return
@@ -72,7 +65,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 };
         }
 
-        typename base_type::pivot_type to_pivot(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl(const string_type& string)
         const
         {
             return
@@ -140,21 +133,16 @@ namespace tetengo2 { namespace text { namespace encoding
     = default;
 
 
-    bool operator==(const ascii& one, const ascii& another)
-    {
-        return *one.m_p_impl == *another.m_p_impl;
-    }
-
-    ascii::string_type ascii::from_pivot(const typename base_type::pivot_type& pivot)
+    ascii::string_type ascii::from_pivot_impl(const typename base_type::pivot_type& pivot)
     const
     {
-        return m_p_impl->from_pivot(pivot);
+        return m_p_impl->from_pivot_impl(pivot);
     }
 
-    typename ascii::base_type::pivot_type ascii::to_pivot(const string_type& string)
+    typename ascii::base_type::pivot_type ascii::to_pivot_impl(const string_type& string)
     const
     {
-        return m_p_impl->to_pivot(string);
+        return m_p_impl->to_pivot_impl(string);
     }
 
 

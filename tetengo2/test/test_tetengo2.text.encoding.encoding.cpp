@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/encoding/encoding.h>
@@ -24,7 +25,24 @@ namespace
         concrete_encoding()
         {}
 
+    private:
+        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(const string_type& string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+
     };
+
+
 }
 
 

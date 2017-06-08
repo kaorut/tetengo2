@@ -89,30 +89,6 @@ namespace tetengo2 { namespace text { namespace encoding
         const std::locale& locale_based_on()
         const;
 
-        /*!
-            \brief Translates a string from the pivot encoding.
-
-            \param pivot A pivot string.
-
-            \return A translated string.
-
-            \throw std::invalid_argument When the string cannot be translated.
-        */
-        string_type from_pivot(const pivot_type& pivot)
-        const;
-
-        /*!
-            \brief Translates a string to the pivot encoding.
-
-            \param string A string.
-
-            \return A translated pivot string.
-
-            \throw std::invalid_argument When the string cannot be translated.
-        */
-        pivot_type to_pivot(const string_type& string)
-        const;
-
 
     private:
         // type
@@ -123,6 +99,15 @@ namespace tetengo2 { namespace text { namespace encoding
         // variables
 
         std::shared_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        const override;
+
+        virtual pivot_type to_pivot_impl(const string_type& string)
+        const override;
 
 
     };

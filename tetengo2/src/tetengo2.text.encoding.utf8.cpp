@@ -52,19 +52,13 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
-        friend bool operator==(const impl& one, const impl& another)
-        {
-            boost::ignore_unused(one, another);
-            return true;
-        }
-
-        string_type from_pivot(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
         const
         {
             return m_encoding_details.pivot_to_utf8(pivot);
         }
 
-        typename base_type::pivot_type to_pivot(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl(const string_type& string)
         const
         {
             return m_encoding_details.utf8_to_pivot(string);
@@ -89,21 +83,16 @@ namespace tetengo2 { namespace text { namespace encoding
     = default;
 
 
-    bool operator==(const utf8& one, const utf8& another)
-    {
-        return *one.m_p_impl == *another.m_p_impl;
-    }
-
-    utf8::string_type utf8::from_pivot(const typename base_type::pivot_type& pivot)
+    utf8::string_type utf8::from_pivot_impl(const typename base_type::pivot_type& pivot)
     const
     {
-        return m_p_impl->from_pivot(pivot);
+        return m_p_impl->from_pivot_impl(pivot);
     }
 
-    typename utf8::base_type::pivot_type utf8::to_pivot(const string_type& string)
+    typename utf8::base_type::pivot_type utf8::to_pivot_impl(const string_type& string)
     const
     {
-        return m_p_impl->to_pivot(string);
+        return m_p_impl->to_pivot_impl(string);
     }
 
 
