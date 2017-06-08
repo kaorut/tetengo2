@@ -27,15 +27,13 @@ namespace tetengo2 { namespace text { namespace encoding
         \tparam String A string type.
     */
     template <typename String>
-    class locale :
-        public encoding<tetengo2::detail::base::encoding>,
-        private boost::equality_comparable<locale<String>>
+    class locale : public encoding, private boost::equality_comparable<locale<String>>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = encoding<tetengo2::detail::base::encoding>;
+        using base_type = encoding;
 
         //! The string type.
         using string_type = String;

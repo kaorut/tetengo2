@@ -10,18 +10,12 @@
 
 #include <tetengo2/text/encoding/encoding.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using encoding_type = tetengo2::text::encoding::encoding<encoding_details_type>;
+    using encoding_type = tetengo2::text::encoding::encoding;
 
     struct concrete_encoding : public encoding_type
     {
@@ -42,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(encoding)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_encoding encoding;
+        const concrete_encoding encoding{};
     } 
 
 
