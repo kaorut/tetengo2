@@ -31,7 +31,7 @@ namespace tetengo2 { namespace text { namespace encoding
         const std::string& name_impl()
         const
         {
-            static const std::string singleton("CP932");
+            static const std::string singleton{ "CP932" };
             return singleton;
         }
 

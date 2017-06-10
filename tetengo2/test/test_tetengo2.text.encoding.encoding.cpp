@@ -33,7 +33,7 @@ namespace
         virtual const std::string& name_impl()
         const
         {
-            static const std::string singleton("test_concrete");
+            static const std::string singleton{ "test_concrete" };
             return singleton;
         }
 
@@ -59,7 +59,7 @@ namespace
         virtual const std::string& name_impl()
         const
         {
-            static const std::string singleton("test_another");
+            static const std::string singleton{ "test_another" };
             return singleton;
         }
 
@@ -85,7 +85,7 @@ namespace
         virtual const std::string& name_impl()
         const
         {
-            static const std::string singleton("test_wide");
+            static const std::string singleton{ "test_wide" };
             return singleton;
         }
 
