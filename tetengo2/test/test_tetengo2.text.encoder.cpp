@@ -42,18 +42,6 @@ BOOST_AUTO_TEST_SUITE(encoder)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_equal)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
-        encoder_type encoder1{ encoding1, encoding2 };
-        encoder_type encoder2{ encoding1, encoding2 };
-
-        BOOST_CHECK(encoder1 == encoder2);
-    }
-
     BOOST_AUTO_TEST_CASE(internal_encoding)
     {
         BOOST_TEST_PASSPOINT();

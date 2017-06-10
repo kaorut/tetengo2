@@ -9,13 +9,7 @@
 #if !defined(TETENGO2_TEXT_ENCODER_H)
 #define TETENGO2_TEXT_ENCODER_H
 
-#include <type_traits>
 #include <utility>
-
-#include <boost/core/ignore_unused.hpp>
-#include <boost/operators.hpp>
-
-#include <tetengo2/text/encoding/locale.h>
 
 
 namespace tetengo2 { namespace text
@@ -27,7 +21,7 @@ namespace tetengo2 { namespace text
         \tparam ExternalEncoding An external encoding type.
     */
     template <typename InternalEncoding, typename ExternalEncoding>
-    class encoder : public boost::equality_comparable<encoder<InternalEncoding, ExternalEncoding>>
+    class encoder
     {
     public:
         // types
@@ -72,22 +66,6 @@ namespace tetengo2 { namespace text
         // functions
 
         /*!
-            \brief Checks whether one encoder is equal to another.
-
-            \param one     One encoder.
-            \param another Another encoder.
-
-            \retval true  When the one is equal to the other.
-            \retval false Otherwise.
-        */
-        friend bool operator==(const encoder& one, const encoder& another)
-        {
-            return
-                one.m_internal_encoding == another.m_internal_encoding &&
-                one.m_external_encoding == another.m_external_encoding;
-        }
-
-        /*!
             \brief Returns the internal encoding.
 
             \return The internal encoding.
@@ -119,7 +97,7 @@ namespace tetengo2 { namespace text
         external_string_type encode(internal_string_type string)
         const
         {
-            return encode_impl(std::move(string), m_internal_encoding, m_external_encoding);
+            return m_external_encoding.from_pivot(m_internal_encoding.to_pivot(std::move(string)));
         }
 
         /*!
@@ -132,88 +110,11 @@ namespace tetengo2 { namespace text
         internal_string_type decode(external_string_type string)
         const
         {
-            return decode_impl(std::move(string), m_internal_encoding, m_external_encoding);
+            return m_internal_encoding.from_pivot(m_external_encoding.to_pivot(std::move(string)));
         }
 
 
     private:
-        // static functions
-
-        template <typename IE, typename EE>
-        static external_string_type encode_impl(
-            internal_string_type&& string,
-            const IE&              internal_encoding,
-            const EE&              external_encoding,
-            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
-        )
-        {
-            boost::ignore_unused(internal_encoding, external_encoding);
-
-            return std::move(string);
-        }
-
-        template <typename IE, typename EE>
-        static external_string_type encode_impl(
-            internal_string_type&& string,
-            const IE&              internal_encoding,
-            const EE&              external_encoding,
-            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = nullptr
-        )
-        {
-            return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
-        }
-
-        template <typename S>
-        static external_string_type encode_impl(
-            internal_string_type&&     string,
-            const encoding::locale<S>& internal_encoding,
-            const encoding::locale<S>& external_encoding
-        )
-        {
-            if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
-                return std::move(string);
-            else
-                return external_encoding.from_pivot(internal_encoding.to_pivot(std::move(string)));
-        }
-
-        template <typename IE, typename EE>
-        static internal_string_type decode_impl(
-            external_string_type&& string,
-            const IE&              internal_encoding,
-            const EE&              external_encoding,
-            const typename std::enable_if<std::is_same<IE, EE>::value>::type* const = nullptr
-        )
-        {
-            boost::ignore_unused(internal_encoding, external_encoding);
-
-            return std::move(string);
-        }
-
-        template <typename IE, typename EE>
-        static internal_string_type decode_impl(
-            external_string_type&& string,
-            const IE&              internal_encoding,
-            const EE&              external_encoding,
-            const typename std::enable_if<!std::is_same<IE, EE>::value>::type* const = nullptr
-        )
-        {
-            return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));
-        }
-
-        template <typename S>
-        static internal_string_type decode_impl(
-            external_string_type&&     string,
-            const encoding::locale<S>& internal_encoding,
-            const encoding::locale<S>& external_encoding
-        )
-        {
-            if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
-                return std::move(string);
-            else
-                return internal_encoding.from_pivot(external_encoding.to_pivot(std::move(string)));
-        }
-
-
         // variables
 
         internal_encoding_type m_internal_encoding;
