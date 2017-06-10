@@ -13,22 +13,17 @@
 #include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
-
-#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string>;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string, encoding_details_type>;
-
-    using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring, encoding_details_type>;
+    using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring>;
 
 
     // functions
@@ -98,6 +93,32 @@ BOOST_AUTO_TEST_SUITE(locale)
             const wide_encoding_type encoding{ std::locale::classic() };
         }
     }
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const multibyte_encoding_type encoding{};
+
+            BOOST_CHECK(encoding.name() == "LocaleMultibyte");
+        }
+        {
+            const multibyte_encoding_type encoding{ locale_en };
+
+            BOOST_CHECK(encoding.name() == "LocaleMultibyte");
+        }
+        {
+            const wide_encoding_type encoding{};
+
+            BOOST_CHECK(encoding.name() == "LocaleWide");
+        }
+        {
+            const wide_encoding_type encoding{ locale_en };
+
+            BOOST_CHECK(encoding.name() == "LocaleWide");
+        }
+    } 
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {

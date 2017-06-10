@@ -31,6 +31,11 @@ tetengo2::message::messages::do_get
 tetengo2::message::messages::do_open
 tetengo2::message::messages::matches_locale_type::
 tetengo2::stdalt::
+tetengo2::text::encoding::[a-zA-Z0-9_]+::name_impl
+tetengo2::text::encoding::operator ==
+tetengo2::text::encoding::operator !=
+tetengo2::text::encoding::[a-zA-Z0-9_]+::from_pivot_impl
+tetengo2::text::encoding::[a-zA-Z0-9_]+::to_pivot_impl
 tetengo2::text::grammar::json::on_structure_[a-zA-Z0-9_]+
 tetengo2::text::grammar::json::signal_result_combiner_type::
 tetengo2::text::grammar::json::structure_attribute_type::
@@ -63,4 +68,8 @@ test_tetengo2::message::messages::close
 test_tetengo2::message::messages::get
 test_tetengo2::message::messages::open
 test_tetengo2::meta::assoc_list::[a-zA-Z0-9_]+
+test_tetengo2::text::encoding::[a-zA-Z0-9_]+::name
+test_tetengo2::text::encoding::[a-zA-Z0-9_]+::operator_equal
+test_tetengo2::text::encoding::[a-zA-Z0-9_]+::from_pivot
+test_tetengo2::text::encoding::[a-zA-Z0-9_]+::to_pivot
 test_tetengo2::text::grammar::json::

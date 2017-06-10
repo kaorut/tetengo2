@@ -1125,11 +1125,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder&)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
-            using utf8_encoder_type =
-                text::encoder<
-                    internal_encoding_type,
-                    text::encoding::utf8<typename internal_encoding_type::encoding_details_type>
-                >;
+            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
             using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
 
             static const utf8_encoder_type utf8_encoder{};
@@ -1203,11 +1199,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         static int character_rotation(const String& char_as_string, const Encoder&)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
-            using utf8_encoder_type =
-                text::encoder<
-                    internal_encoding_type,
-                    text::encoding::utf8<typename internal_encoding_type::encoding_details_type>
-                >;
+            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
 
             static const utf8_encoder_type utf8_encoder{};
             const auto char_in_utf8 = utf8_encoder.encode(char_as_string);

@@ -6,29 +6,106 @@
     $Id$
 */
 
+#include <string>
+
+#include <boost/core/ignore_unused.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/encoding/encoding.h>
-
-#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using encoding_type = tetengo2::text::encoding::encoding<std::string>;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using encoding_type = tetengo2::text::encoding::encoding<encoding_details_type>;
-
-    struct concrete_encoding : public encoding_type
+    class concrete_encoding : public encoding_type
     {
-        concrete_encoding()
-        {}
+    public:
+        void call_details()
+        const
+        {
+            details();
+        }
+
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_concrete" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
 
     };
+
+    class another_concrete_encoding : public encoding_type
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_another" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+
+    };
+
+    class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_wide" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+
+    };
+
+
 }
 
 
@@ -42,7 +119,67 @@ BOOST_AUTO_TEST_SUITE(encoding)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_encoding encoding;
+        const concrete_encoding encoding{};
+    } 
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.name();
+    } 
+
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_encoding encoding1{};
+            const concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 == encoding2);
+        }
+        {
+            const concrete_encoding encoding1{};
+            const another_concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 != encoding2);
+        }
+        {
+            const concrete_encoding encoding1{};
+            const wide_concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 != encoding2);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.call_details();
+    } 
+
+    BOOST_AUTO_TEST_CASE(from_pivot)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.from_pivot(encoding_type::pivot_type{});
+    } 
+
+    BOOST_AUTO_TEST_CASE(to_pivot)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.to_pivot(encoding_type::string_type{});
     } 
 
 

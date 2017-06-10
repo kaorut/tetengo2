@@ -20,13 +20,9 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using encoding_type = tetengo2::text::encoding::ascii;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using pivot_type = encoding_details_type::pivot_type;
-
-    using encoding_type = tetengo2::text::encoding::ascii<encoding_details_type>;
+    using pivot_type = encoding_type::pivot_type;
 
 
     // variables
@@ -73,6 +69,22 @@ BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(ascii)
     // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+    }
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+
+        BOOST_CHECK(encoding.name() == "ASCII");
+    } 
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {

@@ -13,6 +13,11 @@ sources = \
     tetengo2.config.config_list.cpp \
     tetengo2.config.persistent_config.cpp \
     tetengo2.config.temporary_config.cpp \
+    tetengo2.text.encoding.ascii.cpp \
+    tetengo2.text.encoding.cp932.cpp \
+    tetengo2.text.encoding.encoding.cpp \
+    tetengo2.text.encoding.locale.cpp \
+    tetengo2.text.encoding.utf8.cpp \
     tetengo2.text.grammar.json.cpp
 
 extra_sources =

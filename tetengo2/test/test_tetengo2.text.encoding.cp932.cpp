@@ -11,22 +11,16 @@
 
 #include <tetengo2/text/encoding/cp932.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using encoding_type = tetengo2::text::encoding::cp932;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
+    using pivot_type = encoding_type::pivot_type;
 
-    using pivot_type = encoding_details_type::pivot_type;
-
-    using string_type = encoding_details_type::cp932_string_type;
-
-    using encoding_type = tetengo2::text::encoding::cp932<encoding_details_type>;
+    using string_type = encoding_type::string_type;
 
 
     // functions
@@ -112,6 +106,22 @@ BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(cp932)
     // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+    }
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+
+        BOOST_CHECK(encoding.name() == "CP932");
+    } 
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {

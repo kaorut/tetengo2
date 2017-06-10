@@ -24,7 +24,6 @@
 #include <Windows.h>
 #include <wincodec.h>
 
-#include <tetengo2/detail/windows/encoding.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/utf8.h>
@@ -35,12 +34,11 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        using encoder_type =
-            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring, encoding>> ;
+        using encoder_type = text::encoder<text::encoding::utf8, text::encoding::locale<std::wstring>> ;
 
         inline const encoder_type& encoder()
         {
-            static const encoder_type singleton;
+            static const encoder_type singleton{};
             return singleton;
         }
 

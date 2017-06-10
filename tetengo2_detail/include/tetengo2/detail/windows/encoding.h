@@ -9,22 +9,9 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ENCODING_H)
 #define TETENGO2_DETAIL_WINDOWS_ENCODING_H
 
-#include <cassert>
-#include <string>
-#include <vector>
+#include <memory>
 
-#include <boost/core/noncopyable.hpp>
-
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
-#include <intsafe.h>
-#include <stdint.h>
-//#pragma warning(pop)
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-
-#include <tetengo2/detail/windows/windows_version.h>
+#include <tetengo2/detail/base/encoding.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -32,161 +19,71 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of an encoding.
     */
-    class encoding : private boost::noncopyable
+    class encoding : public base::encoding
     {
     public:
         // types
 
         //! The pivot type.
-        //!
-        //! Stores UTF-8.
-        using pivot_type = std::wstring;
+        using pivot_type = base::encoding::pivot_type;
 
         //! The UTF-8 string type.
-        using utf8_string_type = std::string;
+        using utf8_string_type = base::encoding::utf8_string_type;
 
         //! The CP932 string type.
-        using cp932_string_type = std::string;
+        using cp932_string_type = base::encoding::cp932_string_type;
 
 
         // static functions
 
         /*!
-            \brief Converts a pivot to a UTF-8 string.
+            \brief Returns the instance of the detail implementation.
 
-            \param pivot A pivot.
-
-            \return A UTF-8 string.
+            \return The instance.
         */
-        static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
-        {
-            const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
+        static const encoding& instance();
 
-            const auto string_length =
-                ::WideCharToMultiByte(
-                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
-                );
-            std::vector<char> string(string_length + 1, '\0');
 
-            const auto converted_length =
-                ::WideCharToMultiByte(
-                    CP_UTF8,
-                    flags,
-                    pivot.c_str(),
-                    static_cast<int>(pivot.length()),
-                    string.data(),
-                    string_length,
-                    nullptr,
-                    nullptr
-                );
-            converted_length;
-            assert(converted_length == string_length);
-
-            return { string.begin(), string.begin() + string_length };
-        }
+        // constructors and destructor
 
         /*!
-            \brief Converts a UTF-8 string to a pivot.
-
-            \param string A UTF-8 string.
-
-            \return A pivot.
+            \brief Destroys the detail implementaion.
         */
-        static pivot_type utf8_to_pivot(const utf8_string_type& string)
-        {
-            const auto pivot_length =
-                ::MultiByteToWideChar(
-                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
-                );
-            std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
-
-            const auto converted_length =
-                ::MultiByteToWideChar(
-                    CP_UTF8,
-                    MB_ERR_INVALID_CHARS,
-                    string.c_str(),
-                    static_cast<int>(string.length()),
-                    pivot.data(),
-                    pivot_length
-                );
-            converted_length;
-            assert(converted_length == pivot_length);
-
-            return { pivot.begin(), pivot.begin() + pivot_length };
-        }
-
-        /*!
-            \brief Converts a pivot to a CP932 string.
-
-            \param pivot A pivot.
-
-            \return A CP932 string.
-        */
-        static cp932_string_type pivot_to_cp932(const pivot_type& pivot)
-        {
-            const auto string_length =
-                ::WideCharToMultiByte(
-                    932, 0, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr
-                );
-            std::vector<char> string(string_length + 1, '\0');
-            const ::DWORD le = ::GetLastError(); le;
-
-            const auto converted_length =
-                ::WideCharToMultiByte(
-                    932,
-                    0,
-                    pivot.c_str(),
-                    static_cast<int>(pivot.length()),
-                    string.data(),
-                    string_length,
-                    nullptr,
-                    nullptr
-                );
-            converted_length;
-            assert(converted_length == string_length);
-
-            return { string.begin(), string.begin() + string_length };
-        }
-
-        /*!
-            \brief Converts a CP932 string to a pivot.
-
-            \param string A CP932 string.
-
-            \return A pivot.
-        */
-        static pivot_type cp932_to_pivot(const cp932_string_type& string)
-        {
-            const auto pivot_length =
-                ::MultiByteToWideChar(
-                    932, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), nullptr, 0
-                );
-            std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
-
-            const auto converted_length =
-                ::MultiByteToWideChar(
-                    932,
-                    MB_ERR_INVALID_CHARS,
-                    string.c_str(),
-                    static_cast<int>(string.length()),
-                    pivot.data(),
-                    pivot_length
-                );
-            converted_length;
-            assert(converted_length == pivot_length);
-
-            return { pivot.begin(), pivot.begin() + pivot_length };
-        }
+        virtual ~encoding();
 
 
     private:
-        // forbidden operations
+        // types
 
-        encoding()
-        = delete;
+        class impl;
 
 
-   };
+        // constructors
+
+        encoding();
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
+        const override;
+
+        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string)
+        const override;
+
+        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
+        const override;
+
+        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string)
+        const override;
+
+
+    };
 
 
 }}}

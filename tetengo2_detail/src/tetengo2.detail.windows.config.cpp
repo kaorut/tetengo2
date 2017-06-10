@@ -28,7 +28,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/config.h>
-#include <tetengo2/detail/windows/encoding.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -131,13 +130,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         using native_string_type = std::wstring;
 
-        using encoding_details_type = encoding;
-
         using encoder_type =
-            text::encoder<
-                text::encoding::locale<string_type, encoding_details_type>,
-                text::encoding::locale<native_string_type, encoding_details_type>
-            >;
+            text::encoder<text::encoding::locale<string_type>, text::encoding::locale<native_string_type>>;
 
         class registry_type : private boost::noncopyable
         {

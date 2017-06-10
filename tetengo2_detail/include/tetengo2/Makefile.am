@@ -5,6 +5,7 @@
 pkg_headers = \
     detail/config.h \
     detail/base/config.h \
+    detail/base/encoding.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \

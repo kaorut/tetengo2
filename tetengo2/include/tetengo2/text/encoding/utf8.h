@@ -9,11 +9,8 @@
 #if !defined(TETENGO2_TEXT_ENCODING_UTF8_H)
 #define TETENGO2_TEXT_ENCODING_UTF8_H
 
-#include <stdexcept>
+#include <memory>
 #include <string>
-
-#include <boost/core/ignore_unused.hpp>
-#include <boost/operators.hpp>
 
 #include <tetengo2/text/encoding/encoding.h>
 
@@ -21,73 +18,57 @@
 namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
-        \brief The class template for a UTF-8 encoding.
-
-        \tparam EncodingDetails A detail implementation type of an encoding.
+        \brief The class for a UTF-8 encoding.
     */
-    template <typename EncodingDetails>
-    class utf8 : public encoding<EncodingDetails>, private boost::equality_comparable<utf8<EncodingDetails>>
+    class utf8 : public encoding<std::string>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = encoding<EncodingDetails>;
+        using base_type = encoding<std::string>;
+
+        //! The pivot type.
+        using pivot_type = typename base_type::pivot_type;
 
         //! The string type.
-        using string_type = std::string;
-
-        //! The encoding details type.
-        using encoding_details_type = EncodingDetails;
+        using string_type = base_type::string_type;
 
 
-        // functions
+        // constructors and destructors
 
         /*!
-            \brief Checks whether one UTF-8 encoding is equal to another.
-
-            \param one     One UTF-8 encoding.
-            \param another Another UTF-8 encoding.
-
-            \retval true  When the one is equal to the other.
-            \retval false Otherwise.
+            \brief Creates a UTF-8 encoding.
         */
-        friend bool operator==(const utf8& one, const utf8& another)
-        {
-            boost::ignore_unused(one, another);
-
-            return true;
-        }
+        utf8();
 
         /*!
-            \brief Translates a string from the pivot encoding.
-
-            \param pivot A pivot string.
-
-            \return A translated string.
-
-            \throw std::invalid_argument When the string cannot be translated.
+            \brief Destroys the UTF-8 encoding.
         */
-        string_type from_pivot(const typename base_type::pivot_type& pivot)
-        const
-        {
-            return encoding_details_type::pivot_to_utf8(pivot);
-        }
+        virtual ~utf8();
 
-        /*!
-            \brief Translates a string to the pivot encoding.
 
-            \param string A string.
+    private:
+        // types
 
-            \return A translated pivot string.
+        class impl;
 
-            \throw std::invalid_argument When the string cannot be translated.
-        */
-        typename base_type::pivot_type to_pivot(const string_type& string)
-        const
-        {
-            return encoding_details_type::utf8_to_pivot(string);
-        }
+
+        // variables
+
+        std::shared_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual const std::string& name_impl()
+        const override;
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const override;
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const override;
 
 
     };

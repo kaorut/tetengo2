@@ -53,15 +53,12 @@ namespace test_tetengo2 { namespace gui { namespace type_list
         using exception_string_type = std::string;
 
         template <typename DetailTypeList>
-        using encoding_details_type = typename DetailTypeList::encoding_type;
-
-        template <typename DetailTypeList>
         using internal_encoding_type =
-            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
+            tetengo2::text::encoding::locale<string_type>;
 
         template <typename DetailTypeList>
         using ui_encoding_type =
-            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
+            tetengo2::text::encoding::locale<string_type>;
 
         template <typename DetailTypeList>
         using ui_encoder_type =
@@ -69,7 +66,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using exception_encoding_type =
-            tetengo2::text::encoding::locale<exception_string_type, encoding_details_type<DetailTypeList>>;
+            tetengo2::text::encoding::locale<exception_string_type>;
 
         template <typename DetailTypeList>
         using exception_encoder_type =
@@ -103,7 +100,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using message_catalog_encoding_type =
-            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
+            tetengo2::text::encoding::locale<string_type>;
 
         template <typename DetailTypeList>
         using message_catalog_encoder_type =
@@ -128,7 +125,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using locale_name_encoding_type =
-            tetengo2::text::encoding::locale<string_type, encoding_details_type<DetailTypeList>>;
+            tetengo2::text::encoding::locale<string_type>;
 
         template <typename DetailTypeList>
         using locale_name_encoder_type =

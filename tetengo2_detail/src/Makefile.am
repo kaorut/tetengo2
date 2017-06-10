@@ -8,10 +8,13 @@ extra_headers =
 
 sources = \
     tetengo2.detail.base.config.cpp \
-    tetengo2.detail.unixos.config.cpp
+    tetengo2.detail.base.encoding.cpp \
+    tetengo2.detail.unixos.config.cpp \
+    tetengo2.detail.unixos.encoding.cpp
 
 extra_sources = \
-    tetengo2.detail.windows.config.cpp
+    tetengo2.detail.windows.config.cpp \
+    tetengo2.detail.windows.encoding.cpp
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
 
