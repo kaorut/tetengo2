@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <string>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/transform_iterator.hpp>
@@ -29,6 +30,13 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
         // functions
+
+        const std::string& name_impl()
+        const
+        {
+            static const std::string singleton("ASCII");
+            return singleton;
+        }
 
         string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
         const
@@ -102,6 +110,11 @@ namespace tetengo2 { namespace text { namespace encoding
     ascii::~ascii()
     = default;
 
+    const std::string& ascii::name_impl()
+    const
+    {
+        return m_p_impl->name_impl();
+    }
 
     ascii::string_type ascii::from_pivot_impl(const typename base_type::pivot_type& pivot)
     const

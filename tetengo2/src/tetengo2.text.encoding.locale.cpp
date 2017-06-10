@@ -58,6 +58,14 @@ namespace tetengo2 { namespace text { namespace encoding
             return m_locale;
         }
 
+        const std::string& name_impl()
+        const
+        {
+            static const std::string multibyte("LocaleMultibyte");
+            static const std::string wide("LocaleWide");
+            return sizeof(typename string_type::value_type) == 1 ? multibyte : wide;
+        }
+
         string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
         const
         {
@@ -297,10 +305,23 @@ namespace tetengo2 { namespace text { namespace encoding
         return m_p_impl->locale_based_on();
     }
 
+    template <typename String>
+    const std::string& locale<String>::name_impl()
+    const
+    {
+        return m_p_impl->name_impl();
+    }
+
     template <typename S>
     bool operator==(const locale<S>& one, const locale<S>& another)
     {
         return one.locale_based_on() == another.locale_based_on();
+    }
+
+    template <typename S>
+    bool operator!=(const locale<S>& one, const locale<S>& another)
+    {
+        return !operator==(one, another);
     }
 
     template <typename String>
@@ -325,6 +346,10 @@ namespace tetengo2 { namespace text { namespace encoding
     template bool operator==(const locale<std::string>& one, const locale<std::string>& another);
 
     template bool operator==(const locale<std::wstring>& one, const locale<std::wstring>& another);
+
+    template bool operator!=(const locale<std::string>& one, const locale<std::string>& another);
+
+    template bool operator!=(const locale<std::wstring>& one, const locale<std::wstring>& another);
 
 
 }}}

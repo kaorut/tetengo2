@@ -9,7 +9,6 @@
 #include <memory>
 #include <string>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
@@ -52,6 +51,12 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
+        const std::string& name(const encoding<String>& base)
+        const
+        {
+            return base.name_impl();
+        }
+
         const encoding_details_type& details()
         const
         {
@@ -84,11 +89,23 @@ namespace tetengo2 { namespace text { namespace encoding
     encoding<String>::~encoding()
     = default;
 
-    template <typename S>
-    bool operator==(const encoding<S>& one, const encoding<S>& another)
+    template <typename String>
+    const std::string& encoding<String>::name()
+    const
     {
-        boost::ignore_unused(one, another);
-        return true;
+        return m_p_impl->name(*this);
+    }
+
+    template <typename S, typename T>
+    bool operator==(const encoding<S>& one, const encoding<T>& another)
+    {
+        return one.name() == another.name();
+    }
+
+    template <typename S, typename T>
+    bool operator!=(const encoding<S>& one, const encoding<T>& another)
+    {
+        return !operator==(one, another);
     }
 
     template <typename String>
@@ -125,7 +142,19 @@ namespace tetengo2 { namespace text { namespace encoding
 
     template bool operator==(const encoding<std::string>& one, const encoding<std::string>& another);
 
+    template bool operator==(const encoding<std::string>& one, const encoding<std::wstring>& another);
+
+    template bool operator==(const encoding<std::wstring>& one, const encoding<std::string>& another);
+
     template bool operator==(const encoding<std::wstring>& one, const encoding<std::wstring>& another);
+
+    template bool operator!=(const encoding<std::string>& one, const encoding<std::string>& another);
+
+    template bool operator!=(const encoding<std::string>& one, const encoding<std::wstring>& another);
+
+    template bool operator!=(const encoding<std::wstring>& one, const encoding<std::string>& another);
+
+    template bool operator!=(const encoding<std::wstring>& one, const encoding<std::wstring>& another);
 
 
 }}}

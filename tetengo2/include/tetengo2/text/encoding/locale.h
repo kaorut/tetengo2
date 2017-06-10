@@ -11,8 +11,7 @@
 
 #include <locale>
 #include <memory>
-
-#include <boost/operators.hpp>
+#include <string>
 
 #include <tetengo2/text/encoding/encoding.h>
 
@@ -25,7 +24,7 @@ namespace tetengo2 { namespace text { namespace encoding
         \tparam String A string type.
     */
     template <typename String>
-    class locale : public encoding<String>, private boost::equality_comparable<locale<String>>
+    class locale : public encoding<String>
     {
     public:
         // types
@@ -77,6 +76,20 @@ namespace tetengo2 { namespace text { namespace encoding
         friend bool operator==(const locale<S>& one, const locale<S>& another);
 
         /*!
+            \brief Checks whether one encoding based on a locale is not equal to another.
+
+            \tparam S A string type.
+
+            \param one     One encoding based on a locale.
+            \param another Another encoding based on a locale.
+
+            \retval true  When the one is not equal to the other.
+            \retval false Otherwise.
+        */
+        template <typename S>
+        friend bool operator!=(const locale<S>& one, const locale<S>& another);
+
+        /*!
             \brief Returns the locale based on.
 
             \return The locale based on.
@@ -97,6 +110,9 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
         // virtual functions
+
+        virtual const std::string& name_impl()
+        const override;
 
         virtual string_type from_pivot_impl(const pivot_type& pivot)
         const override;

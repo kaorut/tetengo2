@@ -20,8 +20,9 @@ namespace
 
     using encoding_type = tetengo2::text::encoding::encoding<std::string>;
 
-    struct concrete_encoding : public encoding_type
+    class concrete_encoding : public encoding_type
     {
+    public:
         void call_details()
         const
         {
@@ -29,6 +30,65 @@ namespace
         }
 
     private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton("test_concrete");
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(const string_type& string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+
+    };
+
+    class another_concrete_encoding : public encoding_type
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton("test_another");
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
+
+        virtual pivot_type to_pivot_impl(const string_type& string)
+        const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+
+    };
+
+    class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton("test_wide");
+            return singleton;
+        }
+
         virtual string_type from_pivot_impl(const pivot_type& pivot)
         const
         {
@@ -61,6 +121,39 @@ BOOST_AUTO_TEST_SUITE(encoding)
 
         const concrete_encoding encoding{};
     } 
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_encoding encoding{};
+
+        encoding.name();
+    } 
+
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_encoding encoding1{};
+            const concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 == encoding2);
+        }
+        {
+            const concrete_encoding encoding1{};
+            const another_concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 != encoding2);
+        }
+        {
+            const concrete_encoding encoding1{};
+            const wide_concrete_encoding encoding2{};
+
+            BOOST_CHECK(encoding1 != encoding2);
+        }
+    }
 
     BOOST_AUTO_TEST_CASE(details)
     {

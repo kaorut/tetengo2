@@ -79,6 +79,15 @@ BOOST_AUTO_TEST_SUITE(utf8)
         const encoding_type encoding{};
     }
 
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+
+        BOOST_CHECK(encoding.name() == "UTF-8");
+    } 
+
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();

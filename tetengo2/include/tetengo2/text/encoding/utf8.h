@@ -12,8 +12,6 @@
 #include <memory>
 #include <string>
 
-#include <boost/operators.hpp>
-
 #include <tetengo2/text/encoding/encoding.h>
 
 
@@ -22,7 +20,7 @@ namespace tetengo2 { namespace text { namespace encoding
     /*!
         \brief The class for a UTF-8 encoding.
     */
-    class utf8 : public encoding<std::string>, private boost::equality_comparable<utf8>
+    class utf8 : public encoding<std::string>
     {
     public:
         // types
@@ -47,8 +45,6 @@ namespace tetengo2 { namespace text { namespace encoding
         virtual ~utf8();
 
 
-        // functions
-
     private:
         // types
 
@@ -61,6 +57,9 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
         // virtual functions
+
+        virtual const std::string& name_impl()
+        const override;
 
         virtual string_type from_pivot_impl(const pivot_type& pivot)
         const override;

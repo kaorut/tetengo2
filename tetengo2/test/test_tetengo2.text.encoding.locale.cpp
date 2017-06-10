@@ -94,6 +94,32 @@ BOOST_AUTO_TEST_SUITE(locale)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const multibyte_encoding_type encoding{};
+
+            BOOST_CHECK(encoding.name() == "LocaleMultibyte");
+        }
+        {
+            const multibyte_encoding_type encoding{ locale_en };
+
+            BOOST_CHECK(encoding.name() == "LocaleMultibyte");
+        }
+        {
+            const wide_encoding_type encoding{};
+
+            BOOST_CHECK(encoding.name() == "LocaleWide");
+        }
+        {
+            const wide_encoding_type encoding{ locale_en };
+
+            BOOST_CHECK(encoding.name() == "LocaleWide");
+        }
+    } 
+
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();

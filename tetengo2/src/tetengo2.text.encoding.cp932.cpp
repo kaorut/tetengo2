@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <string>
 
 #include <boost/core/noncopyable.hpp>
 
@@ -26,6 +27,13 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
         // functions
+
+        const std::string& name_impl()
+        const
+        {
+            static const std::string singleton("CP932");
+            return singleton;
+        }
 
         string_type from_pivot_impl(const typename base_type::pivot_type& pivot, const cp932& base)
         const
@@ -51,6 +59,11 @@ namespace tetengo2 { namespace text { namespace encoding
     cp932::~cp932()
     = default;
 
+    const std::string& cp932::name_impl()
+    const
+    {
+        return m_p_impl->name_impl();
+    }
 
     cp932::string_type cp932::from_pivot_impl(const typename base_type::pivot_type& pivot)
     const

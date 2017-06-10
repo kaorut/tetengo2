@@ -77,6 +77,15 @@ BOOST_AUTO_TEST_SUITE(ascii)
         const encoding_type encoding{};
     }
 
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding{};
+
+        BOOST_CHECK(encoding.name() == "ASCII");
+    } 
+
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();

@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <string>
 
 #include <tetengo2/detail/base/encoding.h>
 
@@ -49,9 +50,18 @@ namespace tetengo2 { namespace text { namespace encoding
         // functions
 
         /*!
+            \brief Returns the encoding name.
+
+            \return The encoding name.
+        */
+        const std::string& name()
+        const;
+
+        /*!
             \brief Checks whether one encoding is equal to another.
 
-            \tparam S A string type.
+            \tparam S A string type #1.
+            \tparam T A string type #2
 
             \param one     One encoding.
             \param another Another encoding.
@@ -59,8 +69,23 @@ namespace tetengo2 { namespace text { namespace encoding
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename S>
-        friend bool operator==(const encoding<S>& one, const encoding<S>& another);
+        template <typename S, typename T>
+        friend bool operator==(const encoding<S>& one, const encoding<T>& another);
+
+        /*!
+            \brief Checks whether one encoding is not equal to another.
+
+            \tparam S A string type #1.
+            \tparam T A string type #2
+
+            \param one     One encoding.
+            \param another Another encoding.
+
+            \retval true  When the one is not equal to the other.
+            \retval false Otherwise.
+        */
+        template <typename S, typename T>
+        friend bool operator!=(const encoding<S>& one, const encoding<T>& another);
 
         /*!
             \brief Translates a string from the pivot encoding.
@@ -119,6 +144,9 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
         // virtual functions
+
+        virtual const std::string& name_impl()
+        const = 0;
 
         virtual string_type from_pivot_impl(const pivot_type& pivot)
         const = 0;
