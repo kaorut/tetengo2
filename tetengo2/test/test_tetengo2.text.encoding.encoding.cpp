@@ -37,14 +37,14 @@ namespace
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        virtual string_type from_pivot_impl(pivot_type pivot)
         const
         {
             boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(const string_type& string)
+        virtual pivot_type to_pivot_impl(string_type string)
         const
         {
             boost::ignore_unused(string);
@@ -63,14 +63,14 @@ namespace
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        virtual string_type from_pivot_impl(pivot_type pivot)
         const
         {
             boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(const string_type& string)
+        virtual pivot_type to_pivot_impl(string_type string)
         const
         {
             boost::ignore_unused(string);
@@ -89,14 +89,14 @@ namespace
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        virtual string_type from_pivot_impl(pivot_type pivot)
         const
         {
             boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(const string_type& string)
+        virtual pivot_type to_pivot_impl(string_type string)
         const
         {
             boost::ignore_unused(string);

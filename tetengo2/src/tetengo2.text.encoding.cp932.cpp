@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 
@@ -23,6 +24,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using base_type = cp932::base_type;
 
+        using pivot_type = cp932::pivot_type;
+
         using string_type = cp932::string_type;
 
 
@@ -35,16 +38,16 @@ namespace tetengo2 { namespace text { namespace encoding
             return singleton;
         }
 
-        string_type from_pivot_impl(const typename base_type::pivot_type& pivot, const cp932& base)
+        string_type from_pivot_impl(pivot_type pivot, const cp932& base)
         const
         {
-            return base.details().pivot_to_cp932(pivot);
+            return base.details().pivot_to_cp932(std::move(pivot));
         }
 
         typename base_type::pivot_type to_pivot_impl(const string_type& string, const cp932& base)
         const
         {
-            return base.details().cp932_to_pivot(string);
+            return base.details().cp932_to_pivot(std::move(string));
         }
 
 
@@ -65,13 +68,13 @@ namespace tetengo2 { namespace text { namespace encoding
         return m_p_impl->name_impl();
     }
 
-    cp932::string_type cp932::from_pivot_impl(const typename base_type::pivot_type& pivot)
+    cp932::string_type cp932::from_pivot_impl(pivot_type pivot)
     const
     {
         return m_p_impl->from_pivot_impl(pivot, *this);
     }
 
-    typename cp932::base_type::pivot_type cp932::to_pivot_impl(const string_type& string)
+    typename cp932::base_type::pivot_type cp932::to_pivot_impl(string_type string)
     const
     {
         return m_p_impl->to_pivot_impl(string, *this);

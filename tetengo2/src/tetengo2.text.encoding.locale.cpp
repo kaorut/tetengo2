@@ -34,6 +34,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using base_type = typename locale::base_type;
 
+        using pivot_type = typename locale::pivot_type;
+
         using string_type = typename locale::string_type;
 
 
@@ -66,16 +68,16 @@ namespace tetengo2 { namespace text { namespace encoding
             return sizeof(typename string_type::value_type) == 1 ? multibyte : wide;
         }
 
-        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(pivot_type pivot)
         const
         {
-            return from_pivot_impl2(pivot);
+            return from_pivot_impl2(std::move(pivot));
         }
 
-        typename base_type::pivot_type to_pivot_impl(const string_type& string)
+        typename base_type::pivot_type to_pivot_impl(string_type string)
         const
         {
-            return to_pivot_impl2(string);
+            return to_pivot_impl2(std::move(string));
         }
 
 
@@ -116,7 +118,7 @@ namespace tetengo2 { namespace text { namespace encoding
             return from_pivot_impl3(std::move(pivot));
         }
 
-        string_type from_pivot_impl3(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl3(pivot_type pivot)
         const
         {
             if (pivot.empty())
@@ -325,14 +327,14 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
-    typename locale<String>::string_type locale<String>::from_pivot_impl(const pivot_type& pivot)
+    typename locale<String>::string_type locale<String>::from_pivot_impl(pivot_type pivot)
     const
     {
         return m_p_impl->from_pivot_impl(pivot);
     }
 
     template <typename String>
-    typename locale<String>::pivot_type locale<String>::to_pivot_impl(const string_type& string)
+    typename locale<String>::pivot_type locale<String>::to_pivot_impl(string_type string)
     const
     {
         return m_p_impl->to_pivot_impl(string);

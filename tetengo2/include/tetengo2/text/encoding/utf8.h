@@ -28,6 +28,9 @@ namespace tetengo2 { namespace text { namespace encoding
         //! The base type.
         using base_type = encoding<std::string>;
 
+        //! The pivot type.
+        using pivot_type = typename base_type::pivot_type;
+
         //! The string type.
         using string_type = base_type::string_type;
 
@@ -61,10 +64,10 @@ namespace tetengo2 { namespace text { namespace encoding
         virtual const std::string& name_impl()
         const override;
 
-        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        virtual string_type from_pivot_impl(pivot_type pivot)
         const override;
 
-        virtual pivot_type to_pivot_impl(const string_type& string)
+        virtual pivot_type to_pivot_impl(string_type string)
         const override;
 
 

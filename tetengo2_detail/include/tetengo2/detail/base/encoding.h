@@ -58,7 +58,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A UTF-8 string.
         */
-        utf8_string_type pivot_to_utf8(const pivot_type& pivot)
+        utf8_string_type pivot_to_utf8(pivot_type pivot)
         const;
 
         /*!
@@ -68,7 +68,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A pivot.
         */
-        pivot_type utf8_to_pivot(const utf8_string_type& string)
+        pivot_type utf8_to_pivot(utf8_string_type string)
         const;
 
         /*!
@@ -78,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A CP932 string.
         */
-        cp932_string_type pivot_to_cp932(const pivot_type& pivot)
+        cp932_string_type pivot_to_cp932(pivot_type pivot)
         const;
 
         /*!
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A pivot.
         */
-        pivot_type cp932_to_pivot(const cp932_string_type& string)
+        pivot_type cp932_to_pivot(cp932_string_type string)
         const;
 
 
@@ -104,16 +104,16 @@ namespace tetengo2 { namespace detail { namespace base
     private:
         // virtual functions
 
-        virtual utf8_string_type pivot_to_utf8_impl(const pivot_type& pivot)
+        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
         const = 0;
 
-        virtual pivot_type utf8_to_pivot_impl(const utf8_string_type& string)
+        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string)
         const = 0;
 
-        virtual cp932_string_type pivot_to_cp932_impl(const pivot_type& pivot)
+        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
         const = 0;
 
-        virtual pivot_type cp932_to_pivot_impl(const cp932_string_type& string)
+        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string)
         const = 0;
 
 

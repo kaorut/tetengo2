@@ -13,6 +13,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
@@ -52,28 +53,28 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // functions
 
-        utf8_string_type pivot_to_utf8_impl(const pivot_type& pivot)
+        utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
         const
         {
-            return pivot;
+            return std::move(pivot);
         }
 
-        pivot_type utf8_to_pivot_impl(const utf8_string_type& string)
+        pivot_type utf8_to_pivot_impl(utf8_string_type string)
         const
         {
-            return string;
+            return std::move(string);
         }
 
-        cp932_string_type pivot_to_cp932_impl(const pivot_type& pivot)
+        cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
         const
         {
-            return utf8_to_cp932().convert(pivot);
+            return utf8_to_cp932().convert(std::move(pivot));
         }
 
-        pivot_type cp932_to_pivot_impl(const cp932_string_type& string)
+        pivot_type cp932_to_pivot_impl(cp932_string_type string)
         const
         {
-            return cp932_to_utf8().convert(string);
+            return cp932_to_utf8().convert(std::move(string));
         }
 
 
@@ -170,28 +171,28 @@ namespace tetengo2 { namespace detail { namespace unixos
     m_p_impl(stdalt::make_unique<impl>())
     {}
 
-    encoding::utf8_string_type encoding::pivot_to_utf8_impl(const pivot_type& pivot)
+    encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot)
     const
     {
-        return m_p_impl->pivot_to_utf8_impl(pivot);
+        return m_p_impl->pivot_to_utf8_impl(std::move(pivot));
     }
 
-    encoding::pivot_type encoding::utf8_to_pivot_impl(const utf8_string_type& string)
+    encoding::pivot_type encoding::utf8_to_pivot_impl(utf8_string_type string)
     const
     {
-        return m_p_impl->utf8_to_pivot_impl(string);
+        return m_p_impl->utf8_to_pivot_impl(std::move(string));
     }
 
-    encoding::cp932_string_type encoding::pivot_to_cp932_impl(const pivot_type& pivot)
+    encoding::cp932_string_type encoding::pivot_to_cp932_impl(pivot_type pivot)
     const
     {
-        return m_p_impl->pivot_to_cp932_impl(pivot);
+        return m_p_impl->pivot_to_cp932_impl(std::move(pivot));
     }
 
-    encoding::pivot_type encoding::cp932_to_pivot_impl(const cp932_string_type& string)
+    encoding::pivot_type encoding::cp932_to_pivot_impl(cp932_string_type string)
     const
     {
-        return m_p_impl->cp932_to_pivot_impl(string);
+        return m_p_impl->cp932_to_pivot_impl(std::move(string));
     }
 
 

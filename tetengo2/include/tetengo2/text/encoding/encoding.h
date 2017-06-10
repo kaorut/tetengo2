@@ -96,7 +96,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        string_type from_pivot(const pivot_type& pivot)
+        string_type from_pivot(pivot_type pivot)
         const;
 
         /*!
@@ -108,7 +108,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        pivot_type to_pivot(const string_type& string)
+        pivot_type to_pivot(string_type string)
         const;
 
 
@@ -148,10 +148,10 @@ namespace tetengo2 { namespace text { namespace encoding
         virtual const std::string& name_impl()
         const = 0;
 
-        virtual string_type from_pivot_impl(const pivot_type& pivot)
+        virtual string_type from_pivot_impl(pivot_type pivot)
         const = 0;
 
-        virtual pivot_type to_pivot_impl(const string_type& string)
+        virtual pivot_type to_pivot_impl(string_type string)
         const = 0;
 
 

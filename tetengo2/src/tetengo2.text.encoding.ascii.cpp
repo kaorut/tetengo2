@@ -26,6 +26,8 @@ namespace tetengo2 { namespace text { namespace encoding
 
         using base_type = ascii::base_type;
 
+        using pivot_type = ascii::pivot_type;
+
         using string_type = ascii::string_type;
 
 
@@ -38,7 +40,7 @@ namespace tetengo2 { namespace text { namespace encoding
             return singleton;
         }
 
-        string_type from_pivot_impl(const typename base_type::pivot_type& pivot)
+        string_type from_pivot_impl(pivot_type pivot)
         const
         {
             return
@@ -48,7 +50,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 };
         }
 
-        typename base_type::pivot_type to_pivot_impl(const string_type& string)
+        pivot_type to_pivot_impl(string_type string)
         const
         {
             return
@@ -62,7 +64,7 @@ namespace tetengo2 { namespace text { namespace encoding
     private:
         // types
 
-        using pivot_char_type = typename base_type::pivot_type::value_type;
+        using pivot_char_type = typename pivot_type::value_type;
 
         using string_char_type = typename string_type::value_type;
 
@@ -116,13 +118,13 @@ namespace tetengo2 { namespace text { namespace encoding
         return m_p_impl->name_impl();
     }
 
-    ascii::string_type ascii::from_pivot_impl(const typename base_type::pivot_type& pivot)
+    ascii::string_type ascii::from_pivot_impl(pivot_type pivot)
     const
     {
         return m_p_impl->from_pivot_impl(pivot);
     }
 
-    typename ascii::base_type::pivot_type ascii::to_pivot_impl(const string_type& string)
+    typename ascii::pivot_type ascii::to_pivot_impl(string_type string)
     const
     {
         return m_p_impl->to_pivot_impl(string);

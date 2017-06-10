@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
@@ -63,16 +64,16 @@ namespace tetengo2 { namespace text { namespace encoding
             return m_encoding_details;
         }
 
-        string_type from_pivot(const pivot_type& pivot, const encoding<String>& base)
+        string_type from_pivot(pivot_type pivot, const encoding<String>& base)
         const
         {
-            return base.from_pivot_impl(pivot);
+            return base.from_pivot_impl(std::move(pivot));
         }
 
-        pivot_type to_pivot(const string_type& string, const encoding<String>& base)
+        pivot_type to_pivot(string_type string, const encoding<String>& base)
         const
         {
-            return base.to_pivot_impl(string);
+            return base.to_pivot_impl(std::move(string));
         }
 
 
@@ -122,17 +123,17 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
-    typename encoding<String>::string_type encoding<String>::from_pivot(const pivot_type& pivot)
+    typename encoding<String>::string_type encoding<String>::from_pivot(pivot_type pivot)
     const
     {
-        return m_p_impl->from_pivot(pivot, *this);
+        return m_p_impl->from_pivot(std::move(pivot), *this);
     }
 
     template <typename String>
-    typename encoding<String>::pivot_type encoding<String>::to_pivot(const string_type& string)
+    typename encoding<String>::pivot_type encoding<String>::to_pivot(string_type string)
     const
     {
-        return m_p_impl->to_pivot(string, *this);
+        return m_p_impl->to_pivot(std::move(string), *this);
     }
 
 
