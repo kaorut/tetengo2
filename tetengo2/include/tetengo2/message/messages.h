@@ -193,10 +193,7 @@ namespace tetengo2 { namespace message
 
         static const locale_name_encoder_type& locale_name_encoder()
         {
-            static const locale_name_encoder_type singleton{
-                typename locale_name_encoder_type::internal_encoding_type{},
-                typename locale_name_encoder_type::external_encoding_type{}
-            };
+            static const locale_name_encoder_type singleton{};
             return singleton;
         }
 

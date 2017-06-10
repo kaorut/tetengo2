@@ -191,9 +191,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton{
-                text::encoding::locale<string_type>{}, text::encoding::locale<native_string_type>{}
-            };
+            static const encoder_type singleton{};
             return singleton;
         }
 

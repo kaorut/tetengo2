@@ -38,9 +38,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         inline const encoder_type& encoder()
         {
-            static const encoder_type singleton{
-                encoder_type::internal_encoding_type{}, encoder_type::external_encoding_type{}
-            };
+            static const encoder_type singleton{};
             return singleton;
         }
 

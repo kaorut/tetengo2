@@ -36,10 +36,7 @@ namespace
 
     const utf8_encoder_type& utf8_encoder()
     {
-        static const utf8_encoder_type singleton{
-            utf8_encoder_type::internal_encoding_type{},
-            utf8_encoder_type::external_encoding_type{}
-        };
+        static const utf8_encoder_type singleton{};
         return singleton;
     }
 

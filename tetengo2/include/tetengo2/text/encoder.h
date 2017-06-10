@@ -47,7 +47,6 @@ namespace tetengo2 { namespace text
 
         // constructors and destructor
 
-#if 0
         /*!
             \brief Creates an encoder.
         */
@@ -56,7 +55,6 @@ namespace tetengo2 { namespace text
         m_internal_encoding(),
         m_external_encoding()
         {}
-#endif
 
         /*!
             \brief Creates an encoder.

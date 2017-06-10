@@ -93,9 +93,7 @@ namespace tetengo2 { namespace gui
         )
         const
         {
-            static const encoder_type encoder{
-                typename encoder_type::internal_encoding_type{}, typename encoder_type::external_encoding_type{}
-            };
+            static const encoder_type encoder{};
             return m_p_shell_details->execute(command, parameter_first, parameter_last, encoder);
         }
 
