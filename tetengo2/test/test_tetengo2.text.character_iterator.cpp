@@ -14,20 +14,14 @@
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/utf8.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using string_type = encoding_details_type::utf8_string_type;
-
     using utf8_encoder_type = tetengo2::text::encoder<tetengo2::text::encoding::utf8, tetengo2::text::encoding::utf8>;
+
+    using string_type = utf8_encoder_type::internal_string_type;
 
     using character_iterator_type = tetengo2::text::character_iterator<string_type, utf8_encoder_type>;
 

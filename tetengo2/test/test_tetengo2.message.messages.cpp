@@ -31,8 +31,6 @@ namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
-
     using common_type_list_type = test_tetengo2::type_list::common;
 
     using size_type = common_type_list_type::size_type;

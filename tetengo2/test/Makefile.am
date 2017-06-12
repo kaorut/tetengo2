@@ -3,7 +3,6 @@
 # $Id$
 
 headers = \
-    test_tetengo2.detail_type_list.h \
     test_tetengo2.type_list.h
 
 extra_headers =
