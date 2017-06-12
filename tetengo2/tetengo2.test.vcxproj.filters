@@ -19,9 +19,6 @@
     <Filter Include="sources\test_tetengo2\concurrent">
       <UniqueIdentifier>{d98ed1d5-d905-4e7b-a1b1-4249b8fb5ffb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_tetengo2\meta">
-      <UniqueIdentifier>{f39296db-b0dc-4492-8ec6-1fca151306fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_tetengo2\text">
       <UniqueIdentifier>{d1e42f93-440c-4693-9838-11c03ad47ae6}</UniqueIdentifier>
     </Filter>
@@ -61,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.cpp">
       <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp">
-      <Filter>sources\test_tetengo2\meta</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp">
       <Filter>sources\test_tetengo2\concurrent</Filter>

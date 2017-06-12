@@ -18,7 +18,6 @@ pkg_headers = \
     message/messages.h \
     message/message_catalog.h \
     message/message_catalog_parser.h \
-    meta/assoc_list.h \
     stdalt.h \
     text.h \
     text/character_iterator.h \
@@ -39,7 +38,6 @@ extra_headers = \
     config/0namespace.dox \
     iterator/0namespace.dox \
     message/0namespace.dox \
-    meta/0namespace.dox \
     text/0namespace.dox \
     text/encoding/0namespace.dox \
     text/grammar/0namespace.dox

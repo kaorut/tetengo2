@@ -118,7 +118,6 @@
     <ClCompile Include="test\test_tetengo2.message.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp" />
-    <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
     <ClCompile Include="test\test_tetengo2.text.character_iterator.cpp" />
     <ClCompile Include="test\test_tetengo2.text.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoder.cpp" />

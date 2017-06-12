@@ -10,9 +10,6 @@
     <Filter Include="headers\tetengo2\concurrent">
       <UniqueIdentifier>{d05b3433-0495-4046-adb4-cfb72b402d56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2\meta">
-      <UniqueIdentifier>{c7f1a761-d684-452e-9d9f-fa0fedff1c57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\tetengo2\text">
       <UniqueIdentifier>{b6e90a66-3b58-4f27-b92b-f77cf3b4b069}</UniqueIdentifier>
     </Filter>
@@ -69,9 +66,6 @@
     <ClInclude Include="include\tetengo2\message\0namespace.dox">
       <Filter>headers\tetengo2\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\meta\0namespace.dox">
-      <Filter>headers\tetengo2\meta</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\text\0namespace.dox">
       <Filter>headers\tetengo2\text</Filter>
     </ClInclude>
@@ -83,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\text\encoding\ascii.h">
       <Filter>headers\tetengo2\text\encoding</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\meta\assoc_list.h">
-      <Filter>headers\tetengo2\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\config\cached_config.h">
       <Filter>headers\tetengo2\config</Filter>
