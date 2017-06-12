@@ -7,11 +7,13 @@
 */
 
 #include <stdexcept>
+#include <string>
 
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 
 
@@ -19,19 +21,16 @@ namespace
 {
     // types
 
-    using utf8_encoder_type = tetengo2::text::encoder<tetengo2::text::encoding::utf8, tetengo2::text::encoding::utf8>;
+    using string_type = std::string;
 
-    using string_type = utf8_encoder_type::internal_string_type;
-
-    using character_iterator_type = tetengo2::text::character_iterator<string_type, utf8_encoder_type>;
+    using character_iterator_type = tetengo2::text::character_iterator<string_type>;
 
 
     // functions
 
-    const utf8_encoder_type& utf8_encoder()
+    tetengo2::text::encoding::polymorphic<string_type> make_encoding()
     {
-        static const utf8_encoder_type singleton{};
-        return singleton;
+        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::utf8>();
     }
 
     string_type::value_type tc(const unsigned char c)
@@ -87,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
             const character_iterator_type iterator{};
         }
         {
-            const character_iterator_type iterator{ test_string, utf8_encoder() };
+            const character_iterator_type iterator{ test_string, make_encoding() };
         }
     }
 
@@ -95,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator{ test_string, utf8_encoder() };
+        character_iterator_type iterator{ test_string, make_encoding() };
 
         const auto value = *iterator;
         BOOST_TEST(value == string_mori);
@@ -105,11 +104,11 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator1{ test_string, utf8_encoder() };
+        character_iterator_type iterator1{ test_string, make_encoding() };
 
         BOOST_CHECK(iterator1 == iterator1);
 
-        character_iterator_type iterator2{ test_string, utf8_encoder() };
+        character_iterator_type iterator2{ test_string, make_encoding() };
 
         BOOST_CHECK(iterator1 == iterator2);
 
@@ -117,7 +116,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
 
         BOOST_CHECK(iterator1 != iterator2);
 
-        character_iterator_type iterator3{ string_mori, utf8_encoder() };
+        character_iterator_type iterator3{ string_mori, make_encoding() };
 
         BOOST_CHECK(iterator1 != iterator3);
 
@@ -135,7 +134,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator{ test_string, utf8_encoder() };
+        character_iterator_type iterator{ test_string, make_encoding() };
 
         {
             const auto value = *iterator;
@@ -186,11 +185,11 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            tetengo2::text::make_character_iterator<string_type, utf8_encoder_type>();
+            tetengo2::text::make_character_iterator<string_type>();
         }
         {
             const string_type string;
-            tetengo2::text::make_character_iterator(string, utf8_encoder());
+            tetengo2::text::make_character_iterator(string, make_encoding());
         }
     }
 

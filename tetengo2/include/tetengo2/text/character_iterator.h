@@ -9,13 +9,15 @@
 #if !defined(TETENGO2_TEXT_CHARACTERITERATOR_H)
 #define TETENGO2_TEXT_CHARACTERITERATOR_H
 
-#include <cassert>
 #include <iterator>
-#include <stdexcept>
-#include <utility>
+#include <memory>
 
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/throw_exception.hpp>
+
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/encoding.h>
+#include <tetengo2/text/encoding/polymorphic.h>
+#include <tetengo2/text/encoding/utf8.h>
 
 
 namespace tetengo2 { namespace text
@@ -25,12 +27,11 @@ namespace tetengo2 { namespace text
 
         Traverses the string codepoint by codepoint.
 
-        \tparam String      A string type.
-        \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
+        \tparam String A string type.
     */
-    template <typename String, typename Utf8Encoder>
+    template <typename String>
     class character_iterator :
-        public boost::iterator_facade<character_iterator<String, Utf8Encoder>, const String, std::forward_iterator_tag>
+        public boost::iterator_facade<character_iterator<String>, const String, std::forward_iterator_tag>
     {
     public:
         // types
@@ -38,8 +39,11 @@ namespace tetengo2 { namespace text
         //! The string type.
         using string_type = String;
 
+        //! THe encoding type.
+        using encoding_type = encoding::polymorphic<string_type>;
+
         //! The UTF-8 encoder type.
-        using utf8_encoder_type = Utf8Encoder;
+        using utf8_encoder_type = encoder<encoding_type, encoding::utf8>;
 
 
         // constructors and destructor
@@ -49,29 +53,34 @@ namespace tetengo2 { namespace text
 
             The iterator created by this constructor is used for a terminator.
         */
-        character_iterator()
-        :
-        m_p_string(nullptr),
-        m_utf8_encoder(),
-        m_utf8_string(utf8_string_type{}),
-        m_next_offset(0),
-        m_current_character(string_type{})
-        {}
+        character_iterator();
 
         /*!
             \brief Creates a character iterator.
 
-            \param string       A string.
-            \param utf8_encoder An encoder converting from the encoding of string to UTF-8.
+            \param string   A string.
+            \param encoding An encoding of string.
         */
-        character_iterator(const string_type& string, utf8_encoder_type utf8_encoder)
-        :
-        m_p_string(&string),
-        m_utf8_encoder(std::move(utf8_encoder)),
-        m_utf8_string(m_utf8_encoder.encode(*m_p_string)),
-        m_next_offset(0),
-        m_current_character(extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder))
-        {}
+        character_iterator(const string_type& string, encoding_type encoding);
+
+        /*!
+            \brief Copies a character iterator.
+
+            \param another Another character iterator.
+        */
+        character_iterator(const character_iterator& another);
+
+        /*!
+            \brief Moves a character iterator.
+
+            \param another Another character iterator.
+        */
+        character_iterator(character_iterator&& another);
+
+        /*!
+            \brief Destroys the character iterator.
+        */
+        ~character_iterator();
 
 
         // functions
@@ -82,10 +91,7 @@ namespace tetengo2 { namespace text
             \return The dereferenced value.
         */
         const string_type& dereference()
-        const
-        {
-            return m_current_character;
-        }
+        const;
 
         /*!
             \brief Checks whether the iterator is equal to another iterator.
@@ -96,101 +102,23 @@ namespace tetengo2 { namespace text
             \retval false Otherwise.
         */
         bool equal(const character_iterator& another)
-        const
-        {
-            if (m_current_character.empty() && another.m_current_character.empty())
-                return true;
-
-            return
-                m_p_string == another.m_p_string &&
-                m_current_character == another.m_current_character &&
-                m_next_offset == another.m_next_offset;
-        }
+        const;
 
         /*!
             \brief Increments the iterator.
         */
-        void increment()
-        {
-            if (!m_p_string)
-                BOOST_THROW_EXCEPTION(std::logic_error("The iterator has reached the terminal."));
-            if (m_next_offset >= m_utf8_string.length())
-            {
-                m_p_string = nullptr;
-                m_utf8_string.clear();
-                m_next_offset = 0;
-                m_current_character.clear();
-                return;
-            }
-
-            m_current_character = extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder);
-        }
+        void increment();
 
 
     private:
         // types
 
-        using utf8_string_type = typename utf8_encoder_type::external_string_type;
-
-        using size_type = typename string_type::size_type;
-
-        using difference_type = typename std::iterator_traits<character_iterator>::difference_type;
-
-
-        // static functions
-
-        static string_type extract_current_character(
-            const utf8_string_type&  utf8_string,
-            size_type&               next_offset,
-            const utf8_encoder_type& utf8_encoder
-        )
-        {
-            const unsigned char head = static_cast<unsigned char>(utf8_string[next_offset]);
-            if (head == 0x00)
-                return string_type{};
-
-            size_type byte_length = 0;
-            if      ((head & 0x80) == 0x00)
-            {
-                byte_length = 1;
-            }
-            else if ((head & 0xE0) == 0xC0)
-            {
-                byte_length = 2;
-            }
-            else if ((head & 0xF0) == 0xE0)
-            {
-                byte_length = 3;
-            }
-            else
-            {
-                assert((head & 0xF8) == 0xF0);
-                byte_length = 4;
-            }
-
-            utf8_string_type utf8_character{};
-            for (size_type i = 0; i < byte_length; ++i)
-            {
-                assert(i == 0 || (static_cast<unsigned char>(utf8_string[next_offset + i]) & 0xC0) == 0x80);
-                utf8_character.push_back(utf8_string[next_offset + i]);
-            }
-
-            next_offset += byte_length;
-            return utf8_encoder.decode(utf8_character);
-        }
+        class impl;
 
 
         // variables
 
-        const string_type* m_p_string;
-
-        utf8_encoder_type m_utf8_encoder;
-
-        utf8_string_type m_utf8_string;
-
-        size_type m_next_offset;
-
-        string_type m_current_character;
+        std::shared_ptr<impl> m_p_impl;
 
 
     };
@@ -206,28 +134,21 @@ namespace tetengo2 { namespace text
 
         \return A character iterator.
     */
-    template <typename String, typename Utf8Encoder>
-    character_iterator<String, Utf8Encoder> make_character_iterator()
-    {
-        return character_iterator<String, Utf8Encoder>{};
-    }
+    template <typename String>
+    character_iterator<String> make_character_iterator();
 
     /*!
         \brief Creates a character iterator.
 
-        \tparam String      A string type.
-        \tparam Utf8Encoder An encoder type converting from the encoding of String to UTF-8.
+        \tparam String A string type.
 
-        \param string       A string.
-        \param utf8_encoder An encoder converting from the encoding of string to UTF-8.
+        \param string   A string.
+        \param encoding An encoding of string.
 
         \return A character iterator.
     */
-    template <typename String, typename Utf8Encoder>
-    character_iterator<String, Utf8Encoder> make_character_iterator(const String& string, Utf8Encoder utf8_encoder)
-    {
-        return character_iterator<String, Utf8Encoder>{ string, std::move(utf8_encoder) };
-    }
+    template <typename String>
+    character_iterator<String> make_character_iterator(const String& string, encoding::polymorphic<String> encoding);
 
 
 }}
