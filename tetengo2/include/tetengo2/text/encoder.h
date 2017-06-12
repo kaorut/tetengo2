@@ -111,7 +111,7 @@ namespace tetengo2 { namespace text
         internal_string_type decode(external_string_type string)
         const
         {
-            return m_internal_encoding.from_pivot(m_external_encoding.to_pivot(std::move(string)));
+            return decode_impl<internal_string_type>(std::move(string));
         }
 
 
@@ -143,7 +143,7 @@ namespace tetengo2 { namespace text
         }
 
         template <typename IS, typename ES>
-        IS decode(ES string, typename std::enable_if<std::is_convertible<ES, IS>::value>::type* = nullptr)
+        IS decode_impl(ES string, typename std::enable_if<std::is_convertible<ES, IS>::value>::type* = nullptr)
         const
         {
             if (m_internal_encoding == m_external_encoding)
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace text
         }
 
         template <typename IS, typename ES>
-        IS decode(ES string, typename std::enable_if<!std::is_convertible<ES, IS>::value>::type* = nullptr)
+        IS decode_impl(ES string, typename std::enable_if<!std::is_convertible<ES, IS>::value>::type* = nullptr)
         const
         {
             return m_internal_encoding.from_pivot(m_external_encoding.to_pivot(std::move(string)));
