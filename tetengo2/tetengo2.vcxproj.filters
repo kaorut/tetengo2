@@ -162,6 +162,9 @@
     <ClInclude Include="include\tetengo2\iterator\polymorphic_forward_iterator.h">
       <Filter>headers\tetengo2\iterator</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\text\encoding\polymorphic.h">
+      <Filter>headers\tetengo2\text\encoding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp">
@@ -205,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.text.character_iterator.cpp">
       <Filter>sources\tetengo2\text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.encoding.polymorphic.cpp">
+      <Filter>sources\tetengo2\text\encoding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

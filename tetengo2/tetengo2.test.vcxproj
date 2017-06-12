@@ -125,6 +125,7 @@
     <ClCompile Include="test\test_tetengo2.text.encoding.cp932.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.encoding.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.locale.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.encoding.polymorphic.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.utf8.cpp" />
     <ClCompile Include="test\test_tetengo2.text.grammar.json.cpp" />
     <ClCompile Include="test\test_tetengo2.text.pull_parser.cpp" />
