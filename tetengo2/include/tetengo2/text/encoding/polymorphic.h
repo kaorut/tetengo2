@@ -10,6 +10,7 @@
 #define TETENGO2_TEXT_ENCODING_POLYMORPHIC_H
 
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -44,8 +45,15 @@ namespace tetengo2 { namespace text { namespace encoding
 
         /*!
             \brief Creates a polymorphic encoding holder.
+        */
+        polymorphic();
+
+        /*!
+            \brief Creates a polymorphic encoding holder.
 
             \param p_encoding A unique pointer to an encoding.
+
+            \throw std::invalid_argument When p_encoding is nullptr.
         */
         explicit polymorphic(std::unique_ptr<base_type> p_encoding);
 

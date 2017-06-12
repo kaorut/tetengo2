@@ -12,6 +12,7 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2/text/encoding/polymorphic.h>
 
@@ -33,10 +34,18 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // constructors and destructors
 
+        impl()
+        :
+        m_p_encoding()
+        {}
+
         explicit impl(std::unique_ptr<base_type> p_encoding)
         :
         m_p_encoding(std::move(p_encoding))
-        {}
+        {
+            if (!m_p_encoding)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("p_encoding is nullptr."));
+        }
 
 
         // functions
@@ -44,18 +53,24 @@ namespace tetengo2 { namespace text { namespace encoding
         const std::string& name_impl()
         const
         {
+            if (!m_p_encoding)
+                BOOST_THROW_EXCEPTION(std::logic_error("p_encoding is nullptr."));
             return m_p_encoding->name();
         }
 
         string_type from_pivot_impl(pivot_type pivot)
         const
         {
+            if (!m_p_encoding)
+                BOOST_THROW_EXCEPTION(std::logic_error("p_encoding is nullptr."));
             return m_p_encoding->from_pivot(std::move(pivot));
         }
 
         typename base_type::pivot_type to_pivot_impl(string_type string)
         const
         {
+            if (!m_p_encoding)
+                BOOST_THROW_EXCEPTION(std::logic_error("p_encoding is nullptr."));
             return m_p_encoding->to_pivot(std::move(string));
         }
 
@@ -68,6 +83,12 @@ namespace tetengo2 { namespace text { namespace encoding
 
     };
 
+
+    template <typename String>
+    polymorphic<String>::polymorphic()
+    :
+    m_p_impl(std::make_shared<impl>())
+    {}
 
     template <typename String>
     polymorphic<String>::polymorphic(std::unique_ptr<base_type> p_encoding)

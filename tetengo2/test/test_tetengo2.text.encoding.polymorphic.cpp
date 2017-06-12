@@ -14,6 +14,7 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 
@@ -110,14 +111,25 @@ BOOST_AUTO_TEST_SUITE(polymorphic)
     {
         BOOST_TEST_PASSPOINT();
 
-        const polymorphic_encoding_type encoding{ std::make_unique<concrete_encoding>() };
+        {
+            const polymorphic_encoding_type encoding{};
+        }
+        {
+            const polymorphic_encoding_type encoding{ tetengo2::stdalt::make_unique<concrete_encoding>() };
+        }
+        {
+            BOOST_CHECK_THROW(
+                const polymorphic_encoding_type encoding{ std::unique_ptr<concrete_encoding>{} },
+                std::invalid_argument
+            );
+        }
     } 
 
     BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_TEST_PASSPOINT();
 
-        const polymorphic_encoding_type encoding{ std::make_unique<concrete_encoding>() };
+        const polymorphic_encoding_type encoding{ tetengo2::stdalt::make_unique<concrete_encoding>() };
 
         BOOST_CHECK(encoding.name() == concrete_encoding{}.name());
     } 
@@ -127,25 +139,25 @@ BOOST_AUTO_TEST_SUITE(polymorphic)
         BOOST_TEST_PASSPOINT();
 
         {
-            const polymorphic_encoding_type encoding1{ std::make_unique<concrete_encoding>() };
-            const polymorphic_encoding_type encoding2{ std::make_unique<concrete_encoding>() };
+            const polymorphic_encoding_type encoding1{ tetengo2::stdalt::make_unique<concrete_encoding>() };
+            const polymorphic_encoding_type encoding2{ tetengo2::stdalt::make_unique<concrete_encoding>() };
 
             BOOST_CHECK(encoding1 == encoding2);
         }
         {
-            const polymorphic_encoding_type encoding1{ std::make_unique<concrete_encoding>() };
+            const polymorphic_encoding_type encoding1{ tetengo2::stdalt::make_unique<concrete_encoding>() };
             const concrete_encoding encoding2{};
 
             BOOST_CHECK(encoding1 == encoding2);
         }
         {
-            const polymorphic_encoding_type encoding1{ std::make_unique<concrete_encoding>() };
-            const polymorphic_encoding_type encoding2{ std::make_unique<another_concrete_encoding>() };
+            const polymorphic_encoding_type encoding1{ tetengo2::stdalt::make_unique<concrete_encoding>() };
+            const polymorphic_encoding_type encoding2{ tetengo2::stdalt::make_unique<another_concrete_encoding>() };
 
             BOOST_CHECK(encoding1 != encoding2);
         }
         {
-            const polymorphic_encoding_type encoding1{ std::make_unique<concrete_encoding>() };
+            const polymorphic_encoding_type encoding1{ tetengo2::stdalt::make_unique<concrete_encoding>() };
             const another_concrete_encoding encoding2{};
 
             BOOST_CHECK(encoding1 != encoding2);
@@ -156,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(polymorphic)
     {
         BOOST_TEST_PASSPOINT();
 
-        const polymorphic_encoding_type encoding{ std::make_unique<concrete_encoding>() };
+        const polymorphic_encoding_type encoding{ tetengo2::stdalt::make_unique<concrete_encoding>() };
 
         encoding.from_pivot(encoding_type::pivot_type{});
     } 
@@ -165,7 +177,7 @@ BOOST_AUTO_TEST_SUITE(polymorphic)
     {
         BOOST_TEST_PASSPOINT();
 
-        const polymorphic_encoding_type encoding{ std::make_unique<concrete_encoding>() };
+        const polymorphic_encoding_type encoding{ tetengo2::stdalt::make_unique<concrete_encoding>() };
 
         encoding.to_pivot(encoding_type::string_type{});
     } 
