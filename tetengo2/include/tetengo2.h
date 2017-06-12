@@ -32,6 +32,7 @@
 #include <tetengo2/text/encoding/cp932.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>
