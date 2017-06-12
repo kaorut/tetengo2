@@ -11,7 +11,9 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 
 
@@ -77,6 +79,22 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
     };
+
+
+    /*!
+        \brief Make a polymorphic encoding holder.
+
+        \tparam Encoding An encoding type.
+
+        \param args Arguments for the encoding constructor.
+
+        \return The polymorphic encoding holder.
+    */
+    template <typename Encoding, typename... Args>
+    polymorphic<typename Encoding::string_type> make_polymorphic(Args&&... args)
+    {
+        return polymorphic<typename Encoding::string_type>(stdalt::make_unique<Encoding>(std::forward<Args>(args)...));
+    }
 
 
 }}}

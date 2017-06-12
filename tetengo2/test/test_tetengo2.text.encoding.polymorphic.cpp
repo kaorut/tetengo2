@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/test/unit_test.hpp>
@@ -25,6 +26,16 @@ namespace
     class concrete_encoding : public encoding_type
     {
     public:
+        concrete_encoding()
+        :
+        m_name("test_concrete")
+        {}
+
+        concrete_encoding(std::string name)
+        :
+        m_name(std::move(name))
+        {}
+
         void call_details()
         const
         {
@@ -32,11 +43,12 @@ namespace
         }
 
     private:
+        std::string m_name;
+
         virtual const std::string& name_impl()
         const
         {
-            static const std::string singleton{ "test_concrete" };
-            return singleton;
+            return m_name;
         }
 
         virtual string_type from_pivot_impl(pivot_type pivot)
@@ -159,6 +171,26 @@ BOOST_AUTO_TEST_SUITE(polymorphic)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+
+
+    BOOST_AUTO_TEST_CASE(make_polymorphic)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const polymorphic_encoding_type encoding = tetengo2::text::encoding::make_polymorphic<concrete_encoding>();
+
+            BOOST_CHECK(encoding.name() == concrete_encoding{}.name());
+        }
+        {
+            const polymorphic_encoding_type encoding =
+                tetengo2::text::encoding::make_polymorphic<concrete_encoding>("hoge");
+
+            BOOST_CHECK(encoding.name() == "hoge");
+        }
+    } 
+
+
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
