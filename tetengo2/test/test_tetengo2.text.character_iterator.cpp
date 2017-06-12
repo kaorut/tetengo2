@@ -8,6 +8,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
@@ -87,6 +88,20 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
         }
         {
             const character_iterator_type iterator{ test_string, make_encoding() };
+        }
+        {
+            const character_iterator_type iterator1{ test_string, make_encoding() };
+            const character_iterator_type iterator2{ iterator1 };
+
+            const auto value = *iterator2;
+            BOOST_TEST(value == string_mori);
+        }
+        {
+            character_iterator_type iterator1{ test_string, make_encoding() };
+            const character_iterator_type iterator2{ std::move(iterator1) };
+
+            const auto value = *iterator2;
+            BOOST_TEST(value == string_mori);
         }
     }
 

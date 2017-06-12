@@ -17,7 +17,6 @@
 
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 
@@ -30,11 +29,9 @@ namespace tetengo2 { namespace text
     public:
         // types
 
-        using string_type = String;
+        using string_type = typename character_iterator<String>::string_type;
 
-        using encoding_type = encoding::polymorphic<string_type>;
-
-        using utf8_encoder_type = encoder<encoding_type, encoding::utf8>;
+        using encoding_type = typename character_iterator<String>::encoding_type;
 
 
         // constructors and destructor
@@ -97,6 +94,8 @@ namespace tetengo2 { namespace text
 
     private:
         // types
+
+        using utf8_encoder_type = encoder<encoding_type, encoding::utf8>;
 
         using utf8_string_type = typename utf8_encoder_type::external_string_type;
 

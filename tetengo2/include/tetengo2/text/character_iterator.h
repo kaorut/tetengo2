@@ -14,10 +14,7 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
-#include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/polymorphic.h>
-#include <tetengo2/text/encoding/utf8.h>
 
 
 namespace tetengo2 { namespace text
@@ -41,9 +38,6 @@ namespace tetengo2 { namespace text
 
         //! THe encoding type.
         using encoding_type = encoding::polymorphic<string_type>;
-
-        //! The UTF-8 encoder type.
-        using utf8_encoder_type = encoder<encoding_type, encoding::utf8>;
 
 
         // constructors and destructor
