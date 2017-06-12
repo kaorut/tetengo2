@@ -203,6 +203,9 @@
     <ClCompile Include="src\tetengo2.text.encoding.utf8.cpp">
       <Filter>sources\tetengo2\text\encoding</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.text.character_iterator.cpp">
+      <Filter>sources\tetengo2\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\iterator\0namespace.dox">
