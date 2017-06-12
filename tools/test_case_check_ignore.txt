@@ -67,7 +67,6 @@ test_tetengo2::gui::unit::unit::operator_multiply
 test_tetengo2::message::messages::close
 test_tetengo2::message::messages::get
 test_tetengo2::message::messages::open
-test_tetengo2::meta::assoc_list::[a-zA-Z0-9_]+
 test_tetengo2::text::encoding::[a-zA-Z0-9_]+::name
 test_tetengo2::text::encoding::[a-zA-Z0-9_]+::operator_equal
 test_tetengo2::text::encoding::[a-zA-Z0-9_]+::from_pivot
