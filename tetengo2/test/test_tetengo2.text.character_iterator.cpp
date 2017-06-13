@@ -7,37 +7,31 @@
 */
 
 #include <stdexcept>
+#include <string>
+#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
-
-#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::type_list::detail_for_test;
+    using string_type = std::string;
 
-    using encoding_details_type = detail_type_list_type::encoding_type;
-
-    using string_type = encoding_details_type::utf8_string_type;
-
-    using utf8_encoder_type = tetengo2::text::encoder<tetengo2::text::encoding::utf8, tetengo2::text::encoding::utf8>;
-
-    using character_iterator_type = tetengo2::text::character_iterator<string_type, utf8_encoder_type>;
+    using character_iterator_type = tetengo2::text::character_iterator<string_type>;
 
 
     // functions
 
-    const utf8_encoder_type& utf8_encoder()
+    tetengo2::text::encoding::polymorphic<string_type> make_encoding()
     {
-        static const utf8_encoder_type singleton{};
-        return singleton;
+        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::utf8>();
     }
 
     string_type::value_type tc(const unsigned char c)
@@ -93,7 +87,21 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
             const character_iterator_type iterator{};
         }
         {
-            const character_iterator_type iterator{ test_string, utf8_encoder() };
+            const character_iterator_type iterator{ test_string, make_encoding() };
+        }
+        {
+            const character_iterator_type iterator1{ test_string, make_encoding() };
+            const character_iterator_type iterator2{ iterator1 };
+
+            const auto value = *iterator2;
+            BOOST_TEST(value == string_mori);
+        }
+        {
+            character_iterator_type iterator1{ test_string, make_encoding() };
+            const character_iterator_type iterator2{ std::move(iterator1) };
+
+            const auto value = *iterator2;
+            BOOST_TEST(value == string_mori);
         }
     }
 
@@ -101,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator{ test_string, utf8_encoder() };
+        character_iterator_type iterator{ test_string, make_encoding() };
 
         const auto value = *iterator;
         BOOST_TEST(value == string_mori);
@@ -111,11 +119,11 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator1{ test_string, utf8_encoder() };
+        character_iterator_type iterator1{ test_string, make_encoding() };
 
         BOOST_CHECK(iterator1 == iterator1);
 
-        character_iterator_type iterator2{ test_string, utf8_encoder() };
+        character_iterator_type iterator2{ test_string, make_encoding() };
 
         BOOST_CHECK(iterator1 == iterator2);
 
@@ -123,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
 
         BOOST_CHECK(iterator1 != iterator2);
 
-        character_iterator_type iterator3{ string_mori, utf8_encoder() };
+        character_iterator_type iterator3{ string_mori, make_encoding() };
 
         BOOST_CHECK(iterator1 != iterator3);
 
@@ -141,7 +149,7 @@ BOOST_AUTO_TEST_SUITE(character_iterator)
     {
         BOOST_TEST_PASSPOINT();
 
-        character_iterator_type iterator{ test_string, utf8_encoder() };
+        character_iterator_type iterator{ test_string, make_encoding() };
 
         {
             const auto value = *iterator;
@@ -192,11 +200,11 @@ BOOST_AUTO_TEST_SUITE_END()
         BOOST_TEST_PASSPOINT();
 
         {
-            tetengo2::text::make_character_iterator<string_type, utf8_encoder_type>();
+            tetengo2::text::make_character_iterator<string_type>();
         }
         {
             const string_type string;
-            tetengo2::text::make_character_iterator(string, utf8_encoder());
+            tetengo2::text::make_character_iterator(string, make_encoding());
         }
     }
 

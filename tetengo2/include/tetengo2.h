@@ -24,7 +24,6 @@
 #include <tetengo2/message/message_catalog.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
-#include <tetengo2/meta/assoc_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
@@ -33,6 +32,7 @@
 #include <tetengo2/text/encoding/cp932.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>

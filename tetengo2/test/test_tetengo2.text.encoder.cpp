@@ -6,20 +6,104 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/ascii.h>
+#include <tetengo2/text/encoding/encoding.h>
 
 
 namespace
 {
     // types
 
-    using encoding_type = tetengo2::text::encoding::ascii;
+    class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
+    {
+    public:
+        void call_details()
+        const
+        {
+            details();
+        }
 
-    using encoder_type = tetengo2::text::encoder<encoding_type, encoding_type>;
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_concrete" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+ConcreteToPivot") };
+        }
+
+    };
+
+    class another_concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_another" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+AnotherToPivot") };
+        }
+
+    };
+
+    class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
+    {
+    private:
+        virtual const std::string& name_impl()
+        const
+        {
+            static const std::string singleton{ "test_wide" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot)
+        const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+WideFromPivot") };
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string)
+        const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+WideToPivot") };
+        }
+
+    };
+
+    using encoder_type = tetengo2::text::encoder<concrete_encoding, concrete_encoding>;
+
+    using another_encoder_type = tetengo2::text::encoder<concrete_encoding, another_concrete_encoding>;
+
+    using wide_encoder_type = tetengo2::text::encoder<concrete_encoding, wide_concrete_encoding>;
+
 
 }
 
@@ -36,8 +120,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
             const encoder_type encoder{};
         }
         {
-            const encoding_type encoding1{};
-            const encoding_type encoding2{};
+            const concrete_encoding encoding1{};
+            const concrete_encoding encoding2{};
             const encoder_type encoder{ encoding1, encoding2 };
         }
     }
@@ -46,46 +130,106 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
-        const encoder_type encoder{ encoding1, encoding2 };
+        const concrete_encoding encoding1{};
+        const another_concrete_encoding encoding2{};
+        const another_encoder_type encoder{ encoding1, encoding2 };
+
+        BOOST_CHECK(encoder.internal_encoding().name() == encoding1.name());
     }
 
     BOOST_AUTO_TEST_CASE(external_encoding)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
-        const encoder_type encoder{ encoding1, encoding2 };
+        const concrete_encoding encoding1{};
+        const another_concrete_encoding encoding2{};
+        const another_encoder_type encoder{ encoding1, encoding2 };
+
+        BOOST_CHECK(encoder.external_encoding().name() == encoding2.name());
     }
 
     BOOST_AUTO_TEST_CASE(encode)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoder_type::internal_string_type internal_string{ TETENGO2_TEXT("Tetengo2") };
-        const encoder_type::external_string_type external_string{ TETENGO2_TEXT("Tetengo2") };
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::string external_string{ TETENGO2_TEXT("Tetengo2") };
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
-        const encoder_type encoder{ encoding1, encoding2 };
+            const concrete_encoding encoding1{};
+            const concrete_encoding encoding2{};
+            const encoder_type encoder{ encoding1, encoding2 };
 
-        BOOST_CHECK(encoder.encode(internal_string) == external_string);
+            BOOST_CHECK(encoder.encode(internal_string) == std::string{ TETENGO2_TEXT("Tetengo2") });
+        }
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::string external_string{ TETENGO2_TEXT("Tetengo2") };
+
+            const concrete_encoding encoding1{};
+            const another_concrete_encoding encoding2{};
+            const another_encoder_type encoder{ encoding1, encoding2 };
+
+            BOOST_CHECK(
+                encoder.encode(internal_string) ==
+                std::string{ TETENGO2_TEXT("Tetengo2+ConcreteToPivot+AnotherFromPivot") }
+            );
+        }
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::wstring external_string{ TETENGO2_TEXT("Tetengo2") };
+
+            const concrete_encoding encoding1{};
+            const wide_concrete_encoding encoding2{};
+            const wide_encoder_type encoder{ encoding1, encoding2 };
+
+            BOOST_CHECK(
+                encoder.encode(internal_string) ==
+                std::wstring{ TETENGO2_TEXT("Tetengo2+ConcreteToPivot+WideFromPivot") }
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(decode)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoder_type::internal_string_type internal_string{ TETENGO2_TEXT("Tetengo2") };
-        const encoder_type::external_string_type external_string{ TETENGO2_TEXT("Tetengo2") };
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::string external_string{ TETENGO2_TEXT("Tetengo2") };
 
-        const encoding_type encoding1{};
-        const encoding_type encoding2{};
-        const encoder_type encoder{ encoding1, encoding2 };
+            const concrete_encoding encoding1{};
+            const concrete_encoding encoding2{};
+            const encoder_type encoder{ encoding1, encoding2 };
 
-        BOOST_CHECK(encoder.decode(external_string) == internal_string);
+            BOOST_CHECK(encoder.decode(external_string) == std::string{ TETENGO2_TEXT("Tetengo2") });
+        }
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::string external_string{ TETENGO2_TEXT("Tetengo2") };
+
+            const concrete_encoding encoding1{};
+            const another_concrete_encoding encoding2{};
+            const another_encoder_type encoder{ encoding1, encoding2 };
+
+            BOOST_CHECK(
+                encoder.decode(external_string) ==
+                std::string{ TETENGO2_TEXT("Tetengo2+AnotherToPivot+ConcreteFromPivot") }
+            );
+        }
+        {
+            const std::string internal_string{ TETENGO2_TEXT("Tetengo2") };
+            const std::wstring external_string{ TETENGO2_TEXT("Tetengo2") };
+
+            const concrete_encoding encoding1{};
+            const wide_concrete_encoding encoding2{};
+            const wide_encoder_type encoder{ encoding1, encoding2 };
+
+            BOOST_CHECK(
+                encoder.decode(external_string) ==
+                std::string{ TETENGO2_TEXT("Tetengo2+WideToPivot+ConcreteFromPivot") }
+            );
+        }
     }
 
 

@@ -119,8 +119,6 @@
     <ClInclude Include="include\tetengo2\message\messages.h" />
     <ClInclude Include="include\tetengo2\message\message_catalog.h" />
     <ClInclude Include="include\tetengo2\message\message_catalog_parser.h" />
-    <ClInclude Include="include\tetengo2\meta\0namespace.dox" />
-    <ClInclude Include="include\tetengo2\meta\assoc_list.h" />
     <ClInclude Include="include\tetengo2\stdalt.h" />
     <ClInclude Include="include\tetengo2\text.h" />
     <ClInclude Include="include\tetengo2\text\0namespace.dox" />
@@ -131,6 +129,7 @@
     <ClInclude Include="include\tetengo2\text\encoding\cp932.h" />
     <ClInclude Include="include\tetengo2\text\encoding\encoding.h" />
     <ClInclude Include="include\tetengo2\text\encoding\locale.h" />
+    <ClInclude Include="include\tetengo2\text\encoding\polymorphic.h" />
     <ClInclude Include="include\tetengo2\text\encoding\utf8.h" />
     <ClInclude Include="include\tetengo2\text\grammar\0namespace.dox" />
     <ClInclude Include="include\tetengo2\text\grammar\json.h" />
@@ -149,10 +148,12 @@
     <ClCompile Include="src\tetengo2.config.config_list.cpp" />
     <ClCompile Include="src\tetengo2.config.persistent_config.cpp" />
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp" />
+    <ClCompile Include="src\tetengo2.text.character_iterator.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.ascii.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.cp932.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.encoding.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.locale.cpp" />
+    <ClCompile Include="src\tetengo2.text.encoding.polymorphic.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.utf8.cpp" />
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp" />
   </ItemGroup>

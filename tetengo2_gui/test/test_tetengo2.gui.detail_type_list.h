@@ -52,12 +52,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
             using drawing_details_type = tetengo2::detail::stub::drawing;
 
-#if BOOST_COMP_MSVC
-            using encoding_details_type = tetengo2::detail::windows::encoding;
-#else
-            using encoding_details_type = tetengo2::detail::unixos::encoding;
-#endif
-
             using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
 
             using icon_details_type = tetengo2::detail::stub::icon;
@@ -105,9 +99,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         //! The drawing type.
         using drawing_type = detail::detail::test::drawing_details_type;
-
-        //! The encoding type.
-        using encoding_type = detail::detail::test::encoding_details_type;
 
         //! The GUI fixture type.
         using gui_fixture_type = detail::detail::test::gui_fixture_type;

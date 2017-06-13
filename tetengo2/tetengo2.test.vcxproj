@@ -95,7 +95,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
-    <ClInclude Include="test\test_tetengo2.detail_type_list.h" />
     <ClInclude Include="test\test_tetengo2.type_list.h" />
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +118,6 @@
     <ClCompile Include="test\test_tetengo2.message.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp" />
-    <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
     <ClCompile Include="test\test_tetengo2.text.character_iterator.cpp" />
     <ClCompile Include="test\test_tetengo2.text.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoder.cpp" />
@@ -127,6 +125,7 @@
     <ClCompile Include="test\test_tetengo2.text.encoding.cp932.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.encoding.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.locale.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.encoding.polymorphic.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.utf8.cpp" />
     <ClCompile Include="test\test_tetengo2.text.grammar.json.cpp" />
     <ClCompile Include="test\test_tetengo2.text.pull_parser.cpp" />

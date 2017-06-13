@@ -12,8 +12,6 @@
 #include <cstddef>
 #include <string>
 
-#include "test_tetengo2.detail_type_list.h"
-
 
 namespace test_tetengo2 { namespace type_list
 {
@@ -33,7 +31,9 @@ namespace test_tetengo2 { namespace type_list
         //! The I/O string type.
         using io_string_type = std::string;
 
+
     };
+
 
 }}
 
