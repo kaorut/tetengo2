@@ -47,6 +47,7 @@
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 
 
@@ -1122,17 +1123,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         template <typename String, typename Encoder>
-        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder&)
+        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
-            using character_iterator_type = text::character_iterator<String, utf8_encoder_type>;
+            using character_iterator_type = text::character_iterator<String>;
 
             static const utf8_encoder_type utf8_encoder{};
             std::vector<String> chunks{};
             String tatechuyoko{};
             const character_iterator_type end{};
-            for (auto i = character_iterator_type{ text, utf8_encoder }; i != end; ++i)
+            for (
+                auto i =
+                    character_iterator_type(
+                        text,
+                        text::encoding::make_polymorphic<internal_encoding_type>(encoder.internal_encoding())
+                    );
+                i != end;
+                ++i
+            )
             {
                 const auto& char_as_string = *i;
                 if (is_tatechuyoko_character(char_as_string, utf8_encoder))
