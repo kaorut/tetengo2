@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/grammar/grammar.h>
@@ -13,6 +15,26 @@
 
 namespace
 {
+    // types
+
+    using grammar_type = tetengo2::text::grammar::grammar<std::string::const_iterator>;
+
+    class concrete_grammar : public grammar_type
+    {
+    public:
+        using rule_type = grammar_type::rule_type;
+
+        concrete_grammar()
+        :
+        grammar_type(m_rule),
+        m_rule{}
+        {}
+
+    private:
+        rule_type m_rule;
+
+    };
+
 
 }
 
@@ -27,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Implement it.");
+        const concrete_grammar grammar;
     }
 
     
