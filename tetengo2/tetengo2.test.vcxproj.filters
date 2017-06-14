@@ -137,6 +137,9 @@
     <ClCompile Include="test\test_tetengo2.text.encoding.polymorphic.cpp">
       <Filter>sources\test_tetengo2\text\encoding</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.text.grammar.grammar.cpp">
+      <Filter>sources\test_tetengo2\text\grammar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.json">

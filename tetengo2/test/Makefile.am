@@ -33,6 +33,7 @@ sources = \
     test_tetengo2.text.encoding.locale.cpp \
     test_tetengo2.text.encoding.polymorphic.cpp \
     test_tetengo2.text.encoding.utf8.cpp \
+    test_tetengo2.text.grammar.grammar.cpp \
     test_tetengo2.text.grammar.json.cpp \
     test_tetengo2.text.pull_parser.cpp \
     test_tetengo2.text.push_parser.cpp

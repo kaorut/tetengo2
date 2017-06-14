@@ -165,6 +165,9 @@
     <ClInclude Include="include\tetengo2\text\encoding\polymorphic.h">
       <Filter>headers\tetengo2\text\encoding</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\text\grammar\grammar.h">
+      <Filter>headers\tetengo2\text\grammar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.text.encoding.polymorphic.cpp">
       <Filter>sources\tetengo2\text\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.text.grammar.grammar.cpp">
+      <Filter>sources\tetengo2\text\grammar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

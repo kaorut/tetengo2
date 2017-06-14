@@ -20,6 +20,7 @@ sources = \
     tetengo2.text.encoding.locale.cpp \
     tetengo2.text.encoding.polymorphic.cpp \
     tetengo2.text.encoding.utf8.cpp \
+    tetengo2.text.grammar.grammar.cpp \
     tetengo2.text.grammar.json.cpp
 
 extra_sources =
