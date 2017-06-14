@@ -26,6 +26,7 @@ pkg_headers = \
     text/encoding/ascii.h \
     text/encoding/cp932.h \
     text/encoding/locale.h \
+    text/encoding/polymorphic.h \
     text/encoding/utf8.h \
     text/grammar/json.h \
     text/pull_parser.h \
