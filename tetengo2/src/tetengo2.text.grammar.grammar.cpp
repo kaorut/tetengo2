@@ -36,30 +36,15 @@ namespace tetengo2 { namespace text { namespace grammar
 
         // constructors and destructor
 
-        impl(rule_type& root_rule)
-        :
-        m_root_rule(root_rule)
+        impl()
         {}
 
 
         // functions
 
-        const rule_type& root_rule()
-        const
-        {
-            return m_root_rule;
-        }
-
-        rule_type& root_rule()
-        {
-            return m_root_rule;
-        }
-
 
     private:
         // variables
-
-        rule_type& m_root_rule;
 
 
     };
@@ -70,25 +55,11 @@ namespace tetengo2 { namespace text { namespace grammar
     = default;
 
     template <typename ForwardIterator>
-    grammar<ForwardIterator>::grammar()
+    grammar<ForwardIterator>::grammar(rule_type& root_rule)
     :
-    grammar::base_type(m_root_rule),
-    m_root_rule(),
-    m_p_impl(tetengo2::stdalt::make_unique<impl>(m_root_rule))
+    grammar::base_type(root_rule),
+    m_p_impl(tetengo2::stdalt::make_unique<impl>())
     {}
-
-    template <typename ForwardIterator>
-    const typename grammar<ForwardIterator>::rule_type& grammar<ForwardIterator>::root_rule()
-    const
-    {
-        return m_p_impl->root_rule();
-    }
-
-    template <typename ForwardIterator>
-    typename grammar<ForwardIterator>::rule_type& grammar<ForwardIterator>::root_rule()
-    {
-        return m_p_impl->root_rule();
-    }
 
 
     namespace

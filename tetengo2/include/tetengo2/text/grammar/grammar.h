@@ -55,26 +55,10 @@ namespace tetengo2 { namespace text { namespace grammar
 
         /*!
             \brief Creates a grammar.
+
+            \param root_rule A root rule.
         */
-        grammar();
-
-
-        // functions
-
-        /*!
-            \brief Returns the root rule.
-
-            \return The root rule.
-        */
-        const rule_type& root_rule()
-        const;
-
-        /*!
-            \brief Returns the root rule.
-
-            \return The root rule.
-        */
-        rule_type& root_rule();
+        explicit grammar(rule_type& root_rule);
 
 
     private:
@@ -84,8 +68,6 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
         // variables
-
-        rule_type m_root_rule;
 
         const std::unique_ptr<impl> m_p_impl;
 
