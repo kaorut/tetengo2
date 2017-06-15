@@ -8,6 +8,7 @@
 
 #include <iterator>
 #include <string>
+#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
@@ -19,6 +20,36 @@
 
 namespace tetengo2 { namespace text { namespace grammar
 {
+    template <typename String>
+    structure_attribute<String>::structure_attribute(string_type name, const value_type_type value_type, const string_type& attribute)
+    :
+    m_name(std::move(name)),
+    m_value_type(value_type),
+    m_attribute(attribute)
+    {}
+
+    template <typename String>
+    const typename structure_attribute<String>::string_type& structure_attribute<String>::name()
+    const
+    {
+        return m_name;
+    }
+
+    template <typename String>
+    typename structure_attribute<String>::value_type_type structure_attribute<String>::value_type()
+    const
+    {
+        return m_value_type;
+    }
+
+    template <typename String>
+    const typename structure_attribute<String>::string_type& structure_attribute<String>::attribute()
+    const
+    {
+        return m_attribute;
+    }
+
+
     template <typename ForwardIterator>
     class grammar<ForwardIterator>::impl : boost::noncopyable
     {
@@ -78,6 +109,8 @@ namespace tetengo2 { namespace text { namespace grammar
         }
 
     }
+
+    template class structure_attribute<std::string>;
 
     template class grammar<application::input_stream_iterator_type>;
 

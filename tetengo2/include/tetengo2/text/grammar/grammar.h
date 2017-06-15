@@ -18,6 +18,80 @@
 namespace tetengo2 { namespace text { namespace grammar
 {
     /*!
+        \brief The structure attribute.
+
+        \tparam String A string type.
+    */
+    template <typename String>
+    class structure_attribute
+    {
+    public:
+        // types
+
+        //! The string type.
+        using string_type = String;
+
+        //! The value type type.
+        enum class value_type_type
+        {
+            string,  //!< A string.
+            number,  //!< A number.
+            boolean, //!< A boolean.
+            null,    //!< A null.
+        };
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a structure attribute.
+
+            \param name       A name.
+            \param value_type A value type.
+            \param attribute  An attribute.
+        */
+        structure_attribute(string_type name, value_type_type value_type, const string_type& attribute);
+
+
+        // functions
+
+        /*!
+            \brief Returns the name.
+
+            \return The name.
+        */
+        const string_type& name()
+        const;
+
+        /*!
+            \brief Returns the value type.
+
+            \return The value type.
+        */
+        value_type_type value_type()
+        const;
+
+        /*!
+            \brief Returns the attribute.
+
+            \return The attribute.
+        */
+        const string_type& attribute()
+        const;
+
+    private:
+        // variables
+
+        string_type m_name;
+
+        value_type_type m_value_type;
+
+        const string_type& m_attribute;
+
+    };
+
+
+    /*!
         \brief The class template for a grammar.
 
         \tparam ForwardIterator A forward iterator type.

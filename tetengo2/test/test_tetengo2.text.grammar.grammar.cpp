@@ -17,6 +17,10 @@ namespace
 {
     // types
 
+    using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
+
+    using value_type_type = structure_attribute_type::value_type_type;
+
     using grammar_type = tetengo2::text::grammar::grammar<std::string::const_iterator>;
 
     class concrete_grammar : public grammar_type
@@ -42,6 +46,55 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(grammar)
+BOOST_AUTO_TEST_SUITE(structure_attribute)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::string attribute{ "fuga" };
+        const structure_attribute_type structure_attribute{ "hoge", value_type_type::number, attribute };
+    }
+
+    BOOST_AUTO_TEST_CASE(name)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::string attribute{ "fuga" };
+        const structure_attribute_type structure_attribute{ "hoge", value_type_type::number, attribute };
+
+        BOOST_CHECK(structure_attribute.name() == "hoge");
+    }
+
+    BOOST_AUTO_TEST_CASE(value_type)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_TEST_PASSPOINT();
+
+        const std::string attribute{ "fuga" };
+        const structure_attribute_type structure_attribute{ "hoge", value_type_type::number, attribute };
+
+        BOOST_CHECK(structure_attribute.value_type() == value_type_type::number);
+    }
+
+    BOOST_AUTO_TEST_CASE(attribute)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_TEST_PASSPOINT();
+
+        const std::string attribute{ "fuga" };
+        const structure_attribute_type structure_attribute{
+            "hoge", structure_attribute_type::value_type_type::number, attribute
+        };
+
+        BOOST_CHECK(structure_attribute.attribute() == "fuga");
+    }
+
+    
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(grammar)
     // test cases
 
