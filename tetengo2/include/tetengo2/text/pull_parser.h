@@ -62,7 +62,7 @@ namespace tetengo2 { namespace text
         using size_type = Size;
 
         //! The push parser type.
-        using push_parser_type = push_parser<iterator, grammar_type, integer_type, float_type>;
+        using push_parser_type = push_parser<iterator>;
 
         //! The value type.
         using value_type = typename push_parser_type::value_type;

@@ -39,11 +39,8 @@ namespace tetengo2 { namespace text
         \brief The class template for a push parser.
 
         \tparam ForwardIterator A forward iterator type.
-        \tparam Grammar         A grammar type.
-        \tparam Integer         An integer type.
-        \tparam Float           A floating point number type.
     */
-    template <typename ForwardIterator, typename Grammar, typename Integer, typename Float>
+    template <typename ForwardIterator>
     class push_parser : private boost::noncopyable
     {
     public:
@@ -53,13 +50,13 @@ namespace tetengo2 { namespace text
         using iterator = ForwardIterator;
 
         //! The grammar type.
-        using grammar_type = Grammar;
+        using grammar_type = grammar::grammar<iterator>;
 
         //! The integer type.
-        using integer_type = Integer;
+        using integer_type = int;
 
         //! The floating point number type.
-        using float_type = Float;
+        using float_type = double;
 
         //! The string type.
         using string_type = std::basic_string<typename iterator::value_type>;

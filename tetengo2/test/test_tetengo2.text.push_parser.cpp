@@ -41,7 +41,7 @@ namespace
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
     using attribute_map_type = push_parser_type::attribute_map_type;
 
