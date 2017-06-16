@@ -370,7 +370,7 @@ namespace tetengo2 { namespace text
     }
 
     template <typename ForwardIterator>
-    bool typename push_parser<ForwardIterator>::parse()
+    bool push_parser<ForwardIterator>::parse()
     const
     {
         return m_p_impl->parse();

@@ -104,7 +104,7 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         using json_type = text::grammar::json<input_stream_iterator_type>;
 
-        using parser_type = text::push_parser<input_stream_iterator_type, json_type, std::size_t, double>;
+        using parser_type = text::push_parser<input_stream_iterator_type>;
 
         using attribute_map_type = parser_type::attribute_map_type;
 
@@ -179,7 +179,7 @@ namespace tetengo2 { namespace detail { namespace unixos
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     if      (value.which() == 2)
                     {
-                        value_map[encoder().decode(structure_stack.top().second)] = boost::get<std::size_t>(value);
+                        value_map[encoder().decode(structure_stack.top().second)] = boost::get<int>(value);
                     }
                     else if (value.which() == 4)
                     {
