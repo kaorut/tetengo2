@@ -62,20 +62,70 @@ namespace tetengo2 { namespace text { namespace grammar
 
         using string_type = typename grammar::string_type;
 
+        using signal_result_combiner_type = typename grammar::signal_result_combiner_type;
+
+        using structure_signal_type = typename grammar::structure_signal_type;
+
+        using value_signal_type = typename grammar::value_signal_type;
+
         using rule_type = typename grammar::rule_type;
 
 
         // constructors and destructor
 
         impl()
+        :
+        m_on_structure_begin(),
+        m_on_structure_end(),
+        m_on_value()
         {}
 
 
         // functions
 
+        const structure_signal_type& on_structure_begin()
+        const
+        {
+            return m_on_structure_begin;
+        }
+
+        structure_signal_type& on_structure_begin()
+        {
+            return m_on_structure_begin;
+        }
+
+        const structure_signal_type& on_structure_end()
+        const
+        {
+            return m_on_structure_end;
+        }
+
+        structure_signal_type& on_structure_end()
+        {
+            return m_on_structure_end;
+        }
+
+        const value_signal_type& on_value()
+        const
+        {
+            return m_on_value;
+        }
+
+        value_signal_type& on_value()
+        {
+            return m_on_value;
+        }
+
+
 
     private:
         // variables
+
+        structure_signal_type m_on_structure_begin;
+
+        structure_signal_type m_on_structure_end;
+
+        value_signal_type m_on_value;
 
 
     };
@@ -91,6 +141,45 @@ namespace tetengo2 { namespace text { namespace grammar
     grammar::base_type(root_rule),
     m_p_impl(tetengo2::stdalt::make_unique<impl>())
     {}
+
+    template <typename ForwardIterator>
+    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_begin()
+    const
+    {
+        return m_p_impl->on_structure_begin();
+    }
+
+    template <typename ForwardIterator>
+    typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_begin()
+    {
+        return m_p_impl->on_structure_begin();
+    }
+
+    template <typename ForwardIterator>
+    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_end()
+    const
+    {
+        return m_p_impl->on_structure_end();
+    }
+
+    template <typename ForwardIterator>
+    typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_end()
+    {
+        return m_p_impl->on_structure_end();
+    }
+
+    template <typename ForwardIterator>
+    const typename grammar<ForwardIterator>::value_signal_type& grammar<ForwardIterator>::on_value()
+    const
+    {
+        return m_p_impl->on_value();
+    }
+
+    template <typename ForwardIterator>
+    typename grammar<ForwardIterator>::value_signal_type& grammar<ForwardIterator>::on_value()
+    {
+        return m_p_impl->on_value();
+    }
 
 
     namespace

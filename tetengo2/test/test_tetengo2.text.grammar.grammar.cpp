@@ -105,6 +105,54 @@ BOOST_AUTO_TEST_SUITE(grammar)
         const concrete_grammar grammar;
     }
 
+    BOOST_AUTO_TEST_CASE(on_structure_begin)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_grammar grammar;
+
+            grammar.on_structure_begin();
+        }
+        {
+            concrete_grammar grammar;
+
+            grammar.on_structure_begin();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(on_structure_end)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_grammar grammar;
+
+            grammar.on_structure_end();
+        }
+        {
+            concrete_grammar grammar;
+
+            grammar.on_structure_end();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(on_value)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_grammar grammar;
+
+            grammar.on_value();
+        }
+        {
+            concrete_grammar grammar;
+
+            grammar.on_value();
+        }
+    }
+
     
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
