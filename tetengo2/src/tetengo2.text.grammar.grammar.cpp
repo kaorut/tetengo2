@@ -58,8 +58,6 @@ namespace tetengo2 { namespace text { namespace grammar
 
         using iterator = typename grammar::iterator;
 
-        using char_type = typename grammar::char_type;
-
         using string_type = typename grammar::string_type;
 
         using signal_result_combiner_type = typename grammar::signal_result_combiner_type;

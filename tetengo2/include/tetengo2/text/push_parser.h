@@ -30,6 +30,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/text.h>
+#include <tetengo2/text/grammar/grammar.h>
 
 
 namespace tetengo2 { namespace text
@@ -122,8 +123,8 @@ namespace tetengo2 { namespace text
 
             m_p_grammar->on_structure_begin().connect(
                 [this](
-                    const string_type&                                                  structure_name,
-                    const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
+                    const string_type&                           structure_name,
+                    const std::vector<structure_attribute_type>& structure_attributes
                 )
                 {
                     return this->observe_structure_begin(structure_name, structure_attributes);
@@ -131,8 +132,8 @@ namespace tetengo2 { namespace text
             );
             m_p_grammar->on_structure_end().connect(
                 [this](
-                    const string_type&                                                  structure_name,
-                    const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
+                    const string_type&                           structure_name,
+                    const std::vector<structure_attribute_type>& structure_attributes
                 )
                 {
                     boost::ignore_unused(structure_attributes);
@@ -141,7 +142,7 @@ namespace tetengo2 { namespace text
                 }
             );
             m_p_grammar->on_value().connect(
-                [this](const typename grammar_type::value_type_type value_type, const string_type& value)
+                [this](const value_type_type value_type, const string_type& value)
                 {
                     return this->observe_value(value_type, value);
                 }
@@ -230,11 +231,16 @@ namespace tetengo2 { namespace text
 
 
     private:
+        // types
+
+        using structure_attribute_type = grammar::structure_attribute<string_type>;
+
+        using value_type_type = typename structure_attribute_type::value_type_type;
+
+
         // static functions
 
-        static attribute_map_type to_attribute_map(
-            const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
-        )
+        static attribute_map_type to_attribute_map(const std::vector<structure_attribute_type>& structure_attributes)
         {
             attribute_map_type attribute_map{};
 
@@ -245,7 +251,7 @@ namespace tetengo2 { namespace text
         }
 
         static typename attribute_map_type::value_type to_attribute(
-            const typename grammar_type::structure_attribute_type& structure_attribute
+            const structure_attribute_type& structure_attribute
         )
         {
             return
@@ -255,20 +261,17 @@ namespace tetengo2 { namespace text
                 };
         }
 
-        static value_type to_value(
-            const typename grammar_type::value_type_type value_type,
-            const string_type&                           string_value
-        )
+        static value_type to_value(const value_type_type value_type, const string_type& string_value)
         {
             switch (value_type)
             {
-            case grammar_type::value_type_type::string:
+            case value_type_type::string:
                 return to_string(string_value);
-            case grammar_type::value_type_type::number:
+            case value_type_type::number:
                 return to_number(string_value);
-            case grammar_type::value_type_type::boolean:
+            case value_type_type::boolean:
                 return to_boolean(string_value);
-            case grammar_type::value_type_type::null:
+            case value_type_type::null:
                 return to_null(string_value);
             default:
                 assert(false);
@@ -374,8 +377,8 @@ namespace tetengo2 { namespace text
         // functions
 
         bool observe_structure_begin(
-            const string_type&                                                  structure_name,
-            const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
+            const string_type&                           structure_name,
+            const std::vector<structure_attribute_type>& structure_attributes
         )
         {
             return m_on_structure_begin(structure_name, to_attribute_map(structure_attributes));
@@ -386,7 +389,7 @@ namespace tetengo2 { namespace text
             return m_on_structure_end(structure_name, attribute_map_type{});
         }
 
-        bool observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
+        bool observe_value(const value_type_type value_type, const string_type& value)
         {
             return m_on_value(to_value(value_type, value));
         }

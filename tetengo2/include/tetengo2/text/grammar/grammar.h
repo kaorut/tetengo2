@@ -109,11 +109,8 @@ namespace tetengo2 { namespace text { namespace grammar
         //! The iterator type.
         using iterator = ForwardIterator;
 
-        //! The character type.
-        using char_type = typename iterator::value_type;
-
         //! The string type.
-        using string_type = std::basic_string<char_type>;
+        using string_type = std::basic_string<typename iterator::value_type>;
 
         //! The signal result combiner type.
         struct signal_result_combiner_type

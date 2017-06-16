@@ -8,7 +8,6 @@
 
 #include <iterator>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
@@ -25,70 +24,22 @@
 namespace tetengo2 { namespace text { namespace grammar
 {
     template <typename ForwardIterator>
-    json<ForwardIterator>::structure_attribute_type::structure_attribute_type(
-        string_type           name,
-        const value_type_type value_type,
-        const string_type&    attribute
-    )
-    :
-    m_name(std::move(name)),
-    m_value_type(value_type),
-    m_attribute(attribute)
-    {}
-
-    template <typename ForwardIterator>
-    const typename json<ForwardIterator>::string_type& json<ForwardIterator>::structure_attribute_type::name()
-    const
-    {
-        return m_name;
-    }
-
-    template <typename ForwardIterator>
-    typename json<ForwardIterator>::value_type_type
-    json<ForwardIterator>::structure_attribute_type::value_type()
-    const
-    {
-        return m_value_type;
-    }
-
-    template <typename ForwardIterator>
-    const typename json<ForwardIterator>::string_type& json<ForwardIterator>::structure_attribute_type::attribute()
-    const
-    {
-        return m_attribute;
-    }
-
-
-    template <typename ForwardIterator>
     class json<ForwardIterator>::impl : private boost::noncopyable
     {
     public:
         // types
 
-        using iterator = ForwardIterator;
+        using iterator = typename json<ForwardIterator>::iterator;
 
-        using char_type = typename iterator::value_type;
+        using base_type = typename json<ForwardIterator>::base_type;
 
-        using string_type = std::basic_string<char_type>;
-
-        using value_type_type = typename json<iterator>::value_type_type;
-
-        using structure_attribute_type = typename json<iterator>::structure_attribute_type;
-
-        using structure_signal_type = typename json<iterator>::structure_signal_type;
-
-        using value_signal_type = typename json<iterator>::value_signal_type;
-
-        using rule_type = typename json<iterator>::rule_type;
+        using rule_type = typename json<ForwardIterator>::rule_type;
 
 
         // constructors and destructor
 
-        impl(rule_type& json_text)
+        impl(rule_type& json_text, json& base)
         :
-        m_on_structure_begin(),
-        m_on_structure_end(),
-        m_on_value(),
         m_json_text(json_text),
         m_begin_array(),
         m_begin_object(),
@@ -120,45 +71,12 @@ namespace tetengo2 { namespace text { namespace grammar
         m_quotation_mark(),
         m_unescaped()
         {
-            define_rules();
+            define_rules(base);
         }
 
 
         // functions
         
-        const structure_signal_type& on_structure_begin()
-        const
-        {
-            return m_on_structure_begin;
-        }
-
-        structure_signal_type& on_structure_begin()
-        {
-            return m_on_structure_begin;
-        }
-
-        const structure_signal_type& on_structure_end()
-        const
-        {
-            return m_on_structure_end;
-        }
-
-        structure_signal_type& on_structure_end()
-        {
-            return m_on_structure_end;
-        }
-
-        const value_signal_type& on_value()
-        const
-        {
-            return m_on_value;
-        }
-
-        value_signal_type& on_value()
-        {
-            return m_on_value;
-        }
-
         const rule_type& json_text()
         const
         {
@@ -205,38 +123,43 @@ namespace tetengo2 { namespace text { namespace grammar
     private:
         // types
 
+        using char_type = typename iterator::value_type;
+
+        using string_type = typename base_type::string_type;
+
+        using structure_attribute_type = structure_attribute<string_type>;
+
+        using value_type_type = typename structure_attribute_type::value_type_type;
+
         using char_rule_type = boost::spirit::qi::rule<iterator, char_type ()>;
 
         struct call_handler_type
         {
-            using handler_type = bool (impl::*)(const string_type& attribute);
+            using handler_type = bool (impl::*)(const string_type& attribute, json& base);
 
             impl& m_self;
 
+            json& m_base;
+
             const handler_type m_handler;
 
-            call_handler_type(impl& self, const handler_type handler)
+            call_handler_type(impl& self, json& base, const handler_type handler)
             :
             m_self(self),
+            m_base(base),
             m_handler(handler)
             {}
 
             void operator()(const string_type& attribute, const boost::spirit::qi::unused_type&, bool& pass)
             const
             {
-                pass = (m_self.*m_handler)(attribute);
+                pass = (m_self.*m_handler)(attribute, m_base);
             }
 
         };
 
 
         // variables
-
-        structure_signal_type m_on_structure_begin;
-
-        structure_signal_type m_on_structure_end;
-
-        value_signal_type m_on_value;
 
         rule_type& m_json_text;
 
@@ -301,21 +224,26 @@ namespace tetengo2 { namespace text { namespace grammar
 
         // functions
 
-        bool object_begun(const string_type&)
+        bool object_begun(const string_type&, json& base)
         {
             return
-                m_on_structure_begin(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
+                base.on_structure_begin()(
+                    string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{}
+                );
         }
 
-        bool object_ended(const string_type&)
-        {
-            return m_on_structure_end(string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{});
-        }
-
-        bool member_begun(const string_type& attribute)
+        bool object_ended(const string_type&, json& base)
         {
             return
-                m_on_structure_begin(
+                base.on_structure_end()(
+                    string_type{ TETENGO2_TEXT("object") }, std::vector<structure_attribute_type>{}
+                );
+        }
+
+        bool member_begun(const string_type& attribute, json& base)
+        {
+            return
+                base.on_structure_begin()(
                     string_type{ TETENGO2_TEXT("member") },
                     std::vector < structure_attribute_type > {
                         1,
@@ -326,43 +254,51 @@ namespace tetengo2 { namespace text { namespace grammar
                 );
         }
 
-        bool member_ended(const string_type&)
-        {
-            return m_on_structure_end(string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{});
-        }
-
-        bool array_begun(const string_type&)
+        bool member_ended(const string_type&, json& base)
         {
             return
-                m_on_structure_begin(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
+                base.on_structure_end()(
+                    string_type{ TETENGO2_TEXT("member") }, std::vector<structure_attribute_type>{}
+                );
         }
 
-        bool array_ended(const string_type&)
+        bool array_begun(const string_type&, json& base)
         {
-            return m_on_structure_end(string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{});
+            return
+                base.on_structure_begin()(
+                    string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{}
+                );
         }
 
-        bool string_passed(const string_type& attribute)
+        bool array_ended(const string_type&, json& base)
         {
-            return m_on_value(value_type_type::string, attribute);
+            return
+                base.on_structure_end()(
+                    string_type{ TETENGO2_TEXT("array") }, std::vector<structure_attribute_type>{}
+                );
         }
 
-        bool number_passed(const string_type& attribute)
+        bool string_passed(const string_type& attribute, json& base)
         {
-            return m_on_value(value_type_type::number, attribute);
+            return base.on_value()(value_type_type::string, attribute);
         }
 
-        bool boolean_passed(const string_type& attribute)
+        bool number_passed(const string_type& attribute, json& base)
         {
-            return m_on_value(value_type_type::boolean, attribute);
+            return base.on_value()(value_type_type::number, attribute);
         }
 
-        bool null_passed(const string_type& attribute)
+        bool boolean_passed(const string_type& attribute, json& base)
         {
-            return m_on_value(value_type_type::null, attribute);
+            return base.on_value()(value_type_type::boolean, attribute);
         }
 
-        void define_rules()
+        bool null_passed(const string_type& attribute, json& base)
+        {
+            return base.on_value()(value_type_type::null, attribute);
+        }
+
+        void define_rules(json& base)
         {
             namespace qi = boost::spirit::qi;
 
@@ -385,13 +321,13 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.1. Values
             m_value =
-                m_false[call_handler_type{ *this, &impl::boolean_passed }] |
-                m_null[call_handler_type{ *this, &impl::null_passed }] |
-                m_true[call_handler_type{ *this, &impl::boolean_passed }] |
+                m_false[call_handler_type{ *this, base, &impl::boolean_passed }] |
+                m_null[call_handler_type{ *this, base, &impl::null_passed }] |
+                m_true[call_handler_type{ *this, base, &impl::boolean_passed }] |
                 m_object |
                 m_array |
-                m_number[call_handler_type{ *this, &impl::number_passed }] |
-                m_string[call_handler_type{ *this, &impl::string_passed }];
+                m_number[call_handler_type{ *this, base, &impl::number_passed }] |
+                m_string[call_handler_type{ *this, base, &impl::string_passed }];
             m_value.name("value");
             m_false = qi::string(string_type{ TETENGO2_TEXT("false") });
             m_null = qi::string(string_type{ TETENGO2_TEXT("null") });
@@ -399,21 +335,21 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.2. Objects
             m_object =
-                m_begin_object[call_handler_type{ *this, &impl::object_begun }] >>
+                m_begin_object[call_handler_type{ *this, base, &impl::object_begun }] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
-                m_end_object[call_handler_type{ *this, &impl::object_ended }];
+                m_end_object[call_handler_type{ *this, base, &impl::object_ended }];
             m_object.name("object");
             m_member =
-                m_string[call_handler_type{ *this, &impl::member_begun }] >>
+                m_string[call_handler_type{ *this, base, &impl::member_begun }] >>
                 m_name_separator >>
-                m_value[call_handler_type{ *this, &impl::member_ended }];
+                m_value[call_handler_type{ *this, base, &impl::member_ended }];
             m_member.name("member");
 
             // 2.3. Arrays
             m_array =
-                m_begin_array[call_handler_type{ *this, &impl::array_begun }] >>
+                m_begin_array[call_handler_type{ *this, base, &impl::array_begun }] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
-                m_end_array[call_handler_type{ *this, &impl::array_ended }];
+                m_end_array[call_handler_type{ *this, base, &impl::array_ended }];
             m_array.name("array");
 
             // 2.4. Numbers
@@ -460,54 +396,14 @@ namespace tetengo2 { namespace text { namespace grammar
     template <typename ForwardIterator>
     json<ForwardIterator>::json()
     :
-    json::base_type(m_json_text, "json"),
+    base_type(m_json_text),
     m_json_text(),
-    m_p_impl(stdalt::make_unique<impl>(m_json_text))
+    m_p_impl(stdalt::make_unique<impl>(m_json_text, *this))
     {}
 
     template <typename ForwardIterator>
     json<ForwardIterator>::~json()
     = default;
-
-
-    template <typename ForwardIterator>
-    const typename json<ForwardIterator>::structure_signal_type& json<ForwardIterator>::on_structure_begin()
-    const
-    {
-        return m_p_impl->on_structure_begin();
-    }
-
-    template <typename ForwardIterator>
-    typename json<ForwardIterator>::structure_signal_type& json<ForwardIterator>::on_structure_begin()
-    {
-        return m_p_impl->on_structure_begin();
-    }
-
-    template <typename ForwardIterator>
-    const typename json<ForwardIterator>::structure_signal_type& json<ForwardIterator>::on_structure_end()
-    const
-    {
-        return m_p_impl->on_structure_end();
-    }
-
-    template <typename ForwardIterator>
-    typename json<ForwardIterator>::structure_signal_type& json<ForwardIterator>::on_structure_end()
-    {
-        return m_p_impl->on_structure_end();
-    }
-
-    template <typename ForwardIterator>
-    const typename json<ForwardIterator>::value_signal_type& json<ForwardIterator>::on_value()
-    const
-    {
-        return m_p_impl->on_value();
-    }
-
-    template <typename ForwardIterator>
-    typename json<ForwardIterator>::value_signal_type& json<ForwardIterator>::on_value()
-    {
-        return m_p_impl->on_value();
-    }
 
     template <typename ForwardIterator>
     const typename json<ForwardIterator>::rule_type& json<ForwardIterator>::json_text()
