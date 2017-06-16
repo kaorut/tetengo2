@@ -35,6 +35,7 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/grammar/json.h>
 
 
 namespace tetengo2 { namespace message
@@ -186,7 +187,7 @@ namespace tetengo2 { namespace message
 
         using push_parser_type = typename pull_parser_type::push_parser_type;
 
-        using grammar_type = typename push_parser_type::grammar_type;
+        using grammar_type = text::grammar::json<typename push_parser_type::iterator>;
 
 
         // static functions

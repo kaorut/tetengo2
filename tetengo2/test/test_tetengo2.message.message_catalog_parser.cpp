@@ -23,6 +23,7 @@
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/push_parser.h>
 #include <tetengo2/text/pull_parser.h>
@@ -47,7 +48,9 @@ namespace
             boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
         >;
 
-    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+    using grammar_type = tetengo2::text::grammar::grammar<input_stream_iterator_type>;
+
+    using json_grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
     using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
@@ -121,7 +124,7 @@ namespace
 
     std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input)
     {
-        auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
+        auto p_grammar = tetengo2::stdalt::make_unique<json_grammar_type>();
 
         const auto first =
             tetengo2::iterator::make_observable_forward_iterator(

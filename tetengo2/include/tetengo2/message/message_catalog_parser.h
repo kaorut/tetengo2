@@ -22,7 +22,7 @@
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/text/grammar/json.h>
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/pull_parser.h>
 
 
@@ -55,7 +55,7 @@ namespace tetengo2 { namespace message
         using size_type = Size;
 
         //! The pull parser type.
-        using pull_parser_type = text::pull_parser<iterator, text::grammar::json<iterator>, int, double, size_type>;
+        using pull_parser_type = text::pull_parser<iterator, text::grammar::grammar<iterator>, int, double, size_type>;
 
         //! The encoder type.
         using encoder_type = Encoder;
