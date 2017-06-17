@@ -291,7 +291,7 @@ namespace tetengo2 { namespace text
         namespace application
         {
             using input_stream_iterator_type =
-                tetengo2::iterator::observable_forward_iterator<
+                iterator::observable_forward_iterator<
                     boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>
                 >;
 
