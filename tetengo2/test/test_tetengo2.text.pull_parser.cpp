@@ -47,6 +47,8 @@ namespace
 
     using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
+    using structure_kind_type = tetengo2::text::structure_kind;
+
     using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
 
 }
@@ -54,7 +56,6 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
-BOOST_AUTO_TEST_SUITE(pull_parser)
 BOOST_AUTO_TEST_SUITE(structure)
     // test cases
 
@@ -62,8 +63,8 @@ BOOST_AUTO_TEST_SUITE(structure)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(pull_parser_type::structure_begin_type::kind() == pull_parser_type::structure_kind_type::begin);
-        BOOST_CHECK(pull_parser_type::structure_end_type::kind() == pull_parser_type::structure_kind_type::end);
+        BOOST_CHECK(pull_parser_type::structure_begin_type::kind() == structure_kind_type::begin);
+        BOOST_CHECK(pull_parser_type::structure_end_type::kind() == structure_kind_type::end);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -140,6 +141,7 @@ BOOST_AUTO_TEST_SUITE(structure)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(pull_parser)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

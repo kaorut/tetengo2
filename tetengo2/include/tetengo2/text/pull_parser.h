@@ -9,27 +9,100 @@
 #if !defined(TETENGO2_JSON_PULLPARSER_H)
 #define TETENGO2_JSON_PULLPARSER_H
 
-#include <cassert>
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <utility>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2/concurrent/channel.h>
-#include <tetengo2/concurrent/consumer.h>
-#include <tetengo2/concurrent/producer.h>
-#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/push_parser.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace text
 {
+    /*!
+        \brief The pull parser structure kind type.
+    */
+    enum class structure_kind
+    {
+        begin, //!< The structure kind begin.
+        end,   //!< The structure kind end.
+    };
+
+
+    /*!
+        \brief The pull parser structure type.
+
+        \tparam Kind         A kind.
+        \tparam String       A string type.
+        \tparam AttributeMap An attribute map type.
+    */
+    template <structure_kind Kind, typename String, typename AttributeMap>
+    class structure
+    {
+    public:
+        // types
+
+        //! The string type.
+        using string_type = String;
+
+        //! The attribute map type.
+        using attribute_map_type = AttributeMap;
+
+
+        // static functions
+
+        /*!
+            \brief Returns the kind.
+
+            \return The kind.
+        */
+        static structure_kind kind();
+
+
+        // constructors
+
+        /*!
+            \brief Creates a structure.
+
+            \param name          A name.
+            \param attribute_map A attribute map.
+        */
+        structure(string_type name, attribute_map_type attribute_map);
+
+
+        // functions
+
+        /*!
+            \brief Returns the name.
+
+            \return The name.
+        */
+        const string_type& name()
+        const;
+
+        /*!
+            \brief Returns the attribute map.
+
+            \return The attribute map.
+        */
+        const attribute_map_type& attribute_map()
+        const;
+
+
+    private:
+        // variables
+
+        string_type m_name;
+
+        attribute_map_type m_attribute_map;
+
+
+    };
+    
+
     /*!
         \brief The class template for a pull parser.
 
@@ -47,15 +120,6 @@ namespace tetengo2 { namespace text
         //! The string type.
         using string_type = std::basic_string<typename iterator::value_type>;
 
-        //! The grammar type.
-        using grammar_type = grammar::grammar<iterator>;
-
-        //! The integer type.
-        using integer_type = type_list::integer_type;
-
-        //! The floating point number type.
-        using float_type = type_list::float_type;
-
         //! The size type.
         using size_type = type_list::size_type;
 
@@ -68,86 +132,11 @@ namespace tetengo2 { namespace text
         //! The attribute map type.
         using attribute_map_type = typename push_parser_type::attribute_map_type;
 
-        //! The structure kind type.
-        enum class structure_kind_type
-        {
-            begin, //!< The structure kind begin.
-            end,   //!< The structure kind end.
-        };
-
-        //! The structure type.
-        template <structure_kind_type Kind>
-        class structure
-        {
-        public:
-            // static functions
-
-            /*!
-                \brief Returns the kind.
-
-                \return The kind.
-            */
-            static structure_kind_type kind()
-            {
-                return Kind;
-            }
-
-
-            // constructors
-
-            /*!
-                \brief Creates a structure type.
-
-                \param name          A name.
-                \param attribute_map A attribute map.
-            */
-            structure(string_type name, attribute_map_type attribute_map)
-            :
-            m_name(std::move(name)),
-            m_attribute_map(std::move(attribute_map))
-            {}
-
-
-            // functions
-
-            /*!
-                \brief Returns the name.
-
-                \return The name.
-            */
-            const string_type& name()
-            const
-            {
-                return m_name;
-            }
-
-            /*!
-                \brief Returns the attribute map.
-
-                \return The attribute map.
-            */
-            const attribute_map_type& attribute_map()
-            const
-            {
-                return m_attribute_map;
-            }
-
-
-        private:
-            // variables
-
-            string_type m_name;
-
-            attribute_map_type m_attribute_map;
-
-
-        };
-
         //! The beginning structure type.
-        using structure_begin_type = structure<structure_kind_type::begin>;
+        using structure_begin_type = structure<structure_kind::begin, string_type, attribute_map_type>;
 
         //! The ending structure type.
-        using structure_end_type = structure<structure_kind_type::end>;
+        using structure_end_type = structure<structure_kind::end, string_type, attribute_map_type>;
 
         //! The element type.
         using element_type = boost::variant<structure_begin_type, structure_end_type, value_type>;
@@ -163,15 +152,12 @@ namespace tetengo2 { namespace text
 
             \throw std::invalid_argument When channel_capacity is equal to 0.
         */
-        pull_parser(std::unique_ptr<push_parser_type> p_push_parser, const size_type channel_capacity)
-        :
-        m_p_push_parser(std::move(p_push_parser)),
-        m_channel(channel_capacity),
-#if !defined(DOCUMENTATION) // Doxygen warning suppression
-        m_producer([this](channel_type& channel) { generate(channel, *this->m_p_push_parser); }, m_channel),
-#endif
-        m_consumer(m_channel)
-        {}
+        pull_parser(std::unique_ptr<push_parser_type> p_push_parser, size_type channel_capacity);
+
+        /*!
+            \brief Destroys the pull parser.
+        */
+        ~pull_parser();
 
 
         // functions
@@ -183,10 +169,7 @@ namespace tetengo2 { namespace text
             \retval false Otherwise.
         */
         bool has_next()
-        const
-        {
-            return !m_consumer.closed();
-        }
+        const;
 
         /*!
             \brief Peeks the next element.
@@ -198,149 +181,32 @@ namespace tetengo2 { namespace text
             \throw std::logic_error When the parser has no more element.
         */
         const element_type& peek()
-        const
-        {
-            if (!has_next())
-                BOOST_THROW_EXCEPTION((std::logic_error{ "The parser has no more element." }));
-
-            return m_consumer.peek();
-        }
+        const;
 
         /*!
             \brief Removes the next element.
 
             \throw std::logic_error When the parser has no more element.
         */
-        void next()
-        {
-            if (!has_next())
-                BOOST_THROW_EXCEPTION((std::logic_error{ "The parser has no more element." }));
-
-            m_consumer.take();
-        }
+        void next();
 
         /*!
             \brief Removes the next element and its children.
 
             \throw std::logic_error When the parser has no more element.
         */
-        void skip_next()
-        {
-            const auto element = peek();
-
-            if (element.which() == 1 || element.which() == 2)
-            {
-                next();
-                return;
-            }
-            assert(element.which() == 0);
-            const auto& structure_begin_name = boost::get<structure_begin_type>(element).name();
-
-            next();
-
-            while (has_next())
-            {
-                const auto& next_element = peek();
-                if (next_element.which() == 1)
-                {
-                    const auto& structure_end_name = boost::get<structure_end_type>(next_element).name();
-                    if (structure_end_name == structure_begin_name)
-                    {
-                        next();
-                        return;
-                    }
-                }
-
-                skip_next();
-            }
-        }
+        void skip_next();
 
 
     private:
         // types
 
-        using channel_type = concurrent::channel<element_type>;
-
-        using producer_type = concurrent::producer<element_type>;
-
-        using consumer_type = concurrent::consumer<element_type>;
-
-
-        // static functions
-
-        static void generate(channel_type& channel, push_parser_type& push_parser)
-        {
-            push_parser.on_structure_begin().connect(
-                [&channel](
-                    const string_type&        name,
-                    const attribute_map_type& attribute_map
-                )
-                {
-                    return on_structure_begin(name, attribute_map, channel);
-                }
-            );
-            push_parser.on_structure_end().connect(
-                [&channel](
-                    const string_type&        name,
-                    const attribute_map_type& attribute_map
-                )
-                {
-                    boost::ignore_unused(attribute_map);
-
-                    return on_structure_end(name, channel);
-                }
-            );
-            push_parser.on_value().connect(
-                [&channel](const value_type& value)
-                {
-                    return on_value(value, channel);
-                }
-            );
-
-            push_parser.parse();
-        }
-
-        static bool on_structure_begin(
-            const string_type&        name,
-            const attribute_map_type& attribute_map,
-            channel_type&             channel
-        )
-        {
-            if (channel.close_requested())
-                return false;
-
-            channel.insert(element_type{ structure_begin_type{ name, attribute_map } });
-            return true;
-        }
-
-        static bool on_structure_end(const string_type& name, channel_type& channel)
-        {
-            if (channel.close_requested())
-                return false;
-
-            channel.insert(element_type{ structure_end_type{ name, attribute_map_type{} } });
-            return true;
-        }
-
-        static bool on_value(const value_type& value, channel_type& channel)
-        {
-            if (channel.close_requested())
-                return false;
-
-            channel.insert(element_type{ value });
-            return true;
-        }
+        class impl;
 
 
         // variables
 
-        const std::unique_ptr<push_parser_type> m_p_push_parser;
-
-        channel_type m_channel;
-
-        producer_type m_producer;
-
-        consumer_type m_consumer;
+        const std::unique_ptr<impl> m_p_impl;
 
         
     };
