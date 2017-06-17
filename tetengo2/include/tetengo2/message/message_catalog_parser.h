@@ -56,10 +56,7 @@ namespace tetengo2 { namespace message
         using size_type = Size;
 
         //! The pull parser type.
-        using pull_parser_type =
-            text::pull_parser<
-                iterator, text::grammar::grammar<iterator>, type_list::integer_type, type_list::float_type, size_type
-            >;
+        using pull_parser_type = text::pull_parser<iterator>;
 
         //! The encoder type.
         using encoder_type = Encoder;

@@ -23,7 +23,9 @@
 #include <tetengo2/concurrent/channel.h>
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/push_parser.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace text
@@ -32,12 +34,8 @@ namespace tetengo2 { namespace text
         \brief The class template for a pull parser.
 
         \tparam ForwardIterator A forward iterator type.
-        \tparam Grammar         A grammar type.
-        \tparam Integer         An integer type.
-        \tparam Float           A floating point number type.
-        \tparam Size            A size type.
     */
-    template <typename ForwardIterator, typename Grammar, typename Integer, typename Float, typename Size>
+    template <typename ForwardIterator>
     class pull_parser : private boost::noncopyable
     {
     public:
@@ -50,16 +48,16 @@ namespace tetengo2 { namespace text
         using string_type = std::basic_string<typename iterator::value_type>;
 
         //! The grammar type.
-        using grammar_type = Grammar;
+        using grammar_type = grammar::grammar<iterator>;
 
         //! The integer type.
-        using integer_type = Integer;
+        using integer_type = type_list::integer_type;
 
         //! The floating point number type.
-        using float_type = Float;
+        using float_type = type_list::float_type;
 
         //! The size type.
-        using size_type = Size;
+        using size_type = type_list::size_type;
 
         //! The push parser type.
         using push_parser_type = push_parser<iterator>;
