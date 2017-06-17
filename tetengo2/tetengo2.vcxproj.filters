@@ -221,6 +221,9 @@
     <ClCompile Include="src\tetengo2.text.push_parser.cpp">
       <Filter>sources\tetengo2\text</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.text.pull_parser.cpp">
+      <Filter>sources\tetengo2\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\iterator\0namespace.dox">

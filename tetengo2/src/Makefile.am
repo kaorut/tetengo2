@@ -22,6 +22,7 @@ sources = \
     tetengo2.text.encoding.utf8.cpp \
     tetengo2.text.grammar.grammar.cpp \
     tetengo2.text.grammar.json.cpp \
+    tetengo2.text.pull_parser.cpp \
     tetengo2.text.push_parser.cpp
 
 extra_sources =
