@@ -7,7 +7,6 @@
 */
 
 #include <cassert>
-#include <cstddef>
 #include <cstdlib>
 #include <ios>
 #include <iterator>
@@ -179,7 +178,8 @@ namespace tetengo2 { namespace detail { namespace unixos
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     if      (value.which() == 2)
                     {
-                        value_map[encoder().decode(structure_stack.top().second)] = boost::get<int>(value);
+                        value_map[encoder().decode(structure_stack.top().second)] =
+                            boost::get<type_list::integer_type>(value);
                     }
                     else if (value.which() == 4)
                     {

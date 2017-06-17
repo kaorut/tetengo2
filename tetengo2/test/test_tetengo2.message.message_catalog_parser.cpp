@@ -55,7 +55,13 @@ namespace
     using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
     using pull_parser_type = 
-        tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
+        tetengo2::text::pull_parser<
+            input_stream_iterator_type,
+            grammar_type,
+            common_type_list_type::integer_type,
+            common_type_list_type::float_type,
+            size_type
+        >;
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
 

@@ -22,8 +22,14 @@ namespace test_tetengo2 { namespace type_list
     */
     struct common
     {
+        //! The integer type.
+        using integer_type = int;
+
         //! The size type.
         using size_type = std::size_t;
+
+        //! The float type.
+        using float_type = double;
 
         //! The string type.
         using string_type = std::string;

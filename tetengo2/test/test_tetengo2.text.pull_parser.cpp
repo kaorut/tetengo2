@@ -33,6 +33,8 @@ namespace
 
     using common_type_list_type = test_tetengo2::type_list::common;
 
+    using integer_type = common_type_list_type::integer_type;
+
     using size_type = common_type_list_type::size_type;
 
     using string_type = common_type_list_type::string_type;
@@ -51,7 +53,13 @@ namespace
     using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
     using pull_parser_type =
-        tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
+        tetengo2::text::pull_parser<
+            input_stream_iterator_type,
+            grammar_type,
+            integer_type,
+            common_type_list_type::float_type,
+            size_type
+        >;
 
 }
 
@@ -341,7 +349,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -378,7 +386,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -386,7 +394,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -394,7 +402,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -593,7 +601,7 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.skip_next();
             const auto& element = pull_parser.peek();
             BOOST_TEST(element.which() == 2);
-            const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+            const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
             BOOST_TEST(value == 78);
         }
     }

@@ -19,6 +19,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/text/grammar/grammar.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace text
@@ -41,10 +42,10 @@ namespace tetengo2 { namespace text
         using grammar_type = grammar::grammar<iterator>;
 
         //! The integer type.
-        using integer_type = int;
+        using integer_type = type_list::integer_type;
 
         //! The floating point number type.
-        using float_type = double;
+        using float_type = type_list::float_type;
 
         //! The string type.
         using string_type = std::basic_string<typename iterator::value_type>;

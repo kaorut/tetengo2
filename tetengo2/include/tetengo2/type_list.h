@@ -15,8 +15,14 @@
 
 namespace tetengo2 { namespace type_list
 {
+    //! The type for integer.
+    using integer_type = int;
+
     //! The type for size.
     using size_type = std::size_t;
+
+    //! The type for float.
+    using float_type = double;
 
     //! The type for string.
     using string_type = std::wstring;
