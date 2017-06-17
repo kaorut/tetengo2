@@ -28,6 +28,7 @@ pkg_headers = \
     text/encoding/locale.h \
     text/encoding/polymorphic.h \
     text/encoding/utf8.h \
+    text/grammar/grammar.h \
     text/grammar/json.h \
     text/pull_parser.h \
     text/push_parser.h \

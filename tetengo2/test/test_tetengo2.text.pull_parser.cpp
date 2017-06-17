@@ -18,6 +18,7 @@
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
@@ -31,7 +32,7 @@ namespace
 
     using common_type_list_type = test_tetengo2::type_list::common;
 
-    using size_type = common_type_list_type::size_type;
+    using integer_type = common_type_list_type::integer_type;
 
     using string_type = common_type_list_type::string_type;
 
@@ -44,17 +45,17 @@ namespace
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
-    using pull_parser_type =
-        tetengo2::text::pull_parser<input_stream_iterator_type, grammar_type, int, double, size_type>;
+    using structure_kind_type = tetengo2::text::structure_kind;
+
+    using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
 
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
-BOOST_AUTO_TEST_SUITE(pull_parser)
 BOOST_AUTO_TEST_SUITE(structure)
     // test cases
 
@@ -62,8 +63,8 @@ BOOST_AUTO_TEST_SUITE(structure)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(pull_parser_type::structure_begin_type::kind() == pull_parser_type::structure_kind_type::begin);
-        BOOST_CHECK(pull_parser_type::structure_end_type::kind() == pull_parser_type::structure_kind_type::end);
+        BOOST_CHECK(pull_parser_type::structure_begin_type::kind() == structure_kind_type::begin);
+        BOOST_CHECK(pull_parser_type::structure_end_type::kind() == structure_kind_type::end);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -140,6 +141,7 @@ BOOST_AUTO_TEST_SUITE(structure)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(pull_parser)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -337,7 +339,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -374,7 +376,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -382,7 +384,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -390,7 +392,7 @@ BOOST_AUTO_TEST_SUITE_END()
                 BOOST_TEST(pull_parser.has_next());
                 const auto& element = pull_parser.peek();
                 BOOST_TEST(element.which() == 2);
-                const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+                const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_TEST(value == 42);
                 pull_parser.next();
             }
@@ -589,7 +591,7 @@ BOOST_AUTO_TEST_SUITE_END()
             pull_parser.skip_next();
             const auto& element = pull_parser.peek();
             BOOST_TEST(element.which() == 2);
-            const auto value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
+            const auto value = boost::get<integer_type>(boost::get<pull_parser_type::value_type>(element));
             BOOST_TEST(value == 78);
         }
     }

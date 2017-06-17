@@ -32,6 +32,10 @@ namespace
 
     using common_type_list_type = test_tetengo2::type_list::common;
 
+    using integer_type = common_type_list_type::integer_type;
+
+    using float_type = common_type_list_type::float_type;
+
     using io_string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
@@ -41,7 +45,7 @@ namespace
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
     using attribute_map_type = push_parser_type::attribute_map_type;
 
@@ -406,32 +410,32 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parsed[1].first == "value");
             BOOST_TEST(parsed[1].second.is_initialized());
             BOOST_TEST(parsed[1].second->which() == 2);
-            BOOST_TEST(boost::get<int>(*parsed[1].second) == 42);
+            BOOST_TEST(boost::get<integer_type>(*parsed[1].second) == 42);
 
             BOOST_CHECK(parsed[2].first == "value");
             BOOST_TEST(parsed[2].second.is_initialized());
             BOOST_TEST(parsed[2].second->which() == 2);
-            BOOST_TEST(boost::get<int>(*parsed[2].second) == -42);
+            BOOST_TEST(boost::get<integer_type>(*parsed[2].second) == -42);
 
             BOOST_CHECK(parsed[3].first == "value");
             BOOST_TEST(parsed[3].second.is_initialized());
             BOOST_TEST(parsed[3].second->which() == 3);
-            BOOST_TEST(boost::get<double>(*parsed[3].second) == 42.42, boost::test_tools::tolerance(0.001));
+            BOOST_TEST(boost::get<float_type>(*parsed[3].second) == 42.42, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[4].first == "value");
             BOOST_TEST(parsed[4].second.is_initialized());
             BOOST_TEST(parsed[4].second->which() == 3);
-            BOOST_TEST(boost::get<double>(*parsed[4].second) == 4200.0, boost::test_tools::tolerance(0.001));
+            BOOST_TEST(boost::get<float_type>(*parsed[4].second) == 4200.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[5].first == "value");
             BOOST_TEST(parsed[5].second.is_initialized());
             BOOST_TEST(parsed[5].second->which() == 3);
-            BOOST_TEST(boost::get<double>(*parsed[5].second) == 42.0, boost::test_tools::tolerance(0.001));
+            BOOST_TEST(boost::get<float_type>(*parsed[5].second) == 42.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[6].first == "value");
             BOOST_TEST(parsed[6].second.is_initialized());
             BOOST_TEST(parsed[6].second->which() == 3);
-            BOOST_TEST(boost::get<double>(*parsed[6].second) == 4242.0, boost::test_tools::tolerance(0.001));
+            BOOST_TEST(boost::get<float_type>(*parsed[6].second) == 4242.0, boost::test_tools::tolerance(0.001));
 
             BOOST_CHECK(parsed[7].first == "array");
         }

@@ -36,9 +36,7 @@ tetengo2::text::encoding::operator ==
 tetengo2::text::encoding::operator !=
 tetengo2::text::encoding::[a-zA-Z0-9_]+::from_pivot_impl
 tetengo2::text::encoding::[a-zA-Z0-9_]+::to_pivot_impl
-tetengo2::text::grammar::json::on_structure_[a-zA-Z0-9_]+
-tetengo2::text::grammar::json::signal_result_combiner_type::
-tetengo2::text::grammar::json::structure_attribute_type::
+tetengo2::text::grammar::grammar::signal_result_combiner_type::
 tetengo2::text::push_parser::signal_result_combiner_type::
 
 test_tetengo2::concurrent::progressive_future::construction

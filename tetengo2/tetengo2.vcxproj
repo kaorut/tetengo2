@@ -132,6 +132,7 @@
     <ClInclude Include="include\tetengo2\text\encoding\polymorphic.h" />
     <ClInclude Include="include\tetengo2\text\encoding\utf8.h" />
     <ClInclude Include="include\tetengo2\text\grammar\0namespace.dox" />
+    <ClInclude Include="include\tetengo2\text\grammar\grammar.h" />
     <ClInclude Include="include\tetengo2\text\grammar\json.h" />
     <ClInclude Include="include\tetengo2\text\pull_parser.h" />
     <ClInclude Include="include\tetengo2\text\push_parser.h" />
@@ -155,7 +156,10 @@
     <ClCompile Include="src\tetengo2.text.encoding.locale.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.polymorphic.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.utf8.cpp" />
+    <ClCompile Include="src\tetengo2.text.grammar.grammar.cpp" />
     <ClCompile Include="src\tetengo2.text.grammar.json.cpp" />
+    <ClCompile Include="src\tetengo2.text.pull_parser.cpp" />
+    <ClCompile Include="src\tetengo2.text.push_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\iterator\0namespace.dox" />

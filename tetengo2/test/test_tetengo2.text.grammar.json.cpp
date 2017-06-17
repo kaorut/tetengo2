@@ -26,7 +26,9 @@ namespace
 
     using grammar_type = tetengo2::text::grammar::json<std::string::const_iterator>;
 
-    using structure_attribute_type = grammar_type::structure_attribute_type;
+    using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
+
+    using value_type_type = structure_attribute_type::value_type_type;
 
 
     // functions
@@ -99,26 +101,26 @@ namespace
         return true;
     }
 
-    bool value_passed(std::string& output, const grammar_type::value_type_type type, const std::string& parsed)
+    bool value_passed(std::string& output, const value_type_type type, const std::string& parsed)
     {
         switch (type)
         {
-        case grammar_type::value_type_type::string:
+        case value_type_type::string:
             {
                 output += "S:";
                 break;
             }
-        case grammar_type::value_type_type::number:
+        case value_type_type::number:
             {
                 output += "N:";
                 break;
             }
-        case grammar_type::value_type_type::boolean:
+        case value_type_type::boolean:
             {
                 output += "B:";
                 break;
             }
-        case grammar_type::value_type_type::null:
+        case value_type_type::null:
             {
                 output += "L:";
                 break;
@@ -181,7 +183,7 @@ BOOST_AUTO_TEST_SUITE(json)
                 }
             );
             g.on_value().connect(
-                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                [&output](const value_type_type type, const std::string& parsed)
                 {
                     return value_passed(output, type, parsed);
                 }
@@ -216,7 +218,7 @@ BOOST_AUTO_TEST_SUITE(json)
                 }
             );
             g.on_value().connect(
-                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                [&output](const value_type_type type, const std::string& parsed)
                 {
                     return value_passed(output, type, parsed);
                 }
@@ -258,7 +260,7 @@ BOOST_AUTO_TEST_SUITE(json)
                 }
             );
             g.on_value().connect(
-                [&output](const grammar_type::value_type_type type, const std::string& parsed)
+                [&output](const value_type_type type, const std::string& parsed)
                 {
                     return value_passed(output, type, parsed);
                 }

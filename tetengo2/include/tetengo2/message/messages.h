@@ -35,6 +35,7 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/grammar/json.h>
 
 
 namespace tetengo2 { namespace message
@@ -186,7 +187,7 @@ namespace tetengo2 { namespace message
 
         using push_parser_type = typename pull_parser_type::push_parser_type;
 
-        using grammar_type = typename push_parser_type::grammar_type;
+        using grammar_type = text::grammar::json<typename push_parser_type::iterator>;
 
 
         // static functions
@@ -289,11 +290,11 @@ namespace tetengo2 { namespace message
             auto p_grammar = stdalt::make_unique<grammar_type>();
             
             const auto first =
-                tetengo2::iterator::make_observable_forward_iterator(
+                iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream })
                 );
             const auto last =
-                tetengo2::iterator::make_observable_forward_iterator(
+                iterator::make_observable_forward_iterator(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
                 );
             auto p_push_parser = stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
