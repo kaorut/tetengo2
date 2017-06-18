@@ -22,7 +22,8 @@
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/text/grammar/grammar.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/type_list.h>
 
@@ -33,11 +34,8 @@ namespace tetengo2 { namespace message
         \brief The class template for a message catalog parser.
 
         \tparam ForwardIterator A forward iterator type.
-        \tparam String          A string type.
-        \tparam Size            A size type.
-        \tparam Encoder         An encoder type.
     */
-    template <typename ForwardIterator, typename String, typename Size, typename Encoder>
+    template <typename ForwardIterator>
     class message_catalog_parser : private boost::noncopyable
     {
     public:
@@ -46,20 +44,17 @@ namespace tetengo2 { namespace message
         //! The iterator type.
         using iterator = ForwardIterator;
 
-        //! The input string type.
+        //! THe input string type.
         using input_string_type = std::basic_string<typename iterator::value_type>;
 
-        //! The string type.
-        using string_type = String;
-
-        //! The size type.
-        using size_type = Size;
+        //! The input encoding type.
+        using input_encoding_type = text::encoding::polymorphic<input_string_type>;
 
         //! The pull parser type.
         using pull_parser_type = text::pull_parser<iterator>;
 
-        //! The encoder type.
-        using encoder_type = Encoder;
+        //! The string type.
+        using string_type = type_list::string_type;
 
         //! The entry type.
         using entry_type = std::pair<string_type, string_type>;
@@ -70,11 +65,13 @@ namespace tetengo2 { namespace message
         /*!
             \brief Creates a message catalog parser.
 
-            \param p_pull_parser A unique pointer to a pull parser.
+            \param p_pull_parser  A unique pointer to a pull parser.
+            \param input_encoding An input encoding.
         */
-        explicit message_catalog_parser(std::unique_ptr<pull_parser_type> p_pull_parser)
+        message_catalog_parser(std::unique_ptr<pull_parser_type> p_pull_parser, input_encoding_type input_encoding)
         :
         m_p_pull_parser(std::move(p_pull_parser)),
+        m_input_encoder(make_input_encoder(std::move(input_encoding))),
         m_p_preread_entry(),
         m_preamble_read_succeeded()
         {}
@@ -127,6 +124,10 @@ namespace tetengo2 { namespace message
     private:
         // types
 
+        using size_type = type_list::size_type;
+
+        using input_encoder_type = text::encoder<type_list::internal_encoding_type, input_encoding_type>;
+
         using attribute_map_type = typename pull_parser_type::attribute_map_type;
 
         using element_type = typename pull_parser_type::element_type;
@@ -140,16 +141,17 @@ namespace tetengo2 { namespace message
 
         // static functions
 
-        static const encoder_type& encoder()
+        static input_encoder_type make_input_encoder(input_encoding_type input_encoding)
         {
-            static const encoder_type singleton{};
-            return singleton;
+            return input_encoder_type{ type_list::internal_encoding_type{}, std::move(input_encoding) };
         }
 
 
         // variables
 
         std::unique_ptr<pull_parser_type> m_p_pull_parser;
+
+        input_encoder_type m_input_encoder;
 
         mutable std::unique_ptr<entry_type> m_p_preread_entry;
 
@@ -262,7 +264,7 @@ namespace tetengo2 { namespace message
                 m_p_pull_parser->next();
             }
 
-            return stdalt::make_unique<entry_type>(encoder().decode(key), encoder().decode(value));
+            return stdalt::make_unique<entry_type>(m_input_encoder.decode(key), m_input_encoder.decode(value));
         }
 
         template <typename Structure>

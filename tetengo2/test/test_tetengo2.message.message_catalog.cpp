@@ -36,7 +36,7 @@ namespace
 
     using size_type = common_type_list_type::size_type;
 
-    using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type_new;
 
     using io_string_type = common_type_list_type::io_string_type;
 
@@ -52,10 +52,7 @@ namespace
     using message_catalog_encoder_type =
         tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
 
-    using message_catalog_parser_type =
-        tetengo2::message::message_catalog_parser<
-            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type
-        >;
+    using message_catalog_parser_type = tetengo2::message::message_catalog_parser<input_stream_iterator_type>;
 
     using locale_name_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
 

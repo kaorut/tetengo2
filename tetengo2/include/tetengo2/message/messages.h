@@ -35,6 +35,8 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/grammar/json.h>
 
 
@@ -76,7 +78,7 @@ namespace tetengo2 { namespace message
         using encoder_type = Encoder;
 
         //! The message catalog parser type.
-        using message_catalog_parser_type = message_catalog_parser<iterator, string_type, size_type, encoder_type>;
+        using message_catalog_parser_type = message_catalog_parser<iterator>;
 
         //! The encoder type for locale names.
         using locale_name_encoder_type = LocaleNameEncoder;
@@ -258,7 +260,10 @@ namespace tetengo2 { namespace message
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open the message catalog file mappings." }));
 
-            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
+            message_catalog_parser_type parser{
+                create_pull_parser(input_stream),
+                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+            };
             while (parser.has_next())
             {
                 mappings.insert(parser.peek());
@@ -277,7 +282,10 @@ namespace tetengo2 { namespace message
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open a message catalog." }));
 
-            message_catalog_parser_type parser{ create_pull_parser(input_stream) };
+            message_catalog_parser_type parser{
+                create_pull_parser(input_stream),
+                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+            };
             while (parser.has_next())
             {
                 message_catalog.insert(parser.peek());

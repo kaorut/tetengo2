@@ -116,12 +116,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         template <typename DetailTypeList>
         using message_catalog_parser_type =
-            tetengo2::message::message_catalog_parser<
-                input_stream_iterator_type<DetailTypeList>,
-                string_type,
-                size_type,
-                message_catalog_encoder_type<DetailTypeList>
-            >;
+            tetengo2::message::message_catalog_parser<input_stream_iterator_type<DetailTypeList>>;
 
         template <typename DetailTypeList>
         using locale_name_encoding_type =

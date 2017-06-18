@@ -35,7 +35,7 @@ namespace
 
     using size_type = common_type_list_type::size_type;
 
-    using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type_new;
 
     using io_string_type = common_type_list_type::io_string_type;
 
