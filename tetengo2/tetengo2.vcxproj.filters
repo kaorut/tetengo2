@@ -230,6 +230,9 @@
     <ClCompile Include="src\tetengo2.message.message_catalog_parser.cpp">
       <Filter>sources\tetengo2\message</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.message.messages.cpp">
+      <Filter>sources\tetengo2\message</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\iterator\0namespace.dox">

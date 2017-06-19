@@ -14,6 +14,7 @@ sources = \
     tetengo2.config.persistent_config.cpp \
     tetengo2.config.temporary_config.cpp \
     tetengo2.message.message_catalog_parser.cpp \
+    tetengo2.message.messages.cpp \
     tetengo2.text.character_iterator.cpp \
     tetengo2.text.encoding.ascii.cpp \
     tetengo2.text.encoding.cp932.cpp \
