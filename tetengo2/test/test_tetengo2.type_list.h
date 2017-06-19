@@ -34,9 +34,6 @@ namespace test_tetengo2 { namespace type_list
         //! The string type.
         using string_type = std::wstring;
         
-        //! The string type (new).
-        using string_type_new = std::wstring;
-
         //! The I/O string type.
         using io_string_type = std::string;
 
