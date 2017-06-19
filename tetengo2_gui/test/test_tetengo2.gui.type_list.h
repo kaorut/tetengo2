@@ -20,8 +20,6 @@
 #include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/message/message_catalog.h>
-#include <tetengo2/message/message_catalog_parser.h>
-#include <tetengo2/message/messages.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -40,7 +38,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         using difference_type = std::ptrdiff_t;
 
-        using string_type = std::string;
+        using string_type = std::wstring;
 
         using position_type =
             std::pair<tetengo2::gui::unit::pixel<difference_type>, tetengo2::gui::unit::pixel<difference_type>>;
@@ -115,26 +113,12 @@ namespace test_tetengo2 { namespace gui { namespace type_list
             >;
 
         template <typename DetailTypeList>
-        using message_catalog_parser_type =
-            tetengo2::message::message_catalog_parser<input_stream_iterator_type<DetailTypeList>>;
-
-        template <typename DetailTypeList>
         using locale_name_encoding_type =
             tetengo2::text::encoding::locale<string_type>;
 
         template <typename DetailTypeList>
         using locale_name_encoder_type =
             tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, locale_name_encoding_type<DetailTypeList>>;
-
-        template <typename DetailTypeList>
-        using messages_type =
-            tetengo2::message::messages<
-                input_stream_iterator_type<DetailTypeList>,
-                string_type,
-                size_type,
-                message_catalog_encoder_type<DetailTypeList>,
-                locale_name_encoder_type<DetailTypeList>
-            >;
 
         template <typename DetailTypeList>
         using message_catalog_type =

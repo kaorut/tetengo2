@@ -56,7 +56,7 @@ namespace tetengo2 { namespace message
         using locale_name_encoder_type = LocaleNameEncoder;
 
         //! The messages type.
-        using messages_type = messages<iterator, string_type, size_type, encoder_type, locale_name_encoder_type>;
+        using messages_type = messages;
 
 
         // constructors and destructor

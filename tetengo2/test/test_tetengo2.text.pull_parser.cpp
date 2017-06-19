@@ -34,13 +34,11 @@ namespace
 
     using integer_type = common_type_list_type::integer_type;
 
-    using string_type = common_type_list_type::string_type;
-
-    using io_string_type = common_type_list_type::io_string_type;
+    using string_type = common_type_list_type::io_string_type;
 
     using input_stream_iterator_type =
         tetengo2::iterator::observable_forward_iterator<
-            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+            boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>
         >;
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;

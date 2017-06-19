@@ -35,59 +35,43 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
-#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/grammar/json.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace message
 {
     /*!
-        \brief The class template for a messages facet.
+        \brief The class for a messages facet.
 
         It is a customized locale facet for a messages facet.
-
-        \tparam ForwardIterator   A forward iterator type.
-        \tparam String            A string type.
-        \tparam Size              A size type.
-        \tparam Encoder           An encoder type.
-        \tparam LocaleNameEncoder An encoder type for locale names.
     */
-    template <
-        typename ForwardIterator,
-        typename String,
-        typename Size,
-        typename Encoder,
-        typename LocaleNameEncoder
-    >
-    class messages : public std::messages<typename String::value_type>, private boost::noncopyable
+    class messages : public std::messages<type_list::string_type::value_type>, private boost::noncopyable
     {
     public:
         // types
 
         //! The iterator type.
-        using iterator = ForwardIterator;
+        using iterator =
+            iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
         //! The string type.
-        using string_type = String;
-
-        //! The size type.
-        using size_type = Size;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
+        using string_type = type_list::string_type;
 
         //! The message catalog parser type.
         using message_catalog_parser_type = message_catalog_parser<iterator>;
 
         //! The encoder type for locale names.
-        using locale_name_encoder_type = LocaleNameEncoder;
+        using locale_name_encoder_type =
+            text::encoder<text::encoding::locale<string_type>, text::encoding::locale<std::string>>;
 
         //! The base type.
-        using base_type = std::messages<typename string_type::value_type>;
+        using base_type = std::messages<string_type::value_type>;
 
         //! The catalog type.
-        using catalog = typename base_type::catalog;
+        using catalog = base_type::catalog;
 
 
         // static functions

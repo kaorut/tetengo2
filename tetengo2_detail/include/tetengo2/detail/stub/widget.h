@@ -40,7 +40,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The string type.
-        using string_type = std::string;
+        using string_type = std::wstring;
 
 #if !defined(DOCUMENTATION)
         struct details_font_type
