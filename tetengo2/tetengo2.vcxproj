@@ -150,6 +150,7 @@
     <ClCompile Include="src\tetengo2.config.persistent_config.cpp" />
     <ClCompile Include="src\tetengo2.config.temporary_config.cpp" />
     <ClCompile Include="src\tetengo2.message.messages.cpp" />
+    <ClCompile Include="src\tetengo2.message.message_catalog.cpp" />
     <ClCompile Include="src\tetengo2.message.message_catalog_parser.cpp" />
     <ClCompile Include="src\tetengo2.text.character_iterator.cpp" />
     <ClCompile Include="src\tetengo2.text.encoding.ascii.cpp" />
