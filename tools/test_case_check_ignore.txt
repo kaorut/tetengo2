@@ -29,7 +29,6 @@ tetengo2::iterator::polymorphic_forward_iterator::operator *
 tetengo2::message::messages::do_close
 tetengo2::message::messages::do_get
 tetengo2::message::messages::do_open
-tetengo2::message::messages::matches_locale_type::
 tetengo2::stdalt::
 tetengo2::text::encoding::[a-zA-Z0-9_]+::name_impl
 tetengo2::text::encoding::operator ==

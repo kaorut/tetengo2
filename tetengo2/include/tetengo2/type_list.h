@@ -12,6 +12,8 @@
 #include <cstddef>
 #include <string>
 
+#include <tetengo2/text/encoding/locale.h>
+
 
 namespace tetengo2 { namespace type_list
 {
@@ -26,6 +28,9 @@ namespace tetengo2 { namespace type_list
 
     //! The type for string.
     using string_type = std::wstring;
+
+    //! The type for internal encoding.
+    using internal_encoding_type = text::encoding::locale<string_type>;
 
 
 }}

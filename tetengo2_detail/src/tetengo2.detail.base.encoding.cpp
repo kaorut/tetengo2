@@ -31,7 +31,7 @@ namespace tetengo2 { namespace detail { namespace base
         return utf8_to_pivot_impl(std::move(string));
     }
 
-    encoding::cp932_string_type encoding::pivot_to_cp932( pivot_type pivot)
+    encoding::cp932_string_type encoding::pivot_to_cp932(pivot_type pivot)
     const
     {
         return pivot_to_cp932_impl(std::move(pivot));

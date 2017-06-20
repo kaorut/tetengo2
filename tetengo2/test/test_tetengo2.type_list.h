@@ -32,7 +32,7 @@ namespace test_tetengo2 { namespace type_list
         using float_type = double;
 
         //! The string type.
-        using string_type = std::string;
+        using string_type = std::wstring;
         
         //! The I/O string type.
         using io_string_type = std::string;

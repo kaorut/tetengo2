@@ -55,10 +55,7 @@ namespace
 
     using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
 
-    using messages_type =
-        tetengo2::message::messages<
-            input_stream_iterator_type, string_type, size_type, message_catalog_encoder_type, locale_name_encoder_type
-        >;
+    using messages_type = tetengo2::message::messages;
 
     using std_messages_type = std::messages<string_type::value_type>;
 

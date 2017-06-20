@@ -49,6 +49,9 @@
     <Filter Include="sources\tetengo2\text\encoding">
       <UniqueIdentifier>{df4f6e13-ee53-47a5-befc-03e1533d11c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2\message">
+      <UniqueIdentifier>{66294dc9-0b26-462f-8c04-7610a86fe136}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.h">
@@ -223,6 +226,15 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.text.pull_parser.cpp">
       <Filter>sources\tetengo2\text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.message.message_catalog_parser.cpp">
+      <Filter>sources\tetengo2\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.message.messages.cpp">
+      <Filter>sources\tetengo2\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.message.message_catalog.cpp">
+      <Filter>sources\tetengo2\message</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
