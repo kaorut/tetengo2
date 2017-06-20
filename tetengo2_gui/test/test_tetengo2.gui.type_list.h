@@ -10,17 +10,13 @@
 #define TESTTETENGO2_GUI_TYPELIST_H
 
 #include <cstddef>
-#include <iterator>
 #include <string>
 #include <utility>
-
-#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/message/message_catalog.h>
-#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -96,39 +92,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
                 typename DetailTypeList::virtual_key_type
             >;
 
-        template <typename DetailTypeList>
-        using message_catalog_encoding_type =
-            tetengo2::text::encoding::locale<string_type>;
-
-        template <typename DetailTypeList>
-        using message_catalog_encoder_type =
-            tetengo2::text::encoder<
-                internal_encoding_type<DetailTypeList>, message_catalog_encoding_type<DetailTypeList>
-            >;
-
-        template <typename DetailTypeList>
-        using input_stream_iterator_type =
-            tetengo2::iterator::observable_forward_iterator<
-                boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>
-            >;
-
-        template <typename DetailTypeList>
-        using locale_name_encoding_type =
-            tetengo2::text::encoding::locale<string_type>;
-
-        template <typename DetailTypeList>
-        using locale_name_encoder_type =
-            tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, locale_name_encoding_type<DetailTypeList>>;
-
-        template <typename DetailTypeList>
-        using message_catalog_type =
-            tetengo2::message::message_catalog<
-                input_stream_iterator_type<DetailTypeList>,
-                string_type,
-                size_type,
-                message_catalog_encoder_type<DetailTypeList>,
-                locale_name_encoder_type<DetailTypeList>
-            >;
+        using message_catalog_type = tetengo2::message::message_catalog;
 
     }}
 #endif
@@ -169,7 +133,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
         using widget_details_traits_type = detail::common::widget_details_traits_type<DetailTypeList>;
 
         //! The message catalog type.
-        using message_catalog_type = detail::common::message_catalog_type<DetailTypeList>;
+        using message_catalog_type = detail::common::message_catalog_type;
 
     };
 
