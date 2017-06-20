@@ -88,11 +88,7 @@ namespace tetengo2 { namespace message
     private:
         // types
 
-        using size_type = type_list::size_type;
-
         using input_encoder_type = text::encoder<type_list::internal_encoding_type, input_encoding_type>;
-
-        using attribute_map_type = typename pull_parser_type::attribute_map_type;
 
         using element_type = typename pull_parser_type::element_type;
 
@@ -269,8 +265,7 @@ namespace tetengo2 { namespace message
         input_string_type get_attribute(const structure_begin_type& structure)
         const
         {
-            const typename attribute_map_type::const_iterator found =
-                structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
+            const auto found = structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
                 return {};
             if (found->second.which() != 4)

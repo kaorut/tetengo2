@@ -108,7 +108,7 @@ namespace tetengo2 { namespace message
         return m_p_impl->get(key);
     }
 
-    message_catalog::string_type message_catalog::get(const typename string_type::value_type* p_key)
+    message_catalog::string_type message_catalog::get(const string_type::value_type* p_key)
     const
     {
         return m_p_impl->get(p_key);
