@@ -35,6 +35,7 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
 
 
@@ -258,7 +259,7 @@ namespace tetengo2 { namespace message
 
             message_catalog_parser_type parser{
                 create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+                text::encoding::make_polymorphic<text::encoding::utf8>()
             };
             while (parser.has_next())
             {
@@ -280,7 +281,7 @@ namespace tetengo2 { namespace message
 
             message_catalog_parser_type parser{
                 create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+                text::encoding::make_polymorphic<text::encoding::utf8>()
             };
             while (parser.has_next())
             {
