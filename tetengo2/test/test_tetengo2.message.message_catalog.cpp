@@ -19,23 +19,19 @@
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
-
-    using string_type = common_type_list_type::string_type;
-
-    using messages_type = tetengo2::message::messages;
-
     using message_catalog_type =  tetengo2::message::message_catalog;
+
+    using string_type = message_catalog_type::string_type;
 
     struct set_global_locale
     {
+        using messages_type = tetengo2::message::messages;
+
         const std::locale m_initial_locale;
 
         explicit set_global_locale(const std::locale& locale)
