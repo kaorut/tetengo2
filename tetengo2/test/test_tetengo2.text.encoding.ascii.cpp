@@ -13,8 +13,6 @@
 
 #include <tetengo2/text/encoding/ascii.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {

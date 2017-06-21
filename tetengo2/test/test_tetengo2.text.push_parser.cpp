@@ -22,25 +22,20 @@
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/push_parser.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using integer_type = tetengo2::type_list::integer_type;
 
-    using integer_type = common_type_list_type::integer_type;
-
-    using float_type = common_type_list_type::float_type;
-
-    using io_string_type = common_type_list_type::io_string_type;
+    using float_type = tetengo2::type_list::float_type;
 
     using input_stream_iterator_type =
         tetengo2::iterator::observable_forward_iterator<
-            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+            boost::spirit::multi_pass<std::istreambuf_iterator<char>>
         >;
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
