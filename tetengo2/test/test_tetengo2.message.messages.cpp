@@ -7,7 +7,6 @@
 */
 
 #include <ios>
-#include <iterator>
 #include <locale>
 #include <stdexcept>
 #include <string>
@@ -15,47 +14,21 @@
 #include <boost/filesystem.hpp>
 #include <boost/predef.h>
 #include <boost/scope_exit.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/messages.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
-
-#include "test_tetengo2.type_list.h"
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using messages_type = tetengo2::message::messages;
 
-    using size_type = common_type_list_type::size_type;
-
-    using string_type = common_type_list_type::string_type;
-
-    using io_string_type = common_type_list_type::io_string_type;
-
-    using input_stream_iterator_type =
-        tetengo2::iterator::observable_forward_iterator<
-            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
-        >;
+    using string_type = messages_type::string_type;
 
     using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
-
-    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
-
-    using message_catalog_encoder_type =
-        tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
-
-    using locale_name_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
-
-    using locale_name_encoder_type = tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>;
-
-    using messages_type = tetengo2::message::messages;
 
     using std_messages_type = std::messages<string_type::value_type>;
 

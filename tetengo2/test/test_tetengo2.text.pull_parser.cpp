@@ -22,19 +22,16 @@
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
-
-#include "test_tetengo2.type_list.h"
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
+    using integer_type = tetengo2::type_list::integer_type;
 
-    using integer_type = common_type_list_type::integer_type;
-
-    using string_type = common_type_list_type::io_string_type;
+    using string_type = std::string;
 
     using input_stream_iterator_type =
         tetengo2::iterator::observable_forward_iterator<

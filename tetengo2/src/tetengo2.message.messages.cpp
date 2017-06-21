@@ -35,6 +35,7 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
 
 
@@ -63,7 +64,7 @@ namespace tetengo2 { namespace message
                 const auto offset = key.rfind(TETENGO2_TEXT(':'), start);
                 if (offset == string_type::npos)
                     return key;
-                if (offset == 0 || key[offset - 1] != typename string_type::value_type{ TETENGO2_TEXT('\\') })
+                if (offset == 0 || key[offset - 1] != string_type::value_type{ TETENGO2_TEXT('\\') })
                 {
                     string_type ns_removed = key.substr(offset + 1);
                     boost::replace_all(
@@ -165,7 +166,7 @@ namespace tetengo2 { namespace message
             m_locale(locale)
             {}
 
-            bool operator()(const typename catalog_file_mappings_type::value_type& mapping)
+            bool operator()(const catalog_file_mappings_type::value_type& mapping)
             const
             {
                 const auto locale_name = locale_name_encoder().encode(mapping.first);
@@ -181,11 +182,11 @@ namespace tetengo2 { namespace message
 
         };
 
-        using pull_parser_type = typename message_catalog_parser_type::pull_parser_type;
+        using pull_parser_type = message_catalog_parser_type::pull_parser_type;
 
-        using push_parser_type = typename pull_parser_type::push_parser_type;
+        using push_parser_type = pull_parser_type::push_parser_type;
 
-        using grammar_type = text::grammar::json<typename push_parser_type::iterator>;
+        using grammar_type = text::grammar::json<push_parser_type::iterator>;
 
 
         // static functions
@@ -196,9 +197,9 @@ namespace tetengo2 { namespace message
             return singleton;
         }
 
-        static const typename boost::filesystem::path::string_type& catalog_file_mappings_filename()
+        static const boost::filesystem::path::string_type& catalog_file_mappings_filename()
         {
-            static const typename boost::filesystem::path::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
+            static const boost::filesystem::path::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
             return singleton;
         }
 
@@ -258,7 +259,7 @@ namespace tetengo2 { namespace message
 
             message_catalog_parser_type parser{
                 create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+                text::encoding::make_polymorphic<text::encoding::utf8>()
             };
             while (parser.has_next())
             {
@@ -280,7 +281,7 @@ namespace tetengo2 { namespace message
 
             message_catalog_parser_type parser{
                 create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::locale<std::string>>()
+                text::encoding::make_polymorphic<text::encoding::utf8>()
             };
             while (parser.has_next())
             {

@@ -72,7 +72,7 @@ namespace tetengo2 { namespace message
 
             \return The localized text.
         */
-        string_type get(const typename string_type::value_type* p_key)
+        string_type get(const string_type::value_type* p_key)
         const;
 
 

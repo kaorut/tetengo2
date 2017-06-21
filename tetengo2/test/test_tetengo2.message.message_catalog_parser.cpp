@@ -22,34 +22,23 @@
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-#include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/push_parser.h>
 #include <tetengo2/text/pull_parser.h>
 
-#include "test_tetengo2.type_list.h"
-
 
 namespace
 {
     // types
 
-    using common_type_list_type = test_tetengo2::type_list::common;
-
-    using size_type = common_type_list_type::size_type;
-
-    using string_type = common_type_list_type::string_type;
-
-    using io_string_type = common_type_list_type::io_string_type;
-
-    using io_encoding_type = tetengo2::text::encoding::polymorphic<io_string_type>;
-
     using input_stream_iterator_type =
         tetengo2::iterator::observable_forward_iterator<
-            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>>
+            boost::spirit::multi_pass<std::istreambuf_iterator<char>>
         >;
+
+    using input_encoding_type = tetengo2::text::encoding::polymorphic<std::string>;
 
     using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
@@ -57,16 +46,9 @@ namespace
 
     using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
 
-    using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
-
-    using message_catalog_encoding_type = tetengo2::text::encoding::locale<io_string_type>;
-
-    using message_catalog_encoder_type =
-        tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>;
-
     using message_catalog_parser_type = tetengo2::message::message_catalog_parser<input_stream_iterator_type>;
 
-    using entry_type = message_catalog_parser_type::entry_type;
+    using string_type = message_catalog_parser_type::string_type;
 
 
     // data
@@ -136,9 +118,9 @@ namespace
         return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
     }
 
-    io_encoding_type make_io_encoding()
+    input_encoding_type make_input_encoding()
     {
-        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::locale<io_string_type>>();
+        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::locale<std::string>>();
     }
 
 
@@ -157,7 +139,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
         boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog0) };
         const auto p_parser =
             tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                create_pull_parser(input_stream), make_io_encoding()
+                create_pull_parser(input_stream), make_input_encoding()
             );
     }
 
@@ -169,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog0) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_TEST(!p_parser->has_next());
@@ -178,7 +160,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog1) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_TEST(!p_parser->has_next());
@@ -187,7 +169,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog2) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_TEST(!p_parser->has_next());
@@ -196,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog3) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_TEST(p_parser->has_next());
@@ -205,7 +187,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog4) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_TEST(p_parser->has_next());
@@ -220,7 +202,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog0) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
@@ -229,7 +211,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog1) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
@@ -238,7 +220,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog2) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
@@ -247,7 +229,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog3) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             const auto& entry = p_parser->peek();
@@ -258,7 +240,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog4) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             const auto& entry = p_parser->peek();
@@ -275,7 +257,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog0) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
@@ -284,7 +266,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog1) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
@@ -293,7 +275,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog2) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
@@ -302,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog3) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             {
@@ -317,7 +299,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             boost::iostreams::filtering_istream input_stream{ boost::make_iterator_range(catalog4) };
             const auto p_parser =
                 tetengo2::stdalt::make_unique<message_catalog_parser_type>(
-                    create_pull_parser(input_stream), make_io_encoding()
+                    create_pull_parser(input_stream), make_input_encoding()
                 );
 
             {
