@@ -113,23 +113,22 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
     protected:
-        // constructors
-
-        /*!
-            \brief Creates an encoding.
-        */
-        encoding();
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const encoding_details_type& details()
-        const;
+        static const encoding_details_type& details();
+
+
+        // constructors
+
+        /*!
+            \brief Creates an encoding.
+        */
+        encoding();
 
 
     private:
