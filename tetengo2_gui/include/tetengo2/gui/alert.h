@@ -18,6 +18,8 @@
 #include <boost/exception/all.hpp>
 
 #include <tetengo2/text.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/type_list.h>
 
 
@@ -26,17 +28,13 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for an alert.
 
-        \tparam ExceptionEncoder An encoder type for the exception.
         \tparam AlertDetails     A detail implementation type of an alert.
     */
-    template <typename ExceptionEncoder, typename AlertDetails>
+    template <typename AlertDetails>
     class alert : private boost::noncopyable
     {
     public:
         // types
-
-        //! The encoder type for exceptions.
-        using exception_encoder_type = ExceptionEncoder;
 
         //! The detail implemetation type of an alert.
         using alert_details_type = AlertDetails;
@@ -150,12 +148,17 @@ namespace tetengo2 { namespace gui
 
         using string_type = type_list::string_type;
 
+        using exception_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::string>>;
+
 
         // static functions
 
         static const exception_encoder_type& exception_encoder()
         {
-            static const exception_encoder_type singleton{};
+            static const exception_encoder_type singleton{
+                type_list::internal_encoding_type{}, text::encoding::locale<std::string>{}
+            };
             return singleton;
         }
 

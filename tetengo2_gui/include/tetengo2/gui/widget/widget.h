@@ -79,9 +79,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
-        //! The exception encoder type.
-        using exception_encoder_type = typename traits_type::exception_encoder_type;
-
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
@@ -123,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace widget
             gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The alert type.
-        using alert_type = gui::alert<exception_encoder_type, alert_details_type>;
+        using alert_type = gui::alert<alert_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;

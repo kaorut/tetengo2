@@ -24,7 +24,6 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam Position         A position type.
         \tparam Dimension        A dimension type.
         \tparam Encoder          An encoder type.
-        \tparam ExceptionEncoder An exception encoder type.
    */
     template <
         typename Size,
@@ -33,8 +32,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typename String,
         typename Position,
         typename Dimension,
-        typename Encoder,
-        typename ExceptionEncoder
+        typename Encoder
     >
     struct widget_traits
     {
@@ -60,9 +58,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The encoder type.
         using encoder_type = Encoder;
-
-        //! The exception encoder type.
-        using exception_encoder_type = ExceptionEncoder;
 
 
     };

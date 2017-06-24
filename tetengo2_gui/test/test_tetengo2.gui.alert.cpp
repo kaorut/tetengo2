@@ -24,8 +24,7 @@ namespace
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using alert_type =
-        tetengo2::gui::alert<common_type_list_type::exception_encoder_type, detail_type_list_type::alert_type>;
+    using alert_type = tetengo2::gui::alert<detail_type_list_type::alert_type>;
 
     struct boost_exception : public boost::exception
     {};

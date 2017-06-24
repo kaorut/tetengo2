@@ -59,14 +59,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
             tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, ui_encoding_type<DetailTypeList>>;
 
         template <typename DetailTypeList>
-        using exception_encoding_type =
-            tetengo2::text::encoding::locale<exception_string_type>;
-
-        template <typename DetailTypeList>
-        using exception_encoder_type =
-            tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, exception_encoding_type<DetailTypeList>>;
-
-        template <typename DetailTypeList>
         using widget_traits_type =
             tetengo2::gui::widget::widget_traits<
                 size_type,
@@ -75,8 +67,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
                 string_type,
                 position_type,
                 dimension_type,
-                ui_encoder_type<DetailTypeList>,
-                exception_encoder_type<DetailTypeList>
+                ui_encoder_type<DetailTypeList>
             >;
 
         template <typename DetailTypeList>
@@ -122,9 +113,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         //! The UI encoder_type.
         using ui_encoder_type = detail::common::ui_encoder_type<DetailTypeList>;
-
-        //! The exception encoder type.
-        using exception_encoder_type = detail::common::exception_encoder_type<DetailTypeList>;
 
         //! The widget traits type.
         using widget_traits_type = detail::common::widget_traits_type<DetailTypeList>;
