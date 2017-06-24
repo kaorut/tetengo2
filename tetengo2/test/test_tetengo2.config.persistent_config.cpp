@@ -10,9 +10,9 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/persistent_config.h>
-#include <tetengo2/detail/config.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
+#include <tetengo2.detail.h>
 
 
 namespace

@@ -3,7 +3,6 @@
 # $Id$
 
 pkg_headers = \
-    detail/config.h \
     detail/base/alert.h \
     detail/base/config.h \
     detail/base/encoding.h \

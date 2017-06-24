@@ -11,13 +11,16 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/alert.h>
+#include <tetengo2/detail/base/config.h>
 #if BOOST_OS_WINDOWS
 #   include <tetengo2/detail/windows/alert.h>
+#   include <tetengo2/detail/windows/config.h>
 #elif BOOST_OS_UNIX
+#   include <tetengo2/detail/unixos/config.h>
 #else
 #   error No stub implementation.
 #endif
-#include <tetengo2/detail/config.h>
 
 
 namespace tetengo2 { namespace detail
@@ -27,7 +30,9 @@ namespace tetengo2 { namespace detail
     */
 #if BOOST_OS_WINDOWS
     using alert = windows::alert;
+    using config = windows::config;
 #elif BOOST_OS_UNIX
+    using config = unixos::config;
 #else
 #   error No detail implementation.
 #endif
