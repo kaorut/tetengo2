@@ -78,7 +78,7 @@ namespace tetengo2 { namespace config
 
     persistent_config::persistent_config(string_type group_name, const config_details_type& config_details)
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>(std::move(group_name), config_details))
+    m_p_impl(stdalt::make_unique<impl>(std::move(group_name), config_details))
     {}
 
     persistent_config::~persistent_config()

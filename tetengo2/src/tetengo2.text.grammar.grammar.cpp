@@ -137,7 +137,7 @@ namespace tetengo2 { namespace text { namespace grammar
     grammar<ForwardIterator>::grammar(rule_type& root_rule)
     :
     grammar::base_type(root_rule),
-    m_p_impl(tetengo2::stdalt::make_unique<impl>())
+    m_p_impl(stdalt::make_unique<impl>())
     {}
 
     template <typename ForwardIterator>

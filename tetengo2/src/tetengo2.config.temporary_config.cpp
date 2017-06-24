@@ -76,7 +76,7 @@ namespace tetengo2 { namespace config
 
     temporary_config::temporary_config()
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>())
+    m_p_impl(stdalt::make_unique<impl>())
     {}
 
     temporary_config::~temporary_config()
