@@ -20,7 +20,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of an alert.
     */
-    class alert : private base::alert
+    class alert : public base::alert
     {
     public:
         // types

@@ -27,7 +27,11 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // static functions
 
-        static const alert& instance();
+        static const alert& instance()
+        {
+            static const alert singleton{};
+            return singleton;
+        }
 
 
         // functions

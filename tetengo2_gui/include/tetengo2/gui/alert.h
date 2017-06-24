@@ -18,6 +18,7 @@
 #include <boost/exception/all.hpp>
 
 #include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace gui
@@ -25,18 +26,14 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for an alert.
 
-        \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the exception.
         \tparam AlertDetails     A detail implementation type of an alert.
     */
-    template <typename UiEncoder, typename ExceptionEncoder, typename AlertDetails>
+    template <typename ExceptionEncoder, typename AlertDetails>
     class alert : private boost::noncopyable
     {
     public:
         // types
-
-        //! The encoder type for the user interface.
-        using ui_encoder_type = UiEncoder;
 
         //! The encoder type for exceptions.
         using exception_encoder_type = ExceptionEncoder;
@@ -57,7 +54,7 @@ namespace tetengo2 { namespace gui
         */
         explicit alert(const widget_handle_type widget_handle = nullptr)
         :
-        m_widget_handle(alert_details_type::root_ancestor_widget_handle(widget_handle))
+        m_widget_handle(alert_details_type::instance().root_ancestor_widget_handle(widget_handle))
         {}
 
 
@@ -83,15 +80,14 @@ namespace tetengo2 { namespace gui
                     auto message = p_system_error->code().message();
                     if (!what.empty())
                         message += std::string{ ": " } +what;
-                    alert_details_type::show_task_dialog(
+                    alert_details_type::instance().show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         string_type{ TETENGO2_TEXT("std::system_error") },
                         exception_encoder().decode(message),
                         p_file ?
                             exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                        p_line ? *p_line : 0,
-                        ui_encoder()
+                        p_line ? *p_line : 0
                     );
                     return;
                 }
@@ -99,28 +95,26 @@ namespace tetengo2 { namespace gui
                 const std::exception* const p_std_exception = dynamic_cast<const std::exception*>(&exception);
                 if (p_std_exception)
                 {
-                    alert_details_type::show_task_dialog(
+                    alert_details_type::instance().show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         exception_encoder().decode(typeid(*p_std_exception).name()),
                         exception_encoder().decode(p_std_exception->what()),
                         p_file ?
                             exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                        p_line ? *p_line : 0,
-                        ui_encoder()
+                        p_line ? *p_line : 0
                     );
                     return;
                 }
 
-                alert_details_type::show_task_dialog(
+                alert_details_type::instance().show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
                     exception_encoder().decode(boost::diagnostic_information(exception)),
                     p_file ?
                         exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                    p_line ? *p_line : 0,
-                    ui_encoder()
+                    p_line ? *p_line : 0
                 );
             }
             catch (...)
@@ -137,14 +131,13 @@ namespace tetengo2 { namespace gui
         {
             try
             {
-                alert_details_type::show_task_dialog(
+                alert_details_type::instance().show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
                     exception_encoder().decode(exception.what()),
                     string_type{ TETENGO2_TEXT("Unknown Source File") },
-                    0,
-                    ui_encoder()
+                    0
                 );
             }
             catch (...)
@@ -155,16 +148,10 @@ namespace tetengo2 { namespace gui
     private:
         // types
 
-        using string_type = typename ui_encoder_type::internal_string_type;
+        using string_type = type_list::string_type;
 
 
         // static functions
-
-        static const ui_encoder_type& ui_encoder()
-        {
-            static const ui_encoder_type singleton{};
-            return singleton;
-        }
 
         static const exception_encoder_type& exception_encoder()
         {
