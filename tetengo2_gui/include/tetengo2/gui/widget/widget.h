@@ -21,7 +21,6 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/gui/alert.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
@@ -115,9 +114,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget canvas type.
         using widget_canvas_type =
             gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
-
-        //! The alert type.
-        using alert_type = gui::alert;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;
