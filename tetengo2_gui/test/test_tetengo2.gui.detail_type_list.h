@@ -44,8 +44,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
     {
         namespace test
         {
-            using alert_details_type = tetengo2::detail::stub::alert;
-
             using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
 
             using cursor_details_type = tetengo2::detail::stub::cursor;
@@ -88,9 +86,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
     */
     struct detail_for_test
     {
-        //! The alert type.
-        using alert_type = detail::detail::test::alert_details_type;
-
         //! The common dialog type.
         using common_dialog_type = detail::detail::test::common_dialog_details_type;
 

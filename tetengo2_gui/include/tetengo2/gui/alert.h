@@ -17,6 +17,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 
+#include <tetengo2/detail/base/alert.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -26,21 +27,18 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for an alert.
-
-        \tparam AlertDetails     A detail implementation type of an alert.
+        \brief The class for an alert.
     */
-    template <typename AlertDetails>
     class alert : private boost::noncopyable
     {
     public:
         // types
 
         //! The detail implemetation type of an alert.
-        using alert_details_type = AlertDetails;
+        using alert_details_type = detail::base::alert;
 
         //! The widget handle type.
-        using widget_handle_type = typename alert_details_type::widget_handle_type;
+        using widget_handle_type = alert_details_type::widget_handle_type;
 
 
         // constructors and destructor
@@ -48,11 +46,24 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates an alert.
 
-            \param widget_handle     A widget handle.
+            \param widget_handle A widget handle.
+            \param alert_details A detail implementation of an alert.
         */
-        explicit alert(const widget_handle_type widget_handle = nullptr)
+        alert(const widget_handle_type widget_handle, const alert_details_type& alert_details)
         :
-        m_widget_handle(alert_details_type::instance().root_ancestor_widget_handle(widget_handle))
+        m_widget_handle(alert_details.root_ancestor_widget_handle(widget_handle)),
+        m_alert_details(alert_details)
+        {}
+
+        /*!
+            \brief Creates an alert.
+
+            \param alert_details A detail implementation of an alert.
+        */
+        explicit alert(const alert_details_type& alert_details)
+        :
+        m_widget_handle(alert_details.root_ancestor_widget_handle(nullptr)),
+        m_alert_details(alert_details)
         {}
 
 
@@ -78,7 +89,7 @@ namespace tetengo2 { namespace gui
                     auto message = p_system_error->code().message();
                     if (!what.empty())
                         message += std::string{ ": " } +what;
-                    alert_details_type::instance().show_task_dialog(
+                    m_alert_details.show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         string_type{ TETENGO2_TEXT("std::system_error") },
@@ -93,7 +104,7 @@ namespace tetengo2 { namespace gui
                 const std::exception* const p_std_exception = dynamic_cast<const std::exception*>(&exception);
                 if (p_std_exception)
                 {
-                    alert_details_type::instance().show_task_dialog(
+                    m_alert_details.show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         exception_encoder().decode(typeid(*p_std_exception).name()),
@@ -105,7 +116,7 @@ namespace tetengo2 { namespace gui
                     return;
                 }
 
-                alert_details_type::instance().show_task_dialog(
+                m_alert_details.show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
@@ -129,7 +140,7 @@ namespace tetengo2 { namespace gui
         {
             try
             {
-                alert_details_type::instance().show_task_dialog(
+                m_alert_details.show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
@@ -166,6 +177,8 @@ namespace tetengo2 { namespace gui
         // variables
 
         const widget_handle_type m_widget_handle;
+
+        const alert_details_type& m_alert_details;
 
 
     };

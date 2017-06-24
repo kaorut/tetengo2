@@ -37,6 +37,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
@@ -2725,17 +2726,17 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             catch (const boost::exception& e)
             {
-                typename Widget::alert_type{ window_handle }(e);
+                typename Widget::alert_type{ window_handle, detail::windows::alert::instance() }(e);
                 return 0;
             }
             catch (const std::exception& e)
             {
-                typename Widget::alert_type{ window_handle }(e);
+                typename Widget::alert_type{ window_handle, detail::windows::alert::instance() }(e);
                 return 0;
             }
             catch (...)
             {
-                typename Widget::alert_type{ window_handle }();
+                typename Widget::alert_type{ window_handle, detail::windows::alert::instance() }();
                 return 0;
             }
         }

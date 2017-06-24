@@ -97,9 +97,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
 
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
-
         //! The cursor details type.
         using cursor_details_type = typename details_traits_type::cursor_details_type;
 
@@ -120,7 +117,7 @@ namespace tetengo2 { namespace gui { namespace widget
             gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The alert type.
-        using alert_type = gui::alert<alert_details_type>;
+        using alert_type = gui::alert;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;

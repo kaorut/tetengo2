@@ -11,6 +11,7 @@
 #include <boost/exception/all.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/gui/alert.h>
 
 #include "test_tetengo2.gui.type_list.h"
@@ -24,7 +25,9 @@ namespace
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using alert_type = tetengo2::gui::alert<detail_type_list_type::alert_type>;
+    using alert_type = tetengo2::gui::alert;
+
+    using alert_details_type = tetengo2::detail::stub::alert;
 
     struct boost_exception : public boost::exception
     {};
@@ -43,7 +46,10 @@ BOOST_AUTO_TEST_SUITE(alert)
         BOOST_TEST_PASSPOINT();
 
         {
-            const alert_type alert{ nullptr };
+            const alert_type alert{ alert_details_type::instance() };
+        }
+        {
+            const alert_type alert{ nullptr, alert_details_type::instance() };
         }
     }
 
@@ -51,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(alert)
     {
         BOOST_TEST_PASSPOINT();
 
-        const alert_type alert{ nullptr };
+        const alert_type alert{ nullptr, alert_details_type::instance() };
 
         const boost_exception exception{};
         alert(exception);
@@ -61,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(alert)
     {
         BOOST_TEST_PASSPOINT();
 
-        const alert_type alert{ nullptr };
+        const alert_type alert{ nullptr, alert_details_type::instance() };
 
         const std::runtime_error exception{ "Tetengo2" };
         alert(exception);
