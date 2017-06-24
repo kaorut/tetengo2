@@ -30,6 +30,7 @@
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 
 namespace tetengo2 { namespace gui { namespace widget
@@ -287,11 +288,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<label_type> create_message_label(string_type waiting_message)
         {
-            auto p_label = tetengo2::stdalt::make_unique<label_type>(*this);
+            auto p_label = stdalt::make_unique<label_type>(*this);
 
             p_label->set_text(std::move(waiting_message));
-            auto p_background =
-                tetengo2::stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+            auto p_background = stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -299,11 +299,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<label_type> create_progress_label()
         {
-            auto p_label = tetengo2::stdalt::make_unique<label_type>(*this);
+            auto p_label = stdalt::make_unique<label_type>(*this);
 
             p_label->set_text(string_type{ TETENGO2_TEXT("0%") });
-            auto p_background =
-                tetengo2::stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
+            auto p_background = stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -311,7 +310,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<progress_bar_type> create_progress_bar()
         {
-            auto p_progress_bar = tetengo2::stdalt::make_unique<progress_bar_type>(*this);
+            auto p_progress_bar = stdalt::make_unique<progress_bar_type>(*this);
 
             p_progress_bar->set_goal(100);
 
@@ -320,7 +319,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<button_type> create_cancel_button()
         {
-            auto p_button = tetengo2::stdalt::make_unique<button_type>(*this, button_type::style_type::cancel);
+            auto p_button = stdalt::make_unique<button_type>(*this, button_type::style_type::cancel);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect([this]() { this->close(); });

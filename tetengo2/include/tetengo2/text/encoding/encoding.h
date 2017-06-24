@@ -30,7 +30,7 @@ namespace tetengo2 { namespace text { namespace encoding
         // types
 
         //! The encoding details type.
-        using encoding_details_type = tetengo2::detail::base::encoding;
+        using encoding_details_type = detail::base::encoding;
 
         //! The pivot type.
         using pivot_type = typename encoding_details_type::pivot_type;
@@ -113,23 +113,22 @@ namespace tetengo2 { namespace text { namespace encoding
 
 
     protected:
-        // constructors
-
-        /*!
-            \brief Creates an encoding.
-        */
-        encoding();
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const encoding_details_type& details()
-        const;
+        static const encoding_details_type& details();
+
+
+        // constructors
+
+        /*!
+            \brief Creates an encoding.
+        */
+        encoding();
 
 
     private:

@@ -28,6 +28,12 @@
     <Filter Include="headers\tetengo2::gui\cursor">
       <UniqueIdentifier>{ba750395-8784-4e73-ac24-1f82418fbc0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{b6d11dab-a8ba-427c-b155-7206da7d14e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::gui">
+      <UniqueIdentifier>{19388921-2ee3-4694-9d95-325ee9934ec4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -285,5 +291,16 @@
     <ClInclude Include="include\tetengo2\gui\message\child_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\tetengo2.gui.alert.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

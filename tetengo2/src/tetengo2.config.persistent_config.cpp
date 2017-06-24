@@ -13,6 +13,13 @@
 
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/detail/base/config.h>
+#if BOOST_OS_WINDOWS
+#   include <tetengo2/detail/windows/config.h>
+#elif BOOST_OS_LINUX
+#   include <tetengo2/detail/unixos/config.h>
+#else
+#   error Unsupported platform.
+#endif
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
@@ -34,15 +41,12 @@ namespace tetengo2 { namespace config
 
         using value_type = persistent_config::value_type;
 
-        using config_details_type = persistent_config::config_details_type;
-
 
         // constructors and destructor
 
-        impl(string_type group_name, const config_details_type& config_details)
+        explicit impl(string_type group_name)
         :
-        m_group_name(std::move(group_name)),
-        m_config_details(config_details)
+        m_group_name(std::move(group_name))
         {}
 
 
@@ -51,34 +55,51 @@ namespace tetengo2 { namespace config
         boost::optional<value_type> get_impl(const string_type& key)
         const
         {
-            return m_config_details.get(m_group_name, key);
+            return details().get(m_group_name, key);
         }
 
         void set_impl(const string_type& key, value_type value)
         {
-            return m_config_details.set(m_group_name, key, std::move(value));
+            return details().set(m_group_name, key, std::move(value));
         }
 
         void clear_impl()
         {
-            return m_config_details.clear(m_group_name);
+            return details().clear(m_group_name);
         }
 
 
     private:
+        // types
+
+        using config_details_type = detail::base::config;
+
+
+        // static functions
+
+        static const config_details_type& details()
+        {
+#if BOOST_OS_WINDOWS
+            return detail::windows::config::instance();
+#elif BOOST_OS_LINUX
+            return detail::unixos::config::instance();
+#else
+#   error Unsupported platform.
+#endif
+        }
+
+
         // variables
 
         const string_type m_group_name;
-
-        const config_details_type& m_config_details;
 
 
     };
 
 
-    persistent_config::persistent_config(string_type group_name, const config_details_type& config_details)
+    persistent_config::persistent_config(string_type group_name)
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>(std::move(group_name), config_details))
+    m_p_impl(stdalt::make_unique<impl>(std::move(group_name)))
     {}
 
     persistent_config::~persistent_config()

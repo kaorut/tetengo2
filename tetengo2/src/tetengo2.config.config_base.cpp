@@ -53,7 +53,7 @@ namespace tetengo2 { namespace config
 
     config_base::config_base()
     :
-    m_p_impl(tetengo2::stdalt::make_unique<impl>())
+    m_p_impl(stdalt::make_unique<impl>())
     {}
 
     config_base::~config_base()

@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_DETAIL_STUB_ALERT_H)
 #define TETENGO2_DETAIL_STUB_ALERT_H
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/core/noncopyable.hpp>
+#include <memory>
+
+#include <tetengo2/detail/base/alert.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -18,65 +20,66 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of an alert.
     */
-    class alert : private boost::noncopyable
+    class alert : public base::alert
     {
     public:
         // types
 
+        //! The string type.
+        using string_type = type_list::string_type;
+
         //! The widget handle type.
-        using widget_handle_type = const void*;
+        using widget_handle_type = base::alert::widget_handle_type;
 
 
         // static functions
 
         /*!
-            \brief Returns the root ancestor widget handle.
+            \brief Returns the instance.
 
-            \param widget_handle A widget handle.
-
-            \return The root ancestor widget handle.
+            \return The instance.
         */
-        static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
-        {
-            boost::ignore_unused(widget_handle);
+        static const alert& instance();
 
-            return nullptr;
-        }
+
+        // constructors and destructor
 
         /*!
-            \brief Shows a task dialog.
-
-            \tparam String  A string type.
-            \tparam Encoder An encoder type.
-
-            \param widget_handle    A widget handle.
-            \param caption          A caption.
-            \param text1            A text #1.
-            \param text2            A text #2.
-            \param source_file_name A source file name.
-            \param source_file_line A source file line number.
-            \param encoder          An encoder.
+            \brief Destroys the detail implementation.
         */
-        template <typename String, typename Encoder>
-        static void show_task_dialog(
-            const widget_handle_type widget_handle,
-            const String&            caption,
-            const String&            text1,
-            const String&            text2,
-            const String&            source_file_name,
-            const int                source_file_line,
-            const Encoder&           encoder
-        )
-        {
-            boost::ignore_unused(widget_handle, caption, text1, text2, source_file_name, source_file_line, encoder);
-        }
+        ~alert();
 
 
     private:
-        // forbidden operations
+        // types
 
-        alert()
-        = delete;
+        class impl;
+
+
+        // variables
+
+        std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        alert();
+
+
+        // virtual functions
+
+        virtual widget_handle_type root_ancestor_widget_handle_impl(widget_handle_type widget_handle)
+        const override;
+
+        virtual void show_task_dialog_impl(
+            widget_handle_type widget_handle,
+            const string_type& caption,
+            const string_type& text1,
+            const string_type& text2,
+            const string_type& source_file_name,
+            int                source_file_line
+        )
+        const override;
 
 
     };

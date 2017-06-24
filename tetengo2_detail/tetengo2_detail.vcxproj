@@ -21,9 +21,9 @@
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="include\tetengo2.detail.h" />
+    <ClInclude Include="include\tetengo2\detail\base\alert.h" />
     <ClInclude Include="include\tetengo2\detail\base\config.h" />
     <ClInclude Include="include\tetengo2\detail\base\encoding.h" />
-    <ClInclude Include="include\tetengo2\detail\config.h" />
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox" />
     <ClInclude Include="include\tetengo2\detail\stub\alert.h" />
     <ClInclude Include="include\tetengo2\detail\stub\common_dialog.h" />
@@ -91,8 +91,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.encoding.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.alert.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.encoding.cpp" />
   </ItemGroup>

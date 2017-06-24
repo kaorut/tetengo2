@@ -95,17 +95,20 @@ TESTS = tetengo2_gui.test
 
 tetengo2_gui_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a \
-    $(top_builddir)/tetengo2/src/libtetengo2_detail.a
+    $(top_builddir)/tetengo2/src/libtetengo2_detail.a \
+    $(top_builddir)/tetengo2/src/libtetengo2_gui.a
 tetengo2_gui_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
 tetengo2_gui_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
-    -L$(top_builddir)/tetengo2_detail/src
+    -L$(top_builddir)/tetengo2_detail/src \
+    -L$(top_builddir)/tetengo2_gui/src
 tetengo2_gui_test_LDADD = \
     -ltetengo2 \
     -ltetengo2_detail \
+    -ltetengo2_gui \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
@@ -116,6 +119,16 @@ $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/preco
 
 $(top_builddir)/tetengo2/src/libtetengo2.a:
 	pushd $(top_builddir)/tetengo2/src; \
+	$(MAKE) all; \
+	popd
+
+$(top_builddir)/tetengo2/src/libtetengo2_detail.a:
+	pushd $(top_builddir)/tetengo2_detail/src; \
+	$(MAKE) all; \
+	popd
+
+$(top_builddir)/tetengo2/src/libtetengo2_gui.a:
+	pushd $(top_builddir)/tetengo2_gui/src; \
 	$(MAKE) all; \
 	popd
 

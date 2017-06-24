@@ -28,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace base
         //! The pivot type.
 #if BOOST_OS_WINDOWS
         using pivot_type = std::wstring;
-#elif BOOST_OS_UNIX
+#elif BOOST_OS_LINUX
         using pivot_type = std::string;
 #else
 #   error Specify the pivot string type.

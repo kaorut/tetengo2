@@ -38,16 +38,16 @@ namespace tetengo2 { namespace text { namespace encoding
             return singleton;
         }
 
-        string_type from_pivot_impl(pivot_type pivot, const cp932& base)
+        string_type from_pivot_impl(pivot_type pivot)
         const
         {
-            return base.details().pivot_to_cp932(std::move(pivot));
+            return cp932::details().pivot_to_cp932(std::move(pivot));
         }
 
-        typename base_type::pivot_type to_pivot_impl(const string_type& string, const cp932& base)
+        typename base_type::pivot_type to_pivot_impl(const string_type& string)
         const
         {
-            return base.details().cp932_to_pivot(std::move(string));
+            return cp932::details().cp932_to_pivot(std::move(string));
         }
 
 
@@ -71,13 +71,13 @@ namespace tetengo2 { namespace text { namespace encoding
     cp932::string_type cp932::from_pivot_impl(pivot_type pivot)
     const
     {
-        return m_p_impl->from_pivot_impl(pivot, *this);
+        return m_p_impl->from_pivot_impl(pivot);
     }
 
     typename cp932::base_type::pivot_type cp932::to_pivot_impl(string_type string)
     const
     {
-        return m_p_impl->to_pivot_impl(string, *this);
+        return m_p_impl->to_pivot_impl(string);
     }
 
 

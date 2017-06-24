@@ -36,18 +36,18 @@ namespace tetengo2 { namespace text { namespace encoding
         using string_type = typename encoding::string_type;
 
 
-        // constructors and destructor
+        // static functions
 
-        impl()
-        :
+        static const encoding_details_type& details()
+        {
 #if BOOST_OS_WINDOWS
-        m_encoding_details(detail::windows::encoding::instance())
+            return detail::windows::encoding::instance();
 #elif BOOST_OS_LINUX
-        m_encoding_details(detail::unixos::encoding::instance())
+            return detail::unixos::encoding::instance();
 #else
 #   error Unsupported platform.
 #endif
-        {}
+        }
 
 
         // functions
@@ -56,12 +56,6 @@ namespace tetengo2 { namespace text { namespace encoding
         const
         {
             return base.name_impl();
-        }
-
-        const encoding_details_type& details()
-        const
-        {
-            return m_encoding_details;
         }
 
         string_type from_pivot(pivot_type pivot, const encoding<String>& base)
@@ -75,12 +69,6 @@ namespace tetengo2 { namespace text { namespace encoding
         {
             return base.to_pivot_impl(std::move(string));
         }
-
-
-    private:
-        // variables
-
-        const encoding_details_type& m_encoding_details;
 
 
     };
@@ -110,17 +98,16 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
+    const typename encoding<String>::encoding_details_type& encoding<String>::details()
+    {
+        return impl::details();
+    }
+
+    template <typename String>
     encoding<String>::encoding()
     :
     m_p_impl(std::make_shared<impl>())
     {}
-
-    template <typename String>
-    const typename encoding<String>::encoding_details_type& encoding<String>::details()
-    const
-    {
-        return m_p_impl->details();
-    }
 
     template <typename String>
     typename encoding<String>::string_type encoding<String>::from_pivot(pivot_type pivot)

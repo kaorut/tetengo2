@@ -11,6 +11,7 @@ list_sources()
         $1/tetengo2_detail/include \
         $1/tetengo2_detail/src \
         $1/tetengo2_gui/include \
+        $1/tetengo2_gui/src \
         -type f \
         -name '*.h' -or \
         -name '*.cpp'

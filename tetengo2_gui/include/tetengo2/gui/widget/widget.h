@@ -21,7 +21,6 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/gui/alert.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
@@ -79,9 +78,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
 
-        //! The exception encoder type.
-        using exception_encoder_type = typename traits_type::exception_encoder_type;
-
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
@@ -99,9 +95,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
-
-        //! The alert details type.
-        using alert_details_type = typename details_traits_type::alert_details_type;
 
         //! The cursor details type.
         using cursor_details_type = typename details_traits_type::cursor_details_type;
@@ -121,9 +114,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget canvas type.
         using widget_canvas_type =
             gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
-
-        //! The alert type.
-        using alert_type = gui::alert<encoder_type, exception_encoder_type, alert_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;
