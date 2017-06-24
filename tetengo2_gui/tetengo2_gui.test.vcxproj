@@ -185,6 +185,9 @@
     <ProjectReference Include="..\tetengo2_detail\tetengo2_detail.vcxproj">
       <Project>{981f9626-081f-46b5-b64b-515cd5258f4a}</Project>
     </ProjectReference>
+    <ProjectReference Include="tetengo2_gui.vcxproj">
+      <Project>{1e7b0400-1602-4f86-9f6d-d92f00222499}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,6 +25,7 @@ AC_CONFIG_FILES([
     tetengo2_gui/Makefile
     tetengo2_gui/include/Makefile
     tetengo2_gui/include/tetengo2/Makefile
+    tetengo2_gui/src/Makefile
     tetengo2_gui/test/Makefile
     tools/Makefile
     vsprops/Makefile

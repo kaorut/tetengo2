@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="include\tetengo2.gui.h" />
     <ClInclude Include="include\tetengo2\gui\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\alert.h" />
@@ -105,32 +106,39 @@
     <ClInclude Include="include\tetengo2\gui\widget\widget_traits.h" />
     <ClInclude Include="include\tetengo2\gui\widget\window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.alert.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>
     <RootNamespace>tetengo2</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -142,25 +150,37 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
-    <Import Project="..\vsprops\header_only_lib.props" />
+    <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_win32.props" />
+    <Import Project="..\vsprops\compilation_debug.props" />
+    <Import Project="..\vsprops\static_lib.props" />
     <Import Project="..\vsprops\tetengo2_gui.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
-    <Import Project="..\vsprops\header_only_lib.props" />
+    <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_x64.props" />
+    <Import Project="..\vsprops\compilation_debug.props" />
+    <Import Project="..\vsprops\static_lib.props" />
     <Import Project="..\vsprops\tetengo2_gui.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
-    <Import Project="..\vsprops\header_only_lib.props" />
+    <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_win32.props" />
+    <Import Project="..\vsprops\compilation_release.props" />
+    <Import Project="..\vsprops\static_lib.props" />
     <Import Project="..\vsprops\tetengo2_gui.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\vsprops\common.props" />
-    <Import Project="..\vsprops\header_only_lib.props" />
+    <Import Project="..\vsprops\compilation.props" />
+    <Import Project="..\vsprops\compilation_x64.props" />
+    <Import Project="..\vsprops\compilation_release.props" />
+    <Import Project="..\vsprops\static_lib.props" />
     <Import Project="..\vsprops\tetengo2_gui.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
