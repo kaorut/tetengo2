@@ -32,8 +32,11 @@ namespace tetengo2 { namespace detail { namespace base
         //! The integer type.
         using integer_type = type_list::integer_type;
 
+        //! The widget details type.
+        struct widget_details_type {};
+
         //! The widget handle type.
-        using widget_handle_type = const void*;
+        using widget_handle_type = widget_details_type*;
 
 
         // constructors and destructor
