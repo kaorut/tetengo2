@@ -39,6 +39,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         using string_type = alert::string_type;
 
+        using integer_type = alert::integer_type;
+
         using widget_handle_type = alert::widget_handle_type;
 
 
@@ -85,7 +87,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const string_type&       text1,
             const string_type&       text2,
             const string_type&       source_file_name,
-            const int                source_file_line
+            const integer_type       source_file_line
         )
         const
         {
@@ -211,7 +213,7 @@ namespace tetengo2 { namespace detail { namespace windows
         const string_type&       text1,
         const string_type&       text2,
         const string_type&       source_file_name,
-        const int                source_file_line
+        const integer_type       source_file_line
     )
     const
     {

@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui
             try
             {
                 const char* const* const p_file = boost::get_error_info<boost::throw_file>(exception);
-                const int* const p_line = boost::get_error_info<boost::throw_line>(exception);
+                const integer_type* const p_line = boost::get_error_info<boost::throw_line>(exception);
 
                 const std::system_error* const p_system_error = dynamic_cast<const std::system_error*>(&exception);
                 if (p_system_error)
@@ -130,6 +130,8 @@ namespace tetengo2 { namespace gui
         // types
 
         using string_type = type_list::string_type;
+
+        using integer_type = type_list::integer_type;
 
         using exception_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::string>>;
