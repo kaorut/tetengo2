@@ -28,6 +28,9 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The string type.
         using string_type = type_list::string_type;
 
+        //! The integer type.
+        using integer_type = type_list::integer_type;
+
         //! The widget handle type.
         using widget_handle_type = base::alert::widget_handle_type;
 
@@ -77,7 +80,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const string_type& text1,
             const string_type& text2,
             const string_type& source_file_name,
-            int                source_file_line
+            integer_type       source_file_line
         )
         const override;
 

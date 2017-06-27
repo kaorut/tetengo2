@@ -29,8 +29,14 @@ namespace tetengo2 { namespace detail { namespace base
         //! The string type.
         using string_type = type_list::string_type;
 
+        //! The integer type.
+        using integer_type = type_list::integer_type;
+
+        //! The widget details type.
+        struct widget_details_type {};
+
         //! The widget handle type.
-        using widget_handle_type = const void*;
+        using widget_handle_type = widget_details_type*;
 
 
         // constructors and destructor
@@ -69,7 +75,7 @@ namespace tetengo2 { namespace detail { namespace base
             const string_type& text1,
             const string_type& text2,
             const string_type& source_file_name,
-            int                source_file_line
+            integer_type       source_file_line
         )
         const;
 
@@ -105,7 +111,7 @@ namespace tetengo2 { namespace detail { namespace base
             const string_type& text1,
             const string_type& text2,
             const string_type& source_file_name,
-            int                source_file_line
+            integer_type       source_file_line
         )
         const = 0;
 

@@ -39,6 +39,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         using string_type = alert::string_type;
 
+        using integer_type = alert::integer_type;
+
         using widget_handle_type = alert::widget_handle_type;
 
 
@@ -73,10 +75,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::IsWindowEnabled(root_handle) == 0
             )
             {
-                return HWND_DESKTOP;
+                return from_hwnd(HWND_DESKTOP);
             }
 
-            return root_handle;
+            return from_hwnd(root_handle);
         }
 
         virtual void show_task_dialog_impl(
@@ -85,7 +87,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const string_type&       text1,
             const string_type&       text2,
             const string_type&       source_file_name,
-            const int                source_file_line
+            const integer_type       source_file_line
         )
         const
         {
@@ -122,9 +124,14 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // static functions
 
-        static ::HWND to_hwnd(const void* handle)
+        static widget_handle_type from_hwnd(const ::HWND handle)
         {
-            return reinterpret_cast< ::HWND>(const_cast<void*>(handle));
+            return reinterpret_cast<widget_handle_type>(handle);
+        }
+
+        static ::HWND to_hwnd(const widget_handle_type handle)
+        {
+            return reinterpret_cast< ::HWND>(handle);
         }
 
         static void show_task_dialog_impl(
@@ -211,7 +218,7 @@ namespace tetengo2 { namespace detail { namespace windows
         const string_type&       text1,
         const string_type&       text2,
         const string_type&       source_file_name,
-        const int                source_file_line
+        const integer_type       source_file_line
     )
     const
     {
