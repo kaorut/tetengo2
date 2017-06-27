@@ -2727,17 +2727,17 @@ namespace tetengo2 { namespace detail { namespace windows
             }
             catch (const boost::exception& e)
             {
-                gui::alert{ window_handle, alert::instance() }(e);
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }(e);
                 return 0;
             }
             catch (const std::exception& e)
             {
-                gui::alert{ window_handle, alert::instance() }(e);
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }(e);
                 return 0;
             }
             catch (...)
             {
-                gui::alert{ window_handle, alert::instance() }();
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }();
                 return 0;
             }
         }
