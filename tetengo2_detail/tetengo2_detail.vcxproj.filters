@@ -240,6 +240,9 @@
     <ClInclude Include="include\tetengo2\detail\base\alert.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\cursor.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -264,6 +267,15 @@
       <Filter>sources\tetengo2::detail\base</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.alert.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.cursor.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.cursor.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.cursor.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>
