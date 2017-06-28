@@ -40,16 +40,13 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates a system cursor.
 
-            \tparam SystemCursor A system cursor type.
-
             \param style A style.
 
             \return A unique pointer to a system cursor.
 
             \throw std::system_error When a system cursor cannot be created.
         */
-        template <typename SystemCursor>
-        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
+        static cursor_details_ptr_type create_system_cursor(const int style)
         {
             boost::ignore_unused(style);
 

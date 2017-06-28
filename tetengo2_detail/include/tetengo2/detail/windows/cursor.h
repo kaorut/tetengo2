@@ -72,22 +72,19 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a system cursor.
 
-            \tparam SystemCursor A system cursor type.
-
             \param style A style.
 
             \return A unique pointer to a system cursor.
 
             \throw std::system_error When a system cursor cannot be created.
         */
-        template <typename SystemCursor>
-        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
+        static cursor_details_ptr_type create_system_cursor(const int style)
         {
             cursor_details_ptr_type p_cursor{
                 reinterpret_cast<::HCURSOR>(
                     ::LoadImageW(
                     0,
-                    MAKEINTRESOURCEW(translate_style<SystemCursor>(style)),
+                    MAKEINTRESOURCEW(translate_style(style)),
                     IMAGE_CURSOR,
                     0,
                     0,
@@ -112,16 +109,15 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // static functions
 
-        template <typename SystemCursor>
-        static ::WORD translate_style(const typename SystemCursor::style_type style)
+        static ::WORD translate_style(const int style)
         {
             switch (style)
             {
-            case SystemCursor::style_type::hand:
+            case 1:
                 return OCR_HAND;
-            case SystemCursor::style_type::horizontal_resize:
+            case 2:
                 return OCR_SIZEWE;
-            case SystemCursor::style_type::vertical_resize:
+            case 3:
                 return OCR_SIZENS;
             default:
                 return OCR_NORMAL;
