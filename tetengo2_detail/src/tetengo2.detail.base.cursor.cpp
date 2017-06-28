@@ -14,9 +14,6 @@
 
 namespace tetengo2 { namespace detail { namespace base
 {
-    struct cursor::cursor_details_type {};
-
-
     class cursor::impl : private boost::noncopyable
     {
     public:

@@ -236,7 +236,6 @@ BOOST_COMP_GNUC                                  boost/predef.h
 BOOST_COMP_MSVC                                  boost/predef.h
 BOOST_ERROR                                      boost/test/unit_test.hpp
 BOOST_OS_LINUX                                   boost/predef.h
-BOOST_OS_UNIX                                    boost/predef.h
 BOOST_OS_WINDOWS                                 boost/predef.h
 BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
@@ -527,6 +526,7 @@ std::cos                                         cmath
 std::count_if                                    algorithm
 std::current_exception                           exception
 std::decay                                       type_traits
+std::default_delete                              memory
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip

@@ -10,11 +10,8 @@
 #define TETENGO2_DETAIL_STUB_CURSOR_H
 
 #include <memory>
-#include <system_error>
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/core/noncopyable.hpp>
-
+#include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -23,35 +20,56 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a cursor.
     */
-    class cursor : private boost::noncopyable
+    class cursor : public base::cursor
     {
     public:
         // types
 
         //! The cursor details type.
-        using cursor_details_type = int;
+        using cursor_details_type = base::cursor::cursor_details_type;
 
         //! The cursor details pointer type.
-        using cursor_details_ptr_type = std::unique_ptr<cursor_details_type>;
+        using cursor_details_ptr_type = base::cursor::cursor_details_ptr_type;
 
 
         // static functions
 
         /*!
-            \brief Creates a system cursor.
+            \brief Returns the instance.
 
-            \param style A style.
-
-            \return A unique pointer to a system cursor.
-
-            \throw std::system_error When a system cursor cannot be created.
+            \return The instance.
         */
-        static cursor_details_ptr_type create_system_cursor(const int style)
-        {
-            boost::ignore_unused(style);
+        static const cursor& instance();
 
-            return stdalt::make_unique<cursor_details_type>();
-        }
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroy the detail implementation.
+        */
+        virtual ~cursor();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors and destructor
+
+        cursor();
+
+
+        // virtual functions
+
+        virtual cursor_details_ptr_type create_system_cursor_impl(int style)
+        const override;
 
 
     };

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_BASE_CURSOR_H)
 #define TETENGO2_DETAIL_BASE_CURSOR_H
 
+#include <functional>
 #include <memory>
 #include <system_error>
 
@@ -26,10 +27,11 @@ namespace tetengo2 { namespace detail { namespace base
         // types
 
         //! The cursor details type.
-        struct cursor_details_type;
+        struct cursor_details_type {};
 
         //! The cursor details pointer type.
-        using cursor_details_ptr_type = std::unique_ptr<cursor_details_type>;
+        using cursor_details_ptr_type =
+            std::unique_ptr<cursor_details_type, std::function<void (cursor_details_type*)>>;
 
 
         // constructors and destructor
