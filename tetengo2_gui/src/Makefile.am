@@ -7,7 +7,9 @@ headers =
 extra_headers =
 
 sources = \
-    tetengo2.gui.alert.cpp
+    tetengo2.gui.alert.cpp \
+    tetengo2.gui.cursor.cursor_base.cpp \
+    tetengo2.gui.cursor.system.cpp
 
 extra_sources =
 
