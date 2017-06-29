@@ -9,7 +9,8 @@
 #if !defined(TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H)
 #define TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H
 
-#include <tetengo2/detail/base/cursor.h>
+#include <cassert>
+
 #include <tetengo2/gui/cursor/cursor_base.h>
 
 
@@ -28,8 +29,12 @@ namespace tetengo2 { namespace gui { namespace cursor
         //! The base type.
         using base_type = cursor_base;
 
-        //! The detail implemetation type of a cursor.
-        using cursor_details_type = detail::base::cursor;
+        //! The details type.
+        using details_type = cursor_base::details_type;
+
+        //! The detail pointer type.
+        using details_ptr_type = cursor_base::details_ptr_type;
+
 
         //! The style type.
         enum class style_type
@@ -77,16 +82,28 @@ namespace tetengo2 { namespace gui { namespace cursor
 
 
     private:
-        // types
-
-        using details_ptr_type = typename cursor_details_type::cursor_details_ptr_type;
-
-
         // variables
 
         style_type m_style;
 
         details_ptr_type m_p_details;
+
+
+        // virtual functions
+
+        virtual const details_type& details_impl()
+        const override
+        {
+            assert(m_p_details);
+            return *m_p_details;
+        }
+
+        virtual details_type& details_impl()
+        override
+        {
+            assert(m_p_details);
+            return *m_p_details;
+        }
 
 
     };

@@ -74,6 +74,20 @@ BOOST_AUTO_TEST_SUITE(system)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const cursor_type cursor{ cursor_type::style_type::horizontal_resize, cursor_details_type::instance() };
+            cursor.details();
+        }
+        {
+            cursor_type cursor{ cursor_type::style_type::horizontal_resize, cursor_details_type::instance() };
+            cursor.details();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

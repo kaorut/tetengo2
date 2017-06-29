@@ -23,6 +23,21 @@ namespace
         concrete_cursor_type()
         {}
 
+    private:
+        virtual const details_type& details_impl()
+        const override
+        {
+            static const details_type singleton{};
+            return singleton;
+        }
+
+        virtual details_type& details_impl()
+        override
+        {
+            static details_type singleton{};
+            return singleton;
+        }
+
 
     };
 
@@ -40,6 +55,20 @@ BOOST_AUTO_TEST_SUITE(cursor_base)
         BOOST_TEST_PASSPOINT();
 
         const concrete_cursor_type cursor{};
+    }
+
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_cursor_type cursor{};
+            cursor.details();
+        }
+        {
+            concrete_cursor_type cursor{};
+            cursor.details();
+        }
     }
 
 
