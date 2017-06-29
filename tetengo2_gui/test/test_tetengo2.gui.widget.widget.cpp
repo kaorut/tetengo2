@@ -15,6 +15,7 @@
 #include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
@@ -52,7 +53,9 @@ namespace
 
     using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
-    using system_cursor_type = tetengo2::gui::cursor::system<detail_type_list_type::cursor_type>;
+    using system_cursor_type = tetengo2::gui::cursor::system;
+
+    using cursor_details_type = tetengo2::detail::stub::cursor;
 
     using widget_type =
         tetengo2::gui::widget::widget<
@@ -520,7 +523,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget{};
 
-        auto p_cursor = tetengo2::stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
+        auto p_cursor =
+            tetengo2::stdalt::make_unique<system_cursor_type>(
+                system_cursor_type::style_type::hand, cursor_details_type::instance()
+            );
         widget.set_cursor(std::move(p_cursor));
 
         const auto cursor = widget.cursor();

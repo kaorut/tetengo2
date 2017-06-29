@@ -8,18 +8,17 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/cursor/system.h>
-
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using cursor_type = tetengo2::gui::cursor::system;
 
-    using cursor_type = tetengo2::gui::cursor::system<detail_type_list_type::cursor_type>;
+    using cursor_details_type = tetengo2::detail::stub::cursor;
 
 
 }
@@ -36,16 +35,16 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor{ cursor_type::style_type::default_ };
+            const cursor_type cursor{ cursor_type::style_type::default_, cursor_details_type::instance() };
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::hand };
+            const cursor_type cursor{ cursor_type::style_type::hand, cursor_details_type::instance() };
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::horizontal_resize };
+            const cursor_type cursor{ cursor_type::style_type::horizontal_resize, cursor_details_type::instance() };
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::vertical_resize };
+            const cursor_type cursor{ cursor_type::style_type::vertical_resize, cursor_details_type::instance() };
         }
     }
 
@@ -54,40 +53,24 @@ BOOST_AUTO_TEST_SUITE(system)
         BOOST_TEST_PASSPOINT();
 
         {
-            const cursor_type cursor{ cursor_type::style_type::default_ };
+            const cursor_type cursor{ cursor_type::style_type::default_, cursor_details_type::instance() };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::default_);
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::hand };
+            const cursor_type cursor{ cursor_type::style_type::hand, cursor_details_type::instance() };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::hand);
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::horizontal_resize };
+            const cursor_type cursor{ cursor_type::style_type::horizontal_resize, cursor_details_type::instance() };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::horizontal_resize);
         }
         {
-            const cursor_type cursor{ cursor_type::style_type::vertical_resize };
+            const cursor_type cursor{ cursor_type::style_type::vertical_resize, cursor_details_type::instance() };
 
             BOOST_CHECK(cursor.style() == cursor_type::style_type::vertical_resize);
-        }
-    }
-
-    BOOST_AUTO_TEST_CASE(details)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            const cursor_type cursor{ cursor_type::style_type::default_ };
-
-            cursor.details();
-        }
-        {
-            cursor_type cursor{ cursor_type::style_type::default_ };
-
-            cursor.details();
         }
     }
 

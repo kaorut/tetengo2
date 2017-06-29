@@ -13,7 +13,6 @@
 
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/common_dialog.h>
-#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/icon.h>
@@ -45,8 +44,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
         namespace test
         {
             using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
-
-            using cursor_details_type = tetengo2::detail::stub::cursor;
 
             using drawing_details_type = tetengo2::detail::stub::drawing;
 
@@ -88,9 +85,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
     {
         //! The common dialog type.
         using common_dialog_type = detail::detail::test::common_dialog_details_type;
-
-        //! The cursor type.
-        using cursor_type = detail::detail::test::cursor_details_type;
 
         //! The drawing type.
         using drawing_type = detail::detail::test::drawing_details_type;

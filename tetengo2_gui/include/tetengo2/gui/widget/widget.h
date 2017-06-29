@@ -96,9 +96,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
 
-        //! The cursor details type.
-        using cursor_details_type = typename details_traits_type::cursor_details_type;
-
         //! The scroll details type.
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
@@ -122,10 +119,10 @@ namespace tetengo2 { namespace gui { namespace widget
         using font_type = gui::drawing::font<string_type, size_type, drawing_details_type>;
 
         //! The cursor type.
-        using cursor_type = gui::cursor::cursor_base<cursor_details_type>;
+        using cursor_type = gui::cursor::cursor_base;
 
         //! The system cursor type.
-        using system_cursor_type = gui::cursor::system<cursor_details_type>;
+        using system_cursor_type = gui::cursor::system;
 
         //! The scroll bar type.
         using scroll_bar_type = gui::scroll_bar<size_type, scroll_details_type>;

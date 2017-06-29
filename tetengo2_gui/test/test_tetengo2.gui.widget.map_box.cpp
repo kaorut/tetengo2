@@ -10,6 +10,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
@@ -59,6 +60,8 @@ namespace
 
     using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
 
+    using cursor_details_type = tetengo2::detail::stub::cursor;
+
 
     // functions
 
@@ -83,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const map_box_type map_box{ parent };
+        const map_box_type map_box{ parent, cursor_details_type::instance() };
     }
 
     BOOST_AUTO_TEST_CASE(value_count)
@@ -92,13 +95,13 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            const map_box_type map_box{ parent };
+            const map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_TEST(map_box.value_count() == 0U);
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
             BOOST_TEST(map_box.value_count() == 1U);
@@ -111,14 +114,14 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
             BOOST_CHECK(map_box.value(0) == make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
         }
         {
             window_type parent{};
-            const map_box_type map_box{ parent };
+            const map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_CHECK_THROW(map_box.value(0), std::out_of_range);
         }
@@ -130,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
             map_box.set_value(0, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("baz")));
@@ -139,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_CHECK_THROW(
                 map_box.set_value(0, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("baz"))), std::out_of_range
@@ -153,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
             map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
@@ -168,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_CHECK_THROW(
                 map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar"))), std::out_of_range
@@ -182,7 +185,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
             map_box.erase_value(0);
@@ -191,7 +194,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_CHECK_THROW(map_box.erase_value(0), std::out_of_range);
         }
@@ -202,7 +205,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        map_box_type map_box{ parent };
+        map_box_type map_box{ parent, cursor_details_type::instance() };
         map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
         map_box.insert_value(1, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
 
@@ -216,7 +219,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const map_box_type map_box{ parent };
+        const map_box_type map_box{ parent, cursor_details_type::instance() };
 
         BOOST_TEST(!map_box.selected_value_index());
     }
@@ -227,7 +230,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
             map_box.insert_value(0, make_value(TETENGO2_TEXT("hoge"), TETENGO2_TEXT("foo")));
 
             map_box.select_value(0);
@@ -252,7 +255,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             BOOST_CHECK_THROW(map_box.select_value(0), std::out_of_range);
         }
@@ -263,7 +266,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        map_box_type map_box{ parent };
+        map_box_type map_box{ parent, cursor_details_type::instance() };
 
         map_box.splitter_position();
     }
@@ -273,7 +276,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        map_box_type map_box{ parent };
+        map_box_type map_box{ parent, cursor_details_type::instance() };
         map_box.set_dimension(dimension_type{ width_type{ 42 }, height_type{ 24 } });
 
         map_box.set_splitter_position(left_type{ 24 });
@@ -287,13 +290,13 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         {
             window_type parent{};
-            const map_box_type map_box{ parent };
+            const map_box_type map_box{ parent, cursor_details_type::instance() };
 
             map_box.list_selection_observer_set();
         }
         {
             window_type parent{};
-            map_box_type map_box{ parent };
+            map_box_type map_box{ parent, cursor_details_type::instance() };
 
             map_box.list_selection_observer_set();
         }
