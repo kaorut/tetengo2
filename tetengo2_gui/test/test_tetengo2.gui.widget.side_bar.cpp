@@ -8,6 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -48,6 +49,8 @@ namespace
 
     using width_type = side_bar_type::width_type;
 
+    using cursor_details_type = tetengo2::detail::stub::cursor;
+
 
 }
 
@@ -63,7 +66,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const side_bar_type side_bar{ parent };
+        const side_bar_type side_bar{ parent, cursor_details_type::instance() };
     }
 
     BOOST_AUTO_TEST_CASE(preferred_width)
@@ -71,7 +74,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        side_bar_type side_bar{ parent };
+        side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.preferred_width();
     }
@@ -81,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        side_bar_type side_bar{ parent };
+        side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.normal_preferred_width();
     }
@@ -91,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        side_bar_type side_bar{ parent };
+        side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.set_width(width_type{ 42 });
     }
@@ -101,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const side_bar_type side_bar{ parent };
+        const side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.minimized();
     }
@@ -111,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        side_bar_type side_bar{ parent };
+        side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         BOOST_TEST(!side_bar.minimized());
 
@@ -129,7 +132,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const side_bar_type side_bar{ parent };
+        const side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.child_control_area_position();
     }
@@ -139,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const side_bar_type side_bar{ parent };
+        const side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
         side_bar.child_control_area_dimension();
     }
