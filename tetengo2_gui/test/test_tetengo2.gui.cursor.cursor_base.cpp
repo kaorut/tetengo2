@@ -10,39 +10,32 @@
 
 #include <tetengo2/gui/cursor/cursor_base.h>
 
-#include "test_tetengo2.gui.type_list.h"
-
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using cursor_type = tetengo2::gui::cursor::cursor_base<detail_type_list_type::cursor_type>;
+    using cursor_type = tetengo2::gui::cursor::cursor_base;
 
     class concrete_cursor_type : public cursor_type
     {
     public:
         concrete_cursor_type()
-        :
-        m_details()
         {}
 
-
     private:
-        details_type m_details;
-
         virtual const details_type& details_impl()
         const override
         {
-            return m_details;
+            static const details_type singleton{};
+            return singleton;
         }
 
         virtual details_type& details_impl()
         override
         {
-            return m_details;
+            static details_type singleton{};
+            return singleton;
         }
 
 
@@ -70,12 +63,10 @@ BOOST_AUTO_TEST_SUITE(cursor_base)
 
         {
             const concrete_cursor_type cursor{};
-
             cursor.details();
         }
         {
             concrete_cursor_type cursor{};
-
             cursor.details();
         }
     }

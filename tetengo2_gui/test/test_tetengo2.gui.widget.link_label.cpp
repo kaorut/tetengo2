@@ -8,6 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/widget/link_label.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -42,6 +43,8 @@ namespace
             widget_traits_type, widget_details_traits_type, system_color_details_type, shell_details_type
         >;
 
+    using cursor_details_type = tetengo2::detail::stub::cursor;
+
 
 }
 
@@ -57,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const link_label_type label{ parent };
+        const link_label_type label{ parent, cursor_details_type::instance() };
     }
 
     BOOST_AUTO_TEST_CASE(target)
@@ -65,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        const link_label_type label{ parent };
+        const link_label_type label{ parent, cursor_details_type::instance() };
 
         BOOST_TEST(label.target().empty());
     }
@@ -75,7 +78,7 @@ BOOST_AUTO_TEST_SUITE(link_label)
         BOOST_TEST_PASSPOINT();
 
         window_type parent{};
-        link_label_type label{ parent };
+        link_label_type label{ parent, cursor_details_type::instance() };
 
         label.set_target(string_type{ TETENGO2_TEXT("http://www.tetengo.org") });
 

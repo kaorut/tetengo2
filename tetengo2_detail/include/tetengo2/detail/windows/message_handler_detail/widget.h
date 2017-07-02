@@ -30,6 +30,7 @@
 #include <Windows.h>
 #include <windowsx.h>
 
+#include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/gui/measure.h>
 
 
@@ -310,7 +311,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!widget.cursor())
                 return boost::none;
 
-            ::SetCursor(const_cast< ::HCURSOR>(&widget.cursor()->details()));
+            ::SetCursor(
+                reinterpret_cast< ::HCURSOR>(const_cast<cursor::cursor_details_type*>(&widget.cursor()->details()))
+            );
 
             return boost::make_optional< ::LRESULT>(FALSE);
         }

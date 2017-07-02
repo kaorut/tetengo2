@@ -17,27 +17,24 @@
 namespace tetengo2 { namespace gui { namespace cursor
 {
     /*!
-        \brief The class template for a system cursor.
+        \brief The class for a system cursor.
 
         \tparam CursorDetails A detail implementation type of a cursor.
     */
-    template <typename CursorDetails>
-    class system : public cursor_base<CursorDetails>
+    class system : public cursor_base
     {
     public:
         // types
 
-        //! The detail implemetation type of a cursor.
-        using cursor_details_type = CursorDetails;
-
         //! The base type.
-        using base_type = cursor_base<cursor_details_type>;
+        using base_type = cursor_base;
 
         //! The details type.
-        using details_type = typename cursor_details_type::cursor_details_type;
+        using details_type = cursor_base::details_type;
 
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename cursor_details_type::cursor_details_ptr_type;
+        //! The detail pointer type.
+        using details_ptr_type = cursor_base::details_ptr_type;
+
 
         //! The style type.
         enum class style_type
@@ -54,12 +51,13 @@ namespace tetengo2 { namespace gui { namespace cursor
         /*!
             \brief Creates a system cursor.
 
-            \param style A style.
+            \param style          A style.
+            \param cursor_details A cursor details type.
         */
-        explicit system(const style_type style)
+        system(const style_type style, const cursor_details_type& cursor_details)
         :
         m_style(style),
-        m_p_details(cursor_details_type::template create_system_cursor<system>(style))
+        m_p_details(cursor_details.create_system_cursor(static_cast<int>(style)))
         {}
 
         /*!

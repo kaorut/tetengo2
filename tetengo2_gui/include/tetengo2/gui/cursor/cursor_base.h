@@ -11,25 +11,27 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/cursor.h>
+
 
 namespace tetengo2 { namespace gui { namespace cursor
 {
     /*!
-        \brief The class template for a cursor base.
-
-        \tparam CursorDetails A detail implementation type of a cursor.
+        \brief The class for a cursor base.
     */
-    template <typename CursorDetails>
     class cursor_base : private boost::noncopyable
     {
     public:
         // types
 
-        //! The cursor details type.
-        using cursor_details_type = CursorDetails;
+        //! The detail implemetation type of a cursor.
+        using cursor_details_type = detail::base::cursor;
 
         //! The details type.
-        using details_type = typename cursor_details_type::cursor_details_type;
+        using details_type = cursor_details_type::cursor_details_type;
+
+        //! The detail pointer type.
+        using details_ptr_type = cursor_details_type::cursor_details_ptr_type;
 
 
         // constructors and destructor
@@ -44,9 +46,9 @@ namespace tetengo2 { namespace gui { namespace cursor
         // functions
 
         /*!
-            \brief Returns the detail implementation.
+            \brief Returns the details.
 
-            \return The detail implementation.
+            \return The details.
         */
         const details_type& details()
         const
@@ -55,9 +57,9 @@ namespace tetengo2 { namespace gui { namespace cursor
         }
 
         /*!
-            \brief Returns the detail implementation.
+            \brief Returns the details.
 
-            \return The detail implementation.
+            \return The details.
         */
         details_type& details()
         {
@@ -75,7 +77,6 @@ namespace tetengo2 { namespace gui { namespace cursor
         {}
 
 
-    private:
         // virtual functions
 
         virtual const details_type& details_impl()

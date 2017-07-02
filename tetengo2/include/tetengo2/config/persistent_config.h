@@ -45,8 +45,7 @@ namespace tetengo2 { namespace config
         /*!
             \brief Creates a persistent configuration.
 
-            \param group_name     A group name.
-            \param config_details A deteil implementation of config.
+            \param group_name A group name.
         */
         explicit persistent_config(string_type group_name);
 

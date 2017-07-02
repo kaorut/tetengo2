@@ -34,6 +34,9 @@
     <Filter Include="sources\tetengo2::gui">
       <UniqueIdentifier>{19388921-2ee3-4694-9d95-325ee9934ec4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::gui\cursor">
+      <UniqueIdentifier>{629b86c9-6830-4f1b-8c97-b7a412f1086e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -301,6 +304,12 @@
     </ClCompile>
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.cursor.cursor_base.cpp">
+      <Filter>sources\tetengo2::gui\cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.cursor.system.cpp">
+      <Filter>sources\tetengo2::gui\cursor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
