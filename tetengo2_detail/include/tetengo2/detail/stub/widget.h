@@ -1518,7 +1518,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 )
             };
 
-            return std::move(p_details);
+            return p_details;
         }
 
         template <typename Child>
