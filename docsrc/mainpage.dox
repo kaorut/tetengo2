@@ -26,7 +26,7 @@ The following features does not support UNIX-like systems yet...
 It's tested on the following systems:
 
 - [Windows 10](http://www.microsoft.com/)
-- [Debian GNU/Linux 8](http://www.debian.org/)
+- [Debian GNU/Linux 9](http://www.debian.org/)
 
 
 How to Build {#how_to_build}
@@ -74,7 +74,7 @@ Building on UNIX
 
 You need the following tools in order to build Tetengo2 libraries:
 
-- [GCC 4.9.2 or 5.4.0](http://www.gnu.org/)
+- [GCC 6.3.0](http://www.gnu.org/) or [Clang 3.8](http://clang.llvm.org/)
 - [GNU Make](http://www.gnu.org/)
 - [Boost C++ Libraries 1.64.0](http://www.boost.org/)
 - [Doxygen 1.8.13](http://www.doxygen.org) (to generate API documents)
@@ -107,7 +107,7 @@ $ ./bootstrap.sh
 
 ### Build Sequence
 
-Run `configure` to generate Makefiles. `--enable-precompilation` enables precompilation by generating `.gch` files.
+Run `configure` to generate Makefiles. `--enable-precompilation` enables precompilation.
 
 ~~~~{.sh}
 $ ./configure [--enable-precompilation]
