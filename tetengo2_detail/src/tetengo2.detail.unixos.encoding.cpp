@@ -56,13 +56,13 @@ namespace tetengo2 { namespace detail { namespace unixos
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
         const
         {
-            return std::move(pivot);
+            return pivot;
         }
 
         pivot_type utf8_to_pivot_impl(utf8_string_type string)
         const
         {
-            return std::move(string);
+            return string;
         }
 
         cp932_string_type pivot_to_cp932_impl(pivot_type pivot)

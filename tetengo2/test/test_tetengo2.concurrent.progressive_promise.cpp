@@ -240,13 +240,6 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
         BOOST_CHECK_THROW(promise.set_exception(std::make_exception_ptr(test_exception{})), std::future_error);
     }
 
-#if !( \
-    BOOST_OS_LINUX && \
-    ( \
-        (BOOST_COMP_GNUC >= BOOST_VERSION_NUMBER(4, 9, 0) && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(5, 0, 0)) || \
-        (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0)) \
-    ) \
-)
     BOOST_AUTO_TEST_CASE(set_value_at_thread_exit)
     {
         BOOST_TEST_PASSPOINT();
@@ -358,7 +351,6 @@ BOOST_AUTO_TEST_SUITE(progressive_promise)
 
         thread.join();
     }
-#endif
 
     BOOST_AUTO_TEST_CASE(set_progress)
     {
