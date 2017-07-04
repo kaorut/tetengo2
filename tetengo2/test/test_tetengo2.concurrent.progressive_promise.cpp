@@ -15,7 +15,6 @@
 #include <thread>
 #include <utility>
 
-#include <boost/predef.h>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/concurrent/progressive_promise.h>
