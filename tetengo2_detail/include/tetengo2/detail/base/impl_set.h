@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_DETAIL_BASE_IMPLSET_H)
 #define TETENGO2_DETAIL_BASE_IMPLSET_H
 
-#include <memory>
-
 #include <boost/core/noncopyable.hpp>
 
 

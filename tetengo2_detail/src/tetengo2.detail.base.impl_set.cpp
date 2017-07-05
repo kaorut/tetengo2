@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/core/noncopyable.hpp>
-
 #include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/stdalt.h>
 
