@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_UNIXOS_IMPLLIST_H)
-#define TETENGO2_DETAIL_UNIXOS_IMPLLIST_H
+#if !defined(TETENGO2_DETAIL_UNIXOS_IMPLSET_H)
+#define TETENGO2_DETAIL_UNIXOS_IMPLSET_H
 
 
 namespace tetengo2 { namespace detail { namespace unixos
