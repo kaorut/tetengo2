@@ -77,6 +77,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         {}
 
 
+    private:
         // virtual functions
 
         virtual const details_type& details_impl()
