@@ -7,12 +7,14 @@ pkg_headers = \
     detail/base/config.h \
     detail/base/cursor.h \
     detail/base/encoding.h \
+    detail/base/impl_set.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \
     detail/stub/drawing.h \
     detail/stub/gui_fixture.h \
     detail/stub/icon.h \
+    detail/stub/impl_set.h \
     detail/stub/menu.h \
     detail/stub/message_handler.h \
     detail/stub/message_loop.h \
@@ -25,7 +27,8 @@ pkg_headers = \
     detail/stub/virtual_key.h \
     detail/stub/widget.h \
     detail/unixos/config.h \
-    detail/unixos/encoding.h
+    detail/unixos/encoding.h \
+    detail/unixos/impl_set.h
 
 extra_headers = \
     detail/base/0namespace.dox \
@@ -49,6 +52,7 @@ extra_headers = \
     detail/windows/gdiplus/gui_fixture.h \
     detail/windows/gui_fixture.h \
     detail/windows/icon.h \
+    detail/windows/impl_set.h \
     detail/windows/menu.h \
     detail/windows/message_handler.h \
     detail/windows/message_handler_detail/0namespace.dox \
