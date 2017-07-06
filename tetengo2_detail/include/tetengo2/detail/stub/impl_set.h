@@ -56,7 +56,6 @@ namespace tetengo2 { namespace detail { namespace stub
     };
 
 
-
 }}}
 
 
