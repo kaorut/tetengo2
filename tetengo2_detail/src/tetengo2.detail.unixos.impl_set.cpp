@@ -6,10 +6,39 @@
     $Id$
 */
 
+#include <cassert>
+#include <stdexcept>
+
 #include <tetengo2/detail/unixos/impl_set.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos
 {
+    const impl_set& impl_set::instance()
+    {
+        static const impl_set singleton;
+        return singleton;
+    }
+
+    impl_set::~impl_set()
+    = default;
+
+    impl_set::impl_set()
+    = default;
+
+    const base::alert& impl_set::alert_impl()
+    const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::cursor& impl_set::cursor_impl()
+    const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
 
 }}}
