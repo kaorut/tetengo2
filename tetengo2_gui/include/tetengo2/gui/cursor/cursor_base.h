@@ -6,8 +6,10 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_CURSOR_CURSOR_H)
-#define TETENGO2_GUI_CURSOR_CURSOR_H
+#if !defined(TETENGO2_GUI_CURSOR_CURSORBASE_H)
+#define TETENGO2_GUI_CURSOR_CURSORBASE_H
+
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
 
@@ -39,8 +41,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         /*!
             \brief Destroys the cursor_base.
         */
-        virtual ~cursor_base()
-        = default;
+        virtual ~cursor_base();
 
 
         // functions
@@ -51,20 +52,14 @@ namespace tetengo2 { namespace gui { namespace cursor
             \return The details.
         */
         const details_type& details()
-        const
-        {
-            return details_impl();
-        }
+        const;
 
         /*!
             \brief Returns the details.
 
             \return The details.
         */
-        details_type& details()
-        {
-            return details_impl();
-        }
+        details_type& details();
 
 
     protected:
@@ -73,8 +68,18 @@ namespace tetengo2 { namespace gui { namespace cursor
         /*!
             \brief Creates a cursor base.
         */
-        cursor_base()
-        {}
+        cursor_base();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions

@@ -11,6 +11,7 @@ pkg_headers = \
     gui/common_dialog/message_box.h \
     gui/cursor/cursor_base.h \
     gui/cursor/system.h \
+    gui/cursor/system_cursor_style.h \
     gui/drawing/background.h \
     gui/drawing/canvas.h \
     gui/drawing/canvas_traits.h \

@@ -38,6 +38,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         using cursor_details_ptr_type = cursor::cursor_details_ptr_type;
 
+        using system_cursor_style_type = cursor::system_cursor_style_type;
+
 
         // static functions
 
@@ -50,7 +52,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor_impl(const int style)
+        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style)
         const
         {
             cursor_details_ptr_type p_cursor{
@@ -83,15 +85,15 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // static functions
 
-        static ::WORD translate_style(const int style)
+        static ::WORD translate_style(const system_cursor_style_type style)
         {
             switch (style)
             {
-            case 1:
+            case system_cursor_style_type::hand:
                 return OCR_HAND;
-            case 2:
+            case system_cursor_style_type::horizontal_resize:
                 return OCR_SIZEWE;
-            case 3:
+            case system_cursor_style_type::vertical_resize:
                 return OCR_SIZENS;
             default:
                 return OCR_NORMAL;
@@ -120,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
     m_p_impl(stdalt::make_unique<impl>())
     {}
 
-    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const int style)
+    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style)
     const
     {
         return m_p_impl->create_system_cursor_impl(style);

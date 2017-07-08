@@ -297,6 +297,9 @@
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\cursor\system_cursor_style.h">
+      <Filter>headers\tetengo2::gui\cursor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.gui.alert.cpp">

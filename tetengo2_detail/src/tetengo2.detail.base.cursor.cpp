@@ -23,10 +23,12 @@ namespace tetengo2 { namespace detail { namespace base
 
         using cursor_details_ptr_type = cursor::cursor_details_ptr_type;
 
+        using system_cursor_style_type = cursor::system_cursor_style_type;
+
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor(const int style, const cursor& base)
+        cursor_details_ptr_type create_system_cursor(const system_cursor_style_type style, const cursor& base)
         const
         {
             return base.create_system_cursor_impl(style);
@@ -42,7 +44,7 @@ namespace tetengo2 { namespace detail { namespace base
     cursor::~cursor()
     = default;
 
-    cursor::cursor_details_ptr_type cursor::create_system_cursor(const int style)
+    cursor::cursor_details_ptr_type cursor::create_system_cursor(const system_cursor_style_type style)
     const
     {
         return m_p_impl->create_system_cursor(style, *this);
