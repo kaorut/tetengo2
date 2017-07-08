@@ -11,31 +11,28 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2/detail/base/alert.h>
-#include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/detail/stub/impl_set.h>
 #if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/alert.h>
-#   include <tetengo2/detail/windows/cursor.h>
+#   include <tetengo2/detail/windows/impl_set.h>
 #elif BOOST_OS_LINUX
-#else
-#   error No detail implementation.
+#   include <tetengo2/detail/unixos/impl_set.h>
 #endif
 
 
 namespace tetengo2 { namespace detail
 {
     /*!
-        \brief The class for a detail implementations.
+        \brief The class for a detail implementation set.
     */
 #if BOOST_OS_WINDOWS
-    using alert = windows::alert;
-    using cursor = windows::cursor;
+    using impl_set = windows::impl_set;
 #elif BOOST_OS_LINUX
-#else
-#   error No detail implementation.
+    using impl_set = unixos::impl_set;
 #endif
 
 
 }}
+
 
 #endif
