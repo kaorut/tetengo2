@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_CURSOR_SYSTEM_H)
 #define TETENGO2_GUI_CURSOR_SYSTEM_H
 
-#include <cassert>
+#include <memory>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system_cursor_style.h>
@@ -48,17 +48,12 @@ namespace tetengo2 { namespace gui { namespace cursor
             \param style          A style.
             \param cursor_details A cursor details type.
         */
-        system(const style_type style, const cursor_details_type& cursor_details)
-        :
-        m_style(style),
-        m_p_details(cursor_details.create_system_cursor(style))
-        {}
+        system(const style_type style, const cursor_details_type& cursor_details);
 
         /*!
             \brief Destroys the system cursor.
         */
-        virtual ~system()
-        = default;
+        virtual ~system();
 
 
         // functions
@@ -69,35 +64,27 @@ namespace tetengo2 { namespace gui { namespace cursor
             \return The style.
         */
         style_type style()
-        const
-        {
-            return m_style;
-        }
+        const;
 
 
     private:
+        // class
+
+        class impl;
+
+
         // variables
 
-        style_type m_style;
-
-        details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual const details_type& details_impl()
-        const override
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        const override;
 
         virtual details_type& details_impl()
-        override
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        override;
 
 
     };
