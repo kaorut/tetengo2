@@ -6,12 +6,13 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H)
-#define TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H
+#if !defined(TETENGO2_GUI_CURSOR_SYSTEM_H)
+#define TETENGO2_GUI_CURSOR_SYSTEM_H
 
 #include <cassert>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
+#include <tetengo2/gui/cursor/system_cursor_style.h>
 
 
 namespace tetengo2 { namespace gui { namespace cursor
@@ -35,15 +36,8 @@ namespace tetengo2 { namespace gui { namespace cursor
         //! The detail pointer type.
         using details_ptr_type = cursor_base::details_ptr_type;
 
-
         //! The style type.
-        enum class style_type
-        {
-            default_,          //!< A default style.
-            hand,              //!< A hand style.
-            horizontal_resize, //!< A horizontal resize style.
-            vertical_resize,   //!< A vertical resize style.
-        };
+        using style_type = system_cursor_style;
 
 
         // constructors and destructor

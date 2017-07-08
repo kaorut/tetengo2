@@ -32,6 +32,7 @@
     <ClInclude Include="include\tetengo2\gui\cursor\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\cursor\cursor_base.h" />
     <ClInclude Include="include\tetengo2\gui\cursor\system.h" />
+    <ClInclude Include="include\tetengo2\gui\cursor\system_cursor_style.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\drawing\background.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h" />
