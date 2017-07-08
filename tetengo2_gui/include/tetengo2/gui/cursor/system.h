@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         system(const style_type style, const cursor_details_type& cursor_details)
         :
         m_style(style),
-        m_p_details(cursor_details.create_system_cursor(static_cast<int>(style)))
+        m_p_details(cursor_details.create_system_cursor(style))
         {}
 
         /*!

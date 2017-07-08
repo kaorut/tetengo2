@@ -33,7 +33,8 @@ EXTRA_DIST = $(extra_headers) $(extra_sources)
 
 libtetengo2_detail_a_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
-    -I$(top_srcdir)/tetengo2_detail/include
+    -I$(top_srcdir)/tetengo2_detail/include \
+    -I$(top_srcdir)/tetengo2_gui/include
 libtetengo2_detail_a_SOURCES = $(headers) $(sources)
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h

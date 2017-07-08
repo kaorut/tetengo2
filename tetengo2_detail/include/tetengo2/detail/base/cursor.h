@@ -15,6 +15,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/cursor/system_cursor_style.h>
+
 
 namespace tetengo2 { namespace detail { namespace base
 {
@@ -32,6 +34,9 @@ namespace tetengo2 { namespace detail { namespace base
         //! The cursor details pointer type.
         using cursor_details_ptr_type =
             std::unique_ptr<cursor_details_type, std::function<void (cursor_details_type*)>>;
+
+        //! The system cursor style type.
+        using system_cursor_style_type = gui::cursor::system_cursor_style;
 
 
         // constructors and destructor
@@ -53,7 +58,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \throw std::system_error When a system cursor cannot be created.
         */
-        cursor_details_ptr_type create_system_cursor(int style)
+        cursor_details_ptr_type create_system_cursor(system_cursor_style_type style)
         const;
 
 
@@ -79,7 +84,7 @@ namespace tetengo2 { namespace detail { namespace base
 
         // virtual functions
 
-        virtual cursor_details_ptr_type create_system_cursor_impl(int style)
+        virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style)
         const = 0;
 
 

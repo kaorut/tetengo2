@@ -25,6 +25,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
         using cursor_details_ptr_type = cursor::cursor_details_ptr_type;
 
+        using system_cursor_style_type = cursor::system_cursor_style_type;
+
 
         // static functions
 
@@ -37,7 +39,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor_impl(const int style)
+        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style)
         const
         {
             boost::ignore_unused(style);
@@ -72,7 +74,7 @@ namespace tetengo2 { namespace detail { namespace stub
     m_p_impl(stdalt::make_unique<impl>())
     {}
 
-    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const int style)
+    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style)
     const
     {
         return m_p_impl->create_system_cursor_impl(style);

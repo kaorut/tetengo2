@@ -31,6 +31,9 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The cursor details pointer type.
         using cursor_details_ptr_type = base::cursor::cursor_details_ptr_type;
 
+        //! The system cursor style type.
+        using system_cursor_style_type = base::cursor::system_cursor_style_type;
+
 
         // static functions
 
@@ -68,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // virtual functions
 
-        virtual cursor_details_ptr_type create_system_cursor_impl(int style)
+        virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style)
         const override;
 
 
