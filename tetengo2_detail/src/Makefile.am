@@ -23,7 +23,11 @@ extra_sources = \
     tetengo2.detail.windows.alert.cpp \
     tetengo2.detail.windows.config.cpp \
     tetengo2.detail.windows.cursor.cpp \
+    tetengo2.detail.windows.direct2d.error_category.cpp \
     tetengo2.detail.windows.encoding.cpp \
+    tetengo2.detail.windows.error_category.cpp \
+    tetengo2.detail.windows.font.cpp \
+    tetengo2.detail.windows.gdiplus.error_category.cpp \
     tetengo2.detail.windows.impl_set.cpp
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
