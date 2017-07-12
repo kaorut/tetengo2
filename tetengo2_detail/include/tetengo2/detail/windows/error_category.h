@@ -46,7 +46,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(const int error_value)
+        virtual std::string message(int error_value)
         const override;
 
 
@@ -90,7 +90,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(const int error_value)
+        virtual std::string message(int error_value)
         const override;
 
 
