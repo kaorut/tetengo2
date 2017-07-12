@@ -26,6 +26,7 @@ extra_sources = \
     tetengo2.detail.windows.direct2d.error_category.cpp \
     tetengo2.detail.windows.encoding.cpp \
     tetengo2.detail.windows.error_category.cpp \
+    tetengo2.detail.windows.font.cpp \
     tetengo2.detail.windows.gdiplus.error_category.cpp \
     tetengo2.detail.windows.impl_set.cpp
 
