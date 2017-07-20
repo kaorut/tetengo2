@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_STUB_GUIFIXTURE_H
 
+#include <memory>
 #include <system_error>
 
 #include <boost/core/noncopyable.hpp>
@@ -29,8 +30,23 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When an initialization fails.
         */
-        gui_fixture()
-        {}
+        gui_fixture();
+
+        /*!
+            \brief Destroy the detail implementation of a GUI fixture.
+        */
+        ~gui_fixture();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
 
     
     };

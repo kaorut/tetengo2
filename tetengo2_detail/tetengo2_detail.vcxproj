@@ -102,6 +102,7 @@
     <ClCompile Include="src\tetengo2.detail.base.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.cursor.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.config.cpp" />
@@ -111,6 +112,8 @@
     <ClCompile Include="src\tetengo2.detail.windows.error_category.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.font.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.error_category.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.gdiplus.gui_fixture.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.impl_set.cpp" />
   </ItemGroup>
   <ItemGroup>
