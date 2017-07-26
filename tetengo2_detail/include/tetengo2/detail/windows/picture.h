@@ -108,8 +108,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
         ::IWICBitmap* rp_bitmap = nullptr;
         const auto hr =
             wic_imaging_factory().CreateBitmap(
-                gui::to_pixels< ::UINT>(gui::dimension<Dimension>::width(dimension)),
-                gui::to_pixels< ::UINT>(gui::dimension<Dimension>::height(dimension)),
+                gui::to_pixels< ::UINT>(gui::dimension_utility<Dimension>::width(dimension)),
+                gui::to_pixels< ::UINT>(gui::dimension_utility<Dimension>::height(dimension)),
                 ::GUID_WICPixelFormat32bppPBGRA,
                 ::WICBitmapCacheOnDemand,
                 &rp_bitmap
@@ -211,8 +211,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
 
         return
             {
-                gui::to_unit<typename gui::dimension<Dimension>::width_type>(width),
-                gui::to_unit<typename gui::dimension<Dimension>::height_type>(height)
+                gui::to_unit<typename gui::dimension_utility<Dimension>::width_type>(width),
+                gui::to_unit<typename gui::dimension_utility<Dimension>::height_type>(height)
             };
     }
 

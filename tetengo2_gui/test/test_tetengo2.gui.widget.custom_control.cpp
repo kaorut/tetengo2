@@ -49,9 +49,9 @@ namespace
 
     using dimension_type = custom_control_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
 
-    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
+    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
 
     using inner_item_type = custom_control_type::inner_item_type;
 

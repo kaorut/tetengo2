@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         using dimension_type = typename traits_type::dimension_type;
 
         //! The width type.
-        using width_type = typename gui::dimension<dimension_type>::width_type;
+        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
 
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;

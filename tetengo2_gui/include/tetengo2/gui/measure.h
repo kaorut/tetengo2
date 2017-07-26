@@ -224,7 +224,7 @@ namespace tetengo2 { namespace gui
         \tparam Dimension A dimension type.
     */
     template <typename Dimension>
-    class dimension
+    class dimension_utility
     {
     public:
         // types
@@ -277,7 +277,7 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        dimension()
+        dimension_utility()
         = delete;
 
 
@@ -285,7 +285,7 @@ namespace tetengo2 { namespace gui
 
 #if !defined(DOCUMENTATION)
     template <typename WidthHeight>
-    class dimension<std::pair<WidthHeight, WidthHeight>>
+    class dimension_utility<std::pair<WidthHeight, WidthHeight>>
     {
     public:
         // types
@@ -319,7 +319,7 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        dimension()
+        dimension_utility()
         = delete;
 
 

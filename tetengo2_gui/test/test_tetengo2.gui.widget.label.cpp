@@ -36,7 +36,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
 
     using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
 

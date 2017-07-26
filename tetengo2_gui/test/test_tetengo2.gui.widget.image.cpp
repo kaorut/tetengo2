@@ -45,9 +45,9 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
 
-    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
+    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 

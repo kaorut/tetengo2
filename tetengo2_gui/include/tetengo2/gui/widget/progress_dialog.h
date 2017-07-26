@@ -183,9 +183,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using dimension_type = typename traits_type::dimension_type;
 
-        using width_type = typename gui::dimension<dimension_type>::width_type;
+        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
 
-        using height_type = typename gui::dimension<dimension_type>::height_type;
+        using height_type = typename gui::dimension_utility<dimension_type>::height_type;
 
         using widget_type = typename abstract_window_type::base_type;
 

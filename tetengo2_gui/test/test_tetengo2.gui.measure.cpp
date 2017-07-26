@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         using dimension_type = std::pair<int, int>;
         const dimension_type dimension{ 123, 456 };
 
-        BOOST_TEST(tetengo2::gui::dimension<dimension_type>::width(dimension) == 123);
+        BOOST_TEST(tetengo2::gui::dimension_utility<dimension_type>::width(dimension) == 123);
     }
 
     BOOST_AUTO_TEST_CASE(height)
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         using dimension_type = std::pair<int, int>;
         const dimension_type dimension{ 123, 456 };
 
-        BOOST_TEST(tetengo2::gui::dimension<dimension_type>::height(dimension) == 456);
+        BOOST_TEST(tetengo2::gui::dimension_utility<dimension_type>::height(dimension) == 456);
     }
 
     BOOST_AUTO_TEST_CASE(make)
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         using dimension_type = std::pair<int, int>;
-        const auto dimension = tetengo2::gui::dimension<dimension_type>::make(123, 456);
+        const auto dimension = tetengo2::gui::dimension_utility<dimension_type>::make(123, 456);
 
         BOOST_TEST(dimension.first == 123);
         BOOST_TEST(dimension.second == 456);

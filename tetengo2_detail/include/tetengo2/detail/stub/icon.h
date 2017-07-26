@@ -51,8 +51,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 {
-                    typename gui::dimension<Dimension>::width_type{ 42 },
-                    typename gui::dimension<Dimension>::height_type{ 42 }
+                    typename gui::dimension_utility<Dimension>::width_type{ 42 },
+                    typename gui::dimension_utility<Dimension>::height_type{ 42 }
                 };
         }
 

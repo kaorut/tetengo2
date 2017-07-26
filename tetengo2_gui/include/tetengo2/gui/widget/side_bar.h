@@ -93,7 +93,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using dimension_type = typename base_type::dimension_type;
 
         //! The width type.
-        using width_type = typename gui::dimension<dimension_type>::width_type;
+        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
 
         //! The solid background type.
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
@@ -175,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_width(width_type width)
         {
-            const auto& previous_width = gui::dimension<dimension_type>::width(this->dimension());
+            const auto& previous_width = gui::dimension_utility<dimension_type>::width(this->dimension());
 
             adjust_preferred_width(width);
 
@@ -213,7 +213,9 @@ namespace tetengo2 { namespace gui { namespace widget
             if (!m_minimized)
             {
                 this->set_dimension(
-                    dimension_type{ m_preferred_width, gui::dimension<dimension_type>::height(this->dimension()) }
+                    dimension_type{
+                        m_preferred_width, gui::dimension_utility<dimension_type>::height(this->dimension())
+                    }
                 );
             }
 
@@ -238,8 +240,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             return
                 {
-                    left_type::from(gui::dimension<dimension_type>::width(splitter_dimension)),
-                    top_type::from(gui::dimension<dimension_type>::height(caption_dimension))
+                    left_type::from(gui::dimension_utility<dimension_type>::width(splitter_dimension)),
+                    top_type::from(gui::dimension_utility<dimension_type>::height(caption_dimension))
                 };
         }
 
@@ -252,12 +254,12 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             const auto client_dimension = this->client_dimension();
-            const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
-            const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
+            const auto& client_width = gui::dimension_utility<dimension_type>::width(client_dimension);
+            const auto& client_height = gui::dimension_utility<dimension_type>::height(client_dimension);
             const auto& caption_dimension = m_p_caption->dimension();
-            const auto& caption_height = gui::dimension<dimension_type>::height(caption_dimension);
+            const auto& caption_height = gui::dimension_utility<dimension_type>::height(caption_dimension);
             const auto& splitter_dimension = m_p_splitter->dimension();
-            const auto& splitter_width = gui::dimension<dimension_type>::width(splitter_dimension);
+            const auto& splitter_width = gui::dimension_utility<dimension_type>::width(splitter_dimension);
 
             auto width = client_width > splitter_width ? client_width - splitter_width : width_type{ 0 };
             auto height = client_height > caption_height ? client_height - caption_height : height_type{ 0 };
@@ -281,7 +283,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using top_type = typename gui::position_utility<position_type>::top_type;
 
-        using height_type = typename gui::dimension<dimension_type>::height_type;
+        using height_type = typename gui::dimension_utility<dimension_type>::height_type;
 
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
@@ -489,8 +491,8 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const auto& left = gui::position_utility<position_type>::left(this->position());
                 const auto& top = gui::position_utility<position_type>::top(this->position());
-                const auto& width = gui::dimension<dimension_type>::width(this->dimension());
-                const auto& height = gui::dimension<dimension_type>::height(this->dimension());
+                const auto& width = gui::dimension_utility<dimension_type>::width(this->dimension());
+                const auto& height = gui::dimension_utility<dimension_type>::height(this->dimension());
 
                 std::vector<position_type> positions{};
                 positions.reserve(3);
@@ -544,7 +546,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const width_type& width()
             {
                 ensure_dimension_calculated();
-                return gui::dimension<dimension_type>::width(this->dimension());
+                return gui::dimension_utility<dimension_type>::width(this->dimension());
             }
 
 
@@ -616,17 +618,17 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 const dimension_type client_dimension = this->parent().client_dimension();
-                const auto& client_width = gui::dimension<dimension_type>::width(client_dimension);
-                const auto& client_height = gui::dimension<dimension_type>::height(client_dimension);
+                const auto& client_width = gui::dimension_utility<dimension_type>::width(client_dimension);
+                const auto& client_height = gui::dimension_utility<dimension_type>::height(client_dimension);
 
-                const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
+                const auto& text_height = gui::dimension_utility<dimension_type>::height(text_dimension);
 
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(
+                    gui::dimension_utility<dimension_type>::width(
                         this->template parent_to<side_bar>().m_p_state_button->dimension()
                     );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(
+                    gui::dimension_utility<dimension_type>::height(
                         this->template parent_to<side_bar>().m_p_state_button->dimension()
                     );
 
@@ -654,15 +656,15 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->template parent_to<side_bar>().m_p_state_button->position()
                 );
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(
+                    gui::dimension_utility<dimension_type>::width(
                     this->template parent_to<side_bar>().m_p_state_button->dimension()
                 );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(
+                    gui::dimension_utility<dimension_type>::height(
                     this->template parent_to<side_bar>().m_p_state_button->dimension()
                 );
 
-                const auto& text_height = gui::dimension<dimension_type>::height(text_dimension);
+                const auto& text_height = gui::dimension_utility<dimension_type>::height(text_dimension);
 
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
@@ -689,14 +691,14 @@ namespace tetengo2 { namespace gui { namespace widget
             position_type state_button_position(const height_type& padding)
             const
             {
-                const auto& caption_width = gui::dimension<dimension_type>::width(this->dimension());
-                const auto& caption_height = gui::dimension<dimension_type>::height(this->dimension());
+                const auto& caption_width = gui::dimension_utility<dimension_type>::width(this->dimension());
+                const auto& caption_height = gui::dimension_utility<dimension_type>::height(this->dimension());
                 const auto& state_button_width =
-                    gui::dimension<dimension_type>::width(
+                    gui::dimension_utility<dimension_type>::width(
                     this->template parent_to<side_bar>().m_p_state_button->dimension()
                 );
                 const auto& state_button_height =
-                    gui::dimension<dimension_type>::height(
+                    gui::dimension_utility<dimension_type>::height(
                     this->template parent_to<side_bar>().m_p_state_button->dimension()
                 );
 
@@ -842,9 +844,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                 {
                     const auto& client_height =
-                        gui::dimension<dimension_type>::height(this->parent().client_dimension());
+                        gui::dimension_utility<dimension_type>::height(this->parent().client_dimension());
                     const auto& caption_height =
-                        gui::dimension<dimension_type>::height(
+                        gui::dimension_utility<dimension_type>::height(
                             this->template parent_to<side_bar>().m_p_caption->dimension()
                         );
 
@@ -865,7 +867,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-                const auto& width = gui::dimension<dimension_type>::width(this->parent().dimension());
+                const auto& width = gui::dimension_utility<dimension_type>::width(this->parent().dimension());
 
                 const auto& pressed_left = gui::position_utility<position_type>::left(m_pressed_position);
                 const auto& current_left = gui::position_utility<position_type>::left(current_position);
@@ -894,7 +896,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             set_observers(side_bar_);
 
-            side_bar_.m_preferred_width= gui::dimension<dimension_type>::width(side_bar_.dimension());
+            side_bar_.m_preferred_width= gui::dimension_utility<dimension_type>::width(side_bar_.dimension());
         }
 
         static void create_items(side_bar& side_bar_)
@@ -991,7 +993,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (this->has_parent())
             {
                 const auto parent_width =
-                    gui::dimension<dimension_type>::width(this->parent().client_dimension());
+                    gui::dimension_utility<dimension_type>::width(this->parent().client_dimension());
 
                 auto max_width = parent_width > width_type{ 4 } ? parent_width - width_type{ 4 } : parent_width;
                 if (width > max_width)

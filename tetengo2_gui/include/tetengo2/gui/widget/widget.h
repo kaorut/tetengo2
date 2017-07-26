@@ -384,8 +384,13 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename D>
         void set_client_dimension(const D& client_dimension)
         {
-            if (gui::dimension<D>::width(client_dimension) == 0 || gui::dimension<D>::height(client_dimension) == 0)
+            if (
+                gui::dimension_utility<D>::width(client_dimension) == 0 ||
+                gui::dimension_utility<D>::height(client_dimension) == 0
+            )
+            {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
+            }
 
             widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension

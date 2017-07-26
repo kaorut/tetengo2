@@ -576,7 +576,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
             using position_traits_type = gui::position_utility<Position>;
-            using dimension_traits_type = gui::dimension<Dimension>;
+            using dimension_traits_type = gui::dimension_utility<Dimension>;
 
             widget.details().position =
                 std::make_pair(
@@ -651,7 +651,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-            using dimension_traits_type = gui::dimension<Dimension>;
+            using dimension_traits_type = gui::dimension_utility<Dimension>;
 
             return
                 dimension_traits_type::make(
@@ -675,7 +675,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-            using dimension_traits_type = gui::dimension<Dimension>;
+            using dimension_traits_type = gui::dimension_utility<Dimension>;
 
             widget.details().dimension =
                 std::make_pair(
@@ -699,7 +699,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-            using dimension_traits_type = gui::dimension<Dimension>;
+            using dimension_traits_type = gui::dimension_utility<Dimension>;
 
             return
                 dimension_traits_type::make(
@@ -723,7 +723,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-            using dimension_traits_type = gui::dimension<Dimension>;
+            using dimension_traits_type = gui::dimension_utility<Dimension>;
 
             return
                 dimension_traits_type::make(

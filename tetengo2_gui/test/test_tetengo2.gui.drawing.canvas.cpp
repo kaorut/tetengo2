@@ -43,9 +43,9 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
+    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
 
-    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
+    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
 
     using color_type = tetengo2::gui::drawing::color;
 
@@ -116,8 +116,8 @@ namespace
     {
         return
             {
-                tetengo2::gui::dimension<dimension_type>::width_type{ w },
-                tetengo2::gui::dimension<dimension_type>::height_type{ h }
+                tetengo2::gui::dimension_utility<dimension_type>::width_type{ w },
+                tetengo2::gui::dimension_utility<dimension_type>::height_type{ h }
             };
     }
 
