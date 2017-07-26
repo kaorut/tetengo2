@@ -575,7 +575,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            using position_traits_type = gui::position<Position>;
+            using position_traits_type = gui::position_utility<Position>;
             using dimension_traits_type = gui::dimension<Dimension>;
 
             widget.details().position =
@@ -605,7 +605,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            using position_traits_type = gui::position<Position>;
+            using position_traits_type = gui::position_utility<Position>;
 
             return
                 position_traits_type::make(

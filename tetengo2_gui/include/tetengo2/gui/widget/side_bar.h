@@ -277,9 +277,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using color_type = typename canvas_type::color_type;
 
-        using left_type = typename gui::position<position_type>::left_type;
+        using left_type = typename gui::position_utility<position_type>::left_type;
 
-        using top_type = typename gui::position<position_type>::top_type;
+        using top_type = typename gui::position_utility<position_type>::top_type;
 
         using height_type = typename gui::dimension<dimension_type>::height_type;
 
@@ -487,8 +487,8 @@ namespace tetengo2 { namespace gui { namespace widget
             std::vector<position_type> make_triangle()
             const
             {
-                const auto& left = gui::position<position_type>::left(this->position());
-                const auto& top = gui::position<position_type>::top(this->position());
+                const auto& left = gui::position_utility<position_type>::left(this->position());
+                const auto& top = gui::position_utility<position_type>::top(this->position());
                 const auto& width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
 
@@ -503,12 +503,12 @@ namespace tetengo2 { namespace gui { namespace widget
                     const position_type vertex_position = triangle_vertex_position(step_, i);
                     left_type vertex_left =
                         left +
-                        (gui::position<position_type>::left(vertex_position) + left_type{ 1 }) *
+                        (gui::position_utility<position_type>::left(vertex_position) + left_type{ 1 }) *
                             left_type::from(width).value() /
                             2;
                     top_type vertex_top =
                         top +
-                        (gui::position<position_type>::top(vertex_position) + top_type{ 1 }) *
+                        (gui::position_utility<position_type>::top(vertex_position) + top_type{ 1 }) *
                             top_type::from(height).value() /
                             2;
                     positions.emplace_back(std::move(vertex_left), std::move(vertex_top));
@@ -646,11 +646,11 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 const auto& state_button_left =
-                    gui::position<position_type>::left(
+                    gui::position_utility<position_type>::left(
                     this->template parent_to<side_bar>().m_p_state_button->position()
                 );
                 const auto& state_button_top =
-                    gui::position<position_type>::left(
+                    gui::position_utility<position_type>::left(
                     this->template parent_to<side_bar>().m_p_state_button->position()
                 );
                 const auto& state_button_width =
@@ -867,8 +867,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 const auto& width = gui::dimension<dimension_type>::width(this->parent().dimension());
 
-                const auto& pressed_left = gui::position<position_type>::left(m_pressed_position);
-                const auto& current_left = gui::position<position_type>::left(current_position);
+                const auto& pressed_left = gui::position_utility<position_type>::left(m_pressed_position);
+                const auto& current_left = gui::position_utility<position_type>::left(current_position);
                 auto new_width =
                     width_type::from(
                         std::max(left_type::from(width) + (pressed_left - current_left), left_type{ 0 })

@@ -124,8 +124,8 @@ namespace
 
     position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
-        using left_type = tetengo2::gui::position<position_type>::left_type;
-        using top_type = tetengo2::gui::position<position_type>::top_type;
+        using left_type = tetengo2::gui::position_utility<position_type>::left_type;
+        using top_type = tetengo2::gui::position_utility<position_type>::top_type;
         return { left_type{ left }, top_type{ top } };
     }
 

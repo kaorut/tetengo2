@@ -43,9 +43,9 @@ namespace
 
     using position_type = custom_control_type::position_type;
 
-    using left_type = tetengo2::gui::position<position_type>::left_type;
+    using left_type = tetengo2::gui::position_utility<position_type>::left_type;
 
-    using top_type = tetengo2::gui::position<position_type>::top_type;
+    using top_type = tetengo2::gui::position_utility<position_type>::top_type;
 
     using dimension_type = custom_control_type::dimension_type;
 

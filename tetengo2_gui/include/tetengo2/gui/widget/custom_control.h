@@ -240,10 +240,10 @@ namespace tetengo2 { namespace gui { namespace widget
         using position_type = typename custom_control_type::position_type;
 
         //! The left type.
-        using left_type = typename gui::position<position_type>::left_type;
+        using left_type = typename gui::position_utility<position_type>::left_type;
 
         //! The top type.
-        using top_type = typename gui::position<position_type>::top_type;
+        using top_type = typename gui::position_utility<position_type>::top_type;
 
         //! The postion type.
         using dimension_type = typename custom_control_type::dimension_type;
@@ -467,13 +467,13 @@ namespace tetengo2 { namespace gui { namespace widget
         bool inside(const position_type& position)
         const
         {
-            const auto& left = gui::position<position_type>::left(m_position);
+            const auto& left = gui::position_utility<position_type>::left(m_position);
             const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-            const auto& top = gui::position<position_type>::top(m_position);
+            const auto& top = gui::position_utility<position_type>::top(m_position);
             const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
 
-            const auto& cursor_left = gui::position<position_type>::left(position);
-            const auto& cursor_top = gui::position<position_type>::top(position);
+            const auto& cursor_left = gui::position_utility<position_type>::left(position);
+            const auto& cursor_top = gui::position_utility<position_type>::top(position);
 
             return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
         }

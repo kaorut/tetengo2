@@ -90,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The left type.
-        using left_type = typename gui::position<position_type>::left_type;
+        using left_type = typename gui::position_utility<position_type>::left_type;
 
         //! The solid background type.
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
@@ -338,7 +338,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using canvas_type = typename base_type::canvas_type;
 
-        using top_type = typename gui::position<position_type>::top_type;
+        using top_type = typename gui::position_utility<position_type>::top_type;
 
         using dimension_type = typename base_type::dimension_type;
 
@@ -424,7 +424,7 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void mouse_released_impl(const position_type& cursor_position)
             override
             {
-                move(gui::position<position_type>::left(cursor_position));
+                move(gui::position_utility<position_type>::left(cursor_position));
             }
 
             virtual void mouse_moved_impl(const position_type& cursor_position)
@@ -433,7 +433,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!this->parent().mouse_captured(this))
                     return;
 
-                move(gui::position<position_type>::left(cursor_position));
+                move(gui::position_utility<position_type>::left(cursor_position));
             }
 
             virtual void mouse_entered_impl()
@@ -513,9 +513,9 @@ namespace tetengo2 { namespace gui { namespace widget
                     top_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) :
                     top_type{ 0 };
 
-                auto left = gui::position<position_type>::left(this->position());
+                auto left = gui::position_utility<position_type>::left(this->position());
                 auto top =
-                    gui::position<position_type>::top(this->position()) - scroll_bar_position * scroll_bar_size_unit();
+                    gui::position_utility<position_type>::top(this->position()) - scroll_bar_position * scroll_bar_size_unit();
 
                 return { std::move(left), std::move(top) };
             }
@@ -619,7 +619,7 @@ namespace tetengo2 { namespace gui { namespace widget
             bool outside_client_area(const position_type& position_to_paint_)
             const
             {
-                const auto top = gui::position<position_type>::top(position_to_paint_);
+                const auto top = gui::position_utility<position_type>::top(position_to_paint_);
                 if (top > top_type::from(gui::dimension<dimension_type>::height(this->parent().client_dimension())))
                     return true;
 
@@ -633,8 +633,10 @@ namespace tetengo2 { namespace gui { namespace widget
             position_type key_text_position(const position_type& position_to_paint_)
             const
             {
-                auto left = gui::position<position_type>::left(position_to_paint_) + left_type::from(padding_width());
-                auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
+                auto left =
+                    gui::position_utility<position_type>::left(position_to_paint_) + left_type::from(padding_width());
+                auto top =
+                    gui::position_utility<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
                 return { std::move(left), std::move(top) };
             }
@@ -643,10 +645,11 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 auto left =
-                    gui::position<position_type>::left(position_to_paint_) +
+                    gui::position_utility<position_type>::left(position_to_paint_) +
                     this->template parent_to<map_box>().m_splitter_position +
                     left_type::from(padding_width());
-                auto top = gui::position<position_type>::top(position_to_paint_) + top_type::from(padding_height());
+                auto top =
+                    gui::position_utility<position_type>::top(position_to_paint_) + top_type::from(padding_height());
 
                 return { std::move(left), std::move(top) };
             }
@@ -690,8 +693,8 @@ namespace tetengo2 { namespace gui { namespace widget
             std::pair<position_type, position_type> border_line_positions(const position_type& position_to_paint_)
             const
             {
-                const auto& left = gui::position<position_type>::left(position_to_paint_);
-                const auto& top = gui::position<position_type>::top(position_to_paint_);
+                const auto& left = gui::position_utility<position_type>::left(position_to_paint_);
+                const auto& top = gui::position_utility<position_type>::top(position_to_paint_);
                 const auto& width = gui::dimension<dimension_type>::width(this->dimension());
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
 
@@ -705,8 +708,8 @@ namespace tetengo2 { namespace gui { namespace widget
             std::pair<position_type, position_type> splitter_line_positions(const position_type& position_to_paint_)
             const
             {
-                const auto& left = gui::position<position_type>::left(position_to_paint_);
-                const auto& top = gui::position<position_type>::top(position_to_paint_);
+                const auto& left = gui::position_utility<position_type>::left(position_to_paint_);
+                const auto& top = gui::position_utility<position_type>::top(position_to_paint_);
                 const auto& height = gui::dimension<dimension_type>::height(this->dimension());
                 const auto& splitter_position = this->template parent_to<map_box>().m_splitter_position;
 
@@ -1010,8 +1013,8 @@ namespace tetengo2 { namespace gui { namespace widget
         position_type adjust_position(const position_type& position)
         const
         {
-            const auto& left = gui::position<position_type>::left(position);
-            auto adjusted_top = gui::position<position_type>::top(position);
+            const auto& left = gui::position_utility<position_type>::left(position);
+            auto adjusted_top = gui::position_utility<position_type>::top(position);
             if (this->has_vertical_scroll_bar() && this->vertical_scroll_bar().enabled())
             {
                 adjusted_top +=
@@ -1027,7 +1030,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto value_height =
                 m_p_value_items.empty() ?
                 height_type{ 0 } :
-                height_type::from(gui::position<position_type>::top(m_p_value_items.back()->position())) +
+                height_type::from(gui::position_utility<position_type>::top(m_p_value_items.back()->position())) +
                     gui::dimension<dimension_type>::height(m_p_value_items.back()->dimension());
 
             auto& scroll_bar = this->vertical_scroll_bar();
@@ -1108,10 +1111,10 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto client_height = gui::dimension<dimension_type>::height(this->dimension());
 
             const auto& p_selected = m_p_value_items[*m_selected_value_index];
-            const auto& top = gui::position<position_type>::top(p_selected->position());
+            const auto& top = gui::position_utility<position_type>::top(p_selected->position());
             const auto& height = gui::dimension<dimension_type>::height(p_selected->dimension());
             const auto position_to_paint = p_selected->position_to_paint();
-            const auto& top_to_paint = gui::position<position_type>::top(position_to_paint);
+            const auto& top_to_paint = gui::position_utility<position_type>::top(position_to_paint);
             const auto bottom_to_paint = top_to_paint + top_type::from(height);
             
             scroll_bar_size_type scroll_bar_position = scroll_bar.tracking_position();

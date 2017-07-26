@@ -52,7 +52,7 @@ namespace
 
     using position_type = common_type_list_type::position_type;
 
-    using left_type = tetengo2::gui::position<position_type>::left_type;
+    using left_type = tetengo2::gui::position_utility<position_type>::left_type;
 
     using dimension_type = common_type_list_type::dimension_type;
 

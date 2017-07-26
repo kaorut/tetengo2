@@ -177,9 +177,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename traits_type::position_type;
 
-        using left_type = typename gui::position<position_type>::left_type;
+        using left_type = typename gui::position_utility<position_type>::left_type;
 
-        using top_type = typename gui::position<position_type>::top_type;
+        using top_type = typename gui::position_utility<position_type>::top_type;
 
         using dimension_type = typename traits_type::dimension_type;
 

@@ -742,11 +742,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            using top_type = typename gui::position<Position>::top_type;
-            using left_type = typename gui::position<Position>::left_type;
+            using top_type = typename gui::position_utility<Position>::top_type;
+            using left_type = typename gui::position_utility<Position>::left_type;
             using width_type = typename gui::dimension<Dimension>::width_type;
-            const auto& base_left = gui::position<Position>::left(position);
-            const auto& base_top = gui::position<Position>::top(position);
+            const auto& base_left = gui::position_utility<Position>::left(position);
+            const auto& base_top = gui::position_utility<Position>::top(position);
             auto next_chunk_top = base_top;
             for (const auto& chunk: chunks)
             {
@@ -952,16 +952,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::left(position)));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::top(position)));
             return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::left(position)));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::top(position)));
             const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
             const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
             return { left, top, left + width, top + height };

@@ -232,8 +232,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
                     unselected_left = left_type{ 1 } / 12;
                 position_type label_position{
-                    gui::position<position_type>::left(this->position()) + unselected_left,
-                    gui::position<position_type>::top(this->position())
+                    gui::position_utility<position_type>::left(this->position()) + unselected_left,
+                    gui::position_utility<position_type>::top(this->position())
                 };
                 dimension_type label_dimension{
                     gui::dimension<dimension_type>::width(this->dimension()) - width_type::from(unselected_left),
@@ -257,14 +257,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
                     const auto text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
-                        gui::position<position_type>::left(label_position) +
+                        gui::position_utility<position_type>::left(label_position) +
                             left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
                             (
                                 left_type::from(gui::dimension<dimension_type>::width(label_dimension)) -
                                 width_type::from(gui::dimension<dimension_type>::height(text_dimension)) -
                                 unselected_left
                             ) / 2,
-                        gui::position<position_type>::top(label_position) +
+                        gui::position_utility<position_type>::top(label_position) +
                             (
                                 top_type::from(gui::dimension<dimension_type>::height(label_dimension)) -
                                 top_type::from(gui::dimension<dimension_type>::width(text_dimension))
@@ -278,19 +278,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     const auto left_top = label_position;
                     const position_type left_bottom{
-                        gui::position<position_type>::left(label_position),
-                        gui::position<position_type>::top(label_position) +
+                        gui::position_utility<position_type>::left(label_position),
+                        gui::position_utility<position_type>::top(label_position) +
                             top_type::from(gui::dimension<dimension_type>::height(label_dimension))
                     };
                     const position_type right_top{
-                        gui::position<position_type>::left(label_position) +
+                        gui::position_utility<position_type>::left(label_position) +
                             left_type::from(gui::dimension<dimension_type>::width(label_dimension)),
-                        gui::position<position_type>::top(label_position)
+                        gui::position_utility<position_type>::top(label_position)
                     };
                     const position_type right_bottom{
-                        gui::position<position_type>::left(label_position) +
+                        gui::position_utility<position_type>::left(label_position) +
                             left_type::from(gui::dimension<dimension_type>::width(label_dimension)),
-                        gui::position<position_type>::top(label_position) +
+                        gui::position_utility<position_type>::top(label_position) +
                             top_type::from(gui::dimension<dimension_type>::height(label_dimension))
                     };
                     canvas.draw_line(left_top, left_bottom);
@@ -733,9 +733,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        using left_type = typename gui::position<position_type>::left_type;
+        using left_type = typename gui::position_utility<position_type>::left_type;
 
-        using top_type = typename gui::position<position_type>::top_type;
+        using top_type = typename gui::position_utility<position_type>::top_type;
 
         using width_type = typename gui::dimension<dimension_type>::width_type;
 

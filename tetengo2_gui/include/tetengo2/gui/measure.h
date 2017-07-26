@@ -110,12 +110,12 @@ namespace tetengo2 { namespace gui
 
 
     /*!
-        \brief The position class.
+        \brief The position utility class.
 
         \tparam Position A position type.
     */
     template <typename Position>
-    class position
+    class position_utility
     {
     public:
         // types
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        position()
+        position_utility()
         = delete;
 
 
@@ -176,7 +176,7 @@ namespace tetengo2 { namespace gui
 
 #if !defined(DOCUMENTATION)
     template <typename LeftTop>
-    class position<std::pair<LeftTop, LeftTop>>
+    class position_utility<std::pair<LeftTop, LeftTop>>
     {
     public:
         // types
@@ -210,7 +210,7 @@ namespace tetengo2 { namespace gui
     private:
         // forbidden operations
 
-        position()
+        position_utility()
         = delete;
 
 

@@ -106,8 +106,8 @@ namespace
     {
         return
             {
-                tetengo2::gui::position<position_type>::left_type{ x },
-                tetengo2::gui::position<position_type>::top_type{ y }
+                tetengo2::gui::position_utility<position_type>::left_type{ x },
+                tetengo2::gui::position_utility<position_type>::top_type{ y }
             };
     }
 

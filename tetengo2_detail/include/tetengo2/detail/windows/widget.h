@@ -1036,8 +1036,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto result =
                 ::MoveWindow(
                     widget.details().handle.get(),
-                    gui::to_pixels<int>(gui::position<Position>::left(position)),
-                    gui::to_pixels<int>(gui::position<Position>::top(position)),
+                    gui::to_pixels<int>(gui::position_utility<Position>::left(position)),
+                    gui::to_pixels<int>(gui::position_utility<Position>::top(position)),
                     gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
                     gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
                     visible(widget) ? TRUE : FALSE
@@ -1079,7 +1079,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ));
             }
 
-            using position_traits_type = gui::position<Position>;
+            using position_traits_type = gui::position_utility<Position>;
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(rectangle.left),
@@ -1143,7 +1143,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (point.y - y_margin < monitor_info.rcWork.top)
                 point.y = monitor_info.rcWork.top + y_margin;
 
-            using position_traits_type = gui::position<Position>;
+            using position_traits_type = gui::position_utility<Position>;
             return
                 position_traits_type::make(
                     gui::to_unit<typename position_traits_type::left_type>(point.x),
@@ -1210,8 +1210,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto pos = position<Position>(widget);
             const auto window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_STYLE);
             const auto extended_window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_EXSTYLE);
-            const auto left = gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
-            const auto top =  gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
+            const auto left = gui::to_pixels< ::LONG>(gui::position_utility<Position>::left(pos));
+            const auto top =  gui::to_pixels< ::LONG>(gui::position_utility<Position>::top(pos));
             const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(client_dimension));
             const auto height =gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(client_dimension));
             ::RECT rectangle{ left, top, left + width, top + height };
@@ -1571,8 +1571,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget, typename Position, typename Dimension>
         static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const auto left = gui::to_pixels< ::LONG>(gui::position<Position>::left(position));
-            const auto top = gui::to_pixels< ::LONG>(gui::position<Position>::top(position));
+            const auto left = gui::to_pixels< ::LONG>(gui::position_utility<Position>::left(position));
+            const auto top = gui::to_pixels< ::LONG>(gui::position_utility<Position>::top(position));
             const auto width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension));
             const auto height = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension));
             const ::RECT rectangle{ left, top, left + width, top + height };
