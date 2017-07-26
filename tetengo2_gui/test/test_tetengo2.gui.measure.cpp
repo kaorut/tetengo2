@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(gui)
     }
 
 
-BOOST_AUTO_TEST_SUITE(position)
+BOOST_AUTO_TEST_SUITE(position_utility)
     // test cases
 
     BOOST_AUTO_TEST_CASE(left)
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_SUITE(position)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(dimension)
+BOOST_AUTO_TEST_SUITE(dimension_utility)
     // test cases
 
     BOOST_AUTO_TEST_CASE(width)
