@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <memory>
+
+#include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/stdalt.h>
 
@@ -26,6 +29,12 @@ namespace tetengo2 { namespace detail { namespace base
     {
         return cursor_impl();
     }
+
+    std::unique_ptr<gui_fixture> impl_set::create_gui_fixture()
+    const
+    {
+        return create_gui_fixture_impl();
+    }        
 
     impl_set::impl_set()
     = default;

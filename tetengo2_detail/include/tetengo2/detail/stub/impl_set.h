@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_IMPLSET_H)
 #define TETENGO2_DETAIL_STUB_IMPLSET_H
 
+#include <memory>
+
 #include <tetengo2/detail/base/impl_set.h>
 
 
@@ -50,6 +52,9 @@ namespace tetengo2 { namespace detail { namespace stub
         const override;
 
         virtual const base::cursor& cursor_impl()
+        const override;
+
+        virtual std::unique_ptr<base::gui_fixture> create_gui_fixture_impl()
         const override;
 
 
