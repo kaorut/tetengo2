@@ -52,6 +52,9 @@ namespace tetengo2 { namespace detail { namespace unixos
         virtual const base::cursor& cursor_impl()
         const override;
 
+        virtual std::unique_ptr<base::gui_fixture> create_gui_fixture_impl()
+        const override;
+
 
     };
 
