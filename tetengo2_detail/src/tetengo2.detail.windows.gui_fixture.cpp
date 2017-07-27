@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <system_error>
 
 #include <boost/core/noncopyable.hpp>
@@ -23,6 +24,7 @@
 #include <ObjBase.h>
 
 #include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/gdiplus/gui_fixture.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/windows_version.h>
 #include <tetengo2/stdalt.h>
@@ -36,10 +38,13 @@ namespace tetengo2 { namespace detail { namespace windows
         // constructors and destructor
 
         impl()
+        :
+        m_p_gdiplus_gui_fixture()
         {
             check_platform();
             setup_common_controls();
             setup_com();
+            setup_gdiplus();
         }
 
 
@@ -91,6 +96,19 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error{ std::error_code{ result, win32_category() }, "Can't initlaize COM." }
                 ));
             }
+        }
+
+
+        // variables
+
+        std::unique_ptr<base::gui_fixture> m_p_gdiplus_gui_fixture;
+
+
+        // functions
+
+        void setup_gdiplus()
+        {
+            m_p_gdiplus_gui_fixture = stdalt::make_unique<gdiplus::gui_fixture>();
         }
 
 
