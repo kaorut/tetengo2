@@ -9,41 +9,51 @@
 #if !defined(TETENGO2_GUI_FIXTURE_H)
 #define TETENGO2_GUI_FIXTURE_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
+
+#include <tetengo2/detail/base/gui_fixture.h>
 
 
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a GUI fixture.
-
-        \tparam FixtureDetails A detail implementation type of a fixture.
+        \brief The class for a GUI fixture.
     */
-    template <typename FixtureDetails>
     class fixture : private boost::noncopyable
     {
     public:
         // types
 
         //! The fixture details type.
-        using fixture_details_type = FixtureDetails;
+        using fixture_details_type = detail::base::gui_fixture;
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a GUI fixture.
+
+            \param p_fixture_details A unique pointer to a detail implementation of a fixture.
         */
-        fixture()
-        :
-        m_fixture_details()
-        {}
+        explicit fixture(std::unique_ptr<fixture_details_type> p_fixture_details);
+
+        /*!
+            \brief Destroys the GUI fixture.
+        */
+        ~fixture();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const fixture_details_type m_fixture_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };

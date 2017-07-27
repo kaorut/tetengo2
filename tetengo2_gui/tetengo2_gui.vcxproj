@@ -115,6 +115,7 @@
     <ClCompile Include="src\tetengo2.gui.alert.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.system.cpp" />
+    <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_BASE_IMPLSET_H)
 #define TETENGO2_DETAIL_BASE_IMPLSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
 
@@ -16,6 +18,7 @@ namespace tetengo2 { namespace detail { namespace base
 {
     class alert;
     class cursor;
+    class gui_fixture;
 
 
     /*!
@@ -50,6 +53,14 @@ namespace tetengo2 { namespace detail { namespace base
         const cursor& cursor_()
         const;
 
+        /*!
+            \brief Creates a detail implementation of GUI fixture.
+
+            \return A unique pointer to a detail implementation.
+        */
+        std::unique_ptr<gui_fixture> create_gui_fixture()
+        const;
+
 
     protected:
         // constructors
@@ -67,6 +78,9 @@ namespace tetengo2 { namespace detail { namespace base
         const = 0;
 
         virtual const cursor& cursor_impl()
+        const = 0;
+
+        virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl()
         const = 0;
 
 

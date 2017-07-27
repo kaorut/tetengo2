@@ -40,5 +40,12 @@ namespace tetengo2 { namespace detail { namespace unixos
         throw std::logic_error("No implementation.");
     }
 
+    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl()
+    const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
 
 }}}

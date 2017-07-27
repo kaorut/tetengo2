@@ -314,5 +314,8 @@
     <ClCompile Include="src\tetengo2.gui.cursor.system.cpp">
       <Filter>sources\tetengo2::gui\cursor</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.fixture.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

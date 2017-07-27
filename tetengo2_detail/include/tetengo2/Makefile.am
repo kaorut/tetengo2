@@ -7,6 +7,7 @@ pkg_headers = \
     detail/base/config.h \
     detail/base/cursor.h \
     detail/base/encoding.h \
+    detail/base/gui_fixture.h \
     detail/base/impl_set.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
