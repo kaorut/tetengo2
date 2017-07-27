@@ -11,10 +11,8 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_handler.h>
@@ -46,8 +44,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
             using common_dialog_details_type = tetengo2::detail::stub::common_dialog;
 
             using drawing_details_type = tetengo2::detail::stub::drawing;
-
-            using gui_fixture_type = tetengo2::detail::stub::gui_fixture;
 
             using icon_details_type = tetengo2::detail::stub::icon;
 
@@ -88,9 +84,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         //! The drawing type.
         using drawing_type = detail::detail::test::drawing_details_type;
-
-        //! The GUI fixture type.
-        using gui_fixture_type = detail::detail::test::gui_fixture_type;
 
         //! The icon type.
         using icon_type = detail::detail::test::icon_details_type;

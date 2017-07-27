@@ -6,9 +6,13 @@
     $Id$
 */
 
+#include <memory>
+
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
+#include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/impl_set.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -35,6 +39,12 @@ namespace tetengo2 { namespace detail { namespace windows
     const
     {
         return cursor::instance();
+    }
+
+    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl()
+    const
+    {
+        return tetengo2::stdalt::make_unique<gui_fixture>();
     }
 
 

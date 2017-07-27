@@ -14,16 +14,10 @@
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/gui/alert.h>
 
-#include "test_tetengo2.gui.type_list.h"
-
 
 namespace
 {
     // types
-
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
     using alert_type = tetengo2::gui::alert;
 
