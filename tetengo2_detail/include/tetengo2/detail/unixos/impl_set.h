@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_UNIXOS_IMPLSET_H)
 #define TETENGO2_DETAIL_UNIXOS_IMPLSET_H
 
+#include <memory>
+
 #include <tetengo2/detail/base/impl_set.h>
 
 
