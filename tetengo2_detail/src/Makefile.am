@@ -11,6 +11,7 @@ sources = \
     tetengo2.detail.base.config.cpp \
     tetengo2.detail.base.cursor.cpp \
     tetengo2.detail.base.encoding.cpp \
+    tetengo2.detail.base.gui_fixture.cpp \
     tetengo2.detail.base.impl_set.cpp \
     tetengo2.detail.stub.alert.cpp \
     tetengo2.detail.stub.cursor.cpp \
