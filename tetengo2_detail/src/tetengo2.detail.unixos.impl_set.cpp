@@ -7,6 +7,7 @@
 */
 
 #include <cassert>
+#include <memory>
 #include <stdexcept>
 
 #include <tetengo2/detail/unixos/impl_set.h>
