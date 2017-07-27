@@ -6,21 +6,12 @@
     $Id$
 */
 
-#include <boost/core/noncopyable.hpp>
-
 #include <tetengo2/detail/base/gui_fixture.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace base
 {
-    class gui_fixture::impl : private boost::noncopyable
-    {};
-
-
     gui_fixture::gui_fixture()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
     {}
 
     gui_fixture::~gui_fixture()

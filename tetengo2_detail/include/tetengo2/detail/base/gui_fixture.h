@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_BASE_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_BASE_GUIFIXTURE_H
 
-#include <memory>
 #include <system_error>
 
 #include <boost/core/noncopyable.hpp>
@@ -35,20 +34,9 @@ namespace tetengo2 { namespace detail { namespace base
         /*!
             \brief Destroy the detail implementation of a GUI fixture.
         */
-        ~gui_fixture();
+        virtual ~gui_fixture();
 
 
-    private:
-        // types
-
-        class impl;
-
-
-        // variables
-
-        const std::unique_ptr<impl> m_p_impl;
-
-    
     };
 
 
