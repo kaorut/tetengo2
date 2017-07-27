@@ -6,19 +6,23 @@
     $Id$
 */
 
+#include <utility>
+
 #include <boost/core/ignore_unused.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_tetengo2.gui.type_list.h"
+#include <tetengo2/detail/stub/gui_fixture.h>
+#include <tetengo2/gui/fixture.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using fixture_type = tetengo2::gui::fixture;
 
-    using fixture_type = detail_type_list_type::gui_fixture_type;
+    using fixture_details_type = tetengo2::detail::stub::gui_fixture;
 
 
 }
@@ -33,7 +37,8 @@ BOOST_AUTO_TEST_SUITE(fixture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const fixture_type fixture{};
+        auto p_fixture_details = tetengo2::stdalt::make_unique<fixture_details_type>();
+        const fixture_type fixture{ std::move(p_fixture_details) };
         boost::ignore_unused(fixture);
     }
 
