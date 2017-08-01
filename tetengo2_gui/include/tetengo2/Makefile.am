@@ -12,6 +12,7 @@ pkg_headers = \
     gui/cursor/cursor_base.h \
     gui/cursor/system.h \
     gui/cursor/system_cursor_style.h \
+    gui/dimension.h \
     gui/drawing/background.h \
     gui/drawing/canvas.h \
     gui/drawing/canvas_traits.h \
@@ -51,6 +52,7 @@ pkg_headers = \
     gui/message/text_box_observer_set.h \
     gui/message/window_observer_set.h \
     gui/mouse_capture.h \
+    gui/position.h \
     gui/scroll_bar.h \
     gui/shell.h \
     gui/timer.h \
