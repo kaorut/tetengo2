@@ -11,6 +11,16 @@
 #include <tetengo2/gui/dimension.h>
 
 
+namespace
+{
+    using dimension_type = tetengo2::gui::dimension;
+
+    using value_type = dimension_type::value_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(dimension)
@@ -20,8 +30,9 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-
+        {
+            const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+        }
     }
 
 
