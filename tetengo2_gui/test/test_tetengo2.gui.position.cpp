@@ -35,6 +35,22 @@ BOOST_AUTO_TEST_SUITE(position)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const position_type position1{ value_type{ 42 }, value_type{ 24 } };
+        const position_type position2{ value_type{ 42 }, value_type{ 24 } };
+        const position_type position3{ value_type{ 42 }, value_type{ 42 } };
+        const position_type position4{ value_type{ 24 }, value_type{ 42 } };
+        const position_type position5{ value_type{ 24 }, value_type{ 24 } };
+
+        BOOST_CHECK(position1 == position2);
+        BOOST_CHECK(position1 != position3);
+        BOOST_CHECK(position1 != position4);
+        BOOST_CHECK(position1 != position5);
+    }
+
     BOOST_AUTO_TEST_CASE(left)
     {
         BOOST_TEST_PASSPOINT();

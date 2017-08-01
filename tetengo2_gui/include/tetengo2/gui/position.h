@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_POSITION_H)
 #define TETENGO2_GUI_POSITION_H
 
+#include <boost/operators.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2/type_list.h>
@@ -19,7 +20,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class for a position.
     */
-    class position
+    class position : private boost::equality_comparable<position>
     {
     public:
         // types
@@ -40,6 +41,17 @@ namespace tetengo2 { namespace gui
 
 
         // functions
+
+        /*!
+            \brief Checks whether one position is equal to another.
+
+            \param one     One position.
+            \param another Another position.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const position& one, const position& another);
 
         /*!
             \brief Returns the left.

@@ -19,6 +19,11 @@ namespace tetengo2 { namespace gui
     m_height(std::move(height))
     {}
 
+    bool operator==(const dimension& one, const dimension& another)
+    {
+        return one.m_width == another.m_width && one.m_height == another.m_height;
+    }
+
     const dimension::value_type& dimension::width()
     const
     {

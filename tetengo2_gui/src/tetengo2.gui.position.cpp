@@ -19,6 +19,11 @@ namespace tetengo2 { namespace gui
     m_top(std::move(top))
     {}
 
+    bool operator==(const position& one, const position& another)
+    {
+        return one.m_left == another.m_left && one.m_top == another.m_top;
+    }
+
     const position::value_type& position::left()
     const
     {

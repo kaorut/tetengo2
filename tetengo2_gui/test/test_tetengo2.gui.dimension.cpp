@@ -35,6 +35,22 @@ BOOST_AUTO_TEST_SUITE(dimension)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const dimension_type dimension1{ value_type{ 42 }, value_type{ 24 } };
+        const dimension_type dimension2{ value_type{ 42 }, value_type{ 24 } };
+        const dimension_type dimension3{ value_type{ 42 }, value_type{ 42 } };
+        const dimension_type dimension4{ value_type{ 24 }, value_type{ 42 } };
+        const dimension_type dimension5{ value_type{ 24 }, value_type{ 24 } };
+
+        BOOST_CHECK(dimension1 == dimension2);
+        BOOST_CHECK(dimension1 != dimension3);
+        BOOST_CHECK(dimension1 != dimension4);
+        BOOST_CHECK(dimension1 != dimension5);
+    }
+
     BOOST_AUTO_TEST_CASE(width)
     {
         BOOST_TEST_PASSPOINT();

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_DIMENSION_H)
 #define TETENGO2_GUI_DIMENSION_H
 
+#include <boost/operators.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2/type_list.h>
@@ -19,7 +20,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class for a dimension.
     */
-    class dimension
+    class dimension : private boost::equality_comparable<dimension>
     {
     public:
         // types
@@ -40,6 +41,17 @@ namespace tetengo2 { namespace gui
 
 
         // functions
+
+        /*!
+            \brief Checks whether one dimension is equal to another.
+
+            \param one     One dimension.
+            \param another Another dimension.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const dimension& one, const dimension& another);
 
         /*!
             \brief Returns the width.
