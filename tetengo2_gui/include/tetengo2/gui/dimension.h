@@ -39,6 +39,25 @@ namespace tetengo2 { namespace gui
         dimension(value_type width, value_type height);
 
 
+        // functions
+
+        /*!
+            \brief Returns the width.
+
+            \return The width.
+        */
+        const value_type& width()
+        const;
+
+        /*!
+            \brief Returns the height.
+
+            \return The height.
+        */
+        const value_type& height()
+        const;
+
+
     private:
         // variables
 

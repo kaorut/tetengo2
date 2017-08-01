@@ -19,5 +19,17 @@ namespace tetengo2 { namespace gui
     m_height(std::move(height))
     {}
 
+    const dimension::value_type& dimension::width()
+    const
+    {
+        return m_width;
+    }
+
+    const dimension::value_type& dimension::height()
+    const
+    {
+        return m_height;
+    }
+
 
 }}

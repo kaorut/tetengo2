@@ -35,6 +35,24 @@ BOOST_AUTO_TEST_SUITE(dimension)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+
+        BOOST_TEST(dimension.width() == value_type{ 42 });
+    }
+
+    BOOST_AUTO_TEST_CASE(height)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+
+        BOOST_TEST(dimension.height() == value_type{ 24 });
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
