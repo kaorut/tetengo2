@@ -19,5 +19,17 @@ namespace tetengo2 { namespace gui
     m_top(std::move(top))
     {}
 
+    const position::value_type& position::left()
+    const
+    {
+        return m_left;
+    }
+
+    const position::value_type& position::top()
+    const
+    {
+        return m_top;
+    }
+
 
 }}

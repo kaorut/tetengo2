@@ -39,6 +39,25 @@ namespace tetengo2 { namespace gui
         position(value_type left, value_type top);
 
 
+        // functions
+
+        /*!
+            \brief Returns the left.
+
+            \return The left.
+        */
+        const value_type& left()
+        const;
+
+        /*!
+            \brief Returns the top.
+
+            \return The top.
+        */
+        const value_type& top()
+        const;
+
+
     private:
         // variables
 
