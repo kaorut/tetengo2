@@ -11,6 +11,16 @@
 #include <tetengo2/gui/position.h>
 
 
+namespace
+{
+    using position_type = tetengo2::gui::position;
+
+    using value_type = position_type::value_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(position)
@@ -20,8 +30,9 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-
+        {
+            const position_type position{ value_type{ 42 }, value_type{ 24 } };
+        }
     }
 
 
