@@ -11,8 +11,6 @@
 
 #include <boost/operators.hpp>
 
-#include <tetengo2/type_list.h>
-
 
 namespace tetengo2 { namespace gui
 {

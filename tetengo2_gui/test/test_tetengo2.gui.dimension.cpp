@@ -20,8 +20,6 @@ namespace
 
     using dimension_type = tetengo2::gui::dimension<unit_type>;
 
-    using unit_type = typename dimension_type::unit_type;
-
 
 }
 

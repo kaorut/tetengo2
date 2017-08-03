@@ -30,8 +30,8 @@ namespace tetengo2 { namespace gui
     m_height(std::move(height))
     {}
 
-    template <typename Unit>
-    bool operator==(const dimension<Unit>& one, const dimension<Unit>& another)
+    template <typename U>
+    bool operator==(const dimension<U>& one, const dimension<U>& another)
     {
         return one.m_width == another.m_width && one.m_height == another.m_height;
     }

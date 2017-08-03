@@ -10,23 +10,23 @@
 #define TETENGO2_GUI_POSITION_H
 
 #include <boost/operators.hpp>
-#include <boost/rational.hpp>
-
-#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class for a position.
+
+        \tparam Unit A unit type.
     */
-    class position : private boost::equality_comparable<position>
+    template <typename Unit>
+    class position : private boost::equality_comparable<position<Unit>>
     {
     public:
         // types
 
-        //! The value type.
-        using value_type = boost::rational<type_list::integer_type>;
+        //! The unit type.
+        using unit_type = Unit;
 
 
         // constructors and destructor
@@ -37,7 +37,7 @@ namespace tetengo2 { namespace gui
             \param left A left.
             \param top  A top.
         */
-        position(value_type left, value_type top);
+        position(unit_type left, unit_type top);
 
 
         // functions
@@ -45,20 +45,23 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Checks whether one position is equal to another.
 
+            \tparam U A unit type.
+
             \param one     One position.
             \param another Another position.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const position& one, const position& another);
+        template <typename U>
+        friend bool operator==(const position<U>& one, const position<U>& another);
 
         /*!
             \brief Returns the left.
 
             \return The left.
         */
-        const value_type& left()
+        const unit_type& left()
         const;
 
         /*!
@@ -66,16 +69,16 @@ namespace tetengo2 { namespace gui
 
             \return The top.
         */
-        const value_type& top()
+        const unit_type& top()
         const;
 
 
     private:
         // variables
 
-        value_type m_left;
+        unit_type m_left;
 
-        value_type m_top;
+        unit_type m_top;
 
 
     };
