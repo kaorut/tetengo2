@@ -1038,8 +1038,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     widget.details().handle.get(),
                     gui::to_pixels<int>(gui::position_utility<Position>::left(position)),
                     gui::to_pixels<int>(gui::position_utility<Position>::top(position)),
-                    gui::to_pixels<int>(gui::dimension_utility<Dimension>::width(dimension)),
-                    gui::to_pixels<int>(gui::dimension_utility<Dimension>::height(dimension)),
+                    gui::to_pixels<int>(dimension.width()),
+                    gui::to_pixels<int>(dimension.height()),
                     visible(widget) ? TRUE : FALSE
                 );
             if (result == 0)
@@ -1179,11 +1179,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            using dimension_traits_type = gui::dimension_utility<Dimension>;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
-                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
                 );
         }
 
@@ -1202,18 +1201,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-            assert(
-                gui::dimension_utility<Dimension>::width(client_dimension) > 0 &&
-                gui::dimension_utility<Dimension>::height(client_dimension) > 0
-            );
-
             const auto pos = position<Position>(widget);
             const auto window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_STYLE);
             const auto extended_window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_EXSTYLE);
             const auto left = gui::to_pixels< ::LONG>(gui::position_utility<Position>::left(pos));
             const auto top =  gui::to_pixels< ::LONG>(gui::position_utility<Position>::top(pos));
-            const auto width = gui::to_pixels< ::LONG>(gui::dimension_utility<Dimension>::width(client_dimension));
-            const auto height =gui::to_pixels< ::LONG>(gui::dimension_utility<Dimension>::height(client_dimension));
+            const auto width = gui::to_pixels< ::LONG>(client_dimension.width());
+            const auto height =gui::to_pixels< ::LONG>(client_dimension.height());
             ::RECT rectangle{ left, top, left + width, top + height };
             if (
                 ::AdjustWindowRectEx(
@@ -1281,11 +1275,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            using dimension_traits_type = gui::dimension_utility<Dimension>;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
-                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
                 );
         }
 
@@ -1320,11 +1313,10 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto& rectangle = window_placement.rcNormalPosition;
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
-            using dimension_traits_type = gui::dimension_utility<Dimension>;
             return
                 dimension_traits_type::make(
-                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
-                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
                 );
         }
 
@@ -1573,8 +1565,8 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const auto left = gui::to_pixels< ::LONG>(gui::position_utility<Position>::left(position));
             const auto top = gui::to_pixels< ::LONG>(gui::position_utility<Position>::top(position));
-            const auto width = gui::to_pixels< ::LONG>(gui::dimension_utility<Dimension>::width(dimension));
-            const auto height = gui::to_pixels< ::LONG>(gui::dimension_utility<Dimension>::height(dimension));
+            const auto width = gui::to_pixels< ::LONG>(dimension.width());
+            const auto height = gui::to_pixels< ::LONG>(dimension.height());
             const ::RECT rectangle{ left, top, left + width, top + height };
             if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
             {

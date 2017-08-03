@@ -138,41 +138,5 @@ BOOST_AUTO_TEST_SUITE(position_utility)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(dimension_utility)
-    // test cases
-
-    BOOST_AUTO_TEST_CASE(width)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using dimension_type = std::pair<int, int>;
-        const dimension_type dimension{ 123, 456 };
-
-        BOOST_TEST(tetengo2::gui::dimension_utility<dimension_type>::width(dimension) == 123);
-    }
-
-    BOOST_AUTO_TEST_CASE(height)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using dimension_type = std::pair<int, int>;
-        const dimension_type dimension{ 123, 456 };
-
-        BOOST_TEST(tetengo2::gui::dimension_utility<dimension_type>::height(dimension) == 456);
-    }
-
-    BOOST_AUTO_TEST_CASE(make)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using dimension_type = std::pair<int, int>;
-        const auto dimension = tetengo2::gui::dimension_utility<dimension_type>::make(123, 456);
-
-        BOOST_TEST(dimension.first == 123);
-        BOOST_TEST(dimension.second == 456);
-    }
-
-
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

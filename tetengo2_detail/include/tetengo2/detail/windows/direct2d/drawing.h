@@ -569,11 +569,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&                            canvas,
-            const Font&                                           font,
-            const String&                                         text,
-            const Encoder&                                        encoder,
-            const typename gui::dimension_utility<Dimension>::width_type& max_width
+            const canvas_details_type&           canvas,
+            const Font&                          font,
+            const String&                        text,
+            const Encoder&                       encoder,
+            const typename Dimension::unit_type& max_width
         )
         {
             boost::ignore_unused(canvas);
@@ -591,8 +591,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             return
                 {
-                    gui::to_unit<typename gui::dimension_utility<Dimension>::width_type>(to_ddp_x(metrics.width)),
-                    gui::to_unit<typename gui::dimension_utility<Dimension>::height_type>(to_ddp_y(metrics.height))
+                    gui::to_unit<typename Dimension::unit_type>(to_ddp_x(metrics.width)),
+                    gui::to_unit<typename Dimension::unit_type>(to_ddp_y(metrics.height))
                 };
         }
 
@@ -623,16 +623,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            using width_type = typename gui::dimension_utility<Dimension>::width_type;
-            using height_type = typename gui::dimension_utility<Dimension>::height_type;
-            width_type max_width{ 0 };
-            height_type total_height{ 0 };
+            using dimension_unit_type = typename Dimension::unit_type;
+            dimension_unit_type max_width{ 0 };
+            dimension_unit_type total_height{ 0 };
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
-                const auto& chunk_width = gui::dimension_utility<Dimension>::width(chunk_dimension);
-                const auto& chunk_height = gui::dimension_utility<Dimension>::height(chunk_dimension);
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
                 if (character_rotation(chunk, encoder) % 2 == 0)
                 {
                     if (chunk_width > max_width)
@@ -738,22 +737,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         )
         {
             const auto dimension = calc_vertical_text_dimension<Dimension>(canvas, font, text, encoder);
-            const auto& max_width = gui::dimension_utility<Dimension>::width(dimension);
+            const auto& max_width = dimension.width();
 
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
             using top_type = typename gui::position_utility<Position>::top_type;
             using left_type = typename gui::position_utility<Position>::left_type;
-            using width_type = typename gui::dimension_utility<Dimension>::width_type;
+            using dimension_unit_type = typename Dimension::unit_type;
             const auto& base_left = gui::position_utility<Position>::left(position);
             const auto& base_top = gui::position_utility<Position>::top(position);
             auto next_chunk_top = base_top;
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
-                const auto& chunk_width = gui::dimension_utility<Dimension>::width(chunk_dimension);
-                const auto& chunk_height = gui::dimension_utility<Dimension>::height(chunk_dimension);
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
 
                 const int rotation = character_rotation(chunk, encoder);
                 const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
@@ -781,15 +780,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 }
 
                 
-                draw_text<Font, String, Encoder, Position, width_type, Color>(
-                    canvas,
-                    font,
-                    chunk,
-                    encoder,
-                    chunk_position,
-                    width_type{ 0 },
-                    color,
-                    angle
+                draw_text<Font, String, Encoder, Position, dimension_unit_type, Color>(
+                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{ 0 }, color, angle
                 );
 
                 next_chunk_top += rotation % 2 == 0 ? top_type::from(chunk_height) : top_type::from(chunk_width);
@@ -962,9 +954,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::left(position)));
             const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::top(position)));
-            const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension_utility<Dimension>::width(dimension)));
-            const auto height =
-                to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension_utility<Dimension>::height(dimension)));
+            const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(dimension.width()));
+            const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(dimension.height()));
             return { left, top, left + width, top + height };
         }
 

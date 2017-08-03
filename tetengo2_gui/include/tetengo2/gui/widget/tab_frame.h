@@ -108,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace widget
             base_type(
                 parent,
                 position_type{ left_type{ 0 }, top_type{ 0 } },
-                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
             ),
             m_index(index),
             m_title()
@@ -175,9 +175,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using top_type = typename tab_frame::top_type;
 
-            using width_type = typename tab_frame::width_type;
+            using dimension_unit_type = typename tab_frame::dimension_unit_type;
 
-            using height_type = typename tab_frame::height_type;
+            using dimension_unit_type = typename tab_frame::dimension_unit_type;
 
             using unit_size_type = typename canvas_type::unit_size_type;
 
@@ -186,15 +186,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // static functions
 
-            static const width_type& horizontal_padding()
+            static const dimension_unit_type& horizontal_padding()
             {
-                static const auto singleton = width_type{ 1 } / 4;
+                static const auto singleton = dimension_unit_type{ 1 } / 4;
                 return singleton;
             }
 
-            static const height_type& vertical_padding()
+            static const dimension_unit_type& vertical_padding()
             {
-                static const auto singleton = height_type{ 1 };
+                static const auto singleton = dimension_unit_type{ 1 };
                 return singleton;
             }
 
@@ -236,9 +236,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     gui::position_utility<position_type>::top(this->position())
                 };
                 dimension_type label_dimension{
-                    gui::dimension_utility<dimension_type>::width(this->dimension()) -
-                        width_type::from(unselected_left),
-                    gui::dimension_utility<dimension_type>::height(this->dimension())
+                    this->dimension().width() - dimension_unit_type::from(unselected_left), this->dimension().height()
                 };
 
                 canvas.fill_rectangle(label_position, label_dimension);
@@ -259,17 +257,14 @@ namespace tetengo2 { namespace gui { namespace widget
                     const auto text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
                         gui::position_utility<position_type>::left(label_position) +
-                            left_type::from(gui::dimension_utility<dimension_type>::width(label_dimension)) -
+                            left_type::from(label_dimension.width()) -
                             (
-                                left_type::from(gui::dimension_utility<dimension_type>::width(label_dimension)) -
-                                width_type::from(gui::dimension_utility<dimension_type>::height(text_dimension)) -
+                                left_type::from(label_dimension.width()) -
+                                dimension_unit_type::from(text_dimension.height()) -
                                 unselected_left
                             ) / 2,
                         gui::position_utility<position_type>::top(label_position) +
-                            (
-                                top_type::from(gui::dimension_utility<dimension_type>::height(label_dimension)) -
-                                top_type::from(gui::dimension_utility<dimension_type>::width(text_dimension))
-                            ) / 2
+                            (top_type::from(label_dimension.height()) - top_type::from(text_dimension.width())) / 2
                     };
 
                     canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
@@ -281,18 +276,18 @@ namespace tetengo2 { namespace gui { namespace widget
                     const position_type left_bottom{
                         gui::position_utility<position_type>::left(label_position),
                         gui::position_utility<position_type>::top(label_position) +
-                            top_type::from(gui::dimension_utility<dimension_type>::height(label_dimension))
+                            top_type::from(label_dimension.height())
                     };
                     const position_type right_top{
                         gui::position_utility<position_type>::left(label_position) +
-                            left_type::from(gui::dimension_utility<dimension_type>::width(label_dimension)),
+                            left_type::from(label_dimension.width()),
                         gui::position_utility<position_type>::top(label_position)
                     };
                     const position_type right_bottom{
                         gui::position_utility<position_type>::left(label_position) +
-                            left_type::from(gui::dimension_utility<dimension_type>::width(label_dimension)),
+                            left_type::from(label_dimension.width()),
                         gui::position_utility<position_type>::top(label_position) +
-                            top_type::from(gui::dimension_utility<dimension_type>::height(label_dimension))
+                            top_type::from(label_dimension.height())
                     };
                     canvas.draw_line(left_top, left_bottom);
                     canvas.draw_line(left_top, right_top);
@@ -335,10 +330,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 this->set_dimension(
                     dimension_type{
-                        horizontal_padding() * 2 +
-                            width_type::from(gui::dimension_utility<dimension_type>::height(text_dimension)),
-                        vertical_padding() * 2 +
-                            height_type::from(gui::dimension_utility<dimension_type>::width(text_dimension)),
+                        horizontal_padding() * 2 + dimension_unit_type::from(text_dimension.height()),
+                        vertical_padding() * 2 + dimension_unit_type::from(text_dimension.width()),
                     }
                 );
             }
@@ -369,7 +362,7 @@ namespace tetengo2 { namespace gui { namespace widget
             base_type(
                 parent,
                 position_type{ left_type{ 0 }, top_type{ 0 } },
-                dimension_type{ width_type{ 0 }, height_type{ 0 } }
+                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
             ),
             m_control(control)
             {}
@@ -428,11 +421,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 this->set_position(position_type{ left_type::from(tab_label_width), top_type{ 0 } });
                 const auto client_dimension = this->parent().client_dimension();
                 const auto width =
-                    gui::dimension_utility<dimension_type>::width(client_dimension) > tab_label_width ?
-                    gui::dimension_utility<dimension_type>::width(client_dimension) - tab_label_width : width_type{ 0 };
-                this->set_dimension(
-                    dimension_type{ width, gui::dimension_utility<dimension_type>::height(client_dimension) }
-                );
+                    client_dimension.width() > tab_label_width ?
+                    client_dimension.width() - tab_label_width : dimension_unit_type{ 0 };
+                this->set_dimension(dimension_type{ width, client_dimension.height() });
 
                 m_control.set_position_and_dimension(this->position(), this->dimension());
             }
@@ -738,9 +729,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using top_type = typename gui::position_utility<position_type>::top_type;
 
-        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
-
-        using height_type = typename gui::dimension_utility<dimension_type>::height_type;
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
@@ -751,7 +740,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_tab_frame(tab_frame& tab_frame_)
         {
-            tab_frame_.set_dimension(dimension_type{ width_type{ 16 }, height_type{ 16 } });
+            tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
@@ -797,8 +786,8 @@ namespace tetengo2 { namespace gui { namespace widget
                         const position_type position{ left_type{ -1 }, top_type{ -1 } };
                         const auto client_dimension = tab_frame_.client_dimension();
                         const dimension_type dimension{
-                            gui::dimension_utility<dimension_type>::width(client_dimension) + width_type{ 2 },
-                            gui::dimension_utility<dimension_type>::height(client_dimension) + height_type{ 2 }
+                            client_dimension.width() + dimension_unit_type{ 2 },
+                            client_dimension.height() + dimension_unit_type{ 2 }
                         };
                         canvas.fill_rectangle(position, dimension);
                     }
@@ -921,13 +910,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (&p_tab->label() == &tab_label)
                     break;
 
-                top += top_type::from(gui::dimension_utility<dimension_type>::height(p_tab->label().dimension()));
+                top += top_type::from(p_tab->label().dimension().height());
             }
 
             return top;
         }
 
-        const width_type& tab_label_width()
+        const dimension_unit_type& tab_label_width()
         const
         {
             const auto max_width_tab =
@@ -936,18 +925,16 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_tabs.end(),
                     [](const std::unique_ptr<tab_type>& p_tab1, const std::unique_ptr<tab_type>& p_tab2)
                     {
-                        return
-                            gui::dimension_utility<dimension_type>::width(p_tab1->label().dimension()) <
-                            gui::dimension_utility<dimension_type>::width(p_tab2->label().dimension());
+                        return p_tab1->label().dimension().width() < p_tab2->label().dimension().width();
                     }
                 );
             if (max_width_tab == m_p_tabs.end())
             {
-                static const width_type zero_width{ 0 };
+                static const dimension_unit_type zero_width{ 0 };
                 return zero_width;
             }
 
-            return gui::dimension_utility<dimension_type>::width((*max_width_tab)->label().dimension());
+            return (*max_width_tab)->label().dimension().width();
         }
 
 

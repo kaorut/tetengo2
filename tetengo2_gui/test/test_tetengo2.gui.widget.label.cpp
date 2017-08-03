@@ -8,7 +8,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -36,7 +35,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
 
@@ -83,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(label)
         label_type label{ parent };
         label.set_text(string_type{ TETENGO2_TEXT("Tetengo") });
 
-        label.fit_to_content(width_type{ 42 });
+        label.fit_to_content(dimension_unit_type{ 42 });
     }
 
 

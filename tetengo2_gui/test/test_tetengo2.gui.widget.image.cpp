@@ -16,7 +16,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>
@@ -45,9 +44,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
@@ -220,7 +217,7 @@ BOOST_AUTO_TEST_SUITE(image)
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension{ width_type{ 123 }, height_type{ 456 } };
+            const dimension_type answer_dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
         {
@@ -231,7 +228,7 @@ BOOST_AUTO_TEST_SUITE(image)
             image.fit_to_content();
 
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension{ width_type{ 42 }, height_type{ 42 } };
+            const dimension_type answer_dimension{ dimension_unit_type{ 42 }, dimension_unit_type{ 42 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
     }

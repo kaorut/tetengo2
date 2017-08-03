@@ -59,8 +59,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
 
-        //! The width type.
-        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
+        //! The dimension unit type.
+        using dimension_unit_type = typename dimension_type::unit_type;
 
 
         // constructors and destructor
@@ -123,22 +123,20 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param max_width A maximum width.
         */
-        void fit_to_content(width_type max_width)
+        void fit_to_content(dimension_unit_type max_width)
         {
-            if (this->text().empty() || max_width == width_type{ 0 }) return;
+            if (this->text().empty() || max_width == dimension_unit_type{ 0 }) return;
 
             auto one_line_dimension = calc_text_dimension();
-            const width_type line_count{
-                gui::dimension_utility<dimension_type>::width(one_line_dimension) / max_width
-            };
-            if (line_count <= width_type{ 1 })
+            const dimension_unit_type line_count{ one_line_dimension.width() / max_width };
+            if (line_count <= dimension_unit_type{ 1 })
             {
                 this->set_client_dimension(std::move(one_line_dimension));
                 return;
             }
 
             const auto int_line_count = ceil<std::size_t>(line_count);
-            auto height = gui::dimension_utility<dimension_type>::height(one_line_dimension) * int_line_count;
+            auto height = one_line_dimension.height() * int_line_count;
             this->set_client_dimension(dimension_type{ std::move(max_width), std::move(height) });
         }
 

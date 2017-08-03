@@ -23,7 +23,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -60,8 +59,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The dimension type.
         using dimension_type = typename traits_type::dimension_type;
 
-        //! The width type.
-        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
+        //! The dimension unit type.
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
@@ -338,7 +337,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return calc_text_dimension(text, width_type{ 0 });
+            return calc_text_dimension(text, dimension_unit_type{ 0 });
         }
 
         /*!
@@ -349,7 +348,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text, const width_type& max_width)
+        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width)
         const
         {
             return
@@ -387,7 +386,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            draw_text(text, position, width_type{ 0 }, angle);
+            draw_text(text, position, dimension_unit_type{ 0 }, angle);
         }
 
         /*!
@@ -401,10 +400,10 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param angle     A clockwise angle in radians.
         */
         void draw_text(
-            const string_type&   text,
-            const position_type& position,
-            const width_type&    max_width,
-            const double         angle = 0.0
+            const string_type&          text,
+            const position_type&        position,
+            const dimension_unit_type& max_width,
+            const double                angle = 0.0
         )
         {
             drawing_details_type::draw_text(

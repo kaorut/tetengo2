@@ -49,9 +49,7 @@ namespace
 
     using dimension_type = custom_control_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using inner_item_type = custom_control_type::inner_item_type;
 
@@ -73,7 +71,7 @@ namespace
         inner_item_type(
             parent,
             position_type{ left_type{ 42 }, top_type{ 24 } },
-            dimension_type{ width_type{ 12 }, height_type{ 34 } }
+            dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } }
         )
         {}
 
@@ -219,7 +217,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_CHECK((inner_item.dimension() == dimension_type{ width_type{ 12 }, height_type{ 34 } }));
+        BOOST_CHECK((
+            inner_item.dimension() == dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } }
+        ));
     }
 
     BOOST_AUTO_TEST_CASE(set_dimension)
@@ -230,9 +230,11 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.set_dimension(dimension_type{ width_type{ 56 }, height_type{ 78 } });
+        inner_item.set_dimension(dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } });
 
-        BOOST_CHECK((inner_item.dimension() == dimension_type{ width_type{ 56 }, height_type{ 78 } }));
+        BOOST_CHECK((
+            inner_item.dimension() == dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } }
+        ));
     }
 
     BOOST_AUTO_TEST_CASE(resized)

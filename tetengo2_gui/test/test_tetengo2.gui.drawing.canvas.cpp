@@ -43,9 +43,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using color_type = tetengo2::gui::drawing::color;
 
@@ -114,11 +112,7 @@ namespace
     template <typename Int>
     dimension_type make_dimension(const Int w, const Int h)
     {
-        return
-            {
-                tetengo2::gui::dimension_utility<dimension_type>::width_type{ w },
-                tetengo2::gui::dimension_utility<dimension_type>::height_type{ h }
-            };
+        return { dimension_unit_type{ w }, dimension_unit_type{ h } };
     }
 
 
@@ -350,21 +344,21 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
             const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") });
 
-            BOOST_CHECK(dimension == make_dimension(width_type{ 123 }, height_type{ 456 }));
+            BOOST_CHECK(dimension == make_dimension(123U, 456U));
         }
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, width_type{ 256 });
+            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 256 });
 
-            BOOST_CHECK(dimension == make_dimension(width_type{ 123 }, height_type{ 456 }));
+            BOOST_CHECK(dimension == make_dimension(123U, 456U));
         }
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, width_type{ 64 });
+            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 64 });
 
-            BOOST_CHECK(dimension == make_dimension(width_type{ 46 }, height_type{ 890 }));
+            BOOST_CHECK(dimension == make_dimension(46U, 890U));
         }
     }
 
@@ -376,7 +370,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto dimension = canvas.calc_vertical_text_dimension(string_type{ TETENGO2_TEXT("hoge") });
 
-        BOOST_CHECK(dimension == make_dimension(width_type{ 456 }, height_type{ 123 }));
+        BOOST_CHECK(dimension == make_dimension(456U, 123U));
     }
 
     BOOST_AUTO_TEST_CASE(draw_text)
@@ -391,12 +385,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
         {
             concrete_canvas canvas{};
 
-            canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), width_type{ 256 }, 56.78);
+            canvas.draw_text(
+                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), dimension_unit_type{ 256 }, 56.78
+            );
         }
         {
             concrete_canvas canvas{};
 
-            canvas.draw_text(string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), width_type{ 64 }, 56.78);
+            canvas.draw_text(
+                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), dimension_unit_type{ 64 }, 56.78
+            );
         }
     }
 

@@ -95,8 +95,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
             return
                 {
-                    typename gui::dimension_utility<Dimension>::width_type::from_pixels(big_icon_dimension_.first),
-                    typename gui::dimension_utility<Dimension>::height_type::from_pixels(big_icon_dimension_.second)
+                    typename Dimension::unit_type::from_pixels(big_icon_dimension_.first),
+                    typename Dimension::unit_type::from_pixels(big_icon_dimension_.second)
                 };
         }
 
@@ -113,8 +113,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Dimension>
         static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
         {
-            const int width = gui::to_pixels<int>(gui::dimension_utility<Dimension>::width(dimension));
-            const int height = gui::to_pixels<int>(gui::dimension_utility<Dimension>::height(dimension));
+            const int width = gui::to_pixels<int>(dimension.width());
+            const int height = gui::to_pixels<int>(dimension.height());
             icon_handle_type big_icon_handle{ load_icon(path, width, height) };
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();

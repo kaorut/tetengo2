@@ -12,7 +12,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
-#include <tetengo2/gui/measure.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -29,9 +28,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
@@ -50,11 +47,13 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
+            const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
         }
         {
             picture_type::details_ptr_type p_details{
-                drawing_details_type::create_picture(dimension_type{ width_type{ 123 }, height_type{ 456 } })
+                drawing_details_type::create_picture(
+                    dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }
+                )
             };
             const picture_type picture2{ std::move(p_details) };
         }
@@ -69,9 +68,9 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
+        const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
 
-        BOOST_CHECK((picture.dimension() == dimension_type{ width_type{ 123 }, height_type{ 456 } }));
+        BOOST_CHECK((picture.dimension() == dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }));
     }
 
     BOOST_AUTO_TEST_CASE(details)
@@ -79,12 +78,12 @@ BOOST_AUTO_TEST_SUITE(picture)
         BOOST_TEST_PASSPOINT();
 
         {
-            const picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
+            const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
 
             picture.details();
         }
         {
-            picture_type picture{ dimension_type{ width_type{ 123 }, height_type{ 456 } } };
+            picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
 
             picture.details();
         }

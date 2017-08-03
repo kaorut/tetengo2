@@ -468,9 +468,9 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             const auto& left = gui::position_utility<position_type>::left(m_position);
-            const auto right = left + left_type::from(gui::dimension_utility<dimension_type>::width(m_dimension));
+            const auto right = left + left_type::from(m_dimension.width());
             const auto& top = gui::position_utility<position_type>::top(m_position);
-            const auto bottom = top + top_type::from(gui::dimension_utility<dimension_type>::height(m_dimension));
+            const auto bottom = top + top_type::from(m_dimension.height());
 
             const auto& cursor_left = gui::position_utility<position_type>::left(position);
             const auto& cursor_top = gui::position_utility<position_type>::top(position);

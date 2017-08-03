@@ -56,9 +56,7 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension_utility<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension_utility<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using cursor_details_type = tetengo2::detail::stub::cursor;
 
@@ -277,7 +275,7 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         window_type parent{};
         map_box_type map_box{ parent, cursor_details_type::instance() };
-        map_box.set_dimension(dimension_type{ width_type{ 42 }, height_type{ 24 } });
+        map_box.set_dimension(dimension_type{ dimension_unit_type{ 42 }, dimension_unit_type{ 24 } });
 
         map_box.set_splitter_position(left_type{ 24 });
 

@@ -183,9 +183,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using dimension_type = typename traits_type::dimension_type;
 
-        using width_type = typename gui::dimension_utility<dimension_type>::width_type;
-
-        using height_type = typename gui::dimension_utility<dimension_type>::height_type;
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         using widget_type = typename abstract_window_type::base_type;
 
@@ -329,18 +327,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type{ width_type{ 30 }, height_type{ 8 } });
+            this->set_client_dimension(dimension_type{ dimension_unit_type{ 30 }, dimension_unit_type{ 8 } });
 
-            m_p_message_label->set_dimension(dimension_type{ width_type{ 26 }, height_type{ 2 } });
+            m_p_message_label->set_dimension(dimension_type{ dimension_unit_type{ 26 }, dimension_unit_type{ 2 } });
             m_p_message_label->set_position(position_type{ left_type{ 2 }, top_type{ 1 } });
 
-            m_p_progress_label->set_dimension(dimension_type{ width_type{ 3 }, height_type{ 2 } });
+            m_p_progress_label->set_dimension(dimension_type{ dimension_unit_type{ 3 }, dimension_unit_type{ 2 } });
             m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
 
-            m_p_progress_bar->set_dimension(dimension_type{ width_type{ 23 }, height_type{ 1 } });
+            m_p_progress_bar->set_dimension(dimension_type{ dimension_unit_type{ 23 }, dimension_unit_type{ 1 } });
             m_p_progress_bar->set_position(position_type{ left_type{ 5 }, top_type{ 3 } });
 
-            m_p_cancel_button->set_dimension(dimension_type{ width_type{ 8 }, height_type{ 2 } });
+            m_p_cancel_button->set_dimension(dimension_type{ dimension_unit_type{ 8 }, dimension_unit_type{ 2 } });
             m_p_cancel_button->set_position(position_type{ left_type{ 20 }, top_type{ 5 } });
         }
 

@@ -13,6 +13,7 @@
 #include <string>
 #include <utility>
 
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/widget_traits.h>
@@ -39,7 +40,7 @@ namespace test_tetengo2 { namespace gui { namespace type_list
         using position_type =
             std::pair<tetengo2::gui::unit::pixel<difference_type>, tetengo2::gui::unit::pixel<difference_type>>;
 
-        using dimension_type = std::pair<tetengo2::gui::unit::pixel<size_type>, tetengo2::gui::unit::pixel<size_type>>;
+        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::pixel<size_type>>;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;
