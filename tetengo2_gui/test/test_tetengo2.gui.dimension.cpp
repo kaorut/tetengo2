@@ -8,14 +8,19 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/gui/dimension.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
-    using dimension_type = tetengo2::gui::dimension;
+    using unit_type = tetengo2::gui::unit::em<tetengo2::type_list::size_type, tetengo2::detail::stub::unit>;
 
-    using value_type = dimension_type::value_type;
+    using dimension_type = tetengo2::gui::dimension<unit_type>;
+
+    using unit_type = typename dimension_type::unit_type;
 
 
 }
@@ -31,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         {
-            const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
         }
     }
 
@@ -39,11 +44,11 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension1{ value_type{ 42 }, value_type{ 24 } };
-        const dimension_type dimension2{ value_type{ 42 }, value_type{ 24 } };
-        const dimension_type dimension3{ value_type{ 42 }, value_type{ 42 } };
-        const dimension_type dimension4{ value_type{ 24 }, value_type{ 42 } };
-        const dimension_type dimension5{ value_type{ 24 }, value_type{ 24 } };
+        const dimension_type dimension1{ unit_type{ 42 }, unit_type{ 24 } };
+        const dimension_type dimension2{ unit_type{ 42 }, unit_type{ 24 } };
+        const dimension_type dimension3{ unit_type{ 42 }, unit_type{ 42 } };
+        const dimension_type dimension4{ unit_type{ 24 }, unit_type{ 42 } };
+        const dimension_type dimension5{ unit_type{ 24 }, unit_type{ 24 } };
 
         BOOST_CHECK(dimension1 == dimension2);
         BOOST_CHECK(dimension1 != dimension3);
@@ -55,18 +60,18 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_TEST(dimension.width() == value_type{ 42 });
+        BOOST_CHECK(dimension.width() == unit_type{ 42 });
     }
 
     BOOST_AUTO_TEST_CASE(height)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ value_type{ 42 }, value_type{ 24 } };
+        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_TEST(dimension.height() == value_type{ 24 });
+        BOOST_CHECK(dimension.height() == unit_type{ 24 });
     }
 
 

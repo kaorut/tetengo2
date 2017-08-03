@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DIMENSION_H
 
 #include <boost/operators.hpp>
-#include <boost/rational.hpp>
 
 #include <tetengo2/type_list.h>
 
@@ -18,15 +17,18 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class for a dimension.
+        \brief The class template for a dimension.
+
+        \tparam Unit A unit type.
     */
-    class dimension : private boost::equality_comparable<dimension>
+    template <typename Unit>
+    class dimension : private boost::equality_comparable<dimension<Unit>>
     {
     public:
         // types
 
-        //! The value type.
-        using value_type = boost::rational<type_list::size_type>;
+        //! The unit type.
+        using unit_type = Unit;
 
 
         // constructors and destructor
@@ -37,7 +39,7 @@ namespace tetengo2 { namespace gui
             \param width  A width.
             \param height A height.
         */
-        dimension(value_type width, value_type height);
+        dimension(unit_type width, unit_type height);
 
 
         // functions
@@ -45,20 +47,23 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Checks whether one dimension is equal to another.
 
+            \tparam U A unit type.
+
             \param one     One dimension.
             \param another Another dimension.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const dimension& one, const dimension& another);
+        template <typename U>
+        friend bool operator==(const dimension<U>& one, const dimension<U>& another);
 
         /*!
             \brief Returns the width.
 
             \return The width.
         */
-        const value_type& width()
+        const unit_type& width()
         const;
 
         /*!
@@ -66,16 +71,16 @@ namespace tetengo2 { namespace gui
 
             \return The height.
         */
-        const value_type& height()
+        const unit_type& height()
         const;
 
 
     private:
         // variables
 
-        value_type m_width;
+        unit_type m_width;
 
-        value_type m_height;
+        unit_type m_height;
 
 
     };
