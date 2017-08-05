@@ -23,7 +23,6 @@
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>

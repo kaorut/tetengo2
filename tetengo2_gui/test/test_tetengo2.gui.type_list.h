@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <string>
-#include <utility>
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
