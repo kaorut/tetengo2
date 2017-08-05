@@ -460,12 +460,12 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -478,14 +478,21 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )

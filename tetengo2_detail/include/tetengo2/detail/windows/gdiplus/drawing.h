@@ -671,12 +671,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -689,14 +689,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )
@@ -713,7 +720,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels<Gdiplus::REAL>(position.top())
             };
             const Gdiplus::REAL gdiplus_max_width =
-                max_width == Width{ 0 } ?
+                max_width == DimensionUnit{ 0 } ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout{
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()

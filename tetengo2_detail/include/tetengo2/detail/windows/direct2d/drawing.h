@@ -652,12 +652,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -670,14 +670,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )
@@ -1054,12 +1061,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
         }
 
-        template <typename String, typename Font, typename Encoder, typename Width>
+        template <typename String, typename Font, typename Encoder, typename DimensionUnit>
         static unique_com_ptr< ::IDWriteTextLayout> create_text_layout(
-            const String&       text,
-            const Font&         font,
-            const Encoder&      encoder,
-            const Width&        max_width
+            const String&        text,
+            const Font&          font,
+            const Encoder&       encoder,
+            const DimensionUnit& max_width
         )
         {
             ::IDWriteTextFormat* rp_format = nullptr;
@@ -1086,7 +1093,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip =
-                max_width == Width{ 0 } ?
+                max_width == DimensionUnit{ 0 } ?
                 std::numeric_limits< ::FLOAT>::max() : to_dip_x(gui::to_pixels< ::FLOAT>(max_width));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =
