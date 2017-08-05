@@ -18,7 +18,6 @@
 
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/control.h>
 
 
@@ -244,9 +243,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename base_type::position_type;
 
-        using left_type = typename gui::position_utility<position_type>::left_type;
-
-        using top_type = typename gui::position_utility<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
@@ -278,12 +275,14 @@ namespace tetengo2 { namespace gui { namespace widget
             if (m_p_picture)
             {
                 canvas.paint_picture(
-                    *m_p_picture, position_type{ left_type{ 0 }, top_type{ 0 } }, this->client_dimension()
+                    *m_p_picture,
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
+                    this->client_dimension()
                 );
             }
             else if (m_p_icon)
             {
-                canvas.paint_icon(*m_p_icon, position_type{ left_type{ 0 }, top_type{ 0 } });
+                canvas.paint_icon(*m_p_icon, position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } });
             }
         }
 

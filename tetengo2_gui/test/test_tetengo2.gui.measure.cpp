@@ -102,41 +102,5 @@ BOOST_AUTO_TEST_SUITE(gui)
     }
 
 
-BOOST_AUTO_TEST_SUITE(position_utility)
-    // test cases
-
-    BOOST_AUTO_TEST_CASE(left)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using position_type = std::pair<int, int>;
-        const position_type position{ 123, 456 };
-
-        BOOST_TEST(tetengo2::gui::position_utility<position_type>::left(position) == 123);
-    }
-
-    BOOST_AUTO_TEST_CASE(top)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using position_type = std::pair<int, int>;
-        const position_type position{ 123, 456 };
-
-        BOOST_TEST(tetengo2::gui::position_utility<position_type>::top(position) == 456);
-    }
-
-    BOOST_AUTO_TEST_CASE(make)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        using position_type = std::pair<int, int>;
-        const auto position = tetengo2::gui::position_utility<position_type>::make(123, 456);
-
-        BOOST_TEST(position.first == 123);
-        BOOST_TEST(position.second == 456);
-    }
-
-
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

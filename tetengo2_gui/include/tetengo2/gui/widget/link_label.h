@@ -15,7 +15,6 @@
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/stdalt.h>
@@ -144,9 +143,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename base_type::position_type;
 
-        using left_type = typename gui::position_utility<position_type>::left_type;
-
-        using top_type = typename gui::position_utility<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         class paint_background
         {
@@ -163,11 +160,13 @@ namespace tetengo2 { namespace gui { namespace widget
                     return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
+                canvas.fill_rectangle(
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
+                );
                 if (m_self.focused())
                 {
                     canvas.draw_focus_indication(
-                        position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension()
+                        position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
                     );
                 }
 

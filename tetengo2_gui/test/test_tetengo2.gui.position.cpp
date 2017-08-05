@@ -16,7 +16,7 @@
 
 namespace
 {
-    using unit_type = tetengo2::gui::unit::em<tetengo2::type_list::size_type, tetengo2::detail::stub::unit>;
+    using unit_type = tetengo2::gui::unit::em<tetengo2::type_list::difference_type, tetengo2::detail::stub::unit>;
 
     using position_type = tetengo2::gui::position<unit_type>;
 

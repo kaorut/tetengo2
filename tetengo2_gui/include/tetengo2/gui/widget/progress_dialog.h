@@ -177,9 +177,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename traits_type::position_type;
 
-        using left_type = typename gui::position_utility<position_type>::left_type;
-
-        using top_type = typename gui::position_utility<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         using dimension_type = typename traits_type::dimension_type;
 
@@ -330,16 +328,16 @@ namespace tetengo2 { namespace gui { namespace widget
             this->set_client_dimension(dimension_type{ dimension_unit_type{ 30 }, dimension_unit_type{ 8 } });
 
             m_p_message_label->set_dimension(dimension_type{ dimension_unit_type{ 26 }, dimension_unit_type{ 2 } });
-            m_p_message_label->set_position(position_type{ left_type{ 2 }, top_type{ 1 } });
+            m_p_message_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 1 } });
 
             m_p_progress_label->set_dimension(dimension_type{ dimension_unit_type{ 3 }, dimension_unit_type{ 2 } });
-            m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
+            m_p_progress_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 3 } });
 
             m_p_progress_bar->set_dimension(dimension_type{ dimension_unit_type{ 23 }, dimension_unit_type{ 1 } });
-            m_p_progress_bar->set_position(position_type{ left_type{ 5 }, top_type{ 3 } });
+            m_p_progress_bar->set_position(position_type{ position_unit_type{ 5 }, position_unit_type{ 3 } });
 
             m_p_cancel_button->set_dimension(dimension_type{ dimension_unit_type{ 8 }, dimension_unit_type{ 2 } });
-            m_p_cancel_button->set_position(position_type{ left_type{ 20 }, top_type{ 5 } });
+            m_p_cancel_button->set_position(position_type{ position_unit_type{ 20 }, position_unit_type{ 5 } });
         }
 
         void timer_procedure(bool&)

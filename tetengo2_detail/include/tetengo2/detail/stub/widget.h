@@ -575,12 +575,9 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            using position_traits_type = gui::position_utility<Position>;
-
             widget.details().position =
                 std::make_pair(
-                    gui::to_pixels<std::size_t>(position_traits_type::left(position)),
-                    gui::to_pixels<std::size_t>(position_traits_type::top(position))
+                    gui::to_pixels<std::size_t>(position.left()), gui::to_pixels<std::size_t>(position.top())
                 );
             widget.details().dimension =
                 std::make_pair(
@@ -603,13 +600,11 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            using position_traits_type = gui::position_utility<Position>;
-
             return
-                position_traits_type::make(
-                    gui::to_unit<typename position_traits_type::left_type>(widget.details().position.first),
-                    gui::to_unit<typename position_traits_type::top_type>(widget.details().position.second)
-                );
+                {
+                    gui::to_unit<typename Position::unit_type>(widget.details().position.first),
+                    gui::to_unit<typename Position::unit_type>(widget.details().position.second)
+                };
         }
 
         /*!

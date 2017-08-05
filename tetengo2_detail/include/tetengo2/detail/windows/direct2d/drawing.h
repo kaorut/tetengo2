@@ -741,11 +741,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            using top_type = typename gui::position_utility<Position>::top_type;
-            using left_type = typename gui::position_utility<Position>::left_type;
+            using position_unit_type = typename Position::unit_type;
             using dimension_unit_type = typename Dimension::unit_type;
-            const auto& base_left = gui::position_utility<Position>::left(position);
-            const auto& base_top = gui::position_utility<Position>::top(position);
+            const auto& base_left = position.left();
+            const auto& base_top = position.top();
             auto next_chunk_top = base_top;
             for (const auto& chunk: chunks)
             {
@@ -759,19 +758,20 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
                 const auto chunk_left =
                     rotation % 2 == 0 ?
-                    base_left + left_type::from(max_width - chunk_width) / 2 :
-                    base_left + left_type::from(max_width - chunk_height) / 2;
+                    base_left + position_unit_type::from(max_width - chunk_width) / 2 :
+                    base_left + position_unit_type::from(max_width - chunk_height) / 2;
 
                 Position chunk_position{ chunk_left, next_chunk_top };
                 if (rotation == 1)
                 {
-                    chunk_position = Position{ chunk_left + left_type::from(chunk_height), next_chunk_top };
+                    chunk_position = Position{ chunk_left + position_unit_type::from(chunk_height), next_chunk_top };
                 }
                 else if (rotation == 2)
                 {
                     chunk_position =
                         Position{
-                            chunk_left + left_type::from(chunk_width), next_chunk_top + top_type::from(chunk_height)
+                            chunk_left + position_unit_type::from(chunk_width),
+                            next_chunk_top + position_unit_type::from(chunk_height)
                         };
                 }
                 else
@@ -784,7 +784,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     canvas, font, chunk, encoder, chunk_position, dimension_unit_type{ 0 }, color, angle
                 );
 
-                next_chunk_top += rotation % 2 == 0 ? top_type::from(chunk_height) : top_type::from(chunk_width);
+                next_chunk_top +=
+                    rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
             }
 
         }
@@ -944,16 +945,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(position.left()));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(position.top()));
             return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position_utility<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(position.left()));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(position.top()));
             const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(dimension.width()));
             const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(dimension.height()));
             return { left, top, left + width, top + height };

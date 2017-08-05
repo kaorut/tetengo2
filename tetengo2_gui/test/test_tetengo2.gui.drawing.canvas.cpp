@@ -22,7 +22,6 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -40,6 +39,8 @@ namespace
     using string_type = common_type_list_type::string_type;
 
     using position_type = common_type_list_type::position_type;
+
+    using position_unit_type = position_type::unit_type;
 
     using dimension_type = common_type_list_type::dimension_type;
 
@@ -102,11 +103,7 @@ namespace
     template <typename Int>
     position_type make_position(const Int x, const Int y)
     {
-        return
-            {
-                tetengo2::gui::position_utility<position_type>::left_type{ x },
-                tetengo2::gui::position_utility<position_type>::top_type{ y }
-            };
+        return { position_unit_type{ x }, position_unit_type{ y } };
     }
 
     template <typename Int>

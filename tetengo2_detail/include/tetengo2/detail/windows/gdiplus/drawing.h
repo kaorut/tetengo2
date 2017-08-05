@@ -366,12 +366,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels<Gdiplus::REAL>(width)
             };
             const Gdiplus::PointF gdiplus_from{
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::left(from)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::top(from))
+                gui::to_pixels<Gdiplus::REAL>(from.left()), gui::to_pixels<Gdiplus::REAL>(from.top())
             };
             const Gdiplus::PointF gdiplus_to{
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::left(to)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::top(to))
+                gui::to_pixels<Gdiplus::REAL>(to.left()), gui::to_pixels<Gdiplus::REAL>(to.top())
             };
             const auto status = canvas.get().DrawLine(&pen, gdiplus_from, gdiplus_to);
             if (status != Gdiplus::Ok)
@@ -402,8 +400,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const ::RECT rect{
-                gui::to_pixels< ::LONG>(gui::position_utility<Position>::left(position)),
-                gui::to_pixels< ::LONG>(gui::position_utility<Position>::top(position)),
+                gui::to_pixels< ::LONG>(position.left()),
+                gui::to_pixels< ::LONG>(position.top()),
                 gui::to_pixels< ::LONG>(dimension.width()),
                 gui::to_pixels< ::LONG>(dimension.height())
             };
@@ -470,8 +468,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (!background_details.get()) return;
 
             const Gdiplus::Rect rectangle{
-                gui::to_pixels< ::INT>(gui::position_utility<Position>::left(position)),
-                gui::to_pixels< ::INT>(gui::position_utility<Position>::top(position)),
+                gui::to_pixels< ::INT>(position.left()),
+                gui::to_pixels< ::INT>(position.top()),
                 gui::to_pixels< ::INT>(dimension.width()),
                 gui::to_pixels< ::INT>(dimension.height())
             };
@@ -711,8 +709,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto p_solid_brush = create_solid_background(color);
 
             const Gdiplus::PointF gdiplus_point{
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::left(position)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position_utility<Position>::top(position))
+                gui::to_pixels<Gdiplus::REAL>(position.left()),
+                gui::to_pixels<Gdiplus::REAL>(position.top())
             };
             const Gdiplus::REAL gdiplus_max_width =
                 max_width == Width{ 0 } ?
@@ -869,8 +867,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto status =
                 canvas.get().DrawImage(
                     &bitmap,
-                    gui::to_pixels< ::INT>(gui::position_utility<Position>::left(position)),
-                    gui::to_pixels< ::INT>(gui::position_utility<Position>::top(position)),
+                    gui::to_pixels< ::INT>(position.left()),
+                    gui::to_pixels< ::INT>(position.top()),
                     gui::to_pixels< ::INT>(dimension.width()),
                     gui::to_pixels< ::INT>(dimension.height())
                 );
@@ -901,8 +899,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::BOOL result =
                 ::DrawIconEx(
                     canvas.get().GetHDC(),
-                    gui::to_pixels<int>(gui::position_utility<Position>::left(position)),
-                    gui::to_pixels<int>(gui::position_utility<Position>::top(position)),
+                    gui::to_pixels<int>(position.left()),
+                    gui::to_pixels<int>(position.top()),
                     icon.details().big_icon_handle.get(),
                     gui::to_pixels<int>(icon.dimension().width()),
                     gui::to_pixels<int>(icon.dimension().width()),
@@ -939,8 +937,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 {
                     return
                         Gdiplus::PointF(
-                            gui::to_pixels<Gdiplus::REAL>(gui::position_utility<position_type>::left(position)),
-                            gui::to_pixels<Gdiplus::REAL>(gui::position_utility<position_type>::top(position))
+                            gui::to_pixels<Gdiplus::REAL>(position.left()),
+                            gui::to_pixels<Gdiplus::REAL>(position.top())
                         );
                 }
             );

@@ -14,7 +14,6 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/control.h>
 
 
@@ -146,9 +145,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
-        using left_type = typename gui::position_utility<position_type>::left_type;
-
-        using top_type = typename gui::position_utility<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         class paint_background
         {
@@ -165,7 +162,9 @@ namespace tetengo2 { namespace gui { namespace widget
                     return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
+                canvas.fill_rectangle(
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
+                );
 
                 return true;
             }
