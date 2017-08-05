@@ -172,10 +172,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using position_unit_type = typename tab_frame::position_unit_type;
 
-            using position_unit_type = typename tab_frame::position_unit_type;
-
-            using dimension_unit_type = typename tab_frame::dimension_unit_type;
-
             using dimension_unit_type = typename tab_frame::dimension_unit_type;
 
             using unit_size_type = typename canvas_type::unit_size_type;
