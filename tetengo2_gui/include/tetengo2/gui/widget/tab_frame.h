@@ -174,8 +174,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using dimension_unit_type = typename tab_frame::dimension_unit_type;
 
-            using unit_size_type = typename canvas_type::unit_size_type;
-
             using font_type = typename canvas_type::font_type;
 
 
@@ -223,7 +221,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
                 );
-                canvas.set_line_width(unit_size_type{ 1 } / 8);
+                canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{ 0 };
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())

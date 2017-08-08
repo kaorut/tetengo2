@@ -15,16 +15,16 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The traits class template for a canvas.
 
-        \tparam Size      A size type.
-        \tparam UnitSize  A unit size type.
-        \tparam String    A string type.
-        \tparam Position  A position type.
-        \tparam Dimension A dimension type.
-        \tparam Encoder   An encoder type.
+        \tparam Size          A size type.
+        \tparam DimensionUnit A dimension unit type.
+        \tparam String        A string type.
+        \tparam Position      A position type.
+        \tparam Dimension     A dimension type.
+        \tparam Encoder       An encoder type.
     */
     template <
         typename Size,
-        typename UnitSize,
+        typename DimensionUnit,
         typename String,
         typename Position,
         typename Dimension,
@@ -38,8 +38,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The size type.
         using size_type = Size;
 
-        //! The unit size type.
-        using unit_size_type = UnitSize;
+        //! The dimension unit type.
+        using dimension_unit_type = DimensionUnit;
 
         //! The string type.
         using string_type = String;

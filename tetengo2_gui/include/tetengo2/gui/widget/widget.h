@@ -59,8 +59,8 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The size type.
         using size_type = typename traits_type::size_type;
 
-        //! The unit size type.
-        using unit_size_type = typename traits_type::unit_size_type;
+        //! The dimension unit type.
+        using dimension_unit_type = typename traits_type::dimension_unit_type;
 
         //! The difference type.
         using difference_type = typename traits_type::difference_type;
@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The canvas traits type.
         using canvas_traits_type =
             gui::drawing::canvas_traits<
-                size_type, unit_size_type, string_type, position_type, dimension_type, encoder_type
+                size_type, dimension_unit_type, string_type, position_type, dimension_type, encoder_type
             >;
 
         //! The canvas type.
