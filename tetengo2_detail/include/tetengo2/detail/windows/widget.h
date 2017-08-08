@@ -1178,10 +1178,10 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             return
-                dimension_traits_type::make(
+                {
                     gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
                     gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
-                );
+                };
         }
 
         /*!
@@ -1274,10 +1274,10 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             return
-                dimension_traits_type::make(
+                {
                     gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
                     gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
-                );
+                };
         }
 
         /*!
@@ -1312,10 +1312,10 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             return
-                dimension_traits_type::make(
+                {
                     gui::to_unit<typename Dimension::unit_type>(rectangle.right - rectangle.left),
                     gui::to_unit<typename Dimension::unit_type>(rectangle.bottom - rectangle.top)
-                );
+                };
         }
 
         /*!
