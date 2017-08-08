@@ -62,7 +62,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
         using widget_traits_type =
             tetengo2::gui::widget::widget_traits<
                 size_type,
-                size_type,
                 difference_type,
                 string_type,
                 position_type,

@@ -268,8 +268,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
-        using dimension_unit_type = typename canvas_type::dimension_unit_type;
-
         using color_type = typename canvas_type::color_type;
 
         using position_unit_type = typename position_type::unit_type;

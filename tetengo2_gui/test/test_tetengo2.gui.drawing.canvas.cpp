@@ -71,9 +71,7 @@ namespace
     using encoder_type = common_type_list_type::ui_encoder_type;
 
     using canvas_traits_type =
-        tetengo2::gui::drawing::canvas_traits<
-            size_type, size_type, string_type, position_type, dimension_type, encoder_type
-        >;
+        tetengo2::gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
     using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 

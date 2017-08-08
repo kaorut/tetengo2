@@ -15,17 +15,15 @@ namespace tetengo2 { namespace gui { namespace widget
     /*!
         \brief The traits class template for a GUI widget.
 
-        \tparam Size          A size type.
-        \tparam DimensionUnit A dimension unit type.
-        \tparam Difference    A difference type.
-        \tparam String        A string type.
-        \tparam Position      A position type.
-        \tparam Dimension     A dimension type.
-        \tparam Encoder       An encoder type.
+        \tparam Size       A size type.
+        \tparam Difference A difference type.
+        \tparam String     A string type.
+        \tparam Position   A position type.
+        \tparam Dimension  A dimension type.
+        \tparam Encoder    An encoder type.
    */
     template <
         typename Size,
-        typename DimensionUnit,
         typename Difference,
         typename String,
         typename Position,
@@ -38,9 +36,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The size type.
         using size_type = Size;
-
-        //! The dimension unit type.
-        using dimension_unit_type = DimensionUnit;
 
         //! The difference type.
         using difference_type = Difference;
