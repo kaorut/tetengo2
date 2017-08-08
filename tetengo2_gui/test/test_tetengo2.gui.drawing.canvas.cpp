@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto line_width = canvas.line_width();
 
-        BOOST_TEST(line_width == 1U);
+        BOOST_CHECK(line_width == 1U);
     }
 
     BOOST_AUTO_TEST_CASE(set_line_width)
@@ -218,9 +218,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas{};
 
-        canvas.set_line_width(42);
+        canvas.set_line_width(dimension_unit_type{ 42 });
 
-        BOOST_TEST(canvas.line_width() == 42U);
+        BOOST_CHECK(canvas.line_width() == 42U);
     }
 
     BOOST_AUTO_TEST_CASE(line_style)
