@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/unit.h>
@@ -16,7 +17,8 @@
 
 namespace
 {
-    using unit_type = tetengo2::gui::unit::em<tetengo2::type_list::difference_type, tetengo2::detail::stub::unit>;
+    using unit_type =
+        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>, tetengo2::detail::stub::unit>;
 
     using position_type = tetengo2::gui::position<unit_type>;
 

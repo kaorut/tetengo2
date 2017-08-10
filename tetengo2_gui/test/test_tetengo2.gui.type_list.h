@@ -12,6 +12,8 @@
 #include <cstddef>
 #include <string>
 
+#include <boost/rational.hpp>
+
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -37,9 +39,9 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         using string_type = std::wstring;
 
-        using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel<difference_type>>;
+        using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel<boost::rational<difference_type>>>;
 
-        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::pixel<size_type>>;
+        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::pixel<boost::rational<size_type>>>;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;

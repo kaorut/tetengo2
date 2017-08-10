@@ -1131,8 +1131,8 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             const auto widget_dimension = widget.dimension();
-            const auto widget_width = gui::to_pixels< ::LONG>(widget_dimension.first);
-            const auto widget_height = gui::to_pixels< ::LONG>(widget_dimension.second);
+            const auto widget_width = gui::to_pixels< ::LONG>(widget_dimension.width());
+            const auto widget_height = gui::to_pixels< ::LONG>(widget_dimension.height());
             if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
                 point.x = monitor_info.rcWork.right - widget_width - x_margin;
             if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)
