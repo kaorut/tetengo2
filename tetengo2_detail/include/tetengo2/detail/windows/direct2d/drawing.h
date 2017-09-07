@@ -569,11 +569,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&                            canvas,
-            const Font&                                           font,
-            const String&                                         text,
-            const Encoder&                                        encoder,
-            const typename gui::dimension<Dimension>::width_type& max_width
+            const canvas_details_type&           canvas,
+            const Font&                          font,
+            const String&                        text,
+            const Encoder&                       encoder,
+            const typename Dimension::unit_type& max_width
         )
         {
             boost::ignore_unused(canvas);
@@ -591,8 +591,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             return
                 {
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(to_ddp_x(metrics.width)),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(to_ddp_y(metrics.height))
+                    gui::to_unit<typename Dimension::unit_type>(to_ddp_x(metrics.width)),
+                    gui::to_unit<typename Dimension::unit_type>(to_ddp_y(metrics.height))
                 };
         }
 
@@ -623,16 +623,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            using width_type = typename gui::dimension<Dimension>::width_type;
-            using height_type = typename gui::dimension<Dimension>::height_type;
-            width_type max_width{ 0 };
-            height_type total_height{ 0 };
+            using dimension_unit_type = typename Dimension::unit_type;
+            dimension_unit_type max_width{ 0 };
+            dimension_unit_type total_height{ 0 };
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
-                const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
-                const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
                 if (character_rotation(chunk, encoder) % 2 == 0)
                 {
                     if (chunk_width > max_width)
@@ -653,12 +652,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -671,14 +670,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )
@@ -738,41 +744,41 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         )
         {
             const auto dimension = calc_vertical_text_dimension<Dimension>(canvas, font, text, encoder);
-            const auto& max_width = gui::dimension<Dimension>::width(dimension);
+            const auto& max_width = dimension.width();
 
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
-            using top_type = typename gui::position<Position>::top_type;
-            using left_type = typename gui::position<Position>::left_type;
-            using width_type = typename gui::dimension<Dimension>::width_type;
-            const auto& base_left = gui::position<Position>::left(position);
-            const auto& base_top = gui::position<Position>::top(position);
+            using position_unit_type = typename Position::unit_type;
+            using dimension_unit_type = typename Dimension::unit_type;
+            const auto& base_left = position.left();
+            const auto& base_top = position.top();
             auto next_chunk_top = base_top;
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, width_type{ 0 });
-                const auto& chunk_width = gui::dimension<Dimension>::width(chunk_dimension);
-                const auto& chunk_height = gui::dimension<Dimension>::height(chunk_dimension);
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
 
                 const int rotation = character_rotation(chunk, encoder);
                 const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
 
                 const auto chunk_left =
                     rotation % 2 == 0 ?
-                    base_left + left_type::from(max_width - chunk_width) / 2 :
-                    base_left + left_type::from(max_width - chunk_height) / 2;
+                    base_left + position_unit_type::from(max_width - chunk_width) / 2 :
+                    base_left + position_unit_type::from(max_width - chunk_height) / 2;
 
                 Position chunk_position{ chunk_left, next_chunk_top };
                 if (rotation == 1)
                 {
-                    chunk_position = Position{ chunk_left + left_type::from(chunk_height), next_chunk_top };
+                    chunk_position = Position{ chunk_left + position_unit_type::from(chunk_height), next_chunk_top };
                 }
                 else if (rotation == 2)
                 {
                     chunk_position =
                         Position{
-                            chunk_left + left_type::from(chunk_width), next_chunk_top + top_type::from(chunk_height)
+                            chunk_left + position_unit_type::from(chunk_width),
+                            next_chunk_top + position_unit_type::from(chunk_height)
                         };
                 }
                 else
@@ -781,18 +787,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 }
 
                 
-                draw_text<Font, String, Encoder, Position, width_type, Color>(
-                    canvas,
-                    font,
-                    chunk,
-                    encoder,
-                    chunk_position,
-                    width_type{ 0 },
-                    color,
-                    angle
+                draw_text<Font, String, Encoder, Position, dimension_unit_type, Color>(
+                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{ 0 }, color, angle
                 );
 
-                next_chunk_top += rotation % 2 == 0 ? top_type::from(chunk_height) : top_type::from(chunk_width);
+                next_chunk_top +=
+                    rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
             }
 
         }
@@ -952,18 +952,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(position.left()));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(position.top()));
             return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position)));
-            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position)));
-            const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension)));
-            const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension)));
+            const auto left = to_dip_x(gui::to_pixels< ::FLOAT>(position.left()));
+            const auto top = to_dip_y(gui::to_pixels< ::FLOAT>(position.top()));
+            const auto width = to_dip_x(gui::to_pixels< ::FLOAT>(dimension.width()));
+            const auto height = to_dip_y(gui::to_pixels< ::FLOAT>(dimension.height()));
             return { left, top, left + width, top + height };
         }
 
@@ -1061,12 +1061,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
         }
 
-        template <typename String, typename Font, typename Encoder, typename Width>
+        template <typename String, typename Font, typename Encoder, typename DimensionUnit>
         static unique_com_ptr< ::IDWriteTextLayout> create_text_layout(
-            const String&       text,
-            const Font&         font,
-            const Encoder&      encoder,
-            const Width&        max_width
+            const String&        text,
+            const Font&          font,
+            const Encoder&       encoder,
+            const DimensionUnit& max_width
         )
         {
             ::IDWriteTextFormat* rp_format = nullptr;
@@ -1093,7 +1093,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip =
-                max_width == Width{ 0 } ?
+                max_width == DimensionUnit{ 0 } ?
                 std::numeric_limits< ::FLOAT>::max() : to_dip_x(gui::to_pixels< ::FLOAT>(max_width));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =

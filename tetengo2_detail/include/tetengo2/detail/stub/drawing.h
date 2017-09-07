@@ -178,8 +178,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
         {
-            const auto& width = gui::dimension<Dimension>::width(dimension);
-            const auto& height = gui::dimension<Dimension>::height(dimension);
+            const auto& width = dimension.width();
+            const auto& height = dimension.height();
             return
                 stdalt::make_unique<picture_details_type>(
                     gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height)
@@ -216,8 +216,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 {
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(picture.dimension().first),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(picture.dimension().second)
+                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().first),
+                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().second)
                 };
         }
 
@@ -404,27 +404,27 @@ namespace tetengo2 { namespace detail { namespace stub
             \param text      A text.
             \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
-width_type\(([0-9]+)\)
+
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&                            canvas,
-            const Font&                                           font,
-            const String&                                         text,
-            const Encoder&                                        encoder,
-            const typename gui::dimension<Dimension>::width_type& max_width
+            const canvas_details_type&           canvas,
+            const Font&                          font,
+            const String&                        text,
+            const Encoder&                       encoder,
+            const typename Dimension::unit_type& max_width
         )
         {
             boost::ignore_unused(canvas, font, text, encoder, max_width);
 
-            using width_type = typename gui::dimension<Dimension>::width_type;
-            using height_type = typename gui::dimension<Dimension>::height_type;
+            using dimension_unit_type = typename Dimension::unit_type;
             return
-                max_width == width_type{ 0 } || max_width >= width_type{ 123 } ?
-                Dimension{ width_type{ 123 }, height_type{ 456 } } : Dimension{ width_type{ 46 }, height_type{ 890 } };
+                max_width == dimension_unit_type{ 0 } || max_width >= dimension_unit_type{ 123 } ?
+                    Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
+                    Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
         }
 
         /*!
@@ -454,20 +454,19 @@ width_type\(([0-9]+)\)
         {
             boost::ignore_unused(canvas, font, text, encoder);
 
-            using width_type = typename gui::dimension<Dimension>::width_type;
-            using height_type = typename gui::dimension<Dimension>::height_type;
-            return Dimension{ width_type{ 456 }, height_type{ 123 } };
+            using dimension_unit_type = typename Dimension::unit_type;
+            return Dimension{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
         }
 
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -480,14 +479,21 @@ width_type\(([0-9]+)\)
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )

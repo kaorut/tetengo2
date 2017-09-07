@@ -28,7 +28,6 @@
 #include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>
 #include <tetengo2/gui/message/keyboard_observer_set.h>
@@ -59,9 +58,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The size type.
         using size_type = typename traits_type::size_type;
-
-        //! The unit size type.
-        using unit_size_type = typename traits_type::unit_size_type;
 
         //! The difference type.
         using difference_type = typename traits_type::difference_type;
@@ -101,9 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The canvas traits type.
         using canvas_traits_type =
-            gui::drawing::canvas_traits<
-                size_type, unit_size_type, string_type, position_type, dimension_type, encoder_type
-            >;
+            gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
@@ -384,8 +378,13 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename D>
         void set_client_dimension(const D& client_dimension)
         {
-            if (gui::dimension<D>::width(client_dimension) == 0 || gui::dimension<D>::height(client_dimension) == 0)
+            if (
+                client_dimension.width() == typename D::unit_type{ 0 } ||
+                client_dimension.height() == typename D::unit_type{ 0 }
+            )
+            {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
+            }
 
             widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension
@@ -920,9 +919,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        using left_type = typename gui::position<position_type>::left_type;
-
-        using top_type = typename gui::position<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         class paint_background
         {
@@ -938,7 +935,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(position_type{ left_type{ 0 }, top_type{ 0 } }, m_self.client_dimension());
+                canvas.fill_rectangle(
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
+                );
 
                 return true;
             }

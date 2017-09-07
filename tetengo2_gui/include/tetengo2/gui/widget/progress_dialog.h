@@ -23,7 +23,6 @@
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
@@ -177,15 +176,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename traits_type::position_type;
 
-        using left_type = typename gui::position<position_type>::left_type;
-
-        using top_type = typename gui::position<position_type>::top_type;
+        using position_unit_type = typename position_type::unit_type;
 
         using dimension_type = typename traits_type::dimension_type;
 
-        using width_type = typename gui::dimension<dimension_type>::width_type;
-
-        using height_type = typename gui::dimension<dimension_type>::height_type;
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         using widget_type = typename abstract_window_type::base_type;
 
@@ -329,19 +324,19 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type{ width_type{ 30 }, height_type{ 8 } });
+            this->set_client_dimension(dimension_type{ dimension_unit_type{ 30 }, dimension_unit_type{ 8 } });
 
-            m_p_message_label->set_dimension(dimension_type{ width_type{ 26 }, height_type{ 2 } });
-            m_p_message_label->set_position(position_type{ left_type{ 2 }, top_type{ 1 } });
+            m_p_message_label->set_dimension(dimension_type{ dimension_unit_type{ 26 }, dimension_unit_type{ 2 } });
+            m_p_message_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 1 } });
 
-            m_p_progress_label->set_dimension(dimension_type{ width_type{ 3 }, height_type{ 2 } });
-            m_p_progress_label->set_position(position_type{ left_type{ 2 }, top_type{ 3 } });
+            m_p_progress_label->set_dimension(dimension_type{ dimension_unit_type{ 3 }, dimension_unit_type{ 2 } });
+            m_p_progress_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 3 } });
 
-            m_p_progress_bar->set_dimension(dimension_type{ width_type{ 23 }, height_type{ 1 } });
-            m_p_progress_bar->set_position(position_type{ left_type{ 5 }, top_type{ 3 } });
+            m_p_progress_bar->set_dimension(dimension_type{ dimension_unit_type{ 23 }, dimension_unit_type{ 1 } });
+            m_p_progress_bar->set_position(position_type{ position_unit_type{ 5 }, position_unit_type{ 3 } });
 
-            m_p_cancel_button->set_dimension(dimension_type{ width_type{ 8 }, height_type{ 2 } });
-            m_p_cancel_button->set_position(position_type{ left_type{ 20 }, top_type{ 5 } });
+            m_p_cancel_button->set_dimension(dimension_type{ dimension_unit_type{ 8 }, dimension_unit_type{ 2 } });
+            m_p_cancel_button->set_position(position_type{ position_unit_type{ 20 }, position_unit_type{ 5 } });
         }
 
         void timer_procedure(bool&)

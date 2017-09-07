@@ -11,7 +11,6 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 

@@ -9,25 +9,21 @@
 #if !defined(TETENGO2_GUI_WIDGET_WIDGETTRAITS_H)
 #define TETENGO2_GUI_WIDGET_WIDGETTRAITS_H
 
-#include <tetengo2/gui/measure.h>
-
 
 namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The traits class template for a GUI widget.
 
-        \tparam Size             A size type.
-        \tparam UnitSize         A unit size type.
-        \tparam Difference       A difference type.
-        \tparam String           A string type.
-        \tparam Position         A position type.
-        \tparam Dimension        A dimension type.
-        \tparam Encoder          An encoder type.
+        \tparam Size       A size type.
+        \tparam Difference A difference type.
+        \tparam String     A string type.
+        \tparam Position   A position type.
+        \tparam Dimension  A dimension type.
+        \tparam Encoder    An encoder type.
    */
     template <
         typename Size,
-        typename UnitSize,
         typename Difference,
         typename String,
         typename Position,
@@ -40,9 +36,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The size type.
         using size_type = Size;
-
-        //! The unit size type.
-        using unit_size_type = UnitSize;
 
         //! The difference type.
         using difference_type = Difference;

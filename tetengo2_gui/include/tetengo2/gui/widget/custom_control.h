@@ -17,7 +17,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
@@ -239,13 +238,10 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The postion type.
         using position_type = typename custom_control_type::position_type;
 
-        //! The left type.
-        using left_type = typename gui::position<position_type>::left_type;
+        //! The position unit type.
+        using position_unit_type = typename position_type::unit_type;
 
-        //! The top type.
-        using top_type = typename gui::position<position_type>::top_type;
-
-        //! The postion type.
+        //! The dimension type.
         using dimension_type = typename custom_control_type::dimension_type;
 
         //! The canvas type.
@@ -467,13 +463,13 @@ namespace tetengo2 { namespace gui { namespace widget
         bool inside(const position_type& position)
         const
         {
-            const auto& left = gui::position<position_type>::left(m_position);
-            const auto right = left + left_type::from(gui::dimension<dimension_type>::width(m_dimension));
-            const auto& top = gui::position<position_type>::top(m_position);
-            const auto bottom = top + top_type::from(gui::dimension<dimension_type>::height(m_dimension));
+            const auto& left = m_position.left();
+            const auto right = left + position_unit_type::from(m_dimension.width());
+            const auto& top = m_position.top();
+            const auto bottom = top + position_unit_type::from(m_dimension.height());
 
-            const auto& cursor_left = gui::position<position_type>::left(position);
-            const auto& cursor_top = gui::position<position_type>::top(position);
+            const auto& cursor_left = position.left();
+            const auto& cursor_top = position.top();
 
             return (left <= cursor_left && cursor_left < right) && (top <= cursor_top && cursor_top < bottom);
         }

@@ -232,7 +232,6 @@ BOOST_CHECK                                      boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_COMP_CLANG                                 boost/predef.h
-BOOST_COMP_GNUC                                  boost/predef.h
 BOOST_COMP_MSVC                                  boost/predef.h
 BOOST_ERROR                                      boost/test/unit_test.hpp
 BOOST_OS_LINUX                                   boost/predef.h
@@ -555,6 +554,7 @@ std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
+std::is_integral                                 type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
 std::istringstream                               sstream

@@ -33,6 +33,7 @@
     <ClInclude Include="include\tetengo2\gui\cursor\cursor_base.h" />
     <ClInclude Include="include\tetengo2\gui\cursor\system.h" />
     <ClInclude Include="include\tetengo2\gui\cursor\system_cursor_style.h" />
+    <ClInclude Include="include\tetengo2\gui\dimension.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\drawing\background.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="include\tetengo2\gui\message\text_box_observer_set.h" />
     <ClInclude Include="include\tetengo2\gui\message\window_observer_set.h" />
     <ClInclude Include="include\tetengo2\gui\mouse_capture.h" />
+    <ClInclude Include="include\tetengo2\gui\position.h" />
     <ClInclude Include="include\tetengo2\gui\scroll_bar.h" />
     <ClInclude Include="include\tetengo2\gui\shell.h" />
     <ClInclude Include="include\tetengo2\gui\timer.h" />
@@ -115,7 +117,9 @@
     <ClCompile Include="src\tetengo2.gui.alert.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.system.cpp" />
+    <ClCompile Include="src\tetengo2.gui.dimension.cpp" />
     <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
+    <ClCompile Include="src\tetengo2.gui.position.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>

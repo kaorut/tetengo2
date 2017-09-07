@@ -18,6 +18,7 @@
 #include <tetengo2/gui/common_dialog/message_box.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/canvas_traits.h>
@@ -57,6 +58,7 @@
 #include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
+#include <tetengo2/gui/position.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/timer.h>

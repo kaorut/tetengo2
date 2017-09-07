@@ -124,16 +124,12 @@ namespace
 
     position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
-        using left_type = tetengo2::gui::position<position_type>::left_type;
-        using top_type = tetengo2::gui::position<position_type>::top_type;
-        return { left_type{ left }, top_type{ top } };
+        return { position_type::unit_type{ left }, position_type::unit_type{ top } };
     }
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
-        using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
-        return { width_type{ width }, height_type{ height } };
+        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
     }
 
 }

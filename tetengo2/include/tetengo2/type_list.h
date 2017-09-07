@@ -23,6 +23,9 @@ namespace tetengo2 { namespace type_list
     //! The type for size.
     using size_type = std::size_t;
 
+    //! The type for difference.
+    using difference_type = std::ptrdiff_t;
+
     //! The type for float.
     using float_type = double;
 
