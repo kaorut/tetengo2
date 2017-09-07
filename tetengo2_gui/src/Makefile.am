@@ -10,7 +10,9 @@ sources = \
     tetengo2.gui.alert.cpp \
     tetengo2.gui.cursor.cursor_base.cpp \
     tetengo2.gui.cursor.system.cpp \
-    tetengo2.gui.fixture.cpp
+    tetengo2.gui.dimension.cpp \
+    tetengo2.gui.fixture.cpp \
+    tetengo2.gui.position.cpp
 
 extra_sources =
 

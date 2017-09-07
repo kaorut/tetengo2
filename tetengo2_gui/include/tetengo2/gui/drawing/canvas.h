@@ -23,7 +23,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -48,9 +47,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The size type.
         using size_type = typename traits_type::size_type;
 
-        //! The unit size type.
-        using unit_size_type = typename traits_type::unit_size_type;
-
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -60,8 +56,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The dimension type.
         using dimension_type = typename traits_type::dimension_type;
 
-        //! The width type.
-        using width_type = typename gui::dimension<dimension_type>::width_type;
+        //! The dimension unit type.
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
@@ -183,7 +179,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        const unit_size_type& line_width()
+        const dimension_unit_type& line_width()
         const
         {
             return m_line_width;
@@ -194,7 +190,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param line_width A line width.
         */
-        void set_line_width(unit_size_type line_width)
+        void set_line_width(dimension_unit_type line_width)
         {
             m_line_width = std::move(line_width);
         }
@@ -338,7 +334,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return calc_text_dimension(text, width_type{ 0 });
+            return calc_text_dimension(text, dimension_unit_type{ 0 });
         }
 
         /*!
@@ -349,7 +345,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text, const width_type& max_width)
+        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width)
         const
         {
             return
@@ -387,7 +383,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            draw_text(text, position, width_type{ 0 }, angle);
+            draw_text(text, position, dimension_unit_type{ 0 }, angle);
         }
 
         /*!
@@ -401,10 +397,10 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param angle     A clockwise angle in radians.
         */
         void draw_text(
-            const string_type&   text,
-            const position_type& position,
-            const width_type&    max_width,
-            const double         angle = 0.0
+            const string_type&          text,
+            const position_type&        position,
+            const dimension_unit_type& max_width,
+            const double                angle = 0.0
         )
         {
             drawing_details_type::draw_text(
@@ -535,7 +531,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         std::unique_ptr<const background_type> m_p_background;
 
-        unit_size_type m_line_width;
+        dimension_unit_type m_line_width;
 
         line_style_type m_line_style;
 

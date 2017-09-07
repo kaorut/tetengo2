@@ -11,7 +11,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -52,13 +51,11 @@ namespace
 
     using position_type = common_type_list_type::position_type;
 
-    using left_type = tetengo2::gui::position<position_type>::left_type;
+    using position_unit_type = position_type::unit_type;
 
     using dimension_type = common_type_list_type::dimension_type;
 
-    using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
-
-    using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
     using cursor_details_type = tetengo2::detail::stub::cursor;
 
@@ -277,11 +274,11 @@ BOOST_AUTO_TEST_SUITE(map_box)
 
         window_type parent{};
         map_box_type map_box{ parent, cursor_details_type::instance() };
-        map_box.set_dimension(dimension_type{ width_type{ 42 }, height_type{ 24 } });
+        map_box.set_dimension(dimension_type{ dimension_unit_type{ 42 }, dimension_unit_type{ 24 } });
 
-        map_box.set_splitter_position(left_type{ 24 });
+        map_box.set_splitter_position(position_unit_type{ 24 });
 
-        BOOST_CHECK(map_box.splitter_position() == left_type{ 24 });
+        BOOST_CHECK(map_box.splitter_position() == position_unit_type{ 24 });
     }
 
     BOOST_AUTO_TEST_CASE(list_selection_observer_set)

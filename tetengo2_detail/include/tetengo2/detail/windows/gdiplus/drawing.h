@@ -245,8 +245,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
         {
             canvas.begin_transaction(
-                gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-                gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
+                gui::to_pixels< ::INT>(dimension.width()), gui::to_pixels< ::INT>(dimension.height())
             );
         }
 
@@ -367,12 +366,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 gui::to_pixels<Gdiplus::REAL>(width)
             };
             const Gdiplus::PointF gdiplus_from{
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(from)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(from))
+                gui::to_pixels<Gdiplus::REAL>(from.left()), gui::to_pixels<Gdiplus::REAL>(from.top())
             };
             const Gdiplus::PointF gdiplus_to{
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(to)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(to))
+                gui::to_pixels<Gdiplus::REAL>(to.left()), gui::to_pixels<Gdiplus::REAL>(to.top())
             };
             const auto status = canvas.get().DrawLine(&pen, gdiplus_from, gdiplus_to);
             if (status != Gdiplus::Ok)
@@ -403,10 +400,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const ::RECT rect{
-                gui::to_pixels< ::LONG>(gui::position<Position>::left(position)),
-                gui::to_pixels< ::LONG>(gui::position<Position>::top(position)),
-                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
-                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension))
+                gui::to_pixels< ::LONG>(position.left()),
+                gui::to_pixels< ::LONG>(position.top()),
+                gui::to_pixels< ::LONG>(dimension.width()),
+                gui::to_pixels< ::LONG>(dimension.height())
             };
             if (::DrawFocusRect(canvas.get().GetHDC(), &rect) == 0)
             {
@@ -471,10 +468,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (!background_details.get()) return;
 
             const Gdiplus::Rect rectangle{
-                gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
-                gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
-                gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-                gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
+                gui::to_pixels< ::INT>(position.left()),
+                gui::to_pixels< ::INT>(position.top()),
+                gui::to_pixels< ::INT>(dimension.width()),
+                gui::to_pixels< ::INT>(dimension.height())
             };
             const auto status = canvas.get().FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
@@ -604,11 +601,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&                            canvas,
-            const Font&                                           font,
-            const String&                                         text,
-            const Encoder&                                        encoder,
-            const typename gui::dimension<Dimension>::width_type& max_width
+            const canvas_details_type&           canvas,
+            const Font&                          font,
+            const String&                        text,
+            const Encoder&                       encoder,
+            const typename Dimension::unit_type& max_width
         )
         {
             const auto encoded_text = encoder.encode(text);
@@ -617,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
             const Gdiplus::REAL gdiplus_max_width =
-                max_width == typename gui::dimension<Dimension>::width_type{ 0 } ?
+                max_width == typename Dimension::unit_type{ 0 } ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout{
                 0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
@@ -641,8 +638,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             return
                 {
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(bounding.Width),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(bounding.Height)
+                    gui::to_unit<typename Dimension::unit_type>(bounding.Width),
+                    gui::to_unit<typename Dimension::unit_type>(bounding.Height)
                 };
         }
 
@@ -674,12 +671,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Draws a text.
 
-            \tparam Font     A font type.
-            \tparam String   A string type.
-            \tparam Encoder  An encoder type.
-            \tparam Position A position type.
-            \tparam Width    A width type.
-            \tparam Color    A color type.
+            \tparam Font          A font type.
+            \tparam String        A string type.
+            \tparam Encoder       An encoder type.
+            \tparam Position      A position type.
+            \tparam DimensionUnit A dimension unit type.
+            \tparam Color         A color type.
 
             \param canvas    A canvas.
             \param font      A font.
@@ -692,14 +689,21 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position, typename Width, typename Color>
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position,
+            typename DimensionUnit,
+            typename Color
+        >
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Width&         max_width,
+            const DimensionUnit& max_width,
             const Color&         color,
             const double         angle
         )
@@ -712,11 +716,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto p_solid_brush = create_solid_background(color);
 
             const Gdiplus::PointF gdiplus_point{
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
-                gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
+                gui::to_pixels<Gdiplus::REAL>(position.left()),
+                gui::to_pixels<Gdiplus::REAL>(position.top())
             };
             const Gdiplus::REAL gdiplus_max_width =
-                max_width == Width{ 0 } ?
+                max_width == DimensionUnit{ 0 } ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout{
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
@@ -870,10 +874,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto status =
                 canvas.get().DrawImage(
                     &bitmap,
-                    gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
-                    gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
-                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
+                    gui::to_pixels< ::INT>(position.left()),
+                    gui::to_pixels< ::INT>(position.top()),
+                    gui::to_pixels< ::INT>(dimension.width()),
+                    gui::to_pixels< ::INT>(dimension.height())
                 );
             if (status != Gdiplus::Ok)
             {
@@ -902,11 +906,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::BOOL result =
                 ::DrawIconEx(
                     canvas.get().GetHDC(),
-                    gui::to_pixels<int>(gui::position<Position>::left(position)),
-                    gui::to_pixels<int>(gui::position<Position>::top(position)),
+                    gui::to_pixels<int>(position.left()),
+                    gui::to_pixels<int>(position.top()),
                     icon.details().big_icon_handle.get(),
-                    gui::to_pixels<int>(gui::dimension<dimension_type>::width(icon.dimension())),
-                    gui::to_pixels<int>(gui::dimension<dimension_type>::height(icon.dimension())),
+                    gui::to_pixels<int>(icon.dimension().width()),
+                    gui::to_pixels<int>(icon.dimension().width()),
                     0,
                     nullptr,
                     DI_NORMAL
@@ -940,8 +944,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 {
                     return
                         Gdiplus::PointF(
-                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::left(position)),
-                            gui::to_pixels<Gdiplus::REAL>(gui::position<position_type>::top(position))
+                            gui::to_pixels<Gdiplus::REAL>(position.left()),
+                            gui::to_pixels<Gdiplus::REAL>(position.top())
                         );
                 }
             );

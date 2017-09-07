@@ -12,7 +12,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/measure.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -34,9 +33,7 @@ namespace
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        using width_type = tetengo2::gui::dimension<dimension_type>::width_type;
-        using height_type = tetengo2::gui::dimension<dimension_type>::height_type;
-        return { width_type{ width }, height_type{ height } };
+        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
     }
 
 

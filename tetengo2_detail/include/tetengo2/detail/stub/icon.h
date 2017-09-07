@@ -15,7 +15,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -49,11 +48,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static Dimension default_dimension()
         {
-            return
-                {
-                    typename gui::dimension<Dimension>::width_type{ 42 },
-                    typename gui::dimension<Dimension>::height_type{ 42 }
-                };
+            return { typename Dimension::unit_type{ 42 }, typename Dimension::unit_type{ 42 } };
         }
 
         /*!

@@ -27,7 +27,6 @@ namespace
     using canvas_traits_type =
         tetengo2::gui::drawing::canvas_traits<
             size_type,
-            size_type,
             common_type_list_type::string_type,
             common_type_list_type::position_type,
             common_type_list_type::dimension_type,
