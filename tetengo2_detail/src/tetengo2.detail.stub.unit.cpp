@@ -7,6 +7,7 @@
 */
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/rational.hpp>
 
 #include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/stdalt.h>

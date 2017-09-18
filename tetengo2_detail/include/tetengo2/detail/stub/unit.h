@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include <boost/rational.hpp>
+
 #include <tetengo2/detail/base/unit.h>
 
 
