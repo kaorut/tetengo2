@@ -33,12 +33,22 @@ namespace tetengo2 { namespace detail { namespace stub
         using difference_type = base::unit::difference_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
+        static const unit& instance();
+
+
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation.
+            \brief Destroys the detail implementation.
         */
-        unit();
+        ~unit();
 
 
     private:
@@ -50,6 +60,11 @@ namespace tetengo2 { namespace detail { namespace stub
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        unit();
 
 
         // virtual functions

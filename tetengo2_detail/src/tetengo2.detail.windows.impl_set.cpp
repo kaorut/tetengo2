@@ -12,6 +12,7 @@
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/impl_set.h>
+#include <tetengo2/detail/windows/unit.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -45,6 +46,12 @@ namespace tetengo2 { namespace detail { namespace windows
     const
     {
         return tetengo2::stdalt::make_unique<gui_fixture>();
+    }
+
+    const base::unit& impl_set::unit_impl()
+    const
+    {
+        return unit::instance();
     }
 
 

@@ -25,6 +25,15 @@ namespace tetengo2 { namespace detail { namespace stub
         using difference_type = unit::difference_type;
 
 
+        // static functions
+
+        static const unit& instance()
+        {
+            static const unit singleton;
+            return singleton;
+        }
+
+
         // functions
 
         boost::rational<size_type> to_em_impl(const size_type pixel_size)
@@ -84,6 +93,14 @@ namespace tetengo2 { namespace detail { namespace stub
 
     };
 
+
+    const unit& unit::instance()
+    {
+        return impl::instance();
+    }
+
+    unit::~unit()
+    = default;
 
     unit::unit()
     :

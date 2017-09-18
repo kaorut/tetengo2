@@ -48,5 +48,12 @@ namespace tetengo2 { namespace detail { namespace unixos
         throw std::logic_error("No implementation.");
     }
 
+    const base::unit& impl_set::unit_impl()
+    const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
 
 }}}

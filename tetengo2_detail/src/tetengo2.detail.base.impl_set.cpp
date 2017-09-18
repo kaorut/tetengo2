@@ -36,6 +36,12 @@ namespace tetengo2 { namespace detail { namespace base
         return create_gui_fixture_impl();
     }        
 
+    const unit& impl_set::unit_()
+    const
+    {
+        return unit_impl();
+    }
+
     impl_set::impl_set()
     = default;
 
