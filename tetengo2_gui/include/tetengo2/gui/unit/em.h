@@ -264,7 +264,7 @@ namespace tetengo2 { namespace gui { namespace unit
             typename std::enable_if<std::is_unsigned<PixelValue>::value>::type* = nullptr
         )
         {
-            return em( unit_details_type::instance().to_em(static_cast<type_list::size_type>(value)) );
+            return em{ unit_details_type::instance().to_em(static_cast<type_list::size_type>(value)) };
         }
 
         template <typename PixelValue>
@@ -273,7 +273,7 @@ namespace tetengo2 { namespace gui { namespace unit
             typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
         )
         {
-            return em( unit_details_type::instance().to_em(static_cast<type_list::difference_type>(value)) );
+            return em{ unit_details_type::instance().to_em(static_cast<type_list::difference_type>(value)) };
         }
 
         template <typename PixelValue>

@@ -143,13 +143,13 @@ BOOST_AUTO_TEST_SUITE(em)
         {
             unit_type unit1{ 456 };
 
-            unit1.divide_by(123);
+            unit1.divide_by(152);
 
             BOOST_TEST(unit1.value() == 3);
         }
         {
             const unit_type unit1{ 456 };
-            const unit_type unit2{ 123 };
+            const unit_type unit2{ 152 };
 
             BOOST_TEST(unit1.divide_by(unit2) == 3);
         }
