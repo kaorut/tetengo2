@@ -69,28 +69,30 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // virtual functions
 
-        virtual boost::rational<size_type> to_em_impl(size_type pixel_size)
+        virtual boost::rational<size_type> pixel_size_to_em_impl(size_type pixel_size)
         const override;
 
-        virtual boost::rational<difference_type> to_em_impl(difference_type pixel_difference)
+        virtual boost::rational<difference_type> pixel_difference_to_em_impl(difference_type pixel_difference)
         const override;
 
-        virtual boost::rational<size_type> to_point_impl(size_type pixel_size)
+        virtual boost::rational<size_type> pixel_size_to_point_impl(size_type pixel_size)
         const override;
 
-        virtual boost::rational<difference_type> to_point_impl(difference_type pixel_difference)
+        virtual boost::rational<difference_type> pixel_difference_to_point_impl(difference_type pixel_difference)
         const override;
 
-        virtual size_type em_to_pixel_impl(const boost::rational<size_type>& em_size)
+        virtual size_type em_size_to_pixel_impl(const boost::rational<size_type>& em_size)
         const override;
 
-        virtual difference_type em_to_pixel_impl(const boost::rational<difference_type>& em_difference)
+        virtual difference_type em_difference_to_pixel_impl(const boost::rational<difference_type>& em_difference)
         const override;
 
-        virtual size_type point_to_pixel_impl(const boost::rational<size_type>& point_size)
+        virtual size_type point_size_to_pixel_impl(const boost::rational<size_type>& point_size)
         const override;
 
-        virtual difference_type point_to_pixel_impl(const boost::rational<difference_type>& point_difference)
+        virtual difference_type point_difference_to_pixel_impl(
+            const boost::rational<difference_type>& point_difference
+        )
         const override;
 
 

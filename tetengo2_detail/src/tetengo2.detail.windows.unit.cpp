@@ -53,14 +53,14 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // functions
 
-        boost::rational<size_type> to_em_impl(const size_type pixel_size)
+        boost::rational<size_type> pixel_size_to_em_impl(const size_type pixel_size)
         const
         {
             const auto& message_font = get_message_font();
             return boost::rational<size_type>{ pixel_size, static_cast<size_type>(-message_font.lfHeight) };
         }
 
-        boost::rational<difference_type> to_em_impl(const difference_type pixel_difference)
+        boost::rational<difference_type> pixel_difference_to_em_impl(const difference_type pixel_difference)
         const
         {
             const auto& message_font = get_message_font();
@@ -70,26 +70,26 @@ namespace tetengo2 { namespace detail { namespace windows
                 };
         }
 
-        boost::rational<size_type> to_point_impl(const size_type pixel_size)
+        boost::rational<size_type> pixel_size_to_point_impl(const size_type pixel_size)
         const
         {
             return boost::rational<size_type>{ pixel_size * 72, dpi().second };
         }
 
-        boost::rational<difference_type> to_point_impl(const difference_type pixel_difference)
+        boost::rational<difference_type> pixel_difference_to_point_impl(const difference_type pixel_difference)
         const
         {
             return boost::rational<difference_type>{ pixel_difference * 72, dpi().second };
         }
 
-        size_type em_to_pixel_impl(const boost::rational<size_type>& em_size)
+        size_type em_size_to_pixel_impl(const boost::rational<size_type>& em_size)
         const
         {
             const auto& message_font = get_message_font();
             return boost::rational_cast<size_type>(em_size * boost::rational<size_type>{ -message_font.lfHeight });
         }
 
-        difference_type em_to_pixel_impl(const boost::rational<difference_type>& em_difference)
+        difference_type em_difference_to_pixel_impl(const boost::rational<difference_type>& em_difference)
         const
         {
             const auto& message_font = get_message_font();
@@ -99,7 +99,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
         }
 
-        size_type point_to_pixel_impl(const boost::rational<size_type>& point_size)
+        size_type point_size_to_pixel_impl(const boost::rational<size_type>& point_size)
         const
         {
             return
@@ -108,7 +108,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
         }
 
-        difference_type point_to_pixel_impl(const boost::rational<difference_type>& point_difference)
+        difference_type point_difference_to_pixel_impl(const boost::rational<difference_type>& point_difference)
         const
         {
             return
@@ -170,52 +170,54 @@ namespace tetengo2 { namespace detail { namespace windows
     m_p_impl(stdalt::make_unique<impl>())
     {}
 
-    boost::rational<unit::size_type> unit::to_em_impl(const size_type pixel_size)
+    boost::rational<unit::size_type> unit::pixel_size_to_em_impl(const size_type pixel_size)
     const
     {
-        return m_p_impl->to_em_impl(pixel_size);
+        return m_p_impl->pixel_size_to_em_impl(pixel_size);
     }
 
-    boost::rational<unit::difference_type> unit::to_em_impl(const difference_type pixel_difference)
+    boost::rational<unit::difference_type> unit::pixel_difference_to_em_impl(const difference_type pixel_difference)
     const
     {
-        return m_p_impl->to_em_impl(pixel_difference);
+        return m_p_impl->pixel_difference_to_em_impl(pixel_difference);
     }
 
-    boost::rational<unit::size_type> unit::to_point_impl(const size_type pixel_size)
+    boost::rational<unit::size_type> unit::pixel_size_to_point_impl(const size_type pixel_size)
     const
     {
-        return m_p_impl->to_point_impl(pixel_size);
+        return m_p_impl->pixel_size_to_point_impl(pixel_size);
     }
 
-    boost::rational<unit::difference_type> unit::to_point_impl(const difference_type pixel_difference)
+    boost::rational<unit::difference_type> unit::pixel_difference_to_point_impl(const difference_type pixel_difference)
     const
     {
-        return m_p_impl->to_point_impl(pixel_difference);
+        return m_p_impl->pixel_difference_to_point_impl(pixel_difference);
     }
 
-    unit::size_type unit::em_to_pixel_impl(const boost::rational<size_type>& em_size)
+    unit::size_type unit::em_size_to_pixel_impl(const boost::rational<size_type>& em_size)
     const
     {
-        return m_p_impl->em_to_pixel_impl(em_size);
+        return m_p_impl->em_size_to_pixel_impl(em_size);
     }
 
-    unit::difference_type unit::em_to_pixel_impl(const boost::rational<difference_type>& em_difference)
+    unit::difference_type unit::em_difference_to_pixel_impl(const boost::rational<difference_type>& em_difference)
     const
     {
-        return m_p_impl->em_to_pixel_impl(em_difference);
+        return m_p_impl->em_difference_to_pixel_impl(em_difference);
     }
 
-    unit::size_type unit::point_to_pixel_impl(const boost::rational<size_type>& point_size)
+    unit::size_type unit::point_size_to_pixel_impl(const boost::rational<size_type>& point_size)
     const
     {
-        return m_p_impl->point_to_pixel_impl(point_size);
+        return m_p_impl->point_size_to_pixel_impl(point_size);
     }
 
-    unit::difference_type unit::point_to_pixel_impl(const boost::rational<difference_type>& point_difference)
+    unit::difference_type unit::point_difference_to_pixel_impl(
+        const boost::rational<difference_type>& point_difference
+    )
     const
     {
-        return m_p_impl->point_to_pixel_impl(point_difference);
+        return m_p_impl->point_difference_to_pixel_impl(point_difference);
     }
 
 
