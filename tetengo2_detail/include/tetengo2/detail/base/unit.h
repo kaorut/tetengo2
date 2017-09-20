@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_BASE_UNIT_H
 
 #include <memory>
+#include <type_traits>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
@@ -163,7 +164,7 @@ namespace tetengo2 { namespace detail { namespace base
         template <typename Integer>
         boost::rational<Integer> to_em_impl(
             const Integer pixel_value,
-            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+            typename std::enable_if<std::is_unsigned<Integer>::value>::type* = nullptr
         )
         const
         {
@@ -183,7 +184,7 @@ namespace tetengo2 { namespace detail { namespace base
         template <typename Integer>
         boost::rational<Integer> to_point_impl(
             const Integer pixel_value,
-            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr)
+            typename std::enable_if<std::is_unsigned<Integer>::value>::type* = nullptr)
         const
         {
             return pixel_size_to_point(pixel_value);
@@ -201,7 +202,7 @@ namespace tetengo2 { namespace detail { namespace base
         template <typename Integer>
         Integer em_to_pixel_impl(
             const boost::rational<Integer>& em_value,
-            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+            typename std::enable_if<std::is_unsigned<Integer>::value>::type* = nullptr
 )
         const
         {
@@ -221,7 +222,7 @@ namespace tetengo2 { namespace detail { namespace base
         template <typename Integer>
         Integer point_to_pixel_impl(
             const boost::rational<Integer>& point_value,
-            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+            typename std::enable_if<std::is_unsigned<Integer>::value>::type* = nullptr
         )
         const
         {
