@@ -15,6 +15,7 @@
 #include <boost/swap.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace gui { namespace unit
@@ -67,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static em from_pixels(const PixelValue value)
         {
-            return em{ unit_details_type::template pixels_to_em<value_type>(value) };
+            return from_pixels_impl(value);
         }
 
 
@@ -231,7 +232,7 @@ namespace tetengo2 { namespace gui { namespace unit
         PixelValue to_pixels()
         const
         {
-            return unit_details_type::template em_to_pixels<PixelValue>(m_value);
+            return to_pixels_impl<PixelValue>(m_value);
         }
 
 
@@ -255,6 +256,42 @@ namespace tetengo2 { namespace gui { namespace unit
                     static_cast<typename To::int_type>(from.numerator()),
                     static_cast<typename To::int_type>(from.denominator())
                 };
+        }
+
+        template <typename PixelValue>
+        static em from_pixels_impl(
+            const PixelValue value,
+            typename std::enable_if<!std::is_signed<PixelValue>::value>::type* = nullptr
+        )
+        {
+            return em( unit_details_type::instance().to_em(static_cast<type_list::size_type>(value)) );
+        }
+
+        template <typename PixelValue>
+        static em from_pixels_impl(
+            const PixelValue value,
+            typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
+        )
+        {
+            return em( unit_details_type::instance().to_em(static_cast<type_list::difference_type>(value)) );
+        }
+
+        template <typename PixelValue>
+        static PixelValue to_pixels_impl(
+            const value_type& value,
+            typename std::enable_if<!std::is_signed<PixelValue>::value>::type* = nullptr
+        )
+        {
+            return unit_details_type::instance().em_to_pixel<type_list::size_type>(value);
+        }
+
+        template <typename PixelValue>
+        static PixelValue to_pixels_impl(
+            const value_type& value,
+            typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
+        )
+        {
+            return unit_details_type::instance().em_to_pixel<type_list::difference_type>(value);
         }
 
 

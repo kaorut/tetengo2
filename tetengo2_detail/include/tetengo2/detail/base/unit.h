@@ -45,44 +45,68 @@ namespace tetengo2 { namespace detail { namespace base
         // functions
 
         /*!
-            \brief Translates a size in pixels into a size in ems.
+            \brief Translates a value in pixels into a value in ems.
 
-            \param pixel_size A size in pixels.
+            \tparam Integer An integer type.
 
-            \return The size in ems.
+            \param pixel_value A value in pixels.
+
+            \return The value in ems.
         */
-        boost::rational<size_type> to_em(size_type pixel_size)
-        const;
+        template <typename Integer>
+        boost::rational<Integer> to_em(const Integer pixel_value)
+        const
+        {
+            return to_em_impl(pixel_value);
+        }
 
         /*!
-            \brief Translates a size in pixels into a size in points.
+            \brief Translates a value in pixels into a value in points.
 
-            \param pixel_size A size in pixels.
+            \tparam Integer An integer type.
 
-            \return The size in points.
+            \param pixel_value A value in pixels.
+
+            \return The value in points.
         */
-        boost::rational<size_type> to_point(size_type pixel_size)
-        const;
+        template <typename Integer>
+        boost::rational<Integer> to_point(const Integer pixel_value)
+        const
+        {
+            return to_point_impl(pixel_value);
+        }
 
         /*!
-            \brief Translates a size in ems into a size in pixels.
+            \brief Translates a value in ems into a value in pixels.
 
-            \param em_size A size in ems.
+            \tparam Integer An integer type.
 
-            \return The size in pixels.
+            \param em_value A value in ems.
+
+            \return The value in pixels.
         */
-        size_type em_to_pixel(const boost::rational<size_type>& em_size)
-        const;
+        template <typename Integer>
+        Integer em_to_pixel(const boost::rational<Integer>& em_value)
+        const
+        {
+            return em_to_pixel_impl(em_value);
+        }
 
         /*!
-            \brief Translates a size in points into a size in pixels.
+            \brief Translates a value in points into a value in pixels.
 
-            \param point_size A size in points.
+            \tparam Integer An integer type.
 
-            \return The size in pixels.
+            \param point_value A value in points.
+
+            \return The value in pixels.
         */
-        size_type point_to_pixel(const boost::rational<size_type>& point_size)
-        const;
+        template <typename Integer>
+        Integer point_to_pixel(const boost::rational<Integer>& point_value)
+        const
+        {
+            return point_to_pixel_impl(point_value);
+        }
 
 
     protected:
@@ -135,6 +159,84 @@ namespace tetengo2 { namespace detail { namespace base
 
 
         // functions
+
+        template <typename Integer>
+        boost::rational<Integer> to_em_impl(
+            const Integer pixel_value,
+            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+        )
+        const
+        {
+            return pixel_size_to_em(pixel_value);
+        }
+
+        template <typename Integer>
+        boost::rational<Integer> to_em_impl(
+            const Integer pixel_value,
+            typename std::enable_if<std::is_signed<Integer>::value>::type* = nullptr
+        )
+        const
+        {
+            return pixel_difference_to_em(pixel_value);
+        }
+
+        template <typename Integer>
+        boost::rational<Integer> to_point_impl(
+            const Integer pixel_value,
+            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr)
+        const
+        {
+            return pixel_size_to_point(pixel_value);
+        }
+
+        template <typename Integer>
+        boost::rational<Integer> to_point_impl(
+            const Integer pixel_value,
+            typename std::enable_if<std::is_signed<Integer>::value>::type* = nullptr)
+        const
+        {
+            return pixel_difference_to_point(pixel_value);
+        }
+
+        template <typename Integer>
+        Integer em_to_pixel_impl(
+            const boost::rational<Integer>& em_value,
+            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+)
+        const
+        {
+            return em_size_to_pixel(em_value);
+        }
+
+        template <typename Integer>
+        Integer em_to_pixel_impl(
+            const boost::rational<Integer>& em_value,
+            typename std::enable_if<std::is_signed<Integer>::value>::type* = nullptr
+)
+        const
+        {
+            return em_difference_to_pixel(em_value);
+        }
+
+        template <typename Integer>
+        Integer point_to_pixel_impl(
+            const boost::rational<Integer>& point_value,
+            typename std::enable_if<!std::is_signed<Integer>::value>::type* = nullptr
+        )
+        const
+        {
+            return point_size_to_pixel(point_value);
+        }
+
+        template <typename Integer>
+        Integer point_to_pixel_impl(
+            const boost::rational<Integer>& point_value,
+            typename std::enable_if<std::is_signed<Integer>::value>::type* = nullptr
+        )
+        const
+        {
+            return point_difference_to_pixel(point_value);
+        }
 
         boost::rational<size_type> pixel_size_to_em(size_type pixel_size)
         const;

@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <cstddef>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/em.h>
@@ -21,9 +23,9 @@ namespace
 
     using unit_details_type = detail_type_list_type::unit_type;
 
-    using unit_type = tetengo2::gui::unit::em<int, unit_details_type>;
+    using unit_type = tetengo2::gui::unit::em<boost::rational<std::ptrdiff_t>, unit_details_type>;
 
-    using another_unit_type = tetengo2::gui::unit::em<unsigned short, unit_details_type>;
+    using another_unit_type = tetengo2::gui::unit::em<boost::rational<std::size_t>, unit_details_type>;
 
 
 }
@@ -167,7 +169,7 @@ BOOST_AUTO_TEST_SUITE(em)
 
         const unit_type unit{ 123 };
 
-        BOOST_TEST(unit.to_pixels<int>() == 123 * 12);
+        BOOST_TEST(unit.to_pixels<std::ptrdiff_t>() == 123 * 12);
     }
 
 
