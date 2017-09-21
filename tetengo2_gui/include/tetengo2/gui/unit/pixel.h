@@ -12,7 +12,6 @@
 #include <type_traits>
 
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 
@@ -59,10 +58,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \param value A value.
         */
-        explicit pixel(const value_type& value)
-        :
-        m_value(value)
-        {}
+        explicit pixel(const value_type& value);
 
 
         // functions
@@ -70,19 +66,23 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one  pixel unit is equal to another.
 
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+
             \param one     One pixel unit.
             \param another Another value in pixel unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const pixel& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator==(const pixel<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one pixel unit is less than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -90,13 +90,14 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const pixel& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator<(const pixel<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one pixel unit is greater than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -104,10 +105,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const pixel& one, const value_type& another)
-        {
-            return one.m_value > another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator>(const pixel<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in pixel unit.
@@ -116,15 +115,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& add(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        pixel& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in pixel unit.
@@ -133,15 +124,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& subtract(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        pixel& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in pixel unit.
@@ -150,15 +133,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& multiply(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value *= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        pixel& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in pixel unit.
@@ -167,15 +142,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& divide_by(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value /= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        pixel& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another pixel unit.
@@ -185,10 +152,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A value.
         */
         value_type divide_by(const pixel& another)
-        const
-        {
-            return value() / another.value();
-        }
+        const;
 
         /*!
             \brief Returns the value.
@@ -196,10 +160,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value.
         */
         const value_type& value()
-        const
-        {
-            return m_value;
-        }
+        const;
 
         /*!
             \brief Returns the value in pixels.
