@@ -37,6 +37,9 @@
     <Filter Include="sources\tetengo2::gui\cursor">
       <UniqueIdentifier>{629b86c9-6830-4f1b-8c97-b7a412f1086e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::gui\unit">
+      <UniqueIdentifier>{a1ffd09f-32a5-4c4d-b944-adc7c5e45f2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -328,6 +331,15 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.position.cpp">
       <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.unit.em.cpp">
+      <Filter>sources\tetengo2::gui\unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.unit.pixel.cpp">
+      <Filter>sources\tetengo2::gui\unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.unit.point.cpp">
+      <Filter>sources\tetengo2::gui\unit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
