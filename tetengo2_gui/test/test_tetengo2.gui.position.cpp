@@ -18,7 +18,9 @@
 namespace
 {
     using unit_type =
-        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>, tetengo2::detail::stub::unit>;
+        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>>;
+
+    using unit_details_type = tetengo2::detail::stub::unit;
 
     using position_type = tetengo2::gui::position<unit_type>;
 
@@ -36,7 +38,7 @@ BOOST_AUTO_TEST_SUITE(position)
         BOOST_TEST_PASSPOINT();
 
         {
-            const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
+            const position_type position{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
         }
     }
 
@@ -44,11 +46,11 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        const position_type position1{ unit_type{ 42 }, unit_type{ 24 } };
-        const position_type position2{ unit_type{ 42 }, unit_type{ 24 } };
-        const position_type position3{ unit_type{ 42 }, unit_type{ 42 } };
-        const position_type position4{ unit_type{ 24 }, unit_type{ 42 } };
-        const position_type position5{ unit_type{ 24 }, unit_type{ 24 } };
+        const position_type position1{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
+        const position_type position2{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
+        const position_type position3{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 42, unit_details_type::instance() } };
+        const position_type position4{ unit_type{ 24, unit_details_type::instance() }, unit_type{ 42, unit_details_type::instance() } };
+        const position_type position5{ unit_type{ 24, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
         BOOST_CHECK(position1 == position2);
         BOOST_CHECK(position1 != position3);
@@ -60,18 +62,18 @@ BOOST_AUTO_TEST_SUITE(position)
     {
         BOOST_TEST_PASSPOINT();
 
-        const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
+        const position_type position{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
-        BOOST_CHECK(position.left() == unit_type{ 42 });
+        BOOST_CHECK((position.left() == unit_type{ 42, unit_details_type::instance() }));
     }
 
     BOOST_AUTO_TEST_CASE(top)
     {
         BOOST_TEST_PASSPOINT();
 
-        const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
+        const position_type position{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
-        BOOST_CHECK(position.top() == unit_type{ 24 });
+        BOOST_CHECK((position.top() == unit_type{ 24, unit_details_type::instance() }));
     }
 
 

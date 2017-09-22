@@ -18,7 +18,9 @@
 namespace
 {
     using unit_type =
-        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::size_type>, tetengo2::detail::stub::unit>;
+        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::size_type>>;
+
+    using unit_details_type = tetengo2::detail::stub::unit;
 
     using dimension_type = tetengo2::gui::dimension<unit_type>;
 
@@ -36,7 +38,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         {
-            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+            const dimension_type dimension{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
         }
     }
 
@@ -44,11 +46,11 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension1{ unit_type{ 42 }, unit_type{ 24 } };
-        const dimension_type dimension2{ unit_type{ 42 }, unit_type{ 24 } };
-        const dimension_type dimension3{ unit_type{ 42 }, unit_type{ 42 } };
-        const dimension_type dimension4{ unit_type{ 24 }, unit_type{ 42 } };
-        const dimension_type dimension5{ unit_type{ 24 }, unit_type{ 24 } };
+        const dimension_type dimension1{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
+        const dimension_type dimension2{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
+        const dimension_type dimension3{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 42, unit_details_type::instance() } };
+        const dimension_type dimension4{ unit_type{ 24, unit_details_type::instance() }, unit_type{ 42, unit_details_type::instance() } };
+        const dimension_type dimension5{ unit_type{ 24, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
         BOOST_CHECK(dimension1 == dimension2);
         BOOST_CHECK(dimension1 != dimension3);
@@ -60,18 +62,18 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+        const dimension_type dimension{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
-        BOOST_CHECK(dimension.width() == unit_type{ 42 });
+        BOOST_CHECK((dimension.width() == unit_type{ 42, unit_details_type::instance() }));
     }
 
     BOOST_AUTO_TEST_CASE(height)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+        const dimension_type dimension{ unit_type{ 42, unit_details_type::instance() }, unit_type{ 24, unit_details_type::instance() } };
 
-        BOOST_CHECK(dimension.height() == unit_type{ 24 });
+        BOOST_CHECK((dimension.height() == unit_type{ 24, unit_details_type::instance() }));
     }
 
 

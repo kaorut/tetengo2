@@ -14,6 +14,7 @@ tetengo2::gui::operator ==
 tetengo2::gui::unit::operator ==
 tetengo2::gui::unit::operator >
 tetengo2::gui::unit::operator <
+tetengo2::gui::unit::pixel::to_pixels_impl
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::dialog::on_close
 tetengo2::gui::widget::inner_item::mouse_entered
