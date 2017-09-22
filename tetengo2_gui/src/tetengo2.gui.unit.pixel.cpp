@@ -116,10 +116,6 @@ namespace tetengo2 { namespace gui { namespace unit
 
     template class pixel<difference_rational_type>;
 
-    template type_list::size_type pixel<size_rational_type>::to_pixels_impl(const value_type& value);
-
-    template type_list::difference_type pixel<difference_rational_type>::to_pixels_impl(const value_type& value);
-
     template bool operator==(const pixel<size_rational_type>& one, const size_rational_type& another);
 
     template bool operator==(const pixel<size_rational_type>& one, const size_rational_type::int_type& another);
