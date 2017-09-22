@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/point.h>
+#include <tetengo2/type_list.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -19,6 +20,8 @@
 namespace
 {
     // types
+
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
@@ -76,12 +79,17 @@ BOOST_AUTO_TEST_SUITE(point)
         {
             const unit_type unit1{ 12, unit_details_type::instance() };
 
-            BOOST_CHECK(unit1 == 12);
+            BOOST_CHECK(unit1 == difference_rational_type{ 12 });
+        }
+        {
+            const unit_type unit1{ 12, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(12));
         }
         {
             const unit_type unit1{ 34, unit_details_type::instance() };
 
-            BOOST_CHECK(unit1 != 12);
+            BOOST_CHECK(unit1 != difference_rational_type{ 12 });
         }
     }
 
@@ -89,18 +97,32 @@ BOOST_AUTO_TEST_SUITE(point)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 12, unit_details_type::instance() };
+        {
+            const unit_type unit1{ 12, unit_details_type::instance() };
 
-        BOOST_CHECK(unit1 < 34);
+            BOOST_CHECK(unit1 < difference_rational_type{ 34 });
+        }
+        {
+            const unit_type unit1{ 12, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(34));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 34, unit_details_type::instance() };
+        {
+            const unit_type unit1{ 34, unit_details_type::instance() };
 
-        BOOST_CHECK(unit1 > 12);
+            BOOST_CHECK(unit1 > difference_rational_type{ 12 });
+        }
+        {
+            const unit_type unit1{ 34, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(12));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(add)

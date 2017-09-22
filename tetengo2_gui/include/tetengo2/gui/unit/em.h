@@ -189,7 +189,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam PixelValue A pixel value type.
 
-            \return The value in ems.
+            \return The value in pixels.
         */
         template <typename PixelValue>
         PixelValue to_pixels()

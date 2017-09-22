@@ -12,7 +12,6 @@
 #include <type_traits>
 
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/gui/unit/unit.h>
@@ -64,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value in pixels.
             \param unit_details Unit details.
 
-            \return An point unit.
+            \return A point unit.
         */
         template <typename PixelValue>
         static point from_pixels(const PixelValue value, const unit_details_type& unit_details)
@@ -81,11 +80,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value.
             \param unit_details Unit details.
         */
-        explicit point(const value_type& value, const unit_details_type& unit_details)
-        :
-        m_value(value),
-        m_p_details(&unit_details)
-        {}
+        point(const value_type& value, const unit_details_type& unit_details);
 
 
         // functions
@@ -93,19 +88,23 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one point unit is equal to another.
 
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+
             \param one     One point unit.
             \param another Another value in point unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const point& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator==(const point<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is less than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -113,13 +112,14 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const point& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator<(const point<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is greater than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -127,10 +127,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const point& one, const value_type& another)
-        {
-            return one.m_value > another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator>(const point<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in point unit.
@@ -139,15 +137,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& add(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        point& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in point unit.
@@ -156,15 +146,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& subtract(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        point& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in point unit.
@@ -173,15 +155,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& multiply(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value *= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        point& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in point unit.
@@ -190,15 +164,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& divide_by(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value /= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        point& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another point unit.
@@ -208,10 +174,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A value.
         */
         value_type divide_by(const point& another)
-        const
-        {
-            return value() / another.value();
-        }
+        const;
 
         /*!
             \brief Returns the value.
@@ -219,17 +182,14 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value.
         */
         const value_type& value()
-        const
-        {
-            return m_value;
-        }
+        const;
 
         /*!
             \brief Returns the value in pixels.
 
             \tparam PixelValue A pixel value type.
 
-            \return The value in points.
+            \return The value in pixels.
         */
         template <typename PixelValue>
         PixelValue to_pixels()
@@ -244,10 +204,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The unit details.
         */
         const unit_details_type& details()
-        const
-        {
-            return *m_p_details;
-        }
+        const;
 
 
     private:

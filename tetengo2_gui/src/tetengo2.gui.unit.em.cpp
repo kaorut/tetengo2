@@ -118,10 +118,6 @@ namespace tetengo2 { namespace gui { namespace unit
 
     template class em<difference_rational_type>;
 
-    //template type_list::size_type em<size_rational_type>::to_ems_impl(const value_type& value);
-
-    //template type_list::difference_type em<difference_rational_type>::to_ems_impl(const value_type& value);
-
     template bool operator==(const em<size_rational_type>& one, const size_rational_type& another);
 
     template bool operator==(const em<size_rational_type>& one, const size_rational_type::int_type& another);
@@ -154,5 +150,6 @@ namespace tetengo2 { namespace gui { namespace unit
         const em<difference_rational_type>&    one,
         const difference_rational_type::int_type& another
     );
+
 
 }}}
