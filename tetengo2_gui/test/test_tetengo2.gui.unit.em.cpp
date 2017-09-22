@@ -20,6 +20,8 @@ namespace
 {
     // types
 
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
+
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
     using unit_details_type = detail_type_list_type::unit_type;
@@ -76,12 +78,17 @@ BOOST_AUTO_TEST_SUITE(em)
         {
             const unit_type unit1{ 123, unit_details_type::instance() };
 
-            BOOST_CHECK(unit1 == 123);
+            BOOST_CHECK(unit1 == difference_rational_type{ 123 });
+        }
+        {
+            const unit_type unit1{ 123, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(123) );
         }
         {
             const unit_type unit1{ 456, unit_details_type::instance() };
 
-            BOOST_CHECK(unit1 != 123);
+            BOOST_CHECK(unit1 != difference_rational_type{ 123 });
         }
     }
 
@@ -89,18 +96,32 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 123, unit_details_type::instance() };
+        {
+            const unit_type unit1{ 123, unit_details_type::instance() };
 
-        BOOST_CHECK(unit1 < 456);
+            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(456) );
+        }
+        {
+            const unit_type unit1{ 123, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 < difference_rational_type{ 456 });
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 456, unit_details_type::instance() };
+        {
+            const unit_type unit1{ 456, unit_details_type::instance() };
 
-        BOOST_CHECK(unit1 > 123);
+            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(123) );
+        }
+        {
+            const unit_type unit1{ 456, unit_details_type::instance() };
+
+            BOOST_CHECK(unit1 > difference_rational_type{ 123 });
+        }
     }
 
     BOOST_AUTO_TEST_CASE(add)

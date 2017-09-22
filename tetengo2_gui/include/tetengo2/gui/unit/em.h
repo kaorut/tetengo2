@@ -12,7 +12,6 @@
 #include <type_traits>
 
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/gui/unit/unit.h>
@@ -81,11 +80,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value.
             \param unit_details Unit details.
         */
-        em(const value_type& value, const unit_details_type& unit_details)
-        :
-        m_value(value),
-        m_p_details(&unit_details)
-        {}
+        em(const value_type& value, const unit_details_type& unit_details);
 
 
         // functions
@@ -93,19 +88,23 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one EM height unit is equal to another.
 
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+
             \param one     One EM height unit.
             \param another Another value in EM height unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const em& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator==(const em<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one EM height unit is less than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -113,13 +112,14 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const em& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator<(const em<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one EM height unit is greater than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -127,10 +127,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const em& one, const value_type& another)
-        {
-            return one.m_value > another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator>(const em<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in EM height unit.
@@ -139,15 +137,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& add(const value_type& another)
-        {
-            em temp{ *this };
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        em& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in EM height unit.
@@ -156,15 +146,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& subtract(const value_type& another)
-        {
-            em temp{ *this };
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        em& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in EM height unit.
@@ -173,15 +155,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& multiply(const value_type& another)
-        {
-            em temp{ *this };
-
-            temp.m_value *= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        em& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in EM height unit.
@@ -190,15 +164,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& divide_by(const value_type& another)
-        {
-            em temp{ *this };
-
-            temp.m_value /= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        em& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another EM height unit.
@@ -208,10 +174,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A value.
         */
         value_type divide_by(const em& another)
-        const
-        {
-            return value() / another.value();
-        }
+        const;
 
         /*!
             \brief Returns the value.
@@ -219,10 +182,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value.
         */
         const value_type& value()
-        const
-        {
-            return m_value;
-        }
+        const;
 
         /*!
             \brief Returns the value in pixels.
@@ -244,10 +204,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The unit details.
         */
         const unit_details_type& details()
-        const
-        {
-            return *m_p_details;
-        }
+        const;
 
 
     private:
