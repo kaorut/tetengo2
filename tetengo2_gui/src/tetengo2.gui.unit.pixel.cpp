@@ -97,6 +97,12 @@ namespace tetengo2 { namespace gui { namespace unit
         return m_value;
     }
 
+    template <typename Value>
+    typename Value::int_type pixel<Value>::to_pixels_impl(const value_type& value)
+    {
+        return boost::rational_cast<typename value_type::int_type>(value);
+    }
+
 
     namespace
     {
@@ -109,6 +115,10 @@ namespace tetengo2 { namespace gui { namespace unit
     template class pixel<size_rational_type>;
 
     template class pixel<difference_rational_type>;
+
+    template type_list::size_type pixel<size_rational_type>::to_pixels_impl(const value_type& value);
+
+    template type_list::difference_type pixel<difference_rational_type>::to_pixels_impl(const value_type& value);
 
     template bool operator==(const pixel<size_rational_type>& one, const size_rational_type& another);
 

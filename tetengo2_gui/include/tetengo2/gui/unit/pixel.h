@@ -9,10 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
-#include <type_traits>
-
-#include <boost/rational.hpp>
-
 #include <tetengo2/gui/unit/unit.h>
 
 
@@ -47,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static pixel from_pixels(const PixelValue value)
         {
-            return pixel{ static_cast<value_type>(value) };
+            return pixel{ value_type{ value } };
         }
 
 
@@ -173,27 +169,14 @@ namespace tetengo2 { namespace gui { namespace unit
         PixelValue to_pixels()
         const
         {
-            return to_pixels_impl<PixelValue>(m_value);
+            return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
 
 
     private:
         // static functions
 
-        template <typename PixelValue, typename Integer>
-        static PixelValue to_pixels_impl(
-            const Integer                                                    value,
-            typename std::enable_if<std::is_integral<Integer>::value>::type* = nullptr
-        )
-        {
-            return static_cast<PixelValue>(value);
-        }
-
-        template <typename PixelValue, typename Integer>
-        static PixelValue to_pixels_impl(const boost::rational<Integer>& value)
-        {
-            return boost::rational_cast<PixelValue>(value);
-        }
+        static typename value_type::int_type to_pixels_impl(const value_type& value);
 
 
         // variables
