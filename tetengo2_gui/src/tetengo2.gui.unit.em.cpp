@@ -9,7 +9,6 @@
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
-#include <tetengo2/detail/base/unit.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/type_list.h>
 
