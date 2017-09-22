@@ -14,6 +14,7 @@
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
+#include <tetengo2/detail/base/unit.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
@@ -23,11 +24,10 @@ namespace tetengo2 { namespace gui { namespace unit
     /*!
         \brief The class template for a point unit.
 
-        \tparam Value       A value type.
-        \tparam UnitDetails A detail implementation type of a unit.
+        \tparam Value A value type.
    */
-    template <typename Value, typename UnitDetails>
-    class point : public unit<point<Value, UnitDetails>, Value>
+    template <typename Value>
+    class point : public unit<point<Value>, Value>
     {
     public:
         // types
@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace unit
         using value_type = Value;
 
         //! The unit details type.
-        using unit_details_type = UnitDetails;
+        using unit_details_type = detail::base::unit;
 
 
         // static functions
@@ -51,9 +51,9 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A point unit.
         */
         template <typename V>
-        static point from(const point<V, unit_details_type>& another)
+        static point from(const point<V>& another)
         {
-            return point{ cast<value_type>(another.value()) };
+            return point{ cast<value_type>(another.value()), another.details() };
         }
 
         /*!
@@ -61,14 +61,15 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam PixelValue A pixel value type.
 
-            \param value A value in pixels.
+            \param value        A value in pixels.
+            \param unit_details Unit details.
 
             \return An point unit.
         */
         template <typename PixelValue>
-        static point from_pixels(const PixelValue value)
+        static point from_pixels(const PixelValue value, const unit_details_type& unit_details)
         {
-            return from_pixels_impl(value);
+            return from_pixels_impl(value, unit_details);
         }
 
 
@@ -77,11 +78,13 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Creates a point unit.
 
-            \param value A value.
+            \param value        A value.
+            \param unit_details Unit details.
         */
-        explicit point(const value_type& value)
+        explicit point(const value_type& value, const unit_details_type& unit_details)
         :
-        m_value(value)
+        m_value(value),
+        m_p_details(&unit_details)
         {}
 
 
@@ -232,7 +235,18 @@ namespace tetengo2 { namespace gui { namespace unit
         PixelValue to_pixels()
         const
         {
-            return to_pixels_impl<PixelValue>(m_value);
+            return to_pixels_impl<PixelValue>(m_value, *m_p_details);
+        }
+
+        /*!
+            \brief Returns the unit details.
+
+            \return The unit details.
+        */
+        const unit_details_type& details()
+        const
+        {
+            return *m_p_details;
         }
 
 
@@ -260,44 +274,50 @@ namespace tetengo2 { namespace gui { namespace unit
 
         template <typename PixelValue>
         static point from_pixels_impl(
-            const PixelValue value,
+            const PixelValue         value,
+            const unit_details_type& unit_details,
             typename std::enable_if<std::is_unsigned<PixelValue>::value>::type* = nullptr
         )
         {
-            return point{ unit_details_type::instance().to_point(static_cast<type_list::size_type>(value)) };
+            return point{ unit_details.to_point(static_cast<type_list::size_type>(value)), unit_details };
         }
 
         template <typename PixelValue>
         static point from_pixels_impl(
-            const PixelValue value,
+            const PixelValue         value,
+            const unit_details_type& unit_details,
             typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
         )
         {
-            return point{ unit_details_type::instance().to_point(static_cast<type_list::difference_type>(value)) };
+            return point{ unit_details.to_point(static_cast<type_list::difference_type>(value)), unit_details };
         }
 
         template <typename PixelValue>
         static PixelValue to_pixels_impl(
-            const value_type& value,
+            const value_type&        value,
+            const unit_details_type& unit_details,
             typename std::enable_if<std::is_unsigned<PixelValue>::value>::type* = nullptr
         )
         {
-            return unit_details_type::instance().template point_to_pixel<type_list::size_type>(value);
+            return unit_details.template point_to_pixel<type_list::size_type>(value);
         }
 
         template <typename PixelValue>
         static PixelValue to_pixels_impl(
-            const value_type& value,
+            const value_type&        value,
+            const unit_details_type& unit_details,
             typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
         )
         {
-            return unit_details_type::instance().template point_to_pixel<type_list::difference_type>(value);
+            return unit_details.template point_to_pixel<type_list::difference_type>(value);
         }
 
 
         // variables
 
         value_type m_value;
+
+        const unit_details_type* m_p_details;
 
 
     };
