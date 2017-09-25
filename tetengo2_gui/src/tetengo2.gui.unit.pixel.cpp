@@ -6,10 +6,14 @@
     $Id$
 */
 
+#include <utility>
+
+#include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -148,6 +152,53 @@ namespace tetengo2 { namespace gui { namespace unit
         const pixel<difference_rational_type>&    one,
         const difference_rational_type::int_type& another
     );
+
+
+    template <typename Value>
+    class pixel_factory<Value>::impl : private boost::noncopyable
+    {
+    public:
+        // types
+
+        using value_type = typename pixel_factory::value_type;
+
+        using unit_type = typename pixel_factory::unit_type;
+
+
+        // constructors and destructor;
+
+        impl()
+        {}
+
+
+        // functions
+
+        unit_type make(value_type value)
+        const
+        {
+            return unit_type{ std::move(value) };
+        }
+
+
+    };
+
+
+    template <typename Value>
+    pixel_factory<Value>::pixel_factory()
+    :
+    m_p_impl(stdalt::make_unique<impl>())
+    {}
+
+    template <typename Value>
+    pixel_factory<Value>::~pixel_factory()
+    = default;
+
+    template <typename Value>
+    typename pixel_factory<Value>::unit_type pixel_factory<Value>::make(value_type value)
+    const
+    {
+        return m_p_impl->make(std::move(value));
+    }
 
 
 }}}

@@ -9,6 +9,10 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
+#include <memory>
+
+#include <boost/core/noncopyable.hpp>
+
 #include <tetengo2/gui/unit/unit.h>
 
 
@@ -182,6 +186,64 @@ namespace tetengo2 { namespace gui { namespace unit
         // variables
 
         value_type m_value;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a pixel unit factory.
+
+        \tparam Value A value type.
+    */
+    template <typename Value>
+    class pixel_factory : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The value type.
+        using value_type = Value;
+
+        //! The unit type.
+        using unit_type = pixel<value_type>;
+
+
+        // constructors and destructor;
+
+        /*!
+            \brief Creates a pixel unit factory.
+        */
+        pixel_factory();
+
+        /*!
+            \brief Destroys the pixel unit factory.
+        */
+        ~pixel_factory();
+
+
+        // functions
+
+        /*!
+            \brief Makes a pixel unit.
+
+            \param value A value.
+
+            \return A pixel unit.
+        */
+        unit_type make(value_type value)
+        const;
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };
