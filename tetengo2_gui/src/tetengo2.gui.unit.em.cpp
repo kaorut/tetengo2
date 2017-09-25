@@ -105,6 +105,24 @@ namespace tetengo2 { namespace gui { namespace unit
         return *m_p_details;
     }
 
+    template <typename Value>
+    em<Value> em<Value>::from_pixels_impl(
+        const typename value_type::int_type value,
+        const unit_details_type&            unit_details
+    )
+    {
+        return em{ unit_details.to_em(value), unit_details };
+    }
+
+    template <typename Value>
+    typename Value::int_type em<Value>::to_pixels_impl(
+        const value_type&        value,
+        const unit_details_type& unit_details
+    )
+    {
+        return unit_details.template em_to_pixel<typename value_type::int_type>(value);
+    }
+
 
     namespace
     {
