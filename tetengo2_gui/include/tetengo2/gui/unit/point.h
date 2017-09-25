@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename PixelValue>
         static point from_pixels(const PixelValue value, const unit_details_type& unit_details)
         {
-            return from_pixels_impl(value, unit_details);
+            return from_pixels_impl(static_cast<typename value_type::int_type>(value), unit_details);
         }
 
 
@@ -195,7 +195,7 @@ namespace tetengo2 { namespace gui { namespace unit
         PixelValue to_pixels()
         const
         {
-            return to_pixels_impl<PixelValue>(m_value, *m_p_details);
+            return static_cast<PixelValue>(to_pixels_impl(m_value, *m_p_details));
         }
 
         /*!
@@ -229,45 +229,12 @@ namespace tetengo2 { namespace gui { namespace unit
                 };
         }
 
-        template <typename PixelValue>
-        static point from_pixels_impl(
-            const PixelValue         value,
-            const unit_details_type& unit_details,
-            typename std::enable_if<std::is_unsigned<PixelValue>::value>::type* = nullptr
-        )
-        {
-            return point{ unit_details.to_point(static_cast<type_list::size_type>(value)), unit_details };
-        }
+        static point from_pixels_impl(const typename value_type::int_type value, const unit_details_type& unit_details);
 
-        template <typename PixelValue>
-        static point from_pixels_impl(
-            const PixelValue         value,
-            const unit_details_type& unit_details,
-            typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
-        )
-        {
-            return point{ unit_details.to_point(static_cast<type_list::difference_type>(value)), unit_details };
-        }
-
-        template <typename PixelValue>
-        static PixelValue to_pixels_impl(
+        static typename value_type::int_type to_pixels_impl(
             const value_type&        value,
-            const unit_details_type& unit_details,
-            typename std::enable_if<std::is_unsigned<PixelValue>::value>::type* = nullptr
-        )
-        {
-            return unit_details.template point_to_pixel<type_list::size_type>(value);
-        }
-
-        template <typename PixelValue>
-        static PixelValue to_pixels_impl(
-            const value_type&        value,
-            const unit_details_type& unit_details,
-            typename std::enable_if<std::is_signed<PixelValue>::value>::type* = nullptr
-        )
-        {
-            return unit_details.template point_to_pixel<type_list::difference_type>(value);
-        }
+            const unit_details_type& unit_details
+        );
 
 
         // variables
