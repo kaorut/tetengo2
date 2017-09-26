@@ -62,6 +62,7 @@ sources = \
     test_tetengo2.gui.shell.cpp \
     test_tetengo2.gui.timer.cpp \
     test_tetengo2.gui.unit.em.cpp \
+    test_tetengo2.gui.unit.factory.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.unit.point.cpp \
     test_tetengo2.gui.unit.unit.cpp \

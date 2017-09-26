@@ -82,6 +82,7 @@
     <ClInclude Include="include\tetengo2\gui\timer.h" />
     <ClInclude Include="include\tetengo2\gui\unit\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\unit\em.h" />
+    <ClInclude Include="include\tetengo2\gui\unit\factory.h" />
     <ClInclude Include="include\tetengo2\gui\unit\pixel.h" />
     <ClInclude Include="include\tetengo2\gui\unit\point.h" />
     <ClInclude Include="include\tetengo2\gui\unit\unit.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
     <ClCompile Include="src\tetengo2.gui.position.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.em.cpp" />
+    <ClCompile Include="src\tetengo2.gui.unit.factory.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.point.cpp" />
   </ItemGroup>
