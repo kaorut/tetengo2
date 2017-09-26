@@ -21,6 +21,8 @@ namespace
 
     using unit_type = tetengo2::gui::unit::pixel<difference_rational_type>;
 
+    using factory_type = tetengo2::gui::unit::pixel_factory<difference_rational_type>;
+
 
 }
 
@@ -185,14 +187,16 @@ BOOST_AUTO_TEST_SUITE(pixel_factory)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const factory_type factory;
     }
 
     BOOST_AUTO_TEST_CASE(make)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const factory_type factory;
+
+        BOOST_CHECK(factory.make(42) == unit_type{ 42 });
     }
 
 
