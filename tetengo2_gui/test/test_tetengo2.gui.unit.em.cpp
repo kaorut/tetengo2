@@ -31,8 +31,6 @@ namespace
 
     using another_unit_type = tetengo2::gui::unit::em<boost::rational<std::size_t>>;
 
-    using factory_type = tetengo2::gui::unit::em_factory<difference_rational_type>;
-
 
 }
 
@@ -204,27 +202,6 @@ BOOST_AUTO_TEST_SUITE(em)
         const unit_type unit{ 42, unit_details_type::instance() };
 
         BOOST_TEST(&unit.details() == &unit_details_type::instance());
-    }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(em_factory)
-    // test cases
-
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const factory_type factory{ unit_details_type::instance() };
-    }
-
-    BOOST_AUTO_TEST_CASE(make)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const factory_type factory{ unit_details_type::instance() };
-
-        BOOST_CHECK((factory.make(42) == unit_type{ 42, unit_details_type::instance() }));
     }
 
 
