@@ -6,10 +6,14 @@
     $Id$
 */
 
+#include <utility>
+
+#include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
 #include <tetengo2/gui/unit/em.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -124,6 +128,63 @@ namespace tetengo2 { namespace gui { namespace unit
     }
 
 
+    template <typename Value>
+    class em_factory<Value>::impl : private boost::noncopyable
+    {
+    public:
+        // types
+
+        using value_type = typename em_factory::value_type;
+
+        using unit_type = typename em_factory::unit_type;
+
+        using unit_details_type = typename em_factory::unit_details_type;
+
+
+        // constructors and destructor;
+
+        explicit impl(const unit_details_type& unit_details)
+        :
+        m_unit_details(unit_details)
+        {}
+
+
+        // functions
+
+        unit_type make(value_type value)
+        const
+        {
+            return unit_type{ std::move(value), m_unit_details };
+        }
+
+
+    private:
+        // variables
+
+        const unit_details_type& m_unit_details;
+
+
+    };
+
+
+    template <typename Value>
+    em_factory<Value>::em_factory(const unit_details_type& unit_details)
+    :
+    m_p_impl(stdalt::make_unique<impl>(unit_details))
+    {}
+
+    template <typename Value>
+    em_factory<Value>::~em_factory()
+    = default;
+
+    template <typename Value>
+    typename em_factory<Value>::unit_type em_factory<Value>::make(value_type value)
+    const
+    {
+        return m_p_impl->make(std::move(value));
+    }
+
+
     namespace
     {
         using size_rational_type = boost::rational<type_list::size_type>;
@@ -168,6 +229,10 @@ namespace tetengo2 { namespace gui { namespace unit
         const em<difference_rational_type>&    one,
         const difference_rational_type::int_type& another
     );
+
+    template class em_factory<size_rational_type>;
+
+    template class em_factory<difference_rational_type>;
 
 
 }}}

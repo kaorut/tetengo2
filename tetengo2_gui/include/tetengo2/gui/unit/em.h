@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_GUI_UNIT_EM_H)
 #define TETENGO2_GUI_UNIT_EM_H
 
+#include <memory>
 #include <type_traits>
 
+#include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2/detail/base/unit.h>
@@ -242,6 +244,69 @@ namespace tetengo2 { namespace gui { namespace unit
         value_type m_value;
 
         const unit_details_type* m_p_details;
+
+
+    };
+
+
+    /*!
+        \brief The class template for an EM height unit factory.
+
+        \tparam Value A value type.
+    */
+    template <typename Value>
+    class em_factory : private boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The value type.
+        using value_type = Value;
+
+        //! The unit type.
+        using unit_type = em<value_type>;
+
+        //! The unit details type.
+        using unit_details_type = detail::base::unit;
+
+
+        // constructors and destructor;
+
+        /*!
+            \brief Creates an EM height unit factory.
+
+            \param unit_details Unit details.
+        */
+        explicit em_factory(const unit_details_type& unit_details);
+
+        /*!
+            \brief Destroys the EM height unit factory.
+        */
+        ~em_factory();
+
+
+        // functions
+
+        /*!
+            \brief Makes an EM height unit.
+
+            \param value A value.
+
+            \return An EM height unit.
+        */
+        unit_type make(value_type value)
+        const;
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };
