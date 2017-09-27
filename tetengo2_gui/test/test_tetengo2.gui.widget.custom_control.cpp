@@ -110,6 +110,8 @@ namespace
         }
 
     private:
+        using unit_details_type = detail_type_list_type::unit_type;
+
         static const position_unit_factory_type& position_unit_factory()
         {
             static const position_unit_factory_type singleton{ unit_details_type::instance() };

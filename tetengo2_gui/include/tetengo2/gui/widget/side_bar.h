@@ -61,6 +61,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
+        //! The unit details type.
+        using unit_details_type = typename details_traits_type::unit_details_type;
+
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 

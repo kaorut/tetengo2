@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam UnitDetails    A unit details type.
     */
     template <typename Traits, typename DrawingDetails, typename IconDetails, typename UnitDetails>
-    class widget_canvas : public canvas<Traits, DrawingDetails, IconDetails, typename UnitDetails>
+    class widget_canvas : public canvas<Traits, DrawingDetails, IconDetails, UnitDetails>
     {
     public:
         // types

@@ -25,7 +25,7 @@ namespace
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using unit_details_type = detail_type_list_type::unit_type;
+    using stub_unit_details_type = detail_type_list_type::unit_type;
 
     template <typename Value>
     class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
@@ -34,6 +34,9 @@ namespace
         // types
 
         using value_type = Value;
+
+        using unit_details_type =
+            typename tetengo2::gui::unit::unit<concrete_unit<value_type>, value_type>::unit_details_type;
 
 
         // static functions
@@ -125,7 +128,7 @@ namespace
         const unit_details_type& details()
         const
         {
-            return tetengo2::detail::stub::unit::instance();
+            return stub_unit_details_type::instance();
         }
 
         template <typename PV>
@@ -163,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         BOOST_TEST_PASSPOINT();
 
         const another_unit_type another_unit{ 123 };
-        const auto unit = unit_type::from(another_unit, unit_details_type::instance());
+        const auto unit = unit_type::from(another_unit, stub_unit_details_type::instance());
 
         BOOST_TEST(unit.value() == 123);
     }
