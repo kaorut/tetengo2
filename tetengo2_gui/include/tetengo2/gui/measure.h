@@ -48,11 +48,11 @@ namespace tetengo2 { namespace gui
     template <typename Unit, typename PixelValue, typename UnitDetails>
     Unit to_unit(
         const PixelValue   value,
-        const UnitDetails& unit_Details,
+        const UnitDetails& unit_details,
         typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = nullptr
     )
     {
-        return Unit::from_pixels(value, unit_Details);
+        return Unit::from_pixels(value, unit_details);
     }
 
     /*!
