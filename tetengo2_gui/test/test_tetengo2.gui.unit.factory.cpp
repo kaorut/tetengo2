@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <cstddef>
-
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 

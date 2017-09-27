@@ -51,8 +51,6 @@ namespace
 
     using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
 
-    using unit_details_type = detail_type_list_type::unit_type;
-
     using color_type = tetengo2::gui::drawing::color;
 
     using drawing_details_type = detail_type_list_type::drawing_type;
