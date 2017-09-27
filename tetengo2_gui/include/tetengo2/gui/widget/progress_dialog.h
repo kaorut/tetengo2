@@ -24,6 +24,7 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
@@ -75,6 +76,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
+
+        //! The unit details type.
+        using unit_details_type = typename details_traits_type::unit_details_type;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
@@ -178,9 +182,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
+        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
+
         using dimension_type = typename traits_type::dimension_type;
 
         using dimension_unit_type = typename dimension_type::unit_type;
+
+        using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
 
         using widget_type = typename abstract_window_type::base_type;
 
@@ -324,19 +332,22 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void locate_controls()
         {
-            this->set_client_dimension(dimension_type{ dimension_unit_type{ 30 }, dimension_unit_type{ 8 } });
+            const position_unit_factory_type position_unit_factory{ unit_details_type::instance() };
+            const dimension_unit_factory_type dimension_unit_factory{ unit_details_type::instance() };
 
-            m_p_message_label->set_dimension(dimension_type{ dimension_unit_type{ 26 }, dimension_unit_type{ 2 } });
-            m_p_message_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 1 } });
+            this->set_client_dimension(dimension_type{ dimension_unit_factory.make(30), dimension_unit_factory.make(8) });
 
-            m_p_progress_label->set_dimension(dimension_type{ dimension_unit_type{ 3 }, dimension_unit_type{ 2 } });
-            m_p_progress_label->set_position(position_type{ position_unit_type{ 2 }, position_unit_type{ 3 } });
+            m_p_message_label->set_dimension(dimension_type{ dimension_unit_factory.make(26), dimension_unit_factory.make(2) });
+            m_p_message_label->set_position(position_type{ position_unit_factory.make(2), position_unit_factory.make(1) });
 
-            m_p_progress_bar->set_dimension(dimension_type{ dimension_unit_type{ 23 }, dimension_unit_type{ 1 } });
-            m_p_progress_bar->set_position(position_type{ position_unit_type{ 5 }, position_unit_type{ 3 } });
+            m_p_progress_label->set_dimension(dimension_type{ dimension_unit_factory.make(3), dimension_unit_factory.make(2) });
+            m_p_progress_label->set_position(position_type{ position_unit_factory.make(2), position_unit_factory.make(3) });
 
-            m_p_cancel_button->set_dimension(dimension_type{ dimension_unit_type{ 8 }, dimension_unit_type{ 2 } });
-            m_p_cancel_button->set_position(position_type{ position_unit_type{ 20 }, position_unit_type{ 5 } });
+            m_p_progress_bar->set_dimension(dimension_type{ dimension_unit_factory.make(23), dimension_unit_factory.make(1) });
+            m_p_progress_bar->set_position(position_type{ position_unit_factory.make(5), position_unit_factory.make(3) });
+
+            m_p_cancel_button->set_dimension(dimension_type{ dimension_unit_factory.make(8), dimension_unit_factory.make(2) });
+            m_p_cancel_button->set_position(position_type{ position_unit_factory.make(20), position_unit_factory.make(5) });
         }
 
         void timer_procedure(bool&)

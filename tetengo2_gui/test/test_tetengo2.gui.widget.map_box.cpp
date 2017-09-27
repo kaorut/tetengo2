@@ -10,7 +10,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -53,11 +53,17 @@ namespace
 
     using position_unit_type = position_type::unit_type;
 
+    using position_unit_factory_type = tetengo2::gui::unit::factory<position_unit_type>;
+
     using dimension_type = common_type_list_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using cursor_details_type = tetengo2::detail::stub::cursor;
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type = detail_type_list_type::unit_type;
+
+    using cursor_details_type = detail_type_list_type::cursor_type;
 
 
     // functions
@@ -272,13 +278,16 @@ BOOST_AUTO_TEST_SUITE(map_box)
     {
         BOOST_TEST_PASSPOINT();
 
+        const position_unit_factory_type position_unit_factory{ unit_details_type::instance() };
+        const dimension_unit_factory_type dimension_unit_factory{ unit_details_type::instance() };
+
         window_type parent{};
         map_box_type map_box{ parent, cursor_details_type::instance() };
-        map_box.set_dimension(dimension_type{ dimension_unit_type{ 42 }, dimension_unit_type{ 24 } });
+        map_box.set_dimension(dimension_type{ dimension_unit_factory.make(42), dimension_unit_factory.make(24) });
 
-        map_box.set_splitter_position(position_unit_type{ 24 });
+        map_box.set_splitter_position(position_unit_factory.make(24));
 
-        BOOST_CHECK(map_box.splitter_position() == position_unit_type{ 24 });
+        BOOST_CHECK(map_box.splitter_position() == position_unit_factory.make(24));
     }
 
     BOOST_AUTO_TEST_CASE(list_selection_observer_set)

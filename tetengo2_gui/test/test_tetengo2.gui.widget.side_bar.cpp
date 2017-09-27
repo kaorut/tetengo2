@@ -9,6 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -48,6 +49,10 @@ namespace
         >;
 
     using dimension_unit_type = side_bar_type::dimension_unit_type;
+
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type= detail_type_list_type::unit_type;
 
     using cursor_details_type = tetengo2::detail::stub::cursor;
 
@@ -96,7 +101,8 @@ BOOST_AUTO_TEST_SUITE(side_bar)
         window_type parent{};
         side_bar_type side_bar{ parent, cursor_details_type::instance() };
 
-        side_bar.set_width(dimension_unit_type{ 42 });
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+        side_bar.set_width(unit_factory.make(42));
     }
 
     BOOST_AUTO_TEST_CASE(minimized)

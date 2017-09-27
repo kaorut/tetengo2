@@ -13,6 +13,7 @@
 
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/factory.h>
+#include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/type_list.h>
 
 #include "test_tetengo2.gui.type_list.h"
@@ -28,7 +29,7 @@ namespace
 
     using unit_details_type = detail_type_list_type::unit_type;
 
-    using unit_type = tetengo2::gui::unit::em<boost::rational<std::ptrdiff_t>>;
+    using unit_type = tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>>;
 
     using factory_type = tetengo2::gui::unit::factory<unit_type>;
 

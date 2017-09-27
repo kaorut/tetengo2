@@ -18,6 +18,7 @@
 
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/control.h>
 
 
@@ -49,6 +50,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
+
+        //! The unit details type.
+        using unit_details_type = typename details_traits_type::unit_details_type;
 
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
@@ -245,6 +249,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
+        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
+
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
@@ -272,17 +278,19 @@ namespace tetengo2 { namespace gui { namespace widget
         void paint_image(canvas_type& canvas)
         const
         {
+            const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+
             if (m_p_picture)
             {
                 canvas.paint_picture(
                     *m_p_picture,
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
+                    position_type{ unit_factory.make(0), unit_factory.make(0) },
                     this->client_dimension()
                 );
             }
             else if (m_p_icon)
             {
-                canvas.paint_icon(*m_p_icon, position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } });
+                canvas.paint_icon(*m_p_icon, position_type{ unit_factory.make(0), unit_factory.make(0) });
             }
         }
 

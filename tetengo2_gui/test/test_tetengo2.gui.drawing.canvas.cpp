@@ -22,6 +22,7 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/unit/factory.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -42,9 +43,15 @@ namespace
 
     using position_unit_type = position_type::unit_type;
 
+    using position_unit_factory_type = tetengo2::gui::unit::factory<position_unit_type>;
+
     using dimension_type = common_type_list_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
+
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type = detail_type_list_type::unit_type;
 
     using color_type = tetengo2::gui::drawing::color;
 
@@ -64,6 +71,8 @@ namespace
 
     using icon_type = tetengo2::gui::icon<dimension_type, icon_details_type>;
 
+    using unit_details_type = detail_type_list_type::unit_type;
+
     using canvas_details_type = drawing_details_type::canvas_details_type;
 
     using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
@@ -73,7 +82,8 @@ namespace
     using canvas_traits_type =
         tetengo2::gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
-    using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+    using canvas_type =
+        tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type, unit_details_type>;
 
     struct concrete_canvas : public canvas_type
     {
@@ -101,13 +111,15 @@ namespace
     template <typename Int>
     position_type make_position(const Int x, const Int y)
     {
-        return { position_unit_type{ x }, position_unit_type{ y } };
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        return { unit_factory.make(x), unit_factory.make(y) };
     }
 
     template <typename Int>
     dimension_type make_dimension(const Int w, const Int h)
     {
-        return { dimension_unit_type{ w }, dimension_unit_type{ h } };
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+        return { unit_factory.make(w), unit_factory.make(h) };
     }
 
 
@@ -216,7 +228,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas{};
 
-        canvas.set_line_width(dimension_unit_type{ 42 });
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+        canvas.set_line_width(unit_factory.make(42));
 
         BOOST_CHECK(canvas.line_width() == static_cast<size_type>(42));
     }
@@ -334,6 +347,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+
         {
             const concrete_canvas canvas{};
 
@@ -344,14 +359,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 256 });
+            const auto dimension =
+                canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, unit_factory.make(256));
 
             BOOST_CHECK(dimension == make_dimension(123U, 456U));
         }
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 64 });
+            const auto dimension =
+                canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, unit_factory.make(64));
 
             BOOST_CHECK(dimension == make_dimension(46U, 890U));
         }
@@ -372,6 +389,8 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+
         {
             concrete_canvas canvas{};
 
@@ -381,14 +400,14 @@ BOOST_AUTO_TEST_SUITE(canvas)
             concrete_canvas canvas{};
 
             canvas.draw_text(
-                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), dimension_unit_type{ 256 }, 56.78
+                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), unit_factory.make(256), 56.78
             );
         }
         {
             concrete_canvas canvas{};
 
             canvas.draw_text(
-                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), dimension_unit_type{ 64 }, 56.78
+                string_type{ TETENGO2_TEXT("hoge") }, make_position(12, 34), unit_factory.make(64), 56.78
             );
         }
     }

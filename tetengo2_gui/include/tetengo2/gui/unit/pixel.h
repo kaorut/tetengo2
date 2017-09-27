@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
+#include <tetengo2/detail/base/unit.h>
 #include <tetengo2/gui/unit/unit.h>
 
 
@@ -28,6 +29,9 @@ namespace tetengo2 { namespace gui { namespace unit
         //! The value type.
         using value_type = Value;
 
+        //! The unit details type.
+        using unit_details_type = detail::base::unit;
+
 
         // static functions
 
@@ -36,14 +40,15 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam PixelValue A pixel value type.
 
-            \param value A value in pixels.
+            \param value        A value in pixels.
+            \param unit_details Unit details.
 
             \return A pixel unit.
         */
         template <typename PixelValue>
-        static pixel from_pixels(const PixelValue value)
+        static pixel from_pixels(const PixelValue value, const unit_details_type& unit_details)
         {
-            return pixel{ value_type{ value } };
+            return pixel{ value_type{ value }, unit_details };
         }
 
 
@@ -52,9 +57,10 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Creates a pixel unit.
 
-            \param value A value.
+            \param value        A value in pixels.
+            \param unit_details Unit details.
         */
-        explicit pixel(value_type value);
+        pixel(value_type value, const unit_details_type& unit_details);
 
 
         // functions
@@ -172,6 +178,14 @@ namespace tetengo2 { namespace gui { namespace unit
             return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
 
+        /*!
+            \brief Returns the unit details.
+
+            \return The unit details.
+        */
+        const unit_details_type& details()
+        const;
+
 
     private:
         // static functions
@@ -182,6 +196,8 @@ namespace tetengo2 { namespace gui { namespace unit
         // variables
 
         value_type m_value;
+
+        const unit_details_type* m_p_details;
 
 
     };

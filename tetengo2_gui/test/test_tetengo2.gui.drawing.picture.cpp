@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
+#include <tetengo2/gui/unit/factory.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -30,6 +31,10 @@ namespace
 
     using dimension_unit_type = dimension_type::unit_type;
 
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type = detail_type_list_type::unit_type;
+
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
 
@@ -46,13 +51,15 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+
         {
-            const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
+            const picture_type picture{ dimension_type{ unit_factory.make(123), unit_factory.make(456) } };
         }
         {
             picture_type::details_ptr_type p_details{
                 drawing_details_type::create_picture(
-                    dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }
+                    dimension_type{ unit_factory.make(123), unit_factory.make(456) }
                 )
             };
             const picture_type picture2{ std::move(p_details) };
@@ -68,22 +75,26 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
 
-        BOOST_CHECK((picture.dimension() == dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }));
+        const picture_type picture{ dimension_type{ unit_factory.make(123), unit_factory.make(456) } };
+
+        BOOST_CHECK((picture.dimension() == dimension_type{ unit_factory.make(123), unit_factory.make(456) }));
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+
         {
-            const picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
+            const picture_type picture{ dimension_type{ unit_factory.make(123), unit_factory.make(456) } };
 
             picture.details();
         }
         {
-            picture_type picture{ dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } };
+            picture_type picture{ dimension_type{ unit_factory.make(123), unit_factory.make(456) } };
 
             picture.details();
         }

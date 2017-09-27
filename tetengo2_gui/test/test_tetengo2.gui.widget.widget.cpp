@@ -20,6 +20,7 @@
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 #include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
@@ -43,7 +44,17 @@ namespace
 
     using position_type = common_type_list_type::position_type;
 
+    using position_unit_type = position_type::unit_type;
+
+    using position_unit_factory_type = tetengo2::gui::unit::factory<position_unit_type>;
+
     using dimension_type = common_type_list_type::dimension_type;
+
+    using dimension_unit_type = dimension_type::unit_type;
+
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type = detail_type_list_type::unit_type;
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
@@ -124,12 +135,14 @@ namespace
 
     position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
-        return { position_type::unit_type{ left }, position_type::unit_type{ top } };
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        return { unit_factory.make(left), unit_factory.make(top) };
     }
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+        return { unit_factory.make(width), unit_factory.make(height) };
     }
 
 }

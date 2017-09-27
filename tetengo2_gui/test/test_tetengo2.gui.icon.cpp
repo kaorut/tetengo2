@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/unit/factory.h>
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -26,6 +27,10 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
+    using dimension_unit_type = dimension_type::unit_type;
+
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
     using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
 
 
@@ -33,7 +38,8 @@ namespace
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
+        const dimension_unit_factory_type unit_factory{ detail_type_list_type::unit_type::instance() };
+        return { unit_factory.make(width), unit_factory.make(height) };
     }
 
 

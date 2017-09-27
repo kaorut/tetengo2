@@ -23,6 +23,7 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -34,8 +35,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
         \tparam IconDetails    An icon details type.
+        \tparam UnitDetails    A unit details type.
     */
-    template <typename Traits, typename DrawingDetails, typename IconDetails>
+    template <typename Traits, typename DrawingDetails, typename IconDetails, typename UnitDetails>
     class canvas : private boost::noncopyable
     {
     public:
@@ -58,6 +60,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
+
+        //! The dimension unit factory type.
+        using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
 
         //! The encoder type.
         using encoder_type = typename traits_type::encoder_type;
@@ -88,6 +93,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The icon type.
         using icon_type = gui::icon<dimension_type, icon_details_type>;
+
+        //! The unit details type.
+        using unit_details_type = UnitDetails;
 
         //! The color type.
         using color_type = color;
@@ -334,7 +342,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return calc_text_dimension(text, dimension_unit_type{ 0 });
+            const dimension_unit_factory_type factory{ unit_details_type::instance() };
+            return calc_text_dimension(text, factory.make(0));
         }
 
         /*!
@@ -383,7 +392,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            draw_text(text, position, dimension_unit_type{ 0 }, angle);
+            const dimension_unit_factory_type factory{ unit_details_type::instance() };
+            draw_text(text, position, factory.make(0), angle);
         }
 
         /*!
@@ -504,7 +514,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details)),
         m_color(0, 0, 0, 255),
         m_p_background(stdalt::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 })),
-        m_line_width(1),
+        m_line_width(dimention_unit_factory_type{ unit_details_type::instance() }.make(1)),
         m_line_style(line_style_type::solid),
         m_font(font_type::dialog_font())
         {
@@ -514,6 +524,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
     private:
+        // types
+
+        using dimention_unit_factory_type = gui::unit::factory<dimension_unit_type>;
+
+
         // static functions
 
         static const encoder_type& encoder()

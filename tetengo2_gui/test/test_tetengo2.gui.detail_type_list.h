@@ -12,6 +12,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/detail/stub/common_dialog.h>
+#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/menu.h>
@@ -46,6 +47,8 @@ namespace test_tetengo2 { namespace gui { namespace type_list
             using drawing_details_type = tetengo2::detail::stub::drawing;
 
             using icon_details_type = tetengo2::detail::stub::icon;
+
+            using cursor_details_type = tetengo2::detail::stub::cursor;
 
             using menu_details_type = tetengo2::detail::stub::menu;
 
@@ -87,6 +90,9 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         //! The icon type.
         using icon_type = detail::detail::test::icon_details_type;
+
+        //! The cursor type.
+        using cursor_type = detail::detail::test::cursor_details_type;
 
         //! The menu type.
         using menu_type = detail::detail::test::menu_details_type;

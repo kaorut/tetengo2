@@ -8,6 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -44,9 +45,15 @@ namespace
 
     using position_unit_type = position_type::unit_type;
 
+    using position_unit_factory_type = tetengo2::gui::unit::factory<position_unit_type>;
+
     using dimension_type = custom_control_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
+
+    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
+
+    using unit_details_type = detail_type_list_type::unit_type;
 
     using inner_item_type = custom_control_type::inner_item_type;
 
@@ -67,8 +74,8 @@ namespace
         :
         inner_item_type(
             parent,
-            position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
-            dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } }
+            position_type{ position_unit_factory().make(42), position_unit_factory().make(24) },
+            dimension_type{ dimension_unit_factory().make(12), dimension_unit_factory().make(34) }
         )
         {}
 
@@ -100,6 +107,19 @@ namespace
         const
         {
             return inside(position);
+        }
+
+    private:
+        static const position_unit_factory_type& position_unit_factory()
+        {
+            static const position_unit_factory_type singleton{ unit_details_type::instance() };
+            return singleton;
+        }
+
+        static const dimension_unit_factory_type& dimension_unit_factory()
+        {
+            static const dimension_unit_factory_type singleton{ unit_details_type::instance() };
+            return singleton;
         }
 
     };
@@ -190,7 +210,8 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_CHECK((inner_item.position() == position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } }));
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        BOOST_CHECK((inner_item.position() == position_type{ unit_factory.make(42), unit_factory.make(24) }));
     }
 
     BOOST_AUTO_TEST_CASE(set_position)
@@ -201,9 +222,10 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.set_position(position_type{ position_unit_type{ 53 }, position_unit_type{ 35 } });
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        inner_item.set_position(position_type{  unit_factory.make(53),  unit_factory.make(35) });
 
-        BOOST_CHECK((inner_item.position() == position_type{ position_unit_type{ 53 }, position_unit_type{ 35 } }));
+        BOOST_CHECK((inner_item.position() == position_type{  unit_factory.make(53),  unit_factory.make(35) }));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
@@ -214,8 +236,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
         BOOST_CHECK((
-            inner_item.dimension() == dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } }
+            inner_item.dimension() == dimension_type{  unit_factory.make(12),  unit_factory.make(34) }
         ));
     }
 
@@ -227,10 +250,11 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.set_dimension(dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } });
+        const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
+        inner_item.set_dimension(dimension_type{  unit_factory.make(56),  unit_factory.make(78) });
 
         BOOST_CHECK((
-            inner_item.dimension() == dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } }
+            inner_item.dimension() == dimension_type{  unit_factory.make(56),  unit_factory.make(78) }
         ));
     }
 
@@ -305,10 +329,11 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_TEST(!inner_item.call_inside(position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }));
-        BOOST_TEST(inner_item.call_inside(position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } }));
-        BOOST_TEST(inner_item.call_inside(position_type{ position_unit_type{ 50 }, position_unit_type{ 50 } }));
-        BOOST_TEST(!inner_item.call_inside(position_type{ position_unit_type{ 100 }, position_unit_type{ 100 } }));
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        BOOST_TEST(!inner_item.call_inside(position_type{  unit_factory.make(0),  unit_factory.make(0) }));
+        BOOST_TEST(inner_item.call_inside(position_type{  unit_factory.make(42),  unit_factory.make(24) }));
+        BOOST_TEST(inner_item.call_inside(position_type{  unit_factory.make(50),  unit_factory.make(50) }));
+        BOOST_TEST(!inner_item.call_inside(position_type{  unit_factory.make(100),  unit_factory.make(100) }));
     }
 
     BOOST_AUTO_TEST_CASE(mouse_pressed)
@@ -319,8 +344,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
         inner_item.mouse_pressed(
-            mouse_button_type::left, position_type{ position_unit_type{ 11 }, position_unit_type{ 22 } }
+            mouse_button_type::left, position_type{  unit_factory.make(11),  unit_factory.make(22) }
         );
     }
 
@@ -332,8 +358,9 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
         inner_item.mouse_released(
-            mouse_button_type::left, position_type{ position_unit_type{ 11 }, position_unit_type{ 22 } }
+            mouse_button_type::left, position_type{  unit_factory.make(11),  unit_factory.make(22) }
         );
     }
 
@@ -345,7 +372,8 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.mouse_moved(position_type{ position_unit_type{ 11 }, position_unit_type{ 22 } });
+        const position_unit_factory_type unit_factory{ unit_details_type::instance() };
+        inner_item.mouse_moved(position_type{  unit_factory.make(11),  unit_factory.make(22) });
     }
 
 

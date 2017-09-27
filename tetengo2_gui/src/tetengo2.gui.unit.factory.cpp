@@ -88,11 +88,27 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using em_difference_type = tetengo2::gui::unit::em<difference_rational_type>;
 
+        using pixel_size_type = tetengo2::gui::unit::pixel<size_rational_type>;
+
+        using pixel_difference_type = tetengo2::gui::unit::pixel<difference_rational_type>;
+
+        using point_size_type = tetengo2::gui::unit::point<size_rational_type>;
+
+        using point_difference_type = tetengo2::gui::unit::point<difference_rational_type>;
+
     }
 
     template class factory<em_size_type>;
 
     template class factory<em_difference_type>;
+
+    template class factory<pixel_size_type>;
+
+    template class factory<pixel_difference_type>;
+
+    template class factory<point_size_type>;
+
+    template class factory<point_difference_type>;
 
 
 }}}
