@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \param value A value.
         */
-        explicit pixel(const value_type& value);
+        explicit pixel(value_type value);
 
 
         // functions

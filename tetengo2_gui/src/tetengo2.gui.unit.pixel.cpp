@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <utility>
+
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
@@ -16,9 +18,9 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     template <typename Value>
-    pixel<Value>::pixel(const value_type& value)
+    pixel<Value>::pixel(value_type value)
     :
-    m_value(value)
+    m_value(std::move(value))
     {}
 
     template <typename V1, typename V2>

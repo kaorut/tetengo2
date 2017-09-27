@@ -6,10 +6,14 @@
     $Id$
 */
 
+#include <utility>
+
+#include <boost/rational.hpp>
 #include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
@@ -36,9 +40,9 @@ namespace
 
         // constructors and destructor
 
-        explicit concrete_unit(const value_type& value)
+        explicit concrete_unit(value_type value)
         :
-        m_value(value)
+        m_value(std::move(value))
         {}
 
 
@@ -115,7 +119,7 @@ namespace
         PV to_pixels()
         const
         {
-            return m_value * 7;
+            return boost::rational_cast<PV>(m_value) * 7;
         }
 
 
@@ -127,9 +131,9 @@ namespace
 
     };
 
-    using unit_type = concrete_unit<int>;
+    using unit_type = concrete_unit<boost::rational<tetengo2::type_list::difference_type>>;
 
-    using another_unit_type = concrete_unit<unsigned short>;
+    using another_unit_type = concrete_unit<boost::rational<tetengo2::type_list::size_type>>;
 
 
 }
@@ -300,7 +304,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         {
             unit_type unit1{ 456 };
 
-            unit1 /= 123;
+            unit1 /= 152;
 
             BOOST_TEST(unit1.value() == 3);
         }
@@ -313,15 +317,15 @@ BOOST_AUTO_TEST_SUITE(unit)
         {
             const unit_type unit1{ 456 };
 
-            const auto unit3 = unit1 / 123;
+            const auto unit3 = unit1 / 152;
 
             BOOST_TEST(unit3.value() == 3);
         }
         {
             const unit_type unit1{ 456 };
-            const unit_type unit2{ 123 };
+            const unit_type unit2{ 152 };
 
-            const int value = unit1 / unit2;
+            const unit_type::value_type value = unit1 / unit2;
 
             BOOST_TEST(value == 3);
         }

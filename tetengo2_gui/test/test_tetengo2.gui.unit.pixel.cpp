@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <utility>
+
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -45,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(pixel)
         BOOST_TEST_PASSPOINT();
 
         {
-            const int value = 123;
-            const unit_type unit{ value };
+            const difference_rational_type value{ 123 };
+            const unit_type unit{ std::move(value) };
         }
         {
             const unit_type unit{ 123 };

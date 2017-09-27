@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <utility>
+
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
@@ -16,9 +18,9 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     template <typename Value>
-    em<Value>::em(const value_type& value, const unit_details_type& unit_details)
+    em<Value>::em(value_type value, const unit_details_type& unit_details)
     :
-    m_value(value),
+    m_value(std::move(value)),
     m_p_details(&unit_details)
     {}
 

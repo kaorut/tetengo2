@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value.
             \param unit_details Unit details.
         */
-        em(const value_type& value, const unit_details_type& unit_details);
+        em(value_type value, const unit_details_type& unit_details);
 
 
         // functions

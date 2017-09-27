@@ -7,6 +7,7 @@
 */
 
 #include <cstddef>
+#include <utility>
 
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
@@ -64,8 +65,8 @@ BOOST_AUTO_TEST_SUITE(point)
         BOOST_TEST_PASSPOINT();
 
         {
-            const int value = 12;
-            const unit_type unit{ value, unit_details_type::instance() };
+            const difference_rational_type value{ 12 };
+            const unit_type unit{ std::move(value), unit_details_type::instance() };
         }
         {
             const unit_type unit{ 12, unit_details_type::instance() };
