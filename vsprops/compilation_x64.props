@@ -5,6 +5,10 @@
   <PropertyGroup>
     <LibraryPath>$(BOOST_LIB_x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <Link>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
