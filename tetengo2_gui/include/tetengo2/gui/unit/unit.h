@@ -20,6 +20,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \brief The class template for a unit.
 
         \tparam ConcreteUnit A concrete unit type.
+        \tparam Value        A value type.
    */
     template <typename ConcreteUnit, typename Value>
     class unit :
