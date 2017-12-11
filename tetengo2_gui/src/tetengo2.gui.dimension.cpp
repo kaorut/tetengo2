@@ -54,12 +54,12 @@ namespace tetengo2 { namespace gui
 
         using pixel_unit_type = gui::unit::upixel;
 
-        using point_stub_unit_type = gui::unit::point<boost::rational<type_list::size_type>>;
+        using point_stub_unit_type = gui::unit::upoint;
 
 #if BOOST_OS_WINDOWS
         using em_windows_unit_type = gui::unit::uem;
 
-        using point_windows_unit_type = gui::unit::point<boost::rational<type_list::size_type>>;
+        using point_windows_unit_type = gui::unit::upoint;
 #endif
 
     }

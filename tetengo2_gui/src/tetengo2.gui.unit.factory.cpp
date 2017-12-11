@@ -92,9 +92,9 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using pixel_difference_type = tetengo2::gui::unit::pixel;
 
-        using point_size_type = tetengo2::gui::unit::point<size_rational_type>;
+        using point_size_type = tetengo2::gui::unit::upoint;
 
-        using point_difference_type = tetengo2::gui::unit::point<difference_rational_type>;
+        using point_difference_type = tetengo2::gui::unit::point;
 
     }
 

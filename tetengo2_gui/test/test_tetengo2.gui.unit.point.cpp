@@ -28,9 +28,9 @@ namespace
 
     using unit_details_type = detail_type_list_type::unit_type;
 
-    using unit_type = tetengo2::gui::unit::point<boost::rational<std::ptrdiff_t>>;
+    using unit_type = tetengo2::gui::unit::point;
 
-    using another_unit_type = tetengo2::gui::unit::point<boost::rational<std::size_t>>;
+    using another_unit_type = tetengo2::gui::unit::upoint;
 
 
 }

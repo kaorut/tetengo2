@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::point.
+    \brief The definition of tetengo2::gui::unit::basic_point.
 
     Copyright (C) 2007-2017 kaoru
 
@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \tparam Value A value type.
    */
     template <typename Value>
-    class point : public unit<point<Value>, Value>
+    class basic_point : public unit<basic_point<Value>, Value>
     {
     public:
         // types
@@ -50,9 +50,9 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A point unit.
         */
         template <typename V>
-        static point from(const point<V>& another)
+        static basic_point from(const basic_point<V>& another)
         {
-            return point{ cast<value_type>(another.value()), another.details() };
+            return basic_point{ cast<value_type>(another.value()), another.details() };
         }
 
         /*!
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A point unit.
         */
         template <typename PixelValue>
-        static point from_pixels(const PixelValue value, const unit_details_type& unit_details)
+        static basic_point from_pixels(const PixelValue value, const unit_details_type& unit_details)
         {
             return from_pixels_impl(static_cast<typename value_type::int_type>(value), unit_details);
         }
@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value.
             \param unit_details Unit details.
         */
-        point(value_type value, const unit_details_type& unit_details);
+        basic_point(value_type value, const unit_details_type& unit_details);
 
 
         // functions
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator==(const point<V1>& one, const V2& another);
+        friend bool operator==(const basic_point<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is less than another.
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator<(const point<V1>& one, const V2& another);
+        friend bool operator<(const basic_point<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is greater than another.
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator>(const point<V1>& one, const V2& another);
+        friend bool operator>(const basic_point<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in point unit.
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& add(const value_type& another);
+        basic_point& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in point unit.
@@ -146,7 +146,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& subtract(const value_type& another);
+        basic_point& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in point unit.
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& multiply(const value_type& another);
+        basic_point& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in point unit.
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& divide_by(const value_type& another);
+        basic_point& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another point unit.
@@ -173,7 +173,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const point& another)
+        value_type divide_by(const basic_point& another)
         const;
 
         /*!
@@ -229,7 +229,10 @@ namespace tetengo2 { namespace gui { namespace unit
                 };
         }
 
-        static point from_pixels_impl(const typename value_type::int_type value, const unit_details_type& unit_details);
+        static basic_point from_pixels_impl(
+            const typename value_type::int_type value,
+            const unit_details_type&            unit_details
+        );
 
         static typename value_type::int_type to_pixels_impl(
             const value_type&        value,
@@ -245,6 +248,13 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
     };
+
+
+    //! The signed point type.
+    using point = basic_point<boost::rational<type_list::difference_type>>;
+
+    //! The unsigned point type.
+    using upoint = basic_point<boost::rational<type_list::size_type>>;
 
 
 }}}
