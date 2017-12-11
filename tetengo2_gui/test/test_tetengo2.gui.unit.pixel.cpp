@@ -27,7 +27,7 @@ namespace
 
     using unit_details_type = detail_type_list_type::unit_type;
 
-    using unit_type = tetengo2::gui::unit::pixel<difference_rational_type>;
+    using unit_type = tetengo2::gui::unit::pixel;
 
 
 }

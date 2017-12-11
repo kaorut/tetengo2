@@ -52,7 +52,7 @@ namespace tetengo2 { namespace gui
     {
         using em_stub_unit_type = gui::unit::uem;
 
-        using pixel_unit_type = gui::unit::pixel<boost::rational<type_list::size_type>>;
+        using pixel_unit_type = gui::unit::upixel;
 
         using point_stub_unit_type = gui::unit::point<boost::rational<type_list::size_type>>;
 

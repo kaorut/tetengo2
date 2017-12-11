@@ -39,9 +39,9 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         using string_type = std::wstring;
 
-        using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel<boost::rational<difference_type>>>;
+        using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel>;
 
-        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::pixel<boost::rational<size_type>>>;
+        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::upixel>;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;

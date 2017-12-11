@@ -88,9 +88,9 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using em_difference_type = tetengo2::gui::unit::em;
 
-        using pixel_size_type = tetengo2::gui::unit::pixel<size_rational_type>;
+        using pixel_size_type = tetengo2::gui::unit::upixel;
 
-        using pixel_difference_type = tetengo2::gui::unit::pixel<difference_rational_type>;
+        using pixel_difference_type = tetengo2::gui::unit::pixel;
 
         using point_size_type = tetengo2::gui::unit::point<size_rational_type>;
 

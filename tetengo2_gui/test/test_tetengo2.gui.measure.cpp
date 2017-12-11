@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<difference_rational_type> value{ 123, unit_details_type::instance() };
+            const tetengo2::gui::unit::pixel value{ 123, unit_details_type::instance() };
 
             const auto pixels = tetengo2::gui::to_pixels<int>(value);
 
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            using unit_type = tetengo2::gui::unit::pixel<difference_rational_type>;
+            using unit_type = tetengo2::gui::unit::pixel;
             const int value = 123;
 
             const auto unit = tetengo2::gui::to_unit<unit_type>(value, unit_details_type::instance());
@@ -81,9 +81,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<difference_rational_type> value{
-                difference_rational_type{ 3, 2 }, unit_details_type::instance()
-            };
+            const tetengo2::gui::unit::pixel value{ difference_rational_type{ 3, 2 }, unit_details_type::instance() };
 
             const auto ceiling = tetengo2::gui::ceil<difference_rational_type::int_type>(value);
 
@@ -103,9 +101,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<difference_rational_type> value{
-                difference_rational_type{ 3, 2 }, unit_details_type::instance()
-            };
+            const tetengo2::gui::unit::pixel value{ difference_rational_type{ 3, 2 }, unit_details_type::instance() };
 
             const auto floor = tetengo2::gui::floor<difference_rational_type::int_type>(value);
 
