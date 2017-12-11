@@ -9,7 +9,6 @@
 #include <utility>
 
 #include <boost/predef.h>
-#include <boost/rational.hpp>
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/em.h>

@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/unit.h>

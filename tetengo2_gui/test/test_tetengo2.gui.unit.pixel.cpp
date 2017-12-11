@@ -36,7 +36,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(unit)
-BOOST_AUTO_TEST_SUITE(pixel)
+BOOST_AUTO_TEST_SUITE(basic_pixel)
     // test cases
 
     BOOST_AUTO_TEST_CASE(from_pixels)

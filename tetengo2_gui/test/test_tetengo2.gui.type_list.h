@@ -12,8 +12,6 @@
 #include <cstddef>
 #include <string>
 
-#include <boost/rational.hpp>
-
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/pixel.h>
