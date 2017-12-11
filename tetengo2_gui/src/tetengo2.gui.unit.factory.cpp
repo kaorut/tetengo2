@@ -84,9 +84,9 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using difference_rational_type = boost::rational<type_list::difference_type>;
 
-        using em_size_type = tetengo2::gui::unit::em<size_rational_type>;
+        using em_size_type = tetengo2::gui::unit::uem;
 
-        using em_difference_type = tetengo2::gui::unit::em<difference_rational_type>;
+        using em_difference_type = tetengo2::gui::unit::em;
 
         using pixel_size_type = tetengo2::gui::unit::pixel<size_rational_type>;
 

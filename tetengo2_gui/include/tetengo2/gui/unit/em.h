@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::em.
+    \brief The definition of tetengo2::gui::unit::basic_em.
 
     Copyright (C) 2007-2017 kaoru
 
@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \tparam Value A value type.
    */
     template <typename Value>
-    class em : public unit<em<Value>, Value>
+    class basic_em : public unit<basic_em<Value>, Value>
     {
     public:
         // types
@@ -50,9 +50,9 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A em unit.
         */
         template <typename V>
-        static em from(const em<V>& another)
+        static basic_em from(const basic_em<V>& another)
         {
-            return em{ cast<value_type>(another.value()), another.details() };
+            return basic_em{ cast<value_type>(another.value()), another.details() };
         }
 
         /*!
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return An EM height unit.
         */
         template <typename PixelValue>
-        static em from_pixels(const PixelValue value, const unit_details_type& unit_details)
+        static basic_em from_pixels(const PixelValue value, const unit_details_type& unit_details)
         {
             return from_pixels_impl(static_cast<typename value_type::int_type>(value), unit_details);
         }
@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \param value        A value.
             \param unit_details Unit details.
         */
-        em(value_type value, const unit_details_type& unit_details);
+        basic_em(value_type value, const unit_details_type& unit_details);
 
 
         // functions
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator==(const em<V1>& one, const V2& another);
+        friend bool operator==(const basic_em<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one EM height unit is less than another.
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator<(const em<V1>& one, const V2& another);
+        friend bool operator<(const basic_em<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one EM height unit is greater than another.
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename V1, typename V2>
-        friend bool operator>(const em<V1>& one, const V2& another);
+        friend bool operator>(const basic_em<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in EM height unit.
@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& add(const value_type& another);
+        basic_em& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in EM height unit.
@@ -146,7 +146,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& subtract(const value_type& another);
+        basic_em& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in EM height unit.
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& multiply(const value_type& another);
+        basic_em& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in EM height unit.
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        em& divide_by(const value_type& another);
+        basic_em& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another EM height unit.
@@ -173,7 +173,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const em& another)
+        value_type divide_by(const basic_em& another)
         const;
 
         /*!
@@ -229,7 +229,10 @@ namespace tetengo2 { namespace gui { namespace unit
                 };
         }
 
-        static em from_pixels_impl(const typename value_type::int_type value, const unit_details_type& unit_details);
+        static basic_em from_pixels_impl(
+            const typename value_type::int_type value,
+            const unit_details_type&            unit_details
+        );
 
         static typename value_type::int_type to_pixels_impl(
             const value_type&        value,
@@ -245,6 +248,13 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
     };
+
+
+    //! The signed em type.
+    using em = basic_em<boost::rational<type_list::difference_type>>;
+
+    //! The unsigned em type.
+    using uem = basic_em<boost::rational<type_list::size_type>>;
 
 
 }}}

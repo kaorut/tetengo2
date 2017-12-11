@@ -20,7 +20,7 @@
 
 namespace
 {
-    using unit_type = tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>>;
+    using unit_type = tetengo2::gui::unit::em;
 
     using unit_factory_type = tetengo2::gui::unit::factory<unit_type>;
 

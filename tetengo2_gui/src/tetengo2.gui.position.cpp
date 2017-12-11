@@ -51,14 +51,14 @@ namespace tetengo2 { namespace gui
 
     namespace
     {
-        using em_stub_unit_type = gui::unit::em<boost::rational<type_list::difference_type>>;
+        using em_stub_unit_type = gui::unit::em;
 
         using pixel_unit_type = gui::unit::pixel<boost::rational<type_list::difference_type>>;
 
         using point_stub_unit_type = gui::unit::point<boost::rational<type_list::difference_type>>;
 
 #if BOOST_OS_WINDOWS
-        using em_windows_unit_type = gui::unit::em<boost::rational<type_list::difference_type>>;
+        using em_windows_unit_type = gui::unit::em;
 
         using point_windows_unit_type = gui::unit::point<boost::rational<type_list::difference_type>>;
 #endif
