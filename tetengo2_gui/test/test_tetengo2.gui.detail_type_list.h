@@ -23,7 +23,6 @@
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/timer.h>
-#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/detail/stub/widget.h>
 #if BOOST_COMP_MSVC
@@ -65,8 +64,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
             using system_color_details_type = tetengo2::detail::stub::system_color;
 
             using timer_details_type = tetengo2::detail::stub::timer;
-
-            using unit_details_type = tetengo2::detail::stub::unit;
 
             using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
 
@@ -117,9 +114,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
 
         //! The timer type.
         using timer_type = detail::detail::test::timer_details_type;
-
-        //! The unit type.
-        using unit_type = detail::detail::test::unit_details_type;
 
         //! The virtual key type.
         using virtual_key_type = detail::detail::test::virtual_key_details_type;

@@ -57,7 +57,6 @@ pkg_headers = \
     gui/shell.h \
     gui/timer.h \
     gui/unit/em.h \
-    gui/unit/factory.h \
     gui/unit/pixel.h \
     gui/unit/point.h \
     gui/unit/unit.h \

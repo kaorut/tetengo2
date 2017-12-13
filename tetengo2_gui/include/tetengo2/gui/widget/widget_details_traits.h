@@ -18,7 +18,6 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam WidgetDetails         A detail implementation type of a widget.
         \tparam DrawingDetails        A detail implementation type of drawing.
         \tparam IconDetails           A detail implementation type of an icon.
-        \tparam UnitDetails           A detail implementation type of a unit.
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
@@ -27,7 +26,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typename WidgetDetails,
         typename DrawingDetails,
         typename IconDetails,
-        typename UnitDetails,
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename VirtualKeyDetails
@@ -44,9 +42,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The icon details type.
         using icon_details_type = IconDetails;
-
-        //! The unit details type.
-        using unit_details_type = UnitDetails;
 
         //! The scroll details type.
         using scroll_details_type = ScrollDetails;

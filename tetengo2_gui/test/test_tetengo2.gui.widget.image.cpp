@@ -16,7 +16,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>
@@ -46,10 +45,6 @@ namespace
     using dimension_type = common_type_list_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
-
-    using dimension_unit_factory_type = tetengo2::gui::unit::factory<dimension_unit_type>;
-
-    using unit_details_type = detail_type_list_type::unit_type;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
@@ -221,9 +216,8 @@ BOOST_AUTO_TEST_SUITE(image)
 
             image.fit_to_content();
 
-            const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension{ unit_factory.make(123), unit_factory.make(456) };
+            const dimension_type answer_dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
         {
@@ -233,9 +227,8 @@ BOOST_AUTO_TEST_SUITE(image)
 
             image.fit_to_content();
 
-            const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
             const auto dimension = image.client_dimension();
-            const dimension_type answer_dimension{ unit_factory.make(42), unit_factory.make(42) };
+            const dimension_type answer_dimension{ dimension_unit_type{ 42 }, dimension_unit_type{ 42 } };
             BOOST_CHECK(dimension == answer_dimension);
         }
     }

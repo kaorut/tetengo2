@@ -16,7 +16,6 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/stdalt.h>
 
@@ -45,9 +44,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -149,8 +145,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
-        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
-
         class paint_background
         {
         public:
@@ -165,15 +159,14 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background())
                     return false;
 
-                const position_unit_factory_type unit_factory{ unit_details_type::instance() };
                 canvas.set_background(m_self.background()->clone());
                 canvas.fill_rectangle(
-                    position_type{ unit_factory.make(0), unit_factory.make(0) }, m_self.client_dimension()
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
                 );
                 if (m_self.focused())
                 {
                     canvas.draw_focus_indication(
-                        position_type{ unit_factory.make(0), unit_factory.make(0) }, m_self.client_dimension()
+                        position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
                     );
                 }
 

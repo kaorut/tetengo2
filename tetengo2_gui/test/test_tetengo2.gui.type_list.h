@@ -75,7 +75,6 @@ namespace test_tetengo2 { namespace gui { namespace type_list
                 widget_details_type<DetailTypeList>,
                 typename DetailTypeList::drawing_type,
                 typename DetailTypeList::icon_type,
-                typename DetailTypeList::unit_type,
                 typename DetailTypeList::scroll_type,
                 typename DetailTypeList::message_handler_type,
                 typename DetailTypeList::virtual_key_type

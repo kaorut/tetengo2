@@ -23,7 +23,6 @@
 
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/stdalt.h>
 
@@ -54,9 +53,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
-
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
 
         //! The system color details type.
         using system_color_details_type = SystemColorDetails;
@@ -110,8 +106,8 @@ namespace tetengo2 { namespace gui { namespace widget
             :
             base_type(
                 parent,
-                position_type{ position_unit_factory().make(0), position_unit_factory().make(0) },
-                dimension_type{ dimension_unit_factory().make(0), dimension_unit_factory().make(0) }
+                position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
+                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
             ),
             m_index(index),
             m_title()
@@ -176,40 +172,22 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using position_unit_type = typename tab_frame::position_unit_type;
 
-            using position_unit_factory_type = gui::unit::factory<position_unit_type>;
-
             using dimension_unit_type = typename tab_frame::dimension_unit_type;
-
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
 
             using font_type = typename canvas_type::font_type;
 
 
             // static functions
 
-            static const position_unit_factory_type& position_unit_factory()
-            {
-                static const position_unit_factory_type singleton{ unit_details_type::instance() };
-                return singleton;
-            }
-
-            static const dimension_unit_factory_type& dimension_unit_factory()
-            {
-                static const dimension_unit_factory_type singleton{ unit_details_type::instance() };
-                return singleton;
-            }
-
             static const dimension_unit_type& horizontal_padding()
             {
-                const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-                static const auto singleton = unit_factory.make(1) / 4;
+                static const auto singleton = dimension_unit_type{ 1 } / 4;
                 return singleton;
             }
 
             static const dimension_unit_type& vertical_padding()
             {
-                const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-                static const auto singleton = unit_factory.make(1);
+                static const auto singleton = dimension_unit_type{ 1 };
                 return singleton;
             }
 
@@ -226,10 +204,9 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                const position_unit_factory_type unit_factory{ unit_details_type::instance() };
                 this->set_position(
                     position_type{
-                        unit_factory.make(0), static_cast<const tab_frame&>(this->parent()).tab_label_top(*this)
+                        position_unit_type{ 0 }, static_cast<const tab_frame&>(this->parent()).tab_label_top(*this)
                     }
                 );
             }
@@ -237,9 +214,6 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void paint_impl(canvas_type& canvas)
             const override
             {
-                const position_unit_factory_type position_unit_factory{ unit_details_type::instance() };
-                const dimension_unit_factory_type dimension_unit_factory{ unit_details_type::instance() };
-
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 auto original_line_width = canvas.line_width();
@@ -247,11 +221,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_background(
                     stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
                 );
-                canvas.set_line_width(dimension_unit_factory.make(1) / 8);
+                canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
-                auto unselected_left = position_unit_factory.make(0);
+                auto unselected_left = position_unit_type{ 0 };
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
-                    unselected_left = position_unit_factory.make(1) / 12;
+                    unselected_left = position_unit_type{ 1 } / 12;
                 position_type label_position{ this->position().left() + unselected_left, this->position().top() };
                 dimension_type label_dimension{
                     this->dimension().width() - dimension_unit_type::from(unselected_left), this->dimension().height()
@@ -378,8 +352,8 @@ namespace tetengo2 { namespace gui { namespace widget
             :
             base_type(
                 parent,
-                position_type{ position_unit_factory().make(0), position_unit_factory().make(0) },
-                dimension_type{ dimension_unit_factory().make(0), dimension_unit_factory().make(0) }
+                position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
+                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
             ),
             m_control(control)
             {}
@@ -428,26 +402,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             using position_unit_type = typename tab_frame::position_unit_type;
 
-            using position_unit_factory_type = gui::unit::factory<position_unit_type>;
-
             using dimension_unit_type = typename tab_frame::dimension_unit_type;
-
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
-
-
-            // static functions
-
-            static const position_unit_factory_type& position_unit_factory()
-            {
-                static const position_unit_factory_type singleton{ unit_details_type::instance() };
-                return singleton;
-            }
-
-            static const dimension_unit_factory_type& dimension_unit_factory()
-            {
-                static const dimension_unit_factory_type singleton{ unit_details_type::instance() };
-                return singleton;
-            }
 
 
             // variables
@@ -460,17 +415,14 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                const position_unit_factory_type position_unit_factory{ unit_details_type::instance() };
-                const dimension_unit_factory_type dimension_unit_factory{ unit_details_type::instance() };
-
                 const auto& tab_label_width = static_cast<const tab_frame&>(this->parent()).tab_label_width();
                 this->set_position(
-                    position_type{ position_unit_type::from(tab_label_width), position_unit_factory.make(0) }
+                    position_type{ position_unit_type::from(tab_label_width), position_unit_type{ 0 } }
                 );
                 const auto client_dimension = this->parent().client_dimension();
                 const auto width =
                     client_dimension.width() > tab_label_width ?
-                    client_dimension.width() - tab_label_width : dimension_unit_factory.make(0);
+                    client_dimension.width() - tab_label_width : dimension_unit_type{ 0 };
                 this->set_dimension(dimension_type{ width, client_dimension.height() });
 
                 m_control.set_position_and_dimension(this->position(), this->dimension());
@@ -775,11 +727,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
-        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
-
         using dimension_unit_type = typename dimension_type::unit_type;
-
-        using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
@@ -790,8 +738,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         static void initialize_tab_frame(tab_frame& tab_frame_)
         {
-            const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-            tab_frame_.set_dimension(dimension_type{ unit_factory.make(16),  unit_factory.make(16) });
+            tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(
                 stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
@@ -833,15 +780,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
                     if (tab_frame_.background())
                     {
-                        const position_unit_factory_type position_unit_factory{ unit_details_type::instance() };
-                        const dimension_unit_factory_type dimension_unit_factory{ unit_details_type::instance() };
-
                         canvas.set_background(tab_frame_.background()->clone());
-                        const position_type position{ position_unit_factory.make(-1), position_unit_factory.make(-1) };
+                        const position_type position{ position_unit_type{ -1 }, position_unit_type{ -1 } };
                         const auto client_dimension = tab_frame_.client_dimension();
                         const dimension_type dimension{
-                            client_dimension.width() + dimension_unit_factory.make(2),
-                            client_dimension.height() + dimension_unit_factory.make(2)
+                            client_dimension.width() + dimension_unit_type{ 2 },
+                            client_dimension.height() + dimension_unit_type{ 2 }
                         };
                         canvas.fill_rectangle(position, dimension);
                     }
@@ -958,8 +902,7 @@ namespace tetengo2 { namespace gui { namespace widget
         position_unit_type tab_label_top(const tab_label_type& tab_label)
         const
         {
-            const position_unit_factory_type unit_factory{ unit_details_type::instance() };
-            auto top = unit_factory.make(0);
+            auto top = position_unit_type{ 0 };
             for (const auto& p_tab: m_p_tabs)
             {
                 if (&p_tab->label() == &tab_label)
@@ -985,8 +928,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
             if (max_width_tab == m_p_tabs.end())
             {
-                const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-                static const auto zero_width = unit_factory.make(0);
+                static const auto zero_width = dimension_unit_type{ 0 };
                 return zero_width;
             }
 

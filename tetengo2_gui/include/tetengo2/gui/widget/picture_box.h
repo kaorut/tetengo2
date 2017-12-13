@@ -47,9 +47,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
 
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
@@ -70,13 +67,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The fast canvas type.
         using fast_canvas_type =
-            gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type, unit_details_type>;
+            gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
 
         //! The fast widget canvas type.
         using fast_widget_canvas_type =
-            gui::drawing::widget_canvas<
-                canvas_traits_type, fast_drawing_details_type, icon_details_type, unit_details_type
-            >;
+            gui::drawing::widget_canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
 
         //! The fast paint observer set type.
         using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;

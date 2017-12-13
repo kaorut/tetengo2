@@ -14,7 +14,6 @@ sources = \
     tetengo2.gui.fixture.cpp \
     tetengo2.gui.position.cpp \
     tetengo2.gui.unit.em.cpp \
-    tetengo2.gui.unit.factory.cpp \
     tetengo2.gui.unit.pixel.cpp \
     tetengo2.gui.unit.point.cpp
 

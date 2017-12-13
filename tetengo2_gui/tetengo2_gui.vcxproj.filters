@@ -309,9 +309,6 @@
     <ClInclude Include="include\tetengo2\gui\position.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\unit\factory.h">
-      <Filter>headers\tetengo2::gui\unit</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.gui.alert.cpp">
@@ -342,9 +339,6 @@
       <Filter>sources\tetengo2::gui\unit</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.unit.point.cpp">
-      <Filter>sources\tetengo2::gui\unit</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tetengo2.gui.unit.factory.cpp">
       <Filter>sources\tetengo2::gui\unit</Filter>
     </ClCompile>
   </ItemGroup>

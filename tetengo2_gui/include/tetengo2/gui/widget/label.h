@@ -15,7 +15,6 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/widget/control.h>
 
 
@@ -41,9 +40,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
-
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
 
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
@@ -130,15 +126,12 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content(dimension_unit_type max_width)
         {
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
-            const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-
-            if (this->text().empty() || max_width == unit_factory.make(0))
+            if (this->text().empty() || max_width == dimension_unit_type{ 0 })
                 return;
 
             auto one_line_dimension = calc_text_dimension();
-            const auto line_count = unit_factory.make(one_line_dimension.width() / max_width);
-            if (line_count <= unit_factory.make(1))
+            const auto line_count = dimension_unit_type{ one_line_dimension.width() / max_width };
+            if (line_count <= dimension_unit_type{ 1 })
             {
                 this->set_client_dimension(std::move(one_line_dimension));
                 return;
@@ -157,8 +150,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
-        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
-
         class paint_background
         {
         public:
@@ -173,10 +164,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background())
                     return false;
 
-                const position_unit_factory_type unit_factory{ unit_details_type::instance() };
                 canvas.set_background(m_self.background()->clone());
                 canvas.fill_rectangle(
-                    position_type{ unit_factory.make(0), unit_factory.make(0) }, m_self.client_dimension()
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
                 );
 
                 return true;

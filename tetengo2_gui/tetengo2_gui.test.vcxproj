@@ -156,7 +156,6 @@
     <ClCompile Include="test\test_tetengo2.gui.shell.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.timer.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.unit.factory.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.point.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp" />

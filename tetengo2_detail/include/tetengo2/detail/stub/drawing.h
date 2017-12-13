@@ -20,7 +20,6 @@
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
@@ -422,12 +421,10 @@ namespace tetengo2 { namespace detail { namespace stub
             boost::ignore_unused(canvas, font, text, encoder, max_width);
 
             using dimension_unit_type = typename Dimension::unit_type;
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
-            const dimension_unit_factory_type factory{ unit::instance() };
             return
-                max_width == factory.make(0) || max_width >= factory.make(123) ?
-                    Dimension{ factory.make(123), factory.make(456) } :
-                    Dimension{ factory.make(46), factory.make(890) };
+                max_width == dimension_unit_type{ 0 } || max_width >= dimension_unit_type{ 123 } ?
+                    Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
+                    Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
         }
 
         /*!
@@ -458,9 +455,7 @@ namespace tetengo2 { namespace detail { namespace stub
             boost::ignore_unused(canvas, font, text, encoder);
 
             using dimension_unit_type = typename Dimension::unit_type;
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
-            const dimension_unit_factory_type factory{ unit::instance() };
-            return Dimension{ factory.make(456), factory.make(123) };
+            return Dimension{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
         }
 
         /*!

@@ -37,10 +37,7 @@ namespace
 
     using canvas_type =
         tetengo2::gui::drawing::widget_canvas<
-            canvas_traits_type,
-            drawing_details_type,
-            detail_type_list_type::icon_type,
-            detail_type_list_type::unit_type
+            canvas_traits_type, drawing_details_type, detail_type_list_type::icon_type
         >;
 
 

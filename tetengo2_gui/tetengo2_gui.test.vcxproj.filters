@@ -278,8 +278,5 @@
     <ClCompile Include="test\test_tetengo2.gui.position.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.unit.factory.cpp">
-      <Filter>sources\test_tetengo2::gui\unit</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

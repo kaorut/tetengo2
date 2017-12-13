@@ -15,8 +15,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -51,9 +49,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension default_dimension()
         {
             using dimension_unit_type = typename Dimension::unit_type;
-            using dimension_unit_factory_type = gui::unit::factory<dimension_unit_type>;
-            const dimension_unit_factory_type factory{ unit::instance() };
-            return { factory.make(42), factory.make(42) };
+            return { dimension_unit_type{ 42 }, dimension_unit_type{ 42 } };
         }
 
         /*!

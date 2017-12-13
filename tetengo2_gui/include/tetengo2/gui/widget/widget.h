@@ -35,7 +35,6 @@
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
-#include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/gui/virtual_key.h>
 #include <tetengo2/stdalt.h>
 
@@ -93,9 +92,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The icon details type.
         using icon_details_type = typename details_traits_type::icon_details_type;
 
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
-
         //! The scroll details type.
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
@@ -105,13 +101,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The canvas type.
         using canvas_type =
-            gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type, unit_details_type>;
+            gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The widget canvas type.
         using widget_canvas_type =
-            gui::drawing::widget_canvas<
-                canvas_traits_type, drawing_details_type, icon_details_type, unit_details_type
-            >;
+            gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;
@@ -385,9 +379,10 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename D>
         void set_client_dimension(const D& client_dimension)
         {
-            using dimension_unit_factory_type = tetengo2::gui::unit::factory<typename D::unit_type>;
-            const dimension_unit_factory_type unit_factory{ unit_details_type::instance() };
-            if (client_dimension.width() == unit_factory.make(0) || client_dimension.height() == unit_factory.make(0))
+            if (
+                client_dimension.width() == dimension_unit_type{ 0 } ||
+                client_dimension.height() == dimension_unit_type{ 0 }
+            )
             {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
             }
@@ -927,7 +922,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
-        using position_unit_factory_type = gui::unit::factory<position_unit_type>;
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         class paint_background
         {
@@ -943,9 +938,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.set_background(m_self.background()->clone());
-                const position_unit_factory_type unit_factory{ unit_details_type::instance() };
                 canvas.fill_rectangle(
-                    position_type{ unit_factory.make(0), unit_factory.make(0) }, m_self.client_dimension()
+                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
                 );
 
                 return true;
