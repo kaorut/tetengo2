@@ -11,6 +11,7 @@
 
 #include <type_traits>
 
+#include <boost/predef.h>
 #include <boost/rational.hpp>
 
 #include <tetengo2/detail/stub/unit.h>
