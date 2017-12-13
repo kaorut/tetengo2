@@ -19,7 +19,7 @@
 
 namespace
 {
-    using unit_type = tetengo2::gui::unit::uem;
+    using unit_type = tetengo2::gui::unit::uem_for_test;
 
     using unit_factory_type = tetengo2::gui::unit::factory<unit_type>;
 

@@ -236,8 +236,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
             return
                 {
-                    position_unit_type::from(splitter_dimension.width(), unit_details_type::instance()),
-                    position_unit_type::from(caption_dimension.height(), unit_details_type::instance())
+                    position_unit_type::from(splitter_dimension.width()),
+                    position_unit_type::from(caption_dimension.height())
                 };
         }
 
@@ -516,14 +516,10 @@ namespace tetengo2 { namespace gui { namespace widget
                     const position_type vertex_position = triangle_vertex_position(step_, i);
                     position_unit_type vertex_left =
                         left +
-                        (vertex_position.left() + unit_factory.make(1)) *
-                            position_unit_type::from(width, unit_details_type::instance()).value() /
-                            2;
+                        (vertex_position.left() + unit_factory.make(1)) * position_unit_type::from(width).value() / 2;
                     position_unit_type vertex_top =
                         top +
-                        (vertex_position.top() + unit_factory.make(1)) *
-                            position_unit_type::from(height, unit_details_type::instance()).value() /
-                            2;
+                        (vertex_position.top() + unit_factory.make(1)) * position_unit_type::from(height).value() / 2;
                     positions.emplace_back(std::move(vertex_left), std::move(vertex_top));
                 }
 
@@ -660,15 +656,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
-                    const auto& width =
-                        std::max(
-                            dimension_unit_type::from(text_height, unit_details_type::instance()), state_button_width
-                        ); 
-                    return
-                        {
-                            width + dimension_unit_type::from(padding, unit_details_type::instance()) * 2,
-                            client_height
-                        };
+                    const auto& width = std::max(dimension_unit_type::from(text_height), state_button_width); 
+                    return { width + dimension_unit_type::from(padding) * 2, client_height };
                 }
                 else
                 {
@@ -694,29 +683,23 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
                     auto left =
-                        dimension_unit_type::from(text_height, unit_details_type::instance()) < state_button_width ?
-                        position_unit_type::from(
-                            (
-                                state_button_width -
-                                dimension_unit_type::from(text_height, unit_details_type::instance())
-                            ) / 2,
-                            unit_details_type::instance()
-                        ) +
-                        position_unit_type::from(padding, unit_details_type::instance()) +
-                        position_unit_type::from(text_height, unit_details_type::instance()) :
-                        position_unit_type::from(padding, unit_details_type::instance()) +
-                        position_unit_type::from(text_height, unit_details_type::instance());
-                    auto top = state_button_top + position_unit_type::from(state_button_width + padding, unit_details_type::instance());
+                        dimension_unit_type::from(text_height) < state_button_width ?
+                        position_unit_type::from((state_button_width - dimension_unit_type::from(text_height)) / 2) +
+                        position_unit_type::from(padding) +
+                        position_unit_type::from(text_height) :
+                        position_unit_type::from(padding) +
+                        position_unit_type::from(text_height);
+                    auto top = state_button_top + position_unit_type::from(state_button_width + padding);
                     return { std::move(left), std::move(top) };
                 }
                 else
                 {
-                    auto left = state_button_left + position_unit_type::from(state_button_width + padding, unit_details_type::instance());
+                    auto left = state_button_left + position_unit_type::from(state_button_width + padding);
                     auto top =
                         text_height < state_button_height ?
-                        position_unit_type::from((state_button_height - text_height) / 2, unit_details_type::instance()) +
-                            position_unit_type::from(padding, unit_details_type::instance()) :
-                        position_unit_type::from(padding, unit_details_type::instance());
+                        position_unit_type::from((state_button_height - text_height) / 2) +
+                            position_unit_type::from(padding) :
+                        position_unit_type::from(padding);
                     return { std::move(left), std::move(top) };
                 }
             }
@@ -736,23 +719,21 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     auto left =
                         std::max(
-                            (
-                                position_unit_type::from(caption_width, unit_details_type::instance()) -
-                                position_unit_type::from(state_button_width, unit_details_type::instance())
-                            ) / 2,
+                            (position_unit_type::from(caption_width) - position_unit_type::from(state_button_width)) /
+                                2,
                             unit_factory.make(0)
                         );
-                    auto top = position_unit_type::from(padding, unit_details_type::instance());
+                    auto top = position_unit_type::from(padding);
                     return { std::move(left), std::move(top) };
                 }
                 else
                 {
-                    auto left = position_unit_type::from(padding, unit_details_type::instance());
+                    auto left = position_unit_type::from(padding);
                     auto top =
                         std::max(
                             (
-                                position_unit_type::from(caption_height, unit_details_type::instance()) -
-                                position_unit_type::from(state_button_height, unit_details_type::instance())
+                                position_unit_type::from(caption_height) -
+                                position_unit_type::from(state_button_height)
                             ) / 2,
                             unit_factory.make(0)
                         );
@@ -908,16 +889,13 @@ namespace tetengo2 { namespace gui { namespace widget
                         this->template parent_to<side_bar>().m_p_caption->dimension().height();
 
                     this->set_position(
-                        position_type{
-                            position_unit_factory.make(0),
-                            position_unit_type::from(caption_height, unit_details_type::instance())
-                        }
+                        position_type{ position_unit_factory.make(0), position_unit_type::from(caption_height) }
                     );
                     this->set_dimension(
                         dimension_type{
                             dimension_unit_factory.make(1) / 2,
                             client_height > caption_height ?
-                                client_height - caption_height : dimension_unit_factory.make(0)
+                            client_height - caption_height : dimension_unit_factory.make(0)
                         }
                     );
                 }
@@ -938,11 +916,8 @@ namespace tetengo2 { namespace gui { namespace widget
                 auto new_width =
                     dimension_unit_type::from(
                         std::max(
-                            position_unit_type::from(width, unit_details_type::instance()) +
-                                (pressed_left - current_left),
-                            unit_factory.make(0)
-                        ),
-                        unit_details_type::instance()
+                            position_unit_type::from(width) + (pressed_left - current_left), unit_factory.make(0)
+                        )
                     );
 
                 this->template parent_to<side_bar>().set_width(std::move(new_width));

@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui { namespace unit
         unit_type make(value_type value)
         const
         {
-            return unit_type{ std::move(value), m_unit_details };
+            return unit_type{ std::move(value) };
         }
 
 
@@ -88,6 +88,10 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using em_difference_type = tetengo2::gui::unit::em;
 
+        using em_size_type_for_test = tetengo2::gui::unit::uem_for_test;
+
+        using em_difference_type_for_test = tetengo2::gui::unit::em_for_test;
+
         using pixel_size_type = tetengo2::gui::unit::upixel;
 
         using pixel_difference_type = tetengo2::gui::unit::pixel;
@@ -96,11 +100,19 @@ namespace tetengo2 { namespace gui { namespace unit
 
         using point_difference_type = tetengo2::gui::unit::point;
 
+        using point_size_type_for_test = tetengo2::gui::unit::upoint_for_test;
+
+        using point_difference_type_for_test = tetengo2::gui::unit::point_for_test;
+
     }
 
     template class factory<em_size_type>;
 
     template class factory<em_difference_type>;
+
+    template class factory<em_size_type_for_test>;
+
+    template class factory<em_difference_type_for_test>;
 
     template class factory<pixel_size_type>;
 
@@ -109,6 +121,10 @@ namespace tetengo2 { namespace gui { namespace unit
     template class factory<point_size_type>;
 
     template class factory<point_difference_type>;
+
+    template class factory<point_size_type_for_test>;
+
+    template class factory<point_difference_type_for_test>;
 
 
 }}}

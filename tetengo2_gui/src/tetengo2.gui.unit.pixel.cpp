@@ -18,10 +18,9 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     template <typename Value>
-    basic_pixel<Value>::basic_pixel(value_type value, const unit_details_type& unit_details)
+    basic_pixel<Value>::basic_pixel(value_type value)
     :
-    m_value(std::move(value)),
-    m_p_details(&unit_details)
+    m_value(std::move(value))
     {}
 
     template <typename V1, typename V2>
@@ -98,13 +97,6 @@ namespace tetengo2 { namespace gui { namespace unit
     const
     {
         return m_value;
-    }
-
-    template <typename Value>
-    const typename basic_pixel<Value>::unit_details_type& basic_pixel<Value>::details()
-    const
-    {
-        return *m_p_details;
     }
 
     template <typename Value>

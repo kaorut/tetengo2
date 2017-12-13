@@ -50,9 +50,6 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The unit details type.
-        using unit_details_type = typename details_traits_type::unit_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
@@ -467,9 +464,9 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             const auto& left = m_position.left();
-            const auto right = left + position_unit_type::from(m_dimension.width(), unit_details_type::instance());
+            const auto right = left + position_unit_type::from(m_dimension.width());
             const auto& top = m_position.top();
-            const auto bottom = top + position_unit_type::from(m_dimension.height(), unit_details_type::instance());
+            const auto bottom = top + position_unit_type::from(m_dimension.height());
 
             const auto& cursor_left = position.left();
             const auto& cursor_top = position.top();
@@ -479,11 +476,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
     private:
-        // types
-
-        using unit_details_type = typename custom_control_type::unit_details_type;
-
-
         // variables
 
         custom_control_type& m_parent;

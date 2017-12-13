@@ -19,7 +19,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/unit/factory.h>
 #include <tetengo2/stdalt.h>
@@ -218,8 +217,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 {
-                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().first, unit::instance()),
-                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().second, unit::instance())
+                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().first),
+                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().second)
                 };
         }
 

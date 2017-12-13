@@ -26,7 +26,6 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/gui/measure.h>
 
 
@@ -603,8 +602,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 {
-                    gui::to_unit<typename Position::unit_type>(widget.details().position.first, unit::instance()),
-                    gui::to_unit<typename Position::unit_type>(widget.details().position.second, unit::instance())
+                    gui::to_unit<typename Position::unit_type>(widget.details().position.first),
+                    gui::to_unit<typename Position::unit_type>(widget.details().position.second)
                 };
         }
 
@@ -647,8 +646,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first, unit::instance()),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second, unit::instance())
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
                 };
         }
 
@@ -691,8 +690,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first, unit::instance()),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second, unit::instance())
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
                 };
         }
 
@@ -713,8 +712,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return
                 Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first, unit::instance()),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second, unit::instance())
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
                 };
         }
 

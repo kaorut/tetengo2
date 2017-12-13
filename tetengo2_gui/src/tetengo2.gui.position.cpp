@@ -50,11 +50,11 @@ namespace tetengo2 { namespace gui
 
     namespace
     {
-        using em_stub_unit_type = gui::unit::em;
+        using em_stub_unit_type = gui::unit::em_for_test;
 
         using pixel_unit_type = gui::unit::pixel;
 
-        using point_stub_unit_type = gui::unit::point;
+        using point_stub_unit_type = gui::unit::point_for_test;
 
 #if BOOST_OS_WINDOWS
         using em_windows_unit_type = gui::unit::em;

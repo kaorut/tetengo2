@@ -12,20 +12,13 @@
 #include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
-
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
-
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using stub_unit_details_type = detail_type_list_type::unit_type;
 
     template <typename Value>
     class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
@@ -35,14 +28,11 @@ namespace
 
         using value_type = Value;
 
-        using unit_details_type =
-            typename tetengo2::gui::unit::unit<concrete_unit<value_type>, value_type>::unit_details_type;
-
 
         // static functions
 
         template <typename PV>
-        static concrete_unit from_pixels(const PV value, const unit_details_type&)
+        static concrete_unit from_pixels(const PV value)
         {
             return concrete_unit(value / 7);
         }
@@ -125,12 +115,6 @@ namespace
             return m_value;
         }
 
-        const unit_details_type& details()
-        const
-        {
-            return stub_unit_details_type::instance();
-        }
-
         template <typename PV>
         PV to_pixels()
         const
@@ -166,7 +150,7 @@ BOOST_AUTO_TEST_SUITE(unit)
         BOOST_TEST_PASSPOINT();
 
         const another_unit_type another_unit{ 123 };
-        const auto unit = unit_type::from(another_unit, stub_unit_details_type::instance());
+        const auto unit = unit_type::from(another_unit);
 
         BOOST_TEST(unit.value() == 123);
     }

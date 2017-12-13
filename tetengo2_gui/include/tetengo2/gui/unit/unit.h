@@ -39,9 +39,6 @@ namespace tetengo2 { namespace gui { namespace unit
         //! The value type.
         using value_type = Value;
 
-        //! The unit details type.
-        using unit_details_type = detail::base::unit;
-
 
         // static functions
 
@@ -50,20 +47,16 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam U  A unit type.
 
-            \param value        A value in pixels.
-            \param unit_details Unit details.
+            \param value A value in pixels.
 
             \return A unit.
         */
         template <typename U>
-        static concrete_unit_type from(
-            const unit<U, typename U::value_type>& value,
-            const unit_details_type&               unit_details
-        )
+        static concrete_unit_type from(const unit<U, typename U::value_type>& value)
         {
             return
                 concrete_unit_type::from_pixels(
-                    static_cast<const U&>(value).template to_pixels<typename U::value_type::int_type>(), unit_details
+                    static_cast<const U&>(value).template to_pixels<typename U::value_type::int_type>()
                 );
         }
 
@@ -94,7 +87,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         concrete_unit_type& operator+=(const unit<U, typename U::value_type>& another)
         {
-            return this_as_concrete().add(from(another, this_as_concrete().details()).value());
+            return this_as_concrete().add(from(another).value());
         }
 
         /*!
@@ -154,7 +147,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         concrete_unit_type& operator-=(const unit<U, typename U::value_type>& another)
         {
-            return this_as_concrete().subtract(from(another, this_as_concrete().details()).value());
+            return this_as_concrete().subtract(from(another).value());
         }
 
         /*!
@@ -241,7 +234,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         friend bool operator==(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
-            return operator==(one, from(another, one.details()).value());
+            return operator==(one, from(another).value());
         }
 
         /*!
@@ -272,7 +265,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         friend bool operator!=(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
-            return operator!=(one, from(another, one.details()).value());
+            return operator!=(one, from(another).value());
         }
 
         /*!
@@ -289,7 +282,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         friend bool operator<(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
-            return operator<(one, from(another, one.details()).value());
+            return operator<(one, from(another).value());
         }
 
         /*!
@@ -320,7 +313,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         friend bool operator>(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
-            return operator>(one, from(another, one.details()).value());
+            return operator>(one, from(another).value());
         }
 
 

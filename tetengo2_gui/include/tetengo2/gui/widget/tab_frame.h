@@ -254,9 +254,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     unselected_left = position_unit_factory.make(1) / 12;
                 position_type label_position{ this->position().left() + unselected_left, this->position().top() };
                 dimension_type label_dimension{
-                    this->dimension().width() -
-                        dimension_unit_type::from(unselected_left, unit_details_type::instance()),
-                    this->dimension().height()
+                    this->dimension().width() - dimension_unit_type::from(unselected_left), this->dimension().height()
                 };
 
                 canvas.fill_rectangle(label_position, label_dimension);
@@ -277,16 +275,16 @@ namespace tetengo2 { namespace gui { namespace widget
                     const auto text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
                         label_position.left() +
-                            position_unit_type::from(label_dimension.width(), unit_details_type::instance()) -
+                            position_unit_type::from(label_dimension.width()) -
                             (
-                                position_unit_type::from(label_dimension.width(), unit_details_type::instance()) -
-                                dimension_unit_type::from(text_dimension.height(), unit_details_type::instance()) -
+                                position_unit_type::from(label_dimension.width()) -
+                                dimension_unit_type::from(text_dimension.height()) -
                                 unselected_left
                             ) / 2,
                         label_position.top() +
                             (
-                                position_unit_type::from(label_dimension.height(), unit_details_type::instance()) -
-                                position_unit_type::from(text_dimension.width(), unit_details_type::instance())
+                                position_unit_type::from(label_dimension.height()) -
+                                position_unit_type::from(text_dimension.width())
                             ) / 2
                     };
 
@@ -298,19 +296,15 @@ namespace tetengo2 { namespace gui { namespace widget
                     const auto left_top = label_position;
                     const position_type left_bottom{
                         label_position.left(),
-                        label_position.top() +
-                            position_unit_type::from(label_dimension.height(), unit_details_type::instance())
+                        label_position.top() + position_unit_type::from(label_dimension.height())
                     };
                     const position_type right_top{
-                        label_position.left() +
-                            position_unit_type::from(label_dimension.width(), unit_details_type::instance()),
+                        label_position.left() + position_unit_type::from(label_dimension.width()),
                         label_position.top()
                     };
                     const position_type right_bottom{
-                        label_position.left() +
-                            position_unit_type::from(label_dimension.width(), unit_details_type::instance()),
-                        label_position.top() +
-                            position_unit_type::from(label_dimension.height(), unit_details_type::instance())
+                        label_position.left() + position_unit_type::from(label_dimension.width()),
+                        label_position.top() + position_unit_type::from(label_dimension.height())
                     };
                     canvas.draw_line(left_top, left_bottom);
                     canvas.draw_line(left_top, right_top);
@@ -353,10 +347,8 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 this->set_dimension(
                     dimension_type{
-                        horizontal_padding() * 2 +
-                            dimension_unit_type::from(text_dimension.height(), unit_details_type::instance()),
-                        vertical_padding() * 2 +
-                            dimension_unit_type::from(text_dimension.width(), unit_details_type::instance()),
+                        horizontal_padding() * 2 + dimension_unit_type::from(text_dimension.height()),
+                        vertical_padding() * 2 + dimension_unit_type::from(text_dimension.width()),
                     }
                 );
             }
@@ -473,10 +465,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 const auto& tab_label_width = static_cast<const tab_frame&>(this->parent()).tab_label_width();
                 this->set_position(
-                    position_type{
-                        position_unit_type::from(tab_label_width, unit_details_type::instance()),
-                        position_unit_factory.make(0)
-                    }
+                    position_type{ position_unit_type::from(tab_label_width), position_unit_factory.make(0) }
                 );
                 const auto client_dimension = this->parent().client_dimension();
                 const auto width =
@@ -976,7 +965,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (&p_tab->label() == &tab_label)
                     break;
 
-                top += position_unit_type::from(p_tab->label().dimension().height(), unit_details_type::instance());
+                top += position_unit_type::from(p_tab->label().dimension().height());
             }
 
             return top;
