@@ -614,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
             const Gdiplus::REAL gdiplus_max_width =
-                max_width == typename Dimension::unit_type{ 0 } ?
+                max_width == typename Dimension::unit_type{} ?
                 std::numeric_limits<Gdiplus::REAL>::max() : gui::to_pixels<Gdiplus::REAL>(max_width);
             const Gdiplus::RectF layout{
                 0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()

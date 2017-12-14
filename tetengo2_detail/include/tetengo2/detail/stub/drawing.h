@@ -422,7 +422,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             using dimension_unit_type = typename Dimension::unit_type;
             return
-                max_width == dimension_unit_type{ 0 } || max_width >= dimension_unit_type{ 123 } ?
+                max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
                     Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
                     Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
         }

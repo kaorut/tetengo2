@@ -273,17 +273,9 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (m_p_picture)
-            {
-                canvas.paint_picture(
-                    *m_p_picture,
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
-                    this->client_dimension()
-                );
-            }
+                canvas.paint_picture(*m_p_picture, position_type{}, this->client_dimension());
             else if (m_p_icon)
-            {
-                canvas.paint_icon(*m_p_icon, position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } });
-            }
+                canvas.paint_icon(*m_p_icon, position_type{});
         }
 
 

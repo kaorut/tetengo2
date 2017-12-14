@@ -380,8 +380,7 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_client_dimension(const D& client_dimension)
         {
             if (
-                client_dimension.width() == dimension_unit_type{ 0 } ||
-                client_dimension.height() == dimension_unit_type{ 0 }
+                client_dimension.width() == dimension_unit_type{} || client_dimension.height() == dimension_unit_type{}
             )
             {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
@@ -938,9 +937,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
-                );
+                canvas.fill_rectangle(position_type{}, m_self.client_dimension());
 
                 return true;
             }

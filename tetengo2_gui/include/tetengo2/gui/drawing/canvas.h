@@ -334,7 +334,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return calc_text_dimension(text, dimension_unit_type{ 0 });
+            return calc_text_dimension(text, dimension_unit_type{});
         }
 
         /*!
@@ -383,7 +383,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
         {
-            draw_text(text, position, dimension_unit_type{ 0 }, angle);
+            draw_text(text, position, dimension_unit_type{}, angle);
         }
 
         /*!

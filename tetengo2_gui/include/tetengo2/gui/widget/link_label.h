@@ -160,15 +160,9 @@ namespace tetengo2 { namespace gui { namespace widget
                     return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
-                );
+                canvas.fill_rectangle(position_type{}, m_self.client_dimension());
                 if (m_self.focused())
-                {
-                    canvas.draw_focus_indication(
-                        position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
-                    );
-                }
+                    canvas.draw_focus_indication(position_type{}, m_self.client_dimension());
 
                 return true;
             }

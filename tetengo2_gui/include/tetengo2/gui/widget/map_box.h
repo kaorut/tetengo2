@@ -357,11 +357,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit splitter(map_box& map_box_)
             :
-            inner_item_type(
-                map_box_,
-                position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
-                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
-            )
+            inner_item_type(map_box_, position_type{}, dimension_type{})
             {}
 
 
@@ -405,7 +401,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 adjust_position(this->template parent_to<map_box>().m_splitter_position);
                 this->set_position(
                     position_type{
-                        this->template parent_to<map_box>().m_splitter_position - width() / 2, position_unit_type{ 0 }
+                        this->template parent_to<map_box>().m_splitter_position - width() / 2, position_unit_type{}
                     }
                 );
 
@@ -474,11 +470,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             explicit value_item(map_box& map_box_, value_type value)
             :
-            inner_item_type(
-                map_box_,
-                position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
-                dimension_type{ dimension_unit_type{ 0 }, dimension_unit_type{ 0 } }
-            ),
+            inner_item_type(map_box_, position_type{}, dimension_type{}),
             m_value(std::move(value))
             {}
 
@@ -502,7 +494,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto scroll_bar_position =
                     this->parent().has_vertical_scroll_bar() ?
                     position_unit_type::from_pixels(this->parent().vertical_scroll_bar().tracking_position()) :
-                    position_unit_type{ 0 };
+                    position_unit_type{};
 
                 auto left = this->position().left();
                 auto top = this->position().top() - scroll_bar_position * scroll_bar_size_unit();
@@ -537,8 +529,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                auto key_text_height = dimension_unit_type{ 0 };
-                auto mapped_text_height = dimension_unit_type{ 0 };
+                dimension_unit_type key_text_height{};
+                dimension_unit_type mapped_text_height{};
                 {
                     const auto p_canvas = this->parent().create_canvas();
                     key_text_height = p_canvas->calc_text_dimension(m_value.first, key_text_max_width()).height();
@@ -611,7 +603,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 }
 
                 const auto bottom = top + position_unit_type::from(this->dimension().height());
-                if (bottom < position_unit_type{ 0 })
+                if (bottom < position_unit_type{})
                     return true;
 
                 return false;
@@ -897,9 +889,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return false;
 
             canvas.set_background(this->background()->clone());
-            canvas.fill_rectangle(
-                position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, this->client_dimension()
-            );
+            canvas.fill_rectangle(position_type{}, this->client_dimension());
 
             return true;
         }
@@ -972,7 +962,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return 0;
 
             const auto client_height = this->client_dimension().height();
-            auto height = dimension_unit_type{ 0 };
+            dimension_unit_type height{};
             std::ptrdiff_t count = 0;
             for (
                 std::ptrdiff_t i = *m_selected_value_index;
@@ -992,10 +982,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_value_item_positions()
         {
-            auto top = position_unit_type{ 0 };
+            position_unit_type top{};
             for (const auto& p_value_item: m_p_value_items)
             {
-                p_value_item->set_position(position_type{ position_unit_type{ 0 }, top });
+                p_value_item->set_position(position_type{ position_unit_type{}, top });
                 top += position_unit_type::from(p_value_item->dimension().height());
             }
         }
@@ -1020,7 +1010,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto client_height = this->client_dimension().height();
             const auto value_height =
                 m_p_value_items.empty() ?
-                dimension_unit_type{ 0 } :
+                dimension_unit_type{} :
                 dimension_unit_type::from(m_p_value_items.back()->position().top()) +
                     m_p_value_items.back()->dimension().height();
 
@@ -1119,7 +1109,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (scroll_bar_position_in_pixels % scroll_bar_size_unit() > 0)
                     scroll_bar_position += 1;
             }
-            if (top_to_paint < position_unit_type{ 0 })
+            if (top_to_paint < position_unit_type{})
             {
                 scroll_bar_position = gui::to_pixels<scroll_bar_size_type>(top) / scroll_bar_size_unit();
             }
