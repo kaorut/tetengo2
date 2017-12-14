@@ -33,6 +33,9 @@ BOOST_AUTO_TEST_SUITE(dimension)
         BOOST_TEST_PASSPOINT();
 
         {
+            const dimension_type dimension{};
+        }
+        {
             const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
         }
     }
@@ -57,18 +60,32 @@ BOOST_AUTO_TEST_SUITE(dimension)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+        {
+            const dimension_type dimension{};
 
-        BOOST_CHECK((dimension.width() == unit_type{ 42 }));
+            BOOST_CHECK((dimension.width() == unit_type{ 0 }));
+        }
+        {
+            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+
+            BOOST_CHECK((dimension.width() == unit_type{ 42 }));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(height)
     {
         BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+        {
+            const dimension_type dimension{};
 
-        BOOST_CHECK((dimension.height() == unit_type{ 24 }));
+            BOOST_CHECK((dimension.height() == unit_type{ 0 }));
+        }
+        {
+            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+
+            BOOST_CHECK((dimension.height() == unit_type{ 24 }));
+        }
     }
 
 

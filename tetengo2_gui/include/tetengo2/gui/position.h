@@ -32,6 +32,11 @@ namespace tetengo2 { namespace gui
         // constructors and destructor
 
         /*!
+            \brief Creates a position with zeros.
+        */
+        position();
+
+        /*!
             \brief Creates a position.
 
             \param left A left.

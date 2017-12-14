@@ -32,6 +32,11 @@ namespace tetengo2 { namespace gui
         // constructors and destructor
 
         /*!
+            \brief Creates a dimension with zeros.
+        */
+        dimension();
+
+        /*!
             \brief Creates a dimension.
 
             \param width  A width.
