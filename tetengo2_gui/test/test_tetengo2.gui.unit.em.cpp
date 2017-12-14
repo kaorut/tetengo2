@@ -59,6 +59,9 @@ BOOST_AUTO_TEST_SUITE(basic_em)
         BOOST_TEST_PASSPOINT();
 
         {
+            const unit_type unit{};
+        }
+        {
             const difference_rational_type value{ 123 };
             const unit_type unit{ std::move(value) };
         }
@@ -176,9 +179,16 @@ BOOST_AUTO_TEST_SUITE(basic_em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit{ 123 };
+        {
+            const unit_type unit{};
 
-        BOOST_TEST(unit.value() == 123);
+            BOOST_TEST(unit.value() == 0);
+        }
+        {
+            const unit_type unit{ 123 };
+
+            BOOST_TEST(unit.value() == 123);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(to_pixels)
