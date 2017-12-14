@@ -272,8 +272,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_unit_type = typename position_type::unit_type;
 
-        using dimension_unit_type = typename dimension_type::unit_type;
-
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         using inner_item_type = typename base_type::inner_item_type;

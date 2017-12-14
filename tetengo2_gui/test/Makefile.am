@@ -97,20 +97,20 @@ TESTS = tetengo2_gui.test
 
 tetengo2_gui_test_DEPENDENCIES = \
     $(top_builddir)/tetengo2/src/libtetengo2.a \
-    $(top_builddir)/tetengo2/src/libtetengo2_detail.a \
-    $(top_builddir)/tetengo2/src/libtetengo2_gui.a
+    $(top_builddir)/tetengo2/src/libtetengo2_gui.a \
+    $(top_builddir)/tetengo2/src/libtetengo2_detail.a
 tetengo2_gui_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
-    -I$(top_srcdir)/tetengo2_detail/include \
-    -I$(top_srcdir)/tetengo2_gui/include
+    -I$(top_srcdir)/tetengo2_gui/include \
+    -I$(top_srcdir)/tetengo2_detail/include
 tetengo2_gui_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2/src \
-    -L$(top_builddir)/tetengo2_detail/src \
-    -L$(top_builddir)/tetengo2_gui/src
+    -L$(top_builddir)/tetengo2_gui/src \
+    -L$(top_builddir)/tetengo2_detail/src
 tetengo2_gui_test_LDADD = \
     -ltetengo2 \
-    -ltetengo2_detail \
     -ltetengo2_gui \
+    -ltetengo2_detail \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
